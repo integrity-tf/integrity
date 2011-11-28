@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Integrity Test Framework"
+            id="de.integrity.eclipse">
+      </category>
+      <view
+            name="Integrity Test Runner"
+            icon="icons/view.gif"
+            category="de.integrity.eclipse"
+            class="de.integrity.eclipse.views.IntegrityTestRunnerView"
+            id="de.integrity.eclipse.views.IntegrityTestRunnerView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="de.integrity.eclipse.views.IntegrityTestRunnerView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

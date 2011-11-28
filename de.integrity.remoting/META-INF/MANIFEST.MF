@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integrity Test Framework - Remoting
+Bundle-SymbolicName: de.integrity.remoting
+Bundle-Version: 0.1.0.qualifier
+Export-Package: de.integrity.remoting,
+ de.integrity.remoting.client,
+ de.integrity.remoting.entities.setlist,
+ de.integrity.remoting.server,
+ de.integrity.remoting.transport,
+ de.integrity.remoting.transport.enums,
+ de.integrity.remoting.transport.messages

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integrity Test Framework - Eclipse Integration
+Bundle-SymbolicName: de.integrity.eclipse; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: de.integrity.eclipse.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ de.integrity.remoting;bundle-version="0.1.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

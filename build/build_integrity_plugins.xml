@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<target name="clean-all">
+		<delete dir="build" quiet="false" failonerror="true"/>
+	</target>
+	
+	<target name="plugin_export" depends="clean-all">
+		<pde.exportPlugins destination="build" exportSource="true" exportType="directory" plugins="de.integrity.dsl,de.integrity.dsl.ui,de.integrity.runner" useJARFormat="true"/>
+	</target>
+</project>
