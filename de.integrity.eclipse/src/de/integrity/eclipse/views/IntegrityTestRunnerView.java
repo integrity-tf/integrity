@@ -13,6 +13,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
@@ -21,22 +22,26 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.HyperlinkGroup;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
 import de.integrity.eclipse.Activator;
@@ -79,14 +84,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private TreeViewer treeViewer;
 	private TestTreeContentDrawer viewerContentDrawer;
 
-	private Composite details;
-	private Label focusTitle;
-	private Label focusSubtitle;
+	private Form details;
+	private HyperlinkGroup fixtureLinkGroup;
+	private Hyperlink fixtureLink;
 	private Composite detailGroups;
-	private Group variables;
+	private Section variableSection;
+	private Composite variableComposite;
 	private TableViewer variableTable;
-	private Group parameters;
-	private Group result;
+	private Section parameterSection;
+	private Composite parameterComposite;
+	private TableViewer parameterTable;
+	private Section resultSection;
+	private Composite resultComposite;
+	private Label resultLine1;
+	private Label resultLine2;
+	private Label resultLine3;
+	private Color resultSuccessColor;
+	private Color resultFailureColor;
+	private Color resultNeutralColor;
+	private Color resultExceptionColor;
+	private Image resultSuccessIcon;
+	private Image resultFailureIcon;
+	private Image resultExceptionIcon;
 
 	private Action connectToTestRunnerAction;
 	private Action playAction;
@@ -111,73 +130,108 @@ public class IntegrityTestRunnerView extends ViewPart {
 	public void createPartControl(final Composite parent) {
 		parent.setLayout(new FillLayout());
 
+		final FormToolkit tempToolkit = new FormToolkit(parent.getDisplay());
+
 		sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
 
 		treeViewer = new TreeViewer(sashForm, SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
 		treeViewer.setUseHashlookup(true);
 		treeViewer.setContentProvider(new TestTreeContentProvider(treeViewer));
 
-		details = new Composite(sashForm, SWT.NONE);
-		details.setLayout(new FormLayout());
-		details.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		details = tempToolkit.createForm(sashForm);
+		details.getBody().setLayout(new FormLayout());
+		// details.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		tempToolkit.decorateFormHeading(details);
 
-		focusTitle = new Label(details, SWT.WRAP);
-		focusTitle.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		focusTitle.setText("Checks if 5 equals 12");
-		FontData[] fontData = focusTitle.getFont().getFontData();
-		for (int i = 0; i < fontData.length; ++i) {
-			fontData[i].setHeight(10);
-			fontData[i].setStyle(SWT.BOLD);
-		}
-		final Font tempNewFont = new Font(Display.getCurrent(), fontData);
-		focusTitle.setFont(tempNewFont);
-		focusTitle.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				tempNewFont.dispose();
-			}
-		});
-
+		fixtureLinkGroup = new HyperlinkGroup(parent.getDisplay());
+		fixtureLink = new Hyperlink(details.getBody(), SWT.NONE);
+		fixtureLink.setBackground(details.getBackground());
+		fixtureLink.setText("de.firehead.test#whatever");
 		FormData tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(details, 5);
-		focusTitle.setLayoutData(tempFormData);
+		tempFormData.top = new FormAttachment(0, 3);
+		tempFormData.height = 10;
+		fixtureLink.setLayoutData(tempFormData);
+		fixtureLink.addHyperlinkListener(new HyperlinkAdapter() {
+			public void linkActivated(HyperlinkEvent e) {
+				// TODO jump to the class!
+			}
+		});
+		fixtureLinkGroup.add(fixtureLink);
 
-		focusSubtitle = new Label(details, SWT.WRAP);
-		focusSubtitle.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		focusSubtitle.setText("de.firehead.test#whatever");
-		tempFormData = new FormData();
-		tempFormData.left = new FormAttachment(0, 5);
-		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(focusTitle, 3);
-		focusSubtitle.setLayoutData(tempFormData);
-
-		detailGroups = new Composite(details, SWT.NONE);
+		detailGroups = new Composite(details.getBody(), SWT.NONE);
 		detailGroups.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		detailGroups.setLayout(new FillLayout(SWT.VERTICAL));
+		FillLayout tempFillLayout = new FillLayout(SWT.VERTICAL);
+		tempFillLayout.spacing = 6;
+		detailGroups.setLayout(tempFillLayout);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(focusSubtitle, 10);
+		tempFormData.top = new FormAttachment(fixtureLink, 10);
 		tempFormData.bottom = new FormAttachment(100, 0);
 		detailGroups.setLayoutData(tempFormData);
 
-		variables = new Group(detailGroups, SWT.SHADOW_NONE);
-		variables.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		variables.setText("Variable definitions");
-		variables.setLayout(new FillLayout());
+		variableSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		variableSection.setText("Variable definitions");
+		variableComposite = tempToolkit.createComposite(variableSection);
+		tempToolkit.paintBordersFor(variableComposite);
+		variableSection.setClient(variableComposite);
+		variableComposite.setLayout(new FillLayout());
 
-		variableTable = new TableViewer(variables);
+		variableTable = new TableViewer(variableComposite);
 		variableTable.setContentProvider(new ArrayContentProvider());
 		configureTable(variableTable);
 
-		parameters = new Group(detailGroups, SWT.SHADOW_NONE);
-		parameters.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		parameters.setText("Parameters");
+		parameterSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		parameterSection.setText("Parameters");
+		parameterSection.setLayout(new FillLayout());
+		parameterComposite = tempToolkit.createComposite(parameterSection);
+		tempToolkit.paintBordersFor(parameterComposite);
+		parameterSection.setClient(parameterComposite);
+		parameterComposite.setLayout(new FillLayout());
 
-		result = new Group(detailGroups, SWT.SHADOW_NONE);
-		result.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		result.setText("Result");
+		parameterTable = new TableViewer(parameterComposite);
+		parameterTable.setContentProvider(new ArrayContentProvider());
+		configureTable(parameterTable);
+
+		resultSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		resultSection.setText("Result");
+		resultSection.setLayout(new FillLayout());
+		resultComposite = tempToolkit.createComposite(resultSection);
+		tempToolkit.paintBordersFor(resultComposite);
+		resultSection.setClient(resultComposite);
+		resultComposite.setLayout(new FormLayout());
+
+		resultLine1 = new Label(resultComposite, SWT.WRAP);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(0, 6);
+		resultLine1.setLayoutData(tempFormData);
+
+		resultLine2 = new Label(resultComposite, SWT.WRAP);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultLine1, 6);
+		resultLine2.setLayoutData(tempFormData);
+
+		resultLine3 = new Label(resultComposite, SWT.WRAP);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultLine2, 6);
+		resultLine3.setLayoutData(tempFormData);
+
+		resultSuccessColor = new Color(Display.getCurrent(), 0, 94, 13);
+		resultFailureColor = new Color(Display.getCurrent(), 190, 0, 0);
+		resultNeutralColor = new Color(Display.getCurrent(), 0, 0, 0);
+		resultExceptionColor = new Color(Display.getCurrent(), 204, 163, 0);
+
+		resultSuccessIcon = Activator.getImageDescriptor("icons/suite_success_big.png").createImage();
+		resultFailureIcon = Activator.getImageDescriptor("icons/suite_failure_big.png").createImage();
+		resultExceptionIcon = Activator.getImageDescriptor("icons/suite_exception_big.png").createImage();
 
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "de.integrity.eclipse.viewer");
@@ -185,7 +239,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-		updateDetailPanel(null);
+		updateDetailPanel(null, null);
 	}
 
 	private void configureTable(final TableViewer aTable) {
@@ -208,6 +262,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
 		tempColumn.getColumn().setText("Value");
+		tempColumn.getColumn().setWidth(200);
 		tempColumn.getColumn().setResizable(true);
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
@@ -225,12 +280,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent anEvent) {
 				if (anEvent.getSelection().isEmpty()) {
-					updateDetailPanel(null);
+					updateDetailPanel(null, null);
 				} else {
 					if (anEvent.getSelection() instanceof TreeSelection) {
 						TreeSelection tempSelection = (TreeSelection) anEvent.getSelection();
 						if (tempSelection.getFirstElement() instanceof SetListEntry) {
-							updateDetailPanel((SetListEntry) tempSelection.getFirstElement());
+							updateDetailPanel((SetListEntry) tempSelection.getFirstElement(),
+									(ILabelProvider) ((TreeViewer) anEvent.getSource()).getLabelProvider());
 						}
 					}
 				}
@@ -342,33 +398,63 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
-	private void updateDetailPanel(SetListEntry anEntry) {
+	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		if (anEntry == null) {
-			focusTitle.setVisible(false);
-			focusSubtitle.setVisible(false);
-			variables.setVisible(false);
-			parameters.setVisible(false);
-			result.setVisible(false);
+			details.setText("Details");
+			details.setImage(null);
+			fixtureLink.setVisible(false);
+			// resultLine1.setVisible(false);
+			// resultLine2.setVisible(false);
+			// resultLine3.setVisible(false);
 		} else {
 			if (anEntry.getType() == SetListEntryTypes.SUITE) {
-				focusTitle.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.NAME));
-				focusSubtitle.setVisible(false);
+				details.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.NAME));
+				fixtureLink.setVisible(false);
 			} else {
-				focusTitle.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION));
-				focusSubtitle.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
-				focusSubtitle.setVisible(true);
+				details.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION));
+				fixtureLink.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
+				fixtureLink.setVisible(true);
 			}
-			focusTitle.setVisible(true);
+			details.setImage(aProvider.getImage(anEntry));
 
 			List<SetListEntry> tempVariables = setList.resolveReferences(anEntry,
 					SetListEntryAttributeKeys.VARIABLE_DEFINITIONS);
 			if (tempVariables.size() > 0) {
 				variableTable.setInput(tempVariables);
-				variables.setVisible(true);
 			} else {
-				variables.setVisible(false);
+				variableTable.setInput(null);
 			}
 
+			List<SetListEntry> tempParameters = setList
+					.resolveReferences(anEntry, SetListEntryAttributeKeys.PARAMETERS);
+			if (tempParameters.size() > 0) {
+				parameterTable.setInput(tempParameters);
+			} else {
+				parameterTable.setInput(null);
+			}
+
+			SetListEntry tempResultEntry = setList.resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT).get(0);
+			if (tempResultEntry != null) {
+				if (anEntry.getType() == SetListEntryTypes.SUITE) {
+					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) {
+						int tempSuccessCount = (Integer) tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT);
+						int tempFailureCount = (Integer) tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
+						int tempExceptionCount = (Integer) tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
+
+					} else {
+						resultLine1.setVisible(false);
+						resultLine2.setVisible(false);
+						resultLine3.setVisible(false);
+					}
+				}
+			} else {
+				resultLine1.setVisible(false);
+				resultLine2.setVisible(false);
+				resultLine3.setVisible(false);
+			}
 		}
 	}
 
