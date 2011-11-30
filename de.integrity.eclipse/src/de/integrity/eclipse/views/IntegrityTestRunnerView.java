@@ -682,7 +682,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultLine1Border.setVisible(true);
 					} else {
 						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
-							resultLine1Name.setText("Result returned by the text fixture: ");
+							resultLine1Name.setText("Result returned by the test fixture: ");
 							resultLine1Text.setText((String) tempResultEntry
 									.getAttribute(SetListEntryAttributeKeys.VALUE));
 							if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
