@@ -2,6 +2,7 @@ package de.integrity.remoting.entities.setlist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,101 @@ public class SetList implements Serializable {
 
 	private List<SetListEntry> entries = new ArrayList<SetListEntry>();
 
+	private transient HashMap<SetListEntry, Integer> executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
+
+	private transient ArrayList<SetListEntryResultStates> executableEntryResultStates;
+
 	private int entryListPosition;
+
+	public void recreateExecutableEntryIndex() {
+		executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
+		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
+
+		int tempPosition = 0;
+		for (SetListEntry tempEntry : entries) {
+			SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
+
+			if (tempResultState != null) {
+				executableEntryResultStates.add(tempResultState);
+				executableEntryPositionMap.put(tempEntry, tempPosition);
+				tempPosition++;
+			}
+		}
+	}
+
+	protected SetListEntryResultStates determineEntryResultState(SetListEntry anEntry) {
+		List<SetListEntry> tempResultEntries = resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT);
+		if (tempResultEntries.size() > 0) {
+			SetListEntry tempResultEntry = tempResultEntries.get(0);
+
+			switch (anEntry.getType()) {
+			case SUITE:
+				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) {
+					int tempFailureCount = (Integer) tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
+					int tempExceptionCount = (Integer) tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
+					if (tempExceptionCount > 0) {
+						return SetListEntryResultStates.EXCEPTION;
+					} else if (tempFailureCount > 0) {
+						return SetListEntryResultStates.FAILED;
+					} else {
+						return SetListEntryResultStates.SUCCESSFUL;
+					}
+				}
+				return SetListEntryResultStates.UNKNOWN;
+			case CALL:
+				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+					if (Boolean.TRUE
+							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						return SetListEntryResultStates.SUCCESSFUL;
+					} else {
+						return SetListEntryResultStates.EXCEPTION;
+					}
+				}
+				return SetListEntryResultStates.UNKNOWN;
+			case TEST:
+				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+					if (Boolean.TRUE
+							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						return SetListEntryResultStates.SUCCESSFUL;
+					} else if (Boolean.FALSE.equals(tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
+							return SetListEntryResultStates.EXCEPTION;
+						} else {
+							return SetListEntryResultStates.FAILED;
+						}
+					}
+				}
+				return SetListEntryResultStates.UNKNOWN;
+			default:
+				return null;
+			}
+		}
+		return null;
+	}
+
+	public int getNumberOfExecutableEntries() {
+		return executableEntryResultStates.size();
+	}
+
+	public SetListEntryResultStates getResultStateForExecutableEntry(SetListEntry anEntry) {
+		Integer tempPosition = executableEntryPositionMap.get(anEntry);
+		if (tempPosition != null) {
+			return executableEntryResultStates.get(tempPosition);
+		} else {
+			return null;
+		}
+	}
+
+	public SetListEntryResultStates getResultStateForExecutableEntry(int aPosition) {
+		if (aPosition < 0 || aPosition >= executableEntryResultStates.size()) {
+			return null;
+		} else {
+			return executableEntryResultStates.get(aPosition);
+		}
+	}
 
 	public SetListEntry createEntry(SetListEntryTypes aType) {
 		if (entries.size() > entryListPosition) {
@@ -43,6 +138,21 @@ public class SetList implements Serializable {
 	public void integrateUpdates(SetListEntry[] someUpdatedEntries) {
 		for (SetListEntry tempEntry : someUpdatedEntries) {
 			entries.set(tempEntry.getId(), tempEntry);
+		}
+		for (SetListEntry tempEntry : someUpdatedEntries) {
+			switch (tempEntry.getType()) {
+			case RESULT:
+				SetListEntry tempParent = getParent(tempEntry);
+				if (executableEntryPositionMap.containsKey(tempParent)) {
+					executableEntryResultStates.set(executableEntryPositionMap.get(tempParent),
+							determineEntryResultState(tempParent));
+				}
+			default:
+				if (executableEntryPositionMap.containsKey(tempEntry)) {
+					executableEntryResultStates.set(executableEntryPositionMap.get(tempEntry),
+							determineEntryResultState(tempEntry));
+				}
+			}
 		}
 	}
 

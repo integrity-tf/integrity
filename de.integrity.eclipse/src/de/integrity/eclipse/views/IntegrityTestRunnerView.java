@@ -68,6 +68,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
 import de.integrity.eclipse.Activator;
+import de.integrity.eclipse.controls.ProgressBar;
 import de.integrity.remoting.IntegrityRemotingConstants;
 import de.integrity.remoting.client.IntegrityRemotingClient;
 import de.integrity.remoting.client.IntegrityRemotingClientListener;
@@ -140,6 +141,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Label resultSuccessCountLabel;
 	private Label resultFailureCountLabel;
 	private Label resultExceptionCountLabel;
+	private ProgressBar executionProgress;
 
 	private Action connectToTestRunnerAction;
 	private Action playAction;
@@ -179,15 +181,29 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		treeContainer = new Form(sashForm, SWT.NONE);
 		treeContainer.setText("Not connected");
-		treeContainer.getBody().setLayout(new FillLayout());
+		treeContainer.getBody().setLayout(new FormLayout());
 		treeContainer.setBackground(tempToolkit.getColors().getBackground());
 		treeContainer.setForeground(tempToolkit.getColors().getColor(IFormColors.TITLE));
 		treeContainer.setFont(JFaceResources.getHeaderFont());
 		tempToolkit.decorateFormHeading(treeContainer);
 
+		executionProgress = new ProgressBar(treeContainer.getBody(), SWT.NONE);
+		FormData tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 0);
+		tempFormData.right = new FormAttachment(100, 0);
+		tempFormData.top = new FormAttachment(0, 0);
+		tempFormData.bottom = new FormAttachment(0, 16);
+		executionProgress.setLayoutData(tempFormData);
+
 		treeViewer = new TreeViewer(treeContainer.getBody(), SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
 		treeViewer.setUseHashlookup(true);
 		treeViewer.setContentProvider(new TestTreeContentProvider(treeViewer));
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 0);
+		tempFormData.right = new FormAttachment(100, 0);
+		tempFormData.top = new FormAttachment(executionProgress, 0);
+		tempFormData.bottom = new FormAttachment(100, 0);
+		treeViewer.getTree().setLayoutData(tempFormData);
 
 		detailsContainer = new Composite(sashForm, SWT.NONE);
 		detailsContainer.setLayout(new FillLayout());
@@ -205,7 +221,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		fixtureLink = new Hyperlink(details.getBody(), SWT.NONE);
 		fixtureLink.setBackground(details.getBackground());
 		fixtureLink.setText("");
-		FormData tempFormData = new FormData();
+		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
 		tempFormData.top = new FormAttachment(0, 3);
@@ -827,6 +843,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 				@Override
 				public void run() {
 					treeViewer.setInput(setList);
+					executionProgress.setSetList(setList);
+					executionProgress.redraw();
 
 					// the following will automatically dispose the old
 					// provider!
@@ -851,7 +869,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onConnectionLost(Endpoint anEndpoint) {
-			showMessage("The remote test runner closed the connection.");
 			client = null;
 			updateActionStatus(null);
 			updateStatus("Not connected");
@@ -871,6 +888,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 							treeViewer.update(tempEntry, null);
 						}
 					}
+					executionProgress.redraw();
 				}
 			});
 		}

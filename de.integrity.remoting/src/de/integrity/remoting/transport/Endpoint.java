@@ -85,6 +85,7 @@ public class Endpoint {
 		}
 
 		try {
+			socket.getOutputStream().flush();
 			socket.close();
 		} catch (IOException exc) {
 			exc.printStackTrace();

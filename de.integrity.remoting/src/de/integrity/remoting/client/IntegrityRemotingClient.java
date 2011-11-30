@@ -97,6 +97,7 @@ public class IntegrityRemotingClient {
 
 			@Override
 			public void processMessage(SetListBaselineMessage aBaseline, Endpoint anEndpoint) {
+				aBaseline.getSetList().recreateExecutableEntryIndex();
 				listener.onBaselineReceived(aBaseline.getSetList(), anEndpoint);
 			}
 		});

@@ -8,6 +8,7 @@ import de.integrity.eclipse.Activator;
 import de.integrity.remoting.entities.setlist.SetList;
 import de.integrity.remoting.entities.setlist.SetListEntry;
 import de.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
+import de.integrity.remoting.entities.setlist.SetListEntryResultStates;
 
 public class TestTreeLabelProvider extends LabelProvider implements ILabelProvider {
 
@@ -58,52 +59,50 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 
 	public Image getImage(Object element) {
 		SetListEntry tempEntry = (SetListEntry) element;
-		SetListEntry tempResultEntry = setList.resolveReferences(tempEntry, SetListEntryAttributeKeys.RESULT).get(0);
+		SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
 
-		switch (tempEntry.getType()) {
-		case SUITE:
-			if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) == null) {
-				return suiteImage;
-			} else {
-				int tempFailureCount = (Integer) tempResultEntry.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
-				int tempExceptionCount = (Integer) tempResultEntry
-						.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
-				if (tempExceptionCount > 0) {
-					return suiteExceptionImage;
-				} else if (tempFailureCount > 0) {
-					return suiteFailureImage;
-				} else {
+		if (tempResultState != null) {
+			switch (tempEntry.getType()) {
+			case SUITE:
+				switch (tempResultState) {
+				case SUCCESSFUL:
 					return suiteSuccessImage;
+				case FAILED:
+					return suiteFailureImage;
+				case EXCEPTION:
+					return suiteExceptionImage;
+				case UNKNOWN:
+				default:
+					return suiteImage;
 				}
-			}
-		case CALL:
-			if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) == null) {
-				return callImage;
-			} else {
-				if (Boolean.TRUE.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+			case CALL:
+				switch (tempResultState) {
+				case SUCCESSFUL:
 					return callSuccessImage;
-				} else {
+				case EXCEPTION:
 					return callExceptionImage;
+				case UNKNOWN:
+				default:
+					return callImage;
 				}
-			}
-		case TEST:
-			if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) == null) {
-				return testImage;
-			} else {
-				if (Boolean.TRUE.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+			case TEST:
+				switch (tempResultState) {
+				case SUCCESSFUL:
 					return testSuccessImage;
-				} else if (Boolean.FALSE.equals(tempResultEntry
-						.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
-					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
-						return testExceptionImage;
-					} else {
-						return testFailureImage;
-					}
+				case FAILED:
+					return testFailureImage;
+				case EXCEPTION:
+					return testExceptionImage;
+				case UNKNOWN:
+				default:
+					return testImage;
 				}
+			default:
+				return null;
 			}
-		default:
-			return null;
 		}
+
+		return null;
 	}
 
 	@Override

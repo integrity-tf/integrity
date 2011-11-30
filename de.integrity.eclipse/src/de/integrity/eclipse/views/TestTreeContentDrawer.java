@@ -10,8 +10,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import de.integrity.remoting.entities.setlist.SetList;
 import de.integrity.remoting.entities.setlist.SetListEntry;
-import de.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
-import de.integrity.remoting.entities.setlist.SetListEntryTypes;
+import de.integrity.remoting.entities.setlist.SetListEntryResultStates;
 
 public class TestTreeContentDrawer {
 
@@ -48,7 +47,7 @@ public class TestTreeContentDrawer {
 		testFailureColor = suiteFailureColor;
 		testExceptionColor = suiteExceptionColor;
 		callExceptionColor = suiteExceptionColor;
-		callSuccessColor = new Color(aDisplay, 200, 200, 200);
+		callSuccessColor = new Color(aDisplay, 205, 255, 222);
 	}
 
 	public void dispose(Tree aTree) {
@@ -87,14 +86,10 @@ public class TestTreeContentDrawer {
 			public void handleEvent(Event event) {
 				TreeItem tempItem = (TreeItem) event.item;
 				SetListEntry tempEntry = (SetListEntry) tempItem.getData();
-				SetListEntry tempResultEntry = setList.resolveReferences(tempEntry, SetListEntryAttributeKeys.RESULT)
-						.get(0);
-				int tempInset = getTreeItemIndentation(tempItem);
+				SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
 
-				if (tempResultEntry != null
-						&& ((tempEntry.getType() == SetListEntryTypes.SUITE && tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) || (tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null))) {
+				if (tempResultState != null && tempResultState != SetListEntryResultStates.UNKNOWN) {
+					int tempInset = getTreeItemIndentation(tempItem);
 					Color tempOldForeground = event.gc.getForeground();
 					Color tempOldBackground = event.gc.getBackground();
 
@@ -103,37 +98,39 @@ public class TestTreeContentDrawer {
 
 					switch (tempEntry.getType()) {
 					case SUITE:
-						int tempFailureCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
-						int tempExceptionCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
-						if (tempExceptionCount > 0) {
+						switch (tempResultState) {
+						case EXCEPTION:
 							tempBackground = suiteExceptionColor;
-						} else if (tempFailureCount > 0) {
+							break;
+						case FAILED:
 							tempBackground = suiteFailureColor;
-						} else {
+							break;
+						case SUCCESSFUL:
 							tempBackground = suiteSuccessColor;
+							break;
 						}
 						break;
 					case CALL:
-						if (Boolean.TRUE.equals(tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						switch (tempResultState) {
+						case SUCCESSFUL:
 							tempBackground = callSuccessColor;
-						} else {
+							break;
+						case EXCEPTION:
 							tempBackground = callExceptionColor;
+							break;
 						}
 						break;
 					case TEST:
-						if (Boolean.TRUE.equals(tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						switch (tempResultState) {
+						case SUCCESSFUL:
 							tempBackground = testSuccessColor;
-						} else if (Boolean.FALSE.equals(tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
-							if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
-								tempBackground = testExceptionColor;
-							} else {
-								tempBackground = testFailureColor;
-							}
+							break;
+						case EXCEPTION:
+							tempBackground = testExceptionColor;
+							break;
+						case FAILED:
+							tempBackground = testFailureColor;
+							break;
 						}
 						break;
 					}
@@ -154,14 +151,6 @@ public class TestTreeContentDrawer {
 			}
 		};
 		aTree.addListener(SWT.EraseItem, eraseListener);
-
-		// aTree.addListener(SWT.PaintItem, new Listener() {
-		//
-		// @Override
-		// public void handleEvent(Event event) {
-		//
-		// }
-		// });
 	}
 
 	private int getTreeItemIndentation(TreeItem anItem) {
