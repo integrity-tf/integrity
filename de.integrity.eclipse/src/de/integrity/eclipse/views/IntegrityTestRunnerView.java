@@ -60,6 +60,7 @@ import org.eclipse.ui.forms.HyperlinkGroup;
 import org.eclipse.ui.forms.IFormColors;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -103,6 +104,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private SashForm sashForm;
 
+	private Form treeContainer;
 	private TreeViewer treeViewer;
 	private TestTreeContentDrawer viewerContentDrawer;
 
@@ -175,7 +177,15 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
 
-		treeViewer = new TreeViewer(sashForm, SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
+		treeContainer = new Form(sashForm, SWT.NONE);
+		treeContainer.setText("Not connected");
+		treeContainer.getBody().setLayout(new FillLayout());
+		treeContainer.setBackground(tempToolkit.getColors().getBackground());
+		treeContainer.setForeground(tempToolkit.getColors().getColor(IFormColors.TITLE));
+		treeContainer.setFont(JFaceResources.getHeaderFont());
+		tempToolkit.decorateFormHeading(treeContainer);
+
+		treeViewer = new TreeViewer(treeContainer.getBody(), SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
 		treeViewer.setUseHashlookup(true);
 		treeViewer.setContentProvider(new TestTreeContentProvider(treeViewer));
 
@@ -504,7 +514,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		connectToTestRunnerAction = new Action() {
 			public void run() {
 				if (client == null || !client.isActive()) {
-					connectToTestRunner();
+					connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
 				} else {
 					disconnectFromTestRunner();
 				}
@@ -709,6 +719,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 		Display.getDefault().asyncExec(tempRunnable);
 	}
 
+	private void updateStatus(final String aStatus) {
+		Runnable tempRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				treeContainer.setText(aStatus);
+			}
+		};
+
+		Display.getDefault().asyncExec(tempRunnable);
+	}
+
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
@@ -716,21 +738,22 @@ public class IntegrityTestRunnerView extends ViewPart {
 		treeViewer.getControl().setFocus();
 	}
 
-	private void connectToTestRunner() {
+	private void connectToTestRunner(final String aHost, final int aPort) {
+		updateStatus("Connecting...");
 		new Thread("Test Runner Connect Thread") {
 
 			@Override
 			public void run() {
 				try {
-					client = new IntegrityRemotingClient("localhost", IntegrityRemotingConstants.DEFAULT_PORT,
-							new RemotingListener());
+					client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener());
+					updateStatus("Connected, waiting for test data...");
+					return;
 				} catch (UnknownHostException exc) {
-					// TODO Auto-generated catch block
-					exc.printStackTrace();
+					showMessage("Target host name '" + aHost + "' could not be resolved.");
 				} catch (IOException exc) {
-					// TODO Auto-generated catch block
-					exc.printStackTrace();
+					showMessage("Error while connecting to '" + aHost + "': " + exc.getMessage());
 				}
+				updateStatus("Not connected");
 			}
 
 		}.start();
@@ -740,10 +763,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 		client.close();
 		client = null;
 		updateActionStatus(null);
+		updateStatus("Not connected");
 	}
 
 	private void runTests() {
 		client.controlExecution(ExecutionCommands.RUN);
+		updateStatus("Started test execution");
 	}
 
 	private void jumpToJavaMethod(String aJavaClassAndMethod) {
@@ -813,6 +838,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 					viewerContentDrawer = new TestTreeContentDrawer(setList, Display.getCurrent());
 					viewerContentDrawer.attachToTree(treeViewer.getTree());
+
+					updateStatus("Connected and ready");
 				}
 			});
 		}
@@ -824,8 +851,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onConnectionLost(Endpoint anEndpoint) {
+			showMessage("The remote test runner closed the connection.");
 			client = null;
 			updateActionStatus(null);
+			updateStatus("Not connected");
 		}
 
 		@Override
