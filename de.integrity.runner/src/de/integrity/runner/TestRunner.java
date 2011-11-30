@@ -176,8 +176,9 @@ public class TestRunner {
 				}
 
 				long tempStart = System.nanoTime();
-				SuiteResult tempSetupResult = new SuiteResult(executeSuite(tempSetupSuite), null, null,
-						System.nanoTime() - tempStart);
+				Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempSetupSuite);
+				SuiteResult tempSetupResult = (currentPhase == Phase.DRY_RUN) ? null : new SuiteResult(
+						tempSuiteResults, null, null, System.nanoTime() - tempStart);
 				tempSetupResults.put(tempSetupSuite, tempSetupResult);
 
 				if (currentCallback != null) {
@@ -212,8 +213,9 @@ public class TestRunner {
 						}
 
 						long tempStart = System.nanoTime();
-						SuiteResult tempTearDownResult = new SuiteResult(executeSuite(tempTearDownSuite), null, null,
-								currentPhase == Phase.DRY_RUN ? null : System.nanoTime() - tempStart);
+						Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempTearDownSuite);
+						SuiteResult tempTearDownResult = (currentPhase == Phase.DRY_RUN) ? null : new SuiteResult(
+								tempSuiteResults, null, null, System.nanoTime() - tempStart);
 						tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
 
 						if (currentCallback != null) {

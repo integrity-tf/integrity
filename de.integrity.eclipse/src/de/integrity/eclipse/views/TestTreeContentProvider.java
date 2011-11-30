@@ -1,5 +1,6 @@
 package de.integrity.eclipse.views;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ILazyTreeContentProvider;
@@ -65,12 +66,23 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 		setList = (SetList) newInput;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected int getSetListEntryChildCount(SetListEntry anEntry) {
-		List<Integer> tempChildReferences = getSetListEntryChildReferences(anEntry);
-		if (tempChildReferences == null) {
+		switch (anEntry.getType()) {
+		case EXECUTION:
+		case SUITE:
+			int tempStatements = ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS)).size();
+			List<Integer> tempSetups = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.SETUP);
+			List<Integer> tempTeardowns = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
+			if (tempSetups != null) {
+				tempStatements += tempSetups.size();
+			}
+			if (tempTeardowns != null) {
+				tempStatements += tempTeardowns.size();
+			}
+			return tempStatements;
+		default:
 			return 0;
-		} else {
-			return tempChildReferences.size();
 		}
 	}
 
@@ -79,9 +91,22 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 		switch (anEntry.getType()) {
 		case EXECUTION:
 		case SUITE:
-		case SETUP:
-		case TEARDOWN:
-			return (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
+			List<Integer> tempStatements = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
+			List<Integer> tempSetups = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.SETUP);
+			List<Integer> tempTeardowns = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
+			if (tempSetups == null && tempTeardowns == null) {
+				return tempStatements;
+			} else {
+				List<Integer> tempTotal = new LinkedList<Integer>();
+				if (tempSetups != null) {
+					tempTotal.addAll(tempSetups);
+				}
+				tempTotal.addAll(tempStatements);
+				if (tempTeardowns != null) {
+					tempTotal.addAll(tempTeardowns);
+				}
+				return tempTotal;
+			}
 		default:
 			return null;
 		}
