@@ -3,7 +3,20 @@ package de.integrity.eclipse.views;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.core.search.SearchMatch;
+import org.eclipse.jdt.core.search.SearchParticipant;
+import org.eclipse.jdt.core.search.SearchPattern;
+import org.eclipse.jdt.core.search.SearchRequestor;
+import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -190,7 +203,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		fixtureLink.setLayoutData(tempFormData);
 		fixtureLink.addHyperlinkListener(new HyperlinkAdapter() {
 			public void linkActivated(HyperlinkEvent e) {
-				// TODO jump to the class!
+				jumpToJavaMethod(e.getLabel());
 			}
 		});
 		fixtureLinkGroup.add(fixtureLink);
@@ -621,6 +634,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultSuccessCountLabel.setVisible(true);
 						resultFailureCountLabel.setVisible(true);
 						resultExceptionCountLabel.setVisible(true);
+					} else {
+						resultLine1Name.setText("No results available - please run the tests first.");
+						resultLine1Name.setVisible(true);
 					}
 					break;
 				case TEST:
@@ -728,6 +744,42 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void runTests() {
 		client.controlExecution(ExecutionCommands.RUN);
+	}
+
+	private void jumpToJavaMethod(String aJavaClassAndMethod) {
+		Matcher tempMatcher = Pattern.compile("([^#]*)\\.([^#]*)#(.*)").matcher(aJavaClassAndMethod);
+		if (tempMatcher.matches()) {
+			final String tempPackageName = tempMatcher.group(1);
+			String tempClassName = tempMatcher.group(2);
+			final String tempMethodName = tempMatcher.group(3);
+
+			SearchPattern pattern = SearchPattern.createPattern(tempClassName, IJavaSearchConstants.TYPE,
+					IJavaSearchConstants.DECLARATIONS, SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			IJavaSearchScope scope = SearchEngine.createWorkspaceScope();
+			SearchRequestor requestor = new SearchRequestor() {
+
+				@Override
+				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
+					IType tempType = (IType) aMatch.getElement();
+					if (tempPackageName.equals(tempType.getPackageFragment().getElementName())) {
+						for (IMethod tempMethod : tempType.getMethods()) {
+							if (tempMethodName.equals(tempMethod.getElementName())) {
+								JavaUI.openInEditor(tempMethod);
+								return;
+							}
+						}
+					}
+				}
+			};
+
+			SearchEngine searchEngine = new SearchEngine();
+			try {
+				searchEngine.search(pattern, new SearchParticipant[] { SearchEngine.getDefaultSearchParticipant() },
+						scope, requestor, null);
+			} catch (CoreException exc) {
+				exc.printStackTrace();
+			}
+		}
 	}
 
 	private class RemotingListener implements IntegrityRemotingClientListener {
