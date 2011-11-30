@@ -7,7 +7,7 @@ packagedef mysecondpackage with
 	variable morePackageVars initially "String!!!"
 
 	suitedef additionSuite requires initSuite with
-	
+ 
 		variable testvar initially 5
 		call random min:5 max:6 sets testvar
 	

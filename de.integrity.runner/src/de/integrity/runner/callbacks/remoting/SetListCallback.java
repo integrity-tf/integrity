@@ -114,7 +114,7 @@ public class SetListCallback implements TestRunnerCallback {
 					.getName());
 		}
 		if (aResult.getResult() != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT,
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 					ParameterUtil.convertValueToString(aResult.getResult(), variableStorage));
 		}
 

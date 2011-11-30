@@ -38,7 +38,8 @@ public class AdditionFixture extends AbstractFixture {
 
 	@FixtureMethod(description = "echoes $echo$")
 	public TestEnum returnValue(@FixtureParameter(name = "echo") TestEnum anInput) {
-		return anInput;
+		throw new RuntimeException("An exception!");
+		//return anInput;
 	}
 
 	@FixtureMethod(description = "this test always succeeds :-)")
