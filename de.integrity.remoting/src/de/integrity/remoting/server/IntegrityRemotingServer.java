@@ -48,9 +48,9 @@ public class IntegrityRemotingServer {
 		}
 	}
 
-	public void updateSetList(SetListEntry... someUpdatedEntries) {
+	public void updateSetList(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		if (serverEndpoint.isActive()) {
-			serverEndpoint.broadcastMessage(new SetListUpdateMessage(someUpdatedEntries));
+			serverEndpoint.broadcastMessage(new SetListUpdateMessage(anEntryInExecution, someUpdatedEntries));
 		}
 	}
 
@@ -89,6 +89,9 @@ public class IntegrityRemotingServer {
 				switch (aRequest.getCommand()) {
 				case RUN:
 					listener.onRunCommand(anEndpoint);
+					break;
+				case PAUSE:
+					listener.onPauseCommand(anEndpoint);
 				}
 			}
 

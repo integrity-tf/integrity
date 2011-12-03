@@ -3,8 +3,10 @@ package de.integrity.remoting.entities.setlist;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public class SetList implements Serializable {
@@ -13,13 +15,17 @@ public class SetList implements Serializable {
 
 	private List<SetListEntry> entries = new ArrayList<SetListEntry>();
 
-	private transient HashMap<SetListEntry, Integer> executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
+	private Integer entryInExecutionReference;
+
+	private transient Set<SetListEntry> pathOfEntriesInExecution = new HashSet<SetListEntry>();
+
+	private transient HashMap<SetListEntry, Integer> executableEntryPositionMap;
 
 	private transient ArrayList<SetListEntryResultStates> executableEntryResultStates;
 
-	private int entryListPosition;
+	private transient int entryListPosition;
 
-	public void recreateExecutableEntryIndex() {
+	public void recreateTransientData() {
 		executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
 		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
 
@@ -33,6 +39,9 @@ public class SetList implements Serializable {
 				tempPosition++;
 			}
 		}
+
+		pathOfEntriesInExecution = new HashSet<SetListEntry>();
+		setEntryInExecutionReference(entryInExecutionReference);
 	}
 
 	protected SetListEntryResultStates determineEntryResultState(SetListEntry anEntry) {
@@ -197,9 +206,49 @@ public class SetList implements Serializable {
 	public SetListEntry getParent(SetListEntry anEntry) {
 		Integer aParent = (Integer) anEntry.getAttribute(SetListEntryAttributeKeys.PARENT);
 		if (aParent != null) {
-			return entries.get(aParent);
+			return resolveReference(aParent);
 		} else {
 			return null;
+		}
+	}
+
+	public void setEntryInExecutionReference(Integer anEntryReference) {
+		entryInExecutionReference = anEntryReference;
+		pathOfEntriesInExecution.clear();
+		if (anEntryReference != null) {
+			SetListEntry tempCurrent = resolveReference(anEntryReference);
+			while (tempCurrent != null) {
+				pathOfEntriesInExecution.add(tempCurrent);
+				tempCurrent = getParent(tempCurrent);
+			}
+		}
+	}
+
+	public SetListEntry getEntryInExecution() {
+		return resolveReference(entryInExecutionReference);
+	}
+
+	public Set<SetListEntry> getEntriesInExecution() {
+		return pathOfEntriesInExecution;
+	}
+
+	public boolean isEntryInExecution(SetListEntry anEntry) {
+		if (entryInExecutionReference == null) {
+			return false;
+		} else {
+			switch (anEntry.getType()) {
+			case TEST:
+			case CALL:
+				return anEntry.getId() == entryInExecutionReference;
+			case SETUP:
+			case SUITE:
+			case TEARDOWN:
+				return pathOfEntriesInExecution.contains(anEntry);
+			case EXECUTION:
+				return true;
+			default:
+				return false;
+			}
 		}
 	}
 }

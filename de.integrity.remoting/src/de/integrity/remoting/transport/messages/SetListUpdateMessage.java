@@ -6,12 +6,19 @@ public class SetListUpdateMessage extends AbstractMessage {
 
 	private SetListEntry updatedEntries[];
 
-	public SetListUpdateMessage(SetListEntry... someUpdatedEntries) {
+	private Integer entryInExecution;
+
+	public SetListUpdateMessage(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
+		entryInExecution = anEntryInExecution;
 		updatedEntries = someUpdatedEntries;
 	}
 
 	public SetListEntry[] getUpdatedEntries() {
 		return updatedEntries;
+	}
+
+	public Integer getEntryInExecution() {
+		return entryInExecution;
 	}
 
 }

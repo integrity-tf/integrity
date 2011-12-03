@@ -96,7 +96,8 @@ public class SetListCallback implements TestRunnerCallback {
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
-		sendUpdateToClients(tempNewEntry, tempParamEntries);
+		setList.setEntryInExecutionReference(tempNewEntry.getId());
+		sendUpdateToClients(tempNewEntry.getId(), tempNewEntry, tempParamEntries);
 	}
 
 	@Override
@@ -129,7 +130,7 @@ public class SetListCallback implements TestRunnerCallback {
 		}
 
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	@Override
@@ -141,7 +142,8 @@ public class SetListCallback implements TestRunnerCallback {
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
-		sendUpdateToClients(tempNewEntry, tempParamEntries);
+		setList.setEntryInExecutionReference(tempNewEntry.getId());
+		sendUpdateToClients(tempNewEntry.getId(), tempNewEntry, tempParamEntries);
 	}
 
 	@Override
@@ -169,7 +171,7 @@ public class SetListCallback implements TestRunnerCallback {
 					stackTraceToString(((de.integrity.runner.results.call.ExceptionResult) aResult).getException()));
 		}
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	@Override
@@ -179,7 +181,7 @@ public class SetListCallback implements TestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.TEARDOWN, tempNewEntry);
 		entryStack.push(tempNewEntry);
-		sendUpdateToClients(tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	@Override
@@ -208,13 +210,12 @@ public class SetListCallback implements TestRunnerCallback {
 		}
 
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
-		// TODO Auto-generated method stub
-
+		setList.setEntryInExecutionReference(null);
 	}
 
 	@Override
@@ -228,7 +229,7 @@ public class SetListCallback implements TestRunnerCallback {
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
-		sendUpdateToClients(tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
@@ -264,17 +265,18 @@ public class SetListCallback implements TestRunnerCallback {
 		return tempResultArray;
 	}
 
-	protected void sendUpdateToClients(SetListEntry... someUpdatedEntries) {
+	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		if (remotingServer != null) {
-			remotingServer.updateSetList(someUpdatedEntries);
+			remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
 		}
 	}
 
-	protected void sendUpdateToClients(SetListEntry aSingleEntry, SetListEntry[] someMoreEntries) {
+	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry aSingleEntry,
+			SetListEntry[] someMoreEntries) {
 		SetListEntry[] tempCombined = new SetListEntry[someMoreEntries.length + 1];
 		tempCombined[0] = aSingleEntry;
 		System.arraycopy(someMoreEntries, 0, tempCombined, 1, someMoreEntries.length);
-		sendUpdateToClients(tempCombined);
+		sendUpdateToClients(anEntryInExecution, tempCombined);
 	}
 
 	protected static String stackTraceToString(Throwable anException) {

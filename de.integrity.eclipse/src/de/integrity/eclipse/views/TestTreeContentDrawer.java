@@ -25,6 +25,8 @@ public class TestTreeContentDrawer {
 	private Color testExceptionColor;
 	private Color callExceptionColor;
 	private Color callSuccessColor;
+	private Color suiteInExecutionColor;
+	private Color callOrTestInExecutionColor;
 
 	private Listener measureListener;
 	private Listener eraseListener;
@@ -48,6 +50,8 @@ public class TestTreeContentDrawer {
 		testExceptionColor = suiteExceptionColor;
 		callExceptionColor = suiteExceptionColor;
 		callSuccessColor = new Color(aDisplay, 205, 255, 222);
+		callOrTestInExecutionColor = new Color(aDisplay, 198, 203, 255);
+		suiteInExecutionColor = new Color(aDisplay, 229, 231, 255);
 	}
 
 	public void dispose(Tree aTree) {
@@ -60,6 +64,8 @@ public class TestTreeContentDrawer {
 		testExceptionColor.dispose();
 		callSuccessColor.dispose();
 		callExceptionColor.dispose();
+		callOrTestInExecutionColor.dispose();
+		suiteInExecutionColor.dispose();
 		aTree.removeListener(SWT.MeasureItem, measureListener);
 		aTree.removeListener(SWT.EraseItem, eraseListener);
 	}
@@ -69,9 +75,6 @@ public class TestTreeContentDrawer {
 
 			@Override
 			public void handleEvent(Event event) {
-				TreeItem tempItem = (TreeItem) event.item;
-				SetListEntry tempEntry = (SetListEntry) tempItem.getData();
-
 				int tempMinWidth = aTree.getClientArea().width - event.x;
 				if (event.width < tempMinWidth) {
 					event.width = tempMinWidth;
@@ -143,6 +146,28 @@ public class TestTreeContentDrawer {
 							- (tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET), event.height);
 
 					event.gc.setForeground(tempOldForeground);
+					event.gc.setBackground(tempOldBackground);
+
+					event.detail &= ~SWT.BACKGROUND;
+					event.detail &= ~SWT.HOT;
+				} else if (setList.isEntryInExecution(tempEntry)) {
+					System.out.println("Drawing " + tempEntry.toString());
+					Color tempOldBackground = event.gc.getBackground();
+
+					switch (tempEntry.getType()) {
+					case CALL:
+					case TEST:
+						event.gc.setBackground(callOrTestInExecutionColor);
+						break;
+					case SUITE:
+					case SETUP:
+					case TEARDOWN:
+						event.gc.setBackground(suiteInExecutionColor);
+						break;
+					}
+
+					event.gc.fillRectangle(event.x, event.y, event.width, event.height);
+
 					event.gc.setBackground(tempOldBackground);
 
 					event.detail &= ~SWT.BACKGROUND;

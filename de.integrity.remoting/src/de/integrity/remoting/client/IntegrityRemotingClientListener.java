@@ -18,6 +18,6 @@ public interface IntegrityRemotingClientListener {
 
 	public void onVersionMismatch(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint);
 
-	public void onSetListUpdate(Endpoint anEndpoint, SetListEntry[] someUpdatedEntries);
+	public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint);
 
 }

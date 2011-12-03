@@ -13,4 +13,6 @@ public interface IntegrityRemotingServerListener {
 
 	public void onRunCommand(Endpoint anEndpoint);
 
+	public void onPauseCommand(Endpoint anEndpoint);
+
 }

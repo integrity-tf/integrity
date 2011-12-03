@@ -512,6 +512,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void fillLocalPullDown(IMenuManager manager) {
 		manager.add(playAction);
+		manager.add(pauseAction);
 		manager.add(new Separator());
 		manager.add(connectToTestRunnerAction);
 	}
@@ -522,6 +523,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(playAction);
+		manager.add(pauseAction);
 		manager.add(new Separator());
 		manager.add(connectToTestRunnerAction);
 	}
@@ -543,9 +545,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 			}
 		};
 		playAction.setText("Start or continue test execution");
-		playAction.setToolTipText("Continues test execution if currently paused");
+		playAction.setToolTipText("Continues test execution if currently paused.");
 		playAction.setImageDescriptor(Activator.getImageDescriptor("icons/play_enabled.gif"));
 		playAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/play_disabled.gif"));
+
+		pauseAction = new Action() {
+			public void run() {
+				pauseTests();
+			}
+		};
+		pauseAction.setText("Pause test execution");
+		pauseAction.setToolTipText("Interrupts test execution; the currently running test will be finished though.");
+		pauseAction.setImageDescriptor(Activator.getImageDescriptor("icons/pause_enabled.gif"));
+		pauseAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/pause_disabled.gif"));
 
 		updateActionStatus(null);
 	}
@@ -560,7 +572,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					connectToTestRunnerAction.setToolTipText("Connects to a local test runner");
 					connectToTestRunnerAction.setImageDescriptor(Activator.getImageDescriptor("icons/connect.gif"));
 					playAction.setEnabled(false);
-
+					pauseAction.setEnabled(false);
 				} else {
 					connectToTestRunnerAction.setText("Disconnect from test runner");
 					connectToTestRunnerAction
@@ -568,19 +580,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 					connectToTestRunnerAction.setImageDescriptor(Activator.getImageDescriptor("icons/disconnect.gif"));
 					if (anExecutionState == null) {
 						playAction.setEnabled(false);
+						pauseAction.setEnabled(false);
 					} else {
 						switch (anExecutionState) {
 						case BLOCKED:
 							playAction.setEnabled(true);
+							pauseAction.setEnabled(false);
+							updateStatus("Waiting for execution start");
 							break;
 						case PAUSED:
 							playAction.setEnabled(true);
+							pauseAction.setEnabled(false);
+							updateStatus("Paused test execution");
 							break;
 						case RUNNING:
 							playAction.setEnabled(false);
+							pauseAction.setEnabled(true);
+							updateStatus("Running tests...");
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
+							pauseAction.setEnabled(false);
+							updateStatus("Test execution finished");
 							break;
 						}
 					}
@@ -762,7 +783,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 			public void run() {
 				try {
 					client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener());
-					updateStatus("Connected, waiting for test data...");
+					updateStatus("Connected, downloading test data...");
 					return;
 				} catch (UnknownHostException exc) {
 					showMessage("Target host name '" + aHost + "' could not be resolved.");
@@ -784,7 +805,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void runTests() {
 		client.controlExecution(ExecutionCommands.RUN);
-		updateStatus("Started test execution");
+		updateStatus("Launching test execution...");
+	}
+
+	private void pauseTests() {
+		client.controlExecution(ExecutionCommands.PAUSE);
+		updateStatus("Pausing test execution...");
 	}
 
 	private void jumpToJavaMethod(String aJavaClassAndMethod) {
@@ -875,9 +901,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
-		public void onSetListUpdate(Endpoint anEndpoint, final SetListEntry[] someUpdatedEntries) {
+		public void onSetListUpdate(final SetListEntry[] someUpdatedEntries, final Integer anEntryInExecutionReference,
+				Endpoint anEndpoint) {
 			setList.integrateUpdates(someUpdatedEntries);
-			Display.getDefault().asyncExec(new Runnable() {
+			if (anEntryInExecutionReference != null) {
+				setList.setEntryInExecutionReference(anEntryInExecutionReference);
+			}
+			Display.getDefault().syncExec(new Runnable() {
 				@Override
 				public void run() {
 					for (SetListEntry tempEntry : someUpdatedEntries) {
@@ -885,6 +915,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 						case RESULT:
 							treeViewer.update(setList.getParent(tempEntry), null);
 						default:
+							treeViewer.update(tempEntry, null);
+						}
+					}
+					if (anEntryInExecutionReference != null) {
+						for (SetListEntry tempEntry : setList.getEntriesInExecution()) {
 							treeViewer.update(tempEntry, null);
 						}
 					}

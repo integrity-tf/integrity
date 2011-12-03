@@ -108,15 +108,22 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 	@Override
 	public String getText(Object element) {
 		SetListEntry tempEntry = (SetListEntry) element;
+		SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
+
+		String tempSuffix = "";
+		if ((tempResultState == null || tempResultState == SetListEntryResultStates.UNKNOWN)
+				&& setList.isEntryInExecution(tempEntry)) {
+			tempSuffix = "...";
+		}
 
 		switch (tempEntry.getType()) {
 		case SUITE:
-			return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME);
+			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME)) + tempSuffix;
 		case TEST:
 		case CALL:
-			return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
 		default:
-			return tempEntry.toString();
+			return tempEntry.toString() + tempSuffix;
 		}
 	}
 

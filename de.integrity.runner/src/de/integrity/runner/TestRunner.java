@@ -59,7 +59,11 @@ public class TestRunner {
 
 	protected Semaphore executionWaiter = new Semaphore(0);
 
+	protected boolean shallWaitBeforeNextStep;
+
 	protected TestRunnerCallback callback;
+
+	protected SetListCallback setListCallback;
 
 	protected TestRunnerCallback currentCallback;
 
@@ -95,9 +99,8 @@ public class TestRunner {
 				currentPhase = Phase.DRY_RUN;
 				SetList tempSetList = new SetList();
 				reset();
-				SetListCallback tempSetListCallback = new SetListCallback(tempSetList, remotingServer,
-						model.getClassLoader());
-				currentCallback = tempSetListCallback;
+				setListCallback = new SetListCallback(tempSetList, remotingServer, model.getClassLoader());
+				currentCallback = setListCallback;
 
 				runInternal(aRootSuiteCall);
 
@@ -117,7 +120,7 @@ public class TestRunner {
 					}
 				}
 				tempSetList.rewind();
-				currentCallback = new CompoundTestRunnerCallback(tempSetListCallback, callback);
+				currentCallback = new CompoundTestRunnerCallback(setListCallback, callback);
 			} else {
 				currentCallback = callback;
 			}
@@ -282,6 +285,8 @@ public class TestRunner {
 		if (currentPhase == Phase.DRY_RUN) {
 			tempReturn = new UndeterminedResult(aTest.getResult());
 		} else {
+			pauseIfRequiredByRemoteClient();
+
 			long tempStart = System.nanoTime();
 			try {
 				Object tempResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
@@ -343,6 +348,8 @@ public class TestRunner {
 		if (currentPhase == Phase.DRY_RUN) {
 			tempReturn = new de.integrity.runner.results.call.UndeterminedResult(aCall.getResult().getName());
 		} else {
+			pauseIfRequiredByRemoteClient();
+
 			long tempStart = System.nanoTime();
 			try {
 				Object tempResult = executeFixtureMethod(aCall.getDefinition().getFixtureMethod(),
@@ -439,6 +446,17 @@ public class TestRunner {
 
 	}
 
+	protected void pauseIfRequiredByRemoteClient() {
+		if (shallWaitBeforeNextStep) {
+			shallWaitBeforeNextStep = false;
+			try {
+				waitForContinue();
+			} catch (InterruptedException exc) {
+				// just continue
+			}
+		}
+	}
+
 	protected void waitForContinue() throws InterruptedException {
 		remotingServer.updateExecutionState(ExecutionStates.PAUSED);
 		executionWaiter.acquire();
@@ -477,6 +495,11 @@ public class TestRunner {
 		@Override
 		public void onConnectionLost(Endpoint anEndpoint) {
 			// I don't care
+		}
+
+		@Override
+		public void onPauseCommand(Endpoint anEndpoint) {
+			shallWaitBeforeNextStep = true;
 		}
 	}
 

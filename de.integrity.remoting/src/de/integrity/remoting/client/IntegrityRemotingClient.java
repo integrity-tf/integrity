@@ -96,9 +96,9 @@ public class IntegrityRemotingClient {
 		tempMap.put(SetListBaselineMessage.class, new MessageProcessor<SetListBaselineMessage>() {
 
 			@Override
-			public void processMessage(SetListBaselineMessage aBaseline, Endpoint anEndpoint) {
-				aBaseline.getSetList().recreateExecutableEntryIndex();
-				listener.onBaselineReceived(aBaseline.getSetList(), anEndpoint);
+			public void processMessage(SetListBaselineMessage aMessage, Endpoint anEndpoint) {
+				aMessage.getSetList().recreateTransientData();
+				listener.onBaselineReceived(aMessage.getSetList(), anEndpoint);
 			}
 		});
 
@@ -115,7 +115,7 @@ public class IntegrityRemotingClient {
 
 			@Override
 			public void processMessage(SetListUpdateMessage aMessage, Endpoint anEndpoint) {
-				listener.onSetListUpdate(anEndpoint, aMessage.getUpdatedEntries());
+				listener.onSetListUpdate(aMessage.getUpdatedEntries(), aMessage.getEntryInExecution(), anEndpoint);
 			}
 		});
 
