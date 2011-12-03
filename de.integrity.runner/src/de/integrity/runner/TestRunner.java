@@ -501,6 +501,12 @@ public class TestRunner {
 		public void onPauseCommand(Endpoint anEndpoint) {
 			shallWaitBeforeNextStep = true;
 		}
+
+		@Override
+		public void onStepIntoCommand(Endpoint anEndpoint) {
+			shallWaitBeforeNextStep = true;
+			executionWaiter.release();
+		}
 	}
 
 }

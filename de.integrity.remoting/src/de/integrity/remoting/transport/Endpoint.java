@@ -140,6 +140,7 @@ public class Endpoint {
 					exc.printStackTrace();
 				}
 			} finally {
+				isActive = false;
 				outputProcessor.interrupt();
 				if (listener != null) {
 					listener.onConnectionLost(Endpoint.this);

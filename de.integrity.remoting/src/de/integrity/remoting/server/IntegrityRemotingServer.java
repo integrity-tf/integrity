@@ -92,6 +92,10 @@ public class IntegrityRemotingServer {
 					break;
 				case PAUSE:
 					listener.onPauseCommand(anEndpoint);
+					break;
+				case STEP_INTO:
+					listener.onStepIntoCommand(anEndpoint);
+					break;
 				}
 			}
 

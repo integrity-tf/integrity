@@ -6,6 +6,8 @@ public enum ExecutionCommands implements Serializable {
 
 	RUN,
 
-	PAUSE;
+	PAUSE,
+
+	STEP_INTO;
 
 }

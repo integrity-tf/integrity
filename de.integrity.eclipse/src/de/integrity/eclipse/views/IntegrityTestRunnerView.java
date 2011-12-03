@@ -513,6 +513,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private void fillLocalPullDown(IMenuManager manager) {
 		manager.add(playAction);
 		manager.add(pauseAction);
+		manager.add(stepIntoAction);
 		manager.add(new Separator());
 		manager.add(connectToTestRunnerAction);
 	}
@@ -524,6 +525,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(playAction);
 		manager.add(pauseAction);
+		manager.add(stepIntoAction);
 		manager.add(new Separator());
 		manager.add(connectToTestRunnerAction);
 	}
@@ -541,7 +543,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		playAction = new Action() {
 			public void run() {
-				runTests();
+				client.controlExecution(ExecutionCommands.RUN);
+				updateStatus("Launching test execution...");
 			}
 		};
 		playAction.setText("Start or continue test execution");
@@ -551,13 +554,25 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		pauseAction = new Action() {
 			public void run() {
-				pauseTests();
+				client.controlExecution(ExecutionCommands.PAUSE);
+				updateStatus("Pausing test execution...");
 			}
 		};
 		pauseAction.setText("Pause test execution");
 		pauseAction.setToolTipText("Interrupts test execution; the currently running test will be finished though.");
 		pauseAction.setImageDescriptor(Activator.getImageDescriptor("icons/pause_enabled.gif"));
 		pauseAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/pause_disabled.gif"));
+
+		stepIntoAction = new Action() {
+			public void run() {
+				client.controlExecution(ExecutionCommands.STEP_INTO);
+				updateStatus("Executing single step...");
+			}
+		};
+		stepIntoAction.setText("Single step / step into");
+		stepIntoAction.setToolTipText("Executes a single test or call.");
+		stepIntoAction.setImageDescriptor(Activator.getImageDescriptor("icons/stepinto_enabled.gif"));
+		stepIntoAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepinto_disabled.gif"));
 
 		updateActionStatus(null);
 	}
@@ -573,6 +588,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					connectToTestRunnerAction.setImageDescriptor(Activator.getImageDescriptor("icons/connect.gif"));
 					playAction.setEnabled(false);
 					pauseAction.setEnabled(false);
+					stepIntoAction.setEnabled(false);
 				} else {
 					connectToTestRunnerAction.setText("Disconnect from test runner");
 					connectToTestRunnerAction
@@ -581,26 +597,31 @@ public class IntegrityTestRunnerView extends ViewPart {
 					if (anExecutionState == null) {
 						playAction.setEnabled(false);
 						pauseAction.setEnabled(false);
+						stepIntoAction.setEnabled(false);
 					} else {
 						switch (anExecutionState) {
 						case BLOCKED:
 							playAction.setEnabled(true);
 							pauseAction.setEnabled(false);
+							stepIntoAction.setEnabled(true);
 							updateStatus("Waiting for execution start");
 							break;
 						case PAUSED:
 							playAction.setEnabled(true);
 							pauseAction.setEnabled(false);
+							stepIntoAction.setEnabled(true);
 							updateStatus("Paused test execution");
 							break;
 						case RUNNING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(true);
+							stepIntoAction.setEnabled(false);
 							updateStatus("Running tests...");
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
+							stepIntoAction.setEnabled(false);
 							updateStatus("Test execution finished");
 							break;
 						}
@@ -801,16 +822,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 		client = null;
 		updateActionStatus(null);
 		updateStatus("Not connected");
-	}
-
-	private void runTests() {
-		client.controlExecution(ExecutionCommands.RUN);
-		updateStatus("Launching test execution...");
-	}
-
-	private void pauseTests() {
-		client.controlExecution(ExecutionCommands.PAUSE);
-		updateStatus("Pausing test execution...");
 	}
 
 	private void jumpToJavaMethod(String aJavaClassAndMethod) {
