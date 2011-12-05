@@ -17,4 +17,8 @@ public interface IntegrityRemotingServerListener {
 
 	public void onStepIntoCommand(Endpoint anEndpoint);
 
+	public void onCreateBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
+	public void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
 }

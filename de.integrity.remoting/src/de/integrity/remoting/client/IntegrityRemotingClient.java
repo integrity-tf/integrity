@@ -9,9 +9,11 @@ import de.integrity.remoting.IntegrityRemotingConstants;
 import de.integrity.remoting.transport.Endpoint;
 import de.integrity.remoting.transport.EndpointListener;
 import de.integrity.remoting.transport.MessageProcessor;
+import de.integrity.remoting.transport.enums.BreakpointActions;
 import de.integrity.remoting.transport.enums.ExecutionCommands;
 import de.integrity.remoting.transport.enums.ExecutionStates;
 import de.integrity.remoting.transport.messages.AbstractMessage;
+import de.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.integrity.remoting.transport.messages.ExecutionControlMessage;
 import de.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
@@ -70,6 +72,14 @@ public class IntegrityRemotingClient {
 		return executionState;
 	}
 
+	public void createBreakpoint(int anEntryReference) {
+		sendMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, anEntryReference));
+	}
+
+	public void deleteBreakpoint(int anEntryReference) {
+		sendMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
+	}
+
 	protected void sendMessage(AbstractMessage aMessage) {
 		if (isActive()) {
 			endpoint.sendMessage(aMessage);
@@ -116,6 +126,21 @@ public class IntegrityRemotingClient {
 			@Override
 			public void processMessage(SetListUpdateMessage aMessage, Endpoint anEndpoint) {
 				listener.onSetListUpdate(aMessage.getUpdatedEntries(), aMessage.getEntryInExecution(), anEndpoint);
+			}
+		});
+
+		tempMap.put(BreakpointUpdateMessage.class, new MessageProcessor<BreakpointUpdateMessage>() {
+
+			@Override
+			public void processMessage(BreakpointUpdateMessage aMessage, Endpoint anEndpoint) {
+				switch (aMessage.getAction()) {
+				case CREATE:
+					listener.onConfirmCreateBreakpoint(aMessage.getEntryReference(), anEndpoint);
+					break;
+				case REMOVE:
+					listener.onConfirmRemoveBreakpoint(aMessage.getEntryReference(), anEndpoint);
+					break;
+				}
 			}
 		});
 

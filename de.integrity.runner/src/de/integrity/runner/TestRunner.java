@@ -1,6 +1,7 @@
 package de.integrity.runner;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -29,10 +30,13 @@ import de.integrity.dsl.VariableDefinition;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.fixtures.Fixture;
 import de.integrity.remoting.entities.setlist.SetList;
+import de.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.integrity.remoting.server.IntegrityRemotingServer;
 import de.integrity.remoting.server.IntegrityRemotingServerListener;
 import de.integrity.remoting.transport.Endpoint;
+import de.integrity.remoting.transport.enums.BreakpointActions;
 import de.integrity.remoting.transport.enums.ExecutionStates;
+import de.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.integrity.runner.callbacks.CompoundTestRunnerCallback;
@@ -60,6 +64,8 @@ public class TestRunner {
 	protected Semaphore executionWaiter = new Semaphore(0);
 
 	protected boolean shallWaitBeforeNextStep;
+
+	protected Set<Integer> breakpoints = Collections.synchronizedSet(new HashSet<Integer>());
 
 	protected TestRunnerCallback callback;
 
@@ -447,14 +453,26 @@ public class TestRunner {
 	}
 
 	protected void pauseIfRequiredByRemoteClient() {
-		if (shallWaitBeforeNextStep) {
-			shallWaitBeforeNextStep = false;
+		Integer tempLastTestOrCallEntryRef = setList.getLastCreatedEntryId(SetListEntryTypes.CALL,
+				SetListEntryTypes.TEST);
+
+		if (tempLastTestOrCallEntryRef != null && breakpoints.contains(tempLastTestOrCallEntryRef)) {
+			removeBreakpoint(tempLastTestOrCallEntryRef);
 			try {
 				waitForContinue();
 			} catch (InterruptedException exc) {
 				// just continue
 			}
+		} else {
+			if (shallWaitBeforeNextStep) {
+				try {
+					waitForContinue();
+				} catch (InterruptedException exc) {
+					// just continue
+				}
+			}
 		}
+		shallWaitBeforeNextStep = false;
 	}
 
 	protected void waitForContinue() throws InterruptedException {
@@ -462,6 +480,19 @@ public class TestRunner {
 		executionWaiter.acquire();
 		executionWaiter.drainPermits();
 		remotingServer.updateExecutionState(ExecutionStates.RUNNING);
+	}
+
+	protected void removeBreakpoint(int anEntryReference) {
+		if (breakpoints.remove(anEntryReference)) {
+			remotingServer.confirmBreakpointRemoval(anEntryReference);
+		}
+	}
+
+	protected void createBreakpoint(int anEntryReference) {
+		if (breakpoints.add(anEntryReference)) {
+			remotingServer.confirmBreakpointCreation(anEntryReference);
+			System.out.println("BP AT " + anEntryReference);
+		}
 	}
 
 	protected class RemotingListener implements IntegrityRemotingServerListener {
@@ -484,6 +515,9 @@ public class TestRunner {
 				}
 
 				anEndpoint.sendMessage(new SetListBaselineMessage(setList));
+				for (Integer tempBreakpoint : breakpoints) {
+					anEndpoint.sendMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, tempBreakpoint));
+				}
 			}
 		}
 
@@ -506,6 +540,16 @@ public class TestRunner {
 		public void onStepIntoCommand(Endpoint anEndpoint) {
 			shallWaitBeforeNextStep = true;
 			executionWaiter.release();
+		}
+
+		@Override
+		public void onCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+			createBreakpoint(anEntryReference);
+		}
+
+		@Override
+		public void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+			removeBreakpoint(anEntryReference);
 		}
 	}
 

@@ -10,8 +10,10 @@ import de.integrity.remoting.entities.setlist.SetListEntry;
 import de.integrity.remoting.transport.Endpoint;
 import de.integrity.remoting.transport.MessageProcessor;
 import de.integrity.remoting.transport.ServerEndpoint;
+import de.integrity.remoting.transport.enums.BreakpointActions;
 import de.integrity.remoting.transport.enums.ExecutionStates;
 import de.integrity.remoting.transport.messages.AbstractMessage;
+import de.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.integrity.remoting.transport.messages.ExecutionControlMessage;
 import de.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
@@ -51,6 +53,18 @@ public class IntegrityRemotingServer {
 	public void updateSetList(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new SetListUpdateMessage(anEntryInExecution, someUpdatedEntries));
+		}
+	}
+
+	public void confirmBreakpointCreation(int anEntryReference) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, anEntryReference));
+		}
+	}
+
+	public void confirmBreakpointRemoval(int anEntryReference) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
 		}
 	}
 
@@ -95,6 +109,22 @@ public class IntegrityRemotingServer {
 					break;
 				case STEP_INTO:
 					listener.onStepIntoCommand(anEndpoint);
+					break;
+				}
+			}
+
+		});
+
+		tempMap.put(BreakpointUpdateMessage.class, new MessageProcessor<BreakpointUpdateMessage>() {
+
+			@Override
+			public void processMessage(BreakpointUpdateMessage aMessage, Endpoint anEndpoint) {
+				switch (aMessage.getAction()) {
+				case CREATE:
+					listener.onCreateBreakpoint(aMessage.getEntryReference(), anEndpoint);
+					break;
+				case REMOVE:
+					listener.onRemoveBreakpoint(aMessage.getEntryReference(), anEndpoint);
 					break;
 				}
 			}

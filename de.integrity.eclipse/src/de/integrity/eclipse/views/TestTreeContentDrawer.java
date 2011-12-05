@@ -1,5 +1,7 @@
 package de.integrity.eclipse.views;
 
+import java.util.Set;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -16,6 +18,8 @@ public class TestTreeContentDrawer {
 
 	private SetList setList;
 
+	private Set<Integer> breakpointSet;
+
 	private Color nullColor;
 	private Color suiteSuccessColor;
 	private Color suiteFailureColor;
@@ -27,6 +31,7 @@ public class TestTreeContentDrawer {
 	private Color callSuccessColor;
 	private Color suiteInExecutionColor;
 	private Color callOrTestInExecutionColor;
+	private Color breakpointColor;
 
 	private Listener measureListener;
 	private Listener eraseListener;
@@ -39,8 +44,9 @@ public class TestTreeContentDrawer {
 
 	private int GRADIENT_OFFSET = -16;
 
-	public TestTreeContentDrawer(SetList aSetList, Display aDisplay) {
+	public TestTreeContentDrawer(SetList aSetList, Set<Integer> aBreakpointSet, Display aDisplay) {
 		setList = aSetList;
+		breakpointSet = aBreakpointSet;
 		nullColor = new Color(aDisplay, 255, 255, 255);
 		suiteSuccessColor = new Color(aDisplay, 156, 255, 189);
 		suiteFailureColor = new Color(aDisplay, 255, 130, 130);
@@ -52,6 +58,7 @@ public class TestTreeContentDrawer {
 		callSuccessColor = new Color(aDisplay, 205, 255, 222);
 		callOrTestInExecutionColor = new Color(aDisplay, 198, 203, 255);
 		suiteInExecutionColor = new Color(aDisplay, 229, 231, 255);
+		breakpointColor = new Color(aDisplay, 0, 0, 0);
 	}
 
 	public void dispose(Tree aTree) {
@@ -66,6 +73,7 @@ public class TestTreeContentDrawer {
 		callExceptionColor.dispose();
 		callOrTestInExecutionColor.dispose();
 		suiteInExecutionColor.dispose();
+		breakpointColor.dispose();
 		aTree.removeListener(SWT.MeasureItem, measureListener);
 		aTree.removeListener(SWT.EraseItem, eraseListener);
 	}
@@ -151,7 +159,6 @@ public class TestTreeContentDrawer {
 					event.detail &= ~SWT.BACKGROUND;
 					event.detail &= ~SWT.HOT;
 				} else if (setList.isEntryInExecution(tempEntry)) {
-					System.out.println("Drawing " + tempEntry.toString());
 					Color tempOldBackground = event.gc.getBackground();
 
 					switch (tempEntry.getType()) {
@@ -167,6 +174,19 @@ public class TestTreeContentDrawer {
 					}
 
 					event.gc.fillRectangle(event.x, event.y, event.width, event.height);
+
+					event.gc.setBackground(tempOldBackground);
+
+					event.detail &= ~SWT.BACKGROUND;
+					event.detail &= ~SWT.HOT;
+				}
+
+				if (breakpointSet.contains(tempEntry.getId())) {
+					Color tempOldBackground = event.gc.getBackground();
+					event.gc.setBackground(breakpointColor);
+
+					event.gc.fillPolygon(new int[] { event.x, event.y + 2, event.x + event.height / 2,
+							event.y + 2 + (event.height - 4) / 2, event.x, event.y + (event.height - 4) - 1 });
 
 					event.gc.setBackground(tempOldBackground);
 

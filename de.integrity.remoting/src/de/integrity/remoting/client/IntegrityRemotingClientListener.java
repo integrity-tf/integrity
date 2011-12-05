@@ -20,4 +20,8 @@ public interface IntegrityRemotingClientListener {
 
 	public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint);
 
+	public void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
+	public void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
 }

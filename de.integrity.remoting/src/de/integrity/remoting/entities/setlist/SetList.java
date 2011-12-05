@@ -2,10 +2,12 @@ package de.integrity.remoting.entities.setlist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("unchecked")
@@ -25,9 +27,12 @@ public class SetList implements Serializable {
 
 	private transient int entryListPosition;
 
+	private transient Map<SetListEntryTypes, Integer> lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
+
 	public void recreateTransientData() {
 		executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
 		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
+		lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
 		int tempPosition = 0;
 		for (SetListEntry tempEntry : entries) {
@@ -120,13 +125,36 @@ public class SetList implements Serializable {
 
 	public SetListEntry createEntry(SetListEntryTypes aType) {
 		if (entries.size() > entryListPosition) {
+			lastCreatedEntryIdMap.put(aType, entryListPosition);
 			entryListPosition++;
 			return entries.get(entryListPosition - 1);
 		} else {
 			SetListEntry tempNewEntry = new SetListEntry(entryListPosition, aType);
 			entries.add(tempNewEntry);
+			lastCreatedEntryIdMap.put(aType, tempNewEntry.getId());
 			entryListPosition++;
 			return tempNewEntry;
+		}
+	}
+
+	public Integer getLastCreatedEntryId(SetListEntryTypes aType) {
+		return lastCreatedEntryIdMap.get(aType);
+	}
+
+	public Integer getLastCreatedEntryId(SetListEntryTypes... someTypes) {
+		List<Integer> tempList = new ArrayList<Integer>();
+		for (SetListEntryTypes tempType : someTypes) {
+			Integer tempEntryRef = getLastCreatedEntryId(tempType);
+			if (tempEntryRef != null) {
+				tempList.add(tempEntryRef);
+			}
+		}
+
+		if (tempList.size() == 0) {
+			return null;
+		} else {
+			Collections.sort(tempList);
+			return tempList.get(tempList.size() - 1);
 		}
 	}
 
@@ -142,6 +170,7 @@ public class SetList implements Serializable {
 
 	public void rewind() {
 		entryListPosition = 0;
+		lastCreatedEntryIdMap.clear();
 	}
 
 	public void integrateUpdates(SetListEntry[] someUpdatedEntries) {

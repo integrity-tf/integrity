@@ -1,5 +1,7 @@
 package de.integrity.eclipse.views;
 
+import java.util.Set;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -14,6 +16,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 
 	private SetList setList;
 
+	private Set<Integer> breakpointSet;
+
 	private Image suiteImage;
 	private Image suiteSuccessImage;
 	private Image suiteFailureImage;
@@ -26,8 +30,9 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 	private Image callSuccessImage;
 	private Image callExceptionImage;
 
-	public TestTreeLabelProvider(SetList aSetList) {
+	public TestTreeLabelProvider(SetList aSetList, Set<Integer> aBreakpointSet) {
 		setList = aSetList;
+		breakpointSet = aBreakpointSet;
 		suiteImage = Activator.getImageDescriptor("icons/suite.gif").createImage();
 		suiteSuccessImage = Activator.getImageDescriptor("icons/suite_ok.gif").createImage();
 		suiteFailureImage = Activator.getImageDescriptor("icons/suite_error.gif").createImage();
@@ -114,6 +119,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		if ((tempResultState == null || tempResultState == SetListEntryResultStates.UNKNOWN)
 				&& setList.isEntryInExecution(tempEntry)) {
 			tempSuffix = "...";
+		} else if (breakpointSet.contains(tempEntry.getId())) {
+			tempSuffix = " ";
 		}
 
 		switch (tempEntry.getType()) {

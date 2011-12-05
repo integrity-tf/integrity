@@ -2,7 +2,10 @@ package de.integrity.eclipse.views;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +32,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -54,7 +58,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.HyperlinkGroup;
 import org.eclipse.ui.forms.IFormColors;
@@ -68,6 +71,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
 import de.integrity.eclipse.Activator;
+import de.integrity.eclipse.actions.BreakpointAction;
 import de.integrity.eclipse.controls.ProgressBar;
 import de.integrity.remoting.IntegrityRemotingConstants;
 import de.integrity.remoting.client.IntegrityRemotingClient;
@@ -147,11 +151,15 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Action playAction;
 	private Action pauseAction;
 	private Action stepIntoAction;
-	private Action setpOverAction;
+	private Action stepOverAction;
+	private Action createBreakpointAction;
+	private Action removeBreakpointAction;
 
 	private IntegrityRemotingClient client;
 
 	private SetList setList;
+
+	private Set<Integer> breakpointSet = Collections.synchronizedSet(new HashSet<Integer>());
 
 	/**
 	 * The constructor.
@@ -420,7 +428,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultExceptionCountLabel.setLayoutData(tempFormData);
 
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "de.integrity.eclipse.viewer");
-		attachTreeSelectionListeners();
+		attachTreeInteractionListeners();
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
@@ -471,7 +479,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		});
 	}
 
-	private void attachTreeSelectionListeners() {
+	private void attachTreeInteractionListeners() {
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override
@@ -489,6 +497,49 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		});
+
+		// MenuManager menuMgr = new MenuManager();
+		// Menu menu = menuMgr.createContextMenu(treeViewer.getControl());
+		// menuMgr.addMenuListener(new IMenuListener() {
+		// @Override
+		// public void menuAboutToShow(IMenuManager manager) {
+		// if (treeViewer.getSelection().isEmpty()) {
+		// return;
+		// }
+		//
+		// if (treeViewer.getSelection() instanceof IStructuredSelection) {
+		// IStructuredSelection tempSelection = (IStructuredSelection)
+		// treeViewer.getSelection();
+		// if (tempSelection.getFirstElement() instanceof SetListEntry) {
+		// final SetListEntry tempEntry = (SetListEntry)
+		// tempSelection.getFirstElement();
+		//
+		// if (tempEntry.getType() == SetListEntryTypes.TEST
+		// || tempEntry.getType() == SetListEntryTypes.CALL) {
+		// if (breakpointSet.contains(tempEntry.getId())) {
+		// manager.add(new BreakpointAction(tempEntry.getId(),
+		// "Remove Breakpoint",
+		// "Removes the breakpoint from the selected step.") {
+		// public void run() {
+		// client.deleteBreakpoint(tempEntry.getId());
+		// }
+		// });
+		// } else {
+		// manager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
+		// "Adds a breakpoint to the selected step.") {
+		// public void run() {
+		// client.createBreakpoint(tempEntry.getId());
+		// }
+		// });
+		// }
+		// }
+		// }
+		// }
+		// }
+		// });
+		//
+		// menuMgr.setRemoveAllWhenShown(true);
+		// treeViewer.getControl().setMenu(menu);
 	}
 
 	private void hookContextMenu() {
@@ -519,7 +570,34 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		if (treeViewer.getSelection().isEmpty()) {
+			return;
+		}
+
+		if (treeViewer.getSelection() instanceof IStructuredSelection) {
+			IStructuredSelection tempSelection = (IStructuredSelection) treeViewer.getSelection();
+			if (tempSelection.getFirstElement() instanceof SetListEntry) {
+				final SetListEntry tempEntry = (SetListEntry) tempSelection.getFirstElement();
+
+				if (tempEntry.getType() == SetListEntryTypes.TEST || tempEntry.getType() == SetListEntryTypes.CALL) {
+					if (breakpointSet.contains(tempEntry.getId())) {
+						manager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
+								"Removes the breakpoint from the selected step.") {
+							public void run() {
+								client.deleteBreakpoint(tempEntry.getId());
+							}
+						});
+					} else {
+						manager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
+								"Adds a breakpoint to the selected step.") {
+							public void run() {
+								client.createBreakpoint(tempEntry.getId());
+							}
+						});
+					}
+				}
+			}
+		}
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager) {
@@ -876,6 +954,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		@Override
 		public void onBaselineReceived(SetList aSetList, Endpoint anEndpoint) {
 			setList = aSetList;
+			breakpointSet.clear();
 			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
@@ -885,13 +964,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 					// the following will automatically dispose the old
 					// provider!
-					treeViewer.setLabelProvider(new TestTreeLabelProvider(setList));
+					treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet));
 
 					// the drawer must be manually disposed
 					if (viewerContentDrawer != null) {
 						viewerContentDrawer.dispose(treeViewer.getTree());
 					}
-					viewerContentDrawer = new TestTreeContentDrawer(setList, Display.getCurrent());
+					viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
 					viewerContentDrawer.attachToTree(treeViewer.getTree());
 
 					updateStatus("Connected and ready");
@@ -935,6 +1014,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 						}
 					}
 					executionProgress.redraw();
+				}
+			});
+		}
+
+		@Override
+		public void onConfirmCreateBreakpoint(final int anEntryReference, Endpoint anEndpoint) {
+			breakpointSet.add(anEntryReference);
+			Display.getDefault().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					treeViewer.update(setList.resolveReference(anEntryReference), null);
+				}
+			});
+		}
+
+		@Override
+		public void onConfirmRemoveBreakpoint(final int anEntryReference, Endpoint anEndpoint) {
+			breakpointSet.remove(anEntryReference);
+			Display.getDefault().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					treeViewer.update(setList.resolveReference(anEntryReference), null);
 				}
 			});
 		}
