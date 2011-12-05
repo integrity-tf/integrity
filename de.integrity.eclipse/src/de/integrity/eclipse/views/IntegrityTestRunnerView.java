@@ -497,49 +497,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		});
-
-		// MenuManager menuMgr = new MenuManager();
-		// Menu menu = menuMgr.createContextMenu(treeViewer.getControl());
-		// menuMgr.addMenuListener(new IMenuListener() {
-		// @Override
-		// public void menuAboutToShow(IMenuManager manager) {
-		// if (treeViewer.getSelection().isEmpty()) {
-		// return;
-		// }
-		//
-		// if (treeViewer.getSelection() instanceof IStructuredSelection) {
-		// IStructuredSelection tempSelection = (IStructuredSelection)
-		// treeViewer.getSelection();
-		// if (tempSelection.getFirstElement() instanceof SetListEntry) {
-		// final SetListEntry tempEntry = (SetListEntry)
-		// tempSelection.getFirstElement();
-		//
-		// if (tempEntry.getType() == SetListEntryTypes.TEST
-		// || tempEntry.getType() == SetListEntryTypes.CALL) {
-		// if (breakpointSet.contains(tempEntry.getId())) {
-		// manager.add(new BreakpointAction(tempEntry.getId(),
-		// "Remove Breakpoint",
-		// "Removes the breakpoint from the selected step.") {
-		// public void run() {
-		// client.deleteBreakpoint(tempEntry.getId());
-		// }
-		// });
-		// } else {
-		// manager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
-		// "Adds a breakpoint to the selected step.") {
-		// public void run() {
-		// client.createBreakpoint(tempEntry.getId());
-		// }
-		// });
-		// }
-		// }
-		// }
-		// }
-		// }
-		// });
-		//
-		// menuMgr.setRemoveAllWhenShown(true);
-		// treeViewer.getControl().setMenu(menu);
 	}
 
 	private void hookContextMenu() {
