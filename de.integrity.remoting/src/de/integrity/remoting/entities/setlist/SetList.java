@@ -233,6 +233,9 @@ public class SetList implements Serializable {
 	}
 
 	public SetListEntry getParent(SetListEntry anEntry) {
+		if (anEntry == null) {
+			return null;
+		}
 		Integer aParent = (Integer) anEntry.getAttribute(SetListEntryAttributeKeys.PARENT);
 		if (aParent != null) {
 			return resolveReference(aParent);

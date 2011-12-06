@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -561,6 +562,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		manager.add(playAction);
 		manager.add(pauseAction);
 		manager.add(stepIntoAction);
+		manager.add(stepOverAction);
 		manager.add(new Separator());
 		manager.add(connectToTestRunnerAction);
 	}
@@ -579,7 +581,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		playAction = new Action() {
 			public void run() {
 				client.controlExecution(ExecutionCommands.RUN);
-				updateStatus("Launching test execution...");
+				updateStatus("Continuing test execution...");
 			}
 		};
 		playAction.setText("Start or continue test execution");
@@ -609,6 +611,62 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepIntoAction.setImageDescriptor(Activator.getImageDescriptor("icons/stepinto_enabled.gif"));
 		stepIntoAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepinto_disabled.gif"));
 
+		stepOverAction = new Action() {
+			@SuppressWarnings("unchecked")
+			public void run() {
+				SetListEntry tempTarget = null;
+				SetListEntry tempCurrentSuite = setList.getParent(setList.getEntryInExecution());
+				if (tempCurrentSuite != null) {
+					SetListEntry tempOuterSuite = setList.getParent(tempCurrentSuite);
+					while (tempOuterSuite != null && tempTarget == null) {
+						List<Integer> tempSetupStatements = (List<Integer>) tempOuterSuite
+								.getAttribute(SetListEntryAttributeKeys.SETUP);
+						List<Integer> tempSuiteStatements = (List<Integer>) tempOuterSuite
+								.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
+						List<Integer> tempTeardownStatements = (List<Integer>) tempOuterSuite
+								.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
+						List<Integer> tempAllStatements = new LinkedList<Integer>();
+						if (tempSetupStatements != null) {
+							tempAllStatements.addAll(tempSetupStatements);
+						}
+						if (tempSuiteStatements != null) {
+							tempAllStatements.addAll(tempSuiteStatements);
+						}
+						if (tempTeardownStatements != null) {
+							tempAllStatements.addAll(tempTeardownStatements);
+						}
+
+						int tempPos = tempAllStatements.indexOf(tempCurrentSuite.getId()) + 1;
+						if (tempPos == 0 || tempPos >= tempAllStatements.size()) {
+							tempOuterSuite = setList.getParent(tempOuterSuite);
+						} else {
+							tempTarget = setList.resolveReference(tempAllStatements.get(tempPos));
+						}
+					}
+				}
+
+				if (tempTarget != null) {
+					while (tempTarget != null && tempTarget.getType() != SetListEntryTypes.CALL
+							&& tempTarget.getType() != SetListEntryTypes.TEST) {
+						tempTarget = setList.resolveReference(tempTarget.getId() + 1);
+					}
+				}
+
+				if (tempTarget != null) {
+					client.createBreakpoint(tempTarget.getId());
+					client.controlExecution(ExecutionCommands.RUN);
+					updateStatus("Executing until end of current suite...");
+				} else {
+					client.controlExecution(ExecutionCommands.RUN);
+					updateStatus("Continuing test execution...");
+				}
+			}
+		};
+		stepOverAction.setText("Single step / step into");
+		stepOverAction.setToolTipText("Places a breakpoint after the current suite call and continues execution.");
+		stepOverAction.setImageDescriptor(Activator.getImageDescriptor("icons/stepover_enabled.gif"));
+		stepOverAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepover_disabled.gif"));
+
 		updateActionStatus(null);
 	}
 
@@ -624,6 +682,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					playAction.setEnabled(false);
 					pauseAction.setEnabled(false);
 					stepIntoAction.setEnabled(false);
+					stepOverAction.setEnabled(false);
 				} else {
 					connectToTestRunnerAction.setText("Disconnect from test runner");
 					connectToTestRunnerAction
@@ -633,30 +692,35 @@ public class IntegrityTestRunnerView extends ViewPart {
 						playAction.setEnabled(false);
 						pauseAction.setEnabled(false);
 						stepIntoAction.setEnabled(false);
+						stepOverAction.setEnabled(false);
 					} else {
 						switch (anExecutionState) {
 						case BLOCKED:
 							playAction.setEnabled(true);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(true);
+							stepOverAction.setEnabled(true);
 							updateStatus("Waiting for execution start");
 							break;
 						case PAUSED:
 							playAction.setEnabled(true);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(true);
+							stepOverAction.setEnabled(true);
 							updateStatus("Paused test execution");
 							break;
 						case RUNNING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(true);
 							stepIntoAction.setEnabled(false);
+							stepOverAction.setEnabled(false);
 							updateStatus("Running tests...");
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
+							stepOverAction.setEnabled(false);
 							updateStatus("Test execution finished");
 							break;
 						}
