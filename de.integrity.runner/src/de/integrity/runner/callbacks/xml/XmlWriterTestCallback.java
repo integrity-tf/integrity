@@ -257,7 +257,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		for (Parameter parameter : aTest.getParameters()) {
 			Element parameterElement = new Element(PARAMETER_ELEMENT);
 			parameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
-					IntegrityDSLUtil.getParamNameFromAnnotation(parameter.getName()));
+					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
 			parameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
 					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
 			if (parameter.getValue() instanceof Variable) {
@@ -322,7 +322,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		for (Parameter parameter : aCall.getParameters()) {
 			Element parameterElement = new Element(PARAMETER_ELEMENT);
 			parameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
-					IntegrityDSLUtil.getParamNameFromAnnotation(parameter.getName()));
+					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
 			parameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
 					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
 			if (parameter.getValue() instanceof Variable) {

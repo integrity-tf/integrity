@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/de.integrity.runner"/>
+	<classpathentry kind="lib" path="lib/com.google.inject_2.0.0.v201105231817.jar"/>
+	<classpathentry kind="lib" path="lib/org.antlr.runtime_3.2.0.v201101311130.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.runtime_3.7.0.v20110110.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.common_2.7.0.v20110912-0920.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.ecore_2.7.0.v20110912-0920.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.mwe.utils_1.1.1.v201108020506.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.xtext_2.0.1.v201108020636.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.xtext.common.types_2.0.1.v201108020636.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/de.integrity.dsl.experimentation"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

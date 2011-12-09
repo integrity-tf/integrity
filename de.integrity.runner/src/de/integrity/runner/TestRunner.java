@@ -323,7 +323,7 @@ public class TestRunner {
 		Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
 
 		return tempFixtureInstance.execute(aMethod.getMethod().getSimpleName(),
-				IntegrityDSLUtil.createParameterMap(someParameters, variableStorage));
+				IntegrityDSLUtil.createParameterMap(someParameters, variableStorage, true));
 	}
 
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {

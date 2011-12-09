@@ -1,8 +1,9 @@
 package de.integrity.utils;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -11,10 +12,12 @@ import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
-import de.integrity.fixtures.AbstractFixture;
+import de.integrity.fixtures.Fixture;
 import de.integrity.fixtures.FixtureMethod;
 
 public class TestFormatter {
+
+	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
 	ClassLoader classloader = getClass().getClassLoader();
 
@@ -44,7 +47,7 @@ public class TestFormatter {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
 		Class<?> tempFixtureClass = classloader.loadClass(tempFixtureClassName);
-		Method tempMethod = AbstractFixture.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
+		Method tempMethod = Fixture.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
 		if (tempMethod == null) {
 			return null;
 		}
@@ -61,15 +64,16 @@ public class TestFormatter {
 			tempText = tempFixtureMethodName;
 		}
 
-		List<ParamAnnotationTuple> tempParams = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aFixtureMethod);
-		Map<String, Object> tempValues = IntegrityDSLUtil.createParameterMap(aParamList, aVariableMap);
-		for (ParamAnnotationTuple tempParam : tempParams) {
-			String tempValue = ParameterUtil.convertValueToString(tempValues.get(tempParam.getParamName()),
-					aVariableMap);
+		Map<String, Object> tempValues = IntegrityDSLUtil.createParameterMap(aParamList, aVariableMap, true);
+
+		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempText);
+		while (tempMatcher.matches()) {
+			String tempValue = ParameterUtil.convertValueToString(tempValues.get(tempMatcher.group(2)), aVariableMap);
 			if (tempValue == null) {
 				tempValue = "(null)";
 			}
-			tempText = tempText.replace("$" + tempParam.getParamName() + "$", tempValue);
+			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
+			tempMatcher = PARAMETER_PATTERN.matcher(tempText);
 		}
 
 		return tempText;

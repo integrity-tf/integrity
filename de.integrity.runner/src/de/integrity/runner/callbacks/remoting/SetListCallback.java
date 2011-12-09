@@ -249,7 +249,7 @@ public class SetListCallback implements TestRunnerCallback {
 		for (Parameter parameter : aParamList) {
 			SetListEntry tempParamEntry = setList.createEntry(SetListEntryTypes.PARAMETER);
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
-					IntegrityDSLUtil.getParamNameFromAnnotation(parameter.getName()));
+					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
 			if (parameter.getValue() instanceof Variable) {
