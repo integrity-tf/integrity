@@ -32,5 +32,8 @@ Export-Package: de.integrity,
  de.integrity.validation,
  de.integrity.values
 Import-Package: org.apache.log4j,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.internal.core,
+ org.eclipse.xtext.common.types.util.jdt,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib

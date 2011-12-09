@@ -604,27 +604,23 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Parameter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cNameJvmAnnotationReferenceCrossReference_0_0 = (CrossReference)cNameAssignment_0.eContents().get(0);
-		private final RuleCall cNameJvmAnnotationReferenceIDTerminalRuleCall_0_0_1 = (RuleCall)cNameJvmAnnotationReferenceCrossReference_0_0.eContents().get(1);
+		private final RuleCall cNameParameterNameParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cValueValueOrEnumValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//Parameter:
-		//	name=[jvmTypes::JvmAnnotationReference] ":" value=ValueOrEnumValue;
+		//	name=ParameterName ":" value=ValueOrEnumValue;
 		public ParserRule getRule() { return rule; }
 
-		//name=[jvmTypes::JvmAnnotationReference] ":" value=ValueOrEnumValue
+		//name=ParameterName ":" value=ValueOrEnumValue
 		public Group getGroup() { return cGroup; }
 
-		//name=[jvmTypes::JvmAnnotationReference]
+		//name=ParameterName
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//[jvmTypes::JvmAnnotationReference]
-		public CrossReference getNameJvmAnnotationReferenceCrossReference_0_0() { return cNameJvmAnnotationReferenceCrossReference_0_0; }
-
-		//ID
-		public RuleCall getNameJvmAnnotationReferenceIDTerminalRuleCall_0_0_1() { return cNameJvmAnnotationReferenceIDTerminalRuleCall_0_0_1; }
+		//ParameterName
+		public RuleCall getNameParameterNameParserRuleCall_0_0() { return cNameParameterNameParserRuleCall_0_0; }
 
 		//":"
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
@@ -634,6 +630,70 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueOrEnumValue
 		public RuleCall getValueValueOrEnumValueParserRuleCall_2_0() { return cValueValueOrEnumValueParserRuleCall_2_0; }
+	}
+
+	public class ParameterNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ParameterName");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedParameterNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cArbitraryParameterNameParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//ParameterName:
+		//	FixedParameterName | ArbitraryParameterName;
+		public ParserRule getRule() { return rule; }
+
+		//FixedParameterName | ArbitraryParameterName
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//FixedParameterName
+		public RuleCall getFixedParameterNameParserRuleCall_0() { return cFixedParameterNameParserRuleCall_0; }
+
+		//ArbitraryParameterName
+		public RuleCall getArbitraryParameterNameParserRuleCall_1() { return cArbitraryParameterNameParserRuleCall_1; }
+	}
+
+	public class FixedParameterNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FixedParameterName");
+		private final Assignment cAnnotationAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cAnnotationJvmAnnotationReferenceCrossReference_0 = (CrossReference)cAnnotationAssignment.eContents().get(0);
+		private final RuleCall cAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1 = (RuleCall)cAnnotationJvmAnnotationReferenceCrossReference_0.eContents().get(1);
+		
+		//FixedParameterName:
+		//	annotation=[jvmTypes::JvmAnnotationReference];
+		public ParserRule getRule() { return rule; }
+
+		//annotation=[jvmTypes::JvmAnnotationReference]
+		public Assignment getAnnotationAssignment() { return cAnnotationAssignment; }
+
+		//[jvmTypes::JvmAnnotationReference]
+		public CrossReference getAnnotationJvmAnnotationReferenceCrossReference_0() { return cAnnotationJvmAnnotationReferenceCrossReference_0; }
+
+		//ID
+		public RuleCall getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1() { return cAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1; }
+	}
+
+	public class ArbitraryParameterNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ArbitraryParameterName");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cPlusSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cIdentifierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cIdentifierIDTerminalRuleCall_1_0 = (RuleCall)cIdentifierAssignment_1.eContents().get(0);
+		
+		//ArbitraryParameterName:
+		//	"+" identifier=ID;
+		public ParserRule getRule() { return rule; }
+
+		//"+" identifier=ID
+		public Group getGroup() { return cGroup; }
+
+		//"+"
+		public Keyword getPlusSignKeyword_0() { return cPlusSignKeyword_0; }
+
+		//identifier=ID
+		public Assignment getIdentifierAssignment_1() { return cIdentifierAssignment_1; }
+
+		//ID
+		public RuleCall getIdentifierIDTerminalRuleCall_1_0() { return cIdentifierIDTerminalRuleCall_1_0; }
 	}
 
 	public class ValueOrEnumValueElements extends AbstractParserRuleElementFinder {
@@ -902,6 +962,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private SuiteElements pSuite;
 	private SuiteParameterElements pSuiteParameter;
 	private ParameterElements pParameter;
+	private ParameterNameElements pParameterName;
+	private FixedParameterNameElements pFixedParameterName;
+	private ArbitraryParameterNameElements pArbitraryParameterName;
 	private ValueOrEnumValueElements pValueOrEnumValue;
 	private ValueElements pValue;
 	private IntegerValueElements pIntegerValue;
@@ -1099,13 +1162,43 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Parameter:
-	//	name=[jvmTypes::JvmAnnotationReference] ":" value=ValueOrEnumValue;
+	//	name=ParameterName ":" value=ValueOrEnumValue;
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());
 	}
 	
 	public ParserRule getParameterRule() {
 		return getParameterAccess().getRule();
+	}
+
+	//ParameterName:
+	//	FixedParameterName | ArbitraryParameterName;
+	public ParameterNameElements getParameterNameAccess() {
+		return (pParameterName != null) ? pParameterName : (pParameterName = new ParameterNameElements());
+	}
+	
+	public ParserRule getParameterNameRule() {
+		return getParameterNameAccess().getRule();
+	}
+
+	//FixedParameterName:
+	//	annotation=[jvmTypes::JvmAnnotationReference];
+	public FixedParameterNameElements getFixedParameterNameAccess() {
+		return (pFixedParameterName != null) ? pFixedParameterName : (pFixedParameterName = new FixedParameterNameElements());
+	}
+	
+	public ParserRule getFixedParameterNameRule() {
+		return getFixedParameterNameAccess().getRule();
+	}
+
+	//ArbitraryParameterName:
+	//	"+" identifier=ID;
+	public ArbitraryParameterNameElements getArbitraryParameterNameAccess() {
+		return (pArbitraryParameterName != null) ? pArbitraryParameterName : (pArbitraryParameterName = new ArbitraryParameterNameElements());
+	}
+	
+	public ParserRule getArbitraryParameterNameRule() {
+		return getArbitraryParameterNameAccess().getRule();
 	}
 
 	//ValueOrEnumValue:

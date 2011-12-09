@@ -64,8 +64,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteParameter/value"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Parameter">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Parameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Parameter/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Parameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterName"/>
+    <genClasses ecoreClass="DSL.ecore#//FixedParameterName">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//FixedParameterName/annotation"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterName/identifier"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValue"/>
     <genClasses ecoreClass="DSL.ecore#//Value"/>

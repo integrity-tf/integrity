@@ -164,6 +164,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createParameterAdapter();
       }
       @Override
+      public Adapter caseParameterName(ParameterName object)
+      {
+        return createParameterNameAdapter();
+      }
+      @Override
+      public Adapter caseFixedParameterName(FixedParameterName object)
+      {
+        return createFixedParameterNameAdapter();
+      }
+      @Override
+      public Adapter caseArbitraryParameterName(ArbitraryParameterName object)
+      {
+        return createArbitraryParameterNameAdapter();
+      }
+      @Override
       public Adapter caseValueOrEnumValue(ValueOrEnumValue object)
       {
         return createValueOrEnumValueAdapter();
@@ -476,6 +491,51 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.ParameterName <em>Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.ParameterName
+   * @generated
+   */
+  public Adapter createParameterNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.FixedParameterName <em>Fixed Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.FixedParameterName
+   * @generated
+   */
+  public Adapter createFixedParameterNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.ArbitraryParameterName <em>Arbitrary Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.ArbitraryParameterName
+   * @generated
+   */
+  public Adapter createArbitraryParameterNameAdapter()
   {
     return null;
   }

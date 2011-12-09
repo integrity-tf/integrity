@@ -16,9 +16,12 @@ import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
+import de.integrity.dsl.ArbitraryParameterName;
+import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterName;
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
@@ -56,6 +59,16 @@ public class IntegrityDSLUtil {
 		return null;
 	}
 
+	public static String getParamNameStringFromParameterName(ParameterName aParameterName) {
+		if (aParameterName instanceof FixedParameterName) {
+			return getParamNameFromAnnotation(((FixedParameterName) aParameterName).getAnnotation());
+		} else if (aParameterName instanceof ArbitraryParameterName) {
+			return ((ArbitraryParameterName) aParameterName).getIdentifier();
+		} else {
+			throw new UnsupportedOperationException("This subtype of ParameterName is not supported yet!");
+		}
+	}
+
 	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromFixtureMethodParam(MethodReference aMethod,
 			JvmAnnotationReference aParamAnnotation) {
 		JvmOperation tempOperation = aMethod.getMethod();
@@ -85,14 +98,16 @@ public class IntegrityDSLUtil {
 	}
 
 	public static Map<String, Object> createParameterMap(EList<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap) {
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempResult = new HashMap<String, Object>();
 		for (Parameter tempParam : someParameters) {
 			Object tempValue = tempParam.getValue();
 			if (tempValue instanceof Variable) {
 				tempValue = aVariableMap.get(((Variable) tempValue).getName());
 			}
-			tempResult.put(IntegrityDSLUtil.getParamNameFromAnnotation(tempParam.getName()), tempValue);
+			if (anIncludeArbitraryParametersFlag || !(tempParam.getName() instanceof ArbitraryParameterName)) {
+				tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParam.getName()), tempValue);
+			}
 		}
 
 		return tempResult;

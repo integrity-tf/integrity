@@ -85,6 +85,9 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
       case DslPackage.PARAMETER: return createParameter();
+      case DslPackage.PARAMETER_NAME: return createParameterName();
+      case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
+      case DslPackage.ARBITRARY_PARAMETER_NAME: return createArbitraryParameterName();
       case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
       case DslPackage.VALUE: return createValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
@@ -283,6 +286,39 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ParameterImpl parameter = new ParameterImpl();
     return parameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParameterName createParameterName()
+  {
+    ParameterNameImpl parameterName = new ParameterNameImpl();
+    return parameterName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FixedParameterName createFixedParameterName()
+  {
+    FixedParameterNameImpl fixedParameterName = new FixedParameterNameImpl();
+    return fixedParameterName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ArbitraryParameterName createArbitraryParameterName()
+  {
+    ArbitraryParameterNameImpl arbitraryParameterName = new ArbitraryParameterNameImpl();
+    return arbitraryParameterName;
   }
 
   /**

@@ -54,7 +54,16 @@ SuiteParameter:
 	name=[VariableEntity|QualifiedName] ':' value=Value;
 
 Parameter:
-	name=[jvmTypes::JvmAnnotationReference|ID] ':' value=ValueOrEnumValue;
+	name=ParameterName ':' value=ValueOrEnumValue;
+	
+ParameterName:
+	FixedParameterName | ArbitraryParameterName;
+	
+FixedParameterName:
+	annotation=[jvmTypes::JvmAnnotationReference|ID];
+
+ArbitraryParameterName:
+	'+' identifier=ID;
 	
 ValueOrEnumValue:
 	Value | EnumValue;

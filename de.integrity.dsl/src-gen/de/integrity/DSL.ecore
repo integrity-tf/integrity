@@ -74,9 +74,17 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="ecore:EClass ../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmAnnotationReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ParameterName"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterName"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedParameterName" eSuperTypes="#//ParameterName">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotation" eType="ecore:EClass ../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmAnnotationReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterName" eSuperTypes="#//ParameterName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//ValueOrEnumValue"/>

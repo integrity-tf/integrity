@@ -13,6 +13,7 @@ import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -20,9 +21,13 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
+import com.google.inject.Inject;
+
 import de.integrity.dsl.Call;
+import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterName;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteParameter;
@@ -40,12 +45,17 @@ import de.integrity.utils.ParamAnnotationTuple;
  */
 public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
-	public IScope scope_Parameter_name(Parameter aParameter, EReference aRef) {
+	@Inject
+	IJavaElementFinder elementFinder;
+
+	public IScope scope_FixedParameterName_annotation(FixedParameterName aParameterName, EReference aRef) {
+		Parameter tempParameter = (Parameter) aParameterName.eContainer();
+
 		MethodReference tempMethodRef = null;
-		if (aParameter.eContainer() instanceof Test) {
-			tempMethodRef = ((Test) aParameter.eContainer()).getDefinition().getFixtureMethod();
-		} else if (aParameter.eContainer() instanceof Call) {
-			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
+		if (tempParameter.eContainer() instanceof Test) {
+			tempMethodRef = ((Test) tempParameter.eContainer()).getDefinition().getFixtureMethod();
+		} else if (tempParameter.eContainer() instanceof Call) {
+			tempMethodRef = ((Call) tempParameter.eContainer()).getDefinition().getFixtureMethod();
 		}
 
 		if (tempMethodRef != null) {
@@ -101,19 +111,25 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
 		}
 
-		JvmAnnotationReference tempAnnotationRef = aParameter.getName();
+		ParameterName tempParamName = aParameter.getName();
 
-		if (tempMethodRef != null && tempAnnotationRef != null) {
-			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil.getAllEnumLiteralsFromFixtureMethodParam(
-					tempMethodRef, tempAnnotationRef);
-			if (tempLiteralList != null) {
-				for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
-					tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
+		if (tempParamName instanceof FixedParameterName) {
+			JvmAnnotationReference tempAnnotationRef = ((FixedParameterName) tempParamName).getAnnotation();
+
+			if (tempMethodRef != null && tempAnnotationRef != null) {
+				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+				List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
+						.getAllEnumLiteralsFromFixtureMethodParam(tempMethodRef, tempAnnotationRef);
+				if (tempLiteralList != null) {
+					for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
+						tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
+					}
+
+					return new SimpleScope(tempList);
 				}
-
-				return new SimpleScope(tempList);
 			}
+		} else {
+			// TODO add variable parameter name path
 		}
 
 		return IScope.NULLSCOPE;

@@ -210,6 +210,29 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.PARAMETER_NAME:
+      {
+        ParameterName parameterName = (ParameterName)theEObject;
+        T result = caseParameterName(parameterName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.FIXED_PARAMETER_NAME:
+      {
+        FixedParameterName fixedParameterName = (FixedParameterName)theEObject;
+        T result = caseFixedParameterName(fixedParameterName);
+        if (result == null) result = caseParameterName(fixedParameterName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.ARBITRARY_PARAMETER_NAME:
+      {
+        ArbitraryParameterName arbitraryParameterName = (ArbitraryParameterName)theEObject;
+        T result = caseArbitraryParameterName(arbitraryParameterName);
+        if (result == null) result = caseParameterName(arbitraryParameterName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VALUE_OR_ENUM_VALUE:
       {
         ValueOrEnumValue valueOrEnumValue = (ValueOrEnumValue)theEObject;
@@ -548,6 +571,54 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseParameter(Parameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameterName(ParameterName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fixed Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fixed Parameter Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFixedParameterName(FixedParameterName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Arbitrary Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Arbitrary Parameter Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArbitraryParameterName(ArbitraryParameterName object)
   {
     return null;
   }

@@ -8,6 +8,7 @@ package de.integrity.dsl.impl;
 
 import de.integrity.dsl.DslPackage;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterName;
 import de.integrity.dsl.ValueOrEnumValue;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -18,8 +19,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.xtext.common.types.JvmAnnotationReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,14 +37,14 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
 public class ParameterImpl extends MinimalEObjectImpl.Container implements Parameter
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' reference.
+   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected JvmAnnotationReference name;
+  protected ParameterName name;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -83,27 +82,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * <!-- end-user-doc -->
    * @generated
    */
-  public JvmAnnotationReference getName()
-  {
-    if (name != null && name.eIsProxy())
-    {
-      InternalEObject oldName = (InternalEObject)name;
-      name = (JvmAnnotationReference)eResolveProxy(oldName);
-      if (name != oldName)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.PARAMETER__NAME, oldName, name));
-      }
-    }
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public JvmAnnotationReference basicGetName()
+  public ParameterName getName()
   {
     return name;
   }
@@ -113,12 +92,37 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(JvmAnnotationReference newName)
+  public NotificationChain basicSetName(ParameterName newName, NotificationChain msgs)
   {
-    JvmAnnotationReference oldName = name;
+    ParameterName oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.PARAMETER__NAME, oldName, name));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.PARAMETER__NAME, oldName, newName);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(ParameterName newName)
+  {
+    if (newName != name)
+    {
+      NotificationChain msgs = null;
+      if (name != null)
+        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.PARAMETER__NAME, null, msgs);
+      if (newName != null)
+        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.PARAMETER__NAME, null, msgs);
+      msgs = basicSetName(newName, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.PARAMETER__NAME, newName, newName));
   }
 
   /**
@@ -179,6 +183,8 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
   {
     switch (featureID)
     {
+      case DslPackage.PARAMETER__NAME:
+        return basicSetName(null, msgs);
       case DslPackage.PARAMETER__VALUE:
         return basicSetValue(null, msgs);
     }
@@ -196,8 +202,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
     switch (featureID)
     {
       case DslPackage.PARAMETER__NAME:
-        if (resolve) return getName();
-        return basicGetName();
+        return getName();
       case DslPackage.PARAMETER__VALUE:
         return getValue();
     }
@@ -215,7 +220,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
     switch (featureID)
     {
       case DslPackage.PARAMETER__NAME:
-        setName((JvmAnnotationReference)newValue);
+        setName((ParameterName)newValue);
         return;
       case DslPackage.PARAMETER__VALUE:
         setValue((ValueOrEnumValue)newValue);
@@ -235,7 +240,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
     switch (featureID)
     {
       case DslPackage.PARAMETER__NAME:
-        setName((JvmAnnotationReference)null);
+        setName((ParameterName)null);
         return;
       case DslPackage.PARAMETER__VALUE:
         setValue((ValueOrEnumValue)null);

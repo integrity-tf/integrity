@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -16,17 +19,24 @@ import com.google.inject.Inject;
 
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
+import de.integrity.dsl.MethodReference;
+import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
+import de.integrity.fixtures.ArbitraryParameterFixture;
+import de.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
+import de.integrity.fixtures.Fixture;
 import de.integrity.ui.JavadocUtil;
-import de.integrity.utils.ParamAnnotationTuple;
+import de.integrity.ui.utils.ClassLoadingUtil;
 import de.integrity.utils.IntegrityDSLUtil;
+import de.integrity.utils.ParamAnnotationTuple;
 
 /**
  * see
  * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on
  * how to customize content assistant
  */
+@SuppressWarnings("restriction")
 public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	@Inject
@@ -40,21 +50,25 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Test tempTest = (Test) model;
 		TestDefinition tempTestDef = tempTest.getDefinition();
 		if (tempTestDef != null) {
+			Map<String, Object> tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
+					false);
 			Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(tempTest.getDefinition()
 					.getFixtureMethod().getMethod(), elementFinder);
 
 			List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(tempTestDef
 					.getFixtureMethod());
 			for (ParamAnnotationTuple tempParam : tempParamList) {
-				String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
-						.getJavaParamName()) : null;
-				String tempDisplayText = null;
-				if (tempJavadocDescription != null) {
-					tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
-				} else {
-					tempDisplayText = tempParam.getParamName();
+				if (!tempParameterMap.containsKey(tempParam.getParamName())) {
+					String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
+							.getJavaParamName()) : null;
+					String tempDisplayText = null;
+					if (tempJavadocDescription != null) {
+						tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
+					} else {
+						tempDisplayText = tempParam.getParamName();
+					}
+					acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
 				}
-				acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
 			}
 		}
 	}
@@ -67,24 +81,96 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Call tempCall = (Call) model;
 		CallDefinition tempCallDef = tempCall.getDefinition();
 		if (tempCallDef != null) {
+			Map<String, Object> tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
+					false);
 			Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(tempCall.getDefinition()
 					.getFixtureMethod().getMethod(), elementFinder);
 
 			List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(tempCallDef
 					.getFixtureMethod());
 			for (ParamAnnotationTuple tempParam : tempParamList) {
-				String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
-						.getJavaParamName()) : null;
-				String tempDisplayText = null;
-				if (tempJavadocDescription != null) {
-					tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
-				} else {
-					tempDisplayText = tempParam.getParamName();
-				}
+				if (!tempParameterMap.containsKey(tempParam.getParamName())) {
+					String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
+							.getJavaParamName()) : null;
+					String tempDisplayText = null;
+					if (tempJavadocDescription != null) {
+						tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
+					} else {
+						tempDisplayText = tempParam.getParamName();
+					}
 
-				acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
+					acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
+				}
 			}
 		}
 	}
 
+	@SuppressWarnings("restriction")
+	@Override
+	public void completeArbitraryParameterName_Identifier(EObject model, Assignment assignment,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		super.completeArbitraryParameterName_Identifier(model, assignment, context, acceptor);
+
+		Parameter tempParameter = (Parameter) model.eContainer();
+		Map<String, Object> tempParameterMap = null;
+
+		MethodReference tempMethodReference = null;
+		if (tempParameter.eContainer() instanceof Test) {
+			Test tempTest = (Test) tempParameter.eContainer();
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null, true);
+			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
+		} else if (tempParameter.eContainer() instanceof Call) {
+			Call tempCall = (Call) tempParameter.eContainer();
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, true);
+			tempMethodReference = tempCall.getDefinition().getFixtureMethod();
+		}
+
+		if (tempParameterMap != null && tempMethodReference != null && tempMethodReference.getType() != null) {
+			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(tempMethodReference.getType());
+
+			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
+			Class<?> tempFixtureClass;
+			try {
+				tempFixtureClass = ClassLoadingUtil.loadClassFromWorkspace(
+						tempCompilationUnit.getTypes()[0].getFullyQualifiedName(), tempSourceMethod.getJavaProject());
+				Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
+
+				if (tempFixtureInstance instanceof ArbitraryParameterFixture) {
+					Map<String, Object> tempFixedParameterMap = null;
+					if (tempParameter.eContainer() instanceof Test) {
+						Test tempTest = (Test) tempParameter.eContainer();
+						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
+								false);
+					} else if (tempParameter.eContainer() instanceof Call) {
+						Call tempCall = (Call) tempParameter.eContainer();
+						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
+								false);
+					}
+
+					List<ArbitraryParameterDefinition> tempParameterDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
+							.defineArbitraryParameters(tempMethodReference.getMethod().getSimpleName(),
+									tempFixedParameterMap);
+					for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
+						String tempName = tempParameterDescription.getName();
+						if (!tempParameterMap.containsKey(tempName)) {
+							String tempDescription = tempName;
+							if (tempParameterDescription.getDescription() != null) {
+								tempDescription += ": " + tempParameterDescription.getDescription();
+							}
+							acceptor.accept(createCompletionProposal(tempName, tempDescription, null, context));
+						}
+					}
+				}
+			} catch (ClassNotFoundException exc) {
+				exc.printStackTrace();
+			} catch (InstantiationException exc) {
+				exc.printStackTrace();
+			} catch (IllegalAccessException exc) {
+				exc.printStackTrace();
+			} catch (JavaModelException exc) {
+				exc.printStackTrace();
+			}
+
+		}
+	}
 }

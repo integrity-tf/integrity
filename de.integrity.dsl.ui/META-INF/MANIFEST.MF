@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui,
  org.antlr.runtime
-Import-Package: org.apache.log4j
+Import-Package: org.apache.log4j,
+ org.eclipse.jdt.launching
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: de.integrity.ui,
  de.integrity.ui.contentassist,

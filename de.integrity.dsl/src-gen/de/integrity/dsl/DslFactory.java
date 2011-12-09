@@ -180,6 +180,33 @@ public interface DslFactory extends EFactory
   Parameter createParameter();
 
   /**
+   * Returns a new object of class '<em>Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter Name</em>'.
+   * @generated
+   */
+  ParameterName createParameterName();
+
+  /**
+   * Returns a new object of class '<em>Fixed Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fixed Parameter Name</em>'.
+   * @generated
+   */
+  FixedParameterName createFixedParameterName();
+
+  /**
+   * Returns a new object of class '<em>Arbitrary Parameter Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Arbitrary Parameter Name</em>'.
+   * @generated
+   */
+  ArbitraryParameterName createArbitraryParameterName();
+
+  /**
    * Returns a new object of class '<em>Value Or Enum Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

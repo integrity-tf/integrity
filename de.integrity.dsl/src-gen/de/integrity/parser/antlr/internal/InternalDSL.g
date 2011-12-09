@@ -1079,15 +1079,20 @@ ruleParameter returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getParameterRule());
+		{ 
+	        newCompositeNode(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0()); 
+	    }
+		lv_name_0_0=ruleParameterName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getParameterRule());
 	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getParameterAccess().getNameJvmAnnotationReferenceCrossReference_0_0()); 
-	}
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ParameterName");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )	otherlv_1=':' 
@@ -1109,6 +1114,123 @@ ruleParameter returns [EObject current=null]
         		lv_value_2_0, 
         		"ValueOrEnumValue");
 	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleParameterName
+entryRuleParameterName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getParameterNameRule()); }
+	 iv_ruleParameterName=ruleParameterName 
+	 { $current=$iv_ruleParameterName.current; } 
+	 EOF 
+;
+
+// Rule ParameterName
+ruleParameterName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getParameterNameAccess().getFixedParameterNameParserRuleCall_0()); 
+    }
+    this_FixedParameterName_0=ruleFixedParameterName
+    { 
+        $current = $this_FixedParameterName_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getParameterNameAccess().getArbitraryParameterNameParserRuleCall_1()); 
+    }
+    this_ArbitraryParameterName_1=ruleArbitraryParameterName
+    { 
+        $current = $this_ArbitraryParameterName_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleFixedParameterName
+entryRuleFixedParameterName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFixedParameterNameRule()); }
+	 iv_ruleFixedParameterName=ruleFixedParameterName 
+	 { $current=$iv_ruleFixedParameterName.current; } 
+	 EOF 
+;
+
+// Rule FixedParameterName
+ruleFixedParameterName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFixedParameterNameRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceCrossReference_0()); 
+	}
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleArbitraryParameterName
+entryRuleArbitraryParameterName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getArbitraryParameterNameRule()); }
+	 iv_ruleArbitraryParameterName=ruleArbitraryParameterName 
+	 { $current=$iv_ruleArbitraryParameterName.current; } 
+	 EOF 
+;
+
+// Rule ArbitraryParameterName
+ruleArbitraryParameterName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='+' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getArbitraryParameterNameAccess().getPlusSignKeyword_0());
+    }
+(
+(
+		lv_identifier_1_0=RULE_ID
+		{
+			newLeafNode(lv_identifier_1_0, grammarAccess.getArbitraryParameterNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getArbitraryParameterNameRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"identifier",
+        		lv_identifier_1_0, 
+        		"ID");
 	    }
 
 )

@@ -609,7 +609,7 @@ public interface DslPackage extends EPackage
   int PARAMETER = 16;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' reference.
+   * The feature id for the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -636,6 +636,81 @@ public interface DslPackage extends EPackage
   int PARAMETER_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.ParameterNameImpl <em>Parameter Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.ParameterNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getParameterName()
+   * @generated
+   */
+  int PARAMETER_NAME = 17;
+
+  /**
+   * The number of structural features of the '<em>Parameter Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_NAME_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.FixedParameterNameImpl <em>Fixed Parameter Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.FixedParameterNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
+   * @generated
+   */
+  int FIXED_PARAMETER_NAME = 18;
+
+  /**
+   * The feature id for the '<em><b>Annotation</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIXED_PARAMETER_NAME__ANNOTATION = PARAMETER_NAME_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Fixed Parameter Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIXED_PARAMETER_NAME_FEATURE_COUNT = PARAMETER_NAME_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.ArbitraryParameterNameImpl <em>Arbitrary Parameter Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.ArbitraryParameterNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
+   * @generated
+   */
+  int ARBITRARY_PARAMETER_NAME = 19;
+
+  /**
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARBITRARY_PARAMETER_NAME__IDENTIFIER = PARAMETER_NAME_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Arbitrary Parameter Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARBITRARY_PARAMETER_NAME_FEATURE_COUNT = PARAMETER_NAME_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link de.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -643,7 +718,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 17;
+  int VALUE_OR_ENUM_VALUE = 20;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -662,7 +737,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 18;
+  int VALUE = 21;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -681,7 +756,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 19;
+  int INTEGER_VALUE = 22;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -709,7 +784,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 20;
+  int DECIMAL_VALUE = 23;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -737,7 +812,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 21;
+  int STRING_VALUE = 24;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -765,7 +840,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 22;
+  int VARIABLE = 25;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -793,7 +868,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 23;
+  int ENUM_VALUE = 26;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -821,7 +896,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 24;
+  int METHOD_REFERENCE = 27;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1308,10 +1383,10 @@ public interface DslPackage extends EPackage
   EClass getParameter();
 
   /**
-   * Returns the meta object for the reference '{@link de.integrity.dsl.Parameter#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.Parameter#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Name</em>'.
+   * @return the meta object for the containment reference '<em>Name</em>'.
    * @see de.integrity.dsl.Parameter#getName()
    * @see #getParameter()
    * @generated
@@ -1328,6 +1403,58 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getParameter_Value();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.ParameterName <em>Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parameter Name</em>'.
+   * @see de.integrity.dsl.ParameterName
+   * @generated
+   */
+  EClass getParameterName();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.FixedParameterName <em>Fixed Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Fixed Parameter Name</em>'.
+   * @see de.integrity.dsl.FixedParameterName
+   * @generated
+   */
+  EClass getFixedParameterName();
+
+  /**
+   * Returns the meta object for the reference '{@link de.integrity.dsl.FixedParameterName#getAnnotation <em>Annotation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Annotation</em>'.
+   * @see de.integrity.dsl.FixedParameterName#getAnnotation()
+   * @see #getFixedParameterName()
+   * @generated
+   */
+  EReference getFixedParameterName_Annotation();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.ArbitraryParameterName <em>Arbitrary Parameter Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Arbitrary Parameter Name</em>'.
+   * @see de.integrity.dsl.ArbitraryParameterName
+   * @generated
+   */
+  EClass getArbitraryParameterName();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.integrity.dsl.ArbitraryParameterName#getIdentifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Identifier</em>'.
+   * @see de.integrity.dsl.ArbitraryParameterName#getIdentifier()
+   * @see #getArbitraryParameterName()
+   * @generated
+   */
+  EAttribute getArbitraryParameterName_Identifier();
 
   /**
    * Returns the meta object for class '{@link de.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
@@ -1888,7 +2015,7 @@ public interface DslPackage extends EPackage
     EClass PARAMETER = eINSTANCE.getParameter();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1902,6 +2029,52 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference PARAMETER__VALUE = eINSTANCE.getParameter_Value();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.ParameterNameImpl <em>Parameter Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.ParameterNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getParameterName()
+     * @generated
+     */
+    EClass PARAMETER_NAME = eINSTANCE.getParameterName();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.FixedParameterNameImpl <em>Fixed Parameter Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.FixedParameterNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
+     * @generated
+     */
+    EClass FIXED_PARAMETER_NAME = eINSTANCE.getFixedParameterName();
+
+    /**
+     * The meta object literal for the '<em><b>Annotation</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FIXED_PARAMETER_NAME__ANNOTATION = eINSTANCE.getFixedParameterName_Annotation();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.ArbitraryParameterNameImpl <em>Arbitrary Parameter Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.ArbitraryParameterNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
+     * @generated
+     */
+    EClass ARBITRARY_PARAMETER_NAME = eINSTANCE.getArbitraryParameterName();
+
+    /**
+     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ARBITRARY_PARAMETER_NAME__IDENTIFIER = eINSTANCE.getArbitraryParameterName_Identifier();
 
     /**
      * The meta object literal for the '{@link de.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.

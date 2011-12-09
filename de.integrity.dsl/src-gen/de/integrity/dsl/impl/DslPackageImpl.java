@@ -6,12 +6,14 @@
  */
 package de.integrity.dsl.impl;
 
+import de.integrity.dsl.ArbitraryParameterName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.DecimalValue;
 import de.integrity.dsl.DslFactory;
 import de.integrity.dsl.DslPackage;
 import de.integrity.dsl.EnumValue;
+import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.Import;
 import de.integrity.dsl.IntegerValue;
 import de.integrity.dsl.MethodReference;
@@ -19,6 +21,7 @@ import de.integrity.dsl.Model;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.PackageStatement;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterName;
 import de.integrity.dsl.Statement;
 import de.integrity.dsl.StringValue;
 import de.integrity.dsl.Suite;
@@ -169,6 +172,27 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass parameterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fixedParameterNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass arbitraryParameterNameEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -747,6 +771,56 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getParameterName()
+  {
+    return parameterNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFixedParameterName()
+  {
+    return fixedParameterNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFixedParameterName_Annotation()
+  {
+    return (EReference)fixedParameterNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getArbitraryParameterName()
+  {
+    return arbitraryParameterNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getArbitraryParameterName_Identifier()
+  {
+    return (EAttribute)arbitraryParameterNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getValueOrEnumValue()
   {
     return valueOrEnumValueEClass;
@@ -984,6 +1058,14 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(parameterEClass, PARAMETER__NAME);
     createEReference(parameterEClass, PARAMETER__VALUE);
 
+    parameterNameEClass = createEClass(PARAMETER_NAME);
+
+    fixedParameterNameEClass = createEClass(FIXED_PARAMETER_NAME);
+    createEReference(fixedParameterNameEClass, FIXED_PARAMETER_NAME__ANNOTATION);
+
+    arbitraryParameterNameEClass = createEClass(ARBITRARY_PARAMETER_NAME);
+    createEAttribute(arbitraryParameterNameEClass, ARBITRARY_PARAMETER_NAME__IDENTIFIER);
+
     valueOrEnumValueEClass = createEClass(VALUE_OR_ENUM_VALUE);
 
     valueEClass = createEClass(VALUE);
@@ -1053,6 +1135,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     callEClass.getESuperTypes().add(this.getSuiteStatement());
     suiteEClass.getESuperTypes().add(this.getStatement());
     suiteEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
+    fixedParameterNameEClass.getESuperTypes().add(this.getParameterName());
+    arbitraryParameterNameEClass.getESuperTypes().add(this.getParameterName());
     valueEClass.getESuperTypes().add(this.getValueOrEnumValue());
     integerValueEClass.getESuperTypes().add(this.getValue());
     decimalValueEClass.getESuperTypes().add(this.getValue());
@@ -1120,8 +1204,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getSuiteParameter_Value(), this.getValue(), null, "value", null, 0, 1, SuiteParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getParameter_Name(), theTypesPackage.getJvmAnnotationReference(), null, "name", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getParameter_Name(), this.getParameterName(), null, "name", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getParameter_Value(), this.getValueOrEnumValue(), null, "value", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterNameEClass, ParameterName.class, "ParameterName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(fixedParameterNameEClass, FixedParameterName.class, "FixedParameterName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFixedParameterName_Annotation(), theTypesPackage.getJvmAnnotationReference(), null, "annotation", null, 0, 1, FixedParameterName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(arbitraryParameterNameEClass, ArbitraryParameterName.class, "ArbitraryParameterName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getArbitraryParameterName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, ArbitraryParameterName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valueOrEnumValueEClass, ValueOrEnumValue.class, "ValueOrEnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

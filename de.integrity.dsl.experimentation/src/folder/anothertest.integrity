@@ -10,7 +10,7 @@ packagedef mysecondpackage with
  
 		variable testvar initially 5
 		call random min:5 max:6 sets testvar
-	
+
 		test addition summand1: 2 summand2: 3 = testvar
 		test addition summand1: testvar summand2: 1 = 7
 		
@@ -18,6 +18,8 @@ packagedef mysecondpackage with
 		
 		test stupidtest
 		
+		test arbitrary fixparam:666 +testparam1:100 +testparam2:200 = 200
+	 	
 		suite anotherSuite
 		
 		suite suiteWithParams param1: testvar param2: yeah

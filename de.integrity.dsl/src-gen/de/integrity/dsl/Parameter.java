@@ -8,8 +8,6 @@ package de.integrity.dsl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.common.types.JvmAnnotationReference;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Parameter</b></em>'.
@@ -30,30 +28,30 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
 public interface Parameter extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' reference.
+   * Returns the value of the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' reference isn't clear,
+   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' reference.
-   * @see #setName(JvmAnnotationReference)
+   * @return the value of the '<em>Name</em>' containment reference.
+   * @see #setName(ParameterName)
    * @see de.integrity.dsl.DslPackage#getParameter_Name()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  JvmAnnotationReference getName();
+  ParameterName getName();
 
   /**
-   * Sets the value of the '{@link de.integrity.dsl.Parameter#getName <em>Name</em>}' reference.
+   * Sets the value of the '{@link de.integrity.dsl.Parameter#getName <em>Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' reference.
+   * @param value the new value of the '<em>Name</em>' containment reference.
    * @see #getName()
    * @generated
    */
-  void setName(JvmAnnotationReference value);
+  void setName(ParameterName value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.

@@ -2,11 +2,13 @@ package de.integrity.serializer;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import de.integrity.dsl.ArbitraryParameterName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.DecimalValue;
 import de.integrity.dsl.DslPackage;
 import de.integrity.dsl.EnumValue;
+import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.Import;
 import de.integrity.dsl.IntegerValue;
 import de.integrity.dsl.MethodReference;
@@ -63,6 +65,13 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == DslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case DslPackage.ARBITRARY_PARAMETER_NAME:
+				if(context == grammarAccess.getArbitraryParameterNameRule() ||
+				   context == grammarAccess.getParameterNameRule()) {
+					sequence_ArbitraryParameterName(context, (ArbitraryParameterName) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.CALL:
 				if(context == grammarAccess.getCallRule() ||
 				   context == grammarAccess.getSuiteStatementRule()) {
@@ -89,6 +98,13 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 				if(context == grammarAccess.getEnumValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_EnumValue(context, (EnumValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.FIXED_PARAMETER_NAME:
+				if(context == grammarAccess.getFixedParameterNameRule() ||
+				   context == grammarAccess.getParameterNameRule()) {
+					sequence_FixedParameterName(context, (FixedParameterName) semanticObject); 
 					return; 
 				}
 				else break;
@@ -206,6 +222,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     identifier=ID
+	 */
+	protected void sequence_ArbitraryParameterName(EObject context, ArbitraryParameterName semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ARBITRARY_PARAMETER_NAME__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ARBITRARY_PARAMETER_NAME__IDENTIFIER));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getArbitraryParameterNameAccess().getIdentifierIDTerminalRuleCall_1_0(), semanticObject.getIdentifier());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=QualifiedName fixtureMethod=MethodReference)
 	 */
 	protected void sequence_CallDefinition(EObject context, CallDefinition semanticObject) {
@@ -260,6 +292,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1(), semanticObject.getEnumValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     annotation=[JvmAnnotationReference|ID]
+	 */
+	protected void sequence_FixedParameterName(EObject context, FixedParameterName semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1(), semanticObject.getAnnotation());
 		feeder.finish();
 	}
 	
@@ -335,7 +383,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=[JvmAnnotationReference|ID] value=ValueOrEnumValue)
+	 *     (name=ParameterName value=ValueOrEnumValue)
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -346,7 +394,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getParameterAccess().getNameJvmAnnotationReferenceIDTerminalRuleCall_0_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getParameterAccess().getValueValueOrEnumValueParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.finish();
 	}

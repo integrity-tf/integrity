@@ -1,10 +1,10 @@
 package de.integrity.experiments.fixtures;
 
-import de.integrity.fixtures.AbstractFixture;
+import de.integrity.fixtures.Fixture;
 import de.integrity.fixtures.FixtureMethod;
 import de.integrity.fixtures.FixtureParameter;
 
-public class AdditionFixture extends AbstractFixture {
+public class AdditionFixture extends Fixture {
 
 	/**
 	 * Adds two integer numbers and returns the result.
@@ -18,6 +18,7 @@ public class AdditionFixture extends AbstractFixture {
 	@FixtureMethod(description = "addition of $summand1$ and $summand2$")
 	public Integer addition(@FixtureParameter(name = "summand1") Integer aSummand1,
 			@FixtureParameter(name = "summand2") Integer aSummand2) {
+		pause();
 		return new Integer(aSummand1 + aSummand2);
 	}
 
@@ -33,18 +34,29 @@ public class AdditionFixture extends AbstractFixture {
 	@FixtureMethod(description = "generates random number between $min$ and $max$")
 	public Integer randomNumber(@FixtureParameter(name = "min") Integer aMin,
 			@FixtureParameter(name = "max") Integer aMax) {
+		pause();
 		return new Integer((int) (Math.random() * (aMax - aMin) + aMin));
 	}
 
 	@FixtureMethod(description = "echoes $echo$")
 	public TestEnum returnValue(@FixtureParameter(name = "echo") TestEnum anInput) {
+		pause();
 		throw new RuntimeException("An exception!");
-		//return anInput;
+		// return anInput;
 	}
 
 	@FixtureMethod(description = "this test always succeeds :-)")
 	public boolean returnTrue() {
+		pause();
 		return true;
+	}
+
+	private void pause() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException exc) {
+			exc.printStackTrace();
+		}
 	}
 
 }
