@@ -91,6 +91,8 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private static final String TEST_ELEMENT = "test";
 
+	private static final String TABLETEST_ELEMENT = "tabletest";
+
 	private static final String CALL_ELEMENT = "call";
 
 	private static final String RESULT_ELEMENT = "result";
@@ -269,7 +271,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onTableTestStart(TableTest aTest) {
-		Element tempTestElement = new Element(TEST_ELEMENT);
+		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,

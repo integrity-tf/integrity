@@ -17,7 +17,8 @@ packagedef mysecondpackage with
 		tabletest addition summand1: 10 
 		| summand2	| = 	|
 		| 20		| = 30 	|
-		| 40		| = 49	|
+		| 30		| = 49	|
+		| 40		| = 50	|
 		
 		test echo echo: VALUE_ONE = VALUE_ONE
 		

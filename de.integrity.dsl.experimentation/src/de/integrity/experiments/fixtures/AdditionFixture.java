@@ -19,6 +19,9 @@ public class AdditionFixture extends Fixture {
 	public Integer addition(@FixtureParameter(name = "summand1") Integer aSummand1,
 			@FixtureParameter(name = "summand2") Integer aSummand2) {
 		pause();
+		if (aSummand1 + aSummand2 == 50) {
+			throw new RuntimeException("An exception!");
+		}
 		return new Integer(aSummand1 + aSummand2);
 	}
 
