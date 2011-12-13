@@ -2,15 +2,15 @@ package de.integrity.runner.results.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.util.Map;
 
-import de.integrity.dsl.ValueOrEnumValue;
-
-public class ExceptionResult extends TestResult {
+public class TestExceptionSubResult extends TestSubResult {
 
 	private Exception exception;
 
-	public ExceptionResult(Exception anException, ValueOrEnumValue anExpectedValue, Long anExecutionTime) {
-		super(null, anExpectedValue, anExecutionTime);
+	public TestExceptionSubResult(Exception anException, Map<String, TestComparisonResult> comparisonResults,
+			Long anExecutionTime) {
+		super(comparisonResults, anExecutionTime);
 		exception = anException;
 	}
 

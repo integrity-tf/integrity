@@ -15,6 +15,8 @@ import de.integrity.dsl.VariableEntity;
 
 public class ParameterUtil {
 
+	public static final String DEFAULT_PARAMETER_NAME = "";
+
 	public static Object convertValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
 			Map<VariableEntity, Object> aVariableMap) {
 		if (aValue instanceof DecimalValue) {
@@ -98,7 +100,8 @@ public class ParameterUtil {
 				+ aParamType);
 	}
 
-	public static String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap) {
+	public static String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap,
+			boolean anAllowNullResultFlag) {
 		if (aValue instanceof DecimalValue) {
 			return ((DecimalValue) aValue).getDecimalValue().toString();
 		} else if (aValue instanceof IntegerValue) {
@@ -106,19 +109,15 @@ public class ParameterUtil {
 		} else if (aValue instanceof StringValue) {
 			return ((StringValue) aValue).getStringValue().toString();
 		} else if (aValue instanceof Variable) {
-			Object tempActualValue = aVariableMap.get(((Variable) aValue).getName());
-			if (tempActualValue != null) {
-				return convertValueToString(tempActualValue, aVariableMap);
-			} else {
-				return ((Variable) aValue).getName().getName();
-			}
+			Object tempActualValue = aVariableMap != null ? aVariableMap.get(((Variable) aValue).getName()) : null;
+			return convertValueToString(tempActualValue, aVariableMap, anAllowNullResultFlag);
 		} else if (aValue instanceof EnumValue) {
 			return ((EnumValue) aValue).getEnumValue().getSimpleName();
 		} else {
 			if (aValue != null) {
 				return aValue.toString();
 			} else {
-				return "(null)";
+				return anAllowNullResultFlag ? null : "(null)";
 			}
 		}
 	}

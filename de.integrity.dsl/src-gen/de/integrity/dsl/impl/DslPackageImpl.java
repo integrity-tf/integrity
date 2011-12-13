@@ -22,6 +22,8 @@ import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.PackageStatement;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.ParameterName;
+import de.integrity.dsl.ParameterTableHeader;
+import de.integrity.dsl.ParameterTableValue;
 import de.integrity.dsl.Statement;
 import de.integrity.dsl.StringValue;
 import de.integrity.dsl.Suite;
@@ -29,6 +31,8 @@ import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteParameter;
 import de.integrity.dsl.SuiteStatement;
 import de.integrity.dsl.SuiteStatementWithResult;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
 import de.integrity.dsl.Value;
@@ -144,6 +148,34 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass testEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableTestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableTestRowEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterTableHeaderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterTableValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -641,6 +673,126 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getTableTest()
+  {
+    return tableTestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTest_Definition()
+  {
+    return (EReference)tableTestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTest_Parameters()
+  {
+    return (EReference)tableTestEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTest_Headers()
+  {
+    return (EReference)tableTestEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTest_Rows()
+  {
+    return (EReference)tableTestEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTableTestRow()
+  {
+    return tableTestRowEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTestRow_Values()
+  {
+    return (EReference)tableTestRowEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTableTestRow_Result()
+  {
+    return (EReference)tableTestRowEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParameterTableHeader()
+  {
+    return parameterTableHeaderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameterTableHeader_Name()
+  {
+    return (EReference)parameterTableHeaderEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParameterTableValue()
+  {
+    return parameterTableValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameterTableValue_Value()
+  {
+    return (EReference)parameterTableValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getCall()
   {
     return callEClass;
@@ -1041,6 +1193,22 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(testEClass, TEST__PARAMETERS);
     createEReference(testEClass, TEST__RESULT);
 
+    tableTestEClass = createEClass(TABLE_TEST);
+    createEReference(tableTestEClass, TABLE_TEST__DEFINITION);
+    createEReference(tableTestEClass, TABLE_TEST__PARAMETERS);
+    createEReference(tableTestEClass, TABLE_TEST__HEADERS);
+    createEReference(tableTestEClass, TABLE_TEST__ROWS);
+
+    tableTestRowEClass = createEClass(TABLE_TEST_ROW);
+    createEReference(tableTestRowEClass, TABLE_TEST_ROW__VALUES);
+    createEReference(tableTestRowEClass, TABLE_TEST_ROW__RESULT);
+
+    parameterTableHeaderEClass = createEClass(PARAMETER_TABLE_HEADER);
+    createEReference(parameterTableHeaderEClass, PARAMETER_TABLE_HEADER__NAME);
+
+    parameterTableValueEClass = createEClass(PARAMETER_TABLE_VALUE);
+    createEReference(parameterTableValueEClass, PARAMETER_TABLE_VALUE__VALUE);
+
     callEClass = createEClass(CALL);
     createEReference(callEClass, CALL__DEFINITION);
     createEReference(callEClass, CALL__PARAMETERS);
@@ -1132,6 +1300,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     variableDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
     testEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
+    tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     callEClass.getESuperTypes().add(this.getSuiteStatement());
     suiteEClass.getESuperTypes().add(this.getStatement());
     suiteEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
@@ -1189,6 +1358,22 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getTest_Definition(), this.getTestDefinition(), null, "definition", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Result(), this.getValueOrEnumValue(), null, "result", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableTestEClass, TableTest.class, "TableTest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTableTest_Definition(), this.getTestDefinition(), null, "definition", null, 0, 1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableTest_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableTest_Headers(), this.getParameterTableHeader(), null, "headers", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableTest_Rows(), this.getTableTestRow(), null, "rows", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableTestRowEClass, TableTestRow.class, "TableTestRow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTableTestRow_Values(), this.getParameterTableValue(), null, "values", null, 0, -1, TableTestRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableTestRow_Result(), this.getValueOrEnumValue(), null, "result", null, 0, 1, TableTestRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterTableHeaderEClass, ParameterTableHeader.class, "ParameterTableHeader", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameterTableHeader_Name(), this.getParameterName(), null, "name", null, 0, 1, ParameterTableHeader.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterTableValueEClass, ParameterTableValue.class, "ParameterTableValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameterTableValue_Value(), this.getValueOrEnumValue(), null, "value", null, 0, 1, ParameterTableValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(callEClass, Call.class, "Call", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCall_Definition(), this.getCallDefinition(), null, "definition", null, 0, 1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -2,10 +2,11 @@ package de.integrity.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
@@ -17,12 +18,18 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.integrity.dsl.ArbitraryParameterName;
+import de.integrity.dsl.Call;
 import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.ParameterName;
+import de.integrity.dsl.ParameterTableHeader;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
+import de.integrity.dsl.Test;
+import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.fixtures.FixtureParameter;
@@ -97,16 +104,53 @@ public class IntegrityDSLUtil {
 		return null;
 	}
 
-	public static Map<String, Object> createParameterMap(EList<Parameter> someParameters,
+	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryParametersFlag) {
+		return createParameterMap(aTest.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
+	}
+
+	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryParametersFlag) {
+		return createParameterMap(aCall.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
+	}
+
+	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+		LinkedHashMap<ParameterName, ValueOrEnumValue> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
+		for (Parameter tempParameter : aTableTest.getParameters()) {
+			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
+		}
+
+		int tempCount = 0;
+		for (ParameterTableHeader tempParameterHeader : aTableTest.getHeaders()) {
+			tempParameterMap.put(tempParameterHeader.getName(), (tempCount >= aTableTestRow.getValues().size()) ? null
+					: aTableTestRow.getValues().get(tempCount).getValue());
+			tempCount++;
+		}
+
+		return createParameterMap(tempParameterMap, aVariableMap, anIncludeArbitraryParametersFlag);
+	}
+
+	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+		Map<ParameterName, ValueOrEnumValue> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
+		for (Parameter tempParameter : someParameters) {
+			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
+		}
+
+		return createParameterMap(tempParameters, aVariableMap, anIncludeArbitraryParametersFlag);
+	}
+
+	public static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempResult = new HashMap<String, Object>();
-		for (Parameter tempParam : someParameters) {
-			Object tempValue = tempParam.getValue();
+		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
+			Object tempValue = tempEntry.getValue();
 			if (tempValue instanceof Variable) {
 				tempValue = aVariableMap.get(((Variable) tempValue).getName());
 			}
-			if (anIncludeArbitraryParametersFlag || !(tempParam.getName() instanceof ArbitraryParameterName)) {
-				tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParam.getName()), tempValue);
+			if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterName)) {
+				tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
 			}
 		}
 

@@ -81,6 +81,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VARIABLE_DEFINITION: return createVariableDefinition();
       case DslPackage.VARIABLE_ENTITY: return createVariableEntity();
       case DslPackage.TEST: return createTest();
+      case DslPackage.TABLE_TEST: return createTableTest();
+      case DslPackage.TABLE_TEST_ROW: return createTableTestRow();
+      case DslPackage.PARAMETER_TABLE_HEADER: return createParameterTableHeader();
+      case DslPackage.PARAMETER_TABLE_VALUE: return createParameterTableValue();
       case DslPackage.CALL: return createCall();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
@@ -242,6 +246,50 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     TestImpl test = new TestImpl();
     return test;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TableTest createTableTest()
+  {
+    TableTestImpl tableTest = new TableTestImpl();
+    return tableTest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TableTestRow createTableTestRow()
+  {
+    TableTestRowImpl tableTestRow = new TableTestRowImpl();
+    return tableTestRow;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParameterTableHeader createParameterTableHeader()
+  {
+    ParameterTableHeaderImpl parameterTableHeader = new ParameterTableHeaderImpl();
+    return parameterTableHeader;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParameterTableValue createParameterTableValue()
+  {
+    ParameterTableValueImpl parameterTableValue = new ParameterTableValueImpl();
+    return parameterTableValue;
   }
 
   /**

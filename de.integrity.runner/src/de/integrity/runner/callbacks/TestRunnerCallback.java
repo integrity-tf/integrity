@@ -5,12 +5,15 @@ import java.util.Map;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.runner.TestModel;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
 import de.integrity.runner.results.test.TestResult;
+import de.integrity.runner.results.test.TestSubResult;
 
 public interface TestRunnerCallback {
 
@@ -25,6 +28,14 @@ public interface TestRunnerCallback {
 	void onTestStart(Test aTest);
 
 	void onTestFinish(Test aTest, TestResult aResult);
+
+	void onTableTestStart(TableTest aTableTest);
+
+	void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow);
+
+	void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult);
+
+	void onTableTestFinish(TableTest aTableTest, TestResult aResult);
 
 	void onCallStart(Call aCall);
 

@@ -81,6 +81,8 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 				tempStatements += tempTeardowns.size();
 			}
 			return tempStatements;
+		case TABLETEST:
+			return ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.RESULT)).size();
 		default:
 			return 0;
 		}
@@ -107,6 +109,8 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 				}
 				return tempTotal;
 			}
+		case TABLETEST:
+			return (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.RESULT);
 		default:
 			return null;
 		}

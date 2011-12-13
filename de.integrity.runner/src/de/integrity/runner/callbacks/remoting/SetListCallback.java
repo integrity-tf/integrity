@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
@@ -14,6 +17,8 @@ import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
@@ -26,10 +31,13 @@ import de.integrity.runner.TestModel;
 import de.integrity.runner.callbacks.TestRunnerCallback;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
-import de.integrity.runner.results.test.ExceptionResult;
-import de.integrity.runner.results.test.FailureResult;
-import de.integrity.runner.results.test.SuccessResult;
+import de.integrity.runner.results.test.TestComparisonFailureResult;
+import de.integrity.runner.results.test.TestComparisonResult;
+import de.integrity.runner.results.test.TestComparisonSuccessResult;
+import de.integrity.runner.results.test.TestExceptionSubResult;
+import de.integrity.runner.results.test.TestExecutedSubResult;
 import de.integrity.runner.results.test.TestResult;
+import de.integrity.runner.results.test.TestSubResult;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParameterUtil;
 import de.integrity.utils.TestFormatter;
@@ -101,36 +109,136 @@ public class SetListCallback implements TestRunnerCallback {
 	}
 
 	@Override
+	public void onTableTestStart(TableTest aTableTest) {
+		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TABLETEST);
+
+		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTableTest.getDefinition().getFixtureMethod(),
+				aTableTest.getParameters(), tempNewEntry);
+
+		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
+		entryStack.push(tempNewEntry);
+		setList.setEntryInExecutionReference(tempNewEntry.getId());
+		sendUpdateToClients(tempNewEntry.getId(), tempNewEntry, tempParamEntries);
+	}
+
+	@Override
+	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
+		// nothing to do here
+	}
+
+	@Override
+	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
+		// nothing to do here
+	}
+
+	@Override
+	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
+		int tempCount = 0;
+		SetListEntry tempTestEntry = entryStack.pop();
+
+		if (aResult != null) {
+			if (aResult.getExecutionTime() != null) {
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.EXECUTION_TIME,
+						nanoTimeToString(aResult.getExecutionTime()));
+
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT, aResult.getSubTestSuccessCount());
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.FAILURE_COUNT, aResult.getSubTestFailCount());
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT,
+						aResult.getSubTestExceptionCount());
+			}
+		}
+
+		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
+		for (TestSubResult tempSubResult : aResult.getSubResults()) {
+			tempNewEntries.addAll(onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(),
+					tempTestEntry, tempSubResult, IntegrityDSLUtil.createParameterMap(aTableTest, aTableTest.getRows()
+							.get(tempCount), variableStorage, true)));
+			tempCount++;
+		}
+		tempNewEntries.add(tempTestEntry);
+
+		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
+	}
+
+	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
+		SetListEntry tempTestEntry = entryStack.pop();
+		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(),
+				tempTestEntry, aResult.getSubResults().get(0),
+				IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
+		tempNewEntries.add(tempTestEntry);
+
+		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
+	}
+
+	protected List<SetListEntry> onAnyKindOfSubTestFinish(MethodReference aMethod, SetListEntry aTestEntry,
+			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
+		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.RESULT);
+		tempNewEntries.add(tempNewEntry);
 
-		if (aResult.getExecutionTime() != null) {
+		if (aSubResult.getExecutionTime() != null) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXECUTION_TIME,
-					nanoTimeToString(aResult.getExecutionTime()));
-		}
-		tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT,
-				ParameterUtil.convertValueToString(aTest.getResult(), variableStorage));
-		if (aTest.getResult() instanceof Variable) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, ((Variable) aTest.getResult()).getName()
-					.getName());
-		}
-		if (aResult.getResult() != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					ParameterUtil.convertValueToString(aResult.getResult(), variableStorage));
+					nanoTimeToString(aSubResult.getExecutionTime()));
 		}
 
-		if (aResult instanceof SuccessResult) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
-		} else if (aResult instanceof FailureResult) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
-		} else if (aResult instanceof ExceptionResult) {
+		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
+			SetListEntry tempParameterEntry = setList.createEntry(SetListEntryTypes.PARAMETER);
+			tempNewEntries.add(tempParameterEntry);
+
+			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
+			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
+					ParameterUtil.convertValueToString(tempEntry.getValue(), variableStorage, false));
+
+			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.PARAMETERS, tempParameterEntry);
+		}
+
+		try {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
+					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
+		} catch (ClassNotFoundException e) {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, e.getMessage());
+			e.printStackTrace();
+		}
+
+		if (aSubResult instanceof TestExceptionSubResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
-					stackTraceToString(((ExceptionResult) aResult).getException()));
+					stackTraceToString(((TestExceptionSubResult) aSubResult).getException()));
+		} else if (aSubResult instanceof TestExecutedSubResult) {
+			if (!aSubResult.isUndetermined()) {
+				if (aSubResult.wereAllComparisonsSuccessful()) {
+					tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
+				} else {
+					tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
+				}
+			}
 		}
 
-		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(null, tempNewEntry);
+		for (Entry<String, TestComparisonResult> tempEntry : aSubResult.getComparisonResults().entrySet()) {
+			SetListEntry tempComparisonEntry = setList.createEntry(SetListEntryTypes.COMPARISON);
+			tempNewEntries.add(tempComparisonEntry);
+
+			tempComparisonEntry
+					.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, ParameterUtil.convertValueToString(
+							tempEntry.getValue().getExpectedValue(), variableStorage, false));
+			if (tempEntry.getValue().getResult() != null) {
+				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
+						ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage, false));
+			}
+
+			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
+				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
+			} else if (tempEntry.getValue() instanceof TestComparisonFailureResult) {
+				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
+			}
+
+			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.COMPARISONS, tempComparisonEntry);
+		}
+
+		setList.addReference(aTestEntry, SetListEntryAttributeKeys.RESULT, tempNewEntry);
+
+		return tempNewEntries;
 	}
 
 	@Override
@@ -159,7 +267,7 @@ public class SetListCallback implements TestRunnerCallback {
 			de.integrity.runner.results.call.SuccessResult result = (de.integrity.runner.results.call.SuccessResult) aResult;
 			if (aResult.getResult() != null) {
 				tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-						ParameterUtil.convertValueToString(aResult, variableStorage));
+						ParameterUtil.convertValueToString(aResult, variableStorage, false));
 			}
 			if (result.getTargetVariable() != null) {
 				tempNewEntry
@@ -225,7 +333,7 @@ public class SetListCallback implements TestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition));
 		if (anInitialValue != null) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					ParameterUtil.convertValueToString(anInitialValue, variableStorage));
+					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
@@ -235,8 +343,10 @@ public class SetListCallback implements TestRunnerCallback {
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
 			SetListEntry anEntry) {
 		try {
-			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
-					formatter.fixtureMethodToHumanReadableString(aMethod, aParamList, variableStorage));
+			anEntry.setAttribute(
+					SetListEntryAttributeKeys.DESCRIPTION,
+					formatter.fixtureMethodToHumanReadableString(aMethod,
+							IntegrityDSLUtil.createParameterMap(aParamList, variableStorage, true), true));
 		} catch (ClassNotFoundException e) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, e.getMessage());
 			e.printStackTrace();
@@ -251,7 +361,7 @@ public class SetListCallback implements TestRunnerCallback {
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
+					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage, false));
 			if (parameter.getValue() instanceof Variable) {
 				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, ((Variable) parameter.getValue())
 						.getName().getName());

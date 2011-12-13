@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Stack;
 
 import org.jdom.DocType;
@@ -25,20 +26,25 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import de.integrity.dsl.Call;
+import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
-import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.runner.TestModel;
 import de.integrity.runner.callbacks.TestRunnerCallback;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
-import de.integrity.runner.results.test.ExceptionResult;
-import de.integrity.runner.results.test.FailureResult;
-import de.integrity.runner.results.test.SuccessResult;
+import de.integrity.runner.results.test.TestComparisonFailureResult;
+import de.integrity.runner.results.test.TestComparisonResult;
+import de.integrity.runner.results.test.TestComparisonSuccessResult;
+import de.integrity.runner.results.test.TestExceptionSubResult;
+import de.integrity.runner.results.test.TestExecutedSubResult;
 import de.integrity.runner.results.test.TestResult;
+import de.integrity.runner.results.test.TestSubResult;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParameterUtil;
 import de.integrity.utils.TestFormatter;
@@ -89,6 +95,12 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private static final String RESULT_ELEMENT = "result";
 
+	private static final String RESULT_COLLECTION_ELEMENT = "results";
+
+	private static final String COMPARISON_ELEMENT = "comparison";
+
+	private static final String COMPARISON_COLLECTION_ELEMENT = "comparisons";
+
 	private static final String VARIABLE_NAME_ATTRIBUTE = "name";
 
 	private static final String VARIABLE_ELEMENT = "variable";
@@ -101,13 +113,9 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private static final String PARAMETER_VALUE_ATTRIBUTE = "value";
 
-	private static final String PARAMETER_VARIABLE_ATTRIBUTE = "variable";
-
 	private static final String VARIABLE_VALUE_ATTRIBUTE = "value";
 
 	private static final String RESULT_EXPECTED_VALUE_ATTRIBUTE = "expectedValue";
-
-	private static final String RESULT_VARIABLE_ATTRIBUTE = "variable";
 
 	private static final String RESULT_REAL_VALUE_ATTRIBUTE = "value";
 
@@ -131,13 +139,13 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
 
-	private static final String FIXTURE_DESCRIPTION_ELEMENT = "description";
+	private static final String FIXTURE_DESCRIPTION_ATTRIBUTE = "description";
 
 	private static final String TEST_NAME_ELEMENT = "name";
 
 	private static final String CALL_NAME_ELEMENT = "name";
 
-	private static final String FIXTURE_METHOD_ELEMENT = "fixture";
+	private static final String FIXTURE_METHOD_ATTRIBUTE = "fixture";
 
 	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
@@ -232,9 +240,10 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
 		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, aResult.getTestSuccessCount().toString());
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, aResult.getTestFailCount().toString());
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE, aResult.getTestExceptionCount().toString());
+		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
+		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getTestExceptionCount()));
 
 		currentElement.pop().addContent(tempSuiteResultElement);
 	}
@@ -244,30 +253,14 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ELEMENT,
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.testToHumanReadableString(aTest, variableStorage));
 		} catch (ClassNotFoundException e) {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ELEMENT, e.getMessage());
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
 			e.printStackTrace();
 		}
-		tempTestElement.setAttribute(FIXTURE_METHOD_ELEMENT,
+		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
-
-		Element parameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
-		for (Parameter parameter : aTest.getParameters()) {
-			Element parameterElement = new Element(PARAMETER_ELEMENT);
-			parameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
-					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
-			parameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
-			if (parameter.getValue() instanceof Variable) {
-				parameterElement.setAttribute(PARAMETER_VARIABLE_ATTRIBUTE, ((Variable) parameter.getValue()).getName()
-						.getName());
-			}
-
-			parameterCollectionElement.addContent(parameterElement);
-		}
-		tempTestElement.addContent(parameterCollectionElement);
 
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(tempTestElement);
@@ -275,33 +268,134 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 	}
 
 	@Override
+	public void onTableTestStart(TableTest aTest) {
+		Element tempTestElement = new Element(TEST_ELEMENT);
+		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
+		try {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					formatter.tableTestToHumanReadableString(aTest, variableStorage));
+		} catch (ClassNotFoundException e) {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
+			e.printStackTrace();
+		}
+		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
+				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
+
+		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(tempTestElement);
+		currentElement.push(tempTestElement);
+
+		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
+		tempTestElement.addContent(tempResultCollectionElement);
+		currentElement.push(tempResultCollectionElement);
+	}
+
+	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
+		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
+		tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+				nanoTimeToString(aResult.getExecutionTime()));
+		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestSuccessCount()));
+		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestFailCount()));
+		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestExceptionCount()));
+
+		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
+				.getSubResults().get(0), IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
+
+		currentElement.pop().addContent(tempResultCollectionElement);
+	}
+
+	@Override
+	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
+		// nothing to do here
+	}
+
+	@Override
+	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
+		onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
+				IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+	}
+
+	@Override
+	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
+		Element tempResultCollectionElement = currentElement.pop();
+		tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+				nanoTimeToString(aResult.getExecutionTime()));
+		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestSuccessCount()));
+		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestFailCount()));
+		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestExceptionCount()));
+
+		// remove the test element
+		currentElement.pop();
+	}
+
+	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, Element aResultCollectionElement,
+			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		Element tempTestResultElement = new Element(RESULT_ELEMENT);
-		tempTestResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempTestResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE,
-				ParameterUtil.convertValueToString(aTest.getResult(), variableStorage));
-		if (aTest.getResult() instanceof Variable) {
-			tempTestResultElement.setAttribute(RESULT_VARIABLE_ATTRIBUTE, ((Variable) aTest.getResult()).getName()
-					.getName());
+
+		tempTestResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+				nanoTimeToString(aSubResult.getExecutionTime()));
+
+		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
+		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
+			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
+			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
+					ParameterUtil.convertValueToString(tempEntry.getValue(), variableStorage, false));
+			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
-		if (aResult.getResult() != null) {
-			tempTestResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(aResult.getResult(), variableStorage));
+		tempTestResultElement.addContent(tempParameterCollectionElement);
+
+		try {
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
+		} catch (ClassNotFoundException e) {
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
+			e.printStackTrace();
 		}
 
-		if (aResult instanceof SuccessResult) {
-			tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
-		} else if (aResult instanceof FailureResult) {
-			tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_FAILURE);
-		} else if (aResult instanceof ExceptionResult) {
+		if (aSubResult instanceof TestExceptionSubResult) {
 			tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
-			tempTestResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, ((ExceptionResult) aResult)
-					.getException().getMessage());
+			tempTestResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
+					((TestExceptionSubResult) aSubResult).getException().getMessage());
 			tempTestResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
-					stackTraceToString(((ExceptionResult) aResult).getException()));
+					stackTraceToString(((TestExceptionSubResult) aSubResult).getException()));
+		} else if (aSubResult instanceof TestExecutedSubResult) {
+			if (aSubResult.wereAllComparisonsSuccessful()) {
+				tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
+			} else {
+				tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_FAILURE);
+			}
+
+			Element tempComparisonCollectionElement = new Element(COMPARISON_COLLECTION_ELEMENT);
+			for (Entry<String, TestComparisonResult> tempEntry : aSubResult.getComparisonResults().entrySet()) {
+				Element tempComparisonResultElement = new Element(COMPARISON_ELEMENT);
+
+				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
+						.convertValueToString(tempEntry.getValue().getExpectedValue(), variableStorage, false));
+				if (tempEntry.getValue().getResult() != null) {
+					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE, ParameterUtil
+							.convertValueToString(tempEntry.getValue().getResult(), variableStorage, false));
+				}
+
+				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
+					tempComparisonResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
+				} else if (tempEntry.getValue() instanceof TestComparisonFailureResult) {
+					tempComparisonResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_FAILURE);
+				}
+
+				tempComparisonCollectionElement.addContent(tempComparisonResultElement);
+			}
+			tempTestResultElement.addContent(tempComparisonCollectionElement);
 		}
 
-		currentElement.pop().addContent(tempTestResultElement);
+		aResultCollectionElement.addContent(tempTestResultElement);
 	}
 
 	@Override
@@ -309,13 +403,13 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
-			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ELEMENT,
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.callToHumanReadableString(aCall, variableStorage));
 		} catch (ClassNotFoundException e) {
-			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ELEMENT, e.getMessage());
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
 			e.printStackTrace();
 		}
-		tempCallElement.setAttribute(FIXTURE_METHOD_ELEMENT,
+		tempCallElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aCall.getDefinition().getFixtureMethod()));
 
 		Element parameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
@@ -324,11 +418,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 			parameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
 			parameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage));
-			if (parameter.getValue() instanceof Variable) {
-				parameterElement.setAttribute(PARAMETER_VARIABLE_ATTRIBUTE, ((Variable) parameter.getValue()).getName()
-						.getName());
-			}
+					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage, false));
 
 			parameterCollectionElement.addContent(parameterElement);
 		}
@@ -350,7 +440,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
 				de.integrity.runner.results.call.SuccessResult result = (de.integrity.runner.results.call.SuccessResult) aResult;
 				tempCallResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-						ParameterUtil.convertValueToString(aResult, variableStorage));
+						ParameterUtil.convertValueToString(aResult, variableStorage, false));
 				if (result.getTargetVariable() != null) {
 					tempCallResultElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, result.getTargetVariable().getName());
 				}
@@ -384,9 +474,10 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
 		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, aResult.getTestSuccessCount().toString());
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, aResult.getTestFailCount().toString());
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE, aResult.getTestExceptionCount().toString());
+		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
+		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getTestExceptionCount()));
 
 		currentElement.pop().addContent(tempSuiteResultElement);
 	}
@@ -395,9 +486,10 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
 		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, aResult.getTestSuccessCount().toString());
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, aResult.getTestFailCount().toString());
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE, aResult.getTestExceptionCount().toString());
+		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
+		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getTestExceptionCount()));
 
 		currentElement.pop().addContent(tempSuiteResultElement);
 	}
@@ -435,7 +527,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition));
 		if (anInitialValue != null) {
 			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(anInitialValue, variableStorage));
+					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));
 		}
 		tempCollectionElement.addContent(tempVariableElement);
 	}

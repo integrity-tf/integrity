@@ -19,7 +19,6 @@ public class ProgressBar extends Composite {
 	private Color resultFailureColor;
 	private Color resultNeutralColor;
 	private Color resultExceptionColor;
-	private Color callSuccessColor;
 	private Color borderColor;
 
 	public ProgressBar(Composite aParent, int aStyle) {

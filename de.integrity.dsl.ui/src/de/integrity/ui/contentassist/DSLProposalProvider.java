@@ -3,8 +3,10 @@
  */
 package de.integrity.ui.contentassist;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaElement;
@@ -21,6 +23,8 @@ import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterTableHeader;
+import de.integrity.dsl.TableTest;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
 import de.integrity.fixtures.ArbitraryParameterFixture;
@@ -50,26 +54,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Test tempTest = (Test) model;
 		TestDefinition tempTestDef = tempTest.getDefinition();
 		if (tempTestDef != null) {
-			Map<String, Object> tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
-					false);
-			Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(tempTest.getDefinition()
-					.getFixtureMethod().getMethod(), elementFinder);
-
-			List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(tempTestDef
-					.getFixtureMethod());
-			for (ParamAnnotationTuple tempParam : tempParamList) {
-				if (!tempParameterMap.containsKey(tempParam.getParamName())) {
-					String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
-							.getJavaParamName()) : null;
-					String tempDisplayText = null;
-					if (tempJavadocDescription != null) {
-						tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
-					} else {
-						tempDisplayText = tempParam.getParamName();
-					}
-					acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
-				}
+			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+			for (Parameter tempParameter : tempTest.getParameters()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
+						.getName()));
 			}
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
+					acceptor);
 		}
 	}
 
@@ -81,26 +72,97 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Call tempCall = (Call) model;
 		CallDefinition tempCallDef = tempCall.getDefinition();
 		if (tempCallDef != null) {
-			Map<String, Object> tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
-					false);
-			Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(tempCall.getDefinition()
-					.getFixtureMethod().getMethod(), elementFinder);
+			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+			for (Parameter tempParameter : tempCall.getParameters()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
+						.getName()));
+			}
+			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, context,
+					acceptor);
+		}
+	}
 
-			List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(tempCallDef
-					.getFixtureMethod());
-			for (ParamAnnotationTuple tempParam : tempParamList) {
-				if (!tempParameterMap.containsKey(tempParam.getParamName())) {
-					String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
-							.getJavaParamName()) : null;
-					String tempDisplayText = null;
-					if (tempJavadocDescription != null) {
-						tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
-					} else {
-						tempDisplayText = tempParam.getParamName();
-					}
+	@Override
+	public void completeTableTest_Parameters(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		super.completeTableTest_Parameters(model, assignment, context, acceptor);
 
-					acceptor.accept(createCompletionProposal(tempParam.getParamName(), tempDisplayText, null, context));
+		TableTest tempTableTest = (TableTest) model;
+		TestDefinition tempTestDef = tempTableTest.getDefinition();
+		if (tempTestDef != null) {
+			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+			for (Parameter tempParameter : tempTableTest.getParameters()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
+						.getName()));
+			}
+			for (ParameterTableHeader tempHeader : tempTableTest.getHeaders()) {
+				tempAlreadyUsedParameters
+						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempHeader.getName()));
+			}
+
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
+					acceptor);
+		}
+	}
+
+	@Override
+	public void completeTableTest_Headers(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		super.completeTableTest_Headers(model, assignment, context, acceptor);
+
+		TableTest tempTableTest = (TableTest) model;
+		TestDefinition tempTestDef = tempTableTest.getDefinition();
+		if (tempTestDef != null) {
+			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+			for (Parameter tempParameter : tempTableTest.getParameters()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
+						.getName()));
+			}
+			for (ParameterTableHeader tempParameterHeader : tempTableTest.getHeaders()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
+						.getName()));
+			}
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), "| ", context,
+					acceptor);
+		}
+	}
+
+	@Override
+	public void completeParameterTableHeader_Name(EObject model, Assignment assignment, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+		super.completeParameterTableHeader_Name(model, assignment, context, acceptor);
+
+		TableTest tempTableTest = (TableTest) model;
+		TestDefinition tempTestDef = (tempTableTest).getDefinition();
+		if (tempTestDef != null) {
+			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+			for (ParameterTableHeader tempParameterHeader : tempTableTest.getHeaders()) {
+				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
+						.getName()));
+			}
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
+					acceptor);
+		}
+	}
+
+	private void completeParametersInternal(Set<String> someAlreadyUsedParameters, MethodReference aMethod,
+			String aPrefix, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+
+		Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(aMethod.getMethod(), elementFinder);
+
+		List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aMethod);
+		for (ParamAnnotationTuple tempParam : tempParamList) {
+			if (!someAlreadyUsedParameters.contains(tempParam.getParamName())) {
+				String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
+						.getJavaParamName()) : null;
+				String tempDisplayText = null;
+				if (tempJavadocDescription != null) {
+					tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
+				} else {
+					tempDisplayText = tempParam.getParamName();
 				}
+				anAcceptor.accept(createCompletionProposal((aPrefix != null ? aPrefix : "") + tempParam.getParamName(),
+						tempDisplayText, null, aContext));
 			}
 		}
 	}

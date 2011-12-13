@@ -7,9 +7,7 @@ import java.util.Set;
 
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteStatementWithResult;
-import de.integrity.runner.results.test.ExceptionResult;
-import de.integrity.runner.results.test.FailureResult;
-import de.integrity.runner.results.test.SuccessResult;
+import de.integrity.runner.results.test.TestResult;
 
 public class SuiteResult extends Result {
 
@@ -59,14 +57,14 @@ public class SuiteResult extends Result {
 		return tearDownResults;
 	}
 
-	public Integer getTestFailCount() {
+	public int getTestFailCount() {
 		if (testFailCount == null) {
 			int tempCount = 0;
 			for (Result tempResult : results) {
 				if (tempResult instanceof SuiteResult) {
 					tempCount += ((SuiteResult) tempResult).getTestFailCount();
-				} else if (tempResult instanceof FailureResult) {
-					tempCount++;
+				} else if (tempResult instanceof TestResult) {
+					tempCount += ((TestResult) tempResult).getSubTestFailCount();
 				}
 			}
 			testFailCount = tempCount;
@@ -75,14 +73,14 @@ public class SuiteResult extends Result {
 		return testFailCount;
 	}
 
-	public Integer getTestSuccessCount() {
+	public int getTestSuccessCount() {
 		if (testSuccessCount == null) {
 			int tempCount = 0;
 			for (Result tempResult : results) {
 				if (tempResult instanceof SuiteResult) {
 					tempCount += ((SuiteResult) tempResult).getTestSuccessCount();
-				} else if (tempResult instanceof SuccessResult) {
-					tempCount++;
+				} else if (tempResult instanceof TestResult) {
+					tempCount += ((TestResult) tempResult).getSubTestSuccessCount();
 				}
 			}
 			testSuccessCount = tempCount;
@@ -91,14 +89,14 @@ public class SuiteResult extends Result {
 		return testSuccessCount;
 	}
 
-	public Integer getTestExceptionCount() {
+	public int getTestExceptionCount() {
 		if (testExceptionCount == null) {
 			int tempCount = 0;
 			for (Result tempResult : results) {
 				if (tempResult instanceof SuiteResult) {
 					tempCount += ((SuiteResult) tempResult).getTestExceptionCount();
-				} else if (tempResult instanceof ExceptionResult) {
-					tempCount++;
+				} else if (tempResult instanceof TestResult) {
+					tempCount += ((TestResult) tempResult).getSubTestExceptionCount();
 				}
 			}
 			testExceptionCount = tempCount;

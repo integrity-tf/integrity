@@ -7,12 +7,15 @@ import java.util.Map;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.runner.TestModel;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
 import de.integrity.runner.results.test.TestResult;
+import de.integrity.runner.results.test.TestSubResult;
 
 public class CompoundTestRunnerCallback implements TestRunnerCallback {
 
@@ -121,6 +124,34 @@ public class CompoundTestRunnerCallback implements TestRunnerCallback {
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onVariableDefinition(aDefinition, aSuite, anInitialValue);
+		}
+	}
+
+	@Override
+	public void onTableTestStart(TableTest aTableTest) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTableTestStart(aTableTest);
+		}
+	}
+
+	@Override
+	public void onTableTestFinish(TableTest aTableTest, TestResult someResults) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTableTestFinish(aTableTest, someResults);
+		}
+	}
+
+	@Override
+	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTableTestRowStart(aTableTest, aRow);
+		}
+	}
+
+	@Override
+	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTableTestRowFinish(aTableTest, aRow, aSubResult);
 		}
 	}
 

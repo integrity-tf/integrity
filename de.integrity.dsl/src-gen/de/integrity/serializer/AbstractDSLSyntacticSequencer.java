@@ -8,6 +8,8 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -20,6 +22,7 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_SuiteDefinition_ConcludedbyKeyword_7_0_q;
 	protected AbstractElementAlias match_SuiteDefinition_GetsKeyword_2_0_q;
 	protected AbstractElementAlias match_SuiteDefinition_RequiresKeyword_3_0_q;
+	protected AbstractElementAlias match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -27,6 +30,7 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_SuiteDefinition_ConcludedbyKeyword_7_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_7_0());
 		match_SuiteDefinition_GetsKeyword_2_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_2_0());
 		match_SuiteDefinition_RequiresKeyword_3_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_3_0());
+		match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_0()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getEqualsSignKeyword_4_0_1()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_2())), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_1()));
 	}
 	
 	@Override
@@ -47,6 +51,8 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_SuiteDefinition_GetsKeyword_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition_RequiresKeyword_3_0_q.equals(syntax))
 				emit_SuiteDefinition_RequiresKeyword_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__.equals(syntax))
+				emit_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -72,6 +78,14 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'requires'?
 	 */
 	protected void emit_SuiteDefinition_RequiresKeyword_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '|' | ('|' '=' '|')
+	 */
+	protected void emit_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

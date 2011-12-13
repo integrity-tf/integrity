@@ -353,12 +353,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cSuiteParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cTestParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cTableTestParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//SuiteStatementWithResult:
-		//	Suite | Test;
+		//	Suite | Test | TableTest;
 		public ParserRule getRule() { return rule; }
 
-		//Suite | Test
+		//Suite | Test | TableTest
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Suite
@@ -366,6 +367,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Test
 		public RuleCall getTestParserRuleCall_1() { return cTestParserRuleCall_1; }
+
+		//TableTest
+		public RuleCall getTableTestParserRuleCall_2() { return cTableTestParserRuleCall_2; }
 	}
 
 	public class VariableDefinitionElements extends AbstractParserRuleElementFinder {
@@ -474,6 +478,188 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueOrEnumValue
 		public RuleCall getResultValueOrEnumValueParserRuleCall_3_1_0() { return cResultValueOrEnumValueParserRuleCall_3_1_0; }
+	}
+
+	public class TableTestElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TableTest");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTabletestKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cDefinitionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cDefinitionTestDefinitionCrossReference_1_0 = (CrossReference)cDefinitionAssignment_1.eContents().get(0);
+		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_1_0.eContents().get(1);
+		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cParametersParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
+		private final Assignment cHeadersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cHeadersParameterTableHeaderParserRuleCall_3_0 = (RuleCall)cHeadersAssignment_3.eContents().get(0);
+		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
+		private final Group cGroup_4_0 = (Group)cAlternatives_4.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_4_0_0 = (Keyword)cGroup_4_0.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_4_0_1 = (Keyword)cGroup_4_0.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_4_0_2 = (Keyword)cGroup_4_0.eContents().get(2);
+		private final Keyword cVerticalLineKeyword_4_1 = (Keyword)cAlternatives_4.eContents().get(1);
+		private final Assignment cRowsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cRowsTableTestRowParserRuleCall_5_0 = (RuleCall)cRowsAssignment_5.eContents().get(0);
+		
+		//TableTest:
+		//	"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* headers+=ParameterTableHeader+ ("|" "="
+		//	"|" | "|") rows+=TableTestRow+;
+		public ParserRule getRule() { return rule; }
+
+		//"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* headers+=ParameterTableHeader+ ("|" "=" "|"
+		//| "|") rows+=TableTestRow+
+		public Group getGroup() { return cGroup; }
+
+		//"tabletest"
+		public Keyword getTabletestKeyword_0() { return cTabletestKeyword_0; }
+
+		//definition=[TestDefinition|QualifiedName]
+		public Assignment getDefinitionAssignment_1() { return cDefinitionAssignment_1; }
+
+		//[TestDefinition|QualifiedName]
+		public CrossReference getDefinitionTestDefinitionCrossReference_1_0() { return cDefinitionTestDefinitionCrossReference_1_0; }
+
+		//QualifiedName
+		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_1_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_1_0_1; }
+
+		//parameters+=Parameter*
+		public Assignment getParametersAssignment_2() { return cParametersAssignment_2; }
+
+		//Parameter
+		public RuleCall getParametersParameterParserRuleCall_2_0() { return cParametersParameterParserRuleCall_2_0; }
+
+		//headers+=ParameterTableHeader+
+		public Assignment getHeadersAssignment_3() { return cHeadersAssignment_3; }
+
+		//ParameterTableHeader
+		public RuleCall getHeadersParameterTableHeaderParserRuleCall_3_0() { return cHeadersParameterTableHeaderParserRuleCall_3_0; }
+
+		//"|" "=" "|" | "|"
+		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+
+		//"|" "=" "|"
+		public Group getGroup_4_0() { return cGroup_4_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_4_0_0() { return cVerticalLineKeyword_4_0_0; }
+
+		//"="
+		public Keyword getEqualsSignKeyword_4_0_1() { return cEqualsSignKeyword_4_0_1; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_4_0_2() { return cVerticalLineKeyword_4_0_2; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_4_1() { return cVerticalLineKeyword_4_1; }
+
+		//rows+=TableTestRow+
+		public Assignment getRowsAssignment_5() { return cRowsAssignment_5; }
+
+		//TableTestRow
+		public RuleCall getRowsTableTestRowParserRuleCall_5_0() { return cRowsTableTestRowParserRuleCall_5_0; }
+	}
+
+	public class TableTestRowElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TableTestRow");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTableTestRowAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cValuesAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cValuesParameterTableValueParserRuleCall_1_0 = (RuleCall)cValuesAssignment_1.eContents().get(0);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_2_0_1 = (Keyword)cGroup_2_0.eContents().get(1);
+		private final Assignment cResultAssignment_2_0_2 = (Assignment)cGroup_2_0.eContents().get(2);
+		private final RuleCall cResultValueOrEnumValueParserRuleCall_2_0_2_0 = (RuleCall)cResultAssignment_2_0_2.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_2_0_3 = (Keyword)cGroup_2_0.eContents().get(3);
+		private final Keyword cVerticalLineKeyword_2_1 = (Keyword)cAlternatives_2.eContents().get(1);
+		
+		//TableTestRow:
+		//	{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|");
+		public ParserRule getRule() { return rule; }
+
+		//{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|")
+		public Group getGroup() { return cGroup; }
+
+		//{TableTestRow}
+		public Action getTableTestRowAction_0() { return cTableTestRowAction_0; }
+
+		//values+=ParameterTableValue*
+		public Assignment getValuesAssignment_1() { return cValuesAssignment_1; }
+
+		//ParameterTableValue
+		public RuleCall getValuesParameterTableValueParserRuleCall_1_0() { return cValuesParameterTableValueParserRuleCall_1_0; }
+
+		//"|" "=" result=ValueOrEnumValue "|" | "|"
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//"|" "=" result=ValueOrEnumValue "|"
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_2_0_0() { return cVerticalLineKeyword_2_0_0; }
+
+		//"="
+		public Keyword getEqualsSignKeyword_2_0_1() { return cEqualsSignKeyword_2_0_1; }
+
+		//result=ValueOrEnumValue
+		public Assignment getResultAssignment_2_0_2() { return cResultAssignment_2_0_2; }
+
+		//ValueOrEnumValue
+		public RuleCall getResultValueOrEnumValueParserRuleCall_2_0_2_0() { return cResultValueOrEnumValueParserRuleCall_2_0_2_0; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_2_0_3() { return cVerticalLineKeyword_2_0_3; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_2_1() { return cVerticalLineKeyword_2_1; }
+	}
+
+	public class ParameterTableHeaderElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ParameterTableHeader");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameParameterNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		
+		//ParameterTableHeader:
+		//	"|" name=ParameterName;
+		public ParserRule getRule() { return rule; }
+
+		//"|" name=ParameterName
+		public Group getGroup() { return cGroup; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_0() { return cVerticalLineKeyword_0; }
+
+		//name=ParameterName
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//ParameterName
+		public RuleCall getNameParameterNameParserRuleCall_1_0() { return cNameParameterNameParserRuleCall_1_0; }
+	}
+
+	public class ParameterTableValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ParameterTableValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cValueValueOrEnumValueParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
+		
+		//ParameterTableValue:
+		//	"|" value=ValueOrEnumValue;
+		public ParserRule getRule() { return rule; }
+
+		//"|" value=ValueOrEnumValue
+		public Group getGroup() { return cGroup; }
+
+		//"|"
+		public Keyword getVerticalLineKeyword_0() { return cVerticalLineKeyword_0; }
+
+		//value=ValueOrEnumValue
+		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+
+		//ValueOrEnumValue
+		public RuleCall getValueValueOrEnumValueParserRuleCall_1_0() { return cValueValueOrEnumValueParserRuleCall_1_0; }
 	}
 
 	public class CallElements extends AbstractParserRuleElementFinder {
@@ -958,6 +1144,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableDefinitionElements pVariableDefinition;
 	private VariableEntityElements pVariableEntity;
 	private TestElements pTest;
+	private TableTestElements pTableTest;
+	private TableTestRowElements pTableTestRow;
+	private ParameterTableHeaderElements pParameterTableHeader;
+	private ParameterTableValueElements pParameterTableValue;
 	private CallElements pCall;
 	private SuiteElements pSuite;
 	private SuiteParameterElements pSuiteParameter;
@@ -1092,7 +1282,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatementWithResult:
-	//	Suite | Test;
+	//	Suite | Test | TableTest;
 	public SuiteStatementWithResultElements getSuiteStatementWithResultAccess() {
 		return (pSuiteStatementWithResult != null) ? pSuiteStatementWithResult : (pSuiteStatementWithResult = new SuiteStatementWithResultElements());
 	}
@@ -1129,6 +1319,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTestRule() {
 		return getTestAccess().getRule();
+	}
+
+	//TableTest:
+	//	"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* headers+=ParameterTableHeader+ ("|" "="
+	//	"|" | "|") rows+=TableTestRow+;
+	public TableTestElements getTableTestAccess() {
+		return (pTableTest != null) ? pTableTest : (pTableTest = new TableTestElements());
+	}
+	
+	public ParserRule getTableTestRule() {
+		return getTableTestAccess().getRule();
+	}
+
+	//TableTestRow:
+	//	{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|");
+	public TableTestRowElements getTableTestRowAccess() {
+		return (pTableTestRow != null) ? pTableTestRow : (pTableTestRow = new TableTestRowElements());
+	}
+	
+	public ParserRule getTableTestRowRule() {
+		return getTableTestRowAccess().getRule();
+	}
+
+	//ParameterTableHeader:
+	//	"|" name=ParameterName;
+	public ParameterTableHeaderElements getParameterTableHeaderAccess() {
+		return (pParameterTableHeader != null) ? pParameterTableHeader : (pParameterTableHeader = new ParameterTableHeaderElements());
+	}
+	
+	public ParserRule getParameterTableHeaderRule() {
+		return getParameterTableHeaderAccess().getRule();
+	}
+
+	//ParameterTableValue:
+	//	"|" value=ValueOrEnumValue;
+	public ParameterTableValueElements getParameterTableValueAccess() {
+		return (pParameterTableValue != null) ? pParameterTableValue : (pParameterTableValue = new ParameterTableValueElements());
+	}
+	
+	public ParserRule getParameterTableValueRule() {
+		return getParameterTableValueAccess().getRule();
 	}
 
 	//Call:

@@ -97,7 +97,7 @@ public class TestTreeContentDrawer {
 			public void handleEvent(Event event) {
 				TreeItem tempItem = (TreeItem) event.item;
 				SetListEntry tempEntry = (SetListEntry) tempItem.getData();
-				SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
+				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
 				if (tempResultState != null && tempResultState != SetListEntryResultStates.UNKNOWN) {
 					int tempInset = getTreeItemIndentation(tempItem);
@@ -132,6 +132,8 @@ public class TestTreeContentDrawer {
 						}
 						break;
 					case TEST:
+					case TABLETEST:
+					case RESULT:
 						switch (tempResultState) {
 						case SUCCESSFUL:
 							tempBackground = testSuccessColor;
@@ -164,6 +166,7 @@ public class TestTreeContentDrawer {
 					switch (tempEntry.getType()) {
 					case CALL:
 					case TEST:
+					case TABLETEST:
 						event.gc.setBackground(callOrTestInExecutionColor);
 						break;
 					case SUITE:

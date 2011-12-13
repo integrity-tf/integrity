@@ -28,9 +28,11 @@ import de.integrity.dsl.FixedParameterName;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.ParameterName;
+import de.integrity.dsl.ParameterTableHeader;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteParameter;
+import de.integrity.dsl.TableTest;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.utils.IntegrityDSLUtil;
@@ -49,13 +51,23 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	IJavaElementFinder elementFinder;
 
 	public IScope scope_FixedParameterName_annotation(FixedParameterName aParameterName, EReference aRef) {
-		Parameter tempParameter = (Parameter) aParameterName.eContainer();
-
 		MethodReference tempMethodRef = null;
-		if (tempParameter.eContainer() instanceof Test) {
-			tempMethodRef = ((Test) tempParameter.eContainer()).getDefinition().getFixtureMethod();
-		} else if (tempParameter.eContainer() instanceof Call) {
-			tempMethodRef = ((Call) tempParameter.eContainer()).getDefinition().getFixtureMethod();
+		if (aParameterName.eContainer() instanceof Parameter) {
+			Parameter tempParameter = (Parameter) aParameterName.eContainer();
+
+			if (tempParameter.eContainer() instanceof Test) {
+				tempMethodRef = ((Test) tempParameter.eContainer()).getDefinition().getFixtureMethod();
+			} else if (tempParameter.eContainer() instanceof Call) {
+				tempMethodRef = ((Call) tempParameter.eContainer()).getDefinition().getFixtureMethod();
+			} else if (tempParameter.eContainer() instanceof TableTest) {
+				tempMethodRef = ((TableTest) tempParameter.eContainer()).getDefinition().getFixtureMethod();
+			}
+		} else if (aParameterName.eContainer() instanceof ParameterTableHeader) {
+			ParameterTableHeader tempParameterHeader = (ParameterTableHeader) aParameterName.eContainer();
+
+			if (tempParameterHeader.eContainer() instanceof TableTest) {
+				tempMethodRef = ((TableTest) tempParameterHeader.eContainer()).getDefinition().getFixtureMethod();
+			}
 		}
 
 		if (tempMethodRef != null) {

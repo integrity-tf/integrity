@@ -479,6 +479,154 @@ public interface DslPackage extends EPackage
   int TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.TableTestImpl <em>Table Test</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.TableTestImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getTableTest()
+   * @generated
+   */
+  int TABLE_TEST = 13;
+
+  /**
+   * The feature id for the '<em><b>Definition</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__DEFINITION = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Headers</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__HEADERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Rows</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__ROWS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
+
+  /**
+   * The number of structural features of the '<em>Table Test</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.TableTestRowImpl <em>Table Test Row</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.TableTestRowImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getTableTestRow()
+   * @generated
+   */
+  int TABLE_TEST_ROW = 14;
+
+  /**
+   * The feature id for the '<em><b>Values</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST_ROW__VALUES = 0;
+
+  /**
+   * The feature id for the '<em><b>Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST_ROW__RESULT = 1;
+
+  /**
+   * The number of structural features of the '<em>Table Test Row</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST_ROW_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.ParameterTableHeaderImpl <em>Parameter Table Header</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.ParameterTableHeaderImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getParameterTableHeader()
+   * @generated
+   */
+  int PARAMETER_TABLE_HEADER = 15;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_TABLE_HEADER__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Parameter Table Header</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_TABLE_HEADER_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.ParameterTableValueImpl <em>Parameter Table Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.ParameterTableValueImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getParameterTableValue()
+   * @generated
+   */
+  int PARAMETER_TABLE_VALUE = 16;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_TABLE_VALUE__VALUE = 0;
+
+  /**
+   * The number of structural features of the '<em>Parameter Table Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_TABLE_VALUE_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link de.integrity.dsl.impl.CallImpl <em>Call</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -486,7 +634,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getCall()
    * @generated
    */
-  int CALL = 13;
+  int CALL = 17;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -532,7 +680,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getSuite()
    * @generated
    */
-  int SUITE = 14;
+  int SUITE = 18;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -569,7 +717,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getSuiteParameter()
    * @generated
    */
-  int SUITE_PARAMETER = 15;
+  int SUITE_PARAMETER = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -606,7 +754,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getParameter()
    * @generated
    */
-  int PARAMETER = 16;
+  int PARAMETER = 20;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -643,7 +791,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 17;
+  int PARAMETER_NAME = 21;
 
   /**
    * The number of structural features of the '<em>Parameter Name</em>' class.
@@ -662,7 +810,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
    * @generated
    */
-  int FIXED_PARAMETER_NAME = 18;
+  int FIXED_PARAMETER_NAME = 22;
 
   /**
    * The feature id for the '<em><b>Annotation</b></em>' reference.
@@ -690,7 +838,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_NAME = 19;
+  int ARBITRARY_PARAMETER_NAME = 23;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -718,7 +866,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 20;
+  int VALUE_OR_ENUM_VALUE = 24;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -737,7 +885,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 21;
+  int VALUE = 25;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -756,7 +904,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 22;
+  int INTEGER_VALUE = 26;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -784,7 +932,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 23;
+  int DECIMAL_VALUE = 27;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -812,7 +960,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 24;
+  int STRING_VALUE = 28;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -840,7 +988,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 25;
+  int VARIABLE = 29;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -868,7 +1016,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 26;
+  int ENUM_VALUE = 30;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -896,7 +1044,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 27;
+  int METHOD_REFERENCE = 31;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1264,6 +1412,134 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getTest_Result();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.TableTest <em>Table Test</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Table Test</em>'.
+   * @see de.integrity.dsl.TableTest
+   * @generated
+   */
+  EClass getTableTest();
+
+  /**
+   * Returns the meta object for the reference '{@link de.integrity.dsl.TableTest#getDefinition <em>Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Definition</em>'.
+   * @see de.integrity.dsl.TableTest#getDefinition()
+   * @see #getTableTest()
+   * @generated
+   */
+  EReference getTableTest_Definition();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.integrity.dsl.TableTest#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see de.integrity.dsl.TableTest#getParameters()
+   * @see #getTableTest()
+   * @generated
+   */
+  EReference getTableTest_Parameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.integrity.dsl.TableTest#getHeaders <em>Headers</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Headers</em>'.
+   * @see de.integrity.dsl.TableTest#getHeaders()
+   * @see #getTableTest()
+   * @generated
+   */
+  EReference getTableTest_Headers();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.integrity.dsl.TableTest#getRows <em>Rows</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Rows</em>'.
+   * @see de.integrity.dsl.TableTest#getRows()
+   * @see #getTableTest()
+   * @generated
+   */
+  EReference getTableTest_Rows();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.TableTestRow <em>Table Test Row</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Table Test Row</em>'.
+   * @see de.integrity.dsl.TableTestRow
+   * @generated
+   */
+  EClass getTableTestRow();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.integrity.dsl.TableTestRow#getValues <em>Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Values</em>'.
+   * @see de.integrity.dsl.TableTestRow#getValues()
+   * @see #getTableTestRow()
+   * @generated
+   */
+  EReference getTableTestRow_Values();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.TableTestRow#getResult <em>Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Result</em>'.
+   * @see de.integrity.dsl.TableTestRow#getResult()
+   * @see #getTableTestRow()
+   * @generated
+   */
+  EReference getTableTestRow_Result();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.ParameterTableHeader <em>Parameter Table Header</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parameter Table Header</em>'.
+   * @see de.integrity.dsl.ParameterTableHeader
+   * @generated
+   */
+  EClass getParameterTableHeader();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.ParameterTableHeader#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @see de.integrity.dsl.ParameterTableHeader#getName()
+   * @see #getParameterTableHeader()
+   * @generated
+   */
+  EReference getParameterTableHeader_Name();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.ParameterTableValue <em>Parameter Table Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parameter Table Value</em>'.
+   * @see de.integrity.dsl.ParameterTableValue
+   * @generated
+   */
+  EClass getParameterTableValue();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.ParameterTableValue#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see de.integrity.dsl.ParameterTableValue#getValue()
+   * @see #getParameterTableValue()
+   * @generated
+   */
+  EReference getParameterTableValue_Value();
 
   /**
    * Returns the meta object for class '{@link de.integrity.dsl.Call <em>Call</em>}'.
@@ -1917,6 +2193,110 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference TEST__RESULT = eINSTANCE.getTest_Result();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.TableTestImpl <em>Table Test</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.TableTestImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getTableTest()
+     * @generated
+     */
+    EClass TABLE_TEST = eINSTANCE.getTableTest();
+
+    /**
+     * The meta object literal for the '<em><b>Definition</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST__DEFINITION = eINSTANCE.getTableTest_Definition();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST__PARAMETERS = eINSTANCE.getTableTest_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Headers</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST__HEADERS = eINSTANCE.getTableTest_Headers();
+
+    /**
+     * The meta object literal for the '<em><b>Rows</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST__ROWS = eINSTANCE.getTableTest_Rows();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.TableTestRowImpl <em>Table Test Row</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.TableTestRowImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getTableTestRow()
+     * @generated
+     */
+    EClass TABLE_TEST_ROW = eINSTANCE.getTableTestRow();
+
+    /**
+     * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST_ROW__VALUES = eINSTANCE.getTableTestRow_Values();
+
+    /**
+     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST_ROW__RESULT = eINSTANCE.getTableTestRow_Result();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.ParameterTableHeaderImpl <em>Parameter Table Header</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.ParameterTableHeaderImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getParameterTableHeader()
+     * @generated
+     */
+    EClass PARAMETER_TABLE_HEADER = eINSTANCE.getParameterTableHeader();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PARAMETER_TABLE_HEADER__NAME = eINSTANCE.getParameterTableHeader_Name();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.ParameterTableValueImpl <em>Parameter Table Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.ParameterTableValueImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getParameterTableValue()
+     * @generated
+     */
+    EClass PARAMETER_TABLE_VALUE = eINSTANCE.getParameterTableValue();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PARAMETER_TABLE_VALUE__VALUE = eINSTANCE.getParameterTableValue_Value();
 
     /**
      * The meta object literal for the '{@link de.integrity.dsl.impl.CallImpl <em>Call</em>}' class.

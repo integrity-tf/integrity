@@ -15,10 +15,14 @@ import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Model;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.Parameter;
+import de.integrity.dsl.ParameterTableHeader;
+import de.integrity.dsl.ParameterTableValue;
 import de.integrity.dsl.StringValue;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteParameter;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
 import de.integrity.dsl.Variable;
@@ -149,6 +153,18 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case DslPackage.PARAMETER_TABLE_HEADER:
+				if(context == grammarAccess.getParameterTableHeaderRule()) {
+					sequence_ParameterTableHeader(context, (ParameterTableHeader) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.PARAMETER_TABLE_VALUE:
+				if(context == grammarAccess.getParameterTableValueRule()) {
+					sequence_ParameterTableValue(context, (ParameterTableValue) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.STRING_VALUE:
 				if(context == grammarAccess.getStringValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -176,6 +192,20 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 			case DslPackage.SUITE_PARAMETER:
 				if(context == grammarAccess.getSuiteParameterRule()) {
 					sequence_SuiteParameter(context, (SuiteParameter) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.TABLE_TEST:
+				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getSuiteStatementWithResultRule() ||
+				   context == grammarAccess.getTableTestRule()) {
+					sequence_TableTest(context, (TableTest) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.TABLE_TEST_ROW:
+				if(context == grammarAccess.getTableTestRowRule()) {
+					sequence_TableTestRow(context, (TableTestRow) semanticObject); 
 					return; 
 				}
 				else break;
@@ -383,6 +413,38 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     name=ParameterName
+	 */
+	protected void sequence_ParameterTableHeader(EObject context, ParameterTableHeader semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_HEADER__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER_TABLE_HEADER__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getParameterTableHeaderAccess().getNameParameterNameParserRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=ValueOrEnumValue
+	 */
+	protected void sequence_ParameterTableValue(EObject context, ParameterTableValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_VALUE__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER_TABLE_VALUE__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueParserRuleCall_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=ParameterName value=ValueOrEnumValue)
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
@@ -455,6 +517,24 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 *     (definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter*)
 	 */
 	protected void sequence_Suite(EObject context, Suite semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (values+=ParameterTableValue* result=ValueOrEnumValue?)
+	 */
+	protected void sequence_TableTestRow(EObject context, TableTestRow semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* headers+=ParameterTableHeader+ rows+=TableTestRow+)
+	 */
+	protected void sequence_TableTest(EObject context, TableTest semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

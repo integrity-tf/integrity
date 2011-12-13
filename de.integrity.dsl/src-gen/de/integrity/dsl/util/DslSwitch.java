@@ -178,6 +178,36 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.TABLE_TEST:
+      {
+        TableTest tableTest = (TableTest)theEObject;
+        T result = caseTableTest(tableTest);
+        if (result == null) result = caseSuiteStatementWithResult(tableTest);
+        if (result == null) result = caseSuiteStatement(tableTest);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.TABLE_TEST_ROW:
+      {
+        TableTestRow tableTestRow = (TableTestRow)theEObject;
+        T result = caseTableTestRow(tableTestRow);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.PARAMETER_TABLE_HEADER:
+      {
+        ParameterTableHeader parameterTableHeader = (ParameterTableHeader)theEObject;
+        T result = caseParameterTableHeader(parameterTableHeader);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.PARAMETER_TABLE_VALUE:
+      {
+        ParameterTableValue parameterTableValue = (ParameterTableValue)theEObject;
+        T result = caseParameterTableValue(parameterTableValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.CALL:
       {
         Call call = (Call)theEObject;
@@ -507,6 +537,70 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTest(Test object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Test</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Test</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableTest(TableTest object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Test Row</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Test Row</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableTestRow(TableTestRow object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter Table Header</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter Table Header</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameterTableHeader(ParameterTableHeader object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter Table Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter Table Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameterTableValue(ParameterTableValue object)
   {
     return null;
   }

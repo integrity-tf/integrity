@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,18 +12,18 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.common.types.JvmType;
 
 import de.integrity.dsl.Call;
 import de.integrity.dsl.DslFactory;
 import de.integrity.dsl.MethodReference;
-import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.SuiteParameter;
 import de.integrity.dsl.SuiteStatement;
 import de.integrity.dsl.SuiteStatementWithResult;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.dsl.Variable;
@@ -45,11 +46,14 @@ import de.integrity.runner.callbacks.remoting.SetListCallback;
 import de.integrity.runner.results.Result;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
-import de.integrity.runner.results.test.ExceptionResult;
-import de.integrity.runner.results.test.FailureResult;
-import de.integrity.runner.results.test.SuccessResult;
+import de.integrity.runner.results.test.TestComparisonFailureResult;
+import de.integrity.runner.results.test.TestComparisonResult;
+import de.integrity.runner.results.test.TestComparisonSuccessResult;
+import de.integrity.runner.results.test.TestComparisonUndeterminedResult;
+import de.integrity.runner.results.test.TestExceptionSubResult;
+import de.integrity.runner.results.test.TestExecutedSubResult;
 import de.integrity.runner.results.test.TestResult;
-import de.integrity.runner.results.test.UndeterminedResult;
+import de.integrity.runner.results.test.TestSubResult;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParameterUtil;
 
@@ -246,13 +250,15 @@ public class TestRunner {
 	}
 
 	protected Map<SuiteStatementWithResult, Result> executeSuite(SuiteDefinition aSuite) {
-		Map<SuiteStatementWithResult, Result> tempResults = new HashMap<SuiteStatementWithResult, Result>();
+		Map<SuiteStatementWithResult, Result> tempResults = new LinkedHashMap<SuiteStatementWithResult, Result>();
 
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
 				tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement));
 			} else if (tempStatement instanceof Test) {
 				tempResults.put((Test) tempStatement, executeTest((Test) tempStatement));
+			} else if (tempStatement instanceof TableTest) {
+				tempResults.put((TableTest) tempStatement, executeTableTest((TableTest) tempStatement));
 			} else if (tempStatement instanceof Call) {
 				executeCall((Call) tempStatement);
 			} else if (tempStatement instanceof VariableDefinition) {
@@ -286,28 +292,49 @@ public class TestRunner {
 			currentCallback.onTestStart(aTest);
 		}
 
-		TestResult tempReturn;
+		TestResult tempReturn = null;
+		TestComparisonResult tempComparisonResult;
+		Exception tempException = null;
+		Long tempDuration = null;
 
 		if (currentPhase == Phase.DRY_RUN) {
-			tempReturn = new UndeterminedResult(aTest.getResult());
+			tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+					aTest.getResult());
 		} else {
 			pauseIfRequiredByRemoteClient();
 
+			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true);
+
 			long tempStart = System.nanoTime();
 			try {
-				Object tempResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
-						aTest.getParameters());
-				long tempDuration = System.nanoTime() - tempStart;
+				Object tempFixtureResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
+						tempParameters);
+				tempDuration = System.nanoTime() - tempStart;
 
-				if (compareResult(tempResult, aTest.getResult())) {
-					tempReturn = new SuccessResult(tempResult, aTest.getResult(), tempDuration);
+				if (compareResult(tempFixtureResult, aTest.getResult())) {
+					tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempFixtureResult, aTest.getResult());
 				} else {
-					tempReturn = new FailureResult(tempResult, aTest.getResult(), tempDuration);
+					tempComparisonResult = new TestComparisonFailureResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempFixtureResult, aTest.getResult());
 				}
 			} catch (Exception e) {
-				tempReturn = new ExceptionResult(e, aTest.getResult(), System.nanoTime() - tempStart);
+				tempDuration = System.nanoTime() - tempStart;
+				tempException = e;
+				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+						aTest.getResult());
 			}
 		}
+
+		Map<String, TestComparisonResult> tempMap = new LinkedHashMap<String, TestComparisonResult>();
+		tempMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
+		if (tempException != null) {
+			tempSubResults.add(new TestExceptionSubResult(tempException, tempMap, tempDuration));
+		} else {
+			tempSubResults.add(new TestExecutedSubResult(tempMap, tempDuration));
+		}
+		tempReturn = new TestResult(tempSubResults, tempDuration);
 
 		if (currentCallback != null) {
 			currentCallback.onTestFinish(aTest, tempReturn);
@@ -316,14 +343,86 @@ public class TestRunner {
 		return tempReturn;
 	}
 
-	protected Object executeFixtureMethod(MethodReference aMethod, EList<Parameter> someParameters)
+	protected TestResult executeTableTest(TableTest aTest) {
+		if (currentCallback != null) {
+			currentCallback.onTableTestStart(aTest);
+		}
+
+		if (currentPhase == Phase.TEST_RUN) {
+			pauseIfRequiredByRemoteClient();
+		}
+
+		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
+		long tempOuterStart = System.nanoTime();
+
+		for (TableTestRow tempRow : aTest.getRows()) {
+			if (currentCallback != null) {
+				currentCallback.onTableTestRowStart(aTest, tempRow);
+			}
+
+			Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
+			TestComparisonResult tempComparisonResult = null;
+			Exception tempException = null;
+			Long tempDuration = null;
+
+			if (currentPhase == Phase.DRY_RUN) {
+				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+						tempRow.getResult());
+			} else {
+				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
+						variableStorage, true);
+
+				long tempStart = System.nanoTime();
+				try {
+					Object tempResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(), tempParameters);
+					tempDuration = System.nanoTime() - tempStart;
+
+					if (compareResult(tempResult, tempRow.getResult())) {
+						tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+								tempResult, tempRow.getResult());
+					} else {
+						tempComparisonResult = new TestComparisonFailureResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+								tempResult, tempRow.getResult());
+					}
+				} catch (Exception e) {
+					tempDuration = System.nanoTime() - tempStart;
+					tempException = e;
+					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempRow.getResult());
+				}
+			}
+
+			tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+			TestSubResult tempSubResult;
+
+			if (tempException != null) {
+				tempSubResult = new TestExceptionSubResult(tempException, tempComparisonMap, tempDuration);
+			} else {
+				tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempDuration);
+			}
+			tempSubResults.add(tempSubResult);
+
+			if (currentCallback != null) {
+				currentCallback.onTableTestRowFinish(aTest, tempRow, tempSubResult);
+			}
+		}
+
+		Long tempOuterDuration = System.nanoTime() - tempOuterStart;
+
+		TestResult tempReturn = new TestResult(tempSubResults, currentPhase == Phase.DRY_RUN ? null : tempOuterDuration);
+
+		if (currentCallback != null) {
+			currentCallback.onTableTestFinish(aTest, tempReturn);
+		}
+
+		return tempReturn;
+	}
+
+	protected Object executeFixtureMethod(MethodReference aMethod, Map<String, Object> someParameters)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		Class<?> tempFixtureClass = getClassForJvmType(aMethod.getType());
-
 		Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
-
-		return tempFixtureInstance.execute(aMethod.getMethod().getSimpleName(),
-				IntegrityDSLUtil.createParameterMap(someParameters, variableStorage, true));
+		return tempFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
 	}
 
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
@@ -356,10 +455,11 @@ public class TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient();
 
+			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage, true);
+
 			long tempStart = System.nanoTime();
 			try {
-				Object tempResult = executeFixtureMethod(aCall.getDefinition().getFixtureMethod(),
-						aCall.getParameters());
+				Object tempResult = executeFixtureMethod(aCall.getDefinition().getFixtureMethod(), tempParameters);
 				long tempDuration = System.nanoTime() - tempStart;
 
 				if (aCall.getResult() == null) {
@@ -453,6 +553,10 @@ public class TestRunner {
 	}
 
 	protected void pauseIfRequiredByRemoteClient() {
+		if (remotingServer == null) {
+			return;
+		}
+
 		Integer tempLastTestOrCallEntryRef = setList.getLastCreatedEntryId(SetListEntryTypes.CALL,
 				SetListEntryTypes.TEST);
 
@@ -465,6 +569,7 @@ public class TestRunner {
 			}
 		} else {
 			if (shallWaitBeforeNextStep) {
+				shallWaitBeforeNextStep = false;
 				try {
 					waitForContinue();
 				} catch (InterruptedException exc) {
@@ -472,7 +577,6 @@ public class TestRunner {
 				}
 			}
 		}
-		shallWaitBeforeNextStep = false;
 	}
 
 	protected void waitForContinue() throws InterruptedException {

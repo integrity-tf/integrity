@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INTEGER", "RULE_DECIMAL", "RULE_STRING", "RULE_UPPERCASE_ID", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'testdef'", "'uses'", "'calldef'", "'suitedef'", "'gets'", "'requires'", "'suiteend'", "'concludedby'", "'variable'", "'initially'", "'test'", "'='", "'call'", "'sets'", "'suite'", "':'", "'+'", "'#'", "'.'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INTEGER", "RULE_DECIMAL", "RULE_STRING", "RULE_UPPERCASE_ID", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'testdef'", "'uses'", "'calldef'", "'suitedef'", "'gets'", "'requires'", "'suiteend'", "'concludedby'", "'variable'", "'initially'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'sets'", "'suite'", "':'", "'+'", "'#'", "'.'", "'.*'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -51,6 +51,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final int T__18=18;
     public static final int T__36=36;
     public static final int T__17=17;
+    public static final int T__37=37;
+    public static final int T__38=38;
     public static final int T__14=14;
     public static final int T__13=13;
     public static final int RULE_UPPERCASE_ID=8;
@@ -152,7 +154,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==13||LA1_0==16||LA1_0==31) ) {
+                if ( (LA1_0==13||LA1_0==16||LA1_0==33) ) {
                     alt1=1;
                 }
 
@@ -279,7 +281,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 alt2=2;
                 }
                 break;
-            case 31:
+            case 33:
                 {
                 alt2=3;
                 }
@@ -1388,7 +1390,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==25||LA9_0==27||LA9_0==29||LA9_0==31) ) {
+                if ( (LA9_0==25||LA9_0==27||LA9_0==29||LA9_0==31||LA9_0==33) ) {
                     alt9=1;
                 }
 
@@ -1580,12 +1582,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             int alt12=3;
             switch ( input.LA(1) ) {
             case 27:
-            case 31:
+            case 29:
+            case 33:
                 {
                 alt12=1;
                 }
                 break;
-            case 29:
+            case 31:
                 {
                 alt12=2;
                 }
@@ -1714,7 +1717,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSuiteStatementWithResult"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:656:1: ruleSuiteStatementWithResult returns [EObject current=null] : (this_Suite_0= ruleSuite | this_Test_1= ruleTest ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:656:1: ruleSuiteStatementWithResult returns [EObject current=null] : (this_Suite_0= ruleSuite | this_Test_1= ruleTest | this_TableTest_2= ruleTableTest ) ;
     public final EObject ruleSuiteStatementWithResult() throws RecognitionException {
         EObject current = null;
 
@@ -1722,29 +1725,40 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
         EObject this_Test_1 = null;
 
+        EObject this_TableTest_2 = null;
+
 
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:659:28: ( (this_Suite_0= ruleSuite | this_Test_1= ruleTest ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:660:1: (this_Suite_0= ruleSuite | this_Test_1= ruleTest )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:659:28: ( (this_Suite_0= ruleSuite | this_Test_1= ruleTest | this_TableTest_2= ruleTableTest ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:660:1: (this_Suite_0= ruleSuite | this_Test_1= ruleTest | this_TableTest_2= ruleTableTest )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:660:1: (this_Suite_0= ruleSuite | this_Test_1= ruleTest )
-            int alt13=2;
-            int LA13_0 = input.LA(1);
-
-            if ( (LA13_0==31) ) {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:660:1: (this_Suite_0= ruleSuite | this_Test_1= ruleTest | this_TableTest_2= ruleTableTest )
+            int alt13=3;
+            switch ( input.LA(1) ) {
+            case 33:
+                {
                 alt13=1;
-            }
-            else if ( (LA13_0==27) ) {
+                }
+                break;
+            case 27:
+                {
                 alt13=2;
-            }
-            else {
+                }
+                break;
+            case 29:
+                {
+                alt13=3;
+                }
+                break;
+            default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
             }
+
             switch (alt13) {
                 case 1 :
                     // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:661:5: this_Suite_0= ruleSuite
@@ -1782,6 +1796,24 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
+                case 3 :
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:681:5: this_TableTest_2= ruleTableTest
+                    {
+                     
+                            newCompositeNode(grammarAccess.getSuiteStatementWithResultAccess().getTableTestParserRuleCall_2()); 
+                        
+                    pushFollow(FOLLOW_ruleTableTest_in_ruleSuiteStatementWithResult1562);
+                    this_TableTest_2=ruleTableTest();
+
+                    state._fsp--;
+
+                     
+                            current = this_TableTest_2; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
 
             }
 
@@ -1803,7 +1835,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariableDefinition"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:687:1: entryRuleVariableDefinition returns [EObject current=null] : iv_ruleVariableDefinition= ruleVariableDefinition EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:697:1: entryRuleVariableDefinition returns [EObject current=null] : iv_ruleVariableDefinition= ruleVariableDefinition EOF ;
     public final EObject entryRuleVariableDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -1811,17 +1843,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:688:2: (iv_ruleVariableDefinition= ruleVariableDefinition EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:689:2: iv_ruleVariableDefinition= ruleVariableDefinition EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:698:2: (iv_ruleVariableDefinition= ruleVariableDefinition EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:699:2: iv_ruleVariableDefinition= ruleVariableDefinition EOF
             {
              newCompositeNode(grammarAccess.getVariableDefinitionRule()); 
-            pushFollow(FOLLOW_ruleVariableDefinition_in_entryRuleVariableDefinition1570);
+            pushFollow(FOLLOW_ruleVariableDefinition_in_entryRuleVariableDefinition1597);
             iv_ruleVariableDefinition=ruleVariableDefinition();
 
             state._fsp--;
 
              current =iv_ruleVariableDefinition; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableDefinition1580); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableDefinition1607); 
 
             }
 
@@ -1839,7 +1871,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariableDefinition"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:696:1: ruleVariableDefinition returns [EObject current=null] : (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:706:1: ruleVariableDefinition returns [EObject current=null] : (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? ) ;
     public final EObject ruleVariableDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -1853,26 +1885,26 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:699:28: ( (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:700:1: (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:709:28: ( (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:710:1: (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:700:1: (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:700:3: otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:710:1: (otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:710:3: otherlv_0= 'variable' ( (lv_name_1_0= ruleVariableEntity ) ) (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )?
             {
-            otherlv_0=(Token)match(input,25,FOLLOW_25_in_ruleVariableDefinition1617); 
+            otherlv_0=(Token)match(input,25,FOLLOW_25_in_ruleVariableDefinition1644); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getVariableDefinitionAccess().getVariableKeyword_0());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:704:1: ( (lv_name_1_0= ruleVariableEntity ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:705:1: (lv_name_1_0= ruleVariableEntity )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:714:1: ( (lv_name_1_0= ruleVariableEntity ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:715:1: (lv_name_1_0= ruleVariableEntity )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:705:1: (lv_name_1_0= ruleVariableEntity )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:706:3: lv_name_1_0= ruleVariableEntity
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:715:1: (lv_name_1_0= ruleVariableEntity )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:716:3: lv_name_1_0= ruleVariableEntity
             {
              
             	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleVariableEntity_in_ruleVariableDefinition1638);
+            pushFollow(FOLLOW_ruleVariableEntity_in_ruleVariableDefinition1665);
             lv_name_1_0=ruleVariableEntity();
 
             state._fsp--;
@@ -1894,7 +1926,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:722:2: (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:732:2: (otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1903,22 +1935,22 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt14) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:722:4: otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:732:4: otherlv_2= 'initially' ( (lv_initialValue_3_0= ruleValue ) )
                     {
-                    otherlv_2=(Token)match(input,26,FOLLOW_26_in_ruleVariableDefinition1651); 
+                    otherlv_2=(Token)match(input,26,FOLLOW_26_in_ruleVariableDefinition1678); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getVariableDefinitionAccess().getInitiallyKeyword_2_0());
                         
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:726:1: ( (lv_initialValue_3_0= ruleValue ) )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:727:1: (lv_initialValue_3_0= ruleValue )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:736:1: ( (lv_initialValue_3_0= ruleValue ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:737:1: (lv_initialValue_3_0= ruleValue )
                     {
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:727:1: (lv_initialValue_3_0= ruleValue )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:728:3: lv_initialValue_3_0= ruleValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:737:1: (lv_initialValue_3_0= ruleValue )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:738:3: lv_initialValue_3_0= ruleValue
                     {
                      
                     	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleValue_in_ruleVariableDefinition1672);
+                    pushFollow(FOLLOW_ruleValue_in_ruleVariableDefinition1699);
                     lv_initialValue_3_0=ruleValue();
 
                     state._fsp--;
@@ -1967,7 +1999,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariableEntity"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:752:1: entryRuleVariableEntity returns [EObject current=null] : iv_ruleVariableEntity= ruleVariableEntity EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:762:1: entryRuleVariableEntity returns [EObject current=null] : iv_ruleVariableEntity= ruleVariableEntity EOF ;
     public final EObject entryRuleVariableEntity() throws RecognitionException {
         EObject current = null;
 
@@ -1975,17 +2007,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:753:2: (iv_ruleVariableEntity= ruleVariableEntity EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:754:2: iv_ruleVariableEntity= ruleVariableEntity EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:763:2: (iv_ruleVariableEntity= ruleVariableEntity EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:764:2: iv_ruleVariableEntity= ruleVariableEntity EOF
             {
              newCompositeNode(grammarAccess.getVariableEntityRule()); 
-            pushFollow(FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1710);
+            pushFollow(FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1737);
             iv_ruleVariableEntity=ruleVariableEntity();
 
             state._fsp--;
 
              current =iv_ruleVariableEntity; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableEntity1720); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableEntity1747); 
 
             }
 
@@ -2003,7 +2035,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariableEntity"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:761:1: ruleVariableEntity returns [EObject current=null] : ( (lv_name_0_0= ruleQualifiedName ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:771:1: ruleVariableEntity returns [EObject current=null] : ( (lv_name_0_0= ruleQualifiedName ) ) ;
     public final EObject ruleVariableEntity() throws RecognitionException {
         EObject current = null;
 
@@ -2013,19 +2045,19 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:764:28: ( ( (lv_name_0_0= ruleQualifiedName ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:765:1: ( (lv_name_0_0= ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:774:28: ( ( (lv_name_0_0= ruleQualifiedName ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:775:1: ( (lv_name_0_0= ruleQualifiedName ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:765:1: ( (lv_name_0_0= ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:766:1: (lv_name_0_0= ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:775:1: ( (lv_name_0_0= ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:776:1: (lv_name_0_0= ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:766:1: (lv_name_0_0= ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:767:3: lv_name_0_0= ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:776:1: (lv_name_0_0= ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:777:3: lv_name_0_0= ruleQualifiedName
             {
              
             	        newCompositeNode(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleVariableEntity1765);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleVariableEntity1792);
             lv_name_0_0=ruleQualifiedName();
 
             state._fsp--;
@@ -2065,7 +2097,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTest"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:791:1: entryRuleTest returns [EObject current=null] : iv_ruleTest= ruleTest EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:801:1: entryRuleTest returns [EObject current=null] : iv_ruleTest= ruleTest EOF ;
     public final EObject entryRuleTest() throws RecognitionException {
         EObject current = null;
 
@@ -2073,17 +2105,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:792:2: (iv_ruleTest= ruleTest EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:793:2: iv_ruleTest= ruleTest EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:802:2: (iv_ruleTest= ruleTest EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:803:2: iv_ruleTest= ruleTest EOF
             {
              newCompositeNode(grammarAccess.getTestRule()); 
-            pushFollow(FOLLOW_ruleTest_in_entryRuleTest1800);
+            pushFollow(FOLLOW_ruleTest_in_entryRuleTest1827);
             iv_ruleTest=ruleTest();
 
             state._fsp--;
 
              current =iv_ruleTest; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTest1810); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTest1837); 
 
             }
 
@@ -2101,7 +2133,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTest"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:800:1: ruleTest returns [EObject current=null] : (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:810:1: ruleTest returns [EObject current=null] : (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? ) ;
     public final EObject ruleTest() throws RecognitionException {
         EObject current = null;
 
@@ -2115,21 +2147,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:803:28: ( (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:804:1: (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:813:28: ( (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:814:1: (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:804:1: (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:804:3: otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:814:1: (otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:814:3: otherlv_0= 'test' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )?
             {
-            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleTest1847); 
+            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleTest1874); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getTestAccess().getTestKeyword_0());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:808:1: ( ( ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:809:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:818:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:819:1: ( ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:809:1: ( ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:810:3: ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:819:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:820:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -2139,7 +2171,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getTestAccess().getDefinitionTestDefinitionCrossReference_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleTest1870);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleTest1897);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2153,28 +2185,28 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:823:2: ( (lv_parameters_2_0= ruleParameter ) )*
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:833:2: ( (lv_parameters_2_0= ruleParameter ) )*
             loop15:
             do {
                 int alt15=2;
                 int LA15_0 = input.LA(1);
 
-                if ( (LA15_0==RULE_ID||LA15_0==33) ) {
+                if ( (LA15_0==RULE_ID||LA15_0==35) ) {
                     alt15=1;
                 }
 
 
                 switch (alt15) {
             	case 1 :
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:824:1: (lv_parameters_2_0= ruleParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:834:1: (lv_parameters_2_0= ruleParameter )
             	    {
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:824:1: (lv_parameters_2_0= ruleParameter )
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:825:3: lv_parameters_2_0= ruleParameter
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:834:1: (lv_parameters_2_0= ruleParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:835:3: lv_parameters_2_0= ruleParameter
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getTestAccess().getParametersParameterParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleParameter_in_ruleTest1891);
+            	    pushFollow(FOLLOW_ruleParameter_in_ruleTest1918);
             	    lv_parameters_2_0=ruleParameter();
 
             	    state._fsp--;
@@ -2202,7 +2234,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:841:3: (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:851:3: (otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2211,22 +2243,22 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt16) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:841:5: otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:851:5: otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) )
                     {
-                    otherlv_3=(Token)match(input,28,FOLLOW_28_in_ruleTest1905); 
+                    otherlv_3=(Token)match(input,28,FOLLOW_28_in_ruleTest1932); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getTestAccess().getEqualsSignKeyword_3_0());
                         
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:845:1: ( (lv_result_4_0= ruleValueOrEnumValue ) )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:846:1: (lv_result_4_0= ruleValueOrEnumValue )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:855:1: ( (lv_result_4_0= ruleValueOrEnumValue ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:856:1: (lv_result_4_0= ruleValueOrEnumValue )
                     {
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:846:1: (lv_result_4_0= ruleValueOrEnumValue )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:847:3: lv_result_4_0= ruleValueOrEnumValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:856:1: (lv_result_4_0= ruleValueOrEnumValue )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:857:3: lv_result_4_0= ruleValueOrEnumValue
                     {
                      
                     	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleTest1926);
+                    pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleTest1953);
                     lv_result_4_0=ruleValueOrEnumValue();
 
                     state._fsp--;
@@ -2274,8 +2306,807 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleTest"
 
 
+    // $ANTLR start "entryRuleTableTest"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:881:1: entryRuleTableTest returns [EObject current=null] : iv_ruleTableTest= ruleTableTest EOF ;
+    public final EObject entryRuleTableTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleTableTest = null;
+
+
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:882:2: (iv_ruleTableTest= ruleTableTest EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:883:2: iv_ruleTableTest= ruleTableTest EOF
+            {
+             newCompositeNode(grammarAccess.getTableTestRule()); 
+            pushFollow(FOLLOW_ruleTableTest_in_entryRuleTableTest1991);
+            iv_ruleTableTest=ruleTableTest();
+
+            state._fsp--;
+
+             current =iv_ruleTableTest; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTableTest2001); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleTableTest"
+
+
+    // $ANTLR start "ruleTableTest"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:890:1: ruleTableTest returns [EObject current=null] : (otherlv_0= 'tabletest' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* ( (lv_headers_3_0= ruleParameterTableHeader ) )+ ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' ) ( (lv_rows_8_0= ruleTableTestRow ) )+ ) ;
+    public final EObject ruleTableTest() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        Token otherlv_7=null;
+        EObject lv_parameters_2_0 = null;
+
+        EObject lv_headers_3_0 = null;
+
+        EObject lv_rows_8_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:893:28: ( (otherlv_0= 'tabletest' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* ( (lv_headers_3_0= ruleParameterTableHeader ) )+ ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' ) ( (lv_rows_8_0= ruleTableTestRow ) )+ ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:894:1: (otherlv_0= 'tabletest' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* ( (lv_headers_3_0= ruleParameterTableHeader ) )+ ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' ) ( (lv_rows_8_0= ruleTableTestRow ) )+ )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:894:1: (otherlv_0= 'tabletest' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* ( (lv_headers_3_0= ruleParameterTableHeader ) )+ ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' ) ( (lv_rows_8_0= ruleTableTestRow ) )+ )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:894:3: otherlv_0= 'tabletest' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* ( (lv_headers_3_0= ruleParameterTableHeader ) )+ ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' ) ( (lv_rows_8_0= ruleTableTestRow ) )+
+            {
+            otherlv_0=(Token)match(input,29,FOLLOW_29_in_ruleTableTest2038); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getTableTestAccess().getTabletestKeyword_0());
+                
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:898:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:899:1: ( ruleQualifiedName )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:899:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:900:3: ruleQualifiedName
+            {
+
+            			if (current==null) {
+            	            current = createModelElement(grammarAccess.getTableTestRule());
+            	        }
+                    
+             
+            	        newCompositeNode(grammarAccess.getTableTestAccess().getDefinitionTestDefinitionCrossReference_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleTableTest2061);
+            ruleQualifiedName();
+
+            state._fsp--;
+
+             
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:913:2: ( (lv_parameters_2_0= ruleParameter ) )*
+            loop17:
+            do {
+                int alt17=2;
+                int LA17_0 = input.LA(1);
+
+                if ( (LA17_0==RULE_ID||LA17_0==35) ) {
+                    alt17=1;
+                }
+
+
+                switch (alt17) {
+            	case 1 :
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:914:1: (lv_parameters_2_0= ruleParameter )
+            	    {
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:914:1: (lv_parameters_2_0= ruleParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:915:3: lv_parameters_2_0= ruleParameter
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleParameter_in_ruleTableTest2082);
+            	    lv_parameters_2_0=ruleParameter();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getTableTestRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"parameters",
+            	            		lv_parameters_2_0, 
+            	            		"Parameter");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop17;
+                }
+            } while (true);
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:931:3: ( (lv_headers_3_0= ruleParameterTableHeader ) )+
+            int cnt18=0;
+            loop18:
+            do {
+                int alt18=2;
+                int LA18_0 = input.LA(1);
+
+                if ( (LA18_0==30) ) {
+                    int LA18_1 = input.LA(2);
+
+                    if ( (LA18_1==RULE_ID||LA18_1==35) ) {
+                        alt18=1;
+                    }
+
+
+                }
+
+
+                switch (alt18) {
+            	case 1 :
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:932:1: (lv_headers_3_0= ruleParameterTableHeader )
+            	    {
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:932:1: (lv_headers_3_0= ruleParameterTableHeader )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:933:3: lv_headers_3_0= ruleParameterTableHeader
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getTableTestAccess().getHeadersParameterTableHeaderParserRuleCall_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleParameterTableHeader_in_ruleTableTest2104);
+            	    lv_headers_3_0=ruleParameterTableHeader();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getTableTestRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"headers",
+            	            		lv_headers_3_0, 
+            	            		"ParameterTableHeader");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt18 >= 1 ) break loop18;
+                        EarlyExitException eee =
+                            new EarlyExitException(18, input);
+                        throw eee;
+                }
+                cnt18++;
+            } while (true);
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:949:3: ( (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' ) | otherlv_7= '|' )
+            int alt19=2;
+            int LA19_0 = input.LA(1);
+
+            if ( (LA19_0==30) ) {
+                int LA19_1 = input.LA(2);
+
+                if ( (LA19_1==30) ) {
+                    alt19=2;
+                }
+                else if ( (LA19_1==28) ) {
+                    alt19=1;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 19, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 19, 0, input);
+
+                throw nvae;
+            }
+            switch (alt19) {
+                case 1 :
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:949:4: (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' )
+                    {
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:949:4: (otherlv_4= '|' otherlv_5= '=' otherlv_6= '|' )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:949:6: otherlv_4= '|' otherlv_5= '=' otherlv_6= '|'
+                    {
+                    otherlv_4=(Token)match(input,30,FOLLOW_30_in_ruleTableTest2119); 
+
+                        	newLeafNode(otherlv_4, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_0());
+                        
+                    otherlv_5=(Token)match(input,28,FOLLOW_28_in_ruleTableTest2131); 
+
+                        	newLeafNode(otherlv_5, grammarAccess.getTableTestAccess().getEqualsSignKeyword_4_0_1());
+                        
+                    otherlv_6=(Token)match(input,30,FOLLOW_30_in_ruleTableTest2143); 
+
+                        	newLeafNode(otherlv_6, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_2());
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:962:7: otherlv_7= '|'
+                    {
+                    otherlv_7=(Token)match(input,30,FOLLOW_30_in_ruleTableTest2162); 
+
+                        	newLeafNode(otherlv_7, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_1());
+                        
+
+                    }
+                    break;
+
+            }
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:966:2: ( (lv_rows_8_0= ruleTableTestRow ) )+
+            int cnt20=0;
+            loop20:
+            do {
+                int alt20=2;
+                int LA20_0 = input.LA(1);
+
+                if ( (LA20_0==30) ) {
+                    alt20=1;
+                }
+
+
+                switch (alt20) {
+            	case 1 :
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:967:1: (lv_rows_8_0= ruleTableTestRow )
+            	    {
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:967:1: (lv_rows_8_0= ruleTableTestRow )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:968:3: lv_rows_8_0= ruleTableTestRow
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getTableTestAccess().getRowsTableTestRowParserRuleCall_5_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleTableTestRow_in_ruleTableTest2184);
+            	    lv_rows_8_0=ruleTableTestRow();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getTableTestRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"rows",
+            	            		lv_rows_8_0, 
+            	            		"TableTestRow");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt20 >= 1 ) break loop20;
+                        EarlyExitException eee =
+                            new EarlyExitException(20, input);
+                        throw eee;
+                }
+                cnt20++;
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleTableTest"
+
+
+    // $ANTLR start "entryRuleTableTestRow"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:992:1: entryRuleTableTestRow returns [EObject current=null] : iv_ruleTableTestRow= ruleTableTestRow EOF ;
+    public final EObject entryRuleTableTestRow() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleTableTestRow = null;
+
+
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:993:2: (iv_ruleTableTestRow= ruleTableTestRow EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:994:2: iv_ruleTableTestRow= ruleTableTestRow EOF
+            {
+             newCompositeNode(grammarAccess.getTableTestRowRule()); 
+            pushFollow(FOLLOW_ruleTableTestRow_in_entryRuleTableTestRow2221);
+            iv_ruleTableTestRow=ruleTableTestRow();
+
+            state._fsp--;
+
+             current =iv_ruleTableTestRow; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTableTestRow2231); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleTableTestRow"
+
+
+    // $ANTLR start "ruleTableTestRow"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1001:1: ruleTableTestRow returns [EObject current=null] : ( () ( (lv_values_1_0= ruleParameterTableValue ) )* ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' ) ) ;
+    public final EObject ruleTableTestRow() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_2=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        EObject lv_values_1_0 = null;
+
+        EObject lv_result_4_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1004:28: ( ( () ( (lv_values_1_0= ruleParameterTableValue ) )* ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1005:1: ( () ( (lv_values_1_0= ruleParameterTableValue ) )* ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' ) )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1005:1: ( () ( (lv_values_1_0= ruleParameterTableValue ) )* ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1005:2: () ( (lv_values_1_0= ruleParameterTableValue ) )* ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1005:2: ()
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1006:5: 
+            {
+
+                    current = forceCreateModelElement(
+                        grammarAccess.getTableTestRowAccess().getTableTestRowAction_0(),
+                        current);
+                
+
+            }
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1011:2: ( (lv_values_1_0= ruleParameterTableValue ) )*
+            loop21:
+            do {
+                int alt21=2;
+                int LA21_0 = input.LA(1);
+
+                if ( (LA21_0==30) ) {
+                    int LA21_1 = input.LA(2);
+
+                    if ( ((LA21_1>=RULE_ID && LA21_1<=RULE_UPPERCASE_ID)) ) {
+                        alt21=1;
+                    }
+
+
+                }
+
+
+                switch (alt21) {
+            	case 1 :
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1012:1: (lv_values_1_0= ruleParameterTableValue )
+            	    {
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1012:1: (lv_values_1_0= ruleParameterTableValue )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1013:3: lv_values_1_0= ruleParameterTableValue
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getTableTestRowAccess().getValuesParameterTableValueParserRuleCall_1_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleParameterTableValue_in_ruleTableTestRow2286);
+            	    lv_values_1_0=ruleParameterTableValue();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getTableTestRowRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"values",
+            	            		lv_values_1_0, 
+            	            		"ParameterTableValue");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop21;
+                }
+            } while (true);
+
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1029:3: ( (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' ) | otherlv_6= '|' )
+            int alt22=2;
+            int LA22_0 = input.LA(1);
+
+            if ( (LA22_0==30) ) {
+                int LA22_1 = input.LA(2);
+
+                if ( (LA22_1==28) ) {
+                    alt22=1;
+                }
+                else if ( (LA22_1==EOF||LA22_1==23||LA22_1==25||LA22_1==27||(LA22_1>=29 && LA22_1<=31)||LA22_1==33) ) {
+                    alt22=2;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 22, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 22, 0, input);
+
+                throw nvae;
+            }
+            switch (alt22) {
+                case 1 :
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1029:4: (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' )
+                    {
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1029:4: (otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|' )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1029:6: otherlv_2= '|' otherlv_3= '=' ( (lv_result_4_0= ruleValueOrEnumValue ) ) otherlv_5= '|'
+                    {
+                    otherlv_2=(Token)match(input,30,FOLLOW_30_in_ruleTableTestRow2301); 
+
+                        	newLeafNode(otherlv_2, grammarAccess.getTableTestRowAccess().getVerticalLineKeyword_2_0_0());
+                        
+                    otherlv_3=(Token)match(input,28,FOLLOW_28_in_ruleTableTestRow2313); 
+
+                        	newLeafNode(otherlv_3, grammarAccess.getTableTestRowAccess().getEqualsSignKeyword_2_0_1());
+                        
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1037:1: ( (lv_result_4_0= ruleValueOrEnumValue ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1038:1: (lv_result_4_0= ruleValueOrEnumValue )
+                    {
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1038:1: (lv_result_4_0= ruleValueOrEnumValue )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1039:3: lv_result_4_0= ruleValueOrEnumValue
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getTableTestRowAccess().getResultValueOrEnumValueParserRuleCall_2_0_2_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleTableTestRow2334);
+                    lv_result_4_0=ruleValueOrEnumValue();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getTableTestRowRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"result",
+                            		lv_result_4_0, 
+                            		"ValueOrEnumValue");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    otherlv_5=(Token)match(input,30,FOLLOW_30_in_ruleTableTestRow2346); 
+
+                        	newLeafNode(otherlv_5, grammarAccess.getTableTestRowAccess().getVerticalLineKeyword_2_0_3());
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1060:7: otherlv_6= '|'
+                    {
+                    otherlv_6=(Token)match(input,30,FOLLOW_30_in_ruleTableTestRow2365); 
+
+                        	newLeafNode(otherlv_6, grammarAccess.getTableTestRowAccess().getVerticalLineKeyword_2_1());
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleTableTestRow"
+
+
+    // $ANTLR start "entryRuleParameterTableHeader"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1072:1: entryRuleParameterTableHeader returns [EObject current=null] : iv_ruleParameterTableHeader= ruleParameterTableHeader EOF ;
+    public final EObject entryRuleParameterTableHeader() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleParameterTableHeader = null;
+
+
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1073:2: (iv_ruleParameterTableHeader= ruleParameterTableHeader EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1074:2: iv_ruleParameterTableHeader= ruleParameterTableHeader EOF
+            {
+             newCompositeNode(grammarAccess.getParameterTableHeaderRule()); 
+            pushFollow(FOLLOW_ruleParameterTableHeader_in_entryRuleParameterTableHeader2402);
+            iv_ruleParameterTableHeader=ruleParameterTableHeader();
+
+            state._fsp--;
+
+             current =iv_ruleParameterTableHeader; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParameterTableHeader2412); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleParameterTableHeader"
+
+
+    // $ANTLR start "ruleParameterTableHeader"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1081:1: ruleParameterTableHeader returns [EObject current=null] : (otherlv_0= '|' ( (lv_name_1_0= ruleParameterName ) ) ) ;
+    public final EObject ruleParameterTableHeader() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        EObject lv_name_1_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1084:28: ( (otherlv_0= '|' ( (lv_name_1_0= ruleParameterName ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1085:1: (otherlv_0= '|' ( (lv_name_1_0= ruleParameterName ) ) )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1085:1: (otherlv_0= '|' ( (lv_name_1_0= ruleParameterName ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1085:3: otherlv_0= '|' ( (lv_name_1_0= ruleParameterName ) )
+            {
+            otherlv_0=(Token)match(input,30,FOLLOW_30_in_ruleParameterTableHeader2449); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_0());
+                
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1089:1: ( (lv_name_1_0= ruleParameterName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1090:1: (lv_name_1_0= ruleParameterName )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1090:1: (lv_name_1_0= ruleParameterName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1091:3: lv_name_1_0= ruleParameterName
+            {
+             
+            	        newCompositeNode(grammarAccess.getParameterTableHeaderAccess().getNameParameterNameParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleParameterName_in_ruleParameterTableHeader2470);
+            lv_name_1_0=ruleParameterName();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getParameterTableHeaderRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"name",
+                    		lv_name_1_0, 
+                    		"ParameterName");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleParameterTableHeader"
+
+
+    // $ANTLR start "entryRuleParameterTableValue"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1115:1: entryRuleParameterTableValue returns [EObject current=null] : iv_ruleParameterTableValue= ruleParameterTableValue EOF ;
+    public final EObject entryRuleParameterTableValue() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleParameterTableValue = null;
+
+
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1116:2: (iv_ruleParameterTableValue= ruleParameterTableValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1117:2: iv_ruleParameterTableValue= ruleParameterTableValue EOF
+            {
+             newCompositeNode(grammarAccess.getParameterTableValueRule()); 
+            pushFollow(FOLLOW_ruleParameterTableValue_in_entryRuleParameterTableValue2506);
+            iv_ruleParameterTableValue=ruleParameterTableValue();
+
+            state._fsp--;
+
+             current =iv_ruleParameterTableValue; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParameterTableValue2516); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleParameterTableValue"
+
+
+    // $ANTLR start "ruleParameterTableValue"
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1124:1: ruleParameterTableValue returns [EObject current=null] : (otherlv_0= '|' ( (lv_value_1_0= ruleValueOrEnumValue ) ) ) ;
+    public final EObject ruleParameterTableValue() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        EObject lv_value_1_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1127:28: ( (otherlv_0= '|' ( (lv_value_1_0= ruleValueOrEnumValue ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1128:1: (otherlv_0= '|' ( (lv_value_1_0= ruleValueOrEnumValue ) ) )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1128:1: (otherlv_0= '|' ( (lv_value_1_0= ruleValueOrEnumValue ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1128:3: otherlv_0= '|' ( (lv_value_1_0= ruleValueOrEnumValue ) )
+            {
+            otherlv_0=(Token)match(input,30,FOLLOW_30_in_ruleParameterTableValue2553); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_0());
+                
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1132:1: ( (lv_value_1_0= ruleValueOrEnumValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1133:1: (lv_value_1_0= ruleValueOrEnumValue )
+            {
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1133:1: (lv_value_1_0= ruleValueOrEnumValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1134:3: lv_value_1_0= ruleValueOrEnumValue
+            {
+             
+            	        newCompositeNode(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleParameterTableValue2574);
+            lv_value_1_0=ruleValueOrEnumValue();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getParameterTableValueRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"value",
+                    		lv_value_1_0, 
+                    		"ValueOrEnumValue");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleParameterTableValue"
+
+
     // $ANTLR start "entryRuleCall"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:871:1: entryRuleCall returns [EObject current=null] : iv_ruleCall= ruleCall EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1158:1: entryRuleCall returns [EObject current=null] : iv_ruleCall= ruleCall EOF ;
     public final EObject entryRuleCall() throws RecognitionException {
         EObject current = null;
 
@@ -2283,17 +3114,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:872:2: (iv_ruleCall= ruleCall EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:873:2: iv_ruleCall= ruleCall EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1159:2: (iv_ruleCall= ruleCall EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1160:2: iv_ruleCall= ruleCall EOF
             {
              newCompositeNode(grammarAccess.getCallRule()); 
-            pushFollow(FOLLOW_ruleCall_in_entryRuleCall1964);
+            pushFollow(FOLLOW_ruleCall_in_entryRuleCall2610);
             iv_ruleCall=ruleCall();
 
             state._fsp--;
 
              current =iv_ruleCall; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCall1974); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCall2620); 
 
             }
 
@@ -2311,7 +3142,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCall"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:880:1: ruleCall returns [EObject current=null] : (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1167:1: ruleCall returns [EObject current=null] : (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? ) ;
     public final EObject ruleCall() throws RecognitionException {
         EObject current = null;
 
@@ -2325,21 +3156,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:883:28: ( (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:884:1: (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1170:28: ( (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1171:1: (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:884:1: (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:884:3: otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1171:1: (otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1171:3: otherlv_0= 'call' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleParameter ) )* (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )?
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_29_in_ruleCall2011); 
+            otherlv_0=(Token)match(input,31,FOLLOW_31_in_ruleCall2657); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getCallAccess().getCallKeyword_0());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:888:1: ( ( ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:889:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1175:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1176:1: ( ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:889:1: ( ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:890:3: ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1176:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1177:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -2349,7 +3180,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getCallAccess().getDefinitionCallDefinitionCrossReference_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleCall2034);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleCall2680);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2363,28 +3194,28 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:903:2: ( (lv_parameters_2_0= ruleParameter ) )*
-            loop17:
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1190:2: ( (lv_parameters_2_0= ruleParameter ) )*
+            loop23:
             do {
-                int alt17=2;
-                int LA17_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( (LA17_0==RULE_ID||LA17_0==33) ) {
-                    alt17=1;
+                if ( (LA23_0==RULE_ID||LA23_0==35) ) {
+                    alt23=1;
                 }
 
 
-                switch (alt17) {
+                switch (alt23) {
             	case 1 :
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:904:1: (lv_parameters_2_0= ruleParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1191:1: (lv_parameters_2_0= ruleParameter )
             	    {
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:904:1: (lv_parameters_2_0= ruleParameter )
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:905:3: lv_parameters_2_0= ruleParameter
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1191:1: (lv_parameters_2_0= ruleParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1192:3: lv_parameters_2_0= ruleParameter
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getCallAccess().getParametersParameterParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleParameter_in_ruleCall2055);
+            	    pushFollow(FOLLOW_ruleParameter_in_ruleCall2701);
             	    lv_parameters_2_0=ruleParameter();
 
             	    state._fsp--;
@@ -2408,35 +3239,35 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop17;
+            	    break loop23;
                 }
             } while (true);
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:921:3: (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1208:3: (otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) ) )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA18_0==30) ) {
-                alt18=1;
+            if ( (LA24_0==32) ) {
+                alt24=1;
             }
-            switch (alt18) {
+            switch (alt24) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:921:5: otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1208:5: otherlv_3= 'sets' ( (lv_result_4_0= ruleVariable ) )
                     {
-                    otherlv_3=(Token)match(input,30,FOLLOW_30_in_ruleCall2069); 
+                    otherlv_3=(Token)match(input,32,FOLLOW_32_in_ruleCall2715); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getCallAccess().getSetsKeyword_3_0());
                         
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:925:1: ( (lv_result_4_0= ruleVariable ) )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:926:1: (lv_result_4_0= ruleVariable )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1212:1: ( (lv_result_4_0= ruleVariable ) )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1213:1: (lv_result_4_0= ruleVariable )
                     {
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:926:1: (lv_result_4_0= ruleVariable )
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:927:3: lv_result_4_0= ruleVariable
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1213:1: (lv_result_4_0= ruleVariable )
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1214:3: lv_result_4_0= ruleVariable
                     {
                      
                     	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleVariable_in_ruleCall2090);
+                    pushFollow(FOLLOW_ruleVariable_in_ruleCall2736);
                     lv_result_4_0=ruleVariable();
 
                     state._fsp--;
@@ -2485,7 +3316,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSuite"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:951:1: entryRuleSuite returns [EObject current=null] : iv_ruleSuite= ruleSuite EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1238:1: entryRuleSuite returns [EObject current=null] : iv_ruleSuite= ruleSuite EOF ;
     public final EObject entryRuleSuite() throws RecognitionException {
         EObject current = null;
 
@@ -2493,17 +3324,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:952:2: (iv_ruleSuite= ruleSuite EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:953:2: iv_ruleSuite= ruleSuite EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1239:2: (iv_ruleSuite= ruleSuite EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1240:2: iv_ruleSuite= ruleSuite EOF
             {
              newCompositeNode(grammarAccess.getSuiteRule()); 
-            pushFollow(FOLLOW_ruleSuite_in_entryRuleSuite2128);
+            pushFollow(FOLLOW_ruleSuite_in_entryRuleSuite2774);
             iv_ruleSuite=ruleSuite();
 
             state._fsp--;
 
              current =iv_ruleSuite; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSuite2138); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSuite2784); 
 
             }
 
@@ -2521,7 +3352,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSuite"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:960:1: ruleSuite returns [EObject current=null] : (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1247:1: ruleSuite returns [EObject current=null] : (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* ) ;
     public final EObject ruleSuite() throws RecognitionException {
         EObject current = null;
 
@@ -2532,21 +3363,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:963:28: ( (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:964:1: (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1250:28: ( (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1251:1: (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:964:1: (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:964:3: otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )*
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1251:1: (otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )* )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1251:3: otherlv_0= 'suite' ( ( ruleQualifiedName ) ) ( (lv_parameters_2_0= ruleSuiteParameter ) )*
             {
-            otherlv_0=(Token)match(input,31,FOLLOW_31_in_ruleSuite2175); 
+            otherlv_0=(Token)match(input,33,FOLLOW_33_in_ruleSuite2821); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getSuiteAccess().getSuiteKeyword_0());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:968:1: ( ( ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:969:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1255:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1256:1: ( ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:969:1: ( ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:970:3: ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1256:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1257:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -2556,7 +3387,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuite2198);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuite2844);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2570,28 +3401,28 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:983:2: ( (lv_parameters_2_0= ruleSuiteParameter ) )*
-            loop19:
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1270:2: ( (lv_parameters_2_0= ruleSuiteParameter ) )*
+            loop25:
             do {
-                int alt19=2;
-                int LA19_0 = input.LA(1);
+                int alt25=2;
+                int LA25_0 = input.LA(1);
 
-                if ( (LA19_0==RULE_ID) ) {
-                    alt19=1;
+                if ( (LA25_0==RULE_ID) ) {
+                    alt25=1;
                 }
 
 
-                switch (alt19) {
+                switch (alt25) {
             	case 1 :
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:984:1: (lv_parameters_2_0= ruleSuiteParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1271:1: (lv_parameters_2_0= ruleSuiteParameter )
             	    {
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:984:1: (lv_parameters_2_0= ruleSuiteParameter )
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:985:3: lv_parameters_2_0= ruleSuiteParameter
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1271:1: (lv_parameters_2_0= ruleSuiteParameter )
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1272:3: lv_parameters_2_0= ruleSuiteParameter
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleSuiteParameter_in_ruleSuite2219);
+            	    pushFollow(FOLLOW_ruleSuiteParameter_in_ruleSuite2865);
             	    lv_parameters_2_0=ruleSuiteParameter();
 
             	    state._fsp--;
@@ -2615,7 +3446,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop19;
+            	    break loop25;
                 }
             } while (true);
 
@@ -2640,7 +3471,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSuiteParameter"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1009:1: entryRuleSuiteParameter returns [EObject current=null] : iv_ruleSuiteParameter= ruleSuiteParameter EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1296:1: entryRuleSuiteParameter returns [EObject current=null] : iv_ruleSuiteParameter= ruleSuiteParameter EOF ;
     public final EObject entryRuleSuiteParameter() throws RecognitionException {
         EObject current = null;
 
@@ -2648,17 +3479,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1010:2: (iv_ruleSuiteParameter= ruleSuiteParameter EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1011:2: iv_ruleSuiteParameter= ruleSuiteParameter EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1297:2: (iv_ruleSuiteParameter= ruleSuiteParameter EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1298:2: iv_ruleSuiteParameter= ruleSuiteParameter EOF
             {
              newCompositeNode(grammarAccess.getSuiteParameterRule()); 
-            pushFollow(FOLLOW_ruleSuiteParameter_in_entryRuleSuiteParameter2256);
+            pushFollow(FOLLOW_ruleSuiteParameter_in_entryRuleSuiteParameter2902);
             iv_ruleSuiteParameter=ruleSuiteParameter();
 
             state._fsp--;
 
              current =iv_ruleSuiteParameter; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSuiteParameter2266); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSuiteParameter2912); 
 
             }
 
@@ -2676,7 +3507,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSuiteParameter"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1018:1: ruleSuiteParameter returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1305:1: ruleSuiteParameter returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) ) ;
     public final EObject ruleSuiteParameter() throws RecognitionException {
         EObject current = null;
 
@@ -2687,17 +3518,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1021:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1022:1: ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1308:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1309:1: ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1022:1: ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1022:2: ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1309:1: ( ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1309:2: ( ( ruleQualifiedName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValue ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1022:2: ( ( ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1023:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1309:2: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1310:1: ( ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1023:1: ( ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1024:3: ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1310:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1311:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -2707,7 +3538,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSuiteParameterAccess().getNameVariableEntityCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuiteParameter2314);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuiteParameter2960);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2721,20 +3552,20 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,32,FOLLOW_32_in_ruleSuiteParameter2326); 
+            otherlv_1=(Token)match(input,34,FOLLOW_34_in_ruleSuiteParameter2972); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSuiteParameterAccess().getColonKeyword_1());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1041:1: ( (lv_value_2_0= ruleValue ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1042:1: (lv_value_2_0= ruleValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1328:1: ( (lv_value_2_0= ruleValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1329:1: (lv_value_2_0= ruleValue )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1042:1: (lv_value_2_0= ruleValue )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1043:3: lv_value_2_0= ruleValue
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1329:1: (lv_value_2_0= ruleValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1330:3: lv_value_2_0= ruleValue
             {
              
             	        newCompositeNode(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_ruleValue_in_ruleSuiteParameter2347);
+            pushFollow(FOLLOW_ruleValue_in_ruleSuiteParameter2993);
             lv_value_2_0=ruleValue();
 
             state._fsp--;
@@ -2777,7 +3608,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParameter"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1067:1: entryRuleParameter returns [EObject current=null] : iv_ruleParameter= ruleParameter EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1354:1: entryRuleParameter returns [EObject current=null] : iv_ruleParameter= ruleParameter EOF ;
     public final EObject entryRuleParameter() throws RecognitionException {
         EObject current = null;
 
@@ -2785,17 +3616,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1068:2: (iv_ruleParameter= ruleParameter EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1069:2: iv_ruleParameter= ruleParameter EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1355:2: (iv_ruleParameter= ruleParameter EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1356:2: iv_ruleParameter= ruleParameter EOF
             {
              newCompositeNode(grammarAccess.getParameterRule()); 
-            pushFollow(FOLLOW_ruleParameter_in_entryRuleParameter2383);
+            pushFollow(FOLLOW_ruleParameter_in_entryRuleParameter3029);
             iv_ruleParameter=ruleParameter();
 
             state._fsp--;
 
              current =iv_ruleParameter; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleParameter2393); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParameter3039); 
 
             }
 
@@ -2813,7 +3644,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParameter"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1076:1: ruleParameter returns [EObject current=null] : ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1363:1: ruleParameter returns [EObject current=null] : ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) ) ;
     public final EObject ruleParameter() throws RecognitionException {
         EObject current = null;
 
@@ -2826,22 +3657,22 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1079:28: ( ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1080:1: ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1366:28: ( ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1367:1: ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1080:1: ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1080:2: ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1367:1: ( ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1367:2: ( (lv_name_0_0= ruleParameterName ) ) otherlv_1= ':' ( (lv_value_2_0= ruleValueOrEnumValue ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1080:2: ( (lv_name_0_0= ruleParameterName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1081:1: (lv_name_0_0= ruleParameterName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1367:2: ( (lv_name_0_0= ruleParameterName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1368:1: (lv_name_0_0= ruleParameterName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1081:1: (lv_name_0_0= ruleParameterName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1082:3: lv_name_0_0= ruleParameterName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1368:1: (lv_name_0_0= ruleParameterName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1369:3: lv_name_0_0= ruleParameterName
             {
              
             	        newCompositeNode(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_ruleParameterName_in_ruleParameter2439);
+            pushFollow(FOLLOW_ruleParameterName_in_ruleParameter3085);
             lv_name_0_0=ruleParameterName();
 
             state._fsp--;
@@ -2863,20 +3694,20 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,32,FOLLOW_32_in_ruleParameter2451); 
+            otherlv_1=(Token)match(input,34,FOLLOW_34_in_ruleParameter3097); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getParameterAccess().getColonKeyword_1());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1102:1: ( (lv_value_2_0= ruleValueOrEnumValue ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1103:1: (lv_value_2_0= ruleValueOrEnumValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1389:1: ( (lv_value_2_0= ruleValueOrEnumValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1390:1: (lv_value_2_0= ruleValueOrEnumValue )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1103:1: (lv_value_2_0= ruleValueOrEnumValue )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1104:3: lv_value_2_0= ruleValueOrEnumValue
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1390:1: (lv_value_2_0= ruleValueOrEnumValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1391:3: lv_value_2_0= ruleValueOrEnumValue
             {
              
             	        newCompositeNode(grammarAccess.getParameterAccess().getValueValueOrEnumValueParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleParameter2472);
+            pushFollow(FOLLOW_ruleValueOrEnumValue_in_ruleParameter3118);
             lv_value_2_0=ruleValueOrEnumValue();
 
             state._fsp--;
@@ -2919,7 +3750,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1128:1: entryRuleParameterName returns [EObject current=null] : iv_ruleParameterName= ruleParameterName EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1415:1: entryRuleParameterName returns [EObject current=null] : iv_ruleParameterName= ruleParameterName EOF ;
     public final EObject entryRuleParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -2927,17 +3758,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1129:2: (iv_ruleParameterName= ruleParameterName EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1130:2: iv_ruleParameterName= ruleParameterName EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1416:2: (iv_ruleParameterName= ruleParameterName EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1417:2: iv_ruleParameterName= ruleParameterName EOF
             {
              newCompositeNode(grammarAccess.getParameterNameRule()); 
-            pushFollow(FOLLOW_ruleParameterName_in_entryRuleParameterName2508);
+            pushFollow(FOLLOW_ruleParameterName_in_entryRuleParameterName3154);
             iv_ruleParameterName=ruleParameterName();
 
             state._fsp--;
 
              current =iv_ruleParameterName; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleParameterName2518); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleParameterName3164); 
 
             }
 
@@ -2955,7 +3786,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1137:1: ruleParameterName returns [EObject current=null] : (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1424:1: ruleParameterName returns [EObject current=null] : (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName ) ;
     public final EObject ruleParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -2967,33 +3798,33 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1140:28: ( (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1141:1: (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1427:28: ( (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1428:1: (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1141:1: (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName )
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1428:1: (this_FixedParameterName_0= ruleFixedParameterName | this_ArbitraryParameterName_1= ruleArbitraryParameterName )
+            int alt26=2;
+            int LA26_0 = input.LA(1);
 
-            if ( (LA20_0==RULE_ID) ) {
-                alt20=1;
+            if ( (LA26_0==RULE_ID) ) {
+                alt26=1;
             }
-            else if ( (LA20_0==33) ) {
-                alt20=2;
+            else if ( (LA26_0==35) ) {
+                alt26=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 20, 0, input);
+                    new NoViableAltException("", 26, 0, input);
 
                 throw nvae;
             }
-            switch (alt20) {
+            switch (alt26) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1142:5: this_FixedParameterName_0= ruleFixedParameterName
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1429:5: this_FixedParameterName_0= ruleFixedParameterName
                     {
                      
                             newCompositeNode(grammarAccess.getParameterNameAccess().getFixedParameterNameParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleFixedParameterName_in_ruleParameterName2565);
+                    pushFollow(FOLLOW_ruleFixedParameterName_in_ruleParameterName3211);
                     this_FixedParameterName_0=ruleFixedParameterName();
 
                     state._fsp--;
@@ -3006,12 +3837,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1152:5: this_ArbitraryParameterName_1= ruleArbitraryParameterName
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1439:5: this_ArbitraryParameterName_1= ruleArbitraryParameterName
                     {
                      
                             newCompositeNode(grammarAccess.getParameterNameAccess().getArbitraryParameterNameParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleArbitraryParameterName_in_ruleParameterName2592);
+                    pushFollow(FOLLOW_ruleArbitraryParameterName_in_ruleParameterName3238);
                     this_ArbitraryParameterName_1=ruleArbitraryParameterName();
 
                     state._fsp--;
@@ -3044,7 +3875,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFixedParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1168:1: entryRuleFixedParameterName returns [EObject current=null] : iv_ruleFixedParameterName= ruleFixedParameterName EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1455:1: entryRuleFixedParameterName returns [EObject current=null] : iv_ruleFixedParameterName= ruleFixedParameterName EOF ;
     public final EObject entryRuleFixedParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -3052,17 +3883,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1169:2: (iv_ruleFixedParameterName= ruleFixedParameterName EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1170:2: iv_ruleFixedParameterName= ruleFixedParameterName EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1456:2: (iv_ruleFixedParameterName= ruleFixedParameterName EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1457:2: iv_ruleFixedParameterName= ruleFixedParameterName EOF
             {
              newCompositeNode(grammarAccess.getFixedParameterNameRule()); 
-            pushFollow(FOLLOW_ruleFixedParameterName_in_entryRuleFixedParameterName2627);
+            pushFollow(FOLLOW_ruleFixedParameterName_in_entryRuleFixedParameterName3273);
             iv_ruleFixedParameterName=ruleFixedParameterName();
 
             state._fsp--;
 
              current =iv_ruleFixedParameterName; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleFixedParameterName2637); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleFixedParameterName3283); 
 
             }
 
@@ -3080,7 +3911,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFixedParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1177:1: ruleFixedParameterName returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1464:1: ruleFixedParameterName returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
     public final EObject ruleFixedParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -3089,21 +3920,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1180:28: ( ( (otherlv_0= RULE_ID ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1181:1: ( (otherlv_0= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1467:28: ( ( (otherlv_0= RULE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1468:1: ( (otherlv_0= RULE_ID ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1181:1: ( (otherlv_0= RULE_ID ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1182:1: (otherlv_0= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1468:1: ( (otherlv_0= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1469:1: (otherlv_0= RULE_ID )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1182:1: (otherlv_0= RULE_ID )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1183:3: otherlv_0= RULE_ID
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1469:1: (otherlv_0= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1470:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getFixedParameterNameRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFixedParameterName2681); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFixedParameterName3327); 
 
             		newLeafNode(otherlv_0, grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceCrossReference_0()); 
             	
@@ -3131,7 +3962,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleArbitraryParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1202:1: entryRuleArbitraryParameterName returns [EObject current=null] : iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1489:1: entryRuleArbitraryParameterName returns [EObject current=null] : iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF ;
     public final EObject entryRuleArbitraryParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -3139,17 +3970,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1203:2: (iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1204:2: iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1490:2: (iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1491:2: iv_ruleArbitraryParameterName= ruleArbitraryParameterName EOF
             {
              newCompositeNode(grammarAccess.getArbitraryParameterNameRule()); 
-            pushFollow(FOLLOW_ruleArbitraryParameterName_in_entryRuleArbitraryParameterName2716);
+            pushFollow(FOLLOW_ruleArbitraryParameterName_in_entryRuleArbitraryParameterName3362);
             iv_ruleArbitraryParameterName=ruleArbitraryParameterName();
 
             state._fsp--;
 
              current =iv_ruleArbitraryParameterName; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleArbitraryParameterName2726); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleArbitraryParameterName3372); 
 
             }
 
@@ -3167,7 +3998,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleArbitraryParameterName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1211:1: ruleArbitraryParameterName returns [EObject current=null] : (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1498:1: ruleArbitraryParameterName returns [EObject current=null] : (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) ) ;
     public final EObject ruleArbitraryParameterName() throws RecognitionException {
         EObject current = null;
 
@@ -3177,23 +4008,23 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1214:28: ( (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1215:1: (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1501:28: ( (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1502:1: (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1215:1: (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1215:3: otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1502:1: (otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1502:3: otherlv_0= '+' ( (lv_identifier_1_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_33_in_ruleArbitraryParameterName2763); 
+            otherlv_0=(Token)match(input,35,FOLLOW_35_in_ruleArbitraryParameterName3409); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getArbitraryParameterNameAccess().getPlusSignKeyword_0());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1219:1: ( (lv_identifier_1_0= RULE_ID ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1220:1: (lv_identifier_1_0= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1506:1: ( (lv_identifier_1_0= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1507:1: (lv_identifier_1_0= RULE_ID )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1220:1: (lv_identifier_1_0= RULE_ID )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1221:3: lv_identifier_1_0= RULE_ID
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1507:1: (lv_identifier_1_0= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1508:3: lv_identifier_1_0= RULE_ID
             {
-            lv_identifier_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleArbitraryParameterName2780); 
+            lv_identifier_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleArbitraryParameterName3426); 
 
             			newLeafNode(lv_identifier_1_0, grammarAccess.getArbitraryParameterNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
             		
@@ -3234,7 +4065,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleValueOrEnumValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1245:1: entryRuleValueOrEnumValue returns [EObject current=null] : iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1532:1: entryRuleValueOrEnumValue returns [EObject current=null] : iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF ;
     public final EObject entryRuleValueOrEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -3242,17 +4073,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1246:2: (iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1247:2: iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1533:2: (iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1534:2: iv_ruleValueOrEnumValue= ruleValueOrEnumValue EOF
             {
              newCompositeNode(grammarAccess.getValueOrEnumValueRule()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValue_in_entryRuleValueOrEnumValue2821);
+            pushFollow(FOLLOW_ruleValueOrEnumValue_in_entryRuleValueOrEnumValue3467);
             iv_ruleValueOrEnumValue=ruleValueOrEnumValue();
 
             state._fsp--;
 
              current =iv_ruleValueOrEnumValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleValueOrEnumValue2831); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleValueOrEnumValue3477); 
 
             }
 
@@ -3270,7 +4101,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValueOrEnumValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1254:1: ruleValueOrEnumValue returns [EObject current=null] : (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1541:1: ruleValueOrEnumValue returns [EObject current=null] : (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue ) ;
     public final EObject ruleValueOrEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -3282,33 +4113,33 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1257:28: ( (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1258:1: (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1544:28: ( (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:1: (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1258:1: (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue )
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:1: (this_Value_0= ruleValue | this_EnumValue_1= ruleEnumValue )
+            int alt27=2;
+            int LA27_0 = input.LA(1);
 
-            if ( ((LA21_0>=RULE_ID && LA21_0<=RULE_STRING)) ) {
-                alt21=1;
+            if ( ((LA27_0>=RULE_ID && LA27_0<=RULE_STRING)) ) {
+                alt27=1;
             }
-            else if ( (LA21_0==RULE_UPPERCASE_ID) ) {
-                alt21=2;
+            else if ( (LA27_0==RULE_UPPERCASE_ID) ) {
+                alt27=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+            switch (alt27) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1259:5: this_Value_0= ruleValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1546:5: this_Value_0= ruleValue
                     {
                      
                             newCompositeNode(grammarAccess.getValueOrEnumValueAccess().getValueParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleValue_in_ruleValueOrEnumValue2878);
+                    pushFollow(FOLLOW_ruleValue_in_ruleValueOrEnumValue3524);
                     this_Value_0=ruleValue();
 
                     state._fsp--;
@@ -3321,12 +4152,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1269:5: this_EnumValue_1= ruleEnumValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1556:5: this_EnumValue_1= ruleEnumValue
                     {
                      
                             newCompositeNode(grammarAccess.getValueOrEnumValueAccess().getEnumValueParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleEnumValue_in_ruleValueOrEnumValue2905);
+                    pushFollow(FOLLOW_ruleEnumValue_in_ruleValueOrEnumValue3551);
                     this_EnumValue_1=ruleEnumValue();
 
                     state._fsp--;
@@ -3359,7 +4190,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1285:1: entryRuleValue returns [EObject current=null] : iv_ruleValue= ruleValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1572:1: entryRuleValue returns [EObject current=null] : iv_ruleValue= ruleValue EOF ;
     public final EObject entryRuleValue() throws RecognitionException {
         EObject current = null;
 
@@ -3367,17 +4198,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1286:2: (iv_ruleValue= ruleValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1287:2: iv_ruleValue= ruleValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1573:2: (iv_ruleValue= ruleValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1574:2: iv_ruleValue= ruleValue EOF
             {
              newCompositeNode(grammarAccess.getValueRule()); 
-            pushFollow(FOLLOW_ruleValue_in_entryRuleValue2940);
+            pushFollow(FOLLOW_ruleValue_in_entryRuleValue3586);
             iv_ruleValue=ruleValue();
 
             state._fsp--;
 
              current =iv_ruleValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleValue2950); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleValue3596); 
 
             }
 
@@ -3395,7 +4226,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1294:1: ruleValue returns [EObject current=null] : (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1581:1: ruleValue returns [EObject current=null] : (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable ) ;
     public final EObject ruleValue() throws RecognitionException {
         EObject current = null;
 
@@ -3411,47 +4242,47 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1297:28: ( (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1298:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1584:28: ( (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1585:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1298:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable )
-            int alt22=4;
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1585:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_Variable_3= ruleVariable )
+            int alt28=4;
             switch ( input.LA(1) ) {
             case RULE_STRING:
                 {
-                alt22=1;
+                alt28=1;
                 }
                 break;
             case RULE_INTEGER:
                 {
-                alt22=2;
+                alt28=2;
                 }
                 break;
             case RULE_DECIMAL:
                 {
-                alt22=3;
+                alt28=3;
                 }
                 break;
             case RULE_ID:
                 {
-                alt22=4;
+                alt28=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 28, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt22) {
+            switch (alt28) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1299:5: this_StringValue_0= ruleStringValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1586:5: this_StringValue_0= ruleStringValue
                     {
                      
                             newCompositeNode(grammarAccess.getValueAccess().getStringValueParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleStringValue_in_ruleValue2997);
+                    pushFollow(FOLLOW_ruleStringValue_in_ruleValue3643);
                     this_StringValue_0=ruleStringValue();
 
                     state._fsp--;
@@ -3464,12 +4295,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1309:5: this_IntegerValue_1= ruleIntegerValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1596:5: this_IntegerValue_1= ruleIntegerValue
                     {
                      
                             newCompositeNode(grammarAccess.getValueAccess().getIntegerValueParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleIntegerValue_in_ruleValue3024);
+                    pushFollow(FOLLOW_ruleIntegerValue_in_ruleValue3670);
                     this_IntegerValue_1=ruleIntegerValue();
 
                     state._fsp--;
@@ -3482,12 +4313,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1319:5: this_DecimalValue_2= ruleDecimalValue
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1606:5: this_DecimalValue_2= ruleDecimalValue
                     {
                      
                             newCompositeNode(grammarAccess.getValueAccess().getDecimalValueParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleDecimalValue_in_ruleValue3051);
+                    pushFollow(FOLLOW_ruleDecimalValue_in_ruleValue3697);
                     this_DecimalValue_2=ruleDecimalValue();
 
                     state._fsp--;
@@ -3500,12 +4331,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1329:5: this_Variable_3= ruleVariable
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1616:5: this_Variable_3= ruleVariable
                     {
                      
                             newCompositeNode(grammarAccess.getValueAccess().getVariableParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleVariable_in_ruleValue3078);
+                    pushFollow(FOLLOW_ruleVariable_in_ruleValue3724);
                     this_Variable_3=ruleVariable();
 
                     state._fsp--;
@@ -3538,7 +4369,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIntegerValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1345:1: entryRuleIntegerValue returns [EObject current=null] : iv_ruleIntegerValue= ruleIntegerValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1632:1: entryRuleIntegerValue returns [EObject current=null] : iv_ruleIntegerValue= ruleIntegerValue EOF ;
     public final EObject entryRuleIntegerValue() throws RecognitionException {
         EObject current = null;
 
@@ -3546,17 +4377,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1346:2: (iv_ruleIntegerValue= ruleIntegerValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1347:2: iv_ruleIntegerValue= ruleIntegerValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1633:2: (iv_ruleIntegerValue= ruleIntegerValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1634:2: iv_ruleIntegerValue= ruleIntegerValue EOF
             {
              newCompositeNode(grammarAccess.getIntegerValueRule()); 
-            pushFollow(FOLLOW_ruleIntegerValue_in_entryRuleIntegerValue3113);
+            pushFollow(FOLLOW_ruleIntegerValue_in_entryRuleIntegerValue3759);
             iv_ruleIntegerValue=ruleIntegerValue();
 
             state._fsp--;
 
              current =iv_ruleIntegerValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntegerValue3123); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntegerValue3769); 
 
             }
 
@@ -3574,7 +4405,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIntegerValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1354:1: ruleIntegerValue returns [EObject current=null] : ( (lv_integerValue_0_0= RULE_INTEGER ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1641:1: ruleIntegerValue returns [EObject current=null] : ( (lv_integerValue_0_0= RULE_INTEGER ) ) ;
     public final EObject ruleIntegerValue() throws RecognitionException {
         EObject current = null;
 
@@ -3583,16 +4414,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1357:28: ( ( (lv_integerValue_0_0= RULE_INTEGER ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1358:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1644:28: ( ( (lv_integerValue_0_0= RULE_INTEGER ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1645:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1358:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1359:1: (lv_integerValue_0_0= RULE_INTEGER )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1645:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1646:1: (lv_integerValue_0_0= RULE_INTEGER )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1359:1: (lv_integerValue_0_0= RULE_INTEGER )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1360:3: lv_integerValue_0_0= RULE_INTEGER
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1646:1: (lv_integerValue_0_0= RULE_INTEGER )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1647:3: lv_integerValue_0_0= RULE_INTEGER
             {
-            lv_integerValue_0_0=(Token)match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_ruleIntegerValue3164); 
+            lv_integerValue_0_0=(Token)match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_ruleIntegerValue3810); 
 
             			newLeafNode(lv_integerValue_0_0, grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0()); 
             		
@@ -3630,7 +4461,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDecimalValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1384:1: entryRuleDecimalValue returns [EObject current=null] : iv_ruleDecimalValue= ruleDecimalValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1671:1: entryRuleDecimalValue returns [EObject current=null] : iv_ruleDecimalValue= ruleDecimalValue EOF ;
     public final EObject entryRuleDecimalValue() throws RecognitionException {
         EObject current = null;
 
@@ -3638,17 +4469,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1385:2: (iv_ruleDecimalValue= ruleDecimalValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1386:2: iv_ruleDecimalValue= ruleDecimalValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1672:2: (iv_ruleDecimalValue= ruleDecimalValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1673:2: iv_ruleDecimalValue= ruleDecimalValue EOF
             {
              newCompositeNode(grammarAccess.getDecimalValueRule()); 
-            pushFollow(FOLLOW_ruleDecimalValue_in_entryRuleDecimalValue3204);
+            pushFollow(FOLLOW_ruleDecimalValue_in_entryRuleDecimalValue3850);
             iv_ruleDecimalValue=ruleDecimalValue();
 
             state._fsp--;
 
              current =iv_ruleDecimalValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDecimalValue3214); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDecimalValue3860); 
 
             }
 
@@ -3666,7 +4497,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDecimalValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1393:1: ruleDecimalValue returns [EObject current=null] : ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1680:1: ruleDecimalValue returns [EObject current=null] : ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) ;
     public final EObject ruleDecimalValue() throws RecognitionException {
         EObject current = null;
 
@@ -3675,16 +4506,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1396:28: ( ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1397:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1683:28: ( ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1684:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1397:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1398:1: (lv_decimalValue_0_0= RULE_DECIMAL )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1684:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1685:1: (lv_decimalValue_0_0= RULE_DECIMAL )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1398:1: (lv_decimalValue_0_0= RULE_DECIMAL )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1399:3: lv_decimalValue_0_0= RULE_DECIMAL
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1685:1: (lv_decimalValue_0_0= RULE_DECIMAL )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1686:3: lv_decimalValue_0_0= RULE_DECIMAL
             {
-            lv_decimalValue_0_0=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleDecimalValue3255); 
+            lv_decimalValue_0_0=(Token)match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_ruleDecimalValue3901); 
 
             			newLeafNode(lv_decimalValue_0_0, grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0()); 
             		
@@ -3722,7 +4553,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1423:1: entryRuleStringValue returns [EObject current=null] : iv_ruleStringValue= ruleStringValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1710:1: entryRuleStringValue returns [EObject current=null] : iv_ruleStringValue= ruleStringValue EOF ;
     public final EObject entryRuleStringValue() throws RecognitionException {
         EObject current = null;
 
@@ -3730,17 +4561,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1424:2: (iv_ruleStringValue= ruleStringValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1425:2: iv_ruleStringValue= ruleStringValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1711:2: (iv_ruleStringValue= ruleStringValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1712:2: iv_ruleStringValue= ruleStringValue EOF
             {
              newCompositeNode(grammarAccess.getStringValueRule()); 
-            pushFollow(FOLLOW_ruleStringValue_in_entryRuleStringValue3295);
+            pushFollow(FOLLOW_ruleStringValue_in_entryRuleStringValue3941);
             iv_ruleStringValue=ruleStringValue();
 
             state._fsp--;
 
              current =iv_ruleStringValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStringValue3305); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleStringValue3951); 
 
             }
 
@@ -3758,7 +4589,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1432:1: ruleStringValue returns [EObject current=null] : ( (lv_stringValue_0_0= RULE_STRING ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1719:1: ruleStringValue returns [EObject current=null] : ( (lv_stringValue_0_0= RULE_STRING ) ) ;
     public final EObject ruleStringValue() throws RecognitionException {
         EObject current = null;
 
@@ -3767,16 +4598,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1435:28: ( ( (lv_stringValue_0_0= RULE_STRING ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1436:1: ( (lv_stringValue_0_0= RULE_STRING ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1722:28: ( ( (lv_stringValue_0_0= RULE_STRING ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1723:1: ( (lv_stringValue_0_0= RULE_STRING ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1436:1: ( (lv_stringValue_0_0= RULE_STRING ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1437:1: (lv_stringValue_0_0= RULE_STRING )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1723:1: ( (lv_stringValue_0_0= RULE_STRING ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1724:1: (lv_stringValue_0_0= RULE_STRING )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1437:1: (lv_stringValue_0_0= RULE_STRING )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1438:3: lv_stringValue_0_0= RULE_STRING
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1724:1: (lv_stringValue_0_0= RULE_STRING )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1725:3: lv_stringValue_0_0= RULE_STRING
             {
-            lv_stringValue_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStringValue3346); 
+            lv_stringValue_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStringValue3992); 
 
             			newLeafNode(lv_stringValue_0_0, grammarAccess.getStringValueAccess().getStringValueSTRINGTerminalRuleCall_0()); 
             		
@@ -3814,7 +4645,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariable"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1462:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1749:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
     public final EObject entryRuleVariable() throws RecognitionException {
         EObject current = null;
 
@@ -3822,17 +4653,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1463:2: (iv_ruleVariable= ruleVariable EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1464:2: iv_ruleVariable= ruleVariable EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1750:2: (iv_ruleVariable= ruleVariable EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1751:2: iv_ruleVariable= ruleVariable EOF
             {
              newCompositeNode(grammarAccess.getVariableRule()); 
-            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable3386);
+            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable4032);
             iv_ruleVariable=ruleVariable();
 
             state._fsp--;
 
              current =iv_ruleVariable; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable3396); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable4042); 
 
             }
 
@@ -3850,21 +4681,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariable"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1471:1: ruleVariable returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1758:1: ruleVariable returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
     public final EObject ruleVariable() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1474:28: ( ( ( ruleQualifiedName ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1475:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1761:28: ( ( ( ruleQualifiedName ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1762:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1475:1: ( ( ruleQualifiedName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1476:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1762:1: ( ( ruleQualifiedName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1763:1: ( ruleQualifiedName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1476:1: ( ruleQualifiedName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1477:3: ruleQualifiedName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1763:1: ( ruleQualifiedName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1764:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -3874,7 +4705,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getVariableAccess().getNameVariableEntityCrossReference_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleVariable3443);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleVariable4089);
             ruleQualifiedName();
 
             state._fsp--;
@@ -3906,7 +4737,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnumValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1498:1: entryRuleEnumValue returns [EObject current=null] : iv_ruleEnumValue= ruleEnumValue EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1785:1: entryRuleEnumValue returns [EObject current=null] : iv_ruleEnumValue= ruleEnumValue EOF ;
     public final EObject entryRuleEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -3914,17 +4745,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1499:2: (iv_ruleEnumValue= ruleEnumValue EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1500:2: iv_ruleEnumValue= ruleEnumValue EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1786:2: (iv_ruleEnumValue= ruleEnumValue EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1787:2: iv_ruleEnumValue= ruleEnumValue EOF
             {
              newCompositeNode(grammarAccess.getEnumValueRule()); 
-            pushFollow(FOLLOW_ruleEnumValue_in_entryRuleEnumValue3478);
+            pushFollow(FOLLOW_ruleEnumValue_in_entryRuleEnumValue4124);
             iv_ruleEnumValue=ruleEnumValue();
 
             state._fsp--;
 
              current =iv_ruleEnumValue; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEnumValue3488); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleEnumValue4134); 
 
             }
 
@@ -3942,7 +4773,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnumValue"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1507:1: ruleEnumValue returns [EObject current=null] : ( (otherlv_0= RULE_UPPERCASE_ID ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1794:1: ruleEnumValue returns [EObject current=null] : ( (otherlv_0= RULE_UPPERCASE_ID ) ) ;
     public final EObject ruleEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -3951,21 +4782,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1510:28: ( ( (otherlv_0= RULE_UPPERCASE_ID ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1511:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1797:28: ( ( (otherlv_0= RULE_UPPERCASE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1798:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1511:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1512:1: (otherlv_0= RULE_UPPERCASE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1798:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1799:1: (otherlv_0= RULE_UPPERCASE_ID )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1512:1: (otherlv_0= RULE_UPPERCASE_ID )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1513:3: otherlv_0= RULE_UPPERCASE_ID
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1799:1: (otherlv_0= RULE_UPPERCASE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1800:3: otherlv_0= RULE_UPPERCASE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getEnumValueRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_ruleEnumValue3532); 
+            otherlv_0=(Token)match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_ruleEnumValue4178); 
 
             		newLeafNode(otherlv_0, grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralCrossReference_0()); 
             	
@@ -3993,7 +4824,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleMethodReference"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1532:1: entryRuleMethodReference returns [EObject current=null] : iv_ruleMethodReference= ruleMethodReference EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1819:1: entryRuleMethodReference returns [EObject current=null] : iv_ruleMethodReference= ruleMethodReference EOF ;
     public final EObject entryRuleMethodReference() throws RecognitionException {
         EObject current = null;
 
@@ -4001,17 +4832,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1533:2: (iv_ruleMethodReference= ruleMethodReference EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1534:2: iv_ruleMethodReference= ruleMethodReference EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1820:2: (iv_ruleMethodReference= ruleMethodReference EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1821:2: iv_ruleMethodReference= ruleMethodReference EOF
             {
              newCompositeNode(grammarAccess.getMethodReferenceRule()); 
-            pushFollow(FOLLOW_ruleMethodReference_in_entryRuleMethodReference3567);
+            pushFollow(FOLLOW_ruleMethodReference_in_entryRuleMethodReference4213);
             iv_ruleMethodReference=ruleMethodReference();
 
             state._fsp--;
 
              current =iv_ruleMethodReference; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodReference3577); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodReference4223); 
 
             }
 
@@ -4029,7 +4860,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMethodReference"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1541:1: ruleMethodReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1828:1: ruleMethodReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) ;
     public final EObject ruleMethodReference() throws RecognitionException {
         EObject current = null;
 
@@ -4039,17 +4870,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1544:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1831:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1832:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1832:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1832:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1545:2: ( ( ruleQualifiedJavaClassName ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1546:1: ( ruleQualifiedJavaClassName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1832:2: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1833:1: ( ruleQualifiedJavaClassName )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1546:1: ( ruleQualifiedJavaClassName )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1547:3: ruleQualifiedJavaClassName
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1833:1: ( ruleQualifiedJavaClassName )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1834:3: ruleQualifiedJavaClassName
             {
 
             			if (current==null) {
@@ -4059,7 +4890,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_ruleMethodReference3625);
+            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_ruleMethodReference4271);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -4073,22 +4904,22 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,34,FOLLOW_34_in_ruleMethodReference3637); 
+            otherlv_1=(Token)match(input,36,FOLLOW_36_in_ruleMethodReference4283); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1());
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1564:1: ( (otherlv_2= RULE_ID ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1565:1: (otherlv_2= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1851:1: ( (otherlv_2= RULE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1852:1: (otherlv_2= RULE_ID )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1565:1: (otherlv_2= RULE_ID )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1566:3: otherlv_2= RULE_ID
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1852:1: (otherlv_2= RULE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1853:3: otherlv_2= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getMethodReferenceRule());
             	        }
                     
-            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleMethodReference3657); 
+            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleMethodReference4303); 
 
             		newLeafNode(otherlv_2, grammarAccess.getMethodReferenceAccess().getMethodJvmOperationCrossReference_2_0()); 
             	
@@ -4119,7 +4950,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1585:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1872:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -4127,17 +4958,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1586:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1587:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1873:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1874:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameRule()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName3694);
+            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4340);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
 
              current =iv_ruleQualifiedName.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName3705); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName4351); 
 
             }
 
@@ -4155,7 +4986,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1594:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1881:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4166,46 +4997,46 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1597:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1598:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1884:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1885:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1598:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1598:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1885:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1885:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName3745); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName4391); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1605:1: (kw= '.' this_ID_2= RULE_ID )*
-            loop23:
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1892:1: (kw= '.' this_ID_2= RULE_ID )*
+            loop29:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt29=2;
+                int LA29_0 = input.LA(1);
 
-                if ( (LA23_0==35) ) {
-                    int LA23_2 = input.LA(2);
+                if ( (LA29_0==37) ) {
+                    int LA29_2 = input.LA(2);
 
-                    if ( (LA23_2==RULE_ID) ) {
-                        alt23=1;
+                    if ( (LA29_2==RULE_ID) ) {
+                        alt29=1;
                     }
 
 
                 }
 
 
-                switch (alt23) {
+                switch (alt29) {
             	case 1 :
-            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1606:2: kw= '.' this_ID_2= RULE_ID
+            	    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1893:2: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,35,FOLLOW_35_in_ruleQualifiedName3764); 
+            	    kw=(Token)match(input,37,FOLLOW_37_in_ruleQualifiedName4410); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	        
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName3779); 
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName4425); 
 
             	    		current.merge(this_ID_2);
             	        
@@ -4217,7 +5048,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop29;
                 }
             } while (true);
 
@@ -4242,7 +5073,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedJavaClassName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1626:1: entryRuleQualifiedJavaClassName returns [String current=null] : iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1913:1: entryRuleQualifiedJavaClassName returns [String current=null] : iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF ;
     public final String entryRuleQualifiedJavaClassName() throws RecognitionException {
         String current = null;
 
@@ -4250,17 +5081,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1627:2: (iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1628:2: iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1914:2: (iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1915:2: iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedJavaClassNameRule()); 
-            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_entryRuleQualifiedJavaClassName3827);
+            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_entryRuleQualifiedJavaClassName4473);
             iv_ruleQualifiedJavaClassName=ruleQualifiedJavaClassName();
 
             state._fsp--;
 
              current =iv_ruleQualifiedJavaClassName.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedJavaClassName3838); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedJavaClassName4484); 
 
             }
 
@@ -4278,7 +5109,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedJavaClassName"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1635:1: ruleQualifiedJavaClassName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1922:1: ruleQualifiedJavaClassName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedJavaClassName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4290,16 +5121,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1638:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1639:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1925:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1926:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1639:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1640:5: this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1926:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1927:5: this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID
             {
              
                     newCompositeNode(grammarAccess.getQualifiedJavaClassNameAccess().getQualifiedNameParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedJavaClassName3885);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedJavaClassName4531);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -4310,12 +5141,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            kw=(Token)match(input,35,FOLLOW_35_in_ruleQualifiedJavaClassName3903); 
+            kw=(Token)match(input,37,FOLLOW_37_in_ruleQualifiedJavaClassName4549); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
                 
-            this_UPPERCASE_ID_2=(Token)match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_ruleQualifiedJavaClassName3918); 
+            this_UPPERCASE_ID_2=(Token)match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_ruleQualifiedJavaClassName4564); 
 
             		current.merge(this_UPPERCASE_ID_2);
                 
@@ -4343,7 +5174,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedNameWithWildcard"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1671:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1958:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
     public final String entryRuleQualifiedNameWithWildcard() throws RecognitionException {
         String current = null;
 
@@ -4351,17 +5182,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1672:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1673:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1959:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1960:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameWithWildcardRule()); 
-            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard3964);
+            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard4610);
             iv_ruleQualifiedNameWithWildcard=ruleQualifiedNameWithWildcard();
 
             state._fsp--;
 
              current =iv_ruleQualifiedNameWithWildcard.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard3975); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard4621); 
 
             }
 
@@ -4379,7 +5210,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedNameWithWildcard"
-    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1680:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
+    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1967:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedNameWithWildcard() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4390,16 +5221,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1683:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1684:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1970:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1971:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
             {
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1684:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1685:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1971:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1972:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
             {
              
                     newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard4022);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard4668);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -4410,18 +5241,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1695:1: (kw= '.*' )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
+            // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1982:1: (kw= '.*' )?
+            int alt30=2;
+            int LA30_0 = input.LA(1);
 
-            if ( (LA24_0==36) ) {
-                alt24=1;
+            if ( (LA30_0==38) ) {
+                alt30=1;
             }
-            switch (alt24) {
+            switch (alt30) {
                 case 1 :
-                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1696:2: kw= '.*'
+                    // ../de.integrity.dsl/src-gen/de/integrity/parser/antlr/internal/InternalDSL.g:1983:2: kw= '.*'
                     {
-                    kw=(Token)match(input,36,FOLLOW_36_in_ruleQualifiedNameWithWildcard4041); 
+                    kw=(Token)match(input,38,FOLLOW_38_in_ruleQualifiedNameWithWildcard4687); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
@@ -4458,7 +5289,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleModel_in_entryRuleModel75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleModel85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStatement_in_ruleModel130 = new BitSet(new long[]{0x0000000080012002L});
+    public static final BitSet FOLLOW_ruleStatement_in_ruleModel130 = new BitSet(new long[]{0x0000000200012002L});
     public static final BitSet FOLLOW_ruleStatement_in_entryRuleStatement166 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStatement176 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePackageDefinition_in_ruleStatement223 = new BitSet(new long[]{0x0000000000000002L});
@@ -4502,8 +5333,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleVariableEntity_in_ruleSuiteDefinition1142 = new BitSet(new long[]{0x0000000000404010L});
     public static final BitSet FOLLOW_22_in_ruleSuiteDefinition1158 = new BitSet(new long[]{0x0000000000004010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1181 = new BitSet(new long[]{0x0000000000004010L});
-    public static final BitSet FOLLOW_14_in_ruleSuiteDefinition1196 = new BitSet(new long[]{0x00000000AA9B2000L});
-    public static final BitSet FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition1217 = new BitSet(new long[]{0x00000000AA9B2000L});
+    public static final BitSet FOLLOW_14_in_ruleSuiteDefinition1196 = new BitSet(new long[]{0x00000002AA9B2000L});
+    public static final BitSet FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition1217 = new BitSet(new long[]{0x00000002AA9B2000L});
     public static final BitSet FOLLOW_23_in_ruleSuiteDefinition1230 = new BitSet(new long[]{0x0000000001000002L});
     public static final BitSet FOLLOW_24_in_ruleSuiteDefinition1243 = new BitSet(new long[]{0x0000000000000012L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1266 = new BitSet(new long[]{0x0000000000000012L});
@@ -4516,98 +5347,126 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleSuiteStatementWithResult1461 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSuite_in_ruleSuiteStatementWithResult1508 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleTest_in_ruleSuiteStatementWithResult1535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableDefinition_in_entryRuleVariableDefinition1570 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariableDefinition1580 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_ruleVariableDefinition1617 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_ruleVariableDefinition1638 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_26_in_ruleVariableDefinition1651 = new BitSet(new long[]{0x00000000000000F0L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleVariableDefinition1672 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1710 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariableEntity1720 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVariableEntity1765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTest_in_entryRuleTest1800 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTest1810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_ruleTest1847 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleTest1870 = new BitSet(new long[]{0x0000000210000012L});
-    public static final BitSet FOLLOW_ruleParameter_in_ruleTest1891 = new BitSet(new long[]{0x0000000210000012L});
-    public static final BitSet FOLLOW_28_in_ruleTest1905 = new BitSet(new long[]{0x00000000000001F0L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleTest1926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCall_in_entryRuleCall1964 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCall1974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_ruleCall2011 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleCall2034 = new BitSet(new long[]{0x0000000240000012L});
-    public static final BitSet FOLLOW_ruleParameter_in_ruleCall2055 = new BitSet(new long[]{0x0000000240000012L});
-    public static final BitSet FOLLOW_30_in_ruleCall2069 = new BitSet(new long[]{0x00000000000000F0L});
-    public static final BitSet FOLLOW_ruleVariable_in_ruleCall2090 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSuite_in_entryRuleSuite2128 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSuite2138 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_ruleSuite2175 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuite2198 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_ruleSuiteParameter_in_ruleSuite2219 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_ruleSuiteParameter_in_entryRuleSuiteParameter2256 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSuiteParameter2266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteParameter2314 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_ruleSuiteParameter2326 = new BitSet(new long[]{0x00000000000000F0L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleSuiteParameter2347 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameter_in_entryRuleParameter2383 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleParameter2393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterName_in_ruleParameter2439 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_ruleParameter2451 = new BitSet(new long[]{0x00000000000001F0L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleParameter2472 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterName_in_entryRuleParameterName2508 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleParameterName2518 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFixedParameterName_in_ruleParameterName2565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArbitraryParameterName_in_ruleParameterName2592 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFixedParameterName_in_entryRuleFixedParameterName2627 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleFixedParameterName2637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFixedParameterName2681 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArbitraryParameterName_in_entryRuleArbitraryParameterName2716 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleArbitraryParameterName2726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_ruleArbitraryParameterName2763 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleArbitraryParameterName2780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_entryRuleValueOrEnumValue2821 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleValueOrEnumValue2831 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleValueOrEnumValue2878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEnumValue_in_ruleValueOrEnumValue2905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_entryRuleValue2940 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleValue2950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringValue_in_ruleValue2997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntegerValue_in_ruleValue3024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDecimalValue_in_ruleValue3051 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_ruleValue3078 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntegerValue_in_entryRuleIntegerValue3113 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntegerValue3123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INTEGER_in_ruleIntegerValue3164 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDecimalValue_in_entryRuleDecimalValue3204 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDecimalValue3214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleDecimalValue3255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringValue_in_entryRuleStringValue3295 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStringValue3305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStringValue3346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable3386 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariable3396 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVariable3443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEnumValue_in_entryRuleEnumValue3478 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEnumValue3488 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_ruleEnumValue3532 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMethodReference_in_entryRuleMethodReference3567 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleMethodReference3577 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_ruleMethodReference3625 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_ruleMethodReference3637 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleMethodReference3657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName3694 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName3705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName3745 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_35_in_ruleQualifiedName3764 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName3779 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_entryRuleQualifiedJavaClassName3827 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedJavaClassName3838 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedJavaClassName3885 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_ruleQualifiedJavaClassName3903 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_ruleQualifiedJavaClassName3918 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard3964 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard3975 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard4022 = new BitSet(new long[]{0x0000001000000002L});
-    public static final BitSet FOLLOW_36_in_ruleQualifiedNameWithWildcard4041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableTest_in_ruleSuiteStatementWithResult1562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableDefinition_in_entryRuleVariableDefinition1597 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariableDefinition1607 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_ruleVariableDefinition1644 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_ruleVariableDefinition1665 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_26_in_ruleVariableDefinition1678 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleValue_in_ruleVariableDefinition1699 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1737 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariableEntity1747 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVariableEntity1792 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTest_in_entryRuleTest1827 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTest1837 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_ruleTest1874 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleTest1897 = new BitSet(new long[]{0x0000000810000012L});
+    public static final BitSet FOLLOW_ruleParameter_in_ruleTest1918 = new BitSet(new long[]{0x0000000810000012L});
+    public static final BitSet FOLLOW_28_in_ruleTest1932 = new BitSet(new long[]{0x00000000000001F0L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleTest1953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableTest_in_entryRuleTableTest1991 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTableTest2001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_ruleTableTest2038 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleTableTest2061 = new BitSet(new long[]{0x0000000840000010L});
+    public static final BitSet FOLLOW_ruleParameter_in_ruleTableTest2082 = new BitSet(new long[]{0x0000000840000010L});
+    public static final BitSet FOLLOW_ruleParameterTableHeader_in_ruleTableTest2104 = new BitSet(new long[]{0x0000000840000010L});
+    public static final BitSet FOLLOW_30_in_ruleTableTest2119 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_ruleTableTest2131 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleTableTest2143 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleTableTest2162 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_ruleTableTestRow_in_ruleTableTest2184 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_ruleTableTestRow_in_entryRuleTableTestRow2221 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTableTestRow2231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterTableValue_in_ruleTableTestRow2286 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleTableTestRow2301 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_ruleTableTestRow2313 = new BitSet(new long[]{0x00000000000001F0L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleTableTestRow2334 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleTableTestRow2346 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleTableTestRow2365 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterTableHeader_in_entryRuleParameterTableHeader2402 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParameterTableHeader2412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleParameterTableHeader2449 = new BitSet(new long[]{0x0000000800000010L});
+    public static final BitSet FOLLOW_ruleParameterName_in_ruleParameterTableHeader2470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterTableValue_in_entryRuleParameterTableValue2506 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParameterTableValue2516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleParameterTableValue2553 = new BitSet(new long[]{0x00000000000001F0L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleParameterTableValue2574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCall_in_entryRuleCall2610 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCall2620 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_ruleCall2657 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleCall2680 = new BitSet(new long[]{0x0000000900000012L});
+    public static final BitSet FOLLOW_ruleParameter_in_ruleCall2701 = new BitSet(new long[]{0x0000000900000012L});
+    public static final BitSet FOLLOW_32_in_ruleCall2715 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleVariable_in_ruleCall2736 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSuite_in_entryRuleSuite2774 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSuite2784 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_ruleSuite2821 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuite2844 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_ruleSuiteParameter_in_ruleSuite2865 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_ruleSuiteParameter_in_entryRuleSuiteParameter2902 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSuiteParameter2912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteParameter2960 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_ruleSuiteParameter2972 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleValue_in_ruleSuiteParameter2993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameter_in_entryRuleParameter3029 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParameter3039 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterName_in_ruleParameter3085 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_ruleParameter3097 = new BitSet(new long[]{0x00000000000001F0L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_ruleParameter3118 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterName_in_entryRuleParameterName3154 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleParameterName3164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFixedParameterName_in_ruleParameterName3211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArbitraryParameterName_in_ruleParameterName3238 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFixedParameterName_in_entryRuleFixedParameterName3273 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleFixedParameterName3283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleFixedParameterName3327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArbitraryParameterName_in_entryRuleArbitraryParameterName3362 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleArbitraryParameterName3372 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_ruleArbitraryParameterName3409 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleArbitraryParameterName3426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValue_in_entryRuleValueOrEnumValue3467 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleValueOrEnumValue3477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_ruleValueOrEnumValue3524 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEnumValue_in_ruleValueOrEnumValue3551 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_entryRuleValue3586 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleValue3596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringValue_in_ruleValue3643 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntegerValue_in_ruleValue3670 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDecimalValue_in_ruleValue3697 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_ruleValue3724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntegerValue_in_entryRuleIntegerValue3759 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntegerValue3769 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INTEGER_in_ruleIntegerValue3810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDecimalValue_in_entryRuleDecimalValue3850 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDecimalValue3860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleDecimalValue3901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringValue_in_entryRuleStringValue3941 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleStringValue3951 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleStringValue3992 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable4032 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariable4042 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVariable4089 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEnumValue_in_entryRuleEnumValue4124 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleEnumValue4134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_ruleEnumValue4178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodReference_in_entryRuleMethodReference4213 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMethodReference4223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_ruleMethodReference4271 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_ruleMethodReference4283 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleMethodReference4303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName4340 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName4351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName4391 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_37_in_ruleQualifiedName4410 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName4425 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_entryRuleQualifiedJavaClassName4473 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedJavaClassName4484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedJavaClassName4531 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_ruleQualifiedJavaClassName4549 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_ruleQualifiedJavaClassName4564 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard4610 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard4621 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard4668 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_38_in_ruleQualifiedNameWithWildcard4687 = new BitSet(new long[]{0x0000000000000002L});
 
 }

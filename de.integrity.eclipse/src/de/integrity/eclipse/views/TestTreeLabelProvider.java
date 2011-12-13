@@ -64,7 +64,7 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 
 	public Image getImage(Object element) {
 		SetListEntry tempEntry = (SetListEntry) element;
-		SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
+		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
 		if (tempResultState != null) {
 			switch (tempEntry.getType()) {
@@ -91,6 +91,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 					return callImage;
 				}
 			case TEST:
+			case TABLETEST:
+			case RESULT:
 				switch (tempResultState) {
 				case SUCCESSFUL:
 					return testSuccessImage;
@@ -113,7 +115,7 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 	@Override
 	public String getText(Object element) {
 		SetListEntry tempEntry = (SetListEntry) element;
-		SetListEntryResultStates tempResultState = setList.getResultStateForExecutableEntry(tempEntry);
+		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
 		String tempSuffix = "";
 		if ((tempResultState == null || tempResultState == SetListEntryResultStates.UNKNOWN)
@@ -127,7 +129,10 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		case SUITE:
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME)) + tempSuffix;
 		case TEST:
+		case TABLETEST:
 		case CALL:
+			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
+		case RESULT:
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
 		default:
 			return tempEntry.toString() + tempSuffix;

@@ -747,7 +747,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 				details.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.NAME));
 			} else {
 				details.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION));
-				fixtureLink.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
+				if (anEntry.getType() == SetListEntryTypes.RESULT) {
+					fixtureLink.setText((String) setList.getParent(anEntry).getAttribute(
+							SetListEntryAttributeKeys.FIXTURE));
+				} else {
+					fixtureLink.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
+				}
 				fixtureLink.setVisible(true);
 			}
 
@@ -767,10 +772,22 @@ public class IntegrityTestRunnerView extends ViewPart {
 				parameterTable.setInput(null);
 			}
 
-			SetListEntry tempResultEntry = setList.resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT).get(0);
+			SetListEntry tempResultEntry = null;
+			if (anEntry.getType() == SetListEntryTypes.TABLETEST) {
+				// High-level table test summary information is stored in the
+				// tabletest entry itself
+				tempResultEntry = anEntry;
+			} else if (anEntry.getType() == SetListEntryTypes.RESULT) {
+				// result entries are results by themselves ;-)
+				tempResultEntry = anEntry;
+			} else {
+				tempResultEntry = setList.resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT).get(0);
+			}
+
 			if (tempResultEntry != null) {
 				switch (anEntry.getType()) {
 				case SUITE:
+				case TABLETEST:
 					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) {
 						int tempSuccessCount = (Integer) tempResultEntry
 								.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT);
@@ -795,8 +812,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 					break;
 				case TEST:
+				case RESULT:
+					@SuppressWarnings("unchecked")
+					SetListEntry tempComparisonEntry = setList.resolveReference(((List<Integer>) tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.COMPARISONS)).get(0));
+
 					resultLine2Name.setText("Expected value: ");
-					resultLine2Text.setText((String) tempResultEntry
+					resultLine2Text.setText((String) tempComparisonEntry
 							.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
 					resultLine2Border.setForeground(resultNeutralColor);
 					resultLine2Name.setVisible(true);
@@ -810,12 +832,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultLine1Name.setVisible(true);
 						resultLine1Border.setVisible(true);
 					} else {
-						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+						if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 							resultLine1Name.setText("Result returned by the test fixture: ");
-							resultLine1Text.setText((String) tempResultEntry
+							resultLine1Text.setText((String) tempComparisonEntry
 									.getAttribute(SetListEntryAttributeKeys.VALUE));
-							if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
-								if (Boolean.TRUE.equals(tempResultEntry
+							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+								if (Boolean.TRUE.equals(tempComparisonEntry
 										.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
 									resultLine1Border.setForeground(resultSuccessColor);
 								} else {

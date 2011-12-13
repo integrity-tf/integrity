@@ -38,6 +38,8 @@ public enum SetListEntryAttributeKeys {
 
 	EXCEPTION,
 
-	PARAMETERS;
+	PARAMETERS,
+
+	COMPARISONS;
 
 }

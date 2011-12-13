@@ -33,7 +33,7 @@ SuiteStatement:
 	SuiteStatementWithResult | Call | VariableDefinition;
 	
 SuiteStatementWithResult:
-	Suite | Test;
+	Suite | Test | TableTest;
 	
 VariableDefinition:
 	'variable' name=VariableEntity ('initially' initialValue=Value)?;
@@ -43,6 +43,19 @@ VariableEntity:
 	
 Test:
 	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* ('=' result=ValueOrEnumValue)?;
+	
+TableTest:
+	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
+		(headers+=ParameterTableHeader)+ (('|' '=' '|') | '|') (rows+=TableTestRow)+;
+		
+TableTestRow:
+	{TableTestRow} (values+=ParameterTableValue)* (('|' '=' result=ValueOrEnumValue '|') | '|');
+	
+ParameterTableHeader:
+	'|' name=ParameterName;
+	
+ParameterTableValue:
+	'|' value=ValueOrEnumValue;
 	
 Call:
 	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;

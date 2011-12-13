@@ -50,6 +50,22 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/result"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TableTest">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/headers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/rows"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TableTestRow">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/result"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterTableHeader">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableHeader/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterTableValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableValue/value"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Call">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/parameters"/>

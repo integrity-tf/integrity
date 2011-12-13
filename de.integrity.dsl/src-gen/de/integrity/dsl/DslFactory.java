@@ -144,6 +144,42 @@ public interface DslFactory extends EFactory
   Test createTest();
 
   /**
+   * Returns a new object of class '<em>Table Test</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Table Test</em>'.
+   * @generated
+   */
+  TableTest createTableTest();
+
+  /**
+   * Returns a new object of class '<em>Table Test Row</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Table Test Row</em>'.
+   * @generated
+   */
+  TableTestRow createTableTestRow();
+
+  /**
+   * Returns a new object of class '<em>Parameter Table Header</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter Table Header</em>'.
+   * @generated
+   */
+  ParameterTableHeader createParameterTableHeader();
+
+  /**
+   * Returns a new object of class '<em>Parameter Table Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter Table Value</em>'.
+   * @generated
+   */
+  ParameterTableValue createParameterTableValue();
+
+  /**
    * Returns a new object of class '<em>Call</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

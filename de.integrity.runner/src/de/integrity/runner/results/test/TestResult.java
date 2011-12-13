@@ -1,33 +1,68 @@
 package de.integrity.runner.results.test;
 
-import de.integrity.dsl.ValueOrEnumValue;
+import java.util.List;
+
 import de.integrity.runner.results.Result;
 
-public abstract class TestResult extends Result {
+public class TestResult extends Result {
 
-	private Object result;
+	private List<TestSubResult> subResults;
 
-	private ValueOrEnumValue expectedValue;
+	private Integer subTestSuccessCount;
 
-	public TestResult(Object aResult, ValueOrEnumValue anExpectedValue, Long anExecutionTime) {
+	private Integer subTestFailCount;
+
+	private Integer subTestExceptionCount;
+
+	public TestResult(List<TestSubResult> someSubResults, Long anExecutionTime) {
 		super(anExecutionTime);
-		result = aResult;
-		expectedValue = anExpectedValue;
+		subResults = someSubResults;
 	}
 
-	public Object getResult() {
-		return result;
+	public List<TestSubResult> getSubResults() {
+		return subResults;
 	}
 
-	public ValueOrEnumValue getExpectedValue() {
-		return expectedValue;
-	}
-
-	public String toString() {
-		if (result != null) {
-			return result.toString();
-		} else {
-			return "(null)";
+	public int getSubTestSuccessCount() {
+		if (subTestSuccessCount == null) {
+			int tempCount = 0;
+			for (TestSubResult tempSubResult : subResults) {
+				if ((tempSubResult instanceof TestExecutedSubResult) && tempSubResult.wereAllComparisonsSuccessful()) {
+					tempCount++;
+				}
+			}
+			subTestSuccessCount = tempCount;
 		}
+
+		return subTestSuccessCount;
 	}
+
+	public int getSubTestFailCount() {
+		if (subTestFailCount == null) {
+			int tempCount = 0;
+			for (TestSubResult tempSubResult : subResults) {
+				if ((tempSubResult instanceof TestExecutedSubResult) && !tempSubResult.wereAllComparisonsSuccessful()) {
+					tempCount++;
+				}
+			}
+			subTestFailCount = tempCount;
+		}
+
+		return subTestFailCount;
+	}
+
+	public int getSubTestExceptionCount() {
+		if (subTestExceptionCount == null) {
+			int tempCount = 0;
+			for (TestSubResult tempSubResult : subResults) {
+				if (tempSubResult instanceof TestExceptionSubResult) {
+					tempCount++;
+				}
+			}
+			subTestExceptionCount = tempCount;
+		}
+
+		return subTestExceptionCount;
+	}
+
 }

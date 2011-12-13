@@ -14,10 +14,14 @@ public enum SetListEntryTypes {
 
 	TEST,
 
+	TABLETEST,
+
 	CALL,
 
 	RESULT,
 
-	PARAMETER;
+	PARAMETER,
+
+	COMPARISON;
 
 }

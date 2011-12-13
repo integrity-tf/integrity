@@ -1,20 +1,25 @@
 package de.integrity.runner.callbacks.console;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.integrity.dsl.Call;
 import de.integrity.dsl.Suite;
 import de.integrity.dsl.SuiteDefinition;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.runner.TestModel;
 import de.integrity.runner.callbacks.TestRunnerCallback;
 import de.integrity.runner.results.SuiteResult;
 import de.integrity.runner.results.call.CallResult;
-import de.integrity.runner.results.test.ExceptionResult;
-import de.integrity.runner.results.test.FailureResult;
-import de.integrity.runner.results.test.SuccessResult;
+import de.integrity.runner.results.test.TestComparisonFailureResult;
+import de.integrity.runner.results.test.TestComparisonResult;
+import de.integrity.runner.results.test.TestExceptionSubResult;
+import de.integrity.runner.results.test.TestExecutedSubResult;
 import de.integrity.runner.results.test.TestResult;
+import de.integrity.runner.results.test.TestSubResult;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParameterUtil;
 import de.integrity.utils.TestFormatter;
@@ -28,6 +33,8 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	private TestFormatter formatter;
 
 	private int testCount;
+
+	private int tableTestRowCount;
 
 	private int callCount;
 
@@ -60,15 +67,34 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
-		if (aResult instanceof SuccessResult) {
-			System.out.println("SUCCESS!");
-		} else if (aResult instanceof FailureResult) {
-			System.out.println("FAILURE: '"
-					+ ParameterUtil.convertValueToString(((FailureResult) aResult).getExpectedValue(), variableStorage)
-					+ "' expected, but got '" + aResult + "'!");
-		} else if (aResult instanceof ExceptionResult) {
+		displayTestSubResult(aResult.getSubResults().get(0));
+	}
+
+	protected void displayTestSubResult(TestSubResult aSubResult) {
+		if (aSubResult instanceof TestExecutedSubResult) {
+			if (aSubResult.wereAllComparisonsSuccessful()) {
+				System.out.println("SUCCESS!");
+			} else {
+				System.out.print("FAILURE: ");
+				boolean tempHasBegun = false;
+				for (Entry<String, TestComparisonResult> tempEntry : aSubResult.getComparisonResults().entrySet()) {
+					if (tempEntry.getValue() instanceof TestComparisonFailureResult) {
+						if (tempHasBegun) {
+							System.out.print("; ");
+						}
+						System.out.print("'"
+								+ ParameterUtil.convertValueToString(tempEntry.getValue().getExpectedValue(),
+										variableStorage, false)
+								+ "' expected"
+								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
+										+ tempEntry.getKey() + "'") + ", but got '" + tempEntry.getValue() + "'!");
+					}
+				}
+				System.out.println("");
+			}
+		} else if (aSubResult instanceof TestExceptionSubResult) {
 			System.out.println("EXCEPTION OCCURRED, SEE STDERR!");
-			System.err.println(aResult.toString());
+			((TestExceptionSubResult) aSubResult).getException().printStackTrace();
 		}
 	}
 
@@ -99,7 +125,7 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 		System.out.println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage)));
+						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, false)));
 	}
 
 	@Override
@@ -141,5 +167,35 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		System.out.println("Now leaving teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+	}
+
+	@Override
+	public void onTableTestStart(TableTest aTableTest) {
+		testCount++;
+		tableTestRowCount = 0;
+		System.out.println("Now running table test " + testCount + ":");
+	}
+
+	@Override
+	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
+		tableTestRowCount++;
+		try {
+			System.out.print("\tRow " + tableTestRowCount + " ("
+					+ formatter.tableTestRowToHumanReadableString(aTableTest, aRow, variableStorage) + ")...");
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
+		displayTestSubResult(aSubResult);
+	}
+
+	@Override
+	public void onTableTestFinish(TableTest aTableTest, TestResult someResults) {
+		System.out.println("\tTotal: " + someResults.getSubTestSuccessCount() + "x SUCCESS, "
+				+ someResults.getSubTestFailCount() + "x FAILURE, " + someResults.getSubTestExceptionCount()
+				+ "x EXCEPTION.");
 	}
 }

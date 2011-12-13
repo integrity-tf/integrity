@@ -144,6 +144,26 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createTestAdapter();
       }
       @Override
+      public Adapter caseTableTest(TableTest object)
+      {
+        return createTableTestAdapter();
+      }
+      @Override
+      public Adapter caseTableTestRow(TableTestRow object)
+      {
+        return createTableTestRowAdapter();
+      }
+      @Override
+      public Adapter caseParameterTableHeader(ParameterTableHeader object)
+      {
+        return createParameterTableHeaderAdapter();
+      }
+      @Override
+      public Adapter caseParameterTableValue(ParameterTableValue object)
+      {
+        return createParameterTableValueAdapter();
+      }
+      @Override
       public Adapter caseCall(Call object)
       {
         return createCallAdapter();
@@ -431,6 +451,66 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTestAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.TableTest <em>Table Test</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.TableTest
+   * @generated
+   */
+  public Adapter createTableTestAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.TableTestRow <em>Table Test Row</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.TableTestRow
+   * @generated
+   */
+  public Adapter createTableTestRowAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.ParameterTableHeader <em>Parameter Table Header</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.ParameterTableHeader
+   * @generated
+   */
+  public Adapter createParameterTableHeaderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.ParameterTableValue <em>Parameter Table Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.ParameterTableValue
+   * @generated
+   */
+  public Adapter createParameterTableValueAdapter()
   {
     return null;
   }

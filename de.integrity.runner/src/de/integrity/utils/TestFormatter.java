@@ -5,11 +5,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.emf.common.util.EList;
-
 import de.integrity.dsl.Call;
 import de.integrity.dsl.MethodReference;
-import de.integrity.dsl.Parameter;
+import de.integrity.dsl.TableTest;
+import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.fixtures.Fixture;
@@ -32,18 +31,31 @@ public class TestFormatter {
 
 	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest.getParameters(),
-				aVariableMap);
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, true), false);
+	}
+
+	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
+			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException {
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, true), false);
+	}
+
+	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
+			throws ClassNotFoundException {
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, true), true);
 	}
 
 	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
-		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall.getParameters(),
-				aVariableMap);
+		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
+				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, true), false);
 	}
 
-	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod, EList<Parameter> aParamList,
-			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException {
+	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
+			Map<String, Object> someParameters, boolean anExpectUnspecifiedParametersFlag)
+			throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
 		Class<?> tempFixtureClass = classloader.loadClass(tempFixtureClassName);
@@ -64,14 +76,14 @@ public class TestFormatter {
 			tempText = tempFixtureMethodName;
 		}
 
-		Map<String, Object> tempValues = IntegrityDSLUtil.createParameterMap(aParamList, aVariableMap, true);
-
 		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempText);
 		while (tempMatcher.matches()) {
-			String tempValue = ParameterUtil.convertValueToString(tempValues.get(tempMatcher.group(2)), aVariableMap);
+			String tempValue = ParameterUtil.convertValueToString(someParameters.get(tempMatcher.group(2)), null,
+					anExpectUnspecifiedParametersFlag);
 			if (tempValue == null) {
-				tempValue = "(null)";
+				tempValue = "???";
 			}
+
 			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
 			tempMatcher = PARAMETER_PATTERN.matcher(tempText);
 		}

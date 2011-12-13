@@ -14,6 +14,11 @@ packagedef mysecondpackage with
 		test addition summand1: 2 summand2: 3 = testvar
 		test addition summand1: testvar summand2: 1 = 7
 		
+		tabletest addition summand1: 10 
+		| summand2	| = 	|
+		| 20		| = 30 	|
+		| 40		| = 49	|
+		
 		test echo echo: VALUE_ONE = VALUE_ONE
 		
 		test stupidtest

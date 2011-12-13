@@ -21,7 +21,9 @@ public class SetList implements Serializable {
 
 	private transient Set<SetListEntry> pathOfEntriesInExecution = new HashSet<SetListEntry>();
 
-	private transient HashMap<SetListEntry, Integer> executableEntryPositionMap;
+	private transient HashMap<SetListEntry, SetListEntryResultStates> resultBearingEntryResultMap;
+
+	private transient HashMap<SetListEntry, Integer> executableEntryResultIndex;
 
 	private transient ArrayList<SetListEntryResultStates> executableEntryResultStates;
 
@@ -30,7 +32,8 @@ public class SetList implements Serializable {
 	private transient Map<SetListEntryTypes, Integer> lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
 	public void recreateTransientData() {
-		executableEntryPositionMap = new HashMap<SetListEntry, Integer>();
+		resultBearingEntryResultMap = new HashMap<SetListEntry, SetListEntryResultStates>();
+		executableEntryResultIndex = new HashMap<SetListEntry, Integer>();
 		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
 		lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
@@ -39,9 +42,14 @@ public class SetList implements Serializable {
 			SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
 
 			if (tempResultState != null) {
-				executableEntryResultStates.add(tempResultState);
-				executableEntryPositionMap.put(tempEntry, tempPosition);
-				tempPosition++;
+				resultBearingEntryResultMap.put(tempEntry, tempResultState);
+				// if the entry is a result itself, it's not executable;
+				// otherwise it is
+				if (tempEntry.getType() != SetListEntryTypes.RESULT) {
+					executableEntryResultIndex.put(tempEntry, tempPosition);
+					executableEntryResultStates.add(tempResultState);
+					tempPosition++;
+				}
 			}
 		}
 
@@ -50,9 +58,12 @@ public class SetList implements Serializable {
 	}
 
 	protected SetListEntryResultStates determineEntryResultState(SetListEntry anEntry) {
-		List<SetListEntry> tempResultEntries = resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT);
-		if (tempResultEntries.size() > 0) {
-			SetListEntry tempResultEntry = tempResultEntries.get(0);
+		boolean tempEntryIsResultOfTableTestRow = (anEntry.getType() == SetListEntryTypes.RESULT && getParent(anEntry)
+				.getType() == SetListEntryTypes.TABLETEST);
+		List<SetListEntry> tempResultEntries = tempEntryIsResultOfTableTestRow ? null : resolveReferences(anEntry,
+				SetListEntryAttributeKeys.RESULT);
+		if (tempEntryIsResultOfTableTestRow || tempResultEntries.size() > 0) {
+			SetListEntry tempResultEntry = tempEntryIsResultOfTableTestRow ? anEntry : tempResultEntries.get(0);
 
 			switch (anEntry.getType()) {
 			case SUITE:
@@ -81,6 +92,7 @@ public class SetList implements Serializable {
 				}
 				return SetListEntryResultStates.UNKNOWN;
 			case TEST:
+			case RESULT:
 				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 					if (Boolean.TRUE
 							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
@@ -95,6 +107,34 @@ public class SetList implements Serializable {
 					}
 				}
 				return SetListEntryResultStates.UNKNOWN;
+			case TABLETEST:
+				boolean tempHasException = false;
+				boolean tempHasFailure = false;
+				boolean tempHasAnyResult = false;
+				for (int i = 0; i < tempResultEntries.size(); i++) {
+					tempResultEntry = tempResultEntries.get(i);
+					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+						tempHasAnyResult = true;
+						if (Boolean.FALSE.equals(tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+							if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
+								tempHasException = true;
+								break;
+							} else {
+								tempHasFailure = true;
+							}
+						}
+					}
+				}
+				if (tempHasException) {
+					return SetListEntryResultStates.EXCEPTION;
+				} else if (tempHasFailure) {
+					return SetListEntryResultStates.FAILED;
+				} else if (tempHasAnyResult) {
+					return SetListEntryResultStates.SUCCESSFUL;
+				} else {
+					return SetListEntryResultStates.UNKNOWN;
+				}
 			default:
 				return null;
 			}
@@ -106,13 +146,8 @@ public class SetList implements Serializable {
 		return executableEntryResultStates.size();
 	}
 
-	public SetListEntryResultStates getResultStateForExecutableEntry(SetListEntry anEntry) {
-		Integer tempPosition = executableEntryPositionMap.get(anEntry);
-		if (tempPosition != null) {
-			return executableEntryResultStates.get(tempPosition);
-		} else {
-			return null;
-		}
+	public SetListEntryResultStates getResultStateForEntry(SetListEntry anEntry) {
+		return resultBearingEntryResultMap.get(anEntry);
 	}
 
 	public SetListEntryResultStates getResultStateForExecutableEntry(int aPosition) {
@@ -138,7 +173,15 @@ public class SetList implements Serializable {
 	}
 
 	public Integer getLastCreatedEntryId(SetListEntryTypes aType) {
-		return lastCreatedEntryIdMap.get(aType);
+		if (aType != null) {
+			return lastCreatedEntryIdMap.get(aType);
+		} else {
+			if (entries.size() == 0) {
+				return null;
+			} else {
+				return entries.get(entries.size() - 1).getId();
+			}
+		}
 	}
 
 	public Integer getLastCreatedEntryId(SetListEntryTypes... someTypes) {
@@ -181,14 +224,28 @@ public class SetList implements Serializable {
 			switch (tempEntry.getType()) {
 			case RESULT:
 				SetListEntry tempParent = getParent(tempEntry);
-				if (executableEntryPositionMap.containsKey(tempParent)) {
-					executableEntryResultStates.set(executableEntryPositionMap.get(tempParent),
-							determineEntryResultState(tempParent));
+				switch (tempParent.getType()) {
+				case TEST:
+				case CALL:
+				case SUITE:
+					if (resultBearingEntryResultMap.containsKey(tempParent)) {
+						SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
+						resultBearingEntryResultMap.put(tempParent, tempResultState);
+						executableEntryResultStates.set(executableEntryResultIndex.get(tempParent), tempResultState);
+					}
+				case TABLETEST:
+					if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+						resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
+					}
 				}
+				break;
 			default:
-				if (executableEntryPositionMap.containsKey(tempEntry)) {
-					executableEntryResultStates.set(executableEntryPositionMap.get(tempEntry),
-							determineEntryResultState(tempEntry));
+				if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
+					resultBearingEntryResultMap.put(tempEntry, tempResultState);
+					if (executableEntryResultIndex.containsKey(tempEntry)) {
+						executableEntryResultStates.set(executableEntryResultIndex.get(tempEntry), tempResultState);
+					}
 				}
 			}
 		}
@@ -271,6 +328,7 @@ public class SetList implements Serializable {
 			switch (anEntry.getType()) {
 			case TEST:
 			case CALL:
+			case TABLETEST:
 				return anEntry.getId() == entryInExecutionReference;
 			case SETUP:
 			case SUITE:
