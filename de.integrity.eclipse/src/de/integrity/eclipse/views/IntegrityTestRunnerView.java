@@ -858,13 +858,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 							resultLine1Text.setText((String) tempResultEntry
 									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
 							resultLine1Border.setForeground(resultExceptionColor);
+							resultLine1Border.setVisible(true);
 						} else {
-							resultLine1Name.setText("Result returned by the fixture:");
-							resultLine1Text.setText((String) tempResultEntry
-									.getAttribute(SetListEntryAttributeKeys.VALUE));
-							resultLine1Border.setForeground(resultNeutralColor);
+							String tempResultValue = (String) tempResultEntry
+									.getAttribute(SetListEntryAttributeKeys.VALUE);
+							if (tempResultValue != null) {
+								resultLine1Name.setText("Result returned by the fixture:");
+								resultLine1Text.setText(tempResultValue);
+								resultLine1Border.setForeground(resultNeutralColor);
+								resultLine1Border.setVisible(true);
+							} else {
+								resultLine1Name.setText("No result returned by the fixture.");
+							}
 						}
-						resultLine1Border.setVisible(true);
 					} else {
 						resultLine1Name.setText("No result available - please run the tests first.");
 					}
