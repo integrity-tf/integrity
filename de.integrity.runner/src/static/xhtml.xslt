@@ -242,17 +242,19 @@
             </div>
           </xsl:if>
         </div>
-        <div class="testresults">
-          <xsl:if test="result/@type = 'success'">
-            result:
-            <span class="testResultValue testResultValueSuccess">
-              <xsl:value-of select="result/@value" />
-            </span>
-          </xsl:if>
-          <xsl:if test="result/@type = 'exception'">
-            <xsl:value-of select="result/@exceptionMessage" />
-          </xsl:if>
-        </div>
+        <xsl:if test="result/@type != 'success' or result/@value != '(null)'">
+	      <div class="testresults">
+	        <xsl:if test="result/@type = 'success' and result/@value != '(null)'">
+	          result:
+	          <span class="testResultValue testResultValueSuccess">
+	            <xsl:value-of select="result/@value" />
+	          </span>
+	        </xsl:if>
+	        <xsl:if test="result/@type = 'exception'">
+	          <xsl:value-of select="result/@exceptionMessage" />
+	        </xsl:if>
+	      </div>
+	    </xsl:if>
         <span class="testduration">
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="result/@duration" />
