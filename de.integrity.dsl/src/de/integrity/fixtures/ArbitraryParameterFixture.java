@@ -3,10 +3,12 @@ package de.integrity.fixtures;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.IType;
+
 public abstract class ArbitraryParameterFixture extends Fixture {
 
 	public abstract List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters);
+			Map<String, Object> someFixedParameters, EclipseResourceProvider aResourceProvider);
 
 	public class ArbitraryParameterDefinition {
 
@@ -33,6 +35,12 @@ public abstract class ArbitraryParameterFixture extends Fixture {
 		public String getDescription() {
 			return description;
 		}
+
+	}
+
+	public static abstract interface EclipseResourceProvider {
+
+		IType findCompilationUnitForClassName(String aClassName);
 
 	}
 

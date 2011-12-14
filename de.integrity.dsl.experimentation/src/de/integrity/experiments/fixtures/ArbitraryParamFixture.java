@@ -12,7 +12,7 @@ public class ArbitraryParamFixture extends ArbitraryParameterFixture {
 
 	@Override
 	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+			Map<String, Object> someFixedParameters, EclipseResourceProvider aResourceProvider) {
 		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterFixture.ArbitraryParameterDefinition>();
 		tempList.add(new ArbitraryParameterDefinition("testparam1", Integer.class, "This is the first parameter."));
 		tempList.add(new ArbitraryParameterDefinition("testparam2", String.class, "This is the first parameter."));

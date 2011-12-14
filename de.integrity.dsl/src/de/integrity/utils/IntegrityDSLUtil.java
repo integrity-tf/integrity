@@ -72,7 +72,8 @@ public class IntegrityDSLUtil {
 		} else if (aParameterName instanceof ArbitraryParameterName) {
 			return ((ArbitraryParameterName) aParameterName).getIdentifier();
 		} else {
-			throw new UnsupportedOperationException("This subtype of ParameterName is not supported yet!");
+			throw new UnsupportedOperationException("This subtype of ParameterName ("
+					+ aParameterName.getClass().toString() + ") is not supported yet!");
 		}
 	}
 
@@ -145,12 +146,14 @@ public class IntegrityDSLUtil {
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempResult = new HashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
-			Object tempValue = tempEntry.getValue();
-			if (tempValue instanceof Variable) {
-				tempValue = aVariableMap.get(((Variable) tempValue).getName());
-			}
-			if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterName)) {
-				tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
+			if (tempEntry.getKey() != null) {
+				Object tempValue = tempEntry.getValue();
+				if (tempValue instanceof Variable) {
+					tempValue = aVariableMap.get(((Variable) tempValue).getName());
+				}
+				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterName)) {
+					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
+				}
 			}
 		}
 

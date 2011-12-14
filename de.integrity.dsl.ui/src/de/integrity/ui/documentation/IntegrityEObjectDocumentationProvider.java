@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.TestDefinition;
-import de.integrity.ui.JavadocUtil;
+import de.integrity.utils.JavadocUtil;
 
 public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentationProvider {
 

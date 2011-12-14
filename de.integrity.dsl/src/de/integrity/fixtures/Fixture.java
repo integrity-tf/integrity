@@ -9,6 +9,7 @@ import java.util.Map;
 
 import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
+import de.integrity.fixtures.ArbitraryParameterFixture.EclipseResourceProvider;
 import de.integrity.utils.ParameterUtil;
 
 public abstract class Fixture {
@@ -20,7 +21,9 @@ public abstract class Fixture {
 					+ getClass().getName() + " or its superclasses");
 		}
 
-		convertParameterValuesToFixtureDefinedTypes(tempMethod, someParameters, true);
+		// this will never be called within Eclipse, so we null the
+		// resource provider
+		convertParameterValuesToFixtureDefinedTypes(tempMethod, someParameters, true, null);
 
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
 		Object[] tempParams = new Object[tempMethodParamCount];
@@ -47,7 +50,7 @@ public abstract class Fixture {
 	}
 
 	public void convertParameterValuesToFixtureDefinedTypes(Method aFixtureMethod, Map<String, Object> aParameterMap,
-			boolean anIncludeArbitraryParametersFlag) {
+			boolean anIncludeArbitraryParametersFlag, EclipseResourceProvider aResourceProvider) {
 		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {
@@ -71,7 +74,7 @@ public abstract class Fixture {
 
 		if (anIncludeArbitraryParametersFlag && (this instanceof ArbitraryParameterFixture)) {
 			List<ArbitraryParameterDefinition> tempArbitraryParameters = ((ArbitraryParameterFixture) this)
-					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
+					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap, aResourceProvider);
 			for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
 				String tempName = tempArbitraryParameter.getName();
 				Object tempValue = aParameterMap.remove(tempName);
