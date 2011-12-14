@@ -1,18 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Core
-Bundle-Version: 0.1.0
+Bundle-Version: 0.1.0.qualifier
 Bundle-SymbolicName: de.integrity.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.1.1";visibility:=reexport,
  org.eclipse.xtext.common.types;bundle-version="2.1.1",
- org.eclipse.emf.mwe2.launch;resolution:=optional,
- org.apache.log4j;bundle-version="1.2.15";resolution:=optional,
- org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
- org.antlr.runtime,
  org.eclipse.xtext.generator;bundle-version="2.1.1";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: de.integrity,
@@ -33,7 +29,4 @@ Export-Package: de.integrity,
  de.integrity.values
 Import-Package: org.apache.log4j,
  org.eclipse.jdt.core,
- org.eclipse.jdt.internal.core,
- org.eclipse.xtext.common.types.util.jdt,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib
+ org.eclipse.jdt.internal.core

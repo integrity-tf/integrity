@@ -451,7 +451,8 @@ public class TestRunner {
 
 		CallResult tempReturn;
 		if (currentPhase == Phase.DRY_RUN) {
-			tempReturn = new de.integrity.runner.results.call.UndeterminedResult(aCall.getResult().getName());
+			tempReturn = new de.integrity.runner.results.call.UndeterminedResult(aCall.getResult() != null ? aCall
+					.getResult().getName() : null);
 		} else {
 			pauseIfRequiredByRemoteClient();
 

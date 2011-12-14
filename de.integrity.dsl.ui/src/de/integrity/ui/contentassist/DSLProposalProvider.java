@@ -167,7 +167,6 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public void completeArbitraryParameterName_Identifier(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {

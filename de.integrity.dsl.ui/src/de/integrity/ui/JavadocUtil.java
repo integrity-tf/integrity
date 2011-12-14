@@ -18,13 +18,14 @@ import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 
+@SuppressWarnings("restriction")
 public final class JavadocUtil {
 
+	@SuppressWarnings("rawtypes")
 	private static final Map ASTPARSER_OPTIONS = JavaCore.getDefaultOptions();
 
 	private static MethodDeclaration getMethodDeclaration(JvmOperation aMethod, IJavaElementFinder anElementFinder) {
 		IJavaElement tempSourceMethod = (IJavaElement) anElementFinder.findElementFor(aMethod);
-		@SuppressWarnings("restriction")
 		CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent().getParent();
 
 		ASTParser tempParser = ASTParser.newParser(AST.JLS3);

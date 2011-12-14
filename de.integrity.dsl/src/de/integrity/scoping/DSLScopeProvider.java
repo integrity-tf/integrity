@@ -13,15 +13,12 @@ import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
-import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
-
-import com.google.inject.Inject;
 
 import de.integrity.dsl.Call;
 import de.integrity.dsl.FixedParameterName;
@@ -46,9 +43,6 @@ import de.integrity.utils.ParamAnnotationTuple;
  * 
  */
 public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
-
-	@Inject
-	IJavaElementFinder elementFinder;
 
 	public IScope scope_FixedParameterName_annotation(FixedParameterName aParameterName, EReference aRef) {
 		MethodReference tempMethodRef = null;
