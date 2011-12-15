@@ -1,7 +1,6 @@
 package de.integrity.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,12 +143,16 @@ public class IntegrityDSLUtil {
 
 	public static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
-		Map<String, Object> tempResult = new HashMap<String, Object>();
+		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null) {
 				Object tempValue = tempEntry.getValue();
 				if (tempValue instanceof Variable) {
-					tempValue = aVariableMap.get(((Variable) tempValue).getName());
+					if (aVariableMap != null) {
+						tempValue = aVariableMap.get(((Variable) tempValue).getName());
+					} else {
+						tempValue = null;
+					}
 				}
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterName)) {
 					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
