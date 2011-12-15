@@ -13,6 +13,7 @@ import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.JvmVisibility;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -32,6 +33,7 @@ import de.integrity.dsl.SuiteParameter;
 import de.integrity.dsl.TableTest;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.VariableEntity;
+import de.integrity.fixtures.FixtureMethod;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParamAnnotationTuple;
 
@@ -85,9 +87,19 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (tempType instanceof JvmGenericType) {
 			JvmGenericType tempGenericType = (JvmGenericType) tempType;
 			for (JvmMember tempMember : tempGenericType.getMembers()) {
-				if (tempMember instanceof JvmOperation) {
-					descriptions.add(EObjectDescription.create(
-							QualifiedName.create(((JvmOperation) tempMember).getSimpleName()), tempMember));
+				if (tempMember instanceof JvmOperation
+						&& ((JvmOperation) tempMember).getVisibility() == JvmVisibility.PUBLIC) {
+					boolean tempIsFixtureMethod = false;
+					for (JvmAnnotationReference tempAnnotation : tempMember.getAnnotations()) {
+						if (FixtureMethod.class.getName().equals(tempAnnotation.getAnnotation().getQualifiedName())) {
+							tempIsFixtureMethod = true;
+							break;
+						}
+					}
+					if (tempIsFixtureMethod) {
+						descriptions.add(EObjectDescription.create(
+								QualifiedName.create(((JvmOperation) tempMember).getSimpleName()), tempMember));
+					}
 				}
 			}
 		}
