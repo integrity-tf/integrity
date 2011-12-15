@@ -20,6 +20,7 @@ import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.TableTest;
 import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
+import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
 import de.integrity.remoting.entities.setlist.SetList;
@@ -219,9 +220,12 @@ public class SetListCallback implements TestRunnerCallback {
 			SetListEntry tempComparisonEntry = setList.createEntry(SetListEntryTypes.COMPARISON);
 			tempNewEntries.add(tempComparisonEntry);
 
-			tempComparisonEntry
-					.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, ParameterUtil.convertValueToString(
-							tempEntry.getValue().getExpectedValue(), variableStorage, false));
+			ValueOrEnumValue tempExpectedValue = tempEntry.getValue().getExpectedValue();
+
+			tempComparisonEntry.setAttribute(
+					SetListEntryAttributeKeys.EXPECTED_RESULT,
+					tempExpectedValue == null ? Boolean.TRUE.toString() : ParameterUtil.convertValueToString(tempEntry
+							.getValue().getExpectedValue(), variableStorage, false));
 			if (tempEntry.getValue().getResult() != null) {
 				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 						ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage, false));

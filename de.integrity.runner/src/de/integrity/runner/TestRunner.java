@@ -147,7 +147,7 @@ public class TestRunner {
 	}
 
 	protected void reset() {
-		variableStorage = new HashMap<VariableEntity, Object>();
+		variableStorage.clear();
 		setupMoments = null;
 	}
 
