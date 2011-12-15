@@ -32,6 +32,10 @@ public class ParameterUtil {
 		} else if (aValue instanceof IntegerValue) {
 			if (aParamType == Integer.class) {
 				return ((IntegerValue) aValue).getIntegerValue().intValue();
+			} else if (aParamType == Short.class) {
+				return ((IntegerValue) aValue).getIntegerValue().shortValue();
+			} else if (aParamType == Byte.class) {
+				return ((IntegerValue) aValue).getIntegerValue().byteValue();
 			} else if (aParamType == Long.class) {
 				return ((IntegerValue) aValue).getIntegerValue().longValue();
 			} else if (aParamType == BigDecimal.class) {
@@ -52,6 +56,10 @@ public class ParameterUtil {
 				try {
 					if (aParamType == Integer.class) {
 						return Integer.parseInt(((StringValue) aValue).getStringValue());
+					} else if (aParamType == Short.class) {
+						return Short.parseShort(((StringValue) aValue).getStringValue());
+					} else if (aParamType == Byte.class) {
+						return Byte.parseByte(((StringValue) aValue).getStringValue());
 					} else if (aParamType == Long.class) {
 						return Long.parseLong(((StringValue) aValue).getStringValue());
 					} else if (aParamType == BigDecimal.class) {
