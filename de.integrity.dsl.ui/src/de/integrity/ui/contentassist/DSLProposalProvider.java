@@ -31,6 +31,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 import com.google.inject.Inject;
 
+import de.integrity.dsl.ArbitraryParameterName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.MethodReference;
@@ -185,16 +186,25 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		super.completeArbitraryParameterName_Identifier(model, assignment, context, acceptor);
 
-		Parameter tempParameter = (Parameter) model;
+		EObject tempContainer = null;
+		if (model instanceof Parameter) {
+			tempContainer = model.eContainer();
+		} else if (model instanceof ArbitraryParameterName) {
+			tempContainer = model.eContainer().eContainer();
+		}
 		Map<String, Object> tempParameterMap = null;
 
 		MethodReference tempMethodReference = null;
-		if (tempParameter.eContainer() instanceof Test) {
-			Test tempTest = (Test) tempParameter.eContainer();
+		if (tempContainer instanceof Test) {
+			Test tempTest = (Test) tempContainer;
 			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null, true);
 			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
-		} else if (tempParameter.eContainer() instanceof Call) {
-			Call tempCall = (Call) tempParameter.eContainer();
+		} else if (tempContainer instanceof TableTest) {
+			TableTest tempTest = (TableTest) tempContainer;
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null, true);
+			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
+		} else if (tempContainer instanceof Call) {
+			Call tempCall = (Call) tempContainer;
 			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, true);
 			tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 		}
@@ -211,12 +221,16 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 				if (tempFixtureInstance instanceof ArbitraryParameterFixture) {
 					Map<String, Object> tempFixedParameterMap = null;
-					if (tempParameter.eContainer() instanceof Test) {
-						Test tempTest = (Test) tempParameter.eContainer();
+					if (tempContainer instanceof Test) {
+						Test tempTest = (Test) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
 								false);
-					} else if (tempParameter.eContainer() instanceof Call) {
-						Call tempCall = (Call) tempParameter.eContainer();
+					} else if (tempContainer instanceof TableTest) {
+						TableTest tempTest = (TableTest) tempContainer;
+						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
+								false);
+					} else if (tempContainer instanceof Call) {
+						Call tempCall = (Call) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
 								false);
 					}
