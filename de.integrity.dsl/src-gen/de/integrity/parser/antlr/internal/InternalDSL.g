@@ -848,23 +848,41 @@ ruleTest returns [EObject current=null]
 	    }
 
 )
-)*(	otherlv_3='=' 
+)*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTestAccess().getResultsNamedTestResultParserRuleCall_3_0()); 
+	    }
+		lv_results_3_0=ruleNamedTestResult		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTestRule());
+	        }
+       		add(
+       			$current, 
+       			"results",
+        		lv_results_3_0, 
+        		"NamedTestResult");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*(	otherlv_4='=' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getTestAccess().getEqualsSignKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getTestAccess().getEqualsSignKeyword_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueParserRuleCall_4_1_0()); 
 	    }
-		lv_result_4_0=ruleValueOrEnumValue		{
+		lv_result_5_0=ruleValueOrEnumValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestRule());
 	        }
        		set(
        			$current, 
        			"result",
-        		lv_result_4_0, 
+        		lv_result_5_0, 
         		"ValueOrEnumValue");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1144,6 +1162,184 @@ ruleParameterTableValue returns [EObject current=null]
         		lv_value_1_0, 
         		"ValueOrEnumValue");
 	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleNamedTestResult
+entryRuleNamedTestResult returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getNamedTestResultRule()); }
+	 iv_ruleNamedTestResult=ruleNamedTestResult 
+	 { $current=$iv_ruleNamedTestResult.current; } 
+	 EOF 
+;
+
+// Rule NamedTestResult
+ruleNamedTestResult returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNamedTestResultAccess().getNameTestResultNameParserRuleCall_0_0()); 
+	    }
+		lv_name_0_0=ruleTestResultName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNamedTestResultRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"TestResultName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='=' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getNamedTestResultAccess().getEqualsSignKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNamedTestResultAccess().getValueValueOrEnumValueParserRuleCall_2_0()); 
+	    }
+		lv_value_2_0=ruleValueOrEnumValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNamedTestResultRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_2_0, 
+        		"ValueOrEnumValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleTestResultName
+entryRuleTestResultName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTestResultNameRule()); }
+	 iv_ruleTestResultName=ruleTestResultName 
+	 { $current=$iv_ruleTestResultName.current; } 
+	 EOF 
+;
+
+// Rule TestResultName
+ruleTestResultName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getTestResultNameAccess().getFixedTestResultNameParserRuleCall_0()); 
+    }
+    this_FixedTestResultName_0=ruleFixedTestResultName
+    { 
+        $current = $this_FixedTestResultName_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getTestResultNameAccess().getArbitraryTestResultNameParserRuleCall_1()); 
+    }
+    this_ArbitraryTestResultName_1=ruleArbitraryTestResultName
+    { 
+        $current = $this_ArbitraryTestResultName_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleFixedTestResultName
+entryRuleFixedTestResultName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFixedTestResultNameRule()); }
+	 iv_ruleFixedTestResultName=ruleFixedTestResultName 
+	 { $current=$iv_ruleFixedTestResultName.current; } 
+	 EOF 
+;
+
+// Rule FixedTestResultName
+ruleFixedTestResultName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFixedTestResultNameRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getFixedTestResultNameAccess().getFieldJvmFieldCrossReference_0()); 
+	}
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleArbitraryTestResultName
+entryRuleArbitraryTestResultName returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getArbitraryTestResultNameRule()); }
+	 iv_ruleArbitraryTestResultName=ruleArbitraryTestResultName 
+	 { $current=$iv_ruleArbitraryTestResultName.current; } 
+	 EOF 
+;
+
+// Rule ArbitraryTestResultName
+ruleArbitraryTestResultName returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='+' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getArbitraryTestResultNameAccess().getPlusSignKeyword_0());
+    }
+(
+(
+		lv_identifier_1_0=RULE_ID
+		{
+			newLeafNode(lv_identifier_1_0, grammarAccess.getArbitraryTestResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getArbitraryTestResultNameRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"identifier",
+        		lv_identifier_1_0, 
+        		"ID");
 	    }
 
 )

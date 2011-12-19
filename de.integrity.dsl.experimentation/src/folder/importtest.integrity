@@ -10,6 +10,8 @@ packagedef mypackage with
 	
 	testdef arbitrary uses de.integrity.experiments.fixtures.ArbitraryParamFixture#addition
 	
+	testdef multiresult uses de.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
+	
 	variable dummy initially 2
 
 packageend

@@ -53,6 +53,11 @@ public class AdditionFixture extends Fixture {
 		pause();
 		return true;
 	}
+	
+	@FixtureMethod(description = "returns some named results")
+	public NamedResultContainer multiResultFixture(@FixtureParameter(name = "param") String aParam) {
+		return new NamedResultContainer(aParam, 100);
+	}
 
 	private void pause() {
 		try {
@@ -60,6 +65,27 @@ public class AdditionFixture extends Fixture {
 		} catch (InterruptedException exc) {
 			exc.printStackTrace();
 		}
+	}
+	
+	public static class NamedResultContainer {
+		
+		private String firstNamedResult;
+		
+		private Integer secondNamedResult;
+		
+		public NamedResultContainer(String aFirstNamedResult, Integer aSecondNamedResult) {
+			firstNamedResult = aFirstNamedResult;
+			secondNamedResult = aSecondNamedResult;
+		}
+		
+		public String getFirstNamedResult() {
+			return firstNamedResult;
+		}
+		
+		public Integer getSecondNamedResult() {
+			return secondNamedResult;
+		}
+		
 	}
 
 }

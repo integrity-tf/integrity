@@ -53,6 +53,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//TestDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
+        eType="#//NamedTestResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//ValueOrEnumValue"
         containment="true"/>
   </eClassifiers>
@@ -78,6 +80,19 @@
   <eClassifiers xsi:type="ecore:EClass" name="ParameterTableValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedTestResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//TestResultName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestResultName"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedTestResultName" eSuperTypes="#//TestResultName">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryTestResultName" eSuperTypes="#//TestResultName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>

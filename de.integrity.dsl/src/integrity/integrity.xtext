@@ -42,7 +42,7 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* ('=' result=ValueOrEnumValue)?;
+	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedTestResult)* ('=' result=ValueOrEnumValue)?;
 	
 TableTest:
 	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
@@ -56,6 +56,18 @@ ParameterTableHeader:
 	
 ParameterTableValue:
 	'|' value=ValueOrEnumValue;
+	
+NamedTestResult:
+	name=TestResultName '=' value=ValueOrEnumValue;
+	
+TestResultName:
+	FixedTestResultName | ArbitraryTestResultName;
+	
+FixedTestResultName:
+	field=[jvmTypes::JvmField|ID];
+	
+ArbitraryTestResultName:
+	'+' identifier=ID;
 	
 Call:
 	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;

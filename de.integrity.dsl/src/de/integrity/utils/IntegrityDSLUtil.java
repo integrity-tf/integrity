@@ -10,16 +10,21 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmEnumerationType;
+import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
+import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.integrity.dsl.ArbitraryParameterName;
+import de.integrity.dsl.ArbitraryTestResultName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.FixedParameterName;
+import de.integrity.dsl.FixedTestResultName;
 import de.integrity.dsl.MethodReference;
+import de.integrity.dsl.NamedTestResult;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.ParameterName;
@@ -28,6 +33,7 @@ import de.integrity.dsl.SuiteDefinition;
 import de.integrity.dsl.TableTest;
 import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
+import de.integrity.dsl.TestResultName;
 import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.dsl.Variable;
 import de.integrity.dsl.VariableEntity;
@@ -102,6 +108,38 @@ public class IntegrityDSLUtil {
 		}
 
 		return null;
+	}
+
+	public static List<ResultFieldTuple> getAllResultNamesFromFixtureMethod(MethodReference aMethod) {
+		ArrayList<ResultFieldTuple> tempList = new ArrayList<ResultFieldTuple>();
+
+		JvmOperation tempOperation = aMethod.getMethod();
+		if (tempOperation != null) {
+			JvmTypeReference tempReturnType = tempOperation.getReturnType();
+			if ((tempReturnType.getType() instanceof JvmGenericType)
+					&& !tempReturnType.getType().getQualifiedName().startsWith("java.")
+					&& ((JvmGenericType) tempReturnType.getType()).isInstantiateable()) {
+				JvmGenericType tempTypeInFocus = (JvmGenericType) tempReturnType.getType();
+
+				while (tempTypeInFocus != null) {
+					for (JvmField tempField : tempTypeInFocus.getDeclaredFields()) {
+						tempList.add(new ResultFieldTuple(tempField.getSimpleName(), tempField));
+					}
+
+					JvmGenericType tempOldType = tempTypeInFocus;
+					tempTypeInFocus = null;
+					for (JvmTypeReference tempSuperType : tempOldType.getSuperTypes()) {
+						if ((tempSuperType.getType() instanceof JvmGenericType)
+								&& !((JvmGenericType) tempSuperType.getType()).isInterface()) {
+							tempTypeInFocus = (JvmGenericType) tempSuperType.getType();
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return tempList;
 	}
 
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
@@ -186,55 +224,41 @@ public class IntegrityDSLUtil {
 		}
 	}
 
-	// public static Set<VariableDefinition>
-	// findVariableDefinitionsInPackages(Model aModel) {
-	// Set<VariableDefinition> aDefinitionSet = new
-	// HashSet<VariableDefinition>();
-	// for (Statement tempStatement : aModel.getStatements()) {
-	// if (tempStatement instanceof Suite) {
-	// walkModelAndFindVariableDefinitionsInPackages(((Suite)
-	// tempStatement).getName(), aDefinitionSet,
-	// new HashSet<EObject>());
-	// }
-	// }
-	//
-	// return aDefinitionSet;
-	// }
-	//
-	// private static void
-	// walkModelAndFindVariableDefinitionsInPackages(SuiteDefinition aSuite,
-	// Set<VariableDefinition> aDefinitionSet, Set<EObject>
-	// aSetOfVisitedObjects) {
-	// if (aSetOfVisitedObjects.contains(aSuite)) {
-	// return;
-	// }
-	// aSetOfVisitedObjects.add(aSuite);
-	//
-	// // first check the package containing the current suite for variables
-	// if (aSuite.eContainer() instanceof PackageDefinition) {
-	// if (!aSetOfVisitedObjects.contains(aSuite.eContainer())) {
-	// aSetOfVisitedObjects.add(aSuite.eContainer());
-	// for (PackageStatement tempStatement : ((PackageDefinition)
-	// aSuite.eContainer()).getStatements()) {
-	// if (tempStatement instanceof VariableDefinition) {
-	// aDefinitionSet.add((VariableDefinition) tempStatement);
-	// }
-	// }
-	// }
-	// }
-	//
-	// // then walk all statements in the suite to find links to other suites
-	// // and follow those recursively
-	// for (SuiteStatement tempStatement : aSuite.getStatements()) {
-	// if (tempStatement instanceof Suite) {
-	// if (!aSetOfVisitedObjects.contains(tempStatement)) {
-	// aSetOfVisitedObjects.add(tempStatement);
-	// walkModelAndFindVariableDefinitionsInPackages(((Suite)
-	// tempStatement).getName(), aDefinitionSet,
-	// aSetOfVisitedObjects);
-	// }
-	// }
-	// }
-	// }
+	public static Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryParametersFlag) {
+		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryParametersFlag);
+	}
+
+	public static Map<String, Object> createExpectedResultMap(List<NamedTestResult> aTestResultList,
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
+		for (NamedTestResult tempEntry : aTestResultList) {
+			Object tempValue = tempEntry.getValue();
+			if (tempValue instanceof Variable) {
+				if (aVariableMap != null) {
+					tempValue = aVariableMap.get(((Variable) tempValue).getName());
+				} else {
+					tempValue = null;
+				}
+			}
+			if (anIncludeArbitraryParametersFlag || !(tempEntry.getName() instanceof ArbitraryTestResultName)) {
+				tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
+						tempEntry.getValue());
+			}
+		}
+
+		return tempResultMap;
+	}
+
+	public static String getExpectedResultNameStringFromTestResultName(TestResultName aName) {
+		if (aName instanceof FixedTestResultName) {
+			return ((FixedTestResultName) aName).getField().getSimpleName();
+		} else if (aName instanceof ArbitraryTestResultName) {
+			return ((ArbitraryTestResultName) aName).getIdentifier();
+		} else {
+			throw new UnsupportedOperationException("This subtype of TestResultName (" + aName.getClass().getName()
+					+ ") is not supported yet!");
+		}
+	}
 
 }

@@ -48,6 +48,7 @@
     <genClasses ecoreClass="DSL.ecore#//Test">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/results"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/result"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TableTest">
@@ -65,6 +66,17 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ParameterTableValue">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//NamedTestResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedTestResult/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedTestResult/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TestResultName"/>
+    <genClasses ecoreClass="DSL.ecore#//FixedTestResultName">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//FixedTestResultName/field"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ArbitraryTestResultName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryTestResultName/identifier"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Call">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/definition"/>

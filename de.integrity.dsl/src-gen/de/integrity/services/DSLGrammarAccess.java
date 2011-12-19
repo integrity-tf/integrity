@@ -437,16 +437,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_1_0.eContents().get(1);
 		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cParametersParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cEqualsSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cResultAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cResultValueOrEnumValueParserRuleCall_3_1_0 = (RuleCall)cResultAssignment_3_1.eContents().get(0);
+		private final Assignment cResultsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cResultsNamedTestResultParserRuleCall_3_0 = (RuleCall)cResultsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cResultAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cResultValueOrEnumValueParserRuleCall_4_1_0 = (RuleCall)cResultAssignment_4_1.eContents().get(0);
 		
 		//Test:
-		//	"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* ("=" result=ValueOrEnumValue)?;
+		//	"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedTestResult* ("="
+		//	result=ValueOrEnumValue)?;
 		public ParserRule getRule() { return rule; }
 
-		//"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* ("=" result=ValueOrEnumValue)?
+		//"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedTestResult* ("="
+		//result=ValueOrEnumValue)?
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -467,17 +471,23 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//Parameter
 		public RuleCall getParametersParameterParserRuleCall_2_0() { return cParametersParameterParserRuleCall_2_0; }
 
+		//results+=NamedTestResult*
+		public Assignment getResultsAssignment_3() { return cResultsAssignment_3; }
+
+		//NamedTestResult
+		public RuleCall getResultsNamedTestResultParserRuleCall_3_0() { return cResultsNamedTestResultParserRuleCall_3_0; }
+
 		//("=" result=ValueOrEnumValue)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_3_0() { return cEqualsSignKeyword_3_0; }
+		public Keyword getEqualsSignKeyword_4_0() { return cEqualsSignKeyword_4_0; }
 
 		//result=ValueOrEnumValue
-		public Assignment getResultAssignment_3_1() { return cResultAssignment_3_1; }
+		public Assignment getResultAssignment_4_1() { return cResultAssignment_4_1; }
 
 		//ValueOrEnumValue
-		public RuleCall getResultValueOrEnumValueParserRuleCall_3_1_0() { return cResultValueOrEnumValueParserRuleCall_3_1_0; }
+		public RuleCall getResultValueOrEnumValueParserRuleCall_4_1_0() { return cResultValueOrEnumValueParserRuleCall_4_1_0; }
 	}
 
 	public class TableTestElements extends AbstractParserRuleElementFinder {
@@ -660,6 +670,102 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueOrEnumValue
 		public RuleCall getValueValueOrEnumValueParserRuleCall_1_0() { return cValueValueOrEnumValueParserRuleCall_1_0; }
+	}
+
+	public class NamedTestResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NamedTestResult");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameTestResultNameParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueValueOrEnumValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		
+		//NamedTestResult:
+		//	name=TestResultName "=" value=ValueOrEnumValue;
+		public ParserRule getRule() { return rule; }
+
+		//name=TestResultName "=" value=ValueOrEnumValue
+		public Group getGroup() { return cGroup; }
+
+		//name=TestResultName
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//TestResultName
+		public RuleCall getNameTestResultNameParserRuleCall_0_0() { return cNameTestResultNameParserRuleCall_0_0; }
+
+		//"="
+		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+
+		//value=ValueOrEnumValue
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+
+		//ValueOrEnumValue
+		public RuleCall getValueValueOrEnumValueParserRuleCall_2_0() { return cValueValueOrEnumValueParserRuleCall_2_0; }
+	}
+
+	public class TestResultNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TestResultName");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedTestResultNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cArbitraryTestResultNameParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//TestResultName:
+		//	FixedTestResultName | ArbitraryTestResultName;
+		public ParserRule getRule() { return rule; }
+
+		//FixedTestResultName | ArbitraryTestResultName
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//FixedTestResultName
+		public RuleCall getFixedTestResultNameParserRuleCall_0() { return cFixedTestResultNameParserRuleCall_0; }
+
+		//ArbitraryTestResultName
+		public RuleCall getArbitraryTestResultNameParserRuleCall_1() { return cArbitraryTestResultNameParserRuleCall_1; }
+	}
+
+	public class FixedTestResultNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FixedTestResultName");
+		private final Assignment cFieldAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cFieldJvmFieldCrossReference_0 = (CrossReference)cFieldAssignment.eContents().get(0);
+		private final RuleCall cFieldJvmFieldIDTerminalRuleCall_0_1 = (RuleCall)cFieldJvmFieldCrossReference_0.eContents().get(1);
+		
+		//FixedTestResultName:
+		//	field=[jvmTypes::JvmField];
+		public ParserRule getRule() { return rule; }
+
+		//field=[jvmTypes::JvmField]
+		public Assignment getFieldAssignment() { return cFieldAssignment; }
+
+		//[jvmTypes::JvmField]
+		public CrossReference getFieldJvmFieldCrossReference_0() { return cFieldJvmFieldCrossReference_0; }
+
+		//ID
+		public RuleCall getFieldJvmFieldIDTerminalRuleCall_0_1() { return cFieldJvmFieldIDTerminalRuleCall_0_1; }
+	}
+
+	public class ArbitraryTestResultNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ArbitraryTestResultName");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cPlusSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cIdentifierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cIdentifierIDTerminalRuleCall_1_0 = (RuleCall)cIdentifierAssignment_1.eContents().get(0);
+		
+		//ArbitraryTestResultName:
+		//	"+" identifier=ID;
+		public ParserRule getRule() { return rule; }
+
+		//"+" identifier=ID
+		public Group getGroup() { return cGroup; }
+
+		//"+"
+		public Keyword getPlusSignKeyword_0() { return cPlusSignKeyword_0; }
+
+		//identifier=ID
+		public Assignment getIdentifierAssignment_1() { return cIdentifierAssignment_1; }
+
+		//ID
+		public RuleCall getIdentifierIDTerminalRuleCall_1_0() { return cIdentifierIDTerminalRuleCall_1_0; }
 	}
 
 	public class CallElements extends AbstractParserRuleElementFinder {
@@ -1148,6 +1254,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TableTestRowElements pTableTestRow;
 	private ParameterTableHeaderElements pParameterTableHeader;
 	private ParameterTableValueElements pParameterTableValue;
+	private NamedTestResultElements pNamedTestResult;
+	private TestResultNameElements pTestResultName;
+	private FixedTestResultNameElements pFixedTestResultName;
+	private ArbitraryTestResultNameElements pArbitraryTestResultName;
 	private CallElements pCall;
 	private SuiteElements pSuite;
 	private SuiteParameterElements pSuiteParameter;
@@ -1312,7 +1422,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Test:
-	//	"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* ("=" result=ValueOrEnumValue)?;
+	//	"test" definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedTestResult* ("="
+	//	result=ValueOrEnumValue)?;
 	public TestElements getTestAccess() {
 		return (pTest != null) ? pTest : (pTest = new TestElements());
 	}
@@ -1360,6 +1471,46 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getParameterTableValueRule() {
 		return getParameterTableValueAccess().getRule();
+	}
+
+	//NamedTestResult:
+	//	name=TestResultName "=" value=ValueOrEnumValue;
+	public NamedTestResultElements getNamedTestResultAccess() {
+		return (pNamedTestResult != null) ? pNamedTestResult : (pNamedTestResult = new NamedTestResultElements());
+	}
+	
+	public ParserRule getNamedTestResultRule() {
+		return getNamedTestResultAccess().getRule();
+	}
+
+	//TestResultName:
+	//	FixedTestResultName | ArbitraryTestResultName;
+	public TestResultNameElements getTestResultNameAccess() {
+		return (pTestResultName != null) ? pTestResultName : (pTestResultName = new TestResultNameElements());
+	}
+	
+	public ParserRule getTestResultNameRule() {
+		return getTestResultNameAccess().getRule();
+	}
+
+	//FixedTestResultName:
+	//	field=[jvmTypes::JvmField];
+	public FixedTestResultNameElements getFixedTestResultNameAccess() {
+		return (pFixedTestResultName != null) ? pFixedTestResultName : (pFixedTestResultName = new FixedTestResultNameElements());
+	}
+	
+	public ParserRule getFixedTestResultNameRule() {
+		return getFixedTestResultNameAccess().getRule();
+	}
+
+	//ArbitraryTestResultName:
+	//	"+" identifier=ID;
+	public ArbitraryTestResultNameElements getArbitraryTestResultNameAccess() {
+		return (pArbitraryTestResultName != null) ? pArbitraryTestResultName : (pArbitraryTestResultName = new ArbitraryTestResultNameElements());
+	}
+	
+	public ParserRule getArbitraryTestResultNameRule() {
+		return getArbitraryTestResultNameAccess().getRule();
 	}
 
 	//Call:

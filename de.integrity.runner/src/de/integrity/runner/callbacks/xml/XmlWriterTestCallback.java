@@ -103,6 +103,8 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private static final String COMPARISON_COLLECTION_ELEMENT = "comparisons";
 
+	private static final String COMPARISON_NAME_ATTRIBUTE = "name";
+
 	private static final String VARIABLE_NAME_ATTRIBUTE = "name";
 
 	private static final String VARIABLE_ELEMENT = "variable";
@@ -378,6 +380,10 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 			Element tempComparisonCollectionElement = new Element(COMPARISON_COLLECTION_ELEMENT);
 			for (Entry<String, TestComparisonResult> tempEntry : aSubResult.getComparisonResults().entrySet()) {
 				Element tempComparisonResultElement = new Element(COMPARISON_ELEMENT);
+
+				if (tempEntry.getKey().length() > 0) {
+					tempComparisonResultElement.setAttribute(COMPARISON_NAME_ATTRIBUTE, tempEntry.getKey());
+				}
 
 				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
 						.convertValueToString(tempEntry.getValue().getExpectedValue(), variableStorage, false));

@@ -461,13 +461,22 @@ public interface DslPackage extends EPackage
   int TEST__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Results</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEST__RESULTS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST__RESULT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+  int TEST__RESULT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Test</em>' class.
@@ -476,7 +485,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
+  int TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link de.integrity.dsl.impl.TableTestImpl <em>Table Test</em>}' class.
@@ -627,6 +636,118 @@ public interface DslPackage extends EPackage
   int PARAMETER_TABLE_VALUE_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.NamedTestResultImpl <em>Named Test Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.NamedTestResultImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getNamedTestResult()
+   * @generated
+   */
+  int NAMED_TEST_RESULT = 17;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_TEST_RESULT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_TEST_RESULT__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>Named Test Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_TEST_RESULT_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.TestResultNameImpl <em>Test Result Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.TestResultNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getTestResultName()
+   * @generated
+   */
+  int TEST_RESULT_NAME = 18;
+
+  /**
+   * The number of structural features of the '<em>Test Result Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEST_RESULT_NAME_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.FixedTestResultNameImpl <em>Fixed Test Result Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.FixedTestResultNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getFixedTestResultName()
+   * @generated
+   */
+  int FIXED_TEST_RESULT_NAME = 19;
+
+  /**
+   * The feature id for the '<em><b>Field</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIXED_TEST_RESULT_NAME__FIELD = TEST_RESULT_NAME_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Fixed Test Result Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIXED_TEST_RESULT_NAME_FEATURE_COUNT = TEST_RESULT_NAME_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link de.integrity.dsl.impl.ArbitraryTestResultNameImpl <em>Arbitrary Test Result Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.integrity.dsl.impl.ArbitraryTestResultNameImpl
+   * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryTestResultName()
+   * @generated
+   */
+  int ARBITRARY_TEST_RESULT_NAME = 20;
+
+  /**
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARBITRARY_TEST_RESULT_NAME__IDENTIFIER = TEST_RESULT_NAME_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Arbitrary Test Result Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARBITRARY_TEST_RESULT_NAME_FEATURE_COUNT = TEST_RESULT_NAME_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link de.integrity.dsl.impl.CallImpl <em>Call</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -634,7 +755,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getCall()
    * @generated
    */
-  int CALL = 17;
+  int CALL = 21;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -680,7 +801,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getSuite()
    * @generated
    */
-  int SUITE = 18;
+  int SUITE = 22;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -717,7 +838,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getSuiteParameter()
    * @generated
    */
-  int SUITE_PARAMETER = 19;
+  int SUITE_PARAMETER = 23;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -754,7 +875,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getParameter()
    * @generated
    */
-  int PARAMETER = 20;
+  int PARAMETER = 24;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -791,7 +912,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 21;
+  int PARAMETER_NAME = 25;
 
   /**
    * The number of structural features of the '<em>Parameter Name</em>' class.
@@ -810,7 +931,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
    * @generated
    */
-  int FIXED_PARAMETER_NAME = 22;
+  int FIXED_PARAMETER_NAME = 26;
 
   /**
    * The feature id for the '<em><b>Annotation</b></em>' reference.
@@ -838,7 +959,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_NAME = 23;
+  int ARBITRARY_PARAMETER_NAME = 27;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -866,7 +987,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 24;
+  int VALUE_OR_ENUM_VALUE = 28;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -885,7 +1006,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 25;
+  int VALUE = 29;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -904,7 +1025,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 26;
+  int INTEGER_VALUE = 30;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -932,7 +1053,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 27;
+  int DECIMAL_VALUE = 31;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -960,7 +1081,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 28;
+  int STRING_VALUE = 32;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -988,7 +1109,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 29;
+  int VARIABLE = 33;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1016,7 +1137,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 30;
+  int ENUM_VALUE = 34;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1044,7 +1165,7 @@ public interface DslPackage extends EPackage
    * @see de.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 31;
+  int METHOD_REFERENCE = 35;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1403,6 +1524,17 @@ public interface DslPackage extends EPackage
   EReference getTest_Parameters();
 
   /**
+   * Returns the meta object for the containment reference list '{@link de.integrity.dsl.Test#getResults <em>Results</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Results</em>'.
+   * @see de.integrity.dsl.Test#getResults()
+   * @see #getTest()
+   * @generated
+   */
+  EReference getTest_Results();
+
+  /**
    * Returns the meta object for the containment reference '{@link de.integrity.dsl.Test#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1540,6 +1672,90 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getParameterTableValue_Value();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.NamedTestResult <em>Named Test Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Named Test Result</em>'.
+   * @see de.integrity.dsl.NamedTestResult
+   * @generated
+   */
+  EClass getNamedTestResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.NamedTestResult#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @see de.integrity.dsl.NamedTestResult#getName()
+   * @see #getNamedTestResult()
+   * @generated
+   */
+  EReference getNamedTestResult_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.integrity.dsl.NamedTestResult#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see de.integrity.dsl.NamedTestResult#getValue()
+   * @see #getNamedTestResult()
+   * @generated
+   */
+  EReference getNamedTestResult_Value();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.TestResultName <em>Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Test Result Name</em>'.
+   * @see de.integrity.dsl.TestResultName
+   * @generated
+   */
+  EClass getTestResultName();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.FixedTestResultName <em>Fixed Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Fixed Test Result Name</em>'.
+   * @see de.integrity.dsl.FixedTestResultName
+   * @generated
+   */
+  EClass getFixedTestResultName();
+
+  /**
+   * Returns the meta object for the reference '{@link de.integrity.dsl.FixedTestResultName#getField <em>Field</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Field</em>'.
+   * @see de.integrity.dsl.FixedTestResultName#getField()
+   * @see #getFixedTestResultName()
+   * @generated
+   */
+  EReference getFixedTestResultName_Field();
+
+  /**
+   * Returns the meta object for class '{@link de.integrity.dsl.ArbitraryTestResultName <em>Arbitrary Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Arbitrary Test Result Name</em>'.
+   * @see de.integrity.dsl.ArbitraryTestResultName
+   * @generated
+   */
+  EClass getArbitraryTestResultName();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.integrity.dsl.ArbitraryTestResultName#getIdentifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Identifier</em>'.
+   * @see de.integrity.dsl.ArbitraryTestResultName#getIdentifier()
+   * @see #getArbitraryTestResultName()
+   * @generated
+   */
+  EAttribute getArbitraryTestResultName_Identifier();
 
   /**
    * Returns the meta object for class '{@link de.integrity.dsl.Call <em>Call</em>}'.
@@ -2187,6 +2403,14 @@ public interface DslPackage extends EPackage
     EReference TEST__PARAMETERS = eINSTANCE.getTest_Parameters();
 
     /**
+     * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEST__RESULTS = eINSTANCE.getTest_Results();
+
+    /**
      * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2297,6 +2521,78 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference PARAMETER_TABLE_VALUE__VALUE = eINSTANCE.getParameterTableValue_Value();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.NamedTestResultImpl <em>Named Test Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.NamedTestResultImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getNamedTestResult()
+     * @generated
+     */
+    EClass NAMED_TEST_RESULT = eINSTANCE.getNamedTestResult();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NAMED_TEST_RESULT__NAME = eINSTANCE.getNamedTestResult_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NAMED_TEST_RESULT__VALUE = eINSTANCE.getNamedTestResult_Value();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.TestResultNameImpl <em>Test Result Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.TestResultNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getTestResultName()
+     * @generated
+     */
+    EClass TEST_RESULT_NAME = eINSTANCE.getTestResultName();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.FixedTestResultNameImpl <em>Fixed Test Result Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.FixedTestResultNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getFixedTestResultName()
+     * @generated
+     */
+    EClass FIXED_TEST_RESULT_NAME = eINSTANCE.getFixedTestResultName();
+
+    /**
+     * The meta object literal for the '<em><b>Field</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FIXED_TEST_RESULT_NAME__FIELD = eINSTANCE.getFixedTestResultName_Field();
+
+    /**
+     * The meta object literal for the '{@link de.integrity.dsl.impl.ArbitraryTestResultNameImpl <em>Arbitrary Test Result Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.integrity.dsl.impl.ArbitraryTestResultNameImpl
+     * @see de.integrity.dsl.impl.DslPackageImpl#getArbitraryTestResultName()
+     * @generated
+     */
+    EClass ARBITRARY_TEST_RESULT_NAME = eINSTANCE.getArbitraryTestResultName();
+
+    /**
+     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ARBITRARY_TEST_RESULT_NAME__IDENTIFIER = eINSTANCE.getArbitraryTestResultName_Identifier();
 
     /**
      * The meta object literal for the '{@link de.integrity.dsl.impl.CallImpl <em>Call</em>}' class.

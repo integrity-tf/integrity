@@ -7,6 +7,7 @@
 package de.integrity.dsl.impl;
 
 import de.integrity.dsl.DslPackage;
+import de.integrity.dsl.NamedTestResult;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link de.integrity.dsl.impl.TestImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.integrity.dsl.impl.TestImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.integrity.dsl.impl.TestImpl#getResults <em>Results</em>}</li>
  *   <li>{@link de.integrity.dsl.impl.TestImpl#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
@@ -63,6 +65,16 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * @ordered
    */
   protected EList<Parameter> parameters;
+
+  /**
+   * The cached value of the '{@link #getResults() <em>Results</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResults()
+   * @generated
+   * @ordered
+   */
+  protected EList<NamedTestResult> results;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
@@ -157,6 +169,20 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<NamedTestResult> getResults()
+  {
+    if (results == null)
+    {
+      results = new EObjectContainmentEList<NamedTestResult>(NamedTestResult.class, this, DslPackage.TEST__RESULTS);
+    }
+    return results;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ValueOrEnumValue getResult()
   {
     return result;
@@ -212,6 +238,8 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
     {
       case DslPackage.TEST__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case DslPackage.TEST__RESULTS:
+        return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
       case DslPackage.TEST__RESULT:
         return basicSetResult(null, msgs);
     }
@@ -233,6 +261,8 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         return basicGetDefinition();
       case DslPackage.TEST__PARAMETERS:
         return getParameters();
+      case DslPackage.TEST__RESULTS:
+        return getResults();
       case DslPackage.TEST__RESULT:
         return getResult();
     }
@@ -257,6 +287,10 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         getParameters().clear();
         getParameters().addAll((Collection<? extends Parameter>)newValue);
         return;
+      case DslPackage.TEST__RESULTS:
+        getResults().clear();
+        getResults().addAll((Collection<? extends NamedTestResult>)newValue);
+        return;
       case DslPackage.TEST__RESULT:
         setResult((ValueOrEnumValue)newValue);
         return;
@@ -280,6 +314,9 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
       case DslPackage.TEST__PARAMETERS:
         getParameters().clear();
         return;
+      case DslPackage.TEST__RESULTS:
+        getResults().clear();
+        return;
       case DslPackage.TEST__RESULT:
         setResult((ValueOrEnumValue)null);
         return;
@@ -301,6 +338,8 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         return definition != null;
       case DslPackage.TEST__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case DslPackage.TEST__RESULTS:
+        return results != null && !results.isEmpty();
       case DslPackage.TEST__RESULT:
         return result != null;
     }

@@ -83,7 +83,7 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     '|' | ('|' '=' '|')
+	 *     ('|' '=' '|') | '|'
 	 */
 	protected void emit_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

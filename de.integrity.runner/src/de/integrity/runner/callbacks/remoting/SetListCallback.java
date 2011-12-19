@@ -220,6 +220,8 @@ public class SetListCallback implements TestRunnerCallback {
 			SetListEntry tempComparisonEntry = setList.createEntry(SetListEntryTypes.COMPARISON);
 			tempNewEntries.add(tempComparisonEntry);
 
+			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
+
 			ValueOrEnumValue tempExpectedValue = tempEntry.getValue().getExpectedValue();
 
 			tempComparisonEntry.setAttribute(

@@ -180,6 +180,42 @@ public interface DslFactory extends EFactory
   ParameterTableValue createParameterTableValue();
 
   /**
+   * Returns a new object of class '<em>Named Test Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Named Test Result</em>'.
+   * @generated
+   */
+  NamedTestResult createNamedTestResult();
+
+  /**
+   * Returns a new object of class '<em>Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Test Result Name</em>'.
+   * @generated
+   */
+  TestResultName createTestResultName();
+
+  /**
+   * Returns a new object of class '<em>Fixed Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fixed Test Result Name</em>'.
+   * @generated
+   */
+  FixedTestResultName createFixedTestResultName();
+
+  /**
+   * Returns a new object of class '<em>Arbitrary Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Arbitrary Test Result Name</em>'.
+   * @generated
+   */
+  ArbitraryTestResultName createArbitraryTestResultName();
+
+  /**
    * Returns a new object of class '<em>Call</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -164,6 +164,26 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createParameterTableValueAdapter();
       }
       @Override
+      public Adapter caseNamedTestResult(NamedTestResult object)
+      {
+        return createNamedTestResultAdapter();
+      }
+      @Override
+      public Adapter caseTestResultName(TestResultName object)
+      {
+        return createTestResultNameAdapter();
+      }
+      @Override
+      public Adapter caseFixedTestResultName(FixedTestResultName object)
+      {
+        return createFixedTestResultNameAdapter();
+      }
+      @Override
+      public Adapter caseArbitraryTestResultName(ArbitraryTestResultName object)
+      {
+        return createArbitraryTestResultNameAdapter();
+      }
+      @Override
       public Adapter caseCall(Call object)
       {
         return createCallAdapter();
@@ -511,6 +531,66 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createParameterTableValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.NamedTestResult <em>Named Test Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.NamedTestResult
+   * @generated
+   */
+  public Adapter createNamedTestResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.TestResultName <em>Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.TestResultName
+   * @generated
+   */
+  public Adapter createTestResultNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.FixedTestResultName <em>Fixed Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.FixedTestResultName
+   * @generated
+   */
+  public Adapter createFixedTestResultNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.integrity.dsl.ArbitraryTestResultName <em>Arbitrary Test Result Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.integrity.dsl.ArbitraryTestResultName
+   * @generated
+   */
+  public Adapter createArbitraryTestResultNameAdapter()
   {
     return null;
   }

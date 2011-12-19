@@ -3,16 +3,19 @@ package de.integrity.serializer;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import de.integrity.dsl.ArbitraryParameterName;
+import de.integrity.dsl.ArbitraryTestResultName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.DecimalValue;
 import de.integrity.dsl.DslPackage;
 import de.integrity.dsl.EnumValue;
 import de.integrity.dsl.FixedParameterName;
+import de.integrity.dsl.FixedTestResultName;
 import de.integrity.dsl.Import;
 import de.integrity.dsl.IntegerValue;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Model;
+import de.integrity.dsl.NamedTestResult;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.Parameter;
 import de.integrity.dsl.ParameterTableHeader;
@@ -76,6 +79,13 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case DslPackage.ARBITRARY_TEST_RESULT_NAME:
+				if(context == grammarAccess.getArbitraryTestResultNameRule() ||
+				   context == grammarAccess.getTestResultNameRule()) {
+					sequence_ArbitraryTestResultName(context, (ArbitraryTestResultName) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.CALL:
 				if(context == grammarAccess.getCallRule() ||
 				   context == grammarAccess.getSuiteStatementRule()) {
@@ -112,6 +122,13 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else break;
+			case DslPackage.FIXED_TEST_RESULT_NAME:
+				if(context == grammarAccess.getFixedTestResultNameRule() ||
+				   context == grammarAccess.getTestResultNameRule()) {
+					sequence_FixedTestResultName(context, (FixedTestResultName) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.IMPORT:
 				if(context == grammarAccess.getImportRule() ||
 				   context == grammarAccess.getPackageStatementRule() ||
@@ -137,6 +154,12 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 			case DslPackage.MODEL:
 				if(context == grammarAccess.getModelRule()) {
 					sequence_Model(context, (Model) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.NAMED_TEST_RESULT:
+				if(context == grammarAccess.getNamedTestResultRule()) {
+					sequence_NamedTestResult(context, (NamedTestResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -268,6 +291,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     identifier=ID
+	 */
+	protected void sequence_ArbitraryTestResultName(EObject context, ArbitraryTestResultName semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ARBITRARY_TEST_RESULT_NAME__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ARBITRARY_TEST_RESULT_NAME__IDENTIFIER));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getArbitraryTestResultNameAccess().getIdentifierIDTerminalRuleCall_1_0(), semanticObject.getIdentifier());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=QualifiedName fixtureMethod=MethodReference)
 	 */
 	protected void sequence_CallDefinition(EObject context, CallDefinition semanticObject) {
@@ -344,6 +383,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     field=[JvmField|ID]
+	 */
+	protected void sequence_FixedTestResultName(EObject context, FixedTestResultName semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_TEST_RESULT_NAME__FIELD) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_TEST_RESULT_NAME__FIELD));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getFixedTestResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1(), semanticObject.getField());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildcard
 	 */
 	protected void sequence_Import(EObject context, Import semanticObject) {
@@ -399,6 +454,25 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_Model(EObject context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=TestResultName value=ValueOrEnumValue)
+	 */
+	protected void sequence_NamedTestResult(EObject context, NamedTestResult semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_TEST_RESULT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_TEST_RESULT__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_TEST_RESULT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_TEST_RESULT__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getNamedTestResultAccess().getNameTestResultNameParserRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getNamedTestResultAccess().getValueValueOrEnumValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	
@@ -560,7 +634,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* result=ValueOrEnumValue?)
+	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedTestResult* result=ValueOrEnumValue?)
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

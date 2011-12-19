@@ -85,6 +85,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.TABLE_TEST_ROW: return createTableTestRow();
       case DslPackage.PARAMETER_TABLE_HEADER: return createParameterTableHeader();
       case DslPackage.PARAMETER_TABLE_VALUE: return createParameterTableValue();
+      case DslPackage.NAMED_TEST_RESULT: return createNamedTestResult();
+      case DslPackage.TEST_RESULT_NAME: return createTestResultName();
+      case DslPackage.FIXED_TEST_RESULT_NAME: return createFixedTestResultName();
+      case DslPackage.ARBITRARY_TEST_RESULT_NAME: return createArbitraryTestResultName();
       case DslPackage.CALL: return createCall();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
@@ -290,6 +294,50 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ParameterTableValueImpl parameterTableValue = new ParameterTableValueImpl();
     return parameterTableValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedTestResult createNamedTestResult()
+  {
+    NamedTestResultImpl namedTestResult = new NamedTestResultImpl();
+    return namedTestResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TestResultName createTestResultName()
+  {
+    TestResultNameImpl testResultName = new TestResultNameImpl();
+    return testResultName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FixedTestResultName createFixedTestResultName()
+  {
+    FixedTestResultNameImpl fixedTestResultName = new FixedTestResultNameImpl();
+    return fixedTestResultName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ArbitraryTestResultName createArbitraryTestResultName()
+  {
+    ArbitraryTestResultNameImpl arbitraryTestResultName = new ArbitraryTestResultNameImpl();
+    return arbitraryTestResultName;
   }
 
   /**

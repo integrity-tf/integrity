@@ -46,12 +46,14 @@
             .row1callexception { background-color: #FFE6B7; }
             .row2callexception { background-color: #FFF7E8; }
             .testresults { font-size: 8pt; font-weight: bold; padding: 4px; }
-            .testResultValue { font-weight: bold; }
-            .testResultValueSuccess { color: #063; }
-            .testResultValueFailure { color: #C00; }
+            .testresultvalue { font-weight: bold; }
+            .testresultvaluesuccess { color: #063; }
+            .testresultvaluefailure { color: #C00; }
             .testduration { font-size: 8pt; position: absolute; top: 2px; right: 4px; color: #555; }
             .parametertable th { font-size: 8pt; }
+            .comparisontable th { font-size: 8pt; }
             .resultstable th { font-size: 8pt; }
+            .comparisontable { margin-top: 10px; }
             .exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
             .tab { padding-right: 20px; }
             .fixturename { font-size: 8pt; padding: 4px; }</style>
@@ -313,6 +315,43 @@
               </xsl:for-each>
             </table>
           </xsl:if>
+          <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+            <table class="comparisontable" width="100%">
+              <tr>
+                <th width="200px" align="left">Result</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1test</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2test</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td>
+                    <xsl:choose>
+						<xsl:when test="@type = 'success'">
+							<xsl:value-of select="@value"/>
+						</xsl:when>
+						<xsl:when test="@type = 'failure'">
+							<xsl:value-of select="@value"/> (expected: <xsl:value-of select="@expectedValue"/>)
+						</xsl:when>
+					</xsl:choose>	
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
           <xsl:if test="results/result/@exceptionTrace">
             <div class="exceptiontrace">
               <xsl:call-template name="formatExceptionTrace">
@@ -323,20 +362,58 @@
         </div>
         <div class="testresults">
           <xsl:if test="results/result/@type = 'success'">
-            result:
-            <span class="testResultValue testResultValueSuccess">
-              <xsl:value-of select="results/result/comparisons/comparison/@value" />
-            </span>
+          	<xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
+	            result:
+	            <span class="testresultvalue testresultvaluesuccess">
+	              <xsl:value-of select="results/result/comparisons/comparison/@value" />
+	            </span>
+            </xsl:if>
+            <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+            	results:
+            	<xsl:for-each select="results/result/comparisons/comparison">
+            		<xsl:if test="position() &gt; 1"> | <xsl:text></xsl:text></xsl:if>
+            		<xsl:if test="@type = 'success'">
+			            <span class="testresultvalue testresultvaluesuccess">
+			            	<xsl:value-of select="@value" />
+			            </span>
+			    	</xsl:if>
+			    	<xsl:if test="@type = 'failure'">
+			            <span class="testresultvalue testresultvaluefailure">
+			            	<xsl:value-of select="@value" />
+			            	<xsl:text>, but</xsl:text> expected:
+			            	<xsl:value-of select="@expectedValue" />
+			            </span>
+			    	</xsl:if>
+	            </xsl:for-each>
+            </xsl:if>
           </xsl:if>
           <xsl:if test="results/result/@type = 'failure'">
-            result:
-            <span class="testResultValue testResultValueFailure">
-              <xsl:value-of select="results/result/comparisons/comparison/@value" />
-            </span>
-            , but expected:
-            <span class="testResultValue">
-              <xsl:value-of select="results/result/comparisons/comparison/@expectedValue" />
-            </span>
+          	<xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
+	            result:
+	            <span class="testresultvalue testresultvaluefailure">
+	              <xsl:value-of select="results/result/comparisons/comparison/@value" />
+	              <xsl:text>, but</xsl:text> expected:
+	              <xsl:value-of select="results/result/comparisons/comparison/@expectedValue" />
+	            </span>
+	      	</xsl:if>
+	      	<xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+            	results:
+            	<xsl:for-each select="results/result/comparisons/comparison">
+            		<xsl:if test="position() &gt; 1"> | <xsl:text></xsl:text></xsl:if>
+            		<xsl:if test="@type = 'success'">
+			            <span class="testresultvalue testresultvaluesuccess">
+			            	<xsl:value-of select="@value" />
+			            </span>
+			    	</xsl:if>
+			    	<xsl:if test="@type = 'failure'">
+			            <span class="testresultvalue testresultvaluefailure">
+			            	<xsl:value-of select="@value" />
+			            	<xsl:text>, but</xsl:text> expected:
+			            	<xsl:value-of select="@expectedValue" />
+			            </span>
+			    	</xsl:if>
+	            </xsl:for-each>
+            </xsl:if>
           </xsl:if>
           <xsl:if test="results/result/@type = 'exception'">
             <xsl:value-of select="results/result/@exceptionMessage" />

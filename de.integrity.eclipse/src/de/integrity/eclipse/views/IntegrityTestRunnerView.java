@@ -121,6 +121,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Label resultLine2Name;
 	private Text resultLine2Text;
 	private Composite resultLine2Border;
+	private Composite resultTableComposite;
+	private TableViewer resultTable;
 	private Color resultSuccessColor;
 	private Color resultFailureColor;
 	private Color resultNeutralColor;
@@ -135,14 +137,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Label resultFailureCountLabel;
 	private Label resultExceptionCountLabel;
 	private ProgressBar executionProgress;
+	private Color resultTableSuccessColor;
+	private Color resultTableFailureColor;
 
 	private Action connectToTestRunnerAction;
 	private Action playAction;
 	private Action pauseAction;
 	private Action stepIntoAction;
 	private Action stepOverAction;
-	private Action createBreakpointAction;
-	private Action removeBreakpointAction;
 
 	private IntegrityRemotingClient client;
 
@@ -169,6 +171,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultFailureColor = new Color(Display.getCurrent(), 190, 0, 0);
 		resultNeutralColor = new Color(Display.getCurrent(), 0, 0, 0);
 		resultExceptionColor = new Color(Display.getCurrent(), 204, 163, 0);
+
+		resultTableSuccessColor = new Color(Display.getCurrent(), 205, 255, 222);
+		resultTableFailureColor = new Color(Display.getCurrent(), 255, 130, 130);
 
 		resultSuccessIconImage = Activator.getImageDescriptor("icons/suite_success_big.png").createImage();
 		resultFailureIconImage = Activator.getImageDescriptor("icons/suite_failure_big.png").createImage();
@@ -298,6 +303,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempToolkit.paintBordersFor(resultComposite);
 		resultSection.setClient(resultComposite);
 		resultComposite.setLayout(new FormLayout());
+
+		resultTableComposite = tempToolkit.createComposite(resultComposite);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultComposite, 10);
+		tempFormData.bottom = new FormAttachment(resultComposite, 160, SWT.BOTTOM);
+		resultTableComposite.setLayoutData(tempFormData);
+		resultTableComposite.setLayout(new FillLayout());
+
+		resultTable = new TableViewer(resultTableComposite);
+		resultTable.setContentProvider(new ArrayContentProvider());
+		configureResultTable(resultTable);
 
 		resultLine1Name = new Label(resultComposite, SWT.WRAP);
 		tempFormData = new FormData();
@@ -452,6 +470,90 @@ public class IntegrityTestRunnerView extends ViewPart {
 			public String getText(Object element) {
 				SetListEntry tempEntry = (SetListEntry) element;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+			}
+		});
+	}
+
+	private void configureResultTable(final TableViewer aTable) {
+		aTable.getTable().setHeaderVisible(true);
+		aTable.getTable().setLinesVisible(true);
+
+		TableViewerColumn tempColumn = new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+				| SWT.FULL_SELECTION);
+		tempColumn.getColumn().setText("Name");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME);
+			}
+
+			@Override
+			public Color getBackground(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
+				if (tempSuccess == null) {
+					return super.getBackground(element);
+				} else if (tempSuccess) {
+					return resultTableSuccessColor;
+				} else {
+					return resultTableFailureColor;
+				}
+			}
+		});
+
+		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
+		tempColumn.getColumn().setText("Result");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+			}
+
+			@Override
+			public Color getBackground(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
+				if (tempSuccess == null) {
+					return super.getBackground(element);
+				} else if (tempSuccess) {
+					return resultTableSuccessColor;
+				} else {
+					return resultTableFailureColor;
+				}
+			}
+		});
+
+		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
+		tempColumn.getColumn().setText("Expected");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT);
+			}
+
+			@Override
+			public Color getBackground(Object element) {
+				SetListEntry tempEntry = (SetListEntry) element;
+				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
+				if (tempSuccess == null) {
+					return super.getBackground(element);
+				} else if (tempSuccess) {
+					return resultTableSuccessColor;
+				} else {
+					return resultTableFailureColor;
+				}
 			}
 		});
 	}
@@ -726,6 +828,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		fixtureLink.setVisible(false);
+		resultTableComposite.setVisible(false);
 		resultLine1Name.setVisible(false);
 		resultLine1Border.setVisible(false);
 		resultLine1Text.setText("");
@@ -814,41 +917,48 @@ public class IntegrityTestRunnerView extends ViewPart {
 				case TEST:
 				case RESULT:
 					@SuppressWarnings("unchecked")
-					SetListEntry tempComparisonEntry = setList.resolveReference(((List<Integer>) tempResultEntry
-							.getAttribute(SetListEntryAttributeKeys.COMPARISONS)).get(0));
+					List<SetListEntry> tempComparisonEntries = setList
+							.resolveReferences(((List<Integer>) tempResultEntry
+									.getAttribute(SetListEntryAttributeKeys.COMPARISONS)));
 
-					resultLine2Name.setText("Expected value: ");
-					resultLine2Text.setText((String) tempComparisonEntry
-							.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
-					resultLine2Border.setForeground(resultNeutralColor);
-					resultLine2Name.setVisible(true);
-					resultLine2Border.setVisible(true);
-
-					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
-						resultLine1Name.setText("Exception occurred while running the test fixture:");
-						resultLine1Text.setText((String) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
-						resultLine1Border.setForeground(resultExceptionColor);
-						resultLine1Name.setVisible(true);
-						resultLine1Border.setVisible(true);
+					if (tempComparisonEntries.size() > 1) {
+						resultTable.setInput(tempComparisonEntries);
+						resultTableComposite.setVisible(true);
 					} else {
-						if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
-							resultLine1Name.setText("Result returned by the test fixture: ");
-							resultLine1Text.setText((String) tempComparisonEntry
-									.getAttribute(SetListEntryAttributeKeys.VALUE));
-							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
-								if (Boolean.TRUE.equals(tempComparisonEntry
-										.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
-									resultLine1Border.setForeground(resultSuccessColor);
-								} else {
-									resultLine1Border.setForeground(resultFailureColor);
-								}
-							}
+						SetListEntry tempComparisonEntry = tempComparisonEntries.get(0);
+						resultLine2Name.setText("Expected value: ");
+						resultLine2Text.setText((String) tempComparisonEntry
+								.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
+						resultLine2Border.setForeground(resultNeutralColor);
+						resultLine2Name.setVisible(true);
+						resultLine2Border.setVisible(true);
+
+						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
+							resultLine1Name.setText("Exception occurred while running the test fixture:");
+							resultLine1Text.setText((String) tempResultEntry
+									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
+							resultLine1Border.setForeground(resultExceptionColor);
+							resultLine1Name.setVisible(true);
 							resultLine1Border.setVisible(true);
 						} else {
-							resultLine1Name.setText("No result available - please run the tests first.");
+							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+								resultLine1Name.setText("Result returned by the test fixture: ");
+								resultLine1Text.setText((String) tempComparisonEntry
+										.getAttribute(SetListEntryAttributeKeys.VALUE));
+								if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+									if (Boolean.TRUE.equals(tempComparisonEntry
+											.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+										resultLine1Border.setForeground(resultSuccessColor);
+									} else {
+										resultLine1Border.setForeground(resultFailureColor);
+									}
+								}
+								resultLine1Border.setVisible(true);
+							} else {
+								resultLine1Name.setText("No result available - please run the tests first.");
+							}
+							resultLine1Name.setVisible(true);
 						}
-						resultLine1Name.setVisible(true);
 					}
 					break;
 				case CALL:

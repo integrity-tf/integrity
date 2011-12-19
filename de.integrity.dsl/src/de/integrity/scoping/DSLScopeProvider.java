@@ -36,6 +36,7 @@ import de.integrity.dsl.VariableEntity;
 import de.integrity.fixtures.FixtureMethod;
 import de.integrity.utils.IntegrityDSLUtil;
 import de.integrity.utils.ParamAnnotationTuple;
+import de.integrity.utils.ResultFieldTuple;
 
 /**
  * This class contains custom scoping description.
@@ -173,4 +174,20 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
+	public IScope scope_FixedTestResultName_field(Test aTest, EReference aRef) {
+		MethodReference tempMethodRef = aTest.getDefinition().getFixtureMethod();
+
+		if (tempMethodRef != null) {
+			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+			List<ResultFieldTuple> tempResultFields = IntegrityDSLUtil
+					.getAllResultNamesFromFixtureMethod(tempMethodRef);
+			for (ResultFieldTuple tempResultField : tempResultFields) {
+				tempList.add(EObjectDescription.create(tempResultField.getResultName(), tempResultField.getField()));
+			}
+
+			return new SimpleScope(tempList);
+		}
+
+		return IScope.NULLSCOPE;
+	}
 }

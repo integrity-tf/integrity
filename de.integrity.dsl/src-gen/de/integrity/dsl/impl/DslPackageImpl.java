@@ -7,6 +7,7 @@
 package de.integrity.dsl.impl;
 
 import de.integrity.dsl.ArbitraryParameterName;
+import de.integrity.dsl.ArbitraryTestResultName;
 import de.integrity.dsl.Call;
 import de.integrity.dsl.CallDefinition;
 import de.integrity.dsl.DecimalValue;
@@ -14,10 +15,12 @@ import de.integrity.dsl.DslFactory;
 import de.integrity.dsl.DslPackage;
 import de.integrity.dsl.EnumValue;
 import de.integrity.dsl.FixedParameterName;
+import de.integrity.dsl.FixedTestResultName;
 import de.integrity.dsl.Import;
 import de.integrity.dsl.IntegerValue;
 import de.integrity.dsl.MethodReference;
 import de.integrity.dsl.Model;
+import de.integrity.dsl.NamedTestResult;
 import de.integrity.dsl.PackageDefinition;
 import de.integrity.dsl.PackageStatement;
 import de.integrity.dsl.Parameter;
@@ -35,6 +38,7 @@ import de.integrity.dsl.TableTest;
 import de.integrity.dsl.TableTestRow;
 import de.integrity.dsl.Test;
 import de.integrity.dsl.TestDefinition;
+import de.integrity.dsl.TestResultName;
 import de.integrity.dsl.Value;
 import de.integrity.dsl.ValueOrEnumValue;
 import de.integrity.dsl.Variable;
@@ -176,6 +180,34 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass parameterTableValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass namedTestResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass testResultNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fixedTestResultNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass arbitraryTestResultNameEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -663,9 +695,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTest_Result()
+  public EReference getTest_Results()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTest_Result()
+  {
+    return (EReference)testEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -786,6 +828,86 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getParameterTableValue_Value()
   {
     return (EReference)parameterTableValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNamedTestResult()
+  {
+    return namedTestResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNamedTestResult_Name()
+  {
+    return (EReference)namedTestResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNamedTestResult_Value()
+  {
+    return (EReference)namedTestResultEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTestResultName()
+  {
+    return testResultNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFixedTestResultName()
+  {
+    return fixedTestResultNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFixedTestResultName_Field()
+  {
+    return (EReference)fixedTestResultNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getArbitraryTestResultName()
+  {
+    return arbitraryTestResultNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getArbitraryTestResultName_Identifier()
+  {
+    return (EAttribute)arbitraryTestResultNameEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1191,6 +1313,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     testEClass = createEClass(TEST);
     createEReference(testEClass, TEST__DEFINITION);
     createEReference(testEClass, TEST__PARAMETERS);
+    createEReference(testEClass, TEST__RESULTS);
     createEReference(testEClass, TEST__RESULT);
 
     tableTestEClass = createEClass(TABLE_TEST);
@@ -1208,6 +1331,18 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     parameterTableValueEClass = createEClass(PARAMETER_TABLE_VALUE);
     createEReference(parameterTableValueEClass, PARAMETER_TABLE_VALUE__VALUE);
+
+    namedTestResultEClass = createEClass(NAMED_TEST_RESULT);
+    createEReference(namedTestResultEClass, NAMED_TEST_RESULT__NAME);
+    createEReference(namedTestResultEClass, NAMED_TEST_RESULT__VALUE);
+
+    testResultNameEClass = createEClass(TEST_RESULT_NAME);
+
+    fixedTestResultNameEClass = createEClass(FIXED_TEST_RESULT_NAME);
+    createEReference(fixedTestResultNameEClass, FIXED_TEST_RESULT_NAME__FIELD);
+
+    arbitraryTestResultNameEClass = createEClass(ARBITRARY_TEST_RESULT_NAME);
+    createEAttribute(arbitraryTestResultNameEClass, ARBITRARY_TEST_RESULT_NAME__IDENTIFIER);
 
     callEClass = createEClass(CALL);
     createEReference(callEClass, CALL__DEFINITION);
@@ -1301,6 +1436,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
     testEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
+    fixedTestResultNameEClass.getESuperTypes().add(this.getTestResultName());
+    arbitraryTestResultNameEClass.getESuperTypes().add(this.getTestResultName());
     callEClass.getESuperTypes().add(this.getSuiteStatement());
     suiteEClass.getESuperTypes().add(this.getStatement());
     suiteEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
@@ -1357,6 +1494,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(testEClass, Test.class, "Test", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTest_Definition(), this.getTestDefinition(), null, "definition", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTest_Results(), this.getNamedTestResult(), null, "results", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Result(), this.getValueOrEnumValue(), null, "result", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tableTestEClass, TableTest.class, "TableTest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1374,6 +1512,18 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(parameterTableValueEClass, ParameterTableValue.class, "ParameterTableValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getParameterTableValue_Value(), this.getValueOrEnumValue(), null, "value", null, 0, 1, ParameterTableValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(namedTestResultEClass, NamedTestResult.class, "NamedTestResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNamedTestResult_Name(), this.getTestResultName(), null, "name", null, 0, 1, NamedTestResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNamedTestResult_Value(), this.getValueOrEnumValue(), null, "value", null, 0, 1, NamedTestResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(testResultNameEClass, TestResultName.class, "TestResultName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(fixedTestResultNameEClass, FixedTestResultName.class, "FixedTestResultName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFixedTestResultName_Field(), theTypesPackage.getJvmField(), null, "field", null, 0, 1, FixedTestResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(arbitraryTestResultNameEClass, ArbitraryTestResultName.class, "ArbitraryTestResultName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getArbitraryTestResultName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, ArbitraryTestResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(callEClass, Call.class, "Call", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCall_Definition(), this.getCallDefinition(), null, "definition", null, 0, 1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

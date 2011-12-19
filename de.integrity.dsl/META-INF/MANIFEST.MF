@@ -9,7 +9,10 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.1.1";visibility:=reexport,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
- org.eclipse.xtext.generator;bundle-version="2.1.1";resolution:=optional
+ org.eclipse.xtext.generator;bundle-version="2.1.1";resolution:=optional,
+ org.eclipse.emf.mwe2.launch;bundle-version="2.1.0";resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: de.integrity,
  de.integrity.dsl,
@@ -32,4 +35,6 @@ Import-Package: org.apache.log4j,
  org.eclipse.jdt.core,
  org.eclipse.jdt.core.dom,
  org.eclipse.jdt.internal.core,
- org.eclipse.xtext.common.types.util.jdt;resolution:=optional
+ org.eclipse.xtext.common.types.util.jdt;resolution:=optional,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xtend2.lib

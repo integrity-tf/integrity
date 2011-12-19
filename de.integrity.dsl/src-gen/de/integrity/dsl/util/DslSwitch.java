@@ -208,6 +208,36 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.NAMED_TEST_RESULT:
+      {
+        NamedTestResult namedTestResult = (NamedTestResult)theEObject;
+        T result = caseNamedTestResult(namedTestResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.TEST_RESULT_NAME:
+      {
+        TestResultName testResultName = (TestResultName)theEObject;
+        T result = caseTestResultName(testResultName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.FIXED_TEST_RESULT_NAME:
+      {
+        FixedTestResultName fixedTestResultName = (FixedTestResultName)theEObject;
+        T result = caseFixedTestResultName(fixedTestResultName);
+        if (result == null) result = caseTestResultName(fixedTestResultName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.ARBITRARY_TEST_RESULT_NAME:
+      {
+        ArbitraryTestResultName arbitraryTestResultName = (ArbitraryTestResultName)theEObject;
+        T result = caseArbitraryTestResultName(arbitraryTestResultName);
+        if (result == null) result = caseTestResultName(arbitraryTestResultName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.CALL:
       {
         Call call = (Call)theEObject;
@@ -601,6 +631,70 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseParameterTableValue(ParameterTableValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Named Test Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Named Test Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNamedTestResult(NamedTestResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Test Result Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTestResultName(TestResultName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fixed Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fixed Test Result Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFixedTestResultName(FixedTestResultName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Arbitrary Test Result Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Arbitrary Test Result Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArbitraryTestResultName(ArbitraryTestResultName object)
   {
     return null;
   }

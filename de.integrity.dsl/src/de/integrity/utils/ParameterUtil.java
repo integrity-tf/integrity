@@ -1,7 +1,12 @@
 package de.integrity.utils;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.Map;
 
 import de.integrity.dsl.DecimalValue;
@@ -128,6 +133,18 @@ public class ParameterUtil {
 				return anAllowNullResultFlag ? null : "(null)";
 			}
 		}
+	}
+
+	public static Map<String, Object> getValuesFromNamedResultContainer(Object aContainer)
+			throws IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		Map<String, Object> tempResultMap = new HashMap<String, Object>();
+
+		for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
+				.getPropertyDescriptors()) {
+			tempResultMap.put(tempDescriptor.getName(), tempDescriptor.getReadMethod().invoke(aContainer));
+		}
+
+		return tempResultMap;
 	}
 
 }
