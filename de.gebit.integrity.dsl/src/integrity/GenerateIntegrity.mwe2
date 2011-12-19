@@ -7,7 +7,7 @@ import de.integrity.*
 
 var grammarURI = "classpath:/integrity/integrity.xtext"
 var file.extensions = "integrity"
-var projectName = "de.integrity.dsl"
+var projectName = "de.gebit.integrity.dsl"
 var runtimeProject = "../${projectName}"
 
 Workflow {

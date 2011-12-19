@@ -6,12 +6,12 @@
          point="org.eclipse.ui.views">
       <category
             name="Integrity Test Framework"
-            id="de.integrity.eclipse">
+            id="de.gebit.integrity.eclipse">
       </category>
       <view
             name="Integrity Test Runner"
             icon="icons/view.gif"
-            category="de.integrity.eclipse"
+            category="de.gebit.integrity.eclipse"
             class="de.integrity.eclipse.views.IntegrityTestRunnerView"
             id="de.integrity.eclipse.views.IntegrityTestRunnerView">
       </view>

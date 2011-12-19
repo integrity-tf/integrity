@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.integrity.dsl/src-gen"
-    editDirectory="/de.integrity.dsl.edit/src" editorDirectory="/de.integrity.dsl.editor/src"
-    modelPluginID="de.integrity.dsl" forceOverwrite="true" modelName="DSL" updateClasspath="false"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.gebit.integrity.dsl/src-gen"
+    editDirectory="/de.gebit.integrity.dsl.edit/src" editorDirectory="/de.gebit.integrity.dsl.editor/src"
+    modelPluginID="de.gebit.integrity.dsl" forceOverwrite="true" modelName="DSL" updateClasspath="false"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" complianceLevel="5.0"
-    copyrightFields="false" editPluginID="de.integrity.dsl.edit" editorPluginID="de.integrity.dsl.editor"
+    copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit" editorPluginID="de.gebit.integrity.dsl.editor"
     usedGenPackages="../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
