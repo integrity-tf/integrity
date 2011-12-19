@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Core
 Bundle-Version: 0.1.0.qualifier
-Bundle-SymbolicName: de.integrity.dsl;singleton:=true
+Bundle-SymbolicName: de.gebit.integrity.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.1.1";visibility:=reexport,
  org.eclipse.xtext.common.types;bundle-version="2.1.1",

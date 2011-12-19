@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Eclipse Integration
-Bundle-SymbolicName: de.integrity.eclipse; singleton:=true
+Bundle-SymbolicName: de.gebit.integrity.eclipse;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: de.integrity.eclipse.Activator
-Require-Bundle: de.integrity.remoting;bundle-version="0.1.0"
+Require-Bundle: de.gebit.integrity.remoting;bundle-version="0.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.core.commands.common,

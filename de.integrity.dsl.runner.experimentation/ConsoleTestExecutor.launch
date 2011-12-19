@@ -8,5 +8,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.integrity.runner.console.ConsoleTestExecutor"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-c --wait --xslt --xml ../de.integrity.dsl.experimentation/result.xml mysecondpackage.additionSuite ../de.integrity.dsl.experimentation/src/folder/"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="de.integrity.dsl.runner.experimentation"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="de.gebit.integrity.dsl.runner.experimentation"/>
 </launchConfiguration>
