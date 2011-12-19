@@ -5,6 +5,6 @@
 	</target>
 	
 	<target name="plugin_export" depends="clean-all">
-		<pde.exportPlugins destination="build" exportSource="true" exportType="directory" plugins="de.integrity.dsl,de.integrity.dsl.ui,de.integrity.runner,de.integrity.remoting,de.integrity.eclipse" useJARFormat="true"/>
+		<pde.exportPlugins destination="build" exportSource="true" exportType="directory" plugins="de.gebit.integrity.dsl,de.gebit.integrity.dsl.ui,de.gebit.integrity.runner,de.gebit.integrity.remoting,de.gebit.integrity.eclipse" useJARFormat="true"/>
 	</target>
 </project>

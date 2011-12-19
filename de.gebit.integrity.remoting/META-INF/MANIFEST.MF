@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Remoting
 Bundle-SymbolicName: de.gebit.integrity.remoting
 Bundle-Version: 0.1.0.qualifier
-Export-Package: de.integrity.remoting,
- de.integrity.remoting.client,
- de.integrity.remoting.entities.setlist,
- de.integrity.remoting.server,
- de.integrity.remoting.transport,
- de.integrity.remoting.transport.enums,
- de.integrity.remoting.transport.messages
+Export-Package: de.gebit.integrity.remoting,
+ de.gebit.integrity.remoting.client,
+ de.gebit.integrity.remoting.entities.setlist,
+ de.gebit.integrity.remoting.server,
+ de.gebit.integrity.remoting.transport,
+ de.gebit.integrity.remoting.transport.enums,
+ de.gebit.integrity.remoting.transport.messages

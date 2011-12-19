@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dsl"
+    nsURI="http://integrity.dsl" nsPrefix="dsl">
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//Statement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PackageDefinition" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//PackageStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PackageStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//Statement #//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixtureMethod" eType="#//MethodReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CallDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixtureMethod" eType="#//MethodReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SuiteDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//VariableEntity" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" unique="false"
+        upperBound="-1" eType="#//SuiteDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//SuiteStatement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="finalizers" unique="false"
+        upperBound="-1" eType="#//SuiteDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SuiteStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SuiteStatementWithResult" eSuperTypes="#//SuiteStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//Value"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableEntity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Test" eSuperTypes="#//SuiteStatementWithResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//TestDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
+        eType="#//NamedTestResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableTest" eSuperTypes="#//SuiteStatementWithResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//TestDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="headers" upperBound="-1"
+        eType="#//ParameterTableHeader" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//TableTestRow"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableTestRow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
+        eType="#//ParameterTableValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterTableHeader">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ParameterName"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterTableValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedTestResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//TestResultName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestResultName"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedTestResultName" eSuperTypes="#//TestResultName">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryTestResultName" eSuperTypes="#//TestResultName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//Variable"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//Statement #//SuiteStatementWithResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//SuiteDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//SuiteParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SuiteParameter">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ParameterName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterName"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedParameterName" eSuperTypes="#//ParameterName">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotation" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmAnnotationReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterName" eSuperTypes="#//ParameterName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//ValueOrEnumValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//Value">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecimalValue" eSuperTypes="#//Value">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimalValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//Value">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation"/>
+  </eClassifiers>
+</ecore:EPackage>

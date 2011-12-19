@@ -6,42 +6,42 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
             extensions="integrity"
-            id="de.integrity.DSL"
+            id="de.gebit.integrity.DSL"
             name="DSL Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="de.integrity.DSL.Editor.opened">
+                    definitionId="de.gebit.integrity.DSL.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="de.integrity.DSL.validate">
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="de.gebit.integrity.DSL.validate">
          <activeWhen>
             <reference
-                    definitionId="de.integrity.DSL.Editor.opened">
+                    definitionId="de.gebit.integrity.DSL.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="de.integrity.DSL.Editor.opened">
+        <definition id="de.gebit.integrity.DSL.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="de.integrity.DSL" 
+                        value="de.gebit.integrity.DSL" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -50,33 +50,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="de.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="de.gebit.integrity.DSL"
             name="DSL">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
         </page>
         <page
-            category="de.integrity.DSL"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="de.integrity.DSL.coloring"
+            category="de.gebit.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="de.gebit.integrity.DSL.coloring"
             name="Syntax Coloring">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
         </page>
         <page
-            category="de.integrity.DSL"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="de.integrity.DSL.templates"
+            category="de.gebit.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="de.gebit.integrity.DSL.templates"
             name="Templates">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="de.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="de.gebit.integrity.DSL"
             name="DSL">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -86,14 +86,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="de.integrity.ui.keyword_DSL"
+            id="de.gebit.integrity.ui.keyword_DSL"
             label="DSL"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="de.integrity.DSL.validate"
+            id="de.gebit.integrity.DSL.validate"
             name="Validate">
       </command>
     </extension>
@@ -101,12 +101,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="de.integrity.DSL.validate"
+                 commandId="de.gebit.integrity.DSL.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="de.integrity.DSL.Editor.opened">
+                    definitionId="de.gebit.integrity.DSL.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -116,7 +116,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="de.integrity.DSL.Editor.opened">
+                	<reference definitionId="de.gebit.integrity.DSL.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -124,11 +124,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="de.integrity.DSL.Editor.opened">
+                    definitionId="de.gebit.integrity.DSL.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -139,13 +139,13 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="integrity">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
             uriExtension="integrity">
         </resourceServiceProvider>
     </extension>
@@ -155,27 +155,27 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
       </participant>
    </extension>
    <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            category="de.integrity.DSL"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="de.integrity.DSL.compiler.preferencePage"
+            category="de.gebit.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="de.gebit.integrity.DSL.compiler.preferencePage"
             name="Compiler">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            category="de.integrity.DSL"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="de.integrity.DSL.compiler.propertyPage"
+            category="de.gebit.integrity.DSL"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="de.gebit.integrity.DSL.compiler.propertyPage"
             name="Compiler">
-            <keywordReference id="de.integrity.ui.keyword_DSL"/>
+            <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -187,11 +187,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="de.integrity.DSL.Editor.opened">
+					definitionId="de.gebit.integrity.DSL.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -211,7 +211,7 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="de.integrity.DSL.Editor.opened"/>
+					<reference definitionId="de.gebit.integrity.DSL.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -220,18 +220,18 @@
    <extension
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
       </markerResolutionGenerator>
    </extension>
 
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="de.integrity.DSL.Editor.opened">
+					definitionId="de.gebit.integrity.DSL.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -243,7 +243,7 @@
                style="push">
             <visibleWhen checkEnabled="false">
                <reference
-                     definitionId="de.integrity.DSL.Editor.opened">
+                     definitionId="de.gebit.integrity.DSL.Editor.opened">
                </reference>
             </visibleWhen>
          </command>
@@ -251,29 +251,29 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="de.integrity.DSL"
-	        class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-	        id="de.integrity.DSL.refactoring"
+	        category="de.gebit.integrity.DSL"
+	        class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="de.gebit.integrity.DSL.refactoring"
 	        name="Refactoring">
-	        <keywordReference id="de.integrity.ui.keyword_DSL"/>
+	        <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
 	    </page>
 	</extension>
 
   <extension point="org.eclipse.compare.contentViewers">
-    <viewer id="de.integrity.DSL.compare.contentViewers"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="de.gebit.integrity.DSL.compare.contentViewers"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="integrity">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
-    <viewer id="de.integrity.DSL.compare.contentMergeViewers"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="de.gebit.integrity.DSL.compare.contentMergeViewers"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="integrity" label="DSL Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
-    <provider id="de.integrity.DSL.editors.documentProviders"
-            class="de.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+    <provider id="de.gebit.integrity.DSL.editors.documentProviders"
+            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
             extensions="integrity">
     </provider>
   </extension>

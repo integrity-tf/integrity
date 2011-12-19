@@ -6,8 +6,8 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://integrity.dsl" 
-       class = "de.integrity.dsl.DslPackage"
-       genModel = "de/integrity/DSL.genmodel" /> 
+       class = "de.gebit.integrity.dsl.DslPackage"
+       genModel = "de/gebit/integrity/DSL.genmodel" /> 
 	
   </extension>
 

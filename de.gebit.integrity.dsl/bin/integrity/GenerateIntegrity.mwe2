@@ -3,7 +3,7 @@ module integrity.GenerateIntegrity
 import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
-import de.integrity.*
+import de.gebit.integrity.*
 
 var grammarURI = "classpath:/integrity/integrity.xtext"
 var file.extensions = "integrity"

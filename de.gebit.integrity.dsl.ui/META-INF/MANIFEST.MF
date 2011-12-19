@@ -32,13 +32,14 @@ Import-Package: org.apache.log4j,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: de.integrity.ui,
- de.integrity.ui.contentassist,
- de.integrity.ui.contentassist.antlr,
- de.integrity.ui.contentassist.antlr.internal,
- de.integrity.ui.documentation,
- de.integrity.ui.internal,
- de.integrity.ui.labeling,
- de.integrity.ui.outline,
- de.integrity.ui.quickfix
-Bundle-Activator: de.integrity.ui.internal.DSLActivator
+Export-Package: de.gebit.integrity.ui,
+ de.gebit.integrity.ui.contentassist,
+ de.gebit.integrity.ui.contentassist.antlr,
+ de.gebit.integrity.ui.contentassist.antlr.internal,
+ de.gebit.integrity.ui.documentation,
+ de.gebit.integrity.ui.internal,
+ de.gebit.integrity.ui.labeling,
+ de.gebit.integrity.ui.outline,
+ de.gebit.integrity.ui.quickfix,
+ de.gebit.integrity.ui.utils
+Bundle-Activator: de.gebit.integrity.ui.internal.DSLActivator
