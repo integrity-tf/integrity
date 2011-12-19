@@ -1,0 +1,140 @@
+grammar de.integrity.DSL hidden(WS, ML_COMMENT, SL_COMMENT)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
+
+generate dsl "http://integrity.dsl"
+
+Model:
+	statements+=Statement*;
+	
+Statement:
+	PackageDefinition | Import | Suite;
+	
+PackageDefinition:
+	'packagedef' name=QualifiedName 'with' statements+=PackageStatement* 'packageend';
+	
+PackageStatement:
+	Import | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+	
+Import:
+	'import' importedNamespace=QualifiedNameWithWildcard;
+	
+TestDefinition:
+	'testdef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
+	
+CallDefinition:
+	'calldef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
+	
+SuiteDefinition:
+	'suitedef' name=QualifiedName ('gets' parameters+=VariableEntity*)? ('requires' dependencies+=[SuiteDefinition|QualifiedName]*)? 'with' statements+=SuiteStatement* 'suiteend' ('concludedby' finalizers+=[SuiteDefinition|QualifiedName]*)?;
+
+SuiteStatement:
+	SuiteStatementWithResult | Call | VariableDefinition;
+	
+SuiteStatementWithResult:
+	Suite | Test | TableTest;
+	
+VariableDefinition:
+	'variable' name=VariableEntity ('initially' initialValue=Value)?;
+	
+VariableEntity:
+	name=QualifiedName;
+	
+Test:
+	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedTestResult)* ('=' result=ValueOrEnumValue)?;
+	
+TableTest:
+	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
+		(headers+=ParameterTableHeader)+ (('|' '=' '|') | '|') (rows+=TableTestRow)+;
+		
+TableTestRow:
+	{TableTestRow} (values+=ParameterTableValue)* (('|' '=' result=ValueOrEnumValue '|') | '|');
+	
+ParameterTableHeader:
+	'|' name=ParameterName;
+	
+ParameterTableValue:
+	'|' value=ValueOrEnumValue;
+	
+NamedTestResult:
+	name=TestResultName '=' value=ValueOrEnumValue;
+	
+TestResultName:
+	FixedTestResultName | ArbitraryTestResultName;
+	
+FixedTestResultName:
+	field=[jvmTypes::JvmField|ID];
+	
+ArbitraryTestResultName:
+	'+' identifier=ID;
+	
+Call:
+	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;
+	
+Suite:
+	'suite' definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)*;
+
+SuiteParameter:
+	name=[VariableEntity|QualifiedName] ':' value=Value;
+
+Parameter:
+	name=ParameterName ':' value=ValueOrEnumValue;
+	
+ParameterName:
+	FixedParameterName | ArbitraryParameterName;
+	
+FixedParameterName:
+	annotation=[jvmTypes::JvmAnnotationReference|ID];
+
+ArbitraryParameterName:
+	'+' identifier=ID;
+	
+ValueOrEnumValue:
+	Value | EnumValue;
+	
+Value:
+	StringValue | IntegerValue | DecimalValue | Variable;
+	
+IntegerValue:
+	integerValue=INTEGER;
+	
+DecimalValue:
+	decimalValue=DECIMAL;
+	
+StringValue:
+	stringValue=STRING;
+	
+Variable:
+	name=[VariableEntity|QualifiedName];
+	
+EnumValue:
+	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
+	
+MethodReference:
+	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' method=[jvmTypes::JvmOperation];
+	
+QualifiedName:
+	ID('.'ID)*;
+	
+QualifiedJavaClassName:
+	QualifiedName '.' UPPERCASE_ID;
+	
+QualifiedNameWithWildcard:
+  	QualifiedName '.*'?;
+	
+
+terminal UPPERCASE_ID: ('A'..'Z') ('A'..'Z'|'a'..'z'|'_'|'0'..'9')*;
+terminal ID: '^'?('a'..'z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+terminal INTEGER returns ecore::EBigInteger: ('0'..'9')+;
+terminal DECIMAL returns ecore::EBigDecimal: INTEGER '.' INTEGER;
+terminal STRING	: 
+			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+		; 
+terminal ML_COMMENT	: '/*' -> '*/';
+terminal SL_COMMENT 	: '//' !('\n'|'\r')* ('\r'? '\n')?;
+
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+
+terminal ANY_OTHER: .;

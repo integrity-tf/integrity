@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="de.integrity.DSL" definesHiddenTokens="true" hiddenTokens="//@rules.46 //@rules.44 //@rules.45">
+  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
+    <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+  </metamodelDeclarations>
+  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="jvmTypes">
+    <ePackage href="http://www.eclipse.org/xtext/common/JavaVMTypes#/"/>
+  </metamodelDeclarations>
+  <metamodelDeclarations xsi:type="xtext:GeneratedMetamodel" name="dsl">
+    <ePackage href="http://integrity.dsl#/"/>
+  </metamodelDeclarations>
+  <rules xsi:type="xtext:ParserRule" name="Model">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Model"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" cardinality="*" feature="statements" operator="+=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.1"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Statement">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Statement"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.4"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PackageDefinition">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//PackageDefinition"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="packagedef"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="with"/>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="statements" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.3"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="packageend"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PackageStatement">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//PackageStatement"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.4"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.5"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.7"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.10"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Import">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Import"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="import"/>
+      <elements xsi:type="xtext:Assignment" feature="importedNamespace" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TestDefinition">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestDefinition"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="testdef"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="uses"/>
+      <elements xsi:type="xtext:Assignment" feature="fixtureMethod" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="CallDefinition">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//CallDefinition"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="calldef"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="uses"/>
+      <elements xsi:type="xtext:Assignment" feature="fixtureMethod" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SuiteDefinition">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="suitedef"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="gets"/>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="requires"/>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="dependencies" operator="+=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.2">
+              <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+          </terminal>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="with"/>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="statements" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="suiteend"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="concludedby"/>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="finalizers" operator="+=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.2">
+              <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+          </terminal>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SuiteStatement">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteStatement"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.9"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.10"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SuiteStatementWithResult">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteStatementWithResult"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="VariableDefinition">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableDefinition"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="variable"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="initially"/>
+        <elements xsi:type="xtext:Assignment" feature="initialValue" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="VariableEntity">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="name" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Test">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Test"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="test"/>
+      <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.2">
+            <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestDefinition"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="results" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="result" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TableTest">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TableTest"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="tabletest"/>
+      <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.2">
+            <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestDefinition"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="headers" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="|"/>
+          <elements xsi:type="xtext:Keyword" value="="/>
+          <elements xsi:type="xtext:Keyword" value="|"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="|"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="rows" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TableTestRow">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TableTestRow"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.2">
+          <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TableTestRow"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="values" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="|"/>
+          <elements xsi:type="xtext:Keyword" value="="/>
+          <elements xsi:type="xtext:Assignment" feature="result" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="|"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="|"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ParameterTableHeader">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ParameterTableHeader"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="|"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ParameterTableValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ParameterTableValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="|"/>
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NamedTestResult">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//NamedTestResult"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="="/>
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="TestResultName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestResultName"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FixedTestResultName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//FixedTestResultName"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="field" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmField"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ArbitraryTestResultName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ArbitraryTestResultName"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="+"/>
+      <elements xsi:type="xtext:Assignment" feature="identifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Call">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Call"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="call"/>
+      <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.2">
+            <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//CallDefinition"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="sets"/>
+        <elements xsi:type="xtext:Assignment" feature="result" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.33"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Suite">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Suite"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="suite"/>
+      <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.2">
+            <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SuiteParameter">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteParameter"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.2">
+            <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=":"/>
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Parameter">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Parameter"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=":"/>
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.28"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ParameterName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ParameterName"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FixedParameterName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//FixedParameterName"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="annotation" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmAnnotationReference"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ArbitraryParameterName">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ArbitraryParameterName"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="+"/>
+      <elements xsi:type="xtext:Assignment" feature="identifier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ValueOrEnumValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ValueOrEnumValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Value">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Value"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.33"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="IntegerValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//IntegerValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="integerValue" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.41"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="DecimalValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//DecimalValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="decimalValue" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="StringValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//StringValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="stringValue" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.43"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="Variable">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Variable"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="name" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.2">
+          <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="EnumValue">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//EnumValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="enumValue" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmEnumerationLiteral"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="MethodReference">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//MethodReference"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.1">
+            <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.37"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="#"/>
+      <elements xsi:type="xtext:Assignment" feature="method" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.1">
+            <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+        </terminal>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QualifiedName">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QualifiedJavaClassName">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      <elements xsi:type="xtext:Keyword" value="."/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value=".*"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="UPPERCASE_ID">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="A"/>
+        <right value="Z"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="A"/>
+          <right value="Z"/>
+        </elements>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="a"/>
+          <right value="z"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="_"/>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="0"/>
+          <right value="9"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="ID">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" cardinality="?" value="^"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="a"/>
+          <right value="z"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="_"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="a"/>
+          <right value="z"/>
+        </elements>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="A"/>
+          <right value="Z"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="_"/>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="0"/>
+          <right value="9"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="INTEGER">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+    </type>
+    <alternatives xsi:type="xtext:CharacterRange" cardinality="+">
+      <left value="0"/>
+      <right value="9"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="DECIMAL">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
+      <elements xsi:type="xtext:Keyword" value="."/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="STRING">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="&quot;"/>
+        <elements xsi:type="xtext:Alternatives" cardinality="*">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="\"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="b"/>
+              <elements xsi:type="xtext:Keyword" value="t"/>
+              <elements xsi:type="xtext:Keyword" value="n"/>
+              <elements xsi:type="xtext:Keyword" value="f"/>
+              <elements xsi:type="xtext:Keyword" value="r"/>
+              <elements xsi:type="xtext:Keyword" value="u"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+              <elements xsi:type="xtext:Keyword" value="\"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:NegatedToken">
+            <terminal xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="\"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="&quot;"/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="'"/>
+        <elements xsi:type="xtext:Alternatives" cardinality="*">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="\"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="b"/>
+              <elements xsi:type="xtext:Keyword" value="t"/>
+              <elements xsi:type="xtext:Keyword" value="n"/>
+              <elements xsi:type="xtext:Keyword" value="f"/>
+              <elements xsi:type="xtext:Keyword" value="r"/>
+              <elements xsi:type="xtext:Keyword" value="u"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+              <elements xsi:type="xtext:Keyword" value="\"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:NegatedToken">
+            <terminal xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="\"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="'"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="ML_COMMENT">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="/*"/>
+      <elements xsi:type="xtext:UntilToken">
+        <terminal xsi:type="xtext:Keyword" value="*/"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="SL_COMMENT">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="//"/>
+      <elements xsi:type="xtext:NegatedToken" cardinality="*">
+        <terminal xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+          <elements xsi:type="xtext:Keyword" value="&#xD;"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" cardinality="?" value="&#xD;"/>
+        <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="WS">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives" cardinality="+">
+      <elements xsi:type="xtext:Keyword" value=" "/>
+      <elements xsi:type="xtext:Keyword" value="&#x9;"/>
+      <elements xsi:type="xtext:Keyword" value="&#xD;"/>
+      <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="ANY_OTHER">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Wildcard"/>
+  </rules>
+</xtext:Grammar>

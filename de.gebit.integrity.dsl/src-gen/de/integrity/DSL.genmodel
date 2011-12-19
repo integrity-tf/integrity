@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.integrity.dsl/src-gen"
+    editDirectory="/de.integrity.dsl.edit/src" editorDirectory="/de.integrity.dsl.editor/src"
+    modelPluginID="de.integrity.dsl" forceOverwrite="true" modelName="DSL" updateClasspath="false"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="de.integrity.dsl.edit" editorPluginID="de.integrity.dsl.editor"
+    usedGenPackages="../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+  <genPackages prefix="Dsl" basePackage="de.integrity" disposableProviderFactory="true"
+      ecorePackage="DSL.ecore#/">
+    <genClasses ecoreClass="DSL.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Model/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Statement"/>
+    <genClasses ecoreClass="DSL.ecore#//PackageDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//PackageDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//PackageDefinition/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//PackageStatement"/>
+    <genClasses ecoreClass="DSL.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TestDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TestDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TestDefinition/fixtureMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//CallDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//CallDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CallDefinition/fixtureMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//SuiteDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/dependencies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/statements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/finalizers"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//SuiteStatement"/>
+    <genClasses ecoreClass="DSL.ecore#//SuiteStatementWithResult"/>
+    <genClasses ecoreClass="DSL.ecore#//VariableDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/initialValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VariableEntity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariableEntity/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Test">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/results"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/result"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TableTest">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/headers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/rows"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TableTestRow">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/result"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterTableHeader">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableHeader/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterTableValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//NamedTestResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedTestResult/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedTestResult/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TestResultName"/>
+    <genClasses ecoreClass="DSL.ecore#//FixedTestResultName">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//FixedTestResultName/field"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ArbitraryTestResultName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryTestResultName/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Call">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/result"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Suite">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//SuiteParameter">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Parameter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Parameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Parameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ParameterName"/>
+    <genClasses ecoreClass="DSL.ecore#//FixedParameterName">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//FixedParameterName/annotation"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterName/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValue"/>
+    <genClasses ecoreClass="DSL.ecore#//Value"/>
+    <genClasses ecoreClass="DSL.ecore#//IntegerValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IntegerValue/integerValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//DecimalValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DecimalValue/decimalValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//StringValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//StringValue/stringValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Variable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//EnumValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//EnumValue/enumValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//MethodReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//MethodReference/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//MethodReference/method"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
