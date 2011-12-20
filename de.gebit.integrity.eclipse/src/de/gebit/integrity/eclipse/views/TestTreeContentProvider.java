@@ -11,48 +11,66 @@ import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 
+/**
+ * Provides the content for the main test execution tree.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class TestTreeContentProvider implements ILazyTreeContentProvider {
 
+	/**
+	 * The set list to use.
+	 */
 	private SetList setList;
 
+	/**
+	 * The {@link TreeViewer} that this provider belongs to.
+	 */
 	private TreeViewer owner;
 
+	/**
+	 * Constructs a new instance.
+	 * 
+	 * @param anOwner
+	 *            the owner that will receive this provider
+	 */
 	public TestTreeContentProvider(TreeViewer anOwner) {
 		owner = anOwner;
 	}
 
 	@Override
-	public void updateElement(Object parent, int index) {
+	public void updateElement(Object aParent, int anIndex) {
 		SetListEntry tempChild;
-		if (parent == setList) {
-			tempChild = getSetListEntryChild(setList.getRootEntry(), index);
+		if (aParent == setList) {
+			tempChild = getSetListEntryChild(setList.getRootEntry(), anIndex);
 		} else {
-			tempChild = getSetListEntryChild((SetListEntry) parent, index);
+			tempChild = getSetListEntryChild((SetListEntry) aParent, anIndex);
 		}
-		owner.replace(parent, index, tempChild);
+		owner.replace(aParent, anIndex, tempChild);
 		owner.setChildCount(tempChild, getSetListEntryChildCount(tempChild));
 	}
 
 	@Override
-	public void updateChildCount(Object element, int currentChildCount) {
+	public void updateChildCount(Object anElement, int aCurrentChildCount) {
 		int tempCount;
-		if (element == setList) {
+		if (anElement == setList) {
 			tempCount = getSetListEntryChildCount(setList.getRootEntry());
 		} else {
-			tempCount = getSetListEntryChildCount((SetListEntry) element);
+			tempCount = getSetListEntryChildCount((SetListEntry) anElement);
 		}
 
-		if (tempCount != currentChildCount) {
-			owner.setChildCount(element, tempCount);
+		if (tempCount != aCurrentChildCount) {
+			owner.setChildCount(anElement, tempCount);
 		}
 	}
 
 	@Override
-	public Object getParent(Object element) {
-		if (element == setList) {
+	public Object getParent(Object anElement) {
+		if (anElement == setList) {
 			return null;
 		} else {
-			return setList.getParent((SetListEntry) element);
+			return setList.getParent((SetListEntry) anElement);
 		}
 	}
 
@@ -62,10 +80,18 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 	}
 
 	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		setList = (SetList) newInput;
+	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
+		setList = (SetList) aNewInput;
 	}
 
+	/**
+	 * Returns the number of children that a specified {@link SetListEntry} has. This includes only "children" to be
+	 * displayed as child nodes in the tree.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return the number of child nodes
+	 */
 	@SuppressWarnings("unchecked")
 	protected int getSetListEntryChildCount(SetListEntry anEntry) {
 		switch (anEntry.getType()) {
@@ -88,6 +114,14 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 		}
 	}
 
+	/**
+	 * Returns a list of child node references belonging to a specified {@link SetListEntry}. This only includes such
+	 * children that should be displayed in the tree.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return a list of child references (entry IDs), or null if this is not applicable.
+	 */
 	@SuppressWarnings("unchecked")
 	protected List<Integer> getSetListEntryChildReferences(SetListEntry anEntry) {
 		switch (anEntry.getType()) {
@@ -116,6 +150,15 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 		}
 	}
 
+	/**
+	 * Returns the actual child entry at a specified position within the children of a specified {@link SetListEntry}.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @param aChildIndex
+	 *            the index of the child to get
+	 * @return the child entry, or null if there is none
+	 */
 	public SetListEntry getSetListEntryChild(SetListEntry anEntry, int aChildIndex) {
 		List<Integer> tempReferences = getSetListEntryChildReferences(anEntry);
 		if (tempReferences != null && aChildIndex >= 0 && aChildIndex < tempReferences.size()) {

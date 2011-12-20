@@ -88,6 +88,8 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 
 /**
  * The Integrity Test Runner Eclipse Plugin main view.
+ * 
+ * @author Rene Schneider
  */
 public class IntegrityTestRunnerView extends ViewPart {
 
@@ -96,60 +98,249 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 */
 	public static final String ID = "de.gebit.integrity.eclipse.views.IntegrityTestRunnerView";
 
+	/**
+	 * The sash form used to split the screen in one half for the tree, and another for the details view.
+	 */
 	private SashForm sashForm;
 
+	/**
+	 * The container for the tree.
+	 */
 	private Form treeContainer;
+
+	/**
+	 * The test execution tree viewer.
+	 */
 	private TreeViewer treeViewer;
+
+	/**
+	 * The drawer to colorize the test execution tree.
+	 */
 	private TestTreeContentDrawer viewerContentDrawer;
 
+	/**
+	 * The container for the detail information.
+	 */
 	private Composite detailsContainer;
+
+	/**
+	 * The scrolling form for the details.
+	 */
 	private ScrolledForm details;
+
+	/**
+	 * The hyperlink group for the fixture link.
+	 */
 	private HyperlinkGroup fixtureLinkGroup;
+
+	/**
+	 * The link that allows to jump to a specific fixture method.
+	 */
 	private Hyperlink fixtureLink;
+
+	/**
+	 * The container for the detail information groups.
+	 */
 	private Composite detailGroups;
+
+	/**
+	 * The variable section.
+	 */
 	private Section variableSection;
+
+	/**
+	 * The composite for the variable table.
+	 */
 	private Composite variableComposite;
+
+	/**
+	 * The table of defined variables.
+	 */
 	private TableViewer variableTable;
+
+	/**
+	 * The section for parameters.
+	 */
 	private Section parameterSection;
+
+	/**
+	 * The composite for the parameter table.
+	 */
 	private Composite parameterComposite;
+
+	/**
+	 * The table with all defined parameters.
+	 */
 	private TableViewer parameterTable;
+
+	/**
+	 * The section that gets the result info.
+	 */
 	private Section resultSection;
+
+	/**
+	 * The composite containing result UI elements.
+	 */
 	private Composite resultComposite;
+
+	/**
+	 * The label for the first (actual) result.
+	 */
 	private Label resultLine1Name;
+
+	/**
+	 * The text field for the first (actual) result.
+	 */
 	private Text resultLine1Text;
+
+	/**
+	 * The container for the first (actual) result text field, which adds a color border around it.
+	 */
 	private Composite resultLine1Border;
+
+	/**
+	 * The label for the second (expected) result.
+	 */
 	private Label resultLine2Name;
+
+	/**
+	 * The text field for the second (expected) result.
+	 */
 	private Text resultLine2Text;
+
+	/**
+	 * The container for the second (expected) result text field, which adds a color border around it.
+	 */
 	private Composite resultLine2Border;
+
+	/**
+	 * The container for the result table.
+	 */
 	private Composite resultTableComposite;
+
+	/**
+	 * The result table (for multi-result tests).
+	 */
 	private TableViewer resultTable;
+
+	/**
+	 * The color for results of successful tests.
+	 */
 	private Color resultSuccessColor;
+
+	/**
+	 * The color for results of failed tests.
+	 */
 	private Color resultFailureColor;
+
+	/**
+	 * The neutral color for results.
+	 */
 	private Color resultNeutralColor;
+
+	/**
+	 * The color of exception results.
+	 */
 	private Color resultExceptionColor;
+
+	/**
+	 * The image used to display successful test results.
+	 */
 	private Image resultSuccessIconImage;
+
+	/**
+	 * The image used to display failed test results.
+	 */
 	private Image resultFailureIconImage;
+
+	/**
+	 * The image used to display exception test results.
+	 */
 	private Image resultExceptionIconImage;
+
+	/**
+	 * The container to display the success icon.
+	 */
 	private Label resultSuccessIcon;
+
+	/**
+	 * The container to display the failure icon.
+	 */
 	private Label resultFailureIcon;
+
+	/**
+	 * The container to display the exception icon.
+	 */
 	private Label resultExceptionIcon;
+
+	/**
+	 * The success count.
+	 */
 	private Label resultSuccessCountLabel;
+
+	/**
+	 * The failure count.
+	 */
 	private Label resultFailureCountLabel;
+
+	/**
+	 * The exception count.
+	 */
 	private Label resultExceptionCountLabel;
+
+	/**
+	 * The progress bar displaying the test execution progress.
+	 */
 	private ProgressBar executionProgress;
+
+	/**
+	 * The background color for table test results (successful tests).
+	 */
 	private Color resultTableSuccessColor;
+
+	/**
+	 * The background color for failed table test results (failed tests).
+	 */
 	private Color resultTableFailureColor;
 
+	/**
+	 * The action that connects to a test runner.
+	 */
 	private Action connectToTestRunnerAction;
+
+	/**
+	 * The action that allows test continuation.
+	 */
 	private Action playAction;
+
+	/**
+	 * The action that allows to pause a running test execution.
+	 */
 	private Action pauseAction;
+
+	/**
+	 * The action for single-stepping test execution steps.
+	 */
 	private Action stepIntoAction;
+
+	/**
+	 * The action for stepping over suite calls.
+	 */
 	private Action stepOverAction;
 
+	/**
+	 * The remoting client instance.
+	 */
 	private IntegrityRemotingClient client;
 
+	/**
+	 * The currently used set list instance.
+	 */
 	private SetList setList;
 
+	/**
+	 * The set of breakpoints currently in use.
+	 */
 	private Set<Integer> breakpointSet = Collections.synchronizedSet(new HashSet<Integer>());
 
 	/**
@@ -159,13 +350,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	/**
-	 * This is a callback that will allow us to create the viewer and initialize
-	 * it.
+	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
-	public void createPartControl(final Composite parent) {
-		parent.setLayout(new FillLayout());
+	// SUPPRESS CHECKSTYLE MethodLength
+	public void createPartControl(final Composite aParent) {
+		aParent.setLayout(new FillLayout());
 
-		final FormToolkit tempToolkit = new FormToolkit(parent.getDisplay());
+		final FormToolkit tempToolkit = new FormToolkit(aParent.getDisplay());
 
 		resultSuccessColor = new Color(Display.getCurrent(), 0, 94, 13);
 		resultFailureColor = new Color(Display.getCurrent(), 190, 0, 0);
@@ -179,7 +370,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultFailureIconImage = Activator.getImageDescriptor("icons/suite_failure_big.png").createImage();
 		resultExceptionIconImage = Activator.getImageDescriptor("icons/suite_exception_big.png").createImage();
 
-		sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
+		sashForm = new SashForm(aParent, SWT.HORIZONTAL | SWT.SMOOTH);
 
 		treeContainer = new Form(sashForm, SWT.NONE);
 		treeContainer.setText("Not connected");
@@ -219,7 +410,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		details.getBody().setLayout(new FormLayout());
 		tempToolkit.decorateFormHeading(details.getForm());
 
-		fixtureLinkGroup = new HyperlinkGroup(parent.getDisplay());
+		fixtureLinkGroup = new HyperlinkGroup(aParent.getDisplay());
 		fixtureLink = new Hyperlink(details.getBody(), SWT.NONE);
 		fixtureLink.setBackground(details.getBackground());
 		fixtureLink.setText("");
@@ -230,8 +421,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.height = 10;
 		fixtureLink.setLayoutData(tempFormData);
 		fixtureLink.addHyperlinkListener(new HyperlinkAdapter() {
-			public void linkActivated(HyperlinkEvent e) {
-				jumpToJavaMethod(e.getLabel());
+			public void linkActivated(HyperlinkEvent anEvent) {
+				jumpToJavaMethod(anEvent.getLabel());
 			}
 		});
 		fixtureLinkGroup.add(fixtureLink);
@@ -454,8 +645,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME);
 			}
 		});
@@ -467,8 +658,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 			}
 		});
@@ -486,17 +677,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.NAME);
 			}
 
 			@Override
-			public Color getBackground(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public Color getBackground(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
 				if (tempSuccess == null) {
-					return super.getBackground(element);
+					return super.getBackground(anElement);
 				} else if (tempSuccess) {
 					return resultTableSuccessColor;
 				} else {
@@ -512,17 +703,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 			}
 
 			@Override
-			public Color getBackground(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public Color getBackground(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
 				if (tempSuccess == null) {
-					return super.getBackground(element);
+					return super.getBackground(anElement);
 				} else if (tempSuccess) {
 					return resultTableSuccessColor;
 				} else {
@@ -538,17 +729,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT);
 			}
 
 			@Override
-			public Color getBackground(Object element) {
-				SetListEntry tempEntry = (SetListEntry) element;
+			public Color getBackground(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
 				Boolean tempSuccess = (Boolean) tempEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG);
 				if (tempSuccess == null) {
-					return super.getBackground(element);
+					return super.getBackground(anElement);
 				} else if (tempSuccess) {
 					return resultTableSuccessColor;
 				} else {
@@ -560,12 +751,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void configureTextFieldBorder(final Composite aBorder) {
 		aBorder.addPaintListener(new PaintListener() {
-			public void paintControl(PaintEvent e) {
-				GC gc = e.gc;
-				gc.setForeground(aBorder.getForeground());
-				Rectangle rect = aBorder.getBounds();
+			public void paintControl(PaintEvent anEvent) {
+				GC tempGC = anEvent.gc;
+				tempGC.setForeground(aBorder.getForeground());
+				Rectangle tempRect = aBorder.getBounds();
 
-				gc.drawRectangle(0, 0, rect.width - 1, rect.height - 1);
+				tempGC.drawRectangle(0, 0, tempRect.width - 1, tempRect.height - 1);
 			}
 		});
 	}
@@ -591,33 +782,33 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void hookContextMenu() {
-		MenuManager menuMgr = new MenuManager("#PopupMenu");
-		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				IntegrityTestRunnerView.this.fillContextMenu(manager);
+		MenuManager tempMenuMgr = new MenuManager("#PopupMenu");
+		tempMenuMgr.setRemoveAllWhenShown(true);
+		tempMenuMgr.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager aManager) {
+				IntegrityTestRunnerView.this.fillContextMenu(aManager);
 			}
 		});
-		Menu menu = menuMgr.createContextMenu(treeViewer.getControl());
-		treeViewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, treeViewer);
+		Menu tempMenu = tempMenuMgr.createContextMenu(treeViewer.getControl());
+		treeViewer.getControl().setMenu(tempMenu);
+		getSite().registerContextMenu(tempMenuMgr, treeViewer);
 	}
 
 	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
+		IActionBars tempBars = getViewSite().getActionBars();
+		fillLocalPullDown(tempBars.getMenuManager());
+		fillLocalToolBar(tempBars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(playAction);
-		manager.add(pauseAction);
-		manager.add(stepIntoAction);
-		manager.add(new Separator());
-		manager.add(connectToTestRunnerAction);
+	private void fillLocalPullDown(IMenuManager aManager) {
+		aManager.add(playAction);
+		aManager.add(pauseAction);
+		aManager.add(stepIntoAction);
+		aManager.add(new Separator());
+		aManager.add(connectToTestRunnerAction);
 	}
 
-	private void fillContextMenu(IMenuManager manager) {
+	private void fillContextMenu(IMenuManager aManager) {
 		if (treeViewer.getSelection().isEmpty()) {
 			return;
 		}
@@ -629,14 +820,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 				if (tempEntry.getType() == SetListEntryTypes.TEST || tempEntry.getType() == SetListEntryTypes.CALL) {
 					if (breakpointSet.contains(tempEntry.getId())) {
-						manager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
+						aManager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
 								"Removes the breakpoint from the selected step.") {
 							public void run() {
 								client.deleteBreakpoint(tempEntry.getId());
 							}
 						});
 					} else {
-						manager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
+						aManager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
 								"Adds a breakpoint to the selected step.") {
 							public void run() {
 								client.createBreakpoint(tempEntry.getId());
@@ -648,13 +839,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(playAction);
-		manager.add(pauseAction);
-		manager.add(stepIntoAction);
-		manager.add(stepOverAction);
-		manager.add(new Separator());
-		manager.add(connectToTestRunnerAction);
+	private void fillLocalToolBar(IToolBarManager aManager) {
+		aManager.add(playAction);
+		aManager.add(pauseAction);
+		aManager.add(stepIntoAction);
+		aManager.add(stepOverAction);
+		aManager.add(new Separator());
+		aManager.add(connectToTestRunnerAction);
 	}
 
 	private void makeActions() {
@@ -813,6 +1004,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 							stepOverAction.setEnabled(false);
 							updateStatus("Test execution finished");
 							break;
+						default:
+							break;
 						}
 					}
 				}
@@ -826,6 +1019,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
+	// SUPPRESS CHECKSTYLE MethodLength
 	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		fixtureLink.setVisible(false);
 		resultTableComposite.setVisible(false);
@@ -986,16 +1180,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 					resultLine1Name.setVisible(true);
 					break;
+				default:
+					break;
 				}
 			}
 		}
 	}
 
-	private void showMessage(final String message) {
+	private void showMessage(final String aMessage) {
 		Runnable tempRunnable = new Runnable() {
 			@Override
 			public void run() {
-				MessageDialog.openInformation(treeViewer.getControl().getShell(), "Integrity Test Runner", message);
+				MessageDialog.openInformation(treeViewer.getControl().getShell(), "Integrity Test Runner", aMessage);
 			}
 		};
 
@@ -1056,10 +1252,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 			String tempClassName = tempMatcher.group(2);
 			final String tempMethodName = tempMatcher.group(3);
 
-			SearchPattern pattern = SearchPattern.createPattern(tempClassName, IJavaSearchConstants.TYPE,
+			SearchPattern tempPattern = SearchPattern.createPattern(tempClassName, IJavaSearchConstants.TYPE,
 					IJavaSearchConstants.DECLARATIONS, SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
-			IJavaSearchScope scope = SearchEngine.createWorkspaceScope();
-			SearchRequestor requestor = new SearchRequestor() {
+			IJavaSearchScope tempScope = SearchEngine.createWorkspaceScope();
+			SearchRequestor tempRequestor = new SearchRequestor() {
 
 				@Override
 				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
@@ -1075,10 +1271,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			};
 
-			SearchEngine searchEngine = new SearchEngine();
+			SearchEngine tempSearchEngine = new SearchEngine();
 			try {
-				searchEngine.search(pattern, new SearchParticipant[] { SearchEngine.getDefaultSearchParticipant() },
-						scope, requestor, null);
+				tempSearchEngine.search(tempPattern,
+						new SearchParticipant[] { SearchEngine.getDefaultSearchParticipant() }, tempScope,
+						tempRequestor, null);
 			} catch (CoreException exc) {
 				exc.printStackTrace();
 			}
@@ -1151,6 +1348,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 						switch (tempEntry.getType()) {
 						case RESULT:
 							treeViewer.update(setList.getParent(tempEntry), null);
+							treeViewer.update(tempEntry, null);
+							break;
 						default:
 							treeViewer.update(tempEntry, null);
 						}

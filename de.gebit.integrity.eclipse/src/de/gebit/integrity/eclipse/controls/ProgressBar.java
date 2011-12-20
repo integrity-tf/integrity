@@ -11,20 +11,66 @@ import org.eclipse.swt.widgets.Display;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 
+/**
+ * The test progress bar.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class ProgressBar extends Composite {
 
+	/**
+	 * The set list.
+	 */
 	private SetList setList;
 
+	/**
+	 * This color will be used for successful tests/calls/suites.
+	 */
 	private Color resultSuccessColor;
+
+	/**
+	 * Color for failed tests/calls/suites.
+	 */
 	private Color resultFailureColor;
+
+	/**
+	 * Color for not-yet-executed tests/calls/suites.
+	 */
 	private Color resultNeutralColor;
+
+	/**
+	 * Color for tests/calls/suites that resulted in an exception being thrown.
+	 */
 	private Color resultExceptionColor;
+
+	/**
+	 * The color of the border.
+	 */
 	private Color borderColor;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aParent
+	 *            the parent container
+	 * @param aStyle
+	 *            the style
+	 */
 	public ProgressBar(Composite aParent, int aStyle) {
 		this(aParent, aStyle, null);
 	}
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aParent
+	 *            the parent container
+	 * @param aStyle
+	 *            the style
+	 * @param aSetList
+	 *            the set list to use
+	 */
 	public ProgressBar(Composite aParent, int aStyle, SetList aSetList) {
 		super(aParent, aStyle | SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED);
 		setList = aSetList;
@@ -38,8 +84,9 @@ public class ProgressBar extends Composite {
 		addPaintListener(new PaintListener() {
 
 			@Override
-			public void paintControl(PaintEvent e) {
-				updateDisplay(e.gc, e.x, e.y, e.width, e.height, ProgressBar.this.getBounds().width);
+			public void paintControl(PaintEvent anEvent) {
+				updateDisplay(anEvent.gc, anEvent.x, anEvent.y, anEvent.width, anEvent.height,
+						ProgressBar.this.getBounds().width);
 			}
 		});
 	}
@@ -89,6 +136,17 @@ public class ProgressBar extends Composite {
 		}
 	}
 
+	/**
+	 * Returns the result state (which controls the color) at a specific pixel position.
+	 * 
+	 * @param aPos
+	 *            the position (must be < aMax)
+	 * @param aWidth
+	 *            the width in pixels
+	 * @param aMax
+	 *            the maximum position
+	 * @return
+	 */
 	protected SetListEntryResultStates getResultStateForPosition(int aPos, int aWidth, int aMax) {
 		int tempMinEntryPosition = (int) Math.floor(((double) aPos / (double) aWidth) * (double) aMax);
 		int tempMaxEntryPosition = (int) Math.ceil(((double) (aPos + 1) / (double) aWidth) * (double) aMax) - 1;
@@ -110,6 +168,8 @@ public class ProgressBar extends Composite {
 						break;
 					case SUCCESSFUL:
 						continue;
+					default:
+						break;
 					}
 				}
 			}

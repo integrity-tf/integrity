@@ -12,24 +12,87 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 
+/**
+ * The label provider for the main test execution tree.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class TestTreeLabelProvider extends LabelProvider implements ILabelProvider {
 
+	/**
+	 * The set list to use.
+	 */
 	private SetList setList;
 
+	/**
+	 * The current set of active breakpoints.
+	 */
 	private Set<Integer> breakpointSet;
 
+	/**
+	 * The image used for suites that have not yet been executed.
+	 */
 	private Image suiteImage;
+
+	/**
+	 * The image for successfully executed suites.
+	 */
 	private Image suiteSuccessImage;
+
+	/**
+	 * The image for suites that had at least one failure in execution.
+	 */
 	private Image suiteFailureImage;
+
+	/**
+	 * The image for suites that had at least one exception in execution.
+	 */
 	private Image suiteExceptionImage;
+
+	/**
+	 * The image for tests that have not yet been executed.
+	 */
 	private Image testImage;
+
+	/**
+	 * The image for tests that have been successfully executed.
+	 */
 	private Image testSuccessImage;
+
+	/**
+	 * The image for tests that were executed but concluded with a failure.
+	 */
 	private Image testFailureImage;
+
+	/**
+	 * The image for tests that encountered an exception during execution.
+	 */
 	private Image testExceptionImage;
+
+	/**
+	 * The image for calls that have not yet been executed.
+	 */
 	private Image callImage;
+
+	/**
+	 * The image for calls that have been successfully executed.
+	 */
 	private Image callSuccessImage;
+
+	/**
+	 * The image for calls that encountered an exception during execution.
+	 */
 	private Image callExceptionImage;
 
+	/**
+	 * Constructs a new instance.
+	 * 
+	 * @param aSetList
+	 *            the set list to use
+	 * @param aBreakpointSet
+	 *            the initial breakpoint set
+	 */
 	public TestTreeLabelProvider(SetList aSetList, Set<Integer> aBreakpointSet) {
 		setList = aSetList;
 		breakpointSet = aBreakpointSet;
@@ -62,8 +125,12 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		callExceptionImage.dispose();
 	}
 
-	public Image getImage(Object element) {
-		SetListEntry tempEntry = (SetListEntry) element;
+	/**
+	 * Called by the tree in order to determine the image to use for an entry.
+	 */
+	@Override
+	public Image getImage(Object anElement) {
+		SetListEntry tempEntry = (SetListEntry) anElement;
 		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
 		if (tempResultState != null) {
@@ -112,9 +179,12 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		return null;
 	}
 
+	/**
+	 * Called by the tree to determine the text to display for a certain element.
+	 */
 	@Override
-	public String getText(Object element) {
-		SetListEntry tempEntry = (SetListEntry) element;
+	public String getText(Object anElement) {
+		SetListEntry tempEntry = (SetListEntry) anElement;
 		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
 		String tempSuffix = "";
