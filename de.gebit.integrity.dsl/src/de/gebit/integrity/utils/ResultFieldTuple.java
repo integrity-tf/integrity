@@ -5,7 +5,7 @@ import org.eclipse.xtext.common.types.JvmField;
 /**
  * Container class that links a named result name to a field.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ResultFieldTuple {

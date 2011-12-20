@@ -40,7 +40,7 @@ import de.gebit.integrity.utils.ParameterUtil;
  * that acts as a container for multiple named result values. The first two cases are suited for use in test and call
  * statements, while the latter is suitable for test statements with named results.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public abstract class Fixture {

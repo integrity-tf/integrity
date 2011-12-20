@@ -10,7 +10,7 @@ import de.gebit.integrity.values.TestDSLValueConverters;
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  */
 public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModule {
 

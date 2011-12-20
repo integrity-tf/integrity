@@ -42,7 +42,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 /**
  * A utility class providing various helper functions.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public final class IntegrityDSLUtil {

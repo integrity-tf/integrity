@@ -6,7 +6,7 @@ import org.eclipse.xtext.scoping.impl.ImportUriResolver;
 /**
  * A custom URI Resolver.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class DSLImportUriResolver extends ImportUriResolver {

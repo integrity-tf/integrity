@@ -6,7 +6,7 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
  * Instances of this class are used as containers to link a parameter name (logical name used within Integrity scripts),
  * the matching Java parameter name and a reference to the annotation attached to the parameter.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ParamAnnotationTuple {

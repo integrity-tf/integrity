@@ -15,7 +15,7 @@ import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
  * one more specific import statement, the more specific one will be used regardless of the order of import statements,
  * which results in the shortest possible normalized resource reference.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class DSLImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {

@@ -43,7 +43,7 @@ import de.gebit.integrity.utils.ResultFieldTuple;
  * 
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on how and when to use it
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {

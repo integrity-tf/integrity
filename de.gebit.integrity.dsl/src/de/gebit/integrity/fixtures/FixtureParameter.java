@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * This annotation has to be added to each fixture parameter.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

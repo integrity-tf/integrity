@@ -22,7 +22,7 @@ import de.gebit.integrity.dsl.VariableEntity;
 /**
  * A utility class for handling of test/call parameters.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public final class ParameterUtil {

@@ -15,7 +15,7 @@ import java.util.Map;
  * parameters.
  * 
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public abstract class ArbitraryParameterFixture extends Fixture {
@@ -49,7 +49,7 @@ public abstract class ArbitraryParameterFixture extends Fixture {
 	/**
 	 * A container for the definition of one arbitrary parameter.
 	 * 
-	 * @author Rene Schneider (rene.schneider@gebit.de)
+	 * @author Rene Schneider
 	 * 
 	 */
 	public class ArbitraryParameterDefinition {

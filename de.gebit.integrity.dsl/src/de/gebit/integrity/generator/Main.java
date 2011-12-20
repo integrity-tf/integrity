@@ -23,7 +23,7 @@ import com.google.inject.Provider;
 /**
  * The main class for the generation of code from the Integrity grammar description.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 

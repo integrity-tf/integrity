@@ -6,7 +6,7 @@ import com.google.inject.Injector;
 /**
  * Initialization support for running Xtext languages without equinox extension registry.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  */
 public class DSLStandaloneSetup extends DSLStandaloneSetupGenerated {
 

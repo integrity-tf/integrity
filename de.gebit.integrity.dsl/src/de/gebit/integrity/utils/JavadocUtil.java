@@ -27,7 +27,7 @@ import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
  * This utility class contains various helper functions to aid in the exploration of Javadoc data attached to classes.
  * Only for use inside Eclipse!
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public final class JavadocUtil {

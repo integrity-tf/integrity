@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * This annotation must be added to all methods to be denoted as fixture methods.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
