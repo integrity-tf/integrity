@@ -10,3 +10,4 @@ Export-Package: de.gebit.integrity.remoting,
  de.gebit.integrity.remoting.transport,
  de.gebit.integrity.remoting.transport.enums,
  de.gebit.integrity.remoting.transport.messages
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

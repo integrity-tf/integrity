@@ -43,7 +43,6 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.TestFormatter;
 
-@SuppressWarnings("unchecked")
 public class SetListCallback implements TestRunnerCallback {
 
 	private ClassLoader classLoader;
@@ -282,7 +281,8 @@ public class SetListCallback implements TestRunnerCallback {
 		} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
-					stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult).getException()));
+					stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
+							.getException()));
 		}
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
 		sendUpdateToClients(null, tempNewEntry);

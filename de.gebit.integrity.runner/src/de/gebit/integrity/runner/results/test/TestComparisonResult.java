@@ -16,6 +16,10 @@ public abstract class TestComparisonResult {
 		expectedValue = anExpectedValue;
 	}
 
+	public String getParameter() {
+		return parameter;
+	}
+
 	public Object getResult() {
 		return result;
 	}

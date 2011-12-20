@@ -7,22 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.search.IJavaSearchConstants;
-import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.core.search.SearchEngine;
-import org.eclipse.jdt.core.search.SearchMatch;
-import org.eclipse.jdt.core.search.SearchParticipant;
-import org.eclipse.jdt.core.search.SearchPattern;
-import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
@@ -42,7 +30,6 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
-import de.gebit.integrity.fixtures.ArbitraryParameterFixture.EclipseResourceProvider;
 import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.ui.utils.ClassLoadingUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -50,9 +37,7 @@ import de.gebit.integrity.utils.JavadocUtil;
 import de.gebit.integrity.utils.ParamAnnotationTuple;
 
 /**
- * see
- * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on
- * how to customize content assistant
+ * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 @SuppressWarnings("restriction")
 public class DSLProposalProvider extends AbstractDSLProposalProvider {
@@ -237,11 +222,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 					tempFixtureInstance.convertParameterValuesToFixtureDefinedTypes(Fixture.findFixtureMethodByName(
 							tempFixtureClass, tempMethodReference.getMethod().getSimpleName()), tempFixedParameterMap,
-							false, generateResourceProvider());
+							false, true);
 
 					List<ArbitraryParameterDefinition> tempParameterDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
 							.defineArbitraryParameters(tempMethodReference.getMethod().getSimpleName(),
-									tempFixedParameterMap, generateResourceProvider());
+									tempFixedParameterMap, true);
 					for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
 						String tempName = tempParameterDescription.getName();
 						if (!tempParameterMap.containsKey(tempName)) {
@@ -266,92 +251,4 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 	}
 
-	private static final Pattern CLASS_NAME_PATTERN = Pattern.compile("(.*)\\.([^\\.]*)");
-
-	protected EclipseResourceProvider generateResourceProvider() {
-		return new EclipseResourceProvider() {
-
-			private IType searchResult;
-
-			@Override
-			public IType findCompilationUnitForClassName(String aFullyQualifiedClassName) {
-				Matcher tempMatcher = CLASS_NAME_PATTERN.matcher(aFullyQualifiedClassName);
-				if (tempMatcher.matches()) {
-					final String tempPackageName = tempMatcher.group(1);
-					final String tempClassName = tempMatcher.group(2);
-
-					SearchPattern pattern = SearchPattern.createPattern(tempClassName, IJavaSearchConstants.TYPE,
-							IJavaSearchConstants.DECLARATIONS, SearchPattern.R_EXACT_MATCH
-									| SearchPattern.R_CASE_SENSITIVE);
-					IJavaSearchScope scope = SearchEngine.createWorkspaceScope();
-					SearchRequestor requestor = new SearchRequestor() {
-
-						@Override
-						public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
-							IType tempType = (IType) aMatch.getElement();
-							if (searchResult == null && !tempType.isBinary()
-									&& tempPackageName.equals(tempType.getPackageFragment().getElementName())) {
-								searchResult = tempType;
-							}
-						}
-
-						@Override
-						public void endReporting() {
-							synchronized (this) {
-								notifyAll();
-							}
-						}
-					};
-
-					SearchEngine searchEngine = new SearchEngine();
-
-					try {
-						searchEngine.search(pattern,
-								new SearchParticipant[] { SearchEngine.getDefaultSearchParticipant() }, scope,
-								requestor, null);
-					} catch (CoreException exc) {
-						exc.printStackTrace();
-					}
-
-					synchronized (requestor) {
-						if (searchResult != null) {
-							return searchResult;
-						} else {
-							try {
-								requestor.wait();
-							} catch (InterruptedException exc) {
-								// ignore
-							}
-							return searchResult;
-						}
-					}
-				}
-
-				return null;
-			}
-		};
-	}
-
-	private static final class BlockingProgressMonitor extends NullProgressMonitor {
-
-		private boolean hasFinished;
-
-		@Override
-		public void done() {
-			synchronized (this) {
-				hasFinished = true;
-				notifyAll();
-			}
-		}
-
-		public void waitForCompletion() throws InterruptedException {
-			synchronized (this) {
-				if (hasFinished) {
-					return;
-				} else {
-					wait();
-				}
-			}
-		}
-	}
 }
