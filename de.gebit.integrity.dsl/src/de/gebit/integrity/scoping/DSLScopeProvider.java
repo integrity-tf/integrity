@@ -41,12 +41,21 @@ import de.gebit.integrity.utils.ResultFieldTuple;
 /**
  * This class contains custom scoping description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
- * how and when to use it
+ * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on how and when to use it
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
  * 
  */
 public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
+	/**
+	 * Limits the fixed parameter names to those defined in a fixture method signature.
+	 * 
+	 * @param aParameterName
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_FixedParameterName_annotation(FixedParameterName aParameterName, EReference aRef) {
 		MethodReference tempMethodRef = null;
 		if (aParameterName.eContainer() instanceof Parameter) {
@@ -81,9 +90,18 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
-	public IScope scope_MethodReference_method(MethodReference aMethodRef, EReference ref) {
+	/**
+	 * Limits the fixture method references to actually existing methods with the necessary annotation.
+	 * 
+	 * 
+	 * @param aMethodRef
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_MethodReference_method(MethodReference aMethodRef, EReference aRef) {
 		JvmType tempType = aMethodRef.getType();
-		List<IEObjectDescription> descriptions = new ArrayList<IEObjectDescription>();
+		List<IEObjectDescription> tempDescriptions = new ArrayList<IEObjectDescription>();
 
 		if (tempType instanceof JvmGenericType) {
 			JvmGenericType tempGenericType = (JvmGenericType) tempType;
@@ -98,15 +116,23 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 						}
 					}
 					if (tempIsFixtureMethod) {
-						descriptions.add(EObjectDescription.create(
+						tempDescriptions.add(EObjectDescription.create(
 								QualifiedName.create(((JvmOperation) tempMember).getSimpleName()), tempMember));
 					}
 				}
 			}
 		}
-		return new SimpleScope(descriptions);
+		return new SimpleScope(tempDescriptions);
 	}
 
+	/**
+	 * Limits suite parameters to actually defined parameters.
+	 * 
+	 * @param aParameter
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_SuiteParameter_name(SuiteParameter aParameter, EReference aRef) {
 		SuiteDefinition tempSuiteDef = (SuiteDefinition) ((Suite) aParameter.eContainer()).getDefinition();
 
@@ -122,6 +148,14 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
+	/**
+	 * Limits enumeration values in parameters to actually existent enumeration literals.
+	 * 
+	 * @param aParameter
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_EnumValue_enumValue(Parameter aParameter, EReference aRef) {
 		MethodReference tempMethodRef = null;
 		if (aParameter.eContainer() instanceof Test) {
@@ -148,17 +182,24 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			}
 		} else {
-			// TODO add variable parameter name path
+			// TODO add arbitrary parameter name path
 		}
 
 		return IScope.NULLSCOPE;
 	}
 
+	/**
+	 * Limit enum values in test results to actually existent enumeration literals.
+	 * 
+	 * @param aTest
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_EnumValue_enumValue(Test aTest, EReference aRef) {
 		MethodReference tempMethodRef = aTest.getDefinition().getFixtureMethod();
 
 		if (tempMethodRef != null) {
-
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
 					.getAllEnumLiteralsFromJvmTypeReference(tempMethodRef.getMethod().getReturnType());
@@ -174,6 +215,14 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope.NULLSCOPE;
 	}
 
+	/**
+	 * Limit named test results to actually existing fields in the result container object.
+	 * 
+	 * @param aTest
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_FixedTestResultName_field(Test aTest, EReference aRef) {
 		MethodReference tempMethodRef = aTest.getDefinition().getFixtureMethod();
 

@@ -23,8 +23,22 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 
+/**
+ * This utility class contains various helper functions to aid in the exploration of Javadoc data attached to classes.
+ * Only for use inside Eclipse!
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public final class JavadocUtil {
 
+	private JavadocUtil() {
+		// nothing to do
+	}
+
+	/**
+	 * The options to use when parsing a Java Abstract Syntax Tree.
+	 */
 	@SuppressWarnings("rawtypes")
 	private static final Map ASTPARSER_OPTIONS = JavaCore.getDefaultOptions();
 
@@ -48,6 +62,17 @@ public final class JavadocUtil {
 		return null;
 	}
 
+	/**
+	 * Returns a map of parameter names to Javadoc descriptions for a given Java method. This explores the @param
+	 * Javadoc parameter. Parameters which don't have such an information attached will not be put into the resulting
+	 * map.
+	 * 
+	 * @param aMethod
+	 *            the Java method to explore
+	 * @param anElementFinder
+	 *            the element finder to use for locating the {@link IJavaElement} to the given method
+	 * @return the result map, or null if there is no readable Javadoc at all
+	 */
 	public static Map<String, String> getMethodParamJavadoc(JvmOperation aMethod, IJavaElementFinder anElementFinder) {
 		MethodDeclaration tempMethodDeclaration = getMethodDeclaration(aMethod, anElementFinder);
 
@@ -77,6 +102,15 @@ public final class JavadocUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the Javadoc text attached to a given Java Method.
+	 * 
+	 * @param aMethod
+	 *            the method to explore
+	 * @param anElementFinder
+	 *            the element finder to use for locating the {@link IJavaElement} for the given method
+	 * @return the Javadoc text, or null if none is available
+	 */
 	public static String getMethodJavadoc(JvmOperation aMethod, IJavaElementFinder anElementFinder) {
 		MethodDeclaration tempMethodDeclaration = getMethodDeclaration(aMethod, anElementFinder);
 
@@ -92,6 +126,13 @@ public final class JavadocUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the Javadoc description attached to a given {@link IField}.
+	 * 
+	 * @param aField
+	 *            the field to explore
+	 * @return the Javadoc String, or null if there is none
+	 */
 	public static String getFieldJavadoc(IField aField) {
 		ICompilationUnit tempCompilationUnit = aField.getCompilationUnit();
 		AbstractTypeDeclaration tempType = parseCompilationUnit(tempCompilationUnit);
@@ -112,6 +153,13 @@ public final class JavadocUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the main text part from the given Javadoc.
+	 * 
+	 * @param aJavadoc
+	 *            the Javadoc object to explore
+	 * @return the text, or null if there is none
+	 */
 	protected static String getJavadocMainText(Javadoc aJavadoc) {
 		for (Object tempTagObject : aJavadoc.tags()) {
 			TagElement tempTag = (TagElement) tempTagObject;
@@ -132,16 +180,34 @@ public final class JavadocUtil {
 		return null;
 	}
 
-	protected static boolean compareFields(FieldDeclaration fieldDeclaration, IField field) {
-		List<VariableDeclarationFragment> fragments = fieldDeclaration.fragments();
-		for (VariableDeclarationFragment variableDeclarationFragment : fragments) {
-			if (variableDeclarationFragment.getName().getIdentifier().equals(field.getElementName())) {
+	/**
+	 * This checks whether a given {@link FieldDeclaration} and {@link IField} refer to the same field.
+	 * 
+	 * @param aFieldDeclaration
+	 *            the field declaration
+	 * @param aField
+	 *            the field
+	 * @return true if both refer to the same field, false otherwise
+	 */
+	protected static boolean compareFields(FieldDeclaration aFieldDeclaration, IField aField) {
+		@SuppressWarnings("unchecked")
+		List<VariableDeclarationFragment> tempFragments = aFieldDeclaration.fragments();
+		for (VariableDeclarationFragment tempVariableDeclarationFragment : tempFragments) {
+			if (tempVariableDeclarationFragment.getName().getIdentifier().equals(aField.getElementName())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	/**
+	 * Returns the {@link AbstractTypeDeclaration} for the given {@link ICompilationUnit}. This basically parses the
+	 * given compilation unit into an Abstract Syntax Tree, using the parser provided by the JDT for the job.
+	 * 
+	 * @param aCompilationUnit
+	 *            the compilation unit to parse
+	 * @return the AST
+	 */
 	protected static AbstractTypeDeclaration parseCompilationUnit(ICompilationUnit aCompilationUnit) {
 		ASTParser tempParser = ASTParser.newParser(AST.JLS3);
 		tempParser.setSource(aCompilationUnit);

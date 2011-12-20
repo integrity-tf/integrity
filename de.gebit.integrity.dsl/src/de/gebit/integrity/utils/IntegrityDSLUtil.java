@@ -39,8 +39,26 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
-public class IntegrityDSLUtil {
+/**
+ * A utility class providing various helper functions.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
+public final class IntegrityDSLUtil {
 
+	private IntegrityDSLUtil() {
+		// nothing to do
+	}
+
+	/**
+	 * Returns a list of all defined parameter names in a given fixture method, each of the results linked to the
+	 * annotation reference that's connected to the parameter in the method signature.
+	 * 
+	 * @param aMethod
+	 *            the method to inspect
+	 * @return a list of parameters and annotation references
+	 */
 	public static List<ParamAnnotationTuple> getAllParamNamesFromFixtureMethod(MethodReference aMethod) {
 		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
 		JvmOperation tempOperation = aMethod.getMethod();
@@ -59,6 +77,13 @@ public class IntegrityDSLUtil {
 		return tempList;
 	}
 
+	/**
+	 * Returns the name of a single parameter defined by a given annotation reference.
+	 * 
+	 * @param anAnnotation
+	 *            the annotation reference
+	 * @return the name
+	 */
 	public static String getParamNameFromAnnotation(JvmAnnotationReference anAnnotation) {
 		if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())) {
 			for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
@@ -71,6 +96,13 @@ public class IntegrityDSLUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the name of a single given parameter defined by a {@link ParameterName} instance.
+	 * 
+	 * @param aParameterName
+	 *            the parameter name instance
+	 * @return the parameter name string
+	 */
 	public static String getParamNameStringFromParameterName(ParameterName aParameterName) {
 		if (aParameterName instanceof FixedParameterName) {
 			return getParamNameFromAnnotation(((FixedParameterName) aParameterName).getAnnotation());
@@ -82,6 +114,15 @@ public class IntegrityDSLUtil {
 		}
 	}
 
+	/**
+	 * Returns a list of all valid enumeration literals for a given parameter in a given fixture method.
+	 * 
+	 * @param aMethod
+	 *            the fixture method reference
+	 * @param aParamAnnotation
+	 *            the parameter annotation reference
+	 * @return a list of enumeration literals, or null if the parameter is not an enum parameter
+	 */
 	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromFixtureMethodParam(MethodReference aMethod,
 			JvmAnnotationReference aParamAnnotation) {
 		JvmOperation tempOperation = aMethod.getMethod();
@@ -99,6 +140,13 @@ public class IntegrityDSLUtil {
 		return null;
 	}
 
+	/**
+	 * Returns a list of all valid enumeration literals that are defined in the given type reference.
+	 * 
+	 * @param aTypeRef
+	 *            the type reference
+	 * @return the enumeration literals, or none if the type reference doesn't refer to an enum type
+	 */
 	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromJvmTypeReference(JvmTypeReference aTypeRef) {
 		JvmType tempType = aTypeRef.getType();
 
@@ -110,6 +158,13 @@ public class IntegrityDSLUtil {
 		return null;
 	}
 
+	/**
+	 * Returns a list of named results defined by a given fixture method.
+	 * 
+	 * @param aMethod
+	 *            the method
+	 * @return the list of results
+	 */
 	public static List<ResultFieldTuple> getAllResultNamesFromFixtureMethod(MethodReference aMethod) {
 		ArrayList<ResultFieldTuple> tempList = new ArrayList<ResultFieldTuple>();
 
@@ -142,16 +197,60 @@ public class IntegrityDSLUtil {
 		return tempList;
 	}
 
+	/**
+	 * Returns a map mapping a parameter name to a value, exploring a given {@link Test} to determine the valid
+	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
+	 * no type conversions will be done.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aVariableMap
+	 *            the variable map containing the current value of various variables, or null if no variable resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryParametersFlag
+	 *            whether arbitrary parameters should be determined and included as well
+	 * @return a map with a String to value mapping
+	 */
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
 			boolean anIncludeArbitraryParametersFlag) {
 		return createParameterMap(aTest.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
 	}
 
+	/**
+	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
+	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
+	 * no type conversions will be done.
+	 * 
+	 * @param aCall
+	 *            the call
+	 * @param aVariableMap
+	 *            the variable map containing the current value of various variables, or null if no variable resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryParametersFlag
+	 *            whether arbitrary parameters should be determined and included as well
+	 * @return a map with a String to value mapping
+	 */
 	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
 			boolean anIncludeArbitraryParametersFlag) {
 		return createParameterMap(aCall.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
 	}
 
+	/**
+	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
+	 * valid parameters. Parameters that contain references to variables will be resolved if the variable map is
+	 * provided, but no type conversions will be done.
+	 * 
+	 * @param aTableTest
+	 *            the table test
+	 * @param aTableTestRow
+	 *            the row of the test
+	 * @param aVariableMap
+	 *            the variable map containing the current value of various variables, or null if no variable resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryParametersFlag
+	 *            whether arbitrary parameters should be determined and included as well
+	 * @return a map with a String to value mapping
+	 */
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		LinkedHashMap<ParameterName, ValueOrEnumValue> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
@@ -169,6 +268,20 @@ public class IntegrityDSLUtil {
 		return createParameterMap(tempParameterMap, aVariableMap, anIncludeArbitraryParametersFlag);
 	}
 
+	/**
+	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
+	 * valid parameters. Parameters that contain references to variables will be resolved if the variable map is
+	 * provided, but no type conversions will be done.
+	 * 
+	 * @param someParameters
+	 *            the parameters
+	 * @param aVariableMap
+	 *            the variable map containing the current value of various variables, or null if no variable resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryParametersFlag
+	 *            whether arbitrary parameters should be determined and included as well
+	 * @return a map with a String to value mapping
+	 */
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<ParameterName, ValueOrEnumValue> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
@@ -179,7 +292,7 @@ public class IntegrityDSLUtil {
 		return createParameterMap(tempParameters, aVariableMap, anIncludeArbitraryParametersFlag);
 	}
 
-	public static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
+	private static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
@@ -201,35 +314,70 @@ public class IntegrityDSLUtil {
 		return tempResult;
 	}
 
+	/**
+	 * Returns the fully qualified name of the fixture method referenced by the given method reference.
+	 * 
+	 * @param aReference
+	 *            the method reference
+	 * @return the fully qualified name, including the name of the class and the method itself
+	 */
 	public static String getQualifiedNameOfFixtureMethod(MethodReference aReference) {
-		String name = aReference.getMethod().getQualifiedName();
-		return name.replace("." + aReference.getMethod().getSimpleName(), "#" + aReference.getMethod().getSimpleName());
+		String tempName = aReference.getMethod().getQualifiedName();
+		return tempName.replace("." + aReference.getMethod().getSimpleName(), "#"
+				+ aReference.getMethod().getSimpleName());
 	}
 
+	/**
+	 * Returns the fully qualified name of a give {@link de.gebit.integrity.dsl.Suite}.
+	 * 
+	 * @param aSuite
+	 *            the suite
+	 * @return the fully qualified name
+	 */
 	public static String getQualifiedSuiteName(SuiteDefinition aSuite) {
 		if (aSuite.eContainer() instanceof PackageDefinition) {
-			PackageDefinition packageDef = (PackageDefinition) aSuite.eContainer();
-			return packageDef.getName() + "." + aSuite.getName();
+			PackageDefinition tempPackageDef = (PackageDefinition) aSuite.eContainer();
+			return tempPackageDef.getName() + "." + aSuite.getName();
 		} else {
 			return aSuite.getName();
 		}
 	}
 
+	/**
+	 * Returns the fully qualified name of the given {@link VariableEntity}.
+	 * 
+	 * @param aVariable
+	 *            the variable
+	 * @return the fully qualified name
+	 */
 	public static String getQualifiedGlobalVariableName(VariableEntity aVariable) {
 		if (aVariable.eContainer().eContainer() instanceof PackageDefinition) {
-			PackageDefinition packageDef = (PackageDefinition) aVariable.eContainer().eContainer();
-			return packageDef.getName() + "." + aVariable.getName();
+			PackageDefinition tempPackageDef = (PackageDefinition) aVariable.eContainer().eContainer();
+			return tempPackageDef.getName() + "." + aVariable.getName();
 		} else {
 			return aVariable.getName();
 		}
 	}
 
+	/**
+	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual
+	 * values, with variable references being resolved if a variable map is provided.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aVariableMap
+	 *            the variable map containing all currently active variables and their values, or null if no resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryParametersFlag
+	 *            whether arbitrary results shall be included
+	 * @return a map of Strings to values
+	 */
 	public static Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
 			boolean anIncludeArbitraryParametersFlag) {
 		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryParametersFlag);
 	}
 
-	public static Map<String, Object> createExpectedResultMap(List<NamedTestResult> aTestResultList,
+	private static Map<String, Object> createExpectedResultMap(List<NamedTestResult> aTestResultList,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
 		for (NamedTestResult tempEntry : aTestResultList) {
@@ -250,6 +398,13 @@ public class IntegrityDSLUtil {
 		return tempResultMap;
 	}
 
+	/**
+	 * Returns the name of a specific test result value.
+	 * 
+	 * @param aName
+	 *            the result name object
+	 * @return the name string
+	 */
 	public static String getExpectedResultNameStringFromTestResultName(TestResultName aName) {
 		if (aName instanceof FixedTestResultName) {
 			return ((FixedTestResultName) aName).getField().getSimpleName();

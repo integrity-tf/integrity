@@ -4,6 +4,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -18,10 +19,38 @@ import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 
-public class ParameterUtil {
+/**
+ * A utility class for handling of test/call parameters.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
+public final class ParameterUtil {
 
+	private ParameterUtil() {
+		// nothing to do
+	}
+
+	/**
+	 * The "fake" name of the default parameter. This is used for unnamed parameters in maps which require a non-null
+	 * key.
+	 */
 	public static final String DEFAULT_PARAMETER_NAME = "";
 
+	/**
+	 * Converts a given parameter value to a given Java type class, if possible.
+	 * 
+	 * @param aParamType
+	 *            the target type
+	 * @param aValue
+	 *            the value
+	 * @param aVariableMap
+	 *            the variable map, if variable references shall be resolved. If this is null, unresolved variable
+	 *            references given as values will provoke an exception!
+	 * @return the converted value
+	 * @throws IllegalArgumentException
+	 *             if the conversion required is not supported
+	 */
 	public static Object convertValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
 			Map<VariableEntity, Object> aVariableMap) {
 		if (aValue instanceof DecimalValue) {
@@ -113,6 +142,19 @@ public class ParameterUtil {
 				+ aParamType);
 	}
 
+	/**
+	 * Converts a given value to a String.
+	 * 
+	 * @param aValue
+	 *            the value
+	 * @param aVariableMap
+	 *            the variable map, if variable references as values shall be resolved. If this is null, unresolved
+	 *            variable references will always return either the string "(null)" or a null value, depending on the
+	 *            following flag
+	 * @param anAllowNullResultFlag
+	 *            whether a null value shall be returned in case of unresolvable variable references
+	 * @return
+	 */
 	public static String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap,
 			boolean anAllowNullResultFlag) {
 		if (aValue instanceof DecimalValue) {
@@ -135,13 +177,29 @@ public class ParameterUtil {
 		}
 	}
 
+	/**
+	 * Returns a map of named result names to values acquired from a given named result container. This container is
+	 * assumed to be a simple Java Bean, with accessible accessor methods useable to retrieve the values of fields. The
+	 * field names are used as result names and thus keys in the map. Unreachable fields are ignored.
+	 * 
+	 * @param aContainer
+	 *            the container instance
+	 * @return the map of result names to values
+	 * @throws IntrospectionException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
 	public static Map<String, Object> getValuesFromNamedResultContainer(Object aContainer)
 			throws IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		Map<String, Object> tempResultMap = new HashMap<String, Object>();
 
 		for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
 				.getPropertyDescriptors()) {
-			tempResultMap.put(tempDescriptor.getName(), tempDescriptor.getReadMethod().invoke(aContainer));
+			Method tempReadMethod = tempDescriptor.getReadMethod();
+			if (tempReadMethod != null) {
+				tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
+			}
 		}
 
 		return tempResultMap;

@@ -8,21 +8,34 @@ import org.eclipse.xtext.conversion.IValueConverterService;
 import de.gebit.integrity.values.TestDSLValueConverters;
 
 /**
- * Use this class to register components to be used at runtime / without the
- * Equinox extension registry.
+ * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
  */
 public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModule {
 
+	/**
+	 * The classloader to use for all class resolving in XText.
+	 */
 	private ClassLoader classLoader;
 
+	/**
+	 * Creates a new instance with the classloader of the current class as default.
+	 */
 	public DSLRuntimeModule() {
 		classLoader = getClass().getClassLoader();
 	}
 
+	/**
+	 * Creates a new instance using the given classloader.
+	 * 
+	 * @param aClassLoader
+	 */
 	public DSLRuntimeModule(ClassLoader aClassLoader) {
 		classLoader = aClassLoader;
 	}
 
+	// SUPPRESS CHECKSTYLE Javadoc
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 		return TestDSLValueConverters.class;
 	}
@@ -33,8 +46,7 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	}
 
 	/*
-	 * public Class<? extends ImportUriResolver> bindImportUriResolver() {
-	 * return TestDSLImportUriResolver.class; }
+	 * public Class<? extends ImportUriResolver> bindImportUriResolver() { return TestDSLImportUriResolver.class; }
 	 */
 
 }
