@@ -10,12 +10,25 @@ import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider
 
 /**
  * Use this class to register components to be used within the IDE.
+ * 
+ * @author Rene Schneider
  */
 public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
-	public DSLUiModule(AbstractUIPlugin plugin) {
-		super(plugin);
+
+	/**
+	 * Constructs a new instance.
+	 * 
+	 * @param aPlugin
+	 */
+	public DSLUiModule(AbstractUIPlugin aPlugin) {
+		super(aPlugin);
 	}
 
+	/**
+	 * Binds the provider.
+	 * 
+	 * @return
+	 */
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return IntegrityEObjectDocumentationProvider.class;
 	}

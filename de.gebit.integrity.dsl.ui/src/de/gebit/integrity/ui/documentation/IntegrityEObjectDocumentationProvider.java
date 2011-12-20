@@ -10,11 +10,23 @@ import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.utils.JavadocUtil;
 
+/**
+ * The documentation provider. This provides texts for quick help displays, like in mouseovers.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentationProvider {
 
+	/**
+	 * The element finder.
+	 */
 	@Inject
 	IJavaElementFinder elementFinder;
 
+	/**
+	 * Returns the documentation text for a specific object.
+	 */
 	public String getDocumentation(EObject anObject) {
 		if (anObject instanceof TestDefinition) {
 			TestDefinition tempTestDefinition = (TestDefinition) anObject;

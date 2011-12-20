@@ -37,20 +37,28 @@ import de.gebit.integrity.utils.JavadocUtil;
 import de.gebit.integrity.utils.ParamAnnotationTuple;
 
 /**
+ * This class is the extension point to implement custom proposal provider, aka "content assist".
+ * 
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
+ * 
+ * @author Rene Schneider
  */
 @SuppressWarnings("restriction")
 public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
+	/**
+	 * The element finder.
+	 */
 	@Inject
 	IJavaElementFinder elementFinder;
 
 	@Override
-	public void completeTest_Parameters(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		super.completeTest_Parameters(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeTest_Parameters(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeTest_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		Test tempTest = (Test) model;
+		Test tempTest = (Test) aModel;
 		TestDefinition tempTestDef = tempTest.getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
@@ -58,17 +66,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
-					acceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
+					anAcceptor);
 		}
 	}
 
 	@Override
-	public void completeCall_Parameters(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		super.completeCall_Parameters(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeCall_Parameters(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeCall_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		Call tempCall = (Call) model;
+		Call tempCall = (Call) aModel;
 		CallDefinition tempCallDef = tempCall.getDefinition();
 		if (tempCallDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
@@ -76,17 +85,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, context,
-					acceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, aContext,
+					anAcceptor);
 		}
 	}
 
 	@Override
-	public void completeTableTest_Parameters(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		super.completeTableTest_Parameters(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeTableTest_Parameters(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeTableTest_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = (TableTest) model;
+		TableTest tempTableTest = (TableTest) aModel;
 		TestDefinition tempTestDef = tempTableTest.getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
@@ -99,17 +109,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempHeader.getName()));
 			}
 
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
-					acceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
+					anAcceptor);
 		}
 	}
 
 	@Override
-	public void completeTableTest_Headers(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		super.completeTableTest_Headers(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeTableTest_Headers(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeTableTest_Headers(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = (TableTest) model;
+		TableTest tempTableTest = (TableTest) aModel;
 		TestDefinition tempTestDef = tempTableTest.getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
@@ -121,17 +132,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), "| ", context,
-					acceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), "| ", aContext,
+					anAcceptor);
 		}
 	}
 
 	@Override
-	public void completeParameterTableHeader_Name(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		super.completeParameterTableHeader_Name(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeParameterTableHeader_Name(EObject aModel, Assignment anAssignment,
+			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		super.completeParameterTableHeader_Name(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = (TableTest) model;
+		TableTest tempTableTest = (TableTest) aModel;
 		TestDefinition tempTestDef = (tempTableTest).getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
@@ -139,8 +151,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, context,
-					acceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
+					anAcceptor);
 		}
 	}
 
@@ -167,15 +179,16 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	}
 
 	@Override
-	public void completeArbitraryParameterName_Identifier(EObject model, Assignment assignment,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		super.completeArbitraryParameterName_Identifier(model, assignment, context, acceptor);
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeArbitraryParameterName_Identifier(EObject aModel, Assignment anAssignment,
+			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		super.completeArbitraryParameterName_Identifier(aModel, anAssignment, aContext, anAcceptor);
 
 		EObject tempContainer = null;
-		if (model instanceof Parameter) {
-			tempContainer = model.eContainer();
-		} else if (model instanceof ArbitraryParameterName) {
-			tempContainer = model.eContainer().eContainer();
+		if (aModel instanceof Parameter) {
+			tempContainer = aModel.eContainer();
+		} else if (aModel instanceof ArbitraryParameterName) {
+			tempContainer = aModel.eContainer().eContainer();
 		}
 		Map<String, Object> tempParameterMap = null;
 
@@ -234,7 +247,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							if (tempParameterDescription.getDescription() != null) {
 								tempDescription += ": " + tempParameterDescription.getDescription();
 							}
-							acceptor.accept(createCompletionProposal(tempName, tempDescription, null, context));
+							anAcceptor.accept(createCompletionProposal(tempName, tempDescription, null, aContext));
 						}
 					}
 				}
