@@ -122,7 +122,9 @@
     </module>
     <module name="RightCurly"/>
     <module name="NestedIfDepth">
+      <property name="severity" value="ignore"/>
       <property name="max" value="3"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MissingOverride"/>
     <module name="DoubleCheckedLocking"/>
