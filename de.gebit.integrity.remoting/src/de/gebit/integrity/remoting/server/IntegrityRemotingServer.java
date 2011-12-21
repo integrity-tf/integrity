@@ -20,14 +20,41 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 
+/**
+ * The server implementation.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class IntegrityRemotingServer {
 
+	/**
+	 * The actual server communication endpoint.
+	 */
 	private ServerEndpoint serverEndpoint;
 
+	/**
+	 * The server listener.
+	 */
 	private IntegrityRemotingServerListener listener;
 
+	/**
+	 * The current execution state.
+	 */
 	private ExecutionStates executionState;
 
+	/**
+	 * Creates a new server, listening on a specified port and a specified host IP.
+	 * 
+	 * @param aHostIP
+	 *            the host IP to listen on
+	 * @param aPort
+	 *            the port to listen on
+	 * @param aListener
+	 *            the listener
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public IntegrityRemotingServer(String aHostIP, int aPort, IntegrityRemotingServerListener aListener)
 			throws UnknownHostException, IOException {
 		if (aListener == null) {
@@ -37,12 +64,24 @@ public class IntegrityRemotingServer {
 		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors());
 	}
 
+	/**
+	 * Closes all connections to clients.
+	 * 
+	 * @param anEmptyOutputQueueFlag
+	 *            whether the output message queue shall be emptied before closing the connection
+	 */
 	public void closeAll(boolean anEmptyOutputQueueFlag) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.closeAll(anEmptyOutputQueueFlag);
 		}
 	}
 
+	/**
+	 * Updates the execution state, broadcasting a message to all clients to notify them about that change.
+	 * 
+	 * @param aNewState
+	 *            the new state
+	 */
 	public void updateExecutionState(ExecutionStates aNewState) {
 		if (aNewState != executionState) {
 			executionState = aNewState;
@@ -50,24 +89,49 @@ public class IntegrityRemotingServer {
 		}
 	}
 
+	/**
+	 * Transmits updates to some {@link SetListEntry} instances to all clients.
+	 * 
+	 * @param anEntryInExecution
+	 *            the entry in execution (null if nothing changed)
+	 * @param someUpdatedEntries
+	 *            the updated entries
+	 */
 	public void updateSetList(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new SetListUpdateMessage(anEntryInExecution, someUpdatedEntries));
 		}
 	}
 
+	/**
+	 * Notifies all clients about the creation of a breakpoint.
+	 * 
+	 * @param anEntryReference
+	 *            the entry at which the breakpoint was created
+	 */
 	public void confirmBreakpointCreation(int anEntryReference) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, anEntryReference));
 		}
 	}
 
+	/**
+	 * Notifies all clients about the removal of a breakpoint.
+	 * 
+	 * @param anEntryReference
+	 *            the entry at which the breakpoint was removed
+	 */
 	public void confirmBreakpointRemoval(int anEntryReference) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
 		}
 	}
 
+	/**
+	 * Creates the processors for processing incoming messages.
+	 * 
+	 * @return a map of message classes to processors
+	 */
 	protected Map<Class<? extends AbstractMessage>, MessageProcessor<?>> createProcessors() {
 		Map<Class<? extends AbstractMessage>, MessageProcessor<?>> tempMap = new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
 
@@ -110,6 +174,8 @@ public class IntegrityRemotingServer {
 				case STEP_INTO:
 					listener.onStepIntoCommand(anEndpoint);
 					break;
+				default:
+					break;
 				}
 			}
 
@@ -125,6 +191,8 @@ public class IntegrityRemotingServer {
 					break;
 				case REMOVE:
 					listener.onRemoveBreakpoint(aMessage.getEntryReference(), anEndpoint);
+					break;
+				default:
 					break;
 				}
 			}

@@ -20,14 +20,41 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 
+/**
+ * The remoting client.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class IntegrityRemotingClient {
 
+	/**
+	 * The endpoint used for the communication with the server.
+	 */
 	private Endpoint endpoint;
 
+	/**
+	 * The listener.
+	 */
 	private IntegrityRemotingClientListener listener;
 
+	/**
+	 * The current execution state.
+	 */
 	private ExecutionStates executionState;
 
+	/**
+	 * Creates a new instance and connects to a given remoting host.
+	 * 
+	 * @param aHost
+	 *            the host name or IP
+	 * @param aPort
+	 *            the port
+	 * @param aListener
+	 *            the listener
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public IntegrityRemotingClient(String aHost, int aPort, IntegrityRemotingClientListener aListener)
 			throws UnknownHostException, IOException {
 		if (aListener == null) {
@@ -54,6 +81,9 @@ public class IntegrityRemotingClient {
 				IntegrityRemotingConstants.BUILD_VERSION));
 	}
 
+	/**
+	 * Closes a given remoting session.
+	 */
 	public void close() {
 		if (isActive()) {
 			endpoint.close(false);
@@ -64,6 +94,12 @@ public class IntegrityRemotingClient {
 		return (endpoint != null && endpoint.isActive());
 	}
 
+	/**
+	 * Call this method to control the test execution on the server.
+	 * 
+	 * @param aCommand
+	 *            the command to execute
+	 */
 	public void controlExecution(ExecutionCommands aCommand) {
 		sendMessage(new ExecutionControlMessage(aCommand));
 	}
@@ -72,20 +108,42 @@ public class IntegrityRemotingClient {
 		return executionState;
 	}
 
+	/**
+	 * Creates a breakpoint at the specified entry reference.
+	 * 
+	 * @param anEntryReference
+	 */
 	public void createBreakpoint(int anEntryReference) {
 		sendMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, anEntryReference));
 	}
 
+	/**
+	 * Deletes a breakpoint.
+	 * 
+	 * @param anEntryReference
+	 *            the entry at which the breakpoint shall be deleted
+	 */
 	public void deleteBreakpoint(int anEntryReference) {
 		sendMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
 	}
 
+	/**
+	 * Sends a message to the server.
+	 * 
+	 * @param aMessage
+	 *            the message to send
+	 */
 	protected void sendMessage(AbstractMessage aMessage) {
 		if (isActive()) {
 			endpoint.sendMessage(aMessage);
 		}
 	}
 
+	/**
+	 * Creates processors to process messages.
+	 * 
+	 * @return
+	 */
 	protected Map<Class<? extends AbstractMessage>, MessageProcessor<?>> createProcessors() {
 		Map<Class<? extends AbstractMessage>, MessageProcessor<?>> tempMap = new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
 
@@ -139,6 +197,8 @@ public class IntegrityRemotingClient {
 					break;
 				case REMOVE:
 					listener.onConfirmRemoveBreakpoint(aMessage.getEntryReference(), anEndpoint);
+					break;
+				default:
 					break;
 				}
 			}

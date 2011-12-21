@@ -11,18 +11,53 @@ import java.util.Map;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 
+/**
+ * A server endpoint. This endpoint listens on a specified port and host IP for incoming connections from client
+ * endpoints. When a connection is established, it spawns a new {@link Endpoint} for that specific connection and
+ * continues listening for more connections.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class ServerEndpoint {
 
+	/**
+	 * The server socket.
+	 */
 	private ServerSocket serverSocket;
 
+	/**
+	 * The message processor map.
+	 */
 	private Map<Class<? extends AbstractMessage>, MessageProcessor<?>> messageProcessors;
 
+	/**
+	 * The thread waiting for incoming connections.
+	 */
 	private ConnectionWaiter connectionWaiter;
 
+	/**
+	 * A list of active endpoints.
+	 */
 	private List<Endpoint> endpoints = new LinkedList<Endpoint>();
 
+	/**
+	 * Whether this server endpoint is in the process of termination.
+	 */
 	private boolean closing;
 
+	/**
+	 * Creates a new server endpoint that listens on a specified port/IP.
+	 * 
+	 * @param aHostIP
+	 *            the host IP to listen on
+	 * @param aPort
+	 *            the port to bind to
+	 * @param aProcessorMap
+	 *            the map of processors to use for processing incoming messages
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public ServerEndpoint(String aHostIP, int aPort,
 			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap) throws UnknownHostException,
 			IOException {
@@ -36,6 +71,12 @@ public class ServerEndpoint {
 		return serverSocket.isBound() && !serverSocket.isClosed();
 	}
 
+	/**
+	 * Closes the server endpoint and all endpoints currently active.
+	 * 
+	 * @param anEmptyOutputQueueFlag
+	 *            whether output queues to the endpoints shall be emptied before closing the connection.
+	 */
 	public void closeAll(boolean anEmptyOutputQueueFlag) {
 		if (isActive()) {
 			closing = true;
@@ -93,6 +134,12 @@ public class ServerEndpoint {
 		}
 	}
 
+	/**
+	 * Broadcasts a message to all active endpoints.
+	 * 
+	 * @param aMessage
+	 *            the message
+	 */
 	public void broadcastMessage(AbstractMessage aMessage) {
 		synchronized (endpoints) {
 			for (Endpoint tempEndpoint : endpoints) {

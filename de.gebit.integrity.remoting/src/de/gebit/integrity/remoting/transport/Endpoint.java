@@ -16,22 +16,60 @@ import java.util.concurrent.TimeUnit;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 
+/**
+ * An endpoint is a client- or serverside termination point of a message channel. The endpoint uses a TCP connection to
+ * transmit messages bidirectionally, with processors waiting for new messages to arrive.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 public class Endpoint {
 
+	/**
+	 * The TCP socket used for communication.
+	 */
 	private Socket socket;
 
+	/**
+	 * The input processor thread waiting for new messages to arrive and process.
+	 */
 	private EndpointInputProcessor inputProcessor;
 
+	/**
+	 * The output processor thread waiting for new messages to be sent.
+	 */
 	private EndpointOutputProcessor outputProcessor;
 
+	/**
+	 * The listener.
+	 */
 	private EndpointListener listener;
 
+	/**
+	 * Whether the endpoint is active.
+	 */
 	private boolean isActive;
 
+	/**
+	 * A map of message processors.
+	 */
 	private Map<Class<? extends AbstractMessage>, MessageProcessor<?>> messageProcessors = new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
 
+	/**
+	 * The queue for outgoing messages. Is emptied by {@link #outputProcessor}.
+	 */
 	private LinkedBlockingQueue<AbstractMessage> outputQueue = new LinkedBlockingQueue<AbstractMessage>();
 
+	/**
+	 * Creates a new endpoint from a specific, already-connected socket.
+	 * 
+	 * @param aSocket
+	 *            the connected socket
+	 * @param aProcessorMap
+	 *            the processors
+	 * @param aListener
+	 *            the listener
+	 */
 	public Endpoint(Socket aSocket, Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap,
 			EndpointListener aListener) {
 		listener = aListener;
@@ -44,6 +82,20 @@ public class Endpoint {
 		outputProcessor.start();
 	}
 
+	/**
+	 * Creates a new endpoint and connects to a remote host, on which a {@link ServerEndpoint} is expected to run.
+	 * 
+	 * @param aHost
+	 *            the host name or IP
+	 * @param aPort
+	 *            the port to connect to
+	 * @param aProcessorMap
+	 *            the map of processors
+	 * @param aListener
+	 *            the listener
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public Endpoint(String aHost, int aPort, Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap,
 			EndpointListener aListener) throws UnknownHostException, IOException {
 		messageProcessors = aProcessorMap;
@@ -56,6 +108,13 @@ public class Endpoint {
 		outputProcessor.start();
 	}
 
+	/**
+	 * Sends a message. This queues the message into the outqueue, which is then emptied asynchronously by the
+	 * {@link #outputProcessor}.
+	 * 
+	 * @param aMessage
+	 *            the message to send
+	 */
 	public void sendMessage(AbstractMessage aMessage) {
 		if (isActive) {
 			try {
@@ -70,6 +129,12 @@ public class Endpoint {
 		return isActive && socket.isConnected();
 	}
 
+	/**
+	 * Close the connection.
+	 * 
+	 * @param anEmptyOutputQueueFlag
+	 *            whether the output queue shall be sent to the other endpoint before closing
+	 */
 	public void close(boolean anEmptyOutputQueueFlag) {
 		isActive = false;
 

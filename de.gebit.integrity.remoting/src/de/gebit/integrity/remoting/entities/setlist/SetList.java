@@ -10,27 +10,71 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The Setlist is a data structure to contain a test execution plan as well as test results. Its name refers to the
+ * setlists used by bands to write down the songs played during a concert (okay, it's a stupid reason to name it like
+ * that, but hey, I didn't have any better idea ;-) ).<br>
+ * <br>
+ * Setlists are stored in a flat way, with the entries actually resembling a tree structure by referencing each other
+ * via their IDs. This allows for easy incremental update of single entries regardless of the size of the subtrees below
+ * them, as long as the IDs of each entry stay the same.
+ * 
+ * @author Rene Schneider (rene.schneider@gebit.de)
+ * 
+ */
 @SuppressWarnings("unchecked")
 public class SetList implements Serializable {
 
+	/**
+	 * Serialization.
+	 */
 	private static final long serialVersionUID = -5710551695226775511L;
 
+	/**
+	 * A flat list of all stored entries. The position in the list is the entries' ID and allows for quick retrieval.
+	 */
 	private List<SetListEntry> entries = new ArrayList<SetListEntry>();
 
+	/**
+	 * The reference to the entry that is currently being executed.
+	 */
 	private Integer entryInExecutionReference;
 
+	/**
+	 * The path of entries in execution, starting at the root.
+	 */
 	private transient Set<SetListEntry> pathOfEntriesInExecution = new HashSet<SetListEntry>();
 
+	/**
+	 * A map of entries that have a "result" in terms of having failed or succeeded. This maps sets to their results.
+	 */
 	private transient HashMap<SetListEntry, SetListEntryResultStates> resultBearingEntryResultMap;
 
+	/**
+	 * A map of entries that are executable. The value is the number of the entry in the total list of executable
+	 * entries.
+	 */
 	private transient HashMap<SetListEntry, Integer> executableEntryResultIndex;
 
+	/**
+	 * The results of executable entries. Indexed by the numeric value in {@link #executableEntryResultIndex}.
+	 */
 	private transient ArrayList<SetListEntryResultStates> executableEntryResultStates;
 
+	/**
+	 * The current position in the entry list. Used when creating new entries.
+	 */
 	private transient int entryListPosition;
 
+	/**
+	 * The last ID value given to an entry of each type.
+	 */
 	private transient Map<SetListEntryTypes, Integer> lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
+	/**
+	 * Recreates transient data from the list of entries. Used after deserialization of the whole structure in order to
+	 * prepare it for being actually used. Transient entries are redundant and not transmitted for size reasons.
+	 */
 	public void recreateTransientData() {
 		resultBearingEntryResultMap = new HashMap<SetListEntry, SetListEntryResultStates>();
 		executableEntryResultIndex = new HashMap<SetListEntry, Integer>();
@@ -57,6 +101,13 @@ public class SetList implements Serializable {
 		setEntryInExecutionReference(entryInExecutionReference);
 	}
 
+	/**
+	 * Determines the result state for a specific entry.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return the result state or null in case the entry doesn't have a result
+	 */
 	protected SetListEntryResultStates determineEntryResultState(SetListEntry anEntry) {
 		boolean tempEntryIsResultOfTableTestRow = (anEntry.getType() == SetListEntryTypes.RESULT && getParent(anEntry)
 				.getType() == SetListEntryTypes.TABLETEST);
@@ -146,10 +197,24 @@ public class SetList implements Serializable {
 		return executableEntryResultStates.size();
 	}
 
+	/**
+	 * Returns the result state of an entry from the map.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return the result state, or null if the entry doesn't have one
+	 */
 	public SetListEntryResultStates getResultStateForEntry(SetListEntry anEntry) {
 		return resultBearingEntryResultMap.get(anEntry);
 	}
 
+	/**
+	 * Returns the result state of an executable entry at the specified position in the list of executable entries.
+	 * 
+	 * @param aPosition
+	 *            the position
+	 * @return the result state, or null if the position doesn't have one
+	 */
 	public SetListEntryResultStates getResultStateForExecutableEntry(int aPosition) {
 		if (aPosition < 0 || aPosition >= executableEntryResultStates.size()) {
 			return null;
@@ -158,6 +223,17 @@ public class SetList implements Serializable {
 		}
 	}
 
+	/**
+	 * Creates a new entry. Uses up an entry ID in the process.<br>
+	 * <br>
+	 * Note that this doesn't necessarily create a new entry, it may also reuse an already existing one! It's part of
+	 * the concept of the {@link SetList} to actually create entries on the first (dry) run through the tests, and reuse
+	 * old entries during the second (actual) test run, updating their result status etc. in the process.
+	 * 
+	 * @param aType
+	 *            the type of entry
+	 * @return the new entry
+	 */
 	public SetListEntry createEntry(SetListEntryTypes aType) {
 		if (entries.size() > entryListPosition) {
 			lastCreatedEntryIdMap.put(aType, entryListPosition);
@@ -172,6 +248,13 @@ public class SetList implements Serializable {
 		}
 	}
 
+	/**
+	 * Returns the ID that was last given to an entry of the specified type.
+	 * 
+	 * @param aType
+	 *            the type
+	 * @return the ID if available, or null if none has been given to an entry of that type
+	 */
 	public Integer getLastCreatedEntryId(SetListEntryTypes aType) {
 		if (aType != null) {
 			return lastCreatedEntryIdMap.get(aType);
@@ -184,6 +267,13 @@ public class SetList implements Serializable {
 		}
 	}
 
+	/**
+	 * Returns the lowest ID given to any of the specified entry types.
+	 * 
+	 * @param someTypes
+	 *            the types
+	 * @return the ID if available, or null if none has been given to any entry of the types
+	 */
 	public Integer getLastCreatedEntryId(SetListEntryTypes... someTypes) {
 		List<Integer> tempList = new ArrayList<Integer>();
 		for (SetListEntryTypes tempType : someTypes) {
@@ -201,6 +291,16 @@ public class SetList implements Serializable {
 		}
 	}
 
+	/**
+	 * Adds a reference to another entry to a specified parent entry under a specified attribute key.
+	 * 
+	 * @param aReferringEntry
+	 *            the parent entry
+	 * @param anAttributeKey
+	 *            the attribute key under which the reference shall be created
+	 * @param aReferredEntry
+	 *            the entry to refer
+	 */
 	public void addReference(SetListEntry aReferringEntry, SetListEntryAttributeKeys anAttributeKey,
 			SetListEntry aReferredEntry) {
 		LinkedList<Integer> tempList = (LinkedList<Integer>) aReferringEntry.getAttribute(LinkedList.class,
@@ -211,11 +311,20 @@ public class SetList implements Serializable {
 		aReferredEntry.setAttribute(SetListEntryAttributeKeys.PARENT, aReferringEntry.getId());
 	}
 
+	/**
+	 * Clears the entry list position.
+	 */
 	public void rewind() {
 		entryListPosition = 0;
 		lastCreatedEntryIdMap.clear();
 	}
 
+	/**
+	 * Integrates a list of updated entries into this {@link SetList}.
+	 * 
+	 * @param someUpdatedEntries
+	 *            the updated entries
+	 */
 	public void integrateUpdates(SetListEntry[] someUpdatedEntries) {
 		for (SetListEntry tempEntry : someUpdatedEntries) {
 			entries.set(tempEntry.getId(), tempEntry);
@@ -233,10 +342,14 @@ public class SetList implements Serializable {
 						resultBearingEntryResultMap.put(tempParent, tempResultState);
 						executableEntryResultStates.set(executableEntryResultIndex.get(tempParent), tempResultState);
 					}
+					// SUPPRESS CHECKSTYLE FallThrough
 				case TABLETEST:
 					if (resultBearingEntryResultMap.containsKey(tempEntry)) {
 						resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
 					}
+					break;
+				default:
+					break;
 				}
 				break;
 			default:
@@ -261,10 +374,26 @@ public class SetList implements Serializable {
 		return tempBuffer.toString();
 	}
 
+	/**
+	 * Returns a list of entries that are referred by the given entry under the given attribute key.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @param anAttributeKey
+	 *            the attribute key
+	 * @return the list of resolved entries
+	 */
 	public List<SetListEntry> resolveReferences(SetListEntry anEntry, SetListEntryAttributeKeys anAttributeKey) {
 		return resolveReferences((List<Integer>) anEntry.getAttribute(anAttributeKey));
 	}
 
+	/**
+	 * Resolves a list of entry IDs to the actual entries.
+	 * 
+	 * @param someItemIds
+	 *            the IDs to resolve
+	 * @return the list of entries
+	 */
 	public List<SetListEntry> resolveReferences(List<Integer> someItemIds) {
 		List<SetListEntry> tempList = new LinkedList<SetListEntry>();
 
@@ -277,6 +406,13 @@ public class SetList implements Serializable {
 		return tempList;
 	}
 
+	/**
+	 * Resolves a single entry reference (ID).
+	 * 
+	 * @param aReference
+	 *            the ID of the entry
+	 * @return the entry, or null if there is none with that ID
+	 */
 	public SetListEntry resolveReference(Integer aReference) {
 		if (aReference == null || aReference < 0 || aReference >= entries.size()) {
 			return null;
@@ -289,18 +425,31 @@ public class SetList implements Serializable {
 		return entries.get(0);
 	}
 
+	/**
+	 * Returns the parent entry for a given entry.
+	 * 
+	 * @param anEntry
+	 *            the child entry
+	 * @return the parent, or null if none was found
+	 */
 	public SetListEntry getParent(SetListEntry anEntry) {
 		if (anEntry == null) {
 			return null;
 		}
-		Integer aParent = (Integer) anEntry.getAttribute(SetListEntryAttributeKeys.PARENT);
-		if (aParent != null) {
-			return resolveReference(aParent);
+		Integer tempParent = (Integer) anEntry.getAttribute(SetListEntryAttributeKeys.PARENT);
+		if (tempParent != null) {
+			return resolveReference(tempParent);
 		} else {
 			return null;
 		}
 	}
 
+	/**
+	 * Updates the reference to the entry that's currently in execution, recalculating the execution path.
+	 * 
+	 * @param anEntryReference
+	 *            the new entry in execution
+	 */
 	public void setEntryInExecutionReference(Integer anEntryReference) {
 		entryInExecutionReference = anEntryReference;
 		pathOfEntriesInExecution.clear();
@@ -321,6 +470,13 @@ public class SetList implements Serializable {
 		return pathOfEntriesInExecution;
 	}
 
+	/**
+	 * Checks whether a given entry is currently being executed.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return true if the entry is being executed, false otherwise
+	 */
 	public boolean isEntryInExecution(SetListEntry anEntry) {
 		if (entryInExecutionReference == null) {
 			return false;
