@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.MethodReference;
@@ -96,6 +97,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass importEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass forkDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -468,6 +476,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EAttribute getImport_ImportedNamespace()
   {
     return (EAttribute)importEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getForkDefinition()
+  {
+    return forkDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getForkDefinition_Name()
+  {
+    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -995,6 +1023,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getSuite_Fork()
+  {
+    return (EReference)suiteEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSuiteParameter()
   {
     return suiteParameterEClass;
@@ -1294,6 +1332,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
+    forkDefinitionEClass = createEClass(FORK_DEFINITION);
+    createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
+
     testDefinitionEClass = createEClass(TEST_DEFINITION);
     createEAttribute(testDefinitionEClass, TEST_DEFINITION__NAME);
     createEReference(testDefinitionEClass, TEST_DEFINITION__FIXTURE_METHOD);
@@ -1363,6 +1404,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     suiteEClass = createEClass(SUITE);
     createEReference(suiteEClass, SUITE__DEFINITION);
     createEReference(suiteEClass, SUITE__PARAMETERS);
+    createEReference(suiteEClass, SUITE__FORK);
 
     suiteParameterEClass = createEClass(SUITE_PARAMETER);
     createEReference(suiteParameterEClass, SUITE_PARAMETER__NAME);
@@ -1439,6 +1481,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     packageDefinitionEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getPackageStatement());
+    forkDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     testDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     callDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     suiteDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
@@ -1475,6 +1518,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(forkDefinitionEClass, ForkDefinition.class, "ForkDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testDefinitionEClass, TestDefinition.class, "TestDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTestDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1545,6 +1591,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSuite_Definition(), this.getSuiteDefinition(), null, "definition", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Parameters(), this.getSuiteParameter(), null, "parameters", null, 0, -1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSuite_Fork(), this.getForkDefinition(), null, "fork", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteParameterEClass, SuiteParameter.class, "SuiteParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSuiteParameter_Name(), this.getVariableEntity(), null, "name", null, 0, 1, SuiteParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

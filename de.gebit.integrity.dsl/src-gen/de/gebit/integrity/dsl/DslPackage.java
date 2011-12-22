@@ -192,6 +192,34 @@ public interface DslPackage extends EPackage
   int IMPORT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl <em>Fork Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.ForkDefinitionImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getForkDefinition()
+   * @generated
+   */
+  int FORK_DEFINITION = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Fork Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -199,7 +227,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTestDefinition()
    * @generated
    */
-  int TEST_DEFINITION = 5;
+  int TEST_DEFINITION = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -236,7 +264,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getCallDefinition()
    * @generated
    */
-  int CALL_DEFINITION = 6;
+  int CALL_DEFINITION = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -273,7 +301,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteDefinition()
    * @generated
    */
-  int SUITE_DEFINITION = 7;
+  int SUITE_DEFINITION = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -337,7 +365,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteStatement()
    * @generated
    */
-  int SUITE_STATEMENT = 8;
+  int SUITE_STATEMENT = 9;
 
   /**
    * The number of structural features of the '<em>Suite Statement</em>' class.
@@ -356,7 +384,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteStatementWithResult()
    * @generated
    */
-  int SUITE_STATEMENT_WITH_RESULT = 9;
+  int SUITE_STATEMENT_WITH_RESULT = 10;
 
   /**
    * The number of structural features of the '<em>Suite Statement With Result</em>' class.
@@ -375,7 +403,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableDefinition()
    * @generated
    */
-  int VARIABLE_DEFINITION = 10;
+  int VARIABLE_DEFINITION = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -412,7 +440,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntity()
    * @generated
    */
-  int VARIABLE_ENTITY = 11;
+  int VARIABLE_ENTITY = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -440,7 +468,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTest()
    * @generated
    */
-  int TEST = 12;
+  int TEST = 13;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -495,7 +523,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTableTest()
    * @generated
    */
-  int TABLE_TEST = 13;
+  int TABLE_TEST = 14;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -559,7 +587,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTableTestRow()
    * @generated
    */
-  int TABLE_TEST_ROW = 14;
+  int TABLE_TEST_ROW = 15;
 
   /**
    * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -596,7 +624,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterTableHeader()
    * @generated
    */
-  int PARAMETER_TABLE_HEADER = 15;
+  int PARAMETER_TABLE_HEADER = 16;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -624,7 +652,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultTableHeader()
    * @generated
    */
-  int RESULT_TABLE_HEADER = 16;
+  int RESULT_TABLE_HEADER = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -652,7 +680,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterTableValue()
    * @generated
    */
-  int PARAMETER_TABLE_VALUE = 17;
+  int PARAMETER_TABLE_VALUE = 18;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -680,7 +708,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedResult()
    * @generated
    */
-  int NAMED_RESULT = 18;
+  int NAMED_RESULT = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -717,7 +745,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultName()
    * @generated
    */
-  int RESULT_NAME = 19;
+  int RESULT_NAME = 20;
 
   /**
    * The number of structural features of the '<em>Result Name</em>' class.
@@ -736,7 +764,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedResultName()
    * @generated
    */
-  int FIXED_RESULT_NAME = 20;
+  int FIXED_RESULT_NAME = 21;
 
   /**
    * The feature id for the '<em><b>Field</b></em>' reference.
@@ -764,7 +792,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getCall()
    * @generated
    */
-  int CALL = 21;
+  int CALL = 22;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -810,7 +838,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuite()
    * @generated
    */
-  int SUITE = 22;
+  int SUITE = 23;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -831,13 +859,22 @@ public interface DslPackage extends EPackage
   int SUITE__PARAMETERS = STATEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Fork</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE__FORK = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Suite</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+  int SUITE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterImpl <em>Suite Parameter</em>}' class.
@@ -847,7 +884,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteParameter()
    * @generated
    */
-  int SUITE_PARAMETER = 23;
+  int SUITE_PARAMETER = 24;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -884,7 +921,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameter()
    * @generated
    */
-  int PARAMETER = 24;
+  int PARAMETER = 25;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -921,7 +958,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 25;
+  int PARAMETER_NAME = 26;
 
   /**
    * The number of structural features of the '<em>Parameter Name</em>' class.
@@ -940,7 +977,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
    * @generated
    */
-  int FIXED_PARAMETER_NAME = 26;
+  int FIXED_PARAMETER_NAME = 27;
 
   /**
    * The feature id for the '<em><b>Annotation</b></em>' reference.
@@ -968,7 +1005,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterOrResultName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 27;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 28;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -996,7 +1033,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 28;
+  int VALUE_OR_ENUM_VALUE = 29;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -1015,7 +1052,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 29;
+  int VALUE = 30;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -1034,7 +1071,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 30;
+  int INTEGER_VALUE = 31;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -1062,7 +1099,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 31;
+  int DECIMAL_VALUE = 32;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -1090,7 +1127,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 32;
+  int STRING_VALUE = 33;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -1118,7 +1155,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 33;
+  int VARIABLE = 34;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1146,7 +1183,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 34;
+  int ENUM_VALUE = 35;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1174,7 +1211,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 35;
+  int METHOD_REFERENCE = 36;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1297,6 +1334,27 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EAttribute getImport_ImportedNamespace();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ForkDefinition <em>Fork Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Fork Definition</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition
+   * @generated
+   */
+  EClass getForkDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition#getName()
+   * @see #getForkDefinition()
+   * @generated
+   */
+  EAttribute getForkDefinition_Name();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.TestDefinition <em>Test Definition</em>}'.
@@ -1853,6 +1911,17 @@ public interface DslPackage extends EPackage
   EReference getSuite_Parameters();
 
   /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.Suite#getFork <em>Fork</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Fork</em>'.
+   * @see de.gebit.integrity.dsl.Suite#getFork()
+   * @see #getSuite()
+   * @generated
+   */
+  EReference getSuite_Fork();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.SuiteParameter <em>Suite Parameter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2229,6 +2298,24 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute IMPORT__IMPORTED_NAMESPACE = eINSTANCE.getImport_ImportedNamespace();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl <em>Fork Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.ForkDefinitionImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getForkDefinition()
+     * @generated
+     */
+    EClass FORK_DEFINITION = eINSTANCE.getForkDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORK_DEFINITION__NAME = eINSTANCE.getForkDefinition_Name();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.
@@ -2681,6 +2768,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference SUITE__PARAMETERS = eINSTANCE.getSuite_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Fork</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUITE__FORK = eINSTANCE.getSuite_Fork();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterImpl <em>Suite Parameter</em>}' class.

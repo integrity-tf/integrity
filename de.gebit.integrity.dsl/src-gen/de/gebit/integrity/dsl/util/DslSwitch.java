@@ -114,6 +114,14 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.FORK_DEFINITION:
+      {
+        ForkDefinition forkDefinition = (ForkDefinition)theEObject;
+        T result = caseForkDefinition(forkDefinition);
+        if (result == null) result = casePackageStatement(forkDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.TEST_DEFINITION:
       {
         TestDefinition testDefinition = (TestDefinition)theEObject;
@@ -439,6 +447,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseImport(Import object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fork Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fork Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseForkDefinition(ForkDefinition object)
   {
     return null;
   }

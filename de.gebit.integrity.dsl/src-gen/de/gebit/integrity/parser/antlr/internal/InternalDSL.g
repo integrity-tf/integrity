@@ -247,41 +247,51 @@ rulePackageStatement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getPackageStatementAccess().getTestDefinitionParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getForkDefinitionParserRuleCall_1()); 
     }
-    this_TestDefinition_1=ruleTestDefinition
+    this_ForkDefinition_1=ruleForkDefinition
     { 
-        $current = $this_TestDefinition_1.current; 
+        $current = $this_ForkDefinition_1.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getPackageStatementAccess().getCallDefinitionParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getTestDefinitionParserRuleCall_2()); 
     }
-    this_CallDefinition_2=ruleCallDefinition
+    this_TestDefinition_2=ruleTestDefinition
     { 
-        $current = $this_CallDefinition_2.current; 
+        $current = $this_TestDefinition_2.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getPackageStatementAccess().getSuiteDefinitionParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getCallDefinitionParserRuleCall_3()); 
     }
-    this_SuiteDefinition_3=ruleSuiteDefinition
+    this_CallDefinition_3=ruleCallDefinition
     { 
-        $current = $this_SuiteDefinition_3.current; 
+        $current = $this_CallDefinition_3.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getPackageStatementAccess().getVariableDefinitionParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getSuiteDefinitionParserRuleCall_4()); 
     }
-    this_VariableDefinition_4=ruleVariableDefinition
+    this_SuiteDefinition_4=ruleSuiteDefinition
     { 
-        $current = $this_VariableDefinition_4.current; 
+        $current = $this_SuiteDefinition_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getVariableDefinitionParserRuleCall_5()); 
+    }
+    this_VariableDefinition_5=ruleVariableDefinition
+    { 
+        $current = $this_VariableDefinition_5.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -323,6 +333,49 @@ ruleImport returns [EObject current=null]
        			"importedNamespace",
         		lv_importedNamespace_1_0, 
         		"QualifiedNameWithWildcard");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleForkDefinition
+entryRuleForkDefinition returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getForkDefinitionRule()); }
+	 iv_ruleForkDefinition=ruleForkDefinition 
+	 { $current=$iv_ruleForkDefinition.current; } 
+	 EOF 
+;
+
+// Rule ForkDefinition
+ruleForkDefinition returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='forkdef' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getForkDefinitionAccess().getForkdefKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_name_1_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getForkDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_1_0, 
+        		"QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1503,7 +1556,26 @@ ruleSuite returns [EObject current=null]
 	    }
 
 )
-)*)
+)*(	otherlv_3='on' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getSuiteAccess().getOnKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSuiteRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_3_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
 ;
 
 

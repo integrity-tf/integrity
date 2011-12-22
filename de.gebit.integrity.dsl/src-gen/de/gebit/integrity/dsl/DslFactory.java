@@ -72,6 +72,15 @@ public interface DslFactory extends EFactory
   Import createImport();
 
   /**
+   * Returns a new object of class '<em>Fork Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fork Definition</em>'.
+   * @generated
+   */
+  ForkDefinition createForkDefinition();
+
+  /**
    * Returns a new object of class '<em>Test Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

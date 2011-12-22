@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.Suite#getFork <em>Fork</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,5 +69,31 @@ public interface Suite extends Statement, SuiteStatementWithResult
    * @generated
    */
   EList<SuiteParameter> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Fork</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fork</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fork</em>' reference.
+   * @see #setFork(ForkDefinition)
+   * @see de.gebit.integrity.dsl.DslPackage#getSuite_Fork()
+   * @model
+   * @generated
+   */
+  ForkDefinition getFork();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.Suite#getFork <em>Fork</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Fork</em>' reference.
+   * @see #getFork()
+   * @generated
+   */
+  void setFork(ForkDefinition value);
 
 } // Suite

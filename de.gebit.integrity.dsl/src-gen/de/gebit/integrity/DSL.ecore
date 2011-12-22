@@ -17,6 +17,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//Statement #//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ForkDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fixtureMethod" eType="#//MethodReference"
@@ -108,6 +111,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//SuiteParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fork" eType="#//ForkDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteParameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>

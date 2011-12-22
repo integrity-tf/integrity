@@ -100,32 +100,36 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageStatement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cImportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTestDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cCallDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cSuiteDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cVariableDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cForkDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cTestDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cCallDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cSuiteDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVariableDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//PackageStatement:
-		//	Import | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+		//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
 		public ParserRule getRule() { return rule; }
 
-		//Import | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition
+		//Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Import
 		public RuleCall getImportParserRuleCall_0() { return cImportParserRuleCall_0; }
 
+		//ForkDefinition
+		public RuleCall getForkDefinitionParserRuleCall_1() { return cForkDefinitionParserRuleCall_1; }
+
 		//TestDefinition
-		public RuleCall getTestDefinitionParserRuleCall_1() { return cTestDefinitionParserRuleCall_1; }
+		public RuleCall getTestDefinitionParserRuleCall_2() { return cTestDefinitionParserRuleCall_2; }
 
 		//CallDefinition
-		public RuleCall getCallDefinitionParserRuleCall_2() { return cCallDefinitionParserRuleCall_2; }
+		public RuleCall getCallDefinitionParserRuleCall_3() { return cCallDefinitionParserRuleCall_3; }
 
 		//SuiteDefinition
-		public RuleCall getSuiteDefinitionParserRuleCall_3() { return cSuiteDefinitionParserRuleCall_3; }
+		public RuleCall getSuiteDefinitionParserRuleCall_4() { return cSuiteDefinitionParserRuleCall_4; }
 
 		//VariableDefinition
-		public RuleCall getVariableDefinitionParserRuleCall_4() { return cVariableDefinitionParserRuleCall_4; }
+		public RuleCall getVariableDefinitionParserRuleCall_5() { return cVariableDefinitionParserRuleCall_5; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -150,6 +154,30 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedNameWithWildcard
 		public RuleCall getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0() { return cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0; }
+	}
+
+	public class ForkDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ForkDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cForkdefKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		
+		//ForkDefinition:
+		//	"forkdef" name=QualifiedName;
+		public ParserRule getRule() { return rule; }
+
+		//"forkdef" name=QualifiedName
+		public Group getGroup() { return cGroup; }
+
+		//"forkdef"
+		public Keyword getForkdefKeyword_0() { return cForkdefKeyword_0; }
+
+		//name=QualifiedName
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
 	}
 
 	public class TestDefinitionElements extends AbstractParserRuleElementFinder {
@@ -841,12 +869,19 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionSuiteDefinitionCrossReference_1_0.eContents().get(1);
 		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cParametersSuiteParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cForkAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cForkForkDefinitionCrossReference_3_1_0 = (CrossReference)cForkAssignment_3_1.eContents().get(0);
+		private final RuleCall cForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cForkForkDefinitionCrossReference_3_1_0.eContents().get(1);
 		
 		//Suite:
-		//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter*;
+		//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+		//	fork=[ForkDefinition|QualifiedName])?;
 		public ParserRule getRule() { return rule; }
 
-		//"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter*
+		//"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+		//fork=[ForkDefinition|QualifiedName])?
 		public Group getGroup() { return cGroup; }
 
 		//"suite"
@@ -866,6 +901,21 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//SuiteParameter
 		public RuleCall getParametersSuiteParameterParserRuleCall_2_0() { return cParametersSuiteParameterParserRuleCall_2_0; }
+
+		//("on" fork=[ForkDefinition|QualifiedName])?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"on"
+		public Keyword getOnKeyword_3_0() { return cOnKeyword_3_0; }
+
+		//fork=[ForkDefinition|QualifiedName]
+		public Assignment getForkAssignment_3_1() { return cForkAssignment_3_1; }
+
+		//[ForkDefinition|QualifiedName]
+		public CrossReference getForkForkDefinitionCrossReference_3_1_0() { return cForkForkDefinitionCrossReference_3_1_0; }
+
+		//QualifiedName
+		public RuleCall getForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1() { return cForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1; }
 	}
 
 	public class SuiteParameterElements extends AbstractParserRuleElementFinder {
@@ -1254,6 +1304,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private PackageDefinitionElements pPackageDefinition;
 	private PackageStatementElements pPackageStatement;
 	private ImportElements pImport;
+	private ForkDefinitionElements pForkDefinition;
 	private TestDefinitionElements pTestDefinition;
 	private CallDefinitionElements pCallDefinition;
 	private SuiteDefinitionElements pSuiteDefinition;
@@ -1342,7 +1393,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageStatement:
-	//	Import | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+	//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
 	public PackageStatementElements getPackageStatementAccess() {
 		return (pPackageStatement != null) ? pPackageStatement : (pPackageStatement = new PackageStatementElements());
 	}
@@ -1359,6 +1410,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getImportRule() {
 		return getImportAccess().getRule();
+	}
+
+	//ForkDefinition:
+	//	"forkdef" name=QualifiedName;
+	public ForkDefinitionElements getForkDefinitionAccess() {
+		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
+	}
+	
+	public ParserRule getForkDefinitionRule() {
+		return getForkDefinitionAccess().getRule();
 	}
 
 	//TestDefinition:
@@ -1536,7 +1597,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Suite:
-	//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter*;
+	//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+	//	fork=[ForkDefinition|QualifiedName])?;
 	public SuiteElements getSuiteAccess() {
 		return (pSuite != null) ? pSuite : (pSuite = new SuiteElements());
 	}

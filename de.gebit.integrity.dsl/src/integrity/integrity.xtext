@@ -15,10 +15,13 @@ PackageDefinition:
 	'packagedef' name=QualifiedName 'with' statements+=PackageStatement* 'packageend';
 	
 PackageStatement:
-	Import | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
 	
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
+	
+ForkDefinition:
+	'forkdef' name=QualifiedName;
 	
 TestDefinition:
 	'testdef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
@@ -73,7 +76,7 @@ Call:
 	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;
 	
 Suite:
-	'suite' definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)*;
+	'suite' definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)* ('on' fork=[ForkDefinition|QualifiedName])?;
 
 SuiteParameter:
 	name=[VariableEntity|QualifiedName] ':' value=Value;
