@@ -6,7 +6,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
  * Interface for message processors. A message processor is called on the client or the server to process an incoming
  * message, thus it is linked to a specific message type.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  * @param <M>
  *            the message type

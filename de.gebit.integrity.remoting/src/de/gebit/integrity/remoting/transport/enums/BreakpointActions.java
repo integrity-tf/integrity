@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting.transport.enums;
 /**
  * Valid actions for breakpoints.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum BreakpointActions {

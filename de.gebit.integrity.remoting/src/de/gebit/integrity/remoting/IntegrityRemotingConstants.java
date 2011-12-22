@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting;
 /**
  * Some constant values used by the remoting client and server.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public interface IntegrityRemotingConstants {

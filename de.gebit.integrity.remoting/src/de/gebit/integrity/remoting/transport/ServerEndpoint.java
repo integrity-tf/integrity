@@ -16,7 +16,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
  * endpoints. When a connection is established, it spawns a new {@link Endpoint} for that specific connection and
  * continues listening for more connections.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ServerEndpoint {

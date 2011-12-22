@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Abstract base class for all messages.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class AbstractMessage implements Serializable {

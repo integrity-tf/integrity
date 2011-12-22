@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting.entities.setlist;
 /**
  * Keys for Set List Entry Attributes.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum SetListEntryAttributeKeys {

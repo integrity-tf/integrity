@@ -20,7 +20,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
  * An endpoint is a client- or serverside termination point of a message channel. The endpoint uses a TCP connection to
  * transmit messages bidirectionally, with processors waiting for new messages to arrive.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class Endpoint {

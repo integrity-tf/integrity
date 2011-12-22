@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Valid commands for test execution control.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum ExecutionCommands implements Serializable {

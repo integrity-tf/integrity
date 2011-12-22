@@ -6,7 +6,7 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 /**
  * This listener must be implemented by the server process itself and serves as a kind of callback.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public interface IntegrityRemotingServerListener {

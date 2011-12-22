@@ -13,7 +13,7 @@ import de.gebit.integrity.utils.JavadocUtil;
 /**
  * The documentation provider. This provides texts for quick help displays, like in mouseovers.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentationProvider {

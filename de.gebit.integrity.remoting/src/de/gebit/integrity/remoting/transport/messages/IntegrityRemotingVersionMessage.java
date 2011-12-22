@@ -6,7 +6,7 @@ package de.gebit.integrity.remoting.transport.messages;
  * version to determine if they are compatible at all. This message is always the first one sent from both sides in a
  * communication.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class IntegrityRemotingVersionMessage extends AbstractMessage {

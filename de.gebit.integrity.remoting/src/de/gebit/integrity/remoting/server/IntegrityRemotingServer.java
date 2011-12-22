@@ -23,7 +23,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 /**
  * The server implementation.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class IntegrityRemotingServer {

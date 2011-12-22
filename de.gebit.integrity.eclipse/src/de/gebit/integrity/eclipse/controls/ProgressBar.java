@@ -14,7 +14,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 /**
  * The test progress bar.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ProgressBar extends Composite {

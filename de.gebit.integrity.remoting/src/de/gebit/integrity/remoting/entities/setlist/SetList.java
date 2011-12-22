@@ -19,7 +19,7 @@ import java.util.Set;
  * via their IDs. This allows for easy incremental update of single entries regardless of the size of the subtrees below
  * them, as long as the IDs of each entry stay the same.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 @SuppressWarnings("unchecked")

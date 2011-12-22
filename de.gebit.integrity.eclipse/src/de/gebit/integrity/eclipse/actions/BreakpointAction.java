@@ -5,7 +5,7 @@ import org.eclipse.jface.action.Action;
 /**
  * Creates a breakpoint at a specified set list entry.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class BreakpointAction extends Action {

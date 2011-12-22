@@ -5,7 +5,7 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 /**
  * The quickfix provider (not used at the moment).
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class DSLQuickfixProvider extends DefaultQuickfixProvider {

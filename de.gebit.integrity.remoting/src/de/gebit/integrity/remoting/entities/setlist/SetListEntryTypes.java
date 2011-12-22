@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting.entities.setlist;
 /**
  * The various types of set list entries.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum SetListEntryTypes {

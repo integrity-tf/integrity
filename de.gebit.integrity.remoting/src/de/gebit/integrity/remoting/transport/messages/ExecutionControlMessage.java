@@ -5,7 +5,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 /**
  * This message is sent by the client to control test execution.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ExecutionControlMessage extends AbstractMessage {

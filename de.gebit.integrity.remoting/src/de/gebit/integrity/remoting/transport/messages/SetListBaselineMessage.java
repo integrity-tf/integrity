@@ -5,7 +5,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetList;
 /**
  * Updates the setlist with a new baseline, that is, a complete copy.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class SetListBaselineMessage extends AbstractMessage {

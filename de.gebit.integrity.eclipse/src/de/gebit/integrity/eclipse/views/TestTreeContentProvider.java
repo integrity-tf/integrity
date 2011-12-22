@@ -14,7 +14,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 /**
  * Provides the content for the main test execution tree.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class TestTreeContentProvider implements ILazyTreeContentProvider {

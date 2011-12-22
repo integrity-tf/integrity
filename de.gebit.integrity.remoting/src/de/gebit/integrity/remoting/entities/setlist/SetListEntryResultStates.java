@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting.entities.setlist;
 /**
  * Result states for set list entries.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum SetListEntryResultStates {

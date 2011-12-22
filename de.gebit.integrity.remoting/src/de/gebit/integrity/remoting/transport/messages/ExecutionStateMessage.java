@@ -5,7 +5,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 /**
  * Sent to inform clients about changes in the execution state.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class ExecutionStateMessage extends AbstractMessage {

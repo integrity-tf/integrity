@@ -3,7 +3,7 @@ package de.gebit.integrity.remoting.transport;
 /**
  * Implement this listener to be notified about changes to an endpoints' connection state.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public interface EndpointListener {

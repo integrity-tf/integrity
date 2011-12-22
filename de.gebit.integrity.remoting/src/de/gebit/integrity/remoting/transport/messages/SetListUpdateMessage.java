@@ -5,7 +5,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 /**
  * Updates the setlist incrementally (with one or more updated entries).
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class SetListUpdateMessage extends AbstractMessage {

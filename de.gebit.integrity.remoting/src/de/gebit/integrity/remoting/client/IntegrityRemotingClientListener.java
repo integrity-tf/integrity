@@ -9,7 +9,7 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 /**
  * This listener must be implemented by anyone wanting to attach to the remoting client.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public interface IntegrityRemotingClientListener {

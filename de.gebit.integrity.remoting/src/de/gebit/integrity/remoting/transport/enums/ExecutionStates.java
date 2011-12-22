@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Execution states.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public enum ExecutionStates implements Serializable {

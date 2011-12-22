@@ -9,7 +9,7 @@ import java.util.Map.Entry;
  * A set list entry is an entry in the {@link SetList}, which is a test execution and result data structure. The actual
  * nature of an entry is defined by its type.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class SetListEntry implements Serializable {

@@ -17,7 +17,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 /**
  * The custom content drawer for the main test execution tree. Takes care of test statement coloring.
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class TestTreeContentDrawer {

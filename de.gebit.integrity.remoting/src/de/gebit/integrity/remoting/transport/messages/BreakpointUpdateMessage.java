@@ -6,7 +6,7 @@ import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
  * This message is sent when breakpoints shall be created or removed. It is used both as notification about breakpoint
  * changes (server -> client) as well as requests (client -> server).
  * 
- * @author Rene Schneider (rene.schneider@gebit.de)
+ * @author Rene Schneider
  * 
  */
 public class BreakpointUpdateMessage extends AbstractMessage {
