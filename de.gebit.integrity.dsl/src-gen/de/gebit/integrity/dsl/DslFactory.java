@@ -171,6 +171,15 @@ public interface DslFactory extends EFactory
   ParameterTableHeader createParameterTableHeader();
 
   /**
+   * Returns a new object of class '<em>Result Table Header</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Table Header</em>'.
+   * @generated
+   */
+  ResultTableHeader createResultTableHeader();
+
+  /**
    * Returns a new object of class '<em>Parameter Table Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -180,40 +189,31 @@ public interface DslFactory extends EFactory
   ParameterTableValue createParameterTableValue();
 
   /**
-   * Returns a new object of class '<em>Named Test Result</em>'.
+   * Returns a new object of class '<em>Named Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Named Test Result</em>'.
+   * @return a new object of class '<em>Named Result</em>'.
    * @generated
    */
-  NamedTestResult createNamedTestResult();
+  NamedResult createNamedResult();
 
   /**
-   * Returns a new object of class '<em>Test Result Name</em>'.
+   * Returns a new object of class '<em>Result Name</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Test Result Name</em>'.
+   * @return a new object of class '<em>Result Name</em>'.
    * @generated
    */
-  TestResultName createTestResultName();
+  ResultName createResultName();
 
   /**
-   * Returns a new object of class '<em>Fixed Test Result Name</em>'.
+   * Returns a new object of class '<em>Fixed Result Name</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fixed Test Result Name</em>'.
+   * @return a new object of class '<em>Fixed Result Name</em>'.
    * @generated
    */
-  FixedTestResultName createFixedTestResultName();
-
-  /**
-   * Returns a new object of class '<em>Arbitrary Test Result Name</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Arbitrary Test Result Name</em>'.
-   * @generated
-   */
-  ArbitraryTestResultName createArbitraryTestResultName();
+  FixedResultName createFixedResultName();
 
   /**
    * Returns a new object of class '<em>Call</em>'.
@@ -270,13 +270,13 @@ public interface DslFactory extends EFactory
   FixedParameterName createFixedParameterName();
 
   /**
-   * Returns a new object of class '<em>Arbitrary Parameter Name</em>'.
+   * Returns a new object of class '<em>Arbitrary Parameter Or Result Name</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Arbitrary Parameter Name</em>'.
+   * @return a new object of class '<em>Arbitrary Parameter Or Result Name</em>'.
    * @generated
    */
-  ArbitraryParameterName createArbitraryParameterName();
+  ArbitraryParameterOrResultName createArbitraryParameterOrResultName();
 
   /**
    * Returns a new object of class '<em>Value Or Enum Value</em>'.

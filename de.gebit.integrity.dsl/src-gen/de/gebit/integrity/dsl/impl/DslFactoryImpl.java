@@ -84,18 +84,18 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.TABLE_TEST: return createTableTest();
       case DslPackage.TABLE_TEST_ROW: return createTableTestRow();
       case DslPackage.PARAMETER_TABLE_HEADER: return createParameterTableHeader();
+      case DslPackage.RESULT_TABLE_HEADER: return createResultTableHeader();
       case DslPackage.PARAMETER_TABLE_VALUE: return createParameterTableValue();
-      case DslPackage.NAMED_TEST_RESULT: return createNamedTestResult();
-      case DslPackage.TEST_RESULT_NAME: return createTestResultName();
-      case DslPackage.FIXED_TEST_RESULT_NAME: return createFixedTestResultName();
-      case DslPackage.ARBITRARY_TEST_RESULT_NAME: return createArbitraryTestResultName();
+      case DslPackage.NAMED_RESULT: return createNamedResult();
+      case DslPackage.RESULT_NAME: return createResultName();
+      case DslPackage.FIXED_RESULT_NAME: return createFixedResultName();
       case DslPackage.CALL: return createCall();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
       case DslPackage.PARAMETER: return createParameter();
       case DslPackage.PARAMETER_NAME: return createParameterName();
       case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
-      case DslPackage.ARBITRARY_PARAMETER_NAME: return createArbitraryParameterName();
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME: return createArbitraryParameterOrResultName();
       case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
       case DslPackage.VALUE: return createValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
@@ -290,6 +290,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ResultTableHeader createResultTableHeader()
+  {
+    ResultTableHeaderImpl resultTableHeader = new ResultTableHeaderImpl();
+    return resultTableHeader;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ParameterTableValue createParameterTableValue()
   {
     ParameterTableValueImpl parameterTableValue = new ParameterTableValueImpl();
@@ -301,10 +312,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedTestResult createNamedTestResult()
+  public NamedResult createNamedResult()
   {
-    NamedTestResultImpl namedTestResult = new NamedTestResultImpl();
-    return namedTestResult;
+    NamedResultImpl namedResult = new NamedResultImpl();
+    return namedResult;
   }
 
   /**
@@ -312,10 +323,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TestResultName createTestResultName()
+  public ResultName createResultName()
   {
-    TestResultNameImpl testResultName = new TestResultNameImpl();
-    return testResultName;
+    ResultNameImpl resultName = new ResultNameImpl();
+    return resultName;
   }
 
   /**
@@ -323,21 +334,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FixedTestResultName createFixedTestResultName()
+  public FixedResultName createFixedResultName()
   {
-    FixedTestResultNameImpl fixedTestResultName = new FixedTestResultNameImpl();
-    return fixedTestResultName;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ArbitraryTestResultName createArbitraryTestResultName()
-  {
-    ArbitraryTestResultNameImpl arbitraryTestResultName = new ArbitraryTestResultNameImpl();
-    return arbitraryTestResultName;
+    FixedResultNameImpl fixedResultName = new FixedResultNameImpl();
+    return fixedResultName;
   }
 
   /**
@@ -411,10 +411,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArbitraryParameterName createArbitraryParameterName()
+  public ArbitraryParameterOrResultName createArbitraryParameterOrResultName()
   {
-    ArbitraryParameterNameImpl arbitraryParameterName = new ArbitraryParameterNameImpl();
-    return arbitraryParameterName;
+    ArbitraryParameterOrResultNameImpl arbitraryParameterOrResultName = new ArbitraryParameterOrResultNameImpl();
+    return arbitraryParameterOrResultName;
   }
 
   /**

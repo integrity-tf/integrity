@@ -7,8 +7,8 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.NamedTestResult;
-import de.gebit.integrity.dsl.TestResultName;
+import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -22,19 +22,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Named Test Result</b></em>'.
+ * An implementation of the model object '<em><b>Named Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.NamedTestResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.NamedTestResultImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.NamedResultImpl#getName <em>Name</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.NamedResultImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements NamedTestResult
+public class NamedResultImpl extends MinimalEObjectImpl.Container implements NamedResult
 {
   /**
    * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
@@ -44,7 +44,7 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected TestResultName name;
+  protected ResultName name;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -61,7 +61,7 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  protected NamedTestResultImpl()
+  protected NamedResultImpl()
   {
     super();
   }
@@ -74,7 +74,7 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.NAMED_TEST_RESULT;
+    return DslPackage.Literals.NAMED_RESULT;
   }
 
   /**
@@ -82,7 +82,7 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public TestResultName getName()
+  public ResultName getName()
   {
     return name;
   }
@@ -92,13 +92,13 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(TestResultName newName, NotificationChain msgs)
+  public NotificationChain basicSetName(ResultName newName, NotificationChain msgs)
   {
-    TestResultName oldName = name;
+    ResultName oldName = name;
     name = newName;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_TEST_RESULT__NAME, oldName, newName);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_RESULT__NAME, oldName, newName);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -109,20 +109,20 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(TestResultName newName)
+  public void setName(ResultName newName)
   {
     if (newName != name)
     {
       NotificationChain msgs = null;
       if (name != null)
-        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_TEST_RESULT__NAME, null, msgs);
+        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_RESULT__NAME, null, msgs);
       if (newName != null)
-        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_TEST_RESULT__NAME, null, msgs);
+        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_RESULT__NAME, null, msgs);
       msgs = basicSetName(newName, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_TEST_RESULT__NAME, newName, newName));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_RESULT__NAME, newName, newName));
   }
 
   /**
@@ -146,7 +146,7 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
     value = newValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_TEST_RESULT__VALUE, oldValue, newValue);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_RESULT__VALUE, oldValue, newValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -163,14 +163,14 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
     {
       NotificationChain msgs = null;
       if (value != null)
-        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_TEST_RESULT__VALUE, null, msgs);
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_RESULT__VALUE, null, msgs);
       if (newValue != null)
-        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_TEST_RESULT__VALUE, null, msgs);
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.NAMED_RESULT__VALUE, null, msgs);
       msgs = basicSetValue(newValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_TEST_RESULT__VALUE, newValue, newValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.NAMED_RESULT__VALUE, newValue, newValue));
   }
 
   /**
@@ -183,9 +183,9 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case DslPackage.NAMED_TEST_RESULT__NAME:
+      case DslPackage.NAMED_RESULT__NAME:
         return basicSetName(null, msgs);
-      case DslPackage.NAMED_TEST_RESULT__VALUE:
+      case DslPackage.NAMED_RESULT__VALUE:
         return basicSetValue(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -201,9 +201,9 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case DslPackage.NAMED_TEST_RESULT__NAME:
+      case DslPackage.NAMED_RESULT__NAME:
         return getName();
-      case DslPackage.NAMED_TEST_RESULT__VALUE:
+      case DslPackage.NAMED_RESULT__VALUE:
         return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -219,10 +219,10 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case DslPackage.NAMED_TEST_RESULT__NAME:
-        setName((TestResultName)newValue);
+      case DslPackage.NAMED_RESULT__NAME:
+        setName((ResultName)newValue);
         return;
-      case DslPackage.NAMED_TEST_RESULT__VALUE:
+      case DslPackage.NAMED_RESULT__VALUE:
         setValue((ValueOrEnumValue)newValue);
         return;
     }
@@ -239,10 +239,10 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case DslPackage.NAMED_TEST_RESULT__NAME:
-        setName((TestResultName)null);
+      case DslPackage.NAMED_RESULT__NAME:
+        setName((ResultName)null);
         return;
-      case DslPackage.NAMED_TEST_RESULT__VALUE:
+      case DslPackage.NAMED_RESULT__VALUE:
         setValue((ValueOrEnumValue)null);
         return;
     }
@@ -259,12 +259,12 @@ public class NamedTestResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case DslPackage.NAMED_TEST_RESULT__NAME:
+      case DslPackage.NAMED_RESULT__NAME:
         return name != null;
-      case DslPackage.NAMED_TEST_RESULT__VALUE:
+      case DslPackage.NAMED_RESULT__VALUE:
         return value != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //NamedTestResultImpl
+} //NamedResultImpl

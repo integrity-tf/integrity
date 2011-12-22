@@ -7,7 +7,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.TestResultName;
+import de.gebit.integrity.dsl.ResultName;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -15,21 +15,21 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Test Result Name</b></em>'.
+ * An implementation of the model object '<em><b>Result Name</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class TestResultNameImpl extends MinimalEObjectImpl.Container implements TestResultName
+public class ResultNameImpl extends MinimalEObjectImpl.Container implements ResultName
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TestResultNameImpl()
+  protected ResultNameImpl()
   {
     super();
   }
@@ -42,7 +42,7 @@ public class TestResultNameImpl extends MinimalEObjectImpl.Container implements 
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.TEST_RESULT_NAME;
+    return DslPackage.Literals.RESULT_NAME;
   }
 
-} //TestResultNameImpl
+} //ResultNameImpl

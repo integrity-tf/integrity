@@ -7,7 +7,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.NamedTestResult;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
@@ -74,7 +74,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * @generated
    * @ordered
    */
-  protected EList<NamedTestResult> results;
+  protected EList<NamedResult> results;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
@@ -169,11 +169,11 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NamedTestResult> getResults()
+  public EList<NamedResult> getResults()
   {
     if (results == null)
     {
-      results = new EObjectContainmentEList<NamedTestResult>(NamedTestResult.class, this, DslPackage.TEST__RESULTS);
+      results = new EObjectContainmentEList<NamedResult>(NamedResult.class, this, DslPackage.TEST__RESULTS);
     }
     return results;
   }
@@ -289,7 +289,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         return;
       case DslPackage.TEST__RESULTS:
         getResults().clear();
-        getResults().addAll((Collection<? extends NamedTestResult>)newValue);
+        getResults().addAll((Collection<? extends NamedResult>)newValue);
         return;
       case DslPackage.TEST__RESULT:
         setResult((ValueOrEnumValue)newValue);

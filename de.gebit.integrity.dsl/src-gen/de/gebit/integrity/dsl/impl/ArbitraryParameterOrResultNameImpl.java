@@ -6,7 +6,7 @@
  */
 package de.gebit.integrity.dsl.impl;
 
-import de.gebit.integrity.dsl.ArbitraryParameterName;
+import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.DslPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -17,18 +17,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Arbitrary Parameter Name</b></em>'.
+ * An implementation of the model object '<em><b>Arbitrary Parameter Or Result Name</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.ArbitraryParameterNameImpl#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ArbitraryParameterOrResultNameImpl#getIdentifier <em>Identifier</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ArbitraryParameterNameImpl extends ParameterNameImpl implements ArbitraryParameterName
+public class ArbitraryParameterOrResultNameImpl extends ResultNameImpl implements ArbitraryParameterOrResultName
 {
   /**
    * The default value of the '{@link #getIdentifier() <em>Identifier</em>}' attribute.
@@ -55,7 +55,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ArbitraryParameterNameImpl()
+  protected ArbitraryParameterOrResultNameImpl()
   {
     super();
   }
@@ -68,7 +68,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.ARBITRARY_PARAMETER_NAME;
+    return DslPackage.Literals.ARBITRARY_PARAMETER_OR_RESULT_NAME;
   }
 
   /**
@@ -91,7 +91,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
     String oldIdentifier = identifier;
     identifier = newIdentifier;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.ARBITRARY_PARAMETER_NAME__IDENTIFIER, oldIdentifier, identifier));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER, oldIdentifier, identifier));
   }
 
   /**
@@ -104,7 +104,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
   {
     switch (featureID)
     {
-      case DslPackage.ARBITRARY_PARAMETER_NAME__IDENTIFIER:
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER:
         return getIdentifier();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -120,7 +120,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
   {
     switch (featureID)
     {
-      case DslPackage.ARBITRARY_PARAMETER_NAME__IDENTIFIER:
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER:
         setIdentifier((String)newValue);
         return;
     }
@@ -137,7 +137,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
   {
     switch (featureID)
     {
-      case DslPackage.ARBITRARY_PARAMETER_NAME__IDENTIFIER:
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER:
         setIdentifier(IDENTIFIER_EDEFAULT);
         return;
     }
@@ -154,7 +154,7 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
   {
     switch (featureID)
     {
-      case DslPackage.ARBITRARY_PARAMETER_NAME__IDENTIFIER:
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER:
         return IDENTIFIER_EDEFAULT == null ? identifier != null : !IDENTIFIER_EDEFAULT.equals(identifier);
     }
     return super.eIsSet(featureID);
@@ -177,4 +177,4 @@ public class ArbitraryParameterNameImpl extends ParameterNameImpl implements Arb
     return result.toString();
   }
 
-} //ArbitraryParameterNameImpl
+} //ArbitraryParameterOrResultNameImpl

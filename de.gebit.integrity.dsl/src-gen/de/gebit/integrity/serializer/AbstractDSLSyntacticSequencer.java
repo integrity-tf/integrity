@@ -22,7 +22,7 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_SuiteDefinition_ConcludedbyKeyword_7_0_q;
 	protected AbstractElementAlias match_SuiteDefinition_GetsKeyword_2_0_q;
 	protected AbstractElementAlias match_SuiteDefinition_RequiresKeyword_3_0_q;
-	protected AbstractElementAlias match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__;
+	protected AbstractElementAlias match_TableTest_VerticalLineKeyword_5_1_or___VerticalLineKeyword_5_0_0_EqualsSignKeyword_5_0_1_VerticalLineKeyword_5_0_2__;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -30,7 +30,7 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_SuiteDefinition_ConcludedbyKeyword_7_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_7_0());
 		match_SuiteDefinition_GetsKeyword_2_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_2_0());
 		match_SuiteDefinition_RequiresKeyword_3_0_q = new TokenAlias(false, true, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_3_0());
-		match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_0()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getEqualsSignKeyword_4_0_1()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_0_2())), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_4_1()));
+		match_TableTest_VerticalLineKeyword_5_1_or___VerticalLineKeyword_5_0_0_EqualsSignKeyword_5_0_1_VerticalLineKeyword_5_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getEqualsSignKeyword_5_0_1()), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_5_0_2())), new TokenAlias(false, false, grammarAccess.getTableTestAccess().getVerticalLineKeyword_5_1()));
 	}
 	
 	@Override
@@ -51,8 +51,8 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_SuiteDefinition_GetsKeyword_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition_RequiresKeyword_3_0_q.equals(syntax))
 				emit_SuiteDefinition_RequiresKeyword_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__.equals(syntax))
-				emit_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_TableTest_VerticalLineKeyword_5_1_or___VerticalLineKeyword_5_0_0_EqualsSignKeyword_5_0_1_VerticalLineKeyword_5_0_2__.equals(syntax))
+				emit_TableTest_VerticalLineKeyword_5_1_or___VerticalLineKeyword_5_0_0_EqualsSignKeyword_5_0_1_VerticalLineKeyword_5_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -83,9 +83,9 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     '|' | ('|' '=' '|')
+	 *     ('|' '=' '|') | '|'
 	 */
-	protected void emit_TableTest_VerticalLineKeyword_4_1_or___VerticalLineKeyword_4_0_0_EqualsSignKeyword_4_0_1_VerticalLineKeyword_4_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_TableTest_VerticalLineKeyword_5_1_or___VerticalLineKeyword_5_0_0_EqualsSignKeyword_5_0_1_VerticalLineKeyword_5_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

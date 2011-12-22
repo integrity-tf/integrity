@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
@@ -198,7 +199,16 @@ public final class ParameterUtil {
 				.getPropertyDescriptors()) {
 			Method tempReadMethod = tempDescriptor.getReadMethod();
 			if (tempReadMethod != null) {
-				tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
+				if (Map.class.isAssignableFrom(tempDescriptor.getPropertyType())) {
+					// this is a map for arbitrary result names
+					@SuppressWarnings("unchecked")
+					Map<String, Object> tempMap = (Map<String, Object>) tempReadMethod.invoke(aContainer);
+					for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
+						tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+					}
+				} else {
+					tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
+				}
 			}
 		}
 

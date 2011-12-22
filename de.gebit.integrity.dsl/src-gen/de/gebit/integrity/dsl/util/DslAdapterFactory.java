@@ -159,29 +159,29 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createParameterTableHeaderAdapter();
       }
       @Override
+      public Adapter caseResultTableHeader(ResultTableHeader object)
+      {
+        return createResultTableHeaderAdapter();
+      }
+      @Override
       public Adapter caseParameterTableValue(ParameterTableValue object)
       {
         return createParameterTableValueAdapter();
       }
       @Override
-      public Adapter caseNamedTestResult(NamedTestResult object)
+      public Adapter caseNamedResult(NamedResult object)
       {
-        return createNamedTestResultAdapter();
+        return createNamedResultAdapter();
       }
       @Override
-      public Adapter caseTestResultName(TestResultName object)
+      public Adapter caseResultName(ResultName object)
       {
-        return createTestResultNameAdapter();
+        return createResultNameAdapter();
       }
       @Override
-      public Adapter caseFixedTestResultName(FixedTestResultName object)
+      public Adapter caseFixedResultName(FixedResultName object)
       {
-        return createFixedTestResultNameAdapter();
-      }
-      @Override
-      public Adapter caseArbitraryTestResultName(ArbitraryTestResultName object)
-      {
-        return createArbitraryTestResultNameAdapter();
+        return createFixedResultNameAdapter();
       }
       @Override
       public Adapter caseCall(Call object)
@@ -214,9 +214,9 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createFixedParameterNameAdapter();
       }
       @Override
-      public Adapter caseArbitraryParameterName(ArbitraryParameterName object)
+      public Adapter caseArbitraryParameterOrResultName(ArbitraryParameterOrResultName object)
       {
-        return createArbitraryParameterNameAdapter();
+        return createArbitraryParameterOrResultNameAdapter();
       }
       @Override
       public Adapter caseValueOrEnumValue(ValueOrEnumValue object)
@@ -521,6 +521,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ResultTableHeader <em>Result Table Header</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ResultTableHeader
+   * @generated
+   */
+  public Adapter createResultTableHeaderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ParameterTableValue <em>Parameter Table Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -536,61 +551,46 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.NamedTestResult <em>Named Test Result</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.NamedResult <em>Named Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.NamedTestResult
+   * @see de.gebit.integrity.dsl.NamedResult
    * @generated
    */
-  public Adapter createNamedTestResultAdapter()
+  public Adapter createNamedResultAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TestResultName <em>Test Result Name</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ResultName <em>Result Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.TestResultName
+   * @see de.gebit.integrity.dsl.ResultName
    * @generated
    */
-  public Adapter createTestResultNameAdapter()
+  public Adapter createResultNameAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.FixedTestResultName <em>Fixed Test Result Name</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.FixedResultName <em>Fixed Result Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.FixedTestResultName
+   * @see de.gebit.integrity.dsl.FixedResultName
    * @generated
    */
-  public Adapter createFixedTestResultNameAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ArbitraryTestResultName <em>Arbitrary Test Result Name</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see de.gebit.integrity.dsl.ArbitraryTestResultName
-   * @generated
-   */
-  public Adapter createArbitraryTestResultNameAdapter()
+  public Adapter createFixedResultNameAdapter()
   {
     return null;
   }
@@ -686,16 +686,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ArbitraryParameterName <em>Arbitrary Parameter Name</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName <em>Arbitrary Parameter Or Result Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.ArbitraryParameterName
+   * @see de.gebit.integrity.dsl.ArbitraryParameterOrResultName
    * @generated
    */
-  public Adapter createArbitraryParameterNameAdapter()
+  public Adapter createArbitraryParameterOrResultNameAdapter()
   {
     return null;
   }

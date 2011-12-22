@@ -54,7 +54,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
-        eType="#//NamedTestResult" containment="true"/>
+        eType="#//NamedResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//ValueOrEnumValue"
         containment="true"/>
   </eClassifiers>
@@ -62,8 +62,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//TestDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="headers" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterHeaders" upperBound="-1"
         eType="#//ParameterTableHeader" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultHeaders" upperBound="-1"
+        eType="#//ResultTableHeader" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//TableTestRow"
         containment="true"/>
   </eClassifiers>
@@ -77,22 +79,23 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ParameterName"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResultTableHeader">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ResultName"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterTableValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NamedTestResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//TestResultName"
+  <eClassifiers xsi:type="ecore:EClass" name="NamedResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ResultName"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TestResultName"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FixedTestResultName" eSuperTypes="#//TestResultName">
+  <eClassifiers xsi:type="ecore:EClass" name="ResultName"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedResultName" eSuperTypes="#//ResultName">
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryTestResultName" eSuperTypes="#//TestResultName">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>
@@ -121,7 +124,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="FixedParameterName" eSuperTypes="#//ParameterName">
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotation" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmAnnotationReference"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterName" eSuperTypes="#//ParameterName">
+  <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterOrResultName" eSuperTypes="#//ResultName #//ParameterName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValue"/>

@@ -10,22 +10,22 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Named Test Result</b></em>'.
+ * A representation of the model object '<em><b>Named Result</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.NamedTestResult#getName <em>Name</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.NamedTestResult#getValue <em>Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.NamedResult#getName <em>Name</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.NamedResult#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see de.gebit.integrity.dsl.DslPackage#getNamedTestResult()
+ * @see de.gebit.integrity.dsl.DslPackage#getNamedResult()
  * @model
  * @generated
  */
-public interface NamedTestResult extends EObject
+public interface NamedResult extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' containment reference.
@@ -36,22 +36,22 @@ public interface NamedTestResult extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
-   * @see #setName(TestResultName)
-   * @see de.gebit.integrity.dsl.DslPackage#getNamedTestResult_Name()
+   * @see #setName(ResultName)
+   * @see de.gebit.integrity.dsl.DslPackage#getNamedResult_Name()
    * @model containment="true"
    * @generated
    */
-  TestResultName getName();
+  ResultName getName();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.NamedTestResult#getName <em>Name</em>}' containment reference.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.NamedResult#getName <em>Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' containment reference.
    * @see #getName()
    * @generated
    */
-  void setName(TestResultName value);
+  void setName(ResultName value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
@@ -63,14 +63,14 @@ public interface NamedTestResult extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
    * @see #setValue(ValueOrEnumValue)
-   * @see de.gebit.integrity.dsl.DslPackage#getNamedTestResult_Value()
+   * @see de.gebit.integrity.dsl.DslPackage#getNamedResult_Value()
    * @model containment="true"
    * @generated
    */
   ValueOrEnumValue getValue();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.NamedTestResult#getValue <em>Value</em>}' containment reference.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.NamedResult#getValue <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' containment reference.
@@ -79,4 +79,4 @@ public interface NamedTestResult extends EObject
    */
   void setValue(ValueOrEnumValue value);
 
-} // NamedTestResult
+} // NamedResult

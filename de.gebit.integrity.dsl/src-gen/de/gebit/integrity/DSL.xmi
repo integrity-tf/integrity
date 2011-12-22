@@ -203,7 +203,7 @@
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="results" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="="/>
@@ -230,8 +230,11 @@
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="+" feature="headers" operator="+=">
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameterHeaders" operator="+=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="resultHeaders" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
       </elements>
       <elements xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Group">
@@ -257,7 +260,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="values" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
       </elements>
       <elements xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Group">
@@ -283,6 +286,18 @@
       </elements>
     </alternatives>
   </rules>
+  <rules xsi:type="xtext:ParserRule" name="ResultTableHeader">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ResultTableHeader"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="|"/>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="="/>
+    </alternatives>
+  </rules>
   <rules xsi:type="xtext:ParserRule" name="ParameterTableValue">
     <type metamodel="//@metamodelDeclarations.2">
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ParameterTableValue"/>
@@ -294,13 +309,13 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="NamedTestResult">
+  <rules xsi:type="xtext:ParserRule" name="NamedResult">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//NamedTestResult"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//NamedResult"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.19"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="="/>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -308,18 +323,18 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="TestResultName">
+  <rules xsi:type="xtext:ParserRule" name="ResultName">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestResultName"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ResultName"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.27"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="FixedTestResultName">
+  <rules xsi:type="xtext:ParserRule" name="FixedResultName">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//FixedTestResultName"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//FixedResultName"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="field" operator="=">
       <terminal xsi:type="xtext:CrossReference">
@@ -328,17 +343,6 @@
         </type>
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
       </terminal>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="ArbitraryTestResultName">
-    <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ArbitraryTestResultName"/>
-    </type>
-    <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" value="+"/>
-      <elements xsi:type="xtext:Assignment" feature="identifier" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
-      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Call">
@@ -440,9 +444,9 @@
       </terminal>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="ArbitraryParameterName">
+  <rules xsi:type="xtext:ParserRule" name="ArbitraryParameterOrResultName">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ArbitraryParameterName"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ArbitraryParameterOrResultName"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="+"/>

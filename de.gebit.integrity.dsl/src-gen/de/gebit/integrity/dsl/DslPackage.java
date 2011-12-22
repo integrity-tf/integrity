@@ -516,13 +516,22 @@ public interface DslPackage extends EPackage
   int TABLE_TEST__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Headers</b></em>' containment reference list.
+   * The feature id for the '<em><b>Parameter Headers</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_TEST__HEADERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+  int TABLE_TEST__PARAMETER_HEADERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Result Headers</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__RESULT_HEADERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Rows</b></em>' containment reference list.
@@ -531,7 +540,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TABLE_TEST__ROWS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
+  int TABLE_TEST__ROWS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Table Test</em>' class.
@@ -540,7 +549,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TABLE_TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+  int TABLE_TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TableTestRowImpl <em>Table Test Row</em>}' class.
@@ -608,6 +617,34 @@ public interface DslPackage extends EPackage
   int PARAMETER_TABLE_HEADER_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ResultTableHeaderImpl <em>Result Table Header</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.ResultTableHeaderImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultTableHeader()
+   * @generated
+   */
+  int RESULT_TABLE_HEADER = 16;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_TABLE_HEADER__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Result Table Header</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_TABLE_HEADER_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ParameterTableValueImpl <em>Parameter Table Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -615,7 +652,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterTableValue()
    * @generated
    */
-  int PARAMETER_TABLE_VALUE = 16;
+  int PARAMETER_TABLE_VALUE = 17;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -636,14 +673,14 @@ public interface DslPackage extends EPackage
   int PARAMETER_TABLE_VALUE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NamedTestResultImpl <em>Named Test Result</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NamedResultImpl <em>Named Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.NamedTestResultImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedTestResult()
+   * @see de.gebit.integrity.dsl.impl.NamedResultImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedResult()
    * @generated
    */
-  int NAMED_TEST_RESULT = 17;
+  int NAMED_RESULT = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -652,7 +689,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_TEST_RESULT__NAME = 0;
+  int NAMED_RESULT__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -661,45 +698,45 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_TEST_RESULT__VALUE = 1;
+  int NAMED_RESULT__VALUE = 1;
 
   /**
-   * The number of structural features of the '<em>Named Test Result</em>' class.
+   * The number of structural features of the '<em>Named Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NAMED_TEST_RESULT_FEATURE_COUNT = 2;
+  int NAMED_RESULT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestResultNameImpl <em>Test Result Name</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ResultNameImpl <em>Result Name</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.TestResultNameImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTestResultName()
+   * @see de.gebit.integrity.dsl.impl.ResultNameImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultName()
    * @generated
    */
-  int TEST_RESULT_NAME = 18;
+  int RESULT_NAME = 19;
 
   /**
-   * The number of structural features of the '<em>Test Result Name</em>' class.
+   * The number of structural features of the '<em>Result Name</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST_RESULT_NAME_FEATURE_COUNT = 0;
+  int RESULT_NAME_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.FixedTestResultNameImpl <em>Fixed Test Result Name</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.FixedResultNameImpl <em>Fixed Result Name</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.FixedTestResultNameImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedTestResultName()
+   * @see de.gebit.integrity.dsl.impl.FixedResultNameImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedResultName()
    * @generated
    */
-  int FIXED_TEST_RESULT_NAME = 19;
+  int FIXED_RESULT_NAME = 20;
 
   /**
    * The feature id for the '<em><b>Field</b></em>' reference.
@@ -708,44 +745,16 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FIXED_TEST_RESULT_NAME__FIELD = TEST_RESULT_NAME_FEATURE_COUNT + 0;
+  int FIXED_RESULT_NAME__FIELD = RESULT_NAME_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Fixed Test Result Name</em>' class.
+   * The number of structural features of the '<em>Fixed Result Name</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FIXED_TEST_RESULT_NAME_FEATURE_COUNT = TEST_RESULT_NAME_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ArbitraryTestResultNameImpl <em>Arbitrary Test Result Name</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.ArbitraryTestResultNameImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryTestResultName()
-   * @generated
-   */
-  int ARBITRARY_TEST_RESULT_NAME = 20;
-
-  /**
-   * The feature id for the '<em><b>Identifier</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARBITRARY_TEST_RESULT_NAME__IDENTIFIER = TEST_RESULT_NAME_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Arbitrary Test Result Name</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARBITRARY_TEST_RESULT_NAME_FEATURE_COUNT = TEST_RESULT_NAME_FEATURE_COUNT + 1;
+  int FIXED_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.CallImpl <em>Call</em>}' class.
@@ -952,14 +961,14 @@ public interface DslPackage extends EPackage
   int FIXED_PARAMETER_NAME_FEATURE_COUNT = PARAMETER_NAME_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ArbitraryParameterNameImpl <em>Arbitrary Parameter Name</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ArbitraryParameterOrResultNameImpl <em>Arbitrary Parameter Or Result Name</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.ArbitraryParameterNameImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
+   * @see de.gebit.integrity.dsl.impl.ArbitraryParameterOrResultNameImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterOrResultName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_NAME = 27;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 27;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -968,16 +977,16 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARBITRARY_PARAMETER_NAME__IDENTIFIER = PARAMETER_NAME_FEATURE_COUNT + 0;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER = RESULT_NAME_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Arbitrary Parameter Name</em>' class.
+   * The number of structural features of the '<em>Arbitrary Parameter Or Result Name</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARBITRARY_PARAMETER_NAME_FEATURE_COUNT = PARAMETER_NAME_FEATURE_COUNT + 1;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
@@ -1578,15 +1587,26 @@ public interface DslPackage extends EPackage
   EReference getTableTest_Parameters();
 
   /**
-   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.TableTest#getHeaders <em>Headers</em>}'.
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.TableTest#getParameterHeaders <em>Parameter Headers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Headers</em>'.
-   * @see de.gebit.integrity.dsl.TableTest#getHeaders()
+   * @return the meta object for the containment reference list '<em>Parameter Headers</em>'.
+   * @see de.gebit.integrity.dsl.TableTest#getParameterHeaders()
    * @see #getTableTest()
    * @generated
    */
-  EReference getTableTest_Headers();
+  EReference getTableTest_ParameterHeaders();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.TableTest#getResultHeaders <em>Result Headers</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Result Headers</em>'.
+   * @see de.gebit.integrity.dsl.TableTest#getResultHeaders()
+   * @see #getTableTest()
+   * @generated
+   */
+  EReference getTableTest_ResultHeaders();
 
   /**
    * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.TableTest#getRows <em>Rows</em>}'.
@@ -1653,6 +1673,27 @@ public interface DslPackage extends EPackage
   EReference getParameterTableHeader_Name();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ResultTableHeader <em>Result Table Header</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Result Table Header</em>'.
+   * @see de.gebit.integrity.dsl.ResultTableHeader
+   * @generated
+   */
+  EClass getResultTableHeader();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ResultTableHeader#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @see de.gebit.integrity.dsl.ResultTableHeader#getName()
+   * @see #getResultTableHeader()
+   * @generated
+   */
+  EReference getResultTableHeader_Name();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ParameterTableValue <em>Parameter Table Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1674,88 +1715,67 @@ public interface DslPackage extends EPackage
   EReference getParameterTableValue_Value();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.NamedTestResult <em>Named Test Result</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.NamedResult <em>Named Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Named Test Result</em>'.
-   * @see de.gebit.integrity.dsl.NamedTestResult
+   * @return the meta object for class '<em>Named Result</em>'.
+   * @see de.gebit.integrity.dsl.NamedResult
    * @generated
    */
-  EClass getNamedTestResult();
+  EClass getNamedResult();
 
   /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedTestResult#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedResult#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Name</em>'.
-   * @see de.gebit.integrity.dsl.NamedTestResult#getName()
-   * @see #getNamedTestResult()
+   * @see de.gebit.integrity.dsl.NamedResult#getName()
+   * @see #getNamedResult()
    * @generated
    */
-  EReference getNamedTestResult_Name();
+  EReference getNamedResult_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedTestResult#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedResult#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Value</em>'.
-   * @see de.gebit.integrity.dsl.NamedTestResult#getValue()
-   * @see #getNamedTestResult()
+   * @see de.gebit.integrity.dsl.NamedResult#getValue()
+   * @see #getNamedResult()
    * @generated
    */
-  EReference getNamedTestResult_Value();
+  EReference getNamedResult_Value();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.TestResultName <em>Test Result Name</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ResultName <em>Result Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Test Result Name</em>'.
-   * @see de.gebit.integrity.dsl.TestResultName
+   * @return the meta object for class '<em>Result Name</em>'.
+   * @see de.gebit.integrity.dsl.ResultName
    * @generated
    */
-  EClass getTestResultName();
+  EClass getResultName();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.FixedTestResultName <em>Fixed Test Result Name</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.FixedResultName <em>Fixed Result Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Fixed Test Result Name</em>'.
-   * @see de.gebit.integrity.dsl.FixedTestResultName
+   * @return the meta object for class '<em>Fixed Result Name</em>'.
+   * @see de.gebit.integrity.dsl.FixedResultName
    * @generated
    */
-  EClass getFixedTestResultName();
+  EClass getFixedResultName();
 
   /**
-   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.FixedTestResultName#getField <em>Field</em>}'.
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.FixedResultName#getField <em>Field</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Field</em>'.
-   * @see de.gebit.integrity.dsl.FixedTestResultName#getField()
-   * @see #getFixedTestResultName()
+   * @see de.gebit.integrity.dsl.FixedResultName#getField()
+   * @see #getFixedResultName()
    * @generated
    */
-  EReference getFixedTestResultName_Field();
-
-  /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ArbitraryTestResultName <em>Arbitrary Test Result Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arbitrary Test Result Name</em>'.
-   * @see de.gebit.integrity.dsl.ArbitraryTestResultName
-   * @generated
-   */
-  EClass getArbitraryTestResultName();
-
-  /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ArbitraryTestResultName#getIdentifier <em>Identifier</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Identifier</em>'.
-   * @see de.gebit.integrity.dsl.ArbitraryTestResultName#getIdentifier()
-   * @see #getArbitraryTestResultName()
-   * @generated
-   */
-  EAttribute getArbitraryTestResultName_Identifier();
+  EReference getFixedResultName_Field();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Call <em>Call</em>}'.
@@ -1928,25 +1948,25 @@ public interface DslPackage extends EPackage
   EReference getFixedParameterName_Annotation();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ArbitraryParameterName <em>Arbitrary Parameter Name</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName <em>Arbitrary Parameter Or Result Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arbitrary Parameter Name</em>'.
-   * @see de.gebit.integrity.dsl.ArbitraryParameterName
+   * @return the meta object for class '<em>Arbitrary Parameter Or Result Name</em>'.
+   * @see de.gebit.integrity.dsl.ArbitraryParameterOrResultName
    * @generated
    */
-  EClass getArbitraryParameterName();
+  EClass getArbitraryParameterOrResultName();
 
   /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ArbitraryParameterName#getIdentifier <em>Identifier</em>}'.
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getIdentifier <em>Identifier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Identifier</em>'.
-   * @see de.gebit.integrity.dsl.ArbitraryParameterName#getIdentifier()
-   * @see #getArbitraryParameterName()
+   * @see de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getIdentifier()
+   * @see #getArbitraryParameterOrResultName()
    * @generated
    */
-  EAttribute getArbitraryParameterName_Identifier();
+  EAttribute getArbitraryParameterOrResultName_Identifier();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
@@ -2445,12 +2465,20 @@ public interface DslPackage extends EPackage
     EReference TABLE_TEST__PARAMETERS = eINSTANCE.getTableTest_Parameters();
 
     /**
-     * The meta object literal for the '<em><b>Headers</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Parameter Headers</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_TEST__HEADERS = eINSTANCE.getTableTest_Headers();
+    EReference TABLE_TEST__PARAMETER_HEADERS = eINSTANCE.getTableTest_ParameterHeaders();
+
+    /**
+     * The meta object literal for the '<em><b>Result Headers</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TABLE_TEST__RESULT_HEADERS = eINSTANCE.getTableTest_ResultHeaders();
 
     /**
      * The meta object literal for the '<em><b>Rows</b></em>' containment reference list feature.
@@ -2505,6 +2533,24 @@ public interface DslPackage extends EPackage
     EReference PARAMETER_TABLE_HEADER__NAME = eINSTANCE.getParameterTableHeader_Name();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ResultTableHeaderImpl <em>Result Table Header</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.ResultTableHeaderImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultTableHeader()
+     * @generated
+     */
+    EClass RESULT_TABLE_HEADER = eINSTANCE.getResultTableHeader();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_TABLE_HEADER__NAME = eINSTANCE.getResultTableHeader_Name();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ParameterTableValueImpl <em>Parameter Table Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2523,14 +2569,14 @@ public interface DslPackage extends EPackage
     EReference PARAMETER_TABLE_VALUE__VALUE = eINSTANCE.getParameterTableValue_Value();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NamedTestResultImpl <em>Named Test Result</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NamedResultImpl <em>Named Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.NamedTestResultImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedTestResult()
+     * @see de.gebit.integrity.dsl.impl.NamedResultImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedResult()
      * @generated
      */
-    EClass NAMED_TEST_RESULT = eINSTANCE.getNamedTestResult();
+    EClass NAMED_RESULT = eINSTANCE.getNamedResult();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
@@ -2538,7 +2584,7 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NAMED_TEST_RESULT__NAME = eINSTANCE.getNamedTestResult_Name();
+    EReference NAMED_RESULT__NAME = eINSTANCE.getNamedResult_Name();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
@@ -2546,27 +2592,27 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NAMED_TEST_RESULT__VALUE = eINSTANCE.getNamedTestResult_Value();
+    EReference NAMED_RESULT__VALUE = eINSTANCE.getNamedResult_Value();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TestResultNameImpl <em>Test Result Name</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ResultNameImpl <em>Result Name</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.TestResultNameImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTestResultName()
+     * @see de.gebit.integrity.dsl.impl.ResultNameImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultName()
      * @generated
      */
-    EClass TEST_RESULT_NAME = eINSTANCE.getTestResultName();
+    EClass RESULT_NAME = eINSTANCE.getResultName();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.FixedTestResultNameImpl <em>Fixed Test Result Name</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.FixedResultNameImpl <em>Fixed Result Name</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.FixedTestResultNameImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedTestResultName()
+     * @see de.gebit.integrity.dsl.impl.FixedResultNameImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedResultName()
      * @generated
      */
-    EClass FIXED_TEST_RESULT_NAME = eINSTANCE.getFixedTestResultName();
+    EClass FIXED_RESULT_NAME = eINSTANCE.getFixedResultName();
 
     /**
      * The meta object literal for the '<em><b>Field</b></em>' reference feature.
@@ -2574,25 +2620,7 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FIXED_TEST_RESULT_NAME__FIELD = eINSTANCE.getFixedTestResultName_Field();
-
-    /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ArbitraryTestResultNameImpl <em>Arbitrary Test Result Name</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.ArbitraryTestResultNameImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryTestResultName()
-     * @generated
-     */
-    EClass ARBITRARY_TEST_RESULT_NAME = eINSTANCE.getArbitraryTestResultName();
-
-    /**
-     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ARBITRARY_TEST_RESULT_NAME__IDENTIFIER = eINSTANCE.getArbitraryTestResultName_Identifier();
+    EReference FIXED_RESULT_NAME__FIELD = eINSTANCE.getFixedResultName_Field();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.CallImpl <em>Call</em>}' class.
@@ -2735,14 +2763,14 @@ public interface DslPackage extends EPackage
     EReference FIXED_PARAMETER_NAME__ANNOTATION = eINSTANCE.getFixedParameterName_Annotation();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ArbitraryParameterNameImpl <em>Arbitrary Parameter Name</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ArbitraryParameterOrResultNameImpl <em>Arbitrary Parameter Or Result Name</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.ArbitraryParameterNameImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterName()
+     * @see de.gebit.integrity.dsl.impl.ArbitraryParameterOrResultNameImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterOrResultName()
      * @generated
      */
-    EClass ARBITRARY_PARAMETER_NAME = eINSTANCE.getArbitraryParameterName();
+    EClass ARBITRARY_PARAMETER_OR_RESULT_NAME = eINSTANCE.getArbitraryParameterOrResultName();
 
     /**
      * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
@@ -2750,7 +2778,7 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ARBITRARY_PARAMETER_NAME__IDENTIFIER = eINSTANCE.getArbitraryParameterName_Identifier();
+    EAttribute ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER = eINSTANCE.getArbitraryParameterOrResultName_Identifier();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.

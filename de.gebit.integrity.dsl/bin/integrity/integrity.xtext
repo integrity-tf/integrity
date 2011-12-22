@@ -42,11 +42,11 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedTestResult)* ('=' result=ValueOrEnumValue)?;
+	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedResult)* ('=' result=ValueOrEnumValue)?;
 	
 TableTest:
 	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
-		(headers+=ParameterTableHeader)+ (('|' '=' '|') | '|') (rows+=TableTestRow)+;
+		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)*  (('|' '=' '|') | '|') (rows+=TableTestRow)+;
 		
 TableTestRow:
 	{TableTestRow} (values+=ParameterTableValue)* (('|' '=' result=ValueOrEnumValue '|') | '|');
@@ -54,20 +54,20 @@ TableTestRow:
 ParameterTableHeader:
 	'|' name=ParameterName;
 	
+ResultTableHeader:
+	'|' name=ResultName '=';
+	
 ParameterTableValue:
 	'|' value=ValueOrEnumValue;
 	
-NamedTestResult:
-	name=TestResultName '=' value=ValueOrEnumValue;
+NamedResult:
+	name=ResultName '=' value=ValueOrEnumValue;
 	
-TestResultName:
-	FixedTestResultName | ArbitraryTestResultName;
+ResultName:
+	FixedResultName | ArbitraryParameterOrResultName;
 	
-FixedTestResultName:
+FixedResultName:
 	field=[jvmTypes::JvmField|ID];
-	
-ArbitraryTestResultName:
-	'+' identifier=ID;
 	
 Call:
 	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;
@@ -82,12 +82,12 @@ Parameter:
 	name=ParameterName ':' value=ValueOrEnumValue;
 	
 ParameterName:
-	FixedParameterName | ArbitraryParameterName;
+	FixedParameterName | ArbitraryParameterOrResultName;
 	
 FixedParameterName:
 	annotation=[jvmTypes::JvmAnnotationReference|ID];
 
-ArbitraryParameterName:
+ArbitraryParameterOrResultName:
 	'+' identifier=ID;
 	
 ValueOrEnumValue:

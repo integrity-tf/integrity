@@ -4,6 +4,7 @@
 package de.gebit.integrity.ui.contentassist;
 
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,12 +20,13 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.dsl.ArbitraryParameterName;
+import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
@@ -104,7 +106,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			for (ParameterTableHeader tempHeader : tempTableTest.getHeaders()) {
+			for (ParameterTableHeader tempHeader : tempTableTest.getParameterHeaders()) {
 				tempAlreadyUsedParameters
 						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempHeader.getName()));
 			}
@@ -116,9 +118,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	@Override
 	// SUPPRESS CHECKSTYLE MethodName
-	public void completeTableTest_Headers(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
-			ICompletionProposalAcceptor anAcceptor) {
-		super.completeTableTest_Headers(aModel, anAssignment, aContext, anAcceptor);
+	public void completeTableTest_ParameterHeaders(EObject aModel, Assignment anAssignment,
+			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		super.completeTableTest_ParameterHeaders(aModel, anAssignment, aContext, anAcceptor);
 
 		TableTest tempTableTest = (TableTest) aModel;
 		TestDefinition tempTestDef = tempTableTest.getDefinition();
@@ -128,7 +130,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			for (ParameterTableHeader tempParameterHeader : tempTableTest.getHeaders()) {
+			for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
@@ -147,7 +149,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		TestDefinition tempTestDef = (tempTableTest).getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-			for (ParameterTableHeader tempParameterHeader : tempTableTest.getHeaders()) {
+			for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
@@ -180,26 +182,34 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	@Override
 	// SUPPRESS CHECKSTYLE MethodName
-	public void completeArbitraryParameterName_Identifier(EObject aModel, Assignment anAssignment,
+	public void completeArbitraryParameterOrResultName_Identifier(EObject aModel, Assignment anAssignment,
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
-		super.completeArbitraryParameterName_Identifier(aModel, anAssignment, aContext, anAcceptor);
+		super.completeArbitraryParameterOrResultName_Identifier(aModel, anAssignment, aContext, anAcceptor);
 
 		EObject tempContainer = null;
 		if (aModel instanceof Parameter) {
 			tempContainer = aModel.eContainer();
-		} else if (aModel instanceof ArbitraryParameterName) {
+		} else if (aModel instanceof ArbitraryParameterOrResultName) {
 			tempContainer = aModel.eContainer().eContainer();
 		}
-		Map<String, Object> tempParameterMap = null;
 
+		// We need these parameter and result maps in order to sort out proposals for parameters/results already given
+		Map<String, Object> tempParameterMap = null;
+		Map<String, Object> tempExpectedResultMap = null;
 		MethodReference tempMethodReference = null;
 		if (tempContainer instanceof Test) {
 			Test tempTest = (Test) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null, true);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, true);
+			tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
 			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 		} else if (tempContainer instanceof TableTest) {
 			TableTest tempTest = (TableTest) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null, true);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, true);
+			tempExpectedResultMap = new LinkedHashMap<String, Object>();
+			for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
+				tempExpectedResultMap.put(
+						IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader.getName()), null);
+			}
 			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 		} else if (tempContainer instanceof Call) {
 			Call tempCall = (Call) tempContainer;
@@ -237,6 +247,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							tempFixtureClass, tempMethodReference.getMethod().getSimpleName()), tempFixedParameterMap,
 							false, true);
 
+					// first fetch the arbitrary parameter names...
 					List<ArbitraryParameterDefinition> tempParameterDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
 							.defineArbitraryParameters(tempMethodReference.getMethod().getSimpleName(),
 									tempFixedParameterMap, true);
@@ -247,7 +258,27 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							if (tempParameterDescription.getDescription() != null) {
 								tempDescription += ": " + tempParameterDescription.getDescription();
 							}
-							anAcceptor.accept(createCompletionProposal(tempName, tempDescription, null, aContext));
+							String tempSuffix = (tempContainer instanceof TableTest) ? "" : ": ";
+							anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription, null,
+									aContext));
+						}
+					}
+
+					// ...then add the arbitrary result names
+					if (tempExpectedResultMap != null) {
+						List<ArbitraryParameterDefinition> tempResultDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
+								.defineArbitraryResults(tempMethodReference.getMethod().getSimpleName(),
+										tempFixedParameterMap, true);
+						for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
+							String tempName = tempResultDescription.getName();
+							if (!tempExpectedResultMap.containsKey(tempName)) {
+								String tempDescription = tempName;
+								if (tempResultDescription.getDescription() != null) {
+									tempDescription += ": " + tempResultDescription.getDescription();
+								}
+								anAcceptor.accept(createCompletionProposal(tempName + "=", tempDescription, null,
+										aContext));
+							}
 						}
 					}
 				}
@@ -260,7 +291,6 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			} catch (JavaModelException exc) {
 				exc.printStackTrace();
 			}
-
 		}
 	}
 

@@ -223,7 +223,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 * @return
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
-	public IScope scope_FixedTestResultName_field(Test aTest, EReference aRef) {
+	public IScope scope_FixedResultName_field(Test aTest, EReference aRef) {
 		MethodReference tempMethodRef = aTest.getDefinition().getFixtureMethod();
 
 		if (tempMethodRef != null) {

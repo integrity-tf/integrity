@@ -201,6 +201,13 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.RESULT_TABLE_HEADER:
+      {
+        ResultTableHeader resultTableHeader = (ResultTableHeader)theEObject;
+        T result = caseResultTableHeader(resultTableHeader);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.PARAMETER_TABLE_VALUE:
       {
         ParameterTableValue parameterTableValue = (ParameterTableValue)theEObject;
@@ -208,33 +215,25 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.NAMED_TEST_RESULT:
+      case DslPackage.NAMED_RESULT:
       {
-        NamedTestResult namedTestResult = (NamedTestResult)theEObject;
-        T result = caseNamedTestResult(namedTestResult);
+        NamedResult namedResult = (NamedResult)theEObject;
+        T result = caseNamedResult(namedResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.TEST_RESULT_NAME:
+      case DslPackage.RESULT_NAME:
       {
-        TestResultName testResultName = (TestResultName)theEObject;
-        T result = caseTestResultName(testResultName);
+        ResultName resultName = (ResultName)theEObject;
+        T result = caseResultName(resultName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.FIXED_TEST_RESULT_NAME:
+      case DslPackage.FIXED_RESULT_NAME:
       {
-        FixedTestResultName fixedTestResultName = (FixedTestResultName)theEObject;
-        T result = caseFixedTestResultName(fixedTestResultName);
-        if (result == null) result = caseTestResultName(fixedTestResultName);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case DslPackage.ARBITRARY_TEST_RESULT_NAME:
-      {
-        ArbitraryTestResultName arbitraryTestResultName = (ArbitraryTestResultName)theEObject;
-        T result = caseArbitraryTestResultName(arbitraryTestResultName);
-        if (result == null) result = caseTestResultName(arbitraryTestResultName);
+        FixedResultName fixedResultName = (FixedResultName)theEObject;
+        T result = caseFixedResultName(fixedResultName);
+        if (result == null) result = caseResultName(fixedResultName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -285,11 +284,12 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.ARBITRARY_PARAMETER_NAME:
+      case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME:
       {
-        ArbitraryParameterName arbitraryParameterName = (ArbitraryParameterName)theEObject;
-        T result = caseArbitraryParameterName(arbitraryParameterName);
-        if (result == null) result = caseParameterName(arbitraryParameterName);
+        ArbitraryParameterOrResultName arbitraryParameterOrResultName = (ArbitraryParameterOrResultName)theEObject;
+        T result = caseArbitraryParameterOrResultName(arbitraryParameterOrResultName);
+        if (result == null) result = caseResultName(arbitraryParameterOrResultName);
+        if (result == null) result = caseParameterName(arbitraryParameterOrResultName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -620,6 +620,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Result Table Header</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result Table Header</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResultTableHeader(ResultTableHeader object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Parameter Table Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -636,65 +652,49 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Named Test Result</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Named Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Named Test Result</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Named Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNamedTestResult(NamedTestResult object)
+  public T caseNamedResult(NamedResult object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Test Result Name</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Result Name</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Test Result Name</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Result Name</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTestResultName(TestResultName object)
+  public T caseResultName(ResultName object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Fixed Test Result Name</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Fixed Result Name</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fixed Test Result Name</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Fixed Result Name</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFixedTestResultName(FixedTestResultName object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Arbitrary Test Result Name</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Arbitrary Test Result Name</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseArbitraryTestResultName(ArbitraryTestResultName object)
+  public T caseFixedResultName(FixedResultName object)
   {
     return null;
   }
@@ -796,17 +796,17 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Arbitrary Parameter Name</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Arbitrary Parameter Or Result Name</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Arbitrary Parameter Name</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Arbitrary Parameter Or Result Name</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseArbitraryParameterName(ArbitraryParameterName object)
+  public T caseArbitraryParameterOrResultName(ArbitraryParameterOrResultName object)
   {
     return null;
   }

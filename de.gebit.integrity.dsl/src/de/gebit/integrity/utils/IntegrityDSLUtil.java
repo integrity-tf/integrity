@@ -18,22 +18,21 @@ import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
-import de.gebit.integrity.dsl.ArbitraryParameterName;
-import de.gebit.integrity.dsl.ArbitraryTestResultName;
+import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.FixedParameterName;
-import de.gebit.integrity.dsl.FixedTestResultName;
+import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.NamedTestResult;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.TestResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -106,8 +105,8 @@ public final class IntegrityDSLUtil {
 	public static String getParamNameStringFromParameterName(ParameterName aParameterName) {
 		if (aParameterName instanceof FixedParameterName) {
 			return getParamNameFromAnnotation(((FixedParameterName) aParameterName).getAnnotation());
-		} else if (aParameterName instanceof ArbitraryParameterName) {
-			return ((ArbitraryParameterName) aParameterName).getIdentifier();
+		} else if (aParameterName instanceof ArbitraryParameterOrResultName) {
+			return ((ArbitraryParameterOrResultName) aParameterName).getIdentifier();
 		} else {
 			throw new UnsupportedOperationException("This subtype of ParameterName ("
 					+ aParameterName.getClass().toString() + ") is not supported yet!");
@@ -259,9 +258,9 @@ public final class IntegrityDSLUtil {
 		}
 
 		int tempCount = 0;
-		for (ParameterTableHeader tempParameterHeader : aTableTest.getHeaders()) {
-			tempParameterMap.put(tempParameterHeader.getName(), (tempCount >= aTableTestRow.getValues().size()) ? null
-					: aTableTestRow.getValues().get(tempCount).getValue());
+		for (ParameterTableHeader tempParameterHeader : aTableTest.getParameterHeaders()) {
+			tempParameterMap.put(tempParameterHeader.getName(), (aTableTestRow == null || tempCount >= aTableTestRow
+					.getValues().size()) ? null : aTableTestRow.getValues().get(tempCount).getValue());
 			tempCount++;
 		}
 
@@ -305,7 +304,7 @@ public final class IntegrityDSLUtil {
 						tempValue = null;
 					}
 				}
-				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterName)) {
+				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
 					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
 				}
 			}
@@ -368,19 +367,19 @@ public final class IntegrityDSLUtil {
 	 * @param aVariableMap
 	 *            the variable map containing all currently active variables and their values, or null if no resolution
 	 *            shall be done
-	 * @param anIncludeArbitraryParametersFlag
+	 * @param anIncludeArbitraryResultFlag
 	 *            whether arbitrary results shall be included
 	 * @return a map of Strings to values
 	 */
 	public static Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag) {
-		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryParametersFlag);
+			boolean anIncludeArbitraryResultFlag) {
+		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryResultFlag);
 	}
 
-	private static Map<String, Object> createExpectedResultMap(List<NamedTestResult> aTestResultList,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+	private static Map<String, Object> createExpectedResultMap(List<NamedResult> aTestResultList,
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
 		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
-		for (NamedTestResult tempEntry : aTestResultList) {
+		for (NamedResult tempEntry : aTestResultList) {
 			Object tempValue = tempEntry.getValue();
 			if (tempValue instanceof Variable) {
 				if (aVariableMap != null) {
@@ -389,7 +388,7 @@ public final class IntegrityDSLUtil {
 					tempValue = null;
 				}
 			}
-			if (anIncludeArbitraryParametersFlag || !(tempEntry.getName() instanceof ArbitraryTestResultName)) {
+			if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
 				tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
 						tempEntry.getValue());
 			}
@@ -405,11 +404,11 @@ public final class IntegrityDSLUtil {
 	 *            the result name object
 	 * @return the name string
 	 */
-	public static String getExpectedResultNameStringFromTestResultName(TestResultName aName) {
-		if (aName instanceof FixedTestResultName) {
-			return ((FixedTestResultName) aName).getField().getSimpleName();
-		} else if (aName instanceof ArbitraryTestResultName) {
-			return ((ArbitraryTestResultName) aName).getIdentifier();
+	public static String getExpectedResultNameStringFromTestResultName(ResultName aName) {
+		if (aName instanceof FixedResultName) {
+			return ((FixedResultName) aName).getField().getSimpleName();
+		} else if (aName instanceof ArbitraryParameterOrResultName) {
+			return ((ArbitraryParameterOrResultName) aName).getIdentifier();
 		} else {
 			throw new UnsupportedOperationException("This subtype of TestResultName (" + aName.getClass().getName()
 					+ ") is not supported yet!");

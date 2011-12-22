@@ -10,14 +10,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Test Result Name</b></em>'.
+ * A representation of the model object '<em><b>Result Name</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see de.gebit.integrity.dsl.DslPackage#getTestResultName()
+ * @see de.gebit.integrity.dsl.DslPackage#getResultName()
  * @model
  * @generated
  */
-public interface TestResultName extends EObject
+public interface ResultName extends EObject
 {
-} // TestResultName
+} // ResultName

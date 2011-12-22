@@ -9,6 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.TestDefinition;
@@ -37,7 +38,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getHeaders <em>Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getParameterHeaders <em>Parameter Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getResultHeaders <em>Result Headers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getRows <em>Rows</em>}</li>
  * </ul>
  * </p>
@@ -67,14 +69,24 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
   protected EList<Parameter> parameters;
 
   /**
-   * The cached value of the '{@link #getHeaders() <em>Headers</em>}' containment reference list.
+   * The cached value of the '{@link #getParameterHeaders() <em>Parameter Headers</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getHeaders()
+   * @see #getParameterHeaders()
    * @generated
    * @ordered
    */
-  protected EList<ParameterTableHeader> headers;
+  protected EList<ParameterTableHeader> parameterHeaders;
+
+  /**
+   * The cached value of the '{@link #getResultHeaders() <em>Result Headers</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultHeaders()
+   * @generated
+   * @ordered
+   */
+  protected EList<ResultTableHeader> resultHeaders;
 
   /**
    * The cached value of the '{@link #getRows() <em>Rows</em>}' containment reference list.
@@ -169,13 +181,27 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ParameterTableHeader> getHeaders()
+  public EList<ParameterTableHeader> getParameterHeaders()
   {
-    if (headers == null)
+    if (parameterHeaders == null)
     {
-      headers = new EObjectContainmentEList<ParameterTableHeader>(ParameterTableHeader.class, this, DslPackage.TABLE_TEST__HEADERS);
+      parameterHeaders = new EObjectContainmentEList<ParameterTableHeader>(ParameterTableHeader.class, this, DslPackage.TABLE_TEST__PARAMETER_HEADERS);
     }
-    return headers;
+    return parameterHeaders;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ResultTableHeader> getResultHeaders()
+  {
+    if (resultHeaders == null)
+    {
+      resultHeaders = new EObjectContainmentEList<ResultTableHeader>(ResultTableHeader.class, this, DslPackage.TABLE_TEST__RESULT_HEADERS);
+    }
+    return resultHeaders;
   }
 
   /**
@@ -204,8 +230,10 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
     {
       case DslPackage.TABLE_TEST__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case DslPackage.TABLE_TEST__HEADERS:
-        return ((InternalEList<?>)getHeaders()).basicRemove(otherEnd, msgs);
+      case DslPackage.TABLE_TEST__PARAMETER_HEADERS:
+        return ((InternalEList<?>)getParameterHeaders()).basicRemove(otherEnd, msgs);
+      case DslPackage.TABLE_TEST__RESULT_HEADERS:
+        return ((InternalEList<?>)getResultHeaders()).basicRemove(otherEnd, msgs);
       case DslPackage.TABLE_TEST__ROWS:
         return ((InternalEList<?>)getRows()).basicRemove(otherEnd, msgs);
     }
@@ -227,8 +255,10 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         return basicGetDefinition();
       case DslPackage.TABLE_TEST__PARAMETERS:
         return getParameters();
-      case DslPackage.TABLE_TEST__HEADERS:
-        return getHeaders();
+      case DslPackage.TABLE_TEST__PARAMETER_HEADERS:
+        return getParameterHeaders();
+      case DslPackage.TABLE_TEST__RESULT_HEADERS:
+        return getResultHeaders();
       case DslPackage.TABLE_TEST__ROWS:
         return getRows();
     }
@@ -253,9 +283,13 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         getParameters().clear();
         getParameters().addAll((Collection<? extends Parameter>)newValue);
         return;
-      case DslPackage.TABLE_TEST__HEADERS:
-        getHeaders().clear();
-        getHeaders().addAll((Collection<? extends ParameterTableHeader>)newValue);
+      case DslPackage.TABLE_TEST__PARAMETER_HEADERS:
+        getParameterHeaders().clear();
+        getParameterHeaders().addAll((Collection<? extends ParameterTableHeader>)newValue);
+        return;
+      case DslPackage.TABLE_TEST__RESULT_HEADERS:
+        getResultHeaders().clear();
+        getResultHeaders().addAll((Collection<? extends ResultTableHeader>)newValue);
         return;
       case DslPackage.TABLE_TEST__ROWS:
         getRows().clear();
@@ -281,8 +315,11 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
       case DslPackage.TABLE_TEST__PARAMETERS:
         getParameters().clear();
         return;
-      case DslPackage.TABLE_TEST__HEADERS:
-        getHeaders().clear();
+      case DslPackage.TABLE_TEST__PARAMETER_HEADERS:
+        getParameterHeaders().clear();
+        return;
+      case DslPackage.TABLE_TEST__RESULT_HEADERS:
+        getResultHeaders().clear();
         return;
       case DslPackage.TABLE_TEST__ROWS:
         getRows().clear();
@@ -305,8 +342,10 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         return definition != null;
       case DslPackage.TABLE_TEST__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
-      case DslPackage.TABLE_TEST__HEADERS:
-        return headers != null && !headers.isEmpty();
+      case DslPackage.TABLE_TEST__PARAMETER_HEADERS:
+        return parameterHeaders != null && !parameterHeaders.isEmpty();
+      case DslPackage.TABLE_TEST__RESULT_HEADERS:
+        return resultHeaders != null && !resultHeaders.isEmpty();
       case DslPackage.TABLE_TEST__ROWS:
         return rows != null && !rows.isEmpty();
     }

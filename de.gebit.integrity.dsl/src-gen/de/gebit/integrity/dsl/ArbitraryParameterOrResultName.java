@@ -9,21 +9,21 @@ package de.gebit.integrity.dsl;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Arbitrary Parameter Name</b></em>'.
+ * A representation of the model object '<em><b>Arbitrary Parameter Or Result Name</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.ArbitraryParameterName#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getIdentifier <em>Identifier</em>}</li>
  * </ul>
  * </p>
  *
- * @see de.gebit.integrity.dsl.DslPackage#getArbitraryParameterName()
+ * @see de.gebit.integrity.dsl.DslPackage#getArbitraryParameterOrResultName()
  * @model
  * @generated
  */
-public interface ArbitraryParameterName extends ParameterName
+public interface ArbitraryParameterOrResultName extends ResultName, ParameterName
 {
   /**
    * Returns the value of the '<em><b>Identifier</b></em>' attribute.
@@ -35,14 +35,14 @@ public interface ArbitraryParameterName extends ParameterName
    * <!-- end-user-doc -->
    * @return the value of the '<em>Identifier</em>' attribute.
    * @see #setIdentifier(String)
-   * @see de.gebit.integrity.dsl.DslPackage#getArbitraryParameterName_Identifier()
+   * @see de.gebit.integrity.dsl.DslPackage#getArbitraryParameterOrResultName_Identifier()
    * @model
    * @generated
    */
   String getIdentifier();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.ArbitraryParameterName#getIdentifier <em>Identifier</em>}' attribute.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getIdentifier <em>Identifier</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Identifier</em>' attribute.
@@ -51,4 +51,4 @@ public interface ArbitraryParameterName extends ParameterName
    */
   void setIdentifier(String value);
 
-} // ArbitraryParameterName
+} // ArbitraryParameterOrResultName

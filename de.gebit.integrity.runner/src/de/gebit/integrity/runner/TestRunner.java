@@ -17,7 +17,8 @@ import org.eclipse.xtext.common.types.JvmType;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.NamedTestResult;
+import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -301,7 +302,7 @@ public class TestRunner {
 		Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
 		if (currentPhase == Phase.DRY_RUN) {
 			if (aTest.getResults() != null && aTest.getResults().size() > 0) {
-				for (NamedTestResult tempNamedResult : aTest.getResults()) {
+				for (NamedResult tempNamedResult : aTest.getResults()) {
 					String tempParameter = IntegrityDSLUtil
 							.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 					tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
@@ -328,18 +329,18 @@ public class TestRunner {
 					Map<String, Object> tempFixtureResultMap = ParameterUtil
 							.getValuesFromNamedResultContainer(tempFixtureResult);
 
-					for (NamedTestResult tempNamedResult : aTest.getResults()) {
-						String tempParameter = IntegrityDSLUtil
+					for (NamedResult tempNamedResult : aTest.getResults()) {
+						String tempResultName = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
-						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempParameter);
+						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 						if (compareResult(tempSingleFixtureResult, tempNamedResult.getValue())) {
-							tempComparisonResult = new TestComparisonSuccessResult(tempParameter,
+							tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
 									tempSingleFixtureResult, tempNamedResult.getValue());
 						} else {
-							tempComparisonResult = new TestComparisonFailureResult(tempParameter,
+							tempComparisonResult = new TestComparisonFailureResult(tempResultName,
 									tempSingleFixtureResult, tempNamedResult.getValue());
 						}
-						tempComparisonMap.put(tempParameter, tempComparisonResult);
+						tempComparisonMap.put(tempResultName, tempComparisonResult);
 					}
 				} else {
 					if (compareResult(tempFixtureResult, aTest.getResult())) {
@@ -398,33 +399,91 @@ public class TestRunner {
 			Long tempDuration = null;
 
 			if (currentPhase == Phase.DRY_RUN) {
-				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-						tempRow.getResult());
+				if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+					int tempColumn = aTest.getParameterHeaders().size();
+					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+						String tempParameter = IntegrityDSLUtil
+								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+						ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+								.getValues().get(tempColumn).getValue() : null;
+						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
+						tempComparisonMap.put(tempParameter, tempComparisonResult);
+
+						tempColumn++;
+					}
+				} else {
+					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempRow.getResult());
+					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+				}
 			} else {
 				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
 						variableStorage, true);
 
 				long tempStart = System.nanoTime();
 				try {
-					Object tempResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(), tempParameters);
+					Object tempFixtureResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
+							tempParameters);
 					tempDuration = System.nanoTime() - tempStart;
 
-					if (compareResult(tempResult, tempRow.getResult())) {
-						tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-								tempResult, tempRow.getResult());
+					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+						Map<String, Object> tempFixtureResultMap = ParameterUtil
+								.getValuesFromNamedResultContainer(tempFixtureResult);
+
+						int tempColumn = aTest.getParameterHeaders().size();
+						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+							String tempResultName = IntegrityDSLUtil
+									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+							ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+									.getValues().get(tempColumn).getValue() : null;
+
+							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
+
+							if (compareResult(tempSingleFixtureResult, tempExpectedValue)) {
+								tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
+										tempSingleFixtureResult, tempExpectedValue);
+							} else {
+								tempComparisonResult = new TestComparisonFailureResult(tempResultName,
+										tempSingleFixtureResult, tempExpectedValue);
+							}
+							tempComparisonMap.put(tempResultName, tempComparisonResult);
+
+							tempColumn++;
+						}
 					} else {
-						tempComparisonResult = new TestComparisonFailureResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-								tempResult, tempRow.getResult());
+						if (compareResult(tempFixtureResult, tempRow.getResult())) {
+							tempComparisonResult = new TestComparisonSuccessResult(
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempRow.getResult());
+						} else {
+							tempComparisonResult = new TestComparisonFailureResult(
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempRow.getResult());
+						}
+						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 				} catch (Exception e) {
 					tempDuration = System.nanoTime() - tempStart;
 					tempException = e;
-					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-							tempRow.getResult());
+					// add undetermined result entries for all comparisons
+					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+						int tempColumn = aTest.getParameterHeaders().size();
+						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+							String tempResultName = IntegrityDSLUtil
+									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+							ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+									.getValues().get(tempColumn).getValue() : null;
+							tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
+									tempExpectedValue);
+							tempComparisonMap.put(tempResultName, tempComparisonResult);
+							tempColumn++;
+						}
+					} else {
+						tempComparisonResult = new TestComparisonUndeterminedResult(
+								ParameterUtil.DEFAULT_PARAMETER_NAME, tempRow.getResult());
+						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+					}
 				}
 			}
 
-			tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 			TestSubResult tempSubResult;
 
 			if (tempException != null) {
@@ -483,8 +542,8 @@ public class TestRunner {
 
 		CallResult tempReturn;
 		if (currentPhase == Phase.DRY_RUN) {
-			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(aCall.getResult() != null ? aCall
-					.getResult().getName() : null);
+			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(
+					aCall.getResult() != null ? aCall.getResult().getName() : null);
 		} else {
 			pauseIfRequiredByRemoteClient();
 
@@ -496,15 +555,16 @@ public class TestRunner {
 				long tempDuration = System.nanoTime() - tempStart;
 
 				if (aCall.getResult() == null) {
-					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, null, tempDuration);
+					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, null,
+							tempDuration);
 				} else {
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, aCall.getResult()
 							.getName(), tempDuration);
 					variableStorage.put(aCall.getResult().getName(), tempResult);
 				}
 			} catch (Exception e) {
-				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(e, aCall.getResult() != null ? aCall
-						.getResult().getName() : null, System.nanoTime() - tempStart);
+				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(e,
+						aCall.getResult() != null ? aCall.getResult().getName() : null, System.nanoTime() - tempStart);
 			}
 		}
 

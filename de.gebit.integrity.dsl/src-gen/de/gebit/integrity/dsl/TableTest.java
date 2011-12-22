@@ -18,7 +18,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getParameters <em>Parameters</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.TableTest#getHeaders <em>Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TableTest#getParameterHeaders <em>Parameter Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TableTest#getResultHeaders <em>Result Headers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getRows <em>Rows</em>}</li>
  * </ul>
  * </p>
@@ -72,20 +73,36 @@ public interface TableTest extends SuiteStatementWithResult
   EList<Parameter> getParameters();
 
   /**
-   * Returns the value of the '<em><b>Headers</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Parameter Headers</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.ParameterTableHeader}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Headers</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Parameter Headers</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Headers</em>' containment reference list.
-   * @see de.gebit.integrity.dsl.DslPackage#getTableTest_Headers()
+   * @return the value of the '<em>Parameter Headers</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getTableTest_ParameterHeaders()
    * @model containment="true"
    * @generated
    */
-  EList<ParameterTableHeader> getHeaders();
+  EList<ParameterTableHeader> getParameterHeaders();
+
+  /**
+   * Returns the value of the '<em><b>Result Headers</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.ResultTableHeader}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Result Headers</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Result Headers</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getTableTest_ResultHeaders()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ResultTableHeader> getResultHeaders();
 
   /**
    * Returns the value of the '<em><b>Rows</b></em>' containment reference list.

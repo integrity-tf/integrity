@@ -7,7 +7,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.FixedTestResultName;
+import de.gebit.integrity.dsl.FixedResultName;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -20,18 +20,18 @@ import org.eclipse.xtext.common.types.JvmField;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Fixed Test Result Name</b></em>'.
+ * An implementation of the model object '<em><b>Fixed Result Name</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.FixedTestResultNameImpl#getField <em>Field</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.FixedResultNameImpl#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FixedTestResultNameImpl extends TestResultNameImpl implements FixedTestResultName
+public class FixedResultNameImpl extends ResultNameImpl implements FixedResultName
 {
   /**
    * The cached value of the '{@link #getField() <em>Field</em>}' reference.
@@ -48,7 +48,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FixedTestResultNameImpl()
+  protected FixedResultNameImpl()
   {
     super();
   }
@@ -61,7 +61,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.FIXED_TEST_RESULT_NAME;
+    return DslPackage.Literals.FIXED_RESULT_NAME;
   }
 
   /**
@@ -78,7 +78,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
       if (field != oldField)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.FIXED_TEST_RESULT_NAME__FIELD, oldField, field));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.FIXED_RESULT_NAME__FIELD, oldField, field));
       }
     }
     return field;
@@ -104,7 +104,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
     JvmField oldField = field;
     field = newField;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FIXED_TEST_RESULT_NAME__FIELD, oldField, field));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FIXED_RESULT_NAME__FIELD, oldField, field));
   }
 
   /**
@@ -117,7 +117,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
   {
     switch (featureID)
     {
-      case DslPackage.FIXED_TEST_RESULT_NAME__FIELD:
+      case DslPackage.FIXED_RESULT_NAME__FIELD:
         if (resolve) return getField();
         return basicGetField();
     }
@@ -134,7 +134,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
   {
     switch (featureID)
     {
-      case DslPackage.FIXED_TEST_RESULT_NAME__FIELD:
+      case DslPackage.FIXED_RESULT_NAME__FIELD:
         setField((JvmField)newValue);
         return;
     }
@@ -151,7 +151,7 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
   {
     switch (featureID)
     {
-      case DslPackage.FIXED_TEST_RESULT_NAME__FIELD:
+      case DslPackage.FIXED_RESULT_NAME__FIELD:
         setField((JvmField)null);
         return;
     }
@@ -168,10 +168,10 @@ public class FixedTestResultNameImpl extends TestResultNameImpl implements Fixed
   {
     switch (featureID)
     {
-      case DslPackage.FIXED_TEST_RESULT_NAME__FIELD:
+      case DslPackage.FIXED_RESULT_NAME__FIELD:
         return field != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //FixedTestResultNameImpl
+} //FixedResultNameImpl

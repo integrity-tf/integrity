@@ -73,7 +73,7 @@ public interface Test extends SuiteStatementWithResult
 
   /**
    * Returns the value of the '<em><b>Results</b></em>' containment reference list.
-   * The list contents are of type {@link de.gebit.integrity.dsl.NamedTestResult}.
+   * The list contents are of type {@link de.gebit.integrity.dsl.NamedResult}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
@@ -85,7 +85,7 @@ public interface Test extends SuiteStatementWithResult
    * @model containment="true"
    * @generated
    */
-  EList<NamedTestResult> getResults();
+  EList<NamedResult> getResults();
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' containment reference.
