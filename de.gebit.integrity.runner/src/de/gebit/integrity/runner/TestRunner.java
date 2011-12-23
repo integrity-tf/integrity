@@ -16,6 +16,7 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.DslFactory;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
@@ -45,6 +46,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
+import de.gebit.integrity.runner.forking.Fork;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -95,6 +97,8 @@ public class TestRunner {
 	protected IntegrityRemotingServer remotingServer;
 
 	protected RemotingListener remotingListener;
+
+	protected Map<ForkDefinition, Fork> forkMap;
 
 	public TestRunner(TestModel aModel, TestRunnerCallback aCallback, Integer aRemotingPort) throws IOException {
 		model = aModel;
