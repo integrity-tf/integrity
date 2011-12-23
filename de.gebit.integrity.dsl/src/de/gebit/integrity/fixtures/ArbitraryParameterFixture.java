@@ -46,6 +46,15 @@ public abstract class ArbitraryParameterFixture extends Fixture {
 	public abstract List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureMethodName,
 			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag);
 
+	/**
+	 * Returns a list of valid result names. This basically works like
+	 * {@link #defineArbitraryParameters(String, Map, boolean)}, but is used to determine named result identifiers.
+	 * 
+	 * @param aFixtureMethodName
+	 * @param someFixedParameters
+	 * @param aCalledInEclipseFlag
+	 * @return
+	 */
 	public abstract List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureMethodName,
 			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag);
 
