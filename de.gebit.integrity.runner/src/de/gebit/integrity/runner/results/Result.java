@@ -1,5 +1,12 @@
 package de.gebit.integrity.runner.results;
 
+/**
+ * Abstract base class for results.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class Result {
 
 	private Long executionTime;

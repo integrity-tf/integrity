@@ -4,6 +4,13 @@ import java.util.List;
 
 import de.gebit.integrity.runner.results.Result;
 
+/**
+ * Base class for test results.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class TestResult extends Result {
 
 	private List<TestSubResult> subResults;

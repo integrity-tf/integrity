@@ -59,6 +59,13 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 
+/**
+ * The test runner executes tests. This class is the core of the Integrity runtime system.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class TestRunner {
 
 	protected TestModel model;
@@ -352,9 +359,10 @@ public class TestRunner {
 					}
 					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
-			} catch (Exception e) {
+				// SUPPRESS CHECKSTYLE IllegalCatch
+			} catch (Exception exc) {
 				tempDuration = System.nanoTime() - tempStart;
-				tempException = e;
+				tempException = exc;
 				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 						aTest.getResult());
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
@@ -460,9 +468,10 @@ public class TestRunner {
 						}
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
-				} catch (Exception e) {
+					// SUPPRESS CHECKSTYLE IllegalCatch
+				} catch (Exception exc) {
 					tempDuration = System.nanoTime() - tempStart;
-					tempException = e;
+					tempException = exc;
 					// add undetermined result entries for all comparisons
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
 						int tempColumn = aTest.getParameterHeaders().size();
@@ -562,8 +571,9 @@ public class TestRunner {
 							.getName(), tempDuration);
 					variableStorage.put(aCall.getResult().getName(), tempResult);
 				}
-			} catch (Exception e) {
-				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(e,
+				// SUPPRESS CHECKSTYLE IllegalCatch
+			} catch (Exception exc) {
+				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc,
 						aCall.getResult() != null ? aCall.getResult().getName() : null, System.nanoTime() - tempStart);
 			}
 		}
@@ -637,6 +647,13 @@ public class TestRunner {
 		return tempResults;
 	}
 
+	/**
+	 * Test execution is splitted in phases.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected enum Phase {
 
 		DRY_RUN,
@@ -692,6 +709,13 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * The listener used to respond on actions triggered by remoting clients.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected class RemotingListener implements IntegrityRemotingServerListener {
 
 		@Override

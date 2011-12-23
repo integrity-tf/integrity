@@ -49,6 +49,14 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.TestFormatter;
 
+/**
+ * Test runner callback which writes to an XML result file. This runner may optionally add an XHTML transform to the
+ * file which allows to render the results in a nice, readable layout in any good browser.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	private ClassLoader classLoader;
@@ -168,36 +176,36 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
 		try {
 			outputFile.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException exc) {
+			exc.printStackTrace();
 		}
 	}
 
 	@Override
 	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
-		Element rootElement = new Element(ROOT_ELEMENT);
-		rootElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
-		rootElement.setAttribute(TEST_RUN_NAME_ATTRIBUTE, title);
-		rootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
-		document = new Document(rootElement);
-		currentElement.push(rootElement);
+		Element tempRootElement = new Element(ROOT_ELEMENT);
+		tempRootElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
+		tempRootElement.setAttribute(TEST_RUN_NAME_ATTRIBUTE, title);
+		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
+		document = new Document(tempRootElement);
+		currentElement.push(tempRootElement);
 
 		if (embedXhtmlTransform) {
 			try {
-				Document transform = new SAXBuilder().build(getClass().getClassLoader().getResourceAsStream(
+				Document tempTransform = new SAXBuilder().build(getClass().getClassLoader().getResourceAsStream(
 						"static/xhtml.xslt"));
-				rootElement.addContent(0, transform.getRootElement().detach());
+				tempRootElement.addContent(0, tempTransform.getRootElement().detach());
 
-				DocType docType = new DocType("doc");
-				docType.setInternalSubset("<!ATTLIST xsl:stylesheet\nid ID #REQUIRED>");
-				document.setDocType(docType);
+				DocType tempDocType = new DocType("doc");
+				tempDocType.setInternalSubset("<!ATTLIST xsl:stylesheet\nid ID #REQUIRED>");
+				document.setDocType(tempDocType);
 
-				HashMap<String, String> processingInstructionMap = new HashMap<String, String>(2);
-				processingInstructionMap.put("type", "text/xsl");
-				processingInstructionMap.put("href", "#xhtmltransform");
-				ProcessingInstruction processingInstruction = new ProcessingInstruction("xml-stylesheet",
-						processingInstructionMap);
-				document.addContent(0, processingInstruction);
+				HashMap<String, String> tempProcessingInstructionMap = new HashMap<String, String>(2);
+				tempProcessingInstructionMap.put("type", "text/xsl");
+				tempProcessingInstructionMap.put("href", "#xhtmltransform");
+				ProcessingInstruction tempProcessingInstruction = new ProcessingInstruction("xml-stylesheet",
+						tempProcessingInstructionMap);
+				document.addContent(0, tempProcessingInstruction);
 			} catch (JDOMException exc) {
 				exc.printStackTrace();
 			} catch (IOException exc) {
@@ -259,9 +267,9 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.testToHumanReadableString(aTest, variableStorage));
-		} catch (ClassNotFoundException e) {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
@@ -278,9 +286,9 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.tableTestToHumanReadableString(aTest, variableStorage));
-		} catch (ClassNotFoundException e) {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
@@ -359,9 +367,9 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		try {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
-		} catch (ClassNotFoundException e) {
-			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 
 		if (aSubResult instanceof TestExceptionSubResult) {
@@ -413,24 +421,24 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		try {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
 					formatter.callToHumanReadableString(aCall, variableStorage));
-		} catch (ClassNotFoundException e) {
-			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 		tempCallElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aCall.getDefinition().getFixtureMethod()));
 
-		Element parameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
-		for (Parameter parameter : aCall.getParameters()) {
-			Element parameterElement = new Element(PARAMETER_ELEMENT);
-			parameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
-					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
-			parameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage, false));
+		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
+		for (Parameter tempParameter : aCall.getParameters()) {
+			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
+			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
+					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
+					ParameterUtil.convertValueToString(tempParameter.getValue(), variableStorage, false));
 
-			parameterCollectionElement.addContent(parameterElement);
+			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
-		tempCallElement.addContent(parameterCollectionElement);
+		tempCallElement.addContent(tempParameterCollectionElement);
 
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(tempCallElement);
@@ -446,20 +454,20 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 			if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
-				de.gebit.integrity.runner.results.call.SuccessResult result = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
+				de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
 				tempCallResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
 						ParameterUtil.convertValueToString(aResult, variableStorage, false));
-				if (result.getTargetVariable() != null) {
-					tempCallResultElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, result.getTargetVariable().getName());
+				if (tempResult.getTargetVariable() != null) {
+					tempCallResultElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, tempResult.getTargetVariable()
+							.getName());
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
 				tempCallResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
 						((de.gebit.integrity.runner.results.call.ExceptionResult) aResult).getException().getMessage());
-				tempCallResultElement
-						.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
-								stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
-										.getException()));
+				tempCallResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
+						stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
+								.getException()));
 			}
 			currentElement.peek().addContent(tempCallResultElement);
 		}
@@ -513,9 +521,9 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 			exc.printStackTrace();
 			return;
 		}
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
 		try {
-			serializer.output(document, tempOutputStream);
+			tempSerializer.output(document, tempOutputStream);
 		} catch (IOException exc) {
 			exc.printStackTrace();
 		} finally {
@@ -551,11 +559,14 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 			tempResult = tempStringWriter.toString();
 		} finally {
 			try {
-				if (tempPrintWriter != null)
+				if (tempPrintWriter != null) {
 					tempPrintWriter.close();
-				if (tempStringWriter != null)
+				}
+				if (tempStringWriter != null) {
 					tempStringWriter.close();
+				}
 			} catch (IOException exc) {
+				// nothing to do, since this cannot happen
 			}
 		}
 		return tempResult;

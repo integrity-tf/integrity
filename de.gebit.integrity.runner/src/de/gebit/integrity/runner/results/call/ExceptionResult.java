@@ -5,6 +5,13 @@ import java.io.PrintWriter;
 
 import de.gebit.integrity.dsl.VariableEntity;
 
+/**
+ * The result returned if a call resulted in an exception.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class ExceptionResult extends CallResult {
 
 	private Exception exception;

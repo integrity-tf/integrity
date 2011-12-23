@@ -2,6 +2,14 @@ package de.gebit.integrity.runner.results.test;
 
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 
+/**
+ * Basic class for test comparisons. A single test consists of one or more comparisons, each with an expected and actual
+ * result.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class TestComparisonResult {
 
 	private String parameter;

@@ -13,48 +13,120 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
-import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ParameterUtil;
 
+/**
+ * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
+ * This is usually done by using the descriptions attached to fixtures.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class TestFormatter {
 
+	/**
+	 * Escape pattern for parameters in descriptions.
+	 */
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
-	ClassLoader classloader = getClass().getClassLoader();
+	/**
+	 * The classloader to use.
+	 */
+	private ClassLoader classloader = getClass().getClassLoader();
 
-	public TestFormatter(ClassLoader classloader) {
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aClassloader
+	 *            the classloader to use
+	 */
+	public TestFormatter(ClassLoader aClassloader) {
 		super();
-		this.classloader = classloader;
+		classloader = aClassloader;
 	}
 
 	public void setClassloader(ClassLoader aClassloader) {
 		classloader = aClassloader;
 	}
 
+	/**
+	 * Creates a human-readable string for a test.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aVariableMap
+	 *            the variables
+	 * @return the human-readable test description
+	 * @throws ClassNotFoundException
+	 */
 	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
 				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, true), false);
 	}
 
+	/**
+	 * Creates a human-readable string for a tabletest.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aRow
+	 *            the row (may be null if the string shall be for the whole test)
+	 * @param aVariableMap
+	 *            the variable map
+	 * @return the human-readable description
+	 * @throws ClassNotFoundException
+	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
 				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, true), false);
 	}
 
+	/**
+	 * Creates a human-readable string for a tabletest.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aVariableMap
+	 *            the variable map
+	 * @return the human-readable string
+	 * @throws ClassNotFoundException
+	 */
 	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
 				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, true), true);
 	}
 
+	/**
+	 * Creates a human-readable string for a call.
+	 * 
+	 * @param aCall
+	 *            the call
+	 * @param aVariableMap
+	 *            the variable map
+	 * @return the human-readable string
+	 * @throws ClassNotFoundException
+	 */
 	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
 				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, true), false);
 	}
 
+	/**
+	 * Creates a human-readable string for a fixture method.
+	 * 
+	 * @param aFixtureMethod
+	 *            the fixture method
+	 * @param someParameters
+	 *            a map of parameters used for the test
+	 * @param anExpectUnspecifiedParametersFlag
+	 *            whether unspecified parameters shall result in "???" replacements
+	 * @return the human-readable string
+	 * @throws ClassNotFoundException
+	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
 			Map<String, Object> someParameters, boolean anExpectUnspecifiedParametersFlag)
 			throws ClassNotFoundException {

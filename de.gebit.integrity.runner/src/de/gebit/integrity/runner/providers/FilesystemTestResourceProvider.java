@@ -8,6 +8,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * A resource provider which reads test files from the filesystem, either from one or more flat directories or
+ * optionally in a recursive way.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class FilesystemTestResourceProvider implements TestResourceProvider {
 
 	private Set<String> resourceFiles = new HashSet<String>();
@@ -53,8 +61,8 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 		if (resourceFiles.contains(aResourceName)) {
 			try {
 				return new FileInputStream(new File(aResourceName));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+			} catch (FileNotFoundException exc) {
+				exc.printStackTrace();
 				return null;
 			}
 		}

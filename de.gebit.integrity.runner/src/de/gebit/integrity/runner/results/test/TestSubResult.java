@@ -4,13 +4,21 @@ import java.util.Map;
 
 import de.gebit.integrity.runner.results.Result;
 
+/**
+ * Tests have one or more sub-results, with standard tests always having one, but tabletests potentially having more of
+ * them, one for each row.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class TestSubResult extends Result {
 
 	private Map<String, TestComparisonResult> comparisonResults;
 
-	public TestSubResult(Map<String, TestComparisonResult> comparisonResults, Long anExecutionTime) {
+	public TestSubResult(Map<String, TestComparisonResult> someComparisonResults, Long anExecutionTime) {
 		super(anExecutionTime);
-		this.comparisonResults = comparisonResults;
+		this.comparisonResults = someComparisonResults;
 	}
 
 	public Map<String, TestComparisonResult> getComparisonResults() {

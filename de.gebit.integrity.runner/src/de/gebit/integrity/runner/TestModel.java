@@ -34,6 +34,13 @@ import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
+/**
+ * The test model. There's not much more to say ;-)
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class TestModel {
 
 	protected List<Model> models;
@@ -99,86 +106,86 @@ public class TestModel {
 	}
 
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider) throws ModelLoadException {
-		Injector injector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
+		Injector tempInjector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
 				.createInjectorAndDoEMFRegistration();
 
-		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
-		IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
+		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
+		IResourceFactory tempResourceFactory = tempInjector.getInstance(IResourceFactory.class);
 		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
 		List<Model> tempModels = new LinkedList<Model>();
 
 		for (String tempResourceName : aResourceProvider.getResourceNames()) {
-			URI uri = URI.createPlatformResourceURI(tempResourceName, true);
-			XtextResource resource = (XtextResource) resourceFactory.createResource(uri);
-			resourceSet.getResources().add(resource);
+			URI tempUri = URI.createPlatformResourceURI(tempResourceName, true);
+			XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
+			tempResourceSet.getResources().add(tempResource);
 			try {
-				resource.load(aResourceProvider.openResource(tempResourceName), null);
-			} catch (IOException e) {
-				throw new ModelLoadException("Encountered an I/O problem during model parsing.", e);
+				tempResource.load(aResourceProvider.openResource(tempResourceName), null);
+			} catch (IOException exc) {
+				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
 			}
 
-			System.out.println("Loaded test resource '" + tempResourceName + "': " + resource.getErrors().size()
+			System.out.println("Loaded test resource '" + tempResourceName + "': " + tempResource.getErrors().size()
 					+ " errors.");
-			tempErrors.addAll(resource.getErrors());
+			tempErrors.addAll(tempResource.getErrors());
 
-			tempModels.add((Model) resource.getParseResult().getRootASTElement());
+			tempModels.add((Model) tempResource.getParseResult().getRootASTElement());
 		}
 
-		EcoreUtil.resolveAll(resourceSet);
+		EcoreUtil.resolveAll(tempResourceSet);
 
 		if (!tempErrors.isEmpty()) {
 			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
 					tempErrors);
 		}
 
-		Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(resourceSet);
+		Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);
 		if (tempUnresolvedProxies.size() > 0) {
 			throw new ModelLinkException("Encountered " + tempUnresolvedProxies.size()
 					+ " unresolvable references while linking test model.", tempUnresolvedProxies);
 		}
 
-		return new TestModel(tempModels, injector, aResourceProvider.getClassLoader());
+		return new TestModel(tempModels, tempInjector, aResourceProvider.getClassLoader());
 	}
 
 	/**
 	 * Searches for all unresolved proxy objects in the given resource set.
 	 * 
-	 * @param resourceSet
+	 * @param aResourceSet
 	 * 
 	 * @return all proxy objects that are not resolvable
 	 */
-	protected static Set<EObject> findUnresolvedProxies(ResourceSet resourceSet) {
-		Set<EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+	protected static Set<EObject> findUnresolvedProxies(ResourceSet aResourceSet) {
+		Set<EObject> tempUnresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
 
-		for (Resource resource : resourceSet.getResources()) {
-			unresolvedProxies.addAll(findUnresolvedProxies(resource));
+		for (Resource tempResource : aResourceSet.getResources()) {
+			tempUnresolvedProxies.addAll(findUnresolvedProxies(tempResource));
 		}
-		return unresolvedProxies;
+		return tempUnresolvedProxies;
 	}
 
 	/**
 	 * Searches for all unresolved proxy objects in the given resource.
 	 * 
-	 * @param resource
+	 * @param aResource
 	 * 
 	 * @return all proxy objects that are not resolvable
 	 */
-	protected static Set<EObject> findUnresolvedProxies(Resource resource) {
-		Set<EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+	protected static Set<EObject> findUnresolvedProxies(Resource aResource) {
+		Set<EObject> tempUnresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
 
-		for (Iterator<EObject> elementIt = EcoreUtil.getAllContents(resource, true); elementIt.hasNext();) {
-			InternalEObject nextElement = (InternalEObject) elementIt.next();
-			if (nextElement.eIsProxy()) {
-				unresolvedProxies.add(nextElement);
+		for (Iterator<EObject> tempIterator = EcoreUtil.getAllContents(aResource, true); tempIterator.hasNext();) {
+			InternalEObject tempNextElement = (InternalEObject) tempIterator.next();
+			if (tempNextElement.eIsProxy()) {
+				tempUnresolvedProxies.add(tempNextElement);
 			}
-			for (EObject crElement : nextElement.eCrossReferences()) {
-				crElement = EcoreUtil.resolve(crElement, resource);
-				if (crElement.eIsProxy()) {
-					unresolvedProxies.add(crElement);
+			for (EObject tempElement : tempNextElement.eCrossReferences()) {
+				tempElement = EcoreUtil.resolve(tempElement, aResource);
+				if (tempElement.eIsProxy()) {
+					tempUnresolvedProxies.add(tempElement);
 				}
 			}
 		}
-		return unresolvedProxies;
+		return tempUnresolvedProxies;
 	}
 
 	public Injector getInjector() {

@@ -25,7 +25,18 @@ import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
-public class ConsoleTestExecutor {
+/**
+ * A basic program to run Integrity tests from the console.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
+public final class ConsoleTestExecutor {
+
+	private ConsoleTestExecutor() {
+		// is not instantiated
+	}
 
 	private static void printUsage() {
 		System.err
@@ -42,31 +53,33 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
-	 * @param args
+	 * Main method.
+	 * 
+	 * @param someArgs
 	 */
-	public static void main(String[] args) {
-		CmdLineParser parser = new CmdLineParser();
-		CmdLineParser.Option consoleOption = parser.addBooleanOption('c', "console");
-		CmdLineParser.Option xmlOption = parser.addStringOption('x', "xml");
-		CmdLineParser.Option xsltOption = parser.addBooleanOption("xslt");
-		CmdLineParser.Option nameOption = parser.addStringOption('n', "name");
-		CmdLineParser.Option noremoteOption = parser.addBooleanOption("noremote");
-		CmdLineParser.Option remoteportOption = parser.addIntegerOption('r', "remoteport");
-		CmdLineParser.Option waitForPlayOption = parser.addBooleanOption('w', "wait");
+	public static void main(String[] someArgs) {
+		CmdLineParser tempParser = new CmdLineParser();
+		CmdLineParser.Option tempConsoleOption = tempParser.addBooleanOption('c', "console");
+		CmdLineParser.Option tempXmlOption = tempParser.addStringOption('x', "xml");
+		CmdLineParser.Option tempXsltOption = tempParser.addBooleanOption("xslt");
+		CmdLineParser.Option tempNameOption = tempParser.addStringOption('n', "name");
+		CmdLineParser.Option tempNoremoteOption = tempParser.addBooleanOption("noremote");
+		CmdLineParser.Option tempRemoteportOption = tempParser.addIntegerOption('r', "remoteport");
+		CmdLineParser.Option tempWaitForPlayOption = tempParser.addBooleanOption('w', "wait");
 
 		try {
-			parser.parse(args);
-		} catch (CmdLineParser.OptionException e) {
-			System.err.println(e.getMessage());
+			tempParser.parse(someArgs);
+		} catch (CmdLineParser.OptionException exc) {
+			System.err.println(exc.getMessage());
 			printUsage();
 			System.exit(2);
 		}
 
-		String tempExecutionName = (String) parser.getOptionValue(nameOption, "unnamed");
-		String tempRootSuiteName = parser.getRemainingArgs()[0];
+		String tempExecutionName = (String) tempParser.getOptionValue(tempNameOption, "unnamed");
+		String tempRootSuiteName = tempParser.getRemainingArgs()[0];
 		ArrayList<File> tempTestPaths = new ArrayList<File>();
-		for (int i = 1; i < parser.getRemainingArgs().length; i++) {
-			tempTestPaths.add(new File(parser.getRemainingArgs()[i]));
+		for (int i = 1; i < tempParser.getRemainingArgs().length; i++) {
+			tempTestPaths.add(new File(tempParser.getRemainingArgs()[i]));
 		}
 
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempTestPaths, true);
@@ -82,42 +95,43 @@ public class ConsoleTestExecutor {
 				Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 				tempRootSuiteCall.setDefinition(tempRootSuite);
 
-				CompoundTestRunnerCallback callback = new CompoundTestRunnerCallback();
-				if ((Boolean) parser.getOptionValue(consoleOption, Boolean.FALSE)) {
-					callback.addCallback(new ConsoleTestCallback(tempResourceProvider.getClassLoader()));
+				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
+				if ((Boolean) tempParser.getOptionValue(tempConsoleOption, Boolean.FALSE)) {
+					tempCallback.addCallback(new ConsoleTestCallback(tempResourceProvider.getClassLoader()));
 				}
-				String xmlFileName = (String) parser.getOptionValue(xmlOption);
-				if (xmlFileName != null) {
-					callback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							xmlFileName), tempExecutionName, (Boolean) parser.getOptionValue(xsltOption, Boolean.FALSE)));
+				String tempXmlFileName = (String) tempParser.getOptionValue(tempXmlOption);
+				if (tempXmlFileName != null) {
+					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
+							tempXmlFileName), tempExecutionName, (Boolean) tempParser.getOptionValue(tempXsltOption,
+							Boolean.FALSE)));
 				}
 
 				Integer tempRemotePort = null;
-				if (!((Boolean) parser.getOptionValue(noremoteOption, Boolean.FALSE))) {
-					tempRemotePort = (Integer) parser.getOptionValue(remoteportOption,
+				if (!((Boolean) tempParser.getOptionValue(tempNoremoteOption, Boolean.FALSE))) {
+					tempRemotePort = (Integer) tempParser.getOptionValue(tempRemoteportOption,
 							IntegrityRemotingConstants.DEFAULT_PORT);
 				}
 
 				try {
-					tempRunner = new TestRunner(tempModel, callback, tempRemotePort);
-					tempRunner
-							.run(tempRootSuiteCall, (Boolean) parser.getOptionValue(waitForPlayOption, Boolean.FALSE));
+					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort);
+					tempRunner.run(tempRootSuiteCall,
+							(Boolean) tempParser.getOptionValue(tempWaitForPlayOption, Boolean.FALSE));
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
 			}
-		} catch (ModelParseException e) {
-			for (Diagnostic tempDiag : e.getErrors()) {
+		} catch (ModelParseException exc) {
+			for (Diagnostic tempDiag : exc.getErrors()) {
 				System.err.println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
 			}
-		} catch (ModelLinkException e) {
-			Iterator<EObject> tempIter = e.getUnresolvableObjects().iterator();
+		} catch (ModelLinkException exc) {
+			Iterator<EObject> tempIter = exc.getUnresolvableObjects().iterator();
 			while (tempIter.hasNext()) {
 				EObject tempUnresolved = tempIter.next();
 				System.err.println("Unresolved reference " + tempUnresolved);
 			}
-		} catch (ModelLoadException e) {
-			e.printStackTrace();
+		} catch (ModelLoadException exc) {
+			exc.printStackTrace();
 		}
 	}
 }

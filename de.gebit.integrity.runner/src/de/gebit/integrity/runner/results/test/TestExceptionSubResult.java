@@ -4,13 +4,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.Map;
 
+/**
+ * This result is returned if an exception occurred during test execution.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class TestExceptionSubResult extends TestSubResult {
 
 	private Exception exception;
 
-	public TestExceptionSubResult(Exception anException, Map<String, TestComparisonResult> comparisonResults,
+	public TestExceptionSubResult(Exception anException, Map<String, TestComparisonResult> aComparisonResult,
 			Long anExecutionTime) {
-		super(comparisonResults, anExecutionTime);
+		super(aComparisonResult, anExecutionTime);
 		exception = anException;
 	}
 

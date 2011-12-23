@@ -9,6 +9,13 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 
+/**
+ * Result of a suite call.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class SuiteResult extends Result {
 
 	private Map<SuiteDefinition, Result> setupResults;

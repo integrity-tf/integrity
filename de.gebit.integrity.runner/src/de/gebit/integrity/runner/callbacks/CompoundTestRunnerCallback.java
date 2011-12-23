@@ -17,6 +17,14 @@ import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 
+/**
+ * This special {@link TestRunnerCallback} is intended to be used for combining multiple callbacks. It will simply
+ * distribute all calls to all contained callbacks.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class CompoundTestRunnerCallback implements TestRunnerCallback {
 
 	private List<TestRunnerCallback> callbacks = new LinkedList<TestRunnerCallback>();

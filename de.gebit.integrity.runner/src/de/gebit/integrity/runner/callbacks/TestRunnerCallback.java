@@ -15,6 +15,14 @@ import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 
+/**
+ * During test execution, the test runner invokes a callback in order to report progress as well as test results. A
+ * callback can then use this information for whatever purpose; usually writing test output files.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public interface TestRunnerCallback {
 
 	void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap);

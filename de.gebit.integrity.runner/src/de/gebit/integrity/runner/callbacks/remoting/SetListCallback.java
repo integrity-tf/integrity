@@ -43,6 +43,13 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.TestFormatter;
 
+/**
+ * Callback for creation and update of the {@link SetList} - a crucial part of Integritys' remoting system.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class SetListCallback implements TestRunnerCallback {
 
 	private ClassLoader classLoader;
@@ -196,9 +203,9 @@ public class SetListCallback implements TestRunnerCallback {
 		try {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
 					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
-		} catch (ClassNotFoundException e) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
+			exc.printStackTrace();
 		}
 
 		if (aSubResult instanceof TestExceptionSubResult) {
@@ -269,14 +276,14 @@ public class SetListCallback implements TestRunnerCallback {
 
 		if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
-			de.gebit.integrity.runner.results.call.SuccessResult result = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
+			de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
 			if (aResult.getResult() != null) {
 				tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 						ParameterUtil.convertValueToString(aResult, variableStorage, false));
 			}
-			if (result.getTargetVariable() != null) {
-				tempNewEntry
-						.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, result.getTargetVariable().getName());
+			if (tempResult.getTargetVariable() != null) {
+				tempNewEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, tempResult.getTargetVariable()
+						.getName());
 			}
 		} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
@@ -353,24 +360,24 @@ public class SetListCallback implements TestRunnerCallback {
 					SetListEntryAttributeKeys.DESCRIPTION,
 					formatter.fixtureMethodToHumanReadableString(aMethod,
 							IntegrityDSLUtil.createParameterMap(aParamList, variableStorage, true), true));
-		} catch (ClassNotFoundException e) {
-			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, e.getMessage());
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
+			exc.printStackTrace();
 		}
 		anEntry.setAttribute(SetListEntryAttributeKeys.FIXTURE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aMethod));
 
 		SetListEntry[] tempResultArray = new SetListEntry[aParamList.size()];
 		int tempParamCounter = 0;
-		for (Parameter parameter : aParamList) {
+		for (Parameter tempParameter : aParamList) {
 			SetListEntry tempParamEntry = setList.createEntry(SetListEntryTypes.PARAMETER);
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
-					IntegrityDSLUtil.getParamNameStringFromParameterName(parameter.getName()));
+					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					ParameterUtil.convertValueToString(parameter.getValue(), variableStorage, false));
-			if (parameter.getValue() instanceof Variable) {
-				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, ((Variable) parameter.getValue())
-						.getName().getName());
+					ParameterUtil.convertValueToString(tempParameter.getValue(), variableStorage, false));
+			if (tempParameter.getValue() instanceof Variable) {
+				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
+						((Variable) tempParameter.getValue()).getName().getName());
 			}
 
 			setList.addReference(anEntry, SetListEntryAttributeKeys.PARAMETERS, tempParamEntry);
@@ -406,11 +413,14 @@ public class SetListCallback implements TestRunnerCallback {
 			tempResult = tempStringWriter.toString();
 		} finally {
 			try {
-				if (tempPrintWriter != null)
+				if (tempPrintWriter != null) {
 					tempPrintWriter.close();
-				if (tempStringWriter != null)
+				}
+				if (tempStringWriter != null) {
 					tempStringWriter.close();
+				}
 			} catch (IOException exc) {
+				// ignore, cannot happen
 			}
 		}
 		return tempResult;

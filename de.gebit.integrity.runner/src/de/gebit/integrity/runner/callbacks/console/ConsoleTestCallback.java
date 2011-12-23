@@ -24,6 +24,13 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.TestFormatter;
 
+/**
+ * A simple callback which prints out test progression information onto the console.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class ConsoleTestCallback implements TestRunnerCallback {
 
 	private ClassLoader classLoader;
@@ -60,8 +67,8 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 		try {
 			System.out.print("Now running test " + testCount + ": "
 					+ formatter.testToHumanReadableString(aTest, variableStorage) + "...");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
 		}
 	}
 
@@ -134,8 +141,8 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 		try {
 			System.out.print("Now executing call " + callCount + ": "
 					+ formatter.callToHumanReadableString(aCall, variableStorage) + "...");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
 		}
 	}
 

@@ -3,6 +3,13 @@ package de.gebit.integrity.runner.results.call;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.runner.results.Result;
 
+/**
+ * An abstract base class for call results.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class CallResult extends Result {
 
 	private Object result;
