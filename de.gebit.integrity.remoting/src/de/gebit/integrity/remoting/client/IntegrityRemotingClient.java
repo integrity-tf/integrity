@@ -19,6 +19,7 @@ import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
+import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 
 /**
  * The remoting client.
@@ -156,7 +157,6 @@ public class IntegrityRemotingClient {
 					endpoint.close(false);
 				} else {
 					listener.onConnectionSuccessful(aVersion, anEndpoint);
-					anEndpoint.sendMessage(new SetListBaselineMessage(null));
 				}
 			}
 		});
@@ -201,6 +201,15 @@ public class IntegrityRemotingClient {
 				default:
 					break;
 				}
+			}
+		});
+
+		tempMap.put(TestRunnerCallbackMessage.class, new MessageProcessor<TestRunnerCallbackMessage>() {
+
+			@Override
+			public void processMessage(TestRunnerCallbackMessage aMessage, Endpoint anEndpoint) {
+				listener.onTestRunnerCallbackMessageRetrieval(aMessage.getCallbackClassName(),
+						aMessage.getCallbackMethod(), aMessage.getObjects());
 			}
 		});
 

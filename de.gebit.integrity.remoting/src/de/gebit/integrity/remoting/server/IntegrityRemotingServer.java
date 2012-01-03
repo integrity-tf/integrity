@@ -1,6 +1,7 @@
 package de.gebit.integrity.remoting.server;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import de.gebit.integrity.remoting.transport.MessageProcessor;
 import de.gebit.integrity.remoting.transport.ServerEndpoint;
 import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
@@ -19,6 +21,7 @@ import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
+import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 
 /**
  * The server implementation.
@@ -44,6 +47,11 @@ public class IntegrityRemotingServer {
 	private ExecutionStates executionState;
 
 	/**
+	 * The bound port.
+	 */
+	private int port;
+
+	/**
 	 * Creates a new server, listening on a specified port and a specified host IP.
 	 * 
 	 * @param aHostIP
@@ -61,6 +69,7 @@ public class IntegrityRemotingServer {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
 		listener = aListener;
+		port = aPort;
 		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors());
 	}
 
@@ -124,6 +133,21 @@ public class IntegrityRemotingServer {
 	public void confirmBreakpointRemoval(int anEntryReference) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
+		}
+	}
+
+	/**
+	 * Sends data from a test runner callback in a fork to the master, which will then forward it to the matching
+	 * callback.
+	 * 
+	 * @param aCallbackClassName
+	 * @param aMethod
+	 * @param someData
+	 */
+	public void sendTestRunnerCallbackData(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
+			Serializable[] someData) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new TestRunnerCallbackMessage(aCallbackClassName, aMethod, someData));
 		}
 	}
 
@@ -200,5 +224,9 @@ public class IntegrityRemotingServer {
 		});
 
 		return tempMap;
+	}
+
+	public int getPort() {
+		return port;
 	}
 }

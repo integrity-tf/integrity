@@ -2,6 +2,7 @@ package de.gebit.integrity.runner.callbacks.remoting;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
@@ -28,6 +29,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -50,7 +52,7 @@ import de.gebit.integrity.utils.TestFormatter;
  * @author Rene Schneider
  * 
  */
-public class SetListCallback implements TestRunnerCallback {
+public class SetListCallback extends TestRunnerCallback {
 
 	private ClassLoader classLoader;
 
@@ -389,8 +391,14 @@ public class SetListCallback implements TestRunnerCallback {
 	}
 
 	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
-		if (remotingServer != null) {
-			remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
+		if (!isFork()) {
+			// send update to all clients (the normal way)
+			if (remotingServer != null) {
+				remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
+			}
+		} else {
+			// but if we're a fork, we'll channel the updates through the callback data exchange
+			sendToMaster(null, (Serializable) someUpdatedEntries);
 		}
 	}
 
@@ -428,6 +436,12 @@ public class SetListCallback implements TestRunnerCallback {
 
 	protected static String nanoTimeToString(long aNanosecondValue) {
 		return EXECUTION_TIME_FORMAT.format(((double) aNanosecondValue) / 1000000.0);
+	}
+
+	@Override
+	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
+		SetListEntry[] tempEntries = (SetListEntry[]) someObjects[0];
+		setList.integrateUpdates(tempEntries);
 	}
 
 }

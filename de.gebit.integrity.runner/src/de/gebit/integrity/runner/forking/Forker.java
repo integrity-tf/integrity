@@ -11,8 +11,10 @@ package de.gebit.integrity.runner.forking;
  */
 public interface Forker {
 
-	final String ENV_FORK_REMOTING_PORT = "forkRemotingPort";
+	final String ENV_FORK_REMOTING_PORT = "integrity.fork.port";
 
-	Process fork(String[] someCommandLineArguments, int aPortNumber) throws ForkException;
+	final String ENV_FORK_NAME = "integrity.fork.name";
+
+	Process fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException;
 
 }

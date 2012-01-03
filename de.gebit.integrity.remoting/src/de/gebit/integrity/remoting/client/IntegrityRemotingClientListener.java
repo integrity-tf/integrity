@@ -1,9 +1,12 @@
 package de.gebit.integrity.remoting.client;
 
+import java.io.Serializable;
+
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 
 /**
@@ -94,5 +97,18 @@ public interface IntegrityRemotingClientListener {
 	 *            the endpoint
 	 */
 	void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
+	/**
+	 * Called when data for a test runner callback was received from a fork.
+	 * 
+	 * @param aCallbackClassName
+	 *            the callback classes' name
+	 * @param aMethod
+	 *            the method
+	 * @param someData
+	 *            the payload
+	 */
+	void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
+			Serializable[] someData);
 
 }

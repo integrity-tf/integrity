@@ -199,4 +199,8 @@
   <module name="SuppressionFilter">
     <property name="file" value="${samedir}/suppressions.xml"/>
   </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="SUPPRESS CHECKSTYLE LONG (\w+)"/>
+    <property name="influenceFormat" value="999999"/>
+  </module>
 </module>

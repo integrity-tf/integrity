@@ -19,11 +19,11 @@ import java.util.Map.Entry;
  */
 public class DefaultForker implements Forker {
 
-	private static final String JAVA_EXECUTABLE = System.getProperties().getProperty("java.home") + File.pathSeparator
-			+ "bin" + File.pathSeparator + "java";
+	private static final String JAVA_EXECUTABLE = System.getProperties().getProperty("java.home") + File.separatorChar
+			+ "bin" + File.separatorChar + "java";
 
 	@Override
-	public Process fork(String[] someCommandLineArguments, int aPortNumber) throws ForkException {
+	public Process fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException {
 		List<String> tempArgs = new ArrayList<String>();
 		tempArgs.add(JAVA_EXECUTABLE);
 
@@ -34,7 +34,12 @@ public class DefaultForker implements Forker {
 		}
 
 		RuntimeMXBean tempMXBean = ManagementFactory.getRuntimeMXBean();
-		tempArgs.addAll(tempMXBean.getInputArguments());
+		for (String tempArg : tempMXBean.getInputArguments()) {
+			// filter out Eclipse debug stuff
+			if (!tempArg.startsWith("-agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:")) {
+				tempArgs.add(tempArg);
+			}
+		}
 
 		tempArgs.add(guessMainClassName());
 
@@ -46,6 +51,7 @@ public class DefaultForker implements Forker {
 
 		ProcessBuilder tempBuilder = new ProcessBuilder(tempArgs);
 		tempBuilder.environment().put(Forker.ENV_FORK_REMOTING_PORT, Integer.toString(aPortNumber));
+		tempBuilder.environment().put(Forker.ENV_FORK_NAME, aForkName);
 		try {
 			return tempBuilder.start();
 		} catch (IOException exc) {

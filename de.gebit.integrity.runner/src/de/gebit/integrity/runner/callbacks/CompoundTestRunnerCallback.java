@@ -1,5 +1,6 @@
 package de.gebit.integrity.runner.callbacks;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -25,7 +28,7 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
  * @author Rene Schneider
  * 
  */
-public class CompoundTestRunnerCallback implements TestRunnerCallback {
+public class CompoundTestRunnerCallback extends TestRunnerCallback {
 
 	private List<TestRunnerCallback> callbacks = new LinkedList<TestRunnerCallback>();
 
@@ -160,6 +163,27 @@ public class CompoundTestRunnerCallback implements TestRunnerCallback {
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onTableTestRowFinish(aTableTest, aRow, aSubResult);
+		}
+	}
+
+	@Override
+	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onMessageFromFork(aMethod, someObjects);
+		}
+	}
+
+	@Override
+	public void setRemotingServer(IntegrityRemotingServer aRemotingServer) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.setRemotingServer(aRemotingServer);
+		}
+	}
+
+	@Override
+	public void setDryRun(boolean aDryRun) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.setDryRun(aDryRun);
 		}
 	}
 

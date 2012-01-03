@@ -1,5 +1,6 @@
 package de.gebit.integrity.runner.callbacks;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import de.gebit.integrity.dsl.Call;
@@ -9,6 +10,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -23,40 +26,68 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
  * @author Rene Schneider
  * 
  */
-public interface TestRunnerCallback {
+public abstract class TestRunnerCallback {
 
-	void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap);
+	public abstract void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap);
 
-	void onSuiteStart(Suite aSuite);
+	public abstract void onSuiteStart(Suite aSuite);
 
-	void onSetupStart(SuiteDefinition aSetupSuite);
+	public abstract void onSetupStart(SuiteDefinition aSetupSuite);
 
-	void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult);
+	public abstract void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult);
 
-	void onTestStart(Test aTest);
+	public abstract void onTestStart(Test aTest);
 
-	void onTestFinish(Test aTest, TestResult aResult);
+	public abstract void onTestFinish(Test aTest, TestResult aResult);
 
-	void onTableTestStart(TableTest aTableTest);
+	public abstract void onTableTestStart(TableTest aTableTest);
 
-	void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow);
+	public abstract void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow);
 
-	void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult);
+	public abstract void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult);
 
-	void onTableTestFinish(TableTest aTableTest, TestResult aResult);
+	public abstract void onTableTestFinish(TableTest aTableTest, TestResult aResult);
 
-	void onCallStart(Call aCall);
+	public abstract void onCallStart(Call aCall);
 
-	void onCallFinish(Call aCall, CallResult aResult);
+	public abstract void onCallFinish(Call aCall, CallResult aResult);
 
-	void onTearDownStart(SuiteDefinition aTearDownSuite);
+	public abstract void onTearDownStart(SuiteDefinition aTearDownSuite);
 
-	void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult);
+	public abstract void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult);
 
-	void onSuiteFinish(Suite aSuite, SuiteResult aResult);
+	public abstract void onSuiteFinish(Suite aSuite, SuiteResult aResult);
 
-	void onExecutionFinish(TestModel aModel, SuiteResult aResult);
+	public abstract void onExecutionFinish(TestModel aModel, SuiteResult aResult);
 
-	void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue);
+	public abstract void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue);
+
+	public abstract void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects);
+
+	protected IntegrityRemotingServer server;
+
+	protected boolean dryRun;
+
+	public void setRemotingServer(IntegrityRemotingServer aRemotingServer) {
+		server = aRemotingServer;
+	}
+
+	public void setDryRun(boolean aDryRun) {
+		dryRun = aDryRun;
+	}
+
+	public boolean isFork() {
+		return (server != null);
+	}
+
+	public boolean isDryRun() {
+		return dryRun;
+	}
+
+	protected void sendToMaster(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
+		if (server != null) {
+			server.sendTestRunnerCallbackData(getClass().getName(), aMethod, someObjects);
+		}
+	}
 
 }

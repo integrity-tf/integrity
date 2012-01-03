@@ -7,14 +7,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.PrintStream;
+import java.io.Serializable;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
+import java.net.UnknownHostException;
 
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
+import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
+import de.gebit.integrity.remoting.entities.setlist.SetList;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
+import de.gebit.integrity.remoting.transport.Endpoint;
+import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
+import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
+import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 
 /**
  * A fork is the result of the test runner forking during test execution.
@@ -29,6 +37,12 @@ public class Fork {
 	private Process process;
 
 	private IntegrityRemotingClient client;
+
+	private Integer port;
+
+	private boolean connectionConfirmed;
+
+	private boolean segmentExecuted;
 
 	private static Forker forker = new DefaultForker();
 
@@ -45,12 +59,13 @@ public class Fork {
 		super();
 		definition = aDefinition;
 
-		process = forker.fork(someCommandLineArguments, getNextPort(aMainPortNumber));
+		port = getNextPort(aMainPortNumber);
+		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
 
 		boolean tempIsAlive = false;
 		try {
 			process.exitValue();
-		} catch (IllegalStateException exc) {
+		} catch (IllegalThreadStateException exc) {
 			tempIsAlive = true;
 		}
 
@@ -58,10 +73,17 @@ public class Fork {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
 		}
 
-		new StreamCopier("FORK '" + aDefinition.getName() + "': ", "stdout copy: " + aDefinition.getName(),
+		new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stdout copy: " + aDefinition.getName(),
 				process.getInputStream(), System.out).start();
-		new StreamCopier("FORK '" + aDefinition.getName() + "': ", "stderr copy: " + aDefinition.getName(),
+		new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stderr copy: " + aDefinition.getName(),
 				process.getErrorStream(), System.err).start();
+	}
+
+	public void kill() {
+		if (isAlive()) {
+			process.destroy();
+			process = null;
+		}
 	}
 
 	public ForkDefinition getDefinition() {
@@ -74,6 +96,131 @@ public class Fork {
 
 	public IntegrityRemotingClient getClient() {
 		return client;
+	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+	public boolean isAlive() {
+		if (process != null) {
+			try {
+				process.exitValue();
+			} catch (IllegalThreadStateException exc) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isConnected() {
+		return client != null && client.isActive();
+	}
+
+	public boolean connect(long aTimeout) throws IOException {
+		synchronized (this) {
+			IntegrityRemotingClient tempClient = null;
+			try {
+				tempClient = new IntegrityRemotingClient("localhost", getPort(), new ForkRemotingClientListener());
+			} catch (UnknownHostException exc) {
+				// cannot actually happen -> we're only connecting to localhost
+			}
+
+			try {
+				wait(aTimeout);
+			} catch (InterruptedException exc) {
+				// ignore
+			}
+
+			if (!connectionConfirmed) {
+				tempClient.close();
+				return false;
+			} else {
+				client = tempClient;
+				return true;
+			}
+		}
+	}
+
+	public void executeNextSegment() {
+		if (client != null) {
+			synchronized (this) {
+				segmentExecuted = false;
+				client.controlExecution(ExecutionCommands.RUN);
+
+				while (isAlive() && !segmentExecuted) {
+					try {
+						wait();
+					} catch (InterruptedException exc) {
+						// ignore
+					}
+				}
+			}
+		}
+	}
+
+	private class ForkRemotingClientListener implements IntegrityRemotingClientListener {
+
+		@Override
+		public void onVersionMismatch(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
+			synchronized (Fork.this) {
+				Fork.this.notify();
+			}
+		}
+
+		@Override
+		public void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
+				Serializable[] someData) {
+
+		}
+
+		@Override
+		public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint) {
+
+		}
+
+		@Override
+		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
+			if (aState == ExecutionStates.PAUSED || aState == ExecutionStates.ENDED) {
+				segmentExecuted = true;
+				synchronized (Fork.this) {
+					Fork.this.notifyAll();
+				}
+			}
+		}
+
+		@Override
+		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
+			connectionConfirmed = true;
+			synchronized (Fork.this) {
+				Fork.this.notifyAll();
+			}
+		}
+
+		@Override
+		public void onConnectionLost(Endpoint anEndpoint) {
+			client = null;
+			segmentExecuted = true;
+			synchronized (Fork.this) {
+				Fork.this.notifyAll();
+			}
+		}
+
+		@Override
+		public void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+
+		}
+
+		@Override
+		public void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+
+		}
+
+		@Override
+		public void onBaselineReceived(SetList aSetList, Endpoint anEndpoint) {
+
+		}
 	}
 
 	private static int getNextPort(int aMainPortNumber) {
@@ -121,31 +268,38 @@ public class Fork {
 
 		private BufferedReader source;
 
-		private PrintWriter target;
+		private PrintStream target;
 
-		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, OutputStream aTarget) {
+		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, PrintStream aTarget) {
 			super(aThreadName);
 			prefix = aPrefix;
+			target = aTarget;
 			source = new BufferedReader(new InputStreamReader(aSource));
-			target = new PrintWriter(new OutputStreamWriter(aTarget));
 		}
 
 		@Override
 		public void run() {
+			target.println(prefix + "Process started!");
+			target.flush();
+
 			do {
 				String tempLine;
 				try {
 					tempLine = source.readLine();
 				} catch (IOException exc) {
 					exc.printStackTrace();
-					return;
+					break;
 				}
 				if (tempLine == null) {
-					return;
+					break;
 				} else {
 					target.println(prefix + tempLine);
+					target.flush();
 				}
 			} while (true);
+
+			target.println(prefix + "Process terminated!");
+			target.flush();
 		}
 	}
 
