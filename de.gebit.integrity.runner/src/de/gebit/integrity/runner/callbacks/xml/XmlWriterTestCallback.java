@@ -224,10 +224,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSuiteElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(TEARDOWN_COLLECTION_ELEMENT));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
+			}
+			internalOnSuiteStart(tempSuiteElement);
 		}
-		internalOnSuiteStart(tempSuiteElement);
 	}
 
 	protected void internalOnSuiteStart(Element aSuiteElement) {
@@ -248,10 +250,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
+			}
+			internalOnSetupStart(tempSetupElement);
 		}
-		internalOnSetupStart(tempSetupElement);
 	}
 
 	protected void internalOnSetupStart(Element aSetupElement) {
@@ -268,10 +272,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getTestExceptionCount()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
+			}
+			internalOnSetupFinish(tempSuiteResultElement);
 		}
-		internalOnSetupFinish(tempSuiteResultElement);
 	}
 
 	protected void internalOnSetupFinish(Element aSuiteResultElement) {
@@ -292,10 +298,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
+			}
+			internalOnTestStart(tempTestElement);
 		}
-		internalOnTestStart(tempTestElement);
 	}
 
 	protected void internalOnTestStart(Element aTestElement) {
@@ -318,10 +326,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+			}
+			internalOnTableTestStart(tempTestElement);
 		}
-		internalOnTableTestStart(tempTestElement);
 	}
 
 	protected void internalOnTableTestStart(Element aTestElement) {
@@ -350,10 +360,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
 				.getSubResults().get(0), IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
+			}
+			internalOnTestFinish(tempResultCollectionElement);
 		}
-		internalOnTestFinish(tempResultCollectionElement);
 	}
 
 	protected void internalOnTestFinish(Element aResultCollectionElement) {
@@ -383,10 +395,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
+			}
+			internalOnTableTestFinish(tempResultCollectionElement);
 		}
-		internalOnTableTestFinish(tempResultCollectionElement);
 	}
 
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
@@ -488,10 +502,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 		tempCallElement.addContent(tempParameterCollectionElement);
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
+			}
+			internalOnCallStart(tempCallElement);
 		}
-		internalOnCallStart(tempCallElement);
 	}
 
 	protected void internalOnCallStart(Element aCallElement) {
@@ -529,10 +545,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			}
 		}
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement);
+			}
+			internalOnCallFinish(tempCallResultElement);
 		}
-		internalOnCallFinish(tempCallResultElement);
 	}
 
 	protected void internalOnCallFinish(Element aCallResultElement) {
@@ -550,10 +568,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTearDownElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempTearDownElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
+			}
+			internalOnTearDownStart(tempTearDownElement);
 		}
-		internalOnTearDownStart(tempTearDownElement);
 	}
 
 	protected void internalOnTearDownStart(Element aTearDownElement) {
@@ -570,10 +590,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getTestExceptionCount()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
+			}
+			internalOnTearDownFinish(tempSuiteResultElement);
 		}
-		internalOnTearDownFinish(tempSuiteResultElement);
 	}
 
 	protected void internalOnTearDownFinish(Element aSuiteResultElement) {
@@ -589,10 +611,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getTestExceptionCount()));
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
+			}
+			internalOnSuiteFinish(tempSuiteResultElement);
 		}
-		internalOnSuiteFinish(tempSuiteResultElement);
 	}
 
 	protected void internalOnSuiteFinish(Element aSuiteResultElement) {
@@ -634,10 +658,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));
 		}
 
-		if (isFork()) {
-			sendToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+			}
+			internalOnVariableDefinition(tempVariableElement);
 		}
-		internalOnVariableDefinition(tempVariableElement);
 	}
 
 	protected void internalOnVariableDefinition(Element aVariableElement) {
@@ -671,6 +697,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	protected static String nanoTimeToString(long aNanosecondValue) {
 		return EXECUTION_TIME_FORMAT.format(((double) aNanosecondValue) / 1000000.0);
+	}
+
+	protected void sendElementToMaster(TestRunnerCallbackMethods aMethod, Element anElement) {
+		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
 	@Override

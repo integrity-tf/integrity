@@ -179,6 +179,9 @@ public class TestRunner {
 			reset();
 
 			if (isFork()) {
+				// the callback will require the remoting server to be able to push stuff to the master
+				currentCallback.setRemotingServer(remotingServer);
+
 				// we start out in "dry run" mode if we're a fork
 				currentCallback.setDryRun(true);
 			}
@@ -250,6 +253,7 @@ public class TestRunner {
 						// we're a fork, and we are at a point where we're gonna execute some stuff
 						// but we have to wait until our master gives us the 'go'!
 						shallWaitBeforeNextStep = true;
+						pauseIfRequiredByRemoteClient();
 
 						// and now we leave dry run mode
 						currentCallback.setDryRun(false);
@@ -886,7 +890,7 @@ public class TestRunner {
 
 	protected Fork createFork(Suite aSuiteCall, ForkDefinition aFork) throws ForkException {
 		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
-				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT);
+				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT, callback);
 
 		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
 				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : FORK_CONNECTION_TIMEOUT_DEFAULT;

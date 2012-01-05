@@ -86,7 +86,14 @@ public abstract class TestRunnerCallback {
 
 	protected void sendToMaster(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		if (server != null) {
+			System.out.println(aMethod);
 			server.sendTestRunnerCallbackData(getClass().getName(), aMethod, someObjects);
+		}
+	}
+
+	public void receiveFromFork(String aCallbackClassName, TestRunnerCallbackMethods aMethod, Serializable[] someData) {
+		if (getClass().getName().equals(aCallbackClassName)) {
+			onMessageFromFork(aMethod, someData);
 		}
 	}
 

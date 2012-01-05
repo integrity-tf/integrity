@@ -187,4 +187,10 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 		}
 	}
 
+	@Override
+	public void receiveFromFork(String aCallbackClassName, TestRunnerCallbackMethods aMethod, Serializable[] someData) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.receiveFromFork(aCallbackClassName, aMethod, someData);
+		}
+	}
 }

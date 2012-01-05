@@ -23,6 +23,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 
 /**
  * A fork is the result of the test runner forking during test execution.
@@ -37,6 +38,8 @@ public class Fork {
 	private Process process;
 
 	private IntegrityRemotingClient client;
+
+	private TestRunnerCallback callback;
 
 	private Integer port;
 
@@ -54,10 +57,11 @@ public class Fork {
 		forker = aForker;
 	}
 
-	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber)
-			throws ForkException {
+	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
+			TestRunnerCallback aCallback) throws ForkException {
 		super();
 		definition = aDefinition;
+		callback = aCallback;
 
 		port = getNextPort(aMainPortNumber);
 		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
@@ -172,7 +176,9 @@ public class Fork {
 		@Override
 		public void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
 				Serializable[] someData) {
-
+			if (callback != null) {
+				callback.receiveFromFork(aCallbackClassName, aMethod, someData);
+			}
 		}
 
 		@Override
