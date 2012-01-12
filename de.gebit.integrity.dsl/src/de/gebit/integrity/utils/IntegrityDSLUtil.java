@@ -349,12 +349,17 @@ public final class IntegrityDSLUtil {
 	 *            the variable
 	 * @return the fully qualified name
 	 */
-	public static String getQualifiedGlobalVariableName(VariableEntity aVariable) {
+	public static String getQualifiedVariableEntityName(VariableEntity aVariable, boolean aQualifyLocalVariables) {
 		if (aVariable.eContainer().eContainer() instanceof PackageDefinition) {
 			PackageDefinition tempPackageDef = (PackageDefinition) aVariable.eContainer().eContainer();
 			return tempPackageDef.getName() + "." + aVariable.getName();
 		} else {
-			return aVariable.getName();
+			if (aQualifyLocalVariables && aVariable.eContainer().eContainer() instanceof SuiteDefinition) {
+				SuiteDefinition tempSuiteDef = (SuiteDefinition) aVariable.eContainer().eContainer();
+				return getQualifiedSuiteName(tempSuiteDef) + "." + aVariable.getName();
+			} else {
+				return aVariable.getName();
+			}
 		}
 	}
 

@@ -10,6 +10,7 @@ import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.MethodReference;
@@ -120,6 +121,13 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 				if(context == grammarAccess.getFixedResultNameRule() ||
 				   context == grammarAccess.getResultNameRule()) {
 					sequence_FixedResultName(context, (FixedResultName) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.FORK_DEFINITION:
+				if(context == grammarAccess.getForkDefinitionRule() ||
+				   context == grammarAccess.getPackageStatementRule()) {
+					sequence_ForkDefinition(context, (ForkDefinition) semanticObject); 
 					return; 
 				}
 				else break;
@@ -383,6 +391,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     name=QualifiedName
+	 */
+	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FORK_DEFINITION__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildcard
 	 */
 	protected void sequence_Import(EObject context, Import semanticObject) {
@@ -588,7 +612,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter*)
+	 *     (definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* fork=[ForkDefinition|QualifiedName]?)
 	 */
 	protected void sequence_Suite(EObject context, Suite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

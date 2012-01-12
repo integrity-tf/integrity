@@ -6,7 +6,25 @@ packagedef mysecondpackage with
 	variable packagevar
 	variable morePackageVars initially "String!!!"
 
+	forkdef firstFork
+
+	suitedef forkedSuite gets aParam with
+	
+		call random min:0 max:aParam sets packagevar
+		
+		call random min:1 max:aParam sets packagevar
+		
+		call random min:2 max:aParam sets packagevar
+		
+		call random min:3 max:aParam sets packagevar
+	
+	suiteend
+
 	suitedef additionSuite requires initSuite with
+	
+		call random min:5 max:10 sets yeah
+	
+		suite forkedSuite aParam:yeah on firstFork
 	
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101
  

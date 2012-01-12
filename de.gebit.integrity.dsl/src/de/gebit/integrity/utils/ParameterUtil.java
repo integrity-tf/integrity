@@ -39,6 +39,73 @@ public final class ParameterUtil {
 	public static final String DEFAULT_PARAMETER_NAME = "";
 
 	/**
+	 * Converts a given value to a given Java type class, if possible.
+	 * 
+	 * @param aParamType
+	 *            the target type
+	 * @param aValue
+	 *            the value
+	 * @return the converted value
+	 */
+	public static Object convertValueToParamType(Class<?> aParamType, Object aValue) {
+		if (aValue instanceof Number) {
+			if (aParamType == Integer.class) {
+				return aValue;
+			} else if (aParamType == Long.class) {
+				return ((Number) aValue).longValue();
+			} else if (aParamType == Short.class) {
+				return ((Number) aValue).shortValue();
+			} else if (aParamType == Byte.class) {
+				return ((Number) aValue).byteValue();
+			} else if (aParamType == BigInteger.class) {
+				return BigInteger.valueOf(((Number) aValue).longValue());
+			} else if (aParamType == BigDecimal.class) {
+				if (aValue instanceof Integer) {
+					return new BigDecimal((Integer) aValue);
+				} else if (aValue instanceof Long) {
+					return new BigDecimal((Long) aValue);
+				} else if (aValue instanceof Short) {
+					return new BigDecimal((Short) aValue);
+				} else if (aValue instanceof Byte) {
+					return new BigDecimal((Byte) aValue);
+				} else if (aValue instanceof Float) {
+					return new BigDecimal((Float) aValue);
+				} else if (aValue instanceof Double) {
+					return new BigDecimal((Double) aValue);
+				} else if (aValue instanceof BigInteger) {
+					return new BigDecimal((BigInteger) aValue);
+				}
+			} else if (aParamType == Float.class) {
+				return ((Number) aValue).floatValue();
+			} else if (aParamType == Double.class) {
+				return ((Number) aValue).doubleValue();
+			} else if (aParamType == String.class) {
+				return aParamType.toString();
+			}
+		} else if (aValue instanceof String) {
+			if (aParamType == Integer.class) {
+				return Integer.parseInt((String) aValue);
+			} else if (aParamType == Long.class) {
+				return Long.parseLong((String) aValue);
+			} else if (aParamType == Short.class) {
+				return Short.parseShort((String) aValue);
+			} else if (aParamType == Byte.class) {
+				return Byte.parseByte((String) aValue);
+			} else if (aParamType == Float.class) {
+				return Float.parseFloat((String) aValue);
+			} else if (aParamType == Double.class) {
+				return Double.parseDouble((String) aValue);
+			} else if (aParamType == BigDecimal.class) {
+				return new BigDecimal((String) aValue);
+			} else if (aParamType == BigInteger.class) {
+				return new BigInteger((String) aValue);
+			}
+		}
+
+		return aValue;
+	}
+
+	/**
 	 * Converts a given parameter value to a given Java type class, if possible.
 	 * 
 	 * @param aParamType
@@ -52,7 +119,7 @@ public final class ParameterUtil {
 	 * @throws IllegalArgumentException
 	 *             if the conversion required is not supported
 	 */
-	public static Object convertValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
+	public static Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
 			Map<VariableEntity, Object> aVariableMap) {
 		if (aValue instanceof DecimalValue) {
 			if (aParamType == Float.class) {
@@ -124,7 +191,7 @@ public final class ParameterUtil {
 				Object tempActualValue = aVariableMap.get(((Variable) aValue).getName());
 				if (tempActualValue != null) {
 					if (tempActualValue instanceof Value) {
-						return convertValueToParamType(aParamType, (Value) tempActualValue, aVariableMap);
+						return convertEncapsulatedValueToParamType(aParamType, (Value) tempActualValue, aVariableMap);
 					} else {
 						return tempActualValue;
 					}

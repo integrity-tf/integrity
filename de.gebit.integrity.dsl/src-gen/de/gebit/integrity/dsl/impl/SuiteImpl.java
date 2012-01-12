@@ -7,6 +7,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getFork <em>Fork</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,6 +63,16 @@ public class SuiteImpl extends StatementImpl implements Suite
    * @ordered
    */
   protected EList<SuiteParameter> parameters;
+
+  /**
+   * The cached value of the '{@link #getFork() <em>Fork</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFork()
+   * @generated
+   * @ordered
+   */
+  protected ForkDefinition fork;
 
   /**
    * <!-- begin-user-doc -->
@@ -145,6 +157,49 @@ public class SuiteImpl extends StatementImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  public ForkDefinition getFork()
+  {
+    if (fork != null && fork.eIsProxy())
+    {
+      InternalEObject oldFork = (InternalEObject)fork;
+      fork = (ForkDefinition)eResolveProxy(oldFork);
+      if (fork != oldFork)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.SUITE__FORK, oldFork, fork));
+      }
+    }
+    return fork;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ForkDefinition basicGetFork()
+  {
+    return fork;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFork(ForkDefinition newFork)
+  {
+    ForkDefinition oldFork = fork;
+    fork = newFork;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE__FORK, oldFork, fork));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -171,6 +226,9 @@ public class SuiteImpl extends StatementImpl implements Suite
         return basicGetDefinition();
       case DslPackage.SUITE__PARAMETERS:
         return getParameters();
+      case DslPackage.SUITE__FORK:
+        if (resolve) return getFork();
+        return basicGetFork();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -193,6 +251,9 @@ public class SuiteImpl extends StatementImpl implements Suite
         getParameters().clear();
         getParameters().addAll((Collection<? extends SuiteParameter>)newValue);
         return;
+      case DslPackage.SUITE__FORK:
+        setFork((ForkDefinition)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -213,6 +274,9 @@ public class SuiteImpl extends StatementImpl implements Suite
       case DslPackage.SUITE__PARAMETERS:
         getParameters().clear();
         return;
+      case DslPackage.SUITE__FORK:
+        setFork((ForkDefinition)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -231,6 +295,8 @@ public class SuiteImpl extends StatementImpl implements Suite
         return definition != null;
       case DslPackage.SUITE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case DslPackage.SUITE__FORK:
+        return fork != null;
     }
     return super.eIsSet(featureID);
   }

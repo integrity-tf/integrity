@@ -1,5 +1,6 @@
 package de.gebit.integrity.runner.callbacks.console;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -10,6 +11,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -31,7 +33,7 @@ import de.gebit.integrity.utils.TestFormatter;
  * @author Rene Schneider
  * 
  */
-public class ConsoleTestCallback implements TestRunnerCallback {
+public class ConsoleTestCallback extends TestRunnerCallback {
 
 	private ClassLoader classLoader;
 
@@ -56,7 +58,7 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
-		System.out.println("Test execution has begun...");
+		println("Test execution has begun...");
 		startTime = System.currentTimeMillis();
 		variableStorage = aVariableMap;
 	}
@@ -65,7 +67,7 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	public void onTestStart(Test aTest) {
 		testCount++;
 		try {
-			System.out.print("Now running test " + testCount + ": "
+			println("Now running test " + testCount + ": "
 					+ formatter.testToHumanReadableString(aTest, variableStorage) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
@@ -80,16 +82,16 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	protected void displayTestSubResult(TestSubResult aSubResult) {
 		if (aSubResult instanceof TestExecutedSubResult) {
 			if (aSubResult.wereAllComparisonsSuccessful()) {
-				System.out.println("SUCCESS!");
+				println("SUCCESS!");
 			} else {
-				System.out.print("FAILURE: ");
+				print("FAILURE: ");
 				boolean tempHasBegun = false;
 				for (Entry<String, TestComparisonResult> tempEntry : aSubResult.getComparisonResults().entrySet()) {
 					if (tempEntry.getValue() instanceof TestComparisonFailureResult) {
 						if (tempHasBegun) {
-							System.out.print("; ");
+							print("; ");
 						}
-						System.out.print("'"
+						print("'"
 								+ ParameterUtil.convertValueToString(tempEntry.getValue().getExpectedValue(),
 										variableStorage, false)
 								+ "' expected"
@@ -97,40 +99,42 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 										+ tempEntry.getKey() + "'") + ", but got '" + tempEntry.getValue() + "'!");
 					}
 				}
-				System.out.println("");
+				println("");
 			}
 		} else if (aSubResult instanceof TestExceptionSubResult) {
-			System.out.println("EXCEPTION OCCURRED, SEE STDERR!");
+			println("EXCEPTION OCCURRED, SEE STDERR!");
 			((TestExceptionSubResult) aSubResult).getException().printStackTrace();
 		}
 	}
 
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
-		System.out.println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
-				+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
+		if (aResult != null) {
+			println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
+					+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
 
-		System.out.println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
-				+ aResult.getTestFailCount() + " failures and " + aResult.getTestExceptionCount() + " exceptions.");
+			println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
+					+ aResult.getTestFailCount() + " failures and " + aResult.getTestExceptionCount() + " exceptions.");
+		}
 	}
 
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		suiteCount++;
-		System.out.println("Now entering suite " + suiteCount + ": "
+		println("Now entering suite " + suiteCount + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 	}
 
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
-		System.out.println("Now leaving suite " + suiteCount + ": "
+		println("Now leaving suite " + suiteCount + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 	}
 
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
-		System.out.println("Defined variable "
-				+ IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition)
+		println("Defined variable "
+				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
 						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, false)));
 	}
@@ -139,7 +143,7 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	public void onCallStart(Call aCall) {
 		callCount++;
 		try {
-			System.out.print("Now executing call " + callCount + ": "
+			println("Now executing call " + callCount + ": "
 					+ formatter.callToHumanReadableString(aCall, variableStorage) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
@@ -149,45 +153,45 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
 		if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
-			System.out.println("SUCCESS!");
+			println("SUCCESS!");
 		} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
-			System.out.println("EXCEPTION OCCURRED, SEE STDERR!");
+			println("EXCEPTION OCCURRED, SEE STDERR!");
 			System.err.println(aResult.toString());
 		}
 	}
 
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
-		System.out.println("Now entering setup suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+		println("Now entering setup suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
 	}
 
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
-		System.out.println("Now leaving setup suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+		println("Now leaving setup suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
 	}
 
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
-		System.out.println("Now entering teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+		println("Now entering teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
 	}
 
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
-		System.out.println("Now leaving teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+		println("Now leaving teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
 	}
 
 	@Override
 	public void onTableTestStart(TableTest aTableTest) {
 		testCount++;
 		tableTestRowCount = 0;
-		System.out.println("Now running table test " + testCount + ":");
+		println("Now running table test " + testCount + ":");
 	}
 
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		tableTestRowCount++;
 		try {
-			System.out.print("\tRow " + tableTestRowCount + " ("
+			print("\tRow " + tableTestRowCount + " ("
 					+ formatter.tableTestRowToHumanReadableString(aTableTest, aRow, variableStorage) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
@@ -201,8 +205,24 @@ public class ConsoleTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult someResults) {
-		System.out.println("\tTotal: " + someResults.getSubTestSuccessCount() + "x SUCCESS, "
-				+ someResults.getSubTestFailCount() + "x FAILURE, " + someResults.getSubTestExceptionCount()
-				+ "x EXCEPTION.");
+		println("\tTotal: " + someResults.getSubTestSuccessCount() + "x SUCCESS, " + someResults.getSubTestFailCount()
+				+ "x FAILURE, " + someResults.getSubTestExceptionCount() + "x EXCEPTION.");
+	}
+
+	@Override
+	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
+		// nothing to do; this callback is not fork-aware
+	}
+
+	protected void print(String aString) {
+		if (!isDryRun()) {
+			System.out.print(aString);
+		}
+	}
+
+	protected void println(String aString) {
+		if (!isDryRun()) {
+			System.out.println(aString);
+		}
 	}
 }

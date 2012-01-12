@@ -104,6 +104,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createImportAdapter();
       }
       @Override
+      public Adapter caseForkDefinition(ForkDefinition object)
+      {
+        return createForkDefinitionAdapter();
+      }
+      @Override
       public Adapter caseTestDefinition(TestDefinition object)
       {
         return createTestDefinitionAdapter();
@@ -351,6 +356,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImportAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ForkDefinition <em>Fork Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ForkDefinition
+   * @generated
+   */
+  public Adapter createForkDefinitionAdapter()
   {
     return null;
   }

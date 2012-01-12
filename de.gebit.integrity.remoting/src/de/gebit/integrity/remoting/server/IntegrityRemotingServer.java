@@ -1,6 +1,7 @@
 package de.gebit.integrity.remoting.server;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import de.gebit.integrity.remoting.transport.MessageProcessor;
 import de.gebit.integrity.remoting.transport.ServerEndpoint;
 import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
@@ -19,6 +21,8 @@ import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
+import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
+import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
  * The server implementation.
@@ -44,6 +48,11 @@ public class IntegrityRemotingServer {
 	private ExecutionStates executionState;
 
 	/**
+	 * The bound port.
+	 */
+	private int port;
+
+	/**
 	 * Creates a new server, listening on a specified port and a specified host IP.
 	 * 
 	 * @param aHostIP
@@ -61,6 +70,7 @@ public class IntegrityRemotingServer {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
 		listener = aListener;
+		port = aPort;
 		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors());
 	}
 
@@ -128,6 +138,38 @@ public class IntegrityRemotingServer {
 	}
 
 	/**
+	 * Sends data from a test runner callback in a fork to the master, which will then forward it to the matching
+	 * callback.
+	 * 
+	 * @param aCallbackClassName
+	 *            the name of the callback class
+	 * @param aMethod
+	 *            the method being called
+	 * @param someData
+	 *            the data
+	 */
+	public void sendTestRunnerCallbackData(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
+			Serializable[] someData) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new TestRunnerCallbackMessage(aCallbackClassName, aMethod, someData));
+		}
+	}
+
+	/**
+	 * Transmits an update for a variables' value to the master.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 * @param aValue
+	 *            the updated value
+	 */
+	public void sendVariableUpdate(String aVariableName, Serializable aValue) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new VariableUpdateMessage(aVariableName, aValue));
+		}
+	}
+
+	/**
 	 * Creates the processors for processing incoming messages.
 	 * 
 	 * @return a map of message classes to processors
@@ -157,7 +199,6 @@ public class IntegrityRemotingServer {
 				listener.onSetListRequest(anEndpoint);
 				anEndpoint.sendMessage(new ExecutionStateMessage(executionState));
 			}
-
 		});
 
 		tempMap.put(ExecutionControlMessage.class, new MessageProcessor<ExecutionControlMessage>() {
@@ -178,7 +219,6 @@ public class IntegrityRemotingServer {
 					break;
 				}
 			}
-
 		});
 
 		tempMap.put(BreakpointUpdateMessage.class, new MessageProcessor<BreakpointUpdateMessage>() {
@@ -196,9 +236,20 @@ public class IntegrityRemotingServer {
 					break;
 				}
 			}
+		});
 
+		tempMap.put(VariableUpdateMessage.class, new MessageProcessor<VariableUpdateMessage>() {
+
+			@Override
+			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
+				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
+			}
 		});
 
 		return tempMap;
+	}
+
+	public int getPort() {
+		return port;
 	}
 }

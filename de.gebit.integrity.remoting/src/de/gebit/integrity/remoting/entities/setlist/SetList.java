@@ -337,14 +337,14 @@ public class SetList implements Serializable {
 				case TEST:
 				case CALL:
 				case SUITE:
-					if (resultBearingEntryResultMap.containsKey(tempParent)) {
+					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempParent)) {
 						SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
 						resultBearingEntryResultMap.put(tempParent, tempResultState);
 						executableEntryResultStates.set(executableEntryResultIndex.get(tempParent), tempResultState);
 					}
 					// SUPPRESS CHECKSTYLE FallThrough
 				case TABLETEST:
-					if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
 						resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
 					}
 					break;
@@ -353,7 +353,7 @@ public class SetList implements Serializable {
 				}
 				break;
 			default:
-				if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+				if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
 					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
 					resultBearingEntryResultMap.put(tempEntry, tempResultState);
 					if (executableEntryResultIndex.containsKey(tempEntry)) {
@@ -466,6 +466,10 @@ public class SetList implements Serializable {
 		return resolveReference(entryInExecutionReference);
 	}
 
+	public int getEntryListPosition() {
+		return entryListPosition;
+	}
+
 	public Set<SetListEntry> getEntriesInExecution() {
 		return pathOfEntriesInExecution;
 	}
@@ -489,7 +493,7 @@ public class SetList implements Serializable {
 			case SETUP:
 			case SUITE:
 			case TEARDOWN:
-				return pathOfEntriesInExecution.contains(anEntry);
+				return anEntry.getId() == entryInExecutionReference || pathOfEntriesInExecution.contains(anEntry);
 			case EXECUTION:
 				return true;
 			default:

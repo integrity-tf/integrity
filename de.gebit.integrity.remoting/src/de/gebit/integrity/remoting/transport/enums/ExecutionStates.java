@@ -26,6 +26,11 @@ public enum ExecutionStates implements Serializable {
 	PAUSED,
 
 	/**
+	 * Execution is paused while waiting for the master to perform its next steps and then return to the fork.
+	 */
+	PAUSED_SYNC,
+
+	/**
 	 * Execution has ended.
 	 */
 	ENDED;

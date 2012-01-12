@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -34,6 +35,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -57,7 +59,7 @@ import de.gebit.integrity.utils.TestFormatter;
  * @author Rene Schneider
  * 
  */
-public class XmlWriterTestCallback implements TestRunnerCallback {
+public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private ClassLoader classLoader;
 
@@ -174,11 +176,6 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		outputFile = anOutputFile;
 		title = aTitle;
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
-		try {
-			outputFile.createNewFile();
-		} catch (IOException exc) {
-			exc.printStackTrace();
-		}
 	}
 
 	@Override
@@ -190,7 +187,7 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		document = new Document(tempRootElement);
 		currentElement.push(tempRootElement);
 
-		if (embedXhtmlTransform) {
+		if (!isFork() && embedXhtmlTransform) {
 			try {
 				Document tempTransform = new SAXBuilder().build(getClass().getClassLoader().getResourceAsStream(
 						"static/xhtml.xslt"));
@@ -227,14 +224,23 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		tempSuiteElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(TEARDOWN_COLLECTION_ELEMENT));
 
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
+			}
+			internalOnSuiteStart(tempSuiteElement);
+		}
+	}
+
+	protected void internalOnSuiteStart(Element aSuiteElement) {
 		Element tempParentStatementElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		if (tempParentStatementElement == null) {
-			currentElement.peek().addContent(tempSuiteElement);
+			currentElement.peek().addContent(aSuiteElement);
 		} else {
-			tempParentStatementElement.addContent(tempSuiteElement);
+			tempParentStatementElement.addContent(aSuiteElement);
 		}
 
-		currentElement.push(tempSuiteElement);
+		currentElement.push(aSuiteElement);
 	}
 
 	@Override
@@ -244,20 +250,42 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
-		currentElement.peek().getChild(SETUP_COLLECTION_ELEMENT).addContent(tempSetupElement);
-		currentElement.push(tempSetupElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
+			}
+			internalOnSetupStart(tempSetupElement);
+		}
+	}
+
+	protected void internalOnSetupStart(Element aSetupElement) {
+		currentElement.peek().getChild(SETUP_COLLECTION_ELEMENT).addContent(aSetupElement);
+		currentElement.push(aSetupElement);
 	}
 
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
-		currentElement.pop().addContent(tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
+			}
+			internalOnSetupFinish(tempSuiteResultElement);
+		}
+	}
+
+	protected void internalOnSetupFinish(Element aSuiteResultElement) {
+		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
 	@Override
@@ -274,9 +302,18 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
 
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
+			}
+			internalOnTestStart(tempTestElement);
+		}
+	}
+
+	protected void internalOnTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
-		tempCollectionElement.addContent(tempTestElement);
-		currentElement.push(tempTestElement);
+		tempCollectionElement.addContent(aTestElement);
+		currentElement.push(aTestElement);
 	}
 
 	@Override
@@ -293,20 +330,30 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
 
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+			}
+			internalOnTableTestStart(tempTestElement);
+		}
+	}
+
+	protected void internalOnTableTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
-		tempCollectionElement.addContent(tempTestElement);
-		currentElement.push(tempTestElement);
+		tempCollectionElement.addContent(aTestElement);
+		currentElement.push(aTestElement);
 
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
-		tempTestElement.addContent(tempResultCollectionElement);
 		currentElement.push(tempResultCollectionElement);
 	}
 
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
-		tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-				nanoTimeToString(aResult.getExecutionTime()));
+		if (aResult.getExecutionTime() != null) {
+			tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+		}
 		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getSubTestSuccessCount()));
 		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
@@ -317,7 +364,16 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
 				.getSubResults().get(0), IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
 
-		currentElement.pop().addContent(tempResultCollectionElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
+			}
+			internalOnTestFinish(tempResultCollectionElement);
+		}
+	}
+
+	protected void internalOnTestFinish(Element aResultCollectionElement) {
+		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
 	@Override
@@ -327,32 +383,44 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
-		onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
-				IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+		if (!isDryRun()) {
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
+					IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+		}
 	}
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		Element tempResultCollectionElement = currentElement.pop();
-		tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-				nanoTimeToString(aResult.getExecutionTime()));
-		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestSuccessCount()));
-		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestFailCount()));
-		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestExceptionCount()));
+		if (!isDryRun()) {
+			Element tempResultCollectionElement = currentElement.pop();
+			tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestSuccessCount()));
+			tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestFailCount()));
+			tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestExceptionCount()));
 
-		// remove the test element
-		currentElement.pop();
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
+			}
+			internalOnTableTestFinish(tempResultCollectionElement);
+		}
+	}
+
+	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
+		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
 	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, Element aResultCollectionElement,
 			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		Element tempTestResultElement = new Element(RESULT_ELEMENT);
 
-		tempTestResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-				nanoTimeToString(aSubResult.getExecutionTime()));
+		if (aSubResult.getExecutionTime() != null) {
+			tempTestResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aSubResult.getExecutionTime()));
+		}
 
 		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
@@ -440,17 +508,29 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		}
 		tempCallElement.addContent(tempParameterCollectionElement);
 
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
+			}
+			internalOnCallStart(tempCallElement);
+		}
+	}
+
+	protected void internalOnCallStart(Element aCallElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
-		tempCollectionElement.addContent(tempCallElement);
-		currentElement.push(tempCallElement);
+		tempCollectionElement.addContent(aCallElement);
+		currentElement.push(aCallElement);
 	}
 
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
+		Element tempCallResultElement = null;
 		if (aResult != null) {
-			Element tempCallResultElement = new Element(RESULT_ELEMENT);
-			tempCallResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-					nanoTimeToString(aResult.getExecutionTime()));
+			tempCallResultElement = new Element(RESULT_ELEMENT);
+			if (aResult.getExecutionTime() != null) {
+				tempCallResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+						nanoTimeToString(aResult.getExecutionTime()));
+			}
 
 			if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
@@ -469,7 +549,19 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 						stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
 								.getException()));
 			}
-			currentElement.peek().addContent(tempCallResultElement);
+		}
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement);
+			}
+			internalOnCallFinish(tempCallResultElement);
+		}
+	}
+
+	protected void internalOnCallFinish(Element aCallResultElement) {
+		if (aCallResultElement != null) {
+			currentElement.peek().addContent(aCallResultElement);
 		}
 
 		currentElement.pop();
@@ -482,32 +574,67 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 		tempTearDownElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempTearDownElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
-		currentElement.peek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(tempTearDownElement);
-		currentElement.push(tempTearDownElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
+			}
+			internalOnTearDownStart(tempTearDownElement);
+		}
+	}
+
+	protected void internalOnTearDownStart(Element aTearDownElement) {
+		currentElement.peek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(aTearDownElement);
+		currentElement.push(aTearDownElement);
 	}
 
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
-		currentElement.pop().addContent(tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
+			}
+			internalOnTearDownFinish(tempSuiteResultElement);
+		}
+	}
+
+	protected void internalOnTearDownFinish(Element aSuiteResultElement) {
+		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
-		currentElement.pop().addContent(tempSuiteResultElement);
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
+			}
+			internalOnSuiteFinish(tempSuiteResultElement);
+		}
+	}
+
+	protected void internalOnSuiteFinish(Element aSuiteResultElement) {
+		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
 	@Override
@@ -537,15 +664,25 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
-		Element tempCollectionElement = currentElement.peek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
-				IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition));
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
 					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));
 		}
-		tempCollectionElement.addContent(tempVariableElement);
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+			}
+			internalOnVariableDefinition(tempVariableElement);
+		}
+	}
+
+	protected void internalOnVariableDefinition(Element aVariableElement) {
+		Element tempCollectionElement = currentElement.peek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aVariableElement);
 	}
 
 	protected static String stackTraceToString(Throwable anException) {
@@ -574,5 +711,59 @@ public class XmlWriterTestCallback implements TestRunnerCallback {
 
 	protected static String nanoTimeToString(long aNanosecondValue) {
 		return EXECUTION_TIME_FORMAT.format(((double) aNanosecondValue) / 1000000.0);
+	}
+
+	protected void sendElementToMaster(TestRunnerCallbackMethods aMethod, Element anElement) {
+		sendToMaster(aMethod, (Serializable) anElement.clone());
+	}
+
+	@Override
+	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
+		Element tempElement = (Element) someObjects[0];
+
+		// dispatch message to matching internal... method
+		switch (aMethod) {
+		case SUITE_START:
+			internalOnSuiteStart(tempElement);
+			break;
+		case SETUP_START:
+			internalOnSetupStart(tempElement);
+			break;
+		case SETUP_FINISH:
+			internalOnSetupFinish(tempElement);
+			break;
+		case TEST_START:
+			internalOnTestStart(tempElement);
+			break;
+		case TABLE_TEST_START:
+			internalOnTableTestStart(tempElement);
+			break;
+		case TEST_FINISH:
+			internalOnTableTestFinish(tempElement);
+			break;
+		case TABLE_TEST_FINISH:
+			internalOnTableTestFinish(tempElement);
+			break;
+		case CALL_START:
+			internalOnCallStart(tempElement);
+			break;
+		case CALL_FINISH:
+			internalOnCallFinish(tempElement);
+			break;
+		case TEAR_DOWN_START:
+			internalOnTearDownStart(tempElement);
+			break;
+		case TEAR_DOWN_FINISH:
+			internalOnTearDownFinish(tempElement);
+			break;
+		case SUITE_FINISH:
+			internalOnSuiteFinish(tempElement);
+			break;
+		case VARIABLE_DEFINITION:
+			internalOnVariableDefinition(tempElement);
+			break;
+		default:
+			return;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package de.gebit.integrity.eclipse.views;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -84,7 +85,9 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 
 /**
  * The Integrity Test Runner Eclipse Plugin main view.
@@ -1286,6 +1289,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
+			anEndpoint.sendMessage(new SetListBaselineMessage(null));
 			updateActionStatus(client.getExecutionState());
 		}
 
@@ -1384,6 +1388,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 					treeViewer.update(setList.resolveReference(anEntryReference), null);
 				}
 			});
+		}
+
+		@Override
+		public void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
+				Serializable[] someData) {
+			// not used in this context
+		}
+
+		@Override
+		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
+			// not used in this context
 		}
 	}
 }

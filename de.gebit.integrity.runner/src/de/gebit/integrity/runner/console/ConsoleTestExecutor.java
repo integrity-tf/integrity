@@ -113,7 +113,7 @@ public final class ConsoleTestExecutor {
 				}
 
 				try {
-					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort);
+					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, someArgs);
 					tempRunner.run(tempRootSuiteCall,
 							(Boolean) tempParser.getOptionValue(tempWaitForPlayOption, Boolean.FALSE));
 				} catch (IOException exc) {

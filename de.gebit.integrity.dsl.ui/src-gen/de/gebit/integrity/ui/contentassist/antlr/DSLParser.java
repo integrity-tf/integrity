@@ -49,6 +49,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
+					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
 					put(grammarAccess.getTestDefinitionAccess().getGroup(), "rule__TestDefinition__Group__0");
 					put(grammarAccess.getCallDefinitionAccess().getGroup(), "rule__CallDefinition__Group__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup(), "rule__SuiteDefinition__Group__0");
@@ -70,6 +71,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallAccess().getGroup(), "rule__Call__Group__0");
 					put(grammarAccess.getCallAccess().getGroup_3(), "rule__Call__Group_3__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
+					put(grammarAccess.getSuiteAccess().getGroup_3(), "rule__Suite__Group_3__0");
 					put(grammarAccess.getSuiteParameterAccess().getGroup(), "rule__SuiteParameter__Group__0");
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getGroup(), "rule__ArbitraryParameterOrResultName__Group__0");
@@ -82,6 +84,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDefinitionAccess().getNameAssignment_1(), "rule__PackageDefinition__NameAssignment_1");
 					put(grammarAccess.getPackageDefinitionAccess().getStatementsAssignment_3(), "rule__PackageDefinition__StatementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
+					put(grammarAccess.getForkDefinitionAccess().getNameAssignment_1(), "rule__ForkDefinition__NameAssignment_1");
 					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_1(), "rule__TestDefinition__NameAssignment_1");
 					put(grammarAccess.getTestDefinitionAccess().getFixtureMethodAssignment_3(), "rule__TestDefinition__FixtureMethodAssignment_3");
 					put(grammarAccess.getCallDefinitionAccess().getNameAssignment_1(), "rule__CallDefinition__NameAssignment_1");
@@ -116,6 +119,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallAccess().getResultAssignment_3_1(), "rule__Call__ResultAssignment_3_1");
 					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_1(), "rule__Suite__DefinitionAssignment_1");
 					put(grammarAccess.getSuiteAccess().getParametersAssignment_2(), "rule__Suite__ParametersAssignment_2");
+					put(grammarAccess.getSuiteAccess().getForkAssignment_3_1(), "rule__Suite__ForkAssignment_3_1");
 					put(grammarAccess.getSuiteParameterAccess().getNameAssignment_0(), "rule__SuiteParameter__NameAssignment_0");
 					put(grammarAccess.getSuiteParameterAccess().getValueAssignment_2(), "rule__SuiteParameter__ValueAssignment_2");
 					put(grammarAccess.getParameterAccess().getNameAssignment_0(), "rule__Parameter__NameAssignment_0");
