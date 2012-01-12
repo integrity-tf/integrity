@@ -466,6 +466,10 @@ public class SetList implements Serializable {
 		return resolveReference(entryInExecutionReference);
 	}
 
+	public int getEntryListPosition() {
+		return entryListPosition;
+	}
+
 	public Set<SetListEntry> getEntriesInExecution() {
 		return pathOfEntriesInExecution;
 	}
@@ -489,7 +493,7 @@ public class SetList implements Serializable {
 			case SETUP:
 			case SUITE:
 			case TEARDOWN:
-				return pathOfEntriesInExecution.contains(anEntry);
+				return anEntry.getId() == entryInExecutionReference || pathOfEntriesInExecution.contains(anEntry);
 			case EXECUTION:
 				return true;
 			default:

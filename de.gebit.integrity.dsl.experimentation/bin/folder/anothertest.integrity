@@ -10,7 +10,13 @@ packagedef mysecondpackage with
 
 	suitedef forkedSuite gets aParam with
 	
+		call random min:0 max:aParam sets packagevar
+		
+		call random min:1 max:aParam sets packagevar
+		
 		call random min:2 max:aParam sets packagevar
+		
+		call random min:3 max:aParam sets packagevar
 	
 	suiteend
 

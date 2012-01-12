@@ -36,11 +36,13 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServerListener;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
+import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
@@ -49,6 +51,7 @@ import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
 import de.gebit.integrity.runner.forking.Fork;
+import de.gebit.integrity.runner.forking.ForkCallback;
 import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.results.Result;
@@ -162,7 +165,7 @@ public class TestRunner {
 
 				if (tempBlockForRemoting) {
 					try {
-						waitForContinue();
+						waitForContinue(false);
 					} catch (InterruptedException exc) {
 						if (remotingServer != null) {
 							remotingServer.closeAll(false);
@@ -229,6 +232,11 @@ public class TestRunner {
 			if (!isFork()) {
 				// we're the master
 				if (aSuiteCall.getFork() != null) {
+					// set the currently executed entry to the suite call entry that will be created next
+					// this signifies that a fork is about to be started executing the highlighted suite
+					if (remotingServer != null) {
+						remotingServer.updateSetList(setList.getEntryListPosition(), new SetListEntry[0]);
+					}
 					// we may need to start a new fork
 					if (!forkMap.containsKey(aSuiteCall.getFork())) {
 						try {
@@ -254,7 +262,7 @@ public class TestRunner {
 						// we're a fork, and we are at a point where we're gonna execute some stuff
 						// but we have to wait until our master gives us the 'go'!
 						shallWaitBeforeNextStep = true;
-						pauseIfRequiredByRemoteClient();
+						pauseIfRequiredByRemoteClient(true);
 
 						// and now we leave dry run mode
 						currentCallback.setDryRun(false);
@@ -395,7 +403,7 @@ public class TestRunner {
 		}
 	}
 
-	public void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
+	protected void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
 		variableStorage.put(anEntity, aValue);
 		if (aDoSendUpdateFlag) {
 			if (isFork()) {
@@ -418,7 +426,7 @@ public class TestRunner {
 		}
 	}
 
-	public void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
+	protected void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
 		for (VariableEntity tempEntity : variableStorage.keySet()) {
 			if (IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true).equals(aQualifiedVariableName)) {
 				setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
@@ -453,7 +461,7 @@ public class TestRunner {
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 			}
 		} else {
-			pauseIfRequiredByRemoteClient();
+			pauseIfRequiredByRemoteClient(false);
 
 			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true);
 
@@ -521,7 +529,7 @@ public class TestRunner {
 		}
 
 		if (currentPhase == Phase.TEST_RUN) {
-			pauseIfRequiredByRemoteClient();
+			pauseIfRequiredByRemoteClient(false);
 		}
 
 		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
@@ -685,7 +693,7 @@ public class TestRunner {
 			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(
 					aCall.getResult() != null ? aCall.getResult().getName() : null);
 		} else {
-			pauseIfRequiredByRemoteClient();
+			pauseIfRequiredByRemoteClient(false);
 
 			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage, true);
 
@@ -805,7 +813,7 @@ public class TestRunner {
 		}
 	}
 
-	protected void pauseIfRequiredByRemoteClient() {
+	protected void pauseIfRequiredByRemoteClient(boolean aForkSyncFlag) {
 		if (remotingServer == null) {
 			return;
 		}
@@ -815,37 +823,50 @@ public class TestRunner {
 
 		if (tempLastTestOrCallEntryRef != null && breakpoints.contains(tempLastTestOrCallEntryRef)) {
 			removeBreakpoint(tempLastTestOrCallEntryRef);
-			try {
-				waitForContinue();
-			} catch (InterruptedException exc) {
-				// just continue
-			}
+		} else if (shallWaitBeforeNextStep) {
+			shallWaitBeforeNextStep = false;
 		} else {
-			if (shallWaitBeforeNextStep) {
-				shallWaitBeforeNextStep = false;
-				try {
-					waitForContinue();
-				} catch (InterruptedException exc) {
-					// just continue
-				}
-			}
+			// do not wait
+			return;
+		}
+
+		try {
+			waitForContinue(aForkSyncFlag);
+		} catch (InterruptedException exc) {
+			// just continue
 		}
 	}
 
-	protected void waitForContinue() throws InterruptedException {
-		remotingServer.updateExecutionState(ExecutionStates.PAUSED);
+	protected void waitForContinue(boolean aForkSyncFlag) throws InterruptedException {
+		if (aForkSyncFlag) {
+			remotingServer.updateExecutionState(ExecutionStates.PAUSED_SYNC);
+		} else {
+			remotingServer.updateExecutionState(ExecutionStates.PAUSED);
+		}
 		executionWaiter.acquire();
 		executionWaiter.drainPermits();
 		remotingServer.updateExecutionState(ExecutionStates.RUNNING);
 	}
 
 	protected void removeBreakpoint(int anEntryReference) {
+		// forward to forks
+		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
+			tempForkEntry.getValue().getClient().createBreakpoint(anEntryReference);
+		}
+
+		// then perform for ourself
 		if (breakpoints.remove(anEntryReference)) {
 			remotingServer.confirmBreakpointRemoval(anEntryReference);
 		}
 	}
 
 	protected void createBreakpoint(int anEntryReference) {
+		// forward to forks
+		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
+			tempForkEntry.getValue().getClient().createBreakpoint(anEntryReference);
+		}
+
+		// then perform for ourself
 		if (breakpoints.add(anEntryReference)) {
 			remotingServer.confirmBreakpointCreation(anEntryReference);
 		}
@@ -886,7 +907,13 @@ public class TestRunner {
 
 		@Override
 		public void onRunCommand(Endpoint anEndpoint) {
-			executionWaiter.release();
+			if (!isFork() && forkInExecution != null) {
+				// if we're the master and a fork is active, we're waiting for a fork, thus this command
+				// is meant for the fork
+				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.RUN);
+			} else {
+				executionWaiter.release();
+			}
 		}
 
 		@Override
@@ -896,13 +923,25 @@ public class TestRunner {
 
 		@Override
 		public void onPauseCommand(Endpoint anEndpoint) {
-			shallWaitBeforeNextStep = true;
+			if (!isFork() && forkInExecution != null) {
+				// if we're the master and a fork is active, we're waiting for a fork, thus this command
+				// is meant for the fork
+				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.PAUSE);
+			} else {
+				shallWaitBeforeNextStep = true;
+			}
 		}
 
 		@Override
 		public void onStepIntoCommand(Endpoint anEndpoint) {
-			shallWaitBeforeNextStep = true;
-			executionWaiter.release();
+			if (!isFork() && forkInExecution != null) {
+				// if we're the master and a fork is active, we're waiting for a fork, thus this command
+				// is meant for the fork
+				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.STEP_INTO);
+			} else {
+				shallWaitBeforeNextStep = true;
+				executionWaiter.release();
+			}
 		}
 
 		@Override
@@ -928,7 +967,24 @@ public class TestRunner {
 	protected Fork createFork(Suite aSuiteCall, ForkDefinition aFork) throws ForkException {
 		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
 				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
-				currentCallback, setList, remotingServer, this);
+				currentCallback, setList, remotingServer, new ForkCallback() {
+
+					@Override
+					public void onSetVariableValue(String aQualifiedVariableName, Object aValue,
+							boolean aDoSendUpdateFlag) {
+						setVariableValue(aQualifiedVariableName, aValue, aDoSendUpdateFlag);
+					}
+
+					@Override
+					public void onForkExit(Fork aFork) {
+						for (Entry<ForkDefinition, Fork> tempEntry : forkMap.entrySet()) {
+							if (tempEntry.getValue() == aFork) {
+								forkMap.remove(tempEntry.getKey());
+								return;
+							}
+						}
+					}
+				});
 
 		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
 				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : FORK_CONNECTION_TIMEOUT_DEFAULT;
@@ -957,6 +1013,11 @@ public class TestRunner {
 				if (!(tempEntry.getValue() instanceof ValueOrEnumValue)) {
 					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
 				}
+			}
+
+			// and the fork will also need all current breakpoints
+			for (Integer tempBreakpoint : breakpoints) {
+				tempFork.getClient().createBreakpoint(tempBreakpoint);
 			}
 
 			return tempFork;

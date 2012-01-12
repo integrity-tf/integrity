@@ -27,7 +27,6 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
-import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -45,9 +44,9 @@ public class Fork {
 
 	private IntegrityRemotingClient client;
 
-	private TestRunner owner;
+	private ForkCallback forkCallback;
 
-	private TestRunnerCallback callback;
+	private TestRunnerCallback testRunnerCallback;
 
 	private IntegrityRemotingServer server;
 
@@ -74,14 +73,14 @@ public class Fork {
 	}
 
 	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, TestRunner anOwner)
+			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback)
 			throws ForkException {
 		super();
 		definition = aDefinition;
-		callback = aCallback;
+		testRunnerCallback = aCallback;
 		setList = aSetList;
 		server = aServer;
-		owner = anOwner;
+		forkCallback = aForkCallback;
 
 		port = getNextPort(aMainPortNumber);
 		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
@@ -218,24 +217,29 @@ public class Fork {
 		@Override
 		public void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
 				Serializable[] someData) {
-			if (callback != null) {
-				callback.receiveFromFork(aCallbackClassName, aMethod, someData);
+			if (testRunnerCallback != null) {
+				testRunnerCallback.receiveFromFork(aCallbackClassName, aMethod, someData);
 			}
 		}
 
 		@Override
 		public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint) {
 			setList.integrateUpdates(someUpdatedEntries);
-			server.updateSetList(anEntryInExecution, someUpdatedEntries);
+			if (server != null) {
+				server.updateSetList(anEntryInExecution, someUpdatedEntries);
+			}
 		}
 
 		@Override
 		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
-			if (aState == ExecutionStates.PAUSED || aState == ExecutionStates.ENDED) {
+			if (aState == ExecutionStates.PAUSED_SYNC || aState == ExecutionStates.ENDED) {
 				segmentExecuted = true;
 				synchronized (Fork.this) {
 					Fork.this.notifyAll();
 				}
+			} else if (aState == ExecutionStates.PAUSED || aState == ExecutionStates.RUNNING) {
+				// now waiting or continuing at a user-defined breakpoint
+				server.updateExecutionState(aState);
 			}
 		}
 
@@ -251,6 +255,7 @@ public class Fork {
 		public void onConnectionLost(Endpoint anEndpoint) {
 			client = null;
 			segmentExecuted = true;
+			forkCallback.onForkExit(Fork.this);
 			synchronized (Fork.this) {
 				Fork.this.notifyAll();
 			}
@@ -258,12 +263,15 @@ public class Fork {
 
 		@Override
 		public void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-			// not required in this context
+			// forward this confirmation to the clients of the master
+			if (server != null) {
+				server.confirmBreakpointRemoval(anEntryReference);
+			}
 		}
 
 		@Override
 		public void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-			// not required in this context
+			// not required in this context, since the master will already confirm this
 		}
 
 		@Override
@@ -276,7 +284,7 @@ public class Fork {
 			// Updating variables in the testrunner will trigger update messages to all forks, which includes this one.
 			// However, this fork already has the new value, thus we'll simply ignore this update.
 			ignoreVariableUpdates = true;
-			owner.setVariableValue(aVariableName, aValue, true);
+			forkCallback.onSetVariableValue(aVariableName, aValue, true);
 			ignoreVariableUpdates = false;
 		}
 	}
