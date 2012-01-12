@@ -115,9 +115,15 @@ public abstract class Fixture {
 				if (tempAnnotation != null && tempAnnotation.name() != null) {
 					String tempName = tempAnnotation.name();
 					Object tempValue = aParameterMap.get(tempName);
-					if (tempValue != null && (tempValue instanceof ValueOrEnumValue)) {
-						Object tempConvertedValue = ParameterUtil.convertValueToParamType(
-								aFixtureMethod.getParameterTypes()[i], (ValueOrEnumValue) tempValue, null);
+					if (tempValue != null) {
+						Object tempConvertedValue;
+						if (tempValue instanceof ValueOrEnumValue) {
+							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
+									aFixtureMethod.getParameterTypes()[i], (ValueOrEnumValue) tempValue, null);
+						} else {
+							tempConvertedValue = ParameterUtil.convertValueToParamType(
+									aFixtureMethod.getParameterTypes()[i], tempValue);
+						}
 						aParameterMap.put(tempName, tempConvertedValue);
 						tempFixedParamsMap.put(tempName, tempConvertedValue);
 					}
@@ -131,9 +137,15 @@ public abstract class Fixture {
 			for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
 				String tempName = tempArbitraryParameter.getName();
 				Object tempValue = aParameterMap.remove(tempName);
-				if (tempValue != null && (tempValue instanceof ValueOrEnumValue)) {
-					Object tempConvertedValue = ParameterUtil.convertValueToParamType(tempArbitraryParameter.getType(),
-							(ValueOrEnumValue) tempValue, null);
+				if (tempValue != null) {
+					Object tempConvertedValue;
+					if (tempValue instanceof ValueOrEnumValue) {
+						tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
+								tempArbitraryParameter.getType(), (ValueOrEnumValue) tempValue, null);
+					} else {
+						tempConvertedValue = ParameterUtil.convertValueToParamType(tempArbitraryParameter.getType(),
+								tempValue);
+					}
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}

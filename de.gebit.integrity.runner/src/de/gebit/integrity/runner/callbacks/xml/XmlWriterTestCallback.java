@@ -379,23 +379,25 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
-		onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
-				IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+		if (!isDryRun()) {
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
+					IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+		}
 	}
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		Element tempResultCollectionElement = currentElement.pop();
-		tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-				nanoTimeToString(aResult.getExecutionTime()));
-		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestSuccessCount()));
-		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestFailCount()));
-		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestExceptionCount()));
-
 		if (!isDryRun()) {
+			Element tempResultCollectionElement = currentElement.pop();
+			tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestSuccessCount()));
+			tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestFailCount()));
+			tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestExceptionCount()));
+
 			if (isFork()) {
 				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
 			}
@@ -652,7 +654,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
-				IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition));
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
 					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));

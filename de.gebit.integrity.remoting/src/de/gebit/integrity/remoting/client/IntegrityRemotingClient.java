@@ -1,6 +1,7 @@
 package de.gebit.integrity.remoting.client;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
+import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
  * The remoting client.
@@ -129,6 +131,18 @@ public class IntegrityRemotingClient {
 	}
 
 	/**
+	 * Updates a variables' value on a fork.
+	 * 
+	 * @param aName
+	 *            the fully qualified variable name
+	 * @param aValue
+	 *            the new value
+	 */
+	public void updateVariableValue(String aName, Serializable aValue) {
+		sendMessage(new VariableUpdateMessage(aName, aValue));
+	}
+
+	/**
 	 * Sends a message to the server.
 	 * 
 	 * @param aMessage
@@ -210,6 +224,14 @@ public class IntegrityRemotingClient {
 			public void processMessage(TestRunnerCallbackMessage aMessage, Endpoint anEndpoint) {
 				listener.onTestRunnerCallbackMessageRetrieval(aMessage.getCallbackClassName(),
 						aMessage.getCallbackMethod(), aMessage.getObjects());
+			}
+		});
+
+		tempMap.put(VariableUpdateMessage.class, new MessageProcessor<VariableUpdateMessage>() {
+
+			@Override
+			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
+				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
 			}
 		});
 

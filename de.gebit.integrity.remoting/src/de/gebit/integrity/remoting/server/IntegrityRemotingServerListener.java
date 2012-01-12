@@ -1,5 +1,7 @@
 package de.gebit.integrity.remoting.server;
 
+import java.io.Serializable;
+
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 
@@ -80,5 +82,15 @@ public interface IntegrityRemotingServerListener {
 	 *            the endpoint
 	 */
 	void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+
+	/**
+	 * Called when an update for a variable was received from a master.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 * @param aValue
+	 *            the new value
+	 */
+	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
 }

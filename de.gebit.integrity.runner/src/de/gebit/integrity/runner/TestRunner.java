@@ -1,6 +1,7 @@
 package de.gebit.integrity.runner;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -394,6 +395,38 @@ public class TestRunner {
 		}
 	}
 
+	public void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
+		variableStorage.put(anEntity, aValue);
+		if (aDoSendUpdateFlag) {
+			if (isFork()) {
+				// A fork will have to send updates to its master
+				if (remotingServer != null) {
+					String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true);
+					if (aValue instanceof Serializable) {
+						remotingServer.sendVariableUpdate(tempName, (Serializable) aValue);
+					} else {
+						System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempName
+								+ "' TO MASTER - VALUE NOT SERIALIZABLE!");
+					}
+				}
+			} else {
+				// The master will have to update all active forks.
+				for (Entry<ForkDefinition, Fork> tempEntry : forkMap.entrySet()) {
+					tempEntry.getValue().updateVariableValue(anEntity, aValue);
+				}
+			}
+		}
+	}
+
+	public void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
+		for (VariableEntity tempEntity : variableStorage.keySet()) {
+			if (IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true).equals(aQualifiedVariableName)) {
+				setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
+				return;
+			}
+		}
+	}
+
 	protected TestResult executeTest(Test aTest) {
 		if (currentCallback != null) {
 			currentCallback.onTestStart(aTest);
@@ -629,7 +662,7 @@ public class TestRunner {
 
 	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult) {
 		if (anExpectedResult != null) {
-			Object tempConvertedResult = ParameterUtil.convertValueToParamType(aFixtureResult.getClass(),
+			Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(aFixtureResult.getClass(),
 					anExpectedResult, variableStorage);
 			return tempConvertedResult.equals(aFixtureResult);
 		} else {
@@ -667,7 +700,7 @@ public class TestRunner {
 				} else {
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, aCall.getResult()
 							.getName(), tempDuration);
-					variableStorage.put(aCall.getResult().getName(), tempResult);
+					setVariableValue(aCall.getResult().getName(), tempResult, true);
 				}
 				// SUPPRESS CHECKSTYLE IllegalCatch
 			} catch (Exception exc) {
@@ -882,6 +915,11 @@ public class TestRunner {
 		public void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
 			removeBreakpoint(anEntryReference);
 		}
+
+		@Override
+		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
+			setVariableValue(aVariableName, aValue, false);
+		}
 	}
 
 	public static boolean isFork() {
@@ -890,7 +928,8 @@ public class TestRunner {
 
 	protected Fork createFork(Suite aSuiteCall, ForkDefinition aFork) throws ForkException {
 		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
-				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT, callback);
+				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT, callback,
+				this);
 
 		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
 				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : FORK_CONNECTION_TIMEOUT_DEFAULT;
@@ -913,6 +952,14 @@ public class TestRunner {
 		}
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
+			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
+			// (encapsulated values are predefined in the test script and thus already known to the fork)
+			for (Entry<VariableEntity, Object> tempEntry : variableStorage.entrySet()) {
+				if (!(tempEntry.getValue() instanceof ValueOrEnumValue)) {
+					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
+				}
+			}
+
 			return tempFork;
 		} else {
 			tempFork.kill();

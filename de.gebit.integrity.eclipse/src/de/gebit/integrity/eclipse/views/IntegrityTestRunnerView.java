@@ -1395,5 +1395,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 				Serializable[] someData) {
 			// not used in this context
 		}
+
+		@Override
+		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
+			// not used in this context
+		}
 	}
 }

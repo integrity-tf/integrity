@@ -132,7 +132,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		println("Defined variable "
-				+ IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition)
+				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
 						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, false)));
 	}

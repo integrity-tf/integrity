@@ -111,4 +111,14 @@ public interface IntegrityRemotingClientListener {
 	void onTestRunnerCallbackMessageRetrieval(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
 			Serializable[] someData);
 
+	/**
+	 * Called when an update for a variable was received from a fork.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 * @param aValue
+	 *            the new value
+	 */
+	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
+
 }

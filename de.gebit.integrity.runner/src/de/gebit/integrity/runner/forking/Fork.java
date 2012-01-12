@@ -12,8 +12,11 @@ import java.io.Serializable;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -23,7 +26,9 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * A fork is the result of the test runner forking during test execution.
@@ -39,13 +44,19 @@ public class Fork {
 
 	private IntegrityRemotingClient client;
 
+	private TestRunner owner;
+
 	private TestRunnerCallback callback;
+
+	private HashMap<String, Object> variableUpdates = new HashMap<String, Object>();
 
 	private Integer port;
 
 	private boolean connectionConfirmed;
 
 	private boolean segmentExecuted;
+
+	private boolean ignoreVariableUpdates;
 
 	private static Forker forker = new DefaultForker();
 
@@ -58,10 +69,11 @@ public class Fork {
 	}
 
 	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback) throws ForkException {
+			TestRunnerCallback aCallback, TestRunner anOwner) throws ForkException {
 		super();
 		definition = aDefinition;
 		callback = aCallback;
+		owner = anOwner;
 
 		port = getNextPort(aMainPortNumber);
 		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
@@ -149,6 +161,8 @@ public class Fork {
 
 	public void executeNextSegment() {
 		if (client != null) {
+			transmitVariableUpdates();
+
 			synchronized (this) {
 				segmentExecuted = false;
 				client.controlExecution(ExecutionCommands.RUN);
@@ -161,6 +175,26 @@ public class Fork {
 					}
 				}
 			}
+		}
+	}
+
+	protected void transmitVariableUpdates() {
+		if (client != null) {
+			for (Entry<String, Object> tempEntry : variableUpdates.entrySet()) {
+				if (tempEntry.getValue() == null || (tempEntry.getValue() instanceof Serializable)) {
+					client.updateVariableValue(tempEntry.getKey(), (Serializable) tempEntry.getValue());
+				} else {
+					System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempEntry.getKey()
+							+ "' TO FORK - VALUE NOT SERIALIZABLE!");
+				}
+			}
+			variableUpdates.clear();
+		}
+	}
+
+	public void updateVariableValue(VariableEntity aVariable, Object aValue) {
+		if (!ignoreVariableUpdates) {
+			variableUpdates.put(IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true), aValue);
 		}
 	}
 
@@ -215,17 +249,26 @@ public class Fork {
 
 		@Override
 		public void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-
+			// not required in this context
 		}
 
 		@Override
 		public void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-
+			// not required in this context
 		}
 
 		@Override
 		public void onBaselineReceived(SetList aSetList, Endpoint anEndpoint) {
+			// not required in this context
+		}
 
+		@Override
+		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
+			// Updating variables in the testrunner will trigger update messages to all forks, which includes this one.
+			// However, this fork already has the new value, thus we'll simply ignore this update.
+			ignoreVariableUpdates = true;
+			owner.setVariableValue(aVariableName, aValue, true);
+			ignoreVariableUpdates = false;
 		}
 	}
 

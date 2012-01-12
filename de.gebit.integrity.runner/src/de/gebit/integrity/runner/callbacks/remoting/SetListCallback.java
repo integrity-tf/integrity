@@ -345,7 +345,7 @@ public class SetListCallback extends TestRunnerCallback {
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
-				IntegrityDSLUtil.getQualifiedGlobalVariableName(aDefinition));
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 					ParameterUtil.convertValueToString(anInitialValue, variableStorage, false));

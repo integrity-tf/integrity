@@ -8,15 +8,17 @@ packagedef mysecondpackage with
 
 	forkdef firstFork
 
-	suitedef forkedSuite with
+	suitedef forkedSuite gets aParam with
 	
-		call random min:2 max:20
+		call random min:2 max:aParam sets packagevar
 	
 	suiteend
 
 	suitedef additionSuite requires initSuite with
 	
-		suite forkedSuite on firstFork
+		call random min:5 max:10 sets yeah
+	
+		suite forkedSuite aParam:yeah on firstFork
 	
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101
  

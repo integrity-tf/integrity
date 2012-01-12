@@ -22,6 +22,7 @@ import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMe
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
+import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
  * The server implementation.
@@ -141,13 +142,30 @@ public class IntegrityRemotingServer {
 	 * callback.
 	 * 
 	 * @param aCallbackClassName
+	 *            the name of the callback class
 	 * @param aMethod
+	 *            the method being called
 	 * @param someData
+	 *            the data
 	 */
 	public void sendTestRunnerCallbackData(String aCallbackClassName, TestRunnerCallbackMethods aMethod,
 			Serializable[] someData) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new TestRunnerCallbackMessage(aCallbackClassName, aMethod, someData));
+		}
+	}
+
+	/**
+	 * Transmits an update for a variables' value to the master.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 * @param aValue
+	 *            the updated value
+	 */
+	public void sendVariableUpdate(String aVariableName, Serializable aValue) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new VariableUpdateMessage(aVariableName, aValue));
 		}
 	}
 
@@ -181,7 +199,6 @@ public class IntegrityRemotingServer {
 				listener.onSetListRequest(anEndpoint);
 				anEndpoint.sendMessage(new ExecutionStateMessage(executionState));
 			}
-
 		});
 
 		tempMap.put(ExecutionControlMessage.class, new MessageProcessor<ExecutionControlMessage>() {
@@ -202,7 +219,6 @@ public class IntegrityRemotingServer {
 					break;
 				}
 			}
-
 		});
 
 		tempMap.put(BreakpointUpdateMessage.class, new MessageProcessor<BreakpointUpdateMessage>() {
@@ -220,7 +236,14 @@ public class IntegrityRemotingServer {
 					break;
 				}
 			}
+		});
 
+		tempMap.put(VariableUpdateMessage.class, new MessageProcessor<VariableUpdateMessage>() {
+
+			@Override
+			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
+				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
+			}
 		});
 
 		return tempMap;
