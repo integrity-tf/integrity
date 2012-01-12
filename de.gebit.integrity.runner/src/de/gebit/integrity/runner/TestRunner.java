@@ -279,7 +279,7 @@ public class TestRunner {
 
 				long tempStart = System.nanoTime();
 				Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempSetupSuite, aFork);
-				SuiteResult tempSetupResult = (tempSuiteResults == null) ? null : new SuiteResult(tempSuiteResults,
+				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
 						null, null, System.nanoTime() - tempStart);
 				tempSetupResults.put(tempSetupSuite, tempSetupResult);
 
@@ -316,7 +316,7 @@ public class TestRunner {
 
 						long tempStart = System.nanoTime();
 						Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempTearDownSuite, aFork);
-						SuiteResult tempTearDownResult = (tempSuiteResults == null) ? null : new SuiteResult(
+						SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(
 								tempSuiteResults, null, null, System.nanoTime() - tempStart);
 						tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
 
@@ -328,7 +328,7 @@ public class TestRunner {
 			}
 		}
 
-		SuiteResult tempResult = (tempResults == null) ? null : new SuiteResult(tempResults, tempSetupResults,
+		SuiteResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults, tempSetupResults,
 				tempTearDownResults, tempSuiteDuration);
 
 		if (currentCallback != null) {
@@ -848,7 +848,6 @@ public class TestRunner {
 	protected void createBreakpoint(int anEntryReference) {
 		if (breakpoints.add(anEntryReference)) {
 			remotingServer.confirmBreakpointCreation(anEntryReference);
-			System.out.println("BP AT " + anEntryReference);
 		}
 	}
 
@@ -928,8 +927,8 @@ public class TestRunner {
 
 	protected Fork createFork(Suite aSuiteCall, ForkDefinition aFork) throws ForkException {
 		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
-				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT, callback,
-				this);
+				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
+				currentCallback, setList, remotingServer, this);
 
 		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
 				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : FORK_CONNECTION_TIMEOUT_DEFAULT;

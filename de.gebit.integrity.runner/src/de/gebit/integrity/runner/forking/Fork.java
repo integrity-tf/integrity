@@ -21,6 +21,7 @@ import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
+import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
@@ -48,6 +49,10 @@ public class Fork {
 
 	private TestRunnerCallback callback;
 
+	private IntegrityRemotingServer server;
+
+	private SetList setList;
+
 	private HashMap<String, Object> variableUpdates = new HashMap<String, Object>();
 
 	private Integer port;
@@ -69,10 +74,13 @@ public class Fork {
 	}
 
 	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback, TestRunner anOwner) throws ForkException {
+			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, TestRunner anOwner)
+			throws ForkException {
 		super();
 		definition = aDefinition;
 		callback = aCallback;
+		setList = aSetList;
+		server = aServer;
 		owner = anOwner;
 
 		port = getNextPort(aMainPortNumber);
@@ -217,7 +225,8 @@ public class Fork {
 
 		@Override
 		public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint) {
-
+			setList.integrateUpdates(someUpdatedEntries);
+			server.updateSetList(anEntryInExecution, someUpdatedEntries);
 		}
 
 		@Override

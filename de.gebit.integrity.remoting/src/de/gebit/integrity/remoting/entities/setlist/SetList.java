@@ -337,14 +337,14 @@ public class SetList implements Serializable {
 				case TEST:
 				case CALL:
 				case SUITE:
-					if (resultBearingEntryResultMap.containsKey(tempParent)) {
+					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempParent)) {
 						SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
 						resultBearingEntryResultMap.put(tempParent, tempResultState);
 						executableEntryResultStates.set(executableEntryResultIndex.get(tempParent), tempResultState);
 					}
 					// SUPPRESS CHECKSTYLE FallThrough
 				case TABLETEST:
-					if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
 						resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
 					}
 					break;
@@ -353,7 +353,7 @@ public class SetList implements Serializable {
 				}
 				break;
 			default:
-				if (resultBearingEntryResultMap.containsKey(tempEntry)) {
+				if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
 					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
 					resultBearingEntryResultMap.put(tempEntry, tempResultState);
 					if (executableEntryResultIndex.containsKey(tempEntry)) {

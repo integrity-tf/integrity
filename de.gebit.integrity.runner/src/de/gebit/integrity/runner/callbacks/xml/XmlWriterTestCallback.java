@@ -266,11 +266,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -586,11 +590,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -607,11 +615,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
-		tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
-		tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-		tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getTestExceptionCount()));
+		if (aResult != null) {
+			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
+					nanoTimeToString(aResult.getExecutionTime()));
+			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestSuccessCount()));
+			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getTestExceptionCount()));
+		}
 
 		if (!isDryRun()) {
 			if (isFork()) {

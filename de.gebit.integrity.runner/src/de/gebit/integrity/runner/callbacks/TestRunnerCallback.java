@@ -86,7 +86,6 @@ public abstract class TestRunnerCallback {
 
 	protected void sendToMaster(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		if (server != null) {
-			// System.out.println(aMethod);
 			server.sendTestRunnerCallbackData(getClass().getName(), aMethod, someObjects);
 		}
 	}

@@ -109,11 +109,13 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
-		println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
-				+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
+		if (aResult != null) {
+			println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
+					+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
 
-		println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
-				+ aResult.getTestFailCount() + " failures and " + aResult.getTestExceptionCount() + " exceptions.");
+			println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
+					+ aResult.getTestFailCount() + " failures and " + aResult.getTestExceptionCount() + " exceptions.");
+		}
 	}
 
 	@Override

@@ -391,14 +391,8 @@ public class SetListCallback extends TestRunnerCallback {
 	}
 
 	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
-		if (!isFork()) {
-			// send update to all clients (the normal way)
-			if (remotingServer != null) {
-				remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
-			}
-		} else {
-			// but if we're a fork, we'll channel the updates through the callback data exchange
-			sendToMaster(null, (Serializable) someUpdatedEntries);
+		if (remotingServer != null && !isDryRun()) {
+			remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
 		}
 	}
 
@@ -440,8 +434,7 @@ public class SetListCallback extends TestRunnerCallback {
 
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
-		SetListEntry[] tempEntries = (SetListEntry[]) someObjects[0];
-		setList.integrateUpdates(tempEntries);
+		// not used
 	}
 
 }
