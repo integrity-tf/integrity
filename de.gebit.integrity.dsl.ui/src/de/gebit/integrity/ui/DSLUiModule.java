@@ -5,8 +5,12 @@ package de.gebit.integrity.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 
 import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider;
+import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
+import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -31,5 +35,23 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return IntegrityEObjectDocumentationProvider.class;
+	}
+
+	/**
+	 * Binds the highlighting configuration.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IHighlightingConfiguration> bindHighlightingConfiguration() {
+		return DSLHighlightingConfiguration.class;
+	}
+
+	/**
+	 * Binds the Antlr token to attribute ID mapper.
+	 * 
+	 * @return
+	 */
+	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+		return DSLAntlrTokenToAttributeIdMapper.class;
 	}
 }

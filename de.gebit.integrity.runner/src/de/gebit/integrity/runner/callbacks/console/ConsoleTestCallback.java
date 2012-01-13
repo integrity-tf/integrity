@@ -210,6 +210,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onVisibleComment(String aCommentText) {
+		System.out.println(" -- " + aCommentText + " --");
+	}
+
+	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		// nothing to do; this callback is not fork-aware
 	}

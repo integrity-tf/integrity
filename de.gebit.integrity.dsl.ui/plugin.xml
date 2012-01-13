@@ -52,7 +52,7 @@
         <page
             class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
             id="de.gebit.integrity.DSL"
-            name="DSL">
+            name="Integrity">
             <keywordReference id="de.gebit.integrity.ui.keyword_DSL"/>
         </page>
         <page

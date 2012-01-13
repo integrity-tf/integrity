@@ -33,6 +33,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -379,6 +381,16 @@ public class TestRunner {
 				executeCall((Call) tempStatement);
 			} else if (tempStatement instanceof VariableDefinition) {
 				defineVariable((VariableDefinition) tempStatement, aSuite);
+			} else if (tempStatement instanceof VisibleSingleLineComment) {
+				if (currentCallback != null) {
+					currentCallback.onVisibleComment(IntegrityDSLUtil
+							.cleanSingleLineComment((VisibleSingleLineComment) tempStatement));
+				}
+			} else if (tempStatement instanceof VisibleMultiLineComment) {
+				if (currentCallback != null) {
+					currentCallback.onVisibleComment(IntegrityDSLUtil
+							.cleanMultiLineComment((VisibleMultiLineComment) tempStatement));
+				}
 			}
 		}
 

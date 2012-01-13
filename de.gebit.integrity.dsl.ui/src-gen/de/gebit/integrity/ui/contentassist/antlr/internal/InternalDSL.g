@@ -112,6 +112,62 @@ finally {
 
 
 
+// Entry rule entryRuleVisibleSingleLineComment
+entryRuleVisibleSingleLineComment 
+:
+{ before(grammarAccess.getVisibleSingleLineCommentRule()); }
+	 ruleVisibleSingleLineComment
+{ after(grammarAccess.getVisibleSingleLineCommentRule()); } 
+	 EOF 
+;
+
+// Rule VisibleSingleLineComment
+ruleVisibleSingleLineComment
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment()); }
+(rule__VisibleSingleLineComment__ContentAssignment)
+{ after(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+// Entry rule entryRuleVisibleMultiLineComment
+entryRuleVisibleMultiLineComment 
+:
+{ before(grammarAccess.getVisibleMultiLineCommentRule()); }
+	 ruleVisibleMultiLineComment
+{ after(grammarAccess.getVisibleMultiLineCommentRule()); } 
+	 EOF 
+;
+
+// Rule VisibleMultiLineComment
+ruleVisibleMultiLineComment
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment()); }
+(rule__VisibleMultiLineComment__ContentAssignment)
+{ after(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRulePackageDefinition
 entryRulePackageDefinition 
 :
@@ -1272,6 +1328,18 @@ rule__SuiteStatement__Alternatives
 { before(grammarAccess.getSuiteStatementAccess().getVariableDefinitionParserRuleCall_2()); }
 	ruleVariableDefinition
 { after(grammarAccess.getSuiteStatementAccess().getVariableDefinitionParserRuleCall_2()); }
+)
+
+    |(
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); }
+	ruleVisibleSingleLineComment
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); }
+	ruleVisibleMultiLineComment
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); }
 )
 
 ;
@@ -4695,6 +4763,36 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__VisibleSingleLineComment__ContentAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0()); }
+	RULE_SL_VISIBLE_COMMENT{ after(grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__VisibleMultiLineComment__ContentAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0()); }
+	RULE_ML_VISIBLE_COMMENT{ after(grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__PackageDefinition__NameAssignment_1
     @init {
 		int stackSize = keepStackSize();
@@ -5545,6 +5643,10 @@ RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))*
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_SL_VISIBLE_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_ML_VISIBLE_COMMENT : '/-' ( options {greedy=false;} : . )*'-/';
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
 

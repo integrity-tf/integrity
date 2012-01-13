@@ -36,6 +36,8 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
@@ -420,4 +422,55 @@ public final class IntegrityDSLUtil {
 		}
 	}
 
+	/**
+	 * Removes the prefix as well as any trailing newlines from visible single-line comment text.
+	 * 
+	 * @param aComment
+	 *            the comment
+	 * @return the cleaned text
+	 */
+	public static String cleanSingleLineComment(VisibleSingleLineComment aComment) {
+		String tempString = aComment.getContent().trim();
+		if (tempString.startsWith("--")) {
+			if (tempString.length() > 2) {
+				return tempString.substring(2);
+			} else {
+				return "";
+			}
+		}
+
+		throw new IllegalArgumentException("The given single-line comment does not start with the expected literal.");
+	}
+
+	/**
+	 * Removes prefix and suffix from visible single-line comment text, as well as any newlines in between.
+	 * 
+	 * @param aComment
+	 *            the comment
+	 * @return the cleaned text
+	 */
+	public static String cleanMultiLineComment(VisibleMultiLineComment aComment) {
+		String tempString = aComment.getContent().trim();
+		if (tempString.startsWith("/-") && tempString.endsWith("-/")) {
+			StringBuilder tempBuilder = new StringBuilder();
+			boolean tempSpaceWasAdded = false;
+			for (int i = 2; i < tempString.length() - 2; i++) {
+				char tempChar = tempString.charAt(i);
+				if (!Character.isWhitespace(tempChar)) {
+					tempSpaceWasAdded = false;
+					tempBuilder.append(tempChar);
+				} else {
+					if (!tempSpaceWasAdded) {
+						tempBuilder.append(" ");
+						tempSpaceWasAdded = true;
+					}
+				}
+			}
+
+			return tempBuilder.toString();
+		}
+
+		throw new IllegalArgumentException(
+				"The given multi-line comment does not start and end with the expected literals.");
+	}
 }

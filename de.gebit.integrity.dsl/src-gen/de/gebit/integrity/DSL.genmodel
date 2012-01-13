@@ -13,6 +13,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Model/statements"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Statement"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineComment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleSingleLineComment/content"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineComment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleMultiLineComment/content"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//PackageDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//PackageDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//PackageDefinition/statements"/>

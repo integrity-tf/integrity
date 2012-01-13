@@ -90,6 +90,22 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VISIBLE_SINGLE_LINE_COMMENT:
+      {
+        VisibleSingleLineComment visibleSingleLineComment = (VisibleSingleLineComment)theEObject;
+        T result = caseVisibleSingleLineComment(visibleSingleLineComment);
+        if (result == null) result = caseSuiteStatement(visibleSingleLineComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VISIBLE_MULTI_LINE_COMMENT:
+      {
+        VisibleMultiLineComment visibleMultiLineComment = (VisibleMultiLineComment)theEObject;
+        T result = caseVisibleMultiLineComment(visibleMultiLineComment);
+        if (result == null) result = caseSuiteStatement(visibleMultiLineComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.PACKAGE_DEFINITION:
       {
         PackageDefinition packageDefinition = (PackageDefinition)theEObject;
@@ -399,6 +415,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStatement(Statement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Single Line Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Single Line Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleSingleLineComment(VisibleSingleLineComment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Multi Line Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Multi Line Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleMultiLineComment(VisibleMultiLineComment object)
   {
     return null;
   }

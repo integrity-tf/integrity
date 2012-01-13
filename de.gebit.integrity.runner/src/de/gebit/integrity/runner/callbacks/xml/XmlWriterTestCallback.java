@@ -685,6 +685,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
+	@Override
+	public void onVisibleComment(String aCommentText) {
+		// TODO Auto-generated method stub
+
+	}
+
 	protected static String stackTraceToString(Throwable anException) {
 		String tempResult = null;
 		StringWriter tempStringWriter = null;

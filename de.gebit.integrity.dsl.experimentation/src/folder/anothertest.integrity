@@ -22,8 +22,15 @@ packagedef mysecondpackage with
 
 	suitedef additionSuite requires initSuite with
 	
+		// This comment is not visible
+		
+		/* A multiline invisible comment */
+		
+		-- A singleline visible comment
 		call random min:5 max:10 sets yeah
 	
+		/- This is a multiline visible comment.           
+			It has several lines, and whitespace and stuff in between! -/
 		suite forkedSuite aParam:yeah on firstFork
 	
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101

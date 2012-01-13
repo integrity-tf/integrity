@@ -56,6 +56,38 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getSuiteParserRuleCall_2() { return cSuiteParserRuleCall_2; }
 	}
 
+	public class VisibleSingleLineCommentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VisibleSingleLineComment");
+		private final Assignment cContentAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cContentSL_VISIBLE_COMMENTTerminalRuleCall_0 = (RuleCall)cContentAssignment.eContents().get(0);
+		
+		//VisibleSingleLineComment:
+		//	content=SL_VISIBLE_COMMENT;
+		public ParserRule getRule() { return rule; }
+
+		//content=SL_VISIBLE_COMMENT
+		public Assignment getContentAssignment() { return cContentAssignment; }
+
+		//SL_VISIBLE_COMMENT
+		public RuleCall getContentSL_VISIBLE_COMMENTTerminalRuleCall_0() { return cContentSL_VISIBLE_COMMENTTerminalRuleCall_0; }
+	}
+
+	public class VisibleMultiLineCommentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VisibleMultiLineComment");
+		private final Assignment cContentAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cContentML_VISIBLE_COMMENTTerminalRuleCall_0 = (RuleCall)cContentAssignment.eContents().get(0);
+		
+		//VisibleMultiLineComment:
+		//	content=ML_VISIBLE_COMMENT;
+		public ParserRule getRule() { return rule; }
+
+		//content=ML_VISIBLE_COMMENT
+		public Assignment getContentAssignment() { return cContentAssignment; }
+
+		//ML_VISIBLE_COMMENT
+		public RuleCall getContentML_VISIBLE_COMMENTTerminalRuleCall_0() { return cContentML_VISIBLE_COMMENTTerminalRuleCall_0; }
+	}
+
 	public class PackageDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -358,12 +390,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSuiteStatementWithResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cCallParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cVariableDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cVisibleSingleLineCommentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cVisibleMultiLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//SuiteStatement:
-		//	SuiteStatementWithResult | Call | VariableDefinition;
+		//	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
 		public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | Call | VariableDefinition
+		//SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//SuiteStatementWithResult
@@ -374,6 +408,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//VariableDefinition
 		public RuleCall getVariableDefinitionParserRuleCall_2() { return cVariableDefinitionParserRuleCall_2; }
+
+		//VisibleSingleLineComment
+		public RuleCall getVisibleSingleLineCommentParserRuleCall_3() { return cVisibleSingleLineCommentParserRuleCall_3; }
+
+		//VisibleMultiLineComment
+		public RuleCall getVisibleMultiLineCommentParserRuleCall_4() { return cVisibleMultiLineCommentParserRuleCall_4; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -1301,6 +1341,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private ModelElements pModel;
 	private StatementElements pStatement;
+	private VisibleSingleLineCommentElements pVisibleSingleLineComment;
+	private VisibleMultiLineCommentElements pVisibleMultiLineComment;
 	private PackageDefinitionElements pPackageDefinition;
 	private PackageStatementElements pPackageStatement;
 	private ImportElements pImport;
@@ -1346,6 +1388,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tSTRING;
 	private TerminalRule tML_COMMENT;
 	private TerminalRule tSL_COMMENT;
+	private TerminalRule tSL_VISIBLE_COMMENT;
+	private TerminalRule tML_VISIBLE_COMMENT;
 	private TerminalRule tWS;
 	private TerminalRule tANY_OTHER;
 	
@@ -1380,6 +1424,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStatementRule() {
 		return getStatementAccess().getRule();
+	}
+
+	//VisibleSingleLineComment:
+	//	content=SL_VISIBLE_COMMENT;
+	public VisibleSingleLineCommentElements getVisibleSingleLineCommentAccess() {
+		return (pVisibleSingleLineComment != null) ? pVisibleSingleLineComment : (pVisibleSingleLineComment = new VisibleSingleLineCommentElements());
+	}
+	
+	public ParserRule getVisibleSingleLineCommentRule() {
+		return getVisibleSingleLineCommentAccess().getRule();
+	}
+
+	//VisibleMultiLineComment:
+	//	content=ML_VISIBLE_COMMENT;
+	public VisibleMultiLineCommentElements getVisibleMultiLineCommentAccess() {
+		return (pVisibleMultiLineComment != null) ? pVisibleMultiLineComment : (pVisibleMultiLineComment = new VisibleMultiLineCommentElements());
+	}
+	
+	public ParserRule getVisibleMultiLineCommentRule() {
+		return getVisibleMultiLineCommentAccess().getRule();
 	}
 
 	//PackageDefinition:
@@ -1455,7 +1519,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
-	//	SuiteStatementWithResult | Call | VariableDefinition;
+	//	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return (pSuiteStatement != null) ? pSuiteStatement : (pSuiteStatement = new SuiteStatementElements());
 	}
@@ -1808,6 +1872,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
+	} 
+
+	//terminal SL_VISIBLE_COMMENT:
+	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
+	public TerminalRule getSL_VISIBLE_COMMENTRule() {
+		return (tSL_VISIBLE_COMMENT != null) ? tSL_VISIBLE_COMMENT : (tSL_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_VISIBLE_COMMENT"));
+	} 
+
+	//terminal ML_VISIBLE_COMMENT:
+	//	"/-"->"-/";
+	public TerminalRule getML_VISIBLE_COMMENTRule() {
+		return (tML_VISIBLE_COMMENT != null) ? tML_VISIBLE_COMMENT : (tML_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_VISIBLE_COMMENT"));
 	} 
 
 	//terminal WS:

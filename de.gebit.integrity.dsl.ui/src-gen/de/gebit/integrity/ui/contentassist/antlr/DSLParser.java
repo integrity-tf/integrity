@@ -81,6 +81,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedJavaClassNameAccess().getGroup(), "rule__QualifiedJavaClassName__Group__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
 					put(grammarAccess.getModelAccess().getStatementsAssignment(), "rule__Model__StatementsAssignment");
+					put(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment(), "rule__VisibleSingleLineComment__ContentAssignment");
+					put(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment(), "rule__VisibleMultiLineComment__ContentAssignment");
 					put(grammarAccess.getPackageDefinitionAccess().getNameAssignment_1(), "rule__PackageDefinition__NameAssignment_1");
 					put(grammarAccess.getPackageDefinitionAccess().getStatementsAssignment_3(), "rule__PackageDefinition__StatementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");

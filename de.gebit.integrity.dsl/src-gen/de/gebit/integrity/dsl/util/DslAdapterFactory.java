@@ -89,6 +89,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createStatementAdapter();
       }
       @Override
+      public Adapter caseVisibleSingleLineComment(VisibleSingleLineComment object)
+      {
+        return createVisibleSingleLineCommentAdapter();
+      }
+      @Override
+      public Adapter caseVisibleMultiLineComment(VisibleMultiLineComment object)
+      {
+        return createVisibleMultiLineCommentAdapter();
+      }
+      @Override
       public Adapter casePackageDefinition(PackageDefinition object)
       {
         return createPackageDefinitionAdapter();
@@ -311,6 +321,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleSingleLineComment <em>Visible Single Line Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleSingleLineComment
+   * @generated
+   */
+  public Adapter createVisibleSingleLineCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleMultiLineComment <em>Visible Multi Line Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleMultiLineComment
+   * @generated
+   */
+  public Adapter createVisibleMultiLineCommentAdapter()
   {
     return null;
   }

@@ -11,12 +11,18 @@ Model:
 Statement:
 	PackageDefinition | Import | Suite;
 	
+VisibleSingleLineComment:
+	content=SL_VISIBLE_COMMENT;
+	
+VisibleMultiLineComment:
+	content=ML_VISIBLE_COMMENT;
+	
 PackageDefinition:
 	'packagedef' name=QualifiedName 'with' statements+=PackageStatement* 'packageend';
 	
 PackageStatement:
 	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
-	
+
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
 	
@@ -33,7 +39,7 @@ SuiteDefinition:
 	'suitedef' name=QualifiedName ('gets' parameters+=VariableEntity*)? ('requires' dependencies+=[SuiteDefinition|QualifiedName]*)? 'with' statements+=SuiteStatement* 'suiteend' ('concludedby' finalizers+=[SuiteDefinition|QualifiedName]*)?;
 
 SuiteStatement:
-	SuiteStatementWithResult | Call | VariableDefinition;
+	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest;
@@ -131,13 +137,15 @@ terminal UPPERCASE_ID: ('A'..'Z') ('A'..'Z'|'a'..'z'|'_'|'0'..'9')*;
 terminal ID: '^'?('a'..'z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 terminal INTEGER returns ecore::EBigInteger: ('0'..'9')+;
 terminal DECIMAL returns ecore::EBigDecimal: INTEGER '.' INTEGER;
-terminal STRING	: 
+terminal STRING: 
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-		; 
-terminal ML_COMMENT	: '/*' -> '*/';
-terminal SL_COMMENT 	: '//' !('\n'|'\r')* ('\r'? '\n')?;
+			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 
+terminal ML_COMMENT: '/*' -> '*/';
+terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
+terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')* ('\r'? '\n')?;
+terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
 
-terminal WS			: (' '|'\t'|'\r'|'\n')+;
+
+terminal WS: (' '|'\t'|'\r'|'\n')+;
 
 terminal ANY_OTHER: .;

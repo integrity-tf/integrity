@@ -193,4 +193,11 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 			tempCallback.receiveFromFork(aCallbackClassName, aMethod, someData);
 		}
 	}
+
+	@Override
+	public void onVisibleComment(String aCommentText) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onVisibleComment(aCommentText);
+		}
+	}
 }

@@ -62,6 +62,8 @@ public abstract class TestRunnerCallback {
 
 	public abstract void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue);
 
+	public abstract void onVisibleComment(String aCommentText);
+
 	public abstract void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects);
 
 	protected IntegrityRemotingServer server;

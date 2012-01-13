@@ -45,6 +45,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -76,6 +78,20 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass statementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass visibleSingleLineCommentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass visibleMultiLineCommentEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -416,6 +432,46 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EClass getStatement()
   {
     return statementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVisibleSingleLineComment()
+  {
+    return visibleSingleLineCommentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVisibleSingleLineComment_Content()
+  {
+    return (EAttribute)visibleSingleLineCommentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVisibleMultiLineComment()
+  {
+    return visibleMultiLineCommentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVisibleMultiLineComment_Content()
+  {
+    return (EAttribute)visibleMultiLineCommentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1323,6 +1379,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     statementEClass = createEClass(STATEMENT);
 
+    visibleSingleLineCommentEClass = createEClass(VISIBLE_SINGLE_LINE_COMMENT);
+    createEAttribute(visibleSingleLineCommentEClass, VISIBLE_SINGLE_LINE_COMMENT__CONTENT);
+
+    visibleMultiLineCommentEClass = createEClass(VISIBLE_MULTI_LINE_COMMENT);
+    createEAttribute(visibleMultiLineCommentEClass, VISIBLE_MULTI_LINE_COMMENT__CONTENT);
+
     packageDefinitionEClass = createEClass(PACKAGE_DEFINITION);
     createEAttribute(packageDefinitionEClass, PACKAGE_DEFINITION__NAME);
     createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__STATEMENTS);
@@ -1478,6 +1540,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    visibleSingleLineCommentEClass.getESuperTypes().add(this.getSuiteStatement());
+    visibleMultiLineCommentEClass.getESuperTypes().add(this.getSuiteStatement());
     packageDefinitionEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getPackageStatement());
@@ -1509,6 +1573,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getModel_Statements(), this.getStatement(), null, "statements", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(visibleSingleLineCommentEClass, VisibleSingleLineComment.class, "VisibleSingleLineComment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVisibleSingleLineComment_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleSingleLineComment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(visibleMultiLineCommentEClass, VisibleMultiLineComment.class, "VisibleMultiLineComment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVisibleMultiLineComment_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleMultiLineComment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(packageDefinitionEClass, PackageDefinition.class, "PackageDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPackageDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

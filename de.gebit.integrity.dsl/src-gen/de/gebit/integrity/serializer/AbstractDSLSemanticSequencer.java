@@ -32,6 +32,8 @@ import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
@@ -274,6 +276,20 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 			case DslPackage.VARIABLE_ENTITY:
 				if(context == grammarAccess.getVariableEntityRule()) {
 					sequence_VariableEntity(context, (VariableEntity) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.VISIBLE_MULTI_LINE_COMMENT:
+				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getVisibleMultiLineCommentRule()) {
+					sequence_VisibleMultiLineComment(context, (VisibleMultiLineComment) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.VISIBLE_SINGLE_LINE_COMMENT:
+				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getVisibleSingleLineCommentRule()) {
+					sequence_VisibleSingleLineComment(context, (VisibleSingleLineComment) semanticObject); 
 					return; 
 				}
 				else break;
@@ -708,6 +724,38 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     content=ML_VISIBLE_COMMENT
+	 */
+	protected void sequence_VisibleMultiLineComment(EObject context, VisibleMultiLineComment semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_MULTI_LINE_COMMENT__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_MULTI_LINE_COMMENT__CONTENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0(), semanticObject.getContent());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     content=SL_VISIBLE_COMMENT
+	 */
+	protected void sequence_VisibleSingleLineComment(EObject context, VisibleSingleLineComment semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_SINGLE_LINE_COMMENT__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_SINGLE_LINE_COMMENT__CONTENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 }

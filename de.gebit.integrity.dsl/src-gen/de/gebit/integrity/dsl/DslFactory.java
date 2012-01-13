@@ -45,6 +45,24 @@ public interface DslFactory extends EFactory
   Statement createStatement();
 
   /**
+   * Returns a new object of class '<em>Visible Single Line Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Single Line Comment</em>'.
+   * @generated
+   */
+  VisibleSingleLineComment createVisibleSingleLineComment();
+
+  /**
+   * Returns a new object of class '<em>Visible Multi Line Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Multi Line Comment</em>'.
+   * @generated
+   */
+  VisibleMultiLineComment createVisibleMultiLineComment();
+
+  /**
    * Returns a new object of class '<em>Package Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

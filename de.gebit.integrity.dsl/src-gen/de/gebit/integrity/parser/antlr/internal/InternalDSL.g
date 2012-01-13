@@ -152,6 +152,84 @@ ruleStatement returns [EObject current=null]
 
 
 
+// Entry rule entryRuleVisibleSingleLineComment
+entryRuleVisibleSingleLineComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleSingleLineCommentRule()); }
+	 iv_ruleVisibleSingleLineComment=ruleVisibleSingleLineComment 
+	 { $current=$iv_ruleVisibleSingleLineComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleSingleLineComment
+ruleVisibleSingleLineComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_content_0_0=RULE_SL_VISIBLE_COMMENT
+		{
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVisibleSingleLineCommentRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"content",
+        		lv_content_0_0, 
+        		"SL_VISIBLE_COMMENT");
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleVisibleMultiLineComment
+entryRuleVisibleMultiLineComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleMultiLineCommentRule()); }
+	 iv_ruleVisibleMultiLineComment=ruleVisibleMultiLineComment 
+	 { $current=$iv_ruleVisibleMultiLineComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleMultiLineComment
+ruleVisibleMultiLineComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_content_0_0=RULE_ML_VISIBLE_COMMENT
+		{
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVisibleMultiLineCommentRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"content",
+        		lv_content_0_0, 
+        		"ML_VISIBLE_COMMENT");
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRulePackageDefinition
 entryRulePackageDefinition returns [EObject current=null] 
 	:
@@ -687,6 +765,26 @@ ruleSuiteStatement returns [EObject current=null]
     this_VariableDefinition_2=ruleVariableDefinition
     { 
         $current = $this_VariableDefinition_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); 
+    }
+    this_VisibleSingleLineComment_3=ruleVisibleSingleLineComment
+    { 
+        $current = $this_VisibleSingleLineComment_3.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); 
+    }
+    this_VisibleMultiLineComment_4=ruleVisibleMultiLineComment
+    { 
+        $current = $this_VisibleMultiLineComment_4.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -2295,6 +2393,10 @@ RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))*
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_SL_VISIBLE_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_ML_VISIBLE_COMMENT : '/-' ( options {greedy=false;} : . )*'-/';
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
 
