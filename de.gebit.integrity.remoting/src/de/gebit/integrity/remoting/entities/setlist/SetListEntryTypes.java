@@ -61,6 +61,11 @@ public enum SetListEntryTypes {
 	/**
 	 * Test comparison.
 	 */
-	COMPARISON;
+	COMPARISON,
+
+	/**
+	 * Comment.
+	 */
+	COMMENT;
 
 }

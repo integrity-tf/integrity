@@ -775,8 +775,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 					if (anEvent.getSelection() instanceof TreeSelection) {
 						TreeSelection tempSelection = (TreeSelection) anEvent.getSelection();
 						if (tempSelection.getFirstElement() instanceof SetListEntry) {
-							updateDetailPanel((SetListEntry) tempSelection.getFirstElement(),
-									(ILabelProvider) ((TreeViewer) anEvent.getSource()).getLabelProvider());
+							SetListEntry tempEntry = (SetListEntry) tempSelection.getFirstElement();
+							if (tempEntry.getType() == SetListEntryTypes.COMMENT) {
+								updateDetailPanel(null, null);
+							} else {
+								updateDetailPanel(tempEntry,
+										(ILabelProvider) ((TreeViewer) anEvent.getSource()).getLabelProvider());
+							}
 						}
 					}
 				}
@@ -1312,7 +1317,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 					// the following will automatically dispose the old
 					// provider!
-					treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet));
+					treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet, Display.getCurrent(),
+							treeViewer));
 
 					// the drawer must be manually disposed
 					if (viewerContentDrawer != null) {

@@ -2,9 +2,17 @@ package de.gebit.integrity.eclipse.views;
 
 import java.util.Set;
 
+import org.eclipse.jface.viewers.IColorProvider;
+import org.eclipse.jface.viewers.IFontProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 
 import de.gebit.integrity.eclipse.Activator;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -18,7 +26,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
  * @author Rene Schneider
  * 
  */
-public class TestTreeLabelProvider extends LabelProvider implements ILabelProvider {
+public class TestTreeLabelProvider extends LabelProvider implements ILabelProvider, IColorProvider, IFontProvider {
 
 	/**
 	 * The set list to use.
@@ -86,6 +94,16 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 	private Image callExceptionImage;
 
 	/**
+	 * The text color for comments.
+	 */
+	private Color commentTextColor;
+
+	/**
+	 * The comment font.
+	 */
+	private Font commentFont;
+
+	/**
 	 * Constructs a new instance.
 	 * 
 	 * @param aSetList
@@ -93,7 +111,7 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 	 * @param aBreakpointSet
 	 *            the initial breakpoint set
 	 */
-	public TestTreeLabelProvider(SetList aSetList, Set<Integer> aBreakpointSet) {
+	public TestTreeLabelProvider(SetList aSetList, Set<Integer> aBreakpointSet, Display aDisplay, TreeViewer anOwner) {
 		setList = aSetList;
 		breakpointSet = aBreakpointSet;
 		suiteImage = Activator.getImageDescriptor("icons/suite.gif").createImage();
@@ -107,6 +125,10 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		callImage = Activator.getImageDescriptor("icons/call.gif").createImage();
 		callSuccessImage = Activator.getImageDescriptor("icons/call_success.gif").createImage();
 		callExceptionImage = Activator.getImageDescriptor("icons/call_exception.gif").createImage();
+		commentTextColor = new Color(aDisplay, 14, 70, 0);
+		FontData tempFontData = anOwner.getTree().getFont().getFontData()[0];
+		tempFontData.setStyle(tempFontData.getStyle() | SWT.ITALIC | SWT.BOLD);
+		commentFont = new Font(aDisplay, tempFontData);
 	}
 
 	@Override
@@ -123,6 +145,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		callImage.dispose();
 		callSuccessImage.dispose();
 		callExceptionImage.dispose();
+		commentTextColor.dispose();
+		commentFont.dispose();
 	}
 
 	/**
@@ -171,6 +195,7 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 				default:
 					return testImage;
 				}
+			case COMMENT:
 			default:
 				return null;
 			}
@@ -204,8 +229,39 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
 		case RESULT:
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
+		case COMMENT:
+			return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 		default:
 			return tempEntry.toString() + tempSuffix;
+		}
+	}
+
+	@Override
+	public Color getForeground(Object anElement) {
+		SetListEntry tempEntry = (SetListEntry) anElement;
+
+		switch (tempEntry.getType()) {
+		case COMMENT:
+			return commentTextColor;
+		default:
+			return null;
+		}
+	}
+
+	@Override
+	public Color getBackground(Object anElement) {
+		return null;
+	}
+
+	@Override
+	public Font getFont(Object anElement) {
+		SetListEntry tempEntry = (SetListEntry) anElement;
+
+		switch (tempEntry.getType()) {
+		case COMMENT:
+			return commentFont;
+		default:
+			return null;
 		}
 	}
 

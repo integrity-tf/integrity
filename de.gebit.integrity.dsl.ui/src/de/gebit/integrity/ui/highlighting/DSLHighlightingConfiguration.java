@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.ui.highlighting;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
@@ -26,7 +27,7 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle visibleCommentTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(14, 70, 0));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC | SWT.BOLD);
 		return tempTextStyle;
 	}
-
 }

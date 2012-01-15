@@ -15,7 +15,7 @@ public class DSLAntlrTokenToAttributeIdMapper extends DefaultAntlrTokenToAttribu
 
 	@Override
 	protected String calculateId(String aTokenName, int aTokenType) {
-		if ("RULE_SL_VISIBLE_COMMENT".equals(aTokenName)) {
+		if ("RULE_SL_VISIBLE_COMMENT".equals(aTokenName) || "RULE_ML_VISIBLE_COMMENT".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.VISIBLE_COMMENT_ID;
 		}
 

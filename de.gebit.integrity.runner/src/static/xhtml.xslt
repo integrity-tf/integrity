@@ -57,7 +57,7 @@
             .exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
             .tab { padding-right: 20px; }
             .fixturename { font-size: 8pt; padding: 4px; }
-            .comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; padding-bottom: 4px; font-weight: bold; }</style>
+            .comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; padding-bottom: 4px; font-weight: bold; color: #0E4600; font-style: italic; }</style>
         </head>
         <body>
           <div id="header">

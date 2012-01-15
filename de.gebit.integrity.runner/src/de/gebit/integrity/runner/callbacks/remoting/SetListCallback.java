@@ -343,7 +343,12 @@ public class SetListCallback extends TestRunnerCallback {
 
 	@Override
 	public void onVisibleComment(String aCommentText) {
-		// TODO Auto-generated method stub
+		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.COMMENT);
+
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, aCommentText);
+
+		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	@Override

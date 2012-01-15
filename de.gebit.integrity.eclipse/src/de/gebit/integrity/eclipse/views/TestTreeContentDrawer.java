@@ -251,6 +251,7 @@ public class TestTreeContentDrawer {
 							break;
 						}
 						break;
+					case COMMENT:
 					default:
 						break;
 					}
