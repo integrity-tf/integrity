@@ -119,6 +119,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private static final String VARIABLE_ELEMENT = "variable";
 
+	private static final String COMMENT_ELEMENT = "comment";
+
+	private static final String COMMENT_TEXT_ATTRIBUTE = "text";
+
 	private static final String PARAMETER_COLLECTION_ELEMENT = "parameters";
 
 	private static final String PARAMETER_ELEMENT = "parameter";
@@ -687,8 +691,20 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	@Override
 	public void onVisibleComment(String aCommentText) {
-		// TODO Auto-generated method stub
+		Element tempCommentElement = new Element(COMMENT_ELEMENT);
+		tempCommentElement.setAttribute(COMMENT_TEXT_ATTRIBUTE, aCommentText);
 
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.VISIBLE_COMMENT, tempCommentElement);
+			}
+			internalOnVisibleComment(tempCommentElement);
+		}
+	}
+
+	protected void internalOnVisibleComment(Element aCommentElement) {
+		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aCommentElement);
 	}
 
 	protected static String stackTraceToString(Throwable anException) {
@@ -767,6 +783,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			break;
 		case VARIABLE_DEFINITION:
 			internalOnVariableDefinition(tempElement);
+			break;
+		case VISIBLE_COMMENT:
+			internalOnVisibleComment(tempElement);
 			break;
 		default:
 			return;

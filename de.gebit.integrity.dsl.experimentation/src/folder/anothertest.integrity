@@ -36,7 +36,7 @@ packagedef mysecondpackage with
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101
  
 		variable testvar initially 5
-		call random min:5 max:6 sets testvar
+		call random min:0 max:packagevar sets testvar
 
 		test addition summand1: 2 summand2: 3 = testvar
 		test addition summand1: testvar summand2: 1 = 7

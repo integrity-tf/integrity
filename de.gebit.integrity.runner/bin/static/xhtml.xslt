@@ -18,7 +18,7 @@
             .pagetitle { font-size: larger; font-weight: bold; }
             .pagesubtitle { font-weight: bold; }
             #header { margin-bottom: 20px; background-image: url("data:image/png;base64,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"); background-repeat: no-repeat; background-position: 0px 0px; padding-left: 220px; padding-top: 6px; min-height: 60px; line-height: 126%; }
-            .box { border: solid 1px; margin-top: 10px; }
+            .box { border: solid 1px; margin-top: 8px; margin-bottom: 8px; }
             .boxtitle { color: #FFF; font-weight: bold; padding: 2px 2px 2px 2px; position: relative; left: 0px; top: 0px; border: none; }
             .boxtitleright { position: absolute; right: 2px; }
             .boxcontent { padding: 10px 10px 10px 10px; }
@@ -56,7 +56,8 @@
             .comparisontable { margin-top: 10px; }
             .exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
             .tab { padding-right: 20px; }
-            .fixturename { font-size: 8pt; padding: 4px; }</style>
+            .fixturename { font-size: 8pt; padding: 4px; }
+            .comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; padding-bottom: 4px; font-weight: bold; }</style>
         </head>
         <body>
           <div id="header">
@@ -186,6 +187,11 @@
           </xsl:if>
         </xsl:with-param>
       </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="comment">
+    	<div class="comment">
+    		<xsl:value-of select="@text" />
+    	</div>
     </xsl:template>
     <xsl:template match="call">
       <div onClick="var div=this.getElementsByTagName('div')[1]; if(div.style.display!='block') div.style.display='block'; else div.style.display='none';">
