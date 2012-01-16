@@ -9,6 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
@@ -162,6 +163,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass variableDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass constantDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -732,6 +740,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getVariableDefinition_InitialValue()
   {
     return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getConstantDefinition()
+  {
+    return constantDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstantDefinition_Name()
+  {
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstantDefinition_Value()
+  {
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1431,6 +1469,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__NAME);
     createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__INITIAL_VALUE);
 
+    constantDefinitionEClass = createEClass(CONSTANT_DEFINITION);
+    createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__NAME);
+    createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VALUE);
+
     variableEntityEClass = createEClass(VARIABLE_ENTITY);
     createEAttribute(variableEntityEClass, VARIABLE_ENTITY__NAME);
 
@@ -1563,6 +1605,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     suiteStatementWithResultEClass.getESuperTypes().add(this.getSuiteStatement());
     variableDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     variableDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
+    constantDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
+    constantDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
     testEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     fixedResultNameEClass.getESuperTypes().add(this.getResultName());
@@ -1626,6 +1670,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(variableDefinitionEClass, VariableDefinition.class, "VariableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariableDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDefinition_InitialValue(), this.getValue(), null, "initialValue", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(constantDefinitionEClass, ConstantDefinition.class, "ConstantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstantDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstantDefinition_Value(), this.getValue(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableEntityEClass, VariableEntity.class, "VariableEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVariableEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

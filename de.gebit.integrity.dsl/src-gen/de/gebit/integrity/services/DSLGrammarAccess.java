@@ -137,12 +137,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCallDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cSuiteDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cVariableDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cConstantDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//PackageStatement:
-		//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+		//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 		public ParserRule getRule() { return rule; }
 
-		//Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition
+		//Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Import
@@ -162,6 +163,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//VariableDefinition
 		public RuleCall getVariableDefinitionParserRuleCall_5() { return cVariableDefinitionParserRuleCall_5; }
+
+		//ConstantDefinition
+		public RuleCall getConstantDefinitionParserRuleCall_6() { return cConstantDefinitionParserRuleCall_6; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -398,14 +402,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSuiteStatementWithResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cCallParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cVariableDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cVisibleSingleLineCommentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cVisibleMultiLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cConstantDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cVisibleSingleLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVisibleMultiLineCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//SuiteStatement:
-		//	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
+		//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//	VisibleMultiLineComment;
 		public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment
+		//SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//VisibleMultiLineComment
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//SuiteStatementWithResult
@@ -417,11 +424,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//VariableDefinition
 		public RuleCall getVariableDefinitionParserRuleCall_2() { return cVariableDefinitionParserRuleCall_2; }
 
+		//ConstantDefinition
+		public RuleCall getConstantDefinitionParserRuleCall_3() { return cConstantDefinitionParserRuleCall_3; }
+
 		//VisibleSingleLineComment
-		public RuleCall getVisibleSingleLineCommentParserRuleCall_3() { return cVisibleSingleLineCommentParserRuleCall_3; }
+		public RuleCall getVisibleSingleLineCommentParserRuleCall_4() { return cVisibleSingleLineCommentParserRuleCall_4; }
 
 		//VisibleMultiLineComment
-		public RuleCall getVisibleMultiLineCommentParserRuleCall_4() { return cVisibleMultiLineCommentParserRuleCall_4; }
+		public RuleCall getVisibleMultiLineCommentParserRuleCall_5() { return cVisibleMultiLineCommentParserRuleCall_5; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -486,6 +496,38 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Value
 		public RuleCall getInitialValueValueParserRuleCall_2_1_0() { return cInitialValueValueParserRuleCall_2_1_0; }
+	}
+
+	public class ConstantDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cConstantKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameVariableEntityParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		
+		//ConstantDefinition:
+		//	"constant" name=VariableEntity value=Value;
+		public ParserRule getRule() { return rule; }
+
+		//"constant" name=VariableEntity value=Value
+		public Group getGroup() { return cGroup; }
+
+		//"constant"
+		public Keyword getConstantKeyword_0() { return cConstantKeyword_0; }
+
+		//name=VariableEntity
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//VariableEntity
+		public RuleCall getNameVariableEntityParserRuleCall_1_0() { return cNameVariableEntityParserRuleCall_1_0; }
+
+		//value=Value
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+
+		//Value
+		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
 	}
 
 	public class VariableEntityElements extends AbstractParserRuleElementFinder {
@@ -1361,6 +1403,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private SuiteStatementElements pSuiteStatement;
 	private SuiteStatementWithResultElements pSuiteStatementWithResult;
 	private VariableDefinitionElements pVariableDefinition;
+	private ConstantDefinitionElements pConstantDefinition;
 	private VariableEntityElements pVariableEntity;
 	private TestElements pTest;
 	private TableTestElements pTableTest;
@@ -1465,7 +1508,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageStatement:
-	//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+	//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 	public PackageStatementElements getPackageStatementAccess() {
 		return (pPackageStatement != null) ? pPackageStatement : (pPackageStatement = new PackageStatementElements());
 	}
@@ -1527,7 +1570,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
-	//	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
+	//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+	//	VisibleMultiLineComment;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return (pSuiteStatement != null) ? pSuiteStatement : (pSuiteStatement = new SuiteStatementElements());
 	}
@@ -1554,6 +1598,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getVariableDefinitionRule() {
 		return getVariableDefinitionAccess().getRule();
+	}
+
+	//ConstantDefinition:
+	//	"constant" name=VariableEntity value=Value;
+	public ConstantDefinitionElements getConstantDefinitionAccess() {
+		return (pConstantDefinition != null) ? pConstantDefinition : (pConstantDefinition = new ConstantDefinitionElements());
+	}
+	
+	public ParserRule getConstantDefinitionRule() {
+		return getConstantDefinitionAccess().getRule();
 	}
 
 	//VariableEntity:

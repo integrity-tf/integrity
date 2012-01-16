@@ -39,7 +39,8 @@ packagedef mysecondpackage with
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101
  
 		variable testvar initially 5
-		call random min:0 max:packagevar sets testvar
+		constant testconst 4
+		call random min:0 max:testconst sets packagevar
 
 		test addition summand1: 2 summand2: 3 = testvar
 		test addition summand1: testvar summand2: 1 = 7

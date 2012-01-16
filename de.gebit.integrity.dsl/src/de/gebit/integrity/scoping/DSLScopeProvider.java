@@ -6,6 +6,7 @@ package de.gebit.integrity.scoping;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
@@ -22,6 +23,7 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
@@ -238,5 +240,40 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 
 		return IScope.NULLSCOPE;
+	}
+
+	/**
+	 * Limit result variables for calls to actual variables.
+	 * 
+	 * @param aCall
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(Call aCall, EReference aRef) {
+		IScope tempScope = super.delegateGetScope(aCall, aRef);
+
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		for (IEObjectDescription tempElement : tempScope.getAllElements()) {
+			EObject tempDefContainer = tempElement.getEObjectOrProxy().eContainer();
+			if (!((tempDefContainer instanceof SuiteDefinition) || (tempDefContainer instanceof ConstantDefinition))) {
+				tempList.add(tempElement);
+			}
+		}
+		return new SimpleScope(tempList);
+	}
+
+	/**
+	 * Prevents variables in parameters from being influenced by {@link #scope_Variable_name(Call, EReference)}.
+	 * 
+	 * @param aParam
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(Parameter aParam, EReference aRef) {
+		IScope tempScope = super.delegateGetScope(aParam, aRef);
+
+		return tempScope;
 	}
 }

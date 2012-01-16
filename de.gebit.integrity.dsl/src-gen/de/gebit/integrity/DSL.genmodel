@@ -52,6 +52,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/initialValue"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ConstantDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/value"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariableEntity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariableEntity/name"/>
     </genClasses>

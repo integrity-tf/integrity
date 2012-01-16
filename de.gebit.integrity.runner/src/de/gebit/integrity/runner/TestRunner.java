@@ -16,6 +16,7 @@ import java.util.concurrent.Semaphore;
 import org.eclipse.xtext.common.types.JvmType;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
@@ -385,6 +386,8 @@ public class TestRunner {
 				executeCall((Call) tempStatement);
 			} else if (tempStatement instanceof VariableDefinition) {
 				defineVariable((VariableDefinition) tempStatement, aSuite);
+			} else if (tempStatement instanceof ConstantDefinition) {
+				defineVariable((ConstantDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
 					currentCallback.onVisibleComment(IntegrityDSLUtil
@@ -403,6 +406,10 @@ public class TestRunner {
 
 	protected void defineVariable(VariableDefinition aDefinition, SuiteDefinition aSuite) {
 		defineVariable(aDefinition.getName(), aDefinition.getInitialValue(), aSuite);
+	}
+
+	protected void defineVariable(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
+		defineVariable(aDefinition.getName(), aDefinition.getValue(), aSuite);
 	}
 
 	protected void defineVariable(VariableEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {

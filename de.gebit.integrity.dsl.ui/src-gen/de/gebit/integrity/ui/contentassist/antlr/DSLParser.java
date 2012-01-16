@@ -58,6 +58,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_7(), "rule__SuiteDefinition__Group_7__0");
 					put(grammarAccess.getVariableDefinitionAccess().getGroup(), "rule__VariableDefinition__Group__0");
 					put(grammarAccess.getVariableDefinitionAccess().getGroup_2(), "rule__VariableDefinition__Group_2__0");
+					put(grammarAccess.getConstantDefinitionAccess().getGroup(), "rule__ConstantDefinition__Group__0");
 					put(grammarAccess.getTestAccess().getGroup(), "rule__Test__Group__0");
 					put(grammarAccess.getTestAccess().getGroup_4(), "rule__Test__Group_4__0");
 					put(grammarAccess.getTableTestAccess().getGroup(), "rule__TableTest__Group__0");
@@ -99,6 +100,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_7_1(), "rule__SuiteDefinition__FinalizersAssignment_7_1");
 					put(grammarAccess.getVariableDefinitionAccess().getNameAssignment_1(), "rule__VariableDefinition__NameAssignment_1");
 					put(grammarAccess.getVariableDefinitionAccess().getInitialValueAssignment_2_1(), "rule__VariableDefinition__InitialValueAssignment_2_1");
+					put(grammarAccess.getConstantDefinitionAccess().getNameAssignment_1(), "rule__ConstantDefinition__NameAssignment_1");
+					put(grammarAccess.getConstantDefinitionAccess().getValueAssignment_2(), "rule__ConstantDefinition__ValueAssignment_2");
 					put(grammarAccess.getVariableEntityAccess().getNameAssignment(), "rule__VariableEntity__NameAssignment");
 					put(grammarAccess.getTestAccess().getDefinitionAssignment_1(), "rule__Test__DefinitionAssignment_1");
 					put(grammarAccess.getTestAccess().getParametersAssignment_2(), "rule__Test__ParametersAssignment_2");

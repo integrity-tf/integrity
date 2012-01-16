@@ -21,7 +21,7 @@ PackageDefinition:
 	'packagedef' name=QualifiedName 'with' statements+=PackageStatement* 'packageend';
 	
 PackageStatement:
-	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition;
+	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
@@ -39,13 +39,16 @@ SuiteDefinition:
 	'suitedef' name=QualifiedName ('gets' parameters+=VariableEntity*)? ('requires' dependencies+=[SuiteDefinition|QualifiedName]*)? 'with' statements+=SuiteStatement* 'suiteend' ('concludedby' finalizers+=[SuiteDefinition|QualifiedName]*)?;
 
 SuiteStatement:
-	SuiteStatementWithResult | Call | VariableDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
+	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest;
 	
 VariableDefinition:
 	'variable' name=VariableEntity ('initially' initialValue=Value)?;
+	
+ConstantDefinition:
+	'constant' name=VariableEntity value=Value;
 	
 VariableEntity:
 	name=QualifiedName;

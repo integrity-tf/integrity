@@ -21,4 +21,5 @@ Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.results.call,
  de.gebit.integrity.runner.results.test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.core.runtime;version="3.4.0"
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0"

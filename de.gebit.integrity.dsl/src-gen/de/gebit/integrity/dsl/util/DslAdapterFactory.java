@@ -149,6 +149,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createVariableDefinitionAdapter();
       }
       @Override
+      public Adapter caseConstantDefinition(ConstantDefinition object)
+      {
+        return createConstantDefinitionAdapter();
+      }
+      @Override
       public Adapter caseVariableEntity(VariableEntity object)
       {
         return createVariableEntityAdapter();
@@ -501,6 +506,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVariableDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ConstantDefinition <em>Constant Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ConstantDefinition
+   * @generated
+   */
+  public Adapter createConstantDefinitionAdapter()
   {
     return null;
   }

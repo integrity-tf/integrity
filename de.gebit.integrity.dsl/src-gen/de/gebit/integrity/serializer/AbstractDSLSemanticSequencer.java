@@ -5,6 +5,7 @@ import com.google.inject.Provider;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
@@ -94,6 +95,14 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 				if(context == grammarAccess.getCallDefinitionRule() ||
 				   context == grammarAccess.getPackageStatementRule()) {
 					sequence_CallDefinition(context, (CallDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.CONSTANT_DEFINITION:
+				if(context == grammarAccess.getConstantDefinitionRule() ||
+				   context == grammarAccess.getPackageStatementRule() ||
+				   context == grammarAccess.getSuiteStatementRule()) {
+					sequence_ConstantDefinition(context, (ConstantDefinition) semanticObject); 
 					return; 
 				}
 				else break;
@@ -338,6 +347,25 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_Call(EObject context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=VariableEntity value=Value)
+	 */
+	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConstantDefinitionAccess().getNameVariableEntityParserRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getConstantDefinitionAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	

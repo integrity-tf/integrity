@@ -372,6 +372,16 @@ rulePackageStatement returns [EObject current=null]
         $current = $this_VariableDefinition_5.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPackageStatementAccess().getConstantDefinitionParserRuleCall_6()); 
+    }
+    this_ConstantDefinition_6=ruleConstantDefinition
+    { 
+        $current = $this_ConstantDefinition_6.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -788,21 +798,31 @@ ruleSuiteStatement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getConstantDefinitionParserRuleCall_3()); 
     }
-    this_VisibleSingleLineComment_3=ruleVisibleSingleLineComment
+    this_ConstantDefinition_3=ruleConstantDefinition
     { 
-        $current = $this_VisibleSingleLineComment_3.current; 
+        $current = $this_ConstantDefinition_3.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_4()); 
     }
-    this_VisibleMultiLineComment_4=ruleVisibleMultiLineComment
+    this_VisibleSingleLineComment_4=ruleVisibleSingleLineComment
     { 
-        $current = $this_VisibleMultiLineComment_4.current; 
+        $current = $this_VisibleSingleLineComment_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_5()); 
+    }
+    this_VisibleMultiLineComment_5=ruleVisibleMultiLineComment
+    { 
+        $current = $this_VisibleMultiLineComment_5.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -921,6 +941,67 @@ ruleVariableDefinition returns [EObject current=null]
 
 )
 ))?)
+;
+
+
+
+
+
+// Entry rule entryRuleConstantDefinition
+entryRuleConstantDefinition returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstantDefinitionRule()); }
+	 iv_ruleConstantDefinition=ruleConstantDefinition 
+	 { $current=$iv_ruleConstantDefinition.current; } 
+	 EOF 
+;
+
+// Rule ConstantDefinition
+ruleConstantDefinition returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='constant' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getConstantDefinitionAccess().getConstantKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNameVariableEntityParserRuleCall_1_0()); 
+	    }
+		lv_name_1_0=ruleVariableEntity		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_1_0, 
+        		"VariableEntity");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueParserRuleCall_2_0()); 
+	    }
+		lv_value_2_0=ruleValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_2_0, 
+        		"Value");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

@@ -153,6 +153,15 @@ public interface DslFactory extends EFactory
   VariableDefinition createVariableDefinition();
 
   /**
+   * Returns a new object of class '<em>Constant Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant Definition</em>'.
+   * @generated
+   */
+  ConstantDefinition createConstantDefinition();
+
+  /**
    * Returns a new object of class '<em>Variable Entity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
