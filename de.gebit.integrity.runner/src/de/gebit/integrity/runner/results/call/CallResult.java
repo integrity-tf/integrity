@@ -1,5 +1,7 @@
 package de.gebit.integrity.runner.results.call;
 
+import java.util.List;
+
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.runner.results.Result;
 
@@ -12,29 +14,61 @@ import de.gebit.integrity.runner.results.Result;
  */
 public abstract class CallResult extends Result {
 
-	private Object result;
+	private List<UpdatedVariable> updatedVariables;
 
-	private VariableEntity targetVariable;
-
-	public CallResult(Object aResult, VariableEntity aTargetVariable, Long anExecutionTime) {
+	public CallResult(List<UpdatedVariable> someUpdatedVariables, Long anExecutionTime) {
 		super(anExecutionTime);
-		result = aResult;
-		targetVariable = aTargetVariable;
+		updatedVariables = someUpdatedVariables;
 	}
 
-	public Object getResult() {
-		return result;
+	public List<UpdatedVariable> getUpdatedVariables() {
+		return updatedVariables;
 	}
 
-	public VariableEntity getTargetVariable() {
-		return targetVariable;
-	}
+	/**
+	 * An updated variable.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
+	public static final class UpdatedVariable {
 
-	public String toString() {
-		if (result != null) {
-			return result.toString();
-		} else {
-			return "(null)";
+		private VariableEntity targetVariable;
+
+		private String parameterName;
+
+		private Object value;
+
+		public UpdatedVariable(VariableEntity aTargetVariable, String aParameterName, Object aValue) {
+			targetVariable = aTargetVariable;
+			parameterName = aParameterName;
+			value = aValue;
 		}
+
+		public VariableEntity getTargetVariable() {
+			return targetVariable;
+		}
+
+		public String getParameterName() {
+			return parameterName;
+		}
+
+		public Object getValue() {
+			return value;
+		}
+
+		public void setValue(Object aValue) {
+			value = aValue;
+		}
+
+		public String toString() {
+			if (value != null) {
+				return value.toString();
+			} else {
+				return "(null)";
+			}
+		}
+
 	}
 }

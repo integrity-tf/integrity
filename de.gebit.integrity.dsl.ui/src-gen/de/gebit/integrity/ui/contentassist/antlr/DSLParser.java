@@ -70,7 +70,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterTableValueAccess().getGroup(), "rule__ParameterTableValue__Group__0");
 					put(grammarAccess.getNamedResultAccess().getGroup(), "rule__NamedResult__Group__0");
 					put(grammarAccess.getCallAccess().getGroup(), "rule__Call__Group__0");
-					put(grammarAccess.getCallAccess().getGroup_3(), "rule__Call__Group_3__0");
+					put(grammarAccess.getCallAccess().getGroup_4(), "rule__Call__Group_4__0");
+					put(grammarAccess.getNamedCallResultAccess().getGroup(), "rule__NamedCallResult__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup_3(), "rule__Suite__Group_3__0");
 					put(grammarAccess.getSuiteParameterAccess().getGroup(), "rule__SuiteParameter__Group__0");
@@ -122,7 +123,10 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFixedResultNameAccess().getFieldAssignment(), "rule__FixedResultName__FieldAssignment");
 					put(grammarAccess.getCallAccess().getDefinitionAssignment_1(), "rule__Call__DefinitionAssignment_1");
 					put(grammarAccess.getCallAccess().getParametersAssignment_2(), "rule__Call__ParametersAssignment_2");
-					put(grammarAccess.getCallAccess().getResultAssignment_3_1(), "rule__Call__ResultAssignment_3_1");
+					put(grammarAccess.getCallAccess().getResultsAssignment_3(), "rule__Call__ResultsAssignment_3");
+					put(grammarAccess.getCallAccess().getResultAssignment_4_1(), "rule__Call__ResultAssignment_4_1");
+					put(grammarAccess.getNamedCallResultAccess().getNameAssignment_0(), "rule__NamedCallResult__NameAssignment_0");
+					put(grammarAccess.getNamedCallResultAccess().getTargetAssignment_2(), "rule__NamedCallResult__TargetAssignment_2");
 					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_1(), "rule__Suite__DefinitionAssignment_1");
 					put(grammarAccess.getSuiteAccess().getParametersAssignment_2(), "rule__Suite__ParametersAssignment_2");
 					put(grammarAccess.getSuiteAccess().getForkAssignment_3_1(), "rule__Suite__ForkAssignment_3_1");

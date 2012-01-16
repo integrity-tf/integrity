@@ -907,16 +907,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDefinitionCallDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionCallDefinitionCrossReference_1_0.eContents().get(1);
 		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cParametersParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cSetsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cResultAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cResultVariableParserRuleCall_3_1_0 = (RuleCall)cResultAssignment_3_1.eContents().get(0);
+		private final Assignment cResultsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cResultsNamedCallResultParserRuleCall_3_0 = (RuleCall)cResultsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cResultAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cResultVariableParserRuleCall_4_1_0 = (RuleCall)cResultAssignment_4_1.eContents().get(0);
 		
 		//Call:
-		//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* ("sets" result=Variable)?;
+		//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
+		//	result=Variable)?;
 		public ParserRule getRule() { return rule; }
 
-		//"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* ("sets" result=Variable)?
+		//"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
+		//result=Variable)?
 		public Group getGroup() { return cGroup; }
 
 		//"call"
@@ -937,17 +941,55 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//Parameter
 		public RuleCall getParametersParameterParserRuleCall_2_0() { return cParametersParameterParserRuleCall_2_0; }
 
-		//("sets" result=Variable)?
-		public Group getGroup_3() { return cGroup_3; }
+		//results+=NamedCallResult*
+		public Assignment getResultsAssignment_3() { return cResultsAssignment_3; }
 
-		//"sets"
-		public Keyword getSetsKeyword_3_0() { return cSetsKeyword_3_0; }
+		//NamedCallResult
+		public RuleCall getResultsNamedCallResultParserRuleCall_3_0() { return cResultsNamedCallResultParserRuleCall_3_0; }
+
+		//("->" result=Variable)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4_0() { return cHyphenMinusGreaterThanSignKeyword_4_0; }
 
 		//result=Variable
-		public Assignment getResultAssignment_3_1() { return cResultAssignment_3_1; }
+		public Assignment getResultAssignment_4_1() { return cResultAssignment_4_1; }
 
 		//Variable
-		public RuleCall getResultVariableParserRuleCall_3_1_0() { return cResultVariableParserRuleCall_3_1_0; }
+		public RuleCall getResultVariableParserRuleCall_4_1_0() { return cResultVariableParserRuleCall_4_1_0; }
+	}
+
+	public class NamedCallResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NamedCallResult");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameResultNameParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTargetVariableParserRuleCall_2_0 = (RuleCall)cTargetAssignment_2.eContents().get(0);
+		
+		//NamedCallResult:
+		//	name=ResultName "->" target=Variable;
+		public ParserRule getRule() { return rule; }
+
+		//name=ResultName "->" target=Variable
+		public Group getGroup() { return cGroup; }
+
+		//name=ResultName
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ResultName
+		public RuleCall getNameResultNameParserRuleCall_0_0() { return cNameResultNameParserRuleCall_0_0; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
+
+		//target=Variable
+		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
+
+		//Variable
+		public RuleCall getTargetVariableParserRuleCall_2_0() { return cTargetVariableParserRuleCall_2_0; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -1415,6 +1457,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private ResultNameElements pResultName;
 	private FixedResultNameElements pFixedResultName;
 	private CallElements pCall;
+	private NamedCallResultElements pNamedCallResult;
 	private SuiteElements pSuite;
 	private SuiteParameterElements pSuiteParameter;
 	private ParameterElements pParameter;
@@ -1713,13 +1756,24 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Call:
-	//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* ("sets" result=Variable)?;
+	//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
+	//	result=Variable)?;
 	public CallElements getCallAccess() {
 		return (pCall != null) ? pCall : (pCall = new CallElements());
 	}
 	
 	public ParserRule getCallRule() {
 		return getCallAccess().getRule();
+	}
+
+	//NamedCallResult:
+	//	name=ResultName "->" target=Variable;
+	public NamedCallResultElements getNamedCallResultAccess() {
+		return (pNamedCallResult != null) ? pNamedCallResult : (pNamedCallResult = new NamedCallResultElements());
+	}
+	
+	public ParserRule getNamedCallResultRule() {
+		return getNamedCallResultAccess().getRule();
 	}
 
 	//Suite:

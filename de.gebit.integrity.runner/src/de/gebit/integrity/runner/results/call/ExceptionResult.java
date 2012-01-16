@@ -2,8 +2,7 @@ package de.gebit.integrity.runner.results.call;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-
-import de.gebit.integrity.dsl.VariableEntity;
+import java.util.List;
 
 /**
  * The result returned if a call resulted in an exception.
@@ -16,8 +15,8 @@ public class ExceptionResult extends CallResult {
 
 	private Exception exception;
 
-	public ExceptionResult(Exception anException, VariableEntity aTargetVariable, Long anExecutionTime) {
-		super(null, aTargetVariable, anExecutionTime);
+	public ExceptionResult(Exception anException, List<UpdatedVariable> someVariablesToUpdate, Long anExecutionTime) {
+		super(someVariablesToUpdate, anExecutionTime);
 		exception = anException;
 	}
 

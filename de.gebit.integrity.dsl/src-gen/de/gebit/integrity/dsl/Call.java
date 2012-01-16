@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.Call#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.Call#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
@@ -69,6 +70,22 @@ public interface Call extends SuiteStatement
    * @generated
    */
   EList<Parameter> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Results</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.NamedCallResult}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Results</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getCall_Results()
+   * @model containment="true"
+   * @generated
+   */
+  EList<NamedCallResult> getResults();
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' containment reference.

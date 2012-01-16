@@ -82,7 +82,10 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* ('sets' result=Variable)?;
+	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedCallResult)* ('->' result=Variable)?;
+	
+NamedCallResult:
+	name=ResultName '->' target=Variable;
 	
 Suite:
 	'suite' definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)* ('on' fork=[ForkDefinition|QualifiedName])?;

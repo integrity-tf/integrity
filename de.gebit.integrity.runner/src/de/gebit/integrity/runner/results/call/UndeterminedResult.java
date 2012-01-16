@@ -1,6 +1,6 @@
 package de.gebit.integrity.runner.results.call;
 
-import de.gebit.integrity.dsl.VariableEntity;
+import java.util.List;
 
 /**
  * Result used for undetermined calls.
@@ -11,8 +11,8 @@ import de.gebit.integrity.dsl.VariableEntity;
  */
 public class UndeterminedResult extends CallResult {
 
-	public UndeterminedResult(VariableEntity aTargetVariable) {
-		super(null, aTargetVariable, null);
+	public UndeterminedResult(List<UpdatedVariable> someVariablesToUpdate) {
+		super(someVariablesToUpdate, null);
 	}
 
 }

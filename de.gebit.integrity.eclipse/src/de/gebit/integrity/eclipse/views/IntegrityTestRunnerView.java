@@ -232,6 +232,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private TableViewer resultTable;
 
 	/**
+	 * The container for the variable update table.
+	 */
+	private Composite varUpdateTableComposite;
+
+	/**
+	 * The variable update table (for calls with multi-variable updates).
+	 */
+	private TableViewer varUpdateTable;
+
+	/**
 	 * The color for results of successful tests.
 	 */
 	private Color resultSuccessColor;
@@ -526,6 +536,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultTable.setContentProvider(new ArrayContentProvider());
 		configureResultTable(resultTable);
 
+		varUpdateTableComposite = tempToolkit.createComposite(resultComposite);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultComposite, 10);
+		tempFormData.bottom = new FormAttachment(resultComposite, 160, SWT.BOTTOM);
+		varUpdateTableComposite.setLayoutData(tempFormData);
+		varUpdateTableComposite.setLayout(new FillLayout());
+
+		varUpdateTable = new TableViewer(varUpdateTableComposite);
+		varUpdateTable.setContentProvider(new ArrayContentProvider());
+		configureVarUpdateTable(varUpdateTable);
+
 		resultLine1Name = new Label(resultComposite, SWT.WRAP);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
@@ -763,6 +786,51 @@ public class IntegrityTestRunnerView extends ViewPart {
 				} else {
 					return resultTableFailureColor;
 				}
+			}
+		});
+	}
+
+	private void configureVarUpdateTable(final TableViewer aTable) {
+		aTable.getTable().setHeaderVisible(true);
+		aTable.getTable().setLinesVisible(true);
+
+		TableViewerColumn tempColumn = new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+				| SWT.FULL_SELECTION);
+		tempColumn.getColumn().setText("Result");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.PARAMETER_NAME);
+			}
+		});
+
+		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
+		tempColumn.getColumn().setText("Variable");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
+			}
+		});
+
+		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
+		tempColumn.getColumn().setText("Value");
+		tempColumn.getColumn().setWidth(150);
+		tempColumn.getColumn().setResizable(true);
+		tempColumn.getColumn().setMoveable(false);
+		tempColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 			}
 		});
 	}
@@ -1047,6 +1115,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		fixtureLink.setVisible(false);
 		forkLabel.setVisible(false);
 		resultTableComposite.setVisible(false);
+		varUpdateTableComposite.setVisible(false);
 		resultLine1Name.setVisible(false);
 		resultLine1Border.setVisible(false);
 		resultLine1Text.setText("");
@@ -1198,13 +1267,24 @@ public class IntegrityTestRunnerView extends ViewPart {
 							resultLine1Border.setForeground(resultExceptionColor);
 							resultLine1Border.setVisible(true);
 						} else {
-							String tempResultValue = (String) tempResultEntry
-									.getAttribute(SetListEntryAttributeKeys.VALUE);
-							if (tempResultValue != null) {
+							List<SetListEntry> tempVarUpdates = setList.resolveReferences(tempResultEntry,
+									SetListEntryAttributeKeys.VARIABLE_UPDATES);
+
+							if (tempVarUpdates.size() == 1) {
+								String tempResultValue = (String) tempVarUpdates.get(0).getAttribute(
+										SetListEntryAttributeKeys.VALUE);
+								String tempTargetVariable = (String) tempVarUpdates.get(0).getAttribute(
+										SetListEntryAttributeKeys.VARIABLE_NAME);
+								if (tempTargetVariable != null) {
+									tempResultValue += " ➔ " + tempTargetVariable;
+								}
 								resultLine1Name.setText("Result returned by the fixture:");
 								resultLine1Text.setText(tempResultValue);
 								resultLine1Border.setForeground(resultNeutralColor);
 								resultLine1Border.setVisible(true);
+							} else if (tempVarUpdates.size() > 1) {
+								varUpdateTable.setInput(tempVarUpdates);
+								varUpdateTableComposite.setVisible(true);
 							} else {
 								resultLine1Name.setText("No result returned by the fixture.");
 							}

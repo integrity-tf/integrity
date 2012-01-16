@@ -209,6 +209,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createCallAdapter();
       }
       @Override
+      public Adapter caseNamedCallResult(NamedCallResult object)
+      {
+        return createNamedCallResultAdapter();
+      }
+      @Override
       public Adapter caseSuite(Suite object)
       {
         return createSuiteAdapter();
@@ -686,6 +691,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCallAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.NamedCallResult <em>Named Call Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.NamedCallResult
+   * @generated
+   */
+  public Adapter createNamedCallResultAdapter()
   {
     return null;
   }

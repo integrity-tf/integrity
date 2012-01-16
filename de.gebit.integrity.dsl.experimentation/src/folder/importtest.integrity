@@ -12,6 +12,8 @@ packagedef mypackage with
 	
 	testdef multiresult uses de.gebit.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
 	
+	calldef multiresultcall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
+	
 	variable dummy initially 2
 
 packageend

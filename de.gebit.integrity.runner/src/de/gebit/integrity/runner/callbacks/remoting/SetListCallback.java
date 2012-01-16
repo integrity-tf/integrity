@@ -34,6 +34,7 @@ import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
+import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
 import de.gebit.integrity.runner.results.test.TestComparisonSuccessResult;
@@ -287,23 +288,36 @@ public class SetListCallback extends TestRunnerCallback {
 
 		if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
-			de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
-			if (aResult.getResult() != null) {
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-						ParameterUtil.convertValueToString(aResult, variableStorage, false));
-			}
-			if (tempResult.getTargetVariable() != null) {
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, tempResult.getTargetVariable()
-						.getName());
-			}
 		} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
 					stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
 							.getException()));
 		}
+
+		SetListEntry[] tempEntries = new SetListEntry[aResult.getUpdatedVariables().size()];
+		int tempCount = 0;
+		for (UpdatedVariable tempUpdatedVariable : aResult.getUpdatedVariables()) {
+			SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.VARIABLE_UPDATE);
+			if (tempUpdatedVariable.getTargetVariable() != null) {
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, tempUpdatedVariable
+						.getTargetVariable().getName());
+			}
+			if (tempUpdatedVariable.getValue() != null) {
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
+						ParameterUtil.convertValueToString(tempUpdatedVariable.getValue(), variableStorage, false));
+			}
+			if (tempUpdatedVariable.getParameterName() != null) {
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,
+						tempUpdatedVariable.getParameterName());
+			}
+			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.VARIABLE_UPDATES, tempResultEntry);
+			tempEntries[tempCount] = tempResultEntry;
+			tempCount++;
+		}
+
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(null, tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry, tempEntries);
 	}
 
 	@Override

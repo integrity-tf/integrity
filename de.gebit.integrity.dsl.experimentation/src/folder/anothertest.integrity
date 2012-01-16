@@ -11,11 +11,11 @@ packagedef mysecondpackage with
 
 	suitedef forkedSuite gets aParam with
 	
-		call random min:0 max:aParam sets packagevar
+		call random min:0 max:aParam -> packagevar
 		
-		call random min:1 max:aParam sets packagevar
+		call random min:1 max:aParam -> packagevar
 		
-		call random min:2 max:aParam sets packagevar
+		call random min:2 max:aParam -> packagevar
 	
 	suiteend
 
@@ -26,7 +26,9 @@ packagedef mysecondpackage with
 		/* A multiline invisible comment */
 		
 		-- A singleline visible comment
-		call random min:5 max:10 sets yeah
+		call random min:5 max:10 -> yeah
+		
+		call multiresultcall param: 11 firstNamedResult -> yeah secondNamedResult -> packagevar
 	
 		/- This is a multiline visible comment.           
 			It has several lines, and whitespace and stuff in between! -/
@@ -40,7 +42,7 @@ packagedef mysecondpackage with
  
 		variable testvar initially 5
 		constant testconst 4
-		call random min:0 max:testconst sets packagevar
+		call random min:0 max:testconst -> packagevar 
 
 		test addition summand1: 2 summand2: 3 = testvar
 		test addition summand1: testvar summand2: 1 = 7
@@ -70,14 +72,14 @@ packagedef mysecondpackage with
 	suitedef anotherSuite requires initSuite with
 	
 		variable testvar initially 5
-		call random min:5 max:6 sets testvar
+		call random min:5 max:6 -> testvar
 	
 	suiteend concludedby exitSuite
 	
 	suitedef suiteWithParams gets param1 param2 with
 	
 		variable nothing
-		call random min: param1 max: param2 sets nothing
+		call random min: param1 max: param2 -> nothing
 	
 	suiteend
 	

@@ -34,6 +34,11 @@ public enum SetListEntryAttributeKeys {
 	VARIABLE_NAME,
 
 	/**
+	 * Parameter name.
+	 */
+	PARAMETER_NAME,
+
+	/**
 	 * The fully qualified fixture class and method name.
 	 */
 	FIXTURE,
@@ -116,6 +121,11 @@ public enum SetListEntryAttributeKeys {
 	/**
 	 * Description of the fork a suite is executed on.
 	 */
-	FORK_DESCRIPTION;
+	FORK_DESCRIPTION,
+
+	/**
+	 * Updates of variables after a call.
+	 */
+	VARIABLE_UPDATES;
 
 }

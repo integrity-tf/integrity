@@ -2,6 +2,7 @@ package de.gebit.integrity.runner;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Suite;
@@ -60,6 +62,7 @@ import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
+import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
 import de.gebit.integrity.runner.results.test.TestComparisonSuccessResult;
@@ -711,10 +714,21 @@ public class TestRunner {
 			currentCallback.onCallStart(aCall);
 		}
 
+		List<UpdatedVariable> tempUpdatedVariables = new ArrayList<UpdatedVariable>();
+		if (aCall.getResults() != null && aCall.getResults().size() > 0) {
+			for (NamedCallResult tempNamedResult : aCall.getResults()) {
+				String tempResultName = IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempNamedResult
+						.getName());
+				tempUpdatedVariables.add(new UpdatedVariable(tempNamedResult.getTarget().getName(), tempResultName,
+						null));
+			}
+		} else if (aCall.getResult() != null) {
+			tempUpdatedVariables.add(new UpdatedVariable(aCall.getResult().getName(), null, null));
+		}
+
 		CallResult tempReturn;
 		if (!shouldExecuteFixtures()) {
-			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(
-					aCall.getResult() != null ? aCall.getResult().getName() : null);
+			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(tempUpdatedVariables);
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
@@ -725,18 +739,31 @@ public class TestRunner {
 				Object tempResult = executeFixtureMethod(aCall.getDefinition().getFixtureMethod(), tempParameters);
 				long tempDuration = System.nanoTime() - tempStart;
 
-				if (aCall.getResult() == null) {
-					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, null,
+				if (aCall.getResults() != null && aCall.getResults().size() > 0) {
+					Map<String, Object> tempFixtureResultMap = ParameterUtil
+							.getValuesFromNamedResultContainer(tempResult);
+					for (UpdatedVariable tempUpdatedVariable : tempUpdatedVariables) {
+						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempUpdatedVariable
+								.getParameterName());
+						tempUpdatedVariable.setValue(tempSingleFixtureResult);
+						setVariableValue(tempUpdatedVariable.getTargetVariable().getName(), tempSingleFixtureResult,
+								true);
+					}
+					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
 							tempDuration);
-				} else {
-					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempResult, aCall.getResult()
-							.getName(), tempDuration);
+				} else if (aCall.getResult() != null) {
+					tempUpdatedVariables.get(0).setValue(tempResult);
+					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
+							tempDuration);
 					setVariableValue(aCall.getResult().getName(), tempResult, true);
+				} else {
+					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
+							tempDuration);
 				}
 				// SUPPRESS CHECKSTYLE IllegalCatch
 			} catch (Exception exc) {
-				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc,
-						aCall.getResult() != null ? aCall.getResult().getName() : null, System.nanoTime() - tempStart);
+				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
+						System.nanoTime() - tempStart);
 			}
 		}
 

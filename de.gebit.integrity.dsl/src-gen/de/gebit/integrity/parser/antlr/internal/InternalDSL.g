@@ -1673,29 +1673,108 @@ ruleCall returns [EObject current=null]
 	    }
 
 )
-)*(	otherlv_3='sets' 
+)*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getCallAccess().getResultsNamedCallResultParserRuleCall_3_0()); 
+	    }
+		lv_results_3_0=ruleNamedCallResult		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getCallRule());
+	        }
+       		add(
+       			$current, 
+       			"results",
+        		lv_results_3_0, 
+        		"NamedCallResult");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*(	otherlv_4='->' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getCallAccess().getSetsKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_4_1_0()); 
 	    }
-		lv_result_4_0=ruleVariable		{
+		lv_result_5_0=ruleVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallRule());
 	        }
        		set(
        			$current, 
        			"result",
-        		lv_result_4_0, 
+        		lv_result_5_0, 
         		"Variable");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))?)
+;
+
+
+
+
+
+// Entry rule entryRuleNamedCallResult
+entryRuleNamedCallResult returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getNamedCallResultRule()); }
+	 iv_ruleNamedCallResult=ruleNamedCallResult 
+	 { $current=$iv_ruleNamedCallResult.current; } 
+	 EOF 
+;
+
+// Rule NamedCallResult
+ruleNamedCallResult returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0()); 
+	    }
+		lv_name_0_0=ruleResultName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNamedCallResultRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ResultName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='->' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getNamedCallResultAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNamedCallResultAccess().getTargetVariableParserRuleCall_2_0()); 
+	    }
+		lv_target_2_0=ruleVariable		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNamedCallResultRule());
+	        }
+       		set(
+       			$current, 
+       			"target",
+        		lv_target_2_0, 
+        		"Variable");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

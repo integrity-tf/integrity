@@ -250,6 +250,41 @@
               </xsl:for-each>
             </table>
           </xsl:if>
+          <xsl:if test="count(result/variableUpdate) &gt; 1">
+	          <table class="varupdatetable" width="100%">
+	            <tr>
+	              <th width="200px" align="left">Result</th>
+	              <th width="200px" align="left">Variable</th>
+	              <th align="left">Value</th>
+	            </tr>
+	            <xsl:for-each select="result/variableUpdate">
+	              <xsl:variable name="class">
+	                <xsl:choose>
+	                  <xsl:when test="position() mod 2 = 1">
+	                    <xsl:text>row1</xsl:text>
+	                  </xsl:when>
+	                  <xsl:otherwise>row2</xsl:otherwise>
+	                </xsl:choose>
+	                <xsl:value-of select="name(../parent::*)" />
+	                <xsl:value-of select="../../result/@type" />
+	              </xsl:variable>
+	              <tr>
+	                <xsl:attribute name="class">
+	                  <xsl:value-of select="$class" />
+	                </xsl:attribute>
+	                <td>
+	                  <xsl:value-of select="@parameter" />
+	                </td>
+	                <td>
+	                  <xsl:value-of select="@name" />
+	                </td>
+	                <td>
+	                  <xsl:value-of select="@value" />
+	                </td>
+	              </tr>
+	            </xsl:for-each>
+	          </table>
+	        </xsl:if>
           <xsl:if test="result/@exceptionTrace">
             <div class="exceptiontrace">
               <xsl:call-template name="formatExceptionTrace">
@@ -258,19 +293,35 @@
             </div>
           </xsl:if>
         </div>
-        <xsl:if test="result/@type != 'success' or result/@value != '(null)'">
-	      <div class="testresults">
-	        <xsl:if test="result/@type = 'success' and result/@value != '(null)'">
-	          result:
-	          <span class="testResultValue testResultValueSuccess">
-	            <xsl:value-of select="result/@value" />
-	          </span>
-	        </xsl:if>
-	        <xsl:if test="result/@type = 'exception'">
-	          <xsl:value-of select="result/@exceptionMessage" />
-	        </xsl:if>
-	      </div>
-	    </xsl:if>
+        <xsl:if test="count(result/variableUpdate) = 1 and result/variableUpdate/@value">
+          <div class="testresults">
+            <xsl:if test="result/@type = 'success' and result/variableUpdate/@value != '(null)'">
+              result:
+              <span class="testResultValue testResultValueSuccess">
+                <xsl:value-of select="result/variableUpdate/@value" />
+              </span>
+            </xsl:if>
+          </div>
+        </xsl:if>
+        <xsl:if test="count(result/variableUpdate) &gt; 1 and result/variableUpdate/@value">
+        	<div class="testresults">
+        		results:
+	          <xsl:for-each select="result/variableUpdate">
+	            <xsl:if test="position() &gt; 1">
+	              |
+	            	<xsl:text />
+	            </xsl:if>
+	            <xsl:value-of select="@value" />	            
+	            <xsl:if test="@name">
+	              ➔
+	              <xsl:value-of select="@name" />
+	            </xsl:if>
+	          </xsl:for-each>
+          </div>
+        </xsl:if>
+        <xsl:if test="result/@type = 'exception'">
+        	<xsl:value-of select="result/@exceptionMessage" />
+        </xsl:if>
         <span class="testduration">
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="result/@duration" />

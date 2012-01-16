@@ -40,6 +40,7 @@ import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.call.CallResult;
+import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
 import de.gebit.integrity.runner.results.test.TestComparisonSuccessResult;
@@ -108,6 +109,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	private static final String RESULT_ELEMENT = "result";
 
 	private static final String RESULT_COLLECTION_ELEMENT = "results";
+
+	private static final String VARIABLE_UPDATE_ELEMENT = "variableUpdate";
+
+	private static final String VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE = "parameter";
 
 	private static final String COMPARISON_ELEMENT = "comparison";
 
@@ -548,11 +553,17 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
 				de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
-				tempCallResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-						ParameterUtil.convertValueToString(aResult, variableStorage, false));
-				if (tempResult.getTargetVariable() != null) {
-					tempCallResultElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, tempResult.getTargetVariable()
-							.getName());
+				for (UpdatedVariable tempUpdatedVariable : tempResult.getUpdatedVariables()) {
+					Element tempVariableUpdateElement = new Element(VARIABLE_UPDATE_ELEMENT);
+					tempVariableUpdateElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, tempUpdatedVariable
+							.getTargetVariable().getName());
+					if (tempUpdatedVariable.getParameterName() != null) {
+						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
+								tempUpdatedVariable.getParameterName());
+					}
+					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+							ParameterUtil.convertValueToString(tempUpdatedVariable.getValue(), variableStorage, false));
+					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);

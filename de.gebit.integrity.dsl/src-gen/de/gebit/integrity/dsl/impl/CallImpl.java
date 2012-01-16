@@ -9,6 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Variable;
 
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
@@ -63,6 +65,16 @@ public class CallImpl extends SuiteStatementImpl implements Call
    * @ordered
    */
   protected EList<Parameter> parameters;
+
+  /**
+   * The cached value of the '{@link #getResults() <em>Results</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResults()
+   * @generated
+   * @ordered
+   */
+  protected EList<NamedCallResult> results;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
@@ -157,6 +169,20 @@ public class CallImpl extends SuiteStatementImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<NamedCallResult> getResults()
+  {
+    if (results == null)
+    {
+      results = new EObjectContainmentEList<NamedCallResult>(NamedCallResult.class, this, DslPackage.CALL__RESULTS);
+    }
+    return results;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Variable getResult()
   {
     return result;
@@ -212,6 +238,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
     {
       case DslPackage.CALL__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case DslPackage.CALL__RESULTS:
+        return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
       case DslPackage.CALL__RESULT:
         return basicSetResult(null, msgs);
     }
@@ -233,6 +261,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
         return basicGetDefinition();
       case DslPackage.CALL__PARAMETERS:
         return getParameters();
+      case DslPackage.CALL__RESULTS:
+        return getResults();
       case DslPackage.CALL__RESULT:
         return getResult();
     }
@@ -257,6 +287,10 @@ public class CallImpl extends SuiteStatementImpl implements Call
         getParameters().clear();
         getParameters().addAll((Collection<? extends Parameter>)newValue);
         return;
+      case DslPackage.CALL__RESULTS:
+        getResults().clear();
+        getResults().addAll((Collection<? extends NamedCallResult>)newValue);
+        return;
       case DslPackage.CALL__RESULT:
         setResult((Variable)newValue);
         return;
@@ -280,6 +314,9 @@ public class CallImpl extends SuiteStatementImpl implements Call
       case DslPackage.CALL__PARAMETERS:
         getParameters().clear();
         return;
+      case DslPackage.CALL__RESULTS:
+        getResults().clear();
+        return;
       case DslPackage.CALL__RESULT:
         setResult((Variable)null);
         return;
@@ -301,6 +338,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
         return definition != null;
       case DslPackage.CALL__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case DslPackage.CALL__RESULTS:
+        return results != null && !results.isEmpty();
       case DslPackage.CALL__RESULT:
         return result != null;
     }

@@ -34,6 +34,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -243,6 +244,31 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
+	 * Limit named test results to actually existing fields in the result container object.
+	 * 
+	 * @param aCall
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_FixedResultName_field(Call aCall, EReference aRef) {
+		MethodReference tempMethodRef = aCall.getDefinition().getFixtureMethod();
+
+		if (tempMethodRef != null) {
+			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+			List<ResultFieldTuple> tempResultFields = IntegrityDSLUtil
+					.getAllResultNamesFromFixtureMethod(tempMethodRef);
+			for (ResultFieldTuple tempResultField : tempResultFields) {
+				tempList.add(EObjectDescription.create(tempResultField.getResultName(), tempResultField.getField()));
+			}
+
+			return new SimpleScope(tempList);
+		}
+
+		return IScope.NULLSCOPE;
+	}
+
+	/**
 	 * Limit result variables for calls to actual variables.
 	 * 
 	 * @param aCall
@@ -264,7 +290,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
-	 * Prevents variables in parameters from being influenced by {@link #scope_Variable_name(Call, EReference)}.
+	 * Prevents variables in parameters from being influenced by {@link #scope_Variable_name(Call, EReference)}, and
+	 * filters out variables defined as suite parameters in other suites.
 	 * 
 	 * @param aParam
 	 * @param aRef
@@ -274,6 +301,50 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	public IScope scope_Variable_name(Parameter aParam, EReference aRef) {
 		IScope tempScope = super.delegateGetScope(aParam, aRef);
 
-		return tempScope;
+		// fetch the host suite of the parameter (should be correct for calls, tabletests and tests)
+		SuiteDefinition tempHostSuite = (SuiteDefinition) aParam.eContainer().eContainer();
+
+		return filterVariableScope(tempScope, tempHostSuite);
+	}
+
+	/**
+	 * Filters out variables defined as suite parameters or local variables in other suites.
+	 * 
+	 * @param aTableTestRow
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(TableTest aTableTest, EReference aRef) {
+		IScope tempScope = super.delegateGetScope(aTableTest, aRef);
+
+		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
+
+		return filterVariableScope(tempScope, tempHostSuite);
+	}
+
+	private IScope filterVariableScope(IScope aScope, SuiteDefinition aCurrentSuite) {
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		for (IEObjectDescription tempElement : aScope.getAllElements()) {
+			EObject tempDefContainer = tempElement.getEObjectOrProxy().eContainer();
+
+			if (tempDefContainer instanceof SuiteDefinition) {
+				// this is a suite param -> must be the current suite
+				if (tempDefContainer != aCurrentSuite) {
+					continue;
+				}
+			} else if (tempDefContainer instanceof VariableDefinition || tempDefContainer instanceof ConstantDefinition) {
+				EObject tempDefDefContainer = tempDefContainer.eContainer();
+				if (tempDefDefContainer instanceof SuiteDefinition) {
+					// variable / constant defined in a suite -> must be the current suite!
+					if (tempDefDefContainer != aCurrentSuite) {
+						continue;
+					}
+				}
+			}
+			tempList.add(tempElement);
+		}
+
+		return new SimpleScope(tempList);
 	}
 }

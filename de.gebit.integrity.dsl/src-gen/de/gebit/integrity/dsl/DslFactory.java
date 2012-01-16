@@ -261,6 +261,15 @@ public interface DslFactory extends EFactory
   Call createCall();
 
   /**
+   * Returns a new object of class '<em>Named Call Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Named Call Result</em>'.
+   * @generated
+   */
+  NamedCallResult createNamedCallResult();
+
+  /**
    * Returns a new object of class '<em>Suite</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

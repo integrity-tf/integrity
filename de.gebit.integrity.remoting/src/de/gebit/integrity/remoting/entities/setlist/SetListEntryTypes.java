@@ -54,6 +54,11 @@ public enum SetListEntryTypes {
 	RESULT,
 
 	/**
+	 * Variable update inside a call result.
+	 */
+	VARIABLE_UPDATE,
+
+	/**
 	 * Parameter definition.
 	 */
 	PARAMETER,

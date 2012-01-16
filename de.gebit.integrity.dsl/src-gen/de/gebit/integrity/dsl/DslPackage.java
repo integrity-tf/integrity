@@ -915,13 +915,22 @@ public interface DslPackage extends EPackage
   int CALL__PARAMETERS = SUITE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Results</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL__RESULTS = SUITE_STATEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CALL__RESULT = SUITE_STATEMENT_FEATURE_COUNT + 2;
+  int CALL__RESULT = SUITE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Call</em>' class.
@@ -930,7 +939,44 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL_FEATURE_COUNT = SUITE_STATEMENT_FEATURE_COUNT + 3;
+  int CALL_FEATURE_COUNT = SUITE_STATEMENT_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NamedCallResultImpl <em>Named Call Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.NamedCallResultImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedCallResult()
+   * @generated
+   */
+  int NAMED_CALL_RESULT = 26;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_CALL_RESULT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_CALL_RESULT__TARGET = 1;
+
+  /**
+   * The number of structural features of the '<em>Named Call Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_CALL_RESULT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteImpl <em>Suite</em>}' class.
@@ -940,7 +986,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuite()
    * @generated
    */
-  int SUITE = 26;
+  int SUITE = 27;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -986,7 +1032,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteParameter()
    * @generated
    */
-  int SUITE_PARAMETER = 27;
+  int SUITE_PARAMETER = 28;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1023,7 +1069,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameter()
    * @generated
    */
-  int PARAMETER = 28;
+  int PARAMETER = 29;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -1060,7 +1106,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 29;
+  int PARAMETER_NAME = 30;
 
   /**
    * The number of structural features of the '<em>Parameter Name</em>' class.
@@ -1079,7 +1125,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
    * @generated
    */
-  int FIXED_PARAMETER_NAME = 30;
+  int FIXED_PARAMETER_NAME = 31;
 
   /**
    * The feature id for the '<em><b>Annotation</b></em>' reference.
@@ -1107,7 +1153,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterOrResultName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 31;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 32;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -1135,7 +1181,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 32;
+  int VALUE_OR_ENUM_VALUE = 33;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -1154,7 +1200,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 33;
+  int VALUE = 34;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -1173,7 +1219,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 34;
+  int INTEGER_VALUE = 35;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -1201,7 +1247,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 35;
+  int DECIMAL_VALUE = 36;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -1229,7 +1275,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 36;
+  int STRING_VALUE = 37;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -1257,7 +1303,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 37;
+  int VARIABLE = 38;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1285,7 +1331,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 38;
+  int ENUM_VALUE = 39;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1313,7 +1359,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 39;
+  int METHOD_REFERENCE = 40;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2055,6 +2101,17 @@ public interface DslPackage extends EPackage
   EReference getCall_Parameters();
 
   /**
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.Call#getResults <em>Results</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Results</em>'.
+   * @see de.gebit.integrity.dsl.Call#getResults()
+   * @see #getCall()
+   * @generated
+   */
+  EReference getCall_Results();
+
+  /**
    * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.Call#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2064,6 +2121,38 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getCall_Result();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.NamedCallResult <em>Named Call Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Named Call Result</em>'.
+   * @see de.gebit.integrity.dsl.NamedCallResult
+   * @generated
+   */
+  EClass getNamedCallResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedCallResult#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @see de.gebit.integrity.dsl.NamedCallResult#getName()
+   * @see #getNamedCallResult()
+   * @generated
+   */
+  EReference getNamedCallResult_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.NamedCallResult#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see de.gebit.integrity.dsl.NamedCallResult#getTarget()
+   * @see #getNamedCallResult()
+   * @generated
+   */
+  EReference getNamedCallResult_Target();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Suite <em>Suite</em>}'.
@@ -2993,12 +3082,46 @@ public interface DslPackage extends EPackage
     EReference CALL__PARAMETERS = eINSTANCE.getCall_Parameters();
 
     /**
+     * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CALL__RESULTS = eINSTANCE.getCall_Results();
+
+    /**
      * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference CALL__RESULT = eINSTANCE.getCall_Result();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NamedCallResultImpl <em>Named Call Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.NamedCallResultImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedCallResult()
+     * @generated
+     */
+    EClass NAMED_CALL_RESULT = eINSTANCE.getNamedCallResult();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NAMED_CALL_RESULT__NAME = eINSTANCE.getNamedCallResult_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NAMED_CALL_RESULT__TARGET = eINSTANCE.getNamedCallResult_Target();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.SuiteImpl <em>Suite</em>}' class.

@@ -117,7 +117,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
+        eType="#//NamedCallResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//Variable"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedCallResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ResultName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Variable"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//Statement #//SuiteStatementWithResult">

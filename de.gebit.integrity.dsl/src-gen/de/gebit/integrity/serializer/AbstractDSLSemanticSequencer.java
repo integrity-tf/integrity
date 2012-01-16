@@ -16,6 +16,7 @@ import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
@@ -167,6 +168,12 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 			case DslPackage.MODEL:
 				if(context == grammarAccess.getModelRule()) {
 					sequence_Model(context, (Model) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.NAMED_CALL_RESULT:
+				if(context == grammarAccess.getNamedCallResultRule()) {
+					sequence_NamedCallResult(context, (NamedCallResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -343,7 +350,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (definition=[CallDefinition|QualifiedName] parameters+=Parameter* result=Variable?)
+	 *     (definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* result=Variable?)
 	 */
 	protected void sequence_Call(EObject context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -499,6 +506,25 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_Model(EObject context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ResultName target=Variable)
+	 */
+	protected void sequence_NamedCallResult(EObject context, NamedCallResult semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__TARGET));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getNamedCallResultAccess().getTargetVariableParserRuleCall_2_0(), semanticObject.getTarget());
+		feeder.finish();
 	}
 	
 	
