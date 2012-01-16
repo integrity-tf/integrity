@@ -286,13 +286,22 @@ public interface DslPackage extends EPackage
   int FORK_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__DESCRIPTION = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Fork Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int FORK_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.
@@ -1455,6 +1464,17 @@ public interface DslPackage extends EPackage
   EAttribute getForkDefinition_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition#getDescription()
+   * @see #getForkDefinition()
+   * @generated
+   */
+  EAttribute getForkDefinition_Description();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.TestDefinition <em>Test Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2450,6 +2470,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute FORK_DEFINITION__NAME = eINSTANCE.getForkDefinition_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORK_DEFINITION__DESCRIPTION = eINSTANCE.getForkDefinition_Description();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.

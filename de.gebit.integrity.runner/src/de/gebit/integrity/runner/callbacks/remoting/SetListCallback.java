@@ -87,6 +87,15 @@ public class SetListCallback extends TestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
+
+		if (getForkInExecution() != null) {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.FORK_NAME, getForkInExecution().getName());
+			if (getForkInExecution().getDescription() != null) {
+				tempNewEntry.setAttribute(SetListEntryAttributeKeys.FORK_DESCRIPTION, getForkInExecution()
+						.getDescription());
+			}
+		}
+
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
 	}

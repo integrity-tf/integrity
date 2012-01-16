@@ -6,7 +6,8 @@ packagedef mysecondpackage with
 	variable packagevar
 	variable morePackageVars initially "String!!!"
 
-	forkdef firstFork
+	forkdef firstFork "Fork Number One"
+	forkdef secondFork "Fork Number Two"
 
 	suitedef forkedSuite gets aParam with
 	
@@ -15,8 +16,6 @@ packagedef mysecondpackage with
 		call random min:1 max:aParam sets packagevar
 		
 		call random min:2 max:aParam sets packagevar
-		
-		call random min:3 max:aParam sets packagevar
 	
 	suiteend
 
@@ -31,6 +30,10 @@ packagedef mysecondpackage with
 	
 		/- This is a multiline visible comment.           
 			It has several lines, and whitespace and stuff in between! -/
+		suite forkedSuite aParam:yeah on firstFork
+		
+		suite forkedSuite aParam:packagevar on secondFork
+		
 		suite forkedSuite aParam:yeah on firstFork
 	
 		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101

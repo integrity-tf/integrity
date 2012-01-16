@@ -143,6 +143,14 @@
         </xsl:with-param>
         <xsl:with-param name="title">
           <xsl:value-of select="@name" />
+          <xsl:if test="@forkName" >
+          	@ 
+          	<xsl:value-of select="@forkName" />
+          	<xsl:if test=" @forkDescription" >
+          		-
+          		<xsl:value-of select="@forkDescription" />
+          	</xsl:if>
+		  </xsl:if>
         </xsl:with-param>
         <xsl:with-param name="titleRight">
           <xsl:if test="result/@successCount &gt; 0">

@@ -1785,6 +1785,7 @@ rule__ForkDefinition__Group__1
     }
 :
 	rule__ForkDefinition__Group__1__Impl
+	rule__ForkDefinition__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -1805,6 +1806,36 @@ rule__ForkDefinition__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__ForkDefinition__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ForkDefinition__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ForkDefinition__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_2()); }
+(rule__ForkDefinition__DescriptionAssignment_2)?
+{ after(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -4846,6 +4877,21 @@ rule__ForkDefinition__NameAssignment_1
 (
 { before(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_1_0()); }
 	ruleQualifiedName{ after(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ForkDefinition__DescriptionAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getForkDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_2_0()); }
+	RULE_STRING{ after(grammarAccess.getForkDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_2_0()); }
 )
 
 ;

@@ -87,6 +87,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDefinitionAccess().getStatementsAssignment_3(), "rule__PackageDefinition__StatementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getForkDefinitionAccess().getNameAssignment_1(), "rule__ForkDefinition__NameAssignment_1");
+					put(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_2(), "rule__ForkDefinition__DescriptionAssignment_2");
 					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_1(), "rule__TestDefinition__NameAssignment_1");
 					put(grammarAccess.getTestDefinitionAccess().getFixtureMethodAssignment_3(), "rule__TestDefinition__FixtureMethodAssignment_3");
 					put(grammarAccess.getCallDefinitionAccess().getNameAssignment_1(), "rule__CallDefinition__NameAssignment_1");

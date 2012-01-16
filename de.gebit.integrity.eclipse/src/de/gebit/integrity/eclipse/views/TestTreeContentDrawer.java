@@ -1,5 +1,6 @@
 package de.gebit.integrity.eclipse.views;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import org.eclipse.swt.SWT;
@@ -103,6 +104,16 @@ public class TestTreeContentDrawer {
 	private Listener eraseListener;
 
 	/**
+	 * Maps forks identified by their names to unique colors.
+	 */
+	private HashMap<String, Color> forkColorMap = new HashMap<String, Color>();
+
+	/**
+	 * The fork colors.
+	 */
+	private Color[] forkColors = new Color[8];
+
+	/**
 	 * The number of pixels to indent for each "level" in the tree.
 	 */
 	private static final int INDENT_PIXELS = 19;
@@ -147,6 +158,15 @@ public class TestTreeContentDrawer {
 		callOrTestInExecutionColor = new Color(aDisplay, 198, 203, 255);
 		suiteInExecutionColor = new Color(aDisplay, 229, 231, 255);
 		breakpointColor = new Color(aDisplay, 0, 0, 0);
+
+		forkColors[0] = new Color(aDisplay, 255, 0, 0);
+		forkColors[1] = new Color(aDisplay, 255, 255, 0);
+		forkColors[2] = new Color(aDisplay, 0, 255, 0);
+		forkColors[3] = new Color(aDisplay, 0, 0, 255);
+		forkColors[4] = new Color(aDisplay, 0, 255, 255);
+		forkColors[5] = new Color(aDisplay, 255, 0, 255);
+		forkColors[6] = new Color(aDisplay, 96, 57, 19);
+		forkColors[7] = new Color(aDisplay, 0, 0, 0);
 	}
 
 	/**
@@ -167,6 +187,11 @@ public class TestTreeContentDrawer {
 		callOrTestInExecutionColor.dispose();
 		suiteInExecutionColor.dispose();
 		breakpointColor.dispose();
+
+		for (int i = 0; i < forkColors.length; i++) {
+			forkColors[i].dispose();
+		}
+
 		aTree.removeListener(SWT.MeasureItem, measureListener);
 		aTree.removeListener(SWT.EraseItem, eraseListener);
 	}
@@ -294,14 +319,27 @@ public class TestTreeContentDrawer {
 					anEvent.detail &= ~SWT.HOT;
 				}
 
+				String[] tempForkName = setList.getForkExecutingEntry(tempEntry);
+				if (tempForkName != null) {
+					Color tempOldBackground = anEvent.gc.getBackground();
+					anEvent.gc.setBackground(getForkColor(tempForkName[0]));
+
+					anEvent.gc.fillRectangle(anEvent.x, anEvent.y, 3, anEvent.height);
+
+					anEvent.gc.setBackground(tempOldBackground);
+
+					anEvent.detail &= ~SWT.BACKGROUND;
+					anEvent.detail &= ~SWT.HOT;
+				}
+
 				if (breakpointSet.contains(tempEntry.getId())) {
+					int tempOffset = tempForkName != null ? 3 : 0;
 					Color tempOldBackground = anEvent.gc.getBackground();
 					anEvent.gc.setBackground(breakpointColor);
 
-					anEvent.gc
-							.fillPolygon(new int[] { anEvent.x, anEvent.y + 2, anEvent.x + anEvent.height / 2,
-									anEvent.y + 2 + (anEvent.height - 4) / 2, anEvent.x,
-									anEvent.y + (anEvent.height - 4) - 1 });
+					anEvent.gc.fillPolygon(new int[] { anEvent.x + tempOffset, anEvent.y + 2,
+							anEvent.x + tempOffset + anEvent.height / 2, anEvent.y + 2 + (anEvent.height - 4) / 2,
+							anEvent.x + tempOffset, anEvent.y + (anEvent.height - 4) - 1 });
 
 					anEvent.gc.setBackground(tempOldBackground);
 
@@ -323,5 +361,19 @@ public class TestTreeContentDrawer {
 		}
 
 		return tempIndent * INDENT_PIXELS + INDENT_BASE;
+	}
+
+	private Color getForkColor(String aForkName) {
+		Color tempColor = forkColorMap.get(aForkName);
+		if (tempColor == null) {
+			if (forkColorMap.size() >= forkColors.length) {
+				tempColor = forkColors[forkColors.length - 1];
+			} else {
+				tempColor = forkColors[forkColorMap.size()];
+			}
+			forkColorMap.put(aForkName, tempColor);
+		}
+
+		return tempColor;
 	}
 }

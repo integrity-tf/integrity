@@ -29,6 +29,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ForkDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/description"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TestDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TestDefinition/name"/>

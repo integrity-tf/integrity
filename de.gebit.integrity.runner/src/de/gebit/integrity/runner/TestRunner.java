@@ -228,12 +228,21 @@ public class TestRunner {
 	}
 
 	protected SuiteResult callSuite(Suite aSuiteCall, ForkDefinition aFork) {
+		if (aSuiteCall.getFork() != null) {
+			if (!isFork() && forkInExecution != null && aSuiteCall.getFork() != forkInExecution) {
+				throw new UnsupportedOperationException(
+						"It is not supported to execute another fork while inside a fork ("
+								+ aSuiteCall.getFork().getName() + " inside " + forkInExecution.getName() + ").");
+			}
+			forkInExecution = aSuiteCall.getFork();
+			currentCallback.setForkInExecution(forkInExecution);
+		}
+
 		if (currentPhase == Phase.TEST_RUN) {
 			// all of this only has to be done in case of a real test run
-
 			if (!isFork()) {
 				// we're the master
-				if (aSuiteCall.getFork() != null) {
+				if (forkInExecution != null) {
 					// set the currently executed entry to the suite call entry that will be created next
 					// this signifies that a fork is about to be started executing the highlighted suite
 					if (remotingServer != null) {
@@ -248,17 +257,11 @@ public class TestRunner {
 							throw new RuntimeException(exc);
 						}
 					}
-					// now a fork takes over
-					forkInExecution = aSuiteCall.getFork();
-
-					// and the master will perform all of this in dry run mode
+					// the master will perform all of this in dry run mode
 					currentCallback.setDryRun(true);
 				}
 			} else {
-				if (aSuiteCall.getFork() != null) {
-					// at this point, a fork takes over
-					forkInExecution = aSuiteCall.getFork();
-
+				if (forkInExecution != null) {
 					// now see if this is a job for us
 					if (forkInExecution.getName().equals(MY_FORK_NAME)) {
 						// we're a fork, and we are at a point where we're gonna execute some stuff
@@ -345,10 +348,10 @@ public class TestRunner {
 			currentCallback.onSuiteFinish(aSuiteCall, tempResult);
 		}
 
-		if (currentPhase == Phase.TEST_RUN) {
-			// all of this only has to be done in case of a real test run
+		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
+			if (currentPhase == Phase.TEST_RUN) {
+				// all of this only has to be done in case of a real test run
 
-			if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
 				if (!isFork()) {
 					// we're the master and need to kick off the fork, which then actually executes the stuff we've just
 					// jumped over
@@ -360,8 +363,9 @@ public class TestRunner {
 					// we're a fork and will return to dry run mode
 					currentCallback.setDryRun(true);
 				}
-				forkInExecution = null;
 			}
+			forkInExecution = null;
+			currentCallback.setForkInExecution(null);
 		}
 
 		return tempResult;

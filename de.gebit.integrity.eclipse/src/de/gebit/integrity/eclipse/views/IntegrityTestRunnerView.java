@@ -142,6 +142,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Hyperlink fixtureLink;
 
 	/**
+	 * The label displaying whether a command is executed on a fork.
+	 */
+	private Label forkLabel;
+
+	/**
 	 * The container for the detail information groups.
 	 */
 	private Composite detailGroups;
@@ -430,13 +435,23 @@ public class IntegrityTestRunnerView extends ViewPart {
 		});
 		fixtureLinkGroup.add(fixtureLink);
 
+		forkLabel = new Label(details.getBody(), SWT.NONE);
+		forkLabel.setText("");
+		forkLabel.setBackground(tempToolkit.getColors().getBackground());
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(fixtureLink, 3);
+		tempFormData.height = 14;
+		forkLabel.setLayoutData(tempFormData);
+
 		detailGroups = new Composite(details.getBody(), SWT.NONE);
 		detailGroups.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		detailGroups.setLayout(new FormLayout());
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(fixtureLink, 10);
+		tempFormData.top = new FormAttachment(forkLabel, 3);
 		tempFormData.bottom = new FormAttachment(100, 0);
 		detailGroups.setLayoutData(tempFormData);
 
@@ -1030,6 +1045,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	// SUPPRESS CHECKSTYLE MethodLength
 	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		fixtureLink.setVisible(false);
+		forkLabel.setVisible(false);
 		resultTableComposite.setVisible(false);
 		resultLine1Name.setVisible(false);
 		resultLine1Border.setVisible(false);
@@ -1059,6 +1075,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 					fixtureLink.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
 				}
 				fixtureLink.setVisible(true);
+			}
+
+			String[] tempForkName = setList.getForkExecutingEntry(anEntry);
+			if (tempForkName != null) {
+				String tempLabelText = "executed on fork '" + tempForkName[0] + "'";
+				if (tempForkName[1] != null) {
+					tempLabelText += " (" + tempForkName[1] + ")";
+				}
+				forkLabel.setText(tempLabelText);
+				forkLabel.setVisible(true);
 			}
 
 			List<SetListEntry> tempVariables = setList.resolveReferences(anEntry,

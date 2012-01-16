@@ -194,12 +194,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cForkdefKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_0 = (RuleCall)cDescriptionAssignment_2.eContents().get(0);
 		
 		//ForkDefinition:
-		//	"forkdef" name=QualifiedName;
+		//	"forkdef" name=QualifiedName description=STRING?;
 		public ParserRule getRule() { return rule; }
 
-		//"forkdef" name=QualifiedName
+		//"forkdef" name=QualifiedName description=STRING?
 		public Group getGroup() { return cGroup; }
 
 		//"forkdef"
@@ -210,6 +212,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
+
+		//description=STRING?
+		public Assignment getDescriptionAssignment_2() { return cDescriptionAssignment_2; }
+
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
 	}
 
 	public class TestDefinitionElements extends AbstractParserRuleElementFinder {
@@ -1477,7 +1485,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ForkDefinition:
-	//	"forkdef" name=QualifiedName;
+	//	"forkdef" name=QualifiedName description=STRING?;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
 	}

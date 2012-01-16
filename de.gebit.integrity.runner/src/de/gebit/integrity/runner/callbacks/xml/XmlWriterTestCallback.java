@@ -165,6 +165,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private static final String FIXTURE_METHOD_ATTRIBUTE = "fixture";
 
+	private static final String FORK_NAME_ATTRIBUTE = "forkName";
+
+	private static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
+
 	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
@@ -227,6 +231,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempSuiteElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(TEARDOWN_COLLECTION_ELEMENT));
+
+		if (getForkInExecution() != null) {
+			tempSuiteElement.setAttribute(FORK_NAME_ATTRIBUTE, getForkInExecution().getName());
+			tempSuiteElement.setAttribute(FORK_DESCRIPTION_ATTRIBUTE, getForkInExecution().getDescription());
+		}
 
 		if (!isDryRun()) {
 			if (isFork()) {

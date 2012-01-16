@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
@@ -70,6 +71,8 @@ public abstract class TestRunnerCallback {
 
 	protected boolean dryRun;
 
+	protected ForkDefinition forkInExecution;
+
 	public void setRemotingServer(IntegrityRemotingServer aRemotingServer) {
 		server = aRemotingServer;
 	}
@@ -84,6 +87,14 @@ public abstract class TestRunnerCallback {
 
 	public boolean isDryRun() {
 		return dryRun;
+	}
+
+	public void setForkInExecution(ForkDefinition aFork) {
+		forkInExecution = aFork;
+	}
+
+	public ForkDefinition getForkInExecution() {
+		return forkInExecution;
 	}
 
 	protected void sendToMaster(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {

@@ -106,6 +106,16 @@ public enum SetListEntryAttributeKeys {
 	/**
 	 * References to the comparisons.
 	 */
-	COMPARISONS;
+	COMPARISONS,
+
+	/**
+	 * Name of the fork a suite is executed on.
+	 */
+	FORK_NAME,
+
+	/**
+	 * Description of the fork a suite is executed on.
+	 */
+	FORK_DESCRIPTION;
 
 }

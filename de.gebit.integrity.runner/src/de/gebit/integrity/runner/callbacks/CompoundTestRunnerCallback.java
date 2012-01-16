@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
@@ -198,6 +199,13 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	public void onVisibleComment(String aCommentText) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onVisibleComment(aCommentText);
+		}
+	}
+
+	@Override
+	public void setForkInExecution(ForkDefinition aFork) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.setForkInExecution(aFork);
 		}
 	}
 }

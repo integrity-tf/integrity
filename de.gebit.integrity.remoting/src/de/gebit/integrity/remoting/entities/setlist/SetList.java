@@ -501,4 +501,28 @@ public class SetList implements Serializable {
 			}
 		}
 	}
+
+	/**
+	 * Returns the name of the fork that executes the given entry.
+	 * 
+	 * @param anEntry
+	 *            the entry
+	 * @return the forks' name (index 0) and description (index 1, if available, otherwise null) or null if the entry is
+	 *         executed by the master
+	 */
+	public String[] getForkExecutingEntry(SetListEntry anEntry) {
+		String[] tempForkName = new String[2];
+		tempForkName[0] = (String) anEntry.getAttribute(SetListEntryAttributeKeys.FORK_NAME);
+		if (tempForkName[0] != null) {
+			tempForkName[1] = (String) anEntry.getAttribute(SetListEntryAttributeKeys.FORK_DESCRIPTION);
+			return tempForkName;
+		} else {
+			SetListEntry tempParent = getParent(anEntry);
+			if (tempParent != null) {
+				return getForkExecutingEntry(tempParent);
+			} else {
+				return null;
+			}
+		}
+	}
 }

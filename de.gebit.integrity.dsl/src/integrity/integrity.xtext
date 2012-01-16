@@ -27,7 +27,7 @@ Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
 	
 ForkDefinition:
-	'forkdef' name=QualifiedName;
+	'forkdef' name=QualifiedName (description=STRING)?;
 	
 TestDefinition:
 	'testdef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
