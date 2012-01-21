@@ -569,8 +569,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 				tempCallResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
+				String tempExceptionMessage = ((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
+						.getException().getMessage();
 				tempCallResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
-						((de.gebit.integrity.runner.results.call.ExceptionResult) aResult).getException().getMessage());
+						tempExceptionMessage != null ? tempExceptionMessage : "null");
 				tempCallResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
 						stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
 								.getException()));
