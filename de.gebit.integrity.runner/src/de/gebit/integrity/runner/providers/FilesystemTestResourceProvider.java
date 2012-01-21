@@ -44,9 +44,9 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 			if (tempFile.isFile()) {
 				if (tempFile.getAbsolutePath().endsWith(".integrity")) {
 					resourceFiles.add(tempFile.getAbsolutePath());
-				} else if (aSearchRecursivelyFlag && tempFile.isDirectory()) {
-					scanDirectory(tempFile, aSearchRecursivelyFlag);
 				}
+			} else if (aSearchRecursivelyFlag && tempFile.isDirectory()) {
+				scanDirectory(tempFile, aSearchRecursivelyFlag);
 			}
 		}
 	}
