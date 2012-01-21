@@ -239,7 +239,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		if (getForkInExecution() != null) {
 			tempSuiteElement.setAttribute(FORK_NAME_ATTRIBUTE, getForkInExecution().getName());
-			tempSuiteElement.setAttribute(FORK_DESCRIPTION_ATTRIBUTE, getForkInExecution().getDescription());
+			if (getForkInExecution().getDescription() != null) {
+				tempSuiteElement.setAttribute(FORK_DESCRIPTION_ATTRIBUTE, getForkInExecution().getDescription());
+			}
 		}
 
 		if (!isDryRun()) {
