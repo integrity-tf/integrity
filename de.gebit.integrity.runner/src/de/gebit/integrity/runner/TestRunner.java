@@ -683,8 +683,7 @@ public class TestRunner {
 		return tempReturn;
 	}
 
-	protected Object executeFixtureMethod(MethodReference aMethod, Map<String, Object> someParameters)
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	protected Object executeFixtureMethod(MethodReference aMethod, Map<String, Object> someParameters) throws Exception {
 		Class<?> tempFixtureClass = getClassForJvmType(aMethod.getType());
 		Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
 		return tempFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);

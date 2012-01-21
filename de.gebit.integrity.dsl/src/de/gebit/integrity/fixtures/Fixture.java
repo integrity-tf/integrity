@@ -53,8 +53,9 @@ public abstract class Fixture {
 	 * @param someParameters
 	 *            a map of parameters
 	 * @return the resulting object
+	 * @throws Throwable
 	 */
-	public Object execute(String aName, Map<String, Object> someParameters) {
+	public Object execute(String aName, Map<String, Object> someParameters) throws Exception {
 		Method tempMethod = findFixtureMethodByName(getClass(), aName);
 		if (tempMethod == null) {
 			throw new IllegalArgumentException("Did not find a fixture method of name '" + aName + "' in class "
@@ -85,7 +86,7 @@ public abstract class Fixture {
 		} catch (IllegalAccessException exc) {
 			throw new IllegalArgumentException("Caught exception when trying to invoke method '" + aName + "'", exc);
 		} catch (InvocationTargetException exc) {
-			throw new IllegalArgumentException("Caught exception when trying to invoke method '" + aName + "'", exc);
+			throw (Exception) exc.getCause();
 		}
 	}
 
