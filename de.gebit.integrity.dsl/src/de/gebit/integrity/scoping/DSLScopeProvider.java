@@ -14,6 +14,7 @@ import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.JvmVisibility;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
@@ -107,20 +108,33 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		List<IEObjectDescription> tempDescriptions = new ArrayList<IEObjectDescription>();
 
 		if (tempType instanceof JvmGenericType) {
-			JvmGenericType tempGenericType = (JvmGenericType) tempType;
-			for (JvmMember tempMember : tempGenericType.getMembers()) {
-				if (tempMember instanceof JvmOperation
-						&& ((JvmOperation) tempMember).getVisibility() == JvmVisibility.PUBLIC) {
-					boolean tempIsFixtureMethod = false;
-					for (JvmAnnotationReference tempAnnotation : tempMember.getAnnotations()) {
-						if (FixtureMethod.class.getName().equals(tempAnnotation.getAnnotation().getQualifiedName())) {
-							tempIsFixtureMethod = true;
-							break;
+			JvmGenericType tempTypeInFocus = (JvmGenericType) tempType;
+
+			while (tempTypeInFocus != null) {
+				for (JvmMember tempMember : tempTypeInFocus.getMembers()) {
+					if (tempMember instanceof JvmOperation
+							&& ((JvmOperation) tempMember).getVisibility() == JvmVisibility.PUBLIC) {
+						boolean tempIsFixtureMethod = false;
+						for (JvmAnnotationReference tempAnnotation : tempMember.getAnnotations()) {
+							if (FixtureMethod.class.getName().equals(tempAnnotation.getAnnotation().getQualifiedName())) {
+								tempIsFixtureMethod = true;
+								break;
+							}
+						}
+						if (tempIsFixtureMethod) {
+							tempDescriptions.add(EObjectDescription.create(
+									QualifiedName.create(((JvmOperation) tempMember).getSimpleName()), tempMember));
 						}
 					}
-					if (tempIsFixtureMethod) {
-						tempDescriptions.add(EObjectDescription.create(
-								QualifiedName.create(((JvmOperation) tempMember).getSimpleName()), tempMember));
+				}
+
+				JvmGenericType tempOldType = tempTypeInFocus;
+				tempTypeInFocus = null;
+				for (JvmTypeReference tempSuperType : tempOldType.getSuperTypes()) {
+					if ((tempSuperType.getType() instanceof JvmGenericType)
+							&& !((JvmGenericType) tempSuperType.getType()).isInterface()) {
+						tempTypeInFocus = (JvmGenericType) tempSuperType.getType();
+						break;
 					}
 				}
 			}
