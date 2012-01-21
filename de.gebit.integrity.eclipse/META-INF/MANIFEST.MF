@@ -31,3 +31,4 @@ Import-Package: org.eclipse.core.commands.common,
  org.eclipse.ui.part,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
+Bundle-Vendor: GEBIT Solutions GmbH

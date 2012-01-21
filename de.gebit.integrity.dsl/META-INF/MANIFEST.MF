@@ -38,3 +38,4 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.common.types.util.jdt;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib
+Bundle-Vendor: GEBIT Solutions GmbH
