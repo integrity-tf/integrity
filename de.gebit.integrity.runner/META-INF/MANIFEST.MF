@@ -23,6 +23,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0",
  org.jdom;version="1.0.0",
+ org.jdom.adapters;version="1.1.1",
+ org.jdom.filter;version="1.1.1",
  org.jdom.input;version="1.0.0",
- org.jdom.output;version="1.0.0"
+ org.jdom.output;version="1.0.0",
+ org.jdom.transform;version="1.1.1",
+ org.jdom.xpath;version="1.1.1"
 Bundle-Vendor: GEBIT Solutions GmbH
