@@ -97,6 +97,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'") + ", but got '" + tempEntry.getValue() + "'!");
+						tempHasBegun = true;
 					}
 				}
 				println("");
