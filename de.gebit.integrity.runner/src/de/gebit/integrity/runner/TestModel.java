@@ -138,7 +138,11 @@ public class TestModel {
 					+ " errors.");
 			tempErrors.addAll(tempResource.getErrors());
 
-			tempModels.add((Model) tempResource.getParseResult().getRootASTElement());
+			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
+			if (tempModel != null) {
+				// may be null in case of an empty file
+				tempModels.add(tempModel);
+			}
 		}
 
 		EcoreUtil.resolveAll(tempResourceSet);
