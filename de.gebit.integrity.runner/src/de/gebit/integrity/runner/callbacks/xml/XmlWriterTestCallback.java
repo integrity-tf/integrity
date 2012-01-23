@@ -462,8 +462,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		if (aSubResult instanceof TestExceptionSubResult) {
 			tempTestResultElement.setAttribute(RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
-			tempTestResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
-					((TestExceptionSubResult) aSubResult).getException().getMessage());
+			String tempMessage = ((TestExceptionSubResult) aSubResult).getException().getMessage();
+			if (tempMessage != null) {
+				tempTestResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, tempMessage);
+			}
 			tempTestResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
 					stackTraceToString(((TestExceptionSubResult) aSubResult).getException()));
 		} else if (aSubResult instanceof TestExecutedSubResult) {
