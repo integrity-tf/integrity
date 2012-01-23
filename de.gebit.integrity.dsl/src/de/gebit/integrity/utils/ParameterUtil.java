@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
@@ -151,6 +152,8 @@ public final class ParameterUtil {
 			} else if (aParamType == String.class) {
 				return Integer.toString(((IntegerValue) aValue).getIntegerValue().intValue());
 			}
+		} else if (aValue instanceof NullValue) {
+			return null;
 		} else if (aValue instanceof StringValue) {
 			if (aParamType == String.class) {
 				return ((StringValue) aValue).getStringValue();
@@ -236,6 +239,8 @@ public final class ParameterUtil {
 			return convertValueToString(tempActualValue, aVariableMap, anAllowNullResultFlag);
 		} else if (aValue instanceof EnumValue) {
 			return ((EnumValue) aValue).getEnumValue().getSimpleName();
+		} else if (aValue instanceof NullValue) {
+			return "null";
 		} else {
 			if (aValue != null) {
 				return aValue.toString();

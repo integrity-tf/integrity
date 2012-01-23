@@ -384,6 +384,15 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.NULL_VALUE:
+      {
+        NullValue nullValue = (NullValue)theEObject;
+        T result = caseNullValue(nullValue);
+        if (result == null) result = caseValue(nullValue);
+        if (result == null) result = caseValueOrEnumValue(nullValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.ENUM_VALUE:
       {
         EnumValue enumValue = (EnumValue)theEObject;
@@ -396,6 +405,16 @@ public class DslSwitch<T> extends Switch<T>
       {
         MethodReference methodReference = (MethodReference)theEObject;
         T result = caseMethodReference(methodReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.NULL:
+      {
+        Null null_ = (Null)theEObject;
+        T result = caseNull(null_);
+        if (result == null) result = caseNullValue(null_);
+        if (result == null) result = caseValue(null_);
+        if (result == null) result = caseValueOrEnumValue(null_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1028,6 +1047,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Null Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Null Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNullValue(NullValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Enum Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1055,6 +1090,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMethodReference(MethodReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Null</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Null</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNull(Null object)
   {
     return null;
   }

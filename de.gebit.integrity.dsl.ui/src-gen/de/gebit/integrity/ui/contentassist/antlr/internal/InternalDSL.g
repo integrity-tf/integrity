@@ -1148,6 +1148,34 @@ finally {
 
 
 
+// Entry rule entryRuleNullValue
+entryRuleNullValue 
+:
+{ before(grammarAccess.getNullValueRule()); }
+	 ruleNullValue
+{ after(grammarAccess.getNullValueRule()); } 
+	 EOF 
+;
+
+// Rule NullValue
+ruleNullValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getNullValueAccess().getGroup()); }
+(rule__NullValue__Group__0)
+{ after(grammarAccess.getNullValueAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleEnumValue
 entryRuleEnumValue 
 :
@@ -1584,6 +1612,12 @@ rule__Value__Alternatives
 { before(grammarAccess.getValueAccess().getVariableParserRuleCall_3()); }
 	ruleVariable
 { after(grammarAccess.getValueAccess().getVariableParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getValueAccess().getNullValueParserRuleCall_4()); }
+	ruleNullValue
+{ after(grammarAccess.getValueAccess().getNullValueParserRuleCall_4()); }
 )
 
 ;
@@ -4678,6 +4712,71 @@ rule__ArbitraryParameterOrResultName__Group__1__Impl
 { before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1()); }
 (rule__ArbitraryParameterOrResultName__IdentifierAssignment_1)
 { after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__NullValue__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__NullValue__Group__0__Impl
+	rule__NullValue__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__NullValue__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getNullValueAccess().getNullAction_0()); }
+(
+
+)
+{ after(grammarAccess.getNullValueAccess().getNullAction_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__NullValue__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__NullValue__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__NullValue__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getNullValueAccess().getNullKeyword_1()); }
+
+	'null' 
+
+{ after(grammarAccess.getNullValueAccess().getNullKeyword_1()); }
 )
 
 ;

@@ -18,6 +18,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.Null;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -180,6 +181,14 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 			case DslPackage.NAMED_RESULT:
 				if(context == grammarAccess.getNamedResultRule()) {
 					sequence_NamedResult(context, (NamedResult) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.NULL:
+				if(context == grammarAccess.getNullValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueRule()) {
+					sequence_ValueOrEnumValue(context, (Null) semanticObject); 
 					return; 
 				}
 				else break;
@@ -730,6 +739,15 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=ValueOrEnumValue?)
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {Null}
+	 */
+	protected void sequence_ValueOrEnumValue(EObject context, Null semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

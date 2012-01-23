@@ -2187,6 +2187,16 @@ ruleValue returns [EObject current=null]
         $current = $this_Variable_3.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getValueAccess().getNullValueParserRuleCall_4()); 
+    }
+    this_NullValue_4=ruleNullValue
+    { 
+        $current = $this_NullValue_4.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -2340,6 +2350,37 @@ ruleVariable returns [EObject current=null]
 	    }
 
 )
+)
+;
+
+
+
+
+
+// Entry rule entryRuleNullValue
+entryRuleNullValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getNullValueRule()); }
+	 iv_ruleNullValue=ruleNullValue 
+	 { $current=$iv_ruleNullValue.current; } 
+	 EOF 
+;
+
+// Rule NullValue
+ruleNullValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getNullValueAccess().getNullAction_0(),
+            $current);
+    }
+)	otherlv_1='null' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getNullValueAccess().getNullKeyword_1());
+    }
 )
 ;
 

@@ -109,7 +109,7 @@ ValueOrEnumValue:
 	Value | EnumValue;
 	
 Value:
-	StringValue | IntegerValue | DecimalValue | Variable;
+	StringValue | IntegerValue | DecimalValue | Variable | NullValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -122,6 +122,9 @@ StringValue:
 	
 Variable:
 	name=[VariableEntity|QualifiedName];
+	
+NullValue:
+	{Null} 'null';
 	
 EnumValue:
 	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];

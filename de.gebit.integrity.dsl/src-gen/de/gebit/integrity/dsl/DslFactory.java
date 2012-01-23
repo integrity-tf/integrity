@@ -378,6 +378,15 @@ public interface DslFactory extends EFactory
   Variable createVariable();
 
   /**
+   * Returns a new object of class '<em>Null Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Null Value</em>'.
+   * @generated
+   */
+  NullValue createNullValue();
+
+  /**
    * Returns a new object of class '<em>Enum Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -394,6 +403,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   MethodReference createMethodReference();
+
+  /**
+   * Returns a new object of class '<em>Null</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Null</em>'.
+   * @generated
+   */
+  Null createNull();
 
   /**
    * Returns the package supported by this factory.

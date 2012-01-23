@@ -23,6 +23,7 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -695,9 +696,13 @@ public class TestRunner {
 
 	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult) {
 		if (anExpectedResult != null) {
-			Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(aFixtureResult.getClass(),
-					anExpectedResult, variableStorage);
-			return tempConvertedResult.equals(aFixtureResult);
+			if (aFixtureResult != null) {
+				Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+						aFixtureResult.getClass(), anExpectedResult, variableStorage);
+				return tempConvertedResult.equals(aFixtureResult);
+			} else {
+				return (anExpectedResult instanceof NullValue);
+			}
 		} else {
 			if (aFixtureResult instanceof Boolean) {
 				return (Boolean) aFixtureResult;

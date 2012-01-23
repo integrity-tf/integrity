@@ -1209,12 +1209,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIntegerValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cDecimalValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cVariableParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cNullValueParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//Value:
-		//	StringValue | IntegerValue | DecimalValue | Variable;
+		//	StringValue | IntegerValue | DecimalValue | Variable | NullValue;
 		public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | Variable
+		//StringValue | IntegerValue | DecimalValue | Variable | NullValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -1228,6 +1229,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Variable
 		public RuleCall getVariableParserRuleCall_3() { return cVariableParserRuleCall_3; }
+
+		//NullValue
+		public RuleCall getNullValueParserRuleCall_4() { return cNullValueParserRuleCall_4; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -1296,6 +1300,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getNameVariableEntityQualifiedNameParserRuleCall_0_1() { return cNameVariableEntityQualifiedNameParserRuleCall_0_1; }
+	}
+
+	public class NullValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NullValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cNullAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cNullKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//NullValue:
+		//	{Null} "null";
+		public ParserRule getRule() { return rule; }
+
+		//{Null} "null"
+		public Group getGroup() { return cGroup; }
+
+		//{Null}
+		public Action getNullAction_0() { return cNullAction_0; }
+
+		//"null"
+		public Keyword getNullKeyword_1() { return cNullKeyword_1; }
 	}
 
 	public class EnumValueElements extends AbstractParserRuleElementFinder {
@@ -1470,6 +1494,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private DecimalValueElements pDecimalValue;
 	private StringValueElements pStringValue;
 	private VariableElements pVariable;
+	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
 	private MethodReferenceElements pMethodReference;
 	private QualifiedNameElements pQualifiedName;
@@ -1848,7 +1873,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Value:
-	//	StringValue | IntegerValue | DecimalValue | Variable;
+	//	StringValue | IntegerValue | DecimalValue | Variable | NullValue;
 	public ValueElements getValueAccess() {
 		return (pValue != null) ? pValue : (pValue = new ValueElements());
 	}
@@ -1895,6 +1920,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getVariableRule() {
 		return getVariableAccess().getRule();
+	}
+
+	//NullValue:
+	//	{Null} "null";
+	public NullValueElements getNullValueAccess() {
+		return (pNullValue != null) ? pNullValue : (pNullValue = new NullValueElements());
+	}
+	
+	public ParserRule getNullValueRule() {
+		return getNullValueAccess().getRule();
 	}
 
 	//EnumValue:

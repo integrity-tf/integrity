@@ -1324,6 +1324,25 @@ public interface DslPackage extends EPackage
   int VARIABLE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NullValueImpl <em>Null Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.NullValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
+   * @generated
+   */
+  int NULL_VALUE = 39;
+
+  /**
+   * The number of structural features of the '<em>Null Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NULL_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.EnumValueImpl <em>Enum Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1331,7 +1350,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 39;
+  int ENUM_VALUE = 40;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1359,7 +1378,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 40;
+  int METHOD_REFERENCE = 41;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1387,6 +1406,25 @@ public interface DslPackage extends EPackage
    * @ordered
    */
   int METHOD_REFERENCE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.NullImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
+   * @generated
+   */
+  int NULL = 42;
+
+  /**
+   * The number of structural features of the '<em>Null</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NULL_FEATURE_COUNT = NULL_VALUE_FEATURE_COUNT + 0;
 
 
   /**
@@ -2418,6 +2456,16 @@ public interface DslPackage extends EPackage
   EReference getVariable_Name();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.NullValue <em>Null Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Null Value</em>'.
+   * @see de.gebit.integrity.dsl.NullValue
+   * @generated
+   */
+  EClass getNullValue();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.EnumValue <em>Enum Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2469,6 +2517,16 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getMethodReference_Method();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.Null <em>Null</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Null</em>'.
+   * @see de.gebit.integrity.dsl.Null
+   * @generated
+   */
+  EClass getNull();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -3348,6 +3406,16 @@ public interface DslPackage extends EPackage
     EReference VARIABLE__NAME = eINSTANCE.getVariable_Name();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NullValueImpl <em>Null Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.NullValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
+     * @generated
+     */
+    EClass NULL_VALUE = eINSTANCE.getNullValue();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.EnumValueImpl <em>Enum Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3390,6 +3458,16 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference METHOD_REFERENCE__METHOD = eINSTANCE.getMethodReference_Method();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.NullImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
+     * @generated
+     */
+    EClass NULL = eINSTANCE.getNull();
 
   }
 

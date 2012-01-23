@@ -23,6 +23,8 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.Null;
+import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.PackageStatement;
 import de.gebit.integrity.dsl.Parameter;
@@ -345,6 +347,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass nullValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass enumValueEClass = null;
 
   /**
@@ -353,6 +362,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass methodReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass nullEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -1395,6 +1411,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getNullValue()
+  {
+    return nullValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getEnumValue()
   {
     return enumValueEClass;
@@ -1438,6 +1464,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getMethodReference_Method()
   {
     return (EReference)methodReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNull()
+  {
+    return nullEClass;
   }
 
   /**
@@ -1606,12 +1642,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableEClass = createEClass(VARIABLE);
     createEReference(variableEClass, VARIABLE__NAME);
 
+    nullValueEClass = createEClass(NULL_VALUE);
+
     enumValueEClass = createEClass(ENUM_VALUE);
     createEReference(enumValueEClass, ENUM_VALUE__ENUM_VALUE);
 
     methodReferenceEClass = createEClass(METHOD_REFERENCE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__TYPE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__METHOD);
+
+    nullEClass = createEClass(NULL);
   }
 
   /**
@@ -1674,7 +1714,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     decimalValueEClass.getESuperTypes().add(this.getValue());
     stringValueEClass.getESuperTypes().add(this.getValue());
     variableEClass.getESuperTypes().add(this.getValue());
+    nullValueEClass.getESuperTypes().add(this.getValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValue());
+    nullEClass.getESuperTypes().add(this.getNullValue());
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1813,12 +1855,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariable_Name(), this.getVariableEntity(), null, "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(nullValueEClass, NullValue.class, "NullValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(enumValueEClass, EnumValue.class, "EnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEnumValue_EnumValue(), theTypesPackage.getJvmEnumerationLiteral(), null, "enumValue", null, 0, 1, EnumValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(methodReferenceEClass, MethodReference.class, "MethodReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMethodReference_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMethodReference_Method(), theTypesPackage.getJvmOperation(), null, "method", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(nullEClass, Null.class, "Null", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);
