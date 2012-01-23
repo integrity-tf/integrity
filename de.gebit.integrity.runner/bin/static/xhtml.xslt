@@ -486,7 +486,7 @@
         </div>
         <span class="testduration">
           <xsl:call-template name="duration">
-            <xsl:with-param name="value" select="results/result/@duration" />
+            <xsl:with-param name="value" select="results/@duration" />
           </xsl:call-template>
         </span>
       </div>
@@ -645,7 +645,7 @@
         <xsl:value-of select="floor(($value mod 60000) div 1000)" />
       </xsl:variable>
       <xsl:variable name="msecs">
-        <xsl:value-of select="round($value mod 1000)" />
+        <xsl:value-of select="round(($value mod 1000) * 1000) div 1000" />
       </xsl:variable>
       <xsl:if test="$hours &gt; 0">
         <xsl:value-of select="$hours" />
