@@ -27,17 +27,19 @@ public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentat
 	/**
 	 * Returns the documentation text for a specific object.
 	 */
-	public String getDocumentation(EObject anObject) {
-		if (anObject instanceof TestDefinition) {
-			TestDefinition tempTestDefinition = (TestDefinition) anObject;
-			String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
-					elementFinder);
-			return tempJavadoc;
-		} else if (anObject instanceof CallDefinition) {
-			CallDefinition tempCallDefinition = (CallDefinition) anObject;
-			String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
-					elementFinder);
-			return tempJavadoc;
+	public String getDocumentation(EObject anObjectOrProxy) {
+		if (!anObjectOrProxy.eIsProxy()) {
+			if (anObjectOrProxy instanceof TestDefinition) {
+				TestDefinition tempTestDefinition = (TestDefinition) anObjectOrProxy;
+				String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
+						elementFinder);
+				return tempJavadoc;
+			} else if (anObjectOrProxy instanceof CallDefinition) {
+				CallDefinition tempCallDefinition = (CallDefinition) anObjectOrProxy;
+				String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
+						elementFinder);
+				return tempJavadoc;
+			}
 		}
 
 		return null;

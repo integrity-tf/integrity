@@ -5,10 +5,12 @@ package de.gebit.integrity.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 
 import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider;
+import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 
@@ -53,5 +55,14 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
 		return DSLAntlrTokenToAttributeIdMapper.class;
+	}
+
+	/**
+	 * Binds the hover provider.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IEObjectHoverProvider> bindEObjectHoverProvider() {
+		return IntegrityEObjectHoverProvider.class;
 	}
 }

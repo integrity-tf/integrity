@@ -13,8 +13,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.CompilationUnit;
+import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
+import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
@@ -53,6 +56,24 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	 */
 	@Inject
 	IJavaElementFinder elementFinder;
+
+	/**
+	 * Creates a proposal (basically resembles the overridden method, but creates an
+	 * {@link IntegrityConfigurableCompletionProposal} instead, which stores the {@link ContentAssistContext}.
+	 */
+	@Override
+	protected ConfigurableCompletionProposal doCreateProposal(String aProposal, StyledString aDisplayString,
+			Image anImage, int aPriority, ContentAssistContext aContext) {
+		int tempReplacementOffset = aContext.getReplaceRegion().getOffset();
+		int tempReplacementLength = aContext.getReplaceRegion().getLength();
+		ConfigurableCompletionProposal tempResult = new IntegrityConfigurableCompletionProposal(aProposal,
+				tempReplacementOffset, tempReplacementLength, aProposal.length(), anImage, aDisplayString, null, null,
+				aContext);
+		tempResult.setPriority(aPriority);
+		tempResult.setMatcher(aContext.getMatcher());
+		tempResult.setReplaceContextLength(aContext.getReplaceContextLength());
+		return tempResult;
+	}
 
 	@Override
 	// SUPPRESS CHECKSTYLE MethodName
