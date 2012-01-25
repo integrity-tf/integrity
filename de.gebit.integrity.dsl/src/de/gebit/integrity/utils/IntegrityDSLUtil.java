@@ -20,6 +20,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
@@ -33,8 +34,10 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
@@ -86,10 +89,12 @@ public final class IntegrityDSLUtil {
 	 * @return the name
 	 */
 	public static String getParamNameFromAnnotation(JvmAnnotationReference anAnnotation) {
-		if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())) {
-			for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
-				if (tempValue instanceof JvmStringAnnotationValue && "name".equals(tempValue.getValueName())) {
-					return ((JvmStringAnnotationValue) tempValue).getValues().get(0);
+		if (anAnnotation.getAnnotation() != null) {
+			if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())) {
+				for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
+					if (tempValue instanceof JvmStringAnnotationValue && "name".equals(tempValue.getValueName())) {
+						return ((JvmStringAnnotationValue) tempValue).getValues().get(0);
+					}
 				}
 			}
 		}
@@ -210,11 +215,15 @@ public final class IntegrityDSLUtil {
 	 *            shall be done
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
+	 *            null)
 	 * @return a map with a String to value mapping
 	 */
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag) {
-		return createParameterMap(aTest.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
+		return createParameterMap(aTest.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag,
+				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -229,11 +238,15 @@ public final class IntegrityDSLUtil {
 	 *            shall be done
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
+	 *            null)
 	 * @return a map with a String to value mapping
 	 */
 	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag) {
-		return createParameterMap(aCall.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag);
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
+		return createParameterMap(aCall.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag,
+				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -250,10 +263,14 @@ public final class IntegrityDSLUtil {
 	 *            shall be done
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
+	 *            null)
 	 * @return a map with a String to value mapping
 	 */
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) {
 		LinkedHashMap<ParameterName, ValueOrEnumValue> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
 		for (Parameter tempParameter : aTableTest.getParameters()) {
 			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
@@ -266,7 +283,8 @@ public final class IntegrityDSLUtil {
 			tempCount++;
 		}
 
-		return createParameterMap(tempParameterMap, aVariableMap, anIncludeArbitraryParametersFlag);
+		return createParameterMap(tempParameterMap, aVariableMap, anIncludeArbitraryParametersFlag,
+				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -281,29 +299,39 @@ public final class IntegrityDSLUtil {
 	 *            shall be done
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
+	 *            null)
 	 * @return a map with a String to value mapping
 	 */
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) {
 		Map<ParameterName, ValueOrEnumValue> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
 		for (Parameter tempParameter : someParameters) {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
 		}
 
-		return createParameterMap(tempParameters, aVariableMap, anIncludeArbitraryParametersFlag);
+		return createParameterMap(tempParameters, aVariableMap, anIncludeArbitraryParametersFlag,
+				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	private static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag) {
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null) {
 				Object tempValue = tempEntry.getValue();
 				if (tempValue instanceof Variable) {
+					Object tempResolvedValue = null;
 					if (aVariableMap != null) {
-						tempValue = aVariableMap.get(((Variable) tempValue).getName());
+						tempResolvedValue = aVariableMap.get(((Variable) tempValue).getName());
 					} else {
-						tempValue = null;
+						tempResolvedValue = null;
+					}
+					if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+						tempValue = tempResolvedValue;
 					}
 				}
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
@@ -387,17 +415,19 @@ public final class IntegrityDSLUtil {
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
 		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
 		for (NamedResult tempEntry : aTestResultList) {
-			Object tempValue = tempEntry.getValue();
-			if (tempValue instanceof Variable) {
-				if (aVariableMap != null) {
-					tempValue = aVariableMap.get(((Variable) tempValue).getName());
-				} else {
-					tempValue = null;
+			if (tempEntry.getName() != null && tempEntry.getValue() != null) {
+				Object tempValue = tempEntry.getValue();
+				if (tempValue instanceof Variable) {
+					if (aVariableMap != null) {
+						tempValue = aVariableMap.get(((Variable) tempValue).getName());
+					} else {
+						tempValue = null;
+					}
 				}
-			}
-			if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
-				tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
-						tempEntry.getValue());
+				if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
+					tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
+							tempEntry.getValue());
+				}
 			}
 		}
 
@@ -472,5 +502,25 @@ public final class IntegrityDSLUtil {
 
 		throw new IllegalArgumentException(
 				"The given multi-line comment does not start and end with the expected literals.");
+	}
+
+	public static Object resolveVariableStatically(Variable aVariable) {
+		Value tempValue = null;
+
+		if (aVariable.getName() != null) {
+			if (aVariable.getName().eContainer() instanceof VariableDefinition) {
+				VariableDefinition tempDefinition = (VariableDefinition) aVariable.getName().eContainer();
+				tempValue = tempDefinition.getInitialValue();
+			} else if (aVariable.getName().eContainer() instanceof ConstantDefinition) {
+				ConstantDefinition tempDefinition = (ConstantDefinition) aVariable.getName().eContainer();
+				tempValue = tempDefinition.getValue();
+			}
+		}
+
+		if (tempValue != null && tempValue instanceof Variable) {
+			return resolveVariableStatically(aVariable);
+		} else {
+			return tempValue;
+		}
 	}
 }

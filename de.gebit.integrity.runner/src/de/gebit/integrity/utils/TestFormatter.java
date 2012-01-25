@@ -62,7 +62,7 @@ public class TestFormatter {
 	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, true), false);
+				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, true, false), false);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class TestFormatter {
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, true), false);
+				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, true, false), false);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class TestFormatter {
 	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, true), true);
+				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, true, false), true);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class TestFormatter {
 	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, true), false);
+				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, true, false), false);
 	}
 
 	/**

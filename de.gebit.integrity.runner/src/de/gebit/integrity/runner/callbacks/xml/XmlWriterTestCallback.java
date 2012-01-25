@@ -382,7 +382,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
 		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
-				.getSubResults().get(0), IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
+				.getSubResults().get(0), IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true, false));
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -405,7 +405,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
 			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
-					IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true));
+					IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, true, false));
 		}
 	}
 

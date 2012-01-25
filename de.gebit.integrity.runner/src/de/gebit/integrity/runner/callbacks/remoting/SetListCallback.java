@@ -171,7 +171,7 @@ public class SetListCallback extends TestRunnerCallback {
 		for (TestSubResult tempSubResult : aResult.getSubResults()) {
 			tempNewEntries.addAll(onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(),
 					tempTestEntry, tempSubResult, IntegrityDSLUtil.createParameterMap(aTableTest, aTableTest.getRows()
-							.get(tempCount), variableStorage, true)));
+							.get(tempCount), variableStorage, true, false)));
 			tempCount++;
 		}
 		tempNewEntries.add(tempTestEntry);
@@ -184,7 +184,7 @@ public class SetListCallback extends TestRunnerCallback {
 		SetListEntry tempTestEntry = entryStack.pop();
 		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(),
 				tempTestEntry, aResult.getSubResults().get(0),
-				IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true));
+				IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true, false));
 		tempNewEntries.add(tempTestEntry);
 
 		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
@@ -394,7 +394,7 @@ public class SetListCallback extends TestRunnerCallback {
 			anEntry.setAttribute(
 					SetListEntryAttributeKeys.DESCRIPTION,
 					formatter.fixtureMethodToHumanReadableString(aMethod,
-							IntegrityDSLUtil.createParameterMap(aParamList, variableStorage, true), true));
+							IntegrityDSLUtil.createParameterMap(aParamList, variableStorage, true, false), true));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();

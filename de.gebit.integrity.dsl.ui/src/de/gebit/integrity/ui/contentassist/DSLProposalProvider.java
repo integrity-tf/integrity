@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
@@ -27,12 +28,14 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
 import de.gebit.integrity.fixtures.Fixture;
@@ -182,6 +185,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private void completeParametersInternal(Set<String> someAlreadyUsedParameters, MethodReference aMethod,
 			String aPrefix, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 
+		if (aMethod == null || aMethod.getMethod() == null) {
+			return;
+		}
+
 		Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(aMethod.getMethod(), elementFinder);
 
 		List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aMethod);
@@ -212,6 +219,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempContainer = aModel.eContainer();
 		} else if (aModel instanceof ArbitraryParameterOrResultName) {
 			tempContainer = aModel.eContainer().eContainer();
+		} else if (aModel instanceof NamedResult) {
+			tempContainer = aModel.eContainer();
 		}
 
 		// We need these parameter and result maps in order to sort out proposals for parameters/results already given
@@ -220,12 +229,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		MethodReference tempMethodReference = null;
 		if (tempContainer instanceof Test) {
 			Test tempTest = (Test) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, true);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, true, false);
 			tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
 			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 		} else if (tempContainer instanceof TableTest) {
 			TableTest tempTest = (TableTest) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, true);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, true, false);
 			tempExpectedResultMap = new LinkedHashMap<String, Object>();
 			for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
 				tempExpectedResultMap.put(
@@ -234,7 +243,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 		} else if (tempContainer instanceof Call) {
 			Call tempCall = (Call) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, true);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, true, false);
 			tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 		}
 
@@ -253,15 +262,24 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (tempContainer instanceof Test) {
 						Test tempTest = (Test) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
-								false);
+								false, true);
 					} else if (tempContainer instanceof TableTest) {
 						TableTest tempTest = (TableTest) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
-								false);
+								false, true);
 					} else if (tempContainer instanceof Call) {
 						Call tempCall = (Call) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
-								false);
+								false, true);
+					}
+
+					// since we're inside eclipse here, we must resolve variables and constants "by hand" here to their
+					// actual values
+					for (Entry<String, Object> tempEntry : tempFixedParameterMap.entrySet()) {
+						if (tempEntry.getValue() instanceof Variable) {
+							tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry
+									.getValue()));
+						}
 					}
 
 					tempFixtureInstance.convertParameterValuesToFixtureDefinedTypes(Fixture.findFixtureMethodByName(
@@ -272,16 +290,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					List<ArbitraryParameterDefinition> tempParameterDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
 							.defineArbitraryParameters(tempMethodReference.getMethod().getSimpleName(),
 									tempFixedParameterMap, true);
-					for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
-						String tempName = tempParameterDescription.getName();
-						if (!tempParameterMap.containsKey(tempName)) {
-							String tempDescription = tempName;
-							if (tempParameterDescription.getDescription() != null) {
-								tempDescription += ": " + tempParameterDescription.getDescription();
+					if (tempParameterDescriptions != null) {
+						for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
+							String tempName = tempParameterDescription.getName();
+							if (!tempParameterMap.containsKey(tempName)) {
+								String tempDescription = tempName;
+								if (tempParameterDescription.getDescription() != null) {
+									tempDescription += ": " + tempParameterDescription.getDescription();
+								}
+								String tempSuffix = (tempContainer instanceof TableTest) ? "" : ": ";
+								anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription,
+										null, aContext));
 							}
-							String tempSuffix = (tempContainer instanceof TableTest) ? "" : ": ";
-							anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription, null,
-									aContext));
 						}
 					}
 
@@ -290,15 +310,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						List<ArbitraryParameterDefinition> tempResultDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
 								.defineArbitraryResults(tempMethodReference.getMethod().getSimpleName(),
 										tempFixedParameterMap, true);
-						for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
-							String tempName = tempResultDescription.getName();
-							if (!tempExpectedResultMap.containsKey(tempName)) {
-								String tempDescription = tempName;
-								if (tempResultDescription.getDescription() != null) {
-									tempDescription += ": " + tempResultDescription.getDescription();
+						if (tempResultDescriptions != null) {
+							for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
+								String tempName = tempResultDescription.getName();
+								if (!tempExpectedResultMap.containsKey(tempName)) {
+									String tempDescription = tempName;
+									if (tempResultDescription.getDescription() != null) {
+										tempDescription += ": " + tempResultDescription.getDescription();
+									}
+									anAcceptor.accept(createCompletionProposal(tempName + "=", tempDescription, null,
+											aContext));
 								}
-								anAcceptor.accept(createCompletionProposal(tempName + "=", tempDescription, null,
-										aContext));
 							}
 						}
 					}

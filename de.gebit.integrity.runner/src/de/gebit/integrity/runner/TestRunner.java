@@ -490,7 +490,8 @@ public class TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true);
+			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true,
+					false);
 
 			long tempStart = System.nanoTime();
 			try {
@@ -592,7 +593,7 @@ public class TestRunner {
 				}
 			} else {
 				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
-						variableStorage, true);
+						variableStorage, true, false);
 
 				long tempStart = System.nanoTime();
 				try {
@@ -736,7 +737,8 @@ public class TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage, true);
+			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage, true,
+					false);
 
 			long tempStart = System.nanoTime();
 			try {
