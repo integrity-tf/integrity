@@ -222,6 +222,9 @@ public class TestRunner {
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
 			defineVariable(tempVariableDef, null);
 		}
+		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
+			defineConstant(tempConstantDef, null);
+		}
 
 		SuiteResult tempResult = callSuite(aRootSuiteCall, null);
 
@@ -391,7 +394,7 @@ public class TestRunner {
 			} else if (tempStatement instanceof VariableDefinition) {
 				defineVariable((VariableDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof ConstantDefinition) {
-				defineVariable((ConstantDefinition) tempStatement, aSuite);
+				defineConstant((ConstantDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
 					currentCallback.onVisibleComment(IntegrityDSLUtil
@@ -412,7 +415,7 @@ public class TestRunner {
 		defineVariable(aDefinition.getName(), aDefinition.getInitialValue(), aSuite);
 	}
 
-	protected void defineVariable(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
+	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
 		defineVariable(aDefinition.getName(), aDefinition.getValue(), aSuite);
 	}
 

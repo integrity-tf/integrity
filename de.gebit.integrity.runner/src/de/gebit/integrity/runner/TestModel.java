@@ -28,6 +28,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import com.google.inject.Injector;
 
 import de.gebit.integrity.DSLStandaloneSetup;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -100,6 +101,24 @@ public class TestModel {
 				if (tempObject instanceof VariableDefinition) {
 					if (tempObject.eContainer() instanceof PackageDefinition) {
 						tempResultSet.add((VariableDefinition) tempObject);
+					}
+				}
+			}
+		}
+
+		return tempResultSet;
+	}
+
+	public Set<ConstantDefinition> getConstantDefinitionsInPackages() {
+		Set<ConstantDefinition> tempResultSet = new HashSet<ConstantDefinition>();
+
+		for (Model tempModel : models) {
+			TreeIterator<EObject> tempIter = tempModel.eAllContents();
+			while (tempIter.hasNext()) {
+				EObject tempObject = tempIter.next();
+				if (tempObject instanceof ConstantDefinition) {
+					if (tempObject.eContainer() instanceof PackageDefinition) {
+						tempResultSet.add((ConstantDefinition) tempObject);
 					}
 				}
 			}
