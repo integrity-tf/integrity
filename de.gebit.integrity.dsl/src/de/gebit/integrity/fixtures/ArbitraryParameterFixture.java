@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Abstract base class for fixtures that allow for arbitrary, non-predetermined parameters to be specified. Fixtures
- * that want to use the arbitrary parameter system must extend this base fixture class, and they must implement
- * {@link #defineArbitraryParameters(String, Map, EclipseResourceProvider)}, though they don't necessarily have to
- * return any parameter definitions.<br>
+ * Interface for fixtures that allow for arbitrary, non-predetermined parameters to be specified. Fixtures that want to
+ * use the arbitrary parameter system must implement this interface class, and they must implement
+ * {@link #defineArbitraryParameters(String, Map, EclipseResourceProvider)} and
+ * {@link #defineArbitraryResults(String, Map, boolean)}, though they don't necessarily have to return any parameter
+ * definitions or results (for example they might choose to only support parameters, not results).<br>
  * <br>
  * Fixture methods with arbitrary parameters generally look like normal fixture methods and may contain fixed parameters
  * as well, but they are required to add a single {@link Map}<String, Object> parameter, which will be used to supply
