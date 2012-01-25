@@ -267,19 +267,21 @@ public final class ParameterUtil {
 			throws IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		Map<String, Object> tempResultMap = new HashMap<String, Object>();
 
-		for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
-				.getPropertyDescriptors()) {
-			Method tempReadMethod = tempDescriptor.getReadMethod();
-			if (tempReadMethod != null) {
-				if (Map.class.isAssignableFrom(tempDescriptor.getPropertyType())) {
-					// this is a map for arbitrary result names
-					@SuppressWarnings("unchecked")
-					Map<String, Object> tempMap = (Map<String, Object>) tempReadMethod.invoke(aContainer);
-					for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
-						tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+		if (aContainer != null) {
+			for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
+					.getPropertyDescriptors()) {
+				Method tempReadMethod = tempDescriptor.getReadMethod();
+				if (tempReadMethod != null) {
+					if (Map.class.isAssignableFrom(tempDescriptor.getPropertyType())) {
+						// this is a map for arbitrary result names
+						@SuppressWarnings("unchecked")
+						Map<String, Object> tempMap = (Map<String, Object>) tempReadMethod.invoke(aContainer);
+						for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
+							tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+						}
+					} else {
+						tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
 					}
-				} else {
-					tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
 				}
 			}
 		}
