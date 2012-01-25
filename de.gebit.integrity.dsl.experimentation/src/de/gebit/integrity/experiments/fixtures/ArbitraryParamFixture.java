@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
+import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
-public class ArbitraryParamFixture extends ArbitraryParameterFixture {
+public class ArbitraryParamFixture extends Fixture implements ArbitraryParameterFixture {
 
 	@Override
 	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,

@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Rene Schneider
  * 
  */
-public abstract class ArbitraryParameterFixture extends Fixture {
+public abstract interface ArbitraryParameterFixture {
 
 	/**
 	 * Returns a list of valid parameters that will be added to the fixed parameter to any of the fixture methods in
@@ -43,7 +43,7 @@ public abstract class ArbitraryParameterFixture extends Fixture {
 	 *            Whether the method is being called inside Eclipse
 	 * @return A list with definitions of arbitrary parameters.
 	 */
-	public abstract List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureMethodName,
+	List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureMethodName,
 			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag);
 
 	/**
@@ -55,7 +55,7 @@ public abstract class ArbitraryParameterFixture extends Fixture {
 	 * @param aCalledInEclipseFlag
 	 * @return
 	 */
-	public abstract List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureMethodName,
+	List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureMethodName,
 			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag);
 
 	/**
