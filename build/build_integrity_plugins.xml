@@ -11,6 +11,11 @@
 				<include name="*.jar"/>
 			</fileset>
 		</copy>
+		<copy todir="build/">
+			<fileset dir="resources/">
+				<include name="readme.txt"/>
+			</fileset>
+		</copy>
 		
 		<pde.exportPlugins  destination="build" exportSource="true" exportType="directory" plugins="de.gebit.integrity.dsl,de.gebit.integrity.dsl.ui,de.gebit.integrity.runner,de.gebit.integrity.remoting,de.gebit.integrity.eclipse" useJARFormat="true"/>
 	</target>
