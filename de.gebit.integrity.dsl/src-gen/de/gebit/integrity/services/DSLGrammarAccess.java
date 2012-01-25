@@ -1995,13 +1995,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal INTEGER returns ecore::EBigInteger:
-	//	"0".."9"+;
+	//	"-"? "0".."9"+;
 	public TerminalRule getINTEGERRule() {
 		return (tINTEGER != null) ? tINTEGER : (tINTEGER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER"));
 	} 
 
 	//terminal DECIMAL returns ecore::EBigDecimal:
-	//	INTEGER "." INTEGER;
+	//	"-"? "0".."9"+ "." "0".."9"+;
 	public TerminalRule getDECIMALRule() {
 		return (tDECIMAL != null) ? tDECIMAL : (tDECIMAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DECIMAL"));
 	} 

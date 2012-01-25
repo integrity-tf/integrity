@@ -144,8 +144,8 @@ QualifiedNameWithWildcard:
 
 terminal UPPERCASE_ID: ('A'..'Z') ('A'..'Z'|'a'..'z'|'_'|'0'..'9')*;
 terminal ID: '^'?('a'..'z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-terminal INTEGER returns ecore::EBigInteger: ('0'..'9')+;
-terminal DECIMAL returns ecore::EBigDecimal: INTEGER '.' INTEGER;
+terminal INTEGER returns ecore::EBigInteger: '-'? ('0'..'9')+;
+terminal DECIMAL returns ecore::EBigDecimal: '-'? ('0'..'9')+ '.' ('0'..'9')+;
 terminal STRING: 
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 

@@ -5,7 +5,7 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 
-import de.gebit.integrity.values.TestDSLValueConverters;
+import de.gebit.integrity.values.DSLValueConverters;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -37,7 +37,7 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 
 	// SUPPRESS CHECKSTYLE Javadoc
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-		return TestDSLValueConverters.class;
+		return DSLValueConverters.class;
 	}
 
 	@Override

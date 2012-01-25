@@ -1,5 +1,6 @@
 package de.gebit.integrity.values;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.eclipse.xtext.common.services.DefaultTerminalConverters;
@@ -14,7 +15,7 @@ import org.eclipse.xtext.nodemodel.INode;
  * @author Rene Schneider
  * 
  */
-public class TestDSLValueConverters extends DefaultTerminalConverters {
+public class DSLValueConverters extends DefaultTerminalConverters {
 
 	// SUPPRESS CHECKSTYLE Javadoc
 	@ValueConverter(rule = "INTEGER")
@@ -38,16 +39,16 @@ public class TestDSLValueConverters extends DefaultTerminalConverters {
 	// SUPPRESS CHECKSTYLE Javadoc
 	@ValueConverter(rule = "DECIMAL")
 	// SUPPRESS CHECKSTYLE MethodName
-	public IValueConverter<BigInteger> DECIMAL() {
-		return new IValueConverter<BigInteger>() {
+	public IValueConverter<BigDecimal> DECIMAL() {
+		return new IValueConverter<BigDecimal>() {
 
 			@Override
-			public BigInteger toValue(String aString, INode aNode) throws ValueConverterException {
-				return new BigInteger(aString);
+			public BigDecimal toValue(String aString, INode aNode) throws ValueConverterException {
+				return new BigDecimal(aString);
 			}
 
 			@Override
-			public String toString(BigInteger aValue) throws ValueConverterException {
+			public String toString(BigDecimal aValue) throws ValueConverterException {
 				return aValue.toString();
 			}
 
