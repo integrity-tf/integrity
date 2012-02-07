@@ -70,11 +70,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/parameterHeaders"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/resultHeaders"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TableTest/defaultResultColumn"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTest/rows"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TableTestRow">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/values"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TableTestRow/result"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ParameterTableHeader">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ParameterTableHeader/name"/>

@@ -9,11 +9,9 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.TableTestRow;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -21,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -35,7 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestRowImpl#getValues <em>Values</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.TableTestRowImpl#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,16 +48,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
    * @ordered
    */
   protected EList<ParameterTableValue> values;
-
-  /**
-   * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getResult()
-   * @generated
-   * @ordered
-   */
-  protected ValueOrEnumValue result;
 
   /**
    * <!-- begin-user-doc -->
@@ -103,54 +89,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValue getResult()
-  {
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetResult(ValueOrEnumValue newResult, NotificationChain msgs)
-  {
-    ValueOrEnumValue oldResult = result;
-    result = newResult;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.TABLE_TEST_ROW__RESULT, oldResult, newResult);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setResult(ValueOrEnumValue newResult)
-  {
-    if (newResult != result)
-    {
-      NotificationChain msgs = null;
-      if (result != null)
-        msgs = ((InternalEObject)result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.TABLE_TEST_ROW__RESULT, null, msgs);
-      if (newResult != null)
-        msgs = ((InternalEObject)newResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.TABLE_TEST_ROW__RESULT, null, msgs);
-      msgs = basicSetResult(newResult, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.TABLE_TEST_ROW__RESULT, newResult, newResult));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -158,8 +96,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
     {
       case DslPackage.TABLE_TEST_ROW__VALUES:
         return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-      case DslPackage.TABLE_TEST_ROW__RESULT:
-        return basicSetResult(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -176,8 +112,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
     {
       case DslPackage.TABLE_TEST_ROW__VALUES:
         return getValues();
-      case DslPackage.TABLE_TEST_ROW__RESULT:
-        return getResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -197,9 +131,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
         getValues().clear();
         getValues().addAll((Collection<? extends ParameterTableValue>)newValue);
         return;
-      case DslPackage.TABLE_TEST_ROW__RESULT:
-        setResult((ValueOrEnumValue)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -217,9 +148,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
       case DslPackage.TABLE_TEST_ROW__VALUES:
         getValues().clear();
         return;
-      case DslPackage.TABLE_TEST_ROW__RESULT:
-        setResult((ValueOrEnumValue)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -236,8 +164,6 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
     {
       case DslPackage.TABLE_TEST_ROW__VALUES:
         return values != null && !values.isEmpty();
-      case DslPackage.TABLE_TEST_ROW__RESULT:
-        return result != null;
     }
     return super.eIsSet(featureID);
   }

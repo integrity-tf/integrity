@@ -664,13 +664,22 @@ public interface DslPackage extends EPackage
   int TABLE_TEST__RESULT_HEADERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Default Result Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TABLE_TEST__DEFAULT_RESULT_COLUMN = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Rows</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_TEST__ROWS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+  int TABLE_TEST__ROWS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Table Test</em>' class.
@@ -679,7 +688,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TABLE_TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
+  int TABLE_TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TableTestRowImpl <em>Table Test Row</em>}' class.
@@ -701,22 +710,13 @@ public interface DslPackage extends EPackage
   int TABLE_TEST_ROW__VALUES = 0;
 
   /**
-   * The feature id for the '<em><b>Result</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TABLE_TEST_ROW__RESULT = 1;
-
-  /**
    * The number of structural features of the '<em>Table Test Row</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_TEST_ROW_FEATURE_COUNT = 2;
+  int TABLE_TEST_ROW_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ParameterTableHeaderImpl <em>Parameter Table Header</em>}' class.
@@ -1938,6 +1938,17 @@ public interface DslPackage extends EPackage
   EReference getTableTest_ResultHeaders();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.TableTest#getDefaultResultColumn <em>Default Result Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Default Result Column</em>'.
+   * @see de.gebit.integrity.dsl.TableTest#getDefaultResultColumn()
+   * @see #getTableTest()
+   * @generated
+   */
+  EAttribute getTableTest_DefaultResultColumn();
+
+  /**
    * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.TableTest#getRows <em>Rows</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1968,17 +1979,6 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getTableTestRow_Values();
-
-  /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.TableTestRow#getResult <em>Result</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Result</em>'.
-   * @see de.gebit.integrity.dsl.TableTestRow#getResult()
-   * @see #getTableTestRow()
-   * @generated
-   */
-  EReference getTableTestRow_Result();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ParameterTableHeader <em>Parameter Table Header</em>}'.
@@ -2972,6 +2972,14 @@ public interface DslPackage extends EPackage
     EReference TABLE_TEST__RESULT_HEADERS = eINSTANCE.getTableTest_ResultHeaders();
 
     /**
+     * The meta object literal for the '<em><b>Default Result Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TABLE_TEST__DEFAULT_RESULT_COLUMN = eINSTANCE.getTableTest_DefaultResultColumn();
+
+    /**
      * The meta object literal for the '<em><b>Rows</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2996,14 +3004,6 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference TABLE_TEST_ROW__VALUES = eINSTANCE.getTableTestRow_Values();
-
-    /**
-     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TABLE_TEST_ROW__RESULT = eINSTANCE.getTableTestRow_Result();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ParameterTableHeaderImpl <em>Parameter Table Header</em>}' class.

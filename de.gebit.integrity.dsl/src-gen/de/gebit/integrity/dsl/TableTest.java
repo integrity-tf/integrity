@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getParameterHeaders <em>Parameter Headers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getResultHeaders <em>Result Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TableTest#getDefaultResultColumn <em>Default Result Column</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getRows <em>Rows</em>}</li>
  * </ul>
  * </p>
@@ -103,6 +104,32 @@ public interface TableTest extends SuiteStatementWithResult
    * @generated
    */
   EList<ResultTableHeader> getResultHeaders();
+
+  /**
+   * Returns the value of the '<em><b>Default Result Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Default Result Column</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Default Result Column</em>' attribute.
+   * @see #setDefaultResultColumn(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getTableTest_DefaultResultColumn()
+   * @model
+   * @generated
+   */
+  String getDefaultResultColumn();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.TableTest#getDefaultResultColumn <em>Default Result Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Default Result Column</em>' attribute.
+   * @see #getDefaultResultColumn()
+   * @generated
+   */
+  void setDefaultResultColumn(String value);
 
   /**
    * Returns the value of the '<em><b>Rows</b></em>' containment reference list.

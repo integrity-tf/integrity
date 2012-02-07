@@ -498,8 +498,8 @@ public class TestRunner {
 
 			long tempStart = System.nanoTime();
 			try {
-				Object tempFixtureResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
-						tempParameters);
+				Object tempFixtureResult = executeFixtureMethod(instantiateFixture(aTest.getDefinition()
+						.getFixtureMethod()), aTest.getDefinition().getFixtureMethod(), tempParameters);
 				tempDuration = System.nanoTime() - tempStart;
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
@@ -566,6 +566,8 @@ public class TestRunner {
 		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
 		long tempOuterStart = System.nanoTime();
 
+		Fixture tempFixtureInstance = null;
+
 		for (TableTestRow tempRow : aTest.getRows()) {
 			if (currentCallback != null) {
 				currentCallback.onTableTestRowStart(aTest, tempRow);
@@ -590,8 +592,13 @@ public class TestRunner {
 						tempColumn++;
 					}
 				} else {
+					ValueOrEnumValue tempExpectedValue = null;
+					if (aTest.getDefaultResultColumn() != null) {
+						// the last column MUST be the result column
+						tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+					}
 					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-							tempRow.getResult());
+							tempExpectedValue);
 					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
 			} else {
@@ -600,8 +607,12 @@ public class TestRunner {
 
 				long tempStart = System.nanoTime();
 				try {
-					Object tempFixtureResult = executeFixtureMethod(aTest.getDefinition().getFixtureMethod(),
-							tempParameters);
+					if (tempFixtureInstance == null) {
+						// only instantiate on first pass
+						tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
+					}
+					Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
+							.getFixtureMethod(), tempParameters);
 					tempDuration = System.nanoTime() - tempStart;
 
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
@@ -629,12 +640,18 @@ public class TestRunner {
 							tempColumn++;
 						}
 					} else {
-						if (compareResult(tempFixtureResult, tempRow.getResult())) {
+						ValueOrEnumValue tempExpectedValue = null;
+						if (aTest.getDefaultResultColumn() != null) {
+							// the last column MUST be the result column
+							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+						}
+
+						if (compareResult(tempFixtureResult, tempExpectedValue)) {
 							tempComparisonResult = new TestComparisonSuccessResult(
-									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempRow.getResult());
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
 						} else {
 							tempComparisonResult = new TestComparisonFailureResult(
-									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempRow.getResult());
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
 						}
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
@@ -656,8 +673,13 @@ public class TestRunner {
 							tempColumn++;
 						}
 					} else {
+						ValueOrEnumValue tempExpectedValue = null;
+						if (aTest.getDefaultResultColumn() != null) {
+							// the last column MUST be the result column
+							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+						}
 						tempComparisonResult = new TestComparisonUndeterminedResult(
-								ParameterUtil.DEFAULT_PARAMETER_NAME, tempRow.getResult());
+								ParameterUtil.DEFAULT_PARAMETER_NAME, tempExpectedValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 				}
@@ -688,10 +710,16 @@ public class TestRunner {
 		return tempReturn;
 	}
 
-	protected Object executeFixtureMethod(MethodReference aMethod, Map<String, Object> someParameters) throws Exception {
+	protected Fixture instantiateFixture(MethodReference aMethod) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 		Class<?> tempFixtureClass = getClassForJvmType(aMethod.getType());
 		Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
-		return tempFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
+		return tempFixtureInstance;
+	}
+
+	protected Object executeFixtureMethod(Fixture aFixtureInstance, MethodReference aMethod,
+			Map<String, Object> someParameters) throws Exception {
+		return aFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
 	}
 
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
@@ -745,7 +773,8 @@ public class TestRunner {
 
 			long tempStart = System.nanoTime();
 			try {
-				Object tempResult = executeFixtureMethod(aCall.getDefinition().getFixtureMethod(), tempParameters);
+				Object tempResult = executeFixtureMethod(instantiateFixture(aCall.getDefinition().getFixtureMethod()),
+						aCall.getDefinition().getFixtureMethod(), tempParameters);
 				long tempDuration = System.nanoTime() - tempStart;
 
 				if (aCall.getResults() != null && aCall.getResults().size() > 0) {

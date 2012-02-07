@@ -921,9 +921,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTableTest_DefaultResultColumn()
+  {
+    return (EAttribute)tableTestEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getTableTest_Rows()
   {
-    return (EReference)tableTestEClass.getEStructuralFeatures().get(4);
+    return (EReference)tableTestEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -944,16 +954,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getTableTestRow_Values()
   {
     return (EReference)tableTestRowEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTableTestRow_Result()
-  {
-    return (EReference)tableTestRowEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1571,11 +1571,11 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(tableTestEClass, TABLE_TEST__PARAMETERS);
     createEReference(tableTestEClass, TABLE_TEST__PARAMETER_HEADERS);
     createEReference(tableTestEClass, TABLE_TEST__RESULT_HEADERS);
+    createEAttribute(tableTestEClass, TABLE_TEST__DEFAULT_RESULT_COLUMN);
     createEReference(tableTestEClass, TABLE_TEST__ROWS);
 
     tableTestRowEClass = createEClass(TABLE_TEST_ROW);
     createEReference(tableTestRowEClass, TABLE_TEST_ROW__VALUES);
-    createEReference(tableTestRowEClass, TABLE_TEST_ROW__RESULT);
 
     parameterTableHeaderEClass = createEClass(PARAMETER_TABLE_HEADER);
     createEReference(parameterTableHeaderEClass, PARAMETER_TABLE_HEADER__NAME);
@@ -1784,11 +1784,11 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getTableTest_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTableTest_ParameterHeaders(), this.getParameterTableHeader(), null, "parameterHeaders", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTableTest_ResultHeaders(), this.getResultTableHeader(), null, "resultHeaders", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTableTest_DefaultResultColumn(), ecorePackage.getEString(), "defaultResultColumn", null, 0, 1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTableTest_Rows(), this.getTableTestRow(), null, "rows", null, 0, -1, TableTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tableTestRowEClass, TableTestRow.class, "TableTestRow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTableTestRow_Values(), this.getParameterTableValue(), null, "values", null, 0, -1, TableTestRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTableTestRow_Result(), this.getValueOrEnumValue(), null, "result", null, 0, 1, TableTestRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(parameterTableHeaderEClass, ParameterTableHeader.class, "ParameterTableHeader", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getParameterTableHeader_Name(), this.getParameterName(), null, "name", null, 0, 1, ParameterTableHeader.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

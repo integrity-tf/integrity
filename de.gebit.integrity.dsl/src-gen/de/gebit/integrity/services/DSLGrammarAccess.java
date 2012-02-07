@@ -621,22 +621,21 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParameterHeadersParameterTableHeaderParserRuleCall_3_0 = (RuleCall)cParameterHeadersAssignment_3.eContents().get(0);
 		private final Assignment cResultHeadersAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cResultHeadersResultTableHeaderParserRuleCall_4_0 = (RuleCall)cResultHeadersAssignment_4.eContents().get(0);
-		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
-		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
-		private final Keyword cVerticalLineKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_5_0_1 = (Keyword)cGroup_5_0.eContents().get(1);
-		private final Keyword cVerticalLineKeyword_5_0_2 = (Keyword)cGroup_5_0.eContents().get(2);
-		private final Keyword cVerticalLineKeyword_5_1 = (Keyword)cAlternatives_5.eContents().get(1);
-		private final Assignment cRowsAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cRowsTableTestRowParserRuleCall_6_0 = (RuleCall)cRowsAssignment_6.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Assignment cDefaultResultColumnAssignment_6_0 = (Assignment)cGroup_6.eContents().get(0);
+		private final Keyword cDefaultResultColumnEqualsSignKeyword_6_0_0 = (Keyword)cDefaultResultColumnAssignment_6_0.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Assignment cRowsAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cRowsTableTestRowParserRuleCall_7_0 = (RuleCall)cRowsAssignment_7.eContents().get(0);
 		
 		//TableTest:
 		//	"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* parameterHeaders+=ParameterTableHeader*
-		//	resultHeaders+=ResultTableHeader* ("|" "=" "|" | "|") rows+=TableTestRow+;
+		//	resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? rows+=TableTestRow+;
 		public ParserRule getRule() { return rule; }
 
 		//"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* parameterHeaders+=ParameterTableHeader*
-		//resultHeaders+=ResultTableHeader* ("|" "=" "|" | "|") rows+=TableTestRow+
+		//resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? rows+=TableTestRow+
 		public Group getGroup() { return cGroup; }
 
 		//"tabletest"
@@ -669,29 +668,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//ResultTableHeader
 		public RuleCall getResultHeadersResultTableHeaderParserRuleCall_4_0() { return cResultHeadersResultTableHeaderParserRuleCall_4_0; }
 
-		//"|" "=" "|" | "|"
-		public Alternatives getAlternatives_5() { return cAlternatives_5; }
-
-		//"|" "=" "|"
-		public Group getGroup_5_0() { return cGroup_5_0; }
-
 		//"|"
-		public Keyword getVerticalLineKeyword_5_0_0() { return cVerticalLineKeyword_5_0_0; }
+		public Keyword getVerticalLineKeyword_5() { return cVerticalLineKeyword_5; }
+
+		//(defaultResultColumn="=" "|")?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//defaultResultColumn="="
+		public Assignment getDefaultResultColumnAssignment_6_0() { return cDefaultResultColumnAssignment_6_0; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_5_0_1() { return cEqualsSignKeyword_5_0_1; }
+		public Keyword getDefaultResultColumnEqualsSignKeyword_6_0_0() { return cDefaultResultColumnEqualsSignKeyword_6_0_0; }
 
 		//"|"
-		public Keyword getVerticalLineKeyword_5_0_2() { return cVerticalLineKeyword_5_0_2; }
-
-		//"|"
-		public Keyword getVerticalLineKeyword_5_1() { return cVerticalLineKeyword_5_1; }
+		public Keyword getVerticalLineKeyword_6_1() { return cVerticalLineKeyword_6_1; }
 
 		//rows+=TableTestRow+
-		public Assignment getRowsAssignment_6() { return cRowsAssignment_6; }
+		public Assignment getRowsAssignment_7() { return cRowsAssignment_7; }
 
 		//TableTestRow
-		public RuleCall getRowsTableTestRowParserRuleCall_6_0() { return cRowsTableTestRowParserRuleCall_6_0; }
+		public RuleCall getRowsTableTestRowParserRuleCall_7_0() { return cRowsTableTestRowParserRuleCall_7_0; }
 	}
 
 	public class TableTestRowElements extends AbstractParserRuleElementFinder {
@@ -700,20 +696,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cTableTestRowAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cValuesAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValuesParameterTableValueParserRuleCall_1_0 = (RuleCall)cValuesAssignment_1.eContents().get(0);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Keyword cVerticalLineKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2_0_1 = (Keyword)cGroup_2_0.eContents().get(1);
-		private final Assignment cResultAssignment_2_0_2 = (Assignment)cGroup_2_0.eContents().get(2);
-		private final RuleCall cResultValueOrEnumValueParserRuleCall_2_0_2_0 = (RuleCall)cResultAssignment_2_0_2.eContents().get(0);
-		private final Keyword cVerticalLineKeyword_2_0_3 = (Keyword)cGroup_2_0.eContents().get(3);
-		private final Keyword cVerticalLineKeyword_2_1 = (Keyword)cAlternatives_2.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//TableTestRow:
-		//	{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|");
+		//	{TableTestRow} values+=ParameterTableValue* "|";
 		public ParserRule getRule() { return rule; }
 
-		//{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|")
+		//{TableTestRow} values+=ParameterTableValue* "|"
 		public Group getGroup() { return cGroup; }
 
 		//{TableTestRow}
@@ -725,29 +714,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//ParameterTableValue
 		public RuleCall getValuesParameterTableValueParserRuleCall_1_0() { return cValuesParameterTableValueParserRuleCall_1_0; }
 
-		//"|" "=" result=ValueOrEnumValue "|" | "|"
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//"|" "=" result=ValueOrEnumValue "|"
-		public Group getGroup_2_0() { return cGroup_2_0; }
-
 		//"|"
-		public Keyword getVerticalLineKeyword_2_0_0() { return cVerticalLineKeyword_2_0_0; }
-
-		//"="
-		public Keyword getEqualsSignKeyword_2_0_1() { return cEqualsSignKeyword_2_0_1; }
-
-		//result=ValueOrEnumValue
-		public Assignment getResultAssignment_2_0_2() { return cResultAssignment_2_0_2; }
-
-		//ValueOrEnumValue
-		public RuleCall getResultValueOrEnumValueParserRuleCall_2_0_2_0() { return cResultValueOrEnumValueParserRuleCall_2_0_2_0; }
-
-		//"|"
-		public Keyword getVerticalLineKeyword_2_0_3() { return cVerticalLineKeyword_2_0_3; }
-
-		//"|"
-		public Keyword getVerticalLineKeyword_2_1() { return cVerticalLineKeyword_2_1; }
+		public Keyword getVerticalLineKeyword_2() { return cVerticalLineKeyword_2; }
 	}
 
 	public class ParameterTableHeaderElements extends AbstractParserRuleElementFinder {
@@ -1701,7 +1669,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTest:
 	//	"tabletest" definition=[TestDefinition|QualifiedName] parameters+=Parameter* parameterHeaders+=ParameterTableHeader*
-	//	resultHeaders+=ResultTableHeader* ("|" "=" "|" | "|") rows+=TableTestRow+;
+	//	resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? rows+=TableTestRow+;
 	public TableTestElements getTableTestAccess() {
 		return (pTableTest != null) ? pTableTest : (pTableTest = new TableTestElements());
 	}
@@ -1711,7 +1679,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TableTestRow:
-	//	{TableTestRow} values+=ParameterTableValue* ("|" "=" result=ValueOrEnumValue "|" | "|");
+	//	{TableTestRow} values+=ParameterTableValue* "|";
 	public TableTestRowElements getTableTestRowAccess() {
 		return (pTableTestRow != null) ? pTableTestRow : (pTableTestRow = new TableTestRowElements());
 	}

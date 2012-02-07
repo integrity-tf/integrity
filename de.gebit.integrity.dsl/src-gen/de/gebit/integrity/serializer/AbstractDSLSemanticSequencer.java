@@ -693,7 +693,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (values+=ParameterTableValue* result=ValueOrEnumValue?)
+	 *     (values+=ParameterTableValue*)
 	 */
 	protected void sequence_TableTestRow(EObject context, TableTestRow semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -707,6 +707,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 *         parameters+=Parameter* 
 	 *         parameterHeaders+=ParameterTableHeader* 
 	 *         resultHeaders+=ResultTableHeader* 
+	 *         defaultResultColumn='='? 
 	 *         rows+=TableTestRow+
 	 *     )
 	 */

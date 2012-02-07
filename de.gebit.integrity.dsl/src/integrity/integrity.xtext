@@ -58,10 +58,10 @@ Test:
 	
 TableTest:
 	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
-		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)*  (('|' '=' '|') | '|') (rows+=TableTestRow)+;
+		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')? (rows+=TableTestRow)+;
 		
 TableTestRow:
-	{TableTestRow} (values+=ParameterTableValue)* (('|' '=' result=ValueOrEnumValue '|') | '|');
+	{TableTestRow} (values+=ParameterTableValue)* '|';
 	
 ParameterTableHeader:
 	'|' name=ParameterName;
@@ -109,7 +109,7 @@ ValueOrEnumValue:
 	Value | EnumValue;
 	
 Value:
-	StringValue | IntegerValue | DecimalValue | Variable | NullValue;
+	StringValue | IntegerValue | DecimalValue | BooleanValue | Variable | NullValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -119,6 +119,9 @@ DecimalValue:
 	
 StringValue:
 	stringValue=STRING;
+	
+BooleanValue:
+	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
 	
 Variable:
 	name=[VariableEntity|QualifiedName];
@@ -153,6 +156,8 @@ terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
 terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')* ('\r'? '\n')?;
 terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
+terminal BOOLEAN_TRUE: 'true';
+terminal BOOLEAN_FALSE: 'false';
 
 
 terminal WS: (' '|'\t'|'\r'|'\n')+;

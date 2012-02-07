@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getParameterHeaders <em>Parameter Headers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getResultHeaders <em>Result Headers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getDefaultResultColumn <em>Default Result Column</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getRows <em>Rows</em>}</li>
  * </ul>
  * </p>
@@ -87,6 +88,26 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * @ordered
    */
   protected EList<ResultTableHeader> resultHeaders;
+
+  /**
+   * The default value of the '{@link #getDefaultResultColumn() <em>Default Result Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDefaultResultColumn()
+   * @generated
+   * @ordered
+   */
+  protected static final String DEFAULT_RESULT_COLUMN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDefaultResultColumn() <em>Default Result Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDefaultResultColumn()
+   * @generated
+   * @ordered
+   */
+  protected String defaultResultColumn = DEFAULT_RESULT_COLUMN_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRows() <em>Rows</em>}' containment reference list.
@@ -209,6 +230,29 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDefaultResultColumn()
+  {
+    return defaultResultColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefaultResultColumn(String newDefaultResultColumn)
+  {
+    String oldDefaultResultColumn = defaultResultColumn;
+    defaultResultColumn = newDefaultResultColumn;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.TABLE_TEST__DEFAULT_RESULT_COLUMN, oldDefaultResultColumn, defaultResultColumn));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<TableTestRow> getRows()
   {
     if (rows == null)
@@ -259,6 +303,8 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         return getParameterHeaders();
       case DslPackage.TABLE_TEST__RESULT_HEADERS:
         return getResultHeaders();
+      case DslPackage.TABLE_TEST__DEFAULT_RESULT_COLUMN:
+        return getDefaultResultColumn();
       case DslPackage.TABLE_TEST__ROWS:
         return getRows();
     }
@@ -291,6 +337,9 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         getResultHeaders().clear();
         getResultHeaders().addAll((Collection<? extends ResultTableHeader>)newValue);
         return;
+      case DslPackage.TABLE_TEST__DEFAULT_RESULT_COLUMN:
+        setDefaultResultColumn((String)newValue);
+        return;
       case DslPackage.TABLE_TEST__ROWS:
         getRows().clear();
         getRows().addAll((Collection<? extends TableTestRow>)newValue);
@@ -321,6 +370,9 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
       case DslPackage.TABLE_TEST__RESULT_HEADERS:
         getResultHeaders().clear();
         return;
+      case DslPackage.TABLE_TEST__DEFAULT_RESULT_COLUMN:
+        setDefaultResultColumn(DEFAULT_RESULT_COLUMN_EDEFAULT);
+        return;
       case DslPackage.TABLE_TEST__ROWS:
         getRows().clear();
         return;
@@ -346,10 +398,29 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
         return parameterHeaders != null && !parameterHeaders.isEmpty();
       case DslPackage.TABLE_TEST__RESULT_HEADERS:
         return resultHeaders != null && !resultHeaders.isEmpty();
+      case DslPackage.TABLE_TEST__DEFAULT_RESULT_COLUMN:
+        return DEFAULT_RESULT_COLUMN_EDEFAULT == null ? defaultResultColumn != null : !DEFAULT_RESULT_COLUMN_EDEFAULT.equals(defaultResultColumn);
       case DslPackage.TABLE_TEST__ROWS:
         return rows != null && !rows.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (defaultResultColumn: ");
+    result.append(defaultResultColumn);
+    result.append(')');
+    return result.toString();
   }
 
 } //TableTestImpl
