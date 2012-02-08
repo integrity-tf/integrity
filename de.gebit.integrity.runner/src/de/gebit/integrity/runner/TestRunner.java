@@ -39,6 +39,7 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
+import de.gebit.integrity.fixtures.CustomComparatorFixture;
 import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -498,8 +499,9 @@ public class TestRunner {
 
 			long tempStart = System.nanoTime();
 			try {
-				Object tempFixtureResult = executeFixtureMethod(instantiateFixture(aTest.getDefinition()
-						.getFixtureMethod()), aTest.getDefinition().getFixtureMethod(), tempParameters);
+				Fixture tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
+				Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
+						.getFixtureMethod(), tempParameters);
 				tempDuration = System.nanoTime() - tempStart;
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
@@ -510,7 +512,8 @@ public class TestRunner {
 						String tempResultName = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
-						if (compareResult(tempSingleFixtureResult, tempNamedResult.getValue())) {
+						if (compareResult(tempSingleFixtureResult, tempNamedResult.getValue(), tempFixtureInstance,
+								aTest.getDefinition().getFixtureMethod())) {
 							tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
 									tempSingleFixtureResult, tempNamedResult.getValue());
 						} else {
@@ -520,7 +523,8 @@ public class TestRunner {
 						tempComparisonMap.put(tempResultName, tempComparisonResult);
 					}
 				} else {
-					if (compareResult(tempFixtureResult, aTest.getResult())) {
+					if (compareResult(tempFixtureResult, aTest.getResult(), tempFixtureInstance, aTest.getDefinition()
+							.getFixtureMethod())) {
 						tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 								tempFixtureResult, aTest.getResult());
 					} else {
@@ -628,7 +632,8 @@ public class TestRunner {
 
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
-							if (compareResult(tempSingleFixtureResult, tempExpectedValue)) {
+							if (compareResult(tempSingleFixtureResult, tempExpectedValue, tempFixtureInstance, aTest
+									.getDefinition().getFixtureMethod())) {
 								tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
 										tempSingleFixtureResult, tempExpectedValue);
 							} else {
@@ -646,7 +651,8 @@ public class TestRunner {
 							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
 						}
 
-						if (compareResult(tempFixtureResult, tempExpectedValue)) {
+						if (compareResult(tempFixtureResult, tempExpectedValue, tempFixtureInstance, aTest
+								.getDefinition().getFixtureMethod())) {
 							tempComparisonResult = new TestComparisonSuccessResult(
 									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
 						} else {
@@ -726,21 +732,33 @@ public class TestRunner {
 		return model.getInjector().getInstance(ClassLoader.class).loadClass(aType.getQualifiedName());
 	}
 
-	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult) {
+	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult, Fixture aFixtureInstance,
+			MethodReference aFixtureMethod) {
 		if (anExpectedResult != null) {
 			if (aFixtureResult != null) {
 				Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
 						aFixtureResult.getClass(), anExpectedResult, variableStorage);
-				return tempConvertedResult.equals(aFixtureResult);
+				if (aFixtureInstance instanceof CustomComparatorFixture) {
+					return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
+							aFixtureResult, aFixtureMethod.getMethod().getSimpleName());
+				} else {
+					return tempConvertedResult.equals(aFixtureResult);
+				}
 			} else {
 				return (anExpectedResult instanceof NullValue);
 			}
 		} else {
-			if (aFixtureResult instanceof Boolean) {
-				return (Boolean) aFixtureResult;
+			if (aFixtureInstance instanceof CustomComparatorFixture) {
+				return ((CustomComparatorFixture) aFixtureInstance).compareResults(null, aFixtureResult, aFixtureMethod
+						.getMethod().getSimpleName());
 			} else {
-				throw new IllegalArgumentException("If no expected test result is given, "
-						+ "the test fixture must return a boolean result!");
+				if (aFixtureResult instanceof Boolean) {
+					return (Boolean) aFixtureResult;
+				} else {
+					throw new IllegalArgumentException(
+							"If no expected test result is given and the fixture is not a CustomComparatorFixture, "
+									+ "the test fixture must return a boolean result!");
+				}
 			}
 		}
 	}
