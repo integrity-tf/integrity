@@ -549,7 +549,16 @@
 				<xsl:for-each select="results/result[1]/parameters/parameter">
 					<th align="left"><xsl:value-of select="@name"/></th>
 				</xsl:for-each>
-				<th align="left">result</th>
+				<xsl:for-each select="results/result[1]/comparisons/comparison">
+	              	<th align="left">
+	              		<xsl:choose>
+	              			<xsl:when test="@name">
+	              				<xsl:value-of select="@name"/>
+	              			</xsl:when>
+	              			<xsl:otherwise>result</xsl:otherwise>
+	              		</xsl:choose>
+	              	</th>
+	              </xsl:for-each>
 			  </tr>
 			  <xsl:for-each select="results/result">
 			  	<xsl:variable name="row">
