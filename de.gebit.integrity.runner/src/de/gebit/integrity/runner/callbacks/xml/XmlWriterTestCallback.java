@@ -203,7 +203,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		if (!isFork() && embedXhtmlTransform) {
 			try {
 				Document tempTransform = new SAXBuilder().build(getClass().getClassLoader().getResourceAsStream(
-						"static/xhtml.xslt"));
+						"resource/xhtml.xslt"));
 				tempRootElement.addContent(0, tempTransform.getRootElement().detach());
 
 				DocType tempDocType = new DocType("doc");
