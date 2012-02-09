@@ -47,14 +47,36 @@ import de.gebit.integrity.runner.providers.TestResourceProvider;
  */
 public class TestModel {
 
+	/**
+	 * All models. Every file is a model of itself (though they are all linked, of course).
+	 */
 	protected List<Model> models;
 
+	/**
+	 * Suite names -> Suites.
+	 */
 	protected Map<String, SuiteDefinition> suiteMap;
 
+	/**
+	 * The Google Guice Injector.
+	 */
 	protected Injector injector;
 
+	/**
+	 * The classloader to use.
+	 */
 	protected ClassLoader classLoader;
 
+	/**
+	 * Creates a new model from a bunch of single models (files).
+	 * 
+	 * @param someModels
+	 *            the models
+	 * @param anInjector
+	 *            the Google Guice Injector
+	 * @param aClassLoader
+	 *            the classloader to use
+	 */
 	protected TestModel(List<Model> someModels, Injector anInjector, ClassLoader aClassLoader) {
 		models = someModels;
 		injector = anInjector;
@@ -87,10 +109,22 @@ public class TestModel {
 		return suiteMap;
 	}
 
+	/**
+	 * Resolves a fully qualified suite name to the actual suite definition.
+	 * 
+	 * @param aFullyQualifiedSuiteName
+	 *            the suite name
+	 * @return the suite, or null if none was found
+	 */
 	public SuiteDefinition getSuiteByName(String aFullyQualifiedSuiteName) {
 		return suiteMap.get(aFullyQualifiedSuiteName);
 	}
 
+	/**
+	 * Iterates through the whole model and searches for variable definitions hosted in packages (global variables).
+	 * 
+	 * @return a set of variable definitions
+	 */
 	public Set<VariableDefinition> getVariableDefinitionsInPackages() {
 		Set<VariableDefinition> tempResultSet = new HashSet<VariableDefinition>();
 
@@ -109,6 +143,11 @@ public class TestModel {
 		return tempResultSet;
 	}
 
+	/**
+	 * Iterates through the whole model and searches for constant definitions.
+	 * 
+	 * @return a set of constant definitions
+	 */
 	public Set<ConstantDefinition> getConstantDefinitionsInPackages() {
 		Set<ConstantDefinition> tempResultSet = new HashSet<ConstantDefinition>();
 
@@ -127,6 +166,19 @@ public class TestModel {
 		return tempResultSet;
 	}
 
+	/**
+	 * Loads a {@link TestModel} from a given {@link TestResourceProvider}. During this process, the files provided by
+	 * the resource provider are parsed, the resulting models are linked and stored in the {@link TestModel} container.<br>
+	 * <br>
+	 * Errors, like unresolved symbols, will cause an exception. If a model is returned by this method, you can be sure
+	 * that everything was linked fine and the model can be executed by the {@link TestRunner}.
+	 * 
+	 * @param aResourceProvider
+	 *            the resource provider to use for loading the model
+	 * @return the test model ready for execution
+	 * @throws ModelLoadException
+	 *             if any errors occur during loading (syntax errors or unresolvable references)
+	 */
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider) throws ModelLoadException {
 		Injector tempInjector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
 				.createInjectorAndDoEMFRegistration();

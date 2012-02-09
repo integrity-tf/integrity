@@ -85,50 +85,133 @@ import de.gebit.integrity.utils.ParameterUtil;
  */
 public class TestRunner {
 
+	/**
+	 * The test model being executed.
+	 */
 	protected TestModel model;
 
+	/**
+	 * The current setlist.
+	 */
 	protected SetList setList;
 
+	/**
+	 * A waiter object used by remoting while waiting for the setlist to be created.
+	 */
 	protected Object setListWaiter = new Object();
 
+	/**
+	 * A semaphore used for single-stepping tests.
+	 */
 	protected Semaphore executionWaiter = new Semaphore(0);
 
+	/**
+	 * Whether the test runner shall pause before executing the next step.
+	 */
 	protected boolean shallWaitBeforeNextStep;
 
+	/**
+	 * All enabled breakpoints.
+	 */
 	protected Set<Integer> breakpoints = Collections.synchronizedSet(new HashSet<Integer>());
 
+	/**
+	 * The callback provided by the creator of the {@link TestRunner}.
+	 */
 	protected TestRunnerCallback callback;
 
+	/**
+	 * The setlist callback (used to create/update the setlist).
+	 */
 	protected SetListCallback setListCallback;
 
+	/**
+	 * The currently used callback, that is, the callback that gets directly called during execution.
+	 */
 	protected TestRunnerCallback currentCallback;
 
+	/**
+	 * The current execution phase.
+	 */
 	protected Phase currentPhase;
 
+	/**
+	 * The map that stores all variables and their corresponding values (local and global variables - scoping is being
+	 * enforced by the XText scoping system, not by the test runtime).
+	 */
 	protected Map<VariableEntity, Object> variableStorage = new HashMap<VariableEntity, Object>();
 
+	/**
+	 * Mapping suite calls to setup suites necessary to be called when the respective suite call is executed.
+	 */
 	protected Map<Suite, List<SuiteDefinition>> setupMoments;
 
+	/**
+	 * The remoting server.
+	 */
 	protected IntegrityRemotingServer remotingServer;
 
+	/**
+	 * The remoting listener, which allows the remoting server to influence test execution.
+	 */
 	protected RemotingListener remotingListener;
 
+	/**
+	 * Maps fork definitions to actual fork instances.
+	 */
 	protected Map<ForkDefinition, Fork> forkMap = new LinkedHashMap<ForkDefinition, Fork>();
 
+	/**
+	 * The original command line arguments, as given to the test runner by the test runner creator.
+	 */
 	protected String[] commandLineArguments;
 
+	/**
+	 * If this JVM instance is executing a fork, the name is stored here.
+	 */
 	protected static final String MY_FORK_NAME = System.getenv(Forker.ENV_FORK_NAME);
 
+	/**
+	 * The system property that allows to override the timeout used when connecting to forks.
+	 */
 	protected static final String FORK_CONNECTION_TIMEOUT_PROPERTY = "integrity.fork.timeout";
 
+	/**
+	 * The default connection timeout, in seconds.
+	 */
 	protected static final int FORK_CONNECTION_TIMEOUT_DEFAULT = 180;
 
+	/**
+	 * The timeout in milliseconds used for a single connection attempt to a fork. If this timeout is hit, but the total
+	 * timeout for connecting is not yet over, another attempt is being started.
+	 */
 	protected static final int FORK_SINGLE_CONNECT_TIMEOUT = 10000;
 
+	/**
+	 * The delay until connection attempts are made to a newly started fork.
+	 */
 	protected static final int FORK_CONNECT_DELAY = 5000;
 
+	/**
+	 * The fork that is currently being executed.
+	 */
 	protected ForkDefinition forkInExecution;
 
+	/**
+	 * Creates a new test runner instance.
+	 * 
+	 * @param aModel
+	 *            the model to execute
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param aRemotingPort
+	 *            the port on which the remoting server should listen, or null if remoting should be disabled
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
 	public TestRunner(TestModel aModel, TestRunnerCallback aCallback, Integer aRemotingPort,
 			String[] someCommandLineArguments) throws IOException {
 		model = aModel;
@@ -144,6 +227,15 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Executes a specified suite.
+	 * 
+	 * @param aRootSuite
+	 *            the suite to execute
+	 * @param aBlockForRemotingFlag
+	 *            whether execution should pause before actually starting until execution is resumed via remoting
+	 * @return the suite execution result
+	 */
 	public SuiteResult run(SuiteDefinition aRootSuite, boolean aBlockForRemotingFlag) {
 		Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 		tempRootSuiteCall.setDefinition(aRootSuite);
@@ -151,6 +243,15 @@ public class TestRunner {
 		return run(tempRootSuiteCall, aBlockForRemotingFlag);
 	}
 
+	/**
+	 * Executes a specific suite call.
+	 * 
+	 * @param aRootSuiteCall
+	 *            the suite call to execute
+	 * @param aBlockForRemotingFlag
+	 *            whether execution should pause before actually starting until execution is resumed via remoting
+	 * @return the suite execution result
+	 */
 	public SuiteResult run(Suite aRootSuiteCall, boolean aBlockForRemotingFlag) {
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
@@ -206,11 +307,21 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Resets the internal variable state.
+	 */
 	protected void reset() {
 		variableStorage.clear();
 		setupMoments = null;
 	}
 
+	/**
+	 * Actually executes a root suite call.
+	 * 
+	 * @param aRootSuiteCall
+	 *            the suite call to execute
+	 * @return the result
+	 */
 	protected SuiteResult runInternal(Suite aRootSuiteCall) {
 		variableStorage = new HashMap<VariableEntity, Object>();
 
@@ -227,7 +338,7 @@ public class TestRunner {
 			defineConstant(tempConstantDef, null);
 		}
 
-		SuiteResult tempResult = callSuite(aRootSuiteCall, null);
+		SuiteResult tempResult = callSuite(aRootSuiteCall);
 
 		if (currentCallback != null) {
 			currentCallback.onExecutionFinish(model, tempResult);
@@ -236,7 +347,14 @@ public class TestRunner {
 		return tempResult;
 	}
 
-	protected SuiteResult callSuite(Suite aSuiteCall, ForkDefinition aFork) {
+	/**
+	 * Performs a specified suite call.
+	 * 
+	 * @param aSuiteCall
+	 *            the suite call to execute
+	 * @return the suite result
+	 */
+	protected SuiteResult callSuite(Suite aSuiteCall) {
 		if (aSuiteCall.getFork() != null) {
 			if (!isFork() && forkInExecution != null && aSuiteCall.getFork() != forkInExecution) {
 				throw new UnsupportedOperationException(
@@ -260,7 +378,7 @@ public class TestRunner {
 					// we may need to start a new fork
 					if (!forkMap.containsKey(aSuiteCall.getFork())) {
 						try {
-							forkMap.put(aSuiteCall.getFork(), createFork(aSuiteCall, aFork));
+							forkMap.put(aSuiteCall.getFork(), createFork(aSuiteCall));
 						} catch (ForkException exc) {
 							// if forking fails, this is such a severe error that we cannot continue testing at all
 							throw new RuntimeException(exc);
@@ -300,7 +418,7 @@ public class TestRunner {
 				}
 
 				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempSetupSuite, aFork);
+				Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempSetupSuite);
 				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
 						null, null, System.nanoTime() - tempStart);
 				tempSetupResults.put(tempSetupSuite, tempSetupResult);
@@ -322,7 +440,7 @@ public class TestRunner {
 		}
 
 		long tempSuiteDuration = System.nanoTime();
-		Map<SuiteStatementWithResult, Result> tempResults = executeSuite(aSuiteCall.getDefinition(), aFork);
+		Map<SuiteStatementWithResult, Result> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
 		if (tempSetupSuites != null) {
@@ -337,7 +455,7 @@ public class TestRunner {
 						}
 
 						long tempStart = System.nanoTime();
-						Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempTearDownSuite, aFork);
+						Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempTearDownSuite);
 						SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(
 								tempSuiteResults, null, null, System.nanoTime() - tempStart);
 						tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
@@ -380,12 +498,19 @@ public class TestRunner {
 		return tempResult;
 	}
 
-	protected Map<SuiteStatementWithResult, Result> executeSuite(SuiteDefinition aSuite, ForkDefinition aFork) {
+	/**
+	 * Executes a suite.
+	 * 
+	 * @param aSuite
+	 *            the suite to execute
+	 * @return a map that maps statements to results
+	 */
+	protected Map<SuiteStatementWithResult, Result> executeSuite(SuiteDefinition aSuite) {
 		Map<SuiteStatementWithResult, Result> tempResults = new LinkedHashMap<SuiteStatementWithResult, Result>();
 
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
-				tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement, aFork));
+				tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement));
 			} else if (tempStatement instanceof Test) {
 				tempResults.put((Test) tempStatement, executeTest((Test) tempStatement));
 			} else if (tempStatement instanceof TableTest) {
@@ -412,14 +537,40 @@ public class TestRunner {
 		return tempResults;
 	}
 
+	/**
+	 * Defines a variable.
+	 * 
+	 * @param aDefinition
+	 *            the variable definition
+	 * @param aSuite
+	 *            the suite in which the variable is defined
+	 */
 	protected void defineVariable(VariableDefinition aDefinition, SuiteDefinition aSuite) {
 		defineVariable(aDefinition.getName(), aDefinition.getInitialValue(), aSuite);
 	}
 
+	/**
+	 * Defines a constant.
+	 * 
+	 * @param aDefinition
+	 *            the constant definition
+	 * @param aSuite
+	 *            the suite in which the constant is defined
+	 */
 	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
 		defineVariable(aDefinition.getName(), aDefinition.getValue(), aSuite);
 	}
 
+	/**
+	 * Defines a variable.
+	 * 
+	 * @param anEntity
+	 *            the variable entity
+	 * @param anInitialValue
+	 *            the initial variable value, or null if the variable is not initialized
+	 * @param aSuite
+	 *            the suite in which the variable is defined
+	 */
 	protected void defineVariable(VariableEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {
 		Object tempInitialValue = null;
 		if (anInitialValue instanceof Variable) {
@@ -434,6 +585,16 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Sets the value of a variable.
+	 * 
+	 * @param anEntity
+	 *            the variable entity to update
+	 * @param aValue
+	 *            the new value
+	 * @param aDoSendUpdateFlag
+	 *            whether this update should be sent to connected master/slaves
+	 */
 	protected void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
 		variableStorage.put(anEntity, aValue);
 		if (aDoSendUpdateFlag) {
@@ -457,6 +618,16 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Updates a variables' value.
+	 * 
+	 * @param aQualifiedVariableName
+	 *            the name of the variable to update
+	 * @param aValue
+	 *            the new value
+	 * @param aDoSendUpdateFlag
+	 *            whether this update should be sent to connected master/slaves
+	 */
 	protected void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
 		for (VariableEntity tempEntity : variableStorage.keySet()) {
 			if (IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true).equals(aQualifiedVariableName)) {
@@ -466,6 +637,13 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Executes a test.
+	 * 
+	 * @param aTest
+	 *            the test to execute
+	 * @return the result
+	 */
 	protected TestResult executeTest(Test aTest) {
 		if (currentCallback != null) {
 			currentCallback.onTestStart(aTest);
@@ -558,6 +736,13 @@ public class TestRunner {
 		return tempReturn;
 	}
 
+	/**
+	 * Executes a table test.
+	 * 
+	 * @param aTest
+	 *            the test to execute
+	 * @return the result
+	 */
 	protected TestResult executeTableTest(TableTest aTest) {
 		if (currentCallback != null) {
 			currentCallback.onTableTestStart(aTest);
@@ -716,6 +901,16 @@ public class TestRunner {
 		return tempReturn;
 	}
 
+	/**
+	 * Instantiates a new fixture instance.
+	 * 
+	 * @param aMethod
+	 *            the method reference, which includes the fixture class to instantiate
+	 * @return the new fixture instance
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	protected Fixture instantiateFixture(MethodReference aMethod) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		Class<?> tempFixtureClass = getClassForJvmType(aMethod.getType());
@@ -723,15 +918,48 @@ public class TestRunner {
 		return tempFixtureInstance;
 	}
 
+	/**
+	 * Calls a given method on a fixture instance.
+	 * 
+	 * @param aFixtureInstance
+	 *            the fixture
+	 * @param aMethod
+	 *            the method reference to execute
+	 * @param someParameters
+	 *            the parameters to use for the call
+	 * @return the return value
+	 * @throws Exception
+	 */
 	protected Object executeFixtureMethod(Fixture aFixtureInstance, MethodReference aMethod,
 			Map<String, Object> someParameters) throws Exception {
 		return aFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
 	}
 
+	/**
+	 * Loads a class by resolving a given {@link JvmType}.
+	 * 
+	 * @param aType
+	 *            the type to load
+	 * @return the class
+	 * @throws ClassNotFoundException
+	 */
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
 		return model.getInjector().getInstance(ClassLoader.class).loadClass(aType.getQualifiedName());
 	}
 
+	/**
+	 * Compares the expected result with the actual result obtained from a test fixture.
+	 * 
+	 * @param aFixtureResult
+	 *            the test fixture result
+	 * @param anExpectedResult
+	 *            the expected result as specified in the test script
+	 * @param aFixtureInstance
+	 *            the fixture instance that was used
+	 * @param aFixtureMethod
+	 *            the fixture method that was called
+	 * @return true if the comparison was successful, false if the results are not considered equal
+	 */
 	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult, Fixture aFixtureInstance,
 			MethodReference aFixtureMethod) {
 		if (anExpectedResult != null) {
@@ -763,6 +991,13 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Executes a call.
+	 * 
+	 * @param aCall
+	 *            the call to execute
+	 * @return the result
+	 */
 	protected CallResult executeCall(Call aCall) {
 		if (currentCallback != null) {
 			currentCallback.onCallStart(aCall);
@@ -830,10 +1065,25 @@ public class TestRunner {
 		return tempReturn;
 	}
 
+	/**
+	 * Recursively walks the model and searches for suite calls before which setup suites are to be run.
+	 * 
+	 * @param aSuiteCall
+	 *            the root suite call at which to begin
+	 * @return a map with suite calls to setup suites to run
+	 */
 	protected static Map<Suite, List<SuiteDefinition>> findSetupMoments(Suite aSuiteCall) {
 		return recursiveFindSetupMoments(aSuiteCall, new HashSet<SuiteDefinition>(), new HashSet<SuiteDefinition>());
 	}
 
+	/**
+	 * Recursive method being used by {@link #findSetupMoments(Suite)}.
+	 * 
+	 * @param aSuiteCall
+	 * @param someAlreadyCoveredDependencies
+	 * @param someAlreadyVisitedSuites
+	 * @return
+	 */
 	protected static Map<Suite, List<SuiteDefinition>> recursiveFindSetupMoments(Suite aSuiteCall,
 			Set<SuiteDefinition> someAlreadyCoveredDependencies, Set<SuiteDefinition> someAlreadyVisitedSuites) {
 		SuiteDefinition tempSuite = aSuiteCall.getDefinition();
@@ -872,21 +1122,18 @@ public class TestRunner {
 		return tempResults;
 	}
 
+	/**
+	 * Recursively explore a suite definition and find dependencies.
+	 * 
+	 * @param aSuite
+	 *            the suite
+	 * @return the dependencies required by this suite or any suite called by this suite
+	 */
 	protected static List<SuiteDefinition> recursiveListSuiteDependencies(SuiteDefinition aSuite) {
 		List<SuiteDefinition> tempResults = new LinkedList<SuiteDefinition>(aSuite.getDependencies());
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
 				tempResults.addAll(recursiveListSuiteDependencies(((Suite) tempStatement).getDefinition()));
-			}
-		}
-		return tempResults;
-	}
-
-	protected static List<SuiteDefinition> recursiveListSuiteFinalizers(SuiteDefinition aSuite) {
-		List<SuiteDefinition> tempResults = new LinkedList<SuiteDefinition>(aSuite.getFinalizers());
-		for (SuiteStatement tempStatement : aSuite.getStatements()) {
-			if (tempStatement instanceof Suite) {
-				tempResults.addAll(0, recursiveListSuiteFinalizers(((Suite) tempStatement).getDefinition()));
 			}
 		}
 		return tempResults;
@@ -901,12 +1148,24 @@ public class TestRunner {
 	 */
 	protected enum Phase {
 
+		/**
+		 * The dry run is used to build up the {@link SetList}. In this phase, the whole model is walked, but no forks
+		 * are being started and no test/call fixtures are being executed.
+		 */
 		DRY_RUN,
 
+		/**
+		 * The actual test run.
+		 */
 		TEST_RUN;
 
 	}
 
+	/**
+	 * Determines whether we should actually execute fixture method calls at the moment.
+	 * 
+	 * @return true if calls should be executed, false otherwise
+	 */
 	protected boolean shouldExecuteFixtures() {
 		if (currentPhase == Phase.DRY_RUN) {
 			return false;
@@ -919,6 +1178,13 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Pauses execution (blocks the method call) if the remoting client requested to do so via execution control or
+	 * breakpoints.
+	 * 
+	 * @param aForkSyncFlag
+	 *            true if we are pausing for fork synchronization reasons
+	 */
 	protected void pauseIfRequiredByRemoteClient(boolean aForkSyncFlag) {
 		if (remotingServer == null) {
 			return;
@@ -943,6 +1209,13 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Pause execution (blocks method call) until continuation is triggered by remoting.
+	 * 
+	 * @param aForkSyncFlag
+	 *            true if we are pausing for fork synchronization reasons
+	 * @throws InterruptedException
+	 */
 	protected void waitForContinue(boolean aForkSyncFlag) throws InterruptedException {
 		if (aForkSyncFlag) {
 			remotingServer.updateExecutionState(ExecutionStates.PAUSED_SYNC);
@@ -954,6 +1227,12 @@ public class TestRunner {
 		remotingServer.updateExecutionState(ExecutionStates.RUNNING);
 	}
 
+	/**
+	 * Removes a specific breakpoint.
+	 * 
+	 * @param anEntryReference
+	 *            the setlist entry reference at which the breakpoint is set
+	 */
 	protected void removeBreakpoint(int anEntryReference) {
 		// forward to forks
 		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
@@ -966,6 +1245,12 @@ public class TestRunner {
 		}
 	}
 
+	/**
+	 * Creates a new breapoint.
+	 * 
+	 * @param anEntryReference
+	 *            the setlist entry reference at which the breakpoint will be created
+	 */
 	protected void createBreakpoint(int anEntryReference) {
 		// forward to forks
 		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
@@ -1070,7 +1355,16 @@ public class TestRunner {
 		return MY_FORK_NAME != null;
 	}
 
-	protected Fork createFork(Suite aSuiteCall, ForkDefinition aFork) throws ForkException {
+	/**
+	 * Creates a new fork instance. This starts up the forked JVM and connects to it for remote control.
+	 * 
+	 * @param aSuiteCall
+	 *            the suite call that shall be run on the fork
+	 * @return the new fork
+	 * @throws ForkException
+	 *             if any problem arises during forking
+	 */
+	protected Fork createFork(Suite aSuiteCall) throws ForkException {
 		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
 				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
 				currentCallback, setList, remotingServer, new ForkCallback() {
