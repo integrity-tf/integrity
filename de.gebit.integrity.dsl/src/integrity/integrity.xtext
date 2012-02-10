@@ -54,7 +54,7 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedResult)* ('=' result=ValueOrEnumValue)?;
+	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedResult)* ('=' result=ValueOrEnumValueCollection)?;
 	
 TableTest:
 	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
@@ -70,10 +70,10 @@ ResultTableHeader:
 	'|' name=ResultName '=';
 	
 ParameterTableValue:
-	'|' value=ValueOrEnumValue;
+	'|' value=ValueOrEnumValueCollection;
 	
 NamedResult:
-	name=ResultName '=' value=ValueOrEnumValue;
+	name=ResultName '=' value=ValueOrEnumValueCollection;
 	
 ResultName:
 	FixedResultName | ArbitraryParameterOrResultName;
@@ -94,7 +94,7 @@ SuiteParameter:
 	name=[VariableEntity|QualifiedName] ':' value=Value;
 
 Parameter:
-	name=ParameterName ':' value=ValueOrEnumValue;
+	name=ParameterName ':' value=ValueOrEnumValueCollection;
 	
 ParameterName:
 	FixedParameterName | ArbitraryParameterOrResultName;
@@ -104,6 +104,9 @@ FixedParameterName:
 
 ArbitraryParameterOrResultName:
 	'+' identifier=ID;
+	
+ValueOrEnumValueCollection:
+	value=ValueOrEnumValue (',' moreValues+=ValueOrEnumValue)*;
 	
 ValueOrEnumValue:
 	Value | EnumValue;
@@ -145,6 +148,8 @@ QualifiedNameWithWildcard:
   	QualifiedName '.*'?;
 	
 
+terminal BOOLEAN_TRUE: 'true';
+terminal BOOLEAN_FALSE: 'false';
 terminal UPPERCASE_ID: ('A'..'Z') ('A'..'Z'|'a'..'z'|'_'|'0'..'9')*;
 terminal ID: '^'?('a'..'z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 terminal INTEGER returns ecore::EBigInteger: '-'? ('0'..'9')+;
@@ -156,8 +161,6 @@ terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
 terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')* ('\r'? '\n')?;
 terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
-terminal BOOLEAN_TRUE: 'true';
-terminal BOOLEAN_FALSE: 'false';
 
 
 terminal WS: (' '|'\t'|'\r'|'\n')+;

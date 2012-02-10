@@ -14,6 +14,14 @@ packagedef mypackage with
 	
 	calldef multiresultcall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
 	
+	testdef stringarraytest uses de.gebit.integrity.experiments.fixtures.ArrayFixture#receiveArrayAndReturnSize
+	
+	calldef stringarraycall uses de.gebit.integrity.experiments.fixtures.ArrayFixture#receiveArrayAndReturnSize
+	
+	testdef stringarrayechotest uses de.gebit.integrity.experiments.fixtures.ArrayFixture#echoStringArray
+	
+	calldef stringarrayechocall uses de.gebit.integrity.experiments.fixtures.ArrayFixture#echoStringArray
+	
 	variable dummy initially 2
 
 packageend

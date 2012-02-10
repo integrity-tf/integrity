@@ -324,6 +324,15 @@ public interface DslFactory extends EFactory
   ArbitraryParameterOrResultName createArbitraryParameterOrResultName();
 
   /**
+   * Returns a new object of class '<em>Value Or Enum Value Collection</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Value Or Enum Value Collection</em>'.
+   * @generated
+   */
+  ValueOrEnumValueCollection createValueOrEnumValueCollection();
+
+  /**
    * Returns a new object of class '<em>Value Or Enum Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -367,6 +376,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   StringValue createStringValue();
+
+  /**
+   * Returns a new object of class '<em>Boolean Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Boolean Value</em>'.
+   * @generated
+   */
+  BooleanValue createBooleanValue();
 
   /**
    * Returns a new object of class '<em>Variable</em>'.

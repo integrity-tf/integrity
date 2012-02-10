@@ -1,6 +1,7 @@
 package de.gebit.integrity.fixtures;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -116,14 +117,47 @@ public abstract class Fixture {
 				if (tempAnnotation != null && tempAnnotation.name() != null) {
 					String tempName = tempAnnotation.name();
 					Object tempValue = aParameterMap.get(tempName);
+					Class<?> tempExpectedType = aFixtureMethod.getParameterTypes()[i];
 					if (tempValue != null) {
 						Object tempConvertedValue;
-						if (tempValue instanceof ValueOrEnumValue) {
-							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-									aFixtureMethod.getParameterTypes()[i], (ValueOrEnumValue) tempValue, null);
+						if (tempValue instanceof Object[]) {
+							if (!tempExpectedType.isArray()) {
+								throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
+										+ aFixtureMethod.getName() + "' in fixture '" + this.getClass().getName()
+										+ "' is not an array type, thus you cannot put multiple values into it!");
+							}
+							Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
+									((Object[]) tempValue).length);
+							for (int k = 0; k < ((Object[]) tempValue).length; k++) {
+								Object tempSingleValue = ((Object[]) tempValue)[k];
+								if (tempSingleValue instanceof ValueOrEnumValue) {
+									Array.set(tempConvertedValueArray, k, ParameterUtil
+											.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
+													(ValueOrEnumValue) tempSingleValue, null));
+								} else {
+									Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
+											tempExpectedType.getComponentType(), tempSingleValue));
+								}
+							}
+							tempConvertedValue = tempConvertedValueArray;
 						} else {
-							tempConvertedValue = ParameterUtil.convertValueToParamType(
-									aFixtureMethod.getParameterTypes()[i], tempValue);
+							// if the expected type is an array, we don't want to convert to that array, but to the
+							// component type, of course
+							Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
+									.getComponentType() : tempExpectedType;
+							if (tempValue instanceof ValueOrEnumValue) {
+								tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
+										tempConversionTargetType, (ValueOrEnumValue) tempValue, null);
+							} else {
+								tempConvertedValue = ParameterUtil.convertValueToParamType(tempConversionTargetType,
+										tempValue);
+							}
+							if (tempExpectedType.isArray()) {
+								// ...and if the expected type is an array, now we create one
+								Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
+								Array.set(tempNewArray, 0, tempConvertedValue);
+								tempConvertedValue = tempNewArray;
+							}
 						}
 						aParameterMap.put(tempName, tempConvertedValue);
 						tempFixedParamsMap.put(tempName, tempConvertedValue);
@@ -138,14 +172,42 @@ public abstract class Fixture {
 			for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
 				String tempName = tempArbitraryParameter.getName();
 				Object tempValue = aParameterMap.remove(tempName);
+				Class<?> tempExpectedType = tempArbitraryParameter.getType();
 				if (tempValue != null) {
 					Object tempConvertedValue;
-					if (tempValue instanceof ValueOrEnumValue) {
-						tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-								tempArbitraryParameter.getType(), (ValueOrEnumValue) tempValue, null);
+					if (tempValue instanceof Object[]) {
+						if (!tempExpectedType.isArray()) {
+							throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
+									+ aFixtureMethod.getName() + "' in fixture '" + this.getClass().getName()
+									+ "' is not an array type, thus you cannot put multiple values into it!");
+						}
+						Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
+								((Object[]) tempValue).length);
+						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
+							Object tempSingleValue = ((Object[]) tempValue)[k];
+							if (tempSingleValue instanceof ValueOrEnumValue) {
+								Array.set(tempConvertedValueArray, k, ParameterUtil
+										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
+												(ValueOrEnumValue) tempSingleValue, null));
+							} else {
+								Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
+										tempExpectedType.getComponentType(), tempSingleValue));
+							}
+						}
+						tempConvertedValue = tempConvertedValueArray;
 					} else {
-						tempConvertedValue = ParameterUtil.convertValueToParamType(tempArbitraryParameter.getType(),
-								tempValue);
+						if (tempValue instanceof ValueOrEnumValue) {
+							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(tempExpectedType,
+									(ValueOrEnumValue) tempValue, null);
+						} else {
+							tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
+						}
+						if (tempExpectedType.isArray()) {
+							// The target type may still be an array, even though just one parameter value was given
+							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
+							Array.set(tempNewArray, 0, tempConvertedValue);
+							tempConvertedValue = tempNewArray;
+						}
 					}
 					aParameterMap.put(tempName, tempConvertedValue);
 				}

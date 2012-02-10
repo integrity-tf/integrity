@@ -101,11 +101,13 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.PARAMETER_NAME: return createParameterName();
       case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
       case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME: return createArbitraryParameterOrResultName();
+      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION: return createValueOrEnumValueCollection();
       case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
       case DslPackage.VALUE: return createValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
       case DslPackage.DECIMAL_VALUE: return createDecimalValue();
       case DslPackage.STRING_VALUE: return createStringValue();
+      case DslPackage.BOOLEAN_VALUE: return createBooleanValue();
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
@@ -484,6 +486,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ValueOrEnumValueCollection createValueOrEnumValueCollection()
+  {
+    ValueOrEnumValueCollectionImpl valueOrEnumValueCollection = new ValueOrEnumValueCollectionImpl();
+    return valueOrEnumValueCollection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ValueOrEnumValue createValueOrEnumValue()
   {
     ValueOrEnumValueImpl valueOrEnumValue = new ValueOrEnumValueImpl();
@@ -532,6 +545,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     StringValueImpl stringValue = new StringValueImpl();
     return stringValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BooleanValue createBooleanValue()
+  {
+    BooleanValueImpl booleanValue = new BooleanValueImpl();
+    return booleanValue;
   }
 
   /**

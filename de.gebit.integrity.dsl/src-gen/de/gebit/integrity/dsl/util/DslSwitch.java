@@ -333,6 +333,13 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION:
+      {
+        ValueOrEnumValueCollection valueOrEnumValueCollection = (ValueOrEnumValueCollection)theEObject;
+        T result = caseValueOrEnumValueCollection(valueOrEnumValueCollection);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VALUE_OR_ENUM_VALUE:
       {
         ValueOrEnumValue valueOrEnumValue = (ValueOrEnumValue)theEObject;
@@ -372,6 +379,15 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseStringValue(stringValue);
         if (result == null) result = caseValue(stringValue);
         if (result == null) result = caseValueOrEnumValue(stringValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.BOOLEAN_VALUE:
+      {
+        BooleanValue booleanValue = (BooleanValue)theEObject;
+        T result = caseBooleanValue(booleanValue);
+        if (result == null) result = caseValue(booleanValue);
+        if (result == null) result = caseValueOrEnumValue(booleanValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -951,6 +967,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value Collection</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value Or Enum Value Collection</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValueOrEnumValueCollection(ValueOrEnumValueCollection object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1026,6 +1058,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStringValue(StringValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Boolean Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Boolean Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBooleanValue(BooleanValue object)
   {
     return null;
   }

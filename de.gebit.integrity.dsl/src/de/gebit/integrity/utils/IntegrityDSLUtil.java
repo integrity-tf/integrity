@@ -36,6 +36,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -271,7 +272,7 @@ public final class IntegrityDSLUtil {
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) {
-		LinkedHashMap<ParameterName, ValueOrEnumValue> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
+		LinkedHashMap<ParameterName, ValueOrEnumValueCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueCollection>();
 		for (Parameter tempParameter : aTableTest.getParameters()) {
 			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
 		}
@@ -307,7 +308,7 @@ public final class IntegrityDSLUtil {
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
 			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) {
-		Map<ParameterName, ValueOrEnumValue> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValue>();
+		Map<ParameterName, ValueOrEnumValueCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueCollection>();
 		for (Parameter tempParameter : someParameters) {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
 		}
@@ -316,22 +317,39 @@ public final class IntegrityDSLUtil {
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
-	private static Map<String, Object> createParameterMap(Map<ParameterName, ValueOrEnumValue> someParameters,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) {
+	private static Map<String, Object> createParameterMap(
+			Map<ParameterName, ValueOrEnumValueCollection> someParameters, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
-		for (Entry<ParameterName, ValueOrEnumValue> tempEntry : someParameters.entrySet()) {
+		for (Entry<ParameterName, ValueOrEnumValueCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null) {
-				Object tempValue = tempEntry.getValue();
-				if (tempValue instanceof Variable) {
-					Object tempResolvedValue = null;
-					if (aVariableMap != null) {
-						tempResolvedValue = aVariableMap.get(((Variable) tempValue).getName());
-					} else {
-						tempResolvedValue = null;
+				Object tempValue = null;
+				if (tempEntry.getValue().getMoreValues().size() > 0) {
+					// if multiple values have been provided
+					Object[] tempValueArray = new Object[tempEntry.getValue().getMoreValues().size() + 1];
+					tempValueArray[0] = tempEntry.getValue().getValue();
+					int i = 1;
+					for (ValueOrEnumValue tempSingleValue : tempEntry.getValue().getMoreValues()) {
+						tempValue = tempSingleValue;
+						if (tempSingleValue instanceof Variable) {
+							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
+									.get(((Variable) tempSingleValue).getName()) : null);
+							if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+								tempValue = tempResolvedValue;
+							}
+						}
+						tempValueArray[i++] = tempValue;
 					}
-					if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-						tempValue = tempResolvedValue;
+					tempValue = tempValueArray;
+				} else {
+					// if only one value has been provided
+					tempValue = tempEntry.getValue().getValue();
+					if (tempValue instanceof Variable) {
+						Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
+								.getName()) : null);
+						if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+							tempValue = tempResolvedValue;
+						}
 					}
 				}
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {

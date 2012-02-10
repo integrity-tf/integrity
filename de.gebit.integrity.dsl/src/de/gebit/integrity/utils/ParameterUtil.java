@@ -3,6 +3,7 @@ package de.gebit.integrity.utils;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.IntegerValue;
@@ -18,6 +20,7 @@ import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 
@@ -100,6 +103,10 @@ public final class ParameterUtil {
 				return new BigDecimal((String) aValue);
 			} else if (aParamType == BigInteger.class) {
 				return new BigInteger((String) aValue);
+			}
+		} else if (aValue instanceof Boolean) {
+			if (aParamType == String.class) {
+				return aValue.toString();
 			}
 		}
 
@@ -205,6 +212,12 @@ public final class ParameterUtil {
 				throw new IllegalArgumentException("Unresolved variable " + ((Variable) aValue).getName().getName()
 						+ " encountered, but missing variable to value map!");
 			}
+		} else if (aValue instanceof BooleanValue) {
+			if (aParamType == Boolean.class) {
+				return Boolean.valueOf(((BooleanValue) aValue).getBooleanValue());
+			} else if (aParamType == String.class) {
+				return ((BooleanValue) aValue).getBooleanValue();
+			}
 		} else {
 			throw new UnsupportedOperationException("Value class " + aValue.getClass() + " is unsupported");
 		}
@@ -228,7 +241,32 @@ public final class ParameterUtil {
 	 */
 	public static String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap,
 			boolean anAllowNullResultFlag) {
-		if (aValue instanceof DecimalValue) {
+		if (aValue instanceof ValueOrEnumValueCollection) {
+			ValueOrEnumValueCollection tempValueCollection = (ValueOrEnumValueCollection) aValue;
+			if (tempValueCollection.getMoreValues().size() == 0) {
+				return convertValueToString(tempValueCollection.getValue(), aVariableMap, anAllowNullResultFlag);
+			} else {
+				StringBuilder tempBuilder = new StringBuilder();
+				for (int i = 0; i < tempValueCollection.getMoreValues().size() + 1; i++) {
+					if (i > 0) {
+						tempBuilder.append(", ");
+					}
+					tempBuilder.append(convertValueToString(i == 0 ? tempValueCollection.getValue()
+							: tempValueCollection.getMoreValues().get(i - 1), aVariableMap, anAllowNullResultFlag));
+				}
+				return tempBuilder.toString();
+			}
+		} else if (aValue != null && aValue.getClass().isArray()) {
+			// this is basically the same as above, but the collection has already been "merged" into an array
+			StringBuilder tempBuilder = new StringBuilder();
+			for (int i = 0; i < Array.getLength(aValue); i++) {
+				if (i > 0) {
+					tempBuilder.append(", ");
+				}
+				tempBuilder.append(convertValueToString(Array.get(aValue, i), aVariableMap, anAllowNullResultFlag));
+			}
+			return tempBuilder.toString();
+		} else if (aValue instanceof DecimalValue) {
 			return ((DecimalValue) aValue).getDecimalValue().toString();
 		} else if (aValue instanceof IntegerValue) {
 			return ((IntegerValue) aValue).getIntegerValue().toString();
@@ -239,6 +277,8 @@ public final class ParameterUtil {
 			return convertValueToString(tempActualValue, aVariableMap, anAllowNullResultFlag);
 		} else if (aValue instanceof EnumValue) {
 			return ((EnumValue) aValue).getEnumValue().getSimpleName();
+		} else if (aValue instanceof BooleanValue) {
+			return ((BooleanValue) aValue).getBooleanValue();
 		} else if (aValue instanceof NullValue) {
 			return "null";
 		} else {

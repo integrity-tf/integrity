@@ -21,7 +21,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -240,7 +240,7 @@ public class SetListCallback extends TestRunnerCallback {
 
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
 
-			ValueOrEnumValue tempExpectedValue = tempEntry.getValue().getExpectedValue();
+			ValueOrEnumValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 
 			tempComparisonEntry.setAttribute(
 					SetListEntryAttributeKeys.EXPECTED_RESULT,

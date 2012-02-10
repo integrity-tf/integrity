@@ -123,6 +123,10 @@
     <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterOrResultName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterOrResultName/identifier"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValueCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ValueOrEnumValueCollection/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ValueOrEnumValueCollection/moreValues"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValue"/>
     <genClasses ecoreClass="DSL.ecore#//Value"/>
     <genClasses ecoreClass="DSL.ecore#//IntegerValue">
@@ -133,6 +137,9 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//StringValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//StringValue/stringValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//BooleanValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//BooleanValue/booleanValue"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Variable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>

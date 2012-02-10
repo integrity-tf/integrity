@@ -9,7 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -54,7 +54,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValue value;
+  protected ValueOrEnumValueCollection value;
 
   /**
    * <!-- begin-user-doc -->
@@ -130,7 +130,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValue getValue()
+  public ValueOrEnumValueCollection getValue()
   {
     return value;
   }
@@ -140,9 +140,9 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ValueOrEnumValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueCollection newValue, NotificationChain msgs)
   {
-    ValueOrEnumValue oldValue = value;
+    ValueOrEnumValueCollection oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -157,7 +157,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ValueOrEnumValue newValue)
+  public void setValue(ValueOrEnumValueCollection newValue)
   {
     if (newValue != value)
     {
@@ -223,7 +223,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
         setName((ResultName)newValue);
         return;
       case DslPackage.NAMED_RESULT__VALUE:
-        setValue((ValueOrEnumValue)newValue);
+        setValue((ValueOrEnumValueCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -243,7 +243,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
         setName((ResultName)null);
         return;
       case DslPackage.NAMED_RESULT__VALUE:
-        setValue((ValueOrEnumValue)null);
+        setValue((ValueOrEnumValueCollection)null);
         return;
     }
     super.eUnset(featureID);

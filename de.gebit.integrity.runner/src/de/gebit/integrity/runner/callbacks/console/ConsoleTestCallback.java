@@ -96,7 +96,10 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 										variableStorage, false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
-										+ tempEntry.getKey() + "'") + ", but got '" + tempEntry.getValue() + "'!");
+										+ tempEntry.getKey() + "'")
+								+ ", but got '"
+								+ ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
+										false) + "'!");
 						tempHasBegun = true;
 					}
 				}

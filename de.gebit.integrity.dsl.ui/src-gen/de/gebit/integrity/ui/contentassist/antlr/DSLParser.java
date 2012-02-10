@@ -45,6 +45,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
 					put(grammarAccess.getValueOrEnumValueAccess().getAlternatives(), "rule__ValueOrEnumValue__Alternatives");
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
+					put(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0(), "rule__BooleanValue__BooleanValueAlternatives_0");
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
@@ -74,6 +75,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSuiteParameterAccess().getGroup(), "rule__SuiteParameter__Group__0");
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getGroup(), "rule__ArbitraryParameterOrResultName__Group__0");
+					put(grammarAccess.getValueOrEnumValueCollectionAccess().getGroup(), "rule__ValueOrEnumValueCollection__Group__0");
+					put(grammarAccess.getValueOrEnumValueCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueCollection__Group_1__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
@@ -134,9 +137,12 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterAccess().getValueAssignment_2(), "rule__Parameter__ValueAssignment_2");
 					put(grammarAccess.getFixedParameterNameAccess().getAnnotationAssignment(), "rule__FixedParameterName__AnnotationAssignment");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1(), "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1");
+					put(grammarAccess.getValueOrEnumValueCollectionAccess().getValueAssignment_0(), "rule__ValueOrEnumValueCollection__ValueAssignment_0");
+					put(grammarAccess.getValueOrEnumValueCollectionAccess().getMoreValuesAssignment_1_1(), "rule__ValueOrEnumValueCollection__MoreValuesAssignment_1_1");
 					put(grammarAccess.getIntegerValueAccess().getIntegerValueAssignment(), "rule__IntegerValue__IntegerValueAssignment");
 					put(grammarAccess.getDecimalValueAccess().getDecimalValueAssignment(), "rule__DecimalValue__DecimalValueAssignment");
 					put(grammarAccess.getStringValueAccess().getStringValueAssignment(), "rule__StringValue__StringValueAssignment");
+					put(grammarAccess.getBooleanValueAccess().getBooleanValueAssignment(), "rule__BooleanValue__BooleanValueAssignment");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
 					put(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0(), "rule__MethodReference__TypeAssignment_0");

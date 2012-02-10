@@ -28,6 +28,8 @@ packagedef mysecondpackage with
 		-- A singleline visible comment
 		call random min:5 max:10 -> yeah
 		
+		call random min:5 max:200
+		
 		call multiresultcall param: 11 firstNamedResult -> yeah secondNamedResult -> packagevar
 	
 		/- This is a multiline visible comment.           
@@ -49,9 +51,9 @@ packagedef mysecondpackage with
 		
 		tabletest addition summand1: 10 
 		| summand2	| = 	|
-		| 20		| = 30 	|
-		| 30		| = 49	|
-		| 40		| = 50	|
+		| 20		| 30 	|
+		| 30		| 49	|
+		| 40		| 50	|
 		
 		test echo echo: VALUE_ONE = VALUE_ONE
 		
@@ -62,6 +64,28 @@ packagedef mysecondpackage with
 		tabletest arbitrary
 		| fixparam	| +testparam1	| +testparam2	| +testresult1=	| +testresult2=	|
 		| 100		| 200			| 300			| 400			| 500			|
+		
+		call stringarraycall strings: "foo" -> testvar
+		
+		call stringarraycall strings: "foo", "bar", "baz" -> testvar
+		
+		test stringarraytest strings: "a", 1, 1.5, true, testvar = 5
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = "foo", "bar", "baz"
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = "foo", "bar", "bay"
+		
+		call stringarrayechocall strings: "foo", "bar", "baz" -> testvar
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = testvar
+		
+		tabletest stringarrayechotest
+		| strings		 		| =						|
+		| "foo", "bar", "baz"	| testvar				|
+		| "foo", "bar", "baz"	| "foo", "bar", "baz"	|
+		| "foo", "bar", "baz"	| "foo"					|
+		| "foo", "bar", "bay"	| "foo", "bar", "baz"	|
+		
 	 	
 		suite anotherSuite
 		

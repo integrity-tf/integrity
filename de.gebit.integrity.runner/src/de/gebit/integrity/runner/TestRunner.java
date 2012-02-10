@@ -2,6 +2,7 @@ package de.gebit.integrity.runner;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -773,15 +775,16 @@ public class TestRunner {
 					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 						String tempParameter = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-						ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
-								.getValues().get(tempColumn).getValue() : null;
+						ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+								.getValues().get(tempColumn).getValue()
+								: null;
 						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
 						tempComparisonMap.put(tempParameter, tempComparisonResult);
 
 						tempColumn++;
 					}
 				} else {
-					ValueOrEnumValue tempExpectedValue = null;
+					ValueOrEnumValueCollection tempExpectedValue = null;
 					if (aTest.getDefaultResultColumn() != null) {
 						// the last column MUST be the result column
 						tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -812,8 +815,9 @@ public class TestRunner {
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 							String tempResultName = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
-									.getValues().get(tempColumn).getValue() : null;
+							ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+									.getValues().get(tempColumn).getValue()
+									: null;
 
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
@@ -830,7 +834,7 @@ public class TestRunner {
 							tempColumn++;
 						}
 					} else {
-						ValueOrEnumValue tempExpectedValue = null;
+						ValueOrEnumValueCollection tempExpectedValue = null;
 						if (aTest.getDefaultResultColumn() != null) {
 							// the last column MUST be the result column
 							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -856,15 +860,16 @@ public class TestRunner {
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 							String tempResultName = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValue tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
-									.getValues().get(tempColumn).getValue() : null;
+							ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+									.getValues().get(tempColumn).getValue()
+									: null;
 							tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
 									tempExpectedValue);
 							tempComparisonMap.put(tempResultName, tempComparisonResult);
 							tempColumn++;
 						}
 					} else {
-						ValueOrEnumValue tempExpectedValue = null;
+						ValueOrEnumValueCollection tempExpectedValue = null;
 						if (aTest.getDefaultResultColumn() != null) {
 							// the last column MUST be the result column
 							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -960,17 +965,87 @@ public class TestRunner {
 	 *            the fixture method that was called
 	 * @return true if the comparison was successful, false if the results are not considered equal
 	 */
-	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValue anExpectedResult, Fixture aFixtureInstance,
-			MethodReference aFixtureMethod) {
+	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValueCollection anExpectedResult,
+			Fixture aFixtureInstance, MethodReference aFixtureMethod) {
 		if (anExpectedResult != null) {
 			if (aFixtureResult != null) {
-				Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-						aFixtureResult.getClass(), anExpectedResult, variableStorage);
-				if (aFixtureInstance instanceof CustomComparatorFixture) {
-					return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
-							aFixtureResult, aFixtureMethod.getMethod().getSimpleName());
+				if (anExpectedResult.getMoreValues().size() > 0) {
+					// multiple result values were given -> fixture result must be an array of same size
+					if (!aFixtureResult.getClass().isArray()
+							&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1) {
+						return false;
+					}
+					// now compare all values
+					for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+						Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
+						ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
+								: anExpectedResult.getMoreValues().get(i - 1));
+						Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+								tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage);
+						if (aFixtureInstance instanceof CustomComparatorFixture) {
+							if (!((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
+									tempSingleFixtureResult, aFixtureMethod.getMethod().getSimpleName())) {
+								return false;
+							}
+						} else {
+							if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
+								return false;
+							}
+						}
+					}
+					return true;
 				} else {
-					return tempConvertedResult.equals(aFixtureResult);
+					Object tempSingleFixtureResult = aFixtureResult;
+					// if the expected type is an array, we don't want to convert to that array, but to the
+					// component type, of course
+					Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
+							.getClass().getComponentType() : tempSingleFixtureResult.getClass();
+					Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+							tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
+
+					if (aFixtureResult.getClass().isArray()) {
+						if (!tempConvertedResult.getClass().isArray()) {
+							// the fixture may still be returning an array that has to be unpacked
+							if (Array.getLength(aFixtureResult) != 1) {
+								return false;
+							}
+							tempSingleFixtureResult = Array.get(aFixtureResult, 0);
+						} else {
+							if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
+								return false;
+							}
+							// both are converted arrays -> compare all values!
+							for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+								if (aFixtureInstance instanceof CustomComparatorFixture) {
+									if (!((CustomComparatorFixture) aFixtureInstance).compareResults(
+											Array.get(tempConvertedResult, i), Array.get(aFixtureResult, i),
+											aFixtureMethod.getMethod().getSimpleName())) {
+										return false;
+									}
+								} else {
+									if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+										return false;
+									}
+								}
+							}
+							return true;
+						}
+					} else {
+						if (tempConvertedResult.getClass().isArray()) {
+							// the converted result may still be an array
+							if (Array.getLength(tempConvertedResult) != 1) {
+								return false;
+							}
+							tempConvertedResult = Array.get(tempConvertedResult, 0);
+						}
+					}
+
+					if (aFixtureInstance instanceof CustomComparatorFixture) {
+						return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
+								tempSingleFixtureResult, aFixtureMethod.getMethod().getSimpleName());
+					} else {
+						return tempConvertedResult.equals(tempSingleFixtureResult);
+					}
 				}
 			} else {
 				return (anExpectedResult instanceof NullValue);

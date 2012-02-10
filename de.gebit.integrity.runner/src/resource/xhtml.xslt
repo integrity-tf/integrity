@@ -301,6 +301,10 @@
               <span class="testResultValue testResultValueSuccess value">
                 <xsl:value-of select="result/variableUpdate/@value" />
               </span>
+              <xsl:if test="result/variableUpdate/@name">
+                ➔
+                <xsl:value-of select="result/variableUpdate/@name" />
+              </xsl:if>
             </xsl:if>
           </div>
         </xsl:if>

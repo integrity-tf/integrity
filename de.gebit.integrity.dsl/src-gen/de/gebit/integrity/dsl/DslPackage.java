@@ -1174,6 +1174,43 @@ public interface DslPackage extends EPackage
   int ARBITRARY_PARAMETER_OR_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl <em>Value Or Enum Value Collection</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueCollection()
+   * @generated
+   */
+  int VALUE_OR_ENUM_VALUE_COLLECTION = 33;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_OR_ENUM_VALUE_COLLECTION__VALUE = 0;
+
+  /**
+   * The feature id for the '<em><b>More Values</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES = 1;
+
+  /**
+   * The number of structural features of the '<em>Value Or Enum Value Collection</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_OR_ENUM_VALUE_COLLECTION_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1181,7 +1218,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE = 33;
+  int VALUE_OR_ENUM_VALUE = 34;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value</em>' class.
@@ -1200,7 +1237,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 34;
+  int VALUE = 35;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -1219,7 +1256,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 35;
+  int INTEGER_VALUE = 36;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -1247,7 +1284,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 36;
+  int DECIMAL_VALUE = 37;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -1275,7 +1312,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 37;
+  int STRING_VALUE = 38;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -1296,6 +1333,34 @@ public interface DslPackage extends EPackage
   int STRING_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.BooleanValueImpl <em>Boolean Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.BooleanValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getBooleanValue()
+   * @generated
+   */
+  int BOOLEAN_VALUE = 39;
+
+  /**
+   * The feature id for the '<em><b>Boolean Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOLEAN_VALUE__BOOLEAN_VALUE = VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Boolean Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOLEAN_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1303,7 +1368,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 38;
+  int VARIABLE = 40;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1331,7 +1396,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
    * @generated
    */
-  int NULL_VALUE = 39;
+  int NULL_VALUE = 41;
 
   /**
    * The number of structural features of the '<em>Null Value</em>' class.
@@ -1350,7 +1415,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 40;
+  int ENUM_VALUE = 42;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1378,7 +1443,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 41;
+  int METHOD_REFERENCE = 43;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1415,7 +1480,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 42;
+  int NULL = 44;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -2352,6 +2417,38 @@ public interface DslPackage extends EPackage
   EAttribute getArbitraryParameterOrResultName_Identifier();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection <em>Value Or Enum Value Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Value Or Enum Value Collection</em>'.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection
+   * @generated
+   */
+  EClass getValueOrEnumValueCollection();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection#getValue()
+   * @see #getValueOrEnumValueCollection()
+   * @generated
+   */
+  EReference getValueOrEnumValueCollection_Value();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection#getMoreValues <em>More Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>More Values</em>'.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection#getMoreValues()
+   * @see #getValueOrEnumValueCollection()
+   * @generated
+   */
+  EReference getValueOrEnumValueCollection_MoreValues();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2433,6 +2530,27 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EAttribute getStringValue_StringValue();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.BooleanValue <em>Boolean Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Boolean Value</em>'.
+   * @see de.gebit.integrity.dsl.BooleanValue
+   * @generated
+   */
+  EClass getBooleanValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.BooleanValue#getBooleanValue <em>Boolean Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Boolean Value</em>'.
+   * @see de.gebit.integrity.dsl.BooleanValue#getBooleanValue()
+   * @see #getBooleanValue()
+   * @generated
+   */
+  EAttribute getBooleanValue_BooleanValue();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Variable <em>Variable</em>}'.
@@ -3314,6 +3432,32 @@ public interface DslPackage extends EPackage
     EAttribute ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER = eINSTANCE.getArbitraryParameterOrResultName_Identifier();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl <em>Value Or Enum Value Collection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueCollection()
+     * @generated
+     */
+    EClass VALUE_OR_ENUM_VALUE_COLLECTION = eINSTANCE.getValueOrEnumValueCollection();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VALUE_OR_ENUM_VALUE_COLLECTION__VALUE = eINSTANCE.getValueOrEnumValueCollection_Value();
+
+    /**
+     * The meta object literal for the '<em><b>More Values</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES = eINSTANCE.getValueOrEnumValueCollection_MoreValues();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3386,6 +3530,24 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute STRING_VALUE__STRING_VALUE = eINSTANCE.getStringValue_StringValue();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.BooleanValueImpl <em>Boolean Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.BooleanValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getBooleanValue()
+     * @generated
+     */
+    EClass BOOLEAN_VALUE = eINSTANCE.getBooleanValue();
+
+    /**
+     * The meta object literal for the '<em><b>Boolean Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BOOLEAN_VALUE__BOOLEAN_VALUE = eINSTANCE.getBooleanValue_BooleanValue();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.

@@ -244,6 +244,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createArbitraryParameterOrResultNameAdapter();
       }
       @Override
+      public Adapter caseValueOrEnumValueCollection(ValueOrEnumValueCollection object)
+      {
+        return createValueOrEnumValueCollectionAdapter();
+      }
+      @Override
       public Adapter caseValueOrEnumValue(ValueOrEnumValue object)
       {
         return createValueOrEnumValueAdapter();
@@ -267,6 +272,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseStringValue(StringValue object)
       {
         return createStringValueAdapter();
+      }
+      @Override
+      public Adapter caseBooleanValue(BooleanValue object)
+      {
+        return createBooleanValueAdapter();
       }
       @Override
       public Adapter caseVariable(Variable object)
@@ -811,6 +821,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection <em>Value Or Enum Value Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection
+   * @generated
+   */
+  public Adapter createValueOrEnumValueCollectionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -881,6 +906,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStringValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.BooleanValue <em>Boolean Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.BooleanValue
+   * @generated
+   */
+  public Adapter createBooleanValueAdapter()
   {
     return null;
   }
