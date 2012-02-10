@@ -53,6 +53,9 @@ public class SetListEntry implements Serializable {
 
 	@Override
 	public boolean equals(Object anOtherObject) {
+		if (anOtherObject == this) {
+			return true;
+		}
 		if (!(anOtherObject instanceof SetListEntry)) {
 			return false;
 		}

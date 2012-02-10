@@ -509,7 +509,7 @@ public final class IntegrityDSLUtil {
 					tempBuilder.append(tempChar);
 				} else {
 					if (!tempSpaceWasAdded) {
-						tempBuilder.append(" ");
+						tempBuilder.append(' ');
 						tempSpaceWasAdded = true;
 					}
 				}

@@ -168,7 +168,7 @@ public final class JavadocUtil {
 				for (Object tempPossibleTextElement : tempTag.fragments()) {
 					if (tempPossibleTextElement instanceof TextElement) {
 						tempText.append(((TextElement) tempPossibleTextElement).getText());
-						tempText.append(" ");
+						tempText.append(' ');
 					}
 				}
 				if (tempText.length() > 0) {
