@@ -969,81 +969,87 @@ public class TestRunner {
 			Fixture aFixtureInstance, MethodReference aFixtureMethod) {
 		if (anExpectedResult != null) {
 			if (aFixtureResult != null) {
-				if (anExpectedResult.getMoreValues().size() > 0) {
-					// multiple result values were given -> fixture result must be an array of same size
-					if (!aFixtureResult.getClass().isArray()
-							&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1) {
-						return false;
+				if (aFixtureInstance instanceof CustomComparatorFixture) {
+					// Custom comparators will get whole arrays at once if arrays are used
+					Object tempConvertedResult;
+					Class<?> tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
+							.getComponentType() : aFixtureResult.getClass();
+					if (anExpectedResult.getMoreValues().size() > 0) {
+						// multiple result values given -> we're going to put them into an array of the same type
+						// as the fixture result
+						tempConvertedResult = Array.newInstance(tempConversionTargetType, anExpectedResult
+								.getMoreValues().size() + 1);
+						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
+							ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
+									: anExpectedResult.getMoreValues().get(i - 1));
+							Array.set(tempConvertedResult, i, ParameterUtil.convertEncapsulatedValueToParamType(
+									tempConversionTargetType, tempSingleExpectedResult, variableStorage));
+						}
+					} else {
+						tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+								tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
 					}
-					// now compare all values
-					for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-						Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
-						ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
-								: anExpectedResult.getMoreValues().get(i - 1));
-						Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-								tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage);
-						if (aFixtureInstance instanceof CustomComparatorFixture) {
-							if (!((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
-									tempSingleFixtureResult, aFixtureMethod.getMethod().getSimpleName())) {
-								return false;
-							}
-						} else {
+
+					return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
+							aFixtureResult, aFixtureMethod.getMethod().getSimpleName());
+				} else {
+					// Standard comparation compares each value for itself in case of arrays
+					if (anExpectedResult.getMoreValues().size() > 0) {
+						// multiple result values were given -> fixture result must be an array of same size
+						if (!aFixtureResult.getClass().isArray()
+								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1) {
+							return false;
+						}
+						// now compare all values
+						for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+							Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
+							ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
+									: anExpectedResult.getMoreValues().get(i - 1));
+							Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+									tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage);
+
 							if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
 								return false;
 							}
 						}
-					}
-					return true;
-				} else {
-					Object tempSingleFixtureResult = aFixtureResult;
-					// if the expected type is an array, we don't want to convert to that array, but to the
-					// component type, of course
-					Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
-							.getClass().getComponentType() : tempSingleFixtureResult.getClass();
-					Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-							tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
+						return true;
+					} else {
+						Object tempSingleFixtureResult = aFixtureResult;
+						// if the expected type is an array, we don't want to convert to that array, but to the
+						// component type, of course
+						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
+								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
+						Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+								tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
 
-					if (aFixtureResult.getClass().isArray()) {
-						if (!tempConvertedResult.getClass().isArray()) {
-							// the fixture may still be returning an array that has to be unpacked
-							if (Array.getLength(aFixtureResult) != 1) {
-								return false;
-							}
-							tempSingleFixtureResult = Array.get(aFixtureResult, 0);
-						} else {
-							if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
-								return false;
-							}
-							// both are converted arrays -> compare all values!
-							for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-								if (aFixtureInstance instanceof CustomComparatorFixture) {
-									if (!((CustomComparatorFixture) aFixtureInstance).compareResults(
-											Array.get(tempConvertedResult, i), Array.get(aFixtureResult, i),
-											aFixtureMethod.getMethod().getSimpleName())) {
-										return false;
-									}
-								} else {
+						if (aFixtureResult.getClass().isArray()) {
+							if (!tempConvertedResult.getClass().isArray()) {
+								// the fixture may still be returning an array that has to be unpacked
+								if (Array.getLength(aFixtureResult) != 1) {
+									return false;
+								}
+								tempSingleFixtureResult = Array.get(aFixtureResult, 0);
+							} else {
+								if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
+									return false;
+								}
+								// both are converted arrays -> compare all values!
+								for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
 									if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
 										return false;
 									}
 								}
+								return true;
 							}
-							return true;
-						}
-					} else {
-						if (tempConvertedResult.getClass().isArray()) {
-							// the converted result may still be an array
-							if (Array.getLength(tempConvertedResult) != 1) {
-								return false;
+						} else {
+							if (tempConvertedResult.getClass().isArray()) {
+								// the converted result may still be an array
+								if (Array.getLength(tempConvertedResult) != 1) {
+									return false;
+								}
+								tempConvertedResult = Array.get(tempConvertedResult, 0);
 							}
-							tempConvertedResult = Array.get(tempConvertedResult, 0);
 						}
-					}
-
-					if (aFixtureInstance instanceof CustomComparatorFixture) {
-						return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
-								tempSingleFixtureResult, aFixtureMethod.getMethod().getSimpleName());
-					} else {
 						return tempConvertedResult.equals(tempSingleFixtureResult);
 					}
 				}
