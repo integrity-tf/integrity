@@ -84,7 +84,7 @@ public final class ParameterUtil {
 			} else if (aParamType == Double.class) {
 				return ((Number) aValue).doubleValue();
 			} else if (aParamType == String.class) {
-				return aParamType.toString();
+				return aValue.toString();
 			}
 		} else if (aValue instanceof String) {
 			if (aParamType == Integer.class) {
@@ -203,7 +203,7 @@ public final class ParameterUtil {
 					if (tempActualValue instanceof Value) {
 						return convertEncapsulatedValueToParamType(aParamType, (Value) tempActualValue, aVariableMap);
 					} else {
-						return tempActualValue;
+						return convertValueToParamType(aParamType, tempActualValue);
 					}
 				} else {
 					return null;
