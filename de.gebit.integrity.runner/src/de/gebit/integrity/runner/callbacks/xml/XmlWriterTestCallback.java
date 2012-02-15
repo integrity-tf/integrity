@@ -86,6 +86,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private static final String TEST_RUN_TIMESTAMP = "timestamp";
 
+	private static final String TEST_RUN_TIMESTAMP_ISO8601 = "isotimestamp";
+
 	private static final String TEST_RUN_DURATION = "duration";
 
 	private static final String SUITE_ELEMENT = "suite";
@@ -178,6 +180,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
 
+	private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
 	static {
 		EXECUTION_TIME_FORMAT.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 	}
@@ -197,6 +201,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempRootElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempRootElement.setAttribute(TEST_RUN_NAME_ATTRIBUTE, title);
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
+		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP_ISO8601, ISO_DATE_FORMAT.format(new Date()));
 		document = new Document(tempRootElement);
 		currentElement.push(tempRootElement);
 
