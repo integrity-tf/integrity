@@ -8,7 +8,8 @@ Bundle-ClassPath: .,
 Require-Bundle: org.eclipse.xtext;bundle-version="2.0.1",
  de.gebit.integrity.dsl;bundle-version="0.1.0",
  org.eclipse.xtext.common.types;bundle-version="2.0.1",
- de.gebit.integrity.remoting;bundle-version="0.1.0";visibility:=reexport
+ de.gebit.integrity.remoting;bundle-version="0.1.0";visibility:=reexport,
+ org.eclipse.osgi;bundle-version="3.7.0"
 Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.callbacks,
  de.gebit.integrity.runner.callbacks.console,
@@ -23,10 +24,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0",
  org.jdom;version="1.0.0",
- org.jdom.adapters;version="1.1.1",
- org.jdom.filter;version="1.1.1",
+ org.jdom.adapters;version="1.0.0",
+ org.jdom.filter;version="1.0.0",
  org.jdom.input;version="1.0.0",
  org.jdom.output;version="1.0.0",
- org.jdom.transform;version="1.1.1",
- org.jdom.xpath;version="1.1.1"
+ org.jdom.transform;version="1.0.0",
+ org.jdom.xpath;version="1.0.0"
 Bundle-Vendor: GEBIT Solutions GmbH

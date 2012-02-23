@@ -11,5 +11,5 @@ Export-Package: de.gebit.integrity.remoting,
  de.gebit.integrity.remoting.transport.enums,
  de.gebit.integrity.remoting.transport.messages
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.jdom;version="1.0.0"
 Bundle-Vendor: GEBIT Solutions GmbH
+Import-Package: org.jdom;version="1.0.0"
