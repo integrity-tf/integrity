@@ -7,7 +7,6 @@
     <groupId>de.gebit.integrity</groupId>
     <version>0.2.0-SNAPSHOT</version>
   </parent>
-  <groupId>de.gebit.integrity</groupId>
   <artifactId>de.gebit.integrity.eclipse</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
