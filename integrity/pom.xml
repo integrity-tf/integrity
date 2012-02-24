@@ -13,8 +13,7 @@
   <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>integrity</name>
-  <url>http://www.gebit.de</url>
+  <name>Integrity Parent POM</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,21 +35,18 @@
 		    <groupId>org.eclipse.tycho</groupId>
 		    <artifactId>target-platform-configuration</artifactId>
 		    <version>${tycho-version}</version>
-		      <configuration>
-		        <resolver>p2</resolver>
-		        <target>
-		          <artifact>
-		            <groupId>de.gebit.integrity</groupId>
-		            <artifactId>integrity-target</artifactId>
-		            <version>0.2.0-SNAPSHOT</version>
-		            <classifier>indigo</classifier>
-		          </artifact>
-		        </target>
-		      <ignoreTychoRepositories>true</ignoreTychoRepositories>
-		      <environments>
-		      
-		      </environments>
-		    </configuration>
+			<configuration>
+			  <resolver>p2</resolver>
+			  <target>
+			    <artifact>
+			      <groupId>de.gebit.integrity</groupId>
+			      <artifactId>integrity-target</artifactId>
+			      <version>0.2.0-SNAPSHOT</version>
+			      <classifier>indigo</classifier>
+			    </artifact>
+			  </target>
+			  <ignoreTychoRepositories>true</ignoreTychoRepositories>
+			</configuration>
 		  </plugin>
 		  
 		</plugins>
