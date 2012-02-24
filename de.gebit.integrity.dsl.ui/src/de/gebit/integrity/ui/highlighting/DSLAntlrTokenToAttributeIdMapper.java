@@ -6,7 +6,8 @@ package de.gebit.integrity.ui.highlighting;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 
 /**
- * 
+ * Extension of the custom Antlr token to attribute mapper. This is used by the editor to connect specific token types
+ * to a highlighting setting.
  * 
  * @author Rene Schneider
  * 

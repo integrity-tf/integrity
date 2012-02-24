@@ -24,6 +24,6 @@ public interface CustomComparatorFixture {
 	 *            the fixture method name
 	 * @return true if both results are considered to match, false otherwise
 	 */
-	public boolean compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName);
+	boolean compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName);
 
 }

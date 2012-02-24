@@ -522,6 +522,15 @@ public final class IntegrityDSLUtil {
 				"The given multi-line comment does not start and end with the expected literals.");
 	}
 
+	/**
+	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
+	 * to the actual variable store of a test runner instance, the resolving can only be successful in cases of
+	 * variables with initial value (giving that value) or constants.
+	 * 
+	 * @param aVariable
+	 *            the variable to resolve
+	 * @return the result, or null if none was found
+	 */
 	public static Object resolveVariableStatically(Variable aVariable) {
 		Value tempValue = null;
 
