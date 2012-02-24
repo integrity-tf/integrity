@@ -14,8 +14,19 @@ import de.gebit.integrity.runner.results.Result;
  */
 public abstract class CallResult extends Result {
 
+	/**
+	 * Variables updated by the call.
+	 */
 	private List<UpdatedVariable> updatedVariables;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param someUpdatedVariables
+	 *            variables updated by the call
+	 * @param anExecutionTime
+	 *            the time taken to execute the call
+	 */
 	public CallResult(List<UpdatedVariable> someUpdatedVariables, Long anExecutionTime) {
 		super(anExecutionTime);
 		updatedVariables = someUpdatedVariables;
@@ -34,12 +45,31 @@ public abstract class CallResult extends Result {
 	 */
 	public static final class UpdatedVariable {
 
+		/**
+		 * The variable entity that is being updated.
+		 */
 		private VariableEntity targetVariable;
 
+		/**
+		 * The name of the parameter (if not default parameter).
+		 */
 		private String parameterName;
 
+		/**
+		 * The new value.
+		 */
 		private Object value;
 
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aTargetVariable
+		 *            the variable entity that is being updated
+		 * @param aParameterName
+		 *            the name of the parameter
+		 * @param aValue
+		 *            the new value
+		 */
 		public UpdatedVariable(VariableEntity aTargetVariable, String aParameterName, Object aValue) {
 			targetVariable = aTargetVariable;
 			parameterName = aParameterName;
@@ -62,6 +92,7 @@ public abstract class CallResult extends Result {
 			value = aValue;
 		}
 
+		@Override
 		public String toString() {
 			if (value != null) {
 				return value.toString();

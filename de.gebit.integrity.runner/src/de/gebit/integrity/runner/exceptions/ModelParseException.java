@@ -13,10 +13,24 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
  */
 public class ModelParseException extends ModelLoadException {
 
+	/**
+	 * Serialization.
+	 */
 	private static final long serialVersionUID = -900276999311118806L;
 
+	/**
+	 * The errors that occurred during parsing.
+	 */
 	private List<Diagnostic> errors;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aMessage
+	 *            the error message
+	 * @param someErrors
+	 *            the errors occurring during parsing
+	 */
 	public ModelParseException(String aMessage, List<Diagnostic> someErrors) {
 		super(aMessage);
 		errors = someErrors;

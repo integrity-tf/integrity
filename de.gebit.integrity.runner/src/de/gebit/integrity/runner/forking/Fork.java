@@ -38,40 +38,106 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  */
 public class Fork {
 
+	/**
+	 * The definition of the fork.
+	 */
 	private ForkDefinition definition;
 
+	/**
+	 * The actual process running the fork.
+	 */
 	private Process process;
 
+	/**
+	 * The remoting client used to communicate with the fork. Each fork gets its own client which connects to the
+	 * remoting server in the forked process.
+	 */
 	private IntegrityRemotingClient client;
 
+	/**
+	 * The fork callback.
+	 */
 	private ForkCallback forkCallback;
 
+	/**
+	 * The test runner callback of the current test runner.
+	 */
 	private TestRunnerCallback testRunnerCallback;
 
+	/**
+	 * The remoting server of the current test runner.
+	 */
 	private IntegrityRemotingServer server;
 
+	/**
+	 * The setlist in the current test runner.
+	 */
 	private SetList setList;
 
+	/**
+	 * Buffer for variable updates to be transmitted to the fork.
+	 */
 	private HashMap<String, Object> variableUpdates = new HashMap<String, Object>();
 
+	/**
+	 * The port at which the fork listens for remoting connections.
+	 */
 	private Integer port;
 
+	/**
+	 * Whether the connection to the fork has been confirmed to be active.
+	 */
 	private boolean connectionConfirmed;
 
+	/**
+	 * Used to synchronize execution of segments between parent and fork.
+	 */
 	private boolean segmentExecuted;
 
+	/**
+	 * Whether variable updates shall be ignored. Used to prevent circles in variable update propagation.
+	 */
 	private boolean ignoreVariableUpdates;
 
+	/**
+	 * The forker to use when creating new forks.
+	 */
 	private static Forker forker = new DefaultForker();
 
+	/**
+	 * The offset of the port numbers to try from the remoting port of the current test runner.
+	 */
 	private static int portNumberOffset;
 
+	/**
+	 * The maximum possible port number.
+	 */
 	private static final int MAX_PORT_NUMBER = 65535;
 
 	public static void setForker(Forker aForker) {
 		forker = aForker;
 	}
 
+	/**
+	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
+	 * 
+	 * @param aDefinition
+	 *            the fork definition
+	 * @param someCommandLineArguments
+	 *            the complete and original command line arguments with which the current test runner was started
+	 * @param aMainPortNumber
+	 *            the port number used for the remoting server in the current test runner
+	 * @param aCallback
+	 *            the test runner callback
+	 * @param aSetList
+	 *            the setlist
+	 * @param aServer
+	 *            the remoting server of the parent test runner
+	 * @param aForkCallback
+	 *            the fork callback to use
+	 * @throws ForkException
+	 *             if something goes wrong
+	 */
 	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
 			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback)
 			throws ForkException {
@@ -102,6 +168,9 @@ public class Fork {
 				process.getErrorStream(), System.err).start();
 	}
 
+	/**
+	 * Destroy a fork.
+	 */
 	public void kill() {
 		if (isAlive()) {
 			process.destroy();
@@ -125,6 +194,11 @@ public class Fork {
 		return port;
 	}
 
+	/**
+	 * Checks whether a fork is still alive.
+	 * 
+	 * @return true if the fork is running
+	 */
 	public boolean isAlive() {
 		if (process != null) {
 			try {
@@ -141,6 +215,14 @@ public class Fork {
 		return client != null && client.isActive();
 	}
 
+	/**
+	 * Connects to the successfully started fork process.
+	 * 
+	 * @param aTimeout
+	 *            the timeout after which the method shall return in milliseconds
+	 * @return true if successful, false if the timeout was hit
+	 * @throws IOException
+	 */
 	public boolean connect(long aTimeout) throws IOException {
 		synchronized (this) {
 			IntegrityRemotingClient tempClient = null;
@@ -166,6 +248,9 @@ public class Fork {
 		}
 	}
 
+	/**
+	 * Triggers execution of the next segment on the fork. Will block until the fork has finished executing the segment.
+	 */
 	public void executeNextSegment() {
 		if (client != null) {
 			transmitVariableUpdates();
@@ -185,6 +270,9 @@ public class Fork {
 		}
 	}
 
+	/**
+	 * Transmits the buffered variable updates.
+	 */
 	protected void transmitVariableUpdates() {
 		if (client != null) {
 			for (Entry<String, Object> tempEntry : variableUpdates.entrySet()) {
@@ -199,6 +287,15 @@ public class Fork {
 		}
 	}
 
+	/**
+	 * Updates a variable value. This does not immediately update the variable, but buffers the update until it's being
+	 * transmitted to the fork.
+	 * 
+	 * @param aVariable
+	 *            the variable entity to update
+	 * @param aValue
+	 *            the new value
+	 */
 	public void updateVariableValue(VariableEntity aVariable, Object aValue) {
 		if (!ignoreVariableUpdates) {
 			variableUpdates.put(IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true), aValue);
@@ -330,10 +427,19 @@ public class Fork {
 
 	private static class StreamCopier extends Thread {
 
+		/**
+		 * The prefix to add in front of each line.
+		 */
 		private String prefix;
 
+		/**
+		 * The source.
+		 */
 		private BufferedReader source;
 
+		/**
+		 * The target.
+		 */
 		private PrintStream target;
 
 		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, PrintStream aTarget) {

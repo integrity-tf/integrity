@@ -35,22 +35,52 @@ import de.gebit.integrity.utils.TestFormatter;
  */
 public class ConsoleTestCallback extends TestRunnerCallback {
 
+	/**
+	 * The classloader to use for resolving purposes.
+	 */
 	private ClassLoader classLoader;
 
+	/**
+	 * Test execution start time.
+	 */
 	private long startTime;
 
+	/**
+	 * The test formatter to use for creating test/call description strings.
+	 */
 	private TestFormatter formatter;
 
+	/**
+	 * The number of tests executed.
+	 */
 	private int testCount;
 
+	/**
+	 * Counting table test rows.
+	 */
 	private int tableTestRowCount;
 
+	/**
+	 * The number of calls executed.
+	 */
 	private int callCount;
 
+	/**
+	 * The number of suites executed.
+	 */
 	private int suiteCount = 1;
 
+	/**
+	 * The variable storage map.
+	 */
 	private Map<VariableEntity, Object> variableStorage;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aClassLoader
+	 *            the classloader to use
+	 */
 	public ConsoleTestCallback(ClassLoader aClassLoader) {
 		classLoader = aClassLoader;
 		formatter = new TestFormatter(classLoader);
@@ -79,6 +109,12 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		displayTestSubResult(aResult.getSubResults().get(0));
 	}
 
+	/**
+	 * Displays a test sub-result.
+	 * 
+	 * @param aSubResult
+	 *            the sub-result to display
+	 */
 	protected void displayTestSubResult(TestSubResult aSubResult) {
 		if (aSubResult instanceof TestExecutedSubResult) {
 			if (aSubResult.wereAllComparisonsSuccessful()) {
@@ -223,12 +259,24 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		// nothing to do; this callback is not fork-aware
 	}
 
+	/**
+	 * Prints something, if we're not currently in a dry run.
+	 * 
+	 * @param aString
+	 *            the string to print
+	 */
 	protected void print(String aString) {
 		if (!isDryRun()) {
 			System.out.print(aString);
 		}
 	}
 
+	/**
+	 * Prints plus newline, if we're not currently in a dry run.
+	 * 
+	 * @param aString
+	 *            the string to print
+	 */
 	protected void println(String aString) {
 		if (!isDryRun()) {
 			System.out.println(aString);

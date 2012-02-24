@@ -18,10 +18,22 @@ import java.util.Set;
  */
 public class FilesystemTestResourceProvider implements TestResourceProvider {
 
+	/**
+	 * The paths to the resource files.
+	 */
 	private Set<String> resourceFiles = new HashSet<String>();
 
+	/**
+	 * The classloader to use while linking the parsed resources.
+	 */
 	private ClassLoader classLoader = getClass().getClassLoader();
 
+	/**
+	 * Creates an instance, naming a bunch of resource files.
+	 * 
+	 * @param someResourceFiles
+	 *            the resource files to load
+	 */
 	public FilesystemTestResourceProvider(Collection<? extends File> someResourceFiles) {
 		for (File tempFile : someResourceFiles) {
 			if (tempFile.exists() && tempFile.isFile()) {
@@ -30,12 +42,29 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 		}
 	}
 
+	/**
+	 * Creates an instance naming some directories to scan for resource files. This scanning will search for file names
+	 * ending with ".integrity".
+	 * 
+	 * @param someDirectories
+	 *            the directories to scan
+	 * @param aSearchRecursivelyFlag
+	 *            whether the scan process shall search recursively inside subdirectories
+	 */
 	public FilesystemTestResourceProvider(Collection<? extends File> someDirectories, boolean aSearchRecursivelyFlag) {
 		for (File tempDir : someDirectories) {
 			scanDirectory(tempDir, aSearchRecursivelyFlag);
 		}
 	}
 
+	/**
+	 * Performs the actual scanning in one directory.
+	 * 
+	 * @param aDirectory
+	 *            the directory
+	 * @param aSearchRecursivelyFlag
+	 *            whether scanning shall recurse into subdirectories
+	 */
 	protected void scanDirectory(File aDirectory, boolean aSearchRecursivelyFlag) {
 		if (!aDirectory.isDirectory()) {
 			return;

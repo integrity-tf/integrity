@@ -13,13 +13,27 @@ import java.util.List;
  */
 public class ExceptionResult extends CallResult {
 
+	/**
+	 * The exception that was thrown.
+	 */
 	private Exception exception;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param anException
+	 *            the exception that was thrown
+	 * @param someVariablesToUpdate
+	 *            the variables that were to be updated
+	 * @param anExecutionTime
+	 *            the time it took to execute the call
+	 */
 	public ExceptionResult(Exception anException, List<UpdatedVariable> someVariablesToUpdate, Long anExecutionTime) {
 		super(someVariablesToUpdate, anExecutionTime);
 		exception = anException;
 	}
 
+	@Override
 	public String toString() {
 		ByteArrayOutputStream tempOut = new ByteArrayOutputStream();
 		PrintWriter tempWriter = new PrintWriter(tempOut);

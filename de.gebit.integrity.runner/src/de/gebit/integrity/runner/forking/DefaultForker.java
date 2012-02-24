@@ -12,13 +12,16 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /**
- * 
+ * A default forking implementation. This should be suitable for most execution environments.
  * 
  * @author Rene Schneider
  * 
  */
 public class DefaultForker implements Forker {
 
+	/**
+	 * Name and path of the Java executable to use for starting a new JVM.
+	 */
 	private static final String JAVA_EXECUTABLE = System.getProperties().getProperty("java.home") + File.separatorChar
 			+ "bin" + File.separatorChar + "java";
 
@@ -59,6 +62,11 @@ public class DefaultForker implements Forker {
 		}
 	}
 
+	/**
+	 * Tries to determine the fully qualified name of the main class, since you cannot ask the JVM for it unfortunately.
+	 * 
+	 * @return the name of the main class
+	 */
 	protected String guessMainClassName() {
 		for (Entry<Thread, StackTraceElement[]> tempEntry : Thread.getAllStackTraces().entrySet()) {
 			if ("main".equals(tempEntry.getKey().getName().toLowerCase())) {

@@ -14,10 +14,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class ModelLinkException extends ModelLoadException {
 
+	/**
+	 * Serialization.
+	 */
 	private static final long serialVersionUID = -4130208565392649148L;
 
+	/**
+	 * The objects that were not resolvable.
+	 */
 	private Set<EObject> unresolvableObjects;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aMessage
+	 *            the error message
+	 * @param someUnresolvableObjects
+	 *            the unresolvable objects
+	 */
 	public ModelLinkException(String aMessage, Set<EObject> someUnresolvableObjects) {
 		super(aMessage);
 		unresolvableObjects = someUnresolvableObjects;

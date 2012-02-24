@@ -31,8 +31,17 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
  */
 public class CompoundTestRunnerCallback extends TestRunnerCallback {
 
+	/**
+	 * The contained callbacks that are being wrapped.
+	 */
 	private List<TestRunnerCallback> callbacks = new LinkedList<TestRunnerCallback>();
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param someCallbacks
+	 *            the callbacks to be wrapped
+	 */
 	public CompoundTestRunnerCallback(TestRunnerCallback... someCallbacks) {
 		super();
 		for (TestRunnerCallback tempCallback : someCallbacks) {
@@ -40,10 +49,22 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Adds another callback.
+	 * 
+	 * @param aCallback
+	 *            the callback to be added
+	 */
 	public void addCallback(TestRunnerCallback aCallback) {
 		callbacks.add(aCallback);
 	}
 
+	/**
+	 * Removes a callback from the compound.
+	 * 
+	 * @param aCallback
+	 *            the callback to be removed
+	 */
 	public void removeCallback(TestRunnerCallback aCallback) {
 		callbacks.remove(aCallback);
 	}
