@@ -13,10 +13,29 @@ import java.io.InputStream;
  */
 public interface TestResourceProvider {
 
+	/**
+	 * Returns all known resource names.
+	 * 
+	 * @return
+	 */
 	String[] getResourceNames();
 
+	/**
+	 * Opens a specific named resource. This should return an {@link InputStream} at the start of the data of the
+	 * respective resources, and it is only expected to work if the resource is one of those enumerated by a call to
+	 * {@link #getResourceNames()}.
+	 * 
+	 * @param aResourceName
+	 *            the resource to be opened
+	 * @return an {@link InputStream} to read the resource
+	 */
 	InputStream openResource(String aResourceName);
 
+	/**
+	 * Returns the classloader to use for all dynamic class resolving needs.
+	 * 
+	 * @return the classloader to use
+	 */
 	ClassLoader getClassLoader();
 
 }

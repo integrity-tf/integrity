@@ -12,12 +12,33 @@ import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
  */
 public abstract class TestComparisonResult {
 
+	/**
+	 * The name of the parameter in which the comparison expected result was given. May be null if this was the default
+	 * test result.
+	 */
 	private String parameter;
 
+	/**
+	 * The actual result as returned by the fixture.
+	 */
 	private Object result;
 
+	/**
+	 * The expected result value.
+	 */
 	private ValueOrEnumValueCollection expectedValue;
 
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aParameter
+	 *            The name of the parameter in which the comparison expected result was given. May be null if this was
+	 *            the default test result.
+	 * @param aResult
+	 *            The actual result as returned by the fixture
+	 * @param anExpectedValue
+	 *            the expected result value
+	 */
 	public TestComparisonResult(String aParameter, Object aResult, ValueOrEnumValueCollection anExpectedValue) {
 		parameter = aParameter;
 		result = aResult;
@@ -36,6 +57,7 @@ public abstract class TestComparisonResult {
 		return expectedValue;
 	}
 
+	@Override
 	public String toString() {
 		if (result != null) {
 			return result.toString();

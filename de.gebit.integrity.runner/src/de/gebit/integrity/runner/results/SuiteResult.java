@@ -18,20 +18,53 @@ import de.gebit.integrity.runner.results.test.TestResult;
  */
 public class SuiteResult extends Result {
 
+	/**
+	 * Map of suite definitions to respective results. This map contains the setup suites.
+	 */
 	private Map<SuiteDefinition, Result> setupResults;
 
+	/**
+	 * Map of suite definitions to respective results. This map contains teardown suites.
+	 */
 	private Map<SuiteDefinition, Result> tearDownResults;
 
+	/**
+	 * Map of suite statements to results.
+	 */
 	private Map<SuiteStatementWithResult, Result> statementResults;
 
+	/**
+	 * Set of all results.
+	 */
 	private Set<Result> results;
 
+	/**
+	 * Number of failed tests. Calculated on demand.
+	 */
 	private Integer testFailCount;
 
+	/**
+	 * Number of successful tests. Calculated on demand.
+	 */
 	private Integer testSuccessCount;
 
+	/**
+	 * Number of tests that threw an exception. Calculated on demand.
+	 */
 	private Integer testExceptionCount;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param someStatementResults
+	 *            map of statements to results
+	 * @param someSetupResults
+	 *            map of setup suites to results
+	 * @param someTearDownResults
+	 *            map of teardown suites to results
+	 * @param anExecutionTime
+	 *            the total time to execute the whole suite
+	 */
 	public SuiteResult(Map<SuiteStatementWithResult, Result> someStatementResults,
 			Map<SuiteDefinition, Result> someSetupResults, Map<SuiteDefinition, Result> someTearDownResults,
 			Long anExecutionTime) {
@@ -64,6 +97,11 @@ public class SuiteResult extends Result {
 		return tearDownResults;
 	}
 
+	/**
+	 * Returns the number of failed tests in this suite and all sub-suites.
+	 * 
+	 * @return number of tests that failed
+	 */
 	public int getTestFailCount() {
 		if (testFailCount == null) {
 			int tempCount = 0;
@@ -80,6 +118,11 @@ public class SuiteResult extends Result {
 		return testFailCount;
 	}
 
+	/**
+	 * Returns the number of successful tests in this suite and all sub-suites.
+	 * 
+	 * @return the number of successful tests
+	 */
 	public int getTestSuccessCount() {
 		if (testSuccessCount == null) {
 			int tempCount = 0;
@@ -96,6 +139,11 @@ public class SuiteResult extends Result {
 		return testSuccessCount;
 	}
 
+	/**
+	 * Returns the number of tests that threw an exception in this suite and all sub-suites.
+	 * 
+	 * @return the number of tests throwing an exception
+	 */
 	public int getTestExceptionCount() {
 		if (testExceptionCount == null) {
 			int tempCount = 0;

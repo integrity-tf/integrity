@@ -13,14 +13,28 @@ import java.util.Map;
  */
 public class TestExceptionSubResult extends TestSubResult {
 
+	/**
+	 * The exception that occurred.
+	 */
 	private Exception exception;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param anException
+	 *            The exception that occurred
+	 * @param aComparisonResult
+	 *            Map of result names to the respective comparison
+	 * @param anExecutionTime
+	 *            Time taken to execute the test method
+	 */
 	public TestExceptionSubResult(Exception anException, Map<String, TestComparisonResult> aComparisonResult,
 			Long anExecutionTime) {
 		super(aComparisonResult, anExecutionTime);
 		exception = anException;
 	}
 
+	@Override
 	public String toString() {
 		ByteArrayOutputStream tempOut = new ByteArrayOutputStream();
 		PrintWriter tempWriter = new PrintWriter(tempOut);

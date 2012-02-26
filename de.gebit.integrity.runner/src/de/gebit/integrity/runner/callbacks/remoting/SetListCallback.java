@@ -55,20 +55,51 @@ import de.gebit.integrity.utils.TestFormatter;
  */
 public class SetListCallback extends TestRunnerCallback {
 
+	/**
+	 * Classloader to use.
+	 */
 	private ClassLoader classLoader;
 
+	/**
+	 * The remoting server.
+	 */
 	private IntegrityRemotingServer remotingServer;
 
+	/**
+	 * The formatter to use when creating test description strings.
+	 */
 	private TestFormatter formatter;
 
+	/**
+	 * The setlist that this callback is updating.
+	 */
 	private SetList setList;
 
+	/**
+	 * Stack of {@link SetListEntry}s. The stack grows when entering suites, and shrinks when returning from sub-suites.
+	 */
 	private Stack<SetListEntry> entryStack = new Stack<SetListEntry>();
 
+	/**
+	 * The variable storage map.
+	 */
 	private Map<VariableEntity, Object> variableStorage;
 
+	/**
+	 * Format used for execution time.
+	 */
 	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aSetList
+	 *            the setlist to update
+	 * @param aRemotingServer
+	 *            the remoting server to use
+	 * @param aClassLoader
+	 *            the classloader to use
+	 */
 	public SetListCallback(SetList aSetList, IntegrityRemotingServer aRemotingServer, ClassLoader aClassLoader) {
 		classLoader = aClassLoader;
 		formatter = new TestFormatter(classLoader);
@@ -190,6 +221,20 @@ public class SetListCallback extends TestRunnerCallback {
 		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
 	}
 
+	/**
+	 * This method is used to perform the actual sub-test result parsing, both for normal tests and tabletests (with the
+	 * latter having more than one subtest).
+	 * 
+	 * @param aMethod
+	 *            the fixture method
+	 * @param aTestEntry
+	 *            the setlist entry for the test
+	 * @param aSubResult
+	 *            the sub-result to analyze
+	 * @param aParameterMap
+	 *            the parameters given to the test method
+	 * @return a list of newly generated setlist entries
+	 */
 	protected List<SetListEntry> onAnyKindOfSubTestFinish(MethodReference aMethod, SetListEntry aTestEntry,
 			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
@@ -388,6 +433,17 @@ public class SetListCallback extends TestRunnerCallback {
 		sendUpdateToClients(null, tempNewEntry);
 	}
 
+	/**
+	 * Adds information about the fixture method being called and the parameters given to it to a test or call entry.
+	 * 
+	 * @param aMethod
+	 *            the fixture method
+	 * @param aParamList
+	 *            the parameters
+	 * @param anEntry
+	 *            the entry to add the information to
+	 * @return the setlist entries created for the parameters
+	 */
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
 			SetListEntry anEntry) {
 		try {
@@ -423,12 +479,31 @@ public class SetListCallback extends TestRunnerCallback {
 		return tempResultArray;
 	}
 
+	/**
+	 * Sends a setlist entry update to all clients of the remoting server.
+	 * 
+	 * @param anEntryInExecution
+	 *            the entry that is currently in execution (may be null if that information shouldn't be included)
+	 * @param someUpdatedEntries
+	 *            the actual updated entries
+	 */
 	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		if (remotingServer != null && !isDryRun()) {
 			remotingServer.updateSetList(anEntryInExecution, someUpdatedEntries);
 		}
 	}
 
+	/**
+	 * Sends a setlist entry update to all clients of the remoting server. This is a convenience method and behaves much
+	 * like {@link #sendUpdateToClients(Integer, SetListEntry...)}.
+	 * 
+	 * @param anEntryInExecution
+	 *            the entry that is currently in execution (may be null if that information shouldn't be included)
+	 * @param aSingleEntry
+	 *            one single updated entry
+	 * @param someMoreEntries
+	 *            more updated entries
+	 */
 	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry aSingleEntry,
 			SetListEntry[] someMoreEntries) {
 		SetListEntry[] tempCombined = new SetListEntry[someMoreEntries.length + 1];
@@ -437,6 +512,13 @@ public class SetListCallback extends TestRunnerCallback {
 		sendUpdateToClients(anEntryInExecution, tempCombined);
 	}
 
+	/**
+	 * Utility method to convert a stack trace to a string to be included in a setlist entry.
+	 * 
+	 * @param anException
+	 *            the exception from which to take the stack trace
+	 * @return the formatted trace string
+	 */
 	protected static String stackTraceToString(Throwable anException) {
 		String tempResult = null;
 		StringWriter tempStringWriter = null;
@@ -461,6 +543,13 @@ public class SetListCallback extends TestRunnerCallback {
 		return tempResult;
 	}
 
+	/**
+	 * Converts a nanosecond time value into a string according to the {@link #EXECUTION_TIME_FORMAT}.
+	 * 
+	 * @param aNanosecondValue
+	 *            the time value
+	 * @return the formatted string
+	 */
 	protected static String nanoTimeToString(long aNanosecondValue) {
 		return EXECUTION_TIME_FORMAT.format(((double) aNanosecondValue) / 1000000.0);
 	}
