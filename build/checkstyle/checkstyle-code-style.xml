@@ -13,10 +13,6 @@
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
     <module name="FileContentsHolder"/>
-    <module name="PackageHtml">
-      <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
-    </module>
     <module name="JavadocMethod">
       <property name="severity" value="warning"/>
       <property name="scope" value="protected"/>
