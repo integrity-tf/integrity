@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>integrity</module>
-    <module>targetplatforms</module>
+    <module>targetplatform</module>
   </modules>
   <build>
     <plugins>
