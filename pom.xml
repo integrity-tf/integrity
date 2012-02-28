@@ -7,7 +7,6 @@
   <version>0.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-  	<module>integrity</module>
     <module>de.gebit.integrity.dsl</module>
     <module>de.gebit.integrity.dsl.ui</module>
     <module>de.gebit.integrity.eclipse</module>
