@@ -108,100 +108,148 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 */
 	private Stack<Element> currentElement = new Stack<Element>();
 
+	/** The Constant ROOT_ELEMENT. */
 	private static final String ROOT_ELEMENT = "integrity";
 
+	/** The Constant TEST_RUN_NAME_ATTRIBUTE. */
 	private static final String TEST_RUN_NAME_ATTRIBUTE = "name";
 
+	/** The Constant TEST_RUN_TIMESTAMP. */
 	private static final String TEST_RUN_TIMESTAMP = "timestamp";
 
+	/** The Constant TEST_RUN_TIMESTAMP_ISO8601. */
 	private static final String TEST_RUN_TIMESTAMP_ISO8601 = "isotimestamp";
 
+	/** The Constant TEST_RUN_DURATION. */
 	private static final String TEST_RUN_DURATION = "duration";
 
+	/** The Constant SUITE_ELEMENT. */
 	private static final String SUITE_ELEMENT = "suite";
 
+	/** The Constant SUITE_NAME_ATTRIBUTE. */
 	private static final String SUITE_NAME_ATTRIBUTE = "name";
 
+	/** The Constant VARIABLE_DEFINITION_COLLECTION_ELEMENT. */
 	private static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
 
+	/** The Constant STATEMENT_COLLECTION_ELEMENT. */
 	private static final String STATEMENT_COLLECTION_ELEMENT = "statements";
 
+	/** The Constant SETUP_COLLECTION_ELEMENT. */
 	private static final String SETUP_COLLECTION_ELEMENT = "setup";
 
+	/** The Constant TEARDOWN_COLLECTION_ELEMENT. */
 	private static final String TEARDOWN_COLLECTION_ELEMENT = "teardown";
 
+	/** The Constant TEST_ELEMENT. */
 	private static final String TEST_ELEMENT = "test";
 
+	/** The Constant TABLETEST_ELEMENT. */
 	private static final String TABLETEST_ELEMENT = "tabletest";
 
+	/** The Constant CALL_ELEMENT. */
 	private static final String CALL_ELEMENT = "call";
 
+	/** The Constant RESULT_ELEMENT. */
 	private static final String RESULT_ELEMENT = "result";
 
+	/** The Constant RESULT_COLLECTION_ELEMENT. */
 	private static final String RESULT_COLLECTION_ELEMENT = "results";
 
+	/** The Constant VARIABLE_UPDATE_ELEMENT. */
 	private static final String VARIABLE_UPDATE_ELEMENT = "variableUpdate";
 
+	/** The Constant VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE. */
 	private static final String VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE = "parameter";
 
+	/** The Constant COMPARISON_ELEMENT. */
 	private static final String COMPARISON_ELEMENT = "comparison";
 
+	/** The Constant COMPARISON_COLLECTION_ELEMENT. */
 	private static final String COMPARISON_COLLECTION_ELEMENT = "comparisons";
 
+	/** The Constant COMPARISON_NAME_ATTRIBUTE. */
 	private static final String COMPARISON_NAME_ATTRIBUTE = "name";
 
+	/** The Constant VARIABLE_NAME_ATTRIBUTE. */
 	private static final String VARIABLE_NAME_ATTRIBUTE = "name";
 
+	/** The Constant VARIABLE_ELEMENT. */
 	private static final String VARIABLE_ELEMENT = "variable";
 
+	/** The Constant COMMENT_ELEMENT. */
 	private static final String COMMENT_ELEMENT = "comment";
 
+	/** The Constant COMMENT_TEXT_ATTRIBUTE. */
 	private static final String COMMENT_TEXT_ATTRIBUTE = "text";
 
+	/** The Constant PARAMETER_COLLECTION_ELEMENT. */
 	private static final String PARAMETER_COLLECTION_ELEMENT = "parameters";
 
+	/** The Constant PARAMETER_ELEMENT. */
 	private static final String PARAMETER_ELEMENT = "parameter";
 
+	/** The Constant PARAMETER_NAME_ATTRIBUTE. */
 	private static final String PARAMETER_NAME_ATTRIBUTE = "name";
 
+	/** The Constant PARAMETER_VALUE_ATTRIBUTE. */
 	private static final String PARAMETER_VALUE_ATTRIBUTE = "value";
 
+	/** The Constant VARIABLE_VALUE_ATTRIBUTE. */
 	private static final String VARIABLE_VALUE_ATTRIBUTE = "value";
 
+	/** The Constant RESULT_EXPECTED_VALUE_ATTRIBUTE. */
 	private static final String RESULT_EXPECTED_VALUE_ATTRIBUTE = "expectedValue";
 
+	/** The Constant RESULT_REAL_VALUE_ATTRIBUTE. */
 	private static final String RESULT_REAL_VALUE_ATTRIBUTE = "value";
 
+	/** The Constant RESULT_TYPE_ATTRIBUTE. */
 	private static final String RESULT_TYPE_ATTRIBUTE = "type";
 
+	/** The Constant RESULT_TYPE_SUCCESS. */
 	private static final String RESULT_TYPE_SUCCESS = "success";
 
+	/** The Constant RESULT_TYPE_FAILURE. */
 	private static final String RESULT_TYPE_FAILURE = "failure";
 
+	/** The Constant RESULT_TYPE_EXCEPTION. */
 	private static final String RESULT_TYPE_EXCEPTION = "exception";
 
+	/** The Constant RESULT_EXCEPTION_MESSAGE_ATTRIBUTE. */
 	private static final String RESULT_EXCEPTION_MESSAGE_ATTRIBUTE = "exceptionMessage";
 
+	/** The Constant RESULT_EXCEPTION_TRACE_ATTRIBUTE. */
 	private static final String RESULT_EXCEPTION_TRACE_ATTRIBUTE = "exceptionTrace";
 
+	/** The Constant EXECUTION_DURATION_ATTRIBUTE. */
 	private static final String EXECUTION_DURATION_ATTRIBUTE = "duration";
 
+	/** The Constant SUCCESS_COUNT_ATTRIBUTE. */
 	private static final String SUCCESS_COUNT_ATTRIBUTE = "successCount";
 
+	/** The Constant FAILURE_COUNT_ATTRIBUTE. */
 	private static final String FAILURE_COUNT_ATTRIBUTE = "failureCount";
 
+	/** The Constant EXCEPTION_COUNT_ATTRIBUTE. */
 	private static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
 
+	/** The Constant FIXTURE_DESCRIPTION_ATTRIBUTE. */
 	private static final String FIXTURE_DESCRIPTION_ATTRIBUTE = "description";
 
+	/** The Constant TEST_NAME_ELEMENT. */
 	private static final String TEST_NAME_ELEMENT = "name";
 
+	/** The Constant CALL_NAME_ELEMENT. */
 	private static final String CALL_NAME_ELEMENT = "name";
 
+	/** The Constant FIXTURE_METHOD_ATTRIBUTE. */
 	private static final String FIXTURE_METHOD_ATTRIBUTE = "fixture";
 
+	/** The Constant FORK_NAME_ATTRIBUTE. */
 	private static final String FORK_NAME_ATTRIBUTE = "forkName";
 
+	/** The Constant FORK_DESCRIPTION_ATTRIBUTE. */
 	private static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
 
 	/**
@@ -245,6 +293,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
 	}
 
+	/**
+	 * On execution start.
+	 * 
+	 * @param aModel
+	 *            the a model
+	 * @param aVariableMap
+	 *            the a variable map
+	 */
 	@Override
 	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
@@ -282,6 +338,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		executionStartTime = System.nanoTime();
 	}
 
+	/**
+	 * On suite start.
+	 * 
+	 * @param aSuite
+	 *            the a suite
+	 */
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
@@ -311,6 +373,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onSuiteStart(Suite)}.
 	 * 
 	 * @param aSuiteElement
+	 *            the a suite element
 	 */
 	protected void internalOnSuiteStart(Element aSuiteElement) {
 		Element tempParentStatementElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -323,6 +386,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aSuiteElement);
 	}
 
+	/**
+	 * On setup start.
+	 * 
+	 * @param aSetupSuite
+	 *            the a setup suite
+	 */
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
@@ -342,12 +411,21 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onSetupStart(SuiteDefinition)}.
 	 * 
 	 * @param aSetupElement
+	 *            the a setup element
 	 */
 	protected void internalOnSetupStart(Element aSetupElement) {
 		currentElement.peek().getChild(SETUP_COLLECTION_ELEMENT).addContent(aSetupElement);
 		currentElement.push(aSetupElement);
 	}
 
+	/**
+	 * On setup finish.
+	 * 
+	 * @param aSetupSuite
+	 *            the a setup suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -373,11 +451,18 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onSetupFinish(SuiteDefinition, SuiteResult)}.
 	 * 
 	 * @param aSuiteResultElement
+	 *            the a suite result element
 	 */
 	protected void internalOnSetupFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On test start.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 */
 	@Override
 	public void onTestStart(Test aTest) {
 		Element tempTestElement = new Element(TEST_ELEMENT);
@@ -404,6 +489,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTestStart(Test)}.
 	 * 
 	 * @param aTestElement
+	 *            the a test element
 	 */
 	protected void internalOnTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -411,6 +497,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aTestElement);
 	}
 
+	/**
+	 * On table test start.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 */
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
@@ -437,6 +529,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTableTestStart(TableTest)}.
 	 * 
 	 * @param aTestElement
+	 *            the a test element
 	 */
 	protected void internalOnTableTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -447,6 +540,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(tempResultCollectionElement);
 	}
 
+	/**
+	 * On test finish.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
@@ -476,16 +577,35 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTestFinish(Test, TestResult)}.
 	 * 
 	 * @param aResultCollectionElement
+	 *            the a result collection element
 	 */
 	protected void internalOnTestFinish(Element aResultCollectionElement) {
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
+	/**
+	 * On table test row start.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aRow
+	 *            the a row
+	 */
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		// nothing to do here
 	}
 
+	/**
+	 * On table test row finish.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aRow
+	 *            the a row
+	 * @param aSubResult
+	 *            the a sub result
+	 */
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
@@ -494,6 +614,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On table test finish.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
 		if (!isDryRun()) {
@@ -518,6 +646,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTableTestFinish(TableTest, TestResult)}.
 	 * 
 	 * @param aResultCollectionElement
+	 *            the a result collection element
 	 */
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
 		currentElement.pop().addContent(aResultCollectionElement);
@@ -606,6 +735,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		aResultCollectionElement.addContent(tempTestResultElement);
 	}
 
+	/**
+	 * On call start.
+	 * 
+	 * @param aCall
+	 *            the a call
+	 */
 	@Override
 	public void onCallStart(Call aCall) {
 		Element tempCallElement = new Element(CALL_ELEMENT);
@@ -644,6 +779,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onCallStart(Call)}.
 	 * 
 	 * @param aCallElement
+	 *            the a call element
 	 */
 	protected void internalOnCallStart(Element aCallElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -651,6 +787,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aCallElement);
 	}
 
+	/**
+	 * On call finish.
+	 * 
+	 * @param aCall
+	 *            the a call
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
 		Element tempCallResultElement = null;
@@ -700,6 +844,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onCallFinish(Call, CallResult)}.
 	 * 
 	 * @param aCallResultElement
+	 *            the a call result element
 	 */
 	protected void internalOnCallFinish(Element aCallResultElement) {
 		if (aCallResultElement != null) {
@@ -709,6 +854,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop();
 	}
 
+	/**
+	 * On tear down start.
+	 * 
+	 * @param aTearDownSuite
+	 *            the a tear down suite
+	 */
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
@@ -728,12 +879,21 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTearDownStart(SuiteDefinition)}.
 	 * 
 	 * @param aTearDownElement
+	 *            the a tear down element
 	 */
 	protected void internalOnTearDownStart(Element aTearDownElement) {
 		currentElement.peek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(aTearDownElement);
 		currentElement.push(aTearDownElement);
 	}
 
+	/**
+	 * On tear down finish.
+	 * 
+	 * @param aTearDownSuite
+	 *            the a tear down suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -759,11 +919,20 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onTearDownFinish(SuiteDefinition, SuiteResult)}.
 	 * 
 	 * @param aSuiteResultElement
+	 *            the a suite result element
 	 */
 	protected void internalOnTearDownFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On suite finish.
+	 * 
+	 * @param aSuite
+	 *            the a suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -789,11 +958,20 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onSuiteFinish(Suite, SuiteResult)}.
 	 * 
 	 * @param aSuiteResultElement
+	 *            the a suite result element
 	 */
 	protected void internalOnSuiteFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On execution finish.
+	 * 
+	 * @param aModel
+	 *            the a model
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
 		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
@@ -819,6 +997,16 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On variable definition.
+	 * 
+	 * @param aDefinition
+	 *            the a definition
+	 * @param aSuite
+	 *            the a suite
+	 * @param anInitialValue
+	 *            the an initial value
+	 */
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
@@ -841,12 +1029,19 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onVariableDefinition(VariableEntity, SuiteDefinition, Object)}.
 	 * 
 	 * @param aVariableElement
+	 *            the a variable element
 	 */
 	protected void internalOnVariableDefinition(Element aVariableElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
+	/**
+	 * On visible comment.
+	 * 
+	 * @param aCommentText
+	 *            the a comment text
+	 */
 	@Override
 	public void onVisibleComment(String aCommentText) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
@@ -864,6 +1059,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * Internal version of {@link #onVisibleComment(String)}.
 	 * 
 	 * @param aCommentElement
+	 *            the a comment element
 	 */
 	protected void internalOnVisibleComment(Element aCommentElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -924,6 +1120,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
+	/**
+	 * On message from fork.
+	 * 
+	 * @param aMethod
+	 *            the a method
+	 * @param someObjects
+	 *            the some objects
+	 */
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];
