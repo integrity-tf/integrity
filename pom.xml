@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.gebit.integrity</groupId>
-  <artifactId>integrity</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <artifactId>integrity-main-collection</artifactId>
+  <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
     <module>de.gebit.integrity.dsl</module>
