@@ -11,6 +11,12 @@ import java.util.List;
  */
 public class UndeterminedResult extends CallResult {
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param someVariablesToUpdate
+	 *            any variables to be updated by the call
+	 */
 	public UndeterminedResult(List<UpdatedVariable> someVariablesToUpdate) {
 		super(someVariablesToUpdate, null);
 	}

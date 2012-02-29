@@ -14,8 +14,19 @@ import de.gebit.integrity.runner.results.Result;
  */
 public abstract class TestSubResult extends Result {
 
+	/**
+	 * The comparison results, mapped by the respective parameter name.
+	 */
 	private Map<String, TestComparisonResult> comparisonResults;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param someComparisonResults
+	 *            the comparison results
+	 * @param anExecutionTime
+	 *            the time taken to execute the fixture method
+	 */
 	public TestSubResult(Map<String, TestComparisonResult> someComparisonResults, Long anExecutionTime) {
 		super(anExecutionTime);
 		this.comparisonResults = someComparisonResults;
@@ -25,6 +36,11 @@ public abstract class TestSubResult extends Result {
 		return comparisonResults;
 	}
 
+	/**
+	 * Whether this sub-result is yet undetermined.
+	 * 
+	 * @return true if undetermined, false otherwise
+	 */
 	public boolean isUndetermined() {
 		if (comparisonResults == null) {
 			return true;
@@ -38,6 +54,11 @@ public abstract class TestSubResult extends Result {
 		}
 	}
 
+	/**
+	 * Whether all comparisons performed in this sub-result have been successful.
+	 * 
+	 * @return true if all comparisons passed, false otherwise
+	 */
 	public boolean wereAllComparisonsSuccessful() {
 		if (comparisonResults == null) {
 			return false;

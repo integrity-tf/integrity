@@ -62,22 +62,50 @@ import de.gebit.integrity.utils.TestFormatter;
  */
 public class XmlWriterTestCallback extends TestRunnerCallback {
 
+	/**
+	 * The classloader to use.
+	 */
 	private ClassLoader classLoader;
 
+	/**
+	 * The test formatter to use when creating test/call descriptions.
+	 */
 	private TestFormatter formatter;
 
+	/**
+	 * The variable storage used to store variables during execution.
+	 */
 	private Map<VariableEntity, Object> variableStorage;
 
+	/**
+	 * The XML document that will be created.
+	 */
 	private Document document;
 
+	/**
+	 * The file in which to serialize the document.
+	 */
 	private File outputFile;
 
+	/**
+	 * The title of the result document.
+	 */
 	private String title;
 
+	/**
+	 * The timestamp of execution start.
+	 */
 	private long executionStartTime;
 
+	/**
+	 * Whether the XSLT transformation script that transforms the XML result data into a viewable XHTML document shall
+	 * be embedded into the result.
+	 */
 	private boolean embedXhtmlTransform;
 
+	/**
+	 * The stack of elements.
+	 */
 	private Stack<Element> currentElement = new Stack<Element>();
 
 	private static final String ROOT_ELEMENT = "integrity";
@@ -176,16 +204,38 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	private static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
 
+	/**
+	 * The time format used to format execution times.
+	 */
 	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
+	/**
+	 * The generally used date format.
+	 */
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
 
+	/**
+	 * The ISO-standardized date format (this is mostly added to the XML to allow for easy transformation into a
+	 * JUnit-compatible result XML.
+	 */
 	private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	static {
 		EXECUTION_TIME_FORMAT.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 	}
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aClassLoader
+	 *            the classloader to use
+	 * @param anOutputFile
+	 *            the file to write the result into
+	 * @param aTitle
+	 *            the title of the result
+	 * @param anEmbedXhtmlTransformFlag
+	 *            whether an XSLT script which transforms the raw result data into viewable XHTML shall be included
+	 */
 	public XmlWriterTestCallback(ClassLoader aClassLoader, File anOutputFile, String aTitle,
 			boolean anEmbedXhtmlTransformFlag) {
 		classLoader = aClassLoader;
@@ -257,6 +307,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onSuiteStart(Suite)}.
+	 * 
+	 * @param aSuiteElement
+	 */
 	protected void internalOnSuiteStart(Element aSuiteElement) {
 		Element tempParentStatementElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		if (tempParentStatementElement == null) {
@@ -283,6 +338,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onSetupStart(SuiteDefinition)}.
+	 * 
+	 * @param aSetupElement
+	 */
 	protected void internalOnSetupStart(Element aSetupElement) {
 		currentElement.peek().getChild(SETUP_COLLECTION_ELEMENT).addContent(aSetupElement);
 		currentElement.push(aSetupElement);
@@ -309,6 +369,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onSetupFinish(SuiteDefinition, SuiteResult)}.
+	 * 
+	 * @param aSuiteResultElement
+	 */
 	protected void internalOnSetupFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
@@ -335,6 +400,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTestStart(Test)}.
+	 * 
+	 * @param aTestElement
+	 */
 	protected void internalOnTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aTestElement);
@@ -363,6 +433,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTableTestStart(TableTest)}.
+	 * 
+	 * @param aTestElement
+	 */
 	protected void internalOnTableTestStart(Element aTestElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aTestElement);
@@ -397,6 +472,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTestFinish(Test, TestResult)}.
+	 * 
+	 * @param aResultCollectionElement
+	 */
 	protected void internalOnTestFinish(Element aResultCollectionElement) {
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
@@ -434,10 +514,27 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTableTestFinish(TableTest, TestResult)}.
+	 * 
+	 * @param aResultCollectionElement
+	 */
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
+	/**
+	 * Used to write sub-test results.
+	 * 
+	 * @param aMethod
+	 *            the method executed
+	 * @param aResultCollectionElement
+	 *            the result element
+	 * @param aSubResult
+	 *            the sub-result to write
+	 * @param aParameterMap
+	 *            the parameters
+	 */
 	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, Element aResultCollectionElement,
 			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		Element tempTestResultElement = new Element(RESULT_ELEMENT);
@@ -543,6 +640,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onCallStart(Call)}.
+	 * 
+	 * @param aCallElement
+	 */
 	protected void internalOnCallStart(Element aCallElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCallElement);
@@ -594,6 +696,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onCallFinish(Call, CallResult)}.
+	 * 
+	 * @param aCallResultElement
+	 */
 	protected void internalOnCallFinish(Element aCallResultElement) {
 		if (aCallResultElement != null) {
 			currentElement.peek().addContent(aCallResultElement);
@@ -617,6 +724,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTearDownStart(SuiteDefinition)}.
+	 * 
+	 * @param aTearDownElement
+	 */
 	protected void internalOnTearDownStart(Element aTearDownElement) {
 		currentElement.peek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(aTearDownElement);
 		currentElement.push(aTearDownElement);
@@ -643,6 +755,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onTearDownFinish(SuiteDefinition, SuiteResult)}.
+	 * 
+	 * @param aSuiteResultElement
+	 */
 	protected void internalOnTearDownFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
@@ -668,6 +785,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onSuiteFinish(Suite, SuiteResult)}.
+	 * 
+	 * @param aSuiteResultElement
+	 */
 	protected void internalOnSuiteFinish(Element aSuiteResultElement) {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
@@ -715,6 +837,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onVariableDefinition(VariableEntity, SuiteDefinition, Object)}.
+	 * 
+	 * @param aVariableElement
+	 */
 	protected void internalOnVariableDefinition(Element aVariableElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aVariableElement);
@@ -733,11 +860,23 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Internal version of {@link #onVisibleComment(String)}.
+	 * 
+	 * @param aCommentElement
+	 */
 	protected void internalOnVisibleComment(Element aCommentElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCommentElement);
 	}
 
+	/**
+	 * Formats a stack trace into a single string with line-breaks.
+	 * 
+	 * @param anException
+	 *            the exception from which to get the stack trace
+	 * @return the stack trace as a string
+	 */
 	protected static String stackTraceToString(Throwable anException) {
 		String tempResult = null;
 		StringWriter tempStringWriter = null;
@@ -762,10 +901,25 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		return tempResult;
 	}
 
+	/**
+	 * Converts a nanosecond time value into a string, according to {@link #EXECUTION_TIME_FORMAT}.
+	 * 
+	 * @param aNanosecondValue
+	 *            the time
+	 * @return the formatted string
+	 */
 	protected static String nanoTimeToString(long aNanosecondValue) {
 		return EXECUTION_TIME_FORMAT.format(((double) aNanosecondValue) / 1000000.0);
 	}
 
+	/**
+	 * Sends an XML element to the master {@link XmlWriterTestCallback}.
+	 * 
+	 * @param aMethod
+	 *            the method from which this is called
+	 * @param anElement
+	 *            the element to send
+	 */
 	protected void sendElementToMaster(TestRunnerCallbackMethods aMethod, Element anElement) {
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
