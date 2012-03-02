@@ -34,5 +34,20 @@
             file="contexts.xml">
       </contexts>
    </extension>
+   
+   <extension
+         point="org.eclipse.jdt.core.classpathContainerInitializer">
+         <classpathContainerInitializer
+       id="de.gebit.integrity.INTEGRITY_CONTAINER"
+       class="de.gebit.integrity.eclipse.classpath.IntegrityClasspathContainerInitializer"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.jdt.ui.classpathContainerPage">
+         <classpathContainerPage
+       id="de.gebit.integrity.INTEGRITY_CONTAINER"
+       name="Integrity Test Runner"
+       class="de.gebit.integrity.eclipse.classpath.IntegrityClasspathContainerPage"/>
+   </extension>
 
 </plugin>
