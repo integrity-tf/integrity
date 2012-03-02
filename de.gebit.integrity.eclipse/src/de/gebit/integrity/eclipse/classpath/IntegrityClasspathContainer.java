@@ -170,9 +170,8 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				// compiled classes
 				integrityDeveloperMachine = true;
 				return new Path(tempPathString + "target/classes/");
-			} else {
-				return new Path(tempPathString);
 			}
+			tempBundlePath = new Path(tempPathString);
 		}
 
 		Location tempInstallLocation = Platform.getInstallLocation();
