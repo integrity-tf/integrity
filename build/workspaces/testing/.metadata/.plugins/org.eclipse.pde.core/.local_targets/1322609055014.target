@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="Running Platform" sequenceNumber="4">
+<locations>
+<location configuration="/C:/ew/integrity/.metadata/.plugins/org.eclipse.pde.core/Integrity Plugin Test/" path="${eclipse_home}" type="Profile"/>
+</locations>
+<environment>
+<os>win32</os>
+<ws>win32</ws>
+<arch>x86_64</arch>
+<nl>de_DE</nl>
+</environment>
+<launcherArgs>
+<vmArgs>-Dosgi.requiredJavaVersion=1.5 -Xms40m -Xmx512m</vmArgs>
+</launcherArgs>
+</target>

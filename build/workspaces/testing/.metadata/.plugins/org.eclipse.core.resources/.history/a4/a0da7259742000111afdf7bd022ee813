@@ -1,0 +1,53 @@
+import mypackage.*
+import mypackage.deeper.*
+
+packagedef mysecondpackage with
+
+	variable packagevar
+	variable morePackageVars initially "String!!!"
+
+	suitedef additionSuite requires initSuite with
+ 
+		variable testvar initially 5
+		call random min:5 max:6 sets testvar
+
+		test addition summand1: 2 summand2: 3 = testvar
+		test addition summand1: testvar summand2: 1 = 7
+		
+		test echo echo: VALUE_ONE = VALUE_ONE
+		
+		test stupidtest
+		
+		suite anotherSuite
+		
+		suite suiteWithParams param1: testvar param2: yeah
+	
+	suiteend concludedby exitSuite
+	
+	suitedef anotherSuite requires initSuite with
+	
+		variable testvar initially 5
+		call random min:5 max:6 sets testvar
+	
+	suiteend concludedby exitSuite
+	
+	suitedef suiteWithParams gets param1 param2 with
+	
+		variable nothing
+		call random min: param1 max: param2 sets nothing
+	
+	suiteend
+	
+	suitedef initSuite with
+		
+		test addition summand1: 8 summand2: 1 = 9
+		
+	suiteend
+	
+	suitedef exitSuite with
+	
+		test addition summand1: 5 summand2: 2 = 7
+		
+	suiteend
+
+packageend

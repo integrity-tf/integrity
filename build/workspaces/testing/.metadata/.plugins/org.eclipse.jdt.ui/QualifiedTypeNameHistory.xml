@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+<fullyQualifiedTypeName name="de.integrity.experiments.fixtures.AdditionFixture.NamedResultContainer"/>
+<fullyQualifiedTypeName name="de.integrity.fixtures.FixtureMethod"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.Fixture"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureMethod"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureParameter"/>
+</qualifiedTypeNameHistroy>

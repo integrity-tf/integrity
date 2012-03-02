@@ -1,0 +1,21 @@
+packagedef mypackage with
+
+	testdef addition uses de.integrity.experiments.fixtures.AdditionFixture#addition
+
+	calldef random uses de.integrity.experiments.fixtures.AdditionFixture#randomNumber
+	
+	testdef echo uses de.integrity.experiments.fixtures.AdditionFixture#returnValue
+
+	testdef stupidtest uses de.integrity.experiments.fixtures.AdditionFixture#returnTrue
+	
+	testdef arbitrary uses de.integrity.experiments.fixtures.ArbitraryParamFixture#addition
+	
+	variable dummy initially 2
+
+packageend
+
+packagedef mypackage.deeper with
+
+	variable yeah initially 10
+
+packageend

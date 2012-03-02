@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench version="2.0">
+<workbenchAdvisor/>
+<window height="607" maximized="true" width="1487" x="166" y="132">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout>
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="122" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="124" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="122" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="133" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="185" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="de.gebit.integrity.DSL" itemType="typeToolBarContribution" x="37" y="22"/>
+<coolItem id="de.integrity.DSL" itemType="typeToolBarContribution" x="37" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1322615813077" focus="true" label="Workspace - Java">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor activePart="true" focus="true" id="de.gebit.integrity.DSL" name="full.integrity" partName="full.integrity" path="C:/ew/integrity/de.gebit.integrity.tests/integrity/full.integrity" title="full.integrity" tooltip="de.gebit.integrity.tests/integrity/full.integrity" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
+<viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Errors (100 of 117 items)"/>
+</expanded>
+<columnWidths org.eclipse.ui.ide.locationField="75" org.eclipse.ui.ide.markerType="75" org.eclipse.ui.ide.pathField="285" org.eclipse.ui.ide.resourceField="75" org.eclipse.ui.ide.severityAndDescriptionField="489"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+<child filterId="org.eclipse.mylyn.java.ui.MembersFilter" isEnabled="false"/>
+<child filterId="org.eclipse.m2e.MavenModuleFilter" isEnabled="false"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView" partName="Integrity Test Runner">
+<viewState/>
+</view>
+<view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
+<viewState activate="true" allSessions="true" column2="463" column3="150" column4="150" error="true" groupBy="0" info="true" limit="50" ok="true" orderType="2" orderValue="-1" show_filter_text="true" useLimit="true" warning="true"/>
+</view>
+<view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
+<viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
+<sorter groupBy="CATEGORY_QUERY">&#x0A;<sorter>&#x0A;<sort0 sortDirection="1" sortKey="PRIORITY"/>
+<sort1 sortDirection="1" sortKey="RANK"/>
+<sort2 sortDirection="1" sortKey="DATE_CREATED"/>
+<sort3 sortDirection="1" sortKey="NONE"/>
+<sort4 sortDirection="1" sortKey="NONE"/>
+<sort5 sortDirection="1" sortKey="NONE"/>
+<sort6 sortDirection="1" sortKey="NONE"/>
+<sort7 sortDirection="1" sortKey="NONE"/>
+</sorter>
+</sorter>
+<filteredTreeFindHistory/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Tasks">
+<columnWidths org.eclipse.ui.ide.completionField="40" org.eclipse.ui.ide.descriptionField="250" org.eclipse.ui.ide.locationField="75" org.eclipse.ui.ide.markerType="75" org.eclipse.ui.ide.pathField="100" org.eclipse.ui.ide.priorityField="25" org.eclipse.ui.ide.resourceField="75"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.completionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.priorityField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.descriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+</views>
+<perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.views.BookmarkView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.PropertySheet"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.mylyn.tasks.ui.wizards.new.repository.task"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.team.cvs.ui.cvsPerspective"/>
+<perspective_action id="org.eclipse.team.ui.TeamSynchronizingPerspective"/>
+<perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="de.integrity.eclipse.views.IntegrityTestRunnerView" removed="true"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.team.ccvs.ui.RepositoriesView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="756" ratioRight="252" relationship="2" relative="topLeft">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.gef.ui.palette_view" ratio="0.1527861" ratioLeft="255" ratioRight="1414" relationship="2" relative="topLeft"/>
+<info folder="true" part="bottomRight" ratio="0.61409396" ratioLeft="549" ratioRight="345" relationship="4" relative="org.eclipse.gef.ui.palette_view">&#x0A;<folder activePageID="de.integrity.eclipse.views.IntegrityTestRunnerView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="de.integrity.eclipse.views.IntegrityTestRunnerView" label="Integrity Test Runner"/>
+<page content="org.eclipse.team.ui.GenericHistoryView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.15951742" ratioLeft="119" ratioRight="627" relationship="2" relative="org.eclipse.gef.ui.palette_view"/>
+<info folder="true" part="bottomLeft" ratio="0.49924126" ratioLeft="329" ratioRight="330" relationship="4" relative="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="Task List"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<alwaysOnActionSet id="com.instantiations.eclipse.analysis.similarcode.ui.ActionSet"/>
+<alwaysOnActionSet id="com.instantiations.assist.eclipse.codeproMenu"/>
+<alwaysOnActionSet id="com.instantiations.assist.eclipse.codeproMenu.dependency"/>
+<alwaysOnActionSet id="com.instantiations.assist.eclipse.codeproMenu.audit"/>
+<alwaysOnActionSet id="com.instantiations.assist.eclipse.codeproMenu.doc"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.texteditor.TemplatesView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="net.sourceforge.metrics.ui.MetricsView"/>
+<show_view_action id="net.sourceforge.metrics.ui.layeredpackagegraph.LayeredPackageTableView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewJavaWorkingSetWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
+<new_wizard_action id="org.eclipse.mylyn.tasks.ui.wizards.new.repository.task"/>
+<new_wizard_action id="org.eclipse.xtext.xtend2.ui.wizards.NewXtend2ClassWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.jdt.ui.JavadocView"/>
+<view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView"/>
+<view id="org.eclipse.pde.runtime.LogView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1434" ratioRight="478" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.2037148" ratioLeft="340" ratioRight="1329" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.53881276" ratioLeft="472" ratioRight="404" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.pde.runtime.LogView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView" label="Integrity Test Runner"/>
+<page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
+<page content="de.integrity.eclipse.views.IntegrityTestRunnerView" label="LabelNotFound"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@422db438" ratio="0.7496513" ratioLeft="1075" ratioRight="359" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.49928057" ratioLeft="347" ratioRight="348" relationship="4" relative="org.eclipse.ui.internal.ViewStack@422db438">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.egit.ui.RepositoriesView" ratio="0.59978426" ratioLeft="556" ratioRight="371" relationship="4" relative="left"/>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/AdditionFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.runner/src/de/gebit/integrity/runner/console/ConsoleTestExecutor.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArrayFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/AdditionFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.runner/src/de/gebit/integrity/runner/console/ConsoleTestExecutor.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArrayFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.project"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.project"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/de.gebit.integrity.tests/.classpath"/>
+</editors>
+<item historyLabel="anothertest.integrity" index="1">
+<position info="not_deleted" x="1367" y="0"/>
+</item>
+<item historyLabel="AdditionFixture.java" index="0">
+<position info="not_deleted" x="679" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamFixture.java" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="3">
+<position info="not_deleted" x="1186" y="0"/>
+</item>
+<item historyLabel="ConsoleTestExecutor.java" index="4">
+<position info="not_deleted" x="51" y="5"/>
+</item>
+<item historyLabel="anothertest.integrity" index="5">
+<position info="not_deleted" x="2438" y="0"/>
+</item>
+<item historyLabel="AdditionFixture.java" index="0">
+<position info="not_deleted" x="679" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="418" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="3">
+<position info="not_deleted" x="721" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="5">
+<position info="not_deleted" x="2438" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="547" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="599" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="621" y="0"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="6">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="3">
+<position info="not_deleted" x="1126" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="5">
+<position info="not_deleted" x="2438" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="3">
+<position info="not_deleted" x="1052" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="5">
+<position info="not_deleted" x="2383" y="0"/>
+</item>
+<item historyLabel="AdditionFixture.java" index="7">
+<position info="not_deleted" x="679" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamFixture.java" index="8">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="9">
+<position info="not_deleted" x="1052" y="0"/>
+</item>
+<item historyLabel="ConsoleTestExecutor.java" index="10">
+<position info="not_deleted" x="51" y="5"/>
+</item>
+<item historyLabel="ArrayFixture.java" index="11">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="5">
+<position info="not_deleted" x="2383" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".project" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="14">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".project" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="17">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".project" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="21">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="22">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="23">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="22">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="24">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="22">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="25">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="22">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="26">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="full.integrity" index="27">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel=".classpath" index="28">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="full.integrity" index="27">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+<trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name=".classpath" tooltip="de.gebit.integrity.tests/.classpath">
+<persistable path="/de.gebit.integrity.tests/.classpath"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name=".project" tooltip="de.gebit.integrity.tests/.project">
+<persistable path="/de.gebit.integrity.tests/.project"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" name="full.integrity" tooltip="de.gebit.integrity.tests/integrity/full.integrity">
+<persistable path="/de.gebit.integrity.tests/integrity/full.integrity"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArrayFixture.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArrayFixture.java">
+<persistable path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArrayFixture.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" name="anothertest.integrity" tooltip="de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity">
+<persistable path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConsoleTestExecutor.java" tooltip="de.gebit.integrity.runner/src/de/gebit/integrity/runner/console/ConsoleTestExecutor.java">
+<persistable path="/de.gebit.integrity.runner/src/de/gebit/integrity/runner/console/ConsoleTestExecutor.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" name="importtest.integrity" tooltip="de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity">
+<persistable path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbitraryParamFixture.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java">
+<persistable path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AdditionFixture.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/AdditionFixture.java">
+<persistable path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/AdditionFixture.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Fork.java" tooltip="de.gebit.integrity.runner/src/de/gebit/integrity/runner/forking/Fork.java">
+<persistable path="/de.gebit.integrity.runner/src/de/gebit/integrity/runner/forking/Fork.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="MANIFEST.MF" tooltip="de.gebit.integrity.dsl/META-INF/MANIFEST.MF">
+<persistable path="/de.gebit.integrity.dsl/META-INF/MANIFEST.MF"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AdditionFixture.java" tooltip="de.integrity.dsl.experimentation/src/de/integrity/experiments/fixtures/AdditionFixture.java">
+<persistable path="/de.integrity.dsl.experimentation/src/de/integrity/experiments/fixtures/AdditionFixture.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.integrity.DSL" name="importtest.integrity" tooltip="de.integrity.dsl.experimentation/src/folder/importtest.integrity">
+<persistable path="/de.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestEnum.java" tooltip="de.integrity.dsl.experimentation/src/de/integrity/experiments/fixtures/TestEnum.java">
+<persistable path="/de.integrity.dsl.experimentation/src/de/integrity/experiments/fixtures/TestEnum.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.integrity.DSL" name="anothertest.integrity" tooltip="de.integrity.dsl.experimentation/src/folder/anothertest.integrity">
+<persistable path="/de.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
+</file>
+</mruList>
+</workbench>
