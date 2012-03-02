@@ -1,0 +1,7 @@
+packagedef integrity.fixtures.basic.noop with
+
+	calldef de.gebit.integrity.tests.fixtures.basic.NoOpFixture#
+	
+	
+
+packageend

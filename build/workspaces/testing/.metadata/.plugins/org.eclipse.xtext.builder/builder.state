@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:builderState="http://www.eclipse.org/xtext/builderstate/1.0">
-  <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.tests/integrity/full.integrity"/>
+  <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.tests/integrity/full.integrity">
+    <exportedObjects fragment="//@statements.0" name="9:integrity">
+      <eClass href="http://integrity.dsl#//PackageDefinition"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@statements.0/@statements.0" name="9:integrity4:full">
+      <eClass href="http://integrity.dsl#//SuiteDefinition"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/full.integrity#//@statements.0/@statements.0/@statements.0" targetEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0" externalFormOfEReference="http://integrity.dsl&#xab;Suite&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/full.integrity#//@statements.0/@statements.0"/>
+    <importedNames>9:integrity5:basic18:simplefixturecalls</importedNames>
+  </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20110912-0920.jar!/model/XMLNamespace.ecore">
     <exportedObjects fragment="/" name="9:namespace">
       <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
@@ -4408,35 +4417,6 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/DSL.ecore#//MethodReference/type/@eGenericType" targetEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/DSL.ecore#//MethodReference/type"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/DSL.ecore#//MethodReference/method/@eGenericType" targetEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/DSL.ecore#//MethodReference/method"/>
   </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend">
-    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
-    </exportedObjects>
-    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
-    </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.0" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@implements.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-  </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/integrity/GenerateIntegrity.mwe2">
     <exportedObjects fragment="/" name="9:integrity17:GenerateIntegrity">
       <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
@@ -4945,6 +4925,35 @@
     <importedNames>3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
     <importedNames>2:de5:gebit9:integrity9:generator</importedNames>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend">
+    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.0" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@implements.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/target/classes/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20110912-0920.jar!/model/XMLType.ecore">
     <exportedObjects fragment="/" name="4:type">
@@ -7775,6 +7784,544 @@
     <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/Xtext.xtext#//@rules.41/@alternatives/@elements.0/@terminal/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20110912-0920.jar!/model/Ecore.ecore#//EEnumLiteral" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/Xtext.xtext#XtextFragmentProvider::org.eclipse.xtext.Xtext/EnumLiteralDeclaration"/>
     <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/Xtext.xtext#//@rules.41/@alternatives/@elements.0/@terminal/@terminal" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/common/Terminals.xtext#XtextFragmentProvider::org.eclipse.xtext.common.Terminals/ID" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;RuleCall&#xab;2" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/Xtext.xtext#XtextFragmentProvider::org.eclipse.xtext.Xtext/EnumLiteralDeclaration"/>
   </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2">
+    <exportedObjects fragment="/" name="9:integrity17:GenerateIntegrity">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.0" name="9:integrity17:GenerateIntegrity10:grammarURI">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.1" name="9:integrity17:GenerateIntegrity4:file10:extensions">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.2" name="9:integrity17:GenerateIntegrity11:projectName">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.3" name="9:integrity17:GenerateIntegrity14:runtimeProject">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setScanClassPath(boolean)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setPlatformUri(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.addRegisterGenModelFile(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
+    <importedNames>4:java4:lang9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:generator</importedNames>
+    <importedNames>4:java4:lang9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
+    <importedNames>9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>4:java4:lang8:workflow</importedNames>
+    <importedNames>4:java4:lang8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>10:formatting17:formatterfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity16:directorycleaner</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
+    <importedNames>2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:serializer18:serializerfragment</importedNames>
+    <importedNames>7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator9:generator</importedNames>
+    <importedNames>7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity8:workflow</importedNames>
+    <importedNames>7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
+    <importedNames>2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>5:junit14:junit4fragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>9:generator</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:generator</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>9:integrity15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>4:java4:lang7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>4:java4:lang15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>9:integrity8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>4:java4:lang5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator</importedNames>
+    <importedNames>4:java4:lang9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>9:integrity16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity15:standalonesetup</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>8:workflow</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>4:java4:lang9:generator</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>4:java4:lang5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity15:standalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
+    <importedNames>4:java4:lang9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>9:generator17:generatorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>4:java4:lang7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>4:java4:lang13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:generator</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
+    <importedNames>9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang8:quickfix24:quickfixproviderfragment</importedNames>
+    <importedNames>9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>4:java4:lang10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:generator</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
+    <importedNames>9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity9:generator</importedNames>
+    <importedNames>2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
+    <importedNames>4:java4:lang9:integrity5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
+    <importedNames>9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang9:integrity7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
+    <importedNames>4:java4:lang9:integrity15:standalonesetup</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:types22:typesgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>4:java4:lang6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>9:integrity9:generator</importedNames>
+    <importedNames>4:java4:lang7:compare15:comparefragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:formatting17:formatterfragment</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator</importedNames>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend">
+    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.0" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@implements.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+  </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src-gen/de/gebit/integrity/DSL.ecore">
     <exportedObjects fragment="/" name="3:dsl">
       <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
@@ -8678,543 +9225,18 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src-gen/de/gebit/integrity/DSL.ecore#//MethodReference/type/@eGenericType" targetEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src-gen/de/gebit/integrity/DSL.ecore#//MethodReference/type"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src-gen/de/gebit/integrity/DSL.ecore#//MethodReference/method/@eGenericType" targetEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src-gen/de/gebit/integrity/DSL.ecore#//MethodReference/method"/>
   </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend">
-    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
+  <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity">
+    <exportedObjects fragment="//@statements.0" name="9:integrity5:basic">
+      <eClass href="http://integrity.dsl#//PackageDefinition"/>
     </exportedObjects>
-    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
+    <exportedObjects fragment="//@statements.0/@statements.0" name="9:integrity5:basic18:simpleFixtureCalls">
+      <eClass href="http://integrity.dsl#//SuiteDefinition"/>
     </exportedObjects>
-    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
-    </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.0" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@implements.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-  </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2">
-    <exportedObjects fragment="/" name="9:integrity17:GenerateIntegrity">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
-    </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.0" name="9:integrity17:GenerateIntegrity10:grammarURI">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-    </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.1" name="9:integrity17:GenerateIntegrity4:file10:extensions">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-    </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.2" name="9:integrity17:GenerateIntegrity11:projectName">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-    </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.3" name="9:integrity17:GenerateIntegrity14:runtimeProject">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-    </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setScanClassPath(boolean)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setPlatformUri(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.addRegisterGenModelFile(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/integrity/GenerateIntegrity.mwe2#/"/>
-    <importedNames>4:java4:lang9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:generator</importedNames>
-    <importedNames>4:java4:lang9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
-    <importedNames>9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>4:java4:lang8:workflow</importedNames>
-    <importedNames>4:java4:lang8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>10:formatting17:formatterfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity16:directorycleaner</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
-    <importedNames>2:de5:gebit9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:serializer18:serializerfragment</importedNames>
-    <importedNames>7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator9:generator</importedNames>
-    <importedNames>7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity8:workflow</importedNames>
-    <importedNames>7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator16:directorycleaner</importedNames>
-    <importedNames>2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>5:junit14:junit4fragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>9:generator</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity9:generator</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>9:integrity15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>4:java4:lang7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>4:java4:lang15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>9:integrity8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>4:java4:lang5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator</importedNames>
-    <importedNames>4:java4:lang9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:serializer18:serializerfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity15:standalonesetup</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>8:workflow</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>4:java4:lang9:generator</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>4:java4:lang5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity15:standalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
-    <importedNames>4:java4:lang9:integrity13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>9:generator17:generatorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>4:java4:lang7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>4:java4:lang13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:generator</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
-    <importedNames>9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang8:quickfix24:quickfixproviderfragment</importedNames>
-    <importedNames>9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils13:grammaraccess21:grammaraccessfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>4:java4:lang10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator9:generator</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator11:refactoring27:refactorelementnamefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:generator</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity9:generator</importedNames>
-    <importedNames>2:de5:gebit9:integrity5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
-    <importedNames>4:java4:lang9:integrity5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator10:serializer18:serializerfragment</importedNames>
-    <importedNames>9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang9:integrity7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:templates30:codetemplatesgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>4:java4:lang9:integrity15:standalonesetup</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils15:standalonesetup</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:types22:typesgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator5:junit14:junit4fragment</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>4:java4:lang6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>9:integrity9:generator</importedNames>
-    <importedNames>4:java4:lang7:compare15:comparefragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils9:exporting22:qualifiednamesfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow10:formatting17:formatterfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator</importedNames>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0/@statements.0" targetEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.0" externalFormOfEReference="http://integrity.dsl&#xab;Call&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0/@statements.1" targetEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.1" externalFormOfEReference="http://integrity.dsl&#xab;Call&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0/@statements.1/@parameters.0/@name" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#//@members.1/@parameters.0/@annotations.0" externalFormOfEReference="http://integrity.dsl&#xab;FixedParameterName&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/suites/basic/simpleFixtureCalls.integrity#//@statements.0/@statements.0"/>
+    <importedNames>9:integrity8:fixtures5:basic4:noop10:echostring</importedNames>
+    <importedNames>9:integrity8:fixtures5:basic4:noop4:noop</importedNames>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity">
     <exportedObjects fragment="//@statements.0" name="9:mypackage">
@@ -9303,6 +9325,67 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addOutlet(org.eclipse.xtext.generator.GeneratorComponent$Outlet)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent$Outlet.setPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:workflow</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator8:workflow</importedNames>
+    <importedNames>3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>4:java4:lang8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
+    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator8:workflow</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
+    <importedNames>2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2">
+    <exportedObjects fragment="/" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.0" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE9:targetDir">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+      <userData key="mandatory" value="true"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@declaredProperties.1" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE9:modelPath">
+      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
+      <userData key="type" value="String"/>
+      <userData key="mandatory" value="true"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader.addPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addLoadResource(org.eclipse.xtext.mwe.ResourceLoadingSlotEntry)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.ResourceLoadingSlotEntry#org.eclipse.xtext.mwe.ResourceLoadingSlotEntry.setSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.setRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addOutlet(org.eclipse.xtext.generator.GeneratorComponent$Outlet)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent$Outlet.setPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
     <importedNames>8:workflow</importedNames>
@@ -9461,66 +9544,21 @@
     <importedNames>9:mypackage15:stringarraycall</importedNames>
     <importedNames>9:mypackage16:firstnamedresult</importedNames>
   </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2">
-    <exportedObjects fragment="/" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
+  <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity">
+    <exportedObjects fragment="//@statements.0" name="9:integrity8:fixtures5:basic4:noop">
+      <eClass href="http://integrity.dsl#//PackageDefinition"/>
     </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.0" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE9:targetDir">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-      <userData key="mandatory" value="true"/>
+    <exportedObjects fragment="//@statements.0/@statements.0" name="9:integrity8:fixtures5:basic4:noop4:noOp">
+      <eClass href="http://integrity.dsl#//CallDefinition"/>
     </exportedObjects>
-    <exportedObjects fragment="//@declaredProperties.1" name="2:de5:gebit9:integrity9:generator15:DSLGeneratorMWE9:modelPath">
-      <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
-      <userData key="type" value="String"/>
-      <userData key="mandatory" value="true"/>
+    <exportedObjects fragment="//@statements.0/@statements.1" name="9:integrity8:fixtures5:basic4:noop10:echoString">
+      <eClass href="http://integrity.dsl#//CallDefinition"/>
     </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader.addPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addLoadResource(org.eclipse.xtext.mwe.ResourceLoadingSlotEntry)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.ResourceLoadingSlotEntry#org.eclipse.xtext.mwe.ResourceLoadingSlotEntry.setSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.setRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addOutlet(org.eclipse.xtext.generator.GeneratorComponent$Outlet)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent$Outlet.setPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/src/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:workflow</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator8:workflow</importedNames>
-    <importedNames>3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>4:java4:lang8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
-    <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator8:workflow</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
-    <importedNames>2:de5:gebit9:integrity9:generator2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.0/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#de.gebit.integrity.tests.fixtures.basic.NoOpFixture" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.0/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#de.gebit.integrity.tests.fixtures.basic.NoOpFixture.noOp()" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.1/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#de.gebit.integrity.tests.fixtures.basic.NoOpFixture" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.1/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#de.gebit.integrity.tests.fixtures.basic.NoOpFixture.echoString(java.lang.String)" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.1"/>
+    <importedNames>2:de5:gebit9:integrity5:tests8:fixtures5:basic11:noopfixture</importedNames>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext_2.1.1.v201111141332.jar!/org/eclipse/xtext/common/Terminals.xtext">
     <exportedObjects fragment="XtextFragmentProvider::org.eclipse.xtext.common.Terminals" name="3:org7:eclipse5:xtext6:common9:Terminals">

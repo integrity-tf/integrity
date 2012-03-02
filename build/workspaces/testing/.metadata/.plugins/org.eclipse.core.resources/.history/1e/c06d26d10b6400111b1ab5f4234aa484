@@ -1,0 +1,5 @@
+package de.gebit.integrity.tests.fixtures.basic;
+
+public class NoOpFixture {
+
+}
