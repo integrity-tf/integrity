@@ -67,6 +67,11 @@ public final class ConsoleTestExecutor {
 		CmdLineParser.Option tempRemoteportOption = tempParser.addIntegerOption('r', "remoteport");
 		CmdLineParser.Option tempWaitForPlayOption = tempParser.addBooleanOption('w', "wait");
 
+		if (someArgs.length == 0) {
+			printUsage();
+			System.exit(2);
+		}
+
 		try {
 			tempParser.parse(someArgs);
 		} catch (CmdLineParser.OptionException exc) {

@@ -38,6 +38,13 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	private IPath path;
 
 	/**
+	 * Whether this machine seems to be an Integrity development machine. Used for some sort of ugly hack to get the
+	 * jargs.jar usually included in the runner bundle into the classpath container. Yeah, I know, it's shit! Gotta find
+	 * a better way for this some time...
+	 */
+	private boolean integrityDeveloperMachine;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aPath
@@ -55,19 +62,31 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, "de.gebit.integrity.remoting");
 		addToList(tempEntryList, "de.gebit.integrity.dsl");
 
+		if (integrityDeveloperMachine) {
+			// UGLY HACK ALERT!!!! Don't know how to solve this more elegant though :(
+			IPath tempRunnerPath = getInstallationDirectoryFor(findBundle("de.gebit.integrity.runner"));
+			tempEntryList.add(JavaCore.newLibraryEntry(tempRunnerPath.removeLastSegments(2).append("/lib/jargs.jar"),
+					null, null));
+		}
+
 		addToList(tempEntryList, "com.google.inject");
+		addToList(tempEntryList, "com.google.collect");
 		addToList(tempEntryList, "org.antlr.runtime");
+		addToList(tempEntryList, "org.apache.log4j");
 		addToList(tempEntryList, "org.eclipse.core.contenttype");
 		addToList(tempEntryList, "org.eclipse.core.jobs");
 		addToList(tempEntryList, "org.eclipse.core.resources");
 		addToList(tempEntryList, "org.eclipse.core.runtime");
 		addToList(tempEntryList, "org.eclipse.emf.common");
 		addToList(tempEntryList, "org.eclipse.emf.ecore");
+		addToList(tempEntryList, "org.eclipse.emf.ecore.xmi");
 		addToList(tempEntryList, "org.eclipse.emf.mwe.utils");
 		addToList(tempEntryList, "org.eclipse.equinox.preferences");
 		addToList(tempEntryList, "org.eclipse.text");
 		addToList(tempEntryList, "org.eclipse.xtext");
+		addToList(tempEntryList, "org.eclipse.xtext.util");
 		addToList(tempEntryList, "org.eclipse.xtext.common.types");
+		addToList(tempEntryList, "org.jdom");
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
@@ -149,6 +168,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				// Eclipse with the Integrity projects living there as projects and thus being included in the "inner"
 				// Eclipse as directories. We'll return the right subdir in that case to allow for inclusion of the
 				// compiled classes
+				integrityDeveloperMachine = true;
 				return new Path(tempPathString + "target/classes/");
 			} else {
 				return new Path(tempPathString);
