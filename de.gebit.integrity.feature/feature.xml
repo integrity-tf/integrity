@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.gebit.integrity.feature"
+      label="Integrity Test Framework"
+      version="0.1.0.qualifier"
+      provider-name="GEBIT Solutions GmbH">
+
+   <description>
+      The Integrity Test Framework is THE software testing utility of choice if you want to be friendly to your developers and spare their nerves!
+   </description>
+
+   <copyright>
+      Nothing here yet!
+   </copyright>
+
+   <license url="">
+   	  Nothing to see here, move on please...
+   	  
+I haven&apos;t yet added a 200+ page license agreement which nobody reads anyway. But this is gonna be under some open-source license someday!
+   </license>
+
+   <plugin
+         id="de.gebit.integrity.dsl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.gebit.integrity.dsl.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.gebit.integrity.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.gebit.integrity.remoting"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.gebit.integrity.runner"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

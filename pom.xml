@@ -5,6 +5,7 @@
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-main-collection</artifactId>
   <version>0.2.0-SNAPSHOT</version>
+  <name>Integrity Main Build</name>
   <packaging>pom</packaging>
   <modules>
     <module>de.gebit.integrity.dsl</module>
@@ -12,6 +13,10 @@
     <module>de.gebit.integrity.eclipse</module>
     <module>de.gebit.integrity.remoting</module>
     <module>de.gebit.integrity.runner</module>
+    <module>de.gebit.integrity.feature</module>
+    <module>distribution</module>
+    <module>standalonedeps.indigo</module>
+    <module>updatesite</module>
   </modules>
   <build>
     <plugins>
