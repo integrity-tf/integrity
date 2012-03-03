@@ -1,0 +1,18 @@
+packagedef integrity.basic with
+
+	suitedef simpleFixtureCalls with
+	
+		call integrity.fixtures.basic.noop.noOp
+		
+		call integrity.fixtures.basic.noop.returnTrue
+		
+		test integrity.fixtures.basic.noop.returnTrue
+		
+		call integrity.fixtures.basic.noop.echoString string: "Echo this!"
+	
+	suiteend
+	
+	
+
+
+packageend

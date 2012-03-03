@@ -6,4 +6,6 @@
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.Fixture"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureMethod"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureParameter"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="java.math.BigInteger"/>
 </qualifiedTypeNameHistroy>
