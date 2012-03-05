@@ -1,7 +1,5 @@
 package de.gebit.integrity.runner.console;
 
-import jargs.gnu.CmdLineParser;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,22 +32,13 @@ import de.gebit.integrity.runner.providers.TestResourceProvider;
  */
 public final class ConsoleTestExecutor {
 
+	/**
+	 * The help string to attach for the remaining unparsed args.
+	 */
+	private static final String REMAINING_ARGS_HELP = " suite_name scripts...";
+
 	private ConsoleTestExecutor() {
 		// is not instantiated
-	}
-
-	private static void printUsage() {
-		System.err
-				.println("Usage: ConsoleTestExecutor [{-c,--console}] [{-x,--xml} filename] [{-n,--name} name] [{-r,--remoteport} port] suite_name scripts...");
-		System.err.println("");
-		System.err.println("-c or --console enable console logging during test execution");
-		System.err.println("-x or --xml enable XML file logging (supply a target filename!)");
-		System.err
-				.println("--xslt embeds an XML->XSLT transform into the XML file (works fine with Firefox, Opera, Safari/Chrome)");
-		System.err.println("-n or --name allows to specify a name for the test run");
-		System.err.println("--noremote disables remoting");
-		System.err.println("-r or --remoteport allows to specify a port number to bind to for remoting");
-		System.err.println("-w or --wait causes test execution to wait for a 'play' signal via remoting");
 	}
 
 	/**
@@ -58,33 +47,47 @@ public final class ConsoleTestExecutor {
 	 * @param someArgs
 	 */
 	public static void main(String[] someArgs) {
-		CmdLineParser tempParser = new CmdLineParser();
-		CmdLineParser.Option tempConsoleOption = tempParser.addBooleanOption('c', "console");
-		CmdLineParser.Option tempXmlOption = tempParser.addStringOption('x', "xml");
-		CmdLineParser.Option tempXsltOption = tempParser.addBooleanOption("xslt");
-		CmdLineParser.Option tempNameOption = tempParser.addStringOption('n', "name");
-		CmdLineParser.Option tempNoremoteOption = tempParser.addBooleanOption("noremote");
-		CmdLineParser.Option tempRemoteportOption = tempParser.addIntegerOption('r', "remoteport");
-		CmdLineParser.Option tempWaitForPlayOption = tempParser.addBooleanOption('w', "wait");
+		SimpleCommandLineParser tempParser = new SimpleCommandLineParser();
+		SimpleCommandLineParser.BooleanOption tempConsoleOption = new SimpleCommandLineParser.BooleanOption("s",
+				"silent", "Disable console logging during test execution", "[{-s,--silent}]");
+		SimpleCommandLineParser.StringOption tempXmlOption = new SimpleCommandLineParser.StringOption("x", "xml",
+				"Enable XML file logging (supply a target filename!)", "[{-x,--xml} filename]");
+		SimpleCommandLineParser.BooleanOption tempXsltOption = new SimpleCommandLineParser.BooleanOption(null,
+				"noxslt", "Disables embedding of the XML->XHTML transform into the XML file", "[{--noxslt}]");
+		SimpleCommandLineParser.StringOption tempNameOption = new SimpleCommandLineParser.StringOption("n", "name",
+				"Specify a name for the test run", "[{-n,--name}]");
+		SimpleCommandLineParser.BooleanOption tempNoremoteOption = new SimpleCommandLineParser.BooleanOption(null,
+				"noremote", "Disables remoting", "[{--noremote}]");
+		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
+				"remoteport", "Set the port number to bind to for remoting (default is "
+						+ IntegrityRemotingConstants.DEFAULT_PORT + ")", "[{-r,--remoteport} port]");
+		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
+				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
+
+		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempNoremoteOption,
+				tempRemoteportOption, tempWaitForPlayOption);
 
 		if (someArgs.length == 0) {
-			printUsage();
+			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
 			System.exit(2);
+			return;
 		}
 
+		String[] tempRemainingParameters;
 		try {
-			tempParser.parse(someArgs);
-		} catch (CmdLineParser.OptionException exc) {
+			tempRemainingParameters = tempParser.parseAndReturnRemaining(someArgs);
+		} catch (IllegalArgumentException exc) {
 			System.err.println(exc.getMessage());
-			printUsage();
+			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
 			System.exit(2);
+			return;
 		}
 
-		String tempExecutionName = (String) tempParser.getOptionValue(tempNameOption, "unnamed");
-		String tempRootSuiteName = tempParser.getRemainingArgs()[0];
+		String tempExecutionName = tempNameOption.getValue("unnamed");
+		String tempRootSuiteName = tempRemainingParameters[0];
 		ArrayList<File> tempTestPaths = new ArrayList<File>();
-		for (int i = 1; i < tempParser.getRemainingArgs().length; i++) {
-			tempTestPaths.add(new File(tempParser.getRemainingArgs()[i]));
+		for (int i = 1; i < tempRemainingParameters.length; i++) {
+			tempTestPaths.add(new File(tempRemainingParameters[i]));
 		}
 
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempTestPaths, true);
@@ -101,26 +104,23 @@ public final class ConsoleTestExecutor {
 				tempRootSuiteCall.setDefinition(tempRootSuite);
 
 				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
-				if ((Boolean) tempParser.getOptionValue(tempConsoleOption, Boolean.FALSE)) {
+				if (!tempConsoleOption.isSet()) {
 					tempCallback.addCallback(new ConsoleTestCallback(tempResourceProvider.getClassLoader()));
 				}
-				String tempXmlFileName = (String) tempParser.getOptionValue(tempXmlOption);
+				String tempXmlFileName = tempXmlOption.getValue();
 				if (tempXmlFileName != null) {
 					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							tempXmlFileName), tempExecutionName, (Boolean) tempParser.getOptionValue(tempXsltOption,
-							Boolean.FALSE)));
+							tempXmlFileName), tempExecutionName, !tempXsltOption.isSet()));
 				}
 
 				Integer tempRemotePort = null;
-				if (!((Boolean) tempParser.getOptionValue(tempNoremoteOption, Boolean.FALSE))) {
-					tempRemotePort = (Integer) tempParser.getOptionValue(tempRemoteportOption,
-							IntegrityRemotingConstants.DEFAULT_PORT);
+				if (!tempNoremoteOption.isSet()) {
+					tempRemotePort = tempRemoteportOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
 				}
 
 				try {
 					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, someArgs);
-					tempRunner.run(tempRootSuiteCall,
-							(Boolean) tempParser.getOptionValue(tempWaitForPlayOption, Boolean.FALSE));
+					tempRunner.run(tempRootSuiteCall, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}

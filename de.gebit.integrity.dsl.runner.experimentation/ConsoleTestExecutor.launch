@@ -7,6 +7,6 @@
 <listEntry value="4"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.gebit.integrity.runner.console.ConsoleTestExecutor"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-c --xslt --xml ../de.gebit.integrity.dsl.experimentation/result.xml mysecondpackage.additionSuite ../de.gebit.integrity.dsl.experimentation/src/folder/"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--xml ../de.gebit.integrity.dsl.experimentation/result.xml mysecondpackage.additionSuite ../de.gebit.integrity.dsl.experimentation/src/folder/"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="de.gebit.integrity.dsl.runner.experimentation"/>
 </launchConfiguration>
