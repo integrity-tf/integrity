@@ -63,9 +63,12 @@ public final class ConsoleTestExecutor {
 						+ IntegrityRemotingConstants.DEFAULT_PORT + ")", "[{-r,--remoteport} port]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
 				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
+		SimpleCommandLineParser.BooleanOption tempResolveAllReferences = new SimpleCommandLineParser.BooleanOption(
+				null, "resolve", "Enable pre-executional resolving of all references in the loaded scripts.",
+				"[{--resolve}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempNoremoteOption,
-				tempRemoteportOption, tempWaitForPlayOption);
+				tempRemoteportOption, tempWaitForPlayOption, tempResolveAllReferences);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -94,7 +97,7 @@ public final class ConsoleTestExecutor {
 
 		TestRunner tempRunner;
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider);
+			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet());
 			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
 
 			if (tempRootSuite == null) {

@@ -179,7 +179,8 @@ public class TestModel {
 	 * @throws ModelLoadException
 	 *             if any errors occur during loading (syntax errors or unresolvable references)
 	 */
-	public static TestModel loadTestModel(TestResourceProvider aResourceProvider) throws ModelLoadException {
+	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag)
+			throws ModelLoadException {
 		Injector tempInjector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
 				.createInjectorAndDoEMFRegistration();
 
@@ -216,17 +217,21 @@ public class TestModel {
 			}
 		}
 
-		EcoreUtil.resolveAll(tempResourceSet);
-
 		if (!tempErrors.isEmpty()) {
 			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
 					tempErrors);
 		}
 
-		Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);
-		if (tempUnresolvedProxies.size() > 0) {
-			throw new ModelLinkException("Encountered " + tempUnresolvedProxies.size()
-					+ " unresolvable references while linking test model.", tempUnresolvedProxies);
+		// Full resolving has been made optional because for some not-yet-known reason, resolveAll takes a huge amount
+		// of time since the change to XText 2.2.
+		if (aResolveAllFlag) {
+			EcoreUtil.resolveAll(tempResourceSet);
+
+			Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);
+			if (tempUnresolvedProxies.size() > 0) {
+				throw new ModelLinkException("Encountered " + tempUnresolvedProxies.size()
+						+ " unresolvable references while linking test model.", tempUnresolvedProxies);
+			}
 		}
 
 		return new TestModel(tempModels, tempInjector, aResourceProvider.getClassLoader());
