@@ -38,13 +38,6 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	private IPath path;
 
 	/**
-	 * Whether this machine seems to be an Integrity development machine. Used for some sort of ugly hack to get the
-	 * jargs.jar usually included in the runner bundle into the classpath container. Yeah, I know, it's shit! Gotta find
-	 * a better way for this some time...
-	 */
-	private boolean integrityDeveloperMachine;
-
-	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aPath
@@ -62,15 +55,9 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, "de.gebit.integrity.remoting");
 		addToList(tempEntryList, "de.gebit.integrity.dsl");
 
-		if (integrityDeveloperMachine) {
-			// UGLY HACK ALERT!!!! Don't know how to solve this more elegant though :(
-			IPath tempRunnerPath = getInstallationDirectoryFor(findBundle("de.gebit.integrity.runner"));
-			tempEntryList.add(JavaCore.newLibraryEntry(tempRunnerPath.removeLastSegments(2).append("/lib/jargs.jar"),
-					null, null));
-		}
-
+		addToList(tempEntryList, "javax.inject");
 		addToList(tempEntryList, "com.google.inject");
-		addToList(tempEntryList, "com.google.collect");
+		addToList(tempEntryList, "com.google.guava");
 		addToList(tempEntryList, "org.antlr.runtime");
 		addToList(tempEntryList, "org.apache.log4j");
 		addToList(tempEntryList, "org.eclipse.core.contenttype");
@@ -168,10 +155,13 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				// Eclipse with the Integrity projects living there as projects and thus being included in the "inner"
 				// Eclipse as directories. We'll return the right subdir in that case to allow for inclusion of the
 				// compiled classes
-				integrityDeveloperMachine = true;
 				return new Path(tempPathString + "target/classes/");
 			}
 			tempBundlePath = new Path(tempPathString);
+		}
+
+		if (tempBundlePath.isAbsolute()) {
+			return tempBundlePath;
 		}
 
 		Location tempInstallLocation = Platform.getInstallLocation();
