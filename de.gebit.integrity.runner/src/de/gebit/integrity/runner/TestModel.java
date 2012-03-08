@@ -225,7 +225,9 @@ public class TestModel {
 		// Full resolving has been made optional because for some not-yet-known reason, resolveAll takes a huge amount
 		// of time since the change to XText 2.2.
 		if (aResolveAllFlag) {
+			System.out.print("Resolving the test model...");
 			EcoreUtil.resolveAll(tempResourceSet);
+			System.out.println("done!");
 
 			Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);
 			if (tempUnresolvedProxies.size() > 0) {
