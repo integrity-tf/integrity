@@ -11,13 +11,16 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.2.1",
 Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.callbacks,
  de.gebit.integrity.runner.callbacks.console,
+ de.gebit.integrity.runner.callbacks.remoting,
  de.gebit.integrity.runner.callbacks.xml,
  de.gebit.integrity.runner.console,
  de.gebit.integrity.runner.exceptions,
+ de.gebit.integrity.runner.forking,
  de.gebit.integrity.runner.providers,
  de.gebit.integrity.runner.results,
  de.gebit.integrity.runner.results.call,
- de.gebit.integrity.runner.results.test
+ de.gebit.integrity.runner.results.test,
+ de.gebit.integrity.utils
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0",

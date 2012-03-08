@@ -14,14 +14,14 @@ package de.gebit.integrity.runner.forking;
 public interface Forker {
 
 	/**
-	 * Environment variable name for the remoting port to use to communicate with the fork.
+	 * System parameter name for the remoting port to use to communicate with the fork.
 	 */
-	String ENV_FORK_REMOTING_PORT = "integrity.fork.port";
+	String SYSPARAM_FORK_REMOTING_PORT = "integrity.fork.port";
 
 	/**
-	 * Environment variable name for the fork name.
+	 * System parameter name for the fork name.
 	 */
-	String ENV_FORK_NAME = "integrity.fork.name";
+	String SYSPARAM_FORK_NAME = "integrity.fork.name";
 
 	/**
 	 * Performs the actual forking.
@@ -36,6 +36,6 @@ public interface Forker {
 	 * @throws ForkException
 	 *             if something goes wrong
 	 */
-	Process fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException;
+	ForkedProcess fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException;
 
 }

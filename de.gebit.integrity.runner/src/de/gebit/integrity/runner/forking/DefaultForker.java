@@ -26,7 +26,8 @@ public class DefaultForker implements Forker {
 			+ "bin" + File.separatorChar + "java";
 
 	@Override
-	public Process fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException {
+	public ForkedProcess fork(String[] someCommandLineArguments, int aPortNumber, String aForkName)
+			throws ForkException {
 		List<String> tempArgs = new ArrayList<String>();
 		tempArgs.add(JAVA_EXECUTABLE);
 
@@ -35,6 +36,9 @@ public class DefaultForker implements Forker {
 			tempArgs.add("-cp");
 			tempArgs.add(tempClasspath);
 		}
+
+		tempArgs.add("-D" + Forker.SYSPARAM_FORK_REMOTING_PORT + "=" + aPortNumber);
+		tempArgs.add("-D" + Forker.SYSPARAM_FORK_NAME + "=" + aForkName);
 
 		RuntimeMXBean tempMXBean = ManagementFactory.getRuntimeMXBean();
 		for (String tempArg : tempMXBean.getInputArguments()) {
@@ -53,10 +57,8 @@ public class DefaultForker implements Forker {
 		}
 
 		ProcessBuilder tempBuilder = new ProcessBuilder(tempArgs);
-		tempBuilder.environment().put(Forker.ENV_FORK_REMOTING_PORT, Integer.toString(aPortNumber));
-		tempBuilder.environment().put(Forker.ENV_FORK_NAME, aForkName);
 		try {
-			return tempBuilder.start();
+			return new LocalForkedProcess(tempBuilder.start());
 		} catch (IOException exc) {
 			throw new ForkException("Error forking process", exc);
 		}

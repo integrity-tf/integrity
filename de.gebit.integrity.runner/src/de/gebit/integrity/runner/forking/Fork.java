@@ -46,7 +46,7 @@ public class Fork {
 	/**
 	 * The actual process running the fork.
 	 */
-	private Process process;
+	private ForkedProcess process;
 
 	/**
 	 * The remoting client used to communicate with the fork. Each fork gets its own client which connects to the
@@ -151,21 +151,20 @@ public class Fork {
 		port = getNextPort(aMainPortNumber);
 		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
 
-		boolean tempIsAlive = false;
-		try {
-			process.exitValue();
-		} catch (IllegalThreadStateException exc) {
-			tempIsAlive = true;
-		}
-
-		if (!tempIsAlive) {
+		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
 		}
 
-		new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stdout copy: " + aDefinition.getName(),
-				process.getInputStream(), System.out).start();
-		new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stderr copy: " + aDefinition.getName(),
-				process.getErrorStream(), System.err).start();
+		InputStream tempStdOut = process.getInputStream();
+		if (tempStdOut != null) {
+			new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stdout copy: " + aDefinition.getName(),
+					tempStdOut, System.out).start();
+		}
+		InputStream tempStdErr = process.getErrorStream();
+		if (tempStdErr != null) {
+			new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stderr copy: " + aDefinition.getName(),
+					tempStdErr, System.err).start();
+		}
 	}
 
 	/**
@@ -173,7 +172,7 @@ public class Fork {
 	 */
 	public void kill() {
 		if (isAlive()) {
-			process.destroy();
+			process.kill();
 			process = null;
 		}
 	}
@@ -182,7 +181,7 @@ public class Fork {
 		return definition;
 	}
 
-	public Process getProcess() {
+	public ForkedProcess getProcess() {
 		return process;
 	}
 
@@ -200,15 +199,7 @@ public class Fork {
 	 * @return true if the fork is running
 	 */
 	public boolean isAlive() {
-		if (process != null) {
-			try {
-				process.exitValue();
-			} catch (IllegalThreadStateException exc) {
-				return true;
-			}
-		}
-
-		return false;
+		return process.isAlive();
 	}
 
 	public boolean isConnected() {

@@ -171,7 +171,7 @@ public class TestRunner {
 	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
 	 */
-	protected static final String MY_FORK_NAME = System.getenv(Forker.ENV_FORK_NAME);
+	protected static final String MY_FORK_NAME = System.getProperty(Forker.SYSPARAM_FORK_NAME);
 
 	/**
 	 * The system property that allows to override the timeout used when connecting to forks.
@@ -221,7 +221,7 @@ public class TestRunner {
 		commandLineArguments = someCommandLineArguments;
 		Integer tempRemotingPort = aRemotingPort;
 		if (isFork()) {
-			tempRemotingPort = Integer.parseInt(System.getenv(Forker.ENV_FORK_REMOTING_PORT));
+			tempRemotingPort = Integer.parseInt(System.getProperty(Forker.SYSPARAM_FORK_REMOTING_PORT));
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
