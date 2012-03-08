@@ -8,7 +8,6 @@
     <version>0.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>de.gebit.integrity.runner</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
   
   <name>Integrity Test Framework - Test Runner</name>
