@@ -423,6 +423,15 @@ public interface DslFactory extends EFactory
   MethodReference createMethodReference();
 
   /**
+   * Returns a new object of class '<em>Execution Multiplier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Execution Multiplier</em>'.
+   * @generated
+   */
+  ExecutionMultiplier createExecutionMultiplier();
+
+  /**
    * Returns a new object of class '<em>Null</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

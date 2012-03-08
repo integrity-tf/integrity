@@ -94,6 +94,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//FixedResultName/field"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Call">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/multiplier"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Call/results"/>
@@ -104,6 +105,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedCallResult/target"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Suite">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/multiplier"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/fork"/>
@@ -151,6 +153,9 @@
     <genClasses ecoreClass="DSL.ecore#//MethodReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//MethodReference/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//MethodReference/method"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ExecutionMultiplier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ExecutionMultiplier/count"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Null"/>
   </genPackages>

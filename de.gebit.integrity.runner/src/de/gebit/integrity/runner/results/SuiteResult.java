@@ -2,6 +2,7 @@ package de.gebit.integrity.runner.results;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class SuiteResult extends Result {
 	/**
 	 * Map of suite statements to results.
 	 */
-	private Map<SuiteStatementWithResult, Result> statementResults;
+	private Map<SuiteStatementWithResult, List<? extends Result>> statementResults;
 
 	/**
 	 * Set of all results.
@@ -65,12 +66,15 @@ public class SuiteResult extends Result {
 	 * @param anExecutionTime
 	 *            the total time to execute the whole suite
 	 */
-	public SuiteResult(Map<SuiteStatementWithResult, Result> someStatementResults,
+	public SuiteResult(Map<SuiteStatementWithResult, List<? extends Result>> someStatementResults,
 			Map<SuiteDefinition, Result> someSetupResults, Map<SuiteDefinition, Result> someTearDownResults,
 			Long anExecutionTime) {
 		super(anExecutionTime);
 		statementResults = someStatementResults;
-		results = new HashSet<Result>(statementResults.values());
+		results = new HashSet<Result>();
+		for (List<? extends Result> tempResultList : statementResults.values()) {
+			results.addAll(tempResultList);
+		}
 		if (someSetupResults == null) {
 			setupResults = new HashMap<SuiteDefinition, Result>();
 		} else {
@@ -85,7 +89,7 @@ public class SuiteResult extends Result {
 		}
 	}
 
-	public Map<SuiteStatementWithResult, Result> getResults() {
+	public Map<SuiteStatementWithResult, List<? extends Result>> getResults() {
 		return statementResults;
 	}
 

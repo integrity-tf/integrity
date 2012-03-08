@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.Call#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getResults <em>Results</em>}</li>
@@ -29,6 +30,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Call extends SuiteStatement
 {
+  /**
+   * Returns the value of the '<em><b>Multiplier</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Multiplier</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Multiplier</em>' containment reference.
+   * @see #setMultiplier(ExecutionMultiplier)
+   * @see de.gebit.integrity.dsl.DslPackage#getCall_Multiplier()
+   * @model containment="true"
+   * @generated
+   */
+  ExecutionMultiplier getMultiplier();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.Call#getMultiplier <em>Multiplier</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Multiplier</em>' containment reference.
+   * @see #getMultiplier()
+   * @generated
+   */
+  void setMultiplier(ExecutionMultiplier value);
+
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->

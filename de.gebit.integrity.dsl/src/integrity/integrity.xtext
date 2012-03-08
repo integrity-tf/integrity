@@ -82,13 +82,13 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedCallResult)* ('->' result=Variable)?;
+	'call' (multiplier=ExecutionMultiplier)? definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedCallResult)* ('->' result=Variable)?;
 	
 NamedCallResult:
 	name=ResultName '->' target=Variable;
 	
 Suite:
-	'suite' definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)* ('on' fork=[ForkDefinition|QualifiedName])?;
+	'suite' (multiplier=ExecutionMultiplier)? definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)* ('on' fork=[ForkDefinition|QualifiedName])?;
 
 SuiteParameter:
 	name=[VariableEntity|QualifiedName] ':' value=Value;
@@ -137,6 +137,9 @@ EnumValue:
 	
 MethodReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' method=[jvmTypes::JvmOperation];
+	
+ExecutionMultiplier:
+	count=INTEGER '*';
 	
 QualifiedName:
 	ID('.'ID)*;

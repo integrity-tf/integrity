@@ -897,13 +897,22 @@ public interface DslPackage extends EPackage
   int CALL = 25;
 
   /**
+   * The feature id for the '<em><b>Multiplier</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL__MULTIPLIER = SUITE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CALL__DEFINITION = SUITE_STATEMENT_FEATURE_COUNT + 0;
+  int CALL__DEFINITION = SUITE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -912,7 +921,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL__PARAMETERS = SUITE_STATEMENT_FEATURE_COUNT + 1;
+  int CALL__PARAMETERS = SUITE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Results</b></em>' containment reference list.
@@ -921,7 +930,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL__RESULTS = SUITE_STATEMENT_FEATURE_COUNT + 2;
+  int CALL__RESULTS = SUITE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -930,7 +939,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL__RESULT = SUITE_STATEMENT_FEATURE_COUNT + 3;
+  int CALL__RESULT = SUITE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Call</em>' class.
@@ -939,7 +948,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL_FEATURE_COUNT = SUITE_STATEMENT_FEATURE_COUNT + 4;
+  int CALL_FEATURE_COUNT = SUITE_STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NamedCallResultImpl <em>Named Call Result</em>}' class.
@@ -989,13 +998,22 @@ public interface DslPackage extends EPackage
   int SUITE = 27;
 
   /**
+   * The feature id for the '<em><b>Multiplier</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE__MULTIPLIER = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE__DEFINITION = STATEMENT_FEATURE_COUNT + 0;
+  int SUITE__DEFINITION = STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1004,7 +1022,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__PARAMETERS = STATEMENT_FEATURE_COUNT + 1;
+  int SUITE__PARAMETERS = STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Fork</b></em>' reference.
@@ -1013,7 +1031,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__FORK = STATEMENT_FEATURE_COUNT + 2;
+  int SUITE__FORK = STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Suite</em>' class.
@@ -1022,7 +1040,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+  int SUITE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterImpl <em>Suite Parameter</em>}' class.
@@ -1473,6 +1491,34 @@ public interface DslPackage extends EPackage
   int METHOD_REFERENCE_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl <em>Execution Multiplier</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
+   * @generated
+   */
+  int EXECUTION_MULTIPLIER = 44;
+
+  /**
+   * The feature id for the '<em><b>Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXECUTION_MULTIPLIER__COUNT = 0;
+
+  /**
+   * The number of structural features of the '<em>Execution Multiplier</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXECUTION_MULTIPLIER_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1480,7 +1526,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 44;
+  int NULL = 45;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -2182,6 +2228,17 @@ public interface DslPackage extends EPackage
   EClass getCall();
 
   /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.Call#getMultiplier <em>Multiplier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Multiplier</em>'.
+   * @see de.gebit.integrity.dsl.Call#getMultiplier()
+   * @see #getCall()
+   * @generated
+   */
+  EReference getCall_Multiplier();
+
+  /**
    * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.Call#getDefinition <em>Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2266,6 +2323,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getSuite();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.Suite#getMultiplier <em>Multiplier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Multiplier</em>'.
+   * @see de.gebit.integrity.dsl.Suite#getMultiplier()
+   * @see #getSuite()
+   * @generated
+   */
+  EReference getSuite_Multiplier();
 
   /**
    * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.Suite#getDefinition <em>Definition</em>}'.
@@ -2635,6 +2703,27 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getMethodReference_Method();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ExecutionMultiplier <em>Execution Multiplier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Execution Multiplier</em>'.
+   * @see de.gebit.integrity.dsl.ExecutionMultiplier
+   * @generated
+   */
+  EClass getExecutionMultiplier();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ExecutionMultiplier#getCount <em>Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Count</em>'.
+   * @see de.gebit.integrity.dsl.ExecutionMultiplier#getCount()
+   * @see #getExecutionMultiplier()
+   * @generated
+   */
+  EAttribute getExecutionMultiplier_Count();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Null <em>Null</em>}'.
@@ -3242,6 +3331,14 @@ public interface DslPackage extends EPackage
     EClass CALL = eINSTANCE.getCall();
 
     /**
+     * The meta object literal for the '<em><b>Multiplier</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CALL__MULTIPLIER = eINSTANCE.getCall_Multiplier();
+
+    /**
      * The meta object literal for the '<em><b>Definition</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3308,6 +3405,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass SUITE = eINSTANCE.getSuite();
+
+    /**
+     * The meta object literal for the '<em><b>Multiplier</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUITE__MULTIPLIER = eINSTANCE.getSuite_Multiplier();
 
     /**
      * The meta object literal for the '<em><b>Definition</b></em>' reference feature.
@@ -3620,6 +3725,24 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference METHOD_REFERENCE__METHOD = eINSTANCE.getMethodReference_Method();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl <em>Execution Multiplier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
+     * @generated
+     */
+    EClass EXECUTION_MULTIPLIER = eINSTANCE.getExecutionMultiplier();
+
+    /**
+     * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EXECUTION_MULTIPLIER__COUNT = eINSTANCE.getExecutionMultiplier_Count();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.

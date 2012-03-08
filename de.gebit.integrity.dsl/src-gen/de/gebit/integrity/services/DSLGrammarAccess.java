@@ -870,62 +870,70 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Call");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cCallKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cDefinitionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cDefinitionCallDefinitionCrossReference_1_0 = (CrossReference)cDefinitionAssignment_1.eContents().get(0);
-		private final RuleCall cDefinitionCallDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionCallDefinitionCrossReference_1_0.eContents().get(1);
-		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cParametersParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
-		private final Assignment cResultsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cResultsNamedCallResultParserRuleCall_3_0 = (RuleCall)cResultsAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cResultAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cResultVariableParserRuleCall_4_1_0 = (RuleCall)cResultAssignment_4_1.eContents().get(0);
+		private final Assignment cMultiplierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMultiplierExecutionMultiplierParserRuleCall_1_0 = (RuleCall)cMultiplierAssignment_1.eContents().get(0);
+		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cDefinitionCallDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
+		private final RuleCall cDefinitionCallDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionCallDefinitionCrossReference_2_0.eContents().get(1);
+		private final Assignment cParametersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cParametersParameterParserRuleCall_3_0 = (RuleCall)cParametersAssignment_3.eContents().get(0);
+		private final Assignment cResultsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cResultsNamedCallResultParserRuleCall_4_0 = (RuleCall)cResultsAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cResultAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cResultVariableParserRuleCall_5_1_0 = (RuleCall)cResultAssignment_5_1.eContents().get(0);
 		
 		//Call:
-		//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
-		//	result=Variable)?;
+		//	"call" multiplier=ExecutionMultiplier? definition=[CallDefinition|QualifiedName] parameters+=Parameter*
+		//	results+=NamedCallResult* ("->" result=Variable)?;
 		public ParserRule getRule() { return rule; }
 
-		//"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
-		//result=Variable)?
+		//"call" multiplier=ExecutionMultiplier? definition=[CallDefinition|QualifiedName] parameters+=Parameter*
+		//results+=NamedCallResult* ("->" result=Variable)?
 		public Group getGroup() { return cGroup; }
 
 		//"call"
 		public Keyword getCallKeyword_0() { return cCallKeyword_0; }
 
+		//multiplier=ExecutionMultiplier?
+		public Assignment getMultiplierAssignment_1() { return cMultiplierAssignment_1; }
+
+		//ExecutionMultiplier
+		public RuleCall getMultiplierExecutionMultiplierParserRuleCall_1_0() { return cMultiplierExecutionMultiplierParserRuleCall_1_0; }
+
 		//definition=[CallDefinition|QualifiedName]
-		public Assignment getDefinitionAssignment_1() { return cDefinitionAssignment_1; }
+		public Assignment getDefinitionAssignment_2() { return cDefinitionAssignment_2; }
 
 		//[CallDefinition|QualifiedName]
-		public CrossReference getDefinitionCallDefinitionCrossReference_1_0() { return cDefinitionCallDefinitionCrossReference_1_0; }
+		public CrossReference getDefinitionCallDefinitionCrossReference_2_0() { return cDefinitionCallDefinitionCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getDefinitionCallDefinitionQualifiedNameParserRuleCall_1_0_1() { return cDefinitionCallDefinitionQualifiedNameParserRuleCall_1_0_1; }
+		public RuleCall getDefinitionCallDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionCallDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
 		//parameters+=Parameter*
-		public Assignment getParametersAssignment_2() { return cParametersAssignment_2; }
+		public Assignment getParametersAssignment_3() { return cParametersAssignment_3; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_2_0() { return cParametersParameterParserRuleCall_2_0; }
+		public RuleCall getParametersParameterParserRuleCall_3_0() { return cParametersParameterParserRuleCall_3_0; }
 
 		//results+=NamedCallResult*
-		public Assignment getResultsAssignment_3() { return cResultsAssignment_3; }
+		public Assignment getResultsAssignment_4() { return cResultsAssignment_4; }
 
 		//NamedCallResult
-		public RuleCall getResultsNamedCallResultParserRuleCall_3_0() { return cResultsNamedCallResultParserRuleCall_3_0; }
+		public RuleCall getResultsNamedCallResultParserRuleCall_4_0() { return cResultsNamedCallResultParserRuleCall_4_0; }
 
 		//("->" result=Variable)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_4_0() { return cHyphenMinusGreaterThanSignKeyword_4_0; }
+		public Keyword getHyphenMinusGreaterThanSignKeyword_5_0() { return cHyphenMinusGreaterThanSignKeyword_5_0; }
 
 		//result=Variable
-		public Assignment getResultAssignment_4_1() { return cResultAssignment_4_1; }
+		public Assignment getResultAssignment_5_1() { return cResultAssignment_5_1; }
 
 		//Variable
-		public RuleCall getResultVariableParserRuleCall_4_1_0() { return cResultVariableParserRuleCall_4_1_0; }
+		public RuleCall getResultVariableParserRuleCall_5_1_0() { return cResultVariableParserRuleCall_5_1_0; }
 	}
 
 	public class NamedCallResultElements extends AbstractParserRuleElementFinder {
@@ -964,58 +972,66 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Suite");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cSuiteKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cDefinitionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cDefinitionSuiteDefinitionCrossReference_1_0 = (CrossReference)cDefinitionAssignment_1.eContents().get(0);
-		private final RuleCall cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cDefinitionSuiteDefinitionCrossReference_1_0.eContents().get(1);
-		private final Assignment cParametersAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cParametersSuiteParameterParserRuleCall_2_0 = (RuleCall)cParametersAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cForkAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cForkForkDefinitionCrossReference_3_1_0 = (CrossReference)cForkAssignment_3_1.eContents().get(0);
-		private final RuleCall cForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cForkForkDefinitionCrossReference_3_1_0.eContents().get(1);
+		private final Assignment cMultiplierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMultiplierExecutionMultiplierParserRuleCall_1_0 = (RuleCall)cMultiplierAssignment_1.eContents().get(0);
+		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cDefinitionSuiteDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
+		private final RuleCall cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionSuiteDefinitionCrossReference_2_0.eContents().get(1);
+		private final Assignment cParametersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cParametersSuiteParameterParserRuleCall_3_0 = (RuleCall)cParametersAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOnKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cForkAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final CrossReference cForkForkDefinitionCrossReference_4_1_0 = (CrossReference)cForkAssignment_4_1.eContents().get(0);
+		private final RuleCall cForkForkDefinitionQualifiedNameParserRuleCall_4_1_0_1 = (RuleCall)cForkForkDefinitionCrossReference_4_1_0.eContents().get(1);
 		
 		//Suite:
-		//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+		//	"suite" multiplier=ExecutionMultiplier? definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
 		//	fork=[ForkDefinition|QualifiedName])?;
 		public ParserRule getRule() { return rule; }
 
-		//"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+		//"suite" multiplier=ExecutionMultiplier? definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
 		//fork=[ForkDefinition|QualifiedName])?
 		public Group getGroup() { return cGroup; }
 
 		//"suite"
 		public Keyword getSuiteKeyword_0() { return cSuiteKeyword_0; }
 
+		//multiplier=ExecutionMultiplier?
+		public Assignment getMultiplierAssignment_1() { return cMultiplierAssignment_1; }
+
+		//ExecutionMultiplier
+		public RuleCall getMultiplierExecutionMultiplierParserRuleCall_1_0() { return cMultiplierExecutionMultiplierParserRuleCall_1_0; }
+
 		//definition=[SuiteDefinition|QualifiedName]
-		public Assignment getDefinitionAssignment_1() { return cDefinitionAssignment_1; }
+		public Assignment getDefinitionAssignment_2() { return cDefinitionAssignment_2; }
 
 		//[SuiteDefinition|QualifiedName]
-		public CrossReference getDefinitionSuiteDefinitionCrossReference_1_0() { return cDefinitionSuiteDefinitionCrossReference_1_0; }
+		public CrossReference getDefinitionSuiteDefinitionCrossReference_2_0() { return cDefinitionSuiteDefinitionCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getDefinitionSuiteDefinitionQualifiedNameParserRuleCall_1_0_1() { return cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_1_0_1; }
+		public RuleCall getDefinitionSuiteDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
 		//parameters+=SuiteParameter*
-		public Assignment getParametersAssignment_2() { return cParametersAssignment_2; }
+		public Assignment getParametersAssignment_3() { return cParametersAssignment_3; }
 
 		//SuiteParameter
-		public RuleCall getParametersSuiteParameterParserRuleCall_2_0() { return cParametersSuiteParameterParserRuleCall_2_0; }
+		public RuleCall getParametersSuiteParameterParserRuleCall_3_0() { return cParametersSuiteParameterParserRuleCall_3_0; }
 
 		//("on" fork=[ForkDefinition|QualifiedName])?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"on"
-		public Keyword getOnKeyword_3_0() { return cOnKeyword_3_0; }
+		public Keyword getOnKeyword_4_0() { return cOnKeyword_4_0; }
 
 		//fork=[ForkDefinition|QualifiedName]
-		public Assignment getForkAssignment_3_1() { return cForkAssignment_3_1; }
+		public Assignment getForkAssignment_4_1() { return cForkAssignment_4_1; }
 
 		//[ForkDefinition|QualifiedName]
-		public CrossReference getForkForkDefinitionCrossReference_3_1_0() { return cForkForkDefinitionCrossReference_3_1_0; }
+		public CrossReference getForkForkDefinitionCrossReference_4_1_0() { return cForkForkDefinitionCrossReference_4_1_0; }
 
 		//QualifiedName
-		public RuleCall getForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1() { return cForkForkDefinitionQualifiedNameParserRuleCall_3_1_0_1; }
+		public RuleCall getForkForkDefinitionQualifiedNameParserRuleCall_4_1_0_1() { return cForkForkDefinitionQualifiedNameParserRuleCall_4_1_0_1; }
 	}
 
 	public class SuiteParameterElements extends AbstractParserRuleElementFinder {
@@ -1414,6 +1430,30 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getMethodJvmOperationIDTerminalRuleCall_2_0_1() { return cMethodJvmOperationIDTerminalRuleCall_2_0_1; }
 	}
 
+	public class ExecutionMultiplierElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExecutionMultiplier");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cCountAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cCountINTEGERTerminalRuleCall_0_0 = (RuleCall)cCountAssignment_0.eContents().get(0);
+		private final Keyword cAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//ExecutionMultiplier:
+		//	count=INTEGER "*";
+		public ParserRule getRule() { return rule; }
+
+		//count=INTEGER "*"
+		public Group getGroup() { return cGroup; }
+
+		//count=INTEGER
+		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
+
+		//INTEGER
+		public RuleCall getCountINTEGERTerminalRuleCall_0_0() { return cCountINTEGERTerminalRuleCall_0_0; }
+
+		//"*"
+		public Keyword getAsteriskKeyword_1() { return cAsteriskKeyword_1; }
+	}
+
 	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedName");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1531,6 +1571,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
 	private MethodReferenceElements pMethodReference;
+	private ExecutionMultiplierElements pExecutionMultiplier;
 	private QualifiedNameElements pQualifiedName;
 	private QualifiedJavaClassNameElements pQualifiedJavaClassName;
 	private QualifiedNameWithWildcardElements pQualifiedNameWithWildcard;
@@ -1817,8 +1858,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Call:
-	//	"call" definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* ("->"
-	//	result=Variable)?;
+	//	"call" multiplier=ExecutionMultiplier? definition=[CallDefinition|QualifiedName] parameters+=Parameter*
+	//	results+=NamedCallResult* ("->" result=Variable)?;
 	public CallElements getCallAccess() {
 		return (pCall != null) ? pCall : (pCall = new CallElements());
 	}
@@ -1838,7 +1879,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Suite:
-	//	"suite" definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
+	//	"suite" multiplier=ExecutionMultiplier? definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* ("on"
 	//	fork=[ForkDefinition|QualifiedName])?;
 	public SuiteElements getSuiteAccess() {
 		return (pSuite != null) ? pSuite : (pSuite = new SuiteElements());
@@ -2006,6 +2047,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getMethodReferenceRule() {
 		return getMethodReferenceAccess().getRule();
+	}
+
+	//ExecutionMultiplier:
+	//	count=INTEGER "*";
+	public ExecutionMultiplierElements getExecutionMultiplierAccess() {
+		return (pExecutionMultiplier != null) ? pExecutionMultiplier : (pExecutionMultiplier = new ExecutionMultiplierElements());
+	}
+	
+	public ParserRule getExecutionMultiplierRule() {
+		return getExecutionMultiplierAccess().getRule();
 	}
 
 	//QualifiedName:

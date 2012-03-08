@@ -1617,13 +1617,31 @@ ruleCall returns [EObject current=null]
     }
 (
 (
+		{ 
+	        newCompositeNode(grammarAccess.getCallAccess().getMultiplierExecutionMultiplierParserRuleCall_1_0()); 
+	    }
+		lv_multiplier_1_0=ruleExecutionMultiplier		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getCallRule());
+	        }
+       		set(
+       			$current, 
+       			"multiplier",
+        		lv_multiplier_1_0, 
+        		"ExecutionMultiplier");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(
+(
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getCallRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getDefinitionCallDefinitionCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getDefinitionCallDefinitionCrossReference_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1633,16 +1651,16 @@ ruleCall returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getParametersParameterParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getParametersParameterParserRuleCall_3_0()); 
 	    }
-		lv_parameters_2_0=ruleParameter		{
+		lv_parameters_3_0=ruleParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_2_0, 
+        		lv_parameters_3_0, 
         		"Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1651,38 +1669,38 @@ ruleCall returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getResultsNamedCallResultParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getResultsNamedCallResultParserRuleCall_4_0()); 
 	    }
-		lv_results_3_0=ruleNamedCallResult		{
+		lv_results_4_0=ruleNamedCallResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallRule());
 	        }
        		add(
        			$current, 
        			"results",
-        		lv_results_3_0, 
+        		lv_results_4_0, 
         		"NamedCallResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*(	otherlv_4='->' 
+)*(	otherlv_5='->' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_4_0());
+    	newLeafNode(otherlv_5, grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_5_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_5_1_0()); 
 	    }
-		lv_result_5_0=ruleVariable		{
+		lv_result_6_0=ruleVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallRule());
 	        }
        		set(
        			$current, 
        			"result",
-        		lv_result_5_0, 
+        		lv_result_6_0, 
         		"Variable");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1776,13 +1794,31 @@ ruleSuite returns [EObject current=null]
     }
 (
 (
+		{ 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getMultiplierExecutionMultiplierParserRuleCall_1_0()); 
+	    }
+		lv_multiplier_1_0=ruleExecutionMultiplier		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
+	        }
+       		set(
+       			$current, 
+       			"multiplier",
+        		lv_multiplier_1_0, 
+        		"ExecutionMultiplier");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(
+(
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getSuiteRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1792,24 +1828,24 @@ ruleSuite returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_3_0()); 
 	    }
-		lv_parameters_2_0=ruleSuiteParameter		{
+		lv_parameters_3_0=ruleSuiteParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_2_0, 
+        		lv_parameters_3_0, 
         		"SuiteParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*(	otherlv_3='on' 
+)*(	otherlv_4='on' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getSuiteAccess().getOnKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getSuiteAccess().getOnKeyword_4_0());
     }
 (
 (
@@ -1819,7 +1855,7 @@ ruleSuite returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_3_1_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_4_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -2572,6 +2608,49 @@ ruleMethodReference returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleExecutionMultiplier
+entryRuleExecutionMultiplier returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getExecutionMultiplierRule()); }
+	 iv_ruleExecutionMultiplier=ruleExecutionMultiplier 
+	 { $current=$iv_ruleExecutionMultiplier.current; } 
+	 EOF 
+;
+
+// Rule ExecutionMultiplier
+ruleExecutionMultiplier returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_count_0_0=RULE_INTEGER
+		{
+			newLeafNode(lv_count_0_0, grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExecutionMultiplierRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"count",
+        		lv_count_0_0, 
+        		"INTEGER");
+	    }
+
+)
+)	otherlv_1='*' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getExecutionMultiplierAccess().getAsteriskKeyword_1());
+    }
+)
 ;
 
 

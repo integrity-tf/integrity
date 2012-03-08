@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
@@ -378,6 +379,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass methodReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass executionMultiplierEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1107,7 +1115,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCall_Definition()
+  public EReference getCall_Multiplier()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(0);
   }
@@ -1117,7 +1125,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCall_Parameters()
+  public EReference getCall_Definition()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(1);
   }
@@ -1127,7 +1135,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCall_Results()
+  public EReference getCall_Parameters()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(2);
   }
@@ -1137,9 +1145,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCall_Result()
+  public EReference getCall_Results()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCall_Result()
+  {
+    return (EReference)callEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1187,7 +1205,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Definition()
+  public EReference getSuite_Multiplier()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(0);
   }
@@ -1197,7 +1215,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Parameters()
+  public EReference getSuite_Definition()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(1);
   }
@@ -1207,9 +1225,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Fork()
+  public EReference getSuite_Parameters()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuite_Fork()
+  {
+    return (EReference)suiteEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1537,6 +1565,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getExecutionMultiplier()
+  {
+    return executionMultiplierEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExecutionMultiplier_Count()
+  {
+    return (EAttribute)executionMultiplierEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNull()
   {
     return nullEClass;
@@ -1662,6 +1710,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(fixedResultNameEClass, FIXED_RESULT_NAME__FIELD);
 
     callEClass = createEClass(CALL);
+    createEReference(callEClass, CALL__MULTIPLIER);
     createEReference(callEClass, CALL__DEFINITION);
     createEReference(callEClass, CALL__PARAMETERS);
     createEReference(callEClass, CALL__RESULTS);
@@ -1672,6 +1721,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(namedCallResultEClass, NAMED_CALL_RESULT__TARGET);
 
     suiteEClass = createEClass(SUITE);
+    createEReference(suiteEClass, SUITE__MULTIPLIER);
     createEReference(suiteEClass, SUITE__DEFINITION);
     createEReference(suiteEClass, SUITE__PARAMETERS);
     createEReference(suiteEClass, SUITE__FORK);
@@ -1723,6 +1773,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     methodReferenceEClass = createEClass(METHOD_REFERENCE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__TYPE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__METHOD);
+
+    executionMultiplierEClass = createEClass(EXECUTION_MULTIPLIER);
+    createEAttribute(executionMultiplierEClass, EXECUTION_MULTIPLIER__COUNT);
 
     nullEClass = createEClass(NULL);
   }
@@ -1883,6 +1936,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getFixedResultName_Field(), theTypesPackage.getJvmField(), null, "field", null, 0, 1, FixedResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(callEClass, Call.class, "Call", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCall_Multiplier(), this.getExecutionMultiplier(), null, "multiplier", null, 0, 1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCall_Definition(), this.getCallDefinition(), null, "definition", null, 0, 1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCall_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCall_Results(), this.getNamedCallResult(), null, "results", null, 0, -1, Call.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1893,6 +1947,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getNamedCallResult_Target(), this.getVariable(), null, "target", null, 0, 1, NamedCallResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSuite_Multiplier(), this.getExecutionMultiplier(), null, "multiplier", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Definition(), this.getSuiteDefinition(), null, "definition", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Parameters(), this.getSuiteParameter(), null, "parameters", null, 0, -1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Fork(), this.getForkDefinition(), null, "fork", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1944,6 +1999,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(methodReferenceEClass, MethodReference.class, "MethodReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMethodReference_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMethodReference_Method(), theTypesPackage.getJvmOperation(), null, "method", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(executionMultiplierEClass, ExecutionMultiplier.class, "ExecutionMultiplier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExecutionMultiplier_Count(), ecorePackage.getEBigInteger(), "count", null, 0, 1, ExecutionMultiplier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nullEClass, Null.class, "Null", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

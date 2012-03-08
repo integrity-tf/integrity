@@ -424,6 +424,13 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.EXECUTION_MULTIPLIER:
+      {
+        ExecutionMultiplier executionMultiplier = (ExecutionMultiplier)theEObject;
+        T result = caseExecutionMultiplier(executionMultiplier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.NULL:
       {
         Null null_ = (Null)theEObject;
@@ -1138,6 +1145,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMethodReference(MethodReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Execution Multiplier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Execution Multiplier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExecutionMultiplier(ExecutionMultiplier object)
   {
     return null;
   }

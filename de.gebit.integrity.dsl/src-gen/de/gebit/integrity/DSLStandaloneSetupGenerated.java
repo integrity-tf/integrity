@@ -47,6 +47,5 @@ public class DSLStandaloneSetupGenerated implements ISetup {
 
 
 
-
 	}
 }

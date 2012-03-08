@@ -112,6 +112,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
       case DslPackage.METHOD_REFERENCE: return createMethodReference();
+      case DslPackage.EXECUTION_MULTIPLIER: return createExecutionMultiplier();
       case DslPackage.NULL: return createNull();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -600,6 +601,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     MethodReferenceImpl methodReference = new MethodReferenceImpl();
     return methodReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExecutionMultiplier createExecutionMultiplier()
+  {
+    ExecutionMultiplierImpl executionMultiplier = new ExecutionMultiplierImpl();
+    return executionMultiplier;
   }
 
   /**

@@ -340,7 +340,7 @@ public class TestRunner {
 			defineConstant(tempConstantDef, null);
 		}
 
-		SuiteResult tempResult = callSuite(aRootSuiteCall);
+		SuiteResult tempResult = callSuiteSingle(aRootSuiteCall);
 
 		if (currentCallback != null) {
 			currentCallback.onExecutionFinish(model, tempResult);
@@ -354,9 +354,30 @@ public class TestRunner {
 	 * 
 	 * @param aSuiteCall
 	 *            the suite call to execute
+	 * @return the suite results (multiple if the suite has an execution multiplier)
+	 */
+	protected List<SuiteResult> callSuite(Suite aSuiteCall) {
+		int tempCount = 1;
+		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
+			tempCount = aSuiteCall.getMultiplier().getCount().intValue();
+		}
+
+		List<SuiteResult> tempResults = new ArrayList<SuiteResult>();
+		for (int i = 0; i < tempCount; i++) {
+			tempResults.add(callSuiteSingle(aSuiteCall));
+		}
+
+		return tempResults;
+	}
+
+	/**
+	 * Performs a specified suite call (doesn't honor the multiplier!).
+	 * 
+	 * @param aSuiteCall
+	 *            the suite call to execute
 	 * @return the suite result
 	 */
-	protected SuiteResult callSuite(Suite aSuiteCall) {
+	protected SuiteResult callSuiteSingle(Suite aSuiteCall) {
 		if (aSuiteCall.getFork() != null) {
 			if (!isFork() && forkInExecution != null && aSuiteCall.getFork() != forkInExecution) {
 				throw new UnsupportedOperationException(
@@ -420,7 +441,7 @@ public class TestRunner {
 				}
 
 				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempSetupSuite);
+				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempSetupSuite);
 				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
 						null, null, System.nanoTime() - tempStart);
 				tempSetupResults.put(tempSetupSuite, tempSetupResult);
@@ -442,7 +463,7 @@ public class TestRunner {
 		}
 
 		long tempSuiteDuration = System.nanoTime();
-		Map<SuiteStatementWithResult, Result> tempResults = executeSuite(aSuiteCall.getDefinition());
+		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
 		if (tempSetupSuites != null) {
@@ -457,7 +478,7 @@ public class TestRunner {
 						}
 
 						long tempStart = System.nanoTime();
-						Map<SuiteStatementWithResult, Result> tempSuiteResults = executeSuite(tempTearDownSuite);
+						Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
 						SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(
 								tempSuiteResults, null, null, System.nanoTime() - tempStart);
 						tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
@@ -507,16 +528,20 @@ public class TestRunner {
 	 *            the suite to execute
 	 * @return a map that maps statements to results
 	 */
-	protected Map<SuiteStatementWithResult, Result> executeSuite(SuiteDefinition aSuite) {
-		Map<SuiteStatementWithResult, Result> tempResults = new LinkedHashMap<SuiteStatementWithResult, Result>();
+	protected Map<SuiteStatementWithResult, List<? extends Result>> executeSuite(SuiteDefinition aSuite) {
+		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = new LinkedHashMap<SuiteStatementWithResult, List<? extends Result>>();
 
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
 				tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement));
 			} else if (tempStatement instanceof Test) {
-				tempResults.put((Test) tempStatement, executeTest((Test) tempStatement));
+				List<Result> tempInnerList = new ArrayList<Result>();
+				tempInnerList.add(executeTest((Test) tempStatement));
+				tempResults.put((Test) tempStatement, tempInnerList);
 			} else if (tempStatement instanceof TableTest) {
-				tempResults.put((TableTest) tempStatement, executeTableTest((TableTest) tempStatement));
+				List<Result> tempInnerList = new ArrayList<Result>();
+				tempInnerList.add(executeTableTest((TableTest) tempStatement));
+				tempResults.put((TableTest) tempStatement, tempInnerList);
 			} else if (tempStatement instanceof Call) {
 				executeCall((Call) tempStatement);
 			} else if (tempStatement instanceof VariableDefinition) {
@@ -640,7 +665,7 @@ public class TestRunner {
 	}
 
 	/**
-	 * Executes a test.
+	 * Executes a test (doesn't pay attention to the multiplier).
 	 * 
 	 * @param aTest
 	 *            the test to execute
@@ -1077,9 +1102,30 @@ public class TestRunner {
 	 * 
 	 * @param aCall
 	 *            the call to execute
+	 * @return the results (multiple if the call has an execution multiplier)
+	 */
+	protected List<CallResult> executeCall(Call aCall) {
+		int tempCount = 1;
+		if (aCall.getMultiplier() != null && aCall.getMultiplier().getCount() != null) {
+			tempCount = aCall.getMultiplier().getCount().intValue();
+		}
+
+		List<CallResult> tempResults = new ArrayList<CallResult>();
+		for (int i = 0; i < tempCount; i++) {
+			tempResults.add(executeCallSingle(aCall));
+		}
+
+		return tempResults;
+	}
+
+	/**
+	 * Executes a call (a single time, doesn't honor the multiplier).
+	 * 
+	 * @param aCall
+	 *            the call to execute
 	 * @return the result
 	 */
-	protected CallResult executeCall(Call aCall) {
+	protected CallResult executeCallSingle(Call aCall) {
 		if (currentCallback != null) {
 			currentCallback.onCallStart(aCall);
 		}

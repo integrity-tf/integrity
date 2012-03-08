@@ -9,6 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Variable;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getResults <em>Results</em>}</li>
@@ -46,6 +48,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class CallImpl extends SuiteStatementImpl implements Call
 {
+  /**
+   * The cached value of the '{@link #getMultiplier() <em>Multiplier</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMultiplier()
+   * @generated
+   * @ordered
+   */
+  protected ExecutionMultiplier multiplier;
+
   /**
    * The cached value of the '{@link #getDefinition() <em>Definition</em>}' reference.
    * <!-- begin-user-doc -->
@@ -105,6 +117,54 @@ public class CallImpl extends SuiteStatementImpl implements Call
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.CALL;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExecutionMultiplier getMultiplier()
+  {
+    return multiplier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetMultiplier(ExecutionMultiplier newMultiplier, NotificationChain msgs)
+  {
+    ExecutionMultiplier oldMultiplier = multiplier;
+    multiplier = newMultiplier;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.CALL__MULTIPLIER, oldMultiplier, newMultiplier);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMultiplier(ExecutionMultiplier newMultiplier)
+  {
+    if (newMultiplier != multiplier)
+    {
+      NotificationChain msgs = null;
+      if (multiplier != null)
+        msgs = ((InternalEObject)multiplier).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.CALL__MULTIPLIER, null, msgs);
+      if (newMultiplier != null)
+        msgs = ((InternalEObject)newMultiplier).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.CALL__MULTIPLIER, null, msgs);
+      msgs = basicSetMultiplier(newMultiplier, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.CALL__MULTIPLIER, newMultiplier, newMultiplier));
   }
 
   /**
@@ -236,6 +296,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
   {
     switch (featureID)
     {
+      case DslPackage.CALL__MULTIPLIER:
+        return basicSetMultiplier(null, msgs);
       case DslPackage.CALL__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
       case DslPackage.CALL__RESULTS:
@@ -256,6 +318,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
   {
     switch (featureID)
     {
+      case DslPackage.CALL__MULTIPLIER:
+        return getMultiplier();
       case DslPackage.CALL__DEFINITION:
         if (resolve) return getDefinition();
         return basicGetDefinition();
@@ -280,6 +344,9 @@ public class CallImpl extends SuiteStatementImpl implements Call
   {
     switch (featureID)
     {
+      case DslPackage.CALL__MULTIPLIER:
+        setMultiplier((ExecutionMultiplier)newValue);
+        return;
       case DslPackage.CALL__DEFINITION:
         setDefinition((CallDefinition)newValue);
         return;
@@ -308,6 +375,9 @@ public class CallImpl extends SuiteStatementImpl implements Call
   {
     switch (featureID)
     {
+      case DslPackage.CALL__MULTIPLIER:
+        setMultiplier((ExecutionMultiplier)null);
+        return;
       case DslPackage.CALL__DEFINITION:
         setDefinition((CallDefinition)null);
         return;
@@ -334,6 +404,8 @@ public class CallImpl extends SuiteStatementImpl implements Call
   {
     switch (featureID)
     {
+      case DslPackage.CALL__MULTIPLIER:
+        return multiplier != null;
       case DslPackage.CALL__DEFINITION:
         return definition != null;
       case DslPackage.CALL__PARAMETERS:

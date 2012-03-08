@@ -68,10 +68,10 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterTableValueAccess().getGroup(), "rule__ParameterTableValue__Group__0");
 					put(grammarAccess.getNamedResultAccess().getGroup(), "rule__NamedResult__Group__0");
 					put(grammarAccess.getCallAccess().getGroup(), "rule__Call__Group__0");
-					put(grammarAccess.getCallAccess().getGroup_4(), "rule__Call__Group_4__0");
+					put(grammarAccess.getCallAccess().getGroup_5(), "rule__Call__Group_5__0");
 					put(grammarAccess.getNamedCallResultAccess().getGroup(), "rule__NamedCallResult__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
-					put(grammarAccess.getSuiteAccess().getGroup_3(), "rule__Suite__Group_3__0");
+					put(grammarAccess.getSuiteAccess().getGroup_4(), "rule__Suite__Group_4__0");
 					put(grammarAccess.getSuiteParameterAccess().getGroup(), "rule__SuiteParameter__Group__0");
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getGroup(), "rule__ArbitraryParameterOrResultName__Group__0");
@@ -79,6 +79,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValueOrEnumValueCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueCollection__Group_1__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
+					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getQualifiedJavaClassNameAccess().getGroup(), "rule__QualifiedJavaClassName__Group__0");
@@ -122,15 +123,17 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNamedResultAccess().getNameAssignment_0(), "rule__NamedResult__NameAssignment_0");
 					put(grammarAccess.getNamedResultAccess().getValueAssignment_2(), "rule__NamedResult__ValueAssignment_2");
 					put(grammarAccess.getFixedResultNameAccess().getFieldAssignment(), "rule__FixedResultName__FieldAssignment");
-					put(grammarAccess.getCallAccess().getDefinitionAssignment_1(), "rule__Call__DefinitionAssignment_1");
-					put(grammarAccess.getCallAccess().getParametersAssignment_2(), "rule__Call__ParametersAssignment_2");
-					put(grammarAccess.getCallAccess().getResultsAssignment_3(), "rule__Call__ResultsAssignment_3");
-					put(grammarAccess.getCallAccess().getResultAssignment_4_1(), "rule__Call__ResultAssignment_4_1");
+					put(grammarAccess.getCallAccess().getMultiplierAssignment_1(), "rule__Call__MultiplierAssignment_1");
+					put(grammarAccess.getCallAccess().getDefinitionAssignment_2(), "rule__Call__DefinitionAssignment_2");
+					put(grammarAccess.getCallAccess().getParametersAssignment_3(), "rule__Call__ParametersAssignment_3");
+					put(grammarAccess.getCallAccess().getResultsAssignment_4(), "rule__Call__ResultsAssignment_4");
+					put(grammarAccess.getCallAccess().getResultAssignment_5_1(), "rule__Call__ResultAssignment_5_1");
 					put(grammarAccess.getNamedCallResultAccess().getNameAssignment_0(), "rule__NamedCallResult__NameAssignment_0");
 					put(grammarAccess.getNamedCallResultAccess().getTargetAssignment_2(), "rule__NamedCallResult__TargetAssignment_2");
-					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_1(), "rule__Suite__DefinitionAssignment_1");
-					put(grammarAccess.getSuiteAccess().getParametersAssignment_2(), "rule__Suite__ParametersAssignment_2");
-					put(grammarAccess.getSuiteAccess().getForkAssignment_3_1(), "rule__Suite__ForkAssignment_3_1");
+					put(grammarAccess.getSuiteAccess().getMultiplierAssignment_1(), "rule__Suite__MultiplierAssignment_1");
+					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_2(), "rule__Suite__DefinitionAssignment_2");
+					put(grammarAccess.getSuiteAccess().getParametersAssignment_3(), "rule__Suite__ParametersAssignment_3");
+					put(grammarAccess.getSuiteAccess().getForkAssignment_4_1(), "rule__Suite__ForkAssignment_4_1");
 					put(grammarAccess.getSuiteParameterAccess().getNameAssignment_0(), "rule__SuiteParameter__NameAssignment_0");
 					put(grammarAccess.getSuiteParameterAccess().getValueAssignment_2(), "rule__SuiteParameter__ValueAssignment_2");
 					put(grammarAccess.getParameterAccess().getNameAssignment_0(), "rule__Parameter__NameAssignment_0");
@@ -147,6 +150,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
 					put(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0(), "rule__MethodReference__TypeAssignment_0");
 					put(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2(), "rule__MethodReference__MethodAssignment_2");
+					put(grammarAccess.getExecutionMultiplierAccess().getCountAssignment_0(), "rule__ExecutionMultiplier__CountAssignment_0");
 				}
 			};
 		}

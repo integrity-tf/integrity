@@ -10,6 +10,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
@@ -130,6 +131,12 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 				if(context == grammarAccess.getEnumValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_EnumValue(context, (EnumValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.EXECUTION_MULTIPLIER:
+				if(context == grammarAccess.getExecutionMultiplierRule()) {
+					sequence_ExecutionMultiplier(context, (ExecutionMultiplier) semanticObject); 
 					return; 
 				}
 				else break;
@@ -384,7 +391,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* result=Variable?)
+	 *     (multiplier=ExecutionMultiplier? definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* result=Variable?)
 	 */
 	protected void sequence_Call(EObject context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -438,6 +445,22 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1(), semanticObject.getEnumValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     count=INTEGER
+	 */
+	protected void sequence_ExecutionMultiplier(EObject context, ExecutionMultiplier semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.EXECUTION_MULTIPLIER__COUNT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.EXECUTION_MULTIPLIER__COUNT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0(), semanticObject.getCount());
 		feeder.finish();
 	}
 	
@@ -709,7 +732,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* fork=[ForkDefinition|QualifiedName]?)
+	 *     (multiplier=ExecutionMultiplier? definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* fork=[ForkDefinition|QualifiedName]?)
 	 */
 	protected void sequence_Suite(EObject context, Suite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

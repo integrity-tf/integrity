@@ -113,6 +113,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplier" eType="#//ExecutionMultiplier"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
@@ -128,6 +130,8 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//Statement #//SuiteStatementWithResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplier" eType="#//ExecutionMultiplier"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//SuiteParameter" containment="true"/>
@@ -181,6 +185,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MethodReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExecutionMultiplier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Null" eSuperTypes="#//NullValue"/>
 </ecore:EPackage>

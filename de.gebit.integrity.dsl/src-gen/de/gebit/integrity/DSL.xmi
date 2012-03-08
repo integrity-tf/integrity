@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="de.gebit.integrity.DSL" definesHiddenTokens="true" hiddenTokens="//@rules.58 //@rules.54 //@rules.55">
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="de.gebit.integrity.DSL" definesHiddenTokens="true" hiddenTokens="//@rules.59 //@rules.55 //@rules.56">
   <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
     <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   </metamodelDeclarations>
@@ -32,7 +32,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VisibleSingleLineComment"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="content" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.57"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="VisibleMultiLineComment">
@@ -40,7 +40,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VisibleMultiLineComment"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="content" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.57"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PackageDefinition">
@@ -50,7 +50,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="packagedef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="with"/>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="statements" operator="+=">
@@ -80,7 +80,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="import"/>
       <elements xsi:type="xtext:Assignment" feature="importedNamespace" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.47"/>
       </elements>
     </alternatives>
   </rules>
@@ -91,10 +91,10 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="forkdef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="?" feature="description" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.54"/>
       </elements>
     </alternatives>
   </rules>
@@ -105,7 +105,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="testdef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="uses"/>
       <elements xsi:type="xtext:Assignment" feature="fixtureMethod" operator="=">
@@ -120,7 +120,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="calldef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="uses"/>
       <elements xsi:type="xtext:Assignment" feature="fixtureMethod" operator="=">
@@ -135,7 +135,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="suitedef"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="gets"/>
@@ -150,7 +150,7 @@
             <type metamodel="//@metamodelDeclarations.2">
               <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
           </terminal>
         </elements>
       </elements>
@@ -166,7 +166,7 @@
             <type metamodel="//@metamodelDeclarations.2">
               <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
           </terminal>
         </elements>
       </elements>
@@ -231,7 +231,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="name" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="Test">
@@ -245,7 +245,7 @@
           <type metamodel="//@metamodelDeclarations.2">
             <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestDefinition"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
@@ -273,7 +273,7 @@
           <type metamodel="//@metamodelDeclarations.2">
             <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//TestDefinition"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
@@ -379,7 +379,7 @@
         <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmField"/>
         </type>
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       </terminal>
     </alternatives>
   </rules>
@@ -389,12 +389,15 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="call"/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="multiplier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      </elements>
       <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.2">
             <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//CallDefinition"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
@@ -431,12 +434,15 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="suite"/>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="multiplier" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      </elements>
       <elements xsi:type="xtext:Assignment" feature="definition" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="//@metamodelDeclarations.2">
             <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//SuiteDefinition"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
@@ -449,7 +455,7 @@
             <type metamodel="//@metamodelDeclarations.2">
               <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ForkDefinition"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
           </terminal>
         </elements>
       </elements>
@@ -465,7 +471,7 @@
           <type metamodel="//@metamodelDeclarations.2">
             <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Keyword" value=":"/>
@@ -506,7 +512,7 @@
         <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmAnnotationReference"/>
         </type>
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       </terminal>
     </alternatives>
   </rules>
@@ -517,7 +523,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="+"/>
       <elements xsi:type="xtext:Assignment" feature="identifier" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       </elements>
     </alternatives>
   </rules>
@@ -564,7 +570,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//IntegerValue"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="integerValue" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DecimalValue">
@@ -572,7 +578,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//DecimalValue"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="decimalValue" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="StringValue">
@@ -580,7 +586,7 @@
       <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//StringValue"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="stringValue" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.54"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="BooleanValue">
@@ -589,8 +595,8 @@
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="booleanValue" operator="=">
       <terminal xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.47"/>
         <elements xsi:type="xtext:RuleCall" rule="//@rules.48"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.49"/>
       </terminal>
     </alternatives>
   </rules>
@@ -603,7 +609,7 @@
         <type metamodel="//@metamodelDeclarations.2">
           <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
         </type>
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       </terminal>
     </alternatives>
   </rules>
@@ -629,7 +635,7 @@
         <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmEnumerationLiteral"/>
         </type>
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.49"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
       </terminal>
     </alternatives>
   </rules>
@@ -643,7 +649,7 @@
           <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Keyword" value="#"/>
@@ -652,9 +658,20 @@
           <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
         </terminal>
       </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ExecutionMultiplier">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//ExecutionMultiplier"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="count" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="*"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="QualifiedName">
@@ -662,10 +679,10 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Keyword" value="."/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       </elements>
     </alternatives>
   </rules>
@@ -674,9 +691,9 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       <elements xsi:type="xtext:Keyword" value="."/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.49"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.50"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">
@@ -684,7 +701,7 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
       <elements xsi:type="xtext:Keyword" cardinality="?" value=".*"/>
     </alternatives>
   </rules>
