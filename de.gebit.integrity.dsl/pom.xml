@@ -11,4 +11,20 @@
   <artifactId>de.gebit.integrity.dsl</artifactId>
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - Core</name>
+  
+  <!-- We're building a fat jar including the sources right now for simplicity -->
+  <build>
+  	<resources>
+  		<resource>
+			<directory>${basedir}/src</directory>
+		</resource>
+		<resource>
+			<directory>${basedir}/src-gen</directory>
+		</resource>
+		<resource>
+			<directory>${basedir}/xtend-gen</directory>
+		</resource>
+  	</resources>
+  </build>
+  
 </project>

@@ -8,7 +8,18 @@
     <version>0.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>de.gebit.integrity.dsl.ui</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - UI</name>
+  
+  <!-- We're building a fat jar including the sources right now for simplicity -->
+  <build>
+  	<resources>
+  		<resource>
+			<directory>${basedir}/src</directory>
+		</resource>
+		<resource>
+			<directory>${basedir}/src-gen</directory>
+		</resource>
+  	</resources>
+  </build>
 </project>

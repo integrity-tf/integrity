@@ -11,4 +11,13 @@
   <packaging>eclipse-plugin</packaging>
   
   <name>Integrity Test Framework - Test Runner</name>
+  
+  <!-- We're building a fat jar including the sources right now for simplicity -->
+  <build>
+  	<resources>
+  		<resource>
+			<directory>${basedir}/src</directory>
+		</resource>
+  	</resources>
+  </build>
 </project>

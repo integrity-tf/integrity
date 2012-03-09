@@ -8,7 +8,6 @@
   </parent>
   
   <artifactId>distribution</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Integrity Eclipse Dropins</name>
   

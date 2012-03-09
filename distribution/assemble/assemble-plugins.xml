@@ -13,6 +13,5 @@
     		<outputDirectory>dropins/integrity/eclipse/plugins/</outputDirectory>
   		</dependencySet>
 	</dependencySets>
-	
   
 </assembly>
