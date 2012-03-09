@@ -100,11 +100,6 @@ public class Fork {
 	private boolean ignoreVariableUpdates;
 
 	/**
-	 * The forker to use when creating new forks.
-	 */
-	private static Forker forker = new DefaultForker();
-
-	/**
 	 * The offset of the port numbers to try from the remoting port of the current test runner.
 	 */
 	private static int portNumberOffset;
@@ -113,10 +108,6 @@ public class Fork {
 	 * The maximum possible port number.
 	 */
 	private static final int MAX_PORT_NUMBER = 65535;
-
-	public static void setForker(Forker aForker) {
-		forker = aForker;
-	}
 
 	/**
 	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
