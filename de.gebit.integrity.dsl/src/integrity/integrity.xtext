@@ -27,7 +27,7 @@ Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
 	
 ForkDefinition:
-	'forkdef' name=QualifiedName (description=STRING)?;
+	'forkdef' name=QualifiedName (description=STRING)? ('uses' forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?;
 	
 TestDefinition:
 	'testdef' name=QualifiedName 'uses' fixtureMethod=MethodReference;

@@ -49,6 +49,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
+					put(grammarAccess.getForkDefinitionAccess().getGroup_3(), "rule__ForkDefinition__Group_3__0");
 					put(grammarAccess.getTestDefinitionAccess().getGroup(), "rule__TestDefinition__Group__0");
 					put(grammarAccess.getCallDefinitionAccess().getGroup(), "rule__CallDefinition__Group__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup(), "rule__SuiteDefinition__Group__0");
@@ -92,6 +93,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getForkDefinitionAccess().getNameAssignment_1(), "rule__ForkDefinition__NameAssignment_1");
 					put(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_2(), "rule__ForkDefinition__DescriptionAssignment_2");
+					put(grammarAccess.getForkDefinitionAccess().getForkerClassAssignment_3_1(), "rule__ForkDefinition__ForkerClassAssignment_3_1");
 					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_1(), "rule__TestDefinition__NameAssignment_1");
 					put(grammarAccess.getTestDefinitionAccess().getFixtureMethodAssignment_3(), "rule__TestDefinition__FixtureMethodAssignment_3");
 					put(grammarAccess.getCallDefinitionAccess().getNameAssignment_1(), "rule__CallDefinition__NameAssignment_1");

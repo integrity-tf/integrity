@@ -625,6 +625,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getForkDefinition_ForkerClass()
+  {
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTestDefinition()
   {
     return testDefinitionEClass;
@@ -1643,6 +1653,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     forkDefinitionEClass = createEClass(FORK_DEFINITION);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
+    createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
 
     testDefinitionEClass = createEClass(TEST_DEFINITION);
     createEAttribute(testDefinitionEClass, TEST_DEFINITION__NAME);
@@ -1869,6 +1880,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(forkDefinitionEClass, ForkDefinition.class, "ForkDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForkDefinition_ForkerClass(), theTypesPackage.getJvmType(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testDefinitionEClass, TestDefinition.class, "TestDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTestDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -57,7 +57,7 @@ RULE_INTEGER=11
 'with'=18
 'requires'=28
 '='=34
-'uses'=23
+'uses'=22
 '+'=42
 '.'=47
 'initially'=31
@@ -70,7 +70,7 @@ RULE_INTEGER=11
 'test'=33
 'packagedef'=17
 'suiteend'=26
-'testdef'=22
+'testdef'=23
 'concludedby'=29
 ':'=41
 '*'=46

@@ -295,13 +295,22 @@ public interface DslPackage extends EPackage
   int FORK_DEFINITION__DESCRIPTION = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Forker Class</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__FORKER_CLASS = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Fork Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int FORK_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.
@@ -1707,6 +1716,17 @@ public interface DslPackage extends EPackage
   EAttribute getForkDefinition_Description();
 
   /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Forker Class</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition#getForkerClass()
+   * @see #getForkDefinition()
+   * @generated
+   */
+  EReference getForkDefinition_ForkerClass();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.TestDefinition <em>Test Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2901,6 +2921,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute FORK_DEFINITION__DESCRIPTION = eINSTANCE.getForkDefinition_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Forker Class</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORK_DEFINITION__FORKER_CLASS = eINSTANCE.getForkDefinition_ForkerClass();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.

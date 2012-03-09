@@ -12,8 +12,11 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getForkerClass <em>Forker Class</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +74,16 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getForkerClass() <em>Forker Class</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getForkerClass()
+   * @generated
+   * @ordered
+   */
+  protected JvmType forkerClass;
 
   /**
    * <!-- begin-user-doc -->
@@ -143,6 +157,49 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  public JvmType getForkerClass()
+  {
+    if (forkerClass != null && forkerClass.eIsProxy())
+    {
+      InternalEObject oldForkerClass = (InternalEObject)forkerClass;
+      forkerClass = (JvmType)eResolveProxy(oldForkerClass);
+      if (forkerClass != oldForkerClass)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.FORK_DEFINITION__FORKER_CLASS, oldForkerClass, forkerClass));
+      }
+    }
+    return forkerClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType basicGetForkerClass()
+  {
+    return forkerClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setForkerClass(JvmType newForkerClass)
+  {
+    JvmType oldForkerClass = forkerClass;
+    forkerClass = newForkerClass;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__FORKER_CLASS, oldForkerClass, forkerClass));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -152,6 +209,9 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
         return getName();
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
         return getDescription();
+      case DslPackage.FORK_DEFINITION__FORKER_CLASS:
+        if (resolve) return getForkerClass();
+        return basicGetForkerClass();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -171,6 +231,9 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
         return;
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
         setDescription((String)newValue);
+        return;
+      case DslPackage.FORK_DEFINITION__FORKER_CLASS:
+        setForkerClass((JvmType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -192,6 +255,9 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
+      case DslPackage.FORK_DEFINITION__FORKER_CLASS:
+        setForkerClass((JvmType)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -210,6 +276,8 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case DslPackage.FORK_DEFINITION__FORKER_CLASS:
+        return forkerClass != null;
     }
     return super.eIsSet(featureID);
   }

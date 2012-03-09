@@ -123,6 +123,8 @@ public class Fork {
 	 * 
 	 * @param aDefinition
 	 *            the fork definition
+	 * @param aForkerClass
+	 *            the class that will be instantiated and then used to actually create the fork
 	 * @param someCommandLineArguments
 	 *            the complete and original command line arguments with which the current test runner was started
 	 * @param aMainPortNumber
@@ -138,10 +140,22 @@ public class Fork {
 	 * @throws ForkException
 	 *             if something goes wrong
 	 */
-	public Fork(ForkDefinition aDefinition, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback)
-			throws ForkException {
+	// SUPPRESS CHECKSTYLE ParameterNum
+	public Fork(ForkDefinition aDefinition, Class<? extends Forker> aForkerClass, String[] someCommandLineArguments,
+			int aMainPortNumber, TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer,
+			ForkCallback aForkCallback) throws ForkException {
 		super();
+		Forker tempForker;
+		try {
+			tempForker = aForkerClass.newInstance();
+		} catch (InstantiationException exc) {
+			throw new ForkException("Could not create fork '" + aDefinition.getName()
+					+ "': forker class not instantiable.", exc);
+		} catch (IllegalAccessException exc) {
+			throw new ForkException("Could not create fork '" + aDefinition.getName()
+					+ "': forker class not instantiable.", exc);
+		}
+
 		definition = aDefinition;
 		testRunnerCallback = aCallback;
 		setList = aSetList;
@@ -149,7 +163,7 @@ public class Fork {
 		forkCallback = aForkCallback;
 
 		port = getNextPort(aMainPortNumber);
-		process = forker.fork(someCommandLineArguments, port, aDefinition.getName());
+		process = tempForker.fork(someCommandLineArguments, port, aDefinition.getName());
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");

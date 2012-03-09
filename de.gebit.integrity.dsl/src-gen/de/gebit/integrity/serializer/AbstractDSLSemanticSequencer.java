@@ -499,7 +499,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName description=STRING?)
+	 *     (name=QualifiedName description=STRING? forkerClass=[JvmType|QualifiedJavaClassName]?)
 	 */
 	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

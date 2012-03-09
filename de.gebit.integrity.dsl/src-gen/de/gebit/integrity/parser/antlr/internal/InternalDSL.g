@@ -486,7 +486,26 @@ ruleForkDefinition returns [EObject current=null]
 	    }
 
 )
-)?)
+)?(	otherlv_3='uses' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getForkDefinitionAccess().getUsesKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getForkDefinitionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeCrossReference_3_1_0()); 
+	    }
+		ruleQualifiedJavaClassName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
 ;
 
 

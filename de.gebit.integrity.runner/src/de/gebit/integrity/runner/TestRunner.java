@@ -59,6 +59,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
+import de.gebit.integrity.runner.forking.DefaultForker;
 import de.gebit.integrity.runner.forking.Fork;
 import de.gebit.integrity.runner.forking.ForkCallback;
 import de.gebit.integrity.runner.forking.ForkException;
@@ -1491,8 +1492,23 @@ public class TestRunner {
 	 * @throws ForkException
 	 *             if any problem arises during forking
 	 */
+	@SuppressWarnings("unchecked")
 	protected Fork createFork(Suite aSuiteCall) throws ForkException {
-		Fork tempFork = new Fork(aSuiteCall.getFork(), commandLineArguments,
+		ForkDefinition tempForkDef = aSuiteCall.getFork();
+		Class<? extends Forker> tempForkerClass = DefaultForker.class;
+		if (tempForkDef.getForkerClass() != null) {
+			try {
+				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(tempForkDef.getForkerClass());
+			} catch (ClassCastException exc) {
+				throw new ForkException("Could not create fork '" + tempForkDef.getName()
+						+ "': forker class not usable.", exc);
+			} catch (ClassNotFoundException exc) {
+				throw new ForkException("Could not create fork '" + tempForkDef.getName()
+						+ "': forker class not found.", exc);
+			}
+		}
+
+		Fork tempFork = new Fork(aSuiteCall.getFork(), tempForkerClass, commandLineArguments,
 				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
 				currentCallback, setList, remotingServer, new ForkCallback() {
 

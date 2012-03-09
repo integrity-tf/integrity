@@ -200,12 +200,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Assignment cDescriptionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_0 = (RuleCall)cDescriptionAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cUsesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cForkerClassAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cForkerClassJvmTypeCrossReference_3_1_0 = (CrossReference)cForkerClassAssignment_3_1.eContents().get(0);
+		private final RuleCall cForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_3_1_0_1 = (RuleCall)cForkerClassJvmTypeCrossReference_3_1_0.eContents().get(1);
 		
 		//ForkDefinition:
-		//	"forkdef" name=QualifiedName description=STRING?;
+		//	"forkdef" name=QualifiedName description=STRING? ("uses" forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?;
 		public ParserRule getRule() { return rule; }
 
-		//"forkdef" name=QualifiedName description=STRING?
+		//"forkdef" name=QualifiedName description=STRING? ("uses" forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?
 		public Group getGroup() { return cGroup; }
 
 		//"forkdef"
@@ -222,6 +227,21 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
+
+		//("uses" forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"uses"
+		public Keyword getUsesKeyword_3_0() { return cUsesKeyword_3_0; }
+
+		//forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName]
+		public Assignment getForkerClassAssignment_3_1() { return cForkerClassAssignment_3_1; }
+
+		//[jvmTypes::JvmType|QualifiedJavaClassName]
+		public CrossReference getForkerClassJvmTypeCrossReference_3_1_0() { return cForkerClassJvmTypeCrossReference_3_1_0; }
+
+		//QualifiedJavaClassName
+		public RuleCall getForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_3_1_0_1() { return cForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_3_1_0_1; }
 	}
 
 	public class TestDefinitionElements extends AbstractParserRuleElementFinder {
@@ -1673,7 +1693,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ForkDefinition:
-	//	"forkdef" name=QualifiedName description=STRING?;
+	//	"forkdef" name=QualifiedName description=STRING? ("uses" forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
 	}

@@ -6,7 +6,7 @@ packagedef mysecondpackage with
 	variable packagevar
 	variable morePackageVars initially "String!!!"
 
-	forkdef firstFork "Fork Number One"
+	forkdef firstFork "Fork Number One" uses de.gebit.integrity.runner.forking.DefaultForker
 	forkdef secondFork "Fork Number Two"
 
 	suitedef forkedSuite gets aParam with

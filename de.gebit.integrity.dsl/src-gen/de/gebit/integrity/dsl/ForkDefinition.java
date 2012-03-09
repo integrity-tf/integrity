@@ -6,6 +6,7 @@
  */
 package de.gebit.integrity.dsl;
 
+import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,6 +18,7 @@ package de.gebit.integrity.dsl;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +79,31 @@ public interface ForkDefinition extends PackageStatement
    * @generated
    */
   void setDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Forker Class</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Forker Class</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Forker Class</em>' reference.
+   * @see #setForkerClass(JvmType)
+   * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_ForkerClass()
+   * @model
+   * @generated
+   */
+  JvmType getForkerClass();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Forker Class</em>' reference.
+   * @see #getForkerClass()
+   * @generated
+   */
+  void setForkerClass(JvmType value);
 
 } // ForkDefinition
