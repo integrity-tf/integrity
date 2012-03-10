@@ -11,8 +11,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
+import de.gebit.integrity.fixtures.FixtureWrapper;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -133,7 +133,7 @@ public class TestFormatter {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
 		Class<?> tempFixtureClass = classloader.loadClass(tempFixtureClassName);
-		Method tempMethod = Fixture.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
+		Method tempMethod = FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
 		if (tempMethod == null) {
 			return null;
 		}

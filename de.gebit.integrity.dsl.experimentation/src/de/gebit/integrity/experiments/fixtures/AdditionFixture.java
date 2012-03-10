@@ -1,10 +1,9 @@
 package de.gebit.integrity.experiments.fixtures;
 
-import de.gebit.integrity.fixtures.Fixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
-public class AdditionFixture extends Fixture {
+public class AdditionFixture {
 
 	/**
 	 * Adds two integer numbers and returns the result.
@@ -53,7 +52,7 @@ public class AdditionFixture extends Fixture {
 		pause();
 		return true;
 	}
-	
+
 	@FixtureMethod(description = "returns some named results")
 	public NamedResultContainer multiResultFixture(@FixtureParameter(name = "param") String aParam) {
 		return new NamedResultContainer(aParam, 100);
@@ -66,26 +65,26 @@ public class AdditionFixture extends Fixture {
 			exc.printStackTrace();
 		}
 	}
-	
+
 	public static class NamedResultContainer {
-		
+
 		private String firstNamedResult;
-		
+
 		private Integer secondNamedResult;
-		
+
 		public NamedResultContainer(String aFirstNamedResult, Integer aSecondNamedResult) {
 			firstNamedResult = aFirstNamedResult;
 			secondNamedResult = aSecondNamedResult;
 		}
-		
+
 		public String getFirstNamedResult() {
 			return firstNamedResult;
 		}
-		
+
 		public Integer getSecondNamedResult() {
 			return secondNamedResult;
 		}
-		
+
 	}
 
 }

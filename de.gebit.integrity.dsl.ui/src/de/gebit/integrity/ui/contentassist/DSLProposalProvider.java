@@ -38,7 +38,7 @@ import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
-import de.gebit.integrity.fixtures.Fixture;
+import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.ui.utils.ClassLoadingUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.JavadocUtil;
@@ -210,6 +210,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	@Override
 	// SUPPRESS CHECKSTYLE MethodName
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void completeArbitraryParameterOrResultName_Identifier(EObject aModel, Assignment anAssignment,
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		super.completeArbitraryParameterOrResultName_Identifier(aModel, anAssignment, aContext, anAcceptor);
@@ -252,12 +253,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
 			Class<?> tempFixtureClass;
+			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
 				tempFixtureClass = ClassLoadingUtil.loadClassFromWorkspace(
 						tempCompilationUnit.getTypes()[0].getFullyQualifiedName(), tempSourceMethod.getJavaProject());
-				Fixture tempFixtureInstance = (Fixture) tempFixtureClass.newInstance();
 
-				if (tempFixtureInstance instanceof ArbitraryParameterFixture) {
+				if (ArbitraryParameterFixture.class.isAssignableFrom(tempFixtureClass)) {
+					tempFixtureInstance = new FixtureWrapper(tempFixtureClass);
+
 					Map<String, Object> tempFixedParameterMap = null;
 					if (tempContainer instanceof Test) {
 						Test tempTest = (Test) tempContainer;
@@ -282,9 +285,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						}
 					}
 
-					tempFixtureInstance.convertParameterValuesToFixtureDefinedTypes(Fixture.findFixtureMethodByName(
-							tempFixtureClass, tempMethodReference.getMethod().getSimpleName()), tempFixedParameterMap,
-							false, true);
+					tempFixtureInstance.convertParameterValuesToFixtureDefinedTypes(
+							FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempMethodReference.getMethod()
+									.getSimpleName()), tempFixedParameterMap, false, true);
 
 					// first fetch the arbitrary parameter names...
 					List<ArbitraryParameterDefinition> tempParameterDescriptions = ((ArbitraryParameterFixture) tempFixtureInstance)
@@ -333,8 +336,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				exc.printStackTrace();
 			} catch (JavaModelException exc) {
 				exc.printStackTrace();
+			} finally {
+				if (tempFixtureInstance != null) {
+					tempFixtureInstance.release();
+				}
 			}
 		}
 	}
-
 }
