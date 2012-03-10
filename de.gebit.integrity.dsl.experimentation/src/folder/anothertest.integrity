@@ -16,6 +16,14 @@ packagedef mysecondpackage with
 		call random min:1 max:aParam -> packagevar
 		
 		call random min:2 max:aParam -> packagevar
+		
+		suite ranFromForked
+	
+	suiteend
+	
+	suitedef ranFromForked with
+	
+		call random min:0 max: 5
 	
 	suiteend
 

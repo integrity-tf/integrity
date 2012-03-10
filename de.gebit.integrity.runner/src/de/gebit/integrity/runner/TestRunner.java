@@ -379,7 +379,9 @@ public class TestRunner {
 	 * @return the suite result
 	 */
 	protected SuiteResult callSuiteSingle(Suite aSuiteCall) {
-		if (aSuiteCall.getFork() != null) {
+		boolean tempForkInExecutionOnEntry = forkInExecution != null;
+
+		if (aSuiteCall.getFork() != null && !tempForkInExecutionOnEntry) {
 			if (!isFork() && forkInExecution != null && aSuiteCall.getFork() != forkInExecution) {
 				throw new UnsupportedOperationException(
 						"It is not supported to execute another fork while inside a fork ("
@@ -389,7 +391,7 @@ public class TestRunner {
 			currentCallback.setForkInExecution(forkInExecution);
 		}
 
-		if (currentPhase == Phase.TEST_RUN) {
+		if (currentPhase == Phase.TEST_RUN && !tempForkInExecutionOnEntry) {
 			// all of this only has to be done in case of a real test run
 			if (!isFork()) {
 				// we're the master
@@ -499,7 +501,7 @@ public class TestRunner {
 			currentCallback.onSuiteFinish(aSuiteCall, tempResult);
 		}
 
-		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
+		if (!tempForkInExecutionOnEntry && forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
 			if (currentPhase == Phase.TEST_RUN) {
 				// all of this only has to be done in case of a real test run
 
