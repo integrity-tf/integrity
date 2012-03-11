@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
@@ -28,6 +29,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -941,9 +943,32 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void makeActions() {
 		connectToTestRunnerAction = new Action() {
+			private String lastHostname = "localhost";
+
+			@SuppressWarnings("restriction")
 			public void run() {
 				if (client == null || !client.isActive()) {
-					connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
+					InputDialog tempDialog = new InputDialog(getSite().getShell(), "Connect to test runner",
+							"Please enter the hostname or IP address to connect to", lastHostname, null);
+					if (tempDialog.open() == IStatus.OK && tempDialog.getValue() != null
+							&& tempDialog.getValue().length() > 0) {
+						lastHostname = tempDialog.getValue();
+						String tempHost = lastHostname;
+						int tempPort = IntegrityRemotingConstants.DEFAULT_PORT;
+						if (tempHost.contains(":")) {
+							try {
+								tempPort = Integer.parseInt(tempHost.substring(tempHost.indexOf(':') + 1));
+							} catch (NumberFormatException exc) {
+								showMessage("The port number given is illegal.");
+								return;
+							} catch (IndexOutOfBoundsException exc) {
+								showMessage("No port number given.");
+								return;
+							}
+							tempHost = tempHost.substring(0, tempHost.indexOf(':'));
+						}
+						connectToTestRunner(tempHost, tempPort);
+					}
 				} else {
 					disconnectFromTestRunner();
 				}
@@ -1048,8 +1073,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			@Override
 			public void run() {
 				if (client == null || !client.isActive()) {
-					connectToTestRunnerAction.setText("Connect to local test runner");
-					connectToTestRunnerAction.setToolTipText("Connects to a local test runner");
+					connectToTestRunnerAction.setText("Connect to test runner");
+					connectToTestRunnerAction.setToolTipText("Connects to a local or remote test runner");
 					connectToTestRunnerAction.setImageDescriptor(Activator.getImageDescriptor("icons/connect.gif"));
 					playAction.setEnabled(false);
 					pauseAction.setEnabled(false);
