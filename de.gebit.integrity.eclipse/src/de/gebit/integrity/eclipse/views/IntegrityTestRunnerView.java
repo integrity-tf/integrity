@@ -945,7 +945,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 		connectToTestRunnerAction = new Action() {
 			private String lastHostname = "localhost";
 
-			@SuppressWarnings("restriction")
 			public void run() {
 				if (client == null || !client.isActive()) {
 					InputDialog tempDialog = new InputDialog(getSite().getShell(), "Connect to test runner",
