@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integrity JUnit Tests
+Bundle-SymbolicName: de.gebit.integrity.tests
+Bundle-Version: 0.1.0.qualifier
+Export-Package: de.gebit.integrity.tests.fixtures.basic,
+ de.gebit.integrity.tests.junit,
+ de.gebit.integrity.tests.junit.basic
+Require-Bundle: de.gebit.integrity.dsl;bundle-version="0.1.0",
+ de.gebit.integrity.remoting;bundle-version="0.1.0",
+ de.gebit.integrity.runner;bundle-version="0.1.0",
+ org.jdom;bundle-version="1.0.0",
+ org.junit;bundle-version="4.8.2"

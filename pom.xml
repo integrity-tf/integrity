@@ -14,6 +14,7 @@
     <module>de.gebit.integrity.remoting</module>
     <module>de.gebit.integrity.runner</module>
     <module>de.gebit.integrity.feature</module>
+    <module>de.gebit.integrity.tests</module>
     <module>distribution</module>
     <module>standalonedeps.indigo</module>
     <module>updatesite</module>
