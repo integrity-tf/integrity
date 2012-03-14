@@ -12,21 +12,21 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class ArbitraryParamFixture implements ArbitraryParameterFixture {
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag) {
-		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterFixture.ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testparam1", Integer.class, "This is the first parameter."));
-		tempList.add(new ArbitraryParameterDefinition("testparam2", String.class, "This is the second parameter."));
-		return tempList;
+	public Map<String, Class<?>> defineArbitraryParameters(String aFixtureName,
+			Map<String, Object> someFixedParameters) {
+		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
+		tempMap.put("testparam1", Integer.class);
+		tempMap.put("testparam2", String.class);
+		return tempMap;
 	}
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureName,
-			Map<String, Object> someFixedParameters, boolean aCalledInEclipseFlag) {
-		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterFixture.ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testresult1", Integer.class, "This is the first result."));
-		tempList.add(new ArbitraryParameterDefinition("testresult2", String.class, "This is the second result."));
-		return tempList;
+	public Map<String, Class<?>> defineArbitraryResults(String aFixtureName,
+			Map<String, Object> someFixedParameters) {
+		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
+		tempMap.put("testresult1", Integer.class);
+		tempMap.put("testresult2", String.class);
+		return tempMap;
 	}
 
 	@FixtureMethod(description = "addition of $fixparam$ and $testparam1$")

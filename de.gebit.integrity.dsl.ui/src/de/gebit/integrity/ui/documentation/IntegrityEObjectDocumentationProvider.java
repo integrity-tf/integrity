@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.utils.JavadocUtil;
+import de.gebit.integrity.ui.utils.JavadocUtil;
 
 /**
  * The documentation provider. This provides texts for quick help displays, like in mouseovers.

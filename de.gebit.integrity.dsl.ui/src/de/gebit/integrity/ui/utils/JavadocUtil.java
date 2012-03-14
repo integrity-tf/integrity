@@ -1,4 +1,4 @@
-package de.gebit.integrity.utils;
+package de.gebit.integrity.ui.utils;
 
 import java.util.HashMap;
 import java.util.List;

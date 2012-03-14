@@ -2,8 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/de.gebit.integrity.runner"/>
+	<classpathentry kind="lib" path="C:/git/integrity/de.gebit.integrity.dsl/target/classes"/>
+	<classpathentry kind="lib" path="C:/git/integrity/de.gebit.integrity.remoting/target/classes"/>
+	<classpathentry kind="lib" path="C:/git/integrity/de.gebit.integrity.runner/target/classes"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/de.gebit.integrity.dsl"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/de.gebit.integrity.remoting"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/de.gebit.integrity.runner"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

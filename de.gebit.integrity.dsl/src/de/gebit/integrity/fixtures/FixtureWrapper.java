@@ -8,11 +8,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.ValueOrEnumValue;
-import de.gebit.integrity.fixtures.ArbitraryParameterFixture.ArbitraryParameterDefinition;
 import de.gebit.integrity.utils.ParameterUtil;
 
 /**
@@ -224,12 +223,12 @@ public class FixtureWrapper<C extends Object> {
 		}
 
 		if (anIncludeArbitraryParametersFlag && (getFixtureInstance() instanceof ArbitraryParameterFixture)) {
-			List<ArbitraryParameterDefinition> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
-					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap, aCalledInEclipseFlag);
-			for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
-				String tempName = tempArbitraryParameter.getName();
+			Map<String, Class<?>> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
+					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
+			for (Entry<String, Class<?>> tempArbitraryParameter : tempArbitraryParameters.entrySet()) {
+				String tempName = tempArbitraryParameter.getKey();
 				Object tempValue = aParameterMap.remove(tempName);
-				Class<?> tempExpectedType = tempArbitraryParameter.getType();
+				Class<?> tempExpectedType = tempArbitraryParameter.getValue();
 				if (tempValue != null) {
 					Object tempConvertedValue;
 					if (tempValue instanceof Object[]) {

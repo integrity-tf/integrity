@@ -32,11 +32,8 @@ Export-Package: de.gebit.integrity,
  de.gebit.integrity.parser.antlr.internal
 Import-Package: org.apache.log4j,
  org.eclipse.core.runtime;version="3.4.0",
- org.eclipse.jdt.core,
- org.eclipse.jdt.core.dom,
- org.eclipse.jdt.internal.core,
+ org.eclipse.xtend2.lib,
  org.eclipse.xtext.common.types.util.jdt;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib,
- org.eclipse.xtend2.lib
+ org.eclipse.xtext.xtend2.lib
 Bundle-Vendor: GEBIT Solutions GmbH
