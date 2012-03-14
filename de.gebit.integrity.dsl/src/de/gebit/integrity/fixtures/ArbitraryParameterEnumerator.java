@@ -123,7 +123,7 @@ public interface ArbitraryParameterEnumerator {
 	 * 
 	 */
 	@Target(ElementType.TYPE)
-	@Retention(RetentionPolicy.SOURCE)
+	@Retention(RetentionPolicy.CLASS)
 	public @interface ArbitraryParameterFixtureLink {
 
 		/**

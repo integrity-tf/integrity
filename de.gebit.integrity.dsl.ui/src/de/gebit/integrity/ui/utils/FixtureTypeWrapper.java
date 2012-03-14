@@ -268,6 +268,8 @@ public class FixtureTypeWrapper {
 		return null;
 	}
 
+	private static final String ANNOTATION_TO_SEARCH = ArbitraryParameterFixtureLink.class.getName().replace('$', '.');
+
 	private class ArbitraryParameterEnumeratorFinder {
 
 		/**
@@ -279,15 +281,17 @@ public class FixtureTypeWrapper {
 		private Class<? extends ArbitraryParameterEnumerator> findEnumeratorForFixtureType(
 				final String aFullyQualifiedName) throws ClassNotFoundException, InstantiationException,
 				IllegalAccessException {
-			SearchPattern tempInheritPattern = SearchPattern.createPattern(
-					ArbitraryParameterEnumerator.class.getName(), IJavaSearchConstants.CLASS,
-					IJavaSearchConstants.IMPLEMENTORS, SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			SearchPattern tempInheritPattern = SearchPattern.createPattern(ANNOTATION_TO_SEARCH,
+					IJavaSearchConstants.ANNOTATION_TYPE, IJavaSearchConstants.REFERENCES
+							| IJavaSearchConstants.ANNOTATION_TYPE_REFERENCE, SearchPattern.R_EXACT_MATCH
+							| SearchPattern.R_CASE_SENSITIVE);
 			IJavaSearchScope tempScope = SearchEngine.createWorkspaceScope();
 			SearchRequestor tempRequestor = new SearchRequestor() {
 
 				@Override
 				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
 					IType tempType = (IType) aMatch.getElement();
+
 					IAnnotation tempAnnotation = tempType.getAnnotation(ArbitraryParameterFixtureLink.class
 							.getSimpleName());
 
