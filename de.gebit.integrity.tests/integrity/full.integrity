@@ -1,0 +1,10 @@
+packagedef integrity with
+
+	suitedef full with
+
+		suite integrity.basic.simpleFixtureCalls
+		
+	suiteend
+
+
+packageend

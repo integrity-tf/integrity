@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="13.03.12 15:23" isotimestamp="2012-03-13T15:23:10" duration="348.683">
+  <variables />
+  <suite name="integrity.basic.simpleFixtureCalls">
+    <setup />
+    <variables />
+    <statements>
+      <call name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+        <parameters />
+        <result duration="1.726" type="success" />
+      </call>
+      <call name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue">
+        <parameters />
+        <result duration="0.278" type="success" />
+      </call>
+      <test name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue">
+        <results duration="0.377" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.377" description="Always return true." type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="(null)" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoString" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <parameters>
+          <parameter name="string" value="Echo this!" />
+        </parameters>
+        <result duration="0.539" type="success" />
+      </call>
+      <test name="echoStringTest" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.416" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.416" description="Echo the string 'Echo this!'" type="success">
+            <parameters>
+              <parameter name="string" value="Echo this!" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="Echo this!" value="Echo this!" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoByte" description="Echo the byte '100'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoByte">
+        <parameters>
+          <parameter name="byte" value="100" />
+        </parameters>
+        <result duration="2.304" type="success" />
+      </call>
+      <test name="echoByteTest" description="Echo the byte '100'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoByte">
+        <results duration="0.932" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.932" description="Echo the byte '100'" type="success">
+            <parameters>
+              <parameter name="byte" value="100" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="100" value="100" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoShort" description="Echo the short '65000'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoShort">
+        <parameters>
+          <parameter name="short" value="65000" />
+        </parameters>
+        <result duration="1.906" type="success" />
+      </call>
+      <test name="echoShortTest" description="Echo the short '65000'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoShort">
+        <results duration="0.846" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.846" description="Echo the short '65000'" type="success">
+            <parameters>
+              <parameter name="short" value="65000" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="65000" value="-536" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoInteger" description="Echo the integer '2147483647'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+        <parameters>
+          <parameter name="integer" value="2147483647" />
+        </parameters>
+        <result duration="0.720" type="success" />
+      </call>
+      <test name="echoIntegerTest" description="Echo the integer '2147483647'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+        <results duration="0.494" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.494" description="Echo the integer '2147483647'" type="success">
+            <parameters>
+              <parameter name="integer" value="2147483647" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2147483647" value="2147483647" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoLong" description="Echo the long '137438953471'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLong">
+        <parameters>
+          <parameter name="long" value="137438953471" />
+        </parameters>
+        <result duration="0.899" type="success" />
+      </call>
+      <test name="echoLongTest" description="Echo the long '137438953471'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLong">
+        <results duration="0.729" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.729" description="Echo the long '137438953471'" type="success">
+            <parameters>
+              <parameter name="long" value="137438953471" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="137438953471" value="137438953471" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoBigInteger" description="Echo the BigInteger '857329524936527345679432658927346529848729'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigInteger">
+        <parameters>
+          <parameter name="biginteger" value="857329524936527345679432658927346529848729" />
+        </parameters>
+        <result duration="1.489" type="success" />
+      </call>
+      <test name="echoBigIntegerTest" description="Echo the BigInteger '857329524936527345679432658927346529848729'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigInteger">
+        <results duration="1.239" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.239" description="Echo the BigInteger '857329524936527345679432658927346529848729'" type="success">
+            <parameters>
+              <parameter name="biginteger" value="857329524936527345679432658927346529848729" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="857329524936527345679432658927346529848729" value="857329524936527345679432658927346529848729" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call name="echoBigDecimal" description="Echo the BigDecimal '1.8358974238957423098579234895724'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigDecimal">
+        <parameters>
+          <parameter name="bigdecimal" value="1.8358974238957423098579234895724" />
+        </parameters>
+        <result duration="1.557" type="success" />
+      </call>
+      <test name="echoBigDecimalTest" description="Echo the BigDecimal '1.8358974238957423098579234895724'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigDecimal">
+        <results duration="1.322" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.322" description="Echo the BigDecimal '1.8358974238957423098579234895724'" type="success">
+            <parameters>
+              <parameter name="bigdecimal" value="1.8358974238957423098579234895724" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1.8358974238957423098579234895724" value="1.8358974238957423098579234895724" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="335.252" successCount="8" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+
