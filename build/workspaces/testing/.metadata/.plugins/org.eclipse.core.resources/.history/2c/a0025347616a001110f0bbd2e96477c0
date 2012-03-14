@@ -1,0 +1,14 @@
+package de.gebit.integrity.tests.junit.basic;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SimpleFixtureCalls {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

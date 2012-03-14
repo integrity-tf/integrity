@@ -1,0 +1,21 @@
+package de.gebit.integrity.tests.junit;
+
+import org.jdom.Document;
+
+public class IntegrityJUnitTest {
+	
+	protected Process executeIntegritySuite(String aSuiteName) {
+		
+	}
+	
+	protected class IntegrityExecutionResult {
+		
+		private String standardOutput;
+		
+		private String standardError;
+		
+		private Document xmlResult;
+		
+	}
+
+}

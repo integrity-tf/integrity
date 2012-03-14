@@ -1,0 +1,5 @@
+package de.gebit.integrity.tests.junit;
+
+public class IntegrityJUnitTest {
+
+}

@@ -1,0 +1,30 @@
+packagedef integrity.basic with
+
+	suitedef simpleFixtureCalls with
+	
+		call integrity.fixtures.basic.noop.noOp
+		
+		call integrity.fixtures.basic.noop.returnTrueCall
+		
+		test integrity.fixtures.basic.noop.returnTrueTest
+		
+		call integrity.fixtures.basic.noop.echoString string: "Echo this!"
+		
+		call integrity.fixtures.basic.noop.echoByte byte: 100
+		
+		call integrity.fixtures.basic.noop.echoShort short: 65000
+		
+		call integrity.fixtures.basic.noop.echoInteger integer: 2147483647
+		
+		call integrity.fixtures.basic.noop.echoLong long: 137438953471
+		
+		call integrity.fixtures.basic.noop.echoBigInteger biginteger: 857329524936527345679432658927346529848729
+		
+		call integrity.fixtures.basic.noop.echoBigDecimal bigdecimal: 1.8358974238957423098579234895724
+	
+	suiteend
+	
+	
+
+
+packageend

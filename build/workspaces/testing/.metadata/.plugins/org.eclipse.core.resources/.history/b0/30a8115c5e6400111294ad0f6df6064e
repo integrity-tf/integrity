@@ -1,7 +1,0 @@
-packagedef integrity.fixtures.basic.noop with
-
-	calldef noOp uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp
-	
-	calldef echoString uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString
-
-packageend

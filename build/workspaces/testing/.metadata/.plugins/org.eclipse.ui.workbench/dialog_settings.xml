@@ -4,6 +4,13 @@
 		<item value="122" key="DIALOG_Y_ORIGIN"/>
 		<item value="-118" key="DIALOG_X_ORIGIN"/>
 	</section>
+	<section name="NewWizardAction">
+		<item value="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"/>
+		</list>
+	</section>
 	<section name="ShowViewDialog">
 		<item value="280" key="DIALOG_WIDTH"/>
 		<item value="org.eclipse.ui.navigator.ProjectExplorer" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>

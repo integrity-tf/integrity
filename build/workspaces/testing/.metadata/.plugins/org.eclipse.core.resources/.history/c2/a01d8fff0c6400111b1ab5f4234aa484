@@ -1,6 +1,0 @@
-packagedef integrity with
-
-	suite integrity.basic.simpleFixtureCalls
-
-
-packageend

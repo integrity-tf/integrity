@@ -1,0 +1,151 @@
+package de.gebit.integrity.tests.junit;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.jdom.Document;
+
+public class IntegrityJUnitTest {
+	
+	protected IntegrityExecutionResult executeIntegritySuite(String aSuiteName) {
+		String[] tempParams = new String[5];
+		tempParams[0] = "java";
+		tempParams[1] = "de.gebit.integrity.runner.console.ConsoleTestExecutor";
+		tempParams[2] = "-x result.xml";
+		tempParams[3] = aSuiteName;
+		tempParams[4] = "integrity";
+		
+		try {
+			Process tempProcess = Runtime.getRuntime().exec(tempParams);
+			InputStream tempIn = tempProcess.getInputStream();
+			InputStream tempErr = tempProcess.getErrorStream();
+			
+			int tempExitValue = 0;
+			while(true) {
+				try {
+					tempExitValue = tempProcess.exitValue();
+					break;
+				} catch(IllegalThreadStateException exc) {
+					// this is expected until the process has finished
+				}
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// don't care
+				}
+			}
+			
+			if(tempExitValue != 0) {
+				return new IntegrityExecutionResult(new Exception("Return value was non-zero: " + tempExitValue));
+			}
+			
+			
+		} catch (IOException exc) {
+			return new IntegrityExecutionResult(exc);
+		}
+	}
+	
+	protected class IntegrityExecutionResult {
+		
+		private String standardOutput;
+		
+		private String standardError;
+		
+		private Document xmlResult;
+		
+		private Exception exception;
+
+		public IntegrityExecutionResult(String aStandardOutput,
+				String aStandardError, Document anXmlResult) {
+			super();
+			this.standardOutput = aStandardOutput;
+			this.standardError = aStandardError;
+			this.xmlResult = anXmlResult;
+		}
+		
+		public IntegrityExecutionResult(Exception anException) {
+			exception = anException;
+		}
+
+		public String getStandardOutput() {
+			return standardOutput;
+		}
+
+		public String getStandardError() {
+			return standardError;
+		}
+
+		public Document getXmlResult() {
+			return xmlResult;
+		}
+		
+		public Exception getException() {
+			return exception;
+		}
+		
+	}
+	
+	private static class StreamCopier extends Thread {
+
+		/**
+		 * The prefix to add in front of each line.
+		 */
+		private String prefix;
+
+		/**
+		 * The source.
+		 */
+		private BufferedReader source;
+
+		/**
+		 * The target.
+		 */
+		private PrintStream target;
+		
+		private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+
+		public StreamCopier(String aThreadName, InputStream aSource, PrintStream aTarget) {
+			super(aThreadName);
+			target = aTarget;
+			source = new BufferedReader(new InputStreamReader(aSource));
+		}
+
+		@Override
+		public void run() {
+			printToTarget("Process started!");
+
+			do {
+				String tempLine;
+				try {
+					tempLine = source.readLine();
+				} catch (IOException exc) {
+					exc.printStackTrace();
+					break;
+				}
+				if (tempLine == null) {
+					break;
+				} else {
+					target.println(tempLine);
+					target.flush();
+				}
+			} while (true);
+
+			printToTarget("Process terminated!");
+		}
+		
+		private void printToTarget(String aLine) {
+			target.print(TIMESTAMP_FORMAT.format(new Date()));
+			target.print(" | ");
+			target.println(aLine);
+			target.flush();
+		}
+	}
+
+}
