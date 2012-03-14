@@ -185,7 +185,10 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	 */
 	private IClasspathEntry getLibrary(IPath aLibPath) {
 		String tempJarName = aLibPath.removeFileExtension().lastSegment();
-		IPath tempSourceJar = aLibPath.removeLastSegments(1).append(tempJarName + "_src").addFileExtension("jar");
+		String tempSourceSuffix = aLibPath.toString().contains("de.gebit.integrity") ? "" : "_src";
+
+		IPath tempSourceJar = aLibPath.removeLastSegments(1).append(tempJarName + tempSourceSuffix)
+				.addFileExtension("jar");
 
 		return JavaCore.newLibraryEntry(aLibPath, tempSourceJar, null);
 	}
