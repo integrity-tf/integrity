@@ -30,10 +30,30 @@ import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
+/**
+ * Abstract base class for Integrity JUnit tests.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class IntegrityJUnitTest {
 
+	/**
+	 * Directory where reference result files are located.
+	 */
 	private static final String REFERENCE_RESULT_DIRECTORY = "results/";
 
+	/**
+	 * Runs a specified Integrity suite in a freshly started test runner. The result XML document is returned.
+	 * 
+	 * @param aSuiteName
+	 *            the name of the root suite
+	 * @return the result document
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
 	protected Document executeIntegritySuite(String aSuiteName) throws ModelLoadException, IOException, JDOMException {
 		List<File> tempFileList = new ArrayList<File>();
 		tempFileList.add(new File("integrity"));
@@ -54,6 +74,15 @@ public abstract class IntegrityJUnitTest {
 		return tempBuilder.build(tempXmlFile);
 	}
 
+	/**
+	 * Checks whether a given document matches its reference document. The name of the reference doc is determined by
+	 * the root suite name in the given doc and the reference XML dir {@link #REFERENCE_RESULT_DIRECTORY}.
+	 * 
+	 * @param aDoc
+	 *            the document to compare
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	protected void assertDocumentMatchesReference(Document aDoc) throws JDOMException, IOException {
 		assertNotNull(aDoc);
 

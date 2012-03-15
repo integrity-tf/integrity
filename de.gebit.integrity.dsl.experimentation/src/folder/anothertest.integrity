@@ -67,7 +67,7 @@ packagedef mysecondpackage with
 		
 		test stupidtest
 		
-		test arbitrary fixparam: 666 +testparam1: 100 + +testparam2: 200 +testresult1 = 100 +testresult2 = 200
+		test arbitrary fixparam: 666 +testparam1: 100 +testparam2: 200 +testresult1 = 100 +testresult2 = 200
 		
 		tabletest arbitrary
 		| fixparam	| +testparam1	| +testparam2	| +testresult1=	| +testresult2=	|
