@@ -38,38 +38,13 @@
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
-<part id="4"/>
-<part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="de.gebit.integrity.DSL" name="full.integrity" partName="full.integrity" path="C:/ew/integrity/de.gebit.integrity.tests/integrity/full.integrity" title="full.integrity" tooltip="de.gebit.integrity.tests/integrity/full.integrity" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
-<editorState selectionHorizontalPixel="0" selectionLength="34" selectionOffset="60" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NoOpFixture.java" partName="NoOpFixture.java" path="C:/ew/integrity/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java" title="NoOpFixture.java" tooltip="de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1387" selectionTopPixel="320"/>
-</editor>
-<editor id="de.gebit.integrity.DSL" name="NoOpFixture.integrity" partName="NoOpFixture.integrity" path="C:/ew/integrity/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity" title="NoOpFixture.integrity" tooltip="de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1429" selectionTopPixel="0"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleFixtureCalls.java" partName="SimpleFixtureCalls.java" path="C:/ew/integrity/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java" title="SimpleFixtureCalls.java" tooltip="de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="614" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IntegrityJUnitTest.java" partName="IntegrityJUnitTest.java" path="C:/ew/integrity/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java" title="IntegrityJUnitTest.java" tooltip="de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="523" selectionTopPixel="0"/>
-</editor>
-<editor id="de.gebit.integrity.DSL" name="anothertest.integrity" partName="anothertest.integrity" path="C:/git/integrity/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity" title="anothertest.integrity" tooltip="de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="de.gebit.integrity.DSL" name="anothertest.integrity" partName="anothertest.integrity" path="C:/git/integrity/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity" title="anothertest.integrity" tooltip="de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1451" selectionTopPixel="765"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="277" selectionTopPixel="1020"/>
 </editor>
 <editor id="de.gebit.integrity.DSL" name="importtest.integrity" partName="importtest.integrity" path="C:/git/integrity/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity" title="importtest.integrity" tooltip="de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
@@ -77,11 +52,11 @@
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbitraryParamFixture.java" partName="ArbitraryParamFixture.java" path="C:/git/integrity/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java" title="ArbitraryParamFixture.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="997" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1038" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbitraryParamEnumerator.java" partName="ArbitraryParamEnumerator.java" path="C:/git/integrity/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java" title="ArbitraryParamEnumerator.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1367" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="30" selectionOffset="295" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -91,7 +66,6 @@
 <view id="org.eclipse.search.ui.views.SearchView" partName="Search">
 <viewState isPinned="false">
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
-<view IMemento.internal.id="org.eclipse.jdt.ui.JavaSearchResultPage" org.eclipse.jdt.search.resultpage.grouping="3" org.eclipse.jdt.search.resultpage.limit="1000" org.eclipse.jdt.search.resultpage.limit_enabled="TRUE" org.eclipse.jdt.search.resultpage.sorting="1" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
 </viewState>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
@@ -362,7 +336,7 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.2037148" ratioLeft="340" ratioRight="1329" relationship="2" relative="left"/>
+<info part="org.eclipse.ui.editorss" ratio="0.21058145" ratioLeft="402" ratioRight="1507" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.53881276" ratioLeft="472" ratioRight="404" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
@@ -510,188 +484,177 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/anothertest.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/full.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/IntegrityJUnitTest.java"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/git\/integrity\/de.gebit.integrity.dsl\/target\/classes\/&lt;de.gebit.integrity.fixtures(FixtureMethod.class"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/git\/integrity\/de.gebit.integrity.dsl\/target\/classes\/&lt;de.gebit.integrity.utils(IntegrityDSLUtil.class"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" path="/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamFixture.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
 </editors>
-<item historyLabel="ArbitraryParamFixture.java" index="1">
-<position info="not_deleted" x="765" y="0"/>
-</item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="2">
-<position info="not_deleted" x="1367" y="0"/>
-</item>
-<item historyLabel="ArbitraryParamFixture.java" index="1">
-<position info="not_deleted" x="406" y="634"/>
-</item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="2">
-<position info="not_deleted" x="1367" y="0"/>
-</item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="2">
-<position info="not_deleted" x="354" y="0"/>
+<item historyLabel="anothertest.integrity" index="0">
+<position info="not_deleted" x="1669" y="0"/>
 </item>
 <item historyLabel="ArbitraryParamFixture.java" index="1">
 <position info="not_deleted" x="997" y="0"/>
 </item>
 <item historyLabel="ArbitraryParamEnumerator.java" index="2">
-<position info="not_deleted" x="354" y="0"/>
+<position info="not_deleted" x="1367" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamEnumerator.java" index="2">
+<position info="not_deleted" x="295" y="30"/>
+</item>
+<item historyLabel="ArbitraryParamEnumerator.java" index="2">
+<position info="not_deleted" x="369" y="24"/>
+</item>
+<item historyLabel="ArbitraryParamEnumerator.java" index="2">
+<position info="not_deleted" x="565" y="0"/>
 </item>
 <item historyLabel="ArbitraryParamFixture.java" index="1">
-<position info="not_deleted" x="997" y="0"/>
+<position info="not_deleted" x="1038" y="0"/>
 </item>
 <item historyLabel="anothertest.integrity" index="0">
 <position info="not_deleted" x="1669" y="0"/>
 </item>
-<item historyLabel="full.integrity" index="3">
-<position info="not_deleted" x="60" y="34"/>
-</item>
-<item historyLabel="NoOpFixture.java" index="4">
-<position info="not_deleted" x="1387" y="0"/>
-</item>
-<item historyLabel="NoOpFixture.integrity" index="5">
-<position info="not_deleted" x="1429" y="0"/>
-</item>
-<item historyLabel="SimpleFixtureCalls.java" index="6">
-<position info="not_deleted" x="614" y="0"/>
-</item>
-<item historyLabel="IntegrityJUnitTest.java" index="7">
-<position info="not_deleted" x="523" y="0"/>
-</item>
-<item historyLabel="importtest.integrity" index="8">
+<item historyLabel="importtest.integrity" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamFixture.java" index="9">
-<position info="not_deleted" x="997" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="4">
+<position info="not_deleted" x="1038" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="10">
-<position info="not_deleted" x="354" y="0"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="5">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item historyLabel="anothertest.integrity" index="11">
-<position info="not_deleted" x="1684" y="0"/>
+<item historyLabel="anothertest.integrity" index="0">
+<position info="not_deleted" x="1669" y="0"/>
 </item>
-<item historyLabel="full.integrity" index="12">
-<position info="not_deleted" x="60" y="34"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="5">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item historyLabel="NoOpFixture.java" index="13">
-<position info="not_deleted" x="1387" y="0"/>
+<item historyLabel="anothertest.integrity" index="0">
+<position info="not_deleted" x="1669" y="0"/>
 </item>
-<item historyLabel="NoOpFixture.integrity" index="14">
-<position info="not_deleted" x="1429" y="0"/>
-</item>
-<item historyLabel="SimpleFixtureCalls.java" index="15">
-<position info="not_deleted" x="614" y="0"/>
-</item>
-<item historyLabel="IntegrityJUnitTest.java" index="16">
-<position info="not_deleted" x="523" y="0"/>
-</item>
-<item historyLabel="importtest.integrity" index="17">
+<item historyLabel="importtest.integrity" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamFixture.java" index="18">
-<position info="not_deleted" x="997" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="4">
+<position info="not_deleted" x="1038" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="10">
-<position info="not_deleted" x="354" y="0"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="5">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item historyLabel="ArbitraryParamFixture.java" index="18">
-<position info="not_deleted" x="997" y="0"/>
+<item historyLabel="anothertest.integrity" index="0">
+<position info="not_deleted" x="1669" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="10">
-<position info="not_deleted" x="763" y="0"/>
-</item>
-<item historyLabel="ArbitraryParamFixture.java" index="18">
-<position info="not_deleted" x="997" y="0"/>
-</item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="10">
-<position info="not_deleted" x="1367" y="0"/>
-</item>
-<item historyLabel="importtest.integrity" index="17">
+<item historyLabel="importtest.integrity" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="anothertest.integrity" index="11">
-<position info="not_deleted" x="1684" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="7">
+<position info="not_deleted" x="1038" y="0"/>
 </item>
-<item historyLabel="full.integrity" index="19">
-<position info="not_deleted" x="60" y="34"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="8">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item historyLabel="NoOpFixture.java" index="20">
-<position info="not_deleted" x="1387" y="0"/>
+<item historyLabel="anothertest.integrity" index="0">
+<position info="not_deleted" x="1669" y="0"/>
 </item>
-<item historyLabel="NoOpFixture.integrity" index="21">
-<position info="not_deleted" x="1429" y="0"/>
-</item>
-<item historyLabel="SimpleFixtureCalls.java" index="22">
-<position info="not_deleted" x="614" y="0"/>
-</item>
-<item historyLabel="IntegrityJUnitTest.java" index="23">
-<position info="not_deleted" x="523" y="0"/>
-</item>
-<item historyLabel="importtest.integrity" index="24">
+<item historyLabel="importtest.integrity" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamFixture.java" index="25">
-<position info="not_deleted" x="997" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="10">
+<position info="not_deleted" x="1038" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="26">
-<position info="not_deleted" x="1367" y="0"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="11">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item historyLabel="anothertest.integrity" index="27">
-<position info="not_deleted" x="1684" y="0"/>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="2049" y="0"/>
 </item>
-<item historyLabel="full.integrity" index="28">
-<position info="not_deleted" x="60" y="34"/>
-</item>
-<item historyLabel="NoOpFixture.java" index="29">
-<position info="not_deleted" x="1387" y="0"/>
-</item>
-<item historyLabel="NoOpFixture.integrity" index="30">
-<position info="not_deleted" x="1429" y="0"/>
-</item>
-<item historyLabel="SimpleFixtureCalls.java" index="31">
-<position info="not_deleted" x="614" y="0"/>
-</item>
-<item historyLabel="IntegrityJUnitTest.java" index="32">
-<position info="not_deleted" x="523" y="0"/>
-</item>
-<item historyLabel="importtest.integrity" index="33">
+<item historyLabel="importtest.integrity" index="13">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamFixture.java" index="34">
-<position info="not_deleted" x="997" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="14">
+<position info="not_deleted" x="1038" y="0"/>
 </item>
-<item historyLabel="ArbitraryParamEnumerator.java" index="26">
-<position info="not_deleted" x="1367" y="0"/>
+<item historyLabel="ArbitraryParamEnumerator.java" index="11">
+<position info="not_deleted" x="295" y="30"/>
 </item>
-<item active="true" historyLabel="SimpleFixtureCalls.java" index="31">
-<position info="not_deleted" x="614" y="0"/>
+<item historyLabel="ArbitraryParamFixture.java" index="14">
+<position info="not_deleted" x="1038" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="2699" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamFixture.java" index="14">
+<position info="not_deleted" x="1038" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamEnumerator.java" index="11">
+<position info="not_deleted" x="295" y="30"/>
+</item>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="2699" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamFixture.java" index="16">
+<position info="not_deleted" x="1038" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamEnumerator.java" index="17">
+<position info="not_deleted" x="295" y="30"/>
+</item>
+<item historyLabel="NoOpFixture.java" index="18">
+<position info="not_deleted" x="359" y="14"/>
+</item>
+<item historyLabel="FixtureMethod.class" index="19">
+<position/>
+</item>
+<item historyLabel="NoOpFixture.java" index="18">
+<position info="not_deleted" x="359" y="14"/>
+</item>
+<item historyLabel="FixtureMethod.class" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="NoOpFixture.java" index="18">
+<position info="not_deleted" x="462" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="277" y="0"/>
+</item>
+<item historyLabel="IntegrityDSLUtil.class" index="20">
+<position/>
+</item>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="277" y="0"/>
+</item>
+<item historyLabel="IntegrityDSLUtil.class" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="anothertest.integrity" index="12">
+<position info="not_deleted" x="277" y="0"/>
+</item>
+<item historyLabel="importtest.integrity" index="21">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ArbitraryParamFixture.java" index="22">
+<position info="not_deleted" x="1038" y="0"/>
+</item>
+<item active="true" historyLabel="ArbitraryParamEnumerator.java" index="23">
+<position info="not_deleted" x="295" y="30"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -711,6 +674,15 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="IntegrityDSLUtil.class" tooltip="de.gebit.integrity.utils.IntegrityDSLUtil">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/git\/integrity\/de.gebit.integrity.dsl\/target\/classes\/&lt;de.gebit.integrity.utils(IntegrityDSLUtil.class"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="FixtureMethod.class" tooltip="de.gebit.integrity.fixtures.FixtureMethod">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/git\/integrity\/de.gebit.integrity.dsl\/target\/classes\/&lt;de.gebit.integrity.fixtures(FixtureMethod.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NoOpFixture.java" tooltip="de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java">
+<persistable path="/de.gebit.integrity.tests/src/de/gebit/integrity/tests/fixtures/basic/NoOpFixture.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbitraryParamEnumerator.java" tooltip="de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java">
 <persistable path="/de.gebit.integrity.dsl.experimentation/src/de/gebit/integrity/experiments/fixtures/ArbitraryParamEnumerator.java"/>
 </file>
@@ -746,15 +718,6 @@
 </file>
 <file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SAXBuilder.class" tooltip="org.jdom.input.SAXBuilder">
 <persistable org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/eclipse_xtext\/plugins\/org.jdom_1.1.1.v201101151400.jar&lt;org.jdom.input(SAXBuilder.class"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Document.class" tooltip="org.jdom.Document">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=de.gebit.integrity.tests/C:\/eclipse_xtext\/plugins\/org.jdom_1.1.1.v201101151400.jar&lt;org.jdom(Document.class"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleFixtureCalls.java" tooltip="de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java">
-<persistable path="/de.gebit.integrity.tests/junit/de/gebit/integrity/tests/junit/basic/SimpleFixtureCalls.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="de.gebit.integrity.DSL" name="NoOpFixture.integrity" tooltip="de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity">
-<persistable path="/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity"/>
 </file>
 </mruList>
 </workbench>
