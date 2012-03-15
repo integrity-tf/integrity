@@ -42,11 +42,12 @@
           </executions>
         </plugin>
         
+        <!-- Deactivate checkstyle for this project -->
         <plugin>
 	       <groupId>org.apache.maven.plugins</groupId>
 	       <artifactId>maven-checkstyle-plugin</artifactId>
 	       <configuration>
-	         <skip>true</skip>
+	       	<excludes>**/*.*</excludes>
 	       </configuration>
 	     </plugin>
       </plugins>
