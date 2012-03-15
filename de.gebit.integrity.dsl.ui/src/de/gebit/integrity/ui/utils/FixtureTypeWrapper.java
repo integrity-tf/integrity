@@ -268,6 +268,9 @@ public class FixtureTypeWrapper {
 		return null;
 	}
 
+	/**
+	 * Annotation name string to search for.
+	 */
 	private static final String ANNOTATION_TO_SEARCH = ArbitraryParameterFixtureLink.class.getName().replace('$', '.');
 
 	private class ArbitraryParameterEnumeratorFinder {

@@ -1,8 +1,6 @@
 package de.gebit.integrity.experiments.fixtures;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
@@ -12,8 +10,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class ArbitraryParamFixture implements ArbitraryParameterFixture {
 
 	@Override
-	public Map<String, Class<?>> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public Map<String, Class<?>> defineArbitraryParameters(String aFixtureName, Map<String, Object> someFixedParameters) {
 		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
 		tempMap.put("testparam1", Integer.class);
 		tempMap.put("testparam2", String.class);
@@ -21,8 +18,7 @@ public class ArbitraryParamFixture implements ArbitraryParameterFixture {
 	}
 
 	@Override
-	public Map<String, Class<?>> defineArbitraryResults(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public Map<String, Class<?>> defineArbitraryResults(String aFixtureName, Map<String, Object> someFixedParameters) {
 		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
 		tempMap.put("testresult1", Integer.class);
 		tempMap.put("testresult2", String.class);
