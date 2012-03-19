@@ -112,7 +112,7 @@ public class SimpleCommandLineParser {
 	 * @author Rene Schneider
 	 * 
 	 */
-	static abstract class Option {
+	public static abstract class Option {
 
 		/**
 		 * The short name of the option. Usually just one character.
@@ -196,7 +196,7 @@ public class SimpleCommandLineParser {
 	 * @author Rene Schneider
 	 * 
 	 */
-	static class BooleanOption extends Option {
+	public static class BooleanOption extends Option {
 
 		/**
 		 * The value.
@@ -239,7 +239,7 @@ public class SimpleCommandLineParser {
 	 * 
 	 * @param <X>
 	 */
-	static abstract class ValueOption<X extends Object> extends Option {
+	public static abstract class ValueOption<X extends Object> extends Option {
 
 		/**
 		 * The value.
@@ -277,7 +277,7 @@ public class SimpleCommandLineParser {
 	 * @author Rene Schneider
 	 * 
 	 */
-	static class StringOption extends ValueOption<String> {
+	public static class StringOption extends ValueOption<String> {
 
 		public StringOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
@@ -304,7 +304,7 @@ public class SimpleCommandLineParser {
 	 * @author Rene Schneider
 	 * 
 	 */
-	static class IntegerOption extends ValueOption<Integer> {
+	public static class IntegerOption extends ValueOption<Integer> {
 
 		public IntegerOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
@@ -331,7 +331,7 @@ public class SimpleCommandLineParser {
 	 * @author Rene Schneider
 	 * 
 	 */
-	static class DecimalOption extends ValueOption<BigDecimal> {
+	public static class DecimalOption extends ValueOption<BigDecimal> {
 
 		public DecimalOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
