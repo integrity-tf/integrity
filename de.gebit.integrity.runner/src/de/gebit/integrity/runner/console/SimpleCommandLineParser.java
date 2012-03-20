@@ -134,6 +134,18 @@ public class SimpleCommandLineParser {
 		 */
 		private String description;
 
+		/**
+		 * Creates a new Option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		protected Option(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			if (aShortName == null && aLongName == null) {
 				throw new IllegalArgumentException("You must provide either a short or long name!");
@@ -145,6 +157,13 @@ public class SimpleCommandLineParser {
 			commandLine = aCommandLine;
 		}
 
+		/**
+		 * Checks whether this matches a given parameter.
+		 * 
+		 * @param aParameter
+		 *            the parameter
+		 * @return true if a match is found, false otherwise
+		 */
 		protected boolean matches(String aParameter) {
 			return (shortName != null && aParameter.length() > 1 && aParameter.startsWith(SHORT_PARAMETER_PREFIX) && shortName
 					.equals(aParameter.substring(1)))
@@ -168,6 +187,9 @@ public class SimpleCommandLineParser {
 			return commandLine;
 		}
 
+		/**
+		 * Returns the line for the parameter help.
+		 */
 		public String getHelpLine() {
 			StringBuilder tempLine = new StringBuilder();
 
@@ -203,14 +225,42 @@ public class SimpleCommandLineParser {
 		 */
 		private boolean value;
 
+		/**
+		 * Creates a new boolean option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
 		public BooleanOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
 		}
 
+		/**
+		 * Creates a new boolean option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
 		public BooleanOption(String aShortName, String aLongName, String aDescription) {
 			this(aShortName, aLongName, aDescription, null);
 		}
 
+		/**
+		 * Creates a new boolean option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		public BooleanOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			super(aShortName, aLongName, aDescription, aCommandLine);
 		}
@@ -246,6 +296,18 @@ public class SimpleCommandLineParser {
 		 */
 		private X value;
 
+		/**
+		 * Creates a new value option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		protected ValueOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			super(aShortName, aLongName, aDescription, aCommandLine);
 		}
@@ -254,6 +316,13 @@ public class SimpleCommandLineParser {
 			return value;
 		}
 
+		/**
+		 * Returns the value found in the parameters from the user.
+		 * 
+		 * @param aDefault
+		 *            the default to return if the param is not set
+		 * @return the value from the user or the default
+		 */
 		public X getValue(X aDefault) {
 			if (value == null) {
 				return aDefault;
@@ -262,6 +331,12 @@ public class SimpleCommandLineParser {
 			}
 		}
 
+		/**
+		 * Sets the value.
+		 * 
+		 * @param aValue
+		 *            the value
+		 */
 		protected abstract void setValue(String aValue);
 
 		protected void setValueInternal(X aValue) {
@@ -279,18 +354,51 @@ public class SimpleCommandLineParser {
 	 */
 	public static class StringOption extends ValueOption<String> {
 
+		/**
+		 * Creates a new String option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
 		public StringOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
 		}
 
+		/**
+		 * Creates a new String option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 */
 		public StringOption(String aShortName, String aLongName, String aDescription) {
 			this(aShortName, aLongName, aDescription, null);
 		}
 
+		/**
+		 * Creates a new String option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		public StringOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			super(aShortName, aLongName, aDescription, aCommandLine);
 		}
 
+		/**
+		 * Sets a value.
+		 */
 		protected void setValue(String aValue) {
 			setValueInternal(aValue);
 		}
@@ -306,18 +414,51 @@ public class SimpleCommandLineParser {
 	 */
 	public static class IntegerOption extends ValueOption<Integer> {
 
+		/**
+		 * Creates an integer option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
 		public IntegerOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
 		}
 
+		/**
+		 * Creates a new integer option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 */
 		public IntegerOption(String aShortName, String aLongName, String aDescription) {
 			this(aShortName, aLongName, aDescription, null);
 		}
 
+		/**
+		 * Creates a new integer option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		public IntegerOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			super(aShortName, aLongName, aDescription, aCommandLine);
 		}
 
+		/**
+		 * Sets a value.
+		 */
 		protected void setValue(String aValue) {
 			setValueInternal(Integer.parseInt(aValue));
 		}
@@ -333,18 +474,51 @@ public class SimpleCommandLineParser {
 	 */
 	public static class DecimalOption extends ValueOption<BigDecimal> {
 
+		/**
+		 * Creates a new decimal option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
 		public DecimalOption(String aShortName, String aLongName) {
 			this(aShortName, aLongName, null);
 		}
 
+		/**
+		 * Creates a new decimal option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 */
 		public DecimalOption(String aShortName, String aLongName, String aDescription) {
 			this(aShortName, aLongName, aDescription, null);
 		}
 
+		/**
+		 * Creates a new decimal option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
 		public DecimalOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
 			super(aShortName, aLongName, aDescription, aCommandLine);
 		}
 
+		/**
+		 * Sets a value.
+		 */
 		protected void setValue(String aValue) {
 			setValueInternal(new BigDecimal(aValue));
 		}
