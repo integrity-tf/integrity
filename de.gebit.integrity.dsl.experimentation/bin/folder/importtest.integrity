@@ -22,6 +22,8 @@ packagedef mypackage with
 	
 	calldef stringarrayechocall uses de.gebit.integrity.experiments.fixtures.ArrayFixture#echoStringArray
 	
+	calldef customproposalcall uses de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#dummyMethod
+	
 	variable dummy initially 2
 
 packageend

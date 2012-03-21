@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.ui.utils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,9 @@ import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterFixtureLink;
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
+import de.gebit.integrity.fixtures.CustomProposalFixture;
+import de.gebit.integrity.fixtures.CustomProposalProvider;
+import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.utils.ParameterUtil;
 
@@ -254,9 +258,14 @@ public class FixtureTypeWrapper {
 		if (!isArbitraryParameterFixtureClass()) {
 			return null;
 		}
-		ArbitraryParameterEnumeratorFinder tempFinder = new ArbitraryParameterEnumeratorFinder();
+		LinkedProviderFinder<ArbitraryParameterEnumerator> tempFinder = new LinkedProviderFinder<ArbitraryParameterEnumerator>(
+				ArbitraryParameterFixtureLink.class);
 		try {
-			return tempFinder.findEnumeratorForFixtureType(fixtureType.getFullyQualifiedName()).newInstance();
+			Class<? extends ArbitraryParameterEnumerator> tempClass = tempFinder.findProviderForFixtureType(fixtureType
+					.getFullyQualifiedName());
+			if (tempClass != null) {
+				return tempClass.newInstance();
+			}
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
@@ -269,11 +278,69 @@ public class FixtureTypeWrapper {
 	}
 
 	/**
-	 * Annotation name string to search for.
+	 * Checks whether the encapsulated type is a custom proposal fixture class.
+	 * 
+	 * @return
 	 */
-	private static final String ANNOTATION_TO_SEARCH = ArbitraryParameterFixtureLink.class.getName().replace('$', '.');
+	public boolean isCustomProposalFixtureClass() {
+		try {
+			for (IType tempInterface : fixtureType.newSupertypeHierarchy(null).getAllSuperInterfaces(fixtureType)) {
+				if (CustomProposalFixture.class.getName().equals(tempInterface.getFullyQualifiedName())) {
+					return true;
+				}
+			}
+		} catch (JavaModelException exc) {
+			exc.printStackTrace();
+		}
+		return false;
+	}
 
-	private class ArbitraryParameterEnumeratorFinder {
+	/**
+	 * Determines the {@link CustomProposalProvider} class to use for the encapsulated fixture type and instantiates it.
+	 * 
+	 * @return the custom proposal provider
+	 */
+	public CustomProposalProvider instantiateCustomProposalProvider() {
+		if (!isCustomProposalFixtureClass()) {
+			return null;
+		}
+		LinkedProviderFinder<CustomProposalProvider> tempFinder = new LinkedProviderFinder<CustomProposalProvider>(
+				CustomProposalFixtureLink.class);
+		try {
+			Class<? extends CustomProposalProvider> tempClass = tempFinder.findProviderForFixtureType(fixtureType
+					.getFullyQualifiedName());
+			if (tempClass != null) {
+				return tempClass.newInstance();
+			}
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		} catch (IllegalAccessException exc) {
+			exc.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Finds providers linked to fixtures using link annotations.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 * @param <Provider>
+	 */
+	private final class LinkedProviderFinder<Provider> {
+
+		/**
+		 * The link annotation class.
+		 */
+		private Class<? extends Annotation> linkAnnotationClass;
+
+		private LinkedProviderFinder(Class<? extends Annotation> aLinkAnnotationClass) {
+			linkAnnotationClass = aLinkAnnotationClass;
+		}
 
 		/**
 		 * The search result.
@@ -281,13 +348,12 @@ public class FixtureTypeWrapper {
 		private IType searchResult;
 
 		@SuppressWarnings("unchecked")
-		private Class<? extends ArbitraryParameterEnumerator> findEnumeratorForFixtureType(
-				final String aFullyQualifiedName) throws ClassNotFoundException, InstantiationException,
-				IllegalAccessException {
-			SearchPattern tempInheritPattern = SearchPattern.createPattern(ANNOTATION_TO_SEARCH,
-					IJavaSearchConstants.ANNOTATION_TYPE, IJavaSearchConstants.REFERENCES
-							| IJavaSearchConstants.ANNOTATION_TYPE_REFERENCE, SearchPattern.R_EXACT_MATCH
-							| SearchPattern.R_CASE_SENSITIVE);
+		private Class<? extends Provider> findProviderForFixtureType(final String aFullyQualifiedName)
+				throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+			SearchPattern tempInheritPattern = SearchPattern.createPattern(
+					linkAnnotationClass.getName().replace('$', '.'), IJavaSearchConstants.ANNOTATION_TYPE,
+					IJavaSearchConstants.REFERENCES | IJavaSearchConstants.ANNOTATION_TYPE_REFERENCE,
+					SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
 			IJavaSearchScope tempScope = SearchEngine.createWorkspaceScope();
 			SearchRequestor tempRequestor = new SearchRequestor() {
 
@@ -295,8 +361,7 @@ public class FixtureTypeWrapper {
 				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
 					IType tempType = (IType) aMatch.getElement();
 
-					IAnnotation tempAnnotation = tempType.getAnnotation(ArbitraryParameterFixtureLink.class
-							.getSimpleName());
+					IAnnotation tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getSimpleName());
 
 					if (tempAnnotation != null) {
 						IMemberValuePair[] tempPairs = tempAnnotation.getMemberValuePairs();
@@ -340,7 +405,7 @@ public class FixtureTypeWrapper {
 				return null;
 			}
 
-			return (Class<? extends ArbitraryParameterEnumerator>) ClassLoadingUtil.loadClassFromWorkspace(
+			return (Class<? extends Provider>) ClassLoadingUtil.loadClassFromWorkspace(
 					searchResult.getFullyQualifiedName(), searchResult.getJavaProject());
 		}
 	}

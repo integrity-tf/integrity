@@ -14,9 +14,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.CompilationUnit;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -38,6 +40,9 @@ import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
+import de.gebit.integrity.fixtures.CustomProposalFixture;
+import de.gebit.integrity.fixtures.CustomProposalProvider;
+import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -58,6 +63,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	 */
 	@Inject
 	IJavaElementFinder elementFinder;
+
+	/**
+	 * This is added to the proposal priorities from fixture proposal providers to ensure they're listed top in the list
+	 * when they return 0 as priority.
+	 */
+	private static final int DEFAULT_PROPOSAL_BASE = 10000;
 
 	/**
 	 * Creates a proposal (basically resembles the overridden method, but creates an
@@ -271,14 +282,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								false, true);
 					}
 
-					// since we're inside eclipse here, we must resolve variables and constants "by hand" here to
-					// their actual values
-					for (Entry<String, Object> tempEntry : tempFixedParameterMap.entrySet()) {
-						if (tempEntry.getValue() instanceof Variable) {
-							tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry
-									.getValue()));
-						}
-					}
+					resolveVariables(tempFixedParameterMap);
 
 					tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(tempMethodReference.getMethod()
 							.getSimpleName(), tempFixedParameterMap, false);
@@ -328,4 +332,102 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 	}
 
+	/**
+	 * Resolves all variable values in the given map.
+	 * 
+	 * @param aParameterMap
+	 */
+	private static void resolveVariables(Map<String, Object> aParameterMap) {
+		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
+			if (tempEntry.getValue() instanceof Variable) {
+				tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry.getValue()));
+			}
+		}
+	}
+
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeParameter_Value(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeParameter_Value(aModel, anAssignment, aContext, anAcceptor);
+
+		if (aModel instanceof Parameter) {
+			Parameter tempParam = (Parameter) aModel;
+
+			MethodReference tempMethod = null;
+			List<Parameter> tempAllParameters = null;
+			if (tempParam.eContainer() instanceof Test) {
+				Test tempTest = (Test) tempParam.eContainer();
+				tempMethod = tempTest.getDefinition().getFixtureMethod();
+				tempAllParameters = tempTest.getParameters();
+			} else if (tempParam.eContainer() instanceof Call) {
+				Call tempCall = (Call) tempParam.eContainer();
+				tempMethod = tempCall.getDefinition().getFixtureMethod();
+				tempAllParameters = tempCall.getParameters();
+			}
+
+			if (tempMethod != null) {
+				completeParameterValuesInternal(tempParam, tempMethod, tempAllParameters, aContext, anAcceptor);
+			}
+		}
+	}
+
+	private void completeParameterValuesInternal(Parameter aParameter, MethodReference aMethod,
+			List<Parameter> someParameters, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		boolean tempFoundInterface = false;
+		for (JvmTypeReference tempRef : aMethod.getMethod().getDeclaringType().getSuperTypes()) {
+			if (tempRef.getQualifiedName().equals(CustomProposalFixture.class.getName())) {
+				tempFoundInterface = true;
+				break;
+			}
+		}
+
+		if (!tempFoundInterface) {
+			// The marker interface has not been found -> no custom proposal fixture!
+			return;
+		}
+
+		IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
+		CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
+		try {
+			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempCompilationUnit.getTypes()[0]);
+
+			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
+			if (tempProposalProvider == null) {
+				return;
+			}
+
+			Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(someParameters, null, true, true);
+			resolveVariables(tempParamMap);
+			tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(aMethod.getMethod().getSimpleName(),
+					tempParamMap, true);
+
+			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineProposals(aMethod.getMethod()
+					.getSimpleName(), IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter.getName()),
+					tempParamMap);
+
+			if (tempProposals == null) {
+				return;
+			}
+
+			for (final CustomProposalDefinition tempProposal : tempProposals) {
+				ICompletionProposal tempCompletionProposal = createCompletionProposal(tempProposal.getValue(),
+						new StyledString(tempProposal.getDisplayValue() != null ? tempProposal.getDisplayValue()
+								: tempProposal.getValue()), null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE,
+						tempProposal.getDoPrefixFiltering() ? aContext.getPrefix() : "", aContext);
+				if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
+					if (tempProposal.getDescription() != null) {
+						((ConfigurableCompletionProposal) tempCompletionProposal)
+								.setAdditionalProposalInfo(tempProposal.getDescription());
+					}
+				}
+
+				anAcceptor.accept(tempCompletionProposal);
+			}
+
+		} catch (JavaModelException exc) {
+			exc.printStackTrace();
+		}
+
+	}
 }

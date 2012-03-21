@@ -48,7 +48,9 @@ packagedef mysecondpackage with
 		
 		suite forkedSuite aParam:yeah on firstFork
 	
-		test multiresult param: "blub" firstNamedResult = "blub" secondNamedResult = 101
+		test multiresult param: "blah" firstNamedResult = "blub" secondNamedResult = 101
+ 
+ 		call customproposalcall param1: "blahblub" param2: ""
  
 		variable testvar initially 5
 		constant testconst 4
