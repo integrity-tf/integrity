@@ -12,31 +12,31 @@ Statement:
 	PackageDefinition | Import | Suite;
 	
 VisibleSingleLineComment:
-	content=SL_VISIBLE_COMMENT;
+	content=SL_VISIBLE_COMMENT NL;
 	
 VisibleMultiLineComment:
-	content=ML_VISIBLE_COMMENT;
+	content=ML_VISIBLE_COMMENT NL;
 	
 PackageDefinition:
-	'packagedef' name=QualifiedName 'with' statements+=PackageStatement* 'packageend';
+	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
 PackageStatement:
 	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 
 Import:
-	'import' importedNamespace=QualifiedNameWithWildcard;
+	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	'forkdef' name=QualifiedName (description=STRING)? ('uses' forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName])?;
+	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
 	
 TestDefinition:
-	'testdef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
+	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 CallDefinition:
-	'calldef' name=QualifiedName 'uses' fixtureMethod=MethodReference;
+	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
-	'suitedef' name=QualifiedName ('gets' parameters+=VariableEntity*)? ('requires' dependencies+=[SuiteDefinition|QualifiedName]*)? 'with' statements+=SuiteStatement* 'suiteend' ('concludedby' finalizers+=[SuiteDefinition|QualifiedName]*)?;
+	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?;
 
 SuiteStatement:
 	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
@@ -45,23 +45,23 @@ SuiteStatementWithResult:
 	Suite | Test | TableTest;
 	
 VariableDefinition:
-	'variable' name=VariableEntity ('initially' initialValue=Value)?;
+	'variable' NL name=VariableEntity NL ('initially' NL initialValue=Value NL)?;
 	
 ConstantDefinition:
-	'constant' name=VariableEntity value=Value;
+	'constant' NL name=VariableEntity NL value=Value NL;
 	
 VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedResult)* ('=' result=ValueOrEnumValueCollection)?;
+	'test' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter)* (results+=NamedResult)* ('=' NL result=ValueOrEnumValueCollection NL)?;
 	
 TableTest:
-	'tabletest' definition=[TestDefinition|QualifiedName] (parameters+=Parameter)*
-		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')? (rows+=TableTestRow)+;
+	'tabletest' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter)*
+		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')?  NLFORCED (rows+=TableTestRow)+;
 		
 TableTestRow:
-	{TableTestRow} (values+=ParameterTableValue)* '|';
+	{TableTestRow} (values+=ParameterTableValue)+ NLFORCED;
 	
 ParameterTableHeader:
 	'|' name=ParameterName;
@@ -70,10 +70,10 @@ ResultTableHeader:
 	'|' name=ResultName '=';
 	
 ParameterTableValue:
-	'|' value=ValueOrEnumValueCollection;
-	
+	'|' value=ValueOrEnumValueCollection '|'?;
+		
 NamedResult:
-	name=ResultName '=' value=ValueOrEnumValueCollection;
+	name=ResultName NL '=' NL value=ValueOrEnumValueCollection NL;
 	
 ResultName:
 	FixedResultName | ArbitraryParameterOrResultName;
@@ -82,19 +82,19 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' (multiplier=ExecutionMultiplier)? definition=[CallDefinition|QualifiedName] (parameters+=Parameter)* (results+=NamedCallResult)* ('->' result=Variable)?;
+	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter)* (results+=NamedCallResult)* ('->' NL result=Variable NL)?;
 	
 NamedCallResult:
-	name=ResultName '->' target=Variable;
+	name=ResultName NL '->' NL target=Variable NL;
 	
 Suite:
-	'suite' (multiplier=ExecutionMultiplier)? definition=[SuiteDefinition|QualifiedName] (parameters+=SuiteParameter)* ('on' fork=[ForkDefinition|QualifiedName])?;
+	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)?;
 
 SuiteParameter:
-	name=[VariableEntity|QualifiedName] ':' value=Value;
+	name=[VariableEntity|QualifiedName] NL ':' NL value=Value NL;
 
 Parameter:
-	name=ParameterName ':' value=ValueOrEnumValueCollection;
+	name=ParameterName NL ':' NL value=ValueOrEnumValueCollection NL;
 	
 ParameterName:
 	FixedParameterName | ArbitraryParameterOrResultName;
@@ -106,7 +106,7 @@ ArbitraryParameterOrResultName:
 	'+' identifier=ID;
 	
 ValueOrEnumValueCollection:
-	value=ValueOrEnumValue (',' moreValues+=ValueOrEnumValue)*;
+	value=ValueOrEnumValue (NL ',' NL moreValues+=ValueOrEnumValue)*;
 	
 ValueOrEnumValue:
 	Value | EnumValue;
@@ -149,7 +149,12 @@ QualifiedJavaClassName:
 	
 QualifiedNameWithWildcard:
   	QualifiedName '.*'?;
+  	
+NL:
+	(NEWLINE WS?)*;
 	
+NLFORCED:
+	NEWLINE WS? NL;
 
 terminal BOOLEAN_TRUE: 'true';
 terminal BOOLEAN_FALSE: 'false';
@@ -165,7 +170,8 @@ terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
 terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')* ('\r'? '\n')?;
 terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
 
+terminal WS: (' '|'\t')+;
+terminal NEWLINE: ('\r'|'\n')+;
 
-terminal WS: (' '|'\t'|'\r'|'\n')+;
 
 terminal ANY_OTHER: .;

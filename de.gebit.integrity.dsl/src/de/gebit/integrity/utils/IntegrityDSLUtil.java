@@ -322,7 +322,7 @@ public final class IntegrityDSLUtil {
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValueCollection> tempEntry : someParameters.entrySet()) {
-			if (tempEntry.getKey() != null) {
+			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = null;
 				if (tempEntry.getValue().getMoreValues().size() > 0) {
 					// if multiple values have been provided

@@ -10,7 +10,7 @@ packagedef mysecondpackage with
 	forkdef secondFork "Fork Number Two"
 
 	suitedef forkedSuite gets aParam with
-	
+
 		call random min:0 max:aParam -> packagevar
 		
 		call random min:1 max:aParam -> packagevar
@@ -32,7 +32,7 @@ packagedef mysecondpackage with
 		// This comment is not visible
 		
 		/* A multiline invisible comment */
-		
+				
 		-- A singleline visible comment
 		call random min:5 max:10 -> yeah
 		
@@ -51,7 +51,7 @@ packagedef mysecondpackage with
 		test multiresult param: "blah" firstNamedResult = "blub" secondNamedResult = 101
  
  		call customproposalcall param1: "blahblub" param2: ""
- 
+ 		 
 		variable testvar initially 5
 		constant testconst 4
 		call random min:0 max:testconst -> packagevar 

@@ -24,6 +24,8 @@ packagedef mypackage with
 	
 	calldef customproposalcall uses de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#dummyMethod
 	
+	testdef customproposaltest uses de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#dummyMethod
+	
 	variable dummy initially 2
 
 packageend

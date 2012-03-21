@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
@@ -32,9 +33,12 @@ import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Parameter;
+import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.Variable;
@@ -366,26 +370,80 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAllParameters = tempCall.getParameters();
 			}
 
-			if (tempMethod != null) {
-				completeParameterValuesInternal(tempParam, tempMethod, tempAllParameters, aContext, anAcceptor);
+			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
+				Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null, true,
+						true);
+				completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
 			}
 		}
 	}
 
-	private void completeParameterValuesInternal(Parameter aParameter, MethodReference aMethod,
-			List<Parameter> someParameters, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
-		boolean tempFoundInterface = false;
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeTableTestRow_Values(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeTableTestRow_Values(aModel, anAssignment, aContext, anAcceptor);
+
+		if (aModel instanceof TableTestRow) {
+			TableTestRow tempRow = (TableTestRow) aModel;
+			TableTest tempTest = (TableTest) tempRow.eContainer();
+			MethodReference tempMethod = tempTest.getDefinition().getFixtureMethod();
+
+			if (tempMethod != null) {
+				EObject tempSemanticObject = NodeModelUtils.findActualSemanticObjectFor(aContext.getCurrentNode());
+				if (tempSemanticObject instanceof ParameterTableValue) {
+					// we're inside an empty parameter table value
+					int tempColumn = tempRow.getValues().indexOf(tempSemanticObject);
+					if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
+						Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
+								true, true);
+
+						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
+								tempMethod, tempParamMap, aContext, anAcceptor);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeParameterTableValue_Value(EObject aModel, Assignment anAssignment,
+			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		super.completeParameterTableValue_Value(aModel, anAssignment, aContext, anAcceptor);
+
+		if (aModel instanceof ParameterTableValue) {
+			ParameterTableValue tempParam = (ParameterTableValue) aModel;
+
+			TableTestRow tempRow = (TableTestRow) tempParam.eContainer();
+			TableTest tempTest = (TableTest) tempRow.eContainer();
+			MethodReference tempMethod = tempTest.getDefinition().getFixtureMethod();
+
+			if (tempMethod != null) {
+				int tempColumn = tempRow.getValues().indexOf(tempParam);
+				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
+					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
+							true, true);
+
+					completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
+							tempMethod, tempParamMap, aContext, anAcceptor);
+				}
+			}
+		}
+	}
+
+	private boolean isCustomProposalFixture(MethodReference aMethod) {
 		for (JvmTypeReference tempRef : aMethod.getMethod().getDeclaringType().getSuperTypes()) {
 			if (tempRef.getQualifiedName().equals(CustomProposalFixture.class.getName())) {
-				tempFoundInterface = true;
-				break;
+				return true;
 			}
 		}
 
-		if (!tempFoundInterface) {
-			// The marker interface has not been found -> no custom proposal fixture!
-			return;
-		}
+		return false;
+	}
+
+	private void completeParameterValuesInternal(ParameterName aParameter, MethodReference aMethod,
+			Map<String, Object> aParamMap, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 
 		IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
 		CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
@@ -397,14 +455,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				return;
 			}
 
-			Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(someParameters, null, true, true);
-			resolveVariables(tempParamMap);
+			resolveVariables(aParamMap);
 			tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(aMethod.getMethod().getSimpleName(),
-					tempParamMap, true);
+					aParamMap, true);
 
 			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineProposals(aMethod.getMethod()
-					.getSimpleName(), IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter.getName()),
-					tempParamMap);
+					.getSimpleName(), IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter), aParamMap);
 
 			if (tempProposals == null) {
 				return;
