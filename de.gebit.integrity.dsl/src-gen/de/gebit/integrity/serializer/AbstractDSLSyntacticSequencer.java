@@ -18,7 +18,9 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected DSLGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_ParameterTableHeader_VerticalLineKeyword_2_q;
 	protected AbstractElementAlias match_ParameterTableValue_VerticalLineKeyword_2_q;
+	protected AbstractElementAlias match_ResultTableHeader_VerticalLineKeyword_3_q;
 	protected AbstractElementAlias match_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q;
 	protected AbstractElementAlias match_SuiteDefinition___GetsKeyword_4_0_NLParserRuleCall_4_1__q;
 	protected AbstractElementAlias match_SuiteDefinition___RequiresKeyword_5_0_NLParserRuleCall_5_1__q;
@@ -26,7 +28,9 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (DSLGrammarAccess) access;
+		match_ParameterTableHeader_VerticalLineKeyword_2_q = new TokenAlias(false, true, grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_2());
 		match_ParameterTableValue_VerticalLineKeyword_2_q = new TokenAlias(false, true, grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_2());
+		match_ResultTableHeader_VerticalLineKeyword_3_q = new TokenAlias(false, true, grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3());
 		match_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_11_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_1()));
 		match_SuiteDefinition___GetsKeyword_4_0_NLParserRuleCall_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_4_1()));
 		match_SuiteDefinition___RequiresKeyword_5_0_NLParserRuleCall_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5_1()));
@@ -58,8 +62,12 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ParameterTableValue_VerticalLineKeyword_2_q.equals(syntax))
+			if(match_ParameterTableHeader_VerticalLineKeyword_2_q.equals(syntax))
+				emit_ParameterTableHeader_VerticalLineKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ParameterTableValue_VerticalLineKeyword_2_q.equals(syntax))
 				emit_ParameterTableValue_VerticalLineKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultTableHeader_VerticalLineKeyword_3_q.equals(syntax))
+				emit_ResultTableHeader_VerticalLineKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q.equals(syntax))
 				emit_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition___GetsKeyword_4_0_NLParserRuleCall_4_1__q.equals(syntax))
@@ -74,7 +82,23 @@ public class AbstractDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * Syntax:
 	 *     '|'?
 	 */
+	protected void emit_ParameterTableHeader_VerticalLineKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '|'?
+	 */
 	protected void emit_ParameterTableValue_VerticalLineKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '|'?
+	 */
+	protected void emit_ResultTableHeader_VerticalLineKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

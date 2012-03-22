@@ -948,12 +948,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameParameterNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//ParameterTableHeader:
-		//	"|" name=ParameterName;
+		//	"|" name=ParameterName "|"?;
 		public ParserRule getRule() { return rule; }
 
-		//"|" name=ParameterName
+		//"|" name=ParameterName "|"?
 		public Group getGroup() { return cGroup; }
 
 		//"|"
@@ -964,6 +965,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ParameterName
 		public RuleCall getNameParameterNameParserRuleCall_1_0() { return cNameParameterNameParserRuleCall_1_0; }
+
+		//"|"?
+		public Keyword getVerticalLineKeyword_2() { return cVerticalLineKeyword_2; }
 	}
 
 	public class ResultTableHeaderElements extends AbstractParserRuleElementFinder {
@@ -973,12 +977,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameResultNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cVerticalLineKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ResultTableHeader:
-		//	"|" name=ResultName "=";
+		//	"|" name=ResultName "=" "|"?;
 		public ParserRule getRule() { return rule; }
 
-		//"|" name=ResultName "="
+		//"|" name=ResultName "=" "|"?
 		public Group getGroup() { return cGroup; }
 
 		//"|"
@@ -992,6 +997,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"="
 		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+
+		//"|"?
+		public Keyword getVerticalLineKeyword_3() { return cVerticalLineKeyword_3; }
 	}
 
 	public class ParameterTableValueElements extends AbstractParserRuleElementFinder {
@@ -2179,7 +2187,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ParameterTableHeader:
-	//	"|" name=ParameterName;
+	//	"|" name=ParameterName "|"?;
 	public ParameterTableHeaderElements getParameterTableHeaderAccess() {
 		return (pParameterTableHeader != null) ? pParameterTableHeader : (pParameterTableHeader = new ParameterTableHeaderElements());
 	}
@@ -2189,7 +2197,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ResultTableHeader:
-	//	"|" name=ResultName "=";
+	//	"|" name=ResultName "=" "|"?;
 	public ResultTableHeaderElements getResultTableHeaderAccess() {
 		return (pResultTableHeader != null) ? pResultTableHeader : (pResultTableHeader = new ResultTableHeaderElements());
 	}

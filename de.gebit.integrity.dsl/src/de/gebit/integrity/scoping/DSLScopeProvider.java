@@ -283,6 +283,31 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
+	 * Limit named test results to actually existing fields in the result container object.
+	 * 
+	 * @param aTableTest
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_FixedResultName_field(TableTest aTableTest, EReference aRef) {
+		MethodReference tempMethodRef = aTableTest.getDefinition().getFixtureMethod();
+
+		if (tempMethodRef != null) {
+			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+			List<ResultFieldTuple> tempResultFields = IntegrityDSLUtil
+					.getAllResultNamesFromFixtureMethod(tempMethodRef);
+			for (ResultFieldTuple tempResultField : tempResultFields) {
+				tempList.add(EObjectDescription.create(tempResultField.getResultName(), tempResultField.getField()));
+			}
+
+			return new SimpleScope(tempList);
+		}
+
+		return IScope.NULLSCOPE;
+	}
+
+	/**
 	 * Limit result variables for calls to actual variables.
 	 * 
 	 * @param aCall
@@ -361,4 +386,5 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		return new SimpleScope(tempList);
 	}
+
 }

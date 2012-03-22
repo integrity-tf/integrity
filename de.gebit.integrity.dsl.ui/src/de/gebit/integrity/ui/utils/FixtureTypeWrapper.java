@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IAnnotation;
+import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMemberValuePair;
 import org.eclipse.jdt.core.IMethod;
@@ -24,7 +25,10 @@ import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 
+import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterFixtureLink;
@@ -33,6 +37,7 @@ import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 
 /**
@@ -227,6 +232,63 @@ public class FixtureTypeWrapper {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Converts a given result value (collection) to a fixture-method-defined result type. This won't do any variable
+	 * replacement, since it's designed to be used inside Eclipse!
+	 * 
+	 * @param aFixtureMethodName
+	 *            the method name
+	 * @param aResultName
+	 *            the name of the result (may be null if the default result is meant)
+	 * @param aValue
+	 *            the value to convert
+	 * @return the converted value
+	 * @throws JavaModelException
+	 */
+	public Object convertResultValueToFixtureDefinedType(String aFixtureMethodName, ResultName aResultName,
+			ValueOrEnumValueCollection aValue) throws JavaModelException {
+		IMethod tempMethod = findMethod(aFixtureMethodName);
+		if (tempMethod == null) {
+			return aValue;
+		}
+
+		String tempTargetTypeName = null;
+		if (aResultName == null) {
+			// it's the default result type
+			tempTargetTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempMethod.getReturnType(),
+					tempMethod.getDeclaringType());
+		} else {
+			// must be a named result, we'll thus have to explore the container type
+			String tempResultNameString = IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(aResultName);
+
+			String tempContainerTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempMethod.getReturnType(),
+					tempMethod.getDeclaringType());
+			if (tempContainerTypeName != null) {
+				IType tempContainerType = IntegrityDSLUIUtil.findTypeByName(tempContainerTypeName);
+				if (tempContainerType != null) {
+					IField tempResultField = IntegrityDSLUIUtil
+							.findFieldByName(tempContainerType, tempResultNameString);
+					if (tempResultField != null) {
+						tempTargetTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempResultField.getTypeSignature(),
+								tempContainerType);
+					}
+				}
+			}
+		}
+
+		if (tempTargetTypeName != null) {
+			try {
+				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
+				return ParameterUtil.convertEncapsulatedValueCollectionToParamType(tempTargetType, aValue,
+						new HashMap<VariableEntity, Object>());
+			} catch (ClassNotFoundException exc) {
+				// skip this one; cannot convert
+			}
+		}
+
+		return aValue;
 	}
 
 	/**

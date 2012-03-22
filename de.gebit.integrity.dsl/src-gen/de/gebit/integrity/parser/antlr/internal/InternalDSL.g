@@ -1740,7 +1740,11 @@ ruleParameterTableHeader returns [EObject current=null]
 	    }
 
 )
-))
+)(	otherlv_2='|' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_2());
+    }
+)?)
 ;
 
 
@@ -1787,7 +1791,11 @@ ruleResultTableHeader returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getResultTableHeaderAccess().getEqualsSignKeyword_2());
     }
-)
+(	otherlv_3='|' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3());
+    }
+)?)
 ;
 
 

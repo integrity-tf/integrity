@@ -129,6 +129,10 @@ public final class ParameterUtil {
 	 */
 	public static Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
 			Map<VariableEntity, Object> aVariableMap) {
+		if (aValue == null) {
+			return null;
+		}
+
 		if (aValue instanceof DecimalValue) {
 			if (aParamType == Float.class) {
 				return ((DecimalValue) aValue).getDecimalValue().floatValue();
@@ -291,6 +295,39 @@ public final class ParameterUtil {
 	}
 
 	/**
+	 * Converts a given value collection to a given Java type class, if possible. Will return an array if the collection
+	 * contains more than one item.
+	 * 
+	 * 
+	 * @param aParamType
+	 *            the target type
+	 * @param aCollection
+	 *            the value collection
+	 * @param aVariableMap
+	 *            the variable map, if variable references shall be resolved. If this is null, unresolved variable
+	 *            references given as values will provoke an exception!
+	 * @return the converted value
+	 * @throws IllegalArgumentException
+	 *             if the conversion required is not supported
+	 */
+	public static Object convertEncapsulatedValueCollectionToParamType(Class<?> aParamType,
+			ValueOrEnumValueCollection aCollection, Map<VariableEntity, Object> aVariableMap) {
+		if (aCollection.getMoreValues() != null && aCollection.getMoreValues().size() > 0) {
+			// this is actually an array
+			Object tempResultArray = Array.newInstance(aParamType, aCollection.getMoreValues().size() + 1);
+			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
+				ValueOrEnumValue tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues().get(i - 1));
+				Object tempResultValue = convertEncapsulatedValueToParamType(aParamType, tempValue, aVariableMap);
+				Array.set(tempResultArray, i, tempResultValue);
+			}
+			return tempResultArray;
+		} else {
+			// this is just a single value
+			return convertEncapsulatedValueToParamType(aParamType, aCollection.getValue(), aVariableMap);
+		}
+	}
+
+	/**
 	 * Returns a map of named result names to values acquired from a given named result container. This container is
 	 * assumed to be a simple Java Bean, with accessible accessor methods useable to retrieve the values of fields. The
 	 * field names are used as result names and thus keys in the map. Unreachable fields are ignored.
@@ -327,6 +364,26 @@ public final class ParameterUtil {
 		}
 
 		return tempResultMap;
+	}
+
+	/**
+	 * Determines the result type by looking at a result container type for a specific result name.
+	 * 
+	 * @param aContainerType
+	 *            the container type
+	 * @param aResultName
+	 *            the name of the result
+	 * @return the result type
+	 * @throws IntrospectionException
+	 */
+	public static Class<?> getResultTypeFromNamedResultContainerType(Class<?> aContainerType, String aResultName)
+			throws IntrospectionException {
+		for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainerType).getPropertyDescriptors()) {
+			if (tempDescriptor.getName().equals(aResultName)) {
+				return tempDescriptor.getPropertyType();
+			}
+		}
+		return null;
 	}
 
 }

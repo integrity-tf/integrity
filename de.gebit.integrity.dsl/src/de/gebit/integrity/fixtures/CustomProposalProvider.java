@@ -31,8 +31,24 @@ public interface CustomProposalProvider {
 	 *            incomplete - information already entered for the currently edited parameter, if available)
 	 * @return
 	 */
-	List<CustomProposalDefinition> defineProposals(String aFixtureMethodName, String aParameterName,
+	List<CustomProposalDefinition> defineParameterProposals(String aFixtureMethodName, String aParameterName,
 			Map<String, Object> someParameterValues);
+
+	/**
+	 * Returns a list of proposals to be offered to the user for a given fixture method and result name.
+	 * 
+	 * @param aFixtureMethodName
+	 *            the name of the fixture method that is being used
+	 * @param aResultName
+	 *            the result for which the user has requested proposals (may be null if the default result is meant)
+	 * @param aResultValue
+	 *            the (partially typed) result value, or null if the user hasn't yet entered anything
+	 * @param someParameterValues
+	 *            all known parameter values
+	 * @return
+	 */
+	List<CustomProposalDefinition> defineResultProposals(String aFixtureMethodName, String aResultName,
+			Object aResultValue, Map<String, Object> someParameterValues);
 
 	/**
 	 * A container for the definition of one proposal.

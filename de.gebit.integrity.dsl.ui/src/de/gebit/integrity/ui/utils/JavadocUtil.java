@@ -1,5 +1,7 @@
 package de.gebit.integrity.ui.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.TextElement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 
@@ -138,16 +141,42 @@ public final class JavadocUtil {
 		AbstractTypeDeclaration tempType = parseCompilationUnit(tempCompilationUnit);
 
 		if (tempType instanceof TypeDeclaration) {
-			for (FieldDeclaration tempField : ((TypeDeclaration) tempType).getFields()) {
-				if (compareFields(tempField, aField)) {
-					Javadoc tempJavadoc = tempField.getJavadoc();
-					if (tempJavadoc != null) {
-						return getJavadocMainText(tempJavadoc);
-					} else {
-						break;
+			List<TypeDeclaration> tempTypes = new ArrayList<TypeDeclaration>();
+			tempTypes.add((TypeDeclaration) tempType);
+			// also visit all subtypes (inner classes!)
+			Collections.addAll(tempTypes, ((TypeDeclaration) tempType).getTypes());
+
+			for (TypeDeclaration tempTypeDeclaration : tempTypes) {
+				for (FieldDeclaration tempField : tempTypeDeclaration.getFields()) {
+					if (compareFields(tempField, aField)) {
+						Javadoc tempJavadoc = tempField.getJavadoc();
+						if (tempJavadoc != null) {
+							return getJavadocMainText(tempJavadoc);
+						} else {
+							break;
+						}
 					}
 				}
 			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the Javadoc text attached to a given field.
+	 * 
+	 * @param aField
+	 *            the field
+	 * @param anElementFinder
+	 *            the element finder
+	 * @return the Javadoc text or null if there is none
+	 */
+	public static String getJvmFieldJavadoc(JvmField aField, IJavaElementFinder anElementFinder) {
+		IJavaElement tempElement = anElementFinder.findElementFor(aField);
+
+		if (tempElement instanceof IField) {
+			return getFieldJavadoc((IField) tempElement);
 		}
 
 		return null;

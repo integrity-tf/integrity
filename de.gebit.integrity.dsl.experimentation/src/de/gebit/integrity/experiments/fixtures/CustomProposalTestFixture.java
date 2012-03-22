@@ -7,7 +7,20 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class CustomProposalTestFixture implements CustomProposalFixture {
 
 	@FixtureMethod()
-	public void dummyMethod(@FixtureParameter(name = "param1") String aParam1, @FixtureParameter(name = "param2") String aParam2) {
+	public CustomResultClass dummyMethod(@FixtureParameter(name = "param1") String aParam1, @FixtureParameter(name = "param2") String aParam2) {
+		return null;
+	}
+	
+	public class CustomResultClass {
+		
+		/**
+		 * Test.
+		 */
+		private String namedResult;
+
+		public String getNamedResult() {
+			return namedResult;
+		}
 		
 	}
 	

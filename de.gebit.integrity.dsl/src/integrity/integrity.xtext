@@ -64,10 +64,10 @@ TableTestRow:
 	{TableTestRow} (values+=ParameterTableValue)+ NLFORCED;
 	
 ParameterTableHeader:
-	'|' name=ParameterName;
+	'|' name=ParameterName '|'?;
 	
 ResultTableHeader:
-	'|' name=ResultName '=';
+	'|' name=ResultName '=' '|'?;
 	
 ParameterTableValue:
 	'|' value=ValueOrEnumValueCollection '|'?;
