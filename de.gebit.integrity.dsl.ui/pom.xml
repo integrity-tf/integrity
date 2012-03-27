@@ -11,6 +11,10 @@
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - UI</name>
   
+  <properties>
+  	<sonar.exclusions>de/gebit/integrity/ui/AbstractDSLUiModule.java,de/gebit/integrity/ui/DSLExecutableExtensionFactory.java,de/gebit/integrity/ui/contentassist/AbstractDSLProposalProvider.java,de/gebit/integrity/ui/contentassist/antlr/**/*.java,de/gebit/integrity/ui/internal/**/*.java</sonar.exclusions>
+  </properties>
+  
   <!-- We're building a fat jar including the sources right now for simplicity -->
   <build>
   	<resources>

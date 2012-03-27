@@ -12,6 +12,10 @@
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - Core</name>
   
+  <properties>
+  	<sonar.exclusions>de/gebit/integrity/dsl/**/*.java,de/gebit/integrity/parser/**/*.java,de/gebit/integrity/serializer/**/*.java,de/gebit/integrity/services/**/*.java,de/gebit/integrity/validation/**/*.java,de/gebit/integrity/generator/**/*.java</sonar.exclusions>
+  </properties>
+  
   <!-- We're building a fat jar including the sources right now for simplicity -->
   <build>
   	<resources>
