@@ -80,5 +80,19 @@
 		</plugins>
 	</build>
 	
+	<reporting> 
+        <plugins> 
+               <plugin> 
+                       <groupId>org.apache.maven.plugins</groupId> 
+                       <artifactId>maven-pmd-plugin</artifactId> 
+                       <configuration> 
+                               <excludes> 
+                                       <exclude>**/*-gen/**/*</exclude> 
+                               </excludes> 
+                       </configuration> 
+               </plugin> 
+        </plugins> 
+	</reporting>
+	
 	
 </project>
