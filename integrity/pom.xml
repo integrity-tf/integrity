@@ -66,15 +66,15 @@
 	       	  <headerLocation>${basedir}/../build/checkstyle/license.txt</headerLocation>
 	       	  <propertyExpansion>samedir=${basedir}/../build/checkstyle/</propertyExpansion>
 	        </configuration>
-	        <executions>
-				<execution>
-				  <id>default-checkstyle</id>
-				  <phase>test</phase>
-				  <goals>
-				    <goal>checkstyle</goal>
-				  </goals>
-				</execution>
-	          </executions>
+<!-- 	        <executions> -->
+<!-- 				<execution> -->
+<!-- 				  <id>default-checkstyle</id> -->
+<!-- 				  <phase>test</phase> -->
+<!-- 				  <goals> -->
+<!-- 				    <goal>checkstyle</goal> -->
+<!-- 				  </goals> -->
+<!-- 				</execution> -->
+<!-- 	          </executions> -->
 	      </plugin>
 		  
 		</plugins>
