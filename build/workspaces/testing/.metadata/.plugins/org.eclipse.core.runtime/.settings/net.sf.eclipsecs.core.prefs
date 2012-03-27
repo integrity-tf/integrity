@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+include.module.ids=false
+include.rule.names=false
+limit.markers.per.resource=false
+marker.amount.limit=100

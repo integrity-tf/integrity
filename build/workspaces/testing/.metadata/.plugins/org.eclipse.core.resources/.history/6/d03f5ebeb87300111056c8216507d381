@@ -1,0 +1,134 @@
+import mypackage.*
+import mypackage.deeper.*
+
+packagedef mysecondpackage with
+
+	variable packagevar
+	variable morePackageVars initially "String!!!"
+
+	forkdef firstFork "Fork Number One" uses de.gebit.integrity.runner.forking.DefaultForker
+	forkdef secondFork "Fork Number Two"
+
+	suitedef forkedSuite gets aParam with
+
+		call random min:0 max:aParam -> packagevar
+		
+		call random min:1 max:aParam -> packagevar
+		
+		call random min:2 max:aParam -> packagevar
+		
+		suite ranFromForked
+	
+	suiteend
+	
+	suitedef ranFromForked with
+	
+		call random min:0 max: 5
+	
+	suiteend
+
+	suitedef additionSuite requires initSuite with
+	
+		// This comment is not visible
+		
+		/* A multiline invisible comment */
+				
+		-- A singleline visible comment
+		call random min:5 max:10 -> yeah
+		
+		call random min:5 max:200
+		
+		call multiresultcall param: 11 firstNamedResult -> yeah secondNamedResult -> packagevar
+	
+		/- This is a multiline visible comment.           
+			It has several lines, and whitespace and stuff in between! -/
+		suite forkedSuite aParam:yeah on firstFork
+		
+		suite forkedSuite aParam:packagevar on secondFork
+		
+		suite forkedSuite aParam:yeah on firstFork
+	
+		test multiresult param: "blah" firstNamedResult = "blub" secondNamedResult = 101
+
+		tabletest customproposaltest
+		| param1 | param2 | = |
+		| "xxx"  | "ff" 
+ 		 
+		variable testvar initially 5
+		constant testconst 4
+		call random min:0 max:testconst -> packagevar 
+
+		test addition summand1: 2 summand2: 3 = testvar
+		test addition summand1: testvar summand2: 1 = 7
+		
+		tabletest addition summand1: 10 
+		| summand2	| = 	|
+		| 20		| 30 	|
+		| 30		| 49	|
+		| 40		| 50	|
+		
+		test echo echo: VALUE_ONE = VALUE_ONE
+		
+		test stupidtest
+		
+		test arbitrary fixparam: 666 +testparam1: 100 +testparam2: 200 +testresult1 = 100 +testresult2 = 200
+		
+		tabletest arbitrary
+		| fixparam	| +testparam1	| +testparam2	| +testresult1=	| +testresult2=	|
+		| 100		| 200			| 300			| 400			| 500			|
+		
+		call stringarraycall strings: "foo" -> testvar
+		
+		call stringarraycall strings: "foo", "bar", "baz" -> testvar
+		
+		test stringarraytest strings: "a", 1, 1.5, true, testvar = 5
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = "foo", "bar", "baz"
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = "foo", "bar", "bay"
+		
+		call stringarrayechocall strings: "foo", "bar", "baz" -> testvar
+		
+		test stringarrayechotest strings: "foo", "bar", "baz" = testvar
+		
+		tabletest stringarrayechotest
+		| strings		 		| =						|
+		| "foo", "bar", "baz"	| testvar				|
+		| "foo", "bar", "baz"	| "foo", "bar", "baz"	|
+		| "foo", "bar", "baz"	| "foo"					|
+		| "foo", "bar", "bay"	| "foo", "bar", "baz"	|
+		
+	 	
+		suite anotherSuite
+		
+		suite suiteWithParams param1: testvar param2: yeah
+	
+	suiteend concludedby exitSuite
+	
+	suitedef anotherSuite requires initSuite with
+	
+		variable testvar initially 5
+		call random min:5 max:6 -> testvar
+	
+	suiteend concludedby exitSuite
+	
+	suitedef suiteWithParams gets param1 param2 with
+	
+		variable nothing
+		call random min: param1 max: param2 -> nothing
+	
+	suiteend
+	
+	suitedef initSuite with
+		
+		test addition summand1: 8 summand2: 1 = 9
+		
+	suiteend
+	
+	suitedef exitSuite with
+	
+		test addition summand1: 5 summand2: 2 = 7
+		
+	suiteend
+
+packageend

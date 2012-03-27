@@ -37,7 +37,13 @@
     <exportedObjects fragment="//@statements.0/@statements.10" name="9:mypackage19:stringarrayechocall">
       <eClass href="http://integrity.dsl#//CallDefinition"/>
     </exportedObjects>
-    <exportedObjects fragment="//@statements.0/@statements.11/@name" name="9:mypackage5:dummy">
+    <exportedObjects fragment="//@statements.0/@statements.11" name="9:mypackage18:customproposalcall">
+      <eClass href="http://integrity.dsl#//CallDefinition"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@statements.0/@statements.12" name="9:mypackage18:customproposaltest">
+      <eClass href="http://integrity.dsl#//TestDefinition"/>
+    </exportedObjects>
+    <exportedObjects fragment="//@statements.0/@statements.13/@name" name="9:mypackage5:dummy">
       <eClass href="http://integrity.dsl#//VariableEntity"/>
     </exportedObjects>
     <exportedObjects fragment="//@statements.1" name="9:mypackage6:deeper">
@@ -68,8 +74,13 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.9/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.ArrayFixture#de.gebit.integrity.experiments.fixtures.ArrayFixture.echoStringArray(java.lang.String[])" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.9"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.10/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.ArrayFixture#de.gebit.integrity.experiments.fixtures.ArrayFixture" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.10"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.10/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.ArrayFixture#de.gebit.integrity.experiments.fixtures.ArrayFixture.echoStringArray(java.lang.String[])" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.10"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.11/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.11"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.11/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture.dummyMethod(java.lang.String,java.lang.String)" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.11"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.12/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;0" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.12"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.12/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture.dummyMethod(java.lang.String,java.lang.String)" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.dsl.experimentation/src/folder/importtest.integrity#//@statements.0/@statements.12"/>
     <importedNames>2:de5:gebit9:integrity11:experiments8:fixtures15:additionfixture</importedNames>
     <importedNames>2:de5:gebit9:integrity11:experiments8:fixtures21:arbitraryparamfixture</importedNames>
+    <importedNames>2:de5:gebit9:integrity11:experiments8:fixtures25:customproposaltestfixture</importedNames>
     <importedNames>2:de5:gebit9:integrity11:experiments8:fixtures12:arrayfixture</importedNames>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/de.gebit.integrity.tests/integrity/full.integrity">
@@ -96,11 +107,23 @@
       <userData key="type" value="String"/>
       <userData key="mandatory" value="true"/>
     </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.Workflow#org.eclipse.emf.mwe2.runtime.workflow.Workflow" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent#org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent.addComponent(org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.Reader#org.eclipse.xtext.mwe.Reader.addPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.1/@value" targetEObjectUri="java:/Objects/de.gebit.integrity.DSLStandaloneSetup#de.gebit.integrity.DSLStandaloneSetup" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.AbstractReader#org.eclipse.xtext.mwe.AbstractReader.addLoadResource(org.eclipse.xtext.mwe.ResourceLoadingSlotEntry)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.0/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.mwe.ResourceLoadingSlotEntry#org.eclipse.xtext.mwe.ResourceLoadingSlotEntry.setSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent#org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent.addComponent(org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.setRegister(org.eclipse.xtext.ISetup)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.0/@value" targetEObjectUri="java:/Objects/de.gebit.integrity.DSLStandaloneSetup#de.gebit.integrity.DSLStandaloneSetup" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addSlot(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent.addOutlet(org.eclipse.xtext.generator.GeneratorComponent$Outlet)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#//@root/@assignment.1/@value/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.GeneratorComponent#org.eclipse.xtext.generator.GeneratorComponent$Outlet.setPath(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGeneratorMWE.mwe2#/"/>
     <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils2:de5:gebit9:integrity18:dslstandalonesetup</importedNames>
-    <importedNames>8:workflow</importedNames>
     <importedNames>3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext3:mwe6:reader</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils3:org7:eclipse5:xtext9:generator18:generatorcomponent</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow8:workflow</importedNames>
@@ -650,1231 +673,6 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.16/@fixtureMethod" targetEObjectUri="java:/Objects/de.gebit.integrity.tests.fixtures.basic.NoOpFixture#de.gebit.integrity.tests.fixtures.basic.NoOpFixture.echoBigInteger(java.math.BigInteger)" externalFormOfEReference="http://integrity.dsl&#xab;MethodReference&#xab;1" containerEObjectURI="platform:/resource/de.gebit.integrity.tests/integrity/fixtures/NoOpFixture.integrity#//@statements.0/@statements.16"/>
     <importedNames>2:de5:gebit9:integrity5:tests8:fixtures5:basic11:noopfixture</importedNames>
   </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore">
-    <exportedObjects fragment="/" name="5:types">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="/" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement" name="5:types22:JvmIdentifiableElement">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmIdentifiableElement">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getIdentifier" name="5:types22:JvmIdentifiableElement13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getIdentifier" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmIdentifiableElement13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getSimpleName" name="5:types22:JvmIdentifiableElement13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getSimpleName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmIdentifiableElement13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getQualifiedName" name="5:types22:JvmIdentifiableElement16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getQualifiedName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmIdentifiableElement16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getQualifiedName.1" name="5:types22:JvmIdentifiableElement16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIdentifiableElement/getQualifiedName.1" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmIdentifiableElement16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmType" name="5:types7:JvmType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes7:JvmType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmVoid" name="5:types7:JvmVoid">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmVoid" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes7:JvmVoid">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmComponentType" name="5:types16:JvmComponentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmComponentType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmComponentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmComponentType/arrayType" name="5:types16:JvmComponentType9:arrayType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmComponentType/arrayType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmComponentType9:arrayType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmPrimitiveType" name="5:types16:JvmPrimitiveType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmPrimitiveType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmPrimitiveType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmPrimitiveType/simpleName" name="5:types16:JvmPrimitiveType10:simpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmPrimitiveType/simpleName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmPrimitiveType10:simpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType" name="5:types12:JvmArrayType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmArrayType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType/getDimensions" name="5:types12:JvmArrayType13:getDimensions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType/getDimensions" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmArrayType13:getDimensions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType/componentType" name="5:types12:JvmArrayType13:componentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmArrayType/componentType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmArrayType13:componentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType" name="5:types15:JvmDeclaredType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getDeclaredOperations" name="5:types15:JvmDeclaredType21:getDeclaredOperations">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getDeclaredOperations" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType21:getDeclaredOperations">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getDeclaredFields" name="5:types15:JvmDeclaredType17:getDeclaredFields">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getDeclaredFields" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType17:getDeclaredFields">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/findAllFeaturesByName" name="5:types15:JvmDeclaredType21:findAllFeaturesByName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/findAllFeaturesByName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType21:findAllFeaturesByName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getAllFeatures" name="5:types15:JvmDeclaredType14:getAllFeatures">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/getAllFeatures" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType14:getAllFeatures">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/superTypes" name="5:types15:JvmDeclaredType10:superTypes">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/superTypes" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType10:superTypes">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/members" name="5:types15:JvmDeclaredType7:members">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/members" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType7:members">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/abstract" name="5:types15:JvmDeclaredType8:abstract">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/abstract" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType8:abstract">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/static" name="5:types15:JvmDeclaredType6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/static" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/final" name="5:types15:JvmDeclaredType5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/final" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/packageName" name="5:types15:JvmDeclaredType11:packageName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDeclaredType/packageName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes15:JvmDeclaredType11:packageName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter" name="5:types16:JvmTypeParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter/name" name="5:types16:JvmTypeParameter4:name">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter/name" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeParameter4:name">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter/declarator" name="5:types16:JvmTypeParameter10:declarator">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameter/declarator" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeParameter10:declarator">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameterDeclarator" name="5:types26:JvmTypeParameterDeclarator">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameterDeclarator" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes26:JvmTypeParameterDeclarator">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameterDeclarator/typeParameters" name="5:types26:JvmTypeParameterDeclarator14:typeParameters">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeParameterDeclarator/typeParameters" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes26:JvmTypeParameterDeclarator14:typeParameters">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstraintOwner" name="5:types18:JvmConstraintOwner">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstraintOwner" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmConstraintOwner">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstraintOwner/constraints" name="5:types18:JvmConstraintOwner11:constraints">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstraintOwner/constraints" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmConstraintOwner11:constraints">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint" name="5:types17:JvmTypeConstraint">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getIdentifier" name="5:types17:JvmTypeConstraint13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getIdentifier" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getSimpleName" name="5:types17:JvmTypeConstraint13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getSimpleName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getQualifiedName" name="5:types17:JvmTypeConstraint16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getQualifiedName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getQualifiedName.1" name="5:types17:JvmTypeConstraint16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/getQualifiedName.1" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/typeReference" name="5:types17:JvmTypeConstraint13:typeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/typeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint13:typeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/owner" name="5:types17:JvmTypeConstraint5:owner">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeConstraint/owner" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmTypeConstraint5:owner">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUpperBound" name="5:types13:JvmUpperBound">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUpperBound" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmUpperBound">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLowerBound" name="5:types13:JvmLowerBound">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLowerBound" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmLowerBound">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationType" name="5:types17:JvmAnnotationType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes17:JvmAnnotationType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationType" name="5:types18:JvmEnumerationType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmEnumerationType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationType/literals" name="5:types18:JvmEnumerationType8:literals">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationType/literals" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmEnumerationType8:literals">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationLiteral" name="5:types21:JvmEnumerationLiteral">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationLiteral" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:JvmEnumerationLiteral">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationLiteral/getEnumType" name="5:types21:JvmEnumerationLiteral11:getEnumType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumerationLiteral/getEnumType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:JvmEnumerationLiteral11:getEnumType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType" name="5:types14:JvmGenericType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getExtendedInterfaces" name="5:types14:JvmGenericType21:getExtendedInterfaces">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getExtendedInterfaces" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType21:getExtendedInterfaces">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getExtendedClass" name="5:types14:JvmGenericType16:getExtendedClass">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getExtendedClass" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType16:getExtendedClass">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/isInstantiateable" name="5:types14:JvmGenericType17:isInstantiateable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/isInstantiateable" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType17:isInstantiateable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getDeclaredConstructors" name="5:types14:JvmGenericType23:getDeclaredConstructors">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/getDeclaredConstructors" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType23:getDeclaredConstructors">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/interface" name="5:types14:JvmGenericType9:interface">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericType/interface" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmGenericType9:interface">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference" name="5:types16:JvmTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getType" name="5:types16:JvmTypeReference7:getType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference7:getType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getIdentifier" name="5:types16:JvmTypeReference13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getIdentifier" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference13:getIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getSimpleName" name="5:types16:JvmTypeReference13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getSimpleName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference13:getSimpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getQualifiedName" name="5:types16:JvmTypeReference16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getQualifiedName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getQualifiedName.1" name="5:types16:JvmTypeReference16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/getQualifiedName.1" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference16:getQualifiedName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/accept" name="5:types16:JvmTypeReference6:accept">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/accept" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference6:accept">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/accept.1" name="5:types16:JvmTypeReference6:accept">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeReference/accept.1" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes16:JvmTypeReference6:accept">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference" name="5:types29:JvmParameterizedTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes29:JvmParameterizedTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference/arguments" name="5:types29:JvmParameterizedTypeReference9:arguments">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference/arguments" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes29:JvmParameterizedTypeReference9:arguments">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference/type" name="5:types29:JvmParameterizedTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmParameterizedTypeReference/type" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes29:JvmParameterizedTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference" name="5:types28:JvmGenericArrayTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmGenericArrayTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/getDimensions" name="5:types28:JvmGenericArrayTypeReference13:getDimensions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/getDimensions" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmGenericArrayTypeReference13:getDimensions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/getType" name="5:types28:JvmGenericArrayTypeReference7:getType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/getType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmGenericArrayTypeReference7:getType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/componentType" name="5:types28:JvmGenericArrayTypeReference13:componentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmGenericArrayTypeReference/componentType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmGenericArrayTypeReference13:componentType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmWildcardTypeReference" name="5:types24:JvmWildcardTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmWildcardTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmWildcardTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnyTypeReference" name="5:types19:JvmAnyTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnyTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes19:JvmAnyTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnyTypeReference/type" name="5:types19:JvmAnyTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnyTypeReference/type" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes19:JvmAnyTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMultiTypeReference" name="5:types21:JvmMultiTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMultiTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:JvmMultiTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember" name="5:types9:JvmMember">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/internalSetIdentifier" name="5:types9:JvmMember21:internalSetIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/internalSetIdentifier" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember21:internalSetIdentifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/declaringType" name="5:types9:JvmMember13:declaringType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/declaringType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember13:declaringType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/visibility" name="5:types9:JvmMember10:visibility">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/visibility" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember10:visibility">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/simpleName" name="5:types9:JvmMember10:simpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/simpleName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember10:simpleName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/identifier" name="5:types9:JvmMember10:identifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmMember/identifier" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:JvmMember10:identifier">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFeature" name="5:types10:JvmFeature">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFeature" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes10:JvmFeature">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmVisibility" name="5:types13:JvmVisibility">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmVisibility" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmVisibility">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField" name="5:types8:JvmField">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes8:JvmField">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/static" name="5:types8:JvmField6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/static" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes8:JvmField6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/final" name="5:types8:JvmField5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/final" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes8:JvmField5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/type" name="5:types8:JvmField4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmField/type" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes8:JvmField4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable" name="5:types13:JvmExecutable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmExecutable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/parameters" name="5:types13:JvmExecutable10:parameters">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/parameters" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmExecutable10:parameters">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/exceptions" name="5:types13:JvmExecutable10:exceptions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/exceptions" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmExecutable10:exceptions">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/varArgs" name="5:types13:JvmExecutable7:varArgs">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmExecutable/varArgs" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes13:JvmExecutable7:varArgs">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstructor" name="5:types14:JvmConstructor">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmConstructor" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes14:JvmConstructor">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation" name="5:types12:JvmOperation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/static" name="5:types12:JvmOperation6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/static" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation6:static">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/final" name="5:types12:JvmOperation5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/final" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation5:final">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/abstract" name="5:types12:JvmOperation8:abstract">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/abstract" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation8:abstract">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/returnType" name="5:types12:JvmOperation10:returnType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/returnType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation10:returnType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/defaultValue" name="5:types12:JvmOperation12:defaultValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmOperation/defaultValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes12:JvmOperation12:defaultValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter" name="5:types18:JvmFormalParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmFormalParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter/name" name="5:types18:JvmFormalParameter4:name">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter/name" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmFormalParameter4:name">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter/parameterType" name="5:types18:JvmFormalParameter13:parameterType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFormalParameter/parameterType" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmFormalParameter13:parameterType">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationTarget" name="5:types19:JvmAnnotationTarget">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationTarget" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes19:JvmAnnotationTarget">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationTarget/annotations" name="5:types19:JvmAnnotationTarget11:annotations">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationTarget/annotations" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes19:JvmAnnotationTarget11:annotations">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference" name="5:types22:JvmAnnotationReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmAnnotationReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/annotation" name="5:types22:JvmAnnotationReference10:annotation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/annotation" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmAnnotationReference10:annotation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/target" name="5:types22:JvmAnnotationReference6:target">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/target" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmAnnotationReference6:target">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/values" name="5:types22:JvmAnnotationReference6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationReference/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmAnnotationReference6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue" name="5:types18:JvmAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue/getValueName" name="5:types18:JvmAnnotationValue12:getValueName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue/getValueName" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmAnnotationValue12:getValueName">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue/operation" name="5:types18:JvmAnnotationValue9:operation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationValue/operation" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes18:JvmAnnotationValue9:operation">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIntAnnotationValue" name="5:types21:JvmIntAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIntAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:JvmIntAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIntAnnotationValue/values" name="5:types21:JvmIntAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmIntAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:JvmIntAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmBooleanAnnotationValue" name="5:types25:JvmBooleanAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmBooleanAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes25:JvmBooleanAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmBooleanAnnotationValue/values" name="5:types25:JvmBooleanAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmBooleanAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes25:JvmBooleanAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmByteAnnotationValue" name="5:types22:JvmByteAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmByteAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmByteAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmByteAnnotationValue/values" name="5:types22:JvmByteAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmByteAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmByteAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmShortAnnotationValue" name="5:types23:JvmShortAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmShortAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmShortAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmShortAnnotationValue/values" name="5:types23:JvmShortAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmShortAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmShortAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLongAnnotationValue" name="5:types22:JvmLongAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLongAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmLongAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLongAnnotationValue/values" name="5:types22:JvmLongAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmLongAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmLongAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDoubleAnnotationValue" name="5:types24:JvmDoubleAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDoubleAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmDoubleAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDoubleAnnotationValue/values" name="5:types24:JvmDoubleAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDoubleAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmDoubleAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFloatAnnotationValue" name="5:types23:JvmFloatAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFloatAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmFloatAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFloatAnnotationValue/values" name="5:types23:JvmFloatAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmFloatAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmFloatAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCharAnnotationValue" name="5:types22:JvmCharAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCharAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmCharAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCharAnnotationValue/values" name="5:types22:JvmCharAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCharAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmCharAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmStringAnnotationValue" name="5:types24:JvmStringAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmStringAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmStringAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmStringAnnotationValue/values" name="5:types24:JvmStringAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmStringAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmStringAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeAnnotationValue" name="5:types22:JvmTypeAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmTypeAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeAnnotationValue/values" name="5:types22:JvmTypeAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmTypeAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmTypeAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationAnnotationValue" name="5:types28:JvmAnnotationAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmAnnotationAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationAnnotationValue/values" name="5:types28:JvmAnnotationAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmAnnotationAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes28:JvmAnnotationAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumAnnotationValue" name="5:types22:JvmEnumAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmEnumAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumAnnotationValue/values" name="5:types22:JvmEnumAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmEnumAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes22:JvmEnumAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//Iterable" name="5:types8:Iterable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//Iterable" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes8:Iterable">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDelegateTypeReference" name="5:types24:JvmDelegateTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDelegateTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmDelegateTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDelegateTypeReference/delegate" name="5:types24:JvmDelegateTypeReference8:delegate">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmDelegateTypeReference/delegate" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmDelegateTypeReference8:delegate">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSpecializedTypeReference" name="5:types27:JvmSpecializedTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSpecializedTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes27:JvmSpecializedTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSpecializedTypeReference/equivalent" name="5:types27:JvmSpecializedTypeReference10:equivalent">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSpecializedTypeReference/equivalent" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes27:JvmSpecializedTypeReference10:equivalent">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSynonymTypeReference" name="5:types23:JvmSynonymTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmSynonymTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmSynonymTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUnknownTypeReference" name="5:types23:JvmUnknownTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUnknownTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmUnknownTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUnknownTypeReference/exception" name="5:types23:JvmUnknownTypeReference9:exception">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmUnknownTypeReference/exception" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes23:JvmUnknownTypeReference9:exception">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//ITypeReferenceVisitor" name="5:types21:ITypeReferenceVisitor">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//ITypeReferenceVisitor" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes21:ITypeReferenceVisitor">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//ITypeReferenceVisitorWithParameter" name="5:types34:ITypeReferenceVisitorWithParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//ITypeReferenceVisitorWithParameter" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes34:ITypeReferenceVisitorWithParameter">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//Exception" name="5:types9:Exception">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//Exception" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes9:Exception">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EDataType"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference" name="5:types24:JvmCompoundTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmCompoundTypeReference">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference/type" name="5:types24:JvmCompoundTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference/type" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmCompoundTypeReference4:type">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference/references" name="5:types24:JvmCompoundTypeReference10:references">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCompoundTypeReference/references" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmCompoundTypeReference10:references">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCustomAnnotationValue" name="5:types24:JvmCustomAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCustomAnnotationValue" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmCustomAnnotationValue">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCustomAnnotationValue/values" name="5:types24:JvmCustomAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="false"/>
-    </exportedObjects>
-    <exportedObjects fragment="//JvmCustomAnnotationValue/values" name="47:http://www.eclipse.org/xtext/common/JavaVMTypes24:JvmCustomAnnotationValue6:values">
-      <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
-      <userData key="nsURI" value="true"/>
-    </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getIdentifier/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getIdentifier"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getSimpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getSimpleName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName.1/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName.1/innerClassDelimiter/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EChar" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIdentifiableElement/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmPrimitiveType/simpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmPrimitiveType/simpleName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmArrayType/getDimensions/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EInt" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmArrayType/getDimensions"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/findAllFeaturesByName/simpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/findAllFeaturesByName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/abstract/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/abstract"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/static/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/static"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/final/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/final"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/packageName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDeclaredType/packageName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeParameter/name/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeParameter/name"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getIdentifier/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getIdentifier"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getSimpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getSimpleName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName.1/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName.1/innerClassDelimiter/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EChar" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeConstraint/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericType/isInstantiateable/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericType/isInstantiateable"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericType/interface/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericType/interface"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getIdentifier/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getIdentifier"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getSimpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getSimpleName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName.1/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName.1/innerClassDelimiter/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EChar" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmTypeReference/getQualifiedName.1"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericArrayTypeReference/getDimensions/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EInt" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmGenericArrayTypeReference/getDimensions"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/internalSetIdentifier/identifier/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/internalSetIdentifier"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/simpleName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/simpleName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/identifier/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmMember/identifier"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmField/static/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmField/static"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmField/final/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmField/final"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmExecutable/varArgs/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmExecutable/varArgs"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/static/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/static"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/final/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/final"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/abstract/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmOperation/abstract"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmFormalParameter/name/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmFormalParameter/name"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmAnnotationValue/getValueName/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmAnnotationValue/getValueName"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIntAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EInt" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmIntAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmBooleanAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBoolean" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmBooleanAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmByteAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EByte" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmByteAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmShortAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EShort" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmShortAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmLongAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//ELong" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmLongAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDoubleAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EDouble" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmDoubleAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmFloatAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EFloat" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmFloatAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmCharAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EChar" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmCharAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmStringAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmStringAnnotationValue/values"/>
-    <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmCustomAnnotationValue/values/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EJavaObject" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.xtext.common.types_2.2.1.v201112130541.jar!/model/JavaVMTypes.ecore#//JvmCustomAnnotationValue/values"/>
-  </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext">
     <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL" name="2:de5:gebit9:integrity3:DSL">
       <eClass href="http://www.eclipse.org/2008/Xtext#//Grammar"/>
@@ -2026,6 +824,12 @@
     <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedNameWithWildcard" name="25:QualifiedNameWithWildcard">
       <eClass href="http://www.eclipse.org/2008/Xtext#//ParserRule"/>
     </exportedObjects>
+    <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/NL" name="2:NL">
+      <eClass href="http://www.eclipse.org/2008/Xtext#//ParserRule"/>
+    </exportedObjects>
+    <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/NLFORCED" name="8:NLFORCED">
+      <eClass href="http://www.eclipse.org/2008/Xtext#//ParserRule"/>
+    </exportedObjects>
     <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/BOOLEAN_TRUE" name="12:BOOLEAN_TRUE">
       <eClass href="http://www.eclipse.org/2008/Xtext#//TerminalRule"/>
     </exportedObjects>
@@ -2062,10 +866,13 @@
     <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/WS" name="2:WS">
       <eClass href="http://www.eclipse.org/2008/Xtext#//TerminalRule"/>
     </exportedObjects>
+    <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/NEWLINE" name="7:NEWLINE">
+      <eClass href="http://www.eclipse.org/2008/Xtext#//TerminalRule"/>
+    </exportedObjects>
     <exportedObjects fragment="XtextFragmentProvider::de.gebit.integrity.DSL/ANY_OTHER" name="9:ANY_OTHER">
       <eClass href="http://www.eclipse.org/2008/Xtext#//TerminalRule"/>
     </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@metamodelDeclarations.0" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#/" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;AbstractMetamodelDeclaration&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@metamodelDeclarations.0" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#/" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;AbstractMetamodelDeclaration&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@metamodelDeclarations.1" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#/" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;AbstractMetamodelDeclaration&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@metamodelDeclarations.2" targetEObjectUri="http://integrity.dsl#/" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;AbstractMetamodelDeclaration&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@metamodelDeclarations.2"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.0/@type" targetEObjectUri="http://integrity.dsl#//Model" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Model"/>
@@ -2076,21 +883,21 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.5/@type" targetEObjectUri="http://integrity.dsl#//PackageStatement" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/PackageStatement"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.6/@type" targetEObjectUri="http://integrity.dsl#//Import" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Import"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.7/@type" targetEObjectUri="http://integrity.dsl#//ForkDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ForkDefinition"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.7/@alternatives/@elements.3/@elements.1/@terminal/@type" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ForkDefinition"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.7/@alternatives/@elements.5/@elements.2/@terminal/@type" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ForkDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.8/@type" targetEObjectUri="http://integrity.dsl#//TestDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TestDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.9/@type" targetEObjectUri="http://integrity.dsl#//CallDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/CallDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.10/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteDefinition"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.10/@alternatives/@elements.3/@elements.1/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteDefinition"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.10/@alternatives/@elements.7/@elements.1/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteDefinition"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.10/@alternatives/@elements.5/@elements.2/@elements.0/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteDefinition"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.10/@alternatives/@elements.11/@elements.2/@elements.0/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.11/@type" targetEObjectUri="http://integrity.dsl#//SuiteStatement" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteStatement"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.12/@type" targetEObjectUri="http://integrity.dsl#//SuiteStatementWithResult" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteStatementWithResult"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.13/@type" targetEObjectUri="http://integrity.dsl#//VariableDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/VariableDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.14/@type" targetEObjectUri="http://integrity.dsl#//ConstantDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ConstantDefinition"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.15/@type" targetEObjectUri="http://integrity.dsl#//VariableEntity" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/VariableEntity"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.16/@type" targetEObjectUri="http://integrity.dsl#//Test" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Test"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.16/@alternatives/@elements.1/@terminal/@type" targetEObjectUri="http://integrity.dsl#//TestDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Test"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.16/@alternatives/@elements.2/@terminal/@type" targetEObjectUri="http://integrity.dsl#//TestDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Test"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.17/@type" targetEObjectUri="http://integrity.dsl#//TableTest" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TableTest"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.17/@alternatives/@elements.1/@terminal/@type" targetEObjectUri="http://integrity.dsl#//TestDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TableTest"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.17/@alternatives/@elements.2/@terminal/@type" targetEObjectUri="http://integrity.dsl#//TestDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TableTest"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.18/@type" targetEObjectUri="http://integrity.dsl#//TableTestRow" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TableTestRow"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.18/@alternatives/@elements.0/@type" targetEObjectUri="http://integrity.dsl#//TableTestRow" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/TableTestRow"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.19/@type" targetEObjectUri="http://integrity.dsl#//ParameterTableHeader" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ParameterTableHeader"/>
@@ -2101,11 +908,11 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.24/@type" targetEObjectUri="http://integrity.dsl#//FixedResultName" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/FixedResultName"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.24/@alternatives/@terminal/@type" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmField" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/FixedResultName"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.25/@type" targetEObjectUri="http://integrity.dsl#//Call" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Call"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.25/@alternatives/@elements.2/@terminal/@type" targetEObjectUri="http://integrity.dsl#//CallDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Call"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.25/@alternatives/@elements.3/@terminal/@type" targetEObjectUri="http://integrity.dsl#//CallDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Call"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.26/@type" targetEObjectUri="http://integrity.dsl#//NamedCallResult" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/NamedCallResult"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.27/@type" targetEObjectUri="http://integrity.dsl#//Suite" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Suite"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.27/@alternatives/@elements.2/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Suite"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.27/@alternatives/@elements.4/@elements.1/@terminal/@type" targetEObjectUri="http://integrity.dsl#//ForkDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Suite"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.27/@alternatives/@elements.3/@terminal/@type" targetEObjectUri="http://integrity.dsl#//SuiteDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Suite"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.27/@alternatives/@elements.6/@elements.2/@terminal/@type" targetEObjectUri="http://integrity.dsl#//ForkDefinition" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Suite"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.28/@type" targetEObjectUri="http://integrity.dsl#//SuiteParameter" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteParameter"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.28/@alternatives/@elements.0/@terminal/@type" targetEObjectUri="http://integrity.dsl#//VariableEntity" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SuiteParameter"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.29/@type" targetEObjectUri="http://integrity.dsl#//Parameter" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/Parameter"/>
@@ -2130,22 +937,25 @@
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.43/@alternatives/@elements.0/@terminal/@type" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/MethodReference"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.43/@alternatives/@elements.2/@terminal/@type" targetEObjectUri="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/MethodReference"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.44/@type" targetEObjectUri="http://integrity.dsl#//ExecutionMultiplier" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ExecutionMultiplier"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.45/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedName"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.46/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedJavaClassName"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.47/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedNameWithWildcard"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.48/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/BOOLEAN_TRUE"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.49/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/BOOLEAN_FALSE"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.50/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/UPPERCASE_ID"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.51/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ID"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.52/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBigInteger" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/INTEGER"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.53/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/DECIMAL"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.54/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/STRING"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.55/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ML_COMMENT"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.56/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SL_COMMENT"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.57/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SL_VISIBLE_COMMENT"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.58/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ML_VISIBLE_COMMENT"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.59/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/WS"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.60/@type" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ANY_OTHER"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.45/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedName"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.46/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedJavaClassName"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.47/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/QualifiedNameWithWildcard"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.48/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/NL"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.49/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/NLFORCED"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.50/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/BOOLEAN_TRUE"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.51/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/BOOLEAN_FALSE"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.52/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/UPPERCASE_ID"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.53/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ID"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.54/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EBigInteger" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/INTEGER"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.55/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EBigDecimal" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/DECIMAL"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.56/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/STRING"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.57/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ML_COMMENT"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.58/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SL_COMMENT"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.59/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/SL_VISIBLE_COMMENT"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.60/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ML_VISIBLE_COMMENT"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.61/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/WS"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.62/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/NEWLINE"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#/0/@rules.63/@type" targetEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/Ecore.ecore#//EString" externalFormOfEReference="http://www.eclipse.org/2008/Xtext&#xab;TypeRef&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/integrity.xtext#XtextFragmentProvider::de.gebit.integrity.DSL/ANY_OTHER"/>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/XMLType.ecore">
     <exportedObjects fragment="/" name="4:type">
@@ -2780,27 +1590,6 @@
     <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/XMLType.ecore#//XMLTypeDocumentRoot/xMLNSPrefixMap/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/XMLType.ecore#//XMLTypeDocumentRoot/xMLNSPrefixMap"/>
     <referenceDescriptions sourceEObjectUri="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/XMLType.ecore#//XMLTypeDocumentRoot/xSISchemaLocation/@eGenericType" targetEObjectUri="http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry" externalFormOfEReference="http://www.eclipse.org/emf/2002/Ecore&#xab;EGenericType&#xab;5" containerEObjectURI="archive:file:/C:/eclipse_xtext/plugins/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar!/model/XMLType.ecore#//XMLTypeDocumentRoot/xSISchemaLocation"/>
   </builderState:ResourceDescription>
-  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend">
-    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
-    </exportedObjects>
-    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
-    </exportedObjects>
-    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
-      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
-    </exportedObjects>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/java.lang.Object#java.lang.Object" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
-    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
-  </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2">
     <exportedObjects fragment="/" name="9:integrity17:GenerateIntegrity">
       <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//Module"/>
@@ -2821,6 +1610,19 @@
       <eClass href="http://www.eclipse.org/xtext/common/mwe2/Mwe2#//DeclaredProperty"/>
       <userData key="type" value="String"/>
     </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.Workflow#org.eclipse.emf.mwe2.runtime.workflow.Workflow" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.Workflow#org.eclipse.emf.mwe2.runtime.workflow.Workflow.addBean(java.lang.Object)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setScanClassPath(boolean)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.setPlatformUri(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.0/@value/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.StandaloneSetup#org.eclipse.emf.mwe.utils.StandaloneSetup.addRegisterGenModelFile(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent#org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent.addComponent(org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.1/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent#org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent.addComponent(org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.2/@value/@assignment.0" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe.utils.DirectoryCleaner#org.eclipse.emf.mwe.utils.DirectoryCleaner.setDirectory(java.lang.String)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.3" targetEObjectUri="java:/Objects/org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent#org.eclipse.emf.mwe2.runtime.workflow.AbstractCompositeWorkflowComponent.addComponent(org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent)" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Assignment&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
     <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#//@root/@assignment.3/@value/@assignment.5/@value/@assignment.8/@value" targetEObjectUri="java:/Objects/de.gebit.integrity.scoping.importer.DSLImportNamespacesScopingFragment#de.gebit.integrity.scoping.importer.DSLImportNamespacesScopingFragment" externalFormOfEReference="http://www.eclipse.org/xtext/common/mwe2/Mwe2&#xab;Referrable&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/integrity/GenerateIntegrity.mwe2#/"/>
     <importedNames>4:java4:lang9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
     <importedNames>7:compare15:comparefragment</importedNames>
@@ -2915,7 +1717,6 @@
     <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils16:directorycleaner</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow13:contentassist30:javabasedcontentassistfragment</importedNames>
     <importedNames>3:org7:eclipse5:xtext2:ui9:generator10:validation21:javavalidatorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow15:standalonesetup</importedNames>
     <importedNames>9:integrity10:serializer18:serializerfragment</importedNames>
     <importedNames>3:org7:eclipse5:xtext2:ui9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
     <importedNames>10:formatting17:formatterfragment</importedNames>
@@ -2934,15 +1735,15 @@
     <importedNames>4:java4:lang2:de5:gebit9:integrity10:validation21:javavalidatorfragment</importedNames>
     <importedNames>4:java4:lang2:de5:gebit9:integrity5:xbase22:xbasegeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity16:directorycleaner</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:junit14:junit4fragment</importedNames>
     <importedNames>3:org7:eclipse3:emf3:mwe5:utils9:generator17:generatorfragment</importedNames>
+    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow5:junit14:junit4fragment</importedNames>
     <importedNames>2:de5:gebit9:integrity9:templates30:codetemplatesgeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator5:xbase22:xbasegeneratorfragment</importedNames>
     <importedNames>4:java4:lang2:de5:gebit9:integrity16:directorycleaner</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
-    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
+    <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator10:validation21:javavalidatorfragment</importedNames>
     <importedNames>2:de5:gebit9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
     <importedNames>2:de5:gebit9:integrity5:ecore22:ecoregeneratorfragment</importedNames>
     <importedNames>4:java4:lang9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
@@ -3124,7 +1925,6 @@
     <importedNames>4:java4:lang2:de5:gebit9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
     <importedNames>6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
-    <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow16:directorycleaner</importedNames>
     <importedNames>2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
     <importedNames>4:java4:lang15:resourcefactory23:resourcefactoryfragment</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils9:generator</importedNames>
@@ -3153,7 +1953,6 @@
     <importedNames>4:java4:lang9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
     <importedNames>3:org7:eclipse5:xtext9:generator6:parser5:antlr29:xtextantlruigeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:formatting17:formatterfragment</importedNames>
-    <importedNames>8:workflow</importedNames>
     <importedNames>4:java4:lang2:de5:gebit9:integrity8:quickfix24:quickfixproviderfragment</importedNames>
     <importedNames>4:java4:lang9:generator</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow9:integrity11:refactoring27:refactorelementnamefragment</importedNames>
@@ -3167,11 +1966,9 @@
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:builder26:builderintegrationfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator11:refactoring27:refactorelementnamefragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>4:java4:lang15:standalonesetup</importedNames>
     <importedNames>3:org7:eclipse5:xtext9:generator5:xbase22:xbasegeneratorfragment</importedNames>
     <importedNames>4:java4:lang2:de5:gebit9:integrity9:generator17:generatorfragment</importedNames>
     <importedNames>4:java4:lang9:integrity13:contentassist30:javabasedcontentassistfragment</importedNames>
-    <importedNames>4:java4:lang16:directorycleaner</importedNames>
     <importedNames>4:java4:lang2:de5:gebit9:integrity15:standalonesetup</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
     <importedNames>9:integrity7:outline20:quickoutlinefragment</importedNames>
@@ -3198,7 +1995,6 @@
     <importedNames>4:java4:lang2:de5:gebit9:integrity9:exporting22:qualifiednamesfragment</importedNames>
     <importedNames>4:java4:lang9:integrity10:formatting17:formatterfragment</importedNames>
     <importedNames>4:java4:lang7:outline20:quickoutlinefragment</importedNames>
-    <importedNames>15:standalonesetup</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils13:contentassist30:javabasedcontentassistfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator8:workflow</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:scoping8:importer34:dslimportnamespacesscopingfragment</importedNames>
@@ -3217,8 +2013,8 @@
     <importedNames>4:java4:lang2:de5:gebit9:integrity5:junit14:junit4fragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse3:emf3:mwe5:utils7:outline20:quickoutlinefragment</importedNames>
     <importedNames>4:java4:lang9:integrity15:resourcefactory23:resourcefactoryfragment</importedNames>
-    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse5:xtext9:generator16:directorycleaner</importedNames>
+    <importedNames>3:org7:eclipse5:xtext2:ui9:generator5:ecore22:ecoregeneratorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:exporting22:qualifiednamesfragment</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse3:emf3:mwe5:utils8:labeling21:labelproviderfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow11:refactoring27:refactorelementnamefragment</importedNames>
@@ -3270,7 +2066,6 @@
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext9:generator9:generator</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator9:generator17:generatorfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow2:de5:gebit9:integrity10:serializer18:serializerfragment</importedNames>
-    <importedNames>16:directorycleaner</importedNames>
     <importedNames>9:integrity7:outline27:outlinetreeproviderfragment</importedNames>
     <importedNames>3:org7:eclipse3:emf4:mwe27:runtime8:workflow3:org7:eclipse5:xtext2:ui9:generator8:workflow</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext2:ui9:generator8:labeling21:labelproviderfragment</importedNames>
@@ -3305,6 +2100,36 @@
     <importedNames>3:org7:eclipse5:xtext9:generator7:compare15:comparefragment</importedNames>
     <importedNames>4:java4:lang3:org7:eclipse5:xtext9:generator6:parser5:antlr27:xtextantlrgeneratorfragment</importedNames>
     <importedNames>2:de5:gebit9:integrity9:generator</importedNames>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend">
+    <exportedObjects fragment="/0/@xtendClass" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendClass"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@xtendClass/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/Xtend2#//XtendFunction"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmGenericType"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.0" name="2:de5:gebit9:integrity9:generator12:DSLGenerator">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmConstructor"/>
+    </exportedObjects>
+    <exportedObjects fragment="/1/@members.1" name="2:de5:gebit9:integrity9:generator12:DSLGenerator10:doGenerate">
+      <eClass href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmOperation"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.0" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@imports.2" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/Xtend2&#xab;XtendImport&#xab;3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@implements.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/0/@xtendClass/@members.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@annotations.0" targetEObjectUri="java:/Objects/java.lang.SuppressWarnings#java.lang.SuppressWarnings" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmAnnotationReference&#xab;0" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.0" targetEObjectUri="java:/Objects/java.lang.Object#java.lang.Object" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@superTypes.1" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IGenerator#org.eclipse.xtext.generator.IGenerator" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.0/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.emf.ecore.resource.Resource#org.eclipse.emf.ecore.resource.Resource" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@parameters.1/@parameterType" targetEObjectUri="java:/Objects/org.eclipse.xtext.generator.IFileSystemAccess#org.eclipse.xtext.generator.IFileSystemAccess" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1/@returnType" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/generator/DSLGenerator.xtend#/1/@members.1"/>
   </builderState:ResourceDescription>
   <builderState:ResourceDescription URI="platform:/resource/.org.eclipse.jdt.core.external.folders/.link2/de/gebit/integrity/DSL.ecore">
     <exportedObjects fragment="/" name="3:dsl">

@@ -24,5 +24,20 @@
 			<type>2</type>
 			<location>C:/git/integrity/de.gebit.integrity.dsl/target/classes</location>
 		</link>
+		<link>
+			<name>.link3</name>
+			<type>2</type>
+			<location>C:/git/integrity/de.gebit.integrity.dsl</location>
+		</link>
+		<link>
+			<name>.link4</name>
+			<type>2</type>
+			<location>C:/git/integrity/de.gebit.integrity.remoting</location>
+		</link>
+		<link>
+			<name>.link5</name>
+			<type>2</type>
+			<location>C:/git/integrity/de.gebit.integrity.runner</location>
+		</link>
 	</linkedResources>
 </projectDescription>

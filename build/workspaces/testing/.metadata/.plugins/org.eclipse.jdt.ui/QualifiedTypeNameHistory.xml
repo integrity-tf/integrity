@@ -4,8 +4,6 @@
 <fullyQualifiedTypeName name="de.integrity.experiments.fixtures.AdditionFixture.NamedResultContainer"/>
 <fullyQualifiedTypeName name="de.integrity.fixtures.FixtureMethod"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.Fixture"/>
-<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureMethod"/>
-<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureParameter"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
 <fullyQualifiedTypeName name="java.math.BigInteger"/>
 <fullyQualifiedTypeName name="java.lang.Process"/>
@@ -30,7 +28,6 @@
 <fullyQualifiedTypeName name="de.gebit.integrity.runner.TestModel"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.runner.providers.TestResourceProvider"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.runner.providers.FilesystemTestResourceProvider"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.runner.callbacks.TestRunnerCallback"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback"/>
@@ -52,4 +49,12 @@
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.ArbitraryParameterEnumerator"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterFixtureLink"/>
 <fullyQualifiedTypeName name="de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.CustomProposalFixture"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureParameter"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.FixtureMethod"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.CustomProposalProvider"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition"/>
 </qualifiedTypeNameHistroy>

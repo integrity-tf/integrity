@@ -13,6 +13,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider
  * 
  */
+// SUPPRESS CHECKSTYLE LONG Javadoc
 public class NoOpFixture {
 
 	@FixtureMethod(description = "Do absolutely nothing.")

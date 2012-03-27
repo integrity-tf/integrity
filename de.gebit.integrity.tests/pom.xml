@@ -10,11 +10,7 @@
   <artifactId>de.gebit.integrity.tests</artifactId>
   <name>Integrity JUnit</name>
   <packaging>eclipse-plugin</packaging>
-  
-  <properties>
-  	<sonar.exclusions>de/gebit/integrity/tests/**/*.java</sonar.exclusions>
-  </properties>
-  
+    
   <build>
       <plugins>
         <plugin>
