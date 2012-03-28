@@ -8,7 +8,6 @@
   </parent>
   
   <artifactId>updatesite</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
   <packaging>eclipse-repository</packaging>
   <name>Integrity Eclipse Update Site</name>
   
