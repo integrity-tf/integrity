@@ -4,9 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-main-collection</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>Integrity Main Build</name>
   <packaging>pom</packaging>
+  <scm>
+  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
+  </scm>
   <modules>
     <module>de.gebit.integrity.dsl</module>
     <module>de.gebit.integrity.dsl.ui</module>
