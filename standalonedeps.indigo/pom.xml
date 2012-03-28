@@ -8,7 +8,6 @@
   </parent>
   
   <artifactId>integrity-standalone-dependencies</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Integrity Standalone Dependencies</name>
   
@@ -326,19 +325,19 @@
   	<dependency>
   		<groupId>de.gebit.integrity</groupId>
   		<artifactId>de.gebit.integrity.dsl</artifactId>
-  		<version>0.1.0-SNAPSHOT</version>
+  		<version>${project.version}</version>
   		<scope>runtime</scope>
   	</dependency>
   	<dependency>
   		<groupId>de.gebit.integrity</groupId>
   		<artifactId>de.gebit.integrity.remoting</artifactId>
-  		<version>0.1.0-SNAPSHOT</version>
+  		<version>${project.version}</version>
   		<scope>runtime</scope>
   	</dependency>
   	<dependency>
   		<groupId>de.gebit.integrity</groupId>
   		<artifactId>de.gebit.integrity.runner</artifactId>
-  		<version>0.1.0-SNAPSHOT</version>
+  		<version>${project.version}</version>
   		<scope>runtime</scope>
   	</dependency>
   	<dependency>
