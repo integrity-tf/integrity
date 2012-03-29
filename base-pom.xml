@@ -8,7 +8,7 @@
   </parent>
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-build-dependency-collection</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.0.2</version>
   <packaging>pom</packaging>
   <scm>
   	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
