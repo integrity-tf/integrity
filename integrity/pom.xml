@@ -9,7 +9,7 @@
 
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.4.0</version>
   <packaging>pom</packaging>
 
   <name>Integrity Parent POM</name>
