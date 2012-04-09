@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/de.gebit.integrity.feature_0.6.1.qualifier.jar" id="de.gebit.integrity.feature" version="0.6.1.qualifier"/>
+   <feature url="features/de.gebit.integrity.feature_0.6.3.qualifier.jar" id="de.gebit.integrity.feature" version="0.6.3.qualifier"/>
    <category-def name="IntegrityTestFramework" label="Integrity Test Framework"/>
 </site>
