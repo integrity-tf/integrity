@@ -10,7 +10,7 @@
   
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
-  <version>0.6.3-SNAPSHOT</version>
+  <version>${integrity-version}</version>
   <name>Integrity Main Build</name>
   <packaging>pom</packaging>
   
@@ -21,7 +21,24 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho-version>0.14.0</tycho-version>
+    <integrity-version>0.6.3-SNAPSHOT</integrity-version>
+    
+    <isRelease>false</isRelease>
   </properties>
+  
+  <profiles>
+    <profile>
+      <id>release-deploy-property-override</id>
+      <activation>
+        <property>
+          <name>VERSION_NUMBER</name>
+        </property>
+      </activation>
+      <properties>
+        <isRelease>true</isRelease>
+      </properties>
+    </profile>
+  </profiles>
   
   <modules>
   	<module>targetplatform</module>
@@ -101,14 +118,76 @@
 	      
 	      <plugin>
 	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-deploy-plugin</artifactId>
-	        <version>2.7</version>
+	        <artifactId>maven-source-plugin</artifactId>
+	        <version>2.1.2</version>
 	      </plugin>
 	      
 	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-source-plugin</artifactId>
-	        <version>2.1.2</version>
+	      <artifactId>maven-resources-plugin</artifactId>
+	        <version>2.4.3</version>
+	        <executions>
+	          <execution>
+	            <id>replace-pom-placeholder</id>
+	            <phase>package</phase>
+	            <goals>
+	              <goal>copy-resources</goal>
+	            </goals>
+	            <configuration>
+	              <resources>
+	                <resource>
+	                  <directory>${basedir}</directory>
+	                  <includes>
+	                    <include>pom.xml</include>
+	                  </includes>
+	                  <filtering>true</filtering>
+	                </resource>
+	              </resources>
+	              <outputDirectory>${project.build.directory}/pom-install-deploy-fix</outputDirectory>
+	            </configuration>
+	          </execution>
+	        </executions>
+	      </plugin>
+ 
+	      <plugin>
+	        <artifactId>maven-install-plugin</artifactId>
+	        <version>2.3.1</version>
+	        <executions>
+	          <execution>
+	            <id>overwrite-pom</id>
+	            <phase>install</phase>
+	            <goals>
+	              <goal>install-file</goal>
+	            </goals>
+	            <configuration>
+	              <packaging>pom</packaging>
+	              <file>target/pom-install-deploy-fix/pom.xml</file>
+	              <pomFile>target/pom-install-deploy-fix/pom.xml</pomFile>
+	              <version>${project.version}</version>
+	            </configuration>
+	          </execution>
+	        </executions>
+	      </plugin>
+	 
+	      <plugin>
+	        <artifactId>maven-deploy-plugin</artifactId>
+	        <version>2.7</version>
+	        <executions>
+	          <execution>
+	            <id>overwrite-pom</id>
+	            <phase>deploy</phase>
+	            <goals>
+	              <goal>deploy-file</goal>
+	            </goals>
+	            <configuration>
+	              <packaging>pom</packaging>
+	              <file>target/pom-install-deploy-fix/pom.xml</file>
+	              <pomFile>target/pom-install-deploy-fix/pom.xml</pomFile>
+	              <version>${project.version}</version>
+	              <updateReleaseInfo>${isRelease}</updateReleaseInfo>
+	              <uniqueVersion>false</uniqueVersion>
+	            </configuration>
+	          </execution>
+	        </executions>
 	      </plugin>
       
     </plugins>

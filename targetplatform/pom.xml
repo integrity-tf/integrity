@@ -2,14 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-  	<groupId>de.gebit.maven</groupId>
-	<artifactId>gebit-poms</artifactId>
-	<version>0.0.1</version>
+  	<groupId>de.gebit.integrity</groupId>
+	<artifactId>integrity</artifactId>
+	<version>${integrity-version}</version>
   </parent>
   
-  <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-target</artifactId>
-  <version>0.6.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Integrity Target Platform</name>
   
