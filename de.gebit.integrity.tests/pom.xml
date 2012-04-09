@@ -30,7 +30,8 @@
 		  	<testClassesDirectory>${project.build.directory}/classes</testClassesDirectory>
 			<includes>
 				<include>**/*.java</include>
-			</includes>			<redirectTestOutputToFile>true</redirectTestOutputToFile>
+			</includes>
+			<redirectTestOutputToFile>true</redirectTestOutputToFile>
 		  </configuration>
 		  <executions>
 			<execution>

@@ -55,7 +55,7 @@
         <executions>
           <execution>
             <id>default-install</id>
-            <phase></phase>
+            <phase />
           </execution>
         </executions>
       </plugin>
