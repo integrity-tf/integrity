@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
   
   <scm>
-  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
+  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git/build_base</developerConnection>
   </scm>
   <modules>
   	<module>../integrity</module>
