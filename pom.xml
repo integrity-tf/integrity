@@ -31,7 +31,7 @@
       <id>release-deploy-property-override</id>
       <activation>
         <property>
-          <name>VERSION_NUMBER</name>
+          <name>integrity-version</name>
         </property>
       </activation>
       <properties>
