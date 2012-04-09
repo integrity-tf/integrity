@@ -43,10 +43,13 @@
       
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-        	<skip>true</skip>
-        </configuration>
+        <artifactId>maven-install-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-install</id>
+            <phase></phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
