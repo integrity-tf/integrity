@@ -5,7 +5,7 @@
   <parent>
     <artifactId>integrity</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>${integrity-version}</version>
+    <version>0.6.3</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   
