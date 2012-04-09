@@ -31,15 +31,15 @@
 				<include>**/*.java</include>
 			</includes>			<redirectTestOutputToFile>true</redirectTestOutputToFile>
 		  </configuration>
-		  <executions>
-			<execution>
-			  <id>default-test</id>
-			  <phase>test</phase>
-			  <goals>
-			    <goal>test</goal>
-			  </goals>
-			</execution>
-          </executions>
+<!-- 		  <executions> -->
+<!-- 			<execution> -->
+<!-- 			  <id>default-test</id> -->
+<!-- 			  <phase>test</phase> -->
+<!-- 			  <goals> -->
+<!-- 			    <goal>test</goal> -->
+<!-- 			  </goals> -->
+<!-- 			</execution> -->
+<!--           </executions> -->
         </plugin>
         
         <!-- Deactivate checkstyle for this project -->
