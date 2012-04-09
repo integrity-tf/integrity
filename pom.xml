@@ -10,7 +10,7 @@
   
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
-  <version>0.6.3</version>
+  <version>0.6.4</version>
   <name>Integrity Main Build</name>
   <packaging>pom</packaging>
   
