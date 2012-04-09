@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
   
   <scm>
-  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git/build_base</developerConnection>
+  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
   </scm>
   <modules>
   	<module>../integrity</module>
@@ -27,6 +27,24 @@
         <version>0.14.0</version>
         <extensions>true</extensions>
       </plugin>
+      
+      <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-release-plugin</artifactId>
+		    <version>2.2.2</version>
+		    <executions>
+		        <execution>
+		            <id>default</id>
+		            <goals>
+		                <goal>perform</goal>
+		            </goals>
+		            <configuration>
+		                <pomFileName>build_base/pom.xml</pomFileName>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
+		      
     </plugins>
   </build>
 </project>
