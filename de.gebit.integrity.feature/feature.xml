@@ -2,7 +2,7 @@
 <feature
       id="de.gebit.integrity.feature"
       label="Integrity Test Framework"
-      version="0.6.4.qualifier"
+      version="0.6.5.qualifier"
       provider-name="GEBIT Solutions GmbH">
 
    <description>
@@ -14,8 +14,8 @@
    </copyright>
 
    <license url="">
-   	  Nothing to see here, move on please...
-   	  
+      Nothing to see here, move on please...
+      
 I haven&apos;t yet added a 200+ page license agreement which nobody reads anyway. But this is gonna be under some open-source license someday!
    </license>
 

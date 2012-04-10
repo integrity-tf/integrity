@@ -4,7 +4,7 @@
   <parent>
     <artifactId>integrity</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.6.4</version>
+    <version>0.6.5-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>de.gebit.integrity.remoting</artifactId>
