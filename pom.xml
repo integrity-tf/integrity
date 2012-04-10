@@ -119,7 +119,7 @@
 	      
 	      <plugin>
 			<groupId>org.sonatype.tycho</groupId>
-			<artifactId>maven-osgi-packaging-plugin</artifactId>
+			<artifactId>tycho-packaging-plugin</artifactId>
 			<version>${tycho-version}</version>
 			<configuration>
 				<strictVersions>${validateManifestVersions}</strictVersions>
