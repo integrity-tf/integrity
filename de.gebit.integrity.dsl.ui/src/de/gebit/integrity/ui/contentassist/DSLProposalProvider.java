@@ -278,6 +278,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempContainer = aModel.eContainer().eContainer();
 		} else if (aModel instanceof NamedResult) {
 			tempContainer = aModel.eContainer();
+		} else {
+			// assume the model is already the outer container we search for
+			tempContainer = aModel;
 		}
 
 		// We need these parameter and result maps in order to sort out proposals for parameters/results already given
