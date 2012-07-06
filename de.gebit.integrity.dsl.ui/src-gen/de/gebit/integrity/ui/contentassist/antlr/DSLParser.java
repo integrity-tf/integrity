@@ -46,6 +46,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValueOrEnumValueAccess().getAlternatives(), "rule__ValueOrEnumValue__Alternatives");
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0(), "rule__BooleanValue__BooleanValueAlternatives_0");
+					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getGroup(), "rule__VisibleSingleLineComment__Group__0");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getGroup(), "rule__VisibleMultiLineComment__Group__0");
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
@@ -95,7 +96,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
 					put(grammarAccess.getNLAccess().getGroup(), "rule__NL__Group__0");
 					put(grammarAccess.getNLFORCEDAccess().getGroup(), "rule__NLFORCED__Group__0");
-					put(grammarAccess.getModelAccess().getStatementsAssignment(), "rule__Model__StatementsAssignment");
+					put(grammarAccess.getModelAccess().getStatementsAssignment_2(), "rule__Model__StatementsAssignment_2");
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineComment__ContentAssignment_0");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineComment__ContentAssignment_0");
 					put(grammarAccess.getPackageDefinitionAccess().getNameAssignment_2(), "rule__PackageDefinition__NameAssignment_2");

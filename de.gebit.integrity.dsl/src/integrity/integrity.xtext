@@ -6,7 +6,7 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 generate dsl "http://integrity.dsl"
 
 Model:
-	statements+=Statement*;
+	{Model} NL statements+=Statement*;
 	
 Statement:
 	PackageDefinition | Import | Suite;

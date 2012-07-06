@@ -77,25 +77,39 @@ ruleModel returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getModelAccess().getModelAction_0(),
+            $current);
+    }
+)
+    { 
+        newCompositeNode(grammarAccess.getModelAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_2_0()); 
 	    }
-		lv_statements_0_0=ruleStatement		{
+		lv_statements_2_0=ruleStatement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getModelRule());
 	        }
        		add(
        			$current, 
        			"statements",
-        		lv_statements_0_0, 
+        		lv_statements_2_0, 
         		"Statement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*
+)*)
 ;
 
 

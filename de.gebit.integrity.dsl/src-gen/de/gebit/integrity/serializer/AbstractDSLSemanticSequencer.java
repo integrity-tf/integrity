@@ -559,7 +559,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     statements+=Statement*
+	 *     (statements+=Statement*)
 	 */
 	protected void sequence_Model(EObject context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

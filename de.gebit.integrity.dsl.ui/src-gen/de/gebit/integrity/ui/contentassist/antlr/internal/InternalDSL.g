@@ -72,9 +72,9 @@ ruleModel
     }
 	:
 (
-{ before(grammarAccess.getModelAccess().getStatementsAssignment()); }
-(rule__Model__StatementsAssignment)*
-{ after(grammarAccess.getModelAccess().getStatementsAssignment()); }
+{ before(grammarAccess.getModelAccess().getGroup()); }
+(rule__Model__Group__0)
+{ after(grammarAccess.getModelAccess().getGroup()); }
 )
 
 ;
@@ -1744,6 +1744,100 @@ rule__BooleanValue__BooleanValueAlternatives_0
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+
+rule__Model__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Model__Group__0__Impl
+	rule__Model__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Model__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModelAccess().getModelAction_0()); }
+(
+
+)
+{ after(grammarAccess.getModelAccess().getModelAction_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Model__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Model__Group__1__Impl
+	rule__Model__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Model__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModelAccess().getNLParserRuleCall_1()); }
+	ruleNL
+{ after(grammarAccess.getModelAccess().getNLParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Model__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Model__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Model__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getModelAccess().getStatementsAssignment_2()); }
+(rule__Model__StatementsAssignment_2)*
+{ after(grammarAccess.getModelAccess().getStatementsAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
 
 
 
@@ -8104,14 +8198,14 @@ finally {
 
 
 
-rule__Model__StatementsAssignment
+rule__Model__StatementsAssignment_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_0()); }
-	ruleStatement{ after(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_0()); }
+{ before(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_2_0()); }
+	ruleStatement{ after(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_2_0()); }
 )
 
 ;

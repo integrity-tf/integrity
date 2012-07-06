@@ -18,18 +18,30 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class ModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Model");
-		private final Assignment cStatementsAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cStatementsStatementParserRuleCall_0 = (RuleCall)cStatementsAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cModelAction_0 = (Action)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cStatementsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cStatementsStatementParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
 		
 		//Model:
-		//	statements+=Statement*;
+		//	{Model} NL statements+=Statement*;
 		public ParserRule getRule() { return rule; }
 
+		//{Model} NL statements+=Statement*
+		public Group getGroup() { return cGroup; }
+
+		//{Model}
+		public Action getModelAction_0() { return cModelAction_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
 		//statements+=Statement*
-		public Assignment getStatementsAssignment() { return cStatementsAssignment; }
+		public Assignment getStatementsAssignment_2() { return cStatementsAssignment_2; }
 
 		//Statement
-		public RuleCall getStatementsStatementParserRuleCall_0() { return cStatementsStatementParserRuleCall_0; }
+		public RuleCall getStatementsStatementParserRuleCall_2_0() { return cStatementsStatementParserRuleCall_2_0; }
 	}
 
 	public class StatementElements extends AbstractParserRuleElementFinder {
@@ -1990,7 +2002,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
-	//	statements+=Statement*;
+	//	{Model} NL statements+=Statement*;
 	public ModelElements getModelAccess() {
 		return (pModel != null) ? pModel : (pModel = new ModelElements());
 	}
