@@ -14,7 +14,9 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 
 /**
  * A context-aware configurable completion proposal. This proposal knows its content assist context and uses this in
@@ -31,6 +33,13 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	 * The context.
 	 */
 	private ContentAssistContext context;
+
+	/**
+	 * This is set if this proposal is suggesting a variable defined in a suite definition header (that is, a suite
+	 * parameter). These are subject to a few specialties when it comes to proposals and scopes. If I one day find out
+	 * how to model this construction a little more elegant, I'll do it. Until then this hack should do the job ;-).
+	 */
+	private SuiteDefinition suiteDefiningProposedParameter;
 
 	/**
 	 * Creates a new instance.
@@ -69,12 +78,26 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 			});
 		} else {
 			// no resolving necessary
+			if (anAdditionalProposalInfo instanceof VariableEntity
+					&& ((VariableEntity) anAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
+				suiteDefiningProposedParameter = (SuiteDefinition) ((VariableEntity) anAdditionalProposalInfo)
+						.eContainer();
+
+				// suite parameter proposals are NEVER scoped, even though XText might think so...
+				String[] tempReplacementStringParts = getReplacementString().split("\\.");
+				setReplacementString(tempReplacementStringParts[tempReplacementStringParts.length - 1]);
+			}
+
 			super.setAdditionalProposalInfo(anAdditionalProposalInfo);
 		}
 	}
 
 	private boolean requiresResolvingForContentAssist(EObject anObject) {
 		return (anObject instanceof TestDefinition || anObject instanceof CallDefinition);
+	}
+
+	public SuiteDefinition getSuiteDefiningProposedParameter() {
+		return suiteDefiningProposedParameter;
 	}
 
 }

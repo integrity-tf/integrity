@@ -38,6 +38,9 @@ import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Suite;
+import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -598,6 +601,48 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 	}
 
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeSuiteParameter_Name(EObject aModel, Assignment anAssignment,
+			final ContentAssistContext aContext, final ICompletionProposalAcceptor anAcceptor) {
+		// filter out everything except suite parameters of the suite that is currently being called
+		super.completeSuiteParameter_Name(aModel, anAssignment, aContext, new ICompletionProposalAcceptor() {
+
+			@Override
+			public void accept(ICompletionProposal aProposal) {
+				if (aContext.getCurrentModel() instanceof Suite) {
+					Suite tempCurrentSuiteCall = (Suite) aContext.getCurrentModel();
+					SuiteDefinition tempCurrentSuiteDef = (tempCurrentSuiteCall).getDefinition();
+					if (aProposal instanceof IntegrityConfigurableCompletionProposal) {
+						SuiteDefinition tempSuiteDef = ((IntegrityConfigurableCompletionProposal) aProposal)
+								.getSuiteDefiningProposedParameter();
+						if (tempSuiteDef == tempCurrentSuiteDef) {
+
+							// now filter out the ones that are already present in the call
+							boolean tempAlreadyUsed = false;
+							for (SuiteParameter tempAlreadyUsedParam : tempCurrentSuiteCall.getParameters()) {
+								if (((IntegrityConfigurableCompletionProposal) aProposal).getReplacementString()
+										.equals(tempAlreadyUsedParam.getName().getName())) {
+									tempAlreadyUsed = true;
+									break;
+								}
+							}
+							if (!tempAlreadyUsed) {
+								anAcceptor.accept(aProposal);
+							}
+						}
+					}
+				}
+			}
+
+			@Override
+			public boolean canAcceptMoreProposals() {
+				return anAcceptor.canAcceptMoreProposals();
+			}
+
+		});
+	}
+
 	private boolean isCustomProposalFixture(MethodReference aMethod) {
 		for (JvmTypeReference tempRef : aMethod.getMethod().getDeclaringType().getSuperTypes()) {
 			if (tempRef.getQualifiedName().equals(CustomProposalFixture.class.getName())) {
@@ -682,4 +727,5 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			anAcceptor.accept(tempCompletionProposal);
 		}
 	}
+
 }
