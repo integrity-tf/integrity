@@ -90,6 +90,11 @@ public class Fork {
 	private boolean connectionConfirmed;
 
 	/**
+	 * Whether the death of the fork process has already been passed to the listener.
+	 */
+	private boolean forkDeathConfirmed;
+
+	/**
 	 * Used to synchronize execution of segments between parent and fork.
 	 */
 	private boolean segmentExecuted;
@@ -100,6 +105,11 @@ public class Fork {
 	private boolean ignoreVariableUpdates;
 
 	/**
+	 * Thread used to check the liveliness of the fork process until a connection was made.
+	 */
+	private ForkMonitor forkMonitor;
+
+	/**
 	 * The offset of the port numbers to try from the remoting port of the current test runner.
 	 */
 	private static int portNumberOffset;
@@ -108,6 +118,12 @@ public class Fork {
 	 * The maximum possible port number.
 	 */
 	private static final int MAX_PORT_NUMBER = 65535;
+
+	/**
+	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
+	 * established.
+	 */
+	private static final int FORK_CHECK_INTERVAL = 1000;
 
 	/**
 	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
@@ -159,6 +175,9 @@ public class Fork {
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
 		}
+
+		forkMonitor = new ForkMonitor();
+		forkMonitor.start();
 
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
@@ -339,6 +358,7 @@ public class Fork {
 		@Override
 		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
 			connectionConfirmed = true;
+			forkMonitor.kill();
 			synchronized (Fork.this) {
 				Fork.this.notifyAll();
 			}
@@ -348,8 +368,9 @@ public class Fork {
 		public void onConnectionLost(Endpoint anEndpoint) {
 			client = null;
 			segmentExecuted = true;
-			forkCallback.onForkExit(Fork.this);
 			synchronized (Fork.this) {
+				forkDeathConfirmed = true;
+				forkCallback.onForkExit(Fork.this);
 				Fork.this.notifyAll();
 			}
 		}
@@ -469,6 +490,40 @@ public class Fork {
 			target.println(prefix + "Process terminated!");
 			target.flush();
 		}
+	}
+
+	private class ForkMonitor extends Thread {
+
+		/**
+		 * Set if the fork monitor thread should kill itself.
+		 */
+		boolean killSwitch;
+
+		public void kill() {
+			killSwitch = true;
+		}
+
+		public void run() {
+			while (!killSwitch) {
+				try {
+					Thread.sleep(FORK_CHECK_INTERVAL);
+				} catch (InterruptedException exc) {
+					// ignore
+				}
+				if (!process.isAlive()) {
+					synchronized (Fork.this) {
+						if (!forkDeathConfirmed) {
+							forkDeathConfirmed = true;
+							client = null;
+							forkCallback.onForkExit(Fork.this);
+							Fork.this.notifyAll();
+							return;
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 }

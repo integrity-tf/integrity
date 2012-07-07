@@ -165,6 +165,12 @@ public class TestRunner {
 	protected Map<ForkDefinition, Fork> forkMap = new LinkedHashMap<ForkDefinition, Fork>();
 
 	/**
+	 * Collects all forks that have died. If forks die after they have executed their last statement, this is perfectly
+	 * fine, but if forks die earlier, this set is used to detect that erroneous situation.
+	 */
+	protected Set<ForkDefinition> diedForks = new HashSet<ForkDefinition>();
+
+	/**
 	 * The original command line arguments, as given to the test runner by the test runner creator.
 	 */
 	protected String[] commandLineArguments;
@@ -307,6 +313,7 @@ public class TestRunner {
 			if (remotingServer != null) {
 				remotingServer.closeAll(true);
 			}
+			killAllForks();
 		}
 	}
 
@@ -372,6 +379,15 @@ public class TestRunner {
 	}
 
 	/**
+	 * Kills all forks. 'Nuff said.
+	 */
+	protected void killAllForks() {
+		for (Fork tempFork : forkMap.values()) {
+			tempFork.kill();
+		}
+	}
+
+	/**
 	 * Performs a specified suite call (doesn't honor the multiplier!).
 	 * 
 	 * @param aSuiteCall
@@ -403,10 +419,19 @@ public class TestRunner {
 					}
 					// we may need to start a new fork
 					if (!forkMap.containsKey(aSuiteCall.getFork())) {
+						// but first see if this fork has already died once. if true, then the fork has died
+						// prematurely, which means we cannot continue execution at all
+						if (diedForks.contains(aSuiteCall.getFork())) {
+							killAllForks();
+							throw new RuntimeException("Fork " + aSuiteCall.getFork().getName()
+									+ " has died prematurely!");
+						}
 						try {
 							forkMap.put(aSuiteCall.getFork(), createFork(aSuiteCall));
 						} catch (ForkException exc) {
-							// if forking fails, this is such a severe error that we cannot continue testing at all
+							// forking failed -> cannot continue at all :( kill all other still-living forks and
+							// then exit with a runtime exception
+							killAllForks();
 							throw new RuntimeException(exc);
 						}
 					}
@@ -508,7 +533,8 @@ public class TestRunner {
 				if (!isFork()) {
 					// we're the master and need to kick off the fork, which then actually executes the stuff we've just
 					// jumped over
-					forkMap.get(forkInExecution).executeNextSegment();
+					Fork tempFork = forkMap.get(forkInExecution);
+					tempFork.executeNextSegment();
 
 					// and afterwards we'll switch back to real test mode
 					currentCallback.setDryRun(false);
@@ -1450,7 +1476,8 @@ public class TestRunner {
 			if (!isFork() && forkInExecution != null) {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
 				// is meant for the fork
-				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.RUN);
+				Fork tempFork = forkMap.get(forkInExecution);
+				tempFork.getClient().controlExecution(ExecutionCommands.RUN);
 			} else {
 				executionWaiter.release();
 			}
@@ -1477,7 +1504,8 @@ public class TestRunner {
 			if (!isFork() && forkInExecution != null) {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
 				// is meant for the fork
-				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.STEP_INTO);
+				Fork tempFork = forkMap.get(forkInExecution);
+				tempFork.getClient().controlExecution(ExecutionCommands.STEP_INTO);
 			} else {
 				shallWaitBeforeNextStep = true;
 				executionWaiter.release();
@@ -1544,6 +1572,7 @@ public class TestRunner {
 						for (Entry<ForkDefinition, Fork> tempEntry : forkMap.entrySet()) {
 							if (tempEntry.getValue() == aFork) {
 								forkMap.remove(tempEntry.getKey());
+								diedForks.add(tempEntry.getKey());
 								return;
 							}
 						}
@@ -1556,7 +1585,7 @@ public class TestRunner {
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
 			try {
-				if (tempFork.connect(FORK_SINGLE_CONNECT_TIMEOUT)) {
+				if (!tempFork.isAlive() || tempFork.connect(FORK_SINGLE_CONNECT_TIMEOUT)) {
 					break;
 				}
 			} catch (IOException exc) {
