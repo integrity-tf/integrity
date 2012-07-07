@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import de.gebit.integrity.ui.internal.DSLActivator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class DSLExecutableExtensionFactory extends AbstractGuiceAwareExecutableE
 
 	@Override
 	protected Bundle getBundle() {
-		return de.gebit.integrity.ui.internal.DSLActivator.getInstance().getBundle();
+		return DSLActivator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return de.gebit.integrity.ui.internal.DSLActivator.getInstance().getInjector("de.gebit.integrity.DSL");
+		return DSLActivator.getInstance().getInjector(DSLActivator.DE_GEBIT_INTEGRITY_DSL);
 	}
 	
 }

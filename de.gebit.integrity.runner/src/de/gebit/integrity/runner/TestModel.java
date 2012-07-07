@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -227,13 +226,7 @@ public class TestModel {
 		// of time since the change to XText 2.2.
 		if (aResolveAllFlag) {
 			System.out.print("Resolving the test model...");
-			// EcoreUtil.resolveAll(tempResourceSet);
-			EValidator tempValidator = tempInjector.getInstance(EValidator.class);
-			for (Resource tempResource : tempResourceSet.getResources()) {
-				for (EObject tempObject : tempResource.getContents()) {
-					tempValidator.validate(tempObject, null, null);
-				}
-			}
+			EcoreUtil.resolveAll(tempResourceSet);
 			System.out.println("done!");
 
 			Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);

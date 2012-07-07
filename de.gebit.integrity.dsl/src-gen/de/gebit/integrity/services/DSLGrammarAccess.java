@@ -7,6 +7,8 @@ package de.gebit.integrity.services;
 import com.google.inject.Singleton;
 import com.google.inject.Inject;
 
+import java.util.List;
+
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
@@ -25,6 +27,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cStatementsStatementParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
 		
 		//Model:
+		//
 		//	{Model} NL statements+=Statement*;
 		public ParserRule getRule() { return rule; }
 
@@ -52,6 +55,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSuiteParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Statement:
+		//
 		//	PackageDefinition | Import | Suite;
 		public ParserRule getRule() { return rule; }
 
@@ -76,6 +80,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//VisibleSingleLineComment:
+		//
 		//	content=SL_VISIBLE_COMMENT NL;
 		public ParserRule getRule() { return rule; }
 
@@ -100,6 +105,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//VisibleMultiLineComment:
+		//
 		//	content=ML_VISIBLE_COMMENT NL;
 		public ParserRule getRule() { return rule; }
 
@@ -131,6 +137,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//PackageDefinition:
+		//
 		//	"packagedef" NL name=QualifiedName "with" NL statements+=PackageStatement* "packageend" NL;
 		public ParserRule getRule() { return rule; }
 
@@ -180,7 +187,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstantDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//PackageStatement:
-		//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
+		//
+		//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition |
+		//
+		//	ConstantDefinition;
 		public ParserRule getRule() { return rule; }
 
 		//Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition
@@ -218,6 +228,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//Import:
+		//
 		//	"import" NL importedNamespace=QualifiedNameWithWildcard NL;
 		public ParserRule getRule() { return rule; }
 
@@ -261,11 +272,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5_3 = (RuleCall)cGroup_5.eContents().get(3);
 		
 		//ForkDefinition:
+		//
 		//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
+		//
 		//	forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
 		public ParserRule getRule() { return rule; }
 
 		//"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
+		//
 		//forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?
 		public Group getGroup() { return cGroup; }
 
@@ -333,6 +347,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//TestDefinition:
+		//
 		//	"testdef" NL name=QualifiedName NL "uses" NL fixtureMethod=MethodReference NL;
 		public ParserRule getRule() { return rule; }
 
@@ -385,6 +400,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//CallDefinition:
+		//
 		//	"calldef" NL name=QualifiedName NL "uses" NL fixtureMethod=MethodReference NL;
 		public ParserRule getRule() { return rule; }
 
@@ -461,13 +477,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_11_2_1 = (RuleCall)cGroup_11_2.eContents().get(1);
 		
 		//SuiteDefinition:
+		//
 		//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
+		//
 		//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL
+		//
 		//	("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?;
 		public ParserRule getRule() { return rule; }
 
 		//"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
+		//
 		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL
+		//
 		//("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?
 		public Group getGroup() { return cGroup; }
 
@@ -585,11 +606,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVisibleMultiLineCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//SuiteStatement:
+		//
 		//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//
 		//	VisibleMultiLineComment;
 		public ParserRule getRule() { return rule; }
 
 		//SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//
 		//VisibleMultiLineComment
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -620,6 +644,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTableTestParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//SuiteStatementWithResult:
+		//
 		//	Suite | Test | TableTest;
 		public ParserRule getRule() { return rule; }
 
@@ -652,6 +677,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_4_3 = (RuleCall)cGroup_4.eContents().get(3);
 		
 		//VariableDefinition:
+		//
 		//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=Value NL)?;
 		public ParserRule getRule() { return rule; }
 
@@ -705,6 +731,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//ConstantDefinition:
+		//
 		//	"constant" NL name=VariableEntity NL value=Value NL;
 		public ParserRule getRule() { return rule; }
 
@@ -742,6 +769,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameQualifiedNameParserRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
 		//VariableEntity:
+		//
 		//	name=QualifiedName;
 		public ParserRule getRule() { return rule; }
 
@@ -773,11 +801,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_6_3 = (RuleCall)cGroup_6.eContents().get(3);
 		
 		//Test:
+		//
 		//	"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+		//
 		//	result=ValueOrEnumValueCollection NL)?;
 		public ParserRule getRule() { return rule; }
 
 		//"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+		//
 		//result=ValueOrEnumValueCollection NL)?
 		public Group getGroup() { return cGroup; }
 
@@ -855,13 +886,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRowsTableTestRowParserRuleCall_10_0 = (RuleCall)cRowsAssignment_10.eContents().get(0);
 		
 		//TableTest:
+		//
 		//	"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+		//
 		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+		//
 		//	rows+=TableTestRow+;
 		public ParserRule getRule() { return rule; }
 
 		//"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+		//
 		//parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+		//
 		//rows+=TableTestRow+
 		public Group getGroup() { return cGroup; }
 
@@ -935,6 +971,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLFORCEDParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//TableTestRow:
+		//
 		//	{TableTestRow} values+=ParameterTableValue+ NLFORCED;
 		public ParserRule getRule() { return rule; }
 
@@ -963,6 +1000,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//ParameterTableHeader:
+		//
 		//	"|" name=ParameterName "|"?;
 		public ParserRule getRule() { return rule; }
 
@@ -992,6 +1030,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerticalLineKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ResultTableHeader:
+		//
 		//	"|" name=ResultName "=" "|"?;
 		public ParserRule getRule() { return rule; }
 
@@ -1023,6 +1062,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//ParameterTableValue:
+		//
 		//	"|" value=ValueOrEnumValueCollection "|"?;
 		public ParserRule getRule() { return rule; }
 
@@ -1055,6 +1095,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//NamedResult:
+		//
 		//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection NL;
 		public ParserRule getRule() { return rule; }
 
@@ -1093,6 +1134,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArbitraryParameterOrResultNameParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//ResultName:
+		//
 		//	FixedResultName | ArbitraryParameterOrResultName;
 		public ParserRule getRule() { return rule; }
 
@@ -1113,6 +1155,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFieldJvmFieldIDTerminalRuleCall_0_1 = (RuleCall)cFieldJvmFieldCrossReference_0.eContents().get(1);
 		
 		//FixedResultName:
+		//
 		//	field=[jvmTypes::JvmField];
 		public ParserRule getRule() { return rule; }
 
@@ -1151,11 +1194,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_7_3 = (RuleCall)cGroup_7.eContents().get(3);
 		
 		//Call:
+		//
 		//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+		//
 		//	results+=NamedCallResult* ("->" NL result=Variable NL)?;
 		public ParserRule getRule() { return rule; }
 
 		//"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+		//
 		//results+=NamedCallResult* ("->" NL result=Variable NL)?
 		public Group getGroup() { return cGroup; }
 
@@ -1233,6 +1279,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//NamedCallResult:
+		//
 		//	name=ResultName NL "->" NL target=Variable NL;
 		public ParserRule getRule() { return rule; }
 
@@ -1288,11 +1335,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_6_3 = (RuleCall)cGroup_6.eContents().get(3);
 		
 		//Suite:
+		//
 		//	"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
+		//
 		//	parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)?;
 		public ParserRule getRule() { return rule; }
 
 		//"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
+		//
 		//parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)?
 		public Group getGroup() { return cGroup; }
 
@@ -1368,6 +1418,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//SuiteParameter:
+		//
 		//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value NL;
 		public ParserRule getRule() { return rule; }
 
@@ -1415,6 +1466,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//Parameter:
+		//
 		//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection NL;
 		public ParserRule getRule() { return rule; }
 
@@ -1453,6 +1505,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArbitraryParameterOrResultNameParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//ParameterName:
+		//
 		//	FixedParameterName | ArbitraryParameterOrResultName;
 		public ParserRule getRule() { return rule; }
 
@@ -1473,6 +1526,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1 = (RuleCall)cAnnotationJvmAnnotationReferenceCrossReference_0.eContents().get(1);
 		
 		//FixedParameterName:
+		//
 		//	annotation=[jvmTypes::JvmAnnotationReference];
 		public ParserRule getRule() { return rule; }
 
@@ -1494,6 +1548,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIdentifierIDTerminalRuleCall_1_0 = (RuleCall)cIdentifierAssignment_1.eContents().get(0);
 		
 		//ArbitraryParameterOrResultName:
+		//
 		//	"+" identifier=ID;
 		public ParserRule getRule() { return rule; }
 
@@ -1523,6 +1578,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMoreValuesValueOrEnumValueParserRuleCall_1_3_0 = (RuleCall)cMoreValuesAssignment_1_3.eContents().get(0);
 		
 		//ValueOrEnumValueCollection:
+		//
 		//	value=ValueOrEnumValue (NL "," NL moreValues+=ValueOrEnumValue)*;
 		public ParserRule getRule() { return rule; }
 
@@ -1561,6 +1617,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEnumValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//ValueOrEnumValue:
+		//
 		//	Value | EnumValue;
 		public ParserRule getRule() { return rule; }
 
@@ -1585,6 +1642,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNullValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//Value:
+		//
 		//	StringValue | IntegerValue | DecimalValue | BooleanValue | Variable | NullValue;
 		public ParserRule getRule() { return rule; }
 
@@ -1616,6 +1674,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIntegerValueINTEGERTerminalRuleCall_0 = (RuleCall)cIntegerValueAssignment.eContents().get(0);
 		
 		//IntegerValue:
+		//
 		//	integerValue=INTEGER;
 		public ParserRule getRule() { return rule; }
 
@@ -1632,6 +1691,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDecimalValueDECIMALTerminalRuleCall_0 = (RuleCall)cDecimalValueAssignment.eContents().get(0);
 		
 		//DecimalValue:
+		//
 		//	decimalValue=DECIMAL;
 		public ParserRule getRule() { return rule; }
 
@@ -1648,6 +1708,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cStringValueSTRINGTerminalRuleCall_0 = (RuleCall)cStringValueAssignment.eContents().get(0);
 		
 		//StringValue:
+		//
 		//	stringValue=STRING;
 		public ParserRule getRule() { return rule; }
 
@@ -1666,6 +1727,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBooleanValueBOOLEAN_FALSETerminalRuleCall_0_1 = (RuleCall)cBooleanValueAlternatives_0.eContents().get(1);
 		
 		//BooleanValue:
+		//
 		//	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
 		public ParserRule getRule() { return rule; }
 
@@ -1689,6 +1751,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameVariableEntityQualifiedNameParserRuleCall_0_1 = (RuleCall)cNameVariableEntityCrossReference_0.eContents().get(1);
 		
 		//Variable:
+		//
 		//	name=[VariableEntity|QualifiedName];
 		public ParserRule getRule() { return rule; }
 
@@ -1709,6 +1772,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNullKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//NullValue:
+		//
 		//	{Null} "null";
 		public ParserRule getRule() { return rule; }
 
@@ -1729,6 +1793,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1 = (RuleCall)cEnumValueJvmEnumerationLiteralCrossReference_0.eContents().get(1);
 		
 		//EnumValue:
+		//
 		//	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
 		public ParserRule getRule() { return rule; }
 
@@ -1754,6 +1819,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodJvmOperationIDTerminalRuleCall_2_0_1 = (RuleCall)cMethodJvmOperationCrossReference_2_0.eContents().get(1);
 		
 		//MethodReference:
+		//
 		//	type=[jvmTypes::JvmType|QualifiedJavaClassName] "#" method=[jvmTypes::JvmOperation];
 		public ParserRule getRule() { return rule; }
 
@@ -1790,6 +1856,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//ExecutionMultiplier:
+		//
 		//	count=INTEGER "*";
 		public ParserRule getRule() { return rule; }
 
@@ -1815,6 +1882,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//QualifiedName:
+		//
 		//	ID ("." ID)*;
 		public ParserRule getRule() { return rule; }
 
@@ -1842,6 +1910,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cUPPERCASE_IDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//QualifiedJavaClassName:
+		//
 		//	QualifiedName "." UPPERCASE_ID;
 		public ParserRule getRule() { return rule; }
 
@@ -1865,6 +1934,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//QualifiedNameWithWildcard:
+		//
 		//	QualifiedName ".*"?;
 		public ParserRule getRule() { return rule; }
 
@@ -1885,6 +1955,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//NL:
+		//
 		//	(NEWLINE WS?)*;
 		public ParserRule getRule() { return rule; }
 
@@ -1906,6 +1977,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//NLFORCED:
+		//
 		//	NEWLINE WS? NL;
 		public ParserRule getRule() { return rule; }
 
@@ -1988,20 +2060,38 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tNEWLINE;
 	private TerminalRule tANY_OTHER;
 	
-	private final GrammarProvider grammarProvider;
+	private final Grammar grammar;
 
 	@Inject
 	public DSLGrammarAccess(GrammarProvider grammarProvider) {
-		this.grammarProvider = grammarProvider;
+		this.grammar = internalFindGrammar(grammarProvider);
 	}
 	
-	public Grammar getGrammar() {	
-		return grammarProvider.getGrammar(this);
+	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
+		Grammar grammar = grammarProvider.getGrammar(this);
+		while (grammar != null) {
+			if ("de.gebit.integrity.DSL".equals(grammar.getName())) {
+				return grammar;
+			}
+			List<Grammar> grammars = grammar.getUsedGrammars();
+			if (!grammars.isEmpty()) {
+				grammar = grammars.iterator().next();
+			} else {
+				return null;
+			}
+		}
+		return grammar;
+	}
+	
+	
+	public Grammar getGrammar() {
+		return grammar;
 	}
 	
 
 	
 	//Model:
+	//
 	//	{Model} NL statements+=Statement*;
 	public ModelElements getModelAccess() {
 		return (pModel != null) ? pModel : (pModel = new ModelElements());
@@ -2012,6 +2102,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Statement:
+	//
 	//	PackageDefinition | Import | Suite;
 	public StatementElements getStatementAccess() {
 		return (pStatement != null) ? pStatement : (pStatement = new StatementElements());
@@ -2022,6 +2113,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VisibleSingleLineComment:
+	//
 	//	content=SL_VISIBLE_COMMENT NL;
 	public VisibleSingleLineCommentElements getVisibleSingleLineCommentAccess() {
 		return (pVisibleSingleLineComment != null) ? pVisibleSingleLineComment : (pVisibleSingleLineComment = new VisibleSingleLineCommentElements());
@@ -2032,6 +2124,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VisibleMultiLineComment:
+	//
 	//	content=ML_VISIBLE_COMMENT NL;
 	public VisibleMultiLineCommentElements getVisibleMultiLineCommentAccess() {
 		return (pVisibleMultiLineComment != null) ? pVisibleMultiLineComment : (pVisibleMultiLineComment = new VisibleMultiLineCommentElements());
@@ -2042,6 +2135,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageDefinition:
+	//
 	//	"packagedef" NL name=QualifiedName "with" NL statements+=PackageStatement* "packageend" NL;
 	public PackageDefinitionElements getPackageDefinitionAccess() {
 		return (pPackageDefinition != null) ? pPackageDefinition : (pPackageDefinition = new PackageDefinitionElements());
@@ -2052,7 +2146,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageStatement:
-	//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
+	//
+	//	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition |
+	//
+	//	ConstantDefinition;
 	public PackageStatementElements getPackageStatementAccess() {
 		return (pPackageStatement != null) ? pPackageStatement : (pPackageStatement = new PackageStatementElements());
 	}
@@ -2062,6 +2159,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Import:
+	//
 	//	"import" NL importedNamespace=QualifiedNameWithWildcard NL;
 	public ImportElements getImportAccess() {
 		return (pImport != null) ? pImport : (pImport = new ImportElements());
@@ -2072,7 +2170,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ForkDefinition:
+	//
 	//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
+	//
 	//	forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
@@ -2083,6 +2183,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TestDefinition:
+	//
 	//	"testdef" NL name=QualifiedName NL "uses" NL fixtureMethod=MethodReference NL;
 	public TestDefinitionElements getTestDefinitionAccess() {
 		return (pTestDefinition != null) ? pTestDefinition : (pTestDefinition = new TestDefinitionElements());
@@ -2093,6 +2194,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CallDefinition:
+	//
 	//	"calldef" NL name=QualifiedName NL "uses" NL fixtureMethod=MethodReference NL;
 	public CallDefinitionElements getCallDefinitionAccess() {
 		return (pCallDefinition != null) ? pCallDefinition : (pCallDefinition = new CallDefinitionElements());
@@ -2103,8 +2205,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteDefinition:
+	//
 	//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
+	//
 	//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL
+	//
 	//	("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?;
 	public SuiteDefinitionElements getSuiteDefinitionAccess() {
 		return (pSuiteDefinition != null) ? pSuiteDefinition : (pSuiteDefinition = new SuiteDefinitionElements());
@@ -2115,7 +2220,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
+	//
 	//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+	//
 	//	VisibleMultiLineComment;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return (pSuiteStatement != null) ? pSuiteStatement : (pSuiteStatement = new SuiteStatementElements());
@@ -2126,6 +2233,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatementWithResult:
+	//
 	//	Suite | Test | TableTest;
 	public SuiteStatementWithResultElements getSuiteStatementWithResultAccess() {
 		return (pSuiteStatementWithResult != null) ? pSuiteStatementWithResult : (pSuiteStatementWithResult = new SuiteStatementWithResultElements());
@@ -2136,6 +2244,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VariableDefinition:
+	//
 	//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=Value NL)?;
 	public VariableDefinitionElements getVariableDefinitionAccess() {
 		return (pVariableDefinition != null) ? pVariableDefinition : (pVariableDefinition = new VariableDefinitionElements());
@@ -2146,6 +2255,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDefinition:
+	//
 	//	"constant" NL name=VariableEntity NL value=Value NL;
 	public ConstantDefinitionElements getConstantDefinitionAccess() {
 		return (pConstantDefinition != null) ? pConstantDefinition : (pConstantDefinition = new ConstantDefinitionElements());
@@ -2156,6 +2266,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VariableEntity:
+	//
 	//	name=QualifiedName;
 	public VariableEntityElements getVariableEntityAccess() {
 		return (pVariableEntity != null) ? pVariableEntity : (pVariableEntity = new VariableEntityElements());
@@ -2166,7 +2277,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Test:
+	//
 	//	"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+	//
 	//	result=ValueOrEnumValueCollection NL)?;
 	public TestElements getTestAccess() {
 		return (pTest != null) ? pTest : (pTest = new TestElements());
@@ -2177,8 +2290,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TableTest:
+	//
 	//	"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+	//
 	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+	//
 	//	rows+=TableTestRow+;
 	public TableTestElements getTableTestAccess() {
 		return (pTableTest != null) ? pTableTest : (pTableTest = new TableTestElements());
@@ -2189,6 +2305,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TableTestRow:
+	//
 	//	{TableTestRow} values+=ParameterTableValue+ NLFORCED;
 	public TableTestRowElements getTableTestRowAccess() {
 		return (pTableTestRow != null) ? pTableTestRow : (pTableTestRow = new TableTestRowElements());
@@ -2199,6 +2316,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ParameterTableHeader:
+	//
 	//	"|" name=ParameterName "|"?;
 	public ParameterTableHeaderElements getParameterTableHeaderAccess() {
 		return (pParameterTableHeader != null) ? pParameterTableHeader : (pParameterTableHeader = new ParameterTableHeaderElements());
@@ -2209,6 +2327,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ResultTableHeader:
+	//
 	//	"|" name=ResultName "=" "|"?;
 	public ResultTableHeaderElements getResultTableHeaderAccess() {
 		return (pResultTableHeader != null) ? pResultTableHeader : (pResultTableHeader = new ResultTableHeaderElements());
@@ -2219,6 +2338,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ParameterTableValue:
+	//
 	//	"|" value=ValueOrEnumValueCollection "|"?;
 	public ParameterTableValueElements getParameterTableValueAccess() {
 		return (pParameterTableValue != null) ? pParameterTableValue : (pParameterTableValue = new ParameterTableValueElements());
@@ -2229,6 +2349,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NamedResult:
+	//
 	//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection NL;
 	public NamedResultElements getNamedResultAccess() {
 		return (pNamedResult != null) ? pNamedResult : (pNamedResult = new NamedResultElements());
@@ -2239,6 +2360,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ResultName:
+	//
 	//	FixedResultName | ArbitraryParameterOrResultName;
 	public ResultNameElements getResultNameAccess() {
 		return (pResultName != null) ? pResultName : (pResultName = new ResultNameElements());
@@ -2249,6 +2371,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FixedResultName:
+	//
 	//	field=[jvmTypes::JvmField];
 	public FixedResultNameElements getFixedResultNameAccess() {
 		return (pFixedResultName != null) ? pFixedResultName : (pFixedResultName = new FixedResultNameElements());
@@ -2259,7 +2382,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Call:
+	//
 	//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+	//
 	//	results+=NamedCallResult* ("->" NL result=Variable NL)?;
 	public CallElements getCallAccess() {
 		return (pCall != null) ? pCall : (pCall = new CallElements());
@@ -2270,6 +2395,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NamedCallResult:
+	//
 	//	name=ResultName NL "->" NL target=Variable NL;
 	public NamedCallResultElements getNamedCallResultAccess() {
 		return (pNamedCallResult != null) ? pNamedCallResult : (pNamedCallResult = new NamedCallResultElements());
@@ -2280,7 +2406,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Suite:
+	//
 	//	"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
+	//
 	//	parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)?;
 	public SuiteElements getSuiteAccess() {
 		return (pSuite != null) ? pSuite : (pSuite = new SuiteElements());
@@ -2291,6 +2419,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteParameter:
+	//
 	//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value NL;
 	public SuiteParameterElements getSuiteParameterAccess() {
 		return (pSuiteParameter != null) ? pSuiteParameter : (pSuiteParameter = new SuiteParameterElements());
@@ -2301,6 +2430,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Parameter:
+	//
 	//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection NL;
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());
@@ -2311,6 +2441,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ParameterName:
+	//
 	//	FixedParameterName | ArbitraryParameterOrResultName;
 	public ParameterNameElements getParameterNameAccess() {
 		return (pParameterName != null) ? pParameterName : (pParameterName = new ParameterNameElements());
@@ -2321,6 +2452,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FixedParameterName:
+	//
 	//	annotation=[jvmTypes::JvmAnnotationReference];
 	public FixedParameterNameElements getFixedParameterNameAccess() {
 		return (pFixedParameterName != null) ? pFixedParameterName : (pFixedParameterName = new FixedParameterNameElements());
@@ -2331,6 +2463,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArbitraryParameterOrResultName:
+	//
 	//	"+" identifier=ID;
 	public ArbitraryParameterOrResultNameElements getArbitraryParameterOrResultNameAccess() {
 		return (pArbitraryParameterOrResultName != null) ? pArbitraryParameterOrResultName : (pArbitraryParameterOrResultName = new ArbitraryParameterOrResultNameElements());
@@ -2341,6 +2474,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValueOrEnumValueCollection:
+	//
 	//	value=ValueOrEnumValue (NL "," NL moreValues+=ValueOrEnumValue)*;
 	public ValueOrEnumValueCollectionElements getValueOrEnumValueCollectionAccess() {
 		return (pValueOrEnumValueCollection != null) ? pValueOrEnumValueCollection : (pValueOrEnumValueCollection = new ValueOrEnumValueCollectionElements());
@@ -2351,6 +2485,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValueOrEnumValue:
+	//
 	//	Value | EnumValue;
 	public ValueOrEnumValueElements getValueOrEnumValueAccess() {
 		return (pValueOrEnumValue != null) ? pValueOrEnumValue : (pValueOrEnumValue = new ValueOrEnumValueElements());
@@ -2361,6 +2496,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Value:
+	//
 	//	StringValue | IntegerValue | DecimalValue | BooleanValue | Variable | NullValue;
 	public ValueElements getValueAccess() {
 		return (pValue != null) ? pValue : (pValue = new ValueElements());
@@ -2371,6 +2507,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IntegerValue:
+	//
 	//	integerValue=INTEGER;
 	public IntegerValueElements getIntegerValueAccess() {
 		return (pIntegerValue != null) ? pIntegerValue : (pIntegerValue = new IntegerValueElements());
@@ -2381,6 +2518,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DecimalValue:
+	//
 	//	decimalValue=DECIMAL;
 	public DecimalValueElements getDecimalValueAccess() {
 		return (pDecimalValue != null) ? pDecimalValue : (pDecimalValue = new DecimalValueElements());
@@ -2391,6 +2529,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StringValue:
+	//
 	//	stringValue=STRING;
 	public StringValueElements getStringValueAccess() {
 		return (pStringValue != null) ? pStringValue : (pStringValue = new StringValueElements());
@@ -2401,6 +2540,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BooleanValue:
+	//
 	//	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
 	public BooleanValueElements getBooleanValueAccess() {
 		return (pBooleanValue != null) ? pBooleanValue : (pBooleanValue = new BooleanValueElements());
@@ -2411,6 +2551,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Variable:
+	//
 	//	name=[VariableEntity|QualifiedName];
 	public VariableElements getVariableAccess() {
 		return (pVariable != null) ? pVariable : (pVariable = new VariableElements());
@@ -2421,6 +2562,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NullValue:
+	//
 	//	{Null} "null";
 	public NullValueElements getNullValueAccess() {
 		return (pNullValue != null) ? pNullValue : (pNullValue = new NullValueElements());
@@ -2431,6 +2573,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EnumValue:
+	//
 	//	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
 	public EnumValueElements getEnumValueAccess() {
 		return (pEnumValue != null) ? pEnumValue : (pEnumValue = new EnumValueElements());
@@ -2441,6 +2584,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MethodReference:
+	//
 	//	type=[jvmTypes::JvmType|QualifiedJavaClassName] "#" method=[jvmTypes::JvmOperation];
 	public MethodReferenceElements getMethodReferenceAccess() {
 		return (pMethodReference != null) ? pMethodReference : (pMethodReference = new MethodReferenceElements());
@@ -2451,6 +2595,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ExecutionMultiplier:
+	//
 	//	count=INTEGER "*";
 	public ExecutionMultiplierElements getExecutionMultiplierAccess() {
 		return (pExecutionMultiplier != null) ? pExecutionMultiplier : (pExecutionMultiplier = new ExecutionMultiplierElements());
@@ -2461,6 +2606,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedName:
+	//
 	//	ID ("." ID)*;
 	public QualifiedNameElements getQualifiedNameAccess() {
 		return (pQualifiedName != null) ? pQualifiedName : (pQualifiedName = new QualifiedNameElements());
@@ -2471,6 +2617,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedJavaClassName:
+	//
 	//	QualifiedName "." UPPERCASE_ID;
 	public QualifiedJavaClassNameElements getQualifiedJavaClassNameAccess() {
 		return (pQualifiedJavaClassName != null) ? pQualifiedJavaClassName : (pQualifiedJavaClassName = new QualifiedJavaClassNameElements());
@@ -2481,6 +2628,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedNameWithWildcard:
+	//
 	//	QualifiedName ".*"?;
 	public QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
 		return (pQualifiedNameWithWildcard != null) ? pQualifiedNameWithWildcard : (pQualifiedNameWithWildcard = new QualifiedNameWithWildcardElements());
@@ -2491,6 +2639,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NL:
+	//
 	//	(NEWLINE WS?)*;
 	public NLElements getNLAccess() {
 		return (pNL != null) ? pNL : (pNL = new NLElements());
@@ -2501,6 +2650,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NLFORCED:
+	//
 	//	NEWLINE WS? NL;
 	public NLFORCEDElements getNLFORCEDAccess() {
 		return (pNLFORCED != null) ? pNLFORCED : (pNLFORCED = new NLFORCEDElements());
@@ -2511,85 +2661,100 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//terminal BOOLEAN_TRUE:
+	//
 	//	"true";
 	public TerminalRule getBOOLEAN_TRUERule() {
 		return (tBOOLEAN_TRUE != null) ? tBOOLEAN_TRUE : (tBOOLEAN_TRUE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "BOOLEAN_TRUE"));
 	} 
 
 	//terminal BOOLEAN_FALSE:
+	//
 	//	"false";
 	public TerminalRule getBOOLEAN_FALSERule() {
 		return (tBOOLEAN_FALSE != null) ? tBOOLEAN_FALSE : (tBOOLEAN_FALSE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "BOOLEAN_FALSE"));
 	} 
 
 	//terminal UPPERCASE_ID:
+	//
 	//	"A".."Z" ("A".."Z" | "a".."z" | "_" | "0".."9")*;
 	public TerminalRule getUPPERCASE_IDRule() {
 		return (tUPPERCASE_ID != null) ? tUPPERCASE_ID : (tUPPERCASE_ID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "UPPERCASE_ID"));
 	} 
 
 	//terminal ID:
+	//
 	//	"^"? ("a".."z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
 		return (tID != null) ? tID : (tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID"));
 	} 
 
 	//terminal INTEGER returns ecore::EBigInteger:
+	//
 	//	"-"? "0".."9"+;
 	public TerminalRule getINTEGERRule() {
 		return (tINTEGER != null) ? tINTEGER : (tINTEGER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER"));
 	} 
 
 	//terminal DECIMAL returns ecore::EBigDecimal:
+	//
 	//	"-"? "0".."9"+ "." "0".."9"+;
 	public TerminalRule getDECIMALRule() {
 		return (tDECIMAL != null) ? tDECIMAL : (tDECIMAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DECIMAL"));
 	} 
 
 	//terminal STRING:
+	//
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
+	//
 	//	"n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
 		return (tSTRING != null) ? tSTRING : (tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "STRING"));
 	} 
 
 	//terminal ML_COMMENT:
+	//
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
 		return (tML_COMMENT != null) ? tML_COMMENT : (tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_COMMENT"));
 	} 
 
 	//terminal SL_COMMENT:
+	//
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
 	//terminal SL_VISIBLE_COMMENT:
+	//
 	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_VISIBLE_COMMENTRule() {
 		return (tSL_VISIBLE_COMMENT != null) ? tSL_VISIBLE_COMMENT : (tSL_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_VISIBLE_COMMENT"));
 	} 
 
 	//terminal ML_VISIBLE_COMMENT:
+	//
 	//	"/-"->"-/";
 	public TerminalRule getML_VISIBLE_COMMENTRule() {
 		return (tML_VISIBLE_COMMENT != null) ? tML_VISIBLE_COMMENT : (tML_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_VISIBLE_COMMENT"));
 	} 
 
 	//terminal WS:
+	//
 	//	(" " | "\t")+;
 	public TerminalRule getWSRule() {
 		return (tWS != null) ? tWS : (tWS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "WS"));
 	} 
 
 	//terminal NEWLINE:
+	//
 	//	("\r" | "\n")+;
 	public TerminalRule getNEWLINERule() {
 		return (tNEWLINE != null) ? tNEWLINE : (tNEWLINE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NEWLINE"));
 	} 
 
 	//terminal ANY_OTHER:
+	//
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
 		return (tANY_OTHER != null) ? tANY_OTHER : (tANY_OTHER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANY_OTHER"));

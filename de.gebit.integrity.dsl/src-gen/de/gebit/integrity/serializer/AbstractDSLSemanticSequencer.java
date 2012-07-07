@@ -46,38 +46,18 @@ import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
-@SuppressWarnings("restriction")
-public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 
 	@Inject
-	protected DSLGrammarAccess grammarAccess;
-	
-	@Inject
-	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
-	
-	@Inject
-	protected ITransientValueService transientValues;
-	
-	@Inject
-	@GenericSequencer
-	protected Provider<ISemanticSequencer> genericSequencerProvider;
-	
-	protected ISemanticSequencer genericSequencer;
-	
-	
-	@Override
-	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
-		super.init(sequencer, sequenceAcceptor, errorAcceptor);
-		this.genericSequencer = genericSequencerProvider.get();
-		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
-	}
+	private DSLGrammarAccess grammarAccess;
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == DslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -205,7 +185,7 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 				if(context == grammarAccess.getNullValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
-					sequence_ValueOrEnumValue(context, (Null) semanticObject); 
+					sequence_NullValue(context, (Null) semanticObject); 
 					return; 
 				}
 				else break;
@@ -606,6 +586,15 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     {Null}
+	 */
+	protected void sequence_NullValue(EObject context, Null semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=QualifiedName statements+=PackageStatement*)
 	 */
 	protected void sequence_PackageDefinition(EObject context, PackageDefinition semanticObject) {
@@ -797,15 +786,6 @@ public class AbstractDSLSemanticSequencer extends AbstractSemanticSequencer {
 	 *     (value=ValueOrEnumValue moreValues+=ValueOrEnumValue*)
 	 */
 	protected void sequence_ValueOrEnumValueCollection(EObject context, ValueOrEnumValueCollection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {Null}
-	 */
-	protected void sequence_ValueOrEnumValue(EObject context, Null semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

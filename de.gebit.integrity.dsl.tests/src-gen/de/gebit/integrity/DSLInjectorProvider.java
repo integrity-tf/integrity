@@ -11,28 +11,35 @@ import org.eclipse.xtext.junit4.IRegistryConfigurator;
 import com.google.inject.Injector;
 
 public class DSLInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
-	protected GlobalStateMemento globalStateMemento;
+	
+    protected GlobalStateMemento stateBeforeInjectorCreation;
+	protected GlobalStateMemento stateAfterInjectorCreation;
 	protected Injector injector;
 
 	static {
 		GlobalRegistries.initializeDefaults();
 	}
-	
-	public Injector getInjector() {
+
+	public Injector getInjector()
+	{
 		if (injector == null) {
-			this.injector = new DSLStandaloneSetup().createInjectorAndDoEMFRegistration();
+			stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
+			this.injector = internalCreateInjector();
+			stateAfterInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 		}
 		return injector;
 	}
 	
+	protected Injector internalCreateInjector() {
+	    return new DSLStandaloneSetup().createInjectorAndDoEMFRegistration();
+	}
+
 	public void restoreRegistry() {
-		globalStateMemento.restoreGlobalState();
+		stateBeforeInjectorCreation.restoreGlobalState();
 	}
 
 	public void setupRegistry() {
-		globalStateMemento = GlobalRegistries.makeCopyOfGlobalState();
-		if (injector != null)
-			new DSLStandaloneSetup().register(injector);
+		getInjector();
+		stateAfterInjectorCreation.restoreGlobalState();
 	}
-	
 }
