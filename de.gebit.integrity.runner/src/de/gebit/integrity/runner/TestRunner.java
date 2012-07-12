@@ -237,6 +237,19 @@ public class TestRunner {
 	}
 
 	/**
+	 * Shuts down this test runner instance.
+	 * 
+	 * @param anEmptyRemotingOutputQueueFlag
+	 *            true if the remoting server shall be given time to send all remaining messages to clients while
+	 *            closing connections
+	 */
+	public void shutdown(boolean anEmptyRemotingOutputQueueFlag) {
+		if (remotingServer != null) {
+			remotingServer.closeAll(anEmptyRemotingOutputQueueFlag);
+		}
+	}
+
+	/**
 	 * Executes a specified suite.
 	 * 
 	 * @param aRootSuite

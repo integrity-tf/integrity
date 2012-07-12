@@ -195,7 +195,7 @@ public class Fork {
 	 * Destroy a fork.
 	 */
 	public void kill() {
-		if (isAlive()) {
+		if (process != null && isAlive()) {
 			process.kill();
 			process = null;
 		}
@@ -223,7 +223,7 @@ public class Fork {
 	 * @return true if the fork is running
 	 */
 	public boolean isAlive() {
-		return process.isAlive();
+		return (process != null && process.isAlive());
 	}
 
 	public boolean isConnected() {
