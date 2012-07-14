@@ -197,6 +197,13 @@ public class IntegrityRemotingServer {
 			@Override
 			public void processMessage(SetListBaselineMessage aBaselineRequest, Endpoint anEndpoint) {
 				listener.onSetListRequest(anEndpoint);
+			}
+		});
+
+		tempMap.put(ExecutionStateMessage.class, new MessageProcessor<ExecutionStateMessage>() {
+
+			@Override
+			public void processMessage(ExecutionStateMessage aBaselineRequest, Endpoint anEndpoint) {
 				anEndpoint.sendMessage(new ExecutionStateMessage(executionState));
 			}
 		});

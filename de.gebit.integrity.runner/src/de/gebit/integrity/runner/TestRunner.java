@@ -544,7 +544,7 @@ public class TestRunner {
 			currentCallback.onSuiteFinish(aSuiteCall, tempResult);
 		}
 
-		if (!tempForkInExecutionOnEntry && forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
+		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
 			if (currentPhase == Phase.TEST_RUN) {
 				// all of this only has to be done in case of a real test run
 

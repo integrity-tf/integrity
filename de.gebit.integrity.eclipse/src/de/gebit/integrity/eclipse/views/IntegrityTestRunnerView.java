@@ -88,6 +88,7 @@ import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
+import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 
@@ -1424,7 +1425,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
+			// request set list baseline and execution state
 			anEndpoint.sendMessage(new SetListBaselineMessage(null));
+			anEndpoint.sendMessage(new ExecutionStateMessage(null));
 			updateActionStatus(client.getExecutionState());
 		}
 

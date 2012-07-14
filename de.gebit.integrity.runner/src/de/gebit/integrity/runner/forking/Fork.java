@@ -267,6 +267,7 @@ public class Fork {
 				return false;
 			} else {
 				client = tempClient;
+				client.requestExecutionStateUpdate();
 				return true;
 			}
 		}

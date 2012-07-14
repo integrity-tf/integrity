@@ -112,6 +112,13 @@ public class IntegrityRemotingClient {
 	}
 
 	/**
+	 * Requests an execution state update from the server.
+	 */
+	public void requestExecutionStateUpdate() {
+		sendMessage(new ExecutionStateMessage(null));
+	}
+
+	/**
 	 * Creates a breakpoint at the specified entry reference.
 	 * 
 	 * @param anEntryReference
