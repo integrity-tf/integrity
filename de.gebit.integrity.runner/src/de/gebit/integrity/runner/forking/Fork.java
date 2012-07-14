@@ -110,6 +110,11 @@ public class Fork {
 	private ForkMonitor forkMonitor;
 
 	/**
+	 * The latest received execution state of this fork.
+	 */
+	private ExecutionStates executionState;
+
+	/**
 	 * The offset of the port numbers to try from the remoting port of the current test runner.
 	 */
 	private static int portNumberOffset;
@@ -215,6 +220,10 @@ public class Fork {
 
 	public Integer getPort() {
 		return port;
+	}
+
+	public ExecutionStates getExecutionState() {
+		return executionState;
 	}
 
 	/**
@@ -344,6 +353,7 @@ public class Fork {
 
 		@Override
 		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
+			executionState = aState;
 			if (aState == ExecutionStates.PAUSED_SYNC || aState == ExecutionStates.ENDED) {
 				segmentExecuted = true;
 				synchronized (Fork.this) {

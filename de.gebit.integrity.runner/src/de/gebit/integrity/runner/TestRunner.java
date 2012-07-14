@@ -202,6 +202,11 @@ public class TestRunner {
 	protected static final int FORK_CONNECT_DELAY = 5000;
 
 	/**
+	 * The interval in which the forks' execution state is checked on first connect.
+	 */
+	protected static final int FORK_PAUSE_WAIT_INTERVAL = 200;
+
+	/**
 	 * The fork that is currently being executed.
 	 */
 	protected ForkDefinition forkInExecution;
@@ -1626,11 +1631,24 @@ public class TestRunner {
 				tempFork.getClient().createBreakpoint(tempBreakpoint);
 			}
 
-			return tempFork;
-		} else {
-			tempFork.kill();
-			throw new ForkException("Could not successfully establish a control connection to the fork.");
+			// and now we'll wait until the fork is paused
+			while (tempFork.isAlive() && tempFork.isConnected()
+					&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
+				try {
+					Thread.sleep(FORK_PAUSE_WAIT_INTERVAL);
+				} catch (InterruptedException exc) {
+					// nothing to do here
+				}
+			}
+
+			// a last sanity check
+			if (tempFork.isAlive() && tempFork.isConnected()) {
+				return tempFork;
+			}
 		}
+
+		tempFork.kill();
+		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 
 }
