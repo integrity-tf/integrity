@@ -77,6 +77,7 @@ import org.eclipse.ui.part.ViewPart;
 import de.gebit.integrity.eclipse.Activator;
 import de.gebit.integrity.eclipse.actions.BreakpointAction;
 import de.gebit.integrity.eclipse.controls.ProgressBar;
+import de.gebit.integrity.eclipse.running.TestActionConfigurationDialog;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
@@ -348,6 +349,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The action for stepping over suite calls.
 	 */
 	private Action stepOverAction;
+
+	private Action executeTestAction;
+
+	private Action configureTestAction;
 
 	/**
 	 * The remoting client instance.
@@ -934,6 +939,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void fillLocalToolBar(IToolBarManager aManager) {
+		aManager.add(executeTestAction);
+		aManager.add(configureTestAction);
+		aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
 		aManager.add(stepIntoAction);
@@ -1063,6 +1071,27 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepOverAction.setToolTipText("Places a breakpoint after the current suite call and continues execution.");
 		stepOverAction.setImageDescriptor(Activator.getImageDescriptor("icons/stepover_enabled.gif"));
 		stepOverAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepover_disabled.gif"));
+
+		executeTestAction = new Action() {
+			@SuppressWarnings("unchecked")
+			public void run() {
+
+			}
+		};
+		executeTestAction.setText("Launch test application");
+		executeTestAction.setToolTipText("Launches the test run configuration.");
+		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
+
+		configureTestAction = new Action() {
+			@SuppressWarnings("unchecked")
+			public void run() {
+				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
+				tempDialog.open();
+			}
+		};
+		configureTestAction.setText("Configure test application");
+		configureTestAction.setToolTipText("Configures the test run configuration(s) to launch.");
+		configureTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_config_enabled.gif"));
 
 		updateActionStatus(null);
 	}
