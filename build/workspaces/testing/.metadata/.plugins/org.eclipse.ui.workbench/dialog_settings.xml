@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item value="1920" key="dialogWidth"/>
+		<item value="1023" key="dialogHeight"/>
+		<list key="orderedProviders">
+		</list>
+		<list key="textArray">
+		</list>
+		<list key="orderedElements">
+		</list>
+		<list key="textEntries">
+		</list>
+	</section>
 	<section name="WorkbenchPreferenceDialogSettings">
 		<item value="335" key="DIALOG_Y_ORIGIN"/>
 		<item value="520" key="DIALOG_X_ORIGIN"/>
@@ -13,14 +25,14 @@
 	</section>
 	<section name="ShowViewDialog">
 		<item value="280" key="DIALOG_WIDTH"/>
-		<item value="org.eclipse.ui.navigator.ProjectExplorer" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
+		<item value="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
 		<item value="108" key="DIALOG_Y_ORIGIN"/>
-		<item value="414" key="DIALOG_HEIGHT"/>
 		<item value="372" key="DIALOG_X_ORIGIN"/>
+		<item value="414" key="DIALOG_HEIGHT"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.ui"/>
-			<item value="com.instantiations.assist.eclipse.views"/>
+			<item value="de.gebit.integrity.eclipse"/>
 			<item value="org.eclipse.jdt.ui.java"/>
 		</list>
 	</section>

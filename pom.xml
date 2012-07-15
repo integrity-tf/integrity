@@ -36,7 +36,7 @@
     <module>de.gebit.integrity.feature</module>
     <module>de.gebit.integrity.tests</module>
     <module>distribution</module>
-    <module>standalonedeps.indigo</module>
+    <module>standalonedeps.juno</module>
     <module>updatesite</module>
   </modules>
   
@@ -61,7 +61,7 @@
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
 			      <version>${project.version}</version>
-			      <classifier>indigo</classifier>
+			      <classifier>juno</classifier>
 			    </artifact>
 			  </target>
 			  <ignoreTychoRepositories>true</ignoreTychoRepositories>

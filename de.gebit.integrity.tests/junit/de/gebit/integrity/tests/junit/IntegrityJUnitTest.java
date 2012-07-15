@@ -69,6 +69,7 @@ public abstract class IntegrityJUnitTest {
 
 		TestRunner tempRunner = new TestRunner(tempModel, tempCallback, null, null);
 		tempRunner.run(tempModel.getSuiteByName(aSuiteName), false);
+		tempRunner.shutdown(true);
 
 		SAXBuilder tempBuilder = new SAXBuilder(false);
 		return tempBuilder.build(tempXmlFile);

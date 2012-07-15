@@ -1,0 +1,20 @@
+import mypackage.*
+import mypackage.deeper.*
+
+packagedef myemptypackage with
+
+	forkdef firstFork "Fork Number One"
+	forkdef secondFork "Fork Number Two"
+
+	suitedef ranFromForked with	
+		call random min:0 max: 5	
+	suiteend
+	
+	suitedef additionSuite with
+		suite ranFromForked on firstFork
+		suite ranFromForked on secondFork	
+	suiteend
+	
+	
+
+packageend

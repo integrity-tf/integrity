@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map>
-	<bundle bundleID="645" localization="OSGI-INF/l10n/bundle" name="Integrity JUnit Tests" project="de.gebit.integrity.tests"/>
-</map>

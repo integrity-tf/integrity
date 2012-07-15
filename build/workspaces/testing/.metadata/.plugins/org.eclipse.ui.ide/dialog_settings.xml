@@ -1,51 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="installedFeatures">
-		<item value="com.instantiations.assist.eclipse.ant:7.1.0.r37x201109091147"/>
-		<item value="com.instantiations.assist.eclipse.audit:7.1.0.r37x201109091206"/>
-		<item value="com.instantiations.eclipse.analysis.utilities:7.1.0.r37x201109091123"/>
-		<item value="com.instantiations.eclipse.core.feature:7.1.0.r37x201109091135"/>
-		<item value="net.sf.eclipsecs:5.5.0.201111092104"/>
-		<item value="net.sf.jautodoc.feature:1.9.0"/>
-		<item value="org.eclipse.cvs:1.3.100.v20110520-0800-7B78FHl9VF7BD7KBM4GP9C"/>
-		<item value="org.eclipse.egit.mylyn:1.3.0.201202151440-r"/>
-		<item value="org.eclipse.egit:1.3.0.201202151440-r"/>
-		<item value="org.eclipse.epp.mpc:1.1.1.I20110907-0947"/>
-		<item value="org.eclipse.epp.package.rcp.feature:1.4.2.20120213-0814"/>
-		<item value="org.eclipse.help:1.3.0.v20110530-0844-7i7uFFmFFl8nvqbDpEqTvx"/>
-		<item value="org.eclipse.jdt:3.7.2.v20120120-1414-7z8gFcuFMP7BW5XTz0jLTnz0l9B1"/>
-		<item value="org.eclipse.jgit:1.3.0.201202151440-r"/>
-		<item value="org.eclipse.m2e.feature:1.0.200.20111228-1245"/>
-		<item value="org.eclipse.m2e.logback.feature:1.0.200.20111228-1245"/>
-		<item value="org.eclipse.mylyn.bugzilla_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.context_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.ide_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.java_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.pde_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.team_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn.wikitext_feature:1.5.5.v20120215-0100"/>
-		<item value="org.eclipse.mylyn_feature:3.6.5.v20120215-0100"/>
-		<item value="org.eclipse.pde:3.7.2.v20120120-1420-7b7rFUOFEx2Xnqafnpz0E--0"/>
-		<item value="org.eclipse.platform:3.7.2.v20120207-1839-9gF7UHPDFxGjd-PqDr2jX_4yKaumkoHTz04_q-q"/>
-		<item value="org.eclipse.rcp:3.7.2.v20120120-1424-9DB5FmnFq5JCf1UA38R-kz0S0272"/>
-		<item value="org.eclipse.wst.xml_ui.feature:3.3.2.v201112072049-7H7EFZ7DxumTmce4khcSkIiqoD8eDMKlT8Oz011P"/>
-		<item value="org.eclipse.xtext.docs:2.2.1.v201112130541"/>
-		<item value="org.eclipse.xtext.sdk:2.2.1.v201112130541"/>
-		<item value="org.eclipse.xtext.ui:2.2.1.v201112130541"/>
-		<item value="org.eclipse.xtext.xbase:2.2.1.v201112130541"/>
-		<item value="org.eclipse.xtext.xtext.ui:2.2.1.v201112130541"/>
-		<item value="org.sonatype.m2e.buildhelper.feature:0.14.0.201109282148"/>
+		<item value="org.eclipse.emf.codegen.ecore:2.8.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.codegen:2.8.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.common.ui:2.7.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.common:2.8.0.v20120606-0717"/>
+		<item value="org.eclipse.emf.compare.sdk:1.2.1.v20110913-0926"/>
+		<item value="org.eclipse.emf.compare:1.3.1.v20120605-0748"/>
+		<item value="org.eclipse.emf.ecore.edit:2.8.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.ecore:2.8.0.v20120606-0717"/>
+		<item value="org.eclipse.emf.edit.ui:2.8.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.edit:2.8.0.v20120608-0554"/>
+		<item value="org.eclipse.emf.mwe.core:1.2.1.v201206110920"/>
+		<item value="org.eclipse.help:1.4.0.v20120608-133537-8P7vFOTFK_Qj4JmDIQXL8Tn"/>
+		<item value="org.eclipse.xpand:1.2.1.v201206110941"/>
+		<item value="org.eclipse.xtend.typesystem.emf:1.2.1.v201206110941"/>
+		<item value="org.eclipse.xtend:1.2.1.v201206110941"/>
+		<item value="org.eclipse.xtext.sdk:2.3.0.v201206120633"/>
+		<item value="org.eclipse.xtext.ui:2.3.0.v201206120633"/>
+		<item value="org.eclipse.xtext.xtext.ui:2.3.0.v201206120633"/>
 	</list>
 	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
-		<item value="true" key="ShowStatusLine"/>
 		<item value="false" key="ShowDerived"/>
+		<item value="true" key="ShowStatusLine"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;" key="WorkingSet"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode/&gt;&#x0D;&#x0A;&lt;/History&gt;" key="History"/>
 		<section name="DialogBoundsSettings">
 			<item value="600" key="DIALOG_WIDTH"/>
 			<item value="170" key="DIALOG_Y_ORIGIN"/>
-			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="544" key="DIALOG_X_ORIGIN"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 		</section>
 	</section>
@@ -56,8 +40,8 @@
 	<section name="CleanDialogSettings">
 		<item value="411" key="DIALOG_WIDTH"/>
 		<item value="279" key="DIALOG_Y_ORIGIN"/>
-		<item value="353" key="DIALOG_HEIGHT"/>
 		<item value="755" key="DIALOG_X_ORIGIN"/>
+		<item value="353" key="DIALOG_HEIGHT"/>
 		<item value="true" key="TOGGLE_SELECTED"/>
 	</section>
 </section>
