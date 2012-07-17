@@ -350,8 +350,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 */
 	private Action stepOverAction;
 
+	/**
+	 * The action that runs a predefined launch config and connects to the test runner automatically.
+	 */
 	private Action executeTestAction;
 
+	/**
+	 * The action allowing to configure what is executed with {@link #executeTestAction}.
+	 */
 	private Action configureTestAction;
 
 	/**
@@ -939,9 +945,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void fillLocalToolBar(IToolBarManager aManager) {
-		aManager.add(executeTestAction);
-		aManager.add(configureTestAction);
-		aManager.add(new Separator());
+		// These are still in development...
+		// aManager.add(executeTestAction);
+		// aManager.add(configureTestAction);
+		// aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
 		aManager.add(stepIntoAction);
@@ -1073,7 +1080,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepOverAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepover_disabled.gif"));
 
 		executeTestAction = new Action() {
-			@SuppressWarnings("unchecked")
 			public void run() {
 
 			}
@@ -1083,7 +1089,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
 
 		configureTestAction = new Action() {
-			@SuppressWarnings("unchecked")
 			public void run() {
 				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
 				tempDialog.open();

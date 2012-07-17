@@ -238,7 +238,7 @@ public final class JavadocUtil {
 	 * @return the AST
 	 */
 	protected static AbstractTypeDeclaration parseCompilationUnit(ICompilationUnit aCompilationUnit) {
-		ASTParser tempParser = ASTParser.newParser(AST.JLS3);
+		ASTParser tempParser = ASTParser.newParser(AST.JLS4);
 		tempParser.setSource(aCompilationUnit);
 		tempParser.setIgnoreMethodBodies(true);
 		tempParser.setKind(ASTParser.K_COMPILATION_UNIT);
