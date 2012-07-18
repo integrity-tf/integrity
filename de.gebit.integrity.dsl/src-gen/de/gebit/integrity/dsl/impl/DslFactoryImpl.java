@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -111,6 +107,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
+      case DslPackage.JAVA_CLASS_REFERENCE: return createJavaClassReference();
       case DslPackage.METHOD_REFERENCE: return createMethodReference();
       case DslPackage.EXECUTION_MULTIPLIER: return createExecutionMultiplier();
       case DslPackage.NULL: return createNull();
@@ -590,6 +587,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     EnumValueImpl enumValue = new EnumValueImpl();
     return enumValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JavaClassReference createJavaClassReference()
+  {
+    JavaClassReferenceImpl javaClassReference = new JavaClassReferenceImpl();
+    return javaClassReference;
   }
 
   /**

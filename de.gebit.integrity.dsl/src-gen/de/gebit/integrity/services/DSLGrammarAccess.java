@@ -267,20 +267,15 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cUsesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
 		private final Assignment cForkerClassAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final CrossReference cForkerClassJvmTypeCrossReference_5_2_0 = (CrossReference)cForkerClassAssignment_5_2.eContents().get(0);
-		private final RuleCall cForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_5_2_0_1 = (RuleCall)cForkerClassJvmTypeCrossReference_5_2_0.eContents().get(1);
+		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_5_2_0 = (RuleCall)cForkerClassAssignment_5_2.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_5_3 = (RuleCall)cGroup_5.eContents().get(3);
 		
 		//ForkDefinition:
 		//
-		//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
-		//
-		//	forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
+		//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?;
 		public ParserRule getRule() { return rule; }
 
-		//"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
-		//
-		//forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?
+		//"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?
 		public Group getGroup() { return cGroup; }
 
 		//"forkdef"
@@ -310,7 +305,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
 
-		//("uses" NL forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?
+		//("uses" NL forkerClass=JavaClassReference NL)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"uses"
@@ -319,14 +314,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 
-		//forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName]
+		//forkerClass=JavaClassReference
 		public Assignment getForkerClassAssignment_5_2() { return cForkerClassAssignment_5_2; }
 
-		//[jvmTypes::JvmType|QualifiedJavaClassName]
-		public CrossReference getForkerClassJvmTypeCrossReference_5_2_0() { return cForkerClassJvmTypeCrossReference_5_2_0; }
-
-		//QualifiedJavaClassName
-		public RuleCall getForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_5_2_0_1() { return cForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_5_2_0_1; }
+		//JavaClassReference
+		public RuleCall getForkerClassJavaClassReferenceParserRuleCall_5_2_0() { return cForkerClassJavaClassReferenceParserRuleCall_5_2_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_5_3() { return cNLParserRuleCall_5_3; }
@@ -1807,6 +1799,27 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1() { return cEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1; }
 	}
 
+	public class JavaClassReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JavaClassReference");
+		private final Assignment cTypeAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cTypeJvmTypeCrossReference_0 = (CrossReference)cTypeAssignment.eContents().get(0);
+		private final RuleCall cTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1 = (RuleCall)cTypeJvmTypeCrossReference_0.eContents().get(1);
+		
+		//JavaClassReference:
+		//
+		//	type=[jvmTypes::JvmType|QualifiedJavaClassName];
+		public ParserRule getRule() { return rule; }
+
+		//type=[jvmTypes::JvmType|QualifiedJavaClassName]
+		public Assignment getTypeAssignment() { return cTypeAssignment; }
+
+		//[jvmTypes::JvmType|QualifiedJavaClassName]
+		public CrossReference getTypeJvmTypeCrossReference_0() { return cTypeJvmTypeCrossReference_0; }
+
+		//QualifiedJavaClassName
+		public RuleCall getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1() { return cTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1; }
+	}
+
 	public class MethodReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MethodReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2038,6 +2051,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableElements pVariable;
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
+	private JavaClassReferenceElements pJavaClassReference;
 	private MethodReferenceElements pMethodReference;
 	private ExecutionMultiplierElements pExecutionMultiplier;
 	private QualifiedNameElements pQualifiedName;
@@ -2171,9 +2185,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ForkDefinition:
 	//
-	//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL
-	//
-	//	forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
+	//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
 	}
@@ -2581,6 +2593,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getEnumValueRule() {
 		return getEnumValueAccess().getRule();
+	}
+
+	//JavaClassReference:
+	//
+	//	type=[jvmTypes::JvmType|QualifiedJavaClassName];
+	public JavaClassReferenceElements getJavaClassReferenceAccess() {
+		return (pJavaClassReference != null) ? pJavaClassReference : (pJavaClassReference = new JavaClassReferenceElements());
+	}
+	
+	public ParserRule getJavaClassReferenceRule() {
+		return getJavaClassReferenceAccess().getRule();
 	}
 
 	//MethodReference:

@@ -19,6 +19,12 @@ public class DSLAntlrTokenToAttributeIdMapper extends DefaultAntlrTokenToAttribu
 		if ("RULE_SL_VISIBLE_COMMENT".equals(aTokenName) || "RULE_ML_VISIBLE_COMMENT".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.VISIBLE_COMMENT_ID;
 		}
+		if ("RULE_INTEGER".equals(aTokenName) || "RULE_DECIMAL".equals(aTokenName)) {
+			return DSLHighlightingConfiguration.NUMBER_ID;
+		}
+		if ("RULE_BOOLEAN_TRUE".equals(aTokenName) || "RULE_BOOLEAN_FALSE".equals(aTokenName)) {
+			return DSLHighlightingConfiguration.CONSTANT_VALUE_ID;
+		}
 
 		return super.calculateId(aTokenName, aTokenType);
 	}

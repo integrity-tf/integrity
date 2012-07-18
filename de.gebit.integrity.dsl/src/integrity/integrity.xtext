@@ -27,7 +27,7 @@ Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=[jvmTypes::JvmType|QualifiedJavaClassName] NL)?;
+	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)?;
 	
 TestDefinition:
 	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
@@ -134,6 +134,9 @@ NullValue:
 	
 EnumValue:
 	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
+	
+JavaClassReference:
+	type=[jvmTypes::JvmType|QualifiedJavaClassName];
 	
 MethodReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' method=[jvmTypes::JvmOperation];

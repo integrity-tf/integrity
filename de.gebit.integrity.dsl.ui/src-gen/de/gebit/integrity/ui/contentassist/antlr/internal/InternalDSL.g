@@ -1260,6 +1260,34 @@ finally {
 
 
 
+// Entry rule entryRuleJavaClassReference
+entryRuleJavaClassReference 
+:
+{ before(grammarAccess.getJavaClassReferenceRule()); }
+	 ruleJavaClassReference
+{ after(grammarAccess.getJavaClassReferenceRule()); } 
+	 EOF 
+;
+
+// Rule JavaClassReference
+ruleJavaClassReference
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment()); }
+(rule__JavaClassReference__TypeAssignment)
+{ after(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleMethodReference
 entryRuleMethodReference 
 :
@@ -8324,12 +8352,8 @@ rule__ForkDefinition__ForkerClassAssignment_5_2
     }
 :
 (
-{ before(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeCrossReference_5_2_0()); }
-(
-{ before(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_5_2_0_1()); }
-	ruleQualifiedJavaClassName{ after(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeQualifiedJavaClassNameParserRuleCall_5_2_0_1()); }
-)
-{ after(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeCrossReference_5_2_0()); }
+{ before(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_5_2_0()); }
+	ruleJavaClassReference{ after(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_5_2_0()); }
 )
 
 ;
@@ -9227,6 +9251,25 @@ rule__EnumValue__EnumValueAssignment
 	RULE_UPPERCASE_ID{ after(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1()); }
 )
 { after(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralCrossReference_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__JavaClassReference__TypeAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeCrossReference_0()); }
+(
+{ before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1()); }
+	ruleQualifiedJavaClassName{ after(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1()); }
+)
+{ after(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeCrossReference_0()); }
 )
 
 ;

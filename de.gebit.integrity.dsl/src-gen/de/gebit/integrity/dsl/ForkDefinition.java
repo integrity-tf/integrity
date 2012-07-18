@@ -1,12 +1,7 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
-import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,29 +76,29 @@ public interface ForkDefinition extends PackageStatement
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Forker Class</b></em>' reference.
+   * Returns the value of the '<em><b>Forker Class</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Forker Class</em>' reference isn't clear,
+   * If the meaning of the '<em>Forker Class</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Forker Class</em>' reference.
-   * @see #setForkerClass(JvmType)
+   * @return the value of the '<em>Forker Class</em>' containment reference.
+   * @see #setForkerClass(JavaClassReference)
    * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_ForkerClass()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  JvmType getForkerClass();
+  JavaClassReference getForkerClass();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}' reference.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Forker Class</em>' reference.
+   * @param value the new value of the '<em>Forker Class</em>' containment reference.
    * @see #getForkerClass()
    * @generated
    */
-  void setForkerClass(JvmType value);
+  void setForkerClass(JavaClassReference value);
 
 } // ForkDefinition

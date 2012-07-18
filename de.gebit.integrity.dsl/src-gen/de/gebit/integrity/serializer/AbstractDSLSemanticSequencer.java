@@ -16,6 +16,7 @@ import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
@@ -154,6 +155,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_IntegerValue(context, (IntegerValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.JAVA_CLASS_REFERENCE:
+				if(context == grammarAccess.getJavaClassReferenceRule()) {
+					sequence_JavaClassReference(context, (JavaClassReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -479,7 +486,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName description=STRING? forkerClass=[JvmType|QualifiedJavaClassName]?)
+	 *     (name=QualifiedName description=STRING? forkerClass=JavaClassReference?)
 	 */
 	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -514,6 +521,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0(), semanticObject.getIntegerValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     type=[JvmType|QualifiedJavaClassName]
+	 */
+	protected void sequence_JavaClassReference(EObject context, JavaClassReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1(), semanticObject.getType());
 		feeder.finish();
 	}
 	

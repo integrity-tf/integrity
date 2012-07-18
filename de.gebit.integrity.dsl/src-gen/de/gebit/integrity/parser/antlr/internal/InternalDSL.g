@@ -594,15 +594,18 @@ ruleNL
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getForkDefinitionRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getForkerClassJvmTypeCrossReference_5_2_0()); 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_5_2_0()); 
 	    }
-		ruleQualifiedJavaClassName		{ 
+		lv_forkerClass_8_0=ruleJavaClassReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getForkDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"forkerClass",
+        		lv_forkerClass_8_0, 
+        		"JavaClassReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3145,6 +3148,42 @@ ruleEnumValue returns [EObject current=null]
 	{
 		newLeafNode(otherlv_0, grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralCrossReference_0()); 
 	}
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleJavaClassReference
+entryRuleJavaClassReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getJavaClassReferenceRule()); }
+	 iv_ruleJavaClassReference=ruleJavaClassReference 
+	 { $current=$iv_ruleJavaClassReference.current; } 
+	 EOF 
+;
+
+// Rule JavaClassReference
+ruleJavaClassReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getJavaClassReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeCrossReference_0()); 
+	    }
+		ruleQualifiedJavaClassName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )

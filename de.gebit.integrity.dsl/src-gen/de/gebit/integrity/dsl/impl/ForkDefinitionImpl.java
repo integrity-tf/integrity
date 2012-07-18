@@ -1,22 +1,18 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.JavaClassReference;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,14 +72,14 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getForkerClass() <em>Forker Class</em>}' reference.
+   * The cached value of the '{@link #getForkerClass() <em>Forker Class</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getForkerClass()
    * @generated
    * @ordered
    */
-  protected JvmType forkerClass;
+  protected JavaClassReference forkerClass;
 
   /**
    * <!-- begin-user-doc -->
@@ -157,27 +153,7 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
    * <!-- end-user-doc -->
    * @generated
    */
-  public JvmType getForkerClass()
-  {
-    if (forkerClass != null && forkerClass.eIsProxy())
-    {
-      InternalEObject oldForkerClass = (InternalEObject)forkerClass;
-      forkerClass = (JvmType)eResolveProxy(oldForkerClass);
-      if (forkerClass != oldForkerClass)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.FORK_DEFINITION__FORKER_CLASS, oldForkerClass, forkerClass));
-      }
-    }
-    return forkerClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public JvmType basicGetForkerClass()
+  public JavaClassReference getForkerClass()
   {
     return forkerClass;
   }
@@ -187,12 +163,53 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setForkerClass(JvmType newForkerClass)
+  public NotificationChain basicSetForkerClass(JavaClassReference newForkerClass, NotificationChain msgs)
   {
-    JvmType oldForkerClass = forkerClass;
+    JavaClassReference oldForkerClass = forkerClass;
     forkerClass = newForkerClass;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__FORKER_CLASS, oldForkerClass, forkerClass));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__FORKER_CLASS, oldForkerClass, newForkerClass);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setForkerClass(JavaClassReference newForkerClass)
+  {
+    if (newForkerClass != forkerClass)
+    {
+      NotificationChain msgs = null;
+      if (forkerClass != null)
+        msgs = ((InternalEObject)forkerClass).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.FORK_DEFINITION__FORKER_CLASS, null, msgs);
+      if (newForkerClass != null)
+        msgs = ((InternalEObject)newForkerClass).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.FORK_DEFINITION__FORKER_CLASS, null, msgs);
+      msgs = basicSetForkerClass(newForkerClass, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__FORKER_CLASS, newForkerClass, newForkerClass));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DslPackage.FORK_DEFINITION__FORKER_CLASS:
+        return basicSetForkerClass(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -210,8 +227,7 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
         return getDescription();
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
-        if (resolve) return getForkerClass();
-        return basicGetForkerClass();
+        return getForkerClass();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -233,7 +249,7 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
         setDescription((String)newValue);
         return;
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
-        setForkerClass((JvmType)newValue);
+        setForkerClass((JavaClassReference)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -256,7 +272,7 @@ public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefi
         setDescription(DESCRIPTION_EDEFAULT);
         return;
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
-        setForkerClass((JvmType)null);
+        setForkerClass((JavaClassReference)null);
         return;
     }
     super.eUnset(featureID);

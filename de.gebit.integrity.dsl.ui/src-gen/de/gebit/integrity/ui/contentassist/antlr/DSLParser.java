@@ -161,6 +161,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAssignment(), "rule__BooleanValue__BooleanValueAssignment");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
+					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");
 					put(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0(), "rule__MethodReference__TypeAssignment_0");
 					put(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2(), "rule__MethodReference__MethodAssignment_2");
 					put(grammarAccess.getExecutionMultiplierAccess().getCountAssignment_0(), "rule__ExecutionMultiplier__CountAssignment_0");

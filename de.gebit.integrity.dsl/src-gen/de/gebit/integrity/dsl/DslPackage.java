@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -295,7 +291,7 @@ public interface DslPackage extends EPackage
   int FORK_DEFINITION__DESCRIPTION = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Forker Class</b></em>' reference.
+   * The feature id for the '<em><b>Forker Class</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1463,6 +1459,34 @@ public interface DslPackage extends EPackage
   int ENUM_VALUE_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.JavaClassReferenceImpl <em>Java Class Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.JavaClassReferenceImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
+   * @generated
+   */
+  int JAVA_CLASS_REFERENCE = 43;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CLASS_REFERENCE__TYPE = 0;
+
+  /**
+   * The number of structural features of the '<em>Java Class Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CLASS_REFERENCE_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.MethodReferenceImpl <em>Method Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1470,7 +1494,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 43;
+  int METHOD_REFERENCE = 44;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1507,7 +1531,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 44;
+  int EXECUTION_MULTIPLIER = 45;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1535,7 +1559,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 45;
+  int NULL = 46;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -1716,10 +1740,10 @@ public interface DslPackage extends EPackage
   EAttribute getForkDefinition_Description();
 
   /**
-   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}'.
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Forker Class</em>'.
+   * @return the meta object for the containment reference '<em>Forker Class</em>'.
    * @see de.gebit.integrity.dsl.ForkDefinition#getForkerClass()
    * @see #getForkDefinition()
    * @generated
@@ -2693,6 +2717,27 @@ public interface DslPackage extends EPackage
   EReference getEnumValue_EnumValue();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.JavaClassReference <em>Java Class Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Java Class Reference</em>'.
+   * @see de.gebit.integrity.dsl.JavaClassReference
+   * @generated
+   */
+  EClass getJavaClassReference();
+
+  /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.JavaClassReference#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see de.gebit.integrity.dsl.JavaClassReference#getType()
+   * @see #getJavaClassReference()
+   * @generated
+   */
+  EReference getJavaClassReference_Type();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.MethodReference <em>Method Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2923,7 +2968,7 @@ public interface DslPackage extends EPackage
     EAttribute FORK_DEFINITION__DESCRIPTION = eINSTANCE.getForkDefinition_Description();
 
     /**
-     * The meta object literal for the '<em><b>Forker Class</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Forker Class</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3727,6 +3772,24 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference ENUM_VALUE__ENUM_VALUE = eINSTANCE.getEnumValue_EnumValue();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.JavaClassReferenceImpl <em>Java Class Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.JavaClassReferenceImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
+     * @generated
+     */
+    EClass JAVA_CLASS_REFERENCE = eINSTANCE.getJavaClassReference();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference JAVA_CLASS_REFERENCE__TYPE = eINSTANCE.getJavaClassReference_Type();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.MethodReferenceImpl <em>Method Reference</em>}' class.

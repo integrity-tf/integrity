@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -412,6 +408,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   EnumValue createEnumValue();
+
+  /**
+   * Returns a new object of class '<em>Java Class Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Java Class Reference</em>'.
+   * @generated
+   */
+  JavaClassReference createJavaClassReference();
 
   /**
    * Returns a new object of class '<em>Method Reference</em>'.

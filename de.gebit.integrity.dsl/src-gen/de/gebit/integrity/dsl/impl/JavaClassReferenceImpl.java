@@ -2,56 +2,50 @@
  */
 package de.gebit.integrity.dsl.impl;
 
-import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.JavaClassReference;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Boolean Value</b></em>'.
+ * An implementation of the model object '<em><b>Java Class Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.BooleanValueImpl#getBooleanValue <em>Boolean Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.JavaClassReferenceImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BooleanValueImpl extends ValueImpl implements BooleanValue
+public class JavaClassReferenceImpl extends MinimalEObjectImpl.Container implements JavaClassReference
 {
   /**
-   * The default value of the '{@link #getBooleanValue() <em>Boolean Value</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBooleanValue()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String BOOLEAN_VALUE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getBooleanValue() <em>Boolean Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBooleanValue()
-   * @generated
-   * @ordered
-   */
-  protected String booleanValue = BOOLEAN_VALUE_EDEFAULT;
+  protected JvmType type;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BooleanValueImpl()
+  protected JavaClassReferenceImpl()
   {
     super();
   }
@@ -64,7 +58,7 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.BOOLEAN_VALUE;
+    return DslPackage.Literals.JAVA_CLASS_REFERENCE;
   }
 
   /**
@@ -72,9 +66,19 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getBooleanValue()
+  public JvmType getType()
   {
-    return booleanValue;
+    if (type != null && type.eIsProxy())
+    {
+      InternalEObject oldType = (InternalEObject)type;
+      type = (JvmType)eResolveProxy(oldType);
+      if (type != oldType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.JAVA_CLASS_REFERENCE__TYPE, oldType, type));
+      }
+    }
+    return type;
   }
 
   /**
@@ -82,12 +86,22 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setBooleanValue(String newBooleanValue)
+  public JvmType basicGetType()
   {
-    String oldBooleanValue = booleanValue;
-    booleanValue = newBooleanValue;
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(JvmType newType)
+  {
+    JvmType oldType = type;
+    type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.BOOLEAN_VALUE__BOOLEAN_VALUE, oldBooleanValue, booleanValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.JAVA_CLASS_REFERENCE__TYPE, oldType, type));
   }
 
   /**
@@ -100,8 +114,9 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
   {
     switch (featureID)
     {
-      case DslPackage.BOOLEAN_VALUE__BOOLEAN_VALUE:
-        return getBooleanValue();
+      case DslPackage.JAVA_CLASS_REFERENCE__TYPE:
+        if (resolve) return getType();
+        return basicGetType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -116,8 +131,8 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
   {
     switch (featureID)
     {
-      case DslPackage.BOOLEAN_VALUE__BOOLEAN_VALUE:
-        setBooleanValue((String)newValue);
+      case DslPackage.JAVA_CLASS_REFERENCE__TYPE:
+        setType((JvmType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -133,8 +148,8 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
   {
     switch (featureID)
     {
-      case DslPackage.BOOLEAN_VALUE__BOOLEAN_VALUE:
-        setBooleanValue(BOOLEAN_VALUE_EDEFAULT);
+      case DslPackage.JAVA_CLASS_REFERENCE__TYPE:
+        setType((JvmType)null);
         return;
     }
     super.eUnset(featureID);
@@ -150,27 +165,10 @@ public class BooleanValueImpl extends ValueImpl implements BooleanValue
   {
     switch (featureID)
     {
-      case DslPackage.BOOLEAN_VALUE__BOOLEAN_VALUE:
-        return BOOLEAN_VALUE_EDEFAULT == null ? booleanValue != null : !BOOLEAN_VALUE_EDEFAULT.equals(booleanValue);
+      case DslPackage.JAVA_CLASS_REFERENCE__TYPE:
+        return type != null;
     }
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (booleanValue: ");
-    result.append(booleanValue);
-    result.append(')');
-    return result.toString();
-  }
-
-} //BooleanValueImpl
+} //JavaClassReferenceImpl

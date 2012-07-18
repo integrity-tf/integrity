@@ -1565,7 +1565,7 @@ public class TestRunner {
 		Class<? extends Forker> tempForkerClass = DefaultForker.class;
 		if (tempForkDef.getForkerClass() != null) {
 			try {
-				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(tempForkDef.getForkerClass());
+				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(tempForkDef.getForkerClass().getType());
 			} catch (ClassCastException exc) {
 				throw new ForkException("Could not create fork '" + tempForkDef.getName()
 						+ "': forker class not usable.", exc);

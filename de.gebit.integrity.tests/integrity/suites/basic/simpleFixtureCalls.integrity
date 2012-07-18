@@ -1,7 +1,7 @@
 packagedef integrity.basic with
 
 	suitedef simpleFixtureCalls with
-	
+		
 		call integrity.fixtures.basic.noop.noOp
 		
 		call integrity.fixtures.basic.noop.returnTrueCall

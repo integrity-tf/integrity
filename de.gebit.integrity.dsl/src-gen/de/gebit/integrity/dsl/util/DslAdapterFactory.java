@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -292,6 +288,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEnumValue(EnumValue object)
       {
         return createEnumValueAdapter();
+      }
+      @Override
+      public Adapter caseJavaClassReference(JavaClassReference object)
+      {
+        return createJavaClassReferenceAdapter();
       }
       @Override
       public Adapter caseMethodReference(MethodReference object)
@@ -971,6 +972,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEnumValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.JavaClassReference <em>Java Class Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.JavaClassReference
+   * @generated
+   */
+  public Adapter createJavaClassReferenceAdapter()
   {
     return null;
   }
