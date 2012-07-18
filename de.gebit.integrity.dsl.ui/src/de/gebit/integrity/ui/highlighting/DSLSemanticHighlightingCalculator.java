@@ -57,7 +57,6 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 			} else {
 				if (tempSemanticElement != null && tempLastSemanticElement != tempSemanticElement) {
 					tempLastSemanticElement = tempSemanticElement;
-					System.out.println(tempSemanticElement.getClass().getName());
 					if (tempSemanticElement instanceof MethodReference) {
 						anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 								DSLHighlightingConfiguration.JAVA_CLASS_ID);
