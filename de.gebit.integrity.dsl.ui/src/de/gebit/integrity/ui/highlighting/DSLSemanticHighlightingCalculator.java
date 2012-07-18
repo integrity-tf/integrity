@@ -25,13 +25,14 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 
 /**
- * 
+ * The semantic highlight calculator is responsible for performing the more complex syntax highlighting.
  * 
  * @author Rene Schneider
  * 
  */
 public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
 
+	@Override
 	public void provideHighlightingFor(XtextResource aResource, IHighlightedPositionAcceptor anAcceptor) {
 		if (aResource == null || aResource.getParseResult() == null) {
 			return;
