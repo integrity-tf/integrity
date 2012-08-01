@@ -10,6 +10,7 @@ import org.eclipse.jface.viewers.Viewer;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 
 /**
  * Provides the content for the main test execution tree.
@@ -77,6 +78,30 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 	@Override
 	public void dispose() {
 
+	}
+
+	public void expandToLevel(int aDepth) {
+		expandToLevelInternal(setList.getRootEntry(), aDepth);
+	}
+
+	protected void expandToLevelInternal(Object anEntry, int aDepth) {
+		if (aDepth == 0) {
+			return;
+		} else {
+			if (anEntry instanceof SetListEntry) {
+				// table tests are excluded in automatic expansion
+				if (((SetListEntry) anEntry).getType() != SetListEntryTypes.TABLETEST) {
+					List<Integer> tempRefs = getSetListEntryChildReferences((SetListEntry) anEntry);
+					if (tempRefs != null) {
+						owner.setExpandedState(anEntry, true);
+						for (Integer tempRef : tempRefs) {
+							SetListEntry tempNextEntry = setList.resolveReference(tempRef);
+							expandToLevelInternal(tempNextEntry, aDepth - 1);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override

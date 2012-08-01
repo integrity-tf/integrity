@@ -364,6 +364,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 */
 	private Action configureTestAction;
 
+	private Action expandAllAction;
+
+	private Action collapseAllAction;
+
+	private int lastExpansionLevel;
+
 	/**
 	 * The remoting client instance.
 	 */
@@ -915,6 +921,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void fillLocalPullDown(IMenuManager aManager) {
+		aManager.add(executeTestAction);
+		aManager.add(configureTestAction);
+		aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
 		aManager.add(stepIntoAction);
@@ -957,6 +966,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 		// These are still in development...
 		aManager.add(executeTestAction);
 		aManager.add(configureTestAction);
+		aManager.add(new Separator());
+		aManager.add(expandAllAction);
+		aManager.add(collapseAllAction);
 		aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
@@ -1135,6 +1147,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		executeTestAction.setEnabled(false);
 
 		configureTestAction = new Action() {
+			@Override
 			public void run() {
 				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
 				if (tempDialog.open() == Dialog.OK) {
@@ -1148,6 +1161,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 		configureTestAction.setText("Configure test application");
 		configureTestAction.setToolTipText("Configures the test run configuration(s) to launch.");
 		configureTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_config_enabled.gif"));
+
+		expandAllAction = new Action() {
+			@Override
+			public void run() {
+				lastExpansionLevel++;
+				((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
+			}
+		};
+		expandAllAction.setText("Expand all (one level)");
+		expandAllAction.setToolTipText("Expands all nodes one level deeper (except table tests).");
+		expandAllAction.setImageDescriptor(Activator.getImageDescriptor("icons/expandall.gif"));
+
+		collapseAllAction = new Action() {
+			@Override
+			public void run() {
+				lastExpansionLevel = 0;
+				treeViewer.collapseAll();
+			}
+		};
+		collapseAllAction.setText("Collapse all");
+		collapseAllAction.setToolTipText("Collapses all nodes.");
+		collapseAllAction.setImageDescriptor(Activator.getImageDescriptor("icons/collapseall.gif"));
 
 		updateActionStatus(null);
 	}
@@ -1557,6 +1592,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 				@Override
 				public void run() {
 					treeViewer.setInput(setList);
+
 					executionProgress.setSetList(setList);
 					executionProgress.redraw();
 
@@ -1571,6 +1607,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 					viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
 					viewerContentDrawer.attachToTree(treeViewer.getTree());
+
+					((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
 
 					updateStatus("Connected and ready");
 				}
