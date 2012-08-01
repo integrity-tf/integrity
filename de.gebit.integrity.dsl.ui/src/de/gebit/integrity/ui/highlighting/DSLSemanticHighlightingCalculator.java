@@ -20,6 +20,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.StringValue;
+import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
@@ -43,7 +44,10 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 		for (INode tempNode : tempRoot.getAsTreeIterable()) {
 			EObject tempSemanticElement = tempNode.getSemanticElement();
 			if (tempNode.getGrammarElement() instanceof CrossReference) {
-				if (tempSemanticElement instanceof ParameterName) {
+				if (tempSemanticElement instanceof SuiteParameter) {
+					anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
+							DSLHighlightingConfiguration.PARAMETER_ID);
+				} else if (tempSemanticElement instanceof ParameterName) {
 					anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 							DSLHighlightingConfiguration.PARAMETER_ID);
 				} else if (tempSemanticElement instanceof Test || tempSemanticElement instanceof Call
