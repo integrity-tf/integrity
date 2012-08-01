@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
@@ -29,6 +32,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
@@ -374,6 +378,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The set of breakpoints currently in use.
 	 */
 	private Set<Integer> breakpointSet = Collections.synchronizedSet(new HashSet<Integer>());
+
+	/**
+	 * The launch configuration to run when the start button in the view is pressed.
+	 */
+	private ILaunchConfiguration launchConfiguration;
 
 	/**
 	 * The constructor.
@@ -946,9 +955,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void fillLocalToolBar(IToolBarManager aManager) {
 		// These are still in development...
-		// aManager.add(executeTestAction);
-		// aManager.add(configureTestAction);
-		// aManager.add(new Separator());
+		aManager.add(executeTestAction);
+		aManager.add(configureTestAction);
+		aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
 		aManager.add(stepIntoAction);
@@ -982,7 +991,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 							}
 							tempHost = tempHost.substring(0, tempHost.indexOf(':'));
 						}
-						connectToTestRunner(tempHost, tempPort);
+						connectToTestRunnerAsync(tempHost, tempPort);
 					}
 				} else {
 					disconnectFromTestRunner();
@@ -1081,17 +1090,59 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		executeTestAction = new Action() {
 			public void run() {
+				if (launchConfiguration != null) {
+					try {
+						executeTestAction.setEnabled(false);
+						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+						new Thread() {
+							@SuppressWarnings("restriction")
+							@Override
+							public void run() {
+								boolean tempSuccess = false;
 
+								while (!tempLaunch.isTerminated()) {
+									try {
+										if (!tempSuccess && !isConnected()) {
+											// try to connect at least once
+											connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
+											tempSuccess = true;
+										} else {
+											// Now we'll wait until the launch has terminated
+											try {
+												Thread.sleep(1000);
+											} catch (InterruptedException exc) {
+												// don't care
+											}
+										}
+									} catch (UnknownHostException exc) {
+										// exceptions are expected, that just means we need to retry
+									} catch (IOException exc) {
+										// exceptions are expected, that just means we need to retry
+									}
+								}
+								executeTestAction.setEnabled(true);
+							};
+						}.start();
+					} catch (CoreException exc) {
+						showException(exc);
+					}
+				}
 			}
 		};
 		executeTestAction.setText("Launch test application");
 		executeTestAction.setToolTipText("Launches the test run configuration.");
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
+		executeTestAction.setEnabled(false);
 
 		configureTestAction = new Action() {
 			public void run() {
 				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
-				tempDialog.open();
+				if (tempDialog.open() == Dialog.OK) {
+					launchConfiguration = tempDialog.getSelectedConfiguration();
+					if (launchConfiguration != null) {
+						executeTestAction.setEnabled(true);
+					}
+				}
 			}
 		};
 		configureTestAction.setText("Configure test application");
@@ -1101,12 +1152,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 		updateActionStatus(null);
 	}
 
+	private boolean isConnected() {
+		return (client != null && client.isActive());
+	}
+
 	private void updateActionStatus(final ExecutionStates anExecutionState) {
 		Runnable tempRunnable = new Runnable() {
 
 			@Override
 			public void run() {
-				if (client == null || !client.isActive()) {
+				if (!isConnected()) {
 					connectToTestRunnerAction.setText("Connect to test runner");
 					connectToTestRunnerAction.setToolTipText("Connects to a local or remote test runner");
 					connectToTestRunnerAction.setImageDescriptor(Activator.getImageDescriptor("icons/connect.gif"));
@@ -1371,6 +1426,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 		Display.getDefault().asyncExec(tempRunnable);
 	}
 
+	private void showException(final Exception anException) {
+		Runnable tempRunnable = new Runnable() {
+			@Override
+			public void run() {
+				MessageDialog.openError(treeViewer.getControl().getShell(), "Integrity Test Runner",
+						anException.getLocalizedMessage());
+			}
+		};
+
+		Display.getDefault().asyncExec(tempRunnable);
+	}
+
 	private void updateStatus(final String aStatus) {
 		Runnable tempRunnable = new Runnable() {
 
@@ -1390,25 +1457,36 @@ public class IntegrityTestRunnerView extends ViewPart {
 		treeViewer.getControl().setFocus();
 	}
 
-	private void connectToTestRunner(final String aHost, final int aPort) {
-		updateStatus("Connecting...");
+	private void connectToTestRunnerAsync(final String aHost, final int aPort) {
 		new Thread("Test Runner Connect Thread") {
 
 			@Override
 			public void run() {
 				try {
-					client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener());
-					updateStatus("Connected, downloading test data...");
+					connectToTestRunner(aHost, aPort);
 					return;
 				} catch (UnknownHostException exc) {
 					showMessage("Target host name '" + aHost + "' could not be resolved.");
 				} catch (IOException exc) {
 					showMessage("Error while connecting to '" + aHost + "': " + exc.getMessage());
 				}
-				updateStatus("Not connected");
 			}
 
 		}.start();
+	}
+
+	private void connectToTestRunner(final String aHost, final int aPort) throws UnknownHostException, IOException {
+		updateStatus("Connecting...");
+		boolean tempSuccessful = false;
+		try {
+			client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener());
+			tempSuccessful = true;
+			updateStatus("Connected, downloading test data...");
+		} finally {
+			if (!tempSuccessful) {
+				updateStatus("Not connected");
+			}
+		}
 	}
 
 	private void disconnectFromTestRunner() {
