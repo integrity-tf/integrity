@@ -30,7 +30,12 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	/**
 	 * The ID for parameters.
 	 */
-	public static final String PARAMETER_ID = "parameter";
+	public static final String PARAMETER_NAME_ID = "parameter";
+
+	/**
+	 * The ID for parameters.
+	 */
+	public static final String RESULT_NAME_ID = "result";
 
 	/**
 	 * The ID for package prefixes.
@@ -43,14 +48,44 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String RESULT_CONSTANT_VALUE_ID = "resultconstantvalue";
 
 	/**
+	 * The ID for constant, predefined values (like "true" or "false") used as a parameter.
+	 */
+	public static final String PARAMETER_CONSTANT_VALUE_ID = "parameterconstantvalue";
+
+	/**
 	 * The ID for numbers used as a test result.
 	 */
 	public static final String RESULT_NUMBER_ID = "resultnumber";
 
 	/**
+	 * The ID for numbers used as a parameter.
+	 */
+	public static final String PARAMETER_NUMBER_ID = "parameternumber";
+
+	/**
 	 * The ID for strings used as a test result.
 	 */
 	public static final String RESULT_STRING_ID = "resultstring";
+
+	/**
+	 * The ID for strings used as a parameter.
+	 */
+	public static final String PARAMETER_STRING_ID = "parameterstring";
+
+	/**
+	 * The ID for variables used as a test result.
+	 */
+	public static final String VARIABLE_VALUE_ID = "variablevalue";
+
+	/**
+	 * The ID for variables used as a test result.
+	 */
+	public static final String RESULT_VARIABLE_VALUE_ID = "resultvariablevalue";
+
+	/**
+	 * The ID for variables used as a parameter.
+	 */
+	public static final String PARAMETER_VARIABLE_VALUE_ID = "parametervariablevalue";
 
 	/**
 	 * The ID for Java classes.
@@ -73,18 +108,35 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
 		super.configure(anAcceptor);
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comment", visibleCommentTextStyle());
-		anAcceptor.acceptDefaultHighlighting(PARAMETER_ID, "Parameter", parameterTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_NAME_ID, "Parameter Name", parameterNameTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_NAME_ID, "Result Name", resultNameTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PACKAGE_PREFIX_ID, "Package Prefix", packageTextStyle());
 		anAcceptor.acceptDefaultHighlighting(CONSTANT_VALUE_ID, "Constant Values", constantValueTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_CONSTANT_VALUE_ID, "Constant Values (Test Result)",
 				resultConstantValueTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_CONSTANT_VALUE_ID, "Constant Values (Parameters)",
+				parameterConstantValueTextStyle());
+		anAcceptor.acceptDefaultHighlighting(VARIABLE_VALUE_ID, "Variable", variableValueTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_VARIABLE_VALUE_ID, "Variables (Test Result)",
+				resultVariableValueTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_VARIABLE_VALUE_ID, "Variables (Parameters)",
+				parameterVariableValueTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_NUMBER_ID, "Numbers (Test Result)", resultNumberTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_NUMBER_ID, "Numbers (Parameters)", parameterNumberTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_STRING_ID, "Strings (Test Result)", resultStringTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_STRING_ID, "Strings (Parameters)", parameterStringTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_ID, "Java Classes", javaClassTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_HIGHLIGHT_ID, "Java Classes (Highlight Parts)",
 				javaClassHighlightTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_METHOD_HIGHLIGHT_ID, "Java Methods (Highlight Parts)",
 				javaMethodHighlightTextStyle());
+	}
+
+	@Override
+	public TextStyle stringTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(0, 0, 0));
+		return tempTextStyle;
 	}
 
 	/**
@@ -104,10 +156,22 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	 * 
 	 * @return the style
 	 */
-	public TextStyle parameterTextStyle() {
+	public TextStyle parameterNameTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
-		tempTextStyle.setStyle(tempTextStyle.getStyle());
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for parameters.
+	 * 
+	 * @return the style
+	 */
+	public TextStyle resultNameTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
 		return tempTextStyle;
 	}
 
@@ -123,10 +187,12 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		return tempTextStyle;
 	}
 
+	// 42,0,255
+
 	@Override
 	public TextStyle numberTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
-		tempTextStyle.setColor(new RGB(42, 0, 255));
+		tempTextStyle.setColor(new RGB(0, 0, 0));
 		return tempTextStyle;
 	}
 
@@ -138,7 +204,12 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle resultNumberTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(42, 0, 255));
-		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	public TextStyle parameterNumberTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
 		return tempTextStyle;
 	}
 
@@ -150,7 +221,12 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle resultStringTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(42, 0, 255));
-		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	public TextStyle parameterStringTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
 		return tempTextStyle;
 	}
 
@@ -161,7 +237,7 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	 */
 	public TextStyle constantValueTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
-		tempTextStyle.setColor(new RGB(42, 0, 255));
+		tempTextStyle.setColor(new RGB(0, 0, 0));
 		return tempTextStyle;
 	}
 
@@ -173,7 +249,51 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle resultConstantValueTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(42, 0, 255));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for constant values used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterConstantValueTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for variable values.
+	 * 
+	 * @return
+	 */
+	public TextStyle variableValueTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(0, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for variables used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultVariableValueTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for variables used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterVariableValueTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
 		return tempTextStyle;
 	}
 
