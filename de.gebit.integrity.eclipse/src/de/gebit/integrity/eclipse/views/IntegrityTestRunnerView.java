@@ -1107,7 +1107,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 						executeTestAction.setEnabled(false);
 						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
 						new Thread() {
-							@SuppressWarnings("restriction")
+
 							@Override
 							public void run() {
 								boolean tempSuccess = false;
