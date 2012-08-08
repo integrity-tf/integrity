@@ -36,7 +36,7 @@ CallDefinition:
 	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
-	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?;
+	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 SuiteStatement:
 	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment;

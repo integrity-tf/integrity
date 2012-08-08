@@ -33,8 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getDependencies <em>Dependencies</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getFinalizers <em>Finalizers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,16 +83,6 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   protected EList<SuiteDefinition> dependencies;
 
   /**
-   * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStatements()
-   * @generated
-   * @ordered
-   */
-  protected EList<SuiteStatement> statements;
-
-  /**
    * The cached value of the '{@link #getFinalizers() <em>Finalizers</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -101,6 +91,16 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * @ordered
    */
   protected EList<SuiteDefinition> finalizers;
+
+  /**
+   * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStatements()
+   * @generated
+   * @ordered
+   */
+  protected EList<SuiteStatement> statements;
 
   /**
    * <!-- begin-user-doc -->
@@ -179,20 +179,6 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SuiteStatement> getStatements()
-  {
-    if (statements == null)
-    {
-      statements = new EObjectContainmentEList<SuiteStatement>(SuiteStatement.class, this, DslPackage.SUITE_DEFINITION__STATEMENTS);
-    }
-    return statements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<SuiteDefinition> getFinalizers()
   {
     if (finalizers == null)
@@ -200,6 +186,20 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
       finalizers = new EObjectResolvingEList<SuiteDefinition>(SuiteDefinition.class, this, DslPackage.SUITE_DEFINITION__FINALIZERS);
     }
     return finalizers;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<SuiteStatement> getStatements()
+  {
+    if (statements == null)
+    {
+      statements = new EObjectContainmentEList<SuiteStatement>(SuiteStatement.class, this, DslPackage.SUITE_DEFINITION__STATEMENTS);
+    }
+    return statements;
   }
 
   /**
@@ -236,10 +236,10 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return getParameters();
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         return getDependencies();
-      case DslPackage.SUITE_DEFINITION__STATEMENTS:
-        return getStatements();
       case DslPackage.SUITE_DEFINITION__FINALIZERS:
         return getFinalizers();
+      case DslPackage.SUITE_DEFINITION__STATEMENTS:
+        return getStatements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -266,13 +266,13 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         getDependencies().clear();
         getDependencies().addAll((Collection<? extends SuiteDefinition>)newValue);
         return;
-      case DslPackage.SUITE_DEFINITION__STATEMENTS:
-        getStatements().clear();
-        getStatements().addAll((Collection<? extends SuiteStatement>)newValue);
-        return;
       case DslPackage.SUITE_DEFINITION__FINALIZERS:
         getFinalizers().clear();
         getFinalizers().addAll((Collection<? extends SuiteDefinition>)newValue);
+        return;
+      case DslPackage.SUITE_DEFINITION__STATEMENTS:
+        getStatements().clear();
+        getStatements().addAll((Collection<? extends SuiteStatement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -297,11 +297,11 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         getDependencies().clear();
         return;
-      case DslPackage.SUITE_DEFINITION__STATEMENTS:
-        getStatements().clear();
-        return;
       case DslPackage.SUITE_DEFINITION__FINALIZERS:
         getFinalizers().clear();
+        return;
+      case DslPackage.SUITE_DEFINITION__STATEMENTS:
+        getStatements().clear();
         return;
     }
     super.eUnset(featureID);
@@ -323,10 +323,10 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return parameters != null && !parameters.isEmpty();
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         return dependencies != null && !dependencies.isEmpty();
-      case DslPackage.SUITE_DEFINITION__STATEMENTS:
-        return statements != null && !statements.isEmpty();
       case DslPackage.SUITE_DEFINITION__FINALIZERS:
         return finalizers != null && !finalizers.isEmpty();
+      case DslPackage.SUITE_DEFINITION__STATEMENTS:
+        return statements != null && !statements.isEmpty();
     }
     return super.eIsSet(featureID);
   }

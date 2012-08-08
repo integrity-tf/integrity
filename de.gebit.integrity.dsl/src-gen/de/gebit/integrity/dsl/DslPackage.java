@@ -420,22 +420,22 @@ public interface DslPackage extends EPackage
   int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Finalizers</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
+  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Suite Definition</em>' class.
@@ -1858,17 +1858,6 @@ public interface DslPackage extends EPackage
   EReference getSuiteDefinition_Dependencies();
 
   /**
-   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Statements</em>'.
-   * @see de.gebit.integrity.dsl.SuiteDefinition#getStatements()
-   * @see #getSuiteDefinition()
-   * @generated
-   */
-  EReference getSuiteDefinition_Statements();
-
-  /**
    * Returns the meta object for the reference list '{@link de.gebit.integrity.dsl.SuiteDefinition#getFinalizers <em>Finalizers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1878,6 +1867,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getSuiteDefinition_Finalizers();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Statements</em>'.
+   * @see de.gebit.integrity.dsl.SuiteDefinition#getStatements()
+   * @see #getSuiteDefinition()
+   * @generated
+   */
+  EReference getSuiteDefinition_Statements();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.SuiteStatement <em>Suite Statement</em>}'.
@@ -3062,20 +3062,20 @@ public interface DslPackage extends EPackage
     EReference SUITE_DEFINITION__DEPENDENCIES = eINSTANCE.getSuiteDefinition_Dependencies();
 
     /**
-     * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SUITE_DEFINITION__STATEMENTS = eINSTANCE.getSuiteDefinition_Statements();
-
-    /**
      * The meta object literal for the '<em><b>Finalizers</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference SUITE_DEFINITION__FINALIZERS = eINSTANCE.getSuiteDefinition_Finalizers();
+
+    /**
+     * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUITE_DEFINITION__STATEMENTS = eINSTANCE.getSuiteDefinition_Statements();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.SuiteStatementImpl <em>Suite Statement</em>}' class.

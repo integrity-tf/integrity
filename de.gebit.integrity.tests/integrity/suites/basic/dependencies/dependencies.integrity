@@ -1,22 +1,14 @@
-import mypackage.*
-import mypackage.deeper.*
+import integrity.fixtures.basic.noop.*
 
-packagedef mypackage with
+packagedef integrity.basic.dependencies with
 	
-	forkdef fork
-	
-	suitedef rootSuite with
+	suitedef dependencies with
 		suite firstSubSuite
 		suite secondSubSuite
-		suite firstSubSuiteWithFork
 	suiteend
 	
 	suitedef firstSubSuite requires firstDependency with
 		suite secondSubSuite
-	suiteend
-	
-	suitedef firstSubSuiteWithFork requires firstDependency with
-		suite secondSubSuite on fork
 	suiteend
 	
 	suitedef secondSubSuite requires firstDependency secondDependency thirdDependency with
@@ -24,32 +16,32 @@ packagedef mypackage with
 	suiteend
 	
 	suitedef thirdSubSuite with
-		call random min: 9999 max: 9999
+		call noOp
 	suiteend	
 	
 	
 	suitedef firstDependency concludedby firstTeardown with
-		call random min: 1 max: 1
+		call noOp
 	suiteend
 	
 	suitedef secondDependency concludedby secondTeardown thirdTeardown with
-		call random min: 2 max: 2
+		call noOp
 	suiteend
 	
 	suitedef thirdDependency with
-		call random min: 3 max: 3
+		call noOp
 	suiteend
 	
 	suitedef firstTeardown with
-		call random min: 10 max: 10
+		call noOp
 	suiteend
 	
 	suitedef secondTeardown with
-		call random min: 20 max: 20
+		call noOp
 	suiteend
 	
 	suitedef thirdTeardown with
-		call random min: 30 max: 30
+		call noOp
 	suiteend
 
 packageend

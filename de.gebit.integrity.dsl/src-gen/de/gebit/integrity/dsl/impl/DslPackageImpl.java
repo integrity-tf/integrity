@@ -739,7 +739,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Statements()
+  public EReference getSuiteDefinition_Finalizers()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(3);
   }
@@ -749,7 +749,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Finalizers()
+  public EReference getSuiteDefinition_Statements()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(4);
   }
@@ -1691,8 +1691,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__NAME);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__PARAMETERS);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__DEPENDENCIES);
-    createEReference(suiteDefinitionEClass, SUITE_DEFINITION__STATEMENTS);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__FINALIZERS);
+    createEReference(suiteDefinitionEClass, SUITE_DEFINITION__STATEMENTS);
 
     suiteStatementEClass = createEClass(SUITE_STATEMENT);
 
@@ -1921,8 +1921,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getSuiteDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Parameters(), this.getVariableEntity(), null, "parameters", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Dependencies(), this.getSuiteDefinition(), null, "dependencies", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSuiteDefinition_Statements(), this.getSuiteStatement(), null, "statements", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Finalizers(), this.getSuiteDefinition(), null, "finalizers", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSuiteDefinition_Statements(), this.getSuiteStatement(), null, "statements", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteStatementEClass, SuiteStatement.class, "SuiteStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

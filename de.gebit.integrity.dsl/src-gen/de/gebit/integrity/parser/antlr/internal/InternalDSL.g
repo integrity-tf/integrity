@@ -944,55 +944,13 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*)?	otherlv_12='with' 
+)*)?(	otherlv_12='concludedby' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_6());
+    	newLeafNode(otherlv_12, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_6_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_8_0()); 
-	    }
-		lv_statements_14_0=ruleSuiteStatement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
-	        }
-       		add(
-       			$current, 
-       			"statements",
-        		lv_statements_14_0, 
-        		"SuiteStatement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)*	otherlv_15='suiteend' 
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_9());
-    }
-
-    { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
-    }
-(	otherlv_17='concludedby' 
-    {
-    	newLeafNode(otherlv_17, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_11_0());
-    }
-
-    { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_1()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_1()); 
     }
 ruleNL
     { 
@@ -1006,7 +964,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_11_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_6_2_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1015,13 +973,55 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_2_1()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_2_1()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*)?)
+)*)?	otherlv_16='with' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_7());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_9_0()); 
+	    }
+		lv_statements_18_0=ruleSuiteStatement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
+	        }
+       		add(
+       			$current, 
+       			"statements",
+        		lv_statements_18_0, 
+        		"SuiteStatement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_19='suiteend' 
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_10());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
 ;
 
 

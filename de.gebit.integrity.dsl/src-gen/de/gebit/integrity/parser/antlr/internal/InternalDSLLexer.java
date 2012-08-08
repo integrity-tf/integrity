@@ -309,10 +309,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:22:7: ( 'suiteend' )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:22:9: 'suiteend'
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:22:7: ( 'concludedby' )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:22:9: 'concludedby'
             {
-            match("suiteend"); 
+            match("concludedby"); 
 
 
             }
@@ -330,10 +330,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:23:7: ( 'concludedby' )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:23:9: 'concludedby'
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:23:7: ( 'suiteend' )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:23:9: 'suiteend'
             {
-            match("concludedby"); 
+            match("suiteend"); 
 
 
             }
@@ -2054,8 +2054,8 @@ public class InternalDSLLexer extends Lexer {
         "\36\1\40\1\37\1\43\1\46\1\45\1\47\1\50\1\51\1\53\1\54\1\55\20\uffff"+
         "\1\30\24\uffff\1\2\4\uffff\1\6\1\uffff\1\21\1\uffff\1\41\1\uffff"+
         "\1\25\3\uffff\1\12\2\uffff\1\34\4\uffff\1\42\7\uffff\1\27\3\uffff"+
-        "\1\4\16\uffff\1\5\1\7\1\uffff\1\10\13\uffff\1\20\1\11\1\14\1\13"+
-        "\1\16\2\uffff\1\17\1\23\1\uffff\1\1\1\3\1\uffff\1\15";
+        "\1\4\16\uffff\1\5\1\7\1\uffff\1\10\13\uffff\1\20\1\11\1\15\1\13"+
+        "\1\16\2\uffff\1\17\1\23\1\uffff\1\1\1\3\1\uffff\1\14";
     static final String DFA22_specialS =
         "\1\2\32\uffff\1\1\1\0\u00a0\uffff}>";
     static final String[] DFA22_transitionS = {

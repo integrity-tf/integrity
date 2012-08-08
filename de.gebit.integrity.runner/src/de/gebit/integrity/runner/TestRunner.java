@@ -145,11 +145,6 @@ public class TestRunner {
 	protected Map<VariableEntity, Object> variableStorage = new HashMap<VariableEntity, Object>();
 
 	/**
-	 * Mapping suite calls to setup suites necessary to be called when the respective suite call is executed.
-	 */
-	protected Map<Suite, List<SuiteDefinition>> setupMoments;
-
-	/**
 	 * The remoting server.
 	 */
 	protected IntegrityRemotingServer remotingServer;
@@ -210,6 +205,11 @@ public class TestRunner {
 	 * The fork that is currently being executed.
 	 */
 	protected ForkDefinition forkInExecution;
+
+	/**
+	 * The setup suites that have been executed.
+	 */
+	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
 
 	/**
 	 * Creates a new test runner instance.
@@ -340,7 +340,7 @@ public class TestRunner {
 	 */
 	protected void reset() {
 		variableStorage.clear();
-		setupMoments = null;
+		setupSuitesExecuted.clear();
 	}
 
 	/**
@@ -356,8 +356,6 @@ public class TestRunner {
 		if (currentCallback != null) {
 			currentCallback.onExecutionStart(model, variableStorage);
 		}
-
-		setupMoments = findSetupMoments(aRootSuiteCall);
 
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
 			defineVariable(tempVariableDef, null);
@@ -479,9 +477,16 @@ public class TestRunner {
 			currentCallback.onSuiteStart(aSuiteCall);
 		}
 
-		List<SuiteDefinition> tempSetupSuites = setupMoments.get(aSuiteCall);
-		if (tempSetupSuites != null) {
-			for (SuiteDefinition tempSetupSuite : tempSetupSuites) {
+		List<SuiteDefinition> tempSetupSuitesExecuted = new ArrayList<SuiteDefinition>();
+		Set<SuiteDefinition> tempSetupsAlreadyRun = setupSuitesExecuted.get(forkInExecution);
+		if (tempSetupsAlreadyRun == null) {
+			tempSetupsAlreadyRun = new HashSet<SuiteDefinition>();
+			setupSuitesExecuted.put(forkInExecution, tempSetupsAlreadyRun);
+		}
+		for (SuiteDefinition tempSetupSuite : aSuiteCall.getDefinition().getDependencies()) {
+			if (!tempSetupsAlreadyRun.contains(tempSetupSuite)) {
+				tempSetupsAlreadyRun.add(tempSetupSuite);
+				tempSetupSuitesExecuted.add(tempSetupSuite);
 				if (currentCallback != null) {
 					currentCallback.onSetupStart(tempSetupSuite);
 				}
@@ -512,29 +517,25 @@ public class TestRunner {
 		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
-		if (tempSetupSuites != null) {
-			Set<SuiteDefinition> tempExecutedTearDownSuites = new HashSet<SuiteDefinition>();
-			for (SuiteDefinition tempSetupSuite : tempSetupSuites) {
-				for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
-					if (!tempExecutedTearDownSuites.contains(tempTearDownSuite)) {
-						tempExecutedTearDownSuites.add(tempTearDownSuite);
+		for (int i = tempSetupSuitesExecuted.size() - 1; i >= 0; i--) {
+			SuiteDefinition tempSetupSuite = tempSetupSuitesExecuted.get(i);
+			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
+				if (currentCallback != null) {
+					currentCallback.onTearDownStart(tempTearDownSuite);
+				}
 
-						if (currentCallback != null) {
-							currentCallback.onTearDownStart(tempTearDownSuite);
-						}
+				long tempStart = System.nanoTime();
+				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
+				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
+						null, null, System.nanoTime() - tempStart);
+				tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
 
-						long tempStart = System.nanoTime();
-						Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
-						SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(
-								tempSuiteResults, null, null, System.nanoTime() - tempStart);
-						tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
-
-						if (currentCallback != null) {
-							currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
-						}
-					}
+				if (currentCallback != null) {
+					currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
 				}
 			}
+
+			tempSetupsAlreadyRun.remove(tempSetupSuite);
 		}
 
 		SuiteResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults, tempSetupResults,
@@ -1256,80 +1257,6 @@ public class TestRunner {
 		}
 
 		return tempReturn;
-	}
-
-	/**
-	 * Recursively walks the model and searches for suite calls before which setup suites are to be run.
-	 * 
-	 * @param aSuiteCall
-	 *            the root suite call at which to begin
-	 * @return a map with suite calls to setup suites to run
-	 */
-	protected static Map<Suite, List<SuiteDefinition>> findSetupMoments(Suite aSuiteCall) {
-		return recursiveFindSetupMoments(aSuiteCall, new HashSet<SuiteDefinition>(), new HashSet<SuiteDefinition>());
-	}
-
-	/**
-	 * Recursive method being used by {@link #findSetupMoments(Suite)}.
-	 * 
-	 * @param aSuiteCall
-	 * @param someAlreadyCoveredDependencies
-	 * @param someAlreadyVisitedSuites
-	 * @return
-	 */
-	protected static Map<Suite, List<SuiteDefinition>> recursiveFindSetupMoments(Suite aSuiteCall,
-			Set<SuiteDefinition> someAlreadyCoveredDependencies, Set<SuiteDefinition> someAlreadyVisitedSuites) {
-		SuiteDefinition tempSuite = aSuiteCall.getDefinition();
-		Map<Suite, List<SuiteDefinition>> tempResults = new HashMap<Suite, List<SuiteDefinition>>();
-		someAlreadyVisitedSuites.add(tempSuite);
-
-		// first add our own dependencies, if not already covered
-		for (SuiteDefinition tempDependency : recursiveListSuiteDependencies(tempSuite)) {
-			if (!someAlreadyCoveredDependencies.contains(tempDependency)) {
-				List<SuiteDefinition> tempDependencyList = tempResults.get(aSuiteCall);
-				if (tempDependencyList == null) {
-					tempDependencyList = new LinkedList<SuiteDefinition>();
-					tempResults.put(aSuiteCall, tempDependencyList);
-				}
-				tempDependencyList.add(tempDependency);
-				someAlreadyCoveredDependencies.add(tempDependency);
-			}
-		}
-
-		// then descend down into other called suites
-		for (SuiteStatement tempStatement : tempSuite.getStatements()) {
-			if (tempStatement instanceof Suite) {
-				Suite tempSuiteCall = (Suite) tempStatement;
-				if (!someAlreadyVisitedSuites.contains(tempSuiteCall.getDefinition())) {
-					Map<Suite, List<SuiteDefinition>> tempRecursiveResults = recursiveFindSetupMoments(tempSuiteCall,
-							someAlreadyCoveredDependencies, someAlreadyVisitedSuites);
-
-					// add sub-results to our own results
-					for (Entry<Suite, List<SuiteDefinition>> tempEntry : tempRecursiveResults.entrySet()) {
-						tempResults.put(tempEntry.getKey(), tempEntry.getValue());
-					}
-				}
-			}
-		}
-
-		return tempResults;
-	}
-
-	/**
-	 * Recursively explore a suite definition and find dependencies.
-	 * 
-	 * @param aSuite
-	 *            the suite
-	 * @return the dependencies required by this suite or any suite called by this suite
-	 */
-	protected static List<SuiteDefinition> recursiveListSuiteDependencies(SuiteDefinition aSuite) {
-		List<SuiteDefinition> tempResults = new LinkedList<SuiteDefinition>(aSuite.getDependencies());
-		for (SuiteStatement tempStatement : aSuite.getStatements()) {
-			if (tempStatement instanceof Suite) {
-				tempResults.addAll(recursiveListSuiteDependencies(((Suite) tempStatement).getDefinition()));
-			}
-		}
-		return tempResults;
 	}
 
 	/**

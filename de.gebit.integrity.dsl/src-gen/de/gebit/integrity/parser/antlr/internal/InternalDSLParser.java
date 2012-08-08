@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SL_VISIBLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_STRING", "RULE_ID", "RULE_INTEGER", "RULE_DECIMAL", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_UPPERCASE_ID", "RULE_NEWLINE", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'forkdef'", "'uses'", "'testdef'", "'calldef'", "'suitedef'", "'gets'", "'requires'", "'suiteend'", "'concludedby'", "'variable'", "'initially'", "'constant'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'->'", "'suite'", "'on'", "':'", "'+'", "','", "'null'", "'#'", "'*'", "'.'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SL_VISIBLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_STRING", "RULE_ID", "RULE_INTEGER", "RULE_DECIMAL", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_UPPERCASE_ID", "RULE_NEWLINE", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'forkdef'", "'uses'", "'testdef'", "'calldef'", "'suitedef'", "'gets'", "'requires'", "'concludedby'", "'suiteend'", "'variable'", "'initially'", "'constant'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'->'", "'suite'", "'on'", "':'", "'+'", "','", "'null'", "'#'", "'*'", "'.'", "'.*'"
     };
     public static final int RULE_ID=7;
     public static final int T__29=29;
@@ -1895,7 +1895,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSuiteDefinition"
-    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:832:1: ruleSuiteDefinition returns [EObject current=null] : (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_12= 'with' ruleNL ( (lv_statements_14_0= ruleSuiteStatement ) )* otherlv_15= 'suiteend' ruleNL (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? ) ;
+    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:832:1: ruleSuiteDefinition returns [EObject current=null] : (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_16= 'with' ruleNL ( (lv_statements_18_0= ruleSuiteStatement ) )* otherlv_19= 'suiteend' ruleNL ) ;
     public final EObject ruleSuiteDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -1903,23 +1903,23 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         Token otherlv_4=null;
         Token otherlv_8=null;
         Token otherlv_12=null;
-        Token otherlv_15=null;
-        Token otherlv_17=null;
+        Token otherlv_16=null;
+        Token otherlv_19=null;
         AntlrDatatypeRuleToken lv_name_2_0 = null;
 
         EObject lv_parameters_6_0 = null;
 
-        EObject lv_statements_14_0 = null;
+        EObject lv_statements_18_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:835:28: ( (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_12= 'with' ruleNL ( (lv_statements_14_0= ruleSuiteStatement ) )* otherlv_15= 'suiteend' ruleNL (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:1: (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_12= 'with' ruleNL ( (lv_statements_14_0= ruleSuiteStatement ) )* otherlv_15= 'suiteend' ruleNL (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:835:28: ( (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_16= 'with' ruleNL ( (lv_statements_18_0= ruleSuiteStatement ) )* otherlv_19= 'suiteend' ruleNL ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:1: (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_16= 'with' ruleNL ( (lv_statements_18_0= ruleSuiteStatement ) )* otherlv_19= 'suiteend' ruleNL )
             {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:1: (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_12= 'with' ruleNL ( (lv_statements_14_0= ruleSuiteStatement ) )* otherlv_15= 'suiteend' ruleNL (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:3: otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_12= 'with' ruleNL ( (lv_statements_14_0= ruleSuiteStatement ) )* otherlv_15= 'suiteend' ruleNL (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )?
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:1: (otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_16= 'with' ruleNL ( (lv_statements_18_0= ruleSuiteStatement ) )* otherlv_19= 'suiteend' ruleNL )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:836:3: otherlv_0= 'suitedef' ruleNL ( (lv_name_2_0= ruleQualifiedName ) ) ruleNL (otherlv_4= 'gets' ruleNL ( ( (lv_parameters_6_0= ruleVariableEntity ) ) ruleNL )* )? (otherlv_8= 'requires' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )? otherlv_16= 'with' ruleNL ( (lv_statements_18_0= ruleSuiteStatement ) )* otherlv_19= 'suiteend' ruleNL
             {
             otherlv_0=(Token)match(input,26,FOLLOW_26_in_ruleSuiteDefinition1818); 
 
@@ -2171,104 +2171,25 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_12=(Token)match(input,19,FOLLOW_19_in_ruleSuiteDefinition2021); 
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:947:5: (otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )?
+            int alt12=2;
+            int LA12_0 = input.LA(1);
 
-                	newLeafNode(otherlv_12, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_6());
-                
-             
-                    newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7()); 
-                
-            pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2037);
-            ruleNL();
-
-            state._fsp--;
-
-             
-                    afterParserOrEnumRuleCall();
-                
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:959:1: ( (lv_statements_14_0= ruleSuiteStatement ) )*
-            loop11:
-            do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
-
-                if ( ((LA11_0>=RULE_SL_VISIBLE_COMMENT && LA11_0<=RULE_ML_VISIBLE_COMMENT)||LA11_0==31||(LA11_0>=33 && LA11_0<=34)||LA11_0==36||LA11_0==38||LA11_0==40) ) {
-                    alt11=1;
-                }
-
-
-                switch (alt11) {
-            	case 1 :
-            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:960:1: (lv_statements_14_0= ruleSuiteStatement )
-            	    {
-            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:960:1: (lv_statements_14_0= ruleSuiteStatement )
-            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:961:3: lv_statements_14_0= ruleSuiteStatement
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_8_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition2057);
-            	    lv_statements_14_0=ruleSuiteStatement();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
-            	    	        }
-            	           		add(
-            	           			current, 
-            	           			"statements",
-            	            		lv_statements_14_0, 
-            	            		"SuiteStatement");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop11;
-                }
-            } while (true);
-
-            otherlv_15=(Token)match(input,29,FOLLOW_29_in_ruleSuiteDefinition2070); 
-
-                	newLeafNode(otherlv_15, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_9());
-                
-             
-                    newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10()); 
-                
-            pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2086);
-            ruleNL();
-
-            state._fsp--;
-
-             
-                    afterParserOrEnumRuleCall();
-                
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:989:1: (otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )* )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
-
-            if ( (LA13_0==30) ) {
-                alt13=1;
+            if ( (LA12_0==29) ) {
+                alt12=1;
             }
-            switch (alt13) {
+            switch (alt12) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:989:3: otherlv_17= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )*
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:947:7: otherlv_12= 'concludedby' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )*
                     {
-                    otherlv_17=(Token)match(input,30,FOLLOW_30_in_ruleSuiteDefinition2098); 
+                    otherlv_12=(Token)match(input,29,FOLLOW_29_in_ruleSuiteDefinition2022); 
 
-                        	newLeafNode(otherlv_17, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_11_0());
+                        	newLeafNode(otherlv_12, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_6_0());
                         
                      
-                            newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_1()); 
+                            newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_1()); 
                         
-                    pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2114);
+                    pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2038);
                     ruleNL();
 
                     state._fsp--;
@@ -2276,26 +2197,26 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                             afterParserOrEnumRuleCall();
                         
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1001:1: ( ( ( ruleQualifiedName ) ) ruleNL )*
-                    loop12:
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:959:1: ( ( ( ruleQualifiedName ) ) ruleNL )*
+                    loop11:
                     do {
-                        int alt12=2;
-                        int LA12_0 = input.LA(1);
+                        int alt11=2;
+                        int LA11_0 = input.LA(1);
 
-                        if ( (LA12_0==RULE_ID) ) {
-                            alt12=1;
+                        if ( (LA11_0==RULE_ID) ) {
+                            alt11=1;
                         }
 
 
-                        switch (alt12) {
+                        switch (alt11) {
                     	case 1 :
-                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1001:2: ( ( ruleQualifiedName ) ) ruleNL
+                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:959:2: ( ( ruleQualifiedName ) ) ruleNL
                     	    {
-                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1001:2: ( ( ruleQualifiedName ) )
-                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1002:1: ( ruleQualifiedName )
+                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:959:2: ( ( ruleQualifiedName ) )
+                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:960:1: ( ruleQualifiedName )
                     	    {
-                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1002:1: ( ruleQualifiedName )
-                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1003:3: ruleQualifiedName
+                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:960:1: ( ruleQualifiedName )
+                    	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:961:3: ruleQualifiedName
                     	    {
 
                     	    			if (current==null) {
@@ -2303,9 +2224,9 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	    	        }
                     	            
                     	     
-                    	    	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_11_2_0_0()); 
+                    	    	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_6_2_0_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition2137);
+                    	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition2061);
                     	    ruleQualifiedName();
 
                     	    state._fsp--;
@@ -2320,9 +2241,9 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	    }
 
                     	     
-                    	            newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_2_1()); 
+                    	            newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_2_1()); 
                     	        
-                    	    pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2153);
+                    	    pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2077);
                     	    ruleNL();
 
                     	    state._fsp--;
@@ -2335,7 +2256,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop12;
+                    	    break loop11;
                         }
                     } while (true);
 
@@ -2345,6 +2266,85 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
+            otherlv_16=(Token)match(input,19,FOLLOW_19_in_ruleSuiteDefinition2092); 
+
+                	newLeafNode(otherlv_16, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_7());
+                
+             
+                    newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8()); 
+                
+            pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2108);
+            ruleNL();
+
+            state._fsp--;
+
+             
+                    afterParserOrEnumRuleCall();
+                
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:994:1: ( (lv_statements_18_0= ruleSuiteStatement ) )*
+            loop13:
+            do {
+                int alt13=2;
+                int LA13_0 = input.LA(1);
+
+                if ( ((LA13_0>=RULE_SL_VISIBLE_COMMENT && LA13_0<=RULE_ML_VISIBLE_COMMENT)||LA13_0==31||(LA13_0>=33 && LA13_0<=34)||LA13_0==36||LA13_0==38||LA13_0==40) ) {
+                    alt13=1;
+                }
+
+
+                switch (alt13) {
+            	case 1 :
+            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:995:1: (lv_statements_18_0= ruleSuiteStatement )
+            	    {
+            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:995:1: (lv_statements_18_0= ruleSuiteStatement )
+            	    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:996:3: lv_statements_18_0= ruleSuiteStatement
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_9_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition2128);
+            	    lv_statements_18_0=ruleSuiteStatement();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"statements",
+            	            		lv_statements_18_0, 
+            	            		"SuiteStatement");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop13;
+                }
+            } while (true);
+
+            otherlv_19=(Token)match(input,30,FOLLOW_30_in_ruleSuiteDefinition2141); 
+
+                	newLeafNode(otherlv_19, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_10());
+                
+             
+                    newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11()); 
+                
+            pushFollow(FOLLOW_ruleNL_in_ruleSuiteDefinition2157);
+            ruleNL();
+
+            state._fsp--;
+
+             
+                    afterParserOrEnumRuleCall();
+                
 
             }
 
@@ -8543,8 +8543,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String DFA17_specialS =
         "\10\uffff}>";
     static final String[] DFA17_transitionS = {
-            "\2\3\1\uffff\1\1\25\uffff\1\3\1\uffff\1\3\1\uffff\4\3\1\uffff"+
-            "\1\3\1\uffff\1\3\2\uffff\1\2",
+            "\2\3\1\uffff\1\1\26\uffff\2\3\1\uffff\4\3\1\uffff\1\3\1\uffff"+
+            "\1\3\2\uffff\1\2",
             "\1\4\25\uffff\1\3\6\uffff\1\5",
             "\1\6",
             "",
@@ -8600,8 +8600,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String DFA31_specialS =
         "\10\uffff}>";
     static final String[] DFA31_transitionS = {
-            "\2\3\1\uffff\1\1\25\uffff\1\3\1\uffff\1\3\1\uffff\2\3\1\uffff"+
-            "\1\3\1\uffff\3\3\2\uffff\1\2",
+            "\2\3\1\uffff\1\1\26\uffff\2\3\1\uffff\2\3\1\uffff\1\3\1\uffff"+
+            "\3\3\2\uffff\1\2",
             "\1\4\31\uffff\1\3\2\uffff\1\5",
             "\1\6",
             "",
@@ -8657,18 +8657,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String DFA38_specialS =
         "\7\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\2\2\1\uffff\1\2\5\uffff\1\1\17\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\10\2\2\uffff\1\2\1\3",
-            "\2\2\1\uffff\1\2\5\uffff\1\5\1\4\16\uffff\1\2\1\uffff\1\2"+
-            "\1\uffff\10\2\2\uffff\1\2\1\3",
+            "\2\2\1\uffff\1\2\5\uffff\1\1\20\uffff\2\2\1\uffff\10\2\2\uffff"+
+            "\1\2\1\3",
+            "\2\2\1\uffff\1\2\5\uffff\1\5\1\4\17\uffff\2\2\1\uffff\10\2"+
+            "\2\uffff\1\2\1\3",
             "",
             "",
-            "\2\2\1\uffff\1\2\5\uffff\1\5\17\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\10\2\2\uffff\1\2\1\3",
-            "\2\2\1\uffff\1\2\5\uffff\1\5\1\6\16\uffff\1\2\1\uffff\1\2"+
-            "\1\uffff\10\2\2\uffff\1\2\1\3",
-            "\2\2\1\uffff\1\2\5\uffff\1\5\17\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\10\2\2\uffff\1\2\1\3"
+            "\2\2\1\uffff\1\2\5\uffff\1\5\20\uffff\2\2\1\uffff\10\2\2\uffff"+
+            "\1\2\1\3",
+            "\2\2\1\uffff\1\2\5\uffff\1\5\1\6\17\uffff\2\2\1\uffff\10\2"+
+            "\2\uffff\1\2\1\3",
+            "\2\2\1\uffff\1\2\5\uffff\1\5\20\uffff\2\2\1\uffff\10\2\2\uffff"+
+            "\1\2\1\3"
     };
 
     static final short[] DFA38_eot = DFA.unpackEncodedString(DFA38_eotS);
@@ -8784,25 +8784,25 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleSuiteDefinition1781 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_26_in_ruleSuiteDefinition1818 = new BitSet(new long[]{0x0000000000002080L});
     public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1834 = new BitSet(new long[]{0x0000000000002080L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1854 = new BitSet(new long[]{0x0000000018082000L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1870 = new BitSet(new long[]{0x0000000018080000L});
-    public static final BitSet FOLLOW_27_in_ruleSuiteDefinition1882 = new BitSet(new long[]{0x0000000010082080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1898 = new BitSet(new long[]{0x0000000010082080L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_ruleSuiteDefinition1919 = new BitSet(new long[]{0x0000000010082080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1935 = new BitSet(new long[]{0x0000000010082080L});
-    public static final BitSet FOLLOW_28_in_ruleSuiteDefinition1951 = new BitSet(new long[]{0x0000000000082080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1967 = new BitSet(new long[]{0x0000000000082080L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1990 = new BitSet(new long[]{0x0000000000082080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2006 = new BitSet(new long[]{0x0000000000082080L});
-    public static final BitSet FOLLOW_19_in_ruleSuiteDefinition2021 = new BitSet(new long[]{0x00000156A7642030L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2037 = new BitSet(new long[]{0x00000156A7640030L});
-    public static final BitSet FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition2057 = new BitSet(new long[]{0x00000156A7640030L});
-    public static final BitSet FOLLOW_29_in_ruleSuiteDefinition2070 = new BitSet(new long[]{0x0000000040002000L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2086 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_ruleSuiteDefinition2098 = new BitSet(new long[]{0x0000000000002080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2114 = new BitSet(new long[]{0x0000000000002082L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition2137 = new BitSet(new long[]{0x0000000000002080L});
-    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2153 = new BitSet(new long[]{0x0000000000002082L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1854 = new BitSet(new long[]{0x0000000038082000L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1870 = new BitSet(new long[]{0x0000000038080000L});
+    public static final BitSet FOLLOW_27_in_ruleSuiteDefinition1882 = new BitSet(new long[]{0x0000000030082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1898 = new BitSet(new long[]{0x0000000030082080L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_ruleSuiteDefinition1919 = new BitSet(new long[]{0x0000000030082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1935 = new BitSet(new long[]{0x0000000030082080L});
+    public static final BitSet FOLLOW_28_in_ruleSuiteDefinition1951 = new BitSet(new long[]{0x0000000020082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition1967 = new BitSet(new long[]{0x0000000020082080L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition1990 = new BitSet(new long[]{0x0000000020082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2006 = new BitSet(new long[]{0x0000000020082080L});
+    public static final BitSet FOLLOW_29_in_ruleSuiteDefinition2022 = new BitSet(new long[]{0x0000000000082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2038 = new BitSet(new long[]{0x0000000000082080L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSuiteDefinition2061 = new BitSet(new long[]{0x0000000000082080L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2077 = new BitSet(new long[]{0x0000000000082080L});
+    public static final BitSet FOLLOW_19_in_ruleSuiteDefinition2092 = new BitSet(new long[]{0x00000156C7642030L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2108 = new BitSet(new long[]{0x00000156C7640030L});
+    public static final BitSet FOLLOW_ruleSuiteStatement_in_ruleSuiteDefinition2128 = new BitSet(new long[]{0x00000156C7640030L});
+    public static final BitSet FOLLOW_30_in_ruleSuiteDefinition2141 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_ruleNL_in_ruleSuiteDefinition2157 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSuiteStatement_in_entryRuleSuiteStatement2192 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSuiteStatement2202 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSuiteStatementWithResult_in_ruleSuiteStatement2249 = new BitSet(new long[]{0x0000000000000002L});

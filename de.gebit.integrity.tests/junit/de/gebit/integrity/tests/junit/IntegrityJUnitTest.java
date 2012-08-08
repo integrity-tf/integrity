@@ -55,24 +55,36 @@ public abstract class IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	protected Document executeIntegritySuite(String aSuiteName) throws ModelLoadException, IOException, JDOMException {
+		File tempXmlFile = null;
+
 		List<File> tempFileList = new ArrayList<File>();
 		tempFileList.add(new File("integrity"));
 
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempFileList, true);
 		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false);
 
-		File tempXmlFile = File.createTempFile("integrityJUnit", ".xml");
+		try {
+			tempXmlFile = File.createTempFile("integrityJUnit", ".xml");
 
-		TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(getClass()
-				.getClassLoader()), new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile,
-				"Integrity JUnit Testing", false));
+			TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(getClass()
+					.getClassLoader()), new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile,
+					"Integrity JUnit Testing", false));
 
-		TestRunner tempRunner = new TestRunner(tempModel, tempCallback, null, null);
-		tempRunner.run(tempModel.getSuiteByName(aSuiteName), false);
-		tempRunner.shutdown(true);
+			TestRunner tempRunner = new TestRunner(tempModel, tempCallback, null, null);
+			tempRunner.run(tempModel.getSuiteByName(aSuiteName), false);
+			tempRunner.shutdown(true);
 
-		SAXBuilder tempBuilder = new SAXBuilder(false);
-		return tempBuilder.build(tempXmlFile);
+			SAXBuilder tempBuilder = new SAXBuilder(false);
+			return tempBuilder.build(tempXmlFile);
+		} finally {
+			if ("true".equals(System.getProperty("keepFiles"))) {
+				System.out.println("Wrote file " + tempXmlFile);
+			} else {
+				if (tempXmlFile != null) {
+					tempXmlFile.delete();
+				}
+			}
+		}
 	}
 
 	/**

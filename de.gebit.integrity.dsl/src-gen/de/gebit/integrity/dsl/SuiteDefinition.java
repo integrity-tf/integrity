@@ -15,8 +15,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getDependencies <em>Dependencies</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getFinalizers <em>Finalizers</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,22 +85,6 @@ public interface SuiteDefinition extends PackageStatement
   EList<SuiteDefinition> getDependencies();
 
   /**
-   * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-   * The list contents are of type {@link de.gebit.integrity.dsl.SuiteStatement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Statements</em>' containment reference list.
-   * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Statements()
-   * @model containment="true"
-   * @generated
-   */
-  EList<SuiteStatement> getStatements();
-
-  /**
    * Returns the value of the '<em><b>Finalizers</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteDefinition}.
    * <!-- begin-user-doc -->
@@ -115,5 +99,21 @@ public interface SuiteDefinition extends PackageStatement
    * @generated
    */
   EList<SuiteDefinition> getFinalizers();
+
+  /**
+   * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.SuiteStatement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Statements</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Statements()
+   * @model containment="true"
+   * @generated
+   */
+  EList<SuiteStatement> getStatements();
 
 } // SuiteDefinition

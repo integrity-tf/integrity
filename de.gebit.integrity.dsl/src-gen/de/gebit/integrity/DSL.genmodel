@@ -42,8 +42,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/dependencies"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/statements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/finalizers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/statements"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatement"/>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatementWithResult"/>

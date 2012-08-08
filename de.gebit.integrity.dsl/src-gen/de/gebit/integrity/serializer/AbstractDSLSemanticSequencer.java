@@ -714,8 +714,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         name=QualifiedName 
 	 *         parameters+=VariableEntity* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 
-	 *         statements+=SuiteStatement* 
-	 *         finalizers+=[SuiteDefinition|QualifiedName]*
+	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
+	 *         statements+=SuiteStatement*
 	 *     )
 	 */
 	protected void sequence_SuiteDefinition(EObject context, SuiteDefinition semanticObject) {

@@ -102,14 +102,14 @@ packagedef mysecondpackage with
 		
 		suite suiteWithParams param1: testvar param2: yeah
 	
-	suiteend concludedby exitSuite
+	suiteend
 	
 	suitedef anotherSuite requires initSuite with
 	
 		variable testvar initially 5
 		call random min:5 max:6 -> testvar
 	
-	suiteend concludedby exitSuite
+	suiteend
 	
 	suitedef suiteWithParams gets param1 param2 with
 	
