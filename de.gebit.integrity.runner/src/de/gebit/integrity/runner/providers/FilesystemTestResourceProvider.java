@@ -51,9 +51,16 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	 * @param aSearchRecursivelyFlag
 	 *            whether the scan process shall search recursively inside subdirectories
 	 */
-	public FilesystemTestResourceProvider(Collection<? extends File> someDirectories, boolean aSearchRecursivelyFlag) {
-		for (File tempDir : someDirectories) {
-			scanDirectory(tempDir, aSearchRecursivelyFlag);
+	public FilesystemTestResourceProvider(Collection<? extends File> someDirectoriesOrFiles,
+			boolean aSearchRecursivelyFlag) {
+		for (File tempDirOrFile : someDirectoriesOrFiles) {
+			if (tempDirOrFile.isDirectory()) {
+				scanDirectory(tempDirOrFile, aSearchRecursivelyFlag);
+			} else {
+				if (tempDirOrFile.getAbsolutePath().endsWith(".integrity")) {
+					resourceFiles.add(tempDirOrFile.getAbsolutePath());
+				}
+			}
 		}
 	}
 
