@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class IntegerValueImpl extends ValueImpl implements IntegerValue
+public class IntegerValueImpl extends StaticValueImpl implements IntegerValue
 {
   /**
    * The default value of the '{@link #getIntegerValue() <em>Integer Value</em>}' attribute.

@@ -27,6 +27,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="forkerClass" eType="#//JavaClassReference"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariantDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fixtureMethod" eType="#//MethodReference"
@@ -59,7 +63,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="ConstantDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//StaticValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variantValues" upperBound="-1"
+        eType="#//VariantValue" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariantValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="names" unique="false" upperBound="-1"
+        eType="#//VariantDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//StaticValue"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableEntity">
@@ -136,6 +148,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//SuiteParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fork" eType="#//ForkDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variants" unique="false"
+        upperBound="-1" eType="#//VariantDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteParameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
@@ -163,22 +177,23 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//ValueOrEnumValue"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//Value">
+  <eClassifiers xsi:type="ecore:EClass" name="StaticValue" eSuperTypes="#//Value"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DecimalValue" eSuperTypes="#//Value">
+  <eClassifiers xsi:type="ecore:EClass" name="DecimalValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimalValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//Value">
+  <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BooleanValue" eSuperTypes="#//Value">
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="booleanValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//Value"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
   </eClassifiers>

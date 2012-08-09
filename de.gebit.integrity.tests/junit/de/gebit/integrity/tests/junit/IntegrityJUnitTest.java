@@ -54,7 +54,8 @@ public abstract class IntegrityJUnitTest {
 	 * @throws IOException
 	 * @throws JDOMException
 	 */
-	protected Document executeIntegritySuite(String aSuiteName) throws ModelLoadException, IOException, JDOMException {
+	protected Document executeIntegritySuite(String aSuiteName, String aVariantName) throws ModelLoadException,
+			IOException, JDOMException {
 		File tempXmlFile = null;
 
 		List<File> tempFileList = new ArrayList<File>();
@@ -71,7 +72,7 @@ public abstract class IntegrityJUnitTest {
 					"Integrity JUnit Testing", false));
 
 			TestRunner tempRunner = new TestRunner(tempModel, tempCallback, null, null);
-			tempRunner.run(tempModel.getSuiteByName(aSuiteName), false);
+			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 
 			SAXBuilder tempBuilder = new SAXBuilder(false);

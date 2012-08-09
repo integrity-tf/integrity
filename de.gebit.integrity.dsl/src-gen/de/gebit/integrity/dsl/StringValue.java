@@ -19,7 +19,7 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface StringValue extends Value
+public interface StringValue extends StaticValue
 {
   /**
    * Returns the value of the '<em><b>String Value</b></em>' attribute.

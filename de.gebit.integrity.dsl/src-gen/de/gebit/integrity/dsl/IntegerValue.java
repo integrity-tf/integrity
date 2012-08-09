@@ -20,7 +20,7 @@ import java.math.BigInteger;
  * @model
  * @generated
  */
-public interface IntegerValue extends Value
+public interface IntegerValue extends StaticValue
 {
   /**
    * Returns the value of the '<em><b>Integer Value</b></em>' attribute.

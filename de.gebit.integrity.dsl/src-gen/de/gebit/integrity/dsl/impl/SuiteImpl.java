@@ -8,6 +8,7 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.VariantDefinition;
 
 import java.util.Collection;
 
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -35,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getFork <em>Fork</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getVariants <em>Variants</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +84,16 @@ public class SuiteImpl extends StatementImpl implements Suite
    * @ordered
    */
   protected ForkDefinition fork;
+
+  /**
+   * The cached value of the '{@link #getVariants() <em>Variants</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVariants()
+   * @generated
+   * @ordered
+   */
+  protected EList<VariantDefinition> variants;
 
   /**
    * <!-- begin-user-doc -->
@@ -256,6 +269,20 @@ public class SuiteImpl extends StatementImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VariantDefinition> getVariants()
+  {
+    if (variants == null)
+    {
+      variants = new EObjectResolvingEList<VariantDefinition>(VariantDefinition.class, this, DslPackage.SUITE__VARIANTS);
+    }
+    return variants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -289,6 +316,8 @@ public class SuiteImpl extends StatementImpl implements Suite
       case DslPackage.SUITE__FORK:
         if (resolve) return getFork();
         return basicGetFork();
+      case DslPackage.SUITE__VARIANTS:
+        return getVariants();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -317,6 +346,10 @@ public class SuiteImpl extends StatementImpl implements Suite
       case DslPackage.SUITE__FORK:
         setFork((ForkDefinition)newValue);
         return;
+      case DslPackage.SUITE__VARIANTS:
+        getVariants().clear();
+        getVariants().addAll((Collection<? extends VariantDefinition>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -343,6 +376,9 @@ public class SuiteImpl extends StatementImpl implements Suite
       case DslPackage.SUITE__FORK:
         setFork((ForkDefinition)null);
         return;
+      case DslPackage.SUITE__VARIANTS:
+        getVariants().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -365,6 +401,8 @@ public class SuiteImpl extends StatementImpl implements Suite
         return parameters != null && !parameters.isEmpty();
       case DslPackage.SUITE__FORK:
         return fork != null;
+      case DslPackage.SUITE__VARIANTS:
+        return variants != null && !variants.isEmpty();
     }
     return super.eIsSet(featureID);
   }

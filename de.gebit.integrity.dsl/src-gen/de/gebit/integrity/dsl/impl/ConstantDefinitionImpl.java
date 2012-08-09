@@ -4,16 +4,24 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantValue;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getVariantValues <em>Variant Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,7 +58,17 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * @generated
    * @ordered
    */
-  protected Value value;
+  protected StaticValue value;
+
+  /**
+   * The cached value of the '{@link #getVariantValues() <em>Variant Values</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVariantValues()
+   * @generated
+   * @ordered
+   */
+  protected EList<VariantValue> variantValues;
 
   /**
    * <!-- begin-user-doc -->
@@ -125,7 +144,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public Value getValue()
+  public StaticValue getValue()
   {
     return value;
   }
@@ -135,9 +154,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(Value newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(StaticValue newValue, NotificationChain msgs)
   {
-    Value oldValue = value;
+    StaticValue oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -152,7 +171,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(Value newValue)
+  public void setValue(StaticValue newValue)
   {
     if (newValue != value)
     {
@@ -173,6 +192,20 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VariantValue> getVariantValues()
+  {
+    if (variantValues == null)
+    {
+      variantValues = new EObjectContainmentEList<VariantValue>(VariantValue.class, this, DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES);
+    }
+    return variantValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -182,6 +215,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         return basicSetName(null, msgs);
       case DslPackage.CONSTANT_DEFINITION__VALUE:
         return basicSetValue(null, msgs);
+      case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
+        return ((InternalEList<?>)getVariantValues()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -200,6 +235,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         return getName();
       case DslPackage.CONSTANT_DEFINITION__VALUE:
         return getValue();
+      case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
+        return getVariantValues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -209,6 +246,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -218,7 +256,11 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         setName((VariableEntity)newValue);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((Value)newValue);
+        setValue((StaticValue)newValue);
+        return;
+      case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
+        getVariantValues().clear();
+        getVariantValues().addAll((Collection<? extends VariantValue>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -238,7 +280,10 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         setName((VariableEntity)null);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((Value)null);
+        setValue((StaticValue)null);
+        return;
+      case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
+        getVariantValues().clear();
         return;
     }
     super.eUnset(featureID);
@@ -258,6 +303,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         return name != null;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
         return value != null;
+      case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
+        return variantValues != null && !variantValues.isEmpty();
     }
     return super.eIsSet(featureID);
   }

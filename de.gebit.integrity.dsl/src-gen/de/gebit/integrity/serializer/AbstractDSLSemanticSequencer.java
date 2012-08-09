@@ -39,6 +39,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.services.DSLGrammarAccess;
@@ -72,6 +74,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.BOOLEAN_VALUE:
 				if(context == grammarAccess.getBooleanValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_BooleanValue(context, (BooleanValue) semanticObject); 
@@ -102,6 +105,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.DECIMAL_VALUE:
 				if(context == grammarAccess.getDecimalValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_DecimalValue(context, (DecimalValue) semanticObject); 
@@ -152,6 +156,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.INTEGER_VALUE:
 				if(context == grammarAccess.getIntegerValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_IntegerValue(context, (IntegerValue) semanticObject); 
@@ -190,6 +195,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.NULL:
 				if(context == grammarAccess.getNullValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_NullValue(context, (Null) semanticObject); 
@@ -228,7 +234,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.STRING_VALUE:
-				if(context == grammarAccess.getStringValueRule() ||
+				if(context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getStringValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueRule()) {
 					sequence_StringValue(context, (StringValue) semanticObject); 
@@ -314,6 +321,19 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case DslPackage.VARIANT_DEFINITION:
+				if(context == grammarAccess.getPackageStatementRule() ||
+				   context == grammarAccess.getVariantDefinitionRule()) {
+					sequence_VariantDefinition(context, (VariantDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.VARIANT_VALUE:
+				if(context == grammarAccess.getVariantValueRule()) {
+					sequence_VariantValue(context, (VariantValue) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.VISIBLE_MULTI_LINE_COMMENT:
 				if(context == grammarAccess.getSuiteStatementRule() ||
 				   context == grammarAccess.getVisibleMultiLineCommentRule()) {
@@ -387,20 +407,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=VariableEntity value=Value)
+	 *     (name=VariableEntity value=StaticValue? variantValues+=VariantValue*)
 	 */
 	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT_DEFINITION__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getConstantDefinitionAccess().getNameVariableEntityParserRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getConstantDefinitionAccess().getValueValueParserRuleCall_4_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -744,7 +754,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (multiplier=ExecutionMultiplier? definition=[SuiteDefinition|QualifiedName] parameters+=SuiteParameter* fork=[ForkDefinition|QualifiedName]?)
+	 *     (
+	 *         multiplier=ExecutionMultiplier? 
+	 *         definition=[SuiteDefinition|QualifiedName] 
+	 *         parameters+=SuiteParameter* 
+	 *         fork=[ForkDefinition|QualifiedName]? 
+	 *         variants+=[VariantDefinition|QualifiedName]*
+	 *     )
 	 */
 	protected void sequence_Suite(EObject context, Suite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -851,6 +867,24 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=QualifiedName description=STRING?)
+	 */
+	protected void sequence_VariantDefinition(EObject context, VariantDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (names+=[VariantDefinition|QualifiedName]+ value=StaticValue)
+	 */
+	protected void sequence_VariantValue(EObject context, VariantValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

@@ -21,13 +21,16 @@ PackageDefinition:
 	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
 PackageStatement:
-	Import | ForkDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
+	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 
 Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
 	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)?;
+	
+VariantDefinition:
+	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
 	
 TestDefinition:
 	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
@@ -48,7 +51,10 @@ VariableDefinition:
 	'variable' NL name=VariableEntity NL ('initially' NL initialValue=Value NL)?;
 	
 ConstantDefinition:
-	'constant' NL name=VariableEntity NL value=Value NL;
+	'constant' NL name=VariableEntity (NL value=StaticValue)? (variantValues+=VariantValue)* NL;
+	
+VariantValue:
+	NL 'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=StaticValue;
 	
 VariableEntity:
 	name=QualifiedName;
@@ -88,7 +94,7 @@ NamedCallResult:
 	name=ResultName NL '->' NL target=Variable NL;
 	
 Suite:
-	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)?;
+	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
 
 SuiteParameter:
 	name=[VariableEntity|QualifiedName] NL ':' NL value=Value NL;
@@ -112,7 +118,10 @@ ValueOrEnumValue:
 	Value | EnumValue;
 	
 Value:
-	StringValue | IntegerValue | DecimalValue | BooleanValue | Variable | NullValue;
+	StaticValue | Variable;
+	
+StaticValue:
+	StringValue | IntegerValue | DecimalValue | BooleanValue | NullValue;
 	
 IntegerValue:
 	integerValue=INTEGER;

@@ -27,7 +27,7 @@ public class SimpleFixtureCalls extends IntegrityJUnitTest {
 	 */
 	@Test
 	public void test() throws ModelLoadException, IOException, JDOMException {
-		Document tempResult = executeIntegritySuite("integrity.basic.simpleFixtureCalls");
+		Document tempResult = executeIntegritySuite("integrity.basic.simpleFixtureCalls", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

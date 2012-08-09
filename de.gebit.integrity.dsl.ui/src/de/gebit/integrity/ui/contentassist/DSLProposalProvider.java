@@ -393,7 +393,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private static void resolveVariables(Map<String, Object> aParameterMap) {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			if (tempEntry.getValue() instanceof Variable) {
-				tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry.getValue()));
+				tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry.getValue(), null));
 			}
 		}
 	}

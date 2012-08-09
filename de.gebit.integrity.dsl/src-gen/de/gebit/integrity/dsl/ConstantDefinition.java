@@ -2,6 +2,7 @@
  */
 package de.gebit.integrity.dsl;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +14,7 @@ package de.gebit.integrity.dsl;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getVariantValues <em>Variant Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,12 +59,12 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(Value)
+   * @see #setValue(StaticValue)
    * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Value()
    * @model containment="true"
    * @generated
    */
-  Value getValue();
+  StaticValue getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}' containment reference.
@@ -72,6 +74,22 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * @see #getValue()
    * @generated
    */
-  void setValue(Value value);
+  void setValue(StaticValue value);
+
+  /**
+   * Returns the value of the '<em><b>Variant Values</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.VariantValue}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Variant Values</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Variant Values</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_VariantValues()
+   * @model containment="true"
+   * @generated
+   */
+  EList<VariantValue> getVariantValues();
 
 } // ConstantDefinition

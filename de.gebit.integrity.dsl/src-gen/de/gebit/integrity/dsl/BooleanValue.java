@@ -19,7 +19,7 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface BooleanValue extends Value
+public interface BooleanValue extends StaticValue
 {
   /**
    * Returns the value of the '<em><b>Boolean Value</b></em>' attribute.

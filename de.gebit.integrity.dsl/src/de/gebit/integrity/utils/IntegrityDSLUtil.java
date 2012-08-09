@@ -30,6 +30,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ResultName;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
@@ -40,6 +41,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -529,9 +532,11 @@ public final class IntegrityDSLUtil {
 	 * 
 	 * @param aVariable
 	 *            the variable to resolve
+	 * @param aVariant
+	 *            the active variant
 	 * @return the result, or null if none was found
 	 */
-	public static Object resolveVariableStatically(Variable aVariable) {
+	public static Object resolveVariableStatically(Variable aVariable, VariantDefinition aVariant) {
 		Value tempValue = null;
 
 		if (aVariable.getName() != null) {
@@ -540,14 +545,38 @@ public final class IntegrityDSLUtil {
 				tempValue = tempDefinition.getInitialValue();
 			} else if (aVariable.getName().eContainer() instanceof ConstantDefinition) {
 				ConstantDefinition tempDefinition = (ConstantDefinition) aVariable.getName().eContainer();
-				tempValue = tempDefinition.getValue();
+				tempValue = resolveConstantValue(tempDefinition, aVariant);
 			}
 		}
 
 		if (tempValue != null && tempValue instanceof Variable) {
-			return resolveVariableStatically(aVariable);
+			return resolveVariableStatically(aVariable, aVariant);
 		} else {
 			return tempValue;
 		}
+	}
+
+	/**
+	 * Resolves a constant definition to its defined value, which may depend on the active variant.
+	 * 
+	 * @param aConstant
+	 *            the constant to resolve
+	 * @param aVariant
+	 *            the active variant
+	 * @return the result, or null if none is defined for the constant
+	 */
+	public static StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant) {
+		StaticValue tempValue = aConstant.getValue();
+		if (aVariant != null) {
+			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
+				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {
+					if (tempDefinition == aVariant) {
+						tempValue = tempVariantValue.getValue();
+						break outer;
+					}
+				}
+			}
+		}
+		return tempValue;
 	}
 }

@@ -13,6 +13,6 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface NullValue extends Value
+public interface NullValue extends StaticValue
 {
 } // NullValue

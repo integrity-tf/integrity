@@ -134,6 +134,14 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VARIANT_DEFINITION:
+      {
+        VariantDefinition variantDefinition = (VariantDefinition)theEObject;
+        T result = caseVariantDefinition(variantDefinition);
+        if (result == null) result = casePackageStatement(variantDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.TEST_DEFINITION:
       {
         TestDefinition testDefinition = (TestDefinition)theEObject;
@@ -188,6 +196,13 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseConstantDefinition(constantDefinition);
         if (result == null) result = casePackageStatement(constantDefinition);
         if (result == null) result = caseSuiteStatement(constantDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VARIANT_VALUE:
+      {
+        VariantValue variantValue = (VariantValue)theEObject;
+        T result = caseVariantValue(variantValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -351,10 +366,20 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.STATIC_VALUE:
+      {
+        StaticValue staticValue = (StaticValue)theEObject;
+        T result = caseStaticValue(staticValue);
+        if (result == null) result = caseValue(staticValue);
+        if (result == null) result = caseValueOrEnumValue(staticValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.INTEGER_VALUE:
       {
         IntegerValue integerValue = (IntegerValue)theEObject;
         T result = caseIntegerValue(integerValue);
+        if (result == null) result = caseStaticValue(integerValue);
         if (result == null) result = caseValue(integerValue);
         if (result == null) result = caseValueOrEnumValue(integerValue);
         if (result == null) result = defaultCase(theEObject);
@@ -364,6 +389,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         DecimalValue decimalValue = (DecimalValue)theEObject;
         T result = caseDecimalValue(decimalValue);
+        if (result == null) result = caseStaticValue(decimalValue);
         if (result == null) result = caseValue(decimalValue);
         if (result == null) result = caseValueOrEnumValue(decimalValue);
         if (result == null) result = defaultCase(theEObject);
@@ -373,6 +399,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         StringValue stringValue = (StringValue)theEObject;
         T result = caseStringValue(stringValue);
+        if (result == null) result = caseStaticValue(stringValue);
         if (result == null) result = caseValue(stringValue);
         if (result == null) result = caseValueOrEnumValue(stringValue);
         if (result == null) result = defaultCase(theEObject);
@@ -382,6 +409,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         BooleanValue booleanValue = (BooleanValue)theEObject;
         T result = caseBooleanValue(booleanValue);
+        if (result == null) result = caseStaticValue(booleanValue);
         if (result == null) result = caseValue(booleanValue);
         if (result == null) result = caseValueOrEnumValue(booleanValue);
         if (result == null) result = defaultCase(theEObject);
@@ -400,6 +428,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         NullValue nullValue = (NullValue)theEObject;
         T result = caseNullValue(nullValue);
+        if (result == null) result = caseStaticValue(nullValue);
         if (result == null) result = caseValue(nullValue);
         if (result == null) result = caseValueOrEnumValue(nullValue);
         if (result == null) result = defaultCase(theEObject);
@@ -439,6 +468,7 @@ public class DslSwitch<T> extends Switch<T>
         Null null_ = (Null)theEObject;
         T result = caseNull(null_);
         if (result == null) result = caseNullValue(null_);
+        if (result == null) result = caseStaticValue(null_);
         if (result == null) result = caseValue(null_);
         if (result == null) result = caseValueOrEnumValue(null_);
         if (result == null) result = defaultCase(theEObject);
@@ -577,6 +607,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Variant Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variant Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariantDefinition(VariantDefinition object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Test Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -684,6 +730,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseConstantDefinition(ConstantDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variant Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variant Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariantValue(VariantValue object)
   {
     return null;
   }
@@ -1020,6 +1082,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseValue(Value object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Static Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Static Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStaticValue(StaticValue object)
   {
     return null;
   }

@@ -30,6 +30,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/forkerClass"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VariantDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/description"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TestDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TestDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TestDefinition/fixtureMethod"/>
@@ -54,6 +58,11 @@
     <genClasses ecoreClass="DSL.ecore#//ConstantDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/variantValues"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VariantValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//VariantValue/names"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariantValue/value"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariableEntity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariableEntity/name"/>
@@ -108,6 +117,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/fork"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/variants"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteParameter">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteParameter/name"/>
@@ -130,6 +140,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValue"/>
     <genClasses ecoreClass="DSL.ecore#//Value"/>
+    <genClasses ecoreClass="DSL.ecore#//StaticValue"/>
     <genClasses ecoreClass="DSL.ecore#//IntegerValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IntegerValue/integerValue"/>
     </genClasses>

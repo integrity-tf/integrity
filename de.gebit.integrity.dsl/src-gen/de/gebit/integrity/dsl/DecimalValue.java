@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  * @model
  * @generated
  */
-public interface DecimalValue extends Value
+public interface DecimalValue extends StaticValue
 {
   /**
    * Returns the value of the '<em><b>Decimal Value</b></em>' attribute.

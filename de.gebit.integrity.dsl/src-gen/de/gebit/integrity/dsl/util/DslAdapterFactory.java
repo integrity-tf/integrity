@@ -115,6 +115,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createForkDefinitionAdapter();
       }
       @Override
+      public Adapter caseVariantDefinition(VariantDefinition object)
+      {
+        return createVariantDefinitionAdapter();
+      }
+      @Override
       public Adapter caseTestDefinition(TestDefinition object)
       {
         return createTestDefinitionAdapter();
@@ -148,6 +153,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseConstantDefinition(ConstantDefinition object)
       {
         return createConstantDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseVariantValue(VariantValue object)
+      {
+        return createVariantValueAdapter();
       }
       @Override
       public Adapter caseVariableEntity(VariableEntity object)
@@ -253,6 +263,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseValue(Value object)
       {
         return createValueAdapter();
+      }
+      @Override
+      public Adapter caseStaticValue(StaticValue object)
+      {
+        return createStaticValueAdapter();
       }
       @Override
       public Adapter caseIntegerValue(IntegerValue object)
@@ -452,6 +467,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariantDefinition <em>Variant Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VariantDefinition
+   * @generated
+   */
+  public Adapter createVariantDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TestDefinition <em>Test Definition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -552,6 +582,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createConstantDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariantValue <em>Variant Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VariantValue
+   * @generated
+   */
+  public Adapter createVariantValueAdapter()
   {
     return null;
   }
@@ -867,6 +912,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.StaticValue <em>Static Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.StaticValue
+   * @generated
+   */
+  public Adapter createStaticValueAdapter()
   {
     return null;
   }

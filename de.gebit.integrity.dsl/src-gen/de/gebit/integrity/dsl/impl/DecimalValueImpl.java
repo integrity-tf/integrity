@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class DecimalValueImpl extends ValueImpl implements DecimalValue
+public class DecimalValueImpl extends StaticValueImpl implements DecimalValue
 {
   /**
    * The default value of the '{@link #getDecimalValue() <em>Decimal Value</em>}' attribute.

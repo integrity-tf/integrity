@@ -3,27 +3,27 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.StaticValue;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Null Value</b></em>'.
+ * An implementation of the model object '<em><b>Static Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class NullValueImpl extends StaticValueImpl implements NullValue
+public class StaticValueImpl extends ValueImpl implements StaticValue
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected NullValueImpl()
+  protected StaticValueImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class NullValueImpl extends StaticValueImpl implements NullValue
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.NULL_VALUE;
+    return DslPackage.Literals.STATIC_VALUE;
   }
 
-} //NullValueImpl
+} //StaticValueImpl

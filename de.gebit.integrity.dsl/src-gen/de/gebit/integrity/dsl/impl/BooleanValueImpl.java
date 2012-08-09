@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class BooleanValueImpl extends ValueImpl implements BooleanValue
+public class BooleanValueImpl extends StaticValueImpl implements BooleanValue
 {
   /**
    * The default value of the '{@link #getBooleanValue() <em>Boolean Value</em>}' attribute.

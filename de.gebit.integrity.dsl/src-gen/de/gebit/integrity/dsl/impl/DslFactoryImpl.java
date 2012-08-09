@@ -72,6 +72,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.PACKAGE_STATEMENT: return createPackageStatement();
       case DslPackage.IMPORT: return createImport();
       case DslPackage.FORK_DEFINITION: return createForkDefinition();
+      case DslPackage.VARIANT_DEFINITION: return createVariantDefinition();
       case DslPackage.TEST_DEFINITION: return createTestDefinition();
       case DslPackage.CALL_DEFINITION: return createCallDefinition();
       case DslPackage.SUITE_DEFINITION: return createSuiteDefinition();
@@ -79,6 +80,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.SUITE_STATEMENT_WITH_RESULT: return createSuiteStatementWithResult();
       case DslPackage.VARIABLE_DEFINITION: return createVariableDefinition();
       case DslPackage.CONSTANT_DEFINITION: return createConstantDefinition();
+      case DslPackage.VARIANT_VALUE: return createVariantValue();
       case DslPackage.VARIABLE_ENTITY: return createVariableEntity();
       case DslPackage.TEST: return createTest();
       case DslPackage.TABLE_TEST: return createTableTest();
@@ -100,6 +102,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION: return createValueOrEnumValueCollection();
       case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
       case DslPackage.VALUE: return createValue();
+      case DslPackage.STATIC_VALUE: return createStaticValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
       case DslPackage.DECIMAL_VALUE: return createDecimalValue();
       case DslPackage.STRING_VALUE: return createStringValue();
@@ -209,6 +212,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public VariantDefinition createVariantDefinition()
+  {
+    VariantDefinitionImpl variantDefinition = new VariantDefinitionImpl();
+    return variantDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public TestDefinition createTestDefinition()
   {
     TestDefinitionImpl testDefinition = new TestDefinitionImpl();
@@ -279,6 +293,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ConstantDefinitionImpl constantDefinition = new ConstantDefinitionImpl();
     return constantDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariantValue createVariantValue()
+  {
+    VariantValueImpl variantValue = new VariantValueImpl();
+    return variantValue;
   }
 
   /**
@@ -510,6 +535,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ValueImpl value = new ValueImpl();
     return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StaticValue createStaticValue()
+  {
+    StaticValueImpl staticValue = new StaticValueImpl();
+    return staticValue;
   }
 
   /**

@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
@@ -56,6 +57,8 @@ public final class ConsoleTestExecutor {
 				"noxslt", "Disables embedding of the XML->XHTML transform into the XML file", "[{--noxslt}]");
 		SimpleCommandLineParser.StringOption tempNameOption = new SimpleCommandLineParser.StringOption("n", "name",
 				"Specify a name for the test run", "[{-n,--name}]");
+		SimpleCommandLineParser.StringOption tempVariantOption = new SimpleCommandLineParser.StringOption("v",
+				"variant", "Specify the variant to execute (must be defined in the scripts!)", "[{-v,--variant}]");
 		SimpleCommandLineParser.BooleanOption tempNoremoteOption = new SimpleCommandLineParser.BooleanOption(null,
 				"noremote", "Disables remoting", "[{--noremote}]");
 		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
@@ -69,8 +72,8 @@ public final class ConsoleTestExecutor {
 				"Disable pre-executional resolving of all references in the loaded scripts. May significantly speed up the starting phase, but you risk getting strange NullPointerExceptions during execution.",
 				"[{--noresolve}]");
 
-		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempNoremoteOption,
-				tempRemoteportOption, tempWaitForPlayOption, tempNoResolveAllReferences);
+		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
+				tempNoremoteOption, tempRemoteportOption, tempWaitForPlayOption, tempNoResolveAllReferences);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -101,9 +104,19 @@ public final class ConsoleTestExecutor {
 		try {
 			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, !tempNoResolveAllReferences.isSet());
 			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
+			VariantDefinition tempVariant = null;
+
+			if (tempVariantOption.getValue() != null) {
+				tempVariant = tempModel.getVariantByName(tempVariantOption.getValue());
+				if (tempVariant == null) {
+					System.err.println("Could not find variant '" + tempVariantOption.getValue() + "' - exiting!");
+					return;
+				}
+			}
 
 			if (tempRootSuite == null) {
 				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
+				return;
 			} else {
 				Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 				tempRootSuiteCall.setDefinition(tempRootSuite);
@@ -125,7 +138,7 @@ public final class ConsoleTestExecutor {
 
 				try {
 					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, someArgs);
-					tempRunner.run(tempRootSuiteCall, tempWaitForPlayOption.isSet());
+					tempRunner.run(tempRootSuiteCall, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}

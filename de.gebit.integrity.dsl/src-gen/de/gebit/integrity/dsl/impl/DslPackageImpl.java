@@ -33,6 +33,7 @@ import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Statement;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -49,6 +50,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 
@@ -130,6 +133,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass variantDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass testDefinitionEClass = null;
 
   /**
@@ -173,6 +183,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass constantDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variantValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -320,6 +337,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass valueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass staticValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -639,6 +663,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getVariantDefinition()
+  {
+    return variantDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariantDefinition_Name()
+  {
+    return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariantDefinition_Description()
+  {
+    return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTestDefinition()
   {
     return testDefinitionEClass;
@@ -832,6 +886,46 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getConstantDefinition_Value()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstantDefinition_VariantValues()
+  {
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariantValue()
+  {
+    return variantValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariantValue_Names()
+  {
+    return (EReference)variantValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariantValue_Value()
+  {
+    return (EReference)variantValueEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1259,6 +1353,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getSuite_Variants()
+  {
+    return (EReference)suiteEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSuiteParameter()
   {
     return suiteParameterEClass;
@@ -1412,6 +1516,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EClass getValue()
   {
     return valueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getStaticValue()
+  {
+    return staticValueEClass;
   }
 
   /**
@@ -1679,6 +1793,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
 
+    variantDefinitionEClass = createEClass(VARIANT_DEFINITION);
+    createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__NAME);
+    createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__DESCRIPTION);
+
     testDefinitionEClass = createEClass(TEST_DEFINITION);
     createEAttribute(testDefinitionEClass, TEST_DEFINITION__NAME);
     createEReference(testDefinitionEClass, TEST_DEFINITION__FIXTURE_METHOD);
@@ -1705,6 +1823,11 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     constantDefinitionEClass = createEClass(CONSTANT_DEFINITION);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__NAME);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VALUE);
+    createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VARIANT_VALUES);
+
+    variantValueEClass = createEClass(VARIANT_VALUE);
+    createEReference(variantValueEClass, VARIANT_VALUE__NAMES);
+    createEReference(variantValueEClass, VARIANT_VALUE__VALUE);
 
     variableEntityEClass = createEClass(VARIABLE_ENTITY);
     createEAttribute(variableEntityEClass, VARIABLE_ENTITY__NAME);
@@ -1760,6 +1883,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(suiteEClass, SUITE__DEFINITION);
     createEReference(suiteEClass, SUITE__PARAMETERS);
     createEReference(suiteEClass, SUITE__FORK);
+    createEReference(suiteEClass, SUITE__VARIANTS);
 
     suiteParameterEClass = createEClass(SUITE_PARAMETER);
     createEReference(suiteParameterEClass, SUITE_PARAMETER__NAME);
@@ -1784,6 +1908,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     valueOrEnumValueEClass = createEClass(VALUE_OR_ENUM_VALUE);
 
     valueEClass = createEClass(VALUE);
+
+    staticValueEClass = createEClass(STATIC_VALUE);
 
     integerValueEClass = createEClass(INTEGER_VALUE);
     createEAttribute(integerValueEClass, INTEGER_VALUE__INTEGER_VALUE);
@@ -1856,6 +1982,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     importEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getPackageStatement());
     forkDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
+    variantDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     testDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     callDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     suiteDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
@@ -1874,12 +2001,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getResultName());
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getParameterName());
     valueEClass.getESuperTypes().add(this.getValueOrEnumValue());
-    integerValueEClass.getESuperTypes().add(this.getValue());
-    decimalValueEClass.getESuperTypes().add(this.getValue());
-    stringValueEClass.getESuperTypes().add(this.getValue());
-    booleanValueEClass.getESuperTypes().add(this.getValue());
+    staticValueEClass.getESuperTypes().add(this.getValue());
+    integerValueEClass.getESuperTypes().add(this.getStaticValue());
+    decimalValueEClass.getESuperTypes().add(this.getStaticValue());
+    stringValueEClass.getESuperTypes().add(this.getStaticValue());
+    booleanValueEClass.getESuperTypes().add(this.getStaticValue());
     variableEClass.getESuperTypes().add(this.getValue());
-    nullValueEClass.getESuperTypes().add(this.getValue());
+    nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValue());
     nullEClass.getESuperTypes().add(this.getNullValue());
 
@@ -1909,6 +2037,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_ForkerClass(), this.getJavaClassReference(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(variantDefinitionEClass, VariantDefinition.class, "VariantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariantDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVariantDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(testDefinitionEClass, TestDefinition.class, "TestDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTestDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestDefinition_FixtureMethod(), this.getMethodReference(), null, "fixtureMethod", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1934,7 +2066,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(constantDefinitionEClass, ConstantDefinition.class, "ConstantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConstantDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstantDefinition_Value(), this.getValue(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstantDefinition_Value(), this.getStaticValue(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstantDefinition_VariantValues(), this.getVariantValue(), null, "variantValues", null, 0, -1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variantValueEClass, VariantValue.class, "VariantValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getVariantValue_Names(), this.getVariantDefinition(), null, "names", null, 0, -1, VariantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariantValue_Value(), this.getStaticValue(), null, "value", null, 0, 1, VariantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableEntityEClass, VariableEntity.class, "VariableEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVariableEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1990,6 +2127,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getSuite_Definition(), this.getSuiteDefinition(), null, "definition", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Parameters(), this.getSuiteParameter(), null, "parameters", null, 0, -1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Fork(), this.getForkDefinition(), null, "fork", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSuite_Variants(), this.getVariantDefinition(), null, "variants", null, 0, -1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteParameterEClass, SuiteParameter.class, "SuiteParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSuiteParameter_Name(), this.getVariableEntity(), null, "name", null, 0, 1, SuiteParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2014,6 +2152,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(valueOrEnumValueEClass, ValueOrEnumValue.class, "ValueOrEnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(valueEClass, Value.class, "Value", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(staticValueEClass, StaticValue.class, "StaticValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(integerValueEClass, IntegerValue.class, "IntegerValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getIntegerValue_IntegerValue(), ecorePackage.getEBigInteger(), "integerValue", null, 0, 1, IntegerValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -26,6 +26,7 @@ import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -39,6 +40,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.CustomComparatorFixture;
@@ -207,6 +209,11 @@ public class TestRunner {
 	protected ForkDefinition forkInExecution;
 
 	/**
+	 * The currently executed test variant.
+	 */
+	protected VariantDefinition variantInExecution;
+
+	/**
 	 * The setup suites that have been executed.
 	 */
 	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
@@ -263,11 +270,11 @@ public class TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	public SuiteResult run(SuiteDefinition aRootSuite, boolean aBlockForRemotingFlag) {
+	public SuiteResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
 		Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 		tempRootSuiteCall.setDefinition(aRootSuite);
 
-		return run(tempRootSuiteCall, aBlockForRemotingFlag);
+		return run(tempRootSuiteCall, aVariant, aBlockForRemotingFlag);
 	}
 
 	/**
@@ -279,7 +286,8 @@ public class TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	public SuiteResult run(Suite aRootSuiteCall, boolean aBlockForRemotingFlag) {
+	public SuiteResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
 		try {
@@ -581,7 +589,22 @@ public class TestRunner {
 
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
-				tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement));
+				Suite tempSuite = (Suite) tempStatement;
+				boolean tempExecute = false;
+				if (tempSuite.getVariants().size() > 0) {
+					for (VariantDefinition tempVariant : tempSuite.getVariants()) {
+						if (tempVariant == variantInExecution) {
+							tempExecute = true;
+							break;
+						}
+					}
+				} else {
+					tempExecute = true;
+				}
+
+				if (tempExecute) {
+					tempResults.put((Suite) tempStatement, callSuite((Suite) tempStatement));
+				}
 			} else if (tempStatement instanceof Test) {
 				List<Result> tempInnerList = new ArrayList<Result>();
 				tempInnerList.add(executeTest((Test) tempStatement));
@@ -633,7 +656,10 @@ public class TestRunner {
 	 *            the suite in which the constant is defined
 	 */
 	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
-		defineVariable(aDefinition.getName(), aDefinition.getValue(), aSuite);
+		StaticValue tempValue = IntegrityDSLUtil.resolveConstantValue(aDefinition, variantInExecution);
+		if (tempValue != null) {
+			defineVariable(aDefinition.getName(), tempValue, aSuite);
+		}
 	}
 
 	/**

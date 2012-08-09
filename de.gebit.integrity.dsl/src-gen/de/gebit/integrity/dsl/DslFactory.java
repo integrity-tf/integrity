@@ -95,6 +95,15 @@ public interface DslFactory extends EFactory
   ForkDefinition createForkDefinition();
 
   /**
+   * Returns a new object of class '<em>Variant Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variant Definition</em>'.
+   * @generated
+   */
+  VariantDefinition createVariantDefinition();
+
+  /**
    * Returns a new object of class '<em>Test Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -156,6 +165,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   ConstantDefinition createConstantDefinition();
+
+  /**
+   * Returns a new object of class '<em>Variant Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variant Value</em>'.
+   * @generated
+   */
+  VariantValue createVariantValue();
 
   /**
    * Returns a new object of class '<em>Variable Entity</em>'.
@@ -345,6 +363,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   Value createValue();
+
+  /**
+   * Returns a new object of class '<em>Static Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Static Value</em>'.
+   * @generated
+   */
+  StaticValue createStaticValue();
 
   /**
    * Returns a new object of class '<em>Integer Value</em>'.

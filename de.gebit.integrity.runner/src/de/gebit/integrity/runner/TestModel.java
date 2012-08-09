@@ -33,6 +33,7 @@ import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
@@ -56,6 +57,11 @@ public class TestModel {
 	 * Suite names -> Suites.
 	 */
 	protected Map<String, SuiteDefinition> suiteMap;
+
+	/**
+	 * Variant names -> Variants.
+	 */
+	protected Map<String, VariantDefinition> variantMap;
 
 	/**
 	 * The Google Guice Injector.
@@ -82,9 +88,9 @@ public class TestModel {
 		injector = anInjector;
 		classLoader = aClassLoader;
 		suiteMap = new HashMap<String, SuiteDefinition>();
+		variantMap = new HashMap<String, VariantDefinition>();
 
-		// scan all models for suite definitions and put them into the map for
-		// fast access
+		// scan all models for suite definitions and variants and put them into the maps for fast access
 		for (Model tempModel : models) {
 			TreeIterator<EObject> tempIter = tempModel.eAllContents();
 			while (tempIter.hasNext()) {
@@ -96,6 +102,14 @@ public class TestModel {
 						tempSuiteName = ((PackageDefinition) tempSuite.eContainer()).getName() + "." + tempSuiteName;
 					}
 					suiteMap.put(tempSuiteName, tempSuite);
+				} else if (tempObject instanceof VariantDefinition) {
+					VariantDefinition tempVariant = (VariantDefinition) tempObject;
+					String tempVariantName = tempVariant.getName();
+					if (tempVariant.eContainer() instanceof PackageDefinition) {
+						tempVariantName = ((PackageDefinition) tempVariant.eContainer()).getName() + "."
+								+ tempVariantName;
+					}
+					variantMap.put(tempVariantName, tempVariant);
 				}
 			}
 		}
@@ -118,6 +132,17 @@ public class TestModel {
 	 */
 	public SuiteDefinition getSuiteByName(String aFullyQualifiedSuiteName) {
 		return suiteMap.get(aFullyQualifiedSuiteName);
+	}
+
+	/**
+	 * Resolves a fully qualified variant name to the actual variant definition.
+	 * 
+	 * @param aFullyQualifiedVariantName
+	 *            the variant name
+	 * @return the variant, or null if none was found
+	 */
+	public VariantDefinition getVariantByName(String aFullyQualifiedVariantName) {
+		return variantMap.get(aFullyQualifiedVariantName);
 	}
 
 	/**

@@ -66,9 +66,7 @@ packagedef mysecondpackage with
 		| 20       | 30 |
 		| 30       | 49 |
 		| 40       | 50 |
-		
-		test echo echo: VALUE_ONE = VALUE_ONE
-		
+				
 		test stupidtest
 		
 		test arbitrary fixparam: 666 +testparam1: 100 +testparam2: 200 +testresult1 = 100 +testresult2 = 200

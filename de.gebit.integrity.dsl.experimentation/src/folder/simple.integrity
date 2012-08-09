@@ -2,12 +2,21 @@ import mypackage.*
 
 packagedef mypackage with
 
+	variantdef deDE "Germany"
+	variantdef enUS
+
+	constant testconstant 1000
+
+	constant another 50
+		in deDE: 100
+		in enUS: 200
+
 	suitedef asuite with
-		tabletest addition
-		| summand1       | summand2 | =  |
-		| 21212121212121 | 20       | 30 |
-		| 11             | 30       | 49 |
-		| 12             | 40       | 50 |
+		suite bsuite in enUS
+	suiteend
+
+	suitedef bsuite with
+		test echo echo: another = 100
 	suiteend
 
 packageend
