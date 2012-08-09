@@ -10,7 +10,7 @@ import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
 
 /**
- * JUnit test which checks very simple fixture calls.
+ * JUnit test which checks suite dependencies and teardowns.
  * 
  * 
  * @author Rene Schneider
@@ -19,7 +19,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
 public class Dependencies extends IntegrityJUnitTest {
 
 	/**
-	 * Performs a suite which does simple fixture calls and checks the resulting XML document.
+	 * Performs the test.
 	 * 
 	 * @throws ModelLoadException
 	 * @throws IOException
