@@ -67,9 +67,12 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableDefinitionAccess().getGroup_4(), "rule__VariableDefinition__Group_4__0");
 					put(grammarAccess.getConstantDefinitionAccess().getGroup(), "rule__ConstantDefinition__Group__0");
 					put(grammarAccess.getTestAccess().getGroup(), "rule__Test__Group__0");
+					put(grammarAccess.getTestAccess().getGroup_4(), "rule__Test__Group_4__0");
 					put(grammarAccess.getTestAccess().getGroup_6(), "rule__Test__Group_6__0");
 					put(grammarAccess.getTableTestAccess().getGroup(), "rule__TableTest__Group__0");
+					put(grammarAccess.getTableTestAccess().getGroup_3(), "rule__TableTest__Group_3__0");
 					put(grammarAccess.getTableTestAccess().getGroup_8(), "rule__TableTest__Group_8__0");
+					put(grammarAccess.getTableTestAccess().getGroup_9(), "rule__TableTest__Group_9__0");
 					put(grammarAccess.getTableTestRowAccess().getGroup(), "rule__TableTestRow__Group__0");
 					put(grammarAccess.getParameterTableHeaderAccess().getGroup(), "rule__ParameterTableHeader__Group__0");
 					put(grammarAccess.getResultTableHeaderAccess().getGroup(), "rule__ResultTableHeader__Group__0");
@@ -77,6 +80,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNamedResultAccess().getGroup(), "rule__NamedResult__Group__0");
 					put(grammarAccess.getCallAccess().getGroup(), "rule__Call__Group__0");
 					put(grammarAccess.getCallAccess().getGroup_2(), "rule__Call__Group_2__0");
+					put(grammarAccess.getCallAccess().getGroup_5(), "rule__Call__Group_5__0");
 					put(grammarAccess.getCallAccess().getGroup_7(), "rule__Call__Group_7__0");
 					put(grammarAccess.getNamedCallResultAccess().getGroup(), "rule__NamedCallResult__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
@@ -120,15 +124,15 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantDefinitionAccess().getValueAssignment_4(), "rule__ConstantDefinition__ValueAssignment_4");
 					put(grammarAccess.getVariableEntityAccess().getNameAssignment(), "rule__VariableEntity__NameAssignment");
 					put(grammarAccess.getTestAccess().getDefinitionAssignment_2(), "rule__Test__DefinitionAssignment_2");
-					put(grammarAccess.getTestAccess().getParametersAssignment_4(), "rule__Test__ParametersAssignment_4");
+					put(grammarAccess.getTestAccess().getParametersAssignment_4_0(), "rule__Test__ParametersAssignment_4_0");
 					put(grammarAccess.getTestAccess().getResultsAssignment_5(), "rule__Test__ResultsAssignment_5");
 					put(grammarAccess.getTestAccess().getResultAssignment_6_2(), "rule__Test__ResultAssignment_6_2");
 					put(grammarAccess.getTableTestAccess().getDefinitionAssignment_2(), "rule__TableTest__DefinitionAssignment_2");
-					put(grammarAccess.getTableTestAccess().getParametersAssignment_4(), "rule__TableTest__ParametersAssignment_4");
+					put(grammarAccess.getTableTestAccess().getParametersAssignment_3_1(), "rule__TableTest__ParametersAssignment_3_1");
 					put(grammarAccess.getTableTestAccess().getParameterHeadersAssignment_5(), "rule__TableTest__ParameterHeadersAssignment_5");
 					put(grammarAccess.getTableTestAccess().getResultHeadersAssignment_6(), "rule__TableTest__ResultHeadersAssignment_6");
 					put(grammarAccess.getTableTestAccess().getDefaultResultColumnAssignment_8_0(), "rule__TableTest__DefaultResultColumnAssignment_8_0");
-					put(grammarAccess.getTableTestAccess().getRowsAssignment_10(), "rule__TableTest__RowsAssignment_10");
+					put(grammarAccess.getTableTestAccess().getRowsAssignment_9_1(), "rule__TableTest__RowsAssignment_9_1");
 					put(grammarAccess.getTableTestRowAccess().getValuesAssignment_1(), "rule__TableTestRow__ValuesAssignment_1");
 					put(grammarAccess.getParameterTableHeaderAccess().getNameAssignment_1(), "rule__ParameterTableHeader__NameAssignment_1");
 					put(grammarAccess.getResultTableHeaderAccess().getNameAssignment_1(), "rule__ResultTableHeader__NameAssignment_1");
@@ -138,7 +142,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFixedResultNameAccess().getFieldAssignment(), "rule__FixedResultName__FieldAssignment");
 					put(grammarAccess.getCallAccess().getMultiplierAssignment_2_0(), "rule__Call__MultiplierAssignment_2_0");
 					put(grammarAccess.getCallAccess().getDefinitionAssignment_3(), "rule__Call__DefinitionAssignment_3");
-					put(grammarAccess.getCallAccess().getParametersAssignment_5(), "rule__Call__ParametersAssignment_5");
+					put(grammarAccess.getCallAccess().getParametersAssignment_5_0(), "rule__Call__ParametersAssignment_5_0");
 					put(grammarAccess.getCallAccess().getResultsAssignment_6(), "rule__Call__ResultsAssignment_6");
 					put(grammarAccess.getCallAccess().getResultAssignment_7_2(), "rule__Call__ResultAssignment_7_2");
 					put(grammarAccess.getNamedCallResultAccess().getNameAssignment_0(), "rule__NamedCallResult__NameAssignment_0");

@@ -1,0 +1,13 @@
+import mypackage.*
+
+packagedef mypackage with
+
+	suitedef asuite with
+		tabletest addition
+		| summand1       | summand2 | =  |
+		| 21212121212121 | 20       | 30 |
+		| 11             | 30       | 49 |
+		| 12             | 40       | 50 |
+	suiteend
+
+packageend

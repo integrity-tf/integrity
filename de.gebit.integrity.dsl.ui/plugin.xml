@@ -277,5 +277,11 @@
             extensions="integrity">
     </provider>
   </extension>
+  <extension
+        point="org.eclipse.core.runtime.preferences">
+     <initializer
+           class="de.gebit.integrity.ui.preferences.IntegrityPreferenceInitializer">
+     </initializer>
+  </extension>
 
 </plugin>

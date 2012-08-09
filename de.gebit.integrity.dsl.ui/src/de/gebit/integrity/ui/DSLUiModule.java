@@ -5,7 +5,9 @@ package de.gebit.integrity.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
@@ -15,6 +17,7 @@ import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 import de.gebit.integrity.ui.highlighting.DSLSemanticHighlightingCalculator;
+import de.gebit.integrity.ui.preferences.IntegrityRootPreferencePage;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -76,4 +79,23 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	public Class<? extends IEObjectHoverProvider> bindEObjectHoverProvider() {
 		return IntegrityEObjectHoverProvider.class;
 	}
+
+	/**
+	 * Overrides the editor.
+	 * 
+	 * @return
+	 */
+	public Class<? extends XtextEditor> bindXtextEditor() {
+		return IntegrityEditor.class;
+	}
+
+	/**
+	 * Overrides the root language preference page.
+	 * 
+	 * @return
+	 */
+	public Class<? extends LanguageRootPreferencePage> bindLanguageRootPreferencePage() {
+		return IntegrityRootPreferencePage.class;
+	}
+
 }

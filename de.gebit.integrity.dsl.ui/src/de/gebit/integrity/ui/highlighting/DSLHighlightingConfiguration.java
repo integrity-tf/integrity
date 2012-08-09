@@ -207,6 +207,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		return tempTextStyle;
 	}
 
+	/**
+	 * Creates a text style to use for numbers used as test or call parameters.
+	 * 
+	 * @return
+	 */
 	public TextStyle parameterNumberTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
@@ -224,6 +229,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		return tempTextStyle;
 	}
 
+	/**
+	 * Creates a text style to use for strings used as parameters.
+	 * 
+	 * @return
+	 */
 	public TextStyle parameterStringTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));

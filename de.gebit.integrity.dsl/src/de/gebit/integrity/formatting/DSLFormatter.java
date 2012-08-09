@@ -3,17 +3,27 @@
  */
 package de.gebit.integrity.formatting;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
+
+import de.gebit.integrity.services.DSLGrammarAccess;
 
 /**
  * This class contains custom formatting description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting
- * on how and when to use it
+ * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting on how and when to use it
  * 
- * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an
- * example
+ * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
  * 
  * @author Rene Schneider
  */
@@ -21,12 +31,285 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 
 	@Override
 	protected void configureFormatting(FormattingConfig aConfig) {
-		// It's usually a good idea to activate the following three statements.
-		// They will add and preserve newlines around comments
-		// c.setLinewrap(0, 1,
-		// 2).before(getGrammarAccess().getSL_COMMENTRule());
-		// c.setLinewrap(0, 1,
-		// 2).before(getGrammarAccess().getML_COMMENTRule());
-		// c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+		DSLGrammarAccess tempGrammar = (DSLGrammarAccess) getGrammarAccess();
+
+		// No line wrapping
+		aConfig.setAutoLinewrap(9999);
+
+		// No spaces at the end of lines and before whitespace between tokens
+		aConfig.setNoSpace().before(tempGrammar.getNLRule());
+		aConfig.setNoSpace().before(tempGrammar.getNLFORCEDRule());
+		aConfig.setNoSpace().before(tempGrammar.getNEWLINERule());
+		aConfig.setNoSpace().around(tempGrammar.getModelAccess().getNLParserRuleCall_1());
+
+		// No spaces before colons, commas or after pluses
+		aConfig.setNoSpace().before(tempGrammar.getValueOrEnumValueCollectionAccess().getCommaKeyword_1_1());
+		aConfig.setNoSpace().before(tempGrammar.getParameterAccess().getColonKeyword_2());
+		aConfig.setNoSpace().before(tempGrammar.getSuiteParameterAccess().getColonKeyword_2());
+		aConfig.setNoSpace().after(tempGrammar.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
+
+		// No spaces at the end of table lines
+		aConfig.setNoSpace().after(tempGrammar.getTableTestAccess().getVerticalLineKeyword_8_1());
+		aConfig.setNoSpace().after(tempGrammar.getParameterTableHeaderAccess().getVerticalLineKeyword_2());
+		aConfig.setNoSpace().after(tempGrammar.getResultTableHeaderAccess().getVerticalLineKeyword_3());
+		aConfig.setNoSpace().after(tempGrammar.getParameterTableValueAccess().getVerticalLineKeyword_2());
+
+		// Indentations
+		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(), tempGrammar
+				.getPackageDefinitionAccess().getPackageendKeyword_6());
+		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_0(), tempGrammar
+				.getSuiteDefinitionAccess().getSuiteendKeyword_10());
+	}
+
+	@Override
+	public ITokenStream createFormatterStream(EObject aContext, String anIndent, ITokenStream anOut,
+			boolean aPreserveWhitespaces) {
+		return super.createFormatterStream(aContext, anIndent, new TableTestFormatterTokenStream(anOut),
+				aPreserveWhitespaces);
+	}
+
+	@Override
+	public ITokenStream createFormatterStream(String anIndent, ITokenStream anOut, boolean aPreserveWhitespaces) {
+		return super.createFormatterStream(anIndent, new TableTestFormatterTokenStream(anOut), aPreserveWhitespaces);
+	}
+
+	/**
+	 * This token stream is basically a filter that sits between the streams, catches tables and formats them before
+	 * they're forwarded.
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
+	public class TableTestFormatterTokenStream implements ITokenStream {
+
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param anOut
+		 *            the target stream
+		 */
+		public TableTestFormatterTokenStream(ITokenStream anOut) {
+			out = anOut;
+
+			DSLGrammarAccess tempGrammar = (DSLGrammarAccess) getGrammarAccess();
+			tableTestHeadStartRuleCall = tempGrammar.getTableTestAccess().getNLFORCEDParserRuleCall_4();
+			tableTestRowStartRuleCall = tempGrammar.getTableTestAccess().getNLFORCEDParserRuleCall_9_0();
+			tableTestEndRuleCall = tempGrammar.getTableTestAccess().getNLFORCEDParserRuleCall_10();
+			whitespaceRuleCall = tempGrammar.getNLAccess().getWSTerminalRuleCall_1();
+
+			tableColumnDelimiterKeywords.add(tempGrammar.getTableTestAccess().getVerticalLineKeyword_7());
+			tableColumnDelimiterKeywords.add(tempGrammar.getTableTestAccess().getVerticalLineKeyword_8_1());
+			tableColumnDelimiterKeywords.add(tempGrammar.getParameterTableHeaderAccess().getVerticalLineKeyword_0());
+			tableColumnDelimiterKeywords.add(tempGrammar.getParameterTableHeaderAccess().getVerticalLineKeyword_2());
+			tableColumnDelimiterKeywords.add(tempGrammar.getParameterTableValueAccess().getVerticalLineKeyword_0());
+			tableColumnDelimiterKeywords.add(tempGrammar.getParameterTableValueAccess().getVerticalLineKeyword_2());
+			tableColumnDelimiterKeywords.add(tempGrammar.getResultTableHeaderAccess().getVerticalLineKeyword_0());
+			tableColumnDelimiterKeywords.add(tempGrammar.getResultTableHeaderAccess().getVerticalLineKeyword_3());
+		}
+
+		/**
+		 * The target stream.
+		 */
+		private ITokenStream out;
+
+		/**
+		 * The buffer to store the table currently processed.
+		 */
+		private List<List<List<TokenTuple>>> tableBuffer = new ArrayList<List<List<TokenTuple>>>();
+
+		/**
+		 * The current line in the current table.
+		 */
+		private List<List<TokenTuple>> currentTableLine;
+
+		/**
+		 * The current cell in the current table.
+		 */
+		private List<TokenTuple> currentTableCell;
+
+		/**
+		 * Whether we are inside a table at all.
+		 */
+		private boolean inTable;
+
+		/**
+		 * The rule encountered at the beginning of a table.
+		 */
+		private final RuleCall tableTestHeadStartRuleCall;
+
+		/**
+		 * The rule encountered at the beginning of a table row.
+		 */
+		private final RuleCall tableTestRowStartRuleCall;
+
+		/**
+		 * The rule encountered at the end of a table.
+		 */
+		private final RuleCall tableTestEndRuleCall;
+
+		/**
+		 * The whitespace rule.
+		 */
+		private final RuleCall whitespaceRuleCall;
+
+		/**
+		 * The possible keywords which delimit a table column.
+		 */
+		private final Set<Keyword> tableColumnDelimiterKeywords = new HashSet<Keyword>();
+
+		@Override
+		public void flush() throws IOException {
+			out.flush();
+		}
+
+		@Override
+		public void writeHidden(EObject aGrammarElement, String aValue) throws IOException {
+			if (!inTable) {
+				out.writeHidden(aGrammarElement, aValue);
+				if (aGrammarElement == tableTestHeadStartRuleCall) {
+					startNewTable();
+				}
+			} else {
+				if (tableColumnDelimiterKeywords.contains(aGrammarElement)) {
+					concludeTableCell();
+					startNewTableCell();
+				} else if (aGrammarElement == tableTestRowStartRuleCall) {
+					concludeTableLine();
+					startNewTableLine();
+				}
+				currentTableCell.add(new TokenTuple(aGrammarElement, aValue));
+				if (aGrammarElement == tableTestEndRuleCall) {
+					concludeTable();
+				}
+			}
+		}
+
+		private void startNewTable() {
+			inTable = true;
+			tableBuffer.clear();
+			startNewTableLine();
+		}
+
+		private void concludeTable() throws IOException {
+			concludeTableLine();
+			inTable = false;
+			formatTable();
+			writeTableToOut();
+		}
+
+		private void concludeTableLine() {
+			concludeTableCell();
+			tableBuffer.add(currentTableLine);
+			currentTableLine = null;
+		}
+
+		private void concludeTableCell() {
+			currentTableLine.add(currentTableCell);
+			currentTableCell = null;
+		}
+
+		private void startNewTableLine() {
+			currentTableLine = new ArrayList<List<TokenTuple>>();
+			startNewTableCell();
+		}
+
+		private void startNewTableCell() {
+			currentTableCell = new ArrayList<TokenTuple>();
+		}
+
+		private void writeTableToOut() throws IOException {
+			for (List<List<TokenTuple>> tempLine : tableBuffer) {
+				for (List<TokenTuple> tempCell : tempLine) {
+					for (TokenTuple tempTuple : tempCell) {
+						tempTuple.writeHidden(out);
+					}
+				}
+			}
+		}
+
+		private void formatTable() {
+			List<Integer> tempColWidth = new ArrayList<Integer>();
+
+			for (int i = 0; i < 2; i++) {
+				boolean tempInSurveyMode = (i == 0);
+				for (List<List<TokenTuple>> tempLine : tableBuffer) {
+					int tempColumn = 0;
+					for (int k = 1; k < tempLine.size() - 1; k++) { // first isn't a cell, but the whitespace on the
+																	// left, and last is the whitespace on the right
+						List<TokenTuple> tempCell = tempLine.get(k);
+
+						int tempLength = 0;
+
+						for (TokenTuple tempToken : tempCell) {
+							tempLength += tempToken.getValueLength();
+						}
+
+						if (tempInSurveyMode) {
+							// just see whether we have found a new max size
+							if (tempColWidth.size() > tempColumn) {
+								if (tempColWidth.get(tempColumn) < tempLength) {
+									tempColWidth.set(tempColumn, tempLength);
+								}
+							} else {
+								tempColWidth.add(tempLength);
+							}
+						} else {
+							// inflate the column width to the max size
+							int tempCharsToAdd = tempColWidth.get(tempColumn) - tempLength;
+							if (tempCharsToAdd > 0) {
+								tempCell.add(new TokenTuple(whitespaceRuleCall, generateWhitespace(tempCharsToAdd)));
+							}
+						}
+
+						tempColumn++;
+					}
+				}
+			}
+		}
+
+		private String generateWhitespace(int aNumberOfCharacters) {
+			StringBuffer tempBuffer = new StringBuffer();
+			for (int i = 0; i < aNumberOfCharacters; i++) {
+				tempBuffer.append(' ');
+			}
+
+			return tempBuffer.toString();
+		}
+
+		@Override
+		public void writeSemantic(EObject aGrammarElement, String aValue) throws IOException {
+			out.writeSemantic(aGrammarElement, aValue);
+		}
+
+	}
+
+	private static class TokenTuple {
+
+		/**
+		 * The grammar element.
+		 */
+		private EObject grammarElement;
+
+		/**
+		 * The string value.
+		 */
+		private String value;
+
+		public TokenTuple(EObject aGrammarElement, String aValue) {
+			grammarElement = aGrammarElement;
+			value = aValue;
+		}
+
+		public void writeHidden(ITokenStream anOut) throws IOException {
+			anOut.writeHidden(grammarElement, value);
+		}
+
+		public int getValueLength() {
+			if (value != null) {
+				return value.length();
+			} else {
+				return 0;
+			}
+		}
 	}
 }

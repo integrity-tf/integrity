@@ -29,6 +29,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.jface.text.contentassist,
  org.eclipse.jface.viewers,
  org.eclipse.swt.graphics,
+ org.eclipse.ui,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

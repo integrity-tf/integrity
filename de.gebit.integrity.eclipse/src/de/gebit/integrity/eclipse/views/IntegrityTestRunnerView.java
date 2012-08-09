@@ -364,10 +364,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 */
 	private Action configureTestAction;
 
+	/**
+	 * The action which expands all nodes one level further.
+	 */
 	private Action expandAllAction;
 
+	/**
+	 * The action which collapses all nodes.
+	 */
 	private Action collapseAllAction;
 
+	/**
+	 * The last level of node expansion.
+	 */
 	private int lastExpansionLevel;
 
 	/**

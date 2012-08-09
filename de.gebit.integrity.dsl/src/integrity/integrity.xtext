@@ -54,14 +54,14 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter)* (results+=NamedResult)* ('=' NL result=ValueOrEnumValueCollection NL)?;
+	'test' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* (results+=NamedResult)* ('=' NL result=ValueOrEnumValueCollection NL)?;
 	
 TableTest:
-	'tabletest' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter)*
-		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')?  NLFORCED (rows+=TableTestRow)+;
+	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
+		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')?  (NLFORCED rows+=TableTestRow)+ NLFORCED;
 		
 TableTestRow:
-	{TableTestRow} (values+=ParameterTableValue)+ NLFORCED;
+	{TableTestRow} (values+=ParameterTableValue)+;
 	
 ParameterTableHeader:
 	'|' name=ParameterName '|'?;
@@ -82,7 +82,7 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter)* (results+=NamedCallResult)* ('->' NL result=Variable NL)?;
+	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter NL)* (results+=NamedCallResult)* ('->' NL result=Variable NL)?;
 	
 NamedCallResult:
 	name=ResultName NL '->' NL target=Variable NL;
@@ -94,7 +94,7 @@ SuiteParameter:
 	name=[VariableEntity|QualifiedName] NL ':' NL value=Value NL;
 
 Parameter:
-	name=ParameterName NL ':' NL value=ValueOrEnumValueCollection NL;
+	name=ParameterName NL ':' NL value=ValueOrEnumValueCollection;
 	
 ParameterName:
 	FixedParameterName | ArbitraryParameterOrResultName;
@@ -170,7 +170,7 @@ terminal STRING:
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 
 terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
-terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')* ('\r'? '\n')?;
+terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')*;
 terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
 
 terminal WS: (' '|'\t')+;

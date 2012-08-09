@@ -781,8 +781,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Assignment cParametersAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cParametersParameterParserRuleCall_4_0 = (RuleCall)cParametersAssignment_4.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cParametersAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final RuleCall cParametersParameterParserRuleCall_4_0_0 = (RuleCall)cParametersAssignment_4_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
 		private final Assignment cResultsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cResultsNamedResultParserRuleCall_5_0 = (RuleCall)cResultsAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -794,12 +796,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Test:
 		//
-		//	"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+		//	"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
 		//
 		//	result=ValueOrEnumValueCollection NL)?;
 		public ParserRule getRule() { return rule; }
 
-		//"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+		//"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
 		//
 		//result=ValueOrEnumValueCollection NL)?
 		public Group getGroup() { return cGroup; }
@@ -822,11 +824,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
-		//parameters+=Parameter*
-		public Assignment getParametersAssignment_4() { return cParametersAssignment_4; }
+		//(parameters+=Parameter NL)*
+		public Group getGroup_4() { return cGroup_4; }
+
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_4_0() { return cParametersAssignment_4_0; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_4_0() { return cParametersParameterParserRuleCall_4_0; }
+		public RuleCall getParametersParameterParserRuleCall_4_0_0() { return cParametersParameterParserRuleCall_4_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
 
 		//results+=NamedResult*
 		public Assignment getResultsAssignment_5() { return cResultsAssignment_5; }
@@ -861,9 +869,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Assignment cParametersAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cParametersParameterParserRuleCall_4_0 = (RuleCall)cParametersAssignment_4.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Assignment cParametersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_3_1_0 = (RuleCall)cParametersAssignment_3_1.eContents().get(0);
+		private final RuleCall cNLFORCEDParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		private final Assignment cParameterHeadersAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cParameterHeadersParameterTableHeaderParserRuleCall_5_0 = (RuleCall)cParameterHeadersAssignment_5.eContents().get(0);
 		private final Assignment cResultHeadersAssignment_6 = (Assignment)cGroup.eContents().get(6);
@@ -873,24 +883,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefaultResultColumnAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
 		private final Keyword cDefaultResultColumnEqualsSignKeyword_8_0_0 = (Keyword)cDefaultResultColumnAssignment_8_0.eContents().get(0);
 		private final Keyword cVerticalLineKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
-		private final RuleCall cNLFORCEDParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
-		private final Assignment cRowsAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final RuleCall cRowsTableTestRowParserRuleCall_10_0 = (RuleCall)cRowsAssignment_10.eContents().get(0);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final RuleCall cNLFORCEDParserRuleCall_9_0 = (RuleCall)cGroup_9.eContents().get(0);
+		private final Assignment cRowsAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cRowsTableTestRowParserRuleCall_9_1_0 = (RuleCall)cRowsAssignment_9_1.eContents().get(0);
+		private final RuleCall cNLFORCEDParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
 		
 		//TableTest:
 		//
-		//	"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+		//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 		//
-		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 		//
-		//	rows+=TableTestRow+;
+		//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 		public ParserRule getRule() { return rule; }
 
-		//"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+		//"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 		//
-		//parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+		//parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? (NLFORCED
 		//
-		//rows+=TableTestRow+
+		//rows+=TableTestRow)+ NLFORCED
 		public Group getGroup() { return cGroup; }
 
 		//"tabletest"
@@ -908,14 +920,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
-		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		//(NL parameters+=Parameter)*
+		public Group getGroup_3() { return cGroup_3; }
 
-		//parameters+=Parameter*
-		public Assignment getParametersAssignment_4() { return cParametersAssignment_4; }
+		//NL
+		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
+
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_3_1() { return cParametersAssignment_3_1; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_4_0() { return cParametersParameterParserRuleCall_4_0; }
+		public RuleCall getParametersParameterParserRuleCall_3_1_0() { return cParametersParameterParserRuleCall_3_1_0; }
+
+		//NLFORCED
+		public RuleCall getNLFORCEDParserRuleCall_4() { return cNLFORCEDParserRuleCall_4; }
 
 		//parameterHeaders+=ParameterTableHeader*
 		public Assignment getParameterHeadersAssignment_5() { return cParameterHeadersAssignment_5; }
@@ -944,14 +962,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//"|"
 		public Keyword getVerticalLineKeyword_8_1() { return cVerticalLineKeyword_8_1; }
 
-		//NLFORCED
-		public RuleCall getNLFORCEDParserRuleCall_9() { return cNLFORCEDParserRuleCall_9; }
+		//(NLFORCED rows+=TableTestRow)+
+		public Group getGroup_9() { return cGroup_9; }
 
-		//rows+=TableTestRow+
-		public Assignment getRowsAssignment_10() { return cRowsAssignment_10; }
+		//NLFORCED
+		public RuleCall getNLFORCEDParserRuleCall_9_0() { return cNLFORCEDParserRuleCall_9_0; }
+
+		//rows+=TableTestRow
+		public Assignment getRowsAssignment_9_1() { return cRowsAssignment_9_1; }
 
 		//TableTestRow
-		public RuleCall getRowsTableTestRowParserRuleCall_10_0() { return cRowsTableTestRowParserRuleCall_10_0; }
+		public RuleCall getRowsTableTestRowParserRuleCall_9_1_0() { return cRowsTableTestRowParserRuleCall_9_1_0; }
+
+		//NLFORCED
+		public RuleCall getNLFORCEDParserRuleCall_10() { return cNLFORCEDParserRuleCall_10; }
 	}
 
 	public class TableTestRowElements extends AbstractParserRuleElementFinder {
@@ -960,14 +984,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cTableTestRowAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cValuesAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValuesParameterTableValueParserRuleCall_1_0 = (RuleCall)cValuesAssignment_1.eContents().get(0);
-		private final RuleCall cNLFORCEDParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//TableTestRow:
 		//
-		//	{TableTestRow} values+=ParameterTableValue+ NLFORCED;
+		//	{TableTestRow} values+=ParameterTableValue+;
 		public ParserRule getRule() { return rule; }
 
-		//{TableTestRow} values+=ParameterTableValue+ NLFORCED
+		//{TableTestRow} values+=ParameterTableValue+
 		public Group getGroup() { return cGroup; }
 
 		//{TableTestRow}
@@ -978,9 +1001,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ParameterTableValue
 		public RuleCall getValuesParameterTableValueParserRuleCall_1_0() { return cValuesParameterTableValueParserRuleCall_1_0; }
-
-		//NLFORCED
-		public RuleCall getNLFORCEDParserRuleCall_2() { return cNLFORCEDParserRuleCall_2; }
 	}
 
 	public class ParameterTableHeaderElements extends AbstractParserRuleElementFinder {
@@ -1174,8 +1194,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cDefinitionCallDefinitionCrossReference_3_0 = (CrossReference)cDefinitionAssignment_3.eContents().get(0);
 		private final RuleCall cDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cDefinitionCallDefinitionCrossReference_3_0.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Assignment cParametersAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cParametersParameterParserRuleCall_5_0 = (RuleCall)cParametersAssignment_5.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cParametersAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cParametersParameterParserRuleCall_5_0_0 = (RuleCall)cParametersAssignment_5_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
 		private final Assignment cResultsAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cResultsNamedCallResultParserRuleCall_6_0 = (RuleCall)cResultsAssignment_6.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
@@ -1187,12 +1209,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Call:
 		//
-		//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+		//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter
 		//
-		//	results+=NamedCallResult* ("->" NL result=Variable NL)?;
+		//	NL)* results+=NamedCallResult* ("->" NL result=Variable NL)?;
 		public ParserRule getRule() { return rule; }
 
-		//"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+		//"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter NL)*
 		//
 		//results+=NamedCallResult* ("->" NL result=Variable NL)?
 		public Group getGroup() { return cGroup; }
@@ -1227,11 +1249,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
-		//parameters+=Parameter*
-		public Assignment getParametersAssignment_5() { return cParametersAssignment_5; }
+		//(parameters+=Parameter NL)*
+		public Group getGroup_5() { return cGroup_5; }
+
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_5_0() { return cParametersAssignment_5_0; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_5_0() { return cParametersParameterParserRuleCall_5_0; }
+		public RuleCall getParametersParameterParserRuleCall_5_0_0() { return cParametersParameterParserRuleCall_5_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 
 		//results+=NamedCallResult*
 		public Assignment getResultsAssignment_6() { return cResultsAssignment_6; }
@@ -1455,14 +1483,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cValueValueOrEnumValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//Parameter:
 		//
-		//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection NL;
+		//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection;
 		public ParserRule getRule() { return rule; }
 
-		//name=ParameterName NL ":" NL value=ValueOrEnumValueCollection NL
+		//name=ParameterName NL ":" NL value=ValueOrEnumValueCollection
 		public Group getGroup() { return cGroup; }
 
 		//name=ParameterName
@@ -1485,9 +1512,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueOrEnumValueCollection
 		public RuleCall getValueValueOrEnumValueCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueCollectionParserRuleCall_4_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 	}
 
 	public class ParameterNameElements extends AbstractParserRuleElementFinder {
@@ -2290,7 +2314,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Test:
 	//
-	//	"test" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter* results+=NamedResult* ("=" NL
+	//	"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
 	//
 	//	result=ValueOrEnumValueCollection NL)?;
 	public TestElements getTestAccess() {
@@ -2303,11 +2327,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTest:
 	//
-	//	"tabletest" NL definition=[TestDefinition|QualifiedName] NL parameters+=Parameter*
+	//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 	//
-	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? NLFORCED
+	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 	//
-	//	rows+=TableTestRow+;
+	//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 	public TableTestElements getTableTestAccess() {
 		return (pTableTest != null) ? pTableTest : (pTableTest = new TableTestElements());
 	}
@@ -2318,7 +2342,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTestRow:
 	//
-	//	{TableTestRow} values+=ParameterTableValue+ NLFORCED;
+	//	{TableTestRow} values+=ParameterTableValue+;
 	public TableTestRowElements getTableTestRowAccess() {
 		return (pTableTestRow != null) ? pTableTestRow : (pTableTestRow = new TableTestRowElements());
 	}
@@ -2395,9 +2419,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Call:
 	//
-	//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL parameters+=Parameter*
+	//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter
 	//
-	//	results+=NamedCallResult* ("->" NL result=Variable NL)?;
+	//	NL)* results+=NamedCallResult* ("->" NL result=Variable NL)?;
 	public CallElements getCallAccess() {
 		return (pCall != null) ? pCall : (pCall = new CallElements());
 	}
@@ -2443,7 +2467,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Parameter:
 	//
-	//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection NL;
+	//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection;
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());
 	}
@@ -2750,7 +2774,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//terminal SL_VISIBLE_COMMENT:
 	//
-	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
+	//	"--" !("\n" | "\r")*;
 	public TerminalRule getSL_VISIBLE_COMMENTRule() {
 		return (tSL_VISIBLE_COMMENT != null) ? tSL_VISIBLE_COMMENT : (tSL_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_VISIBLE_COMMENT"));
 	} 

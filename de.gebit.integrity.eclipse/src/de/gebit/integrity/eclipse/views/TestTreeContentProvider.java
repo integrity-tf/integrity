@@ -80,10 +80,24 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 
 	}
 
+	/**
+	 * Expands all nodes to a specific depth.
+	 * 
+	 * @param aDepth
+	 *            the depth
+	 */
 	public void expandToLevel(int aDepth) {
 		expandToLevelInternal(setList.getRootEntry(), aDepth);
 	}
 
+	/**
+	 * Used internally to expand a node to a specific depth (recursively).
+	 * 
+	 * @param anEntry
+	 *            the node to expand
+	 * @param aDepth
+	 *            the depth
+	 */
 	protected void expandToLevelInternal(Object anEntry, int aDepth) {
 		if (aDepth == 0) {
 			return;
