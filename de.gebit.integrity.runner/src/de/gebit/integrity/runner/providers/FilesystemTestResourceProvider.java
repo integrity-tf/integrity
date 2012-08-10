@@ -46,8 +46,8 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	 * Creates an instance naming some directories to scan for resource files. This scanning will search for file names
 	 * ending with ".integrity".
 	 * 
-	 * @param someDirectories
-	 *            the directories to scan
+	 * @param someDirectoriesOrFiles
+	 *            the directories and files to scan
 	 * @param aSearchRecursivelyFlag
 	 *            whether the scan process shall search recursively inside subdirectories
 	 */
