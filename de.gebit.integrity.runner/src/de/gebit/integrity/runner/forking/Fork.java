@@ -304,8 +304,9 @@ public class Fork {
 				if (tempEntry.getValue() == null || (tempEntry.getValue() instanceof Serializable)) {
 					client.updateVariableValue(tempEntry.getKey(), (Serializable) tempEntry.getValue());
 				} else {
-					System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempEntry.getKey()
-							+ "' TO FORK - VALUE NOT SERIALIZABLE!");
+					System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempEntry.getKey() + "' TO FORK - VALUE '"
+							+ tempEntry.getValue() + "' OF TYPE '" + tempEntry.getValue().getClass().getName()
+							+ "' NOT SERIALIZABLE!");
 				}
 			}
 			variableUpdates.clear();

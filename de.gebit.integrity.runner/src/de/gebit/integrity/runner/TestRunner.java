@@ -703,11 +703,11 @@ public class TestRunner {
 				// A fork will have to send updates to its master
 				if (remotingServer != null) {
 					String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true);
-					if (aValue instanceof Serializable) {
+					if (aValue == null || (aValue instanceof Serializable)) {
 						remotingServer.sendVariableUpdate(tempName, (Serializable) aValue);
 					} else {
-						System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempName
-								+ "' TO MASTER - VALUE NOT SERIALIZABLE!");
+						System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempName + "' TO MASTER - VALUE '"
+								+ aValue + "' OF TYPE '" + aValue.getClass().getName() + "' IS NOT SERIALIZABLE!");
 					}
 				}
 			} else {
