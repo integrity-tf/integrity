@@ -9,7 +9,7 @@ Model:
 	{Model} NL statements+=Statement*;
 	
 Statement:
-	PackageDefinition | Import | Suite;
+	Import | PackageDefinition | ForkDefinition | VariantDefinition;
 	
 VisibleSingleLineComment:
 	content=SL_VISIBLE_COMMENT NL;

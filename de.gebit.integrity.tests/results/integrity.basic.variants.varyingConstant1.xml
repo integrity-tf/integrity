@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="10.08.12 01:51" isotimestamp="2012-08-10T01:51:50" duration="36.705">
+  <variant name="var1" description="Variant 1" />
+  <variables>
+    <variable name="integrity.basic.variants.myConstant" value="200" />
+  </variables>
+  <suite name="integrity.basic.variants.varyingConstant1">
+    <setup />
+    <variables />
+    <statements>
+      <test name="echoIntegerTest" description="Echo the integer '200'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+        <results duration="0.570" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.570" description="Echo the integer '200'" type="success">
+            <parameters>
+              <parameter name="integer" value="200" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="200" value="200" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="20.680" successCount="1" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

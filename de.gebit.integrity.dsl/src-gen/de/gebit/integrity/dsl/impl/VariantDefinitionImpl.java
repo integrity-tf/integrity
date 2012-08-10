@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class VariantDefinitionImpl extends PackageStatementImpl implements VariantDefinition
+public class VariantDefinitionImpl extends StatementImpl implements VariantDefinition
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

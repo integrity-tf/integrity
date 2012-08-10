@@ -50,26 +50,30 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class StatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Statement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cPackageDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cImportParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cSuiteParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cImportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPackageDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cForkDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cVariantDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//Statement:
 		//
-		//	PackageDefinition | Import | Suite;
+		//	Import | PackageDefinition | ForkDefinition | VariantDefinition;
 		public ParserRule getRule() { return rule; }
 
-		//PackageDefinition | Import | Suite
+		//Import | PackageDefinition | ForkDefinition | VariantDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//PackageDefinition
-		public RuleCall getPackageDefinitionParserRuleCall_0() { return cPackageDefinitionParserRuleCall_0; }
-
 		//Import
-		public RuleCall getImportParserRuleCall_1() { return cImportParserRuleCall_1; }
+		public RuleCall getImportParserRuleCall_0() { return cImportParserRuleCall_0; }
 
-		//Suite
-		public RuleCall getSuiteParserRuleCall_2() { return cSuiteParserRuleCall_2; }
+		//PackageDefinition
+		public RuleCall getPackageDefinitionParserRuleCall_1() { return cPackageDefinitionParserRuleCall_1; }
+
+		//ForkDefinition
+		public RuleCall getForkDefinitionParserRuleCall_2() { return cForkDefinitionParserRuleCall_2; }
+
+		//VariantDefinition
+		public RuleCall getVariantDefinitionParserRuleCall_3() { return cVariantDefinitionParserRuleCall_3; }
 	}
 
 	public class VisibleSingleLineCommentElements extends AbstractParserRuleElementFinder {
@@ -2325,7 +2329,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Statement:
 	//
-	//	PackageDefinition | Import | Suite;
+	//	Import | PackageDefinition | ForkDefinition | VariantDefinition;
 	public StatementElements getStatementAccess() {
 		return (pStatement != null) ? pStatement : (pStatement = new StatementElements());
 	}

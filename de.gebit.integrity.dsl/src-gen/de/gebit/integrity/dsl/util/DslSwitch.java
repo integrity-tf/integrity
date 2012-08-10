@@ -130,6 +130,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         ForkDefinition forkDefinition = (ForkDefinition)theEObject;
         T result = caseForkDefinition(forkDefinition);
+        if (result == null) result = caseStatement(forkDefinition);
         if (result == null) result = casePackageStatement(forkDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -138,6 +139,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         VariantDefinition variantDefinition = (VariantDefinition)theEObject;
         T result = caseVariantDefinition(variantDefinition);
+        if (result == null) result = caseStatement(variantDefinition);
         if (result == null) result = casePackageStatement(variantDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -300,7 +302,6 @@ public class DslSwitch<T> extends Switch<T>
       {
         Suite suite = (Suite)theEObject;
         T result = caseSuite(suite);
-        if (result == null) result = caseStatement(suite);
         if (result == null) result = caseSuiteStatementWithResult(suite);
         if (result == null) result = caseSuiteStatement(suite);
         if (result == null) result = defaultCase(theEObject);

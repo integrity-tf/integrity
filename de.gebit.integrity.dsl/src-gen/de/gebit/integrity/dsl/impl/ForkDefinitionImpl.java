@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class ForkDefinitionImpl extends PackageStatementImpl implements ForkDefinition
+public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

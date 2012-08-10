@@ -132,31 +132,41 @@ ruleStatement returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getStatementAccess().getPackageDefinitionParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getStatementAccess().getImportParserRuleCall_0()); 
     }
-    this_PackageDefinition_0=rulePackageDefinition
+    this_Import_0=ruleImport
     { 
-        $current = $this_PackageDefinition_0.current; 
+        $current = $this_Import_0.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStatementAccess().getImportParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getStatementAccess().getPackageDefinitionParserRuleCall_1()); 
     }
-    this_Import_1=ruleImport
+    this_PackageDefinition_1=rulePackageDefinition
     { 
-        $current = $this_Import_1.current; 
+        $current = $this_PackageDefinition_1.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStatementAccess().getSuiteParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getStatementAccess().getForkDefinitionParserRuleCall_2()); 
     }
-    this_Suite_2=ruleSuite
+    this_ForkDefinition_2=ruleForkDefinition
     { 
-        $current = $this_Suite_2.current; 
+        $current = $this_ForkDefinition_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStatementAccess().getVariantDefinitionParserRuleCall_3()); 
+    }
+    this_VariantDefinition_3=ruleVariantDefinition
+    { 
+        $current = $this_VariantDefinition_3.current; 
         afterParserOrEnumRuleCall();
     }
 )

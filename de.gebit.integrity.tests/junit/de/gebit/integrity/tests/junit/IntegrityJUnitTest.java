@@ -54,12 +54,15 @@ public abstract class IntegrityJUnitTest {
 	 * @throws IOException
 	 * @throws JDOMException
 	 */
-	protected Document executeIntegritySuite(String aSuiteName, String aVariantName) throws ModelLoadException,
-			IOException, JDOMException {
+	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName)
+			throws ModelLoadException, IOException, JDOMException {
 		File tempXmlFile = null;
 
 		List<File> tempFileList = new ArrayList<File>();
-		tempFileList.add(new File("integrity"));
+		tempFileList.add(new File("integrity/fixtures"));
+		for (String tempFileName : someFileNames) {
+			tempFileList.add(new File(tempFileName));
+		}
 
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempFileList, true);
 		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false);

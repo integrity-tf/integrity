@@ -21,13 +21,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//Statement #//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ForkDefinition" eSuperTypes="#//PackageStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="ForkDefinition" eSuperTypes="#//Statement #//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="forkerClass" eType="#//JavaClassReference"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariantDefinition" eSuperTypes="#//PackageStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="VariantDefinition" eSuperTypes="#//Statement #//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -141,7 +141,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Variable"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//Statement #//SuiteStatementWithResult">
+  <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//SuiteStatementWithResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiplier" eType="#//ExecutionMultiplier"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//SuiteDefinition"/>

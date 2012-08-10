@@ -68,6 +68,16 @@
                 <xsl:value-of select="@name" />
               </div>
             </xsl:if>
+            <xsl:if test="count(variant) &gt; 0">
+              <div align="left" class="pagesubtitle">
+                Variant:
+                <xsl:value-of select="variant/@name" />
+                <xsl:if test="variant/@description">
+                	-
+                	<xsl:value-of select="variant/@description" />
+                </xsl:if>
+              </div>
+            </xsl:if>
             <div align="left" class="pagesubtitle">
               Started:
               <xsl:value-of select="@timestamp" />

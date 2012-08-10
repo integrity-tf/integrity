@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="10.08.12 01:58" isotimestamp="2012-08-10T01:58:44" duration="44.617">
+  <variant name="var2" description="Variant 2" />
+  <variables>
+    <variable name="integrity.basic.variants.myConstant" value="300" />
+  </variables>
+  <suite name="integrity.basic.variants.varyingSuite2">
+    <setup />
+    <variables />
+    <statements>
+      <suite name="integrity.basic.variants.varyingSuite">
+        <setup />
+        <variables />
+        <statements>
+          <suite name="integrity.basic.variants.otherSuite0">
+            <setup />
+            <variables />
+            <statements>
+              <call name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                <parameters />
+                <result duration="0.151" type="success" />
+              </call>
+            </statements>
+            <teardown />
+            <result duration="15.424" successCount="0" failureCount="0" exceptionCount="0" />
+          </suite>
+          <suite name="integrity.basic.variants.otherSuite2">
+            <setup />
+            <variables />
+            <statements>
+              <call name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                <parameters />
+                <result duration="0.263" type="success" />
+              </call>
+            </statements>
+            <teardown />
+            <result duration="2.800" successCount="0" failureCount="0" exceptionCount="0" />
+          </suite>
+        </statements>
+        <teardown />
+        <result duration="23.113" successCount="0" failureCount="0" exceptionCount="0" />
+      </suite>
+    </statements>
+    <teardown />
+    <result duration="24.278" successCount="0" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

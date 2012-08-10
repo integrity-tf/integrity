@@ -20,7 +20,7 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface VariantDefinition extends PackageStatement
+public interface VariantDefinition extends Statement, PackageStatement
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

@@ -27,7 +27,9 @@ public class Dependencies extends IntegrityJUnitTest {
 	 */
 	@Test
 	public void test() throws ModelLoadException, IOException, JDOMException {
-		Document tempResult = executeIntegritySuite("integrity.basic.dependencies.dependencies", null);
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/dependencies/dependencies.integrity" },
+				"integrity.basic.dependencies.dependencies", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

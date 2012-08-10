@@ -1,0 +1,56 @@
+import integrity.fixtures.basic.noop.*
+
+variantdef var1 "Variant 1"
+variantdef var2 "Variant 2"
+
+packagedef integrity.basic.variants with
+	
+	constant myConstant 100
+		in var1: 200
+		in var2: 300
+	
+	suitedef varyingConstant0 with
+		test echoIntegerTest integer: myConstant = 100
+	suiteend
+	
+	suitedef varyingConstant1 with
+		test echoIntegerTest integer: myConstant = 200
+	suiteend
+	
+	suitedef varyingConstant2 with
+		test echoIntegerTest integer: myConstant = 300
+	suiteend
+	
+	suitedef varyingSuite with
+		suite otherSuite0
+		suite otherSuite1 in var1
+		suite otherSuite2 in var2
+	suiteend
+	
+	suitedef varyingSuite0 with
+		suite varyingSuite
+	suiteend
+	
+	suitedef varyingSuite1 with
+		suite varyingSuite
+	suiteend
+	
+	suitedef varyingSuite2 with
+		suite varyingSuite
+	suiteend
+	
+	
+	
+	suitedef otherSuite0 with
+		call noOp
+	suiteend
+	
+	suitedef otherSuite1 with
+		call noOp
+	suiteend
+	
+	suitedef otherSuite2 with
+		call noOp
+	suiteend
+	
+packageend

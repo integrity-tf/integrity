@@ -141,7 +141,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.FORK_DEFINITION:
 				if(context == grammarAccess.getForkDefinitionRule() ||
-				   context == grammarAccess.getPackageStatementRule()) {
+				   context == grammarAccess.getPackageStatementRule() ||
+				   context == grammarAccess.getStatementRule()) {
 					sequence_ForkDefinition(context, (ForkDefinition) semanticObject); 
 					return; 
 				}
@@ -243,8 +244,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.SUITE:
-				if(context == grammarAccess.getStatementRule() ||
-				   context == grammarAccess.getSuiteRule() ||
+				if(context == grammarAccess.getSuiteRule() ||
 				   context == grammarAccess.getSuiteStatementRule() ||
 				   context == grammarAccess.getSuiteStatementWithResultRule()) {
 					sequence_Suite(context, (Suite) semanticObject); 
@@ -323,6 +323,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.VARIANT_DEFINITION:
 				if(context == grammarAccess.getPackageStatementRule() ||
+				   context == grammarAccess.getStatementRule() ||
 				   context == grammarAccess.getVariantDefinitionRule()) {
 					sequence_VariantDefinition(context, (VariantDefinition) semanticObject); 
 					return; 

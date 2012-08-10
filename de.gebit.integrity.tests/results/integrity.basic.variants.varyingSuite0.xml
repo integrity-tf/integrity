@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="10.08.12 01:58" isotimestamp="2012-08-10T01:58:43" duration="208.725">
+  <variables>
+    <variable name="integrity.basic.variants.myConstant" value="100" />
+  </variables>
+  <suite name="integrity.basic.variants.varyingSuite0">
+    <setup />
+    <variables />
+    <statements>
+      <suite name="integrity.basic.variants.varyingSuite">
+        <setup />
+        <variables />
+        <statements>
+          <suite name="integrity.basic.variants.otherSuite0">
+            <setup />
+            <variables />
+            <statements>
+              <call name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                <parameters />
+                <result duration="1.357" type="success" />
+              </call>
+            </statements>
+            <teardown />
+            <result duration="113.343" successCount="0" failureCount="0" exceptionCount="0" />
+          </suite>
+        </statements>
+        <teardown />
+        <result duration="120.011" successCount="0" failureCount="0" exceptionCount="0" />
+      </suite>
+    </statements>
+    <teardown />
+    <result duration="195.021" successCount="0" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

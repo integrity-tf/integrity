@@ -362,7 +362,7 @@ public class TestRunner {
 		variableStorage = new HashMap<VariableEntity, Object>();
 
 		if (currentCallback != null) {
-			currentCallback.onExecutionStart(model, variableStorage);
+			currentCallback.onExecutionStart(model, variantInExecution, variableStorage);
 		}
 
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {

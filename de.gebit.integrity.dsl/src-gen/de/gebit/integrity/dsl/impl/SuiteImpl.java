@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class SuiteImpl extends StatementImpl implements Suite
+public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
 {
   /**
    * The cached value of the '{@link #getMultiplier() <em>Multiplier</em>}' containment reference.

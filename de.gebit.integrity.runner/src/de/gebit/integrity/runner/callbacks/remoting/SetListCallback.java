@@ -24,6 +24,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
@@ -108,7 +109,7 @@ public class SetListCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.EXECUTION);
 		entryStack.push(tempNewEntry);
 		variableStorage = aVariableMap;

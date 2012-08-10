@@ -11,6 +11,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
@@ -87,8 +88,18 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
-		println("Test execution has begun...");
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+		String tempLine = "Test execution has begun";
+		if (aVariant != null) {
+			tempLine += " (variant '" + aVariant.getName() + "'";
+			if (aVariant.getDescription() != null) {
+				tempLine += ": '" + aVariant.getDescription() + "'";
+			}
+			tempLine += ")";
+		}
+		tempLine += "...";
+
+		println(tempLine);
 		startTime = System.currentTimeMillis();
 		variableStorage = aVariableMap;
 	}

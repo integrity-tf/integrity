@@ -11,6 +11,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
@@ -38,7 +39,8 @@ public abstract class TestRunnerCallback {
 	 * @param aVariableMap
 	 *            the variable map used to store variable values during execution
 	 */
-	public abstract void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap);
+	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
+			Map<VariableEntity, Object> aVariableMap);
 
 	/**
 	 * Called when a suite call is being followed.

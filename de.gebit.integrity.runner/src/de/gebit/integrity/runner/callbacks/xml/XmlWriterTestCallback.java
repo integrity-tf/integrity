@@ -35,6 +35,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
@@ -122,6 +123,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 	/** The Constant TEST_RUN_DURATION. */
 	private static final String TEST_RUN_DURATION = "duration";
+
+	/** The Constant VARIANT_ELEMENT. */
+	private static final String VARIANT_ELEMENT = "variant";
+
+	/** The Constant VARIANT_NAME_ATTRIBUTE. */
+	private static final String VARIANT_NAME_ATTRIBUTE = "name";
+
+	/** The Constant VARIANT_DESCRIPTION_ATTRIBUTE. */
+	private static final String VARIANT_DESCRIPTION_ATTRIBUTE = "description";
 
 	/** The Constant SUITE_ELEMENT. */
 	private static final String SUITE_ELEMENT = "suite";
@@ -298,12 +308,24 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * 
 	 * @param aModel
 	 *            the a model
+	 * @param aVariant
+	 *            the a variant
 	 * @param aVariableMap
 	 *            the a variable map
 	 */
 	@Override
-	public void onExecutionStart(TestModel aModel, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
+
+		if (aVariant != null) {
+			Element tempVariantElement = new Element(VARIANT_ELEMENT);
+			tempVariantElement.setAttribute(VARIANT_NAME_ATTRIBUTE, aVariant.getName());
+			if (aVariant.getDescription() != null) {
+				tempVariantElement.setAttribute(VARIANT_DESCRIPTION_ATTRIBUTE, aVariant.getDescription());
+			}
+			tempRootElement.addContent(tempVariantElement);
+		}
+
 		tempRootElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempRootElement.setAttribute(TEST_RUN_NAME_ATTRIBUTE, title);
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
