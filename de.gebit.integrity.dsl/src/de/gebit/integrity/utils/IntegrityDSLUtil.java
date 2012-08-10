@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
+import org.eclipse.xtext.common.types.JvmArrayType;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
@@ -159,6 +160,12 @@ public final class IntegrityDSLUtil {
 	 */
 	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromJvmTypeReference(JvmTypeReference aTypeRef) {
 		JvmType tempType = aTypeRef.getType();
+
+		if (tempType instanceof JvmArrayType) {
+			// might be an array of enums! We need to extract the raw type then.
+			JvmArrayType tempArrayType = (JvmArrayType) tempType;
+			tempType = tempArrayType.getComponentType();
+		}
 
 		if (tempType instanceof JvmEnumerationType) {
 			JvmEnumerationType tempEnumType = (JvmEnumerationType) tempType;

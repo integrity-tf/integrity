@@ -2,21 +2,10 @@ import mypackage.*
 
 packagedef mypackage with
 
-	variantdef deDE "Germany"
-	variantdef enUS
-
-	constant testconstant 1000
-
-	constant another 50
-		in deDE: 100
-		in enUS: 200
+	testdef enumArrayTest uses de.gebit.integrity.experiments.fixtures.ArrayFixture#receiveEnumArrayAndReturnSize
 
 	suitedef asuite with
-		suite bsuite in enUS
-	suiteend
-
-	suitedef bsuite with
-		test echo echo: another = 100
+		test enumArrayTest enum: VALUE1, VALUE2
 	suiteend
 
 packageend
