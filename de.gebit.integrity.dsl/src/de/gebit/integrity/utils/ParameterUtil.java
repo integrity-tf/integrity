@@ -271,18 +271,18 @@ public final class ParameterUtil {
 			}
 			return tempBuilder.toString();
 		} else if (aValue instanceof DecimalValue) {
-			return ((DecimalValue) aValue).getDecimalValue().toString();
+			return maskNullString(((DecimalValue) aValue).getDecimalValue().toString(), !anAllowNullResultFlag);
 		} else if (aValue instanceof IntegerValue) {
-			return ((IntegerValue) aValue).getIntegerValue().toString();
+			return maskNullString(((IntegerValue) aValue).getIntegerValue().toString(), !anAllowNullResultFlag);
 		} else if (aValue instanceof StringValue) {
-			return ((StringValue) aValue).getStringValue().toString();
+			return maskNullString(((StringValue) aValue).getStringValue().toString(), !anAllowNullResultFlag);
 		} else if (aValue instanceof Variable) {
 			Object tempActualValue = aVariableMap != null ? aVariableMap.get(((Variable) aValue).getName()) : null;
 			return convertValueToString(tempActualValue, aVariableMap, anAllowNullResultFlag);
 		} else if (aValue instanceof EnumValue) {
-			return ((EnumValue) aValue).getEnumValue().getSimpleName();
+			return maskNullString(((EnumValue) aValue).getEnumValue().getSimpleName(), !anAllowNullResultFlag);
 		} else if (aValue instanceof BooleanValue) {
-			return ((BooleanValue) aValue).getBooleanValue();
+			return maskNullString(((BooleanValue) aValue).getBooleanValue(), !anAllowNullResultFlag);
 		} else if (aValue instanceof NullValue) {
 			return "null";
 		} else {
@@ -291,6 +291,21 @@ public final class ParameterUtil {
 			} else {
 				return anAllowNullResultFlag ? null : "(null)";
 			}
+		}
+	}
+
+	/**
+	 * Ensures that a string is not null.
+	 * 
+	 * @param aValue
+	 * @param aMaskValueFlag
+	 * @return
+	 */
+	public static String maskNullString(String aValue, boolean aMaskValueFlag) {
+		if (aMaskValueFlag && aValue == null) {
+			return "(null)";
+		} else {
+			return aValue;
 		}
 	}
 
