@@ -42,12 +42,13 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(tempGrammar.getNEWLINERule());
 		aConfig.setNoSpace().around(tempGrammar.getModelAccess().getNLParserRuleCall_1());
 
-		// No spaces before colons, commas or after pluses
+		// No spaces before colons, commas, after pluses or before/after hashes
 		aConfig.setNoSpace().before(tempGrammar.getValueOrEnumValueCollectionAccess().getCommaKeyword_1_1());
 		aConfig.setNoSpace().before(tempGrammar.getParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getSuiteParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_4());
 		aConfig.setNoSpace().after(tempGrammar.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
+		aConfig.setNoSpace().around(tempGrammar.getMethodReferenceAccess().getNumberSignKeyword_1());
 
 		// No spaces at the end of table lines
 		aConfig.setNoSpace().after(tempGrammar.getTableTestAccess().getVerticalLineKeyword_8_1());
