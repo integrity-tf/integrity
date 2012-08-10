@@ -289,7 +289,7 @@ public final class ParameterUtil {
 			if (aValue != null) {
 				return aValue.toString();
 			} else {
-				return anAllowNullResultFlag ? null : "(null)";
+				return maskNullString(null, !anAllowNullResultFlag);
 			}
 		}
 	}
