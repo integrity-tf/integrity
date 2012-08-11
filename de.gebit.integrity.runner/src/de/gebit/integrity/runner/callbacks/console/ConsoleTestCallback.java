@@ -10,6 +10,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
@@ -139,9 +140,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 						if (tempHasBegun) {
 							print("; ");
 						}
+						// Either there is an expected value, or if there isn't, "true" is the default
+						ValueOrEnumValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 						print("'"
-								+ ParameterUtil.convertValueToString(tempEntry.getValue().getExpectedValue(),
-										variableStorage, false)
+								+ ParameterUtil.convertValueToString((tempExpectedValue == null ? true
+										: tempExpectedValue), variableStorage, false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")

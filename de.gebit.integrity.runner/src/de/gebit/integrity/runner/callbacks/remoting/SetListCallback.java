@@ -287,12 +287,11 @@ public class SetListCallback extends TestRunnerCallback {
 
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
 
+			// Either there is an expected value, or if there isn't, "true" is the default
 			ValueOrEnumValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-
-			tempComparisonEntry.setAttribute(
-					SetListEntryAttributeKeys.EXPECTED_RESULT,
-					tempExpectedValue == null ? Boolean.TRUE.toString() : ParameterUtil.convertValueToString(tempEntry
-							.getValue().getExpectedValue(), variableStorage, false));
+			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, ParameterUtil
+					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
+							false));
 			if (tempEntry.getValue().getResult() != null) {
 				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 						ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage, false));

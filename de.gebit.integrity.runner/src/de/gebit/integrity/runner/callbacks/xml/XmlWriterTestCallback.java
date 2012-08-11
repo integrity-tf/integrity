@@ -34,6 +34,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
@@ -737,8 +738,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 					tempComparisonResultElement.setAttribute(COMPARISON_NAME_ATTRIBUTE, tempEntry.getKey());
 				}
 
+				// Either there is an expected value, or if there isn't, "true" is the default
+				ValueOrEnumValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
-						.convertValueToString(tempEntry.getValue().getExpectedValue(), variableStorage, false));
+						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
+								false));
 				if (tempEntry.getValue().getResult() != null) {
 					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE, ParameterUtil
 							.convertValueToString(tempEntry.getValue().getResult(), variableStorage, false));
