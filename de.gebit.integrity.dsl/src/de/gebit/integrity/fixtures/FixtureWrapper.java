@@ -103,6 +103,32 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
+	 * Checks whether the wrapped fixture is a {@link CustomComparatorFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isCustomComparatorFixture() {
+		return (CustomComparatorFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
+	 * Performs a custom comparation using the wrapped fixture, which must be a {@link CustomComparatorFixture}. Only
+	 * usable if {@link #isCustomComparatorFixture()} returns true.
+	 * 
+	 * @param anExpectedResult
+	 *            the expected result
+	 * @param aFixtureResult
+	 *            the result actually returned by the fixture
+	 * @param aMethodName
+	 *            the name of the fixture method
+	 * @return true if comparation was successful, false otherwise
+	 */
+	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName) {
+		return ((CustomComparatorFixture) fixtureInstance)
+				.compareResults(anExpectedResult, aFixtureResult, aMethodName);
+	}
+
+	/**
 	 * Executes a fixture method with a specified name, using the given set of parameters.
 	 * 
 	 * @param aName

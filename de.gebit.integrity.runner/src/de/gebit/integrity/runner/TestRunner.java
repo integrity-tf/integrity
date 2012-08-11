@@ -43,7 +43,6 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
-import de.gebit.integrity.fixtures.CustomComparatorFixture;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -1091,7 +1090,7 @@ public class TestRunner {
 			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) {
 		if (anExpectedResult != null) {
 			if (aFixtureResult != null) {
-				if (aFixtureInstance instanceof CustomComparatorFixture) {
+				if (aFixtureInstance.isCustomComparatorFixture()) {
 					// Custom comparators will get whole arrays at once if arrays are used
 					Object tempConvertedResult;
 					Class<?> tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
@@ -1112,8 +1111,8 @@ public class TestRunner {
 								tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
 					}
 
-					return ((CustomComparatorFixture) aFixtureInstance).compareResults(tempConvertedResult,
-							aFixtureResult, aFixtureMethod.getMethod().getSimpleName());
+					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
+							aFixtureMethod.getMethod().getSimpleName());
 				} else {
 					// Standard comparation compares each value for itself in case of arrays
 					if (anExpectedResult.getMoreValues().size() > 0) {
@@ -1179,9 +1178,9 @@ public class TestRunner {
 				return (anExpectedResult instanceof NullValue);
 			}
 		} else {
-			if (aFixtureInstance instanceof CustomComparatorFixture) {
-				return ((CustomComparatorFixture) aFixtureInstance).compareResults(null, aFixtureResult, aFixtureMethod
-						.getMethod().getSimpleName());
+			if (aFixtureInstance.isCustomComparatorFixture()) {
+				return aFixtureInstance.performCustomComparation(null, aFixtureResult, aFixtureMethod.getMethod()
+						.getSimpleName());
 			} else {
 				if (aFixtureResult instanceof Boolean) {
 					return (Boolean) aFixtureResult;
