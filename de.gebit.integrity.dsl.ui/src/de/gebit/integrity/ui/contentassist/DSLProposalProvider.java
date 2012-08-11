@@ -112,7 +112,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, true, aContext,
 					anAcceptor);
 		}
 	}
@@ -131,7 +131,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, aContext,
+			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, true, aContext,
 					anAcceptor);
 		}
 	}
@@ -155,8 +155,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempHeader.getName()));
 			}
 
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
-					anAcceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
+					aContext, anAcceptor);
 		}
 	}
 
@@ -184,8 +184,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
-					anAcceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
+					aContext, anAcceptor);
 
 			Set<String> tempAlreadyUsedResults = new HashSet<String>();
 			for (ResultTableHeader tempResultHeader : tempTableTest.getResultHeaders()) {
@@ -211,13 +211,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
 						.getName()));
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, aContext,
-					anAcceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
+					aContext, anAcceptor);
 		}
 	}
 
 	private void completeParametersInternal(Set<String> someAlreadyUsedParameters, MethodReference aMethod,
-			String aPrefix, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+			String aPrefix, boolean anAddColonFlag, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
 
 		if (aMethod == null || aMethod.getMethod() == null) {
 			return;
@@ -236,8 +237,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				} else {
 					tempDisplayText = tempParam.getParamName();
 				}
-				anAcceptor.accept(createCompletionProposal((aPrefix != null ? aPrefix : "") + tempParam.getParamName(),
-						tempDisplayText, null, aContext));
+				anAcceptor.accept(createCompletionProposal((aPrefix != null ? aPrefix : "") + tempParam.getParamName()
+						+ (anAddColonFlag ? ":" : ""), tempDisplayText, null, aContext));
 			}
 		}
 	}
