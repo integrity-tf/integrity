@@ -40,6 +40,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
@@ -956,7 +957,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 *            the a result
 	 */
 	@Override
-	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
+	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
 		if (aResult != null) {
 			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
@@ -995,7 +996,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 *            the a result
 	 */
 	@Override
-	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
+	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
 		FileOutputStream tempOutputStream;

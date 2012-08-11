@@ -2,10 +2,18 @@ import mypackage.*
 
 packagedef mypackage with
 
+	forkdef fork
+
 	testdef enumArrayTest uses de.gebit.integrity.experiments.fixtures.ArrayFixture#receiveEnumArrayAndReturnSize
 
 	suitedef asuite with
-		test enumArrayTest enum: VALUE1, VALUE2
+		test enumArrayTest enum: VALUE1, VALUE2 = 2
+		
+		suite bsuite on fork
+	suiteend
+	
+	suitedef bsuite with
+		test enumArrayTest enum: VALUE1, VALUE2 = 2
 	suiteend
 
 packageend

@@ -18,6 +18,7 @@ import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
@@ -141,14 +142,14 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
+	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onSuiteFinish(aSuite, aResult);
 		}
 	}
 
 	@Override
-	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
+	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onExecutionFinish(aModel, aResult);
 		}

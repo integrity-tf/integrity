@@ -34,6 +34,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
@@ -382,11 +383,11 @@ public class SetListCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
+	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		onAnyKindOfSuiteFinish(aSuite.getDefinition(), aResult);
 	}
 
-	private void onAnyKindOfSuiteFinish(SuiteDefinition aSuite, SuiteResult aResult) {
+	private void onAnyKindOfSuiteFinish(SuiteDefinition aSuite, SuiteSummaryResult aResult) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.RESULT);
 
 		if (aResult != null) {
@@ -394,11 +395,9 @@ public class SetListCallback extends TestRunnerCallback {
 				tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXECUTION_TIME,
 						nanoTimeToString(aResult.getExecutionTime()));
 			}
-			if (aResult.getResults() != null) {
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT, aResult.getTestSuccessCount());
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.FAILURE_COUNT, aResult.getTestFailCount());
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT, aResult.getTestExceptionCount());
-			}
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT, aResult.getTestSuccessCount());
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.FAILURE_COUNT, aResult.getTestFailCount());
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT, aResult.getTestExceptionCount());
 		}
 
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
@@ -406,7 +405,7 @@ public class SetListCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
+	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		setList.setEntryInExecutionReference(null);
 	}
 

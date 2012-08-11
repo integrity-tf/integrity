@@ -16,6 +16,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
@@ -159,7 +160,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionFinish(TestModel aModel, SuiteResult aResult) {
+	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		if (aResult != null) {
 			println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
 					+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
@@ -177,7 +178,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onSuiteFinish(Suite aSuite, SuiteResult aResult) {
+	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		println("Now leaving suite " + suiteCount + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 	}

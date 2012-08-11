@@ -16,6 +16,7 @@ import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
@@ -163,14 +164,16 @@ public abstract class TestRunnerCallback {
 	public abstract void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult);
 
 	/**
-	 * Called after a suite has finished execution.
+	 * Called after a suite has finished execution. This might return a {@link SuiteResult} instance if the suite was
+	 * executed locally, or a {@link SuiteSummaryResult} with just the summary count information if the suite ran on a
+	 * fork, in which case the detailed information is not available.
 	 * 
 	 * @param aSuite
 	 *            the suite that was executed
 	 * @param aResult
 	 *            the result of the execution
 	 */
-	public abstract void onSuiteFinish(Suite aSuite, SuiteResult aResult);
+	public abstract void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult);
 
 	/**
 	 * Called after all execution has been finished. This is always the last call of an execution phase.
@@ -178,7 +181,7 @@ public abstract class TestRunnerCallback {
 	 * @param aModel
 	 * @param aResult
 	 */
-	public abstract void onExecutionFinish(TestModel aModel, SuiteResult aResult);
+	public abstract void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult);
 
 	/**
 	 * Called when a variable is being defined.

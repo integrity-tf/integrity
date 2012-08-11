@@ -65,9 +65,11 @@ import de.gebit.integrity.runner.forking.DefaultForker;
 import de.gebit.integrity.runner.forking.Fork;
 import de.gebit.integrity.runner.forking.ForkCallback;
 import de.gebit.integrity.runner.forking.ForkException;
+import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
+import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
@@ -270,7 +272,7 @@ public class TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	public SuiteResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+	public SuiteSummaryResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
 		Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 		tempRootSuiteCall.setDefinition(aRootSuite);
 
@@ -286,7 +288,7 @@ public class TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	public SuiteResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+	public SuiteSummaryResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
 		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
@@ -358,7 +360,7 @@ public class TestRunner {
 	 *            the suite call to execute
 	 * @return the result
 	 */
-	protected SuiteResult runInternal(Suite aRootSuiteCall) {
+	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
 		variableStorage = new HashMap<VariableEntity, Object>();
 
 		if (currentCallback != null) {
@@ -372,7 +374,7 @@ public class TestRunner {
 			defineConstant(tempConstantDef, null);
 		}
 
-		SuiteResult tempResult = callSuiteSingle(aRootSuiteCall);
+		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
 		if (currentCallback != null) {
 			currentCallback.onExecutionFinish(model, tempResult);
@@ -388,13 +390,13 @@ public class TestRunner {
 	 *            the suite call to execute
 	 * @return the suite results (multiple if the suite has an execution multiplier)
 	 */
-	protected List<SuiteResult> callSuite(Suite aSuiteCall) {
+	protected List<SuiteSummaryResult> callSuite(Suite aSuiteCall) {
 		int tempCount = 1;
 		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
 			tempCount = aSuiteCall.getMultiplier().getCount().intValue();
 		}
 
-		List<SuiteResult> tempResults = new ArrayList<SuiteResult>();
+		List<SuiteSummaryResult> tempResults = new ArrayList<SuiteSummaryResult>();
 		for (int i = 0; i < tempCount; i++) {
 			tempResults.add(callSuiteSingle(aSuiteCall));
 		}
@@ -418,7 +420,7 @@ public class TestRunner {
 	 *            the suite call to execute
 	 * @return the suite result
 	 */
-	protected SuiteResult callSuiteSingle(Suite aSuiteCall) {
+	protected SuiteSummaryResult callSuiteSingle(Suite aSuiteCall) {
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
 
 		if (aSuiteCall.getFork() != null && !tempForkInExecutionOnEntry) {
@@ -546,8 +548,8 @@ public class TestRunner {
 			tempSetupsAlreadyRun.remove(tempSetupSuite);
 		}
 
-		SuiteResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults, tempSetupResults,
-				tempTearDownResults, tempSuiteDuration);
+		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults,
+				tempSetupResults, tempTearDownResults, tempSuiteDuration);
 
 		if (currentCallback != null) {
 			currentCallback.onSuiteFinish(aSuiteCall, tempResult);
@@ -561,7 +563,15 @@ public class TestRunner {
 					// we're the master and need to kick off the fork, which then actually executes the stuff we've just
 					// jumped over
 					Fork tempFork = forkMap.get(forkInExecution);
-					tempFork.executeNextSegment();
+					tempSuiteDuration = System.nanoTime();
+					ForkResultSummary tempForkResultSummary = tempFork.executeNextSegment();
+					tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
+
+					if (tempForkResultSummary != null) {
+						tempResult = new SuiteSummaryResult(tempForkResultSummary.getSuccessCount(),
+								tempForkResultSummary.getFailureCount(), tempForkResultSummary.getExceptionCount(),
+								tempSuiteDuration);
+					}
 
 					// and afterwards we'll switch back to real test mode
 					currentCallback.setDryRun(false);

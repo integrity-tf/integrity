@@ -17,7 +17,7 @@ import de.gebit.integrity.runner.results.test.TestResult;
  * @author Rene Schneider
  * 
  */
-public class SuiteResult extends Result {
+public class SuiteResult extends SuiteSummaryResult {
 
 	/**
 	 * Map of suite definitions to respective results. This map contains the setup suites.
@@ -38,21 +38,6 @@ public class SuiteResult extends Result {
 	 * Set of all results.
 	 */
 	private Set<Result> results;
-
-	/**
-	 * Number of failed tests. Calculated on demand.
-	 */
-	private Integer testFailCount;
-
-	/**
-	 * Number of successful tests. Calculated on demand.
-	 */
-	private Integer testSuccessCount;
-
-	/**
-	 * Number of tests that threw an exception. Calculated on demand.
-	 */
-	private Integer testExceptionCount;
 
 	/**
 	 * Creates a new instance.
@@ -87,6 +72,28 @@ public class SuiteResult extends Result {
 			tearDownResults = someTearDownResults;
 			results.addAll(tearDownResults.values());
 		}
+
+		// Counts are calculated and saved immediately.
+		int tempSuccessCount = 0;
+		int tempFailCount = 0;
+		int tempExceptionCount = 0;
+		for (Result tempResult : results) {
+			if (tempResult instanceof SuiteResult) {
+				tempSuccessCount += ((SuiteResult) tempResult).getTestSuccessCount();
+				tempFailCount += ((SuiteResult) tempResult).getTestFailCount();
+				tempExceptionCount += ((SuiteResult) tempResult).getTestExceptionCount();
+			} else if (tempResult instanceof SuiteSummaryResult) {
+				tempSuccessCount += ((SuiteSummaryResult) tempResult).getTestSuccessCount();
+				tempFailCount += ((SuiteSummaryResult) tempResult).getTestFailCount();
+				tempExceptionCount += ((SuiteSummaryResult) tempResult).getTestExceptionCount();
+			} else if (tempResult instanceof TestResult) {
+				tempSuccessCount += ((TestResult) tempResult).getSubTestSuccessCount();
+				tempFailCount += ((TestResult) tempResult).getSubTestFailCount();
+				tempExceptionCount += ((TestResult) tempResult).getSubTestExceptionCount();
+			}
+		}
+
+		setResultCounts(tempSuccessCount, tempFailCount, tempExceptionCount);
 	}
 
 	public Map<SuiteStatementWithResult, List<? extends Result>> getResults() {
@@ -99,69 +106,6 @@ public class SuiteResult extends Result {
 
 	public Map<SuiteDefinition, Result> getTearDownResults() {
 		return tearDownResults;
-	}
-
-	/**
-	 * Returns the number of failed tests in this suite and all sub-suites.
-	 * 
-	 * @return number of tests that failed
-	 */
-	public int getTestFailCount() {
-		if (testFailCount == null) {
-			int tempCount = 0;
-			for (Result tempResult : results) {
-				if (tempResult instanceof SuiteResult) {
-					tempCount += ((SuiteResult) tempResult).getTestFailCount();
-				} else if (tempResult instanceof TestResult) {
-					tempCount += ((TestResult) tempResult).getSubTestFailCount();
-				}
-			}
-			testFailCount = tempCount;
-		}
-
-		return testFailCount;
-	}
-
-	/**
-	 * Returns the number of successful tests in this suite and all sub-suites.
-	 * 
-	 * @return the number of successful tests
-	 */
-	public int getTestSuccessCount() {
-		if (testSuccessCount == null) {
-			int tempCount = 0;
-			for (Result tempResult : results) {
-				if (tempResult instanceof SuiteResult) {
-					tempCount += ((SuiteResult) tempResult).getTestSuccessCount();
-				} else if (tempResult instanceof TestResult) {
-					tempCount += ((TestResult) tempResult).getSubTestSuccessCount();
-				}
-			}
-			testSuccessCount = tempCount;
-		}
-
-		return testSuccessCount;
-	}
-
-	/**
-	 * Returns the number of tests that threw an exception in this suite and all sub-suites.
-	 * 
-	 * @return the number of tests throwing an exception
-	 */
-	public int getTestExceptionCount() {
-		if (testExceptionCount == null) {
-			int tempCount = 0;
-			for (Result tempResult : results) {
-				if (tempResult instanceof SuiteResult) {
-					tempCount += ((SuiteResult) tempResult).getTestExceptionCount();
-				} else if (tempResult instanceof TestResult) {
-					tempCount += ((TestResult) tempResult).getSubTestExceptionCount();
-				}
-			}
-			testExceptionCount = tempCount;
-		}
-
-		return testExceptionCount;
 	}
 
 }

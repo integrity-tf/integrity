@@ -21,6 +21,8 @@ import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
@@ -73,6 +75,11 @@ public class Fork {
 	 * The setlist in the current test runner.
 	 */
 	private SetList setList;
+
+	/**
+	 * The last suite execution result summary received from the fork.
+	 */
+	private ForkResultSummary lastResultSummary;
 
 	/**
 	 * Buffer for variable updates to be transmitted to the fork.
@@ -276,12 +283,13 @@ public class Fork {
 	/**
 	 * Triggers execution of the next segment on the fork. Will block until the fork has finished executing the segment.
 	 */
-	public void executeNextSegment() {
+	public ForkResultSummary executeNextSegment() {
 		if (client != null) {
 			transmitVariableUpdates();
 
 			synchronized (this) {
 				segmentExecuted = false;
+				lastResultSummary = null;
 				client.controlExecution(ExecutionCommands.RUN);
 
 				while (isAlive() && !segmentExecuted) {
@@ -291,8 +299,14 @@ public class Fork {
 						// ignore
 					}
 				}
+				if (lastResultSummary == null) {
+					System.err.println("FAILED TO RECEIVE SUITE RESULT SUMMARY FROM FORK! "
+							+ "TEST RESULT TOTAL NUMBERS MAY BE INACCURATE!");
+				}
+				return lastResultSummary;
 			}
 		}
+		return null;
 	}
 
 	/**
@@ -350,6 +364,23 @@ public class Fork {
 			setList.integrateUpdates(someUpdatedEntries);
 			if (server != null) {
 				server.updateSetList(anEntryInExecution, someUpdatedEntries);
+			}
+
+			for (SetListEntry tempEntry : someUpdatedEntries) {
+				if (SetListEntryTypes.RESULT.equals(tempEntry.getType())) {
+					// It is a result...
+					Integer tempSuccessCount = tempEntry.getAttribute(Integer.class,
+							SetListEntryAttributeKeys.SUCCESS_COUNT);
+					Integer tempFailureCount = tempEntry.getAttribute(Integer.class,
+							SetListEntryAttributeKeys.FAILURE_COUNT);
+					Integer tempExceptionCount = tempEntry.getAttribute(Integer.class,
+							SetListEntryAttributeKeys.EXCEPTION_COUNT);
+					if (tempSuccessCount != null && tempFailureCount != null && tempExceptionCount != null) {
+						// ...must be a suite result!
+						lastResultSummary = new ForkResultSummary(tempSuccessCount, tempFailureCount,
+								tempExceptionCount);
+					}
+				}
 			}
 		}
 
