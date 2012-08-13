@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
-import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterFixtureLink;
+import de.gebit.integrity.fixtures.ArbitraryParameterFixtureLink;
 
 @ArbitraryParameterFixtureLink(ArbitraryParamFixture.class)
 public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
-	
+
 	@Override
 	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
 			Map<String, Object> someFixedParameters) {
@@ -27,6 +27,5 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 		tempList.add(new ArbitraryParameterDefinition("testresult2", String.class, "This is the second result."));
 		return tempList;
 	}
-
 
 }
