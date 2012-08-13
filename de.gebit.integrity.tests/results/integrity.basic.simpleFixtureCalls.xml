@@ -18,7 +18,7 @@
           <result duration="0.377" description="Always return true." type="success">
             <parameters />
             <comparisons>
-              <comparison expectedValue="(null)" value="true" type="success" />
+              <comparison expectedValue="true" value="true" type="success" />
             </comparisons>
           </result>
         </results>
