@@ -412,6 +412,7 @@ public class FixtureTypeWrapper {
 		@SuppressWarnings("unchecked")
 		private Class<? extends Provider> findProviderForFixtureType(final String aFullyQualifiedName)
 				throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+
 			SearchPattern tempInheritPattern = SearchPattern.createPattern(
 					linkAnnotationClass.getName().replace('$', '.'), IJavaSearchConstants.ANNOTATION_TYPE,
 					IJavaSearchConstants.REFERENCES | IJavaSearchConstants.ANNOTATION_TYPE_REFERENCE,
@@ -423,9 +424,14 @@ public class FixtureTypeWrapper {
 				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
 					IType tempType = (IType) aMatch.getElement();
 
+					// This will find the annotation if it's referred by its short name (using an import)...
 					IAnnotation tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getSimpleName());
+					if (tempAnnotation == null || !tempAnnotation.exists()) {
+						// ...and this will find it if it's referred by its fully qualified name
+						tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getName());
+					}
 
-					if (tempAnnotation != null) {
+					if (tempAnnotation != null && tempAnnotation.exists()) {
 						try {
 							IMemberValuePair[] tempPairs = tempAnnotation.getMemberValuePairs();
 							if (tempPairs.length == 1) {
