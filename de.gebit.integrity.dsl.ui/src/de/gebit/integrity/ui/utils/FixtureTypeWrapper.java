@@ -188,47 +188,49 @@ public class FixtureTypeWrapper {
 
 			List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
 					.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap);
-			for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
-				String tempName = tempArbitraryParameter.getName();
-				Object tempValue = aParameterMap.remove(tempName);
-				Class<?> tempExpectedType = tempArbitraryParameter.getType();
-				if (tempValue != null) {
-					Object tempConvertedValue;
-					if (tempValue instanceof Object[]) {
-						if (!tempExpectedType.isArray()) {
-							throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-									+ aFixtureMethodName + "' in fixture '" + fixtureType.getFullyQualifiedName()
-									+ "' is not an array type, thus you cannot put multiple values into it!");
-						}
-						Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
-								((Object[]) tempValue).length);
-						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-							Object tempSingleValue = ((Object[]) tempValue)[k];
-							if (tempSingleValue instanceof ValueOrEnumValue) {
-								Array.set(tempConvertedValueArray, k, ParameterUtil
-										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-												(ValueOrEnumValue) tempSingleValue, null));
+			if (tempArbitraryParameters != null) {
+				for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
+					String tempName = tempArbitraryParameter.getName();
+					Object tempValue = aParameterMap.remove(tempName);
+					Class<?> tempExpectedType = tempArbitraryParameter.getType();
+					if (tempValue != null) {
+						Object tempConvertedValue;
+						if (tempValue instanceof Object[]) {
+							if (!tempExpectedType.isArray()) {
+								throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
+										+ aFixtureMethodName + "' in fixture '" + fixtureType.getFullyQualifiedName()
+										+ "' is not an array type, thus you cannot put multiple values into it!");
+							}
+							Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
+									((Object[]) tempValue).length);
+							for (int k = 0; k < ((Object[]) tempValue).length; k++) {
+								Object tempSingleValue = ((Object[]) tempValue)[k];
+								if (tempSingleValue instanceof ValueOrEnumValue) {
+									Array.set(tempConvertedValueArray, k, ParameterUtil
+											.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
+													(ValueOrEnumValue) tempSingleValue, null));
+								} else {
+									Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
+											tempExpectedType.getComponentType(), tempSingleValue));
+								}
+							}
+							tempConvertedValue = tempConvertedValueArray;
+						} else {
+							if (tempValue instanceof ValueOrEnumValue) {
+								tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
+										tempExpectedType, (ValueOrEnumValue) tempValue, null);
 							} else {
-								Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
-										tempExpectedType.getComponentType(), tempSingleValue));
+								tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
+							}
+							if (tempExpectedType.isArray()) {
+								// The target type may still be an array, even though just one parameter value was given
+								Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
+								Array.set(tempNewArray, 0, tempConvertedValue);
+								tempConvertedValue = tempNewArray;
 							}
 						}
-						tempConvertedValue = tempConvertedValueArray;
-					} else {
-						if (tempValue instanceof ValueOrEnumValue) {
-							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(tempExpectedType,
-									(ValueOrEnumValue) tempValue, null);
-						} else {
-							tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
-						}
-						if (tempExpectedType.isArray()) {
-							// The target type may still be an array, even though just one parameter value was given
-							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-							Array.set(tempNewArray, 0, tempConvertedValue);
-							tempConvertedValue = tempNewArray;
-						}
+						aParameterMap.put(tempName, tempConvertedValue);
 					}
-					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}
 		}
