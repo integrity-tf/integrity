@@ -49,6 +49,8 @@ import de.gebit.integrity.utils.ParameterUtil;
  */
 public class FixtureTypeWrapper {
 
+	private static ClassLoadingUtil classLoadingUtil = new ClassLoadingUtil();
+
 	/**
 	 * The encapsulated type.
 	 */
@@ -479,7 +481,7 @@ public class FixtureTypeWrapper {
 				return null;
 			}
 
-			return (Class<? extends Provider>) ClassLoadingUtil.loadClassFromWorkspace(
+			return (Class<? extends Provider>) classLoadingUtil.loadClassFromWorkspace(
 					searchResult.getFullyQualifiedName(), searchResult.getJavaProject());
 		}
 	}
