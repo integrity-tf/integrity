@@ -912,30 +912,32 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Assignment cParametersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_3_1_0 = (RuleCall)cParametersAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Assignment cParametersAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
-		private final RuleCall cParametersParameterParserRuleCall_4_0_0 = (RuleCall)cParametersAssignment_4_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
-		private final Assignment cResultsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cResultsNamedResultParserRuleCall_5_0 = (RuleCall)cResultsAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cEqualsSignKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
-		private final Assignment cResultAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
-		private final RuleCall cResultValueOrEnumValueCollectionParserRuleCall_6_2_0 = (RuleCall)cResultAssignment_6_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_6_3 = (RuleCall)cGroup_6.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
+		private final Assignment cResultsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cResultsNamedResultParserRuleCall_4_1_0 = (RuleCall)cResultsAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final RuleCall cNLParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_5_2 = (RuleCall)cGroup_5.eContents().get(2);
+		private final Assignment cResultAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
+		private final RuleCall cResultValueOrEnumValueCollectionParserRuleCall_5_3_0 = (RuleCall)cResultAssignment_5_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
 		
 		//Test:
 		//
-		//	"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
+		//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 		//
-		//	result=ValueOrEnumValueCollection NL)?;
+		//	result=ValueOrEnumValueCollection)? NL;
 		public ParserRule getRule() { return rule; }
 
-		//"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
+		//"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 		//
-		//result=ValueOrEnumValueCollection NL)?
+		//result=ValueOrEnumValueCollection)? NL
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -953,44 +955,50 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
-		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		//(NL parameters+=Parameter)*
+		public Group getGroup_3() { return cGroup_3; }
 
-		//(parameters+=Parameter NL)*
-		public Group getGroup_4() { return cGroup_4; }
+		//NL
+		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
 
 		//parameters+=Parameter
-		public Assignment getParametersAssignment_4_0() { return cParametersAssignment_4_0; }
+		public Assignment getParametersAssignment_3_1() { return cParametersAssignment_3_1; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_4_0_0() { return cParametersParameterParserRuleCall_4_0_0; }
+		public RuleCall getParametersParameterParserRuleCall_3_1_0() { return cParametersParameterParserRuleCall_3_1_0; }
+
+		//(NL results+=NamedResult)*
+		public Group getGroup_4() { return cGroup_4; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
+		public RuleCall getNLParserRuleCall_4_0() { return cNLParserRuleCall_4_0; }
 
-		//results+=NamedResult*
-		public Assignment getResultsAssignment_5() { return cResultsAssignment_5; }
+		//results+=NamedResult
+		public Assignment getResultsAssignment_4_1() { return cResultsAssignment_4_1; }
 
 		//NamedResult
-		public RuleCall getResultsNamedResultParserRuleCall_5_0() { return cResultsNamedResultParserRuleCall_5_0; }
+		public RuleCall getResultsNamedResultParserRuleCall_4_1_0() { return cResultsNamedResultParserRuleCall_4_1_0; }
 
-		//("=" NL result=ValueOrEnumValueCollection NL)?
-		public Group getGroup_6() { return cGroup_6; }
+		//(NL "=" NL result=ValueOrEnumValueCollection)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5_0() { return cNLParserRuleCall_5_0; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_6_0() { return cEqualsSignKeyword_6_0; }
+		public Keyword getEqualsSignKeyword_5_1() { return cEqualsSignKeyword_5_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_6_1() { return cNLParserRuleCall_6_1; }
+		public RuleCall getNLParserRuleCall_5_2() { return cNLParserRuleCall_5_2; }
 
 		//result=ValueOrEnumValueCollection
-		public Assignment getResultAssignment_6_2() { return cResultAssignment_6_2; }
+		public Assignment getResultAssignment_5_3() { return cResultAssignment_5_3; }
 
 		//ValueOrEnumValueCollection
-		public RuleCall getResultValueOrEnumValueCollectionParserRuleCall_6_2_0() { return cResultValueOrEnumValueCollectionParserRuleCall_6_2_0; }
+		public RuleCall getResultValueOrEnumValueCollectionParserRuleCall_5_3_0() { return cResultValueOrEnumValueCollectionParserRuleCall_5_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_6_3() { return cNLParserRuleCall_6_3; }
+		public RuleCall getNLParserRuleCall_6() { return cNLParserRuleCall_6; }
 	}
 
 	public class TableTestElements extends AbstractParserRuleElementFinder {
@@ -1236,14 +1244,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cValueValueOrEnumValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//NamedResult:
 		//
-		//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection NL;
+		//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection;
 		public ParserRule getRule() { return rule; }
 
-		//name=ResultName NL "=" NL value=ValueOrEnumValueCollection NL
+		//name=ResultName NL "=" NL value=ValueOrEnumValueCollection
 		public Group getGroup() { return cGroup; }
 
 		//name=ResultName
@@ -1266,9 +1273,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueOrEnumValueCollection
 		public RuleCall getValueValueOrEnumValueCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueCollectionParserRuleCall_4_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 	}
 
 	public class ResultNameElements extends AbstractParserRuleElementFinder {
@@ -1325,30 +1329,32 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cDefinitionCallDefinitionCrossReference_3_0 = (CrossReference)cDefinitionAssignment_3.eContents().get(0);
 		private final RuleCall cDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cDefinitionCallDefinitionCrossReference_3_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final RuleCall cNLParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
+		private final Assignment cParametersAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_4_1_0 = (RuleCall)cParametersAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Assignment cParametersAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final RuleCall cParametersParameterParserRuleCall_5_0_0 = (RuleCall)cParametersAssignment_5_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
-		private final Assignment cResultsAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cResultsNamedCallResultParserRuleCall_6_0 = (RuleCall)cResultsAssignment_6.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
-		private final Assignment cResultAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
-		private final RuleCall cResultVariableParserRuleCall_7_2_0 = (RuleCall)cResultAssignment_7_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7_3 = (RuleCall)cGroup_7.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
+		private final Assignment cResultsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cResultsNamedCallResultParserRuleCall_5_1_0 = (RuleCall)cResultsAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final RuleCall cNLParserRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_6_2 = (RuleCall)cGroup_6.eContents().get(2);
+		private final Assignment cResultAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final RuleCall cResultVariableParserRuleCall_6_3_0 = (RuleCall)cResultAssignment_6_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//Call:
 		//
-		//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter
+		//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)*
 		//
-		//	NL)* results+=NamedCallResult* ("->" NL result=Variable NL)?;
+		//	(NL results+=NamedCallResult)* (NL "->" NL result=Variable)? NL;
 		public ParserRule getRule() { return rule; }
 
-		//"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter NL)*
+		//"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)* (NL
 		//
-		//results+=NamedCallResult* ("->" NL result=Variable NL)?
+		//results+=NamedCallResult)* (NL "->" NL result=Variable)? NL
 		public Group getGroup() { return cGroup; }
 
 		//"call"
@@ -1378,44 +1384,50 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1() { return cDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1; }
 
-		//NL
-		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
+		//(NL parameters+=Parameter)*
+		public Group getGroup_4() { return cGroup_4; }
 
-		//(parameters+=Parameter NL)*
-		public Group getGroup_5() { return cGroup_5; }
+		//NL
+		public RuleCall getNLParserRuleCall_4_0() { return cNLParserRuleCall_4_0; }
 
 		//parameters+=Parameter
-		public Assignment getParametersAssignment_5_0() { return cParametersAssignment_5_0; }
+		public Assignment getParametersAssignment_4_1() { return cParametersAssignment_4_1; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_5_0_0() { return cParametersParameterParserRuleCall_5_0_0; }
+		public RuleCall getParametersParameterParserRuleCall_4_1_0() { return cParametersParameterParserRuleCall_4_1_0; }
+
+		//(NL results+=NamedCallResult)*
+		public Group getGroup_5() { return cGroup_5; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
+		public RuleCall getNLParserRuleCall_5_0() { return cNLParserRuleCall_5_0; }
 
-		//results+=NamedCallResult*
-		public Assignment getResultsAssignment_6() { return cResultsAssignment_6; }
+		//results+=NamedCallResult
+		public Assignment getResultsAssignment_5_1() { return cResultsAssignment_5_1; }
 
 		//NamedCallResult
-		public RuleCall getResultsNamedCallResultParserRuleCall_6_0() { return cResultsNamedCallResultParserRuleCall_6_0; }
+		public RuleCall getResultsNamedCallResultParserRuleCall_5_1_0() { return cResultsNamedCallResultParserRuleCall_5_1_0; }
 
-		//("->" NL result=Variable NL)?
-		public Group getGroup_7() { return cGroup_7; }
+		//(NL "->" NL result=Variable)?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_6_0() { return cNLParserRuleCall_6_0; }
 
 		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_7_0() { return cHyphenMinusGreaterThanSignKeyword_7_0; }
+		public Keyword getHyphenMinusGreaterThanSignKeyword_6_1() { return cHyphenMinusGreaterThanSignKeyword_6_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7_1() { return cNLParserRuleCall_7_1; }
+		public RuleCall getNLParserRuleCall_6_2() { return cNLParserRuleCall_6_2; }
 
 		//result=Variable
-		public Assignment getResultAssignment_7_2() { return cResultAssignment_7_2; }
+		public Assignment getResultAssignment_6_3() { return cResultAssignment_6_3; }
 
 		//Variable
-		public RuleCall getResultVariableParserRuleCall_7_2_0() { return cResultVariableParserRuleCall_7_2_0; }
+		public RuleCall getResultVariableParserRuleCall_6_3_0() { return cResultVariableParserRuleCall_6_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7_3() { return cNLParserRuleCall_7_3; }
+		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
 	}
 
 	public class NamedCallResultElements extends AbstractParserRuleElementFinder {
@@ -1428,14 +1440,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cTargetVariableParserRuleCall_4_0 = (RuleCall)cTargetAssignment_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//NamedCallResult:
 		//
-		//	name=ResultName NL "->" NL target=Variable NL;
+		//	name=ResultName NL "->" NL target=Variable;
 		public ParserRule getRule() { return rule; }
 
-		//name=ResultName NL "->" NL target=Variable NL
+		//name=ResultName NL "->" NL target=Variable
 		public Group getGroup() { return cGroup; }
 
 		//name=ResultName
@@ -1458,9 +1469,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Variable
 		public RuleCall getTargetVariableParserRuleCall_4_0() { return cTargetVariableParserRuleCall_4_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -2524,9 +2532,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Test:
 	//
-	//	"test" NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* results+=NamedResult* ("=" NL
+	//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 	//
-	//	result=ValueOrEnumValueCollection NL)?;
+	//	result=ValueOrEnumValueCollection)? NL;
 	public TestElements getTestAccess() {
 		return (pTest != null) ? pTest : (pTest = new TestElements());
 	}
@@ -2596,7 +2604,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NamedResult:
 	//
-	//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection NL;
+	//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection;
 	public NamedResultElements getNamedResultAccess() {
 		return (pNamedResult != null) ? pNamedResult : (pNamedResult = new NamedResultElements());
 	}
@@ -2629,9 +2637,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Call:
 	//
-	//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter
+	//	"call" NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)*
 	//
-	//	NL)* results+=NamedCallResult* ("->" NL result=Variable NL)?;
+	//	(NL results+=NamedCallResult)* (NL "->" NL result=Variable)? NL;
 	public CallElements getCallAccess() {
 		return (pCall != null) ? pCall : (pCall = new CallElements());
 	}
@@ -2642,7 +2650,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NamedCallResult:
 	//
-	//	name=ResultName NL "->" NL target=Variable NL;
+	//	name=ResultName NL "->" NL target=Variable;
 	public NamedCallResultElements getNamedCallResultAccess() {
 		return (pNamedCallResult != null) ? pNamedCallResult : (pNamedCallResult = new NamedCallResultElements());
 	}

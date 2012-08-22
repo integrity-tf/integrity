@@ -57,12 +57,23 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().after(tempGrammar.getParameterTableValueAccess().getVerticalLineKeyword_2());
 
 		// Indentations
+		// Suites and Packages
 		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(), tempGrammar
 				.getPackageDefinitionAccess().getPackageendKeyword_6());
 		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_0(), tempGrammar
 				.getSuiteDefinitionAccess().getSuiteendKeyword_10());
+
+		// Constant Variants
 		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_0(), tempGrammar
 				.getVariantValueAccess().getValueAssignment_6());
+
+		// Tests and Calls
+		aConfig.setIndentation(tempGrammar.getTestAccess().getNLParserRuleCall_1(), tempGrammar.getTestAccess()
+				.getNLParserRuleCall_6());
+		aConfig.setIndentation(tempGrammar.getCallAccess().getNLParserRuleCall_1(), tempGrammar.getCallAccess()
+				.getNLParserRuleCall_7());
+		aConfig.setIndentation(tempGrammar.getTableTestAccess().getNLParserRuleCall_1(), tempGrammar
+				.getTableTestAccess().getNLFORCEDParserRuleCall_10());
 	}
 
 	@Override

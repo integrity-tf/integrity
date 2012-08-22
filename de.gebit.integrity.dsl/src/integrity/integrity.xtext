@@ -60,7 +60,7 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' NL definition=[TestDefinition|QualifiedName] NL (parameters+=Parameter NL)* (results+=NamedResult)* ('=' NL result=ValueOrEnumValueCollection NL)?;
+	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueCollection)? NL;
 	
 TableTest:
 	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
@@ -79,7 +79,7 @@ ParameterTableValue:
 	'|' value=ValueOrEnumValueCollection '|'?;
 		
 NamedResult:
-	name=ResultName NL '=' NL value=ValueOrEnumValueCollection NL;
+	name=ResultName NL '=' NL value=ValueOrEnumValueCollection;
 	
 ResultName:
 	FixedResultName | ArbitraryParameterOrResultName;
@@ -88,10 +88,10 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] NL (parameters+=Parameter NL)* (results+=NamedCallResult)* ('->' NL result=Variable NL)?;
+	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedCallResult)* (NL '->' NL result=Variable)? NL;
 	
 NamedCallResult:
-	name=ResultName NL '->' NL target=Variable NL;
+	name=ResultName NL '->' NL target=Variable;
 	
 Suite:
 	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
