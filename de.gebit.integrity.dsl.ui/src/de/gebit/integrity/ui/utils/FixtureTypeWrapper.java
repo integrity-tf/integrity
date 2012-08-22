@@ -49,6 +49,9 @@ import de.gebit.integrity.utils.ParameterUtil;
  */
 public class FixtureTypeWrapper {
 
+	/**
+	 * The currently used Classloading Util.
+	 */
 	private static ClassLoadingUtil classLoadingUtil = new ClassLoadingUtil();
 
 	/**
