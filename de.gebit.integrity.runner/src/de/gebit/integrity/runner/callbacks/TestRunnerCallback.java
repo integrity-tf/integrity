@@ -204,6 +204,14 @@ public abstract class TestRunnerCallback {
 	public abstract void onVisibleComment(String aCommentText);
 
 	/**
+	 * Called when a visible divider is encountered during execution.
+	 * 
+	 * @param aDividerText
+	 *            the divider text (basically a String of '-' chars with minimum length of 3 chars)
+	 */
+	public abstract void onVisibleDivider(String aDividerText);
+
+	/**
 	 * Called when a fork has sent a message to the masters' callback. In order to merge results determined by forks
 	 * seamlessly into the masters' results, callbacks do automatically have a simple messaging system at their
 	 * disposal. When a fork callback uses {@link #sendToMaster(TestRunnerCallbackMethods, Serializable...)}, this

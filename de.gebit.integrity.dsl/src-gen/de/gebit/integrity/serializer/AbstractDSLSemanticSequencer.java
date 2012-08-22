@@ -41,6 +41,7 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.services.DSLGrammarAccess;
@@ -332,6 +333,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 			case DslPackage.VARIANT_VALUE:
 				if(context == grammarAccess.getVariantValueRule()) {
 					sequence_VariantValue(context, (VariantValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.VISIBLE_DIVIDER:
+				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getVisibleDividerRule()) {
+					sequence_VisibleDivider(context, (VisibleDivider) semanticObject); 
 					return; 
 				}
 				else break;
@@ -886,6 +894,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_VariantValue(EObject context, VariantValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     content=DIVIDER
+	 */
+	protected void sequence_VisibleDivider(EObject context, VisibleDivider semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_DIVIDER__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_DIVIDER__CONTENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0(), semanticObject.getContent());
+		feeder.finish();
 	}
 	
 	

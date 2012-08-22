@@ -52,6 +52,7 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 
@@ -99,6 +100,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass visibleMultiLineCommentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass visibleDividerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -556,6 +564,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EAttribute getVisibleMultiLineComment_Content()
   {
     return (EAttribute)visibleMultiLineCommentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVisibleDivider()
+  {
+    return visibleDividerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVisibleDivider_Content()
+  {
+    return (EAttribute)visibleDividerEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1779,6 +1807,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     visibleMultiLineCommentEClass = createEClass(VISIBLE_MULTI_LINE_COMMENT);
     createEAttribute(visibleMultiLineCommentEClass, VISIBLE_MULTI_LINE_COMMENT__CONTENT);
 
+    visibleDividerEClass = createEClass(VISIBLE_DIVIDER);
+    createEAttribute(visibleDividerEClass, VISIBLE_DIVIDER__CONTENT);
+
     packageDefinitionEClass = createEClass(PACKAGE_DEFINITION);
     createEAttribute(packageDefinitionEClass, PACKAGE_DEFINITION__NAME);
     createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__STATEMENTS);
@@ -1978,6 +2009,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     // Add supertypes to classes
     visibleSingleLineCommentEClass.getESuperTypes().add(this.getSuiteStatement());
     visibleMultiLineCommentEClass.getESuperTypes().add(this.getSuiteStatement());
+    visibleDividerEClass.getESuperTypes().add(this.getSuiteStatement());
     packageDefinitionEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getStatement());
     importEClass.getESuperTypes().add(this.getPackageStatement());
@@ -2023,6 +2055,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(visibleMultiLineCommentEClass, VisibleMultiLineComment.class, "VisibleMultiLineComment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVisibleMultiLineComment_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleMultiLineComment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(visibleDividerEClass, VisibleDivider.class, "VisibleDivider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVisibleDivider_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleDivider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(packageDefinitionEClass, PackageDefinition.class, "PackageDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPackageDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

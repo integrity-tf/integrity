@@ -270,6 +270,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onVisibleDivider(String aDividerText) {
+		System.out.println(" " + aDividerText + "");
+	}
+
+	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		// nothing to do; this callback is not fork-aware
 	}

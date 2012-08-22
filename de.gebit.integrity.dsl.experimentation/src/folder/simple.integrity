@@ -4,6 +4,11 @@ packagedef mypackage with
 
 	suitedef asuite with
 		test stupidtest
+		
+		-- This is a comment
+		
+		-----------------------------------------------------
+		
 		test failtest
 	suiteend
 

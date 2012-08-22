@@ -419,6 +419,11 @@ public class SetListCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onVisibleDivider(String aDividerText) {
+		// currently these are ignored here
+	}
+
+	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,

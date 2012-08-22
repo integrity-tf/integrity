@@ -226,6 +226,13 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onVisibleDivider(String aDividerText) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onVisibleDivider(aDividerText);
+		}
+	}
+
+	@Override
 	public void setForkInExecution(ForkDefinition aFork) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.setForkInExecution(aFork);

@@ -17,6 +17,9 @@ VisibleSingleLineComment:
 VisibleMultiLineComment:
 	content=ML_VISIBLE_COMMENT NL;
 	
+VisibleDivider:
+	content=DIVIDER NL;
+	
 PackageDefinition:
 	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
@@ -42,7 +45,7 @@ SuiteDefinition:
 	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment;
+	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment | VisibleDivider;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest;
@@ -179,8 +182,9 @@ terminal STRING:
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 
 terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
-terminal SL_VISIBLE_COMMENT: '--' !('\n'|'\r')*;
+terminal SL_VISIBLE_COMMENT: '-- ' !('\n'|'\r')*;
 terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
+terminal DIVIDER: '---' ('-')*;
 
 terminal WS: (' '|'\t')+;
 terminal NEWLINE: ('\r'|'\n')+;

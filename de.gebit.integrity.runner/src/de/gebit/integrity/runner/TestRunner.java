@@ -41,6 +41,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureWrapper;
@@ -637,6 +638,10 @@ public class TestRunner {
 				if (currentCallback != null) {
 					currentCallback.onVisibleComment(IntegrityDSLUtil
 							.cleanMultiLineComment((VisibleMultiLineComment) tempStatement));
+				}
+			} else if (tempStatement instanceof VisibleDivider) {
+				if (currentCallback != null) {
+					currentCallback.onVisibleDivider(((VisibleDivider) tempStatement).getContent());
 				}
 			}
 		}

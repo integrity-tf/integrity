@@ -68,6 +68,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.STATEMENT: return createStatement();
       case DslPackage.VISIBLE_SINGLE_LINE_COMMENT: return createVisibleSingleLineComment();
       case DslPackage.VISIBLE_MULTI_LINE_COMMENT: return createVisibleMultiLineComment();
+      case DslPackage.VISIBLE_DIVIDER: return createVisibleDivider();
       case DslPackage.PACKAGE_DEFINITION: return createPackageDefinition();
       case DslPackage.PACKAGE_STATEMENT: return createPackageStatement();
       case DslPackage.IMPORT: return createImport();
@@ -161,6 +162,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     VisibleMultiLineCommentImpl visibleMultiLineComment = new VisibleMultiLineCommentImpl();
     return visibleMultiLineComment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VisibleDivider createVisibleDivider()
+  {
+    VisibleDividerImpl visibleDivider = new VisibleDividerImpl();
+    return visibleDivider;
   }
 
   /**

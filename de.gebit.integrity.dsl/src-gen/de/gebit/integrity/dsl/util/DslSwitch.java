@@ -102,6 +102,14 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VISIBLE_DIVIDER:
+      {
+        VisibleDivider visibleDivider = (VisibleDivider)theEObject;
+        T result = caseVisibleDivider(visibleDivider);
+        if (result == null) result = caseSuiteStatement(visibleDivider);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.PACKAGE_DEFINITION:
       {
         PackageDefinition packageDefinition = (PackageDefinition)theEObject;
@@ -539,6 +547,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVisibleMultiLineComment(VisibleMultiLineComment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Divider</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Divider</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleDivider(VisibleDivider object)
   {
     return null;
   }

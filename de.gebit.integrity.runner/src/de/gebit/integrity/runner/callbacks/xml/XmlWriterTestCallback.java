@@ -195,6 +195,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	/** The Constant COMMENT_TEXT_ATTRIBUTE. */
 	private static final String COMMENT_TEXT_ATTRIBUTE = "text";
 
+	/** The Constant DIVIDER_ELEMENT. */
+	private static final String DIVIDER_ELEMENT = "divider";
+
+	/** The Constant DIVIDER_TEXT_ATTRIBUTE. */
+	private static final String DIVIDER_TEXT_ATTRIBUTE = "text";
+
 	/** The Constant PARAMETER_COLLECTION_ELEMENT. */
 	private static final String PARAMETER_COLLECTION_ELEMENT = "parameters";
 
@@ -1082,6 +1088,19 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
+	@Override
+	public void onVisibleDivider(String aDividerText) {
+		Element tempCommentElement = new Element(DIVIDER_ELEMENT);
+		tempCommentElement.setAttribute(DIVIDER_TEXT_ATTRIBUTE, aDividerText);
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementToMaster(TestRunnerCallbackMethods.VISIBLE_DIVIDER, tempCommentElement);
+			}
+			internalOnVisibleDivider(tempCommentElement);
+		}
+	}
+
 	/**
 	 * Internal version of {@link #onVisibleComment(String)}.
 	 * 
@@ -1091,6 +1110,17 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	protected void internalOnVisibleComment(Element aCommentElement) {
 		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCommentElement);
+	}
+
+	/**
+	 * Internal version of {@link #onVisibleDivider(String)}.
+	 * 
+	 * @param aDividerElement
+	 *            the divider element
+	 */
+	protected void internalOnVisibleDivider(Element aDividerElement) {
+		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aDividerElement);
 	}
 
 	/**
@@ -1202,6 +1232,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			break;
 		case VISIBLE_COMMENT:
 			internalOnVisibleComment(tempElement);
+			break;
+		case VISIBLE_DIVIDER:
+			internalOnVisibleDivider(tempElement);
 			break;
 		default:
 			return;

@@ -270,6 +270,53 @@ ruleNL
 
 
 
+// Entry rule entryRuleVisibleDivider
+entryRuleVisibleDivider returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleDividerRule()); }
+	 iv_ruleVisibleDivider=ruleVisibleDivider 
+	 { $current=$iv_ruleVisibleDivider.current; } 
+	 EOF 
+;
+
+// Rule VisibleDivider
+ruleVisibleDivider returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_content_0_0=RULE_DIVIDER
+		{
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVisibleDividerRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"content",
+        		lv_content_0_0, 
+        		"DIVIDER");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getVisibleDividerAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
 // Entry rule entryRulePackageDefinition
 entryRulePackageDefinition returns [EObject current=null] 
 	:
@@ -1204,6 +1251,16 @@ ruleSuiteStatement returns [EObject current=null]
     this_VisibleMultiLineComment_5=ruleVisibleMultiLineComment
     { 
         $current = $this_VisibleMultiLineComment_5.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
+    }
+    this_VisibleDivider_6=ruleVisibleDivider
+    { 
+        $current = $this_VisibleDivider_6.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -3810,9 +3867,11 @@ RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-RULE_SL_VISIBLE_COMMENT : '--' ~(('\n'|'\r'))*;
+RULE_SL_VISIBLE_COMMENT : '-- ' ~(('\n'|'\r'))*;
 
 RULE_ML_VISIBLE_COMMENT : '/-' ( options {greedy=false;} : . )*'-/';
+
+RULE_DIVIDER : '---' '-'*;
 
 RULE_WS : (' '|'\t')+;
 

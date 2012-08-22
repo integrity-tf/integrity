@@ -58,7 +58,8 @@
             .exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
             .tab { padding-right: 20px; }
             .fixturename { font-size: 8pt; padding: 4px; }
-            .comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; padding-bottom: 4px; font-weight: bold; color: #0E4600; font-style: italic; }</style>
+            .comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; padding-bottom: 4px; font-weight: bold; color: #0E4600; font-style: italic; }
+            hr { margin-top: 8px; margin-bottom: 8px; border: 0px; height: 2px; background-color: #000; }</style>
         </head>
         <body>
           <div id="header">
@@ -211,6 +212,9 @@
     	<div class="comment">
     		<xsl:value-of select="@text" />
     	</div>
+    </xsl:template>
+    <xsl:template match="divider">
+      <hr />
     </xsl:template>
     <xsl:template match="call">
       <div onClick="var div=this.getElementsByTagName('div')[1]; if(div.style.display!='block') div.style.display='block'; else div.style.display='none';">

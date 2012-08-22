@@ -126,6 +126,31 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 	}
 
+	public class VisibleDividerElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VisibleDivider");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cContentAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cContentDIVIDERTerminalRuleCall_0_0 = (RuleCall)cContentAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//VisibleDivider:
+		//
+		//	content=DIVIDER NL;
+		public ParserRule getRule() { return rule; }
+
+		//content=DIVIDER NL
+		public Group getGroup() { return cGroup; }
+
+		//content=DIVIDER
+		public Assignment getContentAssignment_0() { return cContentAssignment_0; }
+
+		//DIVIDER
+		public RuleCall getContentDIVIDERTerminalRuleCall_0_0() { return cContentDIVIDERTerminalRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+	}
+
 	public class PackageDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -655,17 +680,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstantDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cVisibleSingleLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cVisibleMultiLineCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cVisibleDividerParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//SuiteStatement:
 		//
 		//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
 		//
-		//	VisibleMultiLineComment;
+		//	VisibleMultiLineComment | VisibleDivider;
 		public ParserRule getRule() { return rule; }
 
 		//SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
 		//
-		//VisibleMultiLineComment
+		//VisibleMultiLineComment | VisibleDivider
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//SuiteStatementWithResult
@@ -685,6 +711,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//VisibleMultiLineComment
 		public RuleCall getVisibleMultiLineCommentParserRuleCall_5() { return cVisibleMultiLineCommentParserRuleCall_5; }
+
+		//VisibleDivider
+		public RuleCall getVisibleDividerParserRuleCall_6() { return cVisibleDividerParserRuleCall_6; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -2229,6 +2258,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private StatementElements pStatement;
 	private VisibleSingleLineCommentElements pVisibleSingleLineComment;
 	private VisibleMultiLineCommentElements pVisibleMultiLineComment;
+	private VisibleDividerElements pVisibleDivider;
 	private PackageDefinitionElements pPackageDefinition;
 	private PackageStatementElements pPackageStatement;
 	private ImportElements pImport;
@@ -2290,6 +2320,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tSL_COMMENT;
 	private TerminalRule tSL_VISIBLE_COMMENT;
 	private TerminalRule tML_VISIBLE_COMMENT;
+	private TerminalRule tDIVIDER;
 	private TerminalRule tWS;
 	private TerminalRule tNEWLINE;
 	private TerminalRule tANY_OTHER;
@@ -2366,6 +2397,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getVisibleMultiLineCommentRule() {
 		return getVisibleMultiLineCommentAccess().getRule();
+	}
+
+	//VisibleDivider:
+	//
+	//	content=DIVIDER NL;
+	public VisibleDividerElements getVisibleDividerAccess() {
+		return (pVisibleDivider != null) ? pVisibleDivider : (pVisibleDivider = new VisibleDividerElements());
+	}
+	
+	public ParserRule getVisibleDividerRule() {
+		return getVisibleDividerAccess().getRule();
 	}
 
 	//PackageDefinition:
@@ -2466,7 +2508,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
 	//
-	//	VisibleMultiLineComment;
+	//	VisibleMultiLineComment | VisibleDivider;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return (pSuiteStatement != null) ? pSuiteStatement : (pSuiteStatement = new SuiteStatementElements());
 	}
@@ -3005,7 +3047,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//terminal SL_VISIBLE_COMMENT:
 	//
-	//	"--" !("\n" | "\r")*;
+	//	"-- " !("\n" | "\r")*;
 	public TerminalRule getSL_VISIBLE_COMMENTRule() {
 		return (tSL_VISIBLE_COMMENT != null) ? tSL_VISIBLE_COMMENT : (tSL_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_VISIBLE_COMMENT"));
 	} 
@@ -3015,6 +3057,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	"/-"->"-/";
 	public TerminalRule getML_VISIBLE_COMMENTRule() {
 		return (tML_VISIBLE_COMMENT != null) ? tML_VISIBLE_COMMENT : (tML_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_VISIBLE_COMMENT"));
+	} 
+
+	//terminal DIVIDER:
+	//
+	//	"---" "-"*;
+	public TerminalRule getDIVIDERRule() {
+		return (tDIVIDER != null) ? tDIVIDER : (tDIVIDER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DIVIDER"));
 	} 
 
 	//terminal WS:

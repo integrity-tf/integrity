@@ -59,6 +59,15 @@ public interface DslFactory extends EFactory
   VisibleMultiLineComment createVisibleMultiLineComment();
 
   /**
+   * Returns a new object of class '<em>Visible Divider</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Divider</em>'.
+   * @generated
+   */
+  VisibleDivider createVisibleDivider();
+
+  /**
    * Returns a new object of class '<em>Package Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -95,6 +95,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createVisibleMultiLineCommentAdapter();
       }
       @Override
+      public Adapter caseVisibleDivider(VisibleDivider object)
+      {
+        return createVisibleDividerAdapter();
+      }
+      @Override
       public Adapter casePackageDefinition(PackageDefinition object)
       {
         return createPackageDefinitionAdapter();
@@ -402,6 +407,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVisibleMultiLineCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleDivider <em>Visible Divider</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleDivider
+   * @generated
+   */
+  public Adapter createVisibleDividerAdapter()
   {
     return null;
   }

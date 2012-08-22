@@ -50,6 +50,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getGroup(), "rule__VisibleSingleLineComment__Group__0");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getGroup(), "rule__VisibleMultiLineComment__Group__0");
+					put(grammarAccess.getVisibleDividerAccess().getGroup(), "rule__VisibleDivider__Group__0");
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
@@ -113,6 +114,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModelAccess().getStatementsAssignment_2(), "rule__Model__StatementsAssignment_2");
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineComment__ContentAssignment_0");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineComment__ContentAssignment_0");
+					put(grammarAccess.getVisibleDividerAccess().getContentAssignment_0(), "rule__VisibleDivider__ContentAssignment_0");
 					put(grammarAccess.getPackageDefinitionAccess().getNameAssignment_2(), "rule__PackageDefinition__NameAssignment_2");
 					put(grammarAccess.getPackageDefinitionAccess().getStatementsAssignment_5(), "rule__PackageDefinition__StatementsAssignment_5");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_2(), "rule__Import__ImportedNamespaceAssignment_2");

@@ -48,4 +48,6 @@ public enum TestRunnerCallbackMethods {
 
 	VISIBLE_COMMENT,
 
+	VISIBLE_DIVIDER,
+
 }
