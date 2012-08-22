@@ -1,0 +1,23 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.divider with
+	
+	suitedef divider with
+		call noOp
+		
+		--- // a minimum length divider
+		
+		call noOp
+		
+		-- This is a visible comment, not a divider!
+		
+		call noOp
+		call noOp
+		
+		// a divider of more than minimum length follows
+		-----------------------------------------------------------
+		
+		call noOp
+	suiteend
+
+packageend
