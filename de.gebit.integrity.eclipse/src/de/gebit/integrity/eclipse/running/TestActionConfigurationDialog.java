@@ -102,7 +102,7 @@ public class TestActionConfigurationDialog extends Dialog {
 
 	@Override
 	protected Control createDialogArea(Composite aParent) {
-		launchConfigList = new List(aParent, SWT.BORDER);
+		launchConfigList = new List(aParent, SWT.BORDER | SWT.V_SCROLL);
 		GridData tempGrid = new GridData();
 		tempGrid.grabExcessHorizontalSpace = true;
 		tempGrid.horizontalAlignment = GridData.FILL;
