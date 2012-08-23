@@ -18,11 +18,11 @@ public class DSLAntlrTokenToAttributeIdMapper extends DefaultAntlrTokenToAttribu
 	protected String calculateId(String aTokenName, int aTokenType) {
 		if ("RULE_SL_VISIBLE_COMMENT".equals(aTokenName) || "RULE_ML_VISIBLE_COMMENT".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.VISIBLE_COMMENT_ID;
-		}
-		if ("RULE_INTEGER".equals(aTokenName) || "RULE_DECIMAL".equals(aTokenName)) {
+		} else if ("RULE_DIVIDER".equals(aTokenName)) {
+			return DSLHighlightingConfiguration.VISIBLE_DIVIDER_ID;
+		} else if ("RULE_INTEGER".equals(aTokenName) || "RULE_DECIMAL".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.NUMBER_ID;
-		}
-		if ("RULE_BOOLEAN_TRUE".equals(aTokenName) || "RULE_BOOLEAN_FALSE".equals(aTokenName)) {
+		} else if ("RULE_BOOLEAN_TRUE".equals(aTokenName) || "RULE_BOOLEAN_FALSE".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.CONSTANT_VALUE_ID;
 		}
 

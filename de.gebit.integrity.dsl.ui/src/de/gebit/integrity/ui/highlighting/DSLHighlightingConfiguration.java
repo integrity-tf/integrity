@@ -23,6 +23,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String VISIBLE_COMMENT_ID = "visiblecomment";
 
 	/**
+	 * The ID for visible dividers.
+	 */
+	public static final String VISIBLE_DIVIDER_ID = "visibledivider";
+
+	/**
 	 * The ID for constant, predefined values (like "true" or "false").
 	 */
 	public static final String CONSTANT_VALUE_ID = "constantvalue";
@@ -108,6 +113,7 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
 		super.configure(anAcceptor);
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comment", visibleCommentTextStyle());
+		anAcceptor.acceptDefaultHighlighting(VISIBLE_DIVIDER_ID, "Visible Divider", visibleDividerTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NAME_ID, "Parameter Name", parameterNameTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_NAME_ID, "Result Name", resultNameTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PACKAGE_PREFIX_ID, "Package Prefix", packageTextStyle());
@@ -148,6 +154,18 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(14, 70, 0));
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for visible dividers.
+	 * 
+	 * @return the style
+	 */
+	public TextStyle visibleDividerTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(14, 70, 0));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
 		return tempTextStyle;
 	}
 
