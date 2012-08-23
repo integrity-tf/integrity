@@ -27,6 +27,7 @@ import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -50,6 +51,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -123,6 +126,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The test execution tree viewer.
 	 */
 	private TreeViewer treeViewer;
+
+	/**
+	 * Status flag which is used to signal whether the tree viewer is currently scrolled by the user (using the vertical
+	 * scrollbar).
+	 */
+	private boolean treeViewerIsScrolledManually;
 
 	/**
 	 * The drawer to colorize the test execution tree.
@@ -375,6 +384,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Action collapseAllAction;
 
 	/**
+	 * The action which toggles the scroll lock function.
+	 */
+	private Action scrollLockAction;
+
+	/**
+	 * Whether scroll lock is active.
+	 */
+	private boolean scrollLockActive;
+
+	/**
 	 * The last level of node expansion.
 	 */
 	private int lastExpansionLevel;
@@ -453,6 +472,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.top = new FormAttachment(executionProgress, 0);
 		tempFormData.bottom = new FormAttachment(100, 0);
 		treeViewer.getTree().setLayoutData(tempFormData);
+		treeViewer.getTree().getVerticalBar().addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent anEvent) {
+				// nothing to do
+			}
+
+			public void widgetSelected(SelectionEvent anEvent) {
+				if (anEvent.detail == SWT.NONE) {
+					treeViewerIsScrolledManually = false;
+				} else if (anEvent.detail == SWT.DRAG) {
+					treeViewerIsScrolledManually = true;
+				}
+			}
+		});
 
 		detailsContainer = new Composite(sashForm, SWT.NONE);
 		detailsContainer.setLayout(new FillLayout());
@@ -978,6 +1010,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aManager.add(new Separator());
 		aManager.add(expandAllAction);
 		aManager.add(collapseAllAction);
+		aManager.add(scrollLockAction);
 		aManager.add(new Separator());
 		aManager.add(playAction);
 		aManager.add(pauseAction);
@@ -1192,6 +1225,15 @@ public class IntegrityTestRunnerView extends ViewPart {
 		collapseAllAction.setText("Collapse all");
 		collapseAllAction.setToolTipText("Collapses all nodes.");
 		collapseAllAction.setImageDescriptor(Activator.getImageDescriptor("icons/collapseall.gif"));
+
+		scrollLockAction = new Action("Toggle scroll lock", IAction.AS_CHECK_BOX) {
+			@Override
+			public void run() {
+				scrollLockActive = isChecked();
+			};
+		};
+		scrollLockAction.setToolTipText("Toggles the scroll lock setting.");
+		scrollLockAction.setImageDescriptor(Activator.getImageDescriptor("icons/scrolllock.gif"));
 
 		updateActionStatus(null);
 	}
@@ -1656,11 +1698,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 							treeViewer.update(tempEntry, null);
 						}
 					}
+
 					if (anEntryInExecutionReference != null) {
-						for (SetListEntry tempEntry : setList.getEntriesInExecution()) {
+						List<SetListEntry> tempExecutionPath = setList.getEntriesInExecution();
+						for (SetListEntry tempEntry : tempExecutionPath) {
 							treeViewer.update(tempEntry, null);
 						}
+
+						if (!scrollLockActive && !treeViewerIsScrolledManually && tempExecutionPath.size() > 0) {
+							treeViewer.reveal(tempExecutionPath.get(0));
+						}
 					}
+
 					executionProgress.redraw();
 				}
 			});

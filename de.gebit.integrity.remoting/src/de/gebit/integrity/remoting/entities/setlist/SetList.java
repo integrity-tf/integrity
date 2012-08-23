@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * The Setlist is a data structure to contain a test execution plan as well as test results. Its name refers to the
@@ -43,7 +41,7 @@ public class SetList implements Serializable {
 	/**
 	 * The path of entries in execution, starting at the root.
 	 */
-	private transient Set<SetListEntry> pathOfEntriesInExecution = new HashSet<SetListEntry>();
+	private transient List<SetListEntry> pathOfEntriesInExecution = new ArrayList<SetListEntry>();
 
 	/**
 	 * A map of entries that have a "result" in terms of having failed or succeeded. This maps sets to their results.
@@ -97,7 +95,7 @@ public class SetList implements Serializable {
 			}
 		}
 
-		pathOfEntriesInExecution = new HashSet<SetListEntry>();
+		pathOfEntriesInExecution = new ArrayList<SetListEntry>();
 		setEntryInExecutionReference(entryInExecutionReference);
 	}
 
@@ -470,7 +468,7 @@ public class SetList implements Serializable {
 		return entryListPosition;
 	}
 
-	public Set<SetListEntry> getEntriesInExecution() {
+	public List<SetListEntry> getEntriesInExecution() {
 		return pathOfEntriesInExecution;
 	}
 
