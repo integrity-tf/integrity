@@ -31,10 +31,11 @@
 					#headershadow { position: absolute; left: 0px; top: 80px; width: 100%; height: 10px; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAKCAYAAAB10jRKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACdJREFUeNpiYGBgmMkEJL6BiM8g4j2IeAcn3jIDCW4QwQwi/gMEGADAHwddekPA8QAAAABJRU5ErkJggg=="); background-repeat: repeat-x; background-position: 0px 0px; }
 					#viewport { top: 80px; bottom: 0px; left: 0px; right: 0px; position:
 					absolute; }
-					#navigation { height: 100%; padding-top: 10px; padding-left: 4px; width: 256px; float: left;
+					#navigation { height: 100%; padding-top: 0px; padding-left: 4px; width: 256px; float: left;
 					overflow: auto; }
+					#navigation-header { height: 10px; }
 					#innercontent { height: 100%; margin-left: 260px; padding-left: 4px;
-					padding-right: 4px; padding-top: 2px; overflow: auto; }
+					padding-right: 4px; overflow: auto; }
 					.box { border: solid 1px; margin-top: 8px; margin-bottom: 8px; }
 					.boxtitle { color: #FFF; font-weight: bold; padding: 2px 2px 2px
 					2px; position: relative; left: 0px; top: 0px; border: none; }
@@ -164,6 +165,7 @@
           </div>
           <div id="viewport">
             <div id="navigation">
+			<div id="navigation-header"/>
               <xsl:for-each select="suite">
                 <xsl:call-template name="navigationSuite">
                   <xsl:with-param name="depth" select="0" />
