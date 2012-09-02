@@ -67,8 +67,13 @@ public abstract class IntegrityJUnitTest {
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempFileList, true);
 		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false);
 
+		boolean tempKeepFiles = "true".equals(System.getProperty("keepFiles"));
 		try {
-			tempXmlFile = File.createTempFile("integrityJUnit", ".xml");
+			if (tempKeepFiles) {
+				tempXmlFile = new File(getTempDir(), aSuiteName + ".xml");
+			} else {
+				tempXmlFile = File.createTempFile("integrityJUnit", ".xml");
+			}
 
 			TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(getClass()
 					.getClassLoader()), new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile,
@@ -81,8 +86,8 @@ public abstract class IntegrityJUnitTest {
 			SAXBuilder tempBuilder = new SAXBuilder(false);
 			return tempBuilder.build(tempXmlFile);
 		} finally {
-			if ("true".equals(System.getProperty("keepFiles"))) {
-				System.out.println("Wrote file " + tempXmlFile);
+			if (tempKeepFiles) {
+				System.out.println("Kept result file " + tempXmlFile.getAbsolutePath());
 			} else {
 				if (tempXmlFile != null) {
 					tempXmlFile.delete();
@@ -147,6 +152,20 @@ public abstract class IntegrityJUnitTest {
 		if (tempAttr != null) {
 			tempAttr.setValue("");
 		}
+	}
+
+	/**
+	 * Buffer for the temporary file dir.
+	 */
+	private static File temporaryFileDirectory;
+
+	private static File getTempDir() throws IOException {
+		if (temporaryFileDirectory == null) {
+			File tempFile = File.createTempFile("integrityJUnit", ".xml");
+			temporaryFileDirectory = tempFile.getParentFile();
+			tempFile.delete();
+		}
+		return temporaryFileDirectory;
 	}
 
 }

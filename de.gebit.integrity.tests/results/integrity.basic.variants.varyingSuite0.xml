@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="10.08.12 01:58" isotimestamp="2012-08-10T01:58:43" duration="208.725">
+<integrity name="Integrity JUnit Testing" timestamp="01.09.12 20:12" isotimestamp="2012-09-01T20:12:36" duration="53.997">
   <variables>
     <variable name="integrity.basic.variants.myConstant" value="100" />
   </variables>
-  <suite name="integrity.basic.variants.varyingSuite0">
+  <suite id="0" name="integrity.basic.variants.varyingSuite0">
     <setup />
     <variables />
     <statements>
-      <suite name="integrity.basic.variants.varyingSuite">
+      <suite id="1" name="integrity.basic.variants.varyingSuite">
         <setup />
         <variables />
         <statements>
-          <suite name="integrity.basic.variants.otherSuite0">
+          <suite id="2" name="integrity.basic.variants.otherSuite0">
             <setup />
             <variables />
             <statements>
-              <call name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="3" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="1.357" type="success" />
+                <result duration="0.258" type="success" />
               </call>
             </statements>
             <teardown />
-            <result duration="113.343" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="33.032" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </statements>
         <teardown />
-        <result duration="120.011" successCount="0" failureCount="0" exceptionCount="0" />
+        <result duration="39.194" successCount="0" failureCount="0" exceptionCount="0" />
       </suite>
     </statements>
     <teardown />
-    <result duration="195.021" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="51.546" successCount="0" failureCount="0" exceptionCount="0" />
   </suite>
 </integrity>
 

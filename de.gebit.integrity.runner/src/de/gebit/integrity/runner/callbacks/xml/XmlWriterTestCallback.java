@@ -101,6 +101,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	private long executionStartTime;
 
 	/**
+	 * Counter used to generate unique IDs for a lot of XML elements.
+	 */
+	private long idCounter;
+
+	/**
 	 * Whether the XSLT transformation script that transforms the XML result data into a viewable XHTML document shall
 	 * be embedded into the result.
 	 */
@@ -270,6 +275,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	/** The Constant FORK_DESCRIPTION_ATTRIBUTE. */
 	private static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
 
+	/** The Constant ID_ATTRIBUTE. */
+	private static final String ID_ATTRIBUTE = "id";
+
 	/**
 	 * The time format used to format execution times.
 	 */
@@ -377,6 +385,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
+		addId(tempSuiteElement);
 		tempSuiteElement.setAttribute(SUITE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 		tempSuiteElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
@@ -425,6 +434,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
+		addId(tempSetupElement);
 		tempSetupElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -496,6 +506,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onTestStart(Test aTest) {
 		Element tempTestElement = new Element(TEST_ELEMENT);
+		addId(tempTestElement);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
@@ -536,6 +547,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
+		addId(tempTestElement);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
@@ -777,6 +789,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onCallStart(Call aCall) {
 		Element tempCallElement = new Element(CALL_ELEMENT);
+		addId(tempCallElement);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
@@ -896,6 +909,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
+		addId(tempTearDownElement);
 		tempTearDownElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
 		tempTearDownElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempTearDownElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -1078,6 +1092,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onVisibleComment(String aCommentText) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
+		addId(tempCommentElement);
 		tempCommentElement.setAttribute(COMMENT_TEXT_ATTRIBUTE, aCommentText);
 
 		if (!isDryRun()) {
@@ -1091,6 +1106,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	@Override
 	public void onVisibleDivider(String aDividerText) {
 		Element tempCommentElement = new Element(DIVIDER_ELEMENT);
+		addId(tempCommentElement);
 		tempCommentElement.setAttribute(DIVIDER_TEXT_ATTRIBUTE, aDividerText);
 
 		if (!isDryRun()) {
@@ -1239,5 +1255,16 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		default:
 			return;
 		}
+	}
+
+	/**
+	 * Adds the ID attribute to the element and increments the ID counter for the next element.
+	 * 
+	 * @param anElement
+	 *            the element to add an ID to
+	 */
+	protected void addId(Element anElement) {
+		anElement.setAttribute(ID_ATTRIBUTE, Long.toString(idCounter));
+		idCounter++;
 	}
 }

@@ -2,6 +2,13 @@
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" />
     <xsl:variable name="suiteLinkKey" select="0" />
     <xsl:template match="integrity">
+      <xmldata style="display: none;">
+        <integrity>
+          <xsl:copy-of select="attribute::*" />
+          <xsl:copy-of select="variables" />
+          <xsl:copy-of select="suite" />
+        </integrity>
+      </xmldata>
       <html>
         <head>
           <title>
@@ -17,7 +24,8 @@
 					font-family: Helvetica, Arial, sans-serif; font-size:12px; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
 					.pagetitle { font-size: larger; font-weight: bold; }
-					.pagesubtitle { font-weight: bold; }
+					.pagesubtitle { font-weight: normal; }
+					.pagesubtitlebold { font-weight: bold; }
 					html, body { overflow: hidden; }
 					a:link { color: #000; text-decoration: none; }
 					a:hover { color: #000; text-decoration: underline; }
@@ -34,7 +42,7 @@
 					#navigation { height: 100%; padding-top: 0px; padding-left: 4px; width: 256px; float: left;
 					overflow: auto; }
 					#navigation-header { height: 10px; }
-					#innercontent { height: 100%; margin-left: 260px; padding-left: 4px;
+					#innercontent { height: 100%; padding-left: 4px;
 					padding-right: 4px; overflow: auto; }
 					.box { border: solid 1px; margin-top: 8px; margin-bottom: 8px; }
 					.boxtitle { color: #FFF; font-weight: bold; padding: 2px 2px 2px
@@ -53,8 +61,10 @@
 					.statement { border: 1px solid #FFF; position: relative; top: 0px; left: 0px;
 					margin-bottom: 1px; padding-left: 40px; padding-right: 4px; }
 					.statement:hover { border: 1px dashed #000; }
-					.testicon { font-size: 30px; margin-left: 8px; position: absolute; left:
-					0px; }
+					.testicon { width: 30px; height: 30px; position: absolute; left: 7px; top: 7px; background-repeat: no-repeat; background-position: 0px 0px; }
+					.testiconsuccess { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeZJREFUeNpi/P//P8NAACaGAQKjFlMFNHQF/RfiYf3PyMgIxib5JZgJCZS4qIlbOz3/MwONZYBiDlGd/7NebPqPro6qlq662PxfnJ0JbikDA8f/zA0z/mNTS1WLfU3EkCxl+G+QnPMfl1qqWdo/IwQtiPX/z323hbYWb30x5b8iShCz/U9bM+0/Pj1Usbg0zwQliBX9Yv8T0kOxpeuutv4XQrKUmV36f//ddbS3OClYGcW37q1N/4nRR1n2OV33nw8lQZn8J1YvRSXXjo6lDJ+QCkHf5kjiNZPr2413e/6LI/mWT9n2Pyn6sfq4c37Wf2NLxf9Klhb/ey+txFphH+hZwvASybchrVGkBRe6S6rLrVASCzO72P/WiytQfLP93fT/Kkj5lk/Z/j+pIYalvG39L8XNgmI5ekHfNyUASZ7pf9ziKZRbjL2wZ/ivGZ4CN9xBmRcuzi5o8J+cNIJTYtaGjP8cSBaDfBY6o/f/sn3F/9mRxD07W6lrMba6FVQqWfuoIPGV/8/CUxFQVIDE+SmiBDky1ojN+E9udiRYgITPKmXQFGTDIsPG4BlrQX7pQ4zrZq5JQYlXcrMQWWU1epA71NdRZDEjKT2Jafta/79695NBVEWVIdsglpGScp5xtAtDLwAQYADjU7sCOVUG1AAAAABJRU5ErkJggg=="); }
+					.testiconfailure { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAkpJREFUeNpi/P//P8NAACaGAQJUt/hCTvh/aWGp/9YqGv+npZXhDk5QUBPCF0sy/mfbOPwv9In8j0/d0/rc//IsTCDLgJjpPx+v/P+j7ROx6iFo6ZPqjP+y3Nz/2cGGsf7vza7HaXm8DD/UUgg2Nw3GqZagxRcygv+zIRkmIWON1bBeS1UUS7l5Vf+f751CvsUg7M7LjmQopq/PZ4f950aylJlF+P/m+m680UKUxQdiXP8z4/D127bS/6rweIXEbXp4/n9CZhJlMT5fpygIowSxjWXYf2LMI9piTF9b/Z8TbIsixs2r/v/yhGnUtRiEg0W5UXyHirn/L6/s+E+sWSRZfCrZF8WHyPGaEpz7nxSzSLIYhJPQ8ioIyyvY/ifVHJKLzDQXazQRTobWcC/Sy1ZSXYqauiE42CuNZB+TpHiuszbWhMXMIv7/QNsE2sTxg8q0/0I4UzT+cpkii9Gzkr6WDlJNBMLs/+eWtFE3O20Pt0fJRpzciv/P9k76vzHQCsUxoEKFahZjK4vrk6v/Y09sxJXTRFnca6mC5ivUavFsZvB/TpSEJv3/FJ7qkCiL75TEo1R3uOKxXl8axXHWRFQUJJVSuvq+WA182ZiPktCERE3Jt/gisHLnRPEt//+tjX04DdwMrKmEhET+Kwiq/d9W3Ui+xeFo2cfdOZ7k0onksvpiZsj/9a+/wvnAkomh0tmQ9u1qMUlpBjVubjg/wM2fwb4yn5GaFrNgE5Ssm8g47/P3/7tvvmA4euMFQ42zHtV7Eowjru8EEGAA2klHim9htKoAAAAASUVORK5CYII="); }
+					.testiconexception { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmNJREFUeNpi/P//P8NAACaGAQJDz2IPEc7/tqFp5McTKI5JxVtr3EAWAjHH/7mr5/0nxwySNXy+NPG/LhvTfzYujv9sQO0SWm70sXhypB5QF9P/+snd/3tDtKDsif9pavGDLRX/hZB8+fZ4139VoO+5hY3/33m49T/NLC6yksaIV1h8J9U00cbii/NT/3MCleu6RWNY4C7M8Z+ZTfr/geOriLackdiSK0SR7/+GZ5wMW3ZNZND4+5zhzN03QFE2BhMbA4bXe1czWOYuZbAISWU4snoWI9Wy04HOoP/MQKXBeRX/UbOT0P+t+5eDxZK0hIB83v/Ltyz8T5Wg/nZt2n9rAbb/nAJa/y9e24DT4jurC/9zA8VUrYKoY/HyPBtwlinq7PqPWYAgLAbhDn91oBjb/9750/5TZPHLA03/JYBKhBRs/j9Ayi64LIZlL3T12DDesnpa2zyGF8AEVF0fxSAv50Uw0QhZlDI2ZVgxvHtwjKF9/nnyEhe+OMPlY+Q0wcym8P/UpXX/SfZxW/1Chq8MQgwT2kJJqnQ4NTMZWyt9GBh+PWConXiYNB+fmhwNzj7uyYVYXbynI+S/gow4EKv933N4BVY1wQq8kBA5sPw/0YkLUhLhD6oDi+r+b1mNu3K4vDgTHFXYSjqsFhNT9s5NNobGMWo2Q8f1bgo462wUDrG1DaSUYgBjq8jM/4Syo4SWC36Lia1fd7b4gRsBzGyC/1dsxl9EQkIHM2Qw6lpiizxSWyzIRS6KxeX2svDgoxUOL6r+j5GPZeVEGJhp2JxlZuNkEBfigvMZR3sSw95igAADADJFvK0HWEWOAAAAAElFTkSuQmCC"); }
 					.testdescription { padding-left: 4px; padding-top: 4px; padding-bottom: 4px; }
 					.row1testsuccess { background-color: #BEFFBB; }
 					.row2testsuccess { background-color: #E8FFE6; }
@@ -74,6 +84,8 @@
 					.testresultvaluefailure { color: #C00; }
 					.testduration { font-size: 8pt; position: absolute; top: 2px; right: 4px; color:
 					#555; }
+					.test { min-height: 46px; }
+					.callexception { min-height: 46px; }
 					.parametertable th { font-size: 8pt; }
 					.comparisontable th { font-size: 8pt; }
 					.resultstable th { font-size: 8pt; }
@@ -106,9 +118,8 @@
 					url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAPCAYAAAA4crG6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHlJREFUeNrs1jEKgDAQRcHVThBiiMfPXeMKW3gAyxn4pEmaVG9ba0XMeUTEmWu5K9dzI3fXxufsdafVm/ctAABl9wUAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAH7zCDAAwRoFUjYtVxsAAAAASUVORK5CYII="); }
 					.nav_suiteexception { background-image:
 					url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAPCAYAAAA4crG6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHxJREFUeNrs1rEJgDAQhtHTThBiiPvP4UaOEU+4wgEs34OfNEmT6lvmnBH3tUXEnmu5I9dzI3fWxufsdafVm/ctAABl9QUAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAH7zCDAAXFQFuTlYBeAAAAAASUVORK5CYII="); }
-		  </style>
-		  <script type="text/javascript">
-		    var lastSelection;
+					#progressbar { margin-top: 6px; border: 1px solid #000; }</style>
+          <script type="text/javascript">var lastSelection;
 		  
 		    function boxOrCellMouseDown() {
 			  lastSelection = window.getSelection().toString();
@@ -125,47 +136,169 @@
 			
 			function cellMouseUp(aCell) {
 			  if(window.getSelection().toString() != lastSelection) return;			  
-			  var div=aCell.getElementsByTagName('div')[1];
+			  var div=aCell.getElementsByTagName('div')[2];
 			  if(div.style.display!='block')
 			    div.style.display='block';
 		      else
 			    div.style.display='none';
 			}
-		  </script>
+			
+			function resizeProgressBar() {
+				var bar=document.getElementById('progressbar');
+				var container=bar.parentNode;
+				var width = (container.clientWidth - 264) - 264 - 10;
+				if (bar.width != width &amp;&amp; width &gt; 0) {
+				  bar.width=width;
+				  redrawProgressBar();
+				}
+			}
+			
+			function redrawProgressBar() {
+				var totalCount = countTestsAndCalls();
+				var bar=document.getElementById('progressbar');
+				if (bar.getContext &amp;&amp; totalCount &gt; 0){
+					var context = bar.getContext('2d');
+					var root = getChildByName(document.getElementsByTagName('integrity')[0], 'SUITE');
+					var pixelsPerNode = bar.width / totalCount;
+					var height = bar.clientHeight;
+					pixelLevel = 0;
+					recursiveRedrawProgressBar(context, root, 0, pixelsPerNode, height);			
+				}
+			}
+			
+			var pixelLevel = 0;
+			var pixelLink = -1;
+			var clickMap = {};
+			
+			function recursiveRedrawProgressBar(context, node, nodePos, pixelsPerNode, height) {
+				if (node.nodeName == 'CALL') {
+				    if (pixelLink == -1) {
+						pixelLink = node.getAttribute('id');
+					}
+					var result = getChildByName(node, 'RESULT');
+					if (result.getAttribute('type') == 'exception') {
+						pixelLevel = 2;
+					}
+				} else if (node.nodeName == 'TEST' || node.nodeName == 'TABLETEST') {
+					if (pixelLink == -1) {
+						pixelLink = node.getAttribute('id');
+					}
+					var results = getChildByName(node, 'RESULTS');
+					if (results.getAttribute('exceptionCount') != 0) {
+						pixelLevel = 2;
+						pixelLink = node.getAttribute('id');
+					} else if (results.getAttribute('failureCount') != 0) {
+						if (pixelLevel == 0) {
+							pixelLevel = 1;
+							pixelLink = node.getAttribute('id');
+						}
+					}
+				} else {
+					if (node.childNodes) {
+						for (var i = 0; i &lt; node.childNodes.length; i++) {
+							var child = node.childNodes[i];
+							var newNodePos = recursiveRedrawProgressBar(context, child, nodePos, pixelsPerNode, height);
+							if(newNodePos == -1) {
+								pixelLevel = 0;
+								pixelLink = -1;
+								nodePos++;
+							} else {
+								nodePos = newNodePos;
+							}
+						}
+					}
+					return nodePos;
+				}
+				
+				var pixelPos = Math.floor(nodePos * pixelsPerNode);
+				nodePos++;
+				var newPixelPos = Math.floor(nodePos * pixelsPerNode);
+				if (newPixelPos != pixelPos) {
+					switch (pixelLevel) {
+					case 1:
+						context.fillStyle = "rgb(202,0,5)";
+						break;
+					case 2:
+						context.fillStyle = "rgb(249,149,0)";
+						break;
+					default:
+						context.fillStyle = "rgb(0,153,51)";
+					}
+					var width = newPixelPos - pixelPos;
+					context.fillRect(pixelPos, 0, width, height);
+					for(var i = pixelPos; i &lt; newPixelPos; i++) {
+						clickMap[i] = pixelLink;
+					}
+					
+					return -1;
+				} else {
+					return nodePos;
+				}
+			}
+			
+			function handleProgressBarClick(event) {
+				var pos_x = event.pageX - document.getElementById("progressbar").offsetLeft;
+				if(clickMap[pos_x]) {
+					window.location.hash = '#i' + clickMap[pos_x];
+				}
+			}
+			
+			function countTestsAndCalls() {
+				var root=document.getElementsByTagName('integrity')[0];
+				return root.getElementsByTagName('test').length + root.getElementsByTagName('call').length + root.getElementsByTagName('tabletest').length;
+			}
+			
+			function getChildByName(node, childName) {
+				if (node.childNodes) {
+					for (var i = 0; i &lt; node.childNodes.length; i++) {
+						var child = node.childNodes[i];
+						if (child.nodeName == childName) {
+							return child;
+						}
+					}
+				}
+				return null;
+			}</script>
         </head>
-        <body>
+        <body onLoad="resizeProgressBar()" onResize="resizeProgressBar()">
           <div id="header">
             <xsl:if test="@name">
               <div align="left" class="pagesubtitle">
-                Test:
-                <xsl:value-of select="@name" />
-              </div>
-            </xsl:if>
-            <xsl:if test="count(variant) &gt; 0">
-              <div align="left" class="pagesubtitle">
-                Variant:
-                <xsl:value-of select="variant/@name" />
-                <xsl:if test="variant/@description">
-                  -
-                  <xsl:value-of select="variant/@description" />
+                Test: 
+				<span class="pagesubtitlebold">
+                  <xsl:value-of select="@name" />
+				</span>
+			    <xsl:if test="count(variant) &gt; 0">
+				  in variant 
+				  <span class="pagesubtitlebold">
+					<xsl:value-of select="variant/@name" />
+                    <xsl:if test="variant/@description">
+	  		          <xsl:value-of select="concat(' - ', variant/@description)" />
+                    </xsl:if>
+				  </span>
                 </xsl:if>
-              </div>
+			  </div>
             </xsl:if>
+            
             <div align="left" class="pagesubtitle">
-              Started:
-              <xsl:value-of select="@timestamp" />
+              Started
+			  <span class="pagesubtitlebold">
+                <xsl:value-of select="@timestamp" />
+			  </span>
+              and took
+			  <span class="pagesubtitlebold">
+                <xsl:call-template name="duration">
+                  <xsl:with-param name="value" select="@duration" />
+                </xsl:call-template>
+			  </span>
+              to complete
             </div>
-            <div align="left" class="pagesubtitle">
-              Duration:
-              <xsl:call-template name="duration">
-                <xsl:with-param name="value" select="@duration" />
-              </xsl:call-template>
-            </div>
-			<div id="headershadow" />
+            <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
+            <div id="headershadow" />
           </div>
           <div id="viewport">
             <div id="navigation">
-			<div id="navigation-header"/>
+              <div id="navigation-header" />
               <xsl:for-each select="suite">
                 <xsl:call-template name="navigationSuite">
                   <xsl:with-param name="depth" select="0" />
@@ -225,7 +358,7 @@
     <xsl:template match="suite">
       <a>
         <xsl:attribute name="name">
-          <xsl:value-of select="generate-id(.)"/>
+          <xsl:value-of select="concat('i', @id)" />
         </xsl:attribute>
       </a>
       <xsl:variable name="result">
@@ -294,13 +427,19 @@
       <hr />
     </xsl:template>
     <xsl:template match="call">
+	  <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
       <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
         <xsl:attribute name="class">
           <xsl:text>statement row1call</xsl:text>
           <xsl:value-of select="result/@type" />
+          <xsl:if test="result/@type = 'exception'"> callexception</xsl:if>
         </xsl:attribute>
         <xsl:if test="result/@type = 'exception'">
-          <span class="testicon">⚠</span>
+          <div class="testicon testiconexception" />
         </xsl:if>
         <div class="testdescription">
           <xsl:value-of select="@description" />
@@ -430,16 +569,22 @@
       </div>
     </xsl:template>
     <xsl:template match="test">
+	  <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
       <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
         <xsl:attribute name="class">
-          <xsl:text>statement row1test</xsl:text>
+          <xsl:text>statement test row1test</xsl:text>
           <xsl:value-of select="results/result/@type" />
         </xsl:attribute>
-        <span class="testicon">
-          <xsl:if test="results/result/@type = 'success'">✔</xsl:if>
-          <xsl:if test="results/result/@type = 'failure'">✘</xsl:if>
-          <xsl:if test="results/result/@type = 'exception'">⚠</xsl:if>
-        </span>
+        <div>
+          <xsl:attribute name="class">
+            <xsl:text>testicon testicon</xsl:text>
+            <xsl:value-of select="results/result/@type" />
+          </xsl:attribute>
+        </div>
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
@@ -624,6 +769,11 @@
       </div>
     </xsl:template>
     <xsl:template match="tabletest">
+	  <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
       <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
         <xsl:variable name="testsuccess">
           <xsl:choose>
@@ -633,14 +783,15 @@
           </xsl:choose>
         </xsl:variable>
         <xsl:attribute name="class">
-          <xsl:text>statement row1test</xsl:text>
+          <xsl:text>statement test row1test</xsl:text>
           <xsl:value-of select="$testsuccess" />
         </xsl:attribute>
-        <span class="testicon">
-          <xsl:if test="$testsuccess = 'success'">✔</xsl:if>
-          <xsl:if test="$testsuccess = 'failure'">✘</xsl:if>
-          <xsl:if test="$testsuccess = 'exception'">⚠</xsl:if>
-        </span>
+        <div>
+          <xsl:attribute name="class">
+            <xsl:text>testicon testicon</xsl:text>
+            <xsl:value-of select="$testsuccess" />
+          </xsl:attribute>
+        </div>
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
@@ -803,33 +954,31 @@
         <xsl:value-of select="round(($value mod 1000) * 1000) div 1000" />
       </xsl:variable>
       <xsl:if test="$hours &gt; 0">
-        <xsl:value-of select="$hours" />
-        h
+        <xsl:value-of select="concat($hours, 'h')" />
       </xsl:if>
+	  <xsl:text> </xsl:text>
       <xsl:if test="$minutes &gt; 0">
         <xsl:if test="$hours &gt; 0">
           <xsl:text />
         </xsl:if>
-        <xsl:value-of select="$minutes" />
-        m
+        <xsl:value-of select="concat($minutes, 'm')" />
       </xsl:if>
+	  <xsl:text> </xsl:text>
       <xsl:if test="$seconds &gt; 0">
         <xsl:if test="$hours &gt; 0 or $minutes &gt; 0">
           <xsl:text />
         </xsl:if>
-        <xsl:value-of select="$seconds" />
-        s
+        <xsl:value-of select="concat($seconds, 's')" />
       </xsl:if>
+	  <xsl:text> </xsl:text>
       <xsl:if test="$msecs &gt; 0">
         <xsl:choose>
           <xsl:when test="$hours &gt; 0 or $minutes &gt; 0 or $seconds &gt; 0">
             <xsl:text />
-            <xsl:value-of select="$msecs" />
-            ms
+            <xsl:value-of select="concat(round($msecs), 'ms')" />
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="$value" />
-            ms
+            <xsl:value-of select="concat(round($value), 'ms')" />
           </xsl:otherwise>
         </xsl:choose>
       </xsl:if>
@@ -853,18 +1002,18 @@
     <xsl:template name="navigationLine">
       <xsl:param name="depth" />
       <xsl:param name="isLast" />
-	  <xsl:param name="path" />
+      <xsl:param name="path" />
       <xsl:if test="$depth &gt; 0">
         <xsl:choose>
           <xsl:when test="$depth &gt; 1">
-		    <xsl:choose>
-			  <xsl:when test="substring($path, 2 + string-length($path) - $depth, 1) = '0'">
+            <xsl:choose>
+              <xsl:when test="substring($path, 2 + string-length($path) - $depth, 1) = '0'">
                 <div class="nav_line nav_linedown" />
-			  </xsl:when>
-			  <xsl:otherwise>
-			    <div class="nav_line" />
-			  </xsl:otherwise>
-			</xsl:choose>
+              </xsl:when>
+              <xsl:otherwise>
+                <div class="nav_line" />
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:when>
           <xsl:otherwise>
             <xsl:choose>
@@ -880,13 +1029,13 @@
         <xsl:call-template name="navigationLine">
           <xsl:with-param name="depth" select="$depth - 1" />
           <xsl:with-param name="isLast" select="$isLast" />
-		  <xsl:with-param name="path" select="$path" />
+          <xsl:with-param name="path" select="$path" />
         </xsl:call-template>
       </xsl:if>
     </xsl:template>
     <xsl:template name="navigationSuite">
       <xsl:param name="depth" />
-	  <xsl:param name="path" />
+      <xsl:param name="path" />
       <xsl:param name="isLast" />
       <xsl:variable name="result">
         <xsl:choose>
@@ -904,13 +1053,13 @@
         </xsl:attribute>
         <xsl:call-template name="navigationLine">
           <xsl:with-param name="depth" select="$depth" />
-		  <xsl:with-param name="path" select="$path" />
+          <xsl:with-param name="path" select="$path" />
           <xsl:with-param name="isLast" select="$isLast" />
         </xsl:call-template>
         <div class="nav_suitetitle">
           <a>
             <xsl:attribute name="href">
-              <xsl:value-of select="concat('#', generate-id(.))"/>
+              <xsl:value-of select="concat('#i', @id)" />
             </xsl:attribute>
             <xsl:call-template name="simpleSuiteName">
               <xsl:with-param name="fullSuiteName" select="@name" />
@@ -918,39 +1067,39 @@
           </a>
         </div>
         <div>
-		  <xsl:attribute name="class">
-		    <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)"/>
-		  </xsl:attribute>
+          <xsl:attribute name="class">
+            <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)" />
+          </xsl:attribute>
           <xsl:call-template name="suiteResultSummary" />
         </div>
-		<xsl:variable name="nextPath">
-		  <xsl:choose>
-		    <xsl:when test="$isLast">
-			  <xsl:value-of select="concat($path, '1')"/>
-			</xsl:when>
-			<xsl:otherwise>
-              <xsl:value-of select="concat($path, '0')"/>
-			</xsl:otherwise>
-		  </xsl:choose>
+        <xsl:variable name="nextPath">
+          <xsl:choose>
+            <xsl:when test="$isLast">
+              <xsl:value-of select="concat($path, '1')" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="concat($path, '0')" />
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:variable>
         <xsl:for-each select="setup/suite">
           <xsl:call-template name="navigationSuite">
             <xsl:with-param name="depth" select="$depth + 1" />
-			<xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="path" select="$nextPath" />
             <xsl:with-param name="isLast" select="position() = last() and count(../../statements/suite) = 0 and count(../../teardown/suite) = 0" />
           </xsl:call-template>
         </xsl:for-each>
         <xsl:for-each select="statements/suite">
           <xsl:call-template name="navigationSuite">
             <xsl:with-param name="depth" select="$depth + 1" />
-			<xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="path" select="$nextPath" />
             <xsl:with-param name="isLast" select="position() = last() and count(../../teardown/suite) = 0" />
           </xsl:call-template>
         </xsl:for-each>
         <xsl:for-each select="teardown/suite">
           <xsl:call-template name="navigationSuite">
             <xsl:with-param name="depth" select="$depth + 1" />
-			<xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="path" select="$nextPath" />
             <xsl:with-param name="isLast" select="position() = last()" />
           </xsl:call-template>
         </xsl:for-each>
