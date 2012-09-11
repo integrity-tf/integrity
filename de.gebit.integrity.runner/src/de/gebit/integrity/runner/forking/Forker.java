@@ -28,14 +28,12 @@ public interface Forker {
 	 * 
 	 * @param someCommandLineArguments
 	 *            the original command line arguments given to the JVM of the parent process
-	 * @param aPortNumber
-	 *            the port number to use for remoting to the new fork
 	 * @param aForkName
 	 *            the name of the fork
 	 * @return the newly created process
 	 * @throws ForkException
 	 *             if something goes wrong
 	 */
-	ForkedProcess fork(String[] someCommandLineArguments, int aPortNumber, String aForkName) throws ForkException;
+	ForkedProcess fork(String[] someCommandLineArguments, String aForkName) throws ForkException;
 
 }

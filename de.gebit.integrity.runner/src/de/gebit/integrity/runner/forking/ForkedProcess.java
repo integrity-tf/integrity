@@ -20,7 +20,7 @@ import java.io.InputStream;
 public interface ForkedProcess {
 
 	/**
-	 * Checks whether the forked process is up and running.
+	 * Checks whether the forked process is up and running. This is a mandatory method.
 	 * 
 	 * @return true if the process is running, false if it has ended or not even started (for example due to an error)
 	 */
@@ -52,5 +52,22 @@ public interface ForkedProcess {
 	 * @return a ready-to-be-read {@link InputStream} or null if this is not supported by the forked process
 	 */
 	InputStream getErrorStream();
+
+	/**
+	 * Returns the network host name where this process is running. In case of local processes, "localhost" shall be
+	 * returned, but distributed processes on other machines might of course return different values. This is a
+	 * mandatory method.
+	 * 
+	 * @return the network host name where the process is running
+	 */
+	String getHost();
+
+	/**
+	 * Returns the port where this processes' Integrity Test Runner is open for management connections. This is a
+	 * mandatory method.
+	 * 
+	 * @return the remoting port of the test runner
+	 */
+	int getPort();
 
 }

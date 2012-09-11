@@ -7,6 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.net.DatagramSocket;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -27,11 +32,11 @@ public class DefaultForker implements Forker {
 			+ "bin" + File.separatorChar + "java";
 
 	@Override
-	public ForkedProcess fork(String[] someCommandLineArguments, int aPortNumber, String aForkName)
-			throws ForkException {
+	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName) throws ForkException {
+		int tempPortNumber = getFreePort();
 
-		List<String> tempArgs = createArgumentList(someCommandLineArguments, aPortNumber, aForkName);
-		return createProcess(tempArgs);
+		List<String> tempArgs = createArgumentList(someCommandLineArguments, tempPortNumber, aForkName);
+		return createProcess(tempArgs, tempPortNumber);
 	}
 
 	/**
@@ -156,10 +161,10 @@ public class DefaultForker implements Forker {
 	 * @return the forked process
 	 * @throws ForkException
 	 */
-	protected LocalForkedProcess createProcess(List<String> anArgumentList) throws ForkException {
+	protected LocalForkedProcess createProcess(List<String> anArgumentList, int aPortNumber) throws ForkException {
 		ProcessBuilder tempBuilder = new ProcessBuilder(anArgumentList);
 		try {
-			return new LocalForkedProcess(tempBuilder.start());
+			return new LocalForkedProcess(tempBuilder.start(), aPortNumber);
 		} catch (IOException exc) {
 			throw new ForkException("Error forking process", exc);
 		}
@@ -179,5 +184,58 @@ public class DefaultForker implements Forker {
 
 		throw new UnsupportedOperationException(
 				"Could not determine main class name. You probably need to implement your own Forker in order to use forking!");
+	}
+
+	/**
+	 * The maximum possible port number.
+	 */
+	private static final int MAX_PORT_NUMBER = 65535;
+
+	/**
+	 * Finds a free port on the machine by randomly checking ports above 1024.
+	 * 
+	 * @return
+	 */
+	private static int getFreePort() {
+		int tempPort = 0;
+		do {
+			tempPort = (int) Math.floor(Math.random() * (double) (MAX_PORT_NUMBER - 1024));
+		} while (!isPortAvailable(tempPort));
+		return tempPort;
+	}
+
+	private static boolean isPortAvailable(int aPort) {
+		InetAddress tempLocalhost;
+		try {
+			tempLocalhost = Inet4Address.getByName("localhost");
+		} catch (UnknownHostException exc1) {
+			// This is almost impossible to occur!
+			throw new RuntimeException(exc1);
+		}
+		ServerSocket tempServerSocket = null;
+		DatagramSocket tempDatagramSocket = null;
+		try {
+			tempServerSocket = new ServerSocket(aPort, 1, tempLocalhost);
+			tempServerSocket.setReuseAddress(true);
+			tempDatagramSocket = new DatagramSocket(aPort, tempLocalhost);
+			tempDatagramSocket.setReuseAddress(true);
+			return true;
+		} catch (IOException exc) {
+			// nothing to do
+		} finally {
+			if (tempDatagramSocket != null) {
+				tempDatagramSocket.close();
+			}
+
+			if (tempServerSocket != null) {
+				try {
+					tempServerSocket.close();
+				} catch (IOException exc) {
+					// ignore
+				}
+			}
+		}
+
+		return false;
 	}
 }

@@ -19,13 +19,19 @@ public class LocalForkedProcess implements ForkedProcess {
 	protected Process process;
 
 	/**
+	 * The port at which the fork listens for remoting connections.
+	 */
+	private Integer port;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aProcess
 	 *            the process to wrap
 	 */
-	public LocalForkedProcess(Process aProcess) {
+	public LocalForkedProcess(Process aProcess, Integer aPort) {
 		process = aProcess;
+		port = aPort;
 	}
 
 	@Override
@@ -52,6 +58,16 @@ public class LocalForkedProcess implements ForkedProcess {
 	@Override
 	public InputStream getErrorStream() {
 		return process.getErrorStream();
+	}
+
+	@Override
+	public String getHost() {
+		return "localhost";
+	}
+
+	@Override
+	public int getPort() {
+		return port;
 	}
 
 }

@@ -9,9 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.net.DatagramSocket;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -87,11 +84,6 @@ public class Fork {
 	private HashMap<String, Object> variableUpdates = new HashMap<String, Object>();
 
 	/**
-	 * The port at which the fork listens for remoting connections.
-	 */
-	private Integer port;
-
-	/**
 	 * Whether the connection to the fork has been confirmed to be active.
 	 */
 	private boolean connectionConfirmed;
@@ -120,16 +112,6 @@ public class Fork {
 	 * The latest received execution state of this fork.
 	 */
 	private ExecutionStates executionState;
-
-	/**
-	 * The offset of the port numbers to try from the remoting port of the current test runner.
-	 */
-	private static int portNumberOffset;
-
-	/**
-	 * The maximum possible port number.
-	 */
-	private static final int MAX_PORT_NUMBER = 65535;
 
 	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
@@ -181,8 +163,7 @@ public class Fork {
 		server = aServer;
 		forkCallback = aForkCallback;
 
-		port = getNextPort(aMainPortNumber);
-		process = tempForker.fork(someCommandLineArguments, port, aDefinition.getName());
+		process = tempForker.fork(someCommandLineArguments, aDefinition.getName());
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
@@ -225,10 +206,6 @@ public class Fork {
 		return client;
 	}
 
-	public Integer getPort() {
-		return port;
-	}
-
 	public ExecutionStates getExecutionState() {
 		return executionState;
 	}
@@ -256,12 +233,8 @@ public class Fork {
 	 */
 	public boolean connect(long aTimeout) throws IOException {
 		synchronized (this) {
-			IntegrityRemotingClient tempClient = null;
-			try {
-				tempClient = new IntegrityRemotingClient("localhost", getPort(), new ForkRemotingClientListener());
-			} catch (UnknownHostException exc) {
-				// cannot actually happen -> we're only connecting to localhost
-			}
+			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(getProcess().getHost(), getProcess()
+					.getPort(), new ForkRemotingClientListener());
 
 			try {
 				wait(aTimeout);
@@ -444,45 +417,6 @@ public class Fork {
 			forkCallback.onSetVariableValue(aVariableName, aValue, true);
 			ignoreVariableUpdates = false;
 		}
-	}
-
-	private static int getNextPort(int aMainPortNumber) {
-		do {
-			portNumberOffset++;
-			if (aMainPortNumber + portNumberOffset > MAX_PORT_NUMBER) {
-				throw new UnsupportedOperationException(
-						"Ran out of fork child ports: reached end of valid TCP port numbers!");
-			}
-		} while (!isPortAvailable(aMainPortNumber + portNumberOffset));
-		return aMainPortNumber + portNumberOffset;
-	}
-
-	private static boolean isPortAvailable(int aPort) {
-		ServerSocket tempServerSocket = null;
-		DatagramSocket tempDatagramSocket = null;
-		try {
-			tempServerSocket = new ServerSocket(aPort);
-			tempServerSocket.setReuseAddress(true);
-			tempDatagramSocket = new DatagramSocket(aPort);
-			tempDatagramSocket.setReuseAddress(true);
-			return true;
-		} catch (IOException exc) {
-			// nothing to do
-		} finally {
-			if (tempDatagramSocket != null) {
-				tempDatagramSocket.close();
-			}
-
-			if (tempServerSocket != null) {
-				try {
-					tempServerSocket.close();
-				} catch (IOException exc) {
-					// ignore
-				}
-			}
-		}
-
-		return false;
 	}
 
 	private static class StreamCopier extends Thread {
