@@ -32,6 +32,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/forkerClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//ForkParameter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkParameter/value"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariantDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/name"/>

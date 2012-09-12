@@ -304,13 +304,21 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cForkerClassAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
 		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_5_2_0 = (RuleCall)cForkerClassAssignment_5_2.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_5_3 = (RuleCall)cGroup_5.eContents().get(3);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Assignment cParametersAssignment_6_0 = (Assignment)cGroup_6.eContents().get(0);
+		private final RuleCall cParametersForkParameterParserRuleCall_6_0_0 = (RuleCall)cParametersAssignment_6_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
 		
 		//ForkDefinition:
 		//
-		//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?;
+		//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?
+		//
+		//	(parameters+=ForkParameter NL)*;
 		public ParserRule getRule() { return rule; }
 
 		//"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?
+		//
+		//(parameters+=ForkParameter NL)*
 		public Group getGroup() { return cGroup; }
 
 		//"forkdef"
@@ -357,6 +365,59 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NL
 		public RuleCall getNLParserRuleCall_5_3() { return cNLParserRuleCall_5_3; }
+
+		//(parameters+=ForkParameter NL)*
+		public Group getGroup_6() { return cGroup_6; }
+
+		//parameters+=ForkParameter
+		public Assignment getParametersAssignment_6_0() { return cParametersAssignment_6_0; }
+
+		//ForkParameter
+		public RuleCall getParametersForkParameterParserRuleCall_6_0_0() { return cParametersForkParameterParserRuleCall_6_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_6_1() { return cNLParserRuleCall_6_1; }
+	}
+
+	public class ForkParameterElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ForkParameter");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameFixedParameterNameParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cValueValueOrEnumValueParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		
+		//ForkParameter:
+		//
+		//	name=FixedParameterName NL ":" NL value=ValueOrEnumValue;
+		public ParserRule getRule() { return rule; }
+
+		//name=FixedParameterName NL ":" NL value=ValueOrEnumValue
+		public Group getGroup() { return cGroup; }
+
+		//name=FixedParameterName
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//FixedParameterName
+		public RuleCall getNameFixedParameterNameParserRuleCall_0_0() { return cNameFixedParameterNameParserRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//":"
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//value=ValueOrEnumValue
+		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
+
+		//ValueOrEnumValue
+		public RuleCall getValueValueOrEnumValueParserRuleCall_4_0() { return cValueValueOrEnumValueParserRuleCall_4_0; }
 	}
 
 	public class VariantDefinitionElements extends AbstractParserRuleElementFinder {
@@ -2263,6 +2324,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private PackageStatementElements pPackageStatement;
 	private ImportElements pImport;
 	private ForkDefinitionElements pForkDefinition;
+	private ForkParameterElements pForkParameter;
 	private VariantDefinitionElements pVariantDefinition;
 	private TestDefinitionElements pTestDefinition;
 	private CallDefinitionElements pCallDefinition;
@@ -2447,13 +2509,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ForkDefinition:
 	//
-	//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?;
+	//	"forkdef" NL name=QualifiedName NL (description=STRING NL)? ("uses" NL forkerClass=JavaClassReference NL)?
+	//
+	//	(parameters+=ForkParameter NL)*;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return (pForkDefinition != null) ? pForkDefinition : (pForkDefinition = new ForkDefinitionElements());
 	}
 	
 	public ParserRule getForkDefinitionRule() {
 		return getForkDefinitionAccess().getRule();
+	}
+
+	//ForkParameter:
+	//
+	//	name=FixedParameterName NL ":" NL value=ValueOrEnumValue;
+	public ForkParameterElements getForkParameterAccess() {
+		return (pForkParameter != null) ? pForkParameter : (pForkParameter = new ForkParameterElements());
+	}
+	
+	public ParserRule getForkParameterRule() {
+		return getForkParameterAccess().getRule();
 	}
 
 	//VariantDefinition:

@@ -56,6 +56,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup_4(), "rule__ForkDefinition__Group_4__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup_5(), "rule__ForkDefinition__Group_5__0");
+					put(grammarAccess.getForkDefinitionAccess().getGroup_6(), "rule__ForkDefinition__Group_6__0");
+					put(grammarAccess.getForkParameterAccess().getGroup(), "rule__ForkParameter__Group__0");
 					put(grammarAccess.getVariantDefinitionAccess().getGroup(), "rule__VariantDefinition__Group__0");
 					put(grammarAccess.getVariantDefinitionAccess().getGroup_4(), "rule__VariantDefinition__Group_4__0");
 					put(grammarAccess.getTestDefinitionAccess().getGroup(), "rule__TestDefinition__Group__0");
@@ -121,6 +123,9 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getForkDefinitionAccess().getNameAssignment_2(), "rule__ForkDefinition__NameAssignment_2");
 					put(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_4_0(), "rule__ForkDefinition__DescriptionAssignment_4_0");
 					put(grammarAccess.getForkDefinitionAccess().getForkerClassAssignment_5_2(), "rule__ForkDefinition__ForkerClassAssignment_5_2");
+					put(grammarAccess.getForkDefinitionAccess().getParametersAssignment_6_0(), "rule__ForkDefinition__ParametersAssignment_6_0");
+					put(grammarAccess.getForkParameterAccess().getNameAssignment_0(), "rule__ForkParameter__NameAssignment_0");
+					put(grammarAccess.getForkParameterAccess().getValueAssignment_4(), "rule__ForkParameter__ValueAssignment_4");
 					put(grammarAccess.getVariantDefinitionAccess().getNameAssignment_2(), "rule__VariantDefinition__NameAssignment_2");
 					put(grammarAccess.getVariantDefinitionAccess().getDescriptionAssignment_4_0(), "rule__VariantDefinition__DescriptionAssignment_4_0");
 					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_2(), "rule__TestDefinition__NameAssignment_2");

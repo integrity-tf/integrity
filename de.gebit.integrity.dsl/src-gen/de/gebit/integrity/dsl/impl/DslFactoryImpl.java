@@ -73,6 +73,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.PACKAGE_STATEMENT: return createPackageStatement();
       case DslPackage.IMPORT: return createImport();
       case DslPackage.FORK_DEFINITION: return createForkDefinition();
+      case DslPackage.FORK_PARAMETER: return createForkParameter();
       case DslPackage.VARIANT_DEFINITION: return createVariantDefinition();
       case DslPackage.TEST_DEFINITION: return createTestDefinition();
       case DslPackage.CALL_DEFINITION: return createCallDefinition();
@@ -217,6 +218,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ForkDefinitionImpl forkDefinition = new ForkDefinitionImpl();
     return forkDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ForkParameter createForkParameter()
+  {
+    ForkParameterImpl forkParameter = new ForkParameterImpl();
+    return forkParameter;
   }
 
   /**

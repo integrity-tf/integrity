@@ -30,7 +30,10 @@ Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)?;
+	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	
+ForkParameter:
+	name=FixedParameterName NL ':' NL value=ValueOrEnumValue;
 	
 VariantDefinition:
 	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;

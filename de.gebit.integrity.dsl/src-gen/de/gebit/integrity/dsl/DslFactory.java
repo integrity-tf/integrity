@@ -104,6 +104,15 @@ public interface DslFactory extends EFactory
   ForkDefinition createForkDefinition();
 
   /**
+   * Returns a new object of class '<em>Fork Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fork Parameter</em>'.
+   * @generated
+   */
+  ForkParameter createForkParameter();
+
+  /**
    * Returns a new object of class '<em>Variant Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

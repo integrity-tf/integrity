@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.JavaClassReference;
@@ -135,6 +136,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass forkDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass forkParameterEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -684,6 +692,46 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getForkDefinition_ForkerClass()
   {
     return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForkDefinition_Parameters()
+  {
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getForkParameter()
+  {
+    return forkParameterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForkParameter_Name()
+  {
+    return (EReference)forkParameterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForkParameter_Value()
+  {
+    return (EReference)forkParameterEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1823,6 +1871,11 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
+    createEReference(forkDefinitionEClass, FORK_DEFINITION__PARAMETERS);
+
+    forkParameterEClass = createEClass(FORK_PARAMETER);
+    createEReference(forkParameterEClass, FORK_PARAMETER__NAME);
+    createEReference(forkParameterEClass, FORK_PARAMETER__VALUE);
 
     variantDefinitionEClass = createEClass(VARIANT_DEFINITION);
     createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__NAME);
@@ -2072,6 +2125,11 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_ForkerClass(), this.getJavaClassReference(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForkDefinition_Parameters(), this.getForkParameter(), null, "parameters", null, 0, -1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(forkParameterEClass, ForkParameter.class, "ForkParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getForkParameter_Name(), this.getFixedParameterName(), null, "name", null, 0, 1, ForkParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForkParameter_Value(), this.getValueOrEnumValue(), null, "value", null, 0, 1, ForkParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variantDefinitionEClass, VariantDefinition.class, "VariantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVariantDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

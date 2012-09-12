@@ -5,10 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmArrayType;
+import org.eclipse.xtext.common.types.JvmConstructor;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
@@ -47,6 +49,7 @@ import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.forker.ForkerParameter;
 
 /**
  * A utility class providing various helper functions.
@@ -95,7 +98,8 @@ public final class IntegrityDSLUtil {
 	 */
 	public static String getParamNameFromAnnotation(JvmAnnotationReference anAnnotation) {
 		if (anAnnotation.getAnnotation() != null) {
-			if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())) {
+			if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())
+					|| anAnnotation.getAnnotation().getQualifiedName().equals(ForkerParameter.class.getCanonicalName())) {
 				for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
 					if (tempValue instanceof JvmStringAnnotationValue && "name".equals(tempValue.getValueName())) {
 						return ((JvmStringAnnotationValue) tempValue).getValues().get(0);
@@ -105,6 +109,36 @@ public final class IntegrityDSLUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns a list of all defined parameter names in a given forker, each of the results linked to the annotation
+	 * reference that's connected to the parameter in the constructor signature. Only one constructor is supported.
+	 * 
+	 * @param aForkerType
+	 *            the forker to inspect
+	 * @return a list of parameters and annotation references
+	 */
+	public static List<ParamAnnotationTuple> getAllParamNamesFromForker(JvmGenericType aForkerType) {
+		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
+		try {
+			JvmConstructor tempConstructor = aForkerType.getDeclaredConstructors().iterator().next();
+			if (tempConstructor != null) {
+				for (JvmFormalParameter tempParam : tempConstructor.getParameters()) {
+					for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
+						String tempParamName = getParamNameFromAnnotation(tempAnnotation);
+						if (tempParamName != null) {
+							tempList.add(new ParamAnnotationTuple(tempParamName, tempParam.getQualifiedName(),
+									tempAnnotation));
+						}
+					}
+				}
+			}
+		} catch (NoSuchElementException exc) {
+			// expected if no constructor is available
+		}
+
+		return tempList;
 	}
 
 	/**

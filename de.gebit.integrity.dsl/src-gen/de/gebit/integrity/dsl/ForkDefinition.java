@@ -2,6 +2,7 @@
  */
 package de.gebit.integrity.dsl;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +15,7 @@ package de.gebit.integrity.dsl;
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,5 +102,21 @@ public interface ForkDefinition extends Statement, PackageStatement
    * @generated
    */
   void setForkerClass(JavaClassReference value);
+
+  /**
+   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.ForkParameter}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Parameters</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_Parameters()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ForkParameter> getParameters();
 
 } // ForkDefinition

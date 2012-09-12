@@ -4,15 +4,23 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.JavaClassReference;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getForkerClass <em>Forker Class</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,6 +89,16 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * @ordered
    */
   protected JavaClassReference forkerClass;
+
+  /**
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParameters()
+   * @generated
+   * @ordered
+   */
+  protected EList<ForkParameter> parameters;
 
   /**
    * <!-- begin-user-doc -->
@@ -201,6 +220,20 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ForkParameter> getParameters()
+  {
+    if (parameters == null)
+    {
+      parameters = new EObjectContainmentEList<ForkParameter>(ForkParameter.class, this, DslPackage.FORK_DEFINITION__PARAMETERS);
+    }
+    return parameters;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -208,6 +241,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
     {
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return basicSetForkerClass(null, msgs);
+      case DslPackage.FORK_DEFINITION__PARAMETERS:
+        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -228,6 +263,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return getDescription();
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return getForkerClass();
+      case DslPackage.FORK_DEFINITION__PARAMETERS:
+        return getParameters();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -237,6 +274,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -250,6 +288,10 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return;
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         setForkerClass((JavaClassReference)newValue);
+        return;
+      case DslPackage.FORK_DEFINITION__PARAMETERS:
+        getParameters().clear();
+        getParameters().addAll((Collection<? extends ForkParameter>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -274,6 +316,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         setForkerClass((JavaClassReference)null);
         return;
+      case DslPackage.FORK_DEFINITION__PARAMETERS:
+        getParameters().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -294,6 +339,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return forkerClass != null;
+      case DslPackage.FORK_DEFINITION__PARAMETERS:
+        return parameters != null && !parameters.isEmpty();
     }
     return super.eIsSet(featureID);
   }

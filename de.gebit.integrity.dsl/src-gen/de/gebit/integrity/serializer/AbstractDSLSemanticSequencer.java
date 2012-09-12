@@ -14,6 +14,7 @@ import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.JavaClassReference;
@@ -145,6 +146,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getPackageStatementRule() ||
 				   context == grammarAccess.getStatementRule()) {
 					sequence_ForkDefinition(context, (ForkDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.FORK_PARAMETER:
+				if(context == grammarAccess.getForkParameterRule()) {
+					sequence_ForkParameter(context, (ForkParameter) semanticObject); 
 					return; 
 				}
 				else break;
@@ -505,10 +512,29 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName description=STRING? forkerClass=JavaClassReference?)
+	 *     (name=QualifiedName description=STRING? forkerClass=JavaClassReference? parameters+=ForkParameter*)
 	 */
 	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=FixedParameterName value=ValueOrEnumValue)
+	 */
+	protected void sequence_ForkParameter(EObject context, ForkParameter semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FORK_PARAMETER__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FORK_PARAMETER__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	

@@ -2,7 +2,10 @@ package de.gebit.integrity.runner;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,6 +24,7 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
@@ -45,6 +49,7 @@ import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -1542,7 +1547,52 @@ public class TestRunner {
 			}
 		}
 
-		Fork tempFork = new Fork(aSuiteCall.getFork(), tempForkerClass, commandLineArguments,
+		if (tempForkerClass.getConstructors().length != 1) {
+			throw new ForkException("Found illegal number of constructors in forker class (must be exactly one!)");
+		}
+
+		// Forker can be parameterized
+		Constructor<? extends Forker> tempConstructor = (Constructor<? extends Forker>) tempForkerClass
+				.getConstructors()[0];
+		Object[] tempParameters = new Object[tempConstructor.getParameterTypes().length];
+		for (int i = 0; i < tempConstructor.getParameterTypes().length; i++) {
+			for (Annotation tempAnnotation : tempConstructor.getParameterAnnotations()[i]) {
+				if (ForkerParameter.class.isAssignableFrom(tempAnnotation.annotationType())) {
+					String tempName = ((ForkerParameter) tempAnnotation).name();
+					if (tempName != null) {
+						for (ForkParameter tempParameter : tempForkDef.getParameters()) {
+							String tempParamName = IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
+									.getName());
+							if (tempName.equals(tempParamName)) {
+								Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
+								tempParameters[i] = ParameterUtil.convertEncapsulatedValueToParamType(tempTargetType,
+										tempParameter.getValue(), variableStorage);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		Forker tempForker = null;
+		try {
+			tempForker = tempConstructor.newInstance(tempParameters);
+		} catch (InstantiationException exc) {
+			throw new ForkException("Could not create fork '" + tempForkDef.getName()
+					+ "': forker class not instantiable.", exc);
+		} catch (IllegalAccessException exc) {
+			throw new ForkException("Could not create fork '" + tempForkDef.getName()
+					+ "': forker class not instantiable.", exc);
+		} catch (IllegalArgumentException exc) {
+			throw new ForkException("Could not create fork '" + tempForkDef.getName()
+					+ "': forker class not instantiable.", exc);
+		} catch (InvocationTargetException exc) {
+			throw new ForkException("Could not create fork '" + tempForkDef.getName()
+					+ "': forker class not instantiable.", exc);
+		}
+
+		Fork tempFork = new Fork(aSuiteCall.getFork(), tempForker, commandLineArguments,
 				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
 				currentCallback, setList, remotingServer, new ForkCallback() {
 
@@ -1617,5 +1667,4 @@ public class TestRunner {
 		tempFork.kill();
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
-
 }

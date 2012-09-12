@@ -685,7 +685,110 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?)
+)?((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getParametersForkParameterParserRuleCall_6_0_0()); 
+	    }
+		lv_parameters_10_0=ruleForkParameter		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getForkDefinitionRule());
+	        }
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_10_0, 
+        		"ForkParameter");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_6_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)*)
+;
+
+
+
+
+
+// Entry rule entryRuleForkParameter
+entryRuleForkParameter returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getForkParameterRule()); }
+	 iv_ruleForkParameter=ruleForkParameter 
+	 { $current=$iv_ruleForkParameter.current; } 
+	 EOF 
+;
+
+// Rule ForkParameter
+ruleForkParameter returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0()); 
+	    }
+		lv_name_0_0=ruleFixedParameterName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getForkParameterRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"FixedParameterName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getForkParameterAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+	otherlv_2=':' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getForkParameterAccess().getColonKeyword_2());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getForkParameterAccess().getNLParserRuleCall_3()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueParserRuleCall_4_0()); 
+	    }
+		lv_value_4_0=ruleValueOrEnumValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getForkParameterRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_4_0, 
+        		"ValueOrEnumValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

@@ -26,6 +26,8 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
+import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
@@ -77,6 +79,22 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 			if (tempParameterHeader.eContainer() instanceof TableTest) {
 				tempMethodRef = ((TableTest) tempParameterHeader.eContainer()).getDefinition().getFixtureMethod();
+			}
+		} else if (aParameterName.eContainer() instanceof ForkParameter) {
+			ForkParameter tempForkParameter = (ForkParameter) aParameterName.eContainer();
+			ForkDefinition tempForkDef = (ForkDefinition) tempForkParameter.eContainer();
+
+			if (tempForkDef.getForkerClass() != null
+					&& (tempForkDef.getForkerClass().getType() instanceof JvmGenericType)) {
+				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+				List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil
+						.getAllParamNamesFromForker((JvmGenericType) tempForkDef.getForkerClass().getType());
+
+				for (ParamAnnotationTuple tempParam : tempParamList) {
+					tempList.add(EObjectDescription.create(tempParam.getParamName(), tempParam.getAnnotation()));
+				}
+
+				return new SimpleScope(tempList);
 			}
 		}
 
