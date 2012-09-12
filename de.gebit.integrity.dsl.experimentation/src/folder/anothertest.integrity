@@ -10,7 +10,7 @@ packagedef mysecondpackage with
 	variable morePackageVars initially "String!!!"
 
 	forkdef firstFork "Fork Number One" uses de.gebit.integrity.runner.forking.DefaultForker
-	forkdef secondFork "Fork Number Two" uses de.gebit.integrity.experiments.fixtures.ParameterizedForker stringParam : "hallo" numberParam : 123
+	forkdef secondFork "Fork Number Two" uses de.gebit.integrity.experiments.fixtures.ParameterizedForker stringParam: "hallo" numberParam: 123
 
 	suitedef forkedSuite gets aParam with
 

@@ -44,6 +44,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 
 		// No spaces before colons, commas, after pluses or before/after hashes
 		aConfig.setNoSpace().before(tempGrammar.getValueOrEnumValueCollectionAccess().getCommaKeyword_1_1());
+		aConfig.setNoSpace().before(tempGrammar.getForkParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getSuiteParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_4());
