@@ -64,6 +64,9 @@ public final class ConsoleTestExecutor {
 		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
 				"remoteport", "Set the port number to bind to for remoting (default is "
 						+ IntegrityRemotingConstants.DEFAULT_PORT + ")", "[{-r,--remoteport} port]");
+		SimpleCommandLineParser.StringOption tempRemoteHostOption = new SimpleCommandLineParser.StringOption(
+				"remotehost", "Set the host name or IP to which the remoting server should bind (default is 0.0.0.0)",
+				"[{--remotehost} host]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
 				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
 		SimpleCommandLineParser.BooleanOption tempNoResolveAllReferences = new SimpleCommandLineParser.BooleanOption(
@@ -73,7 +76,8 @@ public final class ConsoleTestExecutor {
 				"[{--noresolve}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
-				tempNoremoteOption, tempRemoteportOption, tempWaitForPlayOption, tempNoResolveAllReferences);
+				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
+				tempNoResolveAllReferences);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -132,12 +136,14 @@ public final class ConsoleTestExecutor {
 				}
 
 				Integer tempRemotePort = null;
+				String tempRemoteHost = null;
 				if (!tempNoremoteOption.isSet()) {
 					tempRemotePort = tempRemoteportOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
+					tempRemoteHost = tempRemoteHostOption.getValue("0.0.0.0");
 				}
 
 				try {
-					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, someArgs);
+					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, tempRemoteHost, someArgs);
 					tempRunner.run(tempRootSuiteCall, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();

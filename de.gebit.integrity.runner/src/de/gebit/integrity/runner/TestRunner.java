@@ -226,7 +226,26 @@ public class TestRunner {
 	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
 
 	/**
-	 * Creates a new test runner instance.
+	 * Creates a new test runner instance. Does not start the remoting server.
+	 * 
+	 * @param aModel
+	 *            the model to execute
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
+	public TestRunner(TestModel aModel, TestRunnerCallback aCallback, String[] someCommandLineArguments)
+			throws IOException {
+		this(aModel, aCallback, null, someCommandLineArguments);
+	}
+
+	/**
+	 * Creates a new test runner instance. If a remoting port is given, this binds the remoting server to all
+	 * interfaces.
 	 * 
 	 * @param aModel
 	 *            the model to execute
@@ -242,6 +261,28 @@ public class TestRunner {
 	 */
 	public TestRunner(TestModel aModel, TestRunnerCallback aCallback, Integer aRemotingPort,
 			String[] someCommandLineArguments) throws IOException {
+		this(aModel, aCallback, aRemotingPort, "0.0.0.0", someCommandLineArguments);
+	}
+
+	/**
+	 * Creates a new test runner instance.
+	 * 
+	 * @param aModel
+	 *            the model to execute
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param aRemotingPort
+	 *            the port on which the remoting server should listen, or null if remoting should be disabled
+	 * @param aRemotingBindHost
+	 *            the host name (or IP) to which the remoting server should bind
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
+	public TestRunner(TestModel aModel, TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost,
+			String[] someCommandLineArguments) throws IOException {
 		model = aModel;
 		callback = aCallback;
 		commandLineArguments = someCommandLineArguments;
@@ -251,7 +292,7 @@ public class TestRunner {
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
-			remotingServer = new IntegrityRemotingServer("0.0.0.0", tempRemotingPort, remotingListener);
+			remotingServer = new IntegrityRemotingServer(aRemotingBindHost, tempRemotingPort, remotingListener);
 		}
 	}
 
