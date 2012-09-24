@@ -64,7 +64,7 @@ public final class ConsoleTestExecutor {
 		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
 				"remoteport", "Set the port number to bind to for remoting (default is "
 						+ IntegrityRemotingConstants.DEFAULT_PORT + ")", "[{-r,--remoteport} port]");
-		SimpleCommandLineParser.StringOption tempRemoteHostOption = new SimpleCommandLineParser.StringOption(
+		SimpleCommandLineParser.StringOption tempRemoteHostOption = new SimpleCommandLineParser.StringOption(null,
 				"remotehost", "Set the host name or IP to which the remoting server should bind (default is 0.0.0.0)",
 				"[{--remotehost} host]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
