@@ -38,6 +38,7 @@
     <module>distribution</module>
     <module>standalonedeps.juno</module>
     <module>updatesite</module>
+    <module>de.gebit.integrity.jenkins</module>
   </modules>
   
   <build>

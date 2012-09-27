@@ -1,0 +1,12 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler"
+	xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson"
+	xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+	<table>
+	<j:if test="${it.hasChildren()}">
+		<tr><th>Name</th><th>Steps</th><th>Successes</th><th>Failures</th><th>Exceptions</th></tr>
+	    <j:forEach var="r" items="${it.getChildren()}">
+			<tr><td><a href="${r.safeName}">${r.displayName}</a></td><td>${r.totalCount}</td><td>${r.passCount}</td><td>${r.failCount}</td><td>${r.skipCount}</td></tr>
+	    </j:forEach>
+	</j:if>
+	</table>
+</j:jelly>
