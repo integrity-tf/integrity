@@ -28,6 +28,10 @@
     </pluginRepository>
   </pluginRepositories>
   
+  <properties>
+  	<sonar.exclusions>de/gebit/integrity/Messages.java</sonar.exclusions>
+  </properties>
+  
   <!-- Override default Jenkins-CI repositories, since we currently don't want to release the plugin there yet -->
   <distributionManagement>
     <repository>
