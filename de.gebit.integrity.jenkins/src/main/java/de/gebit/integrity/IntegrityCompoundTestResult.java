@@ -5,6 +5,7 @@ package de.gebit.integrity;
 
 import hudson.model.AbstractBuild;
 import hudson.tasks.test.TabulatedResult;
+import hudson.tasks.test.AbstractTestResultAction;
 import hudson.tasks.test.TestObject;
 import hudson.tasks.test.TestResult;
 
@@ -27,7 +28,7 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 	/**
 	 * The serialization version.
 	 */
-	private static final long serialVersionUID = 5660708449068256878L;
+	private static final long serialVersionUID = 5660708469068256878L;
 
 	/**
 	 * The inner test results.
@@ -35,9 +36,9 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 	private List<IntegrityTestResult> tempChildren = new ArrayList<IntegrityTestResult>();
 
 	/**
-	 * The owner.
+	 * The action owning this result.
 	 */
-	private AbstractBuild<?, ?> owner;
+	private transient AbstractTestResultAction<?> parentAction;
 
 	/**
 	 * Adds a child (single test result).
@@ -60,20 +61,13 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 
 	@Override
 	public AbstractBuild<?, ?> getOwner() {
-		return owner;
+		return (parentAction == null ? null : parentAction.owner);
 	}
 
-	/**
-	 * Sets the owner. This also sets the owner of all children.
-	 * 
-	 * @param anOwner
-	 *            the new owner
-	 */
-	public void setOwner(AbstractBuild<?, ?> anOwner) {
-		owner = anOwner;
-		for (IntegrityTestResult tempChild : tempChildren) {
-			tempChild.setOwner(anOwner);
-		}
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void setParentAction(AbstractTestResultAction aParentAction) {
+		parentAction = aParentAction;
 	}
 
 	@Override
@@ -149,6 +143,29 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 		}
 
 		return super.getSkipCount();
+	}
+
+	/**
+	 * Gets the counter part of this {@link TestResult} in the specified run. This basically equals the upstream
+	 * function that is overridden here, but it also sets the parent action.
+	 * 
+	 * @return null if no such counter part exists.
+	 */
+	@Override
+	public TestResult getResultInBuild(AbstractBuild<?, ?> aBuild) {
+		AbstractTestResultAction<?> tempTestResultAction = aBuild.getAction(getParentAction().getClass());
+		if (tempTestResultAction == null) {
+			tempTestResultAction = aBuild.getAction(AbstractTestResultAction.class);
+		}
+		if (tempTestResultAction == null) {
+			return null;
+		} else {
+			TestResult tempResult = tempTestResultAction.findCorrespondingResult(this.getId());
+			if (tempResult != null) {
+				tempResult.setParentAction(tempTestResultAction);
+			}
+			return tempResult;
+		}
 	}
 
 }

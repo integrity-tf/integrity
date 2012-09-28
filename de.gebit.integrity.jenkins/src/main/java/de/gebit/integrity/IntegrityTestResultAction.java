@@ -32,12 +32,7 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 	/**
 	 * The result to display.
 	 */
-	private IntegrityCompoundTestResult result;
-
-	/**
-	 * The listener.
-	 */
-	private transient BuildListener listener;
+	private transient IntegrityCompoundTestResult result;
 
 	/**
 	 * The XStream instance used for result persistence.
@@ -63,7 +58,7 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 			BuildListener aListener) {
 		super(anOwner);
 		synchronized (this) {
-			aResult.setOwner(owner);
+			aResult.setParentAction(this);
 
 			try {
 				getDataFile().write(aResult);
@@ -72,7 +67,6 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 			}
 
 			result = aResult;
-			listener = aListener;
 		}
 	}
 
@@ -85,9 +79,10 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		try {
 			tempResult = (IntegrityCompoundTestResult) getDataFile().read();
 		} catch (IOException exc) {
-			exc.printStackTrace(listener.fatalError("Failed to save the Integrity test result from " + getDataFile()));
+			exc.printStackTrace();
 			tempResult = new IntegrityCompoundTestResult();
 		}
+		tempResult.setParentAction(this);
 		return tempResult;
 	}
 

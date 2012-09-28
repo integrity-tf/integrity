@@ -5,6 +5,7 @@ package de.gebit.integrity;
 
 import hudson.model.AbstractBuild;
 import hudson.tasks.test.TabulatedResult;
+import hudson.tasks.test.AbstractTestResultAction;
 import hudson.tasks.test.TestObject;
 import hudson.tasks.test.TestResult;
 
@@ -34,12 +35,12 @@ public class IntegrityTestResult extends TabulatedResult {
 	/**
 	 * The parent (should be an instance of {@link IntegrityCompoundTestResult}).
 	 */
-	private TestObject parent;
+	private transient TestObject parent;
 
 	/**
-	 * The owning build.
+	 * The action owning this result.
 	 */
-	private AbstractBuild<?, ?> owner;
+	private transient AbstractTestResultAction<?> parentAction;
 
 	/**
 	 * The unique name of this result. The result file names are used for this purpose.
@@ -109,11 +110,13 @@ public class IntegrityTestResult extends TabulatedResult {
 
 	@Override
 	public AbstractBuild<?, ?> getOwner() {
-		return owner;
+		return (parentAction == null ? null : parentAction.owner);
 	}
 
-	public void setOwner(AbstractBuild<?, ?> anOwner) {
-		this.owner = anOwner;
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void setParentAction(AbstractTestResultAction aParentAction) {
+		parentAction = aParentAction;
 	}
 
 	/**
