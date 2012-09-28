@@ -143,8 +143,8 @@ public class IntegrityTestResultRecorder extends Recorder {
 		 * Performs on-the-fly validation on the file mask wildcard.
 		 */
 		@SuppressWarnings("rawtypes")
-		public FormValidation doCheckTestResults(@AncestorInPath AbstractProject aProject, @QueryParameter String aValue)
-				throws IOException {
+		public FormValidation doCheckTestResultFileNamePattern(@AncestorInPath AbstractProject aProject,
+				@QueryParameter String aValue) throws IOException {
 			return FilePath.validateFileMask(aProject.getSomeWorkspace(), aValue);
 		}
 
