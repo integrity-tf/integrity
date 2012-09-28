@@ -40,15 +40,16 @@ public class IntegrityTestResultRecorder extends Recorder {
 	/**
 	 * Creates a new instance.
 	 * 
-	 * @param aTestResultFileNamePattern
+	 * @param testResultFileNamePattern
 	 *            the result file name pattern to use
 	 */
 	@DataBoundConstructor
-	public IntegrityTestResultRecorder(String aTestResultFileNamePattern) {
-		this.testResultFileNamePattern = aTestResultFileNamePattern;
+	// SUPPRESS CHECKSTYLE LONG ParameterNames
+	public IntegrityTestResultRecorder(String testResultFileNamePattern) {
+		this.testResultFileNamePattern = testResultFileNamePattern;
 	}
 
-	public String getTestResults() {
+	public String getTestResultFileNamePattern() {
 		return testResultFileNamePattern;
 	}
 
