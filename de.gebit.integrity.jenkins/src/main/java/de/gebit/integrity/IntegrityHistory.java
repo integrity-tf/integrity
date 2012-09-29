@@ -193,8 +193,8 @@ public class IntegrityHistory {
 				@Override
 				public String generateToolTip(CategoryDataset aDataset, int aRow, int aColumn) {
 					ChartLabel tempLabel = (ChartLabel) aDataset.getColumnKey(aColumn);
-					return tempLabel.result.getOwner().getDisplayName() + ": " + tempLabel.result.getTotalCount()
-							+ " steps, " + tempLabel.result.getFailCount() + " failures, "
+					return tempLabel.result.getOwner().getDisplayName() + ": " + tempLabel.result.getPassCount()
+							+ " successful tests, " + tempLabel.result.getFailCount() + " failures, "
 							+ tempLabel.result.getSkipCount() + " exceptions";
 				}
 			};

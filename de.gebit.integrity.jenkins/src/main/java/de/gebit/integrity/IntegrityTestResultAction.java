@@ -130,13 +130,13 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		if (tempTotalCount == 0) {
 			tempDescription = de.gebit.integrity.Messages._NoTestResult();
 		} else {
-			tempDescription = de.gebit.integrity.Messages._TestResult(getFailCount(), tempTotalCount, getSkipCount());
+			tempDescription = de.gebit.integrity.Messages._TestResult(getPassCount(), getFailCount(), getSkipCount());
 		}
 		return new HealthReport(tempScore, tempDescription);
 	}
 
 	public String getSummary() {
-		return de.gebit.integrity.Messages.TestResult(getFailCount(), getTotalCount(), getSkipCount());
+		return de.gebit.integrity.Messages.TestResult(getPassCount(), getFailCount(), getSkipCount());
 	}
 
 	@Override
@@ -155,5 +155,10 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 	@Exported(visibility = 2)
 	public int getSkipCount() {
 		return getResult().getSkipCount();
+	}
+
+	@Exported(visibility = 2)
+	public int getPassCount() {
+		return getResult().getPassCount();
 	}
 }
