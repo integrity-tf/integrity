@@ -70,6 +70,12 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 		parentAction = aParentAction;
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public AbstractTestResultAction getParentAction() {
+		return parentAction;
+	}
+
 	@Override
 	public Object getDynamic(String aToken, StaplerRequest aRequest, StaplerResponse aResponse) {
 		TestResult tempResult = findCorrespondingResult(aToken);
