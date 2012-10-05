@@ -20,6 +20,8 @@ packagedef mysecondpackage with
 		
 		call random min: 2 max: aParam -> packagevar
 		
+		-- A visible comment inside a fork
+		
 		suite ranFromForked
 	
 	suiteend

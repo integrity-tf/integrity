@@ -266,12 +266,16 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 
 	@Override
 	public void onVisibleComment(String aCommentText) {
-		System.out.println(" -- " + aCommentText + " --");
+		if (!isDryRun()) { // don't want to print this if we're not actually executing stuff
+			System.out.println(" -- " + aCommentText + " --");
+		}
 	}
 
 	@Override
 	public void onVisibleDivider(String aDividerText) {
-		System.out.println(" " + aDividerText + "");
+		if (!isDryRun()) { // don't want to print this if we're not actually executing stuff
+			System.out.println(" " + aDividerText + "");
+		}
 	}
 
 	@Override
