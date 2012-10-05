@@ -85,7 +85,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.CALL:
 				if(context == grammarAccess.getCallRule() ||
-				   context == grammarAccess.getSuiteStatementRule()) {
+				   context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getSuiteStatementWithResultRule()) {
 					sequence_Call(context, (Call) semanticObject); 
 					return; 
 				}

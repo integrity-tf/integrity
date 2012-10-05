@@ -436,7 +436,6 @@
         <xsl:attribute name="class">
           <xsl:text>statement row1call</xsl:text>
           <xsl:value-of select="result/@type" />
-          <xsl:if test="result/@type = 'exception'"> callexception</xsl:if>
         </xsl:attribute>
         <xsl:if test="result/@type = 'exception'">
           <div class="testicon testiconexception" />

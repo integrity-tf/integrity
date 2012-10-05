@@ -8,6 +8,8 @@ import java.util.Set;
 
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
+import de.gebit.integrity.runner.results.call.CallResult;
+import de.gebit.integrity.runner.results.call.ExceptionResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 
 /**
@@ -90,6 +92,14 @@ public class SuiteResult extends SuiteSummaryResult {
 				tempSuccessCount += ((TestResult) tempResult).getSubTestSuccessCount();
 				tempFailCount += ((TestResult) tempResult).getSubTestFailCount();
 				tempExceptionCount += ((TestResult) tempResult).getSubTestExceptionCount();
+			} else if (tempResult instanceof CallResult) {
+				// Calls can only fail with exception or go through. But successful calls won't be counted, since the
+				// success count should only include tests (successful calls are the norm, successful tests should be,
+				// but failures are expected there). Exception counts however should include calls as well, everything
+				// else feels just strange.
+				if (tempResult instanceof ExceptionResult) {
+					tempExceptionCount++;
+				}
 			}
 		}
 

@@ -48,10 +48,10 @@ SuiteDefinition:
 	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment | VisibleDivider;
+	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment | VisibleDivider;
 	
 SuiteStatementWithResult:
-	Suite | Test | TableTest;
+	Suite | Test | TableTest | Call;
 	
 VariableDefinition:
 	'variable' NL name=VariableEntity NL ('initially' NL initialValue=Value NL)?;

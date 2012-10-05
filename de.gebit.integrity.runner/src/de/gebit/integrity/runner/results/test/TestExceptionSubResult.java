@@ -16,7 +16,7 @@ public class TestExceptionSubResult extends TestSubResult {
 	/**
 	 * The exception that occurred.
 	 */
-	private Exception exception;
+	private Throwable exception;
 
 	/**
 	 * Creates a new instance.
@@ -28,7 +28,7 @@ public class TestExceptionSubResult extends TestSubResult {
 	 * @param anExecutionTime
 	 *            Time taken to execute the test method
 	 */
-	public TestExceptionSubResult(Exception anException, Map<String, TestComparisonResult> aComparisonResult,
+	public TestExceptionSubResult(Throwable anException, Map<String, TestComparisonResult> aComparisonResult,
 			Long anExecutionTime) {
 		super(aComparisonResult, anExecutionTime);
 		exception = anException;
@@ -44,7 +44,7 @@ public class TestExceptionSubResult extends TestSubResult {
 		return "ExceptionResult: " + tempOut;
 	}
 
-	public Exception getException() {
+	public Throwable getException() {
 		return exception;
 	}
 

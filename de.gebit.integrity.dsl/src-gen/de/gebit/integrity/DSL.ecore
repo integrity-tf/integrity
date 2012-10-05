@@ -135,7 +135,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="FixedResultName" eSuperTypes="#//ResultName">
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//SuiteStatementWithResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiplier" eType="#//ExecutionMultiplier"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//CallDefinition"/>

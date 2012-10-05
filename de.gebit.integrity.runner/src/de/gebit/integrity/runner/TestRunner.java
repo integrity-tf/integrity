@@ -670,7 +670,9 @@ public class TestRunner {
 				tempInnerList.add(executeTableTest((TableTest) tempStatement));
 				tempResults.put((TableTest) tempStatement, tempInnerList);
 			} else if (tempStatement instanceof Call) {
-				executeCall((Call) tempStatement);
+				List<Result> tempInnerList = new ArrayList<Result>();
+				tempInnerList.addAll(executeCall((Call) tempStatement));
+				tempResults.put((Call) tempStatement, tempInnerList);
 			} else if (tempStatement instanceof VariableDefinition) {
 				defineVariable((VariableDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof ConstantDefinition) {
@@ -812,7 +814,7 @@ public class TestRunner {
 
 		TestResult tempReturn = null;
 		TestComparisonResult tempComparisonResult;
-		Exception tempException = null;
+		Throwable tempException = null;
 		Long tempDuration = null;
 
 		Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
@@ -874,7 +876,7 @@ public class TestRunner {
 					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
 				// SUPPRESS CHECKSTYLE IllegalCatch
-			} catch (Exception exc) {
+			} catch (Throwable exc) {
 				tempDuration = System.nanoTime() - tempStart;
 				tempException = exc;
 				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
@@ -930,7 +932,7 @@ public class TestRunner {
 
 				Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
 				TestComparisonResult tempComparisonResult = null;
-				Exception tempException = null;
+				Throwable tempException = null;
 				Long tempDuration = null;
 
 				if (!shouldExecuteFixtures()) {
@@ -1016,7 +1018,7 @@ public class TestRunner {
 							tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 						}
 						// SUPPRESS CHECKSTYLE IllegalCatch
-					} catch (Exception exc) {
+					} catch (Throwable exc) {
 						tempDuration = System.nanoTime() - tempStart;
 						tempException = exc;
 						// add undetermined result entries for all comparisons
@@ -1328,7 +1330,7 @@ public class TestRunner {
 							tempDuration);
 				}
 				// SUPPRESS CHECKSTYLE IllegalCatch
-			} catch (Exception exc) {
+			} catch (Throwable exc) {
 				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
 						System.nanoTime() - tempStart);
 			} finally {

@@ -1309,61 +1309,51 @@ ruleSuiteStatement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getCallParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVariableDefinitionParserRuleCall_1()); 
     }
-    this_Call_1=ruleCall
+    this_VariableDefinition_1=ruleVariableDefinition
     { 
-        $current = $this_Call_1.current; 
+        $current = $this_VariableDefinition_1.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVariableDefinitionParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getConstantDefinitionParserRuleCall_2()); 
     }
-    this_VariableDefinition_2=ruleVariableDefinition
+    this_ConstantDefinition_2=ruleConstantDefinition
     { 
-        $current = $this_VariableDefinition_2.current; 
+        $current = $this_ConstantDefinition_2.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getConstantDefinitionParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); 
     }
-    this_ConstantDefinition_3=ruleConstantDefinition
+    this_VisibleSingleLineComment_3=ruleVisibleSingleLineComment
     { 
-        $current = $this_ConstantDefinition_3.current; 
+        $current = $this_VisibleSingleLineComment_3.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); 
     }
-    this_VisibleSingleLineComment_4=ruleVisibleSingleLineComment
+    this_VisibleMultiLineComment_4=ruleVisibleMultiLineComment
     { 
-        $current = $this_VisibleSingleLineComment_4.current; 
+        $current = $this_VisibleMultiLineComment_4.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); 
     }
-    this_VisibleMultiLineComment_5=ruleVisibleMultiLineComment
+    this_VisibleDivider_5=ruleVisibleDivider
     { 
-        $current = $this_VisibleMultiLineComment_5.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
-    }
-    this_VisibleDivider_6=ruleVisibleDivider
-    { 
-        $current = $this_VisibleDivider_6.current; 
+        $current = $this_VisibleDivider_5.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -1414,6 +1404,16 @@ ruleSuiteStatementWithResult returns [EObject current=null]
     this_TableTest_2=ruleTableTest
     { 
         $current = $this_TableTest_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementWithResultAccess().getCallParserRuleCall_3()); 
+    }
+    this_Call_3=ruleCall
+    { 
+        $current = $this_Call_3.current; 
         afterParserOrEnumRuleCall();
     }
 )

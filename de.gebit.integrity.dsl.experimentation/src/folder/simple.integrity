@@ -3,13 +3,7 @@ import mypackage.*
 packagedef mypackage with
 
 	suitedef asuite with
-		test stupidtest
-		
-		-- This is a comment
-		
-		-----------------------------------------------------
-		
-		test failtest
+		call exceptioncall
 	suiteend
 
 packageend

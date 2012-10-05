@@ -59,6 +59,11 @@ public class AdditionFixture {
 		return false;
 	}
 
+	@FixtureMethod(description = "This always throws an exception. We're so doomed!")
+	public boolean throwException() {
+		throw new RuntimeException("Holy shit!");
+	}
+
 	@FixtureMethod(description = "returns some named results")
 	public NamedResultContainer multiResultFixture(@FixtureParameter(name = "param") String aParam) {
 		return new NamedResultContainer(aParam, 100);

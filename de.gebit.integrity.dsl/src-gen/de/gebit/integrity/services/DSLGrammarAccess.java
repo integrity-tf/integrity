@@ -736,45 +736,41 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SuiteStatement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cSuiteStatementWithResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cCallParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cVariableDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cConstantDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cVisibleSingleLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cVisibleMultiLineCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cVisibleDividerParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cVariableDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cConstantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cVisibleSingleLineCommentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cVisibleMultiLineCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVisibleDividerParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//SuiteStatement:
 		//
-		//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
 		//
 		//	VisibleMultiLineComment | VisibleDivider;
 		public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment
 		//
-		//VisibleMultiLineComment | VisibleDivider
+		//| VisibleDivider
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//SuiteStatementWithResult
 		public RuleCall getSuiteStatementWithResultParserRuleCall_0() { return cSuiteStatementWithResultParserRuleCall_0; }
 
-		//Call
-		public RuleCall getCallParserRuleCall_1() { return cCallParserRuleCall_1; }
-
 		//VariableDefinition
-		public RuleCall getVariableDefinitionParserRuleCall_2() { return cVariableDefinitionParserRuleCall_2; }
+		public RuleCall getVariableDefinitionParserRuleCall_1() { return cVariableDefinitionParserRuleCall_1; }
 
 		//ConstantDefinition
-		public RuleCall getConstantDefinitionParserRuleCall_3() { return cConstantDefinitionParserRuleCall_3; }
+		public RuleCall getConstantDefinitionParserRuleCall_2() { return cConstantDefinitionParserRuleCall_2; }
 
 		//VisibleSingleLineComment
-		public RuleCall getVisibleSingleLineCommentParserRuleCall_4() { return cVisibleSingleLineCommentParserRuleCall_4; }
+		public RuleCall getVisibleSingleLineCommentParserRuleCall_3() { return cVisibleSingleLineCommentParserRuleCall_3; }
 
 		//VisibleMultiLineComment
-		public RuleCall getVisibleMultiLineCommentParserRuleCall_5() { return cVisibleMultiLineCommentParserRuleCall_5; }
+		public RuleCall getVisibleMultiLineCommentParserRuleCall_4() { return cVisibleMultiLineCommentParserRuleCall_4; }
 
 		//VisibleDivider
-		public RuleCall getVisibleDividerParserRuleCall_6() { return cVisibleDividerParserRuleCall_6; }
+		public RuleCall getVisibleDividerParserRuleCall_5() { return cVisibleDividerParserRuleCall_5; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -783,13 +779,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSuiteParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cTestParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cTableTestParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cCallParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//SuiteStatementWithResult:
 		//
-		//	Suite | Test | TableTest;
+		//	Suite | Test | TableTest | Call;
 		public ParserRule getRule() { return rule; }
 
-		//Suite | Test | TableTest
+		//Suite | Test | TableTest | Call
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Suite
@@ -800,6 +797,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TableTest
 		public RuleCall getTableTestParserRuleCall_2() { return cTableTestParserRuleCall_2; }
+
+		//Call
+		public RuleCall getCallParserRuleCall_3() { return cCallParserRuleCall_3; }
 	}
 
 	public class VariableDefinitionElements extends AbstractParserRuleElementFinder {
@@ -2581,7 +2581,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SuiteStatement:
 	//
-	//	SuiteStatementWithResult | Call | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
+	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
 	//
 	//	VisibleMultiLineComment | VisibleDivider;
 	public SuiteStatementElements getSuiteStatementAccess() {
@@ -2594,7 +2594,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SuiteStatementWithResult:
 	//
-	//	Suite | Test | TableTest;
+	//	Suite | Test | TableTest | Call;
 	public SuiteStatementWithResultElements getSuiteStatementWithResultAccess() {
 		return (pSuiteStatementWithResult != null) ? pSuiteStatementWithResult : (pSuiteStatementWithResult = new SuiteStatementWithResultElements());
 	}

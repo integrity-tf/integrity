@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Call extends SuiteStatement
+public interface Call extends SuiteStatementWithResult
 {
   /**
    * Returns the value of the '<em><b>Multiplier</b></em>' containment reference.

@@ -302,6 +302,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         Call call = (Call)theEObject;
         T result = caseCall(call);
+        if (result == null) result = caseSuiteStatementWithResult(call);
         if (result == null) result = caseSuiteStatement(call);
         if (result == null) result = defaultCase(theEObject);
         return result;

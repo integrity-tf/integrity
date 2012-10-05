@@ -16,7 +16,7 @@ public class ExceptionResult extends CallResult {
 	/**
 	 * The exception that was thrown.
 	 */
-	private Exception exception;
+	private Throwable exception;
 
 	/**
 	 * Creates a new instance.
@@ -28,7 +28,7 @@ public class ExceptionResult extends CallResult {
 	 * @param anExecutionTime
 	 *            the time it took to execute the call
 	 */
-	public ExceptionResult(Exception anException, List<UpdatedVariable> someVariablesToUpdate, Long anExecutionTime) {
+	public ExceptionResult(Throwable anException, List<UpdatedVariable> someVariablesToUpdate, Long anExecutionTime) {
 		super(someVariablesToUpdate, anExecutionTime);
 		exception = anException;
 	}
@@ -43,7 +43,7 @@ public class ExceptionResult extends CallResult {
 		return "ExceptionResult: " + tempOut;
 	}
 
-	public Exception getException() {
+	public Throwable getException() {
 		return exception;
 	}
 

@@ -71,7 +71,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	/**
 	 * The number of suites executed.
 	 */
-	private int suiteCount = 1;
+	private int suiteCount;
 
 	/**
 	 * The variable storage map.
