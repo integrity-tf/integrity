@@ -53,7 +53,7 @@ public @interface FixtureMethod {
 	 * "what the fixture does". It is highly suggested to provide such a description, since it's one of the main
 	 * mechanisms used by Integrity to create human-readable test results.<br>
 	 * <br>
-	 * You may use placeholder values in the description string enclosed in dolar signs, like this: $parameter$. These
+	 * You may use placeholder values in the description string enclosed in dollar signs, like this: $parameter$. These
 	 * will be replaced by the matching parameter values at runtime.
 	 * 
 	 * @return
