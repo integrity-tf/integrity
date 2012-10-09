@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -20,7 +18,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.linking.impl.ImportedNamesAdapter;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -213,13 +210,6 @@ public class TestModel {
 		IResourceFactory tempResourceFactory = tempInjector.getInstance(IResourceFactory.class);
 		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
 		List<Model> tempModels = new LinkedList<Model>();
-
-		// This logger will print out quite some info messages that we can safely ignore, thus we'll prevent that
-		Logger tempAdapterLogger = Logger.getLogger(ImportedNamesAdapter.class);
-		if (tempAdapterLogger.getLevel() == null) {
-			// only set log level if there hasn't been any level set before
-			tempAdapterLogger.setLevel(Level.WARN);
-		}
 
 		for (String tempResourceName : aResourceProvider.getResourceNames()) {
 			URI tempUri = URI.createPlatformResourceURI(tempResourceName, true);
