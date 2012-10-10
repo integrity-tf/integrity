@@ -2,8 +2,10 @@ import mypackage.*
 
 packagedef mypackage with
 
+	operationdef concatenate uses de.gebit.integrity.experiments.fixtures.ConcatenationOperation
+
 	suitedef asuite with
-		call exceptioncall
+		test echo echo: ("1", 2 concatenate with (3, 4 concatenate)) = ("1", "3" concatenate)
 	suiteend
 
 packageend

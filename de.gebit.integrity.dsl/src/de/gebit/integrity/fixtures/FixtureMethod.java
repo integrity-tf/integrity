@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * <li>Double</li>
  * <li>BigDecimal</li>
  * <li>an Enumeration</li>
+ * <li>and the array variants of these types</li>
  * </ul>
  * <br>
  * The method may return either nothing at all, a value of one of the supported types, or an instance of a custom class

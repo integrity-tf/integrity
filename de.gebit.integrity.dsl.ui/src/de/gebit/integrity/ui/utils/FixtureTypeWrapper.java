@@ -25,9 +25,9 @@ import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
@@ -37,6 +37,7 @@ import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 
@@ -255,11 +256,13 @@ public class FixtureTypeWrapper {
 	 * @throws JavaModelException
 	 */
 	public Object convertResultValueToFixtureDefinedType(String aFixtureMethodName, ResultName aResultName,
-			ValueOrEnumValueCollection aValue) throws JavaModelException {
+			OperationOrValueCollection aValue) throws JavaModelException {
 		IMethod tempMethod = findMethod(aFixtureMethodName);
 		if (tempMethod == null) {
 			return aValue;
 		}
+
+		// TODO this doesn't seem to be able to work with arrays?! Check that!
 
 		String tempTargetTypeName = null;
 		if (aResultName == null) {
@@ -289,8 +292,12 @@ public class FixtureTypeWrapper {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
 				return ParameterUtil.convertEncapsulatedValueCollectionToParamType(tempTargetType, aValue,
-						new HashMap<VariableEntity, Object>());
+						new HashMap<VariableEntity, Object>(), null);
 			} catch (ClassNotFoundException exc) {
+				// skip this one; cannot convert
+			} catch (UnexecutableException exc) {
+				// skip this one; cannot convert
+			} catch (InstantiationException exc) {
 				// skip this one; cannot convert
 			}
 		}

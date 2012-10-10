@@ -24,7 +24,7 @@ PackageDefinition:
 	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
 PackageStatement:
-	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
+	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 
 Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
@@ -47,6 +47,9 @@ CallDefinition:
 SuiteDefinition:
 	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
+OperationDefinition:
+	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+
 SuiteStatement:
 	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment | VisibleDivider;
 	
@@ -66,7 +69,7 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueCollection)? NL;
+	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=OperationOrValueCollection)? NL;
 	
 TableTest:
 	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
@@ -82,10 +85,10 @@ ResultTableHeader:
 	'|' name=ResultName '=' '|'?;
 	
 ParameterTableValue:
-	'|' value=ValueOrEnumValueCollection '|'?;
+	'|' value=OperationOrValueCollection '|'?;
 		
 NamedResult:
-	name=ResultName NL '=' NL value=ValueOrEnumValueCollection;
+	name=ResultName NL '=' NL value=OperationOrValueCollection;
 	
 ResultName:
 	FixedResultName | ArbitraryParameterOrResultName;
@@ -106,7 +109,7 @@ SuiteParameter:
 	name=[VariableEntity|QualifiedName] NL ':' NL value=Value NL;
 
 Parameter:
-	name=ParameterName NL ':' NL value=ValueOrEnumValueCollection;
+	name=ParameterName NL ':' NL value=OperationOrValueCollection;
 	
 ParameterName:
 	FixedParameterName | ArbitraryParameterOrResultName;
@@ -116,6 +119,12 @@ FixedParameterName:
 
 ArbitraryParameterOrResultName:
 	'+' identifier=ID;
+	
+Operation:
+	'(' NL (prefixOperand=OperationOrValueCollection NL)? definition=[OperationDefinition|QualifiedName] (NL 'with' postfixOperand=OperationOrValueCollection)? NL ')';
+	
+OperationOrValueCollection:
+	Operation | ValueOrEnumValueCollection;
 	
 ValueOrEnumValueCollection:
 	value=ValueOrEnumValue (NL ',' NL moreValues+=ValueOrEnumValue)*;

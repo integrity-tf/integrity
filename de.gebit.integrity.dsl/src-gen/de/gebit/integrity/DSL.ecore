@@ -63,6 +63,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//SuiteStatement" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//PackageStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationType" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatementWithResult" eSuperTypes="#//SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
@@ -94,7 +98,7 @@
         eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//NamedResult" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//ValueOrEnumValueCollection"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//OperationOrValueCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableTest" eSuperTypes="#//SuiteStatementWithResult">
@@ -122,13 +126,13 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterTableValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueCollection"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//OperationOrValueCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ResultName"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueCollection"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//OperationOrValueCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResultName"/>
@@ -170,7 +174,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Parameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ParameterName"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueCollection"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//OperationOrValueCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterName"/>
@@ -180,7 +184,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterOrResultName" eSuperTypes="#//ResultName #//ParameterName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValueCollection">
+  <eClassifiers xsi:type="ecore:EClass" name="Operation" eSuperTypes="#//OperationOrValueCollection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prefixOperand" eType="#//OperationOrValueCollection"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//OperationDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postfixOperand" eType="#//OperationOrValueCollection"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationOrValueCollection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValueCollection" eSuperTypes="#//OperationOrValueCollection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValue"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="moreValues" upperBound="-1"

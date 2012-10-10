@@ -23,6 +23,8 @@ import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Null;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -212,6 +214,20 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case DslPackage.OPERATION:
+				if(context == grammarAccess.getOperationRule() ||
+				   context == grammarAccess.getOperationOrValueCollectionRule()) {
+					sequence_Operation(context, (Operation) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.OPERATION_DEFINITION:
+				if(context == grammarAccess.getOperationDefinitionRule() ||
+				   context == grammarAccess.getPackageStatementRule()) {
+					sequence_OperationDefinition(context, (OperationDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.PACKAGE_DEFINITION:
 				if(context == grammarAccess.getPackageDefinitionRule() ||
 				   context == grammarAccess.getStatementRule()) {
@@ -303,7 +319,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION:
-				if(context == grammarAccess.getValueOrEnumValueCollectionRule()) {
+				if(context == grammarAccess.getOperationOrValueCollectionRule() ||
+				   context == grammarAccess.getValueOrEnumValueCollectionRule()) {
 					sequence_ValueOrEnumValueCollection(context, (ValueOrEnumValueCollection) semanticObject); 
 					return; 
 				}
@@ -636,7 +653,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ResultName value=ValueOrEnumValueCollection)
+	 *     (name=ResultName value=OperationOrValueCollection)
 	 */
 	protected void sequence_NamedResult(EObject context, NamedResult semanticObject) {
 		if(errorAcceptor != null) {
@@ -648,7 +665,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getNamedResultAccess().getValueOperationOrValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -658,6 +675,34 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     {Null}
 	 */
 	protected void sequence_NullValue(EObject context, Null semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=QualifiedName operationType=[JvmType|QualifiedJavaClassName])
+	 */
+	protected void sequence_OperationDefinition(EObject context, OperationDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__OPERATION_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__OPERATION_TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getOperationDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getOperationDefinitionAccess().getOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1(), semanticObject.getOperationType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (prefixOperand=OperationOrValueCollection? definition=[OperationDefinition|QualifiedName] postfixOperand=OperationOrValueCollection?)
+	 */
+	protected void sequence_Operation(EObject context, Operation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -689,7 +734,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     value=ValueOrEnumValueCollection
+	 *     value=OperationOrValueCollection
 	 */
 	protected void sequence_ParameterTableValue(EObject context, ParameterTableValue semanticObject) {
 		if(errorAcceptor != null) {
@@ -698,14 +743,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueCollectionParserRuleCall_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueOperationOrValueCollectionParserRuleCall_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ParameterName value=ValueOrEnumValueCollection)
+	 *     (name=ParameterName value=OperationOrValueCollection)
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -717,7 +762,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getParameterAccess().getValueValueOrEnumValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getParameterAccess().getValueOperationOrValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -849,7 +894,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=ValueOrEnumValueCollection?)
+	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=OperationOrValueCollection?)
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -147,7 +147,7 @@ public class FixtureWrapper<C extends Object> {
 
 		// this will never be called within Eclipse, so we null the
 		// resource provider
-		convertParameterValuesToFixtureDefinedTypes(tempMethod, someParameters, true, false);
+		convertParameterValuesToFixtureDefinedTypes(tempMethod, someParameters, true);
 
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
 		Object[] tempParams = new Object[tempMethodParamCount];
@@ -183,11 +183,9 @@ public class FixtureWrapper<C extends Object> {
 	 *            the parameter map
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters shall be included
-	 * @param aCalledInEclipseFlag
-	 *            whether this method is being called inside Eclipse
 	 */
 	public void convertParameterValuesToFixtureDefinedTypes(Method aFixtureMethod, Map<String, Object> aParameterMap,
-			boolean anIncludeArbitraryParametersFlag, boolean aCalledInEclipseFlag) {
+			boolean anIncludeArbitraryParametersFlag) {
 		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {

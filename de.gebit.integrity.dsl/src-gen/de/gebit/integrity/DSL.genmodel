@@ -4,7 +4,7 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.8" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.7" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
@@ -56,6 +56,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/dependencies"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/finalizers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//OperationDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//OperationDefinition/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//OperationDefinition/operationType"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatement"/>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatementWithResult"/>
@@ -142,6 +146,12 @@
     <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterOrResultName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterOrResultName/identifier"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Operation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/prefixOperand"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/postfixOperand"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//OperationOrValueCollection"/>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValueCollection">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ValueOrEnumValueCollection/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ValueOrEnumValueCollection/moreValues"/>

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -17,7 +21,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -36,7 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ValueOrEnumValueCollectionImpl extends MinimalEObjectImpl.Container implements ValueOrEnumValueCollection
+public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionImpl implements ValueOrEnumValueCollection
 {
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.

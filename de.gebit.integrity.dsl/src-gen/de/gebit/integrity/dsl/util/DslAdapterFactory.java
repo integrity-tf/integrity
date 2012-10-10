@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -145,6 +149,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createSuiteDefinitionAdapter();
       }
       @Override
+      public Adapter caseOperationDefinition(OperationDefinition object)
+      {
+        return createOperationDefinitionAdapter();
+      }
+      @Override
       public Adapter caseSuiteStatement(SuiteStatement object)
       {
         return createSuiteStatementAdapter();
@@ -258,6 +267,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseArbitraryParameterOrResultName(ArbitraryParameterOrResultName object)
       {
         return createArbitraryParameterOrResultNameAdapter();
+      }
+      @Override
+      public Adapter caseOperation(Operation object)
+      {
+        return createOperationAdapter();
+      }
+      @Override
+      public Adapter caseOperationOrValueCollection(OperationOrValueCollection object)
+      {
+        return createOperationOrValueCollectionAdapter();
       }
       @Override
       public Adapter caseValueOrEnumValueCollection(ValueOrEnumValueCollection object)
@@ -562,6 +581,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSuiteDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.OperationDefinition <em>Operation Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.OperationDefinition
+   * @generated
+   */
+  public Adapter createOperationDefinitionAdapter()
   {
     return null;
   }
@@ -907,6 +941,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArbitraryParameterOrResultNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Operation <em>Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.Operation
+   * @generated
+   */
+  public Adapter createOperationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.OperationOrValueCollection <em>Operation Or Value Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.OperationOrValueCollection
+   * @generated
+   */
+  public Adapter createOperationOrValueCollectionAdapter()
   {
     return null;
   }

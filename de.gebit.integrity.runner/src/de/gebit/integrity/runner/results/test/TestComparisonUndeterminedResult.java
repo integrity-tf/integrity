@@ -1,6 +1,6 @@
 package de.gebit.integrity.runner.results.test;
 
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 
 /**
  * Comparison result used when test comparisons are still undetermined.
@@ -20,7 +20,7 @@ public class TestComparisonUndeterminedResult extends TestComparisonResult {
 	 * @param anExpectedValue
 	 *            The expected result value
 	 */
-	public TestComparisonUndeterminedResult(String aParameter, ValueOrEnumValueCollection anExpectedValue) {
+	public TestComparisonUndeterminedResult(String aParameter, OperationOrValueCollection anExpectedValue) {
 		super(aParameter, null, anExpectedValue);
 	}
 }

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -183,6 +187,14 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.OPERATION_DEFINITION:
+      {
+        OperationDefinition operationDefinition = (OperationDefinition)theEObject;
+        T result = caseOperationDefinition(operationDefinition);
+        if (result == null) result = casePackageStatement(operationDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.SUITE_STATEMENT:
       {
         SuiteStatement suiteStatement = (SuiteStatement)theEObject;
@@ -361,10 +373,26 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.OPERATION:
+      {
+        Operation operation = (Operation)theEObject;
+        T result = caseOperation(operation);
+        if (result == null) result = caseOperationOrValueCollection(operation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.OPERATION_OR_VALUE_COLLECTION:
+      {
+        OperationOrValueCollection operationOrValueCollection = (OperationOrValueCollection)theEObject;
+        T result = caseOperationOrValueCollection(operationOrValueCollection);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION:
       {
         ValueOrEnumValueCollection valueOrEnumValueCollection = (ValueOrEnumValueCollection)theEObject;
         T result = caseValueOrEnumValueCollection(valueOrEnumValueCollection);
+        if (result == null) result = caseOperationOrValueCollection(valueOrEnumValueCollection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -715,6 +743,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSuiteDefinition(SuiteDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Operation Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Operation Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOperationDefinition(OperationDefinition object)
   {
     return null;
   }
@@ -1083,6 +1127,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseArbitraryParameterOrResultName(ArbitraryParameterOrResultName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Operation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Operation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOperation(Operation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Operation Or Value Collection</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Operation Or Value Collection</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOperationOrValueCollection(OperationOrValueCollection object)
   {
     return null;
   }

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -147,6 +151,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   SuiteDefinition createSuiteDefinition();
+
+  /**
+   * Returns a new object of class '<em>Operation Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Operation Definition</em>'.
+   * @generated
+   */
+  OperationDefinition createOperationDefinition();
 
   /**
    * Returns a new object of class '<em>Suite Statement</em>'.
@@ -354,6 +367,24 @@ public interface DslFactory extends EFactory
    * @generated
    */
   ArbitraryParameterOrResultName createArbitraryParameterOrResultName();
+
+  /**
+   * Returns a new object of class '<em>Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Operation</em>'.
+   * @generated
+   */
+  Operation createOperation();
+
+  /**
+   * Returns a new object of class '<em>Operation Or Value Collection</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Operation Or Value Collection</em>'.
+   * @generated
+   */
+  OperationOrValueCollection createOperationOrValueCollection();
 
   /**
    * Returns a new object of class '<em>Value Or Enum Value Collection</em>'.

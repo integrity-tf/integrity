@@ -5,14 +5,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
@@ -114,6 +115,10 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 					+ formatter.testToHumanReadableString(aTest, variableStorage) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
+			exc.printStackTrace();
 		}
 	}
 
@@ -141,16 +146,16 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 							print("; ");
 						}
 						// Either there is an expected value, or if there isn't, "true" is the default
-						ValueOrEnumValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
+						OperationOrValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 						print("'"
 								+ ParameterUtil.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), variableStorage, false)
+										: tempExpectedValue), variableStorage, classLoader, false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
-										false) + "'!");
+										classLoader, false) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -191,7 +196,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, false)));
+						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, classLoader, false)));
 	}
 
 	@Override
@@ -201,6 +206,10 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 			println("Now executing call " + callCount + ": "
 					+ formatter.callToHumanReadableString(aCall, variableStorage) + "...");
 		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		}
 	}
@@ -249,6 +258,10 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 			print("\tRow " + tableTestRowCount + " ("
 					+ formatter.tableTestRowToHumanReadableString(aTableTest, aRow, variableStorage) + ")...");
 		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		}
 	}

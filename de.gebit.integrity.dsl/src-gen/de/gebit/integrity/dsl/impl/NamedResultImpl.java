@@ -1,11 +1,15 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -50,7 +54,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValueCollection value;
+  protected OperationOrValueCollection value;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,7 +130,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueCollection getValue()
+  public OperationOrValueCollection getValue()
   {
     return value;
   }
@@ -136,9 +140,9 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ValueOrEnumValueCollection newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(OperationOrValueCollection newValue, NotificationChain msgs)
   {
-    ValueOrEnumValueCollection oldValue = value;
+    OperationOrValueCollection oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -153,7 +157,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ValueOrEnumValueCollection newValue)
+  public void setValue(OperationOrValueCollection newValue)
   {
     if (newValue != value)
     {
@@ -219,7 +223,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
         setName((ResultName)newValue);
         return;
       case DslPackage.NAMED_RESULT__VALUE:
-        setValue((ValueOrEnumValueCollection)newValue);
+        setValue((OperationOrValueCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,7 +243,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
         setName((ResultName)null);
         return;
       case DslPackage.NAMED_RESULT__VALUE:
-        setValue((ValueOrEnumValueCollection)null);
+        setValue((OperationOrValueCollection)null);
         return;
     }
     super.eUnset(featureID);

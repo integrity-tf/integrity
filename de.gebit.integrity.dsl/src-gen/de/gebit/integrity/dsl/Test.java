@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -92,12 +96,12 @@ public interface Test extends SuiteStatementWithResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result</em>' containment reference.
-   * @see #setResult(ValueOrEnumValueCollection)
+   * @see #setResult(OperationOrValueCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getTest_Result()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValueCollection getResult();
+  OperationOrValueCollection getResult();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Test#getResult <em>Result</em>}' containment reference.
@@ -107,6 +111,6 @@ public interface Test extends SuiteStatementWithResult
    * @see #getResult()
    * @generated
    */
-  void setResult(ValueOrEnumValueCollection value);
+  void setResult(OperationOrValueCollection value);
 
 } // Test

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -78,6 +82,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.TEST_DEFINITION: return createTestDefinition();
       case DslPackage.CALL_DEFINITION: return createCallDefinition();
       case DslPackage.SUITE_DEFINITION: return createSuiteDefinition();
+      case DslPackage.OPERATION_DEFINITION: return createOperationDefinition();
       case DslPackage.SUITE_STATEMENT: return createSuiteStatement();
       case DslPackage.SUITE_STATEMENT_WITH_RESULT: return createSuiteStatementWithResult();
       case DslPackage.VARIABLE_DEFINITION: return createVariableDefinition();
@@ -101,6 +106,8 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.PARAMETER_NAME: return createParameterName();
       case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
       case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME: return createArbitraryParameterOrResultName();
+      case DslPackage.OPERATION: return createOperation();
+      case DslPackage.OPERATION_OR_VALUE_COLLECTION: return createOperationOrValueCollection();
       case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION: return createValueOrEnumValueCollection();
       case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
       case DslPackage.VALUE: return createValue();
@@ -273,6 +280,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     SuiteDefinitionImpl suiteDefinition = new SuiteDefinitionImpl();
     return suiteDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OperationDefinition createOperationDefinition()
+  {
+    OperationDefinitionImpl operationDefinition = new OperationDefinitionImpl();
+    return operationDefinition;
   }
 
   /**
@@ -526,6 +544,28 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ArbitraryParameterOrResultNameImpl arbitraryParameterOrResultName = new ArbitraryParameterOrResultNameImpl();
     return arbitraryParameterOrResultName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Operation createOperation()
+  {
+    OperationImpl operation = new OperationImpl();
+    return operation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OperationOrValueCollection createOperationOrValueCollection()
+  {
+    OperationOrValueCollectionImpl operationOrValueCollection = new OperationOrValueCollectionImpl();
+    return operationOrValueCollection;
   }
 
   /**

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -58,12 +62,12 @@ public interface Parameter extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(ValueOrEnumValueCollection)
+   * @see #setValue(OperationOrValueCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getParameter_Value()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValueCollection getValue();
+  OperationOrValueCollection getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Parameter#getValue <em>Value</em>}' containment reference.
@@ -73,6 +77,6 @@ public interface Parameter extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(ValueOrEnumValueCollection value);
+  void setValue(OperationOrValueCollection value);
 
 } // Parameter

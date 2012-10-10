@@ -28,6 +28,8 @@ import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
@@ -50,6 +52,8 @@ import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
+import de.gebit.integrity.operations.OperationWrapper;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 
 /**
  * A utility class providing various helper functions.
@@ -258,16 +262,24 @@ public final class IntegrityDSLUtil {
 	 * @param aVariableMap
 	 *            the variable map containing the current value of various variables, or null if no variable resolution
 	 *            shall be done
+	 * @param aClassLoader
+	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
+	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
 	 *            null)
 	 * @return a map with a String to value mapping
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
-		return createParameterMap(aTest.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
+		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
@@ -281,23 +293,31 @@ public final class IntegrityDSLUtil {
 	 * @param aVariableMap
 	 *            the variable map containing the current value of various variables, or null if no variable resolution
 	 *            shall be done
+	 * @param aClassLoader
+	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
+	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
 	 *            null)
 	 * @return a map with a String to value mapping
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
-		return createParameterMap(aCall.getParameters(), aVariableMap, anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
+		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
-	 * valid parameters. Parameters that contain references to variables will be resolved if the variable map is
-	 * provided, but no type conversions will be done.
+	 * valid parameters. Parameters that contain operations and/or references to variables will be resolved if the
+	 * variable map is provided, but no type conversions will be done.
 	 * 
 	 * @param aTableTest
 	 *            the table test
@@ -306,17 +326,24 @@ public final class IntegrityDSLUtil {
 	 * @param aVariableMap
 	 *            the variable map containing the current value of various variables, or null if no variable resolution
 	 *            shall be done
+	 * @param aClassLoader
+	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
+	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
 	 *            null)
 	 * @return a map with a String to value mapping
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) {
-		LinkedHashMap<ParameterName, ValueOrEnumValueCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueCollection>();
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+		LinkedHashMap<ParameterName, OperationOrValueCollection> tempParameterMap = new LinkedHashMap<ParameterName, OperationOrValueCollection>();
 		for (Parameter tempParameter : aTableTest.getParameters()) {
 			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
 		}
@@ -328,71 +355,92 @@ public final class IntegrityDSLUtil {
 			tempCount++;
 		}
 
-		return createParameterMap(tempParameterMap, aVariableMap, anIncludeArbitraryParametersFlag,
+		return createParameterMap(tempParameterMap, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
 	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
-	 * valid parameters. Parameters that contain references to variables will be resolved if the variable map is
-	 * provided, but no type conversions will be done.
+	 * valid parameters. Parameters that contain operations or references to variables will be resolved if the variable
+	 * map is provided, but no type conversions will be done.
 	 * 
 	 * @param someParameters
 	 *            the parameters
 	 * @param aVariableMap
 	 *            the variable map containing the current value of various variables, or null if no variable resolution
 	 *            shall be done
+	 * @param aClassLoader
+	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
+	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
 	 *            null)
 	 * @return a map with a String to value mapping
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) {
-		Map<ParameterName, ValueOrEnumValueCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueCollection>();
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+		Map<ParameterName, OperationOrValueCollection> tempParameters = new LinkedHashMap<ParameterName, OperationOrValueCollection>();
 		for (Parameter tempParameter : someParameters) {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
 		}
 
-		return createParameterMap(tempParameters, aVariableMap, anIncludeArbitraryParametersFlag,
+		return createParameterMap(tempParameters, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	private static Map<String, Object> createParameterMap(
-			Map<ParameterName, ValueOrEnumValueCollection> someParameters, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact) {
+			Map<ParameterName, OperationOrValueCollection> someParameters, Map<VariableEntity, Object> aVariableMap,
+			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
-		for (Entry<ParameterName, ValueOrEnumValueCollection> tempEntry : someParameters.entrySet()) {
+		for (Entry<ParameterName, OperationOrValueCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = null;
-				if (tempEntry.getValue().getMoreValues().size() > 0) {
-					// if multiple values have been provided
-					Object[] tempValueArray = new Object[tempEntry.getValue().getMoreValues().size() + 1];
-					tempValueArray[0] = tempEntry.getValue().getValue();
-					int i = 1;
-					for (ValueOrEnumValue tempSingleValue : tempEntry.getValue().getMoreValues()) {
-						tempValue = tempSingleValue;
-						if (tempSingleValue instanceof Variable) {
-							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
-									.get(((Variable) tempSingleValue).getName()) : null);
+				if (tempEntry.getValue() instanceof Operation) {
+					if (aClassLoader != null) {
+						OperationWrapper tempWrapper = new OperationWrapper((Operation) tempEntry.getValue(),
+								aClassLoader);
+						tempValue = tempWrapper.executeOperation(aVariableMap, false);
+					} else {
+						tempValue = null;
+					}
+				} else if (tempEntry.getValue() instanceof ValueOrEnumValueCollection) {
+					ValueOrEnumValueCollection tempValueOrEnumValueCollection = (ValueOrEnumValueCollection) tempEntry
+							.getValue();
+					if (tempValueOrEnumValueCollection.getMoreValues().size() > 0) {
+						// if multiple values have been provided
+						Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
+						tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
+						int i = 1;
+						for (ValueOrEnumValue tempSingleValue : tempValueOrEnumValueCollection.getMoreValues()) {
+							tempValue = tempSingleValue;
+							if (tempSingleValue instanceof Variable) {
+								Object tempResolvedValue = (aVariableMap != null ? aVariableMap
+										.get(((Variable) tempSingleValue).getName()) : null);
+								if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+									tempValue = tempResolvedValue;
+								}
+							}
+							tempValueArray[i++] = tempValue;
+						}
+						tempValue = tempValueArray;
+					} else {
+						// if only one value has been provided
+						tempValue = tempValueOrEnumValueCollection.getValue();
+						if (tempValue instanceof Variable) {
+							Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
+									.getName()) : null);
 							if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
 								tempValue = tempResolvedValue;
 							}
-						}
-						tempValueArray[i++] = tempValue;
-					}
-					tempValue = tempValueArray;
-				} else {
-					// if only one value has been provided
-					tempValue = tempEntry.getValue().getValue();
-					if (tempValue instanceof Variable) {
-						Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
-								.getName()) : null);
-						if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-							tempValue = tempResolvedValue;
 						}
 					}
 				}

@@ -17,12 +17,16 @@ import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.operations.OperationWrapper;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 
 /**
  * A utility class for handling of test/call parameters.
@@ -32,6 +36,9 @@ import de.gebit.integrity.dsl.VariableEntity;
  */
 public final class ParameterUtil {
 
+	/**
+	 * Instantiates a new parameter util.
+	 */
 	private ParameterUtil() {
 		// nothing to do
 	}
@@ -52,6 +59,43 @@ public final class ParameterUtil {
 	 * @return the converted value
 	 */
 	public static Object convertValueToParamType(Class<?> aParamType, Object aValue) {
+		if (aParamType.isArray()) {
+			Class<?> tempActualParamType = aParamType.getComponentType();
+			Object tempResultArray;
+			if (aValue.getClass().isArray()) {
+				// both are arrays
+				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
+				for (int i = 0; i < Array.getLength(aValue); i++) {
+					Array.set(tempResultArray, i,
+							convertSingleValueToParamType(tempActualParamType, Array.get(aValue, i)));
+				}
+			} else {
+				// target is an array, but value is a single value
+				tempResultArray = Array.newInstance(tempActualParamType, 1);
+				Array.set(tempResultArray, 0, convertSingleValueToParamType(tempActualParamType, aValue));
+			}
+			return tempResultArray;
+		} else {
+			// target is a single value
+			if (aValue.getClass().isArray()) {
+				// this is not convertible, but since this method does not guarantee any conversion...
+				return aValue;
+			} else {
+				return convertSingleValueToParamType(aParamType, aValue);
+			}
+		}
+	}
+
+	/**
+	 * Convert single value to param type.
+	 * 
+	 * @param aParamType
+	 *            the a param type
+	 * @param aValue
+	 *            the a value
+	 * @return the object
+	 */
+	private static Object convertSingleValueToParamType(Class<?> aParamType, Object aValue) {
 		if (aValue instanceof Number) {
 			if (aParamType == Integer.class) {
 				return aValue;
@@ -124,11 +168,11 @@ public final class ParameterUtil {
 	 *            the variable map, if variable references shall be resolved. If this is null, unresolved variable
 	 *            references given as values will provoke an exception!
 	 * @return the converted value
-	 * @throws IllegalArgumentException
-	 *             if the conversion required is not supported
+	 * @throws UnresolvableVariableException
+	 *             the unresolvable variable exception
 	 */
 	public static Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValue aValue,
-			Map<VariableEntity, Object> aVariableMap) {
+			Map<VariableEntity, Object> aVariableMap) throws UnresolvableVariableException {
 		if (aValue == null) {
 			return null;
 		}
@@ -213,8 +257,8 @@ public final class ParameterUtil {
 					return null;
 				}
 			} else {
-				throw new IllegalArgumentException("Unresolved variable " + ((Variable) aValue).getName().getName()
-						+ " encountered, but missing variable to value map!");
+				throw new UnresolvableVariableException("Unresolved variable "
+						+ ((Variable) aValue).getName().getName() + " encountered, but missing variable to value map!");
 			}
 		} else if (aValue instanceof BooleanValue) {
 			if (aParamType == Boolean.class) {
@@ -234,21 +278,56 @@ public final class ParameterUtil {
 	 * Converts a given value to a String.
 	 * 
 	 * @param aValue
-	 *            the value
+	 *            the value (can be an {@link OperationOrValueCollection} or a plain Java Object)
 	 * @param aVariableMap
 	 *            the variable map, if variable references as values shall be resolved. If this is null, unresolved
 	 *            variable references will always return either the string "(null)" or a null value, depending on the
 	 *            following flag
+	 * @param aClassLoader
+	 *            the classloader to use in order to resolve operations. If not given, operations will be "resolved" to
+	 *            the string "UNSUPPORTED".
 	 * @param anAllowNullResultFlag
-	 *            whether a null value shall be returned in case of unresolvable variable references
-	 * @return
+	 *            whether a null value shall be returned in case of unresolvable variable references or operations
+	 * @return the string
 	 */
 	public static String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap,
-			boolean anAllowNullResultFlag) {
-		if (aValue instanceof ValueOrEnumValueCollection) {
+			ClassLoader aClassLoader, boolean anAllowNullResultFlag) {
+		if (aValue instanceof Operation) {
+			if (aClassLoader == null) {
+				return anAllowNullResultFlag ? null : "UNSUPPORTED";
+			} else {
+				Object tempResult = null;
+				try {
+					OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader);
+					tempResult = tempWrapper.executeOperation(aVariableMap, false);
+				} catch (ClassNotFoundException exc) {
+					return anAllowNullResultFlag ? null : "FAILURE";
+				} catch (UnexecutableException exc) {
+					return anAllowNullResultFlag ? null : "FAILURE";
+				} catch (InstantiationException exc) {
+					return anAllowNullResultFlag ? null : "FAILURE";
+				}
+
+				if (tempResult.getClass().isArray()) {
+					StringBuilder tempBuilder = new StringBuilder();
+					for (int i = 0; i < Array.getLength(tempResult); i++) {
+						if (i > 0) {
+							tempBuilder.append(", ");
+						}
+						tempBuilder.append(convertValueToString(Array.get(tempResult, i), aVariableMap, aClassLoader,
+								anAllowNullResultFlag));
+					}
+					return tempBuilder.toString();
+				} else {
+					return convertValueToString(tempResult, aVariableMap, aClassLoader, anAllowNullResultFlag);
+				}
+			}
+
+		} else if (aValue instanceof ValueOrEnumValueCollection) {
 			ValueOrEnumValueCollection tempValueCollection = (ValueOrEnumValueCollection) aValue;
 			if (tempValueCollection.getMoreValues().size() == 0) {
-				return convertValueToString(tempValueCollection.getValue(), aVariableMap, anAllowNullResultFlag);
+				return convertValueToString(tempValueCollection.getValue(), aVariableMap, aClassLoader,
+						anAllowNullResultFlag);
 			} else {
 				StringBuilder tempBuilder = new StringBuilder();
 				for (int i = 0; i < tempValueCollection.getMoreValues().size() + 1; i++) {
@@ -256,7 +335,8 @@ public final class ParameterUtil {
 						tempBuilder.append(", ");
 					}
 					tempBuilder.append(convertValueToString(i == 0 ? tempValueCollection.getValue()
-							: tempValueCollection.getMoreValues().get(i - 1), aVariableMap, anAllowNullResultFlag));
+							: tempValueCollection.getMoreValues().get(i - 1), aVariableMap, aClassLoader,
+							anAllowNullResultFlag));
 				}
 				return tempBuilder.toString();
 			}
@@ -267,7 +347,8 @@ public final class ParameterUtil {
 				if (i > 0) {
 					tempBuilder.append(", ");
 				}
-				tempBuilder.append(convertValueToString(Array.get(aValue, i), aVariableMap, anAllowNullResultFlag));
+				tempBuilder.append(convertValueToString(Array.get(aValue, i), aVariableMap, aClassLoader,
+						anAllowNullResultFlag));
 			}
 			return tempBuilder.toString();
 		} else if (aValue instanceof DecimalValue) {
@@ -278,7 +359,7 @@ public final class ParameterUtil {
 			return maskNullString(((StringValue) aValue).getStringValue().toString(), !anAllowNullResultFlag);
 		} else if (aValue instanceof Variable) {
 			Object tempActualValue = aVariableMap != null ? aVariableMap.get(((Variable) aValue).getName()) : null;
-			return convertValueToString(tempActualValue, aVariableMap, anAllowNullResultFlag);
+			return convertValueToString(tempActualValue, aVariableMap, aClassLoader, anAllowNullResultFlag);
 		} else if (aValue instanceof EnumValue) {
 			return maskNullString(((EnumValue) aValue).getEnumValue().getSimpleName(), !anAllowNullResultFlag);
 		} else if (aValue instanceof BooleanValue) {
@@ -298,8 +379,10 @@ public final class ParameterUtil {
 	 * Ensures that a string is not null.
 	 * 
 	 * @param aValue
+	 *            the a value
 	 * @param aMaskValueFlag
-	 * @return
+	 *            the a mask value flag
+	 * @return the string
 	 */
 	public static String maskNullString(String aValue, boolean aMaskValueFlag) {
 		if (aMaskValueFlag && aValue == null) {
@@ -311,34 +394,82 @@ public final class ParameterUtil {
 
 	/**
 	 * Converts a given value collection to a given Java type class, if possible. Will return an array if the collection
-	 * contains more than one item.
-	 * 
+	 * contains more than one item. This method is only being called inside Eclipse!
 	 * 
 	 * @param aParamType
 	 *            the target type
-	 * @param aCollection
+	 * @param anOperationOrCollection
 	 *            the value collection
 	 * @param aVariableMap
 	 *            the variable map, if variable references shall be resolved. If this is null, unresolved variable
 	 *            references given as values will provoke an exception!
+	 * @param aClassLoader
+	 *            the a class loader
 	 * @return the converted value
-	 * @throws IllegalArgumentException
-	 *             if the conversion required is not supported
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
+	 * @throws UnexecutableException
+	 *             the unexecutable exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	public static Object convertEncapsulatedValueCollectionToParamType(Class<?> aParamType,
-			ValueOrEnumValueCollection aCollection, Map<VariableEntity, Object> aVariableMap) {
-		if (aCollection.getMoreValues() != null && aCollection.getMoreValues().size() > 0) {
-			// this is actually an array
-			Object tempResultArray = Array.newInstance(aParamType, aCollection.getMoreValues().size() + 1);
-			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
-				ValueOrEnumValue tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues().get(i - 1));
-				Object tempResultValue = convertEncapsulatedValueToParamType(aParamType, tempValue, aVariableMap);
-				Array.set(tempResultArray, i, tempResultValue);
+			OperationOrValueCollection anOperationOrCollection, Map<VariableEntity, Object> aVariableMap,
+			ClassLoader aClassLoader) throws ClassNotFoundException, UnexecutableException, InstantiationException {
+		if (anOperationOrCollection instanceof Operation) {
+			if (aClassLoader == null) {
+				// cannot execute operations without the ability to load them
+				return null;
+			} else {
+				OperationWrapper tempWrapper = new OperationWrapper((Operation) anOperationOrCollection, aClassLoader);
+				Object tempResult = tempWrapper.executeOperation(aVariableMap, false);
+				return convertValueToParamType(aParamType, tempResult);
 			}
-			return tempResultArray;
+		} else if (anOperationOrCollection instanceof ValueOrEnumValueCollection) {
+			ValueOrEnumValueCollection tempCollection = (ValueOrEnumValueCollection) anOperationOrCollection;
+			Class<?> tempTargetParamType = null;
+			if (aParamType.isArray()) {
+				tempTargetParamType = aParamType.getComponentType();
+			} else {
+				tempTargetParamType = aParamType;
+			}
+
+			if (tempCollection.getMoreValues() != null && tempCollection.getMoreValues().size() > 0) {
+				// this is actually an array
+				Object tempResultArray = Array.newInstance(tempTargetParamType,
+						tempCollection.getMoreValues().size() + 1);
+				for (int i = 0; i < tempCollection.getMoreValues().size() + 1; i++) {
+					ValueOrEnumValue tempValue = (i == 0 ? tempCollection.getValue() : tempCollection.getMoreValues()
+							.get(i - 1));
+					Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue,
+							aVariableMap);
+					Array.set(tempResultArray, i, tempResultValue);
+				}
+
+				// now we need to see whether we're even allowed to return an array
+				if (aParamType.isArray()) {
+					return tempResultArray;
+				} else {
+					throw new IllegalArgumentException("Parameter type class " + aParamType
+							+ " is not an array, but more than one value was given for conversion.");
+				}
+			} else {
+				// this is just a single value
+				Object tempResult = convertEncapsulatedValueToParamType(aParamType, tempCollection.getValue(),
+						aVariableMap);
+
+				// but we might need to return this as an array with one element
+				if (aParamType.isArray()) {
+					Object tempResultArray = Array.newInstance(tempTargetParamType, 1);
+					Array.set(tempResultArray, 0, tempResult);
+					return tempResultArray;
+				} else {
+					return tempResult;
+				}
+			}
 		} else {
-			// this is just a single value
-			return convertEncapsulatedValueToParamType(aParamType, aCollection.getValue(), aVariableMap);
+			throw new UnsupportedOperationException("This should not be possible - "
+					+ "seems someone extended the DSL, but forgot to implement a crucial execution path!");
 		}
 	}
 
@@ -351,9 +482,13 @@ public final class ParameterUtil {
 	 *            the container instance
 	 * @return the map of result names to values
 	 * @throws IntrospectionException
+	 *             the introspection exception
 	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
 	 * @throws IllegalAccessException
+	 *             the illegal access exception
 	 * @throws InvocationTargetException
+	 *             the invocation target exception
 	 */
 	public static Map<String, Object> getValuesFromNamedResultContainer(Object aContainer)
 			throws IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
@@ -390,6 +525,7 @@ public final class ParameterUtil {
 	 *            the name of the result
 	 * @return the result type
 	 * @throws IntrospectionException
+	 *             the introspection exception
 	 */
 	public static Class<?> getResultTypeFromNamedResultContainerType(Class<?> aContainerType, String aResultName)
 			throws IntrospectionException {
@@ -399,6 +535,61 @@ public final class ParameterUtil {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Thrown if a variable value cannot be resolved because there's no variable map given.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
+	public static class UnresolvableVariableException extends RuntimeException {
+
+		/**
+		 * Serialization version.
+		 */
+		private static final long serialVersionUID = -7255981207674292161L;
+
+		/**
+		 * Instantiates a new unresolvable variable exception.
+		 */
+		public UnresolvableVariableException() {
+			super();
+		}
+
+		/**
+		 * Instantiates a new unresolvable variable exception.
+		 * 
+		 * @param aMessage
+		 *            the a message
+		 * @param aCause
+		 *            the a cause
+		 */
+		public UnresolvableVariableException(String aMessage, Throwable aCause) {
+			super(aMessage, aCause);
+		}
+
+		/**
+		 * Instantiates a new unresolvable variable exception.
+		 * 
+		 * @param aMessage
+		 *            the a message
+		 */
+		public UnresolvableVariableException(String aMessage) {
+			super(aMessage);
+		}
+
+		/**
+		 * Instantiates a new unresolvable variable exception.
+		 * 
+		 * @param aCause
+		 *            the a cause
+		 */
+		public UnresolvableVariableException(Throwable aCause) {
+			super(aCause);
+		}
+
 	}
 
 }

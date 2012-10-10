@@ -1,13 +1,17 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 
 import java.util.Collection;
 
@@ -80,7 +84,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValueCollection result;
+  protected OperationOrValueCollection result;
 
   /**
    * <!-- begin-user-doc -->
@@ -179,7 +183,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueCollection getResult()
+  public OperationOrValueCollection getResult()
   {
     return result;
   }
@@ -189,9 +193,9 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetResult(ValueOrEnumValueCollection newResult, NotificationChain msgs)
+  public NotificationChain basicSetResult(OperationOrValueCollection newResult, NotificationChain msgs)
   {
-    ValueOrEnumValueCollection oldResult = result;
+    OperationOrValueCollection oldResult = result;
     result = newResult;
     if (eNotificationRequired())
     {
@@ -206,7 +210,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResult(ValueOrEnumValueCollection newResult)
+  public void setResult(OperationOrValueCollection newResult)
   {
     if (newResult != result)
     {
@@ -288,7 +292,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         getResults().addAll((Collection<? extends NamedResult>)newValue);
         return;
       case DslPackage.TEST__RESULT:
-        setResult((ValueOrEnumValueCollection)newValue);
+        setResult((OperationOrValueCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -314,7 +318,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         getResults().clear();
         return;
       case DslPackage.TEST__RESULT:
-        setResult((ValueOrEnumValueCollection)null);
+        setResult((OperationOrValueCollection)null);
         return;
     }
     super.eUnset(featureID);

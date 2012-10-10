@@ -32,6 +32,7 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -45,13 +46,13 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -291,24 +292,36 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Map<String, Object> tempParameterMap = null;
 		Map<String, Object> tempExpectedResultMap = null;
 		MethodReference tempMethodReference = null;
-		if (tempContainer instanceof Test) {
-			Test tempTest = (Test) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, true, false);
-			tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
-			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
-		} else if (tempContainer instanceof TableTest) {
-			TableTest tempTest = (TableTest) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, true, false);
-			tempExpectedResultMap = new LinkedHashMap<String, Object>();
-			for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
-				tempExpectedResultMap.put(
-						IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader.getName()), null);
+		try {
+			if (tempContainer instanceof Test) {
+				Test tempTest = (Test) tempContainer;
+				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, true, false);
+				tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
+				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
+			} else if (tempContainer instanceof TableTest) {
+				TableTest tempTest = (TableTest) tempContainer;
+				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, null, true, false);
+				tempExpectedResultMap = new LinkedHashMap<String, Object>();
+				for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
+					tempExpectedResultMap.put(
+							IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader.getName()), null);
+				}
+				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
+			} else if (tempContainer instanceof Call) {
+				Call tempCall = (Call) tempContainer;
+				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, null, true,
+						false);
+				tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 			}
-			tempMethodReference = tempTest.getDefinition().getFixtureMethod();
-		} else if (tempContainer instanceof Call) {
-			Call tempCall = (Call) tempContainer;
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, true, false);
-			tempMethodReference = tempCall.getDefinition().getFixtureMethod();
+		} catch (InstantiationException exc) {
+			// cannot occur, since thrown by operation execution which is not performed here
+			exc.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			// cannot occur, since thrown by operation execution which is not performed here
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			// cannot occur, since thrown by operation execution which is not performed here
+			exc.printStackTrace();
 		}
 
 		if (tempParameterMap != null && tempMethodReference != null && tempMethodReference.getType() != null) {
@@ -325,15 +338,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (tempContainer instanceof Test) {
 						Test tempTest = (Test) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
-								false, true);
+								null, false, true);
 					} else if (tempContainer instanceof TableTest) {
 						TableTest tempTest = (TableTest) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
-								false, true);
+								null, false, true);
 					} else if (tempContainer instanceof Call) {
 						Call tempCall = (Call) tempContainer;
 						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
-								false, true);
+								null, false, true);
 					}
 
 					resolveVariables(tempFixedParameterMap);
@@ -382,6 +395,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				}
 			} catch (JavaModelException exc) {
 				exc.printStackTrace();
+			} catch (ClassNotFoundException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
+			} catch (UnexecutableException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
+			} catch (InstantiationException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
 			}
 		}
 	}
@@ -418,13 +440,20 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							tempCompilationUnit.getTypes()[0]);
 
 					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
-							true, true);
+							null, true, true);
 
 					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
 							.getMethod().getSimpleName(), null, tempTest.getResult());
 
-					completeResultValuesInternal(null, tempMethod, tempResultValue, tempParamMap, aContext, anAcceptor);
+					completeCustomProposalResultValuesInternal(null, tempMethod, tempResultValue, tempParamMap,
+							aContext, anAcceptor);
 				} catch (JavaModelException exc) {
+					exc.printStackTrace();
+				} catch (ClassNotFoundException exc) {
+					exc.printStackTrace();
+				} catch (UnexecutableException exc) {
+					exc.printStackTrace();
+				} catch (InstantiationException exc) {
 					exc.printStackTrace();
 				}
 			}
@@ -451,14 +480,23 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							tempCompilationUnit.getTypes()[0]);
 
 					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
-							true, true);
+							null, true, true);
 
 					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
 							.getMethod().getSimpleName(), tempResult.getName(), tempResult.getValue());
 
-					completeResultValuesInternal(tempResult.getName(), tempMethod, tempResultValue, tempParamMap,
-							aContext, anAcceptor);
+					completeCustomProposalResultValuesInternal(tempResult.getName(), tempMethod, tempResultValue,
+							tempParamMap, aContext, anAcceptor);
 				} catch (JavaModelException exc) {
+					exc.printStackTrace();
+				} catch (ClassNotFoundException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
+					exc.printStackTrace();
+				} catch (UnexecutableException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
+					exc.printStackTrace();
+				} catch (InstantiationException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
 					exc.printStackTrace();
 				}
 			}
@@ -487,9 +525,20 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			}
 
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
-				Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null, true,
-						true);
-				completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
+				try {
+					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
+							null, true, true);
+					completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
+				} catch (InstantiationException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
+					exc.printStackTrace();
+				} catch (ClassNotFoundException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
+					exc.printStackTrace();
+				} catch (UnexecutableException exc) {
+					// cannot occur, since thrown by operation execution which is not performed here
+					exc.printStackTrace();
+				}
 			}
 		}
 	}
@@ -505,7 +554,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			TableTest tempTest = (TableTest) tempRow.eContainer();
 			MethodReference tempMethod = tempTest.getDefinition().getFixtureMethod();
 
-			if (tempMethod != null) {
+			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				EObject tempSemanticObject = NodeModelUtils.findActualSemanticObjectFor(aContext.getCurrentNode());
 				int tempColumn = -1;
 				if (tempSemanticObject instanceof ParameterTableValue) {
@@ -524,11 +573,22 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 				if (tempColumn >= 0) {
 					if (tempColumn < tempTest.getParameterHeaders().size()) {
-						Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
-								true, true);
+						try {
+							Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow,
+									null, null, true, true);
 
-						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
-								tempMethod, tempParamMap, aContext, anAcceptor);
+							completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
+									tempMethod, tempParamMap, aContext, anAcceptor);
+						} catch (InstantiationException exc) {
+							// cannot occur, since thrown by operation execution which is not performed here
+							exc.printStackTrace();
+						} catch (ClassNotFoundException exc) {
+							// cannot occur, since thrown by operation execution which is not performed here
+							exc.printStackTrace();
+						} catch (UnexecutableException exc) {
+							// cannot occur, since thrown by operation execution which is not performed here
+							exc.printStackTrace();
+						}
 					} else {
 						// we might be in the range of the result columns
 						int tempResultColumn = tempColumn - tempTest.getParameterHeaders().size();
@@ -542,7 +602,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									tempResultName = tempTest.getResultHeaders().get(tempResultColumn).getName();
 								}
 
-								ValueOrEnumValueCollection tempResultValue = null;
+								OperationOrValueCollection tempResultValue = null;
 								if (tempColumn < tempRow.getValues().size()) {
 									tempResultValue = tempRow.getValues().get(tempColumn).getValue();
 								}
@@ -562,11 +622,20 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								}
 
 								Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest,
-										tempRow, null, true, true);
+										tempRow, null, null, true, true);
 
-								completeResultValuesInternal(tempResultName, tempMethod, tempConvertedResultValue,
-										tempParamMap, aContext, anAcceptor);
+								completeCustomProposalResultValuesInternal(tempResultName, tempMethod,
+										tempConvertedResultValue, tempParamMap, aContext, anAcceptor);
 							} catch (JavaModelException exc) {
+								exc.printStackTrace();
+							} catch (ClassNotFoundException exc) {
+								// cannot occur, since thrown by operation execution which is not performed here
+								exc.printStackTrace();
+							} catch (UnexecutableException exc) {
+								// cannot occur, since thrown by operation execution which is not performed here
+								exc.printStackTrace();
+							} catch (InstantiationException exc) {
+								// cannot occur, since thrown by operation execution which is not performed here
 								exc.printStackTrace();
 							}
 						}
@@ -592,11 +661,22 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			if (tempMethod != null) {
 				int tempColumn = tempRow.getValues().indexOf(tempParam);
 				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
-					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
-							true, true);
+					try {
+						Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
+								null, true, true);
 
-					completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
-							tempMethod, tempParamMap, aContext, anAcceptor);
+						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
+								tempMethod, tempParamMap, aContext, anAcceptor);
+					} catch (InstantiationException exc) {
+						// cannot occur, since thrown by operation execution which is not performed here
+						exc.printStackTrace();
+					} catch (ClassNotFoundException exc) {
+						// cannot occur, since thrown by operation execution which is not performed here
+						exc.printStackTrace();
+					} catch (UnexecutableException exc) {
+						// cannot occur, since thrown by operation execution which is not performed here
+						exc.printStackTrace();
+					}
 				}
 			}
 		}
@@ -680,8 +760,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 	}
 
-	private void completeResultValuesInternal(ResultName aResult, MethodReference aMethod, Object aResultValue,
-			Map<String, Object> aParamMap, ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+	private void completeCustomProposalResultValuesInternal(ResultName aResult, MethodReference aMethod,
+			Object aResultValue, Map<String, Object> aParamMap, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
 		try {
 			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
 			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();

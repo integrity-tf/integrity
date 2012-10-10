@@ -29,6 +29,8 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
@@ -50,6 +52,8 @@ import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
+import de.gebit.integrity.operations.OperationWrapper;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -835,13 +839,16 @@ public class TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, true,
-					false);
-
 			long tempStart = System.nanoTime();
+
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
+				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage,
+						getModelClassLoader(), true, false);
+
 				tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
+
+				tempStart = System.nanoTime();
 				Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
 						.getFixtureMethod(), tempParameters);
 				tempDuration = System.nanoTime() - tempStart;
@@ -941,7 +948,7 @@ public class TestRunner {
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 							String tempParameter = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+							OperationOrValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
 									.getValues().get(tempColumn).getValue()
 									: null;
 							tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
@@ -951,7 +958,7 @@ public class TestRunner {
 							tempColumn++;
 						}
 					} else {
-						ValueOrEnumValueCollection tempExpectedValue = null;
+						OperationOrValueCollection tempExpectedValue = null;
 						if (aTest.getDefaultResultColumn() != null) {
 							// the last column MUST be the result column
 							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -961,15 +968,17 @@ public class TestRunner {
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 				} else {
-					Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
-							variableStorage, true, false);
-
 					long tempStart = System.nanoTime();
 					try {
+						Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
+								variableStorage, getModelClassLoader(), true, false);
+
 						if (tempFixtureInstance == null) {
 							// only instantiate on first pass
 							tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
 						}
+
+						tempStart = System.nanoTime();
 						Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
 								.getFixtureMethod(), tempParameters);
 						tempDuration = System.nanoTime() - tempStart;
@@ -982,7 +991,7 @@ public class TestRunner {
 							for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 								String tempResultName = IntegrityDSLUtil
 										.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-								ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+								OperationOrValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
 										.getValues().get(tempColumn).getValue()
 										: null;
 
@@ -1001,7 +1010,7 @@ public class TestRunner {
 								tempColumn++;
 							}
 						} else {
-							ValueOrEnumValueCollection tempExpectedValue = null;
+							OperationOrValueCollection tempExpectedValue = null;
 							if (aTest.getDefaultResultColumn() != null) {
 								// the last column MUST be the result column
 								tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -1027,7 +1036,7 @@ public class TestRunner {
 							for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 								String tempResultName = IntegrityDSLUtil
 										.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-								ValueOrEnumValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
+								OperationOrValueCollection tempExpectedValue = (tempColumn < tempRow.getValues().size()) ? tempRow
 										.getValues().get(tempColumn).getValue()
 										: null;
 								tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
@@ -1036,7 +1045,7 @@ public class TestRunner {
 								tempColumn++;
 							}
 						} else {
-							ValueOrEnumValueCollection tempExpectedValue = null;
+							OperationOrValueCollection tempExpectedValue = null;
 							if (aTest.getDefaultResultColumn() != null) {
 								// the last column MUST be the result column
 								tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
@@ -1123,7 +1132,17 @@ public class TestRunner {
 	 * @throws ClassNotFoundException
 	 */
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
-		return model.getInjector().getInstance(ClassLoader.class).loadClass(aType.getQualifiedName());
+		return getModelClassLoader().loadClass(aType.getQualifiedName());
+	}
+
+	/**
+	 * Returns the classloader defined in the model. This one should be used for instantiation of fixtures and
+	 * operations.
+	 * 
+	 * @return the classloader defined in the test model
+	 */
+	protected ClassLoader getModelClassLoader() {
+		return model.getInjector().getInstance(ClassLoader.class);
 	}
 
 	/**
@@ -1138,9 +1157,13 @@ public class TestRunner {
 	 * @param aFixtureMethod
 	 *            the fixture method that was called
 	 * @return true if the comparison was successful, false if the results are not considered equal
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
 	 */
-	protected boolean compareResult(Object aFixtureResult, ValueOrEnumValueCollection anExpectedResult,
-			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) {
+	protected boolean compareResult(Object aFixtureResult, OperationOrValueCollection anExpectedResult,
+			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		if (anExpectedResult != null) {
 			if (aFixtureResult != null) {
 				if (aFixtureInstance.isCustomComparatorFixture()) {
@@ -1148,83 +1171,109 @@ public class TestRunner {
 					Object tempConvertedResult;
 					Class<?> tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
 							.getComponentType() : aFixtureResult.getClass();
-					if (anExpectedResult.getMoreValues().size() > 0) {
-						// multiple result values given -> we're going to put them into an array of the same type
-						// as the fixture result
-						tempConvertedResult = Array.newInstance(tempConversionTargetType, anExpectedResult
-								.getMoreValues().size() + 1);
-						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
-							ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
-									: anExpectedResult.getMoreValues().get(i - 1));
-							Array.set(tempConvertedResult, i, ParameterUtil.convertEncapsulatedValueToParamType(
-									tempConversionTargetType, tempSingleExpectedResult, variableStorage));
+					if (anExpectedResult instanceof Operation) {
+						OperationWrapper tempWrapper = new OperationWrapper((Operation) anExpectedResult,
+								getModelClassLoader());
+						tempConvertedResult = ParameterUtil.convertValueToParamType(tempConversionTargetType,
+								tempWrapper.executeOperation(variableStorage, false));
+					} else if (anExpectedResult instanceof ValueOrEnumValueCollection) {
+						ValueOrEnumValueCollection tempExpectedResultCollection = (ValueOrEnumValueCollection) anExpectedResult;
+						if (tempExpectedResultCollection.getMoreValues().size() > 0) {
+							// multiple result values given -> we're going to put them into an array of the same type
+							// as the fixture result
+							tempConvertedResult = Array.newInstance(tempConversionTargetType,
+									tempExpectedResultCollection.getMoreValues().size() + 1);
+							for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
+								ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? tempExpectedResultCollection
+										.getValue() : tempExpectedResultCollection.getMoreValues().get(i - 1));
+								Array.set(tempConvertedResult, i, ParameterUtil.convertEncapsulatedValueToParamType(
+										tempConversionTargetType, tempSingleExpectedResult, variableStorage));
+							}
+						} else {
+							tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+									tempConversionTargetType, tempExpectedResultCollection.getValue(), variableStorage);
 						}
 					} else {
-						tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
+						throw new UnsupportedOperationException(
+								"This should never happen - "
+										+ "it seems as if someone extended the DSL, but forgot to implement some crucial code paths!");
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
 							aFixtureMethod.getMethod().getSimpleName());
 				} else {
-					// Standard comparation compares each value for itself in case of arrays
-					if (anExpectedResult.getMoreValues().size() > 0) {
-						// multiple result values were given -> fixture result must be an array of same size
-						if (!aFixtureResult.getClass().isArray()
-								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1) {
-							return false;
-						}
-						// now compare all values
-						for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-							Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
-							ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
-									: anExpectedResult.getMoreValues().get(i - 1));
-							Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-									tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage);
-
-							if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
+					if (anExpectedResult instanceof Operation) {
+						OperationWrapper tempWrapper = new OperationWrapper((Operation) anExpectedResult,
+								getModelClassLoader());
+						Object tempConvertedResult = ParameterUtil.convertValueToParamType(aFixtureResult.getClass(),
+								tempWrapper.executeOperation(variableStorage, false));
+						return tempConvertedResult.equals(aFixtureResult);
+					} else if (anExpectedResult instanceof ValueOrEnumValueCollection) {
+						ValueOrEnumValueCollection tempExpectedResultCollection = (ValueOrEnumValueCollection) anExpectedResult;
+						// Standard comparation compares each value for itself in case of arrays
+						if (tempExpectedResultCollection.getMoreValues().size() > 0) {
+							// multiple result values were given -> fixture result must be an array of same size
+							if (!aFixtureResult.getClass().isArray()
+									&& Array.getLength(aFixtureResult) == tempExpectedResultCollection.getMoreValues()
+											.size() + 1) {
 								return false;
 							}
-						}
-						return true;
-					} else {
-						Object tempSingleFixtureResult = aFixtureResult;
-						// if the expected type is an array, we don't want to convert to that array, but to the
-						// component type, of course
-						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
-								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
-						Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue(), variableStorage);
+							// now compare all values
+							for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+								Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
+								ValueOrEnumValue tempSingleExpectedResult = (i == 0 ? tempExpectedResultCollection
+										.getValue() : tempExpectedResultCollection.getMoreValues().get(i - 1));
+								Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+										tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage);
 
-						if (aFixtureResult.getClass().isArray()) {
-							if (!tempConvertedResult.getClass().isArray()) {
-								// the fixture may still be returning an array that has to be unpacked
-								if (Array.getLength(aFixtureResult) != 1) {
+								if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
 									return false;
 								}
-								tempSingleFixtureResult = Array.get(aFixtureResult, 0);
-							} else {
-								if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
-									return false;
-								}
-								// both are converted arrays -> compare all values!
-								for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-									if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+							}
+							return true;
+						} else {
+							Object tempSingleFixtureResult = aFixtureResult;
+							// if the expected type is an array, we don't want to convert to that array, but to the
+							// component type, of course
+							Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
+									.getClass().getComponentType() : tempSingleFixtureResult.getClass();
+							Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+									tempConversionTargetType, tempExpectedResultCollection.getValue(), variableStorage);
+
+							if (aFixtureResult.getClass().isArray()) {
+								if (!tempConvertedResult.getClass().isArray()) {
+									// the fixture may still be returning an array that has to be unpacked
+									if (Array.getLength(aFixtureResult) != 1) {
 										return false;
 									}
+									tempSingleFixtureResult = Array.get(aFixtureResult, 0);
+								} else {
+									if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
+										return false;
+									}
+									// both are converted arrays -> compare all values!
+									for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+										if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+											return false;
+										}
+									}
+									return true;
 								}
-								return true;
-							}
-						} else {
-							if (tempConvertedResult.getClass().isArray()) {
-								// the converted result may still be an array
-								if (Array.getLength(tempConvertedResult) != 1) {
-									return false;
+							} else {
+								if (tempConvertedResult.getClass().isArray()) {
+									// the converted result may still be an array
+									if (Array.getLength(tempConvertedResult) != 1) {
+										return false;
+									}
+									tempConvertedResult = Array.get(tempConvertedResult, 0);
 								}
-								tempConvertedResult = Array.get(tempConvertedResult, 0);
 							}
+							return tempConvertedResult.equals(tempSingleFixtureResult);
 						}
-						return tempConvertedResult.equals(tempSingleFixtureResult);
+					} else {
+						throw new UnsupportedOperationException(
+								"This should never happen - "
+										+ "it seems as if someone extended the DSL, but forgot to implement some crucial code paths!");
 					}
 				}
 			} else {
@@ -1297,13 +1346,15 @@ public class TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage, true,
-					false);
-
 			long tempStart = System.nanoTime();
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
+				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage,
+						getModelClassLoader(), true, false);
+
 				tempFixtureInstance = instantiateFixture(aCall.getDefinition().getFixtureMethod());
+
+				tempStart = System.nanoTime();
 				Object tempResult = executeFixtureMethod(tempFixtureInstance, aCall.getDefinition().getFixtureMethod(),
 						tempParameters);
 				long tempDuration = System.nanoTime() - tempStart;

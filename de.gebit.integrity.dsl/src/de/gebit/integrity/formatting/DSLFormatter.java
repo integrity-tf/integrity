@@ -36,6 +36,12 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		// No line wrapping
 		aConfig.setAutoLinewrap(9999);
 
+		// No spaces after opening parenthesis or before closing parenthesis
+		aConfig.setNoSpace().after(tempGrammar.getOperationAccess().getLeftParenthesisKeyword_0());
+		aConfig.setNoSpace().before(
+				tempGrammar.getOperationAccess().getPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0());
+		aConfig.setNoSpace().before(tempGrammar.getOperationAccess().getRightParenthesisKeyword_6());
+
 		// No spaces at the end of lines and before whitespace between tokens
 		aConfig.setNoSpace().before(tempGrammar.getNLRule());
 		aConfig.setNoSpace().before(tempGrammar.getNLFORCEDRule());

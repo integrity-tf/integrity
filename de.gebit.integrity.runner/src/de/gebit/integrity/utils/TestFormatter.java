@@ -13,6 +13,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -58,11 +59,13 @@ public class TestFormatter {
 	 *            the variables
 	 * @return the human-readable test description
 	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
 	 */
 	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException {
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, true, false), false);
+				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, classloader, true, false), false);
 	}
 
 	/**
@@ -76,11 +79,14 @@ public class TestFormatter {
 	 *            the variable map
 	 * @return the human-readable description
 	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
-			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException {
+			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, true, false), false);
+				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, classloader, true, false), false);
 	}
 
 	/**
@@ -92,11 +98,14 @@ public class TestFormatter {
 	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
 	 */
 	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException {
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, true, false), true);
+				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, classloader, true, false),
+				true);
 	}
 
 	/**
@@ -108,11 +117,13 @@ public class TestFormatter {
 	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
 	 */
 	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException {
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, true, false), false);
+				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, classloader, true, false), false);
 	}
 
 	/**
@@ -152,7 +163,9 @@ public class TestFormatter {
 
 		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempText);
 		while (tempMatcher.matches()) {
-			String tempValue = ParameterUtil.convertValueToString(someParameters.get(tempMatcher.group(2)), null,
+			// classloader and variable maps are not supplied here because the parameters are already expected to be
+			// resolved
+			String tempValue = ParameterUtil.convertValueToString(someParameters.get(tempMatcher.group(2)), null, null,
 					anExpectUnspecifiedParametersFlag);
 			if (tempValue == null) {
 				tempValue = "???";

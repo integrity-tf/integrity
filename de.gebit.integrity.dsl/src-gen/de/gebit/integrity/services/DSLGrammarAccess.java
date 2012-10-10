@@ -212,20 +212,21 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVariantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cTestDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cCallDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cSuiteDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cVariableDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cConstantDefinitionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cOperationDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cSuiteDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cVariableDefinitionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cConstantDefinitionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
 		//PackageStatement:
 		//
-		//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition
+		//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition
 		//
-		//	| ConstantDefinition;
+		//	| VariableDefinition | ConstantDefinition;
 		public ParserRule getRule() { return rule; }
 
-		//Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition |
+		//Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition |
 		//
-		//ConstantDefinition
+		//VariableDefinition | ConstantDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Import
@@ -243,14 +244,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//CallDefinition
 		public RuleCall getCallDefinitionParserRuleCall_4() { return cCallDefinitionParserRuleCall_4; }
 
+		//OperationDefinition
+		public RuleCall getOperationDefinitionParserRuleCall_5() { return cOperationDefinitionParserRuleCall_5; }
+
 		//SuiteDefinition
-		public RuleCall getSuiteDefinitionParserRuleCall_5() { return cSuiteDefinitionParserRuleCall_5; }
+		public RuleCall getSuiteDefinitionParserRuleCall_6() { return cSuiteDefinitionParserRuleCall_6; }
 
 		//VariableDefinition
-		public RuleCall getVariableDefinitionParserRuleCall_6() { return cVariableDefinitionParserRuleCall_6; }
+		public RuleCall getVariableDefinitionParserRuleCall_7() { return cVariableDefinitionParserRuleCall_7; }
 
 		//ConstantDefinition
-		public RuleCall getConstantDefinitionParserRuleCall_7() { return cConstantDefinitionParserRuleCall_7; }
+		public RuleCall getConstantDefinitionParserRuleCall_8() { return cConstantDefinitionParserRuleCall_8; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -732,6 +736,63 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_11() { return cNLParserRuleCall_11; }
 	}
 
+	public class OperationDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OperationDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cOperationdefKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cUsesKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cOperationTypeAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cOperationTypeJvmTypeCrossReference_6_0 = (CrossReference)cOperationTypeAssignment_6.eContents().get(0);
+		private final RuleCall cOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1 = (RuleCall)cOperationTypeJvmTypeCrossReference_6_0.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		
+		//OperationDefinition:
+		//
+		//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+		public ParserRule getRule() { return rule; }
+
+		//"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL
+		public Group getGroup() { return cGroup; }
+
+		//"operationdef"
+		public Keyword getOperationdefKeyword_0() { return cOperationdefKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//name=QualifiedName
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//"uses"
+		public Keyword getUsesKeyword_4() { return cUsesKeyword_4; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+
+		//operationType=[jvmTypes::JvmType|QualifiedJavaClassName]
+		public Assignment getOperationTypeAssignment_6() { return cOperationTypeAssignment_6; }
+
+		//[jvmTypes::JvmType|QualifiedJavaClassName]
+		public CrossReference getOperationTypeJvmTypeCrossReference_6_0() { return cOperationTypeJvmTypeCrossReference_6_0; }
+
+		//QualifiedJavaClassName
+		public RuleCall getOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1() { return cOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
+	}
+
 	public class SuiteStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SuiteStatement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1015,19 +1076,19 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEqualsSignKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_5_2 = (RuleCall)cGroup_5.eContents().get(2);
 		private final Assignment cResultAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
-		private final RuleCall cResultValueOrEnumValueCollectionParserRuleCall_5_3_0 = (RuleCall)cResultAssignment_5_3.eContents().get(0);
+		private final RuleCall cResultOperationOrValueCollectionParserRuleCall_5_3_0 = (RuleCall)cResultAssignment_5_3.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
 		
 		//Test:
 		//
 		//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 		//
-		//	result=ValueOrEnumValueCollection)? NL;
+		//	result=OperationOrValueCollection)? NL;
 		public ParserRule getRule() { return rule; }
 
 		//"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 		//
-		//result=ValueOrEnumValueCollection)? NL
+		//result=OperationOrValueCollection)? NL
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -1069,7 +1130,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NamedResult
 		public RuleCall getResultsNamedResultParserRuleCall_4_1_0() { return cResultsNamedResultParserRuleCall_4_1_0; }
 
-		//(NL "=" NL result=ValueOrEnumValueCollection)?
+		//(NL "=" NL result=OperationOrValueCollection)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//NL
@@ -1081,11 +1142,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_5_2() { return cNLParserRuleCall_5_2; }
 
-		//result=ValueOrEnumValueCollection
+		//result=OperationOrValueCollection
 		public Assignment getResultAssignment_5_3() { return cResultAssignment_5_3; }
 
-		//ValueOrEnumValueCollection
-		public RuleCall getResultValueOrEnumValueCollectionParserRuleCall_5_3_0() { return cResultValueOrEnumValueCollectionParserRuleCall_5_3_0; }
+		//OperationOrValueCollection
+		public RuleCall getResultOperationOrValueCollectionParserRuleCall_5_3_0() { return cResultOperationOrValueCollectionParserRuleCall_5_3_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_6() { return cNLParserRuleCall_6; }
@@ -1300,25 +1361,25 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cVerticalLineKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cValueValueOrEnumValueCollectionParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
+		private final RuleCall cValueOperationOrValueCollectionParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		private final Keyword cVerticalLineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//ParameterTableValue:
 		//
-		//	"|" value=ValueOrEnumValueCollection "|"?;
+		//	"|" value=OperationOrValueCollection "|"?;
 		public ParserRule getRule() { return rule; }
 
-		//"|" value=ValueOrEnumValueCollection "|"?
+		//"|" value=OperationOrValueCollection "|"?
 		public Group getGroup() { return cGroup; }
 
 		//"|"
 		public Keyword getVerticalLineKeyword_0() { return cVerticalLineKeyword_0; }
 
-		//value=ValueOrEnumValueCollection
+		//value=OperationOrValueCollection
 		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
 
-		//ValueOrEnumValueCollection
-		public RuleCall getValueValueOrEnumValueCollectionParserRuleCall_1_0() { return cValueValueOrEnumValueCollectionParserRuleCall_1_0; }
+		//OperationOrValueCollection
+		public RuleCall getValueOperationOrValueCollectionParserRuleCall_1_0() { return cValueOperationOrValueCollectionParserRuleCall_1_0; }
 
 		//"|"?
 		public Keyword getVerticalLineKeyword_2() { return cVerticalLineKeyword_2; }
@@ -1333,14 +1394,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cValueValueOrEnumValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		private final RuleCall cValueOperationOrValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
 		
 		//NamedResult:
 		//
-		//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection;
+		//	name=ResultName NL "=" NL value=OperationOrValueCollection;
 		public ParserRule getRule() { return rule; }
 
-		//name=ResultName NL "=" NL value=ValueOrEnumValueCollection
+		//name=ResultName NL "=" NL value=OperationOrValueCollection
 		public Group getGroup() { return cGroup; }
 
 		//name=ResultName
@@ -1358,11 +1419,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
-		//value=ValueOrEnumValueCollection
+		//value=OperationOrValueCollection
 		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
 
-		//ValueOrEnumValueCollection
-		public RuleCall getValueValueOrEnumValueCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueCollectionParserRuleCall_4_0; }
+		//OperationOrValueCollection
+		public RuleCall getValueOperationOrValueCollectionParserRuleCall_4_0() { return cValueOperationOrValueCollectionParserRuleCall_4_0; }
 	}
 
 	public class ResultNameElements extends AbstractParserRuleElementFinder {
@@ -1748,14 +1809,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cValueValueOrEnumValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		private final RuleCall cValueOperationOrValueCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
 		
 		//Parameter:
 		//
-		//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection;
+		//	name=ParameterName NL ":" NL value=OperationOrValueCollection;
 		public ParserRule getRule() { return rule; }
 
-		//name=ParameterName NL ":" NL value=ValueOrEnumValueCollection
+		//name=ParameterName NL ":" NL value=OperationOrValueCollection
 		public Group getGroup() { return cGroup; }
 
 		//name=ParameterName
@@ -1773,11 +1834,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
-		//value=ValueOrEnumValueCollection
+		//value=OperationOrValueCollection
 		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
 
-		//ValueOrEnumValueCollection
-		public RuleCall getValueValueOrEnumValueCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueCollectionParserRuleCall_4_0; }
+		//OperationOrValueCollection
+		public RuleCall getValueOperationOrValueCollectionParserRuleCall_4_0() { return cValueOperationOrValueCollectionParserRuleCall_4_0; }
 	}
 
 	public class ParameterNameElements extends AbstractParserRuleElementFinder {
@@ -1845,6 +1906,108 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getIdentifierIDTerminalRuleCall_1_0() { return cIdentifierIDTerminalRuleCall_1_0; }
+	}
+
+	public class OperationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Operation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cPrefixOperandAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0 = (RuleCall)cPrefixOperandAssignment_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Assignment cDefinitionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cDefinitionOperationDefinitionCrossReference_3_0 = (CrossReference)cDefinitionAssignment_3.eContents().get(0);
+		private final RuleCall cDefinitionOperationDefinitionQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cDefinitionOperationDefinitionCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final RuleCall cNLParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
+		private final Keyword cWithKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Assignment cPostfixOperandAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
+		private final RuleCall cPostfixOperandOperationOrValueCollectionParserRuleCall_4_2_0 = (RuleCall)cPostfixOperandAssignment_4_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		
+		//Operation:
+		//
+		//	"(" NL (prefixOperand=OperationOrValueCollection NL)? definition=[OperationDefinition|QualifiedName] (NL "with"
+		//
+		//	postfixOperand=OperationOrValueCollection)? NL ")";
+		public ParserRule getRule() { return rule; }
+
+		//"(" NL (prefixOperand=OperationOrValueCollection NL)? definition=[OperationDefinition|QualifiedName] (NL "with"
+		//
+		//postfixOperand=OperationOrValueCollection)? NL ")"
+		public Group getGroup() { return cGroup; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//(prefixOperand=OperationOrValueCollection NL)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//prefixOperand=OperationOrValueCollection
+		public Assignment getPrefixOperandAssignment_2_0() { return cPrefixOperandAssignment_2_0; }
+
+		//OperationOrValueCollection
+		public RuleCall getPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0() { return cPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1() { return cNLParserRuleCall_2_1; }
+
+		//definition=[OperationDefinition|QualifiedName]
+		public Assignment getDefinitionAssignment_3() { return cDefinitionAssignment_3; }
+
+		//[OperationDefinition|QualifiedName]
+		public CrossReference getDefinitionOperationDefinitionCrossReference_3_0() { return cDefinitionOperationDefinitionCrossReference_3_0; }
+
+		//QualifiedName
+		public RuleCall getDefinitionOperationDefinitionQualifiedNameParserRuleCall_3_0_1() { return cDefinitionOperationDefinitionQualifiedNameParserRuleCall_3_0_1; }
+
+		//(NL "with" postfixOperand=OperationOrValueCollection)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_4_0() { return cNLParserRuleCall_4_0; }
+
+		//"with"
+		public Keyword getWithKeyword_4_1() { return cWithKeyword_4_1; }
+
+		//postfixOperand=OperationOrValueCollection
+		public Assignment getPostfixOperandAssignment_4_2() { return cPostfixOperandAssignment_4_2; }
+
+		//OperationOrValueCollection
+		public RuleCall getPostfixOperandOperationOrValueCollectionParserRuleCall_4_2_0() { return cPostfixOperandOperationOrValueCollectionParserRuleCall_4_2_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+	}
+
+	public class OperationOrValueCollectionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OperationOrValueCollection");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cOperationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cValueOrEnumValueCollectionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//OperationOrValueCollection:
+		//
+		//	Operation | ValueOrEnumValueCollection;
+		public ParserRule getRule() { return rule; }
+
+		//Operation | ValueOrEnumValueCollection
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//Operation
+		public RuleCall getOperationParserRuleCall_0() { return cOperationParserRuleCall_0; }
+
+		//ValueOrEnumValueCollection
+		public RuleCall getValueOrEnumValueCollectionParserRuleCall_1() { return cValueOrEnumValueCollectionParserRuleCall_1; }
 	}
 
 	public class ValueOrEnumValueCollectionElements extends AbstractParserRuleElementFinder {
@@ -2329,6 +2492,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TestDefinitionElements pTestDefinition;
 	private CallDefinitionElements pCallDefinition;
 	private SuiteDefinitionElements pSuiteDefinition;
+	private OperationDefinitionElements pOperationDefinition;
 	private SuiteStatementElements pSuiteStatement;
 	private SuiteStatementWithResultElements pSuiteStatementWithResult;
 	private VariableDefinitionElements pVariableDefinition;
@@ -2352,6 +2516,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private ParameterNameElements pParameterName;
 	private FixedParameterNameElements pFixedParameterName;
 	private ArbitraryParameterOrResultNameElements pArbitraryParameterOrResultName;
+	private OperationElements pOperation;
+	private OperationOrValueCollectionElements pOperationOrValueCollection;
 	private ValueOrEnumValueCollectionElements pValueOrEnumValueCollection;
 	private ValueOrEnumValueElements pValueOrEnumValue;
 	private ValueElements pValue;
@@ -2485,9 +2651,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PackageStatement:
 	//
-	//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | SuiteDefinition | VariableDefinition
+	//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition
 	//
-	//	| ConstantDefinition;
+	//	| VariableDefinition | ConstantDefinition;
 	public PackageStatementElements getPackageStatementAccess() {
 		return (pPackageStatement != null) ? pPackageStatement : (pPackageStatement = new PackageStatementElements());
 	}
@@ -2579,6 +2745,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getSuiteDefinitionAccess().getRule();
 	}
 
+	//OperationDefinition:
+	//
+	//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+	public OperationDefinitionElements getOperationDefinitionAccess() {
+		return (pOperationDefinition != null) ? pOperationDefinition : (pOperationDefinition = new OperationDefinitionElements());
+	}
+	
+	public ParserRule getOperationDefinitionRule() {
+		return getOperationDefinitionAccess().getRule();
+	}
+
 	//SuiteStatement:
 	//
 	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment |
@@ -2651,7 +2828,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
 	//
-	//	result=ValueOrEnumValueCollection)? NL;
+	//	result=OperationOrValueCollection)? NL;
 	public TestElements getTestAccess() {
 		return (pTest != null) ? pTest : (pTest = new TestElements());
 	}
@@ -2710,7 +2887,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ParameterTableValue:
 	//
-	//	"|" value=ValueOrEnumValueCollection "|"?;
+	//	"|" value=OperationOrValueCollection "|"?;
 	public ParameterTableValueElements getParameterTableValueAccess() {
 		return (pParameterTableValue != null) ? pParameterTableValue : (pParameterTableValue = new ParameterTableValueElements());
 	}
@@ -2721,7 +2898,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NamedResult:
 	//
-	//	name=ResultName NL "=" NL value=ValueOrEnumValueCollection;
+	//	name=ResultName NL "=" NL value=OperationOrValueCollection;
 	public NamedResultElements getNamedResultAccess() {
 		return (pNamedResult != null) ? pNamedResult : (pNamedResult = new NamedResultElements());
 	}
@@ -2804,7 +2981,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Parameter:
 	//
-	//	name=ParameterName NL ":" NL value=ValueOrEnumValueCollection;
+	//	name=ParameterName NL ":" NL value=OperationOrValueCollection;
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());
 	}
@@ -2844,6 +3021,30 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getArbitraryParameterOrResultNameRule() {
 		return getArbitraryParameterOrResultNameAccess().getRule();
+	}
+
+	//Operation:
+	//
+	//	"(" NL (prefixOperand=OperationOrValueCollection NL)? definition=[OperationDefinition|QualifiedName] (NL "with"
+	//
+	//	postfixOperand=OperationOrValueCollection)? NL ")";
+	public OperationElements getOperationAccess() {
+		return (pOperation != null) ? pOperation : (pOperation = new OperationElements());
+	}
+	
+	public ParserRule getOperationRule() {
+		return getOperationAccess().getRule();
+	}
+
+	//OperationOrValueCollection:
+	//
+	//	Operation | ValueOrEnumValueCollection;
+	public OperationOrValueCollectionElements getOperationOrValueCollectionAccess() {
+		return (pOperationOrValueCollection != null) ? pOperationOrValueCollection : (pOperationOrValueCollection = new OperationOrValueCollectionElements());
+	}
+	
+	public ParserRule getOperationOrValueCollectionRule() {
+		return getOperationOrValueCollectionAccess().getRule();
 	}
 
 	//ValueOrEnumValueCollection:
