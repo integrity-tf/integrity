@@ -927,20 +927,22 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameVariableEntityParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final Assignment cValueAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cValueStaticValueParserRuleCall_3_1_0 = (RuleCall)cValueAssignment_3_1.eContents().get(0);
-		private final Assignment cVariantValuesAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cVariantValuesVariantValueParserRuleCall_4_0 = (RuleCall)cVariantValuesAssignment_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cValueAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final RuleCall cValueStaticValueParserRuleCall_4_0_0 = (RuleCall)cValueAssignment_4_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cVariantValuesAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cVariantValuesVariantValueParserRuleCall_5_0_0 = (RuleCall)cVariantValuesAssignment_5_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
 		
 		//ConstantDefinition:
 		//
-		//	"constant" NL name=VariableEntity (NL value=StaticValue)? variantValues+=VariantValue* NL;
+		//	"constant" NL name=VariableEntity NL (value=StaticValue NL)? (variantValues+=VariantValue NL)*;
 		public ParserRule getRule() { return rule; }
 
-		//"constant" NL name=VariableEntity (NL value=StaticValue)? variantValues+=VariantValue* NL
+		//"constant" NL name=VariableEntity NL (value=StaticValue NL)? (variantValues+=VariantValue NL)*
 		public Group getGroup() { return cGroup; }
 
 		//"constant"
@@ -955,87 +957,89 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//VariableEntity
 		public RuleCall getNameVariableEntityParserRuleCall_2_0() { return cNameVariableEntityParserRuleCall_2_0; }
 
-		//(NL value=StaticValue)?
-		public Group getGroup_3() { return cGroup_3; }
-
 		//NL
-		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//(value=StaticValue NL)?
+		public Group getGroup_4() { return cGroup_4; }
 
 		//value=StaticValue
-		public Assignment getValueAssignment_3_1() { return cValueAssignment_3_1; }
+		public Assignment getValueAssignment_4_0() { return cValueAssignment_4_0; }
 
 		//StaticValue
-		public RuleCall getValueStaticValueParserRuleCall_3_1_0() { return cValueStaticValueParserRuleCall_3_1_0; }
-
-		//variantValues+=VariantValue*
-		public Assignment getVariantValuesAssignment_4() { return cVariantValuesAssignment_4; }
-
-		//VariantValue
-		public RuleCall getVariantValuesVariantValueParserRuleCall_4_0() { return cVariantValuesVariantValueParserRuleCall_4_0; }
+		public RuleCall getValueStaticValueParserRuleCall_4_0_0() { return cValueStaticValueParserRuleCall_4_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
+
+		//(variantValues+=VariantValue NL)*
+		public Group getGroup_5() { return cGroup_5; }
+
+		//variantValues+=VariantValue
+		public Assignment getVariantValuesAssignment_5_0() { return cVariantValuesAssignment_5_0; }
+
+		//VariantValue
+		public RuleCall getVariantValuesVariantValueParserRuleCall_5_0_0() { return cVariantValuesVariantValueParserRuleCall_5_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 	}
 
 	public class VariantValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariantValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cInKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Assignment cNamesAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final CrossReference cNamesVariantDefinitionCrossReference_3_0_0 = (CrossReference)cNamesAssignment_3_0.eContents().get(0);
-		private final RuleCall cNamesVariantDefinitionQualifiedNameParserRuleCall_3_0_0_1 = (RuleCall)cNamesVariantDefinitionCrossReference_3_0_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Assignment cValueAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cValueStaticValueParserRuleCall_6_0 = (RuleCall)cValueAssignment_6.eContents().get(0);
+		private final Keyword cInKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cNamesAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final CrossReference cNamesVariantDefinitionCrossReference_2_0_0 = (CrossReference)cNamesAssignment_2_0.eContents().get(0);
+		private final RuleCall cNamesVariantDefinitionQualifiedNameParserRuleCall_2_0_0_1 = (RuleCall)cNamesVariantDefinitionCrossReference_2_0_0.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cValueAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cValueStaticValueParserRuleCall_5_0 = (RuleCall)cValueAssignment_5.eContents().get(0);
 		
 		//VariantValue:
 		//
-		//	NL "in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue;
+		//	"in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue;
 		public ParserRule getRule() { return rule; }
 
-		//NL "in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue
+		//"in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue
 		public Group getGroup() { return cGroup; }
 
-		//NL
-		public RuleCall getNLParserRuleCall_0() { return cNLParserRuleCall_0; }
-
 		//"in"
-		public Keyword getInKeyword_1() { return cInKeyword_1; }
+		public Keyword getInKeyword_0() { return cInKeyword_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
 		//(names+=[VariantDefinition|QualifiedName] NL)+
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//names+=[VariantDefinition|QualifiedName]
-		public Assignment getNamesAssignment_3_0() { return cNamesAssignment_3_0; }
+		public Assignment getNamesAssignment_2_0() { return cNamesAssignment_2_0; }
 
 		//[VariantDefinition|QualifiedName]
-		public CrossReference getNamesVariantDefinitionCrossReference_3_0_0() { return cNamesVariantDefinitionCrossReference_3_0_0; }
+		public CrossReference getNamesVariantDefinitionCrossReference_2_0_0() { return cNamesVariantDefinitionCrossReference_2_0_0; }
 
 		//QualifiedName
-		public RuleCall getNamesVariantDefinitionQualifiedNameParserRuleCall_3_0_0_1() { return cNamesVariantDefinitionQualifiedNameParserRuleCall_3_0_0_1; }
+		public RuleCall getNamesVariantDefinitionQualifiedNameParserRuleCall_2_0_0_1() { return cNamesVariantDefinitionQualifiedNameParserRuleCall_2_0_0_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3_1() { return cNLParserRuleCall_3_1; }
+		public RuleCall getNLParserRuleCall_2_1() { return cNLParserRuleCall_2_1; }
 
 		//":"
-		public Keyword getColonKeyword_4() { return cColonKeyword_4; }
+		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//value=StaticValue
-		public Assignment getValueAssignment_6() { return cValueAssignment_6; }
+		public Assignment getValueAssignment_5() { return cValueAssignment_5; }
 
 		//StaticValue
-		public RuleCall getValueStaticValueParserRuleCall_6_0() { return cValueStaticValueParserRuleCall_6_0; }
+		public RuleCall getValueStaticValueParserRuleCall_5_0() { return cValueStaticValueParserRuleCall_5_0; }
 	}
 
 	public class VariableEntityElements extends AbstractParserRuleElementFinder {
@@ -1160,10 +1164,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final Assignment cParametersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cParametersParameterParserRuleCall_3_1_0 = (RuleCall)cParametersAssignment_3_1.eContents().get(0);
+		private final Assignment cParametersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cParametersParameterParserRuleCall_3_0 = (RuleCall)cParametersAssignment_3.eContents().get(0);
 		private final RuleCall cNLFORCEDParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		private final Assignment cParameterHeadersAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cParameterHeadersParameterTableHeaderParserRuleCall_5_0 = (RuleCall)cParameterHeadersAssignment_5.eContents().get(0);
@@ -1182,14 +1184,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TableTest:
 		//
-		//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
+		//	"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
 		//
 		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 		//
 		//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 		public ParserRule getRule() { return rule; }
 
-		//"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
+		//"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
 		//
 		//parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? (NLFORCED
 		//
@@ -1211,17 +1213,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
-		//(NL parameters+=Parameter)*
-		public Group getGroup_3() { return cGroup_3; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
-
-		//parameters+=Parameter
-		public Assignment getParametersAssignment_3_1() { return cParametersAssignment_3_1; }
+		//parameters+=Parameter*
+		public Assignment getParametersAssignment_3() { return cParametersAssignment_3; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_3_1_0() { return cParametersParameterParserRuleCall_3_1_0; }
+		public RuleCall getParametersParameterParserRuleCall_3_0() { return cParametersParameterParserRuleCall_3_0; }
 
 		//NLFORCED
 		public RuleCall getNLFORCEDParserRuleCall_4() { return cNLFORCEDParserRuleCall_4; }
@@ -1635,8 +1631,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cDefinitionSuiteDefinitionCrossReference_3_0 = (CrossReference)cDefinitionAssignment_3.eContents().get(0);
 		private final RuleCall cDefinitionSuiteDefinitionQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cDefinitionSuiteDefinitionCrossReference_3_0.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Assignment cParametersAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cParametersSuiteParameterParserRuleCall_5_0 = (RuleCall)cParametersAssignment_5.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cParametersAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cParametersSuiteParameterParserRuleCall_5_0_0 = (RuleCall)cParametersAssignment_5_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cOnKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
@@ -1657,14 +1655,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 		//
-		//	parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
+		//	(parameters+=SuiteParameter NL)* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
 		//
 		//	(variants+=[VariantDefinition|QualifiedName] NL)+)?;
 		public ParserRule getRule() { return rule; }
 
 		//"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 		//
-		//parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
+		//(parameters+=SuiteParameter NL)* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
 		//
 		//(variants+=[VariantDefinition|QualifiedName] NL)+)?
 		public Group getGroup() { return cGroup; }
@@ -1699,11 +1697,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
-		//parameters+=SuiteParameter*
-		public Assignment getParametersAssignment_5() { return cParametersAssignment_5; }
+		//(parameters+=SuiteParameter NL)*
+		public Group getGroup_5() { return cGroup_5; }
+
+		//parameters+=SuiteParameter
+		public Assignment getParametersAssignment_5_0() { return cParametersAssignment_5_0; }
 
 		//SuiteParameter
-		public RuleCall getParametersSuiteParameterParserRuleCall_5_0() { return cParametersSuiteParameterParserRuleCall_5_0; }
+		public RuleCall getParametersSuiteParameterParserRuleCall_5_0_0() { return cParametersSuiteParameterParserRuleCall_5_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 
 		//("on" NL fork=[ForkDefinition|QualifiedName] NL)?
 		public Group getGroup_6() { return cGroup_6; }
@@ -1762,14 +1766,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cValueValueParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//SuiteParameter:
 		//
-		//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value NL;
+		//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value;
 		public ParserRule getRule() { return rule; }
 
-		//name=[VariableEntity|QualifiedName] NL ":" NL value=Value NL
+		//name=[VariableEntity|QualifiedName] NL ":" NL value=Value
 		public Group getGroup() { return cGroup; }
 
 		//name=[VariableEntity|QualifiedName]
@@ -1795,9 +1798,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Value
 		public RuleCall getValueValueParserRuleCall_4_0() { return cValueValueParserRuleCall_4_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 	}
 
 	public class ParameterElements extends AbstractParserRuleElementFinder {
@@ -2793,7 +2793,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ConstantDefinition:
 	//
-	//	"constant" NL name=VariableEntity (NL value=StaticValue)? variantValues+=VariantValue* NL;
+	//	"constant" NL name=VariableEntity NL (value=StaticValue NL)? (variantValues+=VariantValue NL)*;
 	public ConstantDefinitionElements getConstantDefinitionAccess() {
 		return (pConstantDefinition != null) ? pConstantDefinition : (pConstantDefinition = new ConstantDefinitionElements());
 	}
@@ -2804,7 +2804,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VariantValue:
 	//
-	//	NL "in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue;
+	//	"in" NL (names+=[VariantDefinition|QualifiedName] NL)+ ":" NL value=StaticValue;
 	public VariantValueElements getVariantValueAccess() {
 		return (pVariantValue != null) ? pVariantValue : (pVariantValue = new VariantValueElements());
 	}
@@ -2839,7 +2839,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTest:
 	//
-	//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
+	//	"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
 	//
 	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 	//
@@ -2957,7 +2957,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"suite" NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 	//
-	//	parameters+=SuiteParameter* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
+	//	(parameters+=SuiteParameter NL)* ("on" NL fork=[ForkDefinition|QualifiedName] NL)? ("in" NL
 	//
 	//	(variants+=[VariantDefinition|QualifiedName] NL)+)?;
 	public SuiteElements getSuiteAccess() {
@@ -2970,7 +2970,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SuiteParameter:
 	//
-	//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value NL;
+	//	name=[VariableEntity|QualifiedName] NL ":" NL value=Value;
 	public SuiteParameterElements getSuiteParameterAccess() {
 		return (pSuiteParameter != null) ? pSuiteParameter : (pSuiteParameter = new SuiteParameterElements());
 	}

@@ -1,0 +1,12 @@
+import integrity.operations.default.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.operations with
+
+	suitedef concatenation with
+		
+		call echoString
+	
+	suiteend
+
+packageend

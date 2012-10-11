@@ -1,0 +1,5 @@
+packagedef integrity.operations.default with
+
+	operationdef concatenated uses de.gebit.integrity.runner.operations.ConcatenationOperation
+
+packageend

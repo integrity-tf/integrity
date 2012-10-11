@@ -233,7 +233,9 @@ public final class IntegrityDSLUtil {
 
 				while (tempTypeInFocus != null) {
 					for (JvmField tempField : tempTypeInFocus.getDeclaredFields()) {
-						tempList.add(new ResultFieldTuple(tempField.getSimpleName(), tempField));
+						if (!"java.util.Map".equals(tempField.getType().getType().getQualifiedName())) {
+							tempList.add(new ResultFieldTuple(tempField.getSimpleName(), tempField));
+						}
 					}
 
 					JvmGenericType tempOldType = tempTypeInFocus;

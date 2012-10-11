@@ -53,7 +53,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(tempGrammar.getForkParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getSuiteParameterAccess().getColonKeyword_2());
-		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_4());
+		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_3());
 		aConfig.setNoSpace().after(tempGrammar.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
 		aConfig.setNoSpace().around(tempGrammar.getMethodReferenceAccess().getNumberSignKeyword_1());
 
@@ -71,8 +71,8 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				.getSuiteDefinitionAccess().getSuiteendKeyword_10());
 
 		// Constant Variants
-		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_0(), tempGrammar
-				.getVariantValueAccess().getValueAssignment_6());
+		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_1(), tempGrammar
+				.getVariantValueAccess().getValueAssignment_5());
 
 		// Tests and Calls
 		aConfig.setIndentation(tempGrammar.getTestAccess().getNLParserRuleCall_1(), tempGrammar.getTestAccess()

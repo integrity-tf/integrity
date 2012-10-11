@@ -13,8 +13,8 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 	private static String stored;
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public List<ArbitraryParameterDefinition> defineArbitraryParameters(
+			String aFixtureName, Map<String, Object> someFixedParameters) {
 		if (stored == null) {
 			System.out.println("NOT STORED");
 			stored = "STORED";
@@ -22,17 +22,21 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 			System.out.println(stored);
 		}
 		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testparam1", Integer.class, "This is the first parameter."));
-		tempList.add(new ArbitraryParameterDefinition("testparam2", String.class, "This is the second parameter."));
+		tempList.add(new ArbitraryParameterDefinition("testparam1",
+				Integer.class, "This is the first parameter."));
+		tempList.add(new ArbitraryParameterDefinition("testparam2",
+				String.class, "This is the second parameter."));
 		return tempList;
 	}
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public List<ArbitraryParameterDefinition> defineArbitraryResults(
+			String aFixtureName, Map<String, Object> someFixedParameters) {
 		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testresult1", Integer.class, "This is the first result."));
-		tempList.add(new ArbitraryParameterDefinition("testresult2", String.class, "This is the second result."));
+		tempList.add(new ArbitraryParameterDefinition("testresult1",
+				Integer.class, "This is the first result."));
+		tempList.add(new ArbitraryParameterDefinition("testresult2",
+				String.class, "This is the second result."));
 		return tempList;
 	}
 
