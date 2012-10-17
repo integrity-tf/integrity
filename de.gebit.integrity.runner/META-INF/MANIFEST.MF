@@ -31,5 +31,5 @@ Import-Package: org.apache.log4j;version="1.2.15",
  org.jdom.output;version="1.0.0",
  org.jdom.transform;version="1.0.0",
  org.jdom.xpath;version="1.0.0",
- org.slf4j;version="1.6.4"
+ org.slf4j;version="1.4.0"
 Bundle-Vendor: GEBIT Solutions GmbH
