@@ -1404,23 +1404,23 @@ public interface DslPackage extends EPackage
   int ARBITRARY_PARAMETER_OR_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.OperationOrValueCollectionImpl <em>Operation Or Value Collection</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationImpl <em>Value Or Enum Value Or Operation</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.OperationOrValueCollectionImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getOperationOrValueCollection()
+   * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperation()
    * @generated
    */
-  int OPERATION_OR_VALUE_COLLECTION = 39;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION = 40;
 
   /**
-   * The number of structural features of the '<em>Operation Or Value Collection</em>' class.
+   * The number of structural features of the '<em>Value Or Enum Value Or Operation</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT = 0;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.OperationImpl <em>Operation</em>}' class.
@@ -1439,7 +1439,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OPERATION__PREFIX_OPERAND = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 0;
+  int OPERATION__PREFIX_OPERAND = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -1448,7 +1448,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OPERATION__DEFINITION = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 1;
+  int OPERATION__DEFINITION = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Postfix Operand</b></em>' containment reference.
@@ -1457,7 +1457,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OPERATION__POSTFIX_OPERAND = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 2;
+  int OPERATION__POSTFIX_OPERAND = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Operation</em>' class.
@@ -1466,17 +1466,17 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OPERATION_FEATURE_COUNT = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 3;
+  int OPERATION_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl <em>Value Or Enum Value Collection</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl <em>Value Or Enum Value Or Operation Collection</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueCollection()
+   * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperationCollection()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE_COLLECTION = 40;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION = 39;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1485,7 +1485,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VALUE_OR_ENUM_VALUE_COLLECTION__VALUE = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 0;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE = 0;
 
   /**
    * The feature id for the '<em><b>More Values</b></em>' containment reference list.
@@ -1494,35 +1494,16 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 1;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES = 1;
 
   /**
-   * The number of structural features of the '<em>Value Or Enum Value Collection</em>' class.
+   * The number of structural features of the '<em>Value Or Enum Value Or Operation Collection</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALUE_OR_ENUM_VALUE_COLLECTION_FEATURE_COUNT = OPERATION_OR_VALUE_COLLECTION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
-   * @generated
-   */
-  int VALUE_OR_ENUM_VALUE = 41;
-
-  /**
-   * The number of structural features of the '<em>Value Or Enum Value</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VALUE_OR_ENUM_VALUE_FEATURE_COUNT = 0;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueImpl <em>Value</em>}' class.
@@ -1532,7 +1513,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 42;
+  int VALUE = 41;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -1541,7 +1522,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VALUE_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_FEATURE_COUNT + 0;
+  int VALUE_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.StaticValueImpl <em>Static Value</em>}' class.
@@ -1551,7 +1532,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStaticValue()
    * @generated
    */
-  int STATIC_VALUE = 43;
+  int STATIC_VALUE = 42;
 
   /**
    * The number of structural features of the '<em>Static Value</em>' class.
@@ -1570,7 +1551,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 44;
+  int INTEGER_VALUE = 43;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -1598,7 +1579,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 45;
+  int DECIMAL_VALUE = 44;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -1626,7 +1607,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 46;
+  int STRING_VALUE = 45;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -1654,7 +1635,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getBooleanValue()
    * @generated
    */
-  int BOOLEAN_VALUE = 47;
+  int BOOLEAN_VALUE = 46;
 
   /**
    * The feature id for the '<em><b>Boolean Value</b></em>' attribute.
@@ -1682,7 +1663,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 48;
+  int VARIABLE = 47;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1710,7 +1691,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
    * @generated
    */
-  int NULL_VALUE = 49;
+  int NULL_VALUE = 48;
 
   /**
    * The number of structural features of the '<em>Null Value</em>' class.
@@ -1729,7 +1710,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 50;
+  int ENUM_VALUE = 49;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -1738,7 +1719,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENUM_VALUE__ENUM_VALUE = VALUE_OR_ENUM_VALUE_FEATURE_COUNT + 0;
+  int ENUM_VALUE__ENUM_VALUE = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Enum Value</em>' class.
@@ -1747,7 +1728,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENUM_VALUE_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_FEATURE_COUNT + 1;
+  int ENUM_VALUE_FEATURE_COUNT = VALUE_OR_ENUM_VALUE_OR_OPERATION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.JavaClassReferenceImpl <em>Java Class Reference</em>}' class.
@@ -1757,7 +1738,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 51;
+  int JAVA_CLASS_REFERENCE = 50;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1785,7 +1766,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 52;
+  int METHOD_REFERENCE = 51;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1822,7 +1803,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 53;
+  int EXECUTION_MULTIPLIER = 52;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1850,7 +1831,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 54;
+  int NULL = 53;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -3045,56 +3026,46 @@ public interface DslPackage extends EPackage
   EReference getOperation_PostfixOperand();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.OperationOrValueCollection <em>Operation Or Value Collection</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection <em>Value Or Enum Value Or Operation Collection</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Operation Or Value Collection</em>'.
-   * @see de.gebit.integrity.dsl.OperationOrValueCollection
+   * @return the meta object for class '<em>Value Or Enum Value Or Operation Collection</em>'.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection
    * @generated
    */
-  EClass getOperationOrValueCollection();
+  EClass getValueOrEnumValueOrOperationCollection();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection <em>Value Or Enum Value Collection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Value Or Enum Value Collection</em>'.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection
-   * @generated
-   */
-  EClass getValueOrEnumValueCollection();
-
-  /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Value</em>'.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection#getValue()
-   * @see #getValueOrEnumValueCollection()
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection#getValue()
+   * @see #getValueOrEnumValueOrOperationCollection()
    * @generated
    */
-  EReference getValueOrEnumValueCollection_Value();
+  EReference getValueOrEnumValueOrOperationCollection_Value();
 
   /**
-   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection#getMoreValues <em>More Values</em>}'.
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection#getMoreValues <em>More Values</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>More Values</em>'.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection#getMoreValues()
-   * @see #getValueOrEnumValueCollection()
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection#getMoreValues()
+   * @see #getValueOrEnumValueOrOperationCollection()
    * @generated
    */
-  EReference getValueOrEnumValueCollection_MoreValues();
+  EReference getValueOrEnumValueOrOperationCollection_MoreValues();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperation <em>Value Or Enum Value Or Operation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Value Or Enum Value</em>'.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValue
+   * @return the meta object for class '<em>Value Or Enum Value Or Operation</em>'.
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperation
    * @generated
    */
-  EClass getValueOrEnumValue();
+  EClass getValueOrEnumValueOrOperation();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Value <em>Value</em>}'.
@@ -4326,24 +4297,14 @@ public interface DslPackage extends EPackage
     EReference OPERATION__POSTFIX_OPERAND = eINSTANCE.getOperation_PostfixOperand();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.OperationOrValueCollectionImpl <em>Operation Or Value Collection</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl <em>Value Or Enum Value Or Operation Collection</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.OperationOrValueCollectionImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getOperationOrValueCollection()
+     * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperationCollection()
      * @generated
      */
-    EClass OPERATION_OR_VALUE_COLLECTION = eINSTANCE.getOperationOrValueCollection();
-
-    /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl <em>Value Or Enum Value Collection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueCollection()
-     * @generated
-     */
-    EClass VALUE_OR_ENUM_VALUE_COLLECTION = eINSTANCE.getValueOrEnumValueCollection();
+    EClass VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION = eINSTANCE.getValueOrEnumValueOrOperationCollection();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
@@ -4351,7 +4312,7 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VALUE_OR_ENUM_VALUE_COLLECTION__VALUE = eINSTANCE.getValueOrEnumValueCollection_Value();
+    EReference VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE = eINSTANCE.getValueOrEnumValueOrOperationCollection_Value();
 
     /**
      * The meta object literal for the '<em><b>More Values</b></em>' containment reference list feature.
@@ -4359,17 +4320,17 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES = eINSTANCE.getValueOrEnumValueCollection_MoreValues();
+    EReference VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES = eINSTANCE.getValueOrEnumValueOrOperationCollection_MoreValues();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl <em>Value Or Enum Value</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationImpl <em>Value Or Enum Value Or Operation</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValue()
+     * @see de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperation()
      * @generated
      */
-    EClass VALUE_OR_ENUM_VALUE = eINSTANCE.getValueOrEnumValue();
+    EClass VALUE_OR_ENUM_VALUE_OR_OPERATION = eINSTANCE.getValueOrEnumValueOrOperation();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ValueImpl <em>Value</em>}' class.

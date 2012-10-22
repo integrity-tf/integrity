@@ -107,9 +107,8 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
       case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME: return createArbitraryParameterOrResultName();
       case DslPackage.OPERATION: return createOperation();
-      case DslPackage.OPERATION_OR_VALUE_COLLECTION: return createOperationOrValueCollection();
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION: return createValueOrEnumValueCollection();
-      case DslPackage.VALUE_OR_ENUM_VALUE: return createValueOrEnumValue();
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION: return createValueOrEnumValueOrOperationCollection();
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION: return createValueOrEnumValueOrOperation();
       case DslPackage.VALUE: return createValue();
       case DslPackage.STATIC_VALUE: return createStaticValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
@@ -562,10 +561,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public OperationOrValueCollection createOperationOrValueCollection()
+  public ValueOrEnumValueOrOperationCollection createValueOrEnumValueOrOperationCollection()
   {
-    OperationOrValueCollectionImpl operationOrValueCollection = new OperationOrValueCollectionImpl();
-    return operationOrValueCollection;
+    ValueOrEnumValueOrOperationCollectionImpl valueOrEnumValueOrOperationCollection = new ValueOrEnumValueOrOperationCollectionImpl();
+    return valueOrEnumValueOrOperationCollection;
   }
 
   /**
@@ -573,21 +572,10 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueCollection createValueOrEnumValueCollection()
+  public ValueOrEnumValueOrOperation createValueOrEnumValueOrOperation()
   {
-    ValueOrEnumValueCollectionImpl valueOrEnumValueCollection = new ValueOrEnumValueCollectionImpl();
-    return valueOrEnumValueCollection;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ValueOrEnumValue createValueOrEnumValue()
-  {
-    ValueOrEnumValueImpl valueOrEnumValue = new ValueOrEnumValueImpl();
-    return valueOrEnumValue;
+    ValueOrEnumValueOrOperationImpl valueOrEnumValueOrOperation = new ValueOrEnumValueOrOperationImpl();
+    return valueOrEnumValueOrOperation;
   }
 
   /**

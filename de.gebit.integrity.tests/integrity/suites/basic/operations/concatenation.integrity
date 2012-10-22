@@ -4,9 +4,13 @@ import integrity.fixtures.basic.noop.*
 packagedef integrity.basic.operations with
 
 	suitedef concatenation with
-		
-		call echoString
 	
+		variable localVar
+	 
+		call echoString string: ("foo", "bar" concatenated) -> localVar
+		test echoStringTest string: (1, "2", localVar concatenated) = "12foobar"
+		test echoStringTest string: "abcd" = ("a", ("b", "c" concatenated), "d" concatenated)
+		
 	suiteend
 
 packageend

@@ -34,7 +34,7 @@ import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 
 /**
@@ -151,6 +151,13 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_CONSTANT_VALUE_ID
 												: DSLHighlightingConfiguration.PARAMETER_CONSTANT_VALUE_ID);
 							}
+						} else if (tempSemanticElement instanceof de.gebit.integrity.dsl.Operation) {
+							Boolean tempIsResult = isResult(tempSemanticElement);
+							if (tempIsResult != null) {
+								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
+										tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_ID
+												: DSLHighlightingConfiguration.PARAMETER_OPERATION_ID);
+							}
 						}
 					}
 				}
@@ -159,8 +166,9 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 	}
 
 	private Boolean isResult(EObject anObject) {
-		if (anObject.eContainer() instanceof ValueOrEnumValueCollection) {
-			ValueOrEnumValueCollection tempCollection = (ValueOrEnumValueCollection) anObject.eContainer();
+		if (anObject.eContainer() instanceof ValueOrEnumValueOrOperationCollection) {
+			ValueOrEnumValueOrOperationCollection tempCollection = (ValueOrEnumValueOrOperationCollection) anObject
+					.eContainer();
 			if (tempCollection.eContainer() instanceof Test) {
 				return ((Test) tempCollection.eContainer()).getResult() == tempCollection;
 			} else if (tempCollection.eContainer() instanceof Suite) {

@@ -9,7 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.ForkParameter;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -54,7 +54,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValue value;
+  protected ValueOrEnumValueOrOperation value;
 
   /**
    * <!-- begin-user-doc -->
@@ -130,7 +130,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValue getValue()
+  public ValueOrEnumValueOrOperation getValue()
   {
     return value;
   }
@@ -140,9 +140,9 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ValueOrEnumValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperation newValue, NotificationChain msgs)
   {
-    ValueOrEnumValue oldValue = value;
+    ValueOrEnumValueOrOperation oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -157,7 +157,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ValueOrEnumValue newValue)
+  public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)
     {
@@ -223,7 +223,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
         setName((FixedParameterName)newValue);
         return;
       case DslPackage.FORK_PARAMETER__VALUE:
-        setValue((ValueOrEnumValue)newValue);
+        setValue((ValueOrEnumValueOrOperation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -243,7 +243,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
         setName((FixedParameterName)null);
         return;
       case DslPackage.FORK_PARAMETER__VALUE:
-        setValue((ValueOrEnumValue)null);
+        setValue((ValueOrEnumValueOrOperation)null);
         return;
     }
     super.eUnset(featureID);

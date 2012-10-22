@@ -25,9 +25,9 @@ import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
@@ -40,6 +40,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * Wrapper used in a similar fashion as the {@link de.gebit.integrity.fixtures.FixtureWrapper}. It encapsulates an IType
@@ -99,43 +100,117 @@ public class FixtureTypeWrapper {
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters shall be included
 	 * @throws JavaModelException
+	 * @throws UnexecutableException
+	 * @throws UnresolvableVariableException
 	 */
 	public void convertParameterValuesToFixtureDefinedTypes(String aFixtureMethodName,
-			Map<String, Object> aParameterMap, boolean anIncludeArbitraryParametersFlag) throws JavaModelException {
+			Map<String, Object> aParameterMap, boolean anIncludeArbitraryParametersFlag) throws JavaModelException,
+			UnresolvableVariableException, UnexecutableException {
 		IMethod tempMethod = findMethod(aFixtureMethodName);
 
-		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
-		for (ILocalVariable tempParam : tempMethod.getParameters()) {
-			String tempParamTypeName = IntegrityDSLUIUtil
-					.getResolvedTypeName(tempParam.getTypeSignature(), fixtureType);
-			if (tempParamTypeName == null) {
-				continue;
-			}
+		try {
+			Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
+			for (ILocalVariable tempParam : tempMethod.getParameters()) {
+				String tempParamTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempParam.getTypeSignature(),
+						fixtureType);
+				if (tempParamTypeName == null) {
+					continue;
+				}
 
-			if (tempParamTypeName.startsWith(Map.class.getName())) {
-				// ignore the arbitrary parameter parameter
-			} else {
-				IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
+				if (tempParamTypeName.startsWith(Map.class.getName())) {
+					// ignore the arbitrary parameter parameter
+				} else {
+					IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
 
-				if (tempAnnotation != null) {
-					String tempName = null;
-					for (IMemberValuePair tempPair : tempAnnotation.getMemberValuePairs()) {
-						if ("name".equals(tempPair.getMemberName())) {
-							tempName = (String) tempPair.getValue();
+					if (tempAnnotation != null) {
+						String tempName = null;
+						for (IMemberValuePair tempPair : tempAnnotation.getMemberValuePairs()) {
+							if ("name".equals(tempPair.getMemberName())) {
+								tempName = (String) tempPair.getValue();
+							}
+						}
+
+						if (tempName != null) {
+							Object tempValue = aParameterMap.get(tempName);
+							if (tempValue != null) {
+								Class<?> tempExpectedType;
+								try {
+									tempExpectedType = getClass().getClassLoader().loadClass(tempParamTypeName);
+								} catch (ClassNotFoundException exc) {
+									// we'll skip this param
+									continue;
+								}
+
+								Object tempConvertedValue;
+								if (tempValue instanceof Object[]) {
+									if (!tempExpectedType.isArray()) {
+										throw new IllegalArgumentException(
+												"The parameter '"
+														+ tempName
+														+ "' of method '"
+														+ aFixtureMethodName
+														+ "' in fixture '"
+														+ fixtureType.getFullyQualifiedName()
+														+ "' is not an array type, thus you cannot put multiple values into it!");
+									}
+									Object tempConvertedValueArray = Array.newInstance(
+											tempExpectedType.getComponentType(), ((Object[]) tempValue).length);
+									for (int k = 0; k < ((Object[]) tempValue).length; k++) {
+										Object tempSingleValue = ((Object[]) tempValue)[k];
+										if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
+											Array.set(tempConvertedValueArray, k, ParameterUtil
+													.convertEncapsulatedValueToParamType(
+															tempExpectedType.getComponentType(),
+															(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
+										} else {
+											Array.set(
+													tempConvertedValueArray,
+													k,
+													ParameterUtil.convertValueToParamType(
+															tempExpectedType.getComponentType(), tempSingleValue));
+										}
+									}
+									tempConvertedValue = tempConvertedValueArray;
+								} else {
+									// if the expected type is an array, we don't want to convert to that array, but to
+									// the
+									// component type, of course
+									Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
+											.getComponentType() : tempExpectedType;
+									if (tempValue instanceof ValueOrEnumValueOrOperation) {
+										tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
+												tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue,
+												null, null);
+									} else {
+										tempConvertedValue = ParameterUtil.convertValueToParamType(
+												tempConversionTargetType, tempValue);
+									}
+									if (tempExpectedType.isArray()) {
+										// ...and if the expected type is an array, now we create one
+										Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
+										Array.set(tempNewArray, 0, tempConvertedValue);
+										tempConvertedValue = tempNewArray;
+									}
+								}
+								aParameterMap.put(tempName, tempConvertedValue);
+								tempFixedParamsMap.put(tempName, tempConvertedValue);
+							}
 						}
 					}
+				}
+			}
 
-					if (tempName != null) {
-						Object tempValue = aParameterMap.get(tempName);
+			if (anIncludeArbitraryParametersFlag && isArbitraryParameterFixtureClass()) {
+				ArbitraryParameterEnumerator tempArbitraryParameterEnumerator = instantiateArbitraryParameterEnumerator();
+
+				List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
+						.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap);
+				if (tempArbitraryParameters != null) {
+					for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
+						String tempName = tempArbitraryParameter.getName();
+						Object tempValue = aParameterMap.remove(tempName);
+						Class<?> tempExpectedType = tempArbitraryParameter.getType();
 						if (tempValue != null) {
-							Class<?> tempExpectedType;
-							try {
-								tempExpectedType = getClass().getClassLoader().loadClass(tempParamTypeName);
-							} catch (ClassNotFoundException exc) {
-								// we'll skip this param
-								continue;
-							}
-
 							Object tempConvertedValue;
 							if (tempValue instanceof Object[]) {
 								if (!tempExpectedType.isArray()) {
@@ -148,11 +223,11 @@ public class FixtureTypeWrapper {
 										((Object[]) tempValue).length);
 								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 									Object tempSingleValue = ((Object[]) tempValue)[k];
-									if (tempSingleValue instanceof ValueOrEnumValue) {
+									if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
 										Array.set(tempConvertedValueArray, k, ParameterUtil
 												.convertEncapsulatedValueToParamType(
 														tempExpectedType.getComponentType(),
-														(ValueOrEnumValue) tempSingleValue, null));
+														(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
 									} else {
 										Array.set(
 												tempConvertedValueArray,
@@ -163,82 +238,32 @@ public class FixtureTypeWrapper {
 								}
 								tempConvertedValue = tempConvertedValueArray;
 							} else {
-								// if the expected type is an array, we don't want to convert to that array, but to the
-								// component type, of course
-								Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
-										.getComponentType() : tempExpectedType;
-								if (tempValue instanceof ValueOrEnumValue) {
+								if (tempValue instanceof ValueOrEnumValueOrOperation) {
 									tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-											tempConversionTargetType, (ValueOrEnumValue) tempValue, null);
+											tempExpectedType, (ValueOrEnumValueOrOperation) tempValue, null, null);
 								} else {
-									tempConvertedValue = ParameterUtil.convertValueToParamType(
-											tempConversionTargetType, tempValue);
+									tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType,
+											tempValue);
 								}
 								if (tempExpectedType.isArray()) {
-									// ...and if the expected type is an array, now we create one
+									// The target type may still be an array, even though just one parameter value was
+									// given
 									Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
 									Array.set(tempNewArray, 0, tempConvertedValue);
 									tempConvertedValue = tempNewArray;
 								}
 							}
 							aParameterMap.put(tempName, tempConvertedValue);
-							tempFixedParamsMap.put(tempName, tempConvertedValue);
 						}
 					}
 				}
 			}
-		}
-
-		if (anIncludeArbitraryParametersFlag && isArbitraryParameterFixtureClass()) {
-			ArbitraryParameterEnumerator tempArbitraryParameterEnumerator = instantiateArbitraryParameterEnumerator();
-
-			List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
-					.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap);
-			if (tempArbitraryParameters != null) {
-				for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
-					String tempName = tempArbitraryParameter.getName();
-					Object tempValue = aParameterMap.remove(tempName);
-					Class<?> tempExpectedType = tempArbitraryParameter.getType();
-					if (tempValue != null) {
-						Object tempConvertedValue;
-						if (tempValue instanceof Object[]) {
-							if (!tempExpectedType.isArray()) {
-								throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-										+ aFixtureMethodName + "' in fixture '" + fixtureType.getFullyQualifiedName()
-										+ "' is not an array type, thus you cannot put multiple values into it!");
-							}
-							Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
-									((Object[]) tempValue).length);
-							for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-								Object tempSingleValue = ((Object[]) tempValue)[k];
-								if (tempSingleValue instanceof ValueOrEnumValue) {
-									Array.set(tempConvertedValueArray, k, ParameterUtil
-											.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-													(ValueOrEnumValue) tempSingleValue, null));
-								} else {
-									Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
-											tempExpectedType.getComponentType(), tempSingleValue));
-								}
-							}
-							tempConvertedValue = tempConvertedValueArray;
-						} else {
-							if (tempValue instanceof ValueOrEnumValue) {
-								tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-										tempExpectedType, (ValueOrEnumValue) tempValue, null);
-							} else {
-								tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
-							}
-							if (tempExpectedType.isArray()) {
-								// The target type may still be an array, even though just one parameter value was given
-								Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-								Array.set(tempNewArray, 0, tempConvertedValue);
-								tempConvertedValue = tempNewArray;
-							}
-						}
-						aParameterMap.put(tempName, tempConvertedValue);
-					}
-				}
-			}
+		} catch (ClassNotFoundException exc) {
+			// Should never be thrown here since we don't provide a class loader to load operation classes
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
+			// Should never be thrown here since we don't provide a class loader to load operation classes
+			exc.printStackTrace();
 		}
 	}
 
@@ -256,7 +281,7 @@ public class FixtureTypeWrapper {
 	 * @throws JavaModelException
 	 */
 	public Object convertResultValueToFixtureDefinedType(String aFixtureMethodName, ResultName aResultName,
-			OperationOrValueCollection aValue) throws JavaModelException {
+			ValueOrEnumValueOrOperationCollection aValue) throws JavaModelException {
 		IMethod tempMethod = findMethod(aFixtureMethodName);
 		if (tempMethod == null) {
 			return aValue;

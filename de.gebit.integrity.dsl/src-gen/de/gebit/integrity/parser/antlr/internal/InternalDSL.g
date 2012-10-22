@@ -783,9 +783,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0()); 
 	    }
-		lv_value_4_0=ruleValueOrEnumValue		{
+		lv_value_4_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getForkParameterRule());
 	        }
@@ -793,7 +793,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValue");
+        		"ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1976,9 +1976,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getResultOperationOrValueCollectionParserRuleCall_5_3_0()); 
+	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0()); 
 	    }
-		lv_result_10_0=ruleOperationOrValueCollection		{
+		lv_result_10_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestRule());
 	        }
@@ -1986,7 +1986,7 @@ ruleNL
        			$current, 
        			"result",
         		lv_result_10_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2337,9 +2337,9 @@ ruleParameterTableValue returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getParameterTableValueAccess().getValueOperationOrValueCollectionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_1_0()); 
 	    }
-		lv_value_1_0=ruleOperationOrValueCollection		{
+		lv_value_1_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getParameterTableValueRule());
 	        }
@@ -2347,7 +2347,7 @@ ruleParameterTableValue returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_1_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2418,9 +2418,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getNamedResultAccess().getValueOperationOrValueCollectionParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
 	    }
-		lv_value_4_0=ruleOperationOrValueCollection		{
+		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNamedResultRule());
 	        }
@@ -2428,7 +2428,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3070,9 +3070,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getParameterAccess().getValueOperationOrValueCollectionParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
 	    }
-		lv_value_4_0=ruleOperationOrValueCollection		{
+		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getParameterRule());
 	        }
@@ -3080,7 +3080,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3238,9 +3238,9 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOperationAccess().getPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getOperationAccess().getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0()); 
 	    }
-		lv_prefixOperand_2_0=ruleOperationOrValueCollection		{
+		lv_prefixOperand_2_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOperationRule());
 	        }
@@ -3248,7 +3248,7 @@ ruleNL
        			$current, 
        			"prefixOperand",
         		lv_prefixOperand_2_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3291,9 +3291,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOperationAccess().getPostfixOperandOperationOrValueCollectionParserRuleCall_4_2_0()); 
+	        newCompositeNode(grammarAccess.getOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
 	    }
-		lv_postfixOperand_7_0=ruleOperationOrValueCollection		{
+		lv_postfixOperand_7_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOperationRule());
 	        }
@@ -3301,7 +3301,7 @@ ruleNL
        			$current, 
        			"postfixOperand",
         		lv_postfixOperand_7_0, 
-        		"OperationOrValueCollection");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3325,81 +3325,41 @@ ruleNL
 
 
 
-// Entry rule entryRuleOperationOrValueCollection
-entryRuleOperationOrValueCollection returns [EObject current=null] 
+// Entry rule entryRuleValueOrEnumValueOrOperationCollection
+entryRuleValueOrEnumValueOrOperationCollection returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getOperationOrValueCollectionRule()); }
-	 iv_ruleOperationOrValueCollection=ruleOperationOrValueCollection 
-	 { $current=$iv_ruleOperationOrValueCollection.current; } 
+	{ newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionRule()); }
+	 iv_ruleValueOrEnumValueOrOperationCollection=ruleValueOrEnumValueOrOperationCollection 
+	 { $current=$iv_ruleValueOrEnumValueOrOperationCollection.current; } 
 	 EOF 
 ;
 
-// Rule OperationOrValueCollection
-ruleOperationOrValueCollection returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getOperationOrValueCollectionAccess().getOperationParserRuleCall_0()); 
-    }
-    this_Operation_0=ruleOperation
-    { 
-        $current = $this_Operation_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getOperationOrValueCollectionAccess().getValueOrEnumValueCollectionParserRuleCall_1()); 
-    }
-    this_ValueOrEnumValueCollection_1=ruleValueOrEnumValueCollection
-    { 
-        $current = $this_ValueOrEnumValueCollection_1.current; 
-        afterParserOrEnumRuleCall();
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleValueOrEnumValueCollection
-entryRuleValueOrEnumValueCollection returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getValueOrEnumValueCollectionRule()); }
-	 iv_ruleValueOrEnumValueCollection=ruleValueOrEnumValueCollection 
-	 { $current=$iv_ruleValueOrEnumValueCollection.current; } 
-	 EOF 
-;
-
-// Rule ValueOrEnumValueCollection
-ruleValueOrEnumValueCollection returns [EObject current=null] 
+// Rule ValueOrEnumValueOrOperationCollection
+ruleValueOrEnumValueOrOperationCollection returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getValueOrEnumValueCollectionAccess().getValueValueOrEnumValueParserRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_0_0()); 
 	    }
-		lv_value_0_0=ruleValueOrEnumValue		{
+		lv_value_0_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getValueOrEnumValueCollectionRule());
+	            $current = createModelElementForParent(grammarAccess.getValueOrEnumValueOrOperationCollectionRule());
 	        }
        		set(
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"ValueOrEnumValue");
+        		"ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(
     { 
-        newCompositeNode(grammarAccess.getValueOrEnumValueCollectionAccess().getNLParserRuleCall_1_0()); 
+        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_0()); 
     }
 ruleNL
     { 
@@ -3407,11 +3367,11 @@ ruleNL
     }
 	otherlv_2=',' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getValueOrEnumValueCollectionAccess().getCommaKeyword_1_1());
+    	newLeafNode(otherlv_2, grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getCommaKeyword_1_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getValueOrEnumValueCollectionAccess().getNLParserRuleCall_1_2()); 
+        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_2()); 
     }
 ruleNL
     { 
@@ -3420,17 +3380,17 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getValueOrEnumValueCollectionAccess().getMoreValuesValueOrEnumValueParserRuleCall_1_3_0()); 
+	        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesValueOrEnumValueOrOperationParserRuleCall_1_3_0()); 
 	    }
-		lv_moreValues_4_0=ruleValueOrEnumValue		{
+		lv_moreValues_4_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getValueOrEnumValueCollectionRule());
+	            $current = createModelElementForParent(grammarAccess.getValueOrEnumValueOrOperationCollectionRule());
 	        }
        		add(
        			$current, 
        			"moreValues",
         		lv_moreValues_4_0, 
-        		"ValueOrEnumValue");
+        		"ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3442,23 +3402,23 @@ ruleNL
 
 
 
-// Entry rule entryRuleValueOrEnumValue
-entryRuleValueOrEnumValue returns [EObject current=null] 
+// Entry rule entryRuleValueOrEnumValueOrOperation
+entryRuleValueOrEnumValueOrOperation returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getValueOrEnumValueRule()); }
-	 iv_ruleValueOrEnumValue=ruleValueOrEnumValue 
-	 { $current=$iv_ruleValueOrEnumValue.current; } 
+	{ newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationRule()); }
+	 iv_ruleValueOrEnumValueOrOperation=ruleValueOrEnumValueOrOperation 
+	 { $current=$iv_ruleValueOrEnumValueOrOperation.current; } 
 	 EOF 
 ;
 
-// Rule ValueOrEnumValue
-ruleValueOrEnumValue returns [EObject current=null] 
+// Rule ValueOrEnumValueOrOperation
+ruleValueOrEnumValueOrOperation returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getValueOrEnumValueAccess().getValueParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationAccess().getValueParserRuleCall_0()); 
     }
     this_Value_0=ruleValue
     { 
@@ -3468,11 +3428,21 @@ ruleValueOrEnumValue returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getValueOrEnumValueAccess().getEnumValueParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationAccess().getEnumValueParserRuleCall_1()); 
     }
     this_EnumValue_1=ruleEnumValue
     { 
         $current = $this_EnumValue_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationAccess().getOperationParserRuleCall_2()); 
+    }
+    this_Operation_2=ruleOperation
+    { 
+        $current = $this_Operation_2.current; 
         afterParserOrEnumRuleCall();
     }
 )

@@ -28,13 +28,13 @@ import org.jdom.output.XMLOutputter;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
@@ -793,7 +793,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 				}
 
 				// Either there is an expected value, or if there isn't, "true" is the default
-				OperationOrValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
+				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
 						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
 								classLoader, false));

@@ -378,31 +378,22 @@ public interface DslFactory extends EFactory
   Operation createOperation();
 
   /**
-   * Returns a new object of class '<em>Operation Or Value Collection</em>'.
+   * Returns a new object of class '<em>Value Or Enum Value Or Operation Collection</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Operation Or Value Collection</em>'.
+   * @return a new object of class '<em>Value Or Enum Value Or Operation Collection</em>'.
    * @generated
    */
-  OperationOrValueCollection createOperationOrValueCollection();
+  ValueOrEnumValueOrOperationCollection createValueOrEnumValueOrOperationCollection();
 
   /**
-   * Returns a new object of class '<em>Value Or Enum Value Collection</em>'.
+   * Returns a new object of class '<em>Value Or Enum Value Or Operation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Value Or Enum Value Collection</em>'.
+   * @return a new object of class '<em>Value Or Enum Value Or Operation</em>'.
    * @generated
    */
-  ValueOrEnumValueCollection createValueOrEnumValueCollection();
-
-  /**
-   * Returns a new object of class '<em>Value Or Enum Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Value Or Enum Value</em>'.
-   * @generated
-   */
-  ValueOrEnumValue createValueOrEnumValue();
+  ValueOrEnumValueOrOperation createValueOrEnumValueOrOperation();
 
   /**
    * Returns a new object of class '<em>Value</em>'.

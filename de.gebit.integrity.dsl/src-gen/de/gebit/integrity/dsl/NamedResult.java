@@ -62,12 +62,12 @@ public interface NamedResult extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(OperationOrValueCollection)
+   * @see #setValue(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getNamedResult_Value()
    * @model containment="true"
    * @generated
    */
-  OperationOrValueCollection getValue();
+  ValueOrEnumValueOrOperationCollection getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.NamedResult#getValue <em>Value</em>}' containment reference.
@@ -77,6 +77,6 @@ public interface NamedResult extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(OperationOrValueCollection value);
+  void setValue(ValueOrEnumValueOrOperationCollection value);
 
 } // NamedResult

@@ -9,7 +9,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class OperationImpl extends OperationOrValueCollectionImpl implements Operation
+public class OperationImpl extends ValueOrEnumValueOrOperationImpl implements Operation
 {
   /**
    * The cached value of the '{@link #getPrefixOperand() <em>Prefix Operand</em>}' containment reference.
@@ -44,7 +44,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * @generated
    * @ordered
    */
-  protected OperationOrValueCollection prefixOperand;
+  protected ValueOrEnumValueOrOperationCollection prefixOperand;
 
   /**
    * The cached value of the '{@link #getDefinition() <em>Definition</em>}' reference.
@@ -64,7 +64,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * @generated
    * @ordered
    */
-  protected OperationOrValueCollection postfixOperand;
+  protected ValueOrEnumValueOrOperationCollection postfixOperand;
 
   /**
    * <!-- begin-user-doc -->
@@ -92,7 +92,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public OperationOrValueCollection getPrefixOperand()
+  public ValueOrEnumValueOrOperationCollection getPrefixOperand()
   {
     return prefixOperand;
   }
@@ -102,9 +102,9 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetPrefixOperand(OperationOrValueCollection newPrefixOperand, NotificationChain msgs)
+  public NotificationChain basicSetPrefixOperand(ValueOrEnumValueOrOperationCollection newPrefixOperand, NotificationChain msgs)
   {
-    OperationOrValueCollection oldPrefixOperand = prefixOperand;
+    ValueOrEnumValueOrOperationCollection oldPrefixOperand = prefixOperand;
     prefixOperand = newPrefixOperand;
     if (eNotificationRequired())
     {
@@ -119,7 +119,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrefixOperand(OperationOrValueCollection newPrefixOperand)
+  public void setPrefixOperand(ValueOrEnumValueOrOperationCollection newPrefixOperand)
   {
     if (newPrefixOperand != prefixOperand)
     {
@@ -183,7 +183,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public OperationOrValueCollection getPostfixOperand()
+  public ValueOrEnumValueOrOperationCollection getPostfixOperand()
   {
     return postfixOperand;
   }
@@ -193,9 +193,9 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetPostfixOperand(OperationOrValueCollection newPostfixOperand, NotificationChain msgs)
+  public NotificationChain basicSetPostfixOperand(ValueOrEnumValueOrOperationCollection newPostfixOperand, NotificationChain msgs)
   {
-    OperationOrValueCollection oldPostfixOperand = postfixOperand;
+    ValueOrEnumValueOrOperationCollection oldPostfixOperand = postfixOperand;
     postfixOperand = newPostfixOperand;
     if (eNotificationRequired())
     {
@@ -210,7 +210,7 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPostfixOperand(OperationOrValueCollection newPostfixOperand)
+  public void setPostfixOperand(ValueOrEnumValueOrOperationCollection newPostfixOperand)
   {
     if (newPostfixOperand != postfixOperand)
     {
@@ -276,13 +276,13 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
     switch (featureID)
     {
       case DslPackage.OPERATION__PREFIX_OPERAND:
-        setPrefixOperand((OperationOrValueCollection)newValue);
+        setPrefixOperand((ValueOrEnumValueOrOperationCollection)newValue);
         return;
       case DslPackage.OPERATION__DEFINITION:
         setDefinition((OperationDefinition)newValue);
         return;
       case DslPackage.OPERATION__POSTFIX_OPERAND:
-        setPostfixOperand((OperationOrValueCollection)newValue);
+        setPostfixOperand((ValueOrEnumValueOrOperationCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -299,13 +299,13 @@ public class OperationImpl extends OperationOrValueCollectionImpl implements Ope
     switch (featureID)
     {
       case DslPackage.OPERATION__PREFIX_OPERAND:
-        setPrefixOperand((OperationOrValueCollection)null);
+        setPrefixOperand((ValueOrEnumValueOrOperationCollection)null);
         return;
       case DslPackage.OPERATION__DEFINITION:
         setDefinition((OperationDefinition)null);
         return;
       case DslPackage.OPERATION__POSTFIX_OPERAND:
-        setPostfixOperand((OperationOrValueCollection)null);
+        setPostfixOperand((ValueOrEnumValueOrOperationCollection)null);
         return;
     }
     super.eUnset(featureID);

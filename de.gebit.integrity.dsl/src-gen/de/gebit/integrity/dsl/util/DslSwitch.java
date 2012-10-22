@@ -377,29 +377,21 @@ public class DslSwitch<T> extends Switch<T>
       {
         Operation operation = (Operation)theEObject;
         T result = caseOperation(operation);
-        if (result == null) result = caseOperationOrValueCollection(operation);
+        if (result == null) result = caseValueOrEnumValueOrOperation(operation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.OPERATION_OR_VALUE_COLLECTION:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION:
       {
-        OperationOrValueCollection operationOrValueCollection = (OperationOrValueCollection)theEObject;
-        T result = caseOperationOrValueCollection(operationOrValueCollection);
+        ValueOrEnumValueOrOperationCollection valueOrEnumValueOrOperationCollection = (ValueOrEnumValueOrOperationCollection)theEObject;
+        T result = caseValueOrEnumValueOrOperationCollection(valueOrEnumValueOrOperationCollection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION:
       {
-        ValueOrEnumValueCollection valueOrEnumValueCollection = (ValueOrEnumValueCollection)theEObject;
-        T result = caseValueOrEnumValueCollection(valueOrEnumValueCollection);
-        if (result == null) result = caseOperationOrValueCollection(valueOrEnumValueCollection);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case DslPackage.VALUE_OR_ENUM_VALUE:
-      {
-        ValueOrEnumValue valueOrEnumValue = (ValueOrEnumValue)theEObject;
-        T result = caseValueOrEnumValue(valueOrEnumValue);
+        ValueOrEnumValueOrOperation valueOrEnumValueOrOperation = (ValueOrEnumValueOrOperation)theEObject;
+        T result = caseValueOrEnumValueOrOperation(valueOrEnumValueOrOperation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -407,7 +399,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         Value value = (Value)theEObject;
         T result = caseValue(value);
-        if (result == null) result = caseValueOrEnumValue(value);
+        if (result == null) result = caseValueOrEnumValueOrOperation(value);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -416,7 +408,7 @@ public class DslSwitch<T> extends Switch<T>
         StaticValue staticValue = (StaticValue)theEObject;
         T result = caseStaticValue(staticValue);
         if (result == null) result = caseValue(staticValue);
-        if (result == null) result = caseValueOrEnumValue(staticValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(staticValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -426,7 +418,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseIntegerValue(integerValue);
         if (result == null) result = caseStaticValue(integerValue);
         if (result == null) result = caseValue(integerValue);
-        if (result == null) result = caseValueOrEnumValue(integerValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(integerValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -436,7 +428,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseDecimalValue(decimalValue);
         if (result == null) result = caseStaticValue(decimalValue);
         if (result == null) result = caseValue(decimalValue);
-        if (result == null) result = caseValueOrEnumValue(decimalValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(decimalValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -446,7 +438,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseStringValue(stringValue);
         if (result == null) result = caseStaticValue(stringValue);
         if (result == null) result = caseValue(stringValue);
-        if (result == null) result = caseValueOrEnumValue(stringValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(stringValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -456,7 +448,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseBooleanValue(booleanValue);
         if (result == null) result = caseStaticValue(booleanValue);
         if (result == null) result = caseValue(booleanValue);
-        if (result == null) result = caseValueOrEnumValue(booleanValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(booleanValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -465,7 +457,7 @@ public class DslSwitch<T> extends Switch<T>
         Variable variable = (Variable)theEObject;
         T result = caseVariable(variable);
         if (result == null) result = caseValue(variable);
-        if (result == null) result = caseValueOrEnumValue(variable);
+        if (result == null) result = caseValueOrEnumValueOrOperation(variable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -475,7 +467,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseNullValue(nullValue);
         if (result == null) result = caseStaticValue(nullValue);
         if (result == null) result = caseValue(nullValue);
-        if (result == null) result = caseValueOrEnumValue(nullValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(nullValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -483,7 +475,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         EnumValue enumValue = (EnumValue)theEObject;
         T result = caseEnumValue(enumValue);
-        if (result == null) result = caseValueOrEnumValue(enumValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(enumValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -515,7 +507,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseNullValue(null_);
         if (result == null) result = caseStaticValue(null_);
         if (result == null) result = caseValue(null_);
-        if (result == null) result = caseValueOrEnumValue(null_);
+        if (result == null) result = caseValueOrEnumValueOrOperation(null_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1148,49 +1140,33 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Operation Or Value Collection</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value Or Operation Collection</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Operation Or Value Collection</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Value Or Enum Value Or Operation Collection</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseOperationOrValueCollection(OperationOrValueCollection object)
+  public T caseValueOrEnumValueOrOperationCollection(ValueOrEnumValueOrOperationCollection object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value Collection</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value Or Operation</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Value Or Enum Value Collection</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Value Or Enum Value Or Operation</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseValueOrEnumValueCollection(ValueOrEnumValueCollection object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Value Or Enum Value</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Value Or Enum Value</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseValueOrEnumValue(ValueOrEnumValue object)
+  public T caseValueOrEnumValueOrOperation(ValueOrEnumValueOrOperation object)
   {
     return null;
   }

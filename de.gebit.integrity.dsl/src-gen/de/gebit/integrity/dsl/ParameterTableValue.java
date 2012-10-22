@@ -35,12 +35,12 @@ public interface ParameterTableValue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(OperationOrValueCollection)
+   * @see #setValue(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getParameterTableValue_Value()
    * @model containment="true"
    * @generated
    */
-  OperationOrValueCollection getValue();
+  ValueOrEnumValueOrOperationCollection getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ParameterTableValue#getValue <em>Value</em>}' containment reference.
@@ -50,6 +50,6 @@ public interface ParameterTableValue extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(OperationOrValueCollection value);
+  void setValue(ValueOrEnumValueOrOperationCollection value);
 
 } // ParameterTableValue

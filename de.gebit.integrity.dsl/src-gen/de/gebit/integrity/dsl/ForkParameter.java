@@ -62,12 +62,12 @@ public interface ForkParameter extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(ValueOrEnumValue)
+   * @see #setValue(ValueOrEnumValueOrOperation)
    * @see de.gebit.integrity.dsl.DslPackage#getForkParameter_Value()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValue getValue();
+  ValueOrEnumValueOrOperation getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ForkParameter#getValue <em>Value</em>}' containment reference.
@@ -77,6 +77,6 @@ public interface ForkParameter extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(ValueOrEnumValue value);
+  void setValue(ValueOrEnumValueOrOperation value);
 
 } // ForkParameter

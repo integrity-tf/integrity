@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.gebit.integrity.dsl.ValueOrEnumValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.utils.ParameterUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * This wrapper is used to encapsulate fixture instances.
@@ -183,9 +185,14 @@ public class FixtureWrapper<C extends Object> {
 	 *            the parameter map
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters shall be included
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
+	 * @throws UnresolvableVariableException
 	 */
 	public void convertParameterValuesToFixtureDefinedTypes(Method aFixtureMethod, Map<String, Object> aParameterMap,
-			boolean anIncludeArbitraryParametersFlag) {
+			boolean anIncludeArbitraryParametersFlag) throws UnresolvableVariableException, ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {
@@ -210,10 +217,10 @@ public class FixtureWrapper<C extends Object> {
 									((Object[]) tempValue).length);
 							for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 								Object tempSingleValue = ((Object[]) tempValue)[k];
-								if (tempSingleValue instanceof ValueOrEnumValue) {
+								if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
 									Array.set(tempConvertedValueArray, k, ParameterUtil
 											.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-													(ValueOrEnumValue) tempSingleValue, null));
+													(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
 								} else {
 									Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
 											tempExpectedType.getComponentType(), tempSingleValue));
@@ -225,9 +232,9 @@ public class FixtureWrapper<C extends Object> {
 							// component type, of course
 							Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 									.getComponentType() : tempExpectedType;
-							if (tempValue instanceof ValueOrEnumValue) {
+							if (tempValue instanceof ValueOrEnumValueOrOperation) {
 								tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-										tempConversionTargetType, (ValueOrEnumValue) tempValue, null);
+										tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue, null, null);
 							} else {
 								tempConvertedValue = ParameterUtil.convertValueToParamType(tempConversionTargetType,
 										tempValue);
@@ -265,10 +272,10 @@ public class FixtureWrapper<C extends Object> {
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							if (tempSingleValue instanceof ValueOrEnumValue) {
+							if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
 								Array.set(tempConvertedValueArray, k, ParameterUtil
 										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-												(ValueOrEnumValue) tempSingleValue, null));
+												(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
 							} else {
 								Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
 										tempExpectedType.getComponentType(), tempSingleValue));
@@ -276,9 +283,9 @@ public class FixtureWrapper<C extends Object> {
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
-						if (tempValue instanceof ValueOrEnumValue) {
+						if (tempValue instanceof ValueOrEnumValueOrOperation) {
 							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(tempExpectedType,
-									(ValueOrEnumValue) tempValue, null);
+									(ValueOrEnumValueOrOperation) tempValue, null, null);
 						} else {
 							tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
 						}

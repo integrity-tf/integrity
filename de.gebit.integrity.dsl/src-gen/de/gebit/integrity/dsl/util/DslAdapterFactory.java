@@ -274,19 +274,14 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createOperationAdapter();
       }
       @Override
-      public Adapter caseOperationOrValueCollection(OperationOrValueCollection object)
+      public Adapter caseValueOrEnumValueOrOperationCollection(ValueOrEnumValueOrOperationCollection object)
       {
-        return createOperationOrValueCollectionAdapter();
+        return createValueOrEnumValueOrOperationCollectionAdapter();
       }
       @Override
-      public Adapter caseValueOrEnumValueCollection(ValueOrEnumValueCollection object)
+      public Adapter caseValueOrEnumValueOrOperation(ValueOrEnumValueOrOperation object)
       {
-        return createValueOrEnumValueCollectionAdapter();
-      }
-      @Override
-      public Adapter caseValueOrEnumValue(ValueOrEnumValue object)
-      {
-        return createValueOrEnumValueAdapter();
+        return createValueOrEnumValueOrOperationAdapter();
       }
       @Override
       public Adapter caseValue(Value object)
@@ -961,46 +956,31 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.OperationOrValueCollection <em>Operation Or Value Collection</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection <em>Value Or Enum Value Or Operation Collection</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.OperationOrValueCollection
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection
    * @generated
    */
-  public Adapter createOperationOrValueCollectionAdapter()
+  public Adapter createValueOrEnumValueOrOperationCollectionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValueCollection <em>Value Or Enum Value Collection</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperation <em>Value Or Enum Value Or Operation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValueCollection
+   * @see de.gebit.integrity.dsl.ValueOrEnumValueOrOperation
    * @generated
    */
-  public Adapter createValueOrEnumValueCollectionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ValueOrEnumValue <em>Value Or Enum Value</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see de.gebit.integrity.dsl.ValueOrEnumValue
-   * @generated
-   */
-  public Adapter createValueOrEnumValueAdapter()
+  public Adapter createValueOrEnumValueOrOperationAdapter()
   {
     return null;
   }

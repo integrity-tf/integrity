@@ -1,6 +1,6 @@
 package de.gebit.integrity.runner.results.test;
 
-import de.gebit.integrity.dsl.OperationOrValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 /**
  * Comparison result for successful comparisons.
@@ -22,7 +22,8 @@ public class TestComparisonSuccessResult extends TestComparisonResult {
 	 * @param anExpectedValue
 	 *            The expected result value
 	 */
-	public TestComparisonSuccessResult(String aParameter, Object aResult, OperationOrValueCollection anExpectedValue) {
+	public TestComparisonSuccessResult(String aParameter, Object aResult,
+			ValueOrEnumValueOrOperationCollection anExpectedValue) {
 		super(aParameter, aResult, anExpectedValue);
 	}
 

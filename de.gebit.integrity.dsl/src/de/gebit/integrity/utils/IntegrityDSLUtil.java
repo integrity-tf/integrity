@@ -29,7 +29,6 @@ import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Operation;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
@@ -41,8 +40,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.Value;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -345,7 +344,7 @@ public final class IntegrityDSLUtil {
 			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		LinkedHashMap<ParameterName, OperationOrValueCollection> tempParameterMap = new LinkedHashMap<ParameterName, OperationOrValueCollection>();
+		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
 		for (Parameter tempParameter : aTableTest.getParameters()) {
 			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
 		}
@@ -388,7 +387,7 @@ public final class IntegrityDSLUtil {
 			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		Map<ParameterName, OperationOrValueCollection> tempParameters = new LinkedHashMap<ParameterName, OperationOrValueCollection>();
+		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
 		for (Parameter tempParameter : someParameters) {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
 		}
@@ -398,51 +397,56 @@ public final class IntegrityDSLUtil {
 	}
 
 	private static Map<String, Object> createParameterMap(
-			Map<ParameterName, OperationOrValueCollection> someParameters, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
-		for (Entry<ParameterName, OperationOrValueCollection> tempEntry : someParameters.entrySet()) {
+		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = null;
-				if (tempEntry.getValue() instanceof Operation) {
-					if (aClassLoader != null) {
-						OperationWrapper tempWrapper = new OperationWrapper((Operation) tempEntry.getValue(),
-								aClassLoader);
-						tempValue = tempWrapper.executeOperation(aVariableMap, false);
-					} else {
-						tempValue = null;
-					}
-				} else if (tempEntry.getValue() instanceof ValueOrEnumValueCollection) {
-					ValueOrEnumValueCollection tempValueOrEnumValueCollection = (ValueOrEnumValueCollection) tempEntry
-							.getValue();
-					if (tempValueOrEnumValueCollection.getMoreValues().size() > 0) {
-						// if multiple values have been provided
-						Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
-						tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
-						int i = 1;
-						for (ValueOrEnumValue tempSingleValue : tempValueOrEnumValueCollection.getMoreValues()) {
-							tempValue = tempSingleValue;
-							if (tempSingleValue instanceof Variable) {
-								Object tempResolvedValue = (aVariableMap != null ? aVariableMap
-										.get(((Variable) tempSingleValue).getName()) : null);
-								if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-									tempValue = tempResolvedValue;
-								}
-							}
-							tempValueArray[i++] = tempValue;
-						}
-						tempValue = tempValueArray;
-					} else {
-						// if only one value has been provided
-						tempValue = tempValueOrEnumValueCollection.getValue();
-						if (tempValue instanceof Variable) {
-							Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
-									.getName()) : null);
+				ValueOrEnumValueOrOperationCollection tempValueOrEnumValueCollection = (ValueOrEnumValueOrOperationCollection) tempEntry
+						.getValue();
+				if (tempValueOrEnumValueCollection.getMoreValues().size() > 0) {
+					// if multiple values have been provided
+					Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
+					tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
+					int i = 1;
+					for (ValueOrEnumValueOrOperation tempSingleValue : tempValueOrEnumValueCollection.getMoreValues()) {
+						tempValue = tempSingleValue;
+						if (tempSingleValue instanceof Variable) {
+							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
+									.get(((Variable) tempSingleValue).getName()) : null);
 							if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
 								tempValue = tempResolvedValue;
 							}
+						} else if (tempSingleValue instanceof Operation) {
+							if (aClassLoader != null) {
+								OperationWrapper tempWrapper = new OperationWrapper((Operation) tempSingleValue,
+										aClassLoader);
+								tempValue = tempWrapper.executeOperation(aVariableMap, false);
+							} else {
+								tempValue = null;
+							}
+						}
+						tempValueArray[i++] = tempValue;
+					}
+					tempValue = tempValueArray;
+				} else {
+					// if only one value has been provided
+					tempValue = tempValueOrEnumValueCollection.getValue();
+					if (tempValue instanceof Variable) {
+						Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
+								.getName()) : null);
+						if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+							tempValue = tempResolvedValue;
+						}
+					} else if (tempValue instanceof Operation) {
+						if (aClassLoader != null) {
+							OperationWrapper tempWrapper = new OperationWrapper((Operation) tempValue, aClassLoader);
+							tempValue = tempWrapper.executeOperation(aVariableMap, false);
+						} else {
+							tempValue = null;
 						}
 					}
 				}

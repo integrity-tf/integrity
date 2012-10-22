@@ -33,7 +33,6 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -47,6 +46,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
@@ -59,6 +59,7 @@ import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParamAnnotationTuple;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.utils.ResultFieldTuple;
 
 /**
@@ -135,11 +136,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		super.completeCall_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		Call tempCall = (Call) aModel;
-		CallDefinition tempCallDef = tempCall.getDefinition();
+		completeCallParametersInternal((Call) aModel, aContext, anAcceptor);
+	}
+
+	private void completeCallParametersInternal(Call aCall, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		CallDefinition tempCallDef = aCall.getDefinition();
 		if (tempCallDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-			for (Parameter tempParameter : tempCall.getParameters()) {
+			for (Parameter tempParameter : aCall.getParameters()) {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
@@ -177,8 +182,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor);
 					}
 				}
-			} else {
-				return;
+			}
+		} else if (aModel instanceof Call) {
+			Call tempCall = (Call) aModel;
+
+			if (aRuleCall == grammarAccess.getCallAccess().getNLParserRuleCall_4_0()) {
+				// We're inside the parameters group
+				completeCallParametersInternal(tempCall, aContext, anAcceptor);
+				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor);
 			}
 		}
 	}
@@ -659,7 +670,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									tempResultName = tempTest.getResultHeaders().get(tempResultColumn).getName();
 								}
 
-								OperationOrValueCollection tempResultValue = null;
+								ValueOrEnumValueOrOperationCollection tempResultValue = null;
 								if (tempColumn < tempRow.getValues().size()) {
 									tempResultValue = tempRow.getValues().get(tempColumn).getValue();
 								}
@@ -814,6 +825,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			acceptCustomProposals(tempProposals, aContext, anAcceptor);
 		} catch (JavaModelException exc) {
 			exc.printStackTrace();
+		} catch (UnresolvableVariableException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
 		}
 	}
 
@@ -841,6 +856,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			acceptCustomProposals(tempProposals, aContext, anAcceptor);
 		} catch (JavaModelException exc) {
+			exc.printStackTrace();
+		} catch (UnresolvableVariableException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
 			exc.printStackTrace();
 		}
 	}

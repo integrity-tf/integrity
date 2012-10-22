@@ -7,9 +7,9 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -54,7 +54,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * @generated
    * @ordered
    */
-  protected OperationOrValueCollection value;
+  protected ValueOrEnumValueOrOperationCollection value;
 
   /**
    * <!-- begin-user-doc -->
@@ -130,7 +130,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * <!-- end-user-doc -->
    * @generated
    */
-  public OperationOrValueCollection getValue()
+  public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
   }
@@ -140,9 +140,9 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(OperationOrValueCollection newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperationCollection newValue, NotificationChain msgs)
   {
-    OperationOrValueCollection oldValue = value;
+    ValueOrEnumValueOrOperationCollection oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -157,7 +157,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(OperationOrValueCollection newValue)
+  public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)
     {
@@ -223,7 +223,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
         setName((ParameterName)newValue);
         return;
       case DslPackage.PARAMETER__VALUE:
-        setValue((OperationOrValueCollection)newValue);
+        setValue((ValueOrEnumValueOrOperationCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -243,7 +243,7 @@ public class ParameterImpl extends MinimalEObjectImpl.Container implements Param
         setName((ParameterName)null);
         return;
       case DslPackage.PARAMETER__VALUE:
-        setValue((OperationOrValueCollection)null);
+        setValue((ValueOrEnumValueOrOperationCollection)null);
         return;
     }
     super.eUnset(featureID);

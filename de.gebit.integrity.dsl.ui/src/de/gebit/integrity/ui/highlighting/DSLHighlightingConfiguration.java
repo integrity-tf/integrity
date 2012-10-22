@@ -108,6 +108,16 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String JAVA_METHOD_HIGHLIGHT_ID = "javamethodhighlight";
 
 	/**
+	 * The ID for operations used as a test result.
+	 */
+	public static final String RESULT_OPERATION_ID = "resultoperation";
+
+	/**
+	 * The ID for operations used as a parameter.
+	 */
+	public static final String PARAMETER_OPERATION_ID = "parameteroperation";
+
+	/**
 	 * Configures highlighting styles for the IDs.
 	 */
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
@@ -131,6 +141,10 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NUMBER_ID, "Numbers (Parameters)", parameterNumberTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_STRING_ID, "Strings (Test Result)", resultStringTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_STRING_ID, "Strings (Parameters)", parameterStringTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_OPERATION_ID, "Operations (Test Result)",
+				resultOperationTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_OPERATION_ID, "Operations (Parameters)",
+				parameterOperationTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_ID, "Java Classes", javaClassTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_HIGHLIGHT_ID, "Java Classes (Highlight Parts)",
 				javaClassHighlightTextStyle());
@@ -357,6 +371,28 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(128, 64, 0));
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD | SWT.ITALIC);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for operations used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultOperationTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for operations used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterOperationTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
 		return tempTextStyle;
 	}
 }

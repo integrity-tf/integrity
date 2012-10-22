@@ -38,7 +38,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -80,7 +80,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getBooleanValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_BooleanValue(context, (BooleanValue) semanticObject); 
 					return; 
 				}
@@ -112,14 +112,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getDecimalValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_DecimalValue(context, (DecimalValue) semanticObject); 
 					return; 
 				}
 				else break;
 			case DslPackage.ENUM_VALUE:
 				if(context == grammarAccess.getEnumValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_EnumValue(context, (EnumValue) semanticObject); 
 					return; 
 				}
@@ -170,7 +170,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getIntegerValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_IntegerValue(context, (IntegerValue) semanticObject); 
 					return; 
 				}
@@ -209,14 +209,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getNullValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_NullValue(context, (Null) semanticObject); 
 					return; 
 				}
 				else break;
 			case DslPackage.OPERATION:
 				if(context == grammarAccess.getOperationRule() ||
-				   context == grammarAccess.getOperationOrValueCollectionRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_Operation(context, (Operation) semanticObject); 
 					return; 
 				}
@@ -263,7 +263,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getStringValueRule() ||
 				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule()) {
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_StringValue(context, (StringValue) semanticObject); 
 					return; 
 				}
@@ -318,16 +318,15 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
-			case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION:
-				if(context == grammarAccess.getOperationOrValueCollectionRule() ||
-				   context == grammarAccess.getValueOrEnumValueCollectionRule()) {
-					sequence_ValueOrEnumValueCollection(context, (ValueOrEnumValueCollection) semanticObject); 
+			case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION:
+				if(context == grammarAccess.getValueOrEnumValueOrOperationCollectionRule()) {
+					sequence_ValueOrEnumValueOrOperationCollection(context, (ValueOrEnumValueOrOperationCollection) semanticObject); 
 					return; 
 				}
 				else break;
 			case DslPackage.VARIABLE:
 				if(context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule() ||
 				   context == grammarAccess.getVariableRule()) {
 					sequence_Variable(context, (Variable) semanticObject); 
 					return; 
@@ -539,7 +538,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=FixedParameterName value=ValueOrEnumValue)
+	 *     (name=FixedParameterName value=ValueOrEnumValueOrOperation)
 	 */
 	protected void sequence_ForkParameter(EObject context, ForkParameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -551,7 +550,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -653,7 +652,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ResultName value=OperationOrValueCollection)
+	 *     (name=ResultName value=ValueOrEnumValueOrOperationCollection)
 	 */
 	protected void sequence_NamedResult(EObject context, NamedResult semanticObject) {
 		if(errorAcceptor != null) {
@@ -665,7 +664,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getNamedResultAccess().getValueOperationOrValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -700,7 +699,11 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (prefixOperand=OperationOrValueCollection? definition=[OperationDefinition|QualifiedName] postfixOperand=OperationOrValueCollection?)
+	 *     (
+	 *         prefixOperand=ValueOrEnumValueOrOperationCollection? 
+	 *         definition=[OperationDefinition|QualifiedName] 
+	 *         postfixOperand=ValueOrEnumValueOrOperationCollection?
+	 *     )
 	 */
 	protected void sequence_Operation(EObject context, Operation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -734,7 +737,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     value=OperationOrValueCollection
+	 *     value=ValueOrEnumValueOrOperationCollection
 	 */
 	protected void sequence_ParameterTableValue(EObject context, ParameterTableValue semanticObject) {
 		if(errorAcceptor != null) {
@@ -743,14 +746,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueOperationOrValueCollectionParserRuleCall_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ParameterName value=OperationOrValueCollection)
+	 *     (name=ParameterName value=ValueOrEnumValueOrOperationCollection)
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -762,7 +765,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getParameterAccess().getValueOperationOrValueCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -894,7 +897,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=OperationOrValueCollection?)
+	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=ValueOrEnumValueOrOperationCollection?)
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -903,9 +906,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (value=ValueOrEnumValue moreValues+=ValueOrEnumValue*)
+	 *     (value=ValueOrEnumValueOrOperation moreValues+=ValueOrEnumValueOrOperation*)
 	 */
-	protected void sequence_ValueOrEnumValueCollection(EObject context, ValueOrEnumValueCollection semanticObject) {
+	protected void sequence_ValueOrEnumValueOrOperationCollection(EObject context, ValueOrEnumValueOrOperationCollection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

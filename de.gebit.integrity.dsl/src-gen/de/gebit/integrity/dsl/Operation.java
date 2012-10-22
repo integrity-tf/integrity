@@ -25,7 +25,7 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface Operation extends OperationOrValueCollection
+public interface Operation extends ValueOrEnumValueOrOperation
 {
   /**
    * Returns the value of the '<em><b>Prefix Operand</b></em>' containment reference.
@@ -36,12 +36,12 @@ public interface Operation extends OperationOrValueCollection
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Prefix Operand</em>' containment reference.
-   * @see #setPrefixOperand(OperationOrValueCollection)
+   * @see #setPrefixOperand(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getOperation_PrefixOperand()
    * @model containment="true"
    * @generated
    */
-  OperationOrValueCollection getPrefixOperand();
+  ValueOrEnumValueOrOperationCollection getPrefixOperand();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Operation#getPrefixOperand <em>Prefix Operand</em>}' containment reference.
@@ -51,7 +51,7 @@ public interface Operation extends OperationOrValueCollection
    * @see #getPrefixOperand()
    * @generated
    */
-  void setPrefixOperand(OperationOrValueCollection value);
+  void setPrefixOperand(ValueOrEnumValueOrOperationCollection value);
 
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
@@ -88,12 +88,12 @@ public interface Operation extends OperationOrValueCollection
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Postfix Operand</em>' containment reference.
-   * @see #setPostfixOperand(OperationOrValueCollection)
+   * @see #setPostfixOperand(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getOperation_PostfixOperand()
    * @model containment="true"
    * @generated
    */
-  OperationOrValueCollection getPostfixOperand();
+  ValueOrEnumValueOrOperationCollection getPostfixOperand();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Operation#getPostfixOperand <em>Postfix Operand</em>}' containment reference.
@@ -103,6 +103,6 @@ public interface Operation extends OperationOrValueCollection
    * @see #getPostfixOperand()
    * @generated
    */
-  void setPostfixOperand(OperationOrValueCollection value);
+  void setPostfixOperand(ValueOrEnumValueOrOperationCollection value);
 
 } // Operation

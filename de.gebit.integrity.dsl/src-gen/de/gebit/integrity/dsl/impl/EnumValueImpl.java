@@ -31,7 +31,7 @@ import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
  *
  * @generated
  */
-public class EnumValueImpl extends ValueOrEnumValueImpl implements EnumValue
+public class EnumValueImpl extends ValueOrEnumValueOrOperationImpl implements EnumValue
 {
   /**
    * The cached value of the '{@link #getEnumValue() <em>Enum Value</em>}' reference.

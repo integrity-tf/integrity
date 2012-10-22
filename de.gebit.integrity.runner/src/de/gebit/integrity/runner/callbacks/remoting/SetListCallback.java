@@ -16,13 +16,13 @@ import org.eclipse.emf.common.util.EList;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.OperationOrValueCollection;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -315,7 +315,7 @@ public class SetListCallback extends TestRunnerCallback {
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
 
 			// Either there is an expected value, or if there isn't, "true" is the default
-			OperationOrValueCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
+			ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, ParameterUtil
 					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
 							classLoader, false));

@@ -17,6 +17,6 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface Value extends ValueOrEnumValue
+public interface Value extends ValueOrEnumValueOrOperation
 {
 } // Value

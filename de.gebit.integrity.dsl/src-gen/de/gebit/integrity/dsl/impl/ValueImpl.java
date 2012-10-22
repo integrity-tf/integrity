@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ValueImpl extends ValueOrEnumValueImpl implements Value
+public class ValueImpl extends ValueOrEnumValueOrOperationImpl implements Value
 {
   /**
    * <!-- begin-user-doc -->

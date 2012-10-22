@@ -1,6 +1,6 @@
 package de.gebit.integrity.runner.results.test;
 
-import de.gebit.integrity.dsl.OperationOrValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 /**
  * Basic class for test comparisons. A single test consists of one or more comparisons, each with an expected and actual
@@ -26,7 +26,7 @@ public abstract class TestComparisonResult {
 	/**
 	 * The expected result value.
 	 */
-	private OperationOrValueCollection expectedValue;
+	private ValueOrEnumValueOrOperationCollection expectedValue;
 
 	/**
 	 * Creates an instance.
@@ -39,7 +39,7 @@ public abstract class TestComparisonResult {
 	 * @param anExpectedValue
 	 *            the expected result value
 	 */
-	public TestComparisonResult(String aParameter, Object aResult, OperationOrValueCollection anExpectedValue) {
+	public TestComparisonResult(String aParameter, Object aResult, ValueOrEnumValueOrOperationCollection anExpectedValue) {
 		parameter = aParameter;
 		result = aResult;
 		expectedValue = anExpectedValue;
@@ -53,7 +53,7 @@ public abstract class TestComparisonResult {
 		return result;
 	}
 
-	public OperationOrValueCollection getExpectedValue() {
+	public ValueOrEnumValueOrOperationCollection getExpectedValue() {
 		return expectedValue;
 	}
 

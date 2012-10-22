@@ -7,8 +7,8 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.ValueOrEnumValue;
-import de.gebit.integrity.dsl.ValueOrEnumValueCollection;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 import java.util.Collection;
 
@@ -21,25 +21,26 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Value Or Enum Value Collection</b></em>'.
+ * An implementation of the model object '<em><b>Value Or Enum Value Or Operation Collection</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl#getValue <em>Value</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueCollectionImpl#getMoreValues <em>More Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl#getMoreValues <em>More Values</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionImpl implements ValueOrEnumValueCollection
+public class ValueOrEnumValueOrOperationCollectionImpl extends MinimalEObjectImpl.Container implements ValueOrEnumValueOrOperationCollection
 {
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -49,7 +50,7 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValue value;
+  protected ValueOrEnumValueOrOperation value;
 
   /**
    * The cached value of the '{@link #getMoreValues() <em>More Values</em>}' containment reference list.
@@ -59,14 +60,14 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * @generated
    * @ordered
    */
-  protected EList<ValueOrEnumValue> moreValues;
+  protected EList<ValueOrEnumValueOrOperation> moreValues;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ValueOrEnumValueCollectionImpl()
+  protected ValueOrEnumValueOrOperationCollectionImpl()
   {
     super();
   }
@@ -79,7 +80,7 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.VALUE_OR_ENUM_VALUE_COLLECTION;
+    return DslPackage.Literals.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION;
   }
 
   /**
@@ -87,7 +88,7 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValue getValue()
+  public ValueOrEnumValueOrOperation getValue()
   {
     return value;
   }
@@ -97,13 +98,13 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ValueOrEnumValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperation newValue, NotificationChain msgs)
   {
-    ValueOrEnumValue oldValue = value;
+    ValueOrEnumValueOrOperation oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE, oldValue, newValue);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE, oldValue, newValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -114,20 +115,20 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ValueOrEnumValue newValue)
+  public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)
     {
       NotificationChain msgs = null;
       if (value != null)
-        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE, null, msgs);
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE, null, msgs);
       if (newValue != null)
-        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE, null, msgs);
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE, null, msgs);
       msgs = basicSetValue(newValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE, newValue, newValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE, newValue, newValue));
   }
 
   /**
@@ -135,11 +136,11 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ValueOrEnumValue> getMoreValues()
+  public EList<ValueOrEnumValueOrOperation> getMoreValues()
   {
     if (moreValues == null)
     {
-      moreValues = new EObjectContainmentEList<ValueOrEnumValue>(ValueOrEnumValue.class, this, DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES);
+      moreValues = new EObjectContainmentEList<ValueOrEnumValueOrOperation>(ValueOrEnumValueOrOperation.class, this, DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES);
     }
     return moreValues;
   }
@@ -154,9 +155,9 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   {
     switch (featureID)
     {
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE:
         return basicSetValue(null, msgs);
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES:
         return ((InternalEList<?>)getMoreValues()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -172,9 +173,9 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   {
     switch (featureID)
     {
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE:
         return getValue();
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES:
         return getMoreValues();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -191,12 +192,12 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   {
     switch (featureID)
     {
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE:
-        setValue((ValueOrEnumValue)newValue);
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE:
+        setValue((ValueOrEnumValueOrOperation)newValue);
         return;
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES:
         getMoreValues().clear();
-        getMoreValues().addAll((Collection<? extends ValueOrEnumValue>)newValue);
+        getMoreValues().addAll((Collection<? extends ValueOrEnumValueOrOperation>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -212,10 +213,10 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   {
     switch (featureID)
     {
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE:
-        setValue((ValueOrEnumValue)null);
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE:
+        setValue((ValueOrEnumValueOrOperation)null);
         return;
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES:
         getMoreValues().clear();
         return;
     }
@@ -232,12 +233,12 @@ public class ValueOrEnumValueCollectionImpl extends OperationOrValueCollectionIm
   {
     switch (featureID)
     {
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__VALUE:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE:
         return value != null;
-      case DslPackage.VALUE_OR_ENUM_VALUE_COLLECTION__MORE_VALUES:
+      case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__MORE_VALUES:
         return moreValues != null && !moreValues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //ValueOrEnumValueCollectionImpl
+} //ValueOrEnumValueOrOperationCollectionImpl

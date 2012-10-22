@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="22.10.12 23:33" isotimestamp="2012-10-22T23:33:26" duration="315.459">
+  <variables />
+  <suite id="0" name="integrity.basic.operations.concatenation">
+    <setup />
+    <variables>
+      <variable name="localVar" />
+    </variables>
+    <statements>
+      <call id="1" name="echoString" description="Echo the string 'foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <parameters>
+          <parameter name="string" value="foobar" />
+        </parameters>
+        <result duration="3.164" type="success">
+          <variableUpdate name="localVar" value="foobar" />
+        </result>
+      </call>
+      <test id="2" name="echoStringTest" description="Echo the string '12foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.671" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.671" description="Echo the string '12foobar'" type="success">
+            <parameters>
+              <parameter name="string" value="12foobar" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="12foobar" value="12foobar" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="3" name="echoStringTest" description="Echo the string 'abcd'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.642" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.642" description="Echo the string 'abcd'" type="success">
+            <parameters>
+              <parameter name="string" value="abcd" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="abcd" value="abcd" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="306.365" successCount="2" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

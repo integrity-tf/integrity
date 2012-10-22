@@ -43,8 +43,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSuiteStatementWithResultAccess().getAlternatives(), "rule__SuiteStatementWithResult__Alternatives");
 					put(grammarAccess.getResultNameAccess().getAlternatives(), "rule__ResultName__Alternatives");
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
-					put(grammarAccess.getOperationOrValueCollectionAccess().getAlternatives(), "rule__OperationOrValueCollection__Alternatives");
-					put(grammarAccess.getValueOrEnumValueAccess().getAlternatives(), "rule__ValueOrEnumValue__Alternatives");
+					put(grammarAccess.getValueOrEnumValueOrOperationAccess().getAlternatives(), "rule__ValueOrEnumValueOrOperation__Alternatives");
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 					put(grammarAccess.getStaticValueAccess().getAlternatives(), "rule__StaticValue__Alternatives");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0(), "rule__BooleanValue__BooleanValueAlternatives_0");
@@ -108,8 +107,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOperationAccess().getGroup(), "rule__Operation__Group__0");
 					put(grammarAccess.getOperationAccess().getGroup_2(), "rule__Operation__Group_2__0");
 					put(grammarAccess.getOperationAccess().getGroup_4(), "rule__Operation__Group_4__0");
-					put(grammarAccess.getValueOrEnumValueCollectionAccess().getGroup(), "rule__ValueOrEnumValueCollection__Group__0");
-					put(grammarAccess.getValueOrEnumValueCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueCollection__Group_1__0");
+					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup(), "rule__ValueOrEnumValueOrOperationCollection__Group__0");
+					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueOrOperationCollection__Group_1__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
@@ -191,8 +190,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOperationAccess().getPrefixOperandAssignment_2_0(), "rule__Operation__PrefixOperandAssignment_2_0");
 					put(grammarAccess.getOperationAccess().getDefinitionAssignment_3(), "rule__Operation__DefinitionAssignment_3");
 					put(grammarAccess.getOperationAccess().getPostfixOperandAssignment_4_2(), "rule__Operation__PostfixOperandAssignment_4_2");
-					put(grammarAccess.getValueOrEnumValueCollectionAccess().getValueAssignment_0(), "rule__ValueOrEnumValueCollection__ValueAssignment_0");
-					put(grammarAccess.getValueOrEnumValueCollectionAccess().getMoreValuesAssignment_1_3(), "rule__ValueOrEnumValueCollection__MoreValuesAssignment_1_3");
+					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueAssignment_0(), "rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0");
+					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesAssignment_1_3(), "rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3");
 					put(grammarAccess.getIntegerValueAccess().getIntegerValueAssignment(), "rule__IntegerValue__IntegerValueAssignment");
 					put(grammarAccess.getDecimalValueAccess().getDecimalValueAssignment(), "rule__DecimalValue__DecimalValueAssignment");
 					put(grammarAccess.getStringValueAccess().getStringValueAssignment(), "rule__StringValue__StringValueAssignment");

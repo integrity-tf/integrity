@@ -24,7 +24,7 @@ import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
  * @model
  * @generated
  */
-public interface EnumValue extends ValueOrEnumValue
+public interface EnumValue extends ValueOrEnumValueOrOperation
 {
   /**
    * Returns the value of the '<em><b>Enum Value</b></em>' reference.

@@ -39,7 +39,11 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		// No spaces after opening parenthesis or before closing parenthesis
 		aConfig.setNoSpace().after(tempGrammar.getOperationAccess().getLeftParenthesisKeyword_0());
 		aConfig.setNoSpace().before(
-				tempGrammar.getOperationAccess().getPrefixOperandOperationOrValueCollectionParserRuleCall_2_0_0());
+				tempGrammar.getOperationAccess()
+						.getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0());
+		aConfig.setNoSpace().before(
+				tempGrammar.getOperationAccess()
+						.getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0());
 		aConfig.setNoSpace().before(tempGrammar.getOperationAccess().getRightParenthesisKeyword_6());
 
 		// No spaces at the end of lines and before whitespace between tokens
@@ -49,7 +53,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().around(tempGrammar.getModelAccess().getNLParserRuleCall_1());
 
 		// No spaces before colons, commas, after pluses or before/after hashes
-		aConfig.setNoSpace().before(tempGrammar.getValueOrEnumValueCollectionAccess().getCommaKeyword_1_1());
+		aConfig.setNoSpace().before(tempGrammar.getValueOrEnumValueOrOperationCollectionAccess().getCommaKeyword_1_1());
 		aConfig.setNoSpace().before(tempGrammar.getForkParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getParameterAccess().getColonKeyword_2());
 		aConfig.setNoSpace().before(tempGrammar.getSuiteParameterAccess().getColonKeyword_2());

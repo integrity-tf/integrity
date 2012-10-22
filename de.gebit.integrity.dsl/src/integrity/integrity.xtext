@@ -33,7 +33,7 @@ ForkDefinition:
 	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
 	
 ForkParameter:
-	name=FixedParameterName NL ':' NL value=ValueOrEnumValue;
+	name=FixedParameterName NL ':' NL value=ValueOrEnumValueOrOperation;
 	
 VariantDefinition:
 	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
@@ -69,7 +69,7 @@ VariableEntity:
 	name=QualifiedName;
 	
 Test:
-	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=OperationOrValueCollection)? NL;
+	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueOrOperationCollection)? NL;
 	
 TableTest:
 	'tabletest' NL definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* NLFORCED
@@ -85,10 +85,10 @@ ResultTableHeader:
 	'|' name=ResultName '=' '|'?;
 	
 ParameterTableValue:
-	'|' value=OperationOrValueCollection '|'?;
+	'|' value=ValueOrEnumValueOrOperationCollection '|'?;
 		
 NamedResult:
-	name=ResultName NL '=' NL value=OperationOrValueCollection;
+	name=ResultName NL '=' NL value=ValueOrEnumValueOrOperationCollection;
 	
 ResultName:
 	FixedResultName | ArbitraryParameterOrResultName;
@@ -109,7 +109,7 @@ SuiteParameter:
 	name=[VariableEntity|QualifiedName] NL ':' NL value=Value;
 
 Parameter:
-	name=ParameterName NL ':' NL value=OperationOrValueCollection;
+	name=ParameterName NL ':' NL value=ValueOrEnumValueOrOperationCollection;
 	
 ParameterName:
 	FixedParameterName | ArbitraryParameterOrResultName;
@@ -121,16 +121,13 @@ ArbitraryParameterOrResultName:
 	'+' identifier=ID;
 	
 Operation:
-	'(' NL (prefixOperand=OperationOrValueCollection NL)? definition=[OperationDefinition|QualifiedName] (NL 'with' postfixOperand=OperationOrValueCollection)? NL ')';
+	'(' NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL 'with' postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ')';
 	
-OperationOrValueCollection:
-	Operation | ValueOrEnumValueCollection;
+ValueOrEnumValueOrOperationCollection:
+	value=ValueOrEnumValueOrOperation (NL ',' NL moreValues+=ValueOrEnumValueOrOperation)*;
 	
-ValueOrEnumValueCollection:
-	value=ValueOrEnumValue (NL ',' NL moreValues+=ValueOrEnumValue)*;
-	
-ValueOrEnumValue:
-	Value | EnumValue;
+ValueOrEnumValueOrOperation:
+	Value | EnumValue | Operation;
 	
 Value:
 	StaticValue | Variable;
