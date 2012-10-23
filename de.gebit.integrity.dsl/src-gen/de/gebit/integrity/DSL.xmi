@@ -463,8 +463,11 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
         </terminal>
       </elements>
-      <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+        </elements>
       </elements>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.57"/>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameterHeaders" operator="+=">

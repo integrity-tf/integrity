@@ -6524,9 +6524,9 @@ rule__TableTest__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getTableTestAccess().getParametersAssignment_3()); }
-(rule__TableTest__ParametersAssignment_3)*
-{ after(grammarAccess.getTableTestAccess().getParametersAssignment_3()); }
+{ before(grammarAccess.getTableTestAccess().getGroup_3()); }
+(rule__TableTest__Group_3__0)*
+{ after(grammarAccess.getTableTestAccess().getGroup_3()); }
 )
 
 ;
@@ -6762,6 +6762,67 @@ finally {
 
 
 
+
+
+
+
+
+
+rule__TableTest__Group_3__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__TableTest__Group_3__0__Impl
+	rule__TableTest__Group_3__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TableTest__Group_3__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()); }
+	ruleNL
+{ after(grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__TableTest__Group_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__TableTest__Group_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TableTest__Group_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTableTestAccess().getParametersAssignment_3_1()); }
+(rule__TableTest__ParametersAssignment_3_1)
+{ after(grammarAccess.getTableTestAccess().getParametersAssignment_3_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -11012,14 +11073,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__TableTest__ParametersAssignment_3
+rule__TableTest__ParametersAssignment_3_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_0()); }
-	ruleParameter{ after(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_0()); }
+{ before(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_1_0()); }
+	ruleParameter{ after(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_1_0()); }
 )
 
 ;

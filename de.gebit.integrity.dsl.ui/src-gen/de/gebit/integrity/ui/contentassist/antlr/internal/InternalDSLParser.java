@@ -17636,36 +17636,30 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6521:1: rule__TableTest__Group__3__Impl : ( ( rule__TableTest__ParametersAssignment_3 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6521:1: rule__TableTest__Group__3__Impl : ( ( rule__TableTest__Group_3__0 )* ) ;
     public final void rule__TableTest__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6525:1: ( ( ( rule__TableTest__ParametersAssignment_3 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6526:1: ( ( rule__TableTest__ParametersAssignment_3 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6525:1: ( ( ( rule__TableTest__Group_3__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6526:1: ( ( rule__TableTest__Group_3__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6526:1: ( ( rule__TableTest__ParametersAssignment_3 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6527:1: ( rule__TableTest__ParametersAssignment_3 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6526:1: ( ( rule__TableTest__Group_3__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6527:1: ( rule__TableTest__Group_3__0 )*
             {
-             before(grammarAccess.getTableTestAccess().getParametersAssignment_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6528:1: ( rule__TableTest__ParametersAssignment_3 )*
+             before(grammarAccess.getTableTestAccess().getGroup_3()); 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6528:1: ( rule__TableTest__Group_3__0 )*
             loop32:
             do {
                 int alt32=2;
-                int LA32_0 = input.LA(1);
-
-                if ( (LA32_0==RULE_ID||LA32_0==47) ) {
-                    alt32=1;
-                }
-
-
+                alt32 = dfa32.predict(input);
                 switch (alt32) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6528:2: rule__TableTest__ParametersAssignment_3
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6528:2: rule__TableTest__Group_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__TableTest__ParametersAssignment_3_in_rule__TableTest__Group__3__Impl13245);
-            	    rule__TableTest__ParametersAssignment_3();
+            	    pushFollow(FOLLOW_rule__TableTest__Group_3__0_in_rule__TableTest__Group__3__Impl13245);
+            	    rule__TableTest__Group_3__0();
 
             	    state._fsp--;
 
@@ -17678,7 +17672,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 }
             } while (true);
 
-             after(grammarAccess.getTableTestAccess().getParametersAssignment_3()); 
+             after(grammarAccess.getTableTestAccess().getGroup_3()); 
 
             }
 
@@ -18385,22 +18379,181 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__TableTest__Group__10__Impl"
 
 
+    // $ANTLR start "rule__TableTest__Group_3__0"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6771:1: rule__TableTest__Group_3__0 : rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 ;
+    public final void rule__TableTest__Group_3__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6775:1: ( rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6776:2: rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1
+            {
+            pushFollow(FOLLOW_rule__TableTest__Group_3__0__Impl_in_rule__TableTest__Group_3__013735);
+            rule__TableTest__Group_3__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__TableTest__Group_3__1_in_rule__TableTest__Group_3__013738);
+            rule__TableTest__Group_3__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__TableTest__Group_3__0"
+
+
+    // $ANTLR start "rule__TableTest__Group_3__0__Impl"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6783:1: rule__TableTest__Group_3__0__Impl : ( ruleNL ) ;
+    public final void rule__TableTest__Group_3__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6787:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6788:1: ( ruleNL )
+            {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6788:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6789:1: ruleNL
+            {
+             before(grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()); 
+            pushFollow(FOLLOW_ruleNL_in_rule__TableTest__Group_3__0__Impl13765);
+            ruleNL();
+
+            state._fsp--;
+
+             after(grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__TableTest__Group_3__0__Impl"
+
+
+    // $ANTLR start "rule__TableTest__Group_3__1"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6800:1: rule__TableTest__Group_3__1 : rule__TableTest__Group_3__1__Impl ;
+    public final void rule__TableTest__Group_3__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6804:1: ( rule__TableTest__Group_3__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6805:2: rule__TableTest__Group_3__1__Impl
+            {
+            pushFollow(FOLLOW_rule__TableTest__Group_3__1__Impl_in_rule__TableTest__Group_3__113794);
+            rule__TableTest__Group_3__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__TableTest__Group_3__1"
+
+
+    // $ANTLR start "rule__TableTest__Group_3__1__Impl"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6811:1: rule__TableTest__Group_3__1__Impl : ( ( rule__TableTest__ParametersAssignment_3_1 ) ) ;
+    public final void rule__TableTest__Group_3__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6815:1: ( ( ( rule__TableTest__ParametersAssignment_3_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6816:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
+            {
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6816:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6817:1: ( rule__TableTest__ParametersAssignment_3_1 )
+            {
+             before(grammarAccess.getTableTestAccess().getParametersAssignment_3_1()); 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6818:1: ( rule__TableTest__ParametersAssignment_3_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6818:2: rule__TableTest__ParametersAssignment_3_1
+            {
+            pushFollow(FOLLOW_rule__TableTest__ParametersAssignment_3_1_in_rule__TableTest__Group_3__1__Impl13821);
+            rule__TableTest__ParametersAssignment_3_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getTableTestAccess().getParametersAssignment_3_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__TableTest__Group_3__1__Impl"
+
+
     // $ANTLR start "rule__TableTest__Group_8__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6771:1: rule__TableTest__Group_8__0 : rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6832:1: rule__TableTest__Group_8__0 : rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 ;
     public final void rule__TableTest__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6775:1: ( rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6776:2: rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6836:1: ( rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6837:2: rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1
             {
-            pushFollow(FOLLOW_rule__TableTest__Group_8__0__Impl_in_rule__TableTest__Group_8__013735);
+            pushFollow(FOLLOW_rule__TableTest__Group_8__0__Impl_in_rule__TableTest__Group_8__013855);
             rule__TableTest__Group_8__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__TableTest__Group_8__1_in_rule__TableTest__Group_8__013738);
+            pushFollow(FOLLOW_rule__TableTest__Group_8__1_in_rule__TableTest__Group_8__013858);
             rule__TableTest__Group_8__1();
 
             state._fsp--;
@@ -18424,23 +18577,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6783:1: rule__TableTest__Group_8__0__Impl : ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6844:1: rule__TableTest__Group_8__0__Impl : ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) ;
     public final void rule__TableTest__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6787:1: ( ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6788:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6848:1: ( ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6849:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6788:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6789:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6849:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6850:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
             {
              before(grammarAccess.getTableTestAccess().getDefaultResultColumnAssignment_8_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6790:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6790:2: rule__TableTest__DefaultResultColumnAssignment_8_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6851:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6851:2: rule__TableTest__DefaultResultColumnAssignment_8_0
             {
-            pushFollow(FOLLOW_rule__TableTest__DefaultResultColumnAssignment_8_0_in_rule__TableTest__Group_8__0__Impl13765);
+            pushFollow(FOLLOW_rule__TableTest__DefaultResultColumnAssignment_8_0_in_rule__TableTest__Group_8__0__Impl13885);
             rule__TableTest__DefaultResultColumnAssignment_8_0();
 
             state._fsp--;
@@ -18471,16 +18624,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6800:1: rule__TableTest__Group_8__1 : rule__TableTest__Group_8__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6861:1: rule__TableTest__Group_8__1 : rule__TableTest__Group_8__1__Impl ;
     public final void rule__TableTest__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6804:1: ( rule__TableTest__Group_8__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6805:2: rule__TableTest__Group_8__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6865:1: ( rule__TableTest__Group_8__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6866:2: rule__TableTest__Group_8__1__Impl
             {
-            pushFollow(FOLLOW_rule__TableTest__Group_8__1__Impl_in_rule__TableTest__Group_8__113795);
+            pushFollow(FOLLOW_rule__TableTest__Group_8__1__Impl_in_rule__TableTest__Group_8__113915);
             rule__TableTest__Group_8__1__Impl();
 
             state._fsp--;
@@ -18504,20 +18657,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6811:1: rule__TableTest__Group_8__1__Impl : ( '|' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6872:1: rule__TableTest__Group_8__1__Impl : ( '|' ) ;
     public final void rule__TableTest__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6815:1: ( ( '|' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6816:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6876:1: ( ( '|' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6877:1: ( '|' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6816:1: ( '|' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6817:1: '|'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6877:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6878:1: '|'
             {
              before(grammarAccess.getTableTestAccess().getVerticalLineKeyword_8_1()); 
-            match(input,42,FOLLOW_42_in_rule__TableTest__Group_8__1__Impl13823); 
+            match(input,42,FOLLOW_42_in_rule__TableTest__Group_8__1__Impl13943); 
              after(grammarAccess.getTableTestAccess().getVerticalLineKeyword_8_1()); 
 
             }
@@ -18541,21 +18694,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6834:1: rule__TableTest__Group_9__0 : rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6895:1: rule__TableTest__Group_9__0 : rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 ;
     public final void rule__TableTest__Group_9__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6838:1: ( rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6839:2: rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6899:1: ( rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6900:2: rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1
             {
-            pushFollow(FOLLOW_rule__TableTest__Group_9__0__Impl_in_rule__TableTest__Group_9__013858);
+            pushFollow(FOLLOW_rule__TableTest__Group_9__0__Impl_in_rule__TableTest__Group_9__013978);
             rule__TableTest__Group_9__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__TableTest__Group_9__1_in_rule__TableTest__Group_9__013861);
+            pushFollow(FOLLOW_rule__TableTest__Group_9__1_in_rule__TableTest__Group_9__013981);
             rule__TableTest__Group_9__1();
 
             state._fsp--;
@@ -18579,20 +18732,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6846:1: rule__TableTest__Group_9__0__Impl : ( ruleNLFORCED ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6907:1: rule__TableTest__Group_9__0__Impl : ( ruleNLFORCED ) ;
     public final void rule__TableTest__Group_9__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6850:1: ( ( ruleNLFORCED ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6851:1: ( ruleNLFORCED )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6911:1: ( ( ruleNLFORCED ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6912:1: ( ruleNLFORCED )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6851:1: ( ruleNLFORCED )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6852:1: ruleNLFORCED
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6912:1: ( ruleNLFORCED )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6913:1: ruleNLFORCED
             {
              before(grammarAccess.getTableTestAccess().getNLFORCEDParserRuleCall_9_0()); 
-            pushFollow(FOLLOW_ruleNLFORCED_in_rule__TableTest__Group_9__0__Impl13888);
+            pushFollow(FOLLOW_ruleNLFORCED_in_rule__TableTest__Group_9__0__Impl14008);
             ruleNLFORCED();
 
             state._fsp--;
@@ -18620,16 +18773,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6863:1: rule__TableTest__Group_9__1 : rule__TableTest__Group_9__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6924:1: rule__TableTest__Group_9__1 : rule__TableTest__Group_9__1__Impl ;
     public final void rule__TableTest__Group_9__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6867:1: ( rule__TableTest__Group_9__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6868:2: rule__TableTest__Group_9__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6928:1: ( rule__TableTest__Group_9__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6929:2: rule__TableTest__Group_9__1__Impl
             {
-            pushFollow(FOLLOW_rule__TableTest__Group_9__1__Impl_in_rule__TableTest__Group_9__113917);
+            pushFollow(FOLLOW_rule__TableTest__Group_9__1__Impl_in_rule__TableTest__Group_9__114037);
             rule__TableTest__Group_9__1__Impl();
 
             state._fsp--;
@@ -18653,23 +18806,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6874:1: rule__TableTest__Group_9__1__Impl : ( ( rule__TableTest__RowsAssignment_9_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6935:1: rule__TableTest__Group_9__1__Impl : ( ( rule__TableTest__RowsAssignment_9_1 ) ) ;
     public final void rule__TableTest__Group_9__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6878:1: ( ( ( rule__TableTest__RowsAssignment_9_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6879:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6939:1: ( ( ( rule__TableTest__RowsAssignment_9_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6940:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6879:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6880:1: ( rule__TableTest__RowsAssignment_9_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6940:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6941:1: ( rule__TableTest__RowsAssignment_9_1 )
             {
              before(grammarAccess.getTableTestAccess().getRowsAssignment_9_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6881:1: ( rule__TableTest__RowsAssignment_9_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6881:2: rule__TableTest__RowsAssignment_9_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6942:1: ( rule__TableTest__RowsAssignment_9_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6942:2: rule__TableTest__RowsAssignment_9_1
             {
-            pushFollow(FOLLOW_rule__TableTest__RowsAssignment_9_1_in_rule__TableTest__Group_9__1__Impl13944);
+            pushFollow(FOLLOW_rule__TableTest__RowsAssignment_9_1_in_rule__TableTest__Group_9__1__Impl14064);
             rule__TableTest__RowsAssignment_9_1();
 
             state._fsp--;
@@ -18700,21 +18853,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6895:1: rule__TableTestRow__Group__0 : rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6956:1: rule__TableTestRow__Group__0 : rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 ;
     public final void rule__TableTestRow__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6899:1: ( rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6900:2: rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6960:1: ( rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6961:2: rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1
             {
-            pushFollow(FOLLOW_rule__TableTestRow__Group__0__Impl_in_rule__TableTestRow__Group__013978);
+            pushFollow(FOLLOW_rule__TableTestRow__Group__0__Impl_in_rule__TableTestRow__Group__014098);
             rule__TableTestRow__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__TableTestRow__Group__1_in_rule__TableTestRow__Group__013981);
+            pushFollow(FOLLOW_rule__TableTestRow__Group__1_in_rule__TableTestRow__Group__014101);
             rule__TableTestRow__Group__1();
 
             state._fsp--;
@@ -18738,21 +18891,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6907:1: rule__TableTestRow__Group__0__Impl : ( () ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6968:1: rule__TableTestRow__Group__0__Impl : ( () ) ;
     public final void rule__TableTestRow__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6911:1: ( ( () ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6912:1: ( () )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6972:1: ( ( () ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6973:1: ( () )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6912:1: ( () )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6913:1: ()
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6973:1: ( () )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6974:1: ()
             {
              before(grammarAccess.getTableTestRowAccess().getTableTestRowAction_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6914:1: ()
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6916:1: 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6975:1: ()
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6977:1: 
             {
             }
 
@@ -18775,16 +18928,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6926:1: rule__TableTestRow__Group__1 : rule__TableTestRow__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6987:1: rule__TableTestRow__Group__1 : rule__TableTestRow__Group__1__Impl ;
     public final void rule__TableTestRow__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6930:1: ( rule__TableTestRow__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6931:2: rule__TableTestRow__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6991:1: ( rule__TableTestRow__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6992:2: rule__TableTestRow__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__TableTestRow__Group__1__Impl_in_rule__TableTestRow__Group__114039);
+            pushFollow(FOLLOW_rule__TableTestRow__Group__1__Impl_in_rule__TableTestRow__Group__114159);
             rule__TableTestRow__Group__1__Impl();
 
             state._fsp--;
@@ -18808,26 +18961,26 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6937:1: rule__TableTestRow__Group__1__Impl : ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6998:1: rule__TableTestRow__Group__1__Impl : ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) ;
     public final void rule__TableTestRow__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6941:1: ( ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6942:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7002:1: ( ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7003:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6942:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6943:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7003:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7004:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6943:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6944:1: ( rule__TableTestRow__ValuesAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7004:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7005:1: ( rule__TableTestRow__ValuesAssignment_1 )
             {
              before(grammarAccess.getTableTestRowAccess().getValuesAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6945:1: ( rule__TableTestRow__ValuesAssignment_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6945:2: rule__TableTestRow__ValuesAssignment_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7006:1: ( rule__TableTestRow__ValuesAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7006:2: rule__TableTestRow__ValuesAssignment_1
             {
-            pushFollow(FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14068);
+            pushFollow(FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14188);
             rule__TableTestRow__ValuesAssignment_1();
 
             state._fsp--;
@@ -18839,11 +18992,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6948:1: ( ( rule__TableTestRow__ValuesAssignment_1 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6949:1: ( rule__TableTestRow__ValuesAssignment_1 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7009:1: ( ( rule__TableTestRow__ValuesAssignment_1 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7010:1: ( rule__TableTestRow__ValuesAssignment_1 )*
             {
              before(grammarAccess.getTableTestRowAccess().getValuesAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6950:1: ( rule__TableTestRow__ValuesAssignment_1 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7011:1: ( rule__TableTestRow__ValuesAssignment_1 )*
             loop37:
             do {
                 int alt37=2;
@@ -18856,9 +19009,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt37) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6950:2: rule__TableTestRow__ValuesAssignment_1
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7011:2: rule__TableTestRow__ValuesAssignment_1
             	    {
-            	    pushFollow(FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14080);
+            	    pushFollow(FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14200);
             	    rule__TableTestRow__ValuesAssignment_1();
 
             	    state._fsp--;
@@ -18898,21 +19051,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6965:1: rule__ParameterTableHeader__Group__0 : rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7026:1: rule__ParameterTableHeader__Group__0 : rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 ;
     public final void rule__ParameterTableHeader__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6969:1: ( rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6970:2: rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7030:1: ( rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7031:2: rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1
             {
-            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__0__Impl_in_rule__ParameterTableHeader__Group__014117);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__0__Impl_in_rule__ParameterTableHeader__Group__014237);
             rule__ParameterTableHeader__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__1_in_rule__ParameterTableHeader__Group__014120);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__1_in_rule__ParameterTableHeader__Group__014240);
             rule__ParameterTableHeader__Group__1();
 
             state._fsp--;
@@ -18936,20 +19089,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6977:1: rule__ParameterTableHeader__Group__0__Impl : ( '|' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7038:1: rule__ParameterTableHeader__Group__0__Impl : ( '|' ) ;
     public final void rule__ParameterTableHeader__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6981:1: ( ( '|' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6982:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7042:1: ( ( '|' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7043:1: ( '|' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6982:1: ( '|' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6983:1: '|'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7043:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7044:1: '|'
             {
              before(grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_0()); 
-            match(input,42,FOLLOW_42_in_rule__ParameterTableHeader__Group__0__Impl14148); 
+            match(input,42,FOLLOW_42_in_rule__ParameterTableHeader__Group__0__Impl14268); 
              after(grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_0()); 
 
             }
@@ -18973,21 +19126,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:6996:1: rule__ParameterTableHeader__Group__1 : rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7057:1: rule__ParameterTableHeader__Group__1 : rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 ;
     public final void rule__ParameterTableHeader__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7000:1: ( rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7001:2: rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7061:1: ( rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7062:2: rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2
             {
-            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__1__Impl_in_rule__ParameterTableHeader__Group__114179);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__1__Impl_in_rule__ParameterTableHeader__Group__114299);
             rule__ParameterTableHeader__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__2_in_rule__ParameterTableHeader__Group__114182);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__2_in_rule__ParameterTableHeader__Group__114302);
             rule__ParameterTableHeader__Group__2();
 
             state._fsp--;
@@ -19011,23 +19164,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7008:1: rule__ParameterTableHeader__Group__1__Impl : ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7069:1: rule__ParameterTableHeader__Group__1__Impl : ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) ;
     public final void rule__ParameterTableHeader__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7012:1: ( ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7013:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7073:1: ( ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7074:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7013:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7014:1: ( rule__ParameterTableHeader__NameAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7074:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7075:1: ( rule__ParameterTableHeader__NameAssignment_1 )
             {
              before(grammarAccess.getParameterTableHeaderAccess().getNameAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7015:1: ( rule__ParameterTableHeader__NameAssignment_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7015:2: rule__ParameterTableHeader__NameAssignment_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7076:1: ( rule__ParameterTableHeader__NameAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7076:2: rule__ParameterTableHeader__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__ParameterTableHeader__NameAssignment_1_in_rule__ParameterTableHeader__Group__1__Impl14209);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__NameAssignment_1_in_rule__ParameterTableHeader__Group__1__Impl14329);
             rule__ParameterTableHeader__NameAssignment_1();
 
             state._fsp--;
@@ -19058,16 +19211,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7025:1: rule__ParameterTableHeader__Group__2 : rule__ParameterTableHeader__Group__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7086:1: rule__ParameterTableHeader__Group__2 : rule__ParameterTableHeader__Group__2__Impl ;
     public final void rule__ParameterTableHeader__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7029:1: ( rule__ParameterTableHeader__Group__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7030:2: rule__ParameterTableHeader__Group__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7090:1: ( rule__ParameterTableHeader__Group__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7091:2: rule__ParameterTableHeader__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__2__Impl_in_rule__ParameterTableHeader__Group__214239);
+            pushFollow(FOLLOW_rule__ParameterTableHeader__Group__2__Impl_in_rule__ParameterTableHeader__Group__214359);
             rule__ParameterTableHeader__Group__2__Impl();
 
             state._fsp--;
@@ -19091,20 +19244,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7036:1: rule__ParameterTableHeader__Group__2__Impl : ( ( '|' )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7097:1: rule__ParameterTableHeader__Group__2__Impl : ( ( '|' )? ) ;
     public final void rule__ParameterTableHeader__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7040:1: ( ( ( '|' )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7041:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7101:1: ( ( ( '|' )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7102:1: ( ( '|' )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7041:1: ( ( '|' )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7042:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7102:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7103:1: ( '|' )?
             {
              before(grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7043:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7104:1: ( '|' )?
             int alt38=2;
             int LA38_0 = input.LA(1);
 
@@ -19117,9 +19270,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt38) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7044:2: '|'
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7105:2: '|'
                     {
-                    match(input,42,FOLLOW_42_in_rule__ParameterTableHeader__Group__2__Impl14268); 
+                    match(input,42,FOLLOW_42_in_rule__ParameterTableHeader__Group__2__Impl14388); 
 
                     }
                     break;
@@ -19149,21 +19302,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7061:1: rule__ResultTableHeader__Group__0 : rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7122:1: rule__ResultTableHeader__Group__0 : rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 ;
     public final void rule__ResultTableHeader__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7065:1: ( rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7066:2: rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7126:1: ( rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7127:2: rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__0__Impl_in_rule__ResultTableHeader__Group__014307);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__0__Impl_in_rule__ResultTableHeader__Group__014427);
             rule__ResultTableHeader__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__1_in_rule__ResultTableHeader__Group__014310);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__1_in_rule__ResultTableHeader__Group__014430);
             rule__ResultTableHeader__Group__1();
 
             state._fsp--;
@@ -19187,20 +19340,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7073:1: rule__ResultTableHeader__Group__0__Impl : ( '|' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7134:1: rule__ResultTableHeader__Group__0__Impl : ( '|' ) ;
     public final void rule__ResultTableHeader__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7077:1: ( ( '|' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7078:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7138:1: ( ( '|' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7139:1: ( '|' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7078:1: ( '|' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7079:1: '|'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7139:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7140:1: '|'
             {
              before(grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_0()); 
-            match(input,42,FOLLOW_42_in_rule__ResultTableHeader__Group__0__Impl14338); 
+            match(input,42,FOLLOW_42_in_rule__ResultTableHeader__Group__0__Impl14458); 
              after(grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_0()); 
 
             }
@@ -19224,21 +19377,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7092:1: rule__ResultTableHeader__Group__1 : rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7153:1: rule__ResultTableHeader__Group__1 : rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 ;
     public final void rule__ResultTableHeader__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7096:1: ( rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7097:2: rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7157:1: ( rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7158:2: rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__1__Impl_in_rule__ResultTableHeader__Group__114369);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__1__Impl_in_rule__ResultTableHeader__Group__114489);
             rule__ResultTableHeader__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__2_in_rule__ResultTableHeader__Group__114372);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__2_in_rule__ResultTableHeader__Group__114492);
             rule__ResultTableHeader__Group__2();
 
             state._fsp--;
@@ -19262,23 +19415,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7104:1: rule__ResultTableHeader__Group__1__Impl : ( ( rule__ResultTableHeader__NameAssignment_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7165:1: rule__ResultTableHeader__Group__1__Impl : ( ( rule__ResultTableHeader__NameAssignment_1 ) ) ;
     public final void rule__ResultTableHeader__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7108:1: ( ( ( rule__ResultTableHeader__NameAssignment_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7109:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7169:1: ( ( ( rule__ResultTableHeader__NameAssignment_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7170:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7109:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7110:1: ( rule__ResultTableHeader__NameAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7170:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7171:1: ( rule__ResultTableHeader__NameAssignment_1 )
             {
              before(grammarAccess.getResultTableHeaderAccess().getNameAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7111:1: ( rule__ResultTableHeader__NameAssignment_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7111:2: rule__ResultTableHeader__NameAssignment_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7172:1: ( rule__ResultTableHeader__NameAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7172:2: rule__ResultTableHeader__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__ResultTableHeader__NameAssignment_1_in_rule__ResultTableHeader__Group__1__Impl14399);
+            pushFollow(FOLLOW_rule__ResultTableHeader__NameAssignment_1_in_rule__ResultTableHeader__Group__1__Impl14519);
             rule__ResultTableHeader__NameAssignment_1();
 
             state._fsp--;
@@ -19309,21 +19462,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7121:1: rule__ResultTableHeader__Group__2 : rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7182:1: rule__ResultTableHeader__Group__2 : rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 ;
     public final void rule__ResultTableHeader__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7125:1: ( rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7126:2: rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7186:1: ( rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7187:2: rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__2__Impl_in_rule__ResultTableHeader__Group__214429);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__2__Impl_in_rule__ResultTableHeader__Group__214549);
             rule__ResultTableHeader__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__3_in_rule__ResultTableHeader__Group__214432);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__3_in_rule__ResultTableHeader__Group__214552);
             rule__ResultTableHeader__Group__3();
 
             state._fsp--;
@@ -19347,20 +19500,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7133:1: rule__ResultTableHeader__Group__2__Impl : ( '=' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7194:1: rule__ResultTableHeader__Group__2__Impl : ( '=' ) ;
     public final void rule__ResultTableHeader__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7137:1: ( ( '=' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7138:1: ( '=' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7198:1: ( ( '=' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7199:1: ( '=' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7138:1: ( '=' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7139:1: '='
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7199:1: ( '=' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7200:1: '='
             {
              before(grammarAccess.getResultTableHeaderAccess().getEqualsSignKeyword_2()); 
-            match(input,40,FOLLOW_40_in_rule__ResultTableHeader__Group__2__Impl14460); 
+            match(input,40,FOLLOW_40_in_rule__ResultTableHeader__Group__2__Impl14580); 
              after(grammarAccess.getResultTableHeaderAccess().getEqualsSignKeyword_2()); 
 
             }
@@ -19384,16 +19537,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7152:1: rule__ResultTableHeader__Group__3 : rule__ResultTableHeader__Group__3__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7213:1: rule__ResultTableHeader__Group__3 : rule__ResultTableHeader__Group__3__Impl ;
     public final void rule__ResultTableHeader__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7156:1: ( rule__ResultTableHeader__Group__3__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7157:2: rule__ResultTableHeader__Group__3__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7217:1: ( rule__ResultTableHeader__Group__3__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7218:2: rule__ResultTableHeader__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__ResultTableHeader__Group__3__Impl_in_rule__ResultTableHeader__Group__314491);
+            pushFollow(FOLLOW_rule__ResultTableHeader__Group__3__Impl_in_rule__ResultTableHeader__Group__314611);
             rule__ResultTableHeader__Group__3__Impl();
 
             state._fsp--;
@@ -19417,20 +19570,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7163:1: rule__ResultTableHeader__Group__3__Impl : ( ( '|' )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7224:1: rule__ResultTableHeader__Group__3__Impl : ( ( '|' )? ) ;
     public final void rule__ResultTableHeader__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7167:1: ( ( ( '|' )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7168:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7228:1: ( ( ( '|' )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7229:1: ( ( '|' )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7168:1: ( ( '|' )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7169:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7229:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7230:1: ( '|' )?
             {
              before(grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7170:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7231:1: ( '|' )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -19443,9 +19596,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt39) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7171:2: '|'
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7232:2: '|'
                     {
-                    match(input,42,FOLLOW_42_in_rule__ResultTableHeader__Group__3__Impl14520); 
+                    match(input,42,FOLLOW_42_in_rule__ResultTableHeader__Group__3__Impl14640); 
 
                     }
                     break;
@@ -19475,21 +19628,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7190:1: rule__ParameterTableValue__Group__0 : rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7251:1: rule__ParameterTableValue__Group__0 : rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 ;
     public final void rule__ParameterTableValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7194:1: ( rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7195:2: rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7255:1: ( rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7256:2: rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1
             {
-            pushFollow(FOLLOW_rule__ParameterTableValue__Group__0__Impl_in_rule__ParameterTableValue__Group__014561);
+            pushFollow(FOLLOW_rule__ParameterTableValue__Group__0__Impl_in_rule__ParameterTableValue__Group__014681);
             rule__ParameterTableValue__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ParameterTableValue__Group__1_in_rule__ParameterTableValue__Group__014564);
+            pushFollow(FOLLOW_rule__ParameterTableValue__Group__1_in_rule__ParameterTableValue__Group__014684);
             rule__ParameterTableValue__Group__1();
 
             state._fsp--;
@@ -19513,20 +19666,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7202:1: rule__ParameterTableValue__Group__0__Impl : ( '|' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7263:1: rule__ParameterTableValue__Group__0__Impl : ( '|' ) ;
     public final void rule__ParameterTableValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7206:1: ( ( '|' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7207:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7267:1: ( ( '|' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7268:1: ( '|' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7207:1: ( '|' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7208:1: '|'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7268:1: ( '|' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7269:1: '|'
             {
              before(grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_0()); 
-            match(input,42,FOLLOW_42_in_rule__ParameterTableValue__Group__0__Impl14592); 
+            match(input,42,FOLLOW_42_in_rule__ParameterTableValue__Group__0__Impl14712); 
              after(grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_0()); 
 
             }
@@ -19550,21 +19703,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7221:1: rule__ParameterTableValue__Group__1 : rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7282:1: rule__ParameterTableValue__Group__1 : rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 ;
     public final void rule__ParameterTableValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7225:1: ( rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7226:2: rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7286:1: ( rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7287:2: rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2
             {
-            pushFollow(FOLLOW_rule__ParameterTableValue__Group__1__Impl_in_rule__ParameterTableValue__Group__114623);
+            pushFollow(FOLLOW_rule__ParameterTableValue__Group__1__Impl_in_rule__ParameterTableValue__Group__114743);
             rule__ParameterTableValue__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ParameterTableValue__Group__2_in_rule__ParameterTableValue__Group__114626);
+            pushFollow(FOLLOW_rule__ParameterTableValue__Group__2_in_rule__ParameterTableValue__Group__114746);
             rule__ParameterTableValue__Group__2();
 
             state._fsp--;
@@ -19588,23 +19741,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7233:1: rule__ParameterTableValue__Group__1__Impl : ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7294:1: rule__ParameterTableValue__Group__1__Impl : ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) ;
     public final void rule__ParameterTableValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7237:1: ( ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7238:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7298:1: ( ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7299:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7238:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7239:1: ( rule__ParameterTableValue__ValueAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7299:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7300:1: ( rule__ParameterTableValue__ValueAssignment_1 )
             {
              before(grammarAccess.getParameterTableValueAccess().getValueAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7240:1: ( rule__ParameterTableValue__ValueAssignment_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7240:2: rule__ParameterTableValue__ValueAssignment_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7301:1: ( rule__ParameterTableValue__ValueAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7301:2: rule__ParameterTableValue__ValueAssignment_1
             {
-            pushFollow(FOLLOW_rule__ParameterTableValue__ValueAssignment_1_in_rule__ParameterTableValue__Group__1__Impl14653);
+            pushFollow(FOLLOW_rule__ParameterTableValue__ValueAssignment_1_in_rule__ParameterTableValue__Group__1__Impl14773);
             rule__ParameterTableValue__ValueAssignment_1();
 
             state._fsp--;
@@ -19635,16 +19788,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7250:1: rule__ParameterTableValue__Group__2 : rule__ParameterTableValue__Group__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7311:1: rule__ParameterTableValue__Group__2 : rule__ParameterTableValue__Group__2__Impl ;
     public final void rule__ParameterTableValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7254:1: ( rule__ParameterTableValue__Group__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7255:2: rule__ParameterTableValue__Group__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7315:1: ( rule__ParameterTableValue__Group__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7316:2: rule__ParameterTableValue__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__ParameterTableValue__Group__2__Impl_in_rule__ParameterTableValue__Group__214683);
+            pushFollow(FOLLOW_rule__ParameterTableValue__Group__2__Impl_in_rule__ParameterTableValue__Group__214803);
             rule__ParameterTableValue__Group__2__Impl();
 
             state._fsp--;
@@ -19668,20 +19821,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7261:1: rule__ParameterTableValue__Group__2__Impl : ( ( '|' )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7322:1: rule__ParameterTableValue__Group__2__Impl : ( ( '|' )? ) ;
     public final void rule__ParameterTableValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7265:1: ( ( ( '|' )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7266:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7326:1: ( ( ( '|' )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7327:1: ( ( '|' )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7266:1: ( ( '|' )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7267:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7327:1: ( ( '|' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7328:1: ( '|' )?
             {
              before(grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7268:1: ( '|' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7329:1: ( '|' )?
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -19694,9 +19847,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt40) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7269:2: '|'
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7330:2: '|'
                     {
-                    match(input,42,FOLLOW_42_in_rule__ParameterTableValue__Group__2__Impl14712); 
+                    match(input,42,FOLLOW_42_in_rule__ParameterTableValue__Group__2__Impl14832); 
 
                     }
                     break;
@@ -19726,21 +19879,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7286:1: rule__NamedResult__Group__0 : rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7347:1: rule__NamedResult__Group__0 : rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 ;
     public final void rule__NamedResult__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7290:1: ( rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7291:2: rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7351:1: ( rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7352:2: rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1
             {
-            pushFollow(FOLLOW_rule__NamedResult__Group__0__Impl_in_rule__NamedResult__Group__014751);
+            pushFollow(FOLLOW_rule__NamedResult__Group__0__Impl_in_rule__NamedResult__Group__014871);
             rule__NamedResult__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedResult__Group__1_in_rule__NamedResult__Group__014754);
+            pushFollow(FOLLOW_rule__NamedResult__Group__1_in_rule__NamedResult__Group__014874);
             rule__NamedResult__Group__1();
 
             state._fsp--;
@@ -19764,23 +19917,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7298:1: rule__NamedResult__Group__0__Impl : ( ( rule__NamedResult__NameAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7359:1: rule__NamedResult__Group__0__Impl : ( ( rule__NamedResult__NameAssignment_0 ) ) ;
     public final void rule__NamedResult__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7302:1: ( ( ( rule__NamedResult__NameAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7303:1: ( ( rule__NamedResult__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7363:1: ( ( ( rule__NamedResult__NameAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7364:1: ( ( rule__NamedResult__NameAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7303:1: ( ( rule__NamedResult__NameAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7304:1: ( rule__NamedResult__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7364:1: ( ( rule__NamedResult__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7365:1: ( rule__NamedResult__NameAssignment_0 )
             {
              before(grammarAccess.getNamedResultAccess().getNameAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7305:1: ( rule__NamedResult__NameAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7305:2: rule__NamedResult__NameAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7366:1: ( rule__NamedResult__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7366:2: rule__NamedResult__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__NamedResult__NameAssignment_0_in_rule__NamedResult__Group__0__Impl14781);
+            pushFollow(FOLLOW_rule__NamedResult__NameAssignment_0_in_rule__NamedResult__Group__0__Impl14901);
             rule__NamedResult__NameAssignment_0();
 
             state._fsp--;
@@ -19811,21 +19964,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7315:1: rule__NamedResult__Group__1 : rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7376:1: rule__NamedResult__Group__1 : rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 ;
     public final void rule__NamedResult__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7319:1: ( rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7320:2: rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7380:1: ( rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7381:2: rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2
             {
-            pushFollow(FOLLOW_rule__NamedResult__Group__1__Impl_in_rule__NamedResult__Group__114811);
+            pushFollow(FOLLOW_rule__NamedResult__Group__1__Impl_in_rule__NamedResult__Group__114931);
             rule__NamedResult__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedResult__Group__2_in_rule__NamedResult__Group__114814);
+            pushFollow(FOLLOW_rule__NamedResult__Group__2_in_rule__NamedResult__Group__114934);
             rule__NamedResult__Group__2();
 
             state._fsp--;
@@ -19849,20 +20002,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7327:1: rule__NamedResult__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7388:1: rule__NamedResult__Group__1__Impl : ( ruleNL ) ;
     public final void rule__NamedResult__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7331:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7332:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7392:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7393:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7332:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7333:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7393:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7394:1: ruleNL
             {
              before(grammarAccess.getNamedResultAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__NamedResult__Group__1__Impl14841);
+            pushFollow(FOLLOW_ruleNL_in_rule__NamedResult__Group__1__Impl14961);
             ruleNL();
 
             state._fsp--;
@@ -19890,21 +20043,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7344:1: rule__NamedResult__Group__2 : rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7405:1: rule__NamedResult__Group__2 : rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 ;
     public final void rule__NamedResult__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7348:1: ( rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7349:2: rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7409:1: ( rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7410:2: rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3
             {
-            pushFollow(FOLLOW_rule__NamedResult__Group__2__Impl_in_rule__NamedResult__Group__214870);
+            pushFollow(FOLLOW_rule__NamedResult__Group__2__Impl_in_rule__NamedResult__Group__214990);
             rule__NamedResult__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedResult__Group__3_in_rule__NamedResult__Group__214873);
+            pushFollow(FOLLOW_rule__NamedResult__Group__3_in_rule__NamedResult__Group__214993);
             rule__NamedResult__Group__3();
 
             state._fsp--;
@@ -19928,20 +20081,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7356:1: rule__NamedResult__Group__2__Impl : ( '=' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7417:1: rule__NamedResult__Group__2__Impl : ( '=' ) ;
     public final void rule__NamedResult__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7360:1: ( ( '=' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7361:1: ( '=' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7421:1: ( ( '=' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7422:1: ( '=' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7361:1: ( '=' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7362:1: '='
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7422:1: ( '=' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7423:1: '='
             {
              before(grammarAccess.getNamedResultAccess().getEqualsSignKeyword_2()); 
-            match(input,40,FOLLOW_40_in_rule__NamedResult__Group__2__Impl14901); 
+            match(input,40,FOLLOW_40_in_rule__NamedResult__Group__2__Impl15021); 
              after(grammarAccess.getNamedResultAccess().getEqualsSignKeyword_2()); 
 
             }
@@ -19965,21 +20118,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7375:1: rule__NamedResult__Group__3 : rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7436:1: rule__NamedResult__Group__3 : rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 ;
     public final void rule__NamedResult__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7379:1: ( rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7380:2: rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7440:1: ( rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7441:2: rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4
             {
-            pushFollow(FOLLOW_rule__NamedResult__Group__3__Impl_in_rule__NamedResult__Group__314932);
+            pushFollow(FOLLOW_rule__NamedResult__Group__3__Impl_in_rule__NamedResult__Group__315052);
             rule__NamedResult__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedResult__Group__4_in_rule__NamedResult__Group__314935);
+            pushFollow(FOLLOW_rule__NamedResult__Group__4_in_rule__NamedResult__Group__315055);
             rule__NamedResult__Group__4();
 
             state._fsp--;
@@ -20003,20 +20156,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7387:1: rule__NamedResult__Group__3__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7448:1: rule__NamedResult__Group__3__Impl : ( ruleNL ) ;
     public final void rule__NamedResult__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7391:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7392:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7452:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7453:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7392:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7393:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7453:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7454:1: ruleNL
             {
              before(grammarAccess.getNamedResultAccess().getNLParserRuleCall_3()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__NamedResult__Group__3__Impl14962);
+            pushFollow(FOLLOW_ruleNL_in_rule__NamedResult__Group__3__Impl15082);
             ruleNL();
 
             state._fsp--;
@@ -20044,16 +20197,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7404:1: rule__NamedResult__Group__4 : rule__NamedResult__Group__4__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7465:1: rule__NamedResult__Group__4 : rule__NamedResult__Group__4__Impl ;
     public final void rule__NamedResult__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7408:1: ( rule__NamedResult__Group__4__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7409:2: rule__NamedResult__Group__4__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7469:1: ( rule__NamedResult__Group__4__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7470:2: rule__NamedResult__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__NamedResult__Group__4__Impl_in_rule__NamedResult__Group__414991);
+            pushFollow(FOLLOW_rule__NamedResult__Group__4__Impl_in_rule__NamedResult__Group__415111);
             rule__NamedResult__Group__4__Impl();
 
             state._fsp--;
@@ -20077,23 +20230,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7415:1: rule__NamedResult__Group__4__Impl : ( ( rule__NamedResult__ValueAssignment_4 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7476:1: rule__NamedResult__Group__4__Impl : ( ( rule__NamedResult__ValueAssignment_4 ) ) ;
     public final void rule__NamedResult__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7419:1: ( ( ( rule__NamedResult__ValueAssignment_4 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7420:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7480:1: ( ( ( rule__NamedResult__ValueAssignment_4 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7481:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7420:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7421:1: ( rule__NamedResult__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7481:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7482:1: ( rule__NamedResult__ValueAssignment_4 )
             {
              before(grammarAccess.getNamedResultAccess().getValueAssignment_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7422:1: ( rule__NamedResult__ValueAssignment_4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7422:2: rule__NamedResult__ValueAssignment_4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7483:1: ( rule__NamedResult__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7483:2: rule__NamedResult__ValueAssignment_4
             {
-            pushFollow(FOLLOW_rule__NamedResult__ValueAssignment_4_in_rule__NamedResult__Group__4__Impl15018);
+            pushFollow(FOLLOW_rule__NamedResult__ValueAssignment_4_in_rule__NamedResult__Group__4__Impl15138);
             rule__NamedResult__ValueAssignment_4();
 
             state._fsp--;
@@ -20124,21 +20277,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7442:1: rule__Call__Group__0 : rule__Call__Group__0__Impl rule__Call__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7503:1: rule__Call__Group__0 : rule__Call__Group__0__Impl rule__Call__Group__1 ;
     public final void rule__Call__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7446:1: ( rule__Call__Group__0__Impl rule__Call__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7447:2: rule__Call__Group__0__Impl rule__Call__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7507:1: ( rule__Call__Group__0__Impl rule__Call__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7508:2: rule__Call__Group__0__Impl rule__Call__Group__1
             {
-            pushFollow(FOLLOW_rule__Call__Group__0__Impl_in_rule__Call__Group__015058);
+            pushFollow(FOLLOW_rule__Call__Group__0__Impl_in_rule__Call__Group__015178);
             rule__Call__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__1_in_rule__Call__Group__015061);
+            pushFollow(FOLLOW_rule__Call__Group__1_in_rule__Call__Group__015181);
             rule__Call__Group__1();
 
             state._fsp--;
@@ -20162,20 +20315,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7454:1: rule__Call__Group__0__Impl : ( 'call' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7515:1: rule__Call__Group__0__Impl : ( 'call' ) ;
     public final void rule__Call__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7458:1: ( ( 'call' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7459:1: ( 'call' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7519:1: ( ( 'call' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7520:1: ( 'call' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7459:1: ( 'call' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7460:1: 'call'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7520:1: ( 'call' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7521:1: 'call'
             {
              before(grammarAccess.getCallAccess().getCallKeyword_0()); 
-            match(input,43,FOLLOW_43_in_rule__Call__Group__0__Impl15089); 
+            match(input,43,FOLLOW_43_in_rule__Call__Group__0__Impl15209); 
              after(grammarAccess.getCallAccess().getCallKeyword_0()); 
 
             }
@@ -20199,21 +20352,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7473:1: rule__Call__Group__1 : rule__Call__Group__1__Impl rule__Call__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7534:1: rule__Call__Group__1 : rule__Call__Group__1__Impl rule__Call__Group__2 ;
     public final void rule__Call__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7477:1: ( rule__Call__Group__1__Impl rule__Call__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7478:2: rule__Call__Group__1__Impl rule__Call__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7538:1: ( rule__Call__Group__1__Impl rule__Call__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7539:2: rule__Call__Group__1__Impl rule__Call__Group__2
             {
-            pushFollow(FOLLOW_rule__Call__Group__1__Impl_in_rule__Call__Group__115120);
+            pushFollow(FOLLOW_rule__Call__Group__1__Impl_in_rule__Call__Group__115240);
             rule__Call__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__2_in_rule__Call__Group__115123);
+            pushFollow(FOLLOW_rule__Call__Group__2_in_rule__Call__Group__115243);
             rule__Call__Group__2();
 
             state._fsp--;
@@ -20237,20 +20390,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7485:1: rule__Call__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7546:1: rule__Call__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Call__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7489:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7490:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7550:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7551:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7490:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7491:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7551:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7552:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group__1__Impl15150);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group__1__Impl15270);
             ruleNL();
 
             state._fsp--;
@@ -20278,21 +20431,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7502:1: rule__Call__Group__2 : rule__Call__Group__2__Impl rule__Call__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7563:1: rule__Call__Group__2 : rule__Call__Group__2__Impl rule__Call__Group__3 ;
     public final void rule__Call__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7506:1: ( rule__Call__Group__2__Impl rule__Call__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7507:2: rule__Call__Group__2__Impl rule__Call__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7567:1: ( rule__Call__Group__2__Impl rule__Call__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7568:2: rule__Call__Group__2__Impl rule__Call__Group__3
             {
-            pushFollow(FOLLOW_rule__Call__Group__2__Impl_in_rule__Call__Group__215179);
+            pushFollow(FOLLOW_rule__Call__Group__2__Impl_in_rule__Call__Group__215299);
             rule__Call__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__3_in_rule__Call__Group__215182);
+            pushFollow(FOLLOW_rule__Call__Group__3_in_rule__Call__Group__215302);
             rule__Call__Group__3();
 
             state._fsp--;
@@ -20316,20 +20469,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7514:1: rule__Call__Group__2__Impl : ( ( rule__Call__Group_2__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7575:1: rule__Call__Group__2__Impl : ( ( rule__Call__Group_2__0 )? ) ;
     public final void rule__Call__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7518:1: ( ( ( rule__Call__Group_2__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7519:1: ( ( rule__Call__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7579:1: ( ( ( rule__Call__Group_2__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7580:1: ( ( rule__Call__Group_2__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7519:1: ( ( rule__Call__Group_2__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7520:1: ( rule__Call__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7580:1: ( ( rule__Call__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7581:1: ( rule__Call__Group_2__0 )?
             {
              before(grammarAccess.getCallAccess().getGroup_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7521:1: ( rule__Call__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7582:1: ( rule__Call__Group_2__0 )?
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -20338,9 +20491,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt41) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7521:2: rule__Call__Group_2__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7582:2: rule__Call__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Call__Group_2__0_in_rule__Call__Group__2__Impl15209);
+                    pushFollow(FOLLOW_rule__Call__Group_2__0_in_rule__Call__Group__2__Impl15329);
                     rule__Call__Group_2__0();
 
                     state._fsp--;
@@ -20374,21 +20527,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7531:1: rule__Call__Group__3 : rule__Call__Group__3__Impl rule__Call__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7592:1: rule__Call__Group__3 : rule__Call__Group__3__Impl rule__Call__Group__4 ;
     public final void rule__Call__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7535:1: ( rule__Call__Group__3__Impl rule__Call__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7536:2: rule__Call__Group__3__Impl rule__Call__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7596:1: ( rule__Call__Group__3__Impl rule__Call__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7597:2: rule__Call__Group__3__Impl rule__Call__Group__4
             {
-            pushFollow(FOLLOW_rule__Call__Group__3__Impl_in_rule__Call__Group__315240);
+            pushFollow(FOLLOW_rule__Call__Group__3__Impl_in_rule__Call__Group__315360);
             rule__Call__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__4_in_rule__Call__Group__315243);
+            pushFollow(FOLLOW_rule__Call__Group__4_in_rule__Call__Group__315363);
             rule__Call__Group__4();
 
             state._fsp--;
@@ -20412,23 +20565,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7543:1: rule__Call__Group__3__Impl : ( ( rule__Call__DefinitionAssignment_3 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7604:1: rule__Call__Group__3__Impl : ( ( rule__Call__DefinitionAssignment_3 ) ) ;
     public final void rule__Call__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7547:1: ( ( ( rule__Call__DefinitionAssignment_3 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7548:1: ( ( rule__Call__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7608:1: ( ( ( rule__Call__DefinitionAssignment_3 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7609:1: ( ( rule__Call__DefinitionAssignment_3 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7548:1: ( ( rule__Call__DefinitionAssignment_3 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7549:1: ( rule__Call__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7609:1: ( ( rule__Call__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7610:1: ( rule__Call__DefinitionAssignment_3 )
             {
              before(grammarAccess.getCallAccess().getDefinitionAssignment_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7550:1: ( rule__Call__DefinitionAssignment_3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7550:2: rule__Call__DefinitionAssignment_3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7611:1: ( rule__Call__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7611:2: rule__Call__DefinitionAssignment_3
             {
-            pushFollow(FOLLOW_rule__Call__DefinitionAssignment_3_in_rule__Call__Group__3__Impl15270);
+            pushFollow(FOLLOW_rule__Call__DefinitionAssignment_3_in_rule__Call__Group__3__Impl15390);
             rule__Call__DefinitionAssignment_3();
 
             state._fsp--;
@@ -20459,21 +20612,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7560:1: rule__Call__Group__4 : rule__Call__Group__4__Impl rule__Call__Group__5 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7621:1: rule__Call__Group__4 : rule__Call__Group__4__Impl rule__Call__Group__5 ;
     public final void rule__Call__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7564:1: ( rule__Call__Group__4__Impl rule__Call__Group__5 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7565:2: rule__Call__Group__4__Impl rule__Call__Group__5
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7625:1: ( rule__Call__Group__4__Impl rule__Call__Group__5 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7626:2: rule__Call__Group__4__Impl rule__Call__Group__5
             {
-            pushFollow(FOLLOW_rule__Call__Group__4__Impl_in_rule__Call__Group__415300);
+            pushFollow(FOLLOW_rule__Call__Group__4__Impl_in_rule__Call__Group__415420);
             rule__Call__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__5_in_rule__Call__Group__415303);
+            pushFollow(FOLLOW_rule__Call__Group__5_in_rule__Call__Group__415423);
             rule__Call__Group__5();
 
             state._fsp--;
@@ -20497,29 +20650,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7572:1: rule__Call__Group__4__Impl : ( ( rule__Call__Group_4__0 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7633:1: rule__Call__Group__4__Impl : ( ( rule__Call__Group_4__0 )* ) ;
     public final void rule__Call__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7576:1: ( ( ( rule__Call__Group_4__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7577:1: ( ( rule__Call__Group_4__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7637:1: ( ( ( rule__Call__Group_4__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7638:1: ( ( rule__Call__Group_4__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7577:1: ( ( rule__Call__Group_4__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7578:1: ( rule__Call__Group_4__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7638:1: ( ( rule__Call__Group_4__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7639:1: ( rule__Call__Group_4__0 )*
             {
              before(grammarAccess.getCallAccess().getGroup_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7579:1: ( rule__Call__Group_4__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7640:1: ( rule__Call__Group_4__0 )*
             loop42:
             do {
                 int alt42=2;
                 alt42 = dfa42.predict(input);
                 switch (alt42) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7579:2: rule__Call__Group_4__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7640:2: rule__Call__Group_4__0
             	    {
-            	    pushFollow(FOLLOW_rule__Call__Group_4__0_in_rule__Call__Group__4__Impl15330);
+            	    pushFollow(FOLLOW_rule__Call__Group_4__0_in_rule__Call__Group__4__Impl15450);
             	    rule__Call__Group_4__0();
 
             	    state._fsp--;
@@ -20556,21 +20709,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7589:1: rule__Call__Group__5 : rule__Call__Group__5__Impl rule__Call__Group__6 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7650:1: rule__Call__Group__5 : rule__Call__Group__5__Impl rule__Call__Group__6 ;
     public final void rule__Call__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7593:1: ( rule__Call__Group__5__Impl rule__Call__Group__6 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7594:2: rule__Call__Group__5__Impl rule__Call__Group__6
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7654:1: ( rule__Call__Group__5__Impl rule__Call__Group__6 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7655:2: rule__Call__Group__5__Impl rule__Call__Group__6
             {
-            pushFollow(FOLLOW_rule__Call__Group__5__Impl_in_rule__Call__Group__515361);
+            pushFollow(FOLLOW_rule__Call__Group__5__Impl_in_rule__Call__Group__515481);
             rule__Call__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__6_in_rule__Call__Group__515364);
+            pushFollow(FOLLOW_rule__Call__Group__6_in_rule__Call__Group__515484);
             rule__Call__Group__6();
 
             state._fsp--;
@@ -20594,29 +20747,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__5__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7601:1: rule__Call__Group__5__Impl : ( ( rule__Call__Group_5__0 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7662:1: rule__Call__Group__5__Impl : ( ( rule__Call__Group_5__0 )* ) ;
     public final void rule__Call__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7605:1: ( ( ( rule__Call__Group_5__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7606:1: ( ( rule__Call__Group_5__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7666:1: ( ( ( rule__Call__Group_5__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7667:1: ( ( rule__Call__Group_5__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7606:1: ( ( rule__Call__Group_5__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7607:1: ( rule__Call__Group_5__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7667:1: ( ( rule__Call__Group_5__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7668:1: ( rule__Call__Group_5__0 )*
             {
              before(grammarAccess.getCallAccess().getGroup_5()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7608:1: ( rule__Call__Group_5__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7669:1: ( rule__Call__Group_5__0 )*
             loop43:
             do {
                 int alt43=2;
                 alt43 = dfa43.predict(input);
                 switch (alt43) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7608:2: rule__Call__Group_5__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7669:2: rule__Call__Group_5__0
             	    {
-            	    pushFollow(FOLLOW_rule__Call__Group_5__0_in_rule__Call__Group__5__Impl15391);
+            	    pushFollow(FOLLOW_rule__Call__Group_5__0_in_rule__Call__Group__5__Impl15511);
             	    rule__Call__Group_5__0();
 
             	    state._fsp--;
@@ -20653,21 +20806,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7618:1: rule__Call__Group__6 : rule__Call__Group__6__Impl rule__Call__Group__7 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7679:1: rule__Call__Group__6 : rule__Call__Group__6__Impl rule__Call__Group__7 ;
     public final void rule__Call__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7622:1: ( rule__Call__Group__6__Impl rule__Call__Group__7 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7623:2: rule__Call__Group__6__Impl rule__Call__Group__7
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7683:1: ( rule__Call__Group__6__Impl rule__Call__Group__7 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7684:2: rule__Call__Group__6__Impl rule__Call__Group__7
             {
-            pushFollow(FOLLOW_rule__Call__Group__6__Impl_in_rule__Call__Group__615422);
+            pushFollow(FOLLOW_rule__Call__Group__6__Impl_in_rule__Call__Group__615542);
             rule__Call__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group__7_in_rule__Call__Group__615425);
+            pushFollow(FOLLOW_rule__Call__Group__7_in_rule__Call__Group__615545);
             rule__Call__Group__7();
 
             state._fsp--;
@@ -20691,27 +20844,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__6__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7630:1: rule__Call__Group__6__Impl : ( ( rule__Call__Group_6__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7691:1: rule__Call__Group__6__Impl : ( ( rule__Call__Group_6__0 )? ) ;
     public final void rule__Call__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7634:1: ( ( ( rule__Call__Group_6__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7635:1: ( ( rule__Call__Group_6__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7695:1: ( ( ( rule__Call__Group_6__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7696:1: ( ( rule__Call__Group_6__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7635:1: ( ( rule__Call__Group_6__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7636:1: ( rule__Call__Group_6__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7696:1: ( ( rule__Call__Group_6__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7697:1: ( rule__Call__Group_6__0 )?
             {
              before(grammarAccess.getCallAccess().getGroup_6()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7637:1: ( rule__Call__Group_6__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7698:1: ( rule__Call__Group_6__0 )?
             int alt44=2;
             alt44 = dfa44.predict(input);
             switch (alt44) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7637:2: rule__Call__Group_6__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7698:2: rule__Call__Group_6__0
                     {
-                    pushFollow(FOLLOW_rule__Call__Group_6__0_in_rule__Call__Group__6__Impl15452);
+                    pushFollow(FOLLOW_rule__Call__Group_6__0_in_rule__Call__Group__6__Impl15572);
                     rule__Call__Group_6__0();
 
                     state._fsp--;
@@ -20745,16 +20898,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__7"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7647:1: rule__Call__Group__7 : rule__Call__Group__7__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7708:1: rule__Call__Group__7 : rule__Call__Group__7__Impl ;
     public final void rule__Call__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7651:1: ( rule__Call__Group__7__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7652:2: rule__Call__Group__7__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7712:1: ( rule__Call__Group__7__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7713:2: rule__Call__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__Call__Group__7__Impl_in_rule__Call__Group__715483);
+            pushFollow(FOLLOW_rule__Call__Group__7__Impl_in_rule__Call__Group__715603);
             rule__Call__Group__7__Impl();
 
             state._fsp--;
@@ -20778,20 +20931,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__7__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7658:1: rule__Call__Group__7__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7719:1: rule__Call__Group__7__Impl : ( ruleNL ) ;
     public final void rule__Call__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7662:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7663:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7723:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7724:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7663:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7664:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7724:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7725:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_7()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group__7__Impl15510);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group__7__Impl15630);
             ruleNL();
 
             state._fsp--;
@@ -20819,21 +20972,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7691:1: rule__Call__Group_2__0 : rule__Call__Group_2__0__Impl rule__Call__Group_2__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7752:1: rule__Call__Group_2__0 : rule__Call__Group_2__0__Impl rule__Call__Group_2__1 ;
     public final void rule__Call__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7695:1: ( rule__Call__Group_2__0__Impl rule__Call__Group_2__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7696:2: rule__Call__Group_2__0__Impl rule__Call__Group_2__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7756:1: ( rule__Call__Group_2__0__Impl rule__Call__Group_2__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7757:2: rule__Call__Group_2__0__Impl rule__Call__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Call__Group_2__0__Impl_in_rule__Call__Group_2__015555);
+            pushFollow(FOLLOW_rule__Call__Group_2__0__Impl_in_rule__Call__Group_2__015675);
             rule__Call__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_2__1_in_rule__Call__Group_2__015558);
+            pushFollow(FOLLOW_rule__Call__Group_2__1_in_rule__Call__Group_2__015678);
             rule__Call__Group_2__1();
 
             state._fsp--;
@@ -20857,23 +21010,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7703:1: rule__Call__Group_2__0__Impl : ( ( rule__Call__MultiplierAssignment_2_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7764:1: rule__Call__Group_2__0__Impl : ( ( rule__Call__MultiplierAssignment_2_0 ) ) ;
     public final void rule__Call__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7707:1: ( ( ( rule__Call__MultiplierAssignment_2_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7708:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7768:1: ( ( ( rule__Call__MultiplierAssignment_2_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7769:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7708:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7709:1: ( rule__Call__MultiplierAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7769:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7770:1: ( rule__Call__MultiplierAssignment_2_0 )
             {
              before(grammarAccess.getCallAccess().getMultiplierAssignment_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7710:1: ( rule__Call__MultiplierAssignment_2_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7710:2: rule__Call__MultiplierAssignment_2_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7771:1: ( rule__Call__MultiplierAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7771:2: rule__Call__MultiplierAssignment_2_0
             {
-            pushFollow(FOLLOW_rule__Call__MultiplierAssignment_2_0_in_rule__Call__Group_2__0__Impl15585);
+            pushFollow(FOLLOW_rule__Call__MultiplierAssignment_2_0_in_rule__Call__Group_2__0__Impl15705);
             rule__Call__MultiplierAssignment_2_0();
 
             state._fsp--;
@@ -20904,16 +21057,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7720:1: rule__Call__Group_2__1 : rule__Call__Group_2__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7781:1: rule__Call__Group_2__1 : rule__Call__Group_2__1__Impl ;
     public final void rule__Call__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7724:1: ( rule__Call__Group_2__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7725:2: rule__Call__Group_2__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7785:1: ( rule__Call__Group_2__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7786:2: rule__Call__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Call__Group_2__1__Impl_in_rule__Call__Group_2__115615);
+            pushFollow(FOLLOW_rule__Call__Group_2__1__Impl_in_rule__Call__Group_2__115735);
             rule__Call__Group_2__1__Impl();
 
             state._fsp--;
@@ -20937,20 +21090,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7731:1: rule__Call__Group_2__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7792:1: rule__Call__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7735:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7736:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7796:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7797:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7736:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7737:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7797:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7798:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_2_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_2__1__Impl15642);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_2__1__Impl15762);
             ruleNL();
 
             state._fsp--;
@@ -20978,21 +21131,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7752:1: rule__Call__Group_4__0 : rule__Call__Group_4__0__Impl rule__Call__Group_4__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7813:1: rule__Call__Group_4__0 : rule__Call__Group_4__0__Impl rule__Call__Group_4__1 ;
     public final void rule__Call__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7756:1: ( rule__Call__Group_4__0__Impl rule__Call__Group_4__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7757:2: rule__Call__Group_4__0__Impl rule__Call__Group_4__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7817:1: ( rule__Call__Group_4__0__Impl rule__Call__Group_4__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7818:2: rule__Call__Group_4__0__Impl rule__Call__Group_4__1
             {
-            pushFollow(FOLLOW_rule__Call__Group_4__0__Impl_in_rule__Call__Group_4__015675);
+            pushFollow(FOLLOW_rule__Call__Group_4__0__Impl_in_rule__Call__Group_4__015795);
             rule__Call__Group_4__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_4__1_in_rule__Call__Group_4__015678);
+            pushFollow(FOLLOW_rule__Call__Group_4__1_in_rule__Call__Group_4__015798);
             rule__Call__Group_4__1();
 
             state._fsp--;
@@ -21016,20 +21169,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7764:1: rule__Call__Group_4__0__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7825:1: rule__Call__Group_4__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7768:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7769:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7829:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7830:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7769:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7770:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7830:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7831:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_4__0__Impl15705);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_4__0__Impl15825);
             ruleNL();
 
             state._fsp--;
@@ -21057,16 +21210,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7781:1: rule__Call__Group_4__1 : rule__Call__Group_4__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7842:1: rule__Call__Group_4__1 : rule__Call__Group_4__1__Impl ;
     public final void rule__Call__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7785:1: ( rule__Call__Group_4__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7786:2: rule__Call__Group_4__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7846:1: ( rule__Call__Group_4__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7847:2: rule__Call__Group_4__1__Impl
             {
-            pushFollow(FOLLOW_rule__Call__Group_4__1__Impl_in_rule__Call__Group_4__115734);
+            pushFollow(FOLLOW_rule__Call__Group_4__1__Impl_in_rule__Call__Group_4__115854);
             rule__Call__Group_4__1__Impl();
 
             state._fsp--;
@@ -21090,23 +21243,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7792:1: rule__Call__Group_4__1__Impl : ( ( rule__Call__ParametersAssignment_4_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7853:1: rule__Call__Group_4__1__Impl : ( ( rule__Call__ParametersAssignment_4_1 ) ) ;
     public final void rule__Call__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7796:1: ( ( ( rule__Call__ParametersAssignment_4_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7797:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7857:1: ( ( ( rule__Call__ParametersAssignment_4_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7858:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7797:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7798:1: ( rule__Call__ParametersAssignment_4_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7858:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7859:1: ( rule__Call__ParametersAssignment_4_1 )
             {
              before(grammarAccess.getCallAccess().getParametersAssignment_4_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7799:1: ( rule__Call__ParametersAssignment_4_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7799:2: rule__Call__ParametersAssignment_4_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7860:1: ( rule__Call__ParametersAssignment_4_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7860:2: rule__Call__ParametersAssignment_4_1
             {
-            pushFollow(FOLLOW_rule__Call__ParametersAssignment_4_1_in_rule__Call__Group_4__1__Impl15761);
+            pushFollow(FOLLOW_rule__Call__ParametersAssignment_4_1_in_rule__Call__Group_4__1__Impl15881);
             rule__Call__ParametersAssignment_4_1();
 
             state._fsp--;
@@ -21137,21 +21290,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7813:1: rule__Call__Group_5__0 : rule__Call__Group_5__0__Impl rule__Call__Group_5__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7874:1: rule__Call__Group_5__0 : rule__Call__Group_5__0__Impl rule__Call__Group_5__1 ;
     public final void rule__Call__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7817:1: ( rule__Call__Group_5__0__Impl rule__Call__Group_5__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7818:2: rule__Call__Group_5__0__Impl rule__Call__Group_5__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7878:1: ( rule__Call__Group_5__0__Impl rule__Call__Group_5__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7879:2: rule__Call__Group_5__0__Impl rule__Call__Group_5__1
             {
-            pushFollow(FOLLOW_rule__Call__Group_5__0__Impl_in_rule__Call__Group_5__015795);
+            pushFollow(FOLLOW_rule__Call__Group_5__0__Impl_in_rule__Call__Group_5__015915);
             rule__Call__Group_5__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_5__1_in_rule__Call__Group_5__015798);
+            pushFollow(FOLLOW_rule__Call__Group_5__1_in_rule__Call__Group_5__015918);
             rule__Call__Group_5__1();
 
             state._fsp--;
@@ -21175,20 +21328,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7825:1: rule__Call__Group_5__0__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7886:1: rule__Call__Group_5__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7829:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7830:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7890:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7891:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7830:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7831:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7891:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7892:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_5__0__Impl15825);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_5__0__Impl15945);
             ruleNL();
 
             state._fsp--;
@@ -21216,16 +21369,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7842:1: rule__Call__Group_5__1 : rule__Call__Group_5__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7903:1: rule__Call__Group_5__1 : rule__Call__Group_5__1__Impl ;
     public final void rule__Call__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7846:1: ( rule__Call__Group_5__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7847:2: rule__Call__Group_5__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7907:1: ( rule__Call__Group_5__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7908:2: rule__Call__Group_5__1__Impl
             {
-            pushFollow(FOLLOW_rule__Call__Group_5__1__Impl_in_rule__Call__Group_5__115854);
+            pushFollow(FOLLOW_rule__Call__Group_5__1__Impl_in_rule__Call__Group_5__115974);
             rule__Call__Group_5__1__Impl();
 
             state._fsp--;
@@ -21249,23 +21402,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7853:1: rule__Call__Group_5__1__Impl : ( ( rule__Call__ResultsAssignment_5_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7914:1: rule__Call__Group_5__1__Impl : ( ( rule__Call__ResultsAssignment_5_1 ) ) ;
     public final void rule__Call__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7857:1: ( ( ( rule__Call__ResultsAssignment_5_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7858:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7918:1: ( ( ( rule__Call__ResultsAssignment_5_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7919:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7858:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7859:1: ( rule__Call__ResultsAssignment_5_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7919:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7920:1: ( rule__Call__ResultsAssignment_5_1 )
             {
              before(grammarAccess.getCallAccess().getResultsAssignment_5_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7860:1: ( rule__Call__ResultsAssignment_5_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7860:2: rule__Call__ResultsAssignment_5_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7921:1: ( rule__Call__ResultsAssignment_5_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7921:2: rule__Call__ResultsAssignment_5_1
             {
-            pushFollow(FOLLOW_rule__Call__ResultsAssignment_5_1_in_rule__Call__Group_5__1__Impl15881);
+            pushFollow(FOLLOW_rule__Call__ResultsAssignment_5_1_in_rule__Call__Group_5__1__Impl16001);
             rule__Call__ResultsAssignment_5_1();
 
             state._fsp--;
@@ -21296,21 +21449,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7874:1: rule__Call__Group_6__0 : rule__Call__Group_6__0__Impl rule__Call__Group_6__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7935:1: rule__Call__Group_6__0 : rule__Call__Group_6__0__Impl rule__Call__Group_6__1 ;
     public final void rule__Call__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7878:1: ( rule__Call__Group_6__0__Impl rule__Call__Group_6__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7879:2: rule__Call__Group_6__0__Impl rule__Call__Group_6__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7939:1: ( rule__Call__Group_6__0__Impl rule__Call__Group_6__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7940:2: rule__Call__Group_6__0__Impl rule__Call__Group_6__1
             {
-            pushFollow(FOLLOW_rule__Call__Group_6__0__Impl_in_rule__Call__Group_6__015915);
+            pushFollow(FOLLOW_rule__Call__Group_6__0__Impl_in_rule__Call__Group_6__016035);
             rule__Call__Group_6__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_6__1_in_rule__Call__Group_6__015918);
+            pushFollow(FOLLOW_rule__Call__Group_6__1_in_rule__Call__Group_6__016038);
             rule__Call__Group_6__1();
 
             state._fsp--;
@@ -21334,20 +21487,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7886:1: rule__Call__Group_6__0__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7947:1: rule__Call__Group_6__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7890:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7891:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7951:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7952:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7891:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7892:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7952:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7953:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_6__0__Impl15945);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_6__0__Impl16065);
             ruleNL();
 
             state._fsp--;
@@ -21375,21 +21528,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7903:1: rule__Call__Group_6__1 : rule__Call__Group_6__1__Impl rule__Call__Group_6__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7964:1: rule__Call__Group_6__1 : rule__Call__Group_6__1__Impl rule__Call__Group_6__2 ;
     public final void rule__Call__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7907:1: ( rule__Call__Group_6__1__Impl rule__Call__Group_6__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7908:2: rule__Call__Group_6__1__Impl rule__Call__Group_6__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7968:1: ( rule__Call__Group_6__1__Impl rule__Call__Group_6__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7969:2: rule__Call__Group_6__1__Impl rule__Call__Group_6__2
             {
-            pushFollow(FOLLOW_rule__Call__Group_6__1__Impl_in_rule__Call__Group_6__115974);
+            pushFollow(FOLLOW_rule__Call__Group_6__1__Impl_in_rule__Call__Group_6__116094);
             rule__Call__Group_6__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_6__2_in_rule__Call__Group_6__115977);
+            pushFollow(FOLLOW_rule__Call__Group_6__2_in_rule__Call__Group_6__116097);
             rule__Call__Group_6__2();
 
             state._fsp--;
@@ -21413,20 +21566,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7915:1: rule__Call__Group_6__1__Impl : ( '->' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7976:1: rule__Call__Group_6__1__Impl : ( '->' ) ;
     public final void rule__Call__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7919:1: ( ( '->' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7920:1: ( '->' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7980:1: ( ( '->' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7981:1: ( '->' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7920:1: ( '->' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7921:1: '->'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7981:1: ( '->' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7982:1: '->'
             {
              before(grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_6_1()); 
-            match(input,44,FOLLOW_44_in_rule__Call__Group_6__1__Impl16005); 
+            match(input,44,FOLLOW_44_in_rule__Call__Group_6__1__Impl16125); 
              after(grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_6_1()); 
 
             }
@@ -21450,21 +21603,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7934:1: rule__Call__Group_6__2 : rule__Call__Group_6__2__Impl rule__Call__Group_6__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7995:1: rule__Call__Group_6__2 : rule__Call__Group_6__2__Impl rule__Call__Group_6__3 ;
     public final void rule__Call__Group_6__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7938:1: ( rule__Call__Group_6__2__Impl rule__Call__Group_6__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7939:2: rule__Call__Group_6__2__Impl rule__Call__Group_6__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7999:1: ( rule__Call__Group_6__2__Impl rule__Call__Group_6__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8000:2: rule__Call__Group_6__2__Impl rule__Call__Group_6__3
             {
-            pushFollow(FOLLOW_rule__Call__Group_6__2__Impl_in_rule__Call__Group_6__216036);
+            pushFollow(FOLLOW_rule__Call__Group_6__2__Impl_in_rule__Call__Group_6__216156);
             rule__Call__Group_6__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Call__Group_6__3_in_rule__Call__Group_6__216039);
+            pushFollow(FOLLOW_rule__Call__Group_6__3_in_rule__Call__Group_6__216159);
             rule__Call__Group_6__3();
 
             state._fsp--;
@@ -21488,20 +21641,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7946:1: rule__Call__Group_6__2__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8007:1: rule__Call__Group_6__2__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_6__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7950:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7951:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8011:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8012:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7951:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7952:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8012:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8013:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_6_2()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_6__2__Impl16066);
+            pushFollow(FOLLOW_ruleNL_in_rule__Call__Group_6__2__Impl16186);
             ruleNL();
 
             state._fsp--;
@@ -21529,16 +21682,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7963:1: rule__Call__Group_6__3 : rule__Call__Group_6__3__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8024:1: rule__Call__Group_6__3 : rule__Call__Group_6__3__Impl ;
     public final void rule__Call__Group_6__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7967:1: ( rule__Call__Group_6__3__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7968:2: rule__Call__Group_6__3__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8028:1: ( rule__Call__Group_6__3__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8029:2: rule__Call__Group_6__3__Impl
             {
-            pushFollow(FOLLOW_rule__Call__Group_6__3__Impl_in_rule__Call__Group_6__316095);
+            pushFollow(FOLLOW_rule__Call__Group_6__3__Impl_in_rule__Call__Group_6__316215);
             rule__Call__Group_6__3__Impl();
 
             state._fsp--;
@@ -21562,23 +21715,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7974:1: rule__Call__Group_6__3__Impl : ( ( rule__Call__ResultAssignment_6_3 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8035:1: rule__Call__Group_6__3__Impl : ( ( rule__Call__ResultAssignment_6_3 ) ) ;
     public final void rule__Call__Group_6__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7978:1: ( ( ( rule__Call__ResultAssignment_6_3 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7979:1: ( ( rule__Call__ResultAssignment_6_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8039:1: ( ( ( rule__Call__ResultAssignment_6_3 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8040:1: ( ( rule__Call__ResultAssignment_6_3 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7979:1: ( ( rule__Call__ResultAssignment_6_3 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7980:1: ( rule__Call__ResultAssignment_6_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8040:1: ( ( rule__Call__ResultAssignment_6_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8041:1: ( rule__Call__ResultAssignment_6_3 )
             {
              before(grammarAccess.getCallAccess().getResultAssignment_6_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7981:1: ( rule__Call__ResultAssignment_6_3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7981:2: rule__Call__ResultAssignment_6_3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8042:1: ( rule__Call__ResultAssignment_6_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8042:2: rule__Call__ResultAssignment_6_3
             {
-            pushFollow(FOLLOW_rule__Call__ResultAssignment_6_3_in_rule__Call__Group_6__3__Impl16122);
+            pushFollow(FOLLOW_rule__Call__ResultAssignment_6_3_in_rule__Call__Group_6__3__Impl16242);
             rule__Call__ResultAssignment_6_3();
 
             state._fsp--;
@@ -21609,21 +21762,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:7999:1: rule__NamedCallResult__Group__0 : rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8060:1: rule__NamedCallResult__Group__0 : rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 ;
     public final void rule__NamedCallResult__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8003:1: ( rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8004:2: rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8064:1: ( rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8065:2: rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__0__Impl_in_rule__NamedCallResult__Group__016160);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__0__Impl_in_rule__NamedCallResult__Group__016280);
             rule__NamedCallResult__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__1_in_rule__NamedCallResult__Group__016163);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__1_in_rule__NamedCallResult__Group__016283);
             rule__NamedCallResult__Group__1();
 
             state._fsp--;
@@ -21647,23 +21800,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8011:1: rule__NamedCallResult__Group__0__Impl : ( ( rule__NamedCallResult__NameAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8072:1: rule__NamedCallResult__Group__0__Impl : ( ( rule__NamedCallResult__NameAssignment_0 ) ) ;
     public final void rule__NamedCallResult__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8015:1: ( ( ( rule__NamedCallResult__NameAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8016:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8076:1: ( ( ( rule__NamedCallResult__NameAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8077:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8016:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8017:1: ( rule__NamedCallResult__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8077:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8078:1: ( rule__NamedCallResult__NameAssignment_0 )
             {
              before(grammarAccess.getNamedCallResultAccess().getNameAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8018:1: ( rule__NamedCallResult__NameAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8018:2: rule__NamedCallResult__NameAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8079:1: ( rule__NamedCallResult__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8079:2: rule__NamedCallResult__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__NameAssignment_0_in_rule__NamedCallResult__Group__0__Impl16190);
+            pushFollow(FOLLOW_rule__NamedCallResult__NameAssignment_0_in_rule__NamedCallResult__Group__0__Impl16310);
             rule__NamedCallResult__NameAssignment_0();
 
             state._fsp--;
@@ -21694,21 +21847,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8028:1: rule__NamedCallResult__Group__1 : rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8089:1: rule__NamedCallResult__Group__1 : rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 ;
     public final void rule__NamedCallResult__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8032:1: ( rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8033:2: rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8093:1: ( rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8094:2: rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__1__Impl_in_rule__NamedCallResult__Group__116220);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__1__Impl_in_rule__NamedCallResult__Group__116340);
             rule__NamedCallResult__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__2_in_rule__NamedCallResult__Group__116223);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__2_in_rule__NamedCallResult__Group__116343);
             rule__NamedCallResult__Group__2();
 
             state._fsp--;
@@ -21732,20 +21885,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8040:1: rule__NamedCallResult__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8101:1: rule__NamedCallResult__Group__1__Impl : ( ruleNL ) ;
     public final void rule__NamedCallResult__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8044:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8045:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8105:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8106:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8045:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8046:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8106:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8107:1: ruleNL
             {
              before(grammarAccess.getNamedCallResultAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__NamedCallResult__Group__1__Impl16250);
+            pushFollow(FOLLOW_ruleNL_in_rule__NamedCallResult__Group__1__Impl16370);
             ruleNL();
 
             state._fsp--;
@@ -21773,21 +21926,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8057:1: rule__NamedCallResult__Group__2 : rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8118:1: rule__NamedCallResult__Group__2 : rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 ;
     public final void rule__NamedCallResult__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8061:1: ( rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8062:2: rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8122:1: ( rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8123:2: rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__2__Impl_in_rule__NamedCallResult__Group__216279);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__2__Impl_in_rule__NamedCallResult__Group__216399);
             rule__NamedCallResult__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__3_in_rule__NamedCallResult__Group__216282);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__3_in_rule__NamedCallResult__Group__216402);
             rule__NamedCallResult__Group__3();
 
             state._fsp--;
@@ -21811,20 +21964,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8069:1: rule__NamedCallResult__Group__2__Impl : ( '->' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8130:1: rule__NamedCallResult__Group__2__Impl : ( '->' ) ;
     public final void rule__NamedCallResult__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8073:1: ( ( '->' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8074:1: ( '->' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8134:1: ( ( '->' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8135:1: ( '->' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8074:1: ( '->' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8075:1: '->'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8135:1: ( '->' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8136:1: '->'
             {
              before(grammarAccess.getNamedCallResultAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
-            match(input,44,FOLLOW_44_in_rule__NamedCallResult__Group__2__Impl16310); 
+            match(input,44,FOLLOW_44_in_rule__NamedCallResult__Group__2__Impl16430); 
              after(grammarAccess.getNamedCallResultAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
 
             }
@@ -21848,21 +22001,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8088:1: rule__NamedCallResult__Group__3 : rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8149:1: rule__NamedCallResult__Group__3 : rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 ;
     public final void rule__NamedCallResult__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8092:1: ( rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8093:2: rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8153:1: ( rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8154:2: rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__3__Impl_in_rule__NamedCallResult__Group__316341);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__3__Impl_in_rule__NamedCallResult__Group__316461);
             rule__NamedCallResult__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__4_in_rule__NamedCallResult__Group__316344);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__4_in_rule__NamedCallResult__Group__316464);
             rule__NamedCallResult__Group__4();
 
             state._fsp--;
@@ -21886,20 +22039,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8100:1: rule__NamedCallResult__Group__3__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8161:1: rule__NamedCallResult__Group__3__Impl : ( ruleNL ) ;
     public final void rule__NamedCallResult__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8104:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8105:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8165:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8166:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8105:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8106:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8166:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8167:1: ruleNL
             {
              before(grammarAccess.getNamedCallResultAccess().getNLParserRuleCall_3()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__NamedCallResult__Group__3__Impl16371);
+            pushFollow(FOLLOW_ruleNL_in_rule__NamedCallResult__Group__3__Impl16491);
             ruleNL();
 
             state._fsp--;
@@ -21927,16 +22080,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8117:1: rule__NamedCallResult__Group__4 : rule__NamedCallResult__Group__4__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8178:1: rule__NamedCallResult__Group__4 : rule__NamedCallResult__Group__4__Impl ;
     public final void rule__NamedCallResult__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8121:1: ( rule__NamedCallResult__Group__4__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8122:2: rule__NamedCallResult__Group__4__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8182:1: ( rule__NamedCallResult__Group__4__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8183:2: rule__NamedCallResult__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__Group__4__Impl_in_rule__NamedCallResult__Group__416400);
+            pushFollow(FOLLOW_rule__NamedCallResult__Group__4__Impl_in_rule__NamedCallResult__Group__416520);
             rule__NamedCallResult__Group__4__Impl();
 
             state._fsp--;
@@ -21960,23 +22113,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8128:1: rule__NamedCallResult__Group__4__Impl : ( ( rule__NamedCallResult__TargetAssignment_4 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8189:1: rule__NamedCallResult__Group__4__Impl : ( ( rule__NamedCallResult__TargetAssignment_4 ) ) ;
     public final void rule__NamedCallResult__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8132:1: ( ( ( rule__NamedCallResult__TargetAssignment_4 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8133:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8193:1: ( ( ( rule__NamedCallResult__TargetAssignment_4 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8194:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8133:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8134:1: ( rule__NamedCallResult__TargetAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8194:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8195:1: ( rule__NamedCallResult__TargetAssignment_4 )
             {
              before(grammarAccess.getNamedCallResultAccess().getTargetAssignment_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8135:1: ( rule__NamedCallResult__TargetAssignment_4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8135:2: rule__NamedCallResult__TargetAssignment_4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8196:1: ( rule__NamedCallResult__TargetAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8196:2: rule__NamedCallResult__TargetAssignment_4
             {
-            pushFollow(FOLLOW_rule__NamedCallResult__TargetAssignment_4_in_rule__NamedCallResult__Group__4__Impl16427);
+            pushFollow(FOLLOW_rule__NamedCallResult__TargetAssignment_4_in_rule__NamedCallResult__Group__4__Impl16547);
             rule__NamedCallResult__TargetAssignment_4();
 
             state._fsp--;
@@ -22007,21 +22160,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8155:1: rule__Suite__Group__0 : rule__Suite__Group__0__Impl rule__Suite__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8216:1: rule__Suite__Group__0 : rule__Suite__Group__0__Impl rule__Suite__Group__1 ;
     public final void rule__Suite__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8159:1: ( rule__Suite__Group__0__Impl rule__Suite__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8160:2: rule__Suite__Group__0__Impl rule__Suite__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8220:1: ( rule__Suite__Group__0__Impl rule__Suite__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8221:2: rule__Suite__Group__0__Impl rule__Suite__Group__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group__0__Impl_in_rule__Suite__Group__016467);
+            pushFollow(FOLLOW_rule__Suite__Group__0__Impl_in_rule__Suite__Group__016587);
             rule__Suite__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__1_in_rule__Suite__Group__016470);
+            pushFollow(FOLLOW_rule__Suite__Group__1_in_rule__Suite__Group__016590);
             rule__Suite__Group__1();
 
             state._fsp--;
@@ -22045,20 +22198,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8167:1: rule__Suite__Group__0__Impl : ( 'suite' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8228:1: rule__Suite__Group__0__Impl : ( 'suite' ) ;
     public final void rule__Suite__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8171:1: ( ( 'suite' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8172:1: ( 'suite' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8232:1: ( ( 'suite' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8233:1: ( 'suite' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8172:1: ( 'suite' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8173:1: 'suite'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8233:1: ( 'suite' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8234:1: 'suite'
             {
              before(grammarAccess.getSuiteAccess().getSuiteKeyword_0()); 
-            match(input,45,FOLLOW_45_in_rule__Suite__Group__0__Impl16498); 
+            match(input,45,FOLLOW_45_in_rule__Suite__Group__0__Impl16618); 
              after(grammarAccess.getSuiteAccess().getSuiteKeyword_0()); 
 
             }
@@ -22082,21 +22235,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8186:1: rule__Suite__Group__1 : rule__Suite__Group__1__Impl rule__Suite__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8247:1: rule__Suite__Group__1 : rule__Suite__Group__1__Impl rule__Suite__Group__2 ;
     public final void rule__Suite__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8190:1: ( rule__Suite__Group__1__Impl rule__Suite__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8191:2: rule__Suite__Group__1__Impl rule__Suite__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8251:1: ( rule__Suite__Group__1__Impl rule__Suite__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8252:2: rule__Suite__Group__1__Impl rule__Suite__Group__2
             {
-            pushFollow(FOLLOW_rule__Suite__Group__1__Impl_in_rule__Suite__Group__116529);
+            pushFollow(FOLLOW_rule__Suite__Group__1__Impl_in_rule__Suite__Group__116649);
             rule__Suite__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__2_in_rule__Suite__Group__116532);
+            pushFollow(FOLLOW_rule__Suite__Group__2_in_rule__Suite__Group__116652);
             rule__Suite__Group__2();
 
             state._fsp--;
@@ -22120,20 +22273,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8198:1: rule__Suite__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8259:1: rule__Suite__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8202:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8203:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8263:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8264:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8203:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8204:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8264:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8265:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group__1__Impl16559);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group__1__Impl16679);
             ruleNL();
 
             state._fsp--;
@@ -22161,21 +22314,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8215:1: rule__Suite__Group__2 : rule__Suite__Group__2__Impl rule__Suite__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8276:1: rule__Suite__Group__2 : rule__Suite__Group__2__Impl rule__Suite__Group__3 ;
     public final void rule__Suite__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8219:1: ( rule__Suite__Group__2__Impl rule__Suite__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8220:2: rule__Suite__Group__2__Impl rule__Suite__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8280:1: ( rule__Suite__Group__2__Impl rule__Suite__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8281:2: rule__Suite__Group__2__Impl rule__Suite__Group__3
             {
-            pushFollow(FOLLOW_rule__Suite__Group__2__Impl_in_rule__Suite__Group__216588);
+            pushFollow(FOLLOW_rule__Suite__Group__2__Impl_in_rule__Suite__Group__216708);
             rule__Suite__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__3_in_rule__Suite__Group__216591);
+            pushFollow(FOLLOW_rule__Suite__Group__3_in_rule__Suite__Group__216711);
             rule__Suite__Group__3();
 
             state._fsp--;
@@ -22199,20 +22352,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8227:1: rule__Suite__Group__2__Impl : ( ( rule__Suite__Group_2__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8288:1: rule__Suite__Group__2__Impl : ( ( rule__Suite__Group_2__0 )? ) ;
     public final void rule__Suite__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8231:1: ( ( ( rule__Suite__Group_2__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8232:1: ( ( rule__Suite__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8292:1: ( ( ( rule__Suite__Group_2__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8293:1: ( ( rule__Suite__Group_2__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8232:1: ( ( rule__Suite__Group_2__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8233:1: ( rule__Suite__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8293:1: ( ( rule__Suite__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8294:1: ( rule__Suite__Group_2__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8234:1: ( rule__Suite__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8295:1: ( rule__Suite__Group_2__0 )?
             int alt45=2;
             int LA45_0 = input.LA(1);
 
@@ -22221,9 +22374,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt45) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8234:2: rule__Suite__Group_2__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8295:2: rule__Suite__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Suite__Group_2__0_in_rule__Suite__Group__2__Impl16618);
+                    pushFollow(FOLLOW_rule__Suite__Group_2__0_in_rule__Suite__Group__2__Impl16738);
                     rule__Suite__Group_2__0();
 
                     state._fsp--;
@@ -22257,21 +22410,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8244:1: rule__Suite__Group__3 : rule__Suite__Group__3__Impl rule__Suite__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8305:1: rule__Suite__Group__3 : rule__Suite__Group__3__Impl rule__Suite__Group__4 ;
     public final void rule__Suite__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8248:1: ( rule__Suite__Group__3__Impl rule__Suite__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8249:2: rule__Suite__Group__3__Impl rule__Suite__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8309:1: ( rule__Suite__Group__3__Impl rule__Suite__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8310:2: rule__Suite__Group__3__Impl rule__Suite__Group__4
             {
-            pushFollow(FOLLOW_rule__Suite__Group__3__Impl_in_rule__Suite__Group__316649);
+            pushFollow(FOLLOW_rule__Suite__Group__3__Impl_in_rule__Suite__Group__316769);
             rule__Suite__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__4_in_rule__Suite__Group__316652);
+            pushFollow(FOLLOW_rule__Suite__Group__4_in_rule__Suite__Group__316772);
             rule__Suite__Group__4();
 
             state._fsp--;
@@ -22295,23 +22448,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8256:1: rule__Suite__Group__3__Impl : ( ( rule__Suite__DefinitionAssignment_3 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8317:1: rule__Suite__Group__3__Impl : ( ( rule__Suite__DefinitionAssignment_3 ) ) ;
     public final void rule__Suite__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8260:1: ( ( ( rule__Suite__DefinitionAssignment_3 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8261:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8321:1: ( ( ( rule__Suite__DefinitionAssignment_3 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8322:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8261:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8262:1: ( rule__Suite__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8322:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8323:1: ( rule__Suite__DefinitionAssignment_3 )
             {
              before(grammarAccess.getSuiteAccess().getDefinitionAssignment_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8263:1: ( rule__Suite__DefinitionAssignment_3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8263:2: rule__Suite__DefinitionAssignment_3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8324:1: ( rule__Suite__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8324:2: rule__Suite__DefinitionAssignment_3
             {
-            pushFollow(FOLLOW_rule__Suite__DefinitionAssignment_3_in_rule__Suite__Group__3__Impl16679);
+            pushFollow(FOLLOW_rule__Suite__DefinitionAssignment_3_in_rule__Suite__Group__3__Impl16799);
             rule__Suite__DefinitionAssignment_3();
 
             state._fsp--;
@@ -22342,21 +22495,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8273:1: rule__Suite__Group__4 : rule__Suite__Group__4__Impl rule__Suite__Group__5 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8334:1: rule__Suite__Group__4 : rule__Suite__Group__4__Impl rule__Suite__Group__5 ;
     public final void rule__Suite__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8277:1: ( rule__Suite__Group__4__Impl rule__Suite__Group__5 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8278:2: rule__Suite__Group__4__Impl rule__Suite__Group__5
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8338:1: ( rule__Suite__Group__4__Impl rule__Suite__Group__5 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8339:2: rule__Suite__Group__4__Impl rule__Suite__Group__5
             {
-            pushFollow(FOLLOW_rule__Suite__Group__4__Impl_in_rule__Suite__Group__416709);
+            pushFollow(FOLLOW_rule__Suite__Group__4__Impl_in_rule__Suite__Group__416829);
             rule__Suite__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__5_in_rule__Suite__Group__416712);
+            pushFollow(FOLLOW_rule__Suite__Group__5_in_rule__Suite__Group__416832);
             rule__Suite__Group__5();
 
             state._fsp--;
@@ -22380,20 +22533,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8285:1: rule__Suite__Group__4__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8346:1: rule__Suite__Group__4__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8289:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8290:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8350:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8351:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8290:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8291:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8351:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8352:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_4()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group__4__Impl16739);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group__4__Impl16859);
             ruleNL();
 
             state._fsp--;
@@ -22421,21 +22574,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8302:1: rule__Suite__Group__5 : rule__Suite__Group__5__Impl rule__Suite__Group__6 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8363:1: rule__Suite__Group__5 : rule__Suite__Group__5__Impl rule__Suite__Group__6 ;
     public final void rule__Suite__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8306:1: ( rule__Suite__Group__5__Impl rule__Suite__Group__6 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8307:2: rule__Suite__Group__5__Impl rule__Suite__Group__6
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8367:1: ( rule__Suite__Group__5__Impl rule__Suite__Group__6 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8368:2: rule__Suite__Group__5__Impl rule__Suite__Group__6
             {
-            pushFollow(FOLLOW_rule__Suite__Group__5__Impl_in_rule__Suite__Group__516768);
+            pushFollow(FOLLOW_rule__Suite__Group__5__Impl_in_rule__Suite__Group__516888);
             rule__Suite__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__6_in_rule__Suite__Group__516771);
+            pushFollow(FOLLOW_rule__Suite__Group__6_in_rule__Suite__Group__516891);
             rule__Suite__Group__6();
 
             state._fsp--;
@@ -22459,20 +22612,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__5__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8314:1: rule__Suite__Group__5__Impl : ( ( rule__Suite__Group_5__0 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8375:1: rule__Suite__Group__5__Impl : ( ( rule__Suite__Group_5__0 )* ) ;
     public final void rule__Suite__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8318:1: ( ( ( rule__Suite__Group_5__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8319:1: ( ( rule__Suite__Group_5__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8379:1: ( ( ( rule__Suite__Group_5__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8380:1: ( ( rule__Suite__Group_5__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8319:1: ( ( rule__Suite__Group_5__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8320:1: ( rule__Suite__Group_5__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8380:1: ( ( rule__Suite__Group_5__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8381:1: ( rule__Suite__Group_5__0 )*
             {
              before(grammarAccess.getSuiteAccess().getGroup_5()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8321:1: ( rule__Suite__Group_5__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8382:1: ( rule__Suite__Group_5__0 )*
             loop46:
             do {
                 int alt46=2;
@@ -22485,9 +22638,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt46) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8321:2: rule__Suite__Group_5__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8382:2: rule__Suite__Group_5__0
             	    {
-            	    pushFollow(FOLLOW_rule__Suite__Group_5__0_in_rule__Suite__Group__5__Impl16798);
+            	    pushFollow(FOLLOW_rule__Suite__Group_5__0_in_rule__Suite__Group__5__Impl16918);
             	    rule__Suite__Group_5__0();
 
             	    state._fsp--;
@@ -22524,21 +22677,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8331:1: rule__Suite__Group__6 : rule__Suite__Group__6__Impl rule__Suite__Group__7 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8392:1: rule__Suite__Group__6 : rule__Suite__Group__6__Impl rule__Suite__Group__7 ;
     public final void rule__Suite__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8335:1: ( rule__Suite__Group__6__Impl rule__Suite__Group__7 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8336:2: rule__Suite__Group__6__Impl rule__Suite__Group__7
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8396:1: ( rule__Suite__Group__6__Impl rule__Suite__Group__7 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8397:2: rule__Suite__Group__6__Impl rule__Suite__Group__7
             {
-            pushFollow(FOLLOW_rule__Suite__Group__6__Impl_in_rule__Suite__Group__616829);
+            pushFollow(FOLLOW_rule__Suite__Group__6__Impl_in_rule__Suite__Group__616949);
             rule__Suite__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group__7_in_rule__Suite__Group__616832);
+            pushFollow(FOLLOW_rule__Suite__Group__7_in_rule__Suite__Group__616952);
             rule__Suite__Group__7();
 
             state._fsp--;
@@ -22562,20 +22715,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__6__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8343:1: rule__Suite__Group__6__Impl : ( ( rule__Suite__Group_6__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8404:1: rule__Suite__Group__6__Impl : ( ( rule__Suite__Group_6__0 )? ) ;
     public final void rule__Suite__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8347:1: ( ( ( rule__Suite__Group_6__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8348:1: ( ( rule__Suite__Group_6__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8408:1: ( ( ( rule__Suite__Group_6__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8409:1: ( ( rule__Suite__Group_6__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8348:1: ( ( rule__Suite__Group_6__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8349:1: ( rule__Suite__Group_6__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8409:1: ( ( rule__Suite__Group_6__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8410:1: ( rule__Suite__Group_6__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_6()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8350:1: ( rule__Suite__Group_6__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8411:1: ( rule__Suite__Group_6__0 )?
             int alt47=2;
             int LA47_0 = input.LA(1);
 
@@ -22584,9 +22737,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt47) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8350:2: rule__Suite__Group_6__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8411:2: rule__Suite__Group_6__0
                     {
-                    pushFollow(FOLLOW_rule__Suite__Group_6__0_in_rule__Suite__Group__6__Impl16859);
+                    pushFollow(FOLLOW_rule__Suite__Group_6__0_in_rule__Suite__Group__6__Impl16979);
                     rule__Suite__Group_6__0();
 
                     state._fsp--;
@@ -22620,16 +22773,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__7"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8360:1: rule__Suite__Group__7 : rule__Suite__Group__7__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8421:1: rule__Suite__Group__7 : rule__Suite__Group__7__Impl ;
     public final void rule__Suite__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8364:1: ( rule__Suite__Group__7__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8365:2: rule__Suite__Group__7__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8425:1: ( rule__Suite__Group__7__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8426:2: rule__Suite__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group__7__Impl_in_rule__Suite__Group__716890);
+            pushFollow(FOLLOW_rule__Suite__Group__7__Impl_in_rule__Suite__Group__717010);
             rule__Suite__Group__7__Impl();
 
             state._fsp--;
@@ -22653,20 +22806,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__7__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8371:1: rule__Suite__Group__7__Impl : ( ( rule__Suite__Group_7__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8432:1: rule__Suite__Group__7__Impl : ( ( rule__Suite__Group_7__0 )? ) ;
     public final void rule__Suite__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8375:1: ( ( ( rule__Suite__Group_7__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8376:1: ( ( rule__Suite__Group_7__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8436:1: ( ( ( rule__Suite__Group_7__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8437:1: ( ( rule__Suite__Group_7__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8376:1: ( ( rule__Suite__Group_7__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8377:1: ( rule__Suite__Group_7__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8437:1: ( ( rule__Suite__Group_7__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8438:1: ( rule__Suite__Group_7__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_7()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8378:1: ( rule__Suite__Group_7__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8439:1: ( rule__Suite__Group_7__0 )?
             int alt48=2;
             int LA48_0 = input.LA(1);
 
@@ -22675,9 +22828,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt48) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8378:2: rule__Suite__Group_7__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8439:2: rule__Suite__Group_7__0
                     {
-                    pushFollow(FOLLOW_rule__Suite__Group_7__0_in_rule__Suite__Group__7__Impl16917);
+                    pushFollow(FOLLOW_rule__Suite__Group_7__0_in_rule__Suite__Group__7__Impl17037);
                     rule__Suite__Group_7__0();
 
                     state._fsp--;
@@ -22711,21 +22864,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8404:1: rule__Suite__Group_2__0 : rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8465:1: rule__Suite__Group_2__0 : rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 ;
     public final void rule__Suite__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8408:1: ( rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8409:2: rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8469:1: ( rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8470:2: rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group_2__0__Impl_in_rule__Suite__Group_2__016964);
+            pushFollow(FOLLOW_rule__Suite__Group_2__0__Impl_in_rule__Suite__Group_2__017084);
             rule__Suite__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_2__1_in_rule__Suite__Group_2__016967);
+            pushFollow(FOLLOW_rule__Suite__Group_2__1_in_rule__Suite__Group_2__017087);
             rule__Suite__Group_2__1();
 
             state._fsp--;
@@ -22749,23 +22902,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8416:1: rule__Suite__Group_2__0__Impl : ( ( rule__Suite__MultiplierAssignment_2_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8477:1: rule__Suite__Group_2__0__Impl : ( ( rule__Suite__MultiplierAssignment_2_0 ) ) ;
     public final void rule__Suite__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8420:1: ( ( ( rule__Suite__MultiplierAssignment_2_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8421:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8481:1: ( ( ( rule__Suite__MultiplierAssignment_2_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8482:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8421:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8422:1: ( rule__Suite__MultiplierAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8482:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8483:1: ( rule__Suite__MultiplierAssignment_2_0 )
             {
              before(grammarAccess.getSuiteAccess().getMultiplierAssignment_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8423:1: ( rule__Suite__MultiplierAssignment_2_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8423:2: rule__Suite__MultiplierAssignment_2_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8484:1: ( rule__Suite__MultiplierAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8484:2: rule__Suite__MultiplierAssignment_2_0
             {
-            pushFollow(FOLLOW_rule__Suite__MultiplierAssignment_2_0_in_rule__Suite__Group_2__0__Impl16994);
+            pushFollow(FOLLOW_rule__Suite__MultiplierAssignment_2_0_in_rule__Suite__Group_2__0__Impl17114);
             rule__Suite__MultiplierAssignment_2_0();
 
             state._fsp--;
@@ -22796,16 +22949,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8433:1: rule__Suite__Group_2__1 : rule__Suite__Group_2__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8494:1: rule__Suite__Group_2__1 : rule__Suite__Group_2__1__Impl ;
     public final void rule__Suite__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8437:1: ( rule__Suite__Group_2__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8438:2: rule__Suite__Group_2__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8498:1: ( rule__Suite__Group_2__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8499:2: rule__Suite__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group_2__1__Impl_in_rule__Suite__Group_2__117024);
+            pushFollow(FOLLOW_rule__Suite__Group_2__1__Impl_in_rule__Suite__Group_2__117144);
             rule__Suite__Group_2__1__Impl();
 
             state._fsp--;
@@ -22829,20 +22982,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8444:1: rule__Suite__Group_2__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8505:1: rule__Suite__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8448:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8449:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8509:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8510:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8449:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8450:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8510:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8511:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_2_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_2__1__Impl17051);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_2__1__Impl17171);
             ruleNL();
 
             state._fsp--;
@@ -22870,21 +23023,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8465:1: rule__Suite__Group_5__0 : rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8526:1: rule__Suite__Group_5__0 : rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 ;
     public final void rule__Suite__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8469:1: ( rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8470:2: rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8530:1: ( rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8531:2: rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group_5__0__Impl_in_rule__Suite__Group_5__017084);
+            pushFollow(FOLLOW_rule__Suite__Group_5__0__Impl_in_rule__Suite__Group_5__017204);
             rule__Suite__Group_5__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_5__1_in_rule__Suite__Group_5__017087);
+            pushFollow(FOLLOW_rule__Suite__Group_5__1_in_rule__Suite__Group_5__017207);
             rule__Suite__Group_5__1();
 
             state._fsp--;
@@ -22908,23 +23061,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8477:1: rule__Suite__Group_5__0__Impl : ( ( rule__Suite__ParametersAssignment_5_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8538:1: rule__Suite__Group_5__0__Impl : ( ( rule__Suite__ParametersAssignment_5_0 ) ) ;
     public final void rule__Suite__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8481:1: ( ( ( rule__Suite__ParametersAssignment_5_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8482:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8542:1: ( ( ( rule__Suite__ParametersAssignment_5_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8543:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8482:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8483:1: ( rule__Suite__ParametersAssignment_5_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8543:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8544:1: ( rule__Suite__ParametersAssignment_5_0 )
             {
              before(grammarAccess.getSuiteAccess().getParametersAssignment_5_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8484:1: ( rule__Suite__ParametersAssignment_5_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8484:2: rule__Suite__ParametersAssignment_5_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8545:1: ( rule__Suite__ParametersAssignment_5_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8545:2: rule__Suite__ParametersAssignment_5_0
             {
-            pushFollow(FOLLOW_rule__Suite__ParametersAssignment_5_0_in_rule__Suite__Group_5__0__Impl17114);
+            pushFollow(FOLLOW_rule__Suite__ParametersAssignment_5_0_in_rule__Suite__Group_5__0__Impl17234);
             rule__Suite__ParametersAssignment_5_0();
 
             state._fsp--;
@@ -22955,16 +23108,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8494:1: rule__Suite__Group_5__1 : rule__Suite__Group_5__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8555:1: rule__Suite__Group_5__1 : rule__Suite__Group_5__1__Impl ;
     public final void rule__Suite__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8498:1: ( rule__Suite__Group_5__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8499:2: rule__Suite__Group_5__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8559:1: ( rule__Suite__Group_5__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8560:2: rule__Suite__Group_5__1__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group_5__1__Impl_in_rule__Suite__Group_5__117144);
+            pushFollow(FOLLOW_rule__Suite__Group_5__1__Impl_in_rule__Suite__Group_5__117264);
             rule__Suite__Group_5__1__Impl();
 
             state._fsp--;
@@ -22988,20 +23141,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8505:1: rule__Suite__Group_5__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8566:1: rule__Suite__Group_5__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8509:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8510:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8570:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8571:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8510:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8511:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8571:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8572:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_5_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_5__1__Impl17171);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_5__1__Impl17291);
             ruleNL();
 
             state._fsp--;
@@ -23029,21 +23182,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8526:1: rule__Suite__Group_6__0 : rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8587:1: rule__Suite__Group_6__0 : rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 ;
     public final void rule__Suite__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8530:1: ( rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8531:2: rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8591:1: ( rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8592:2: rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group_6__0__Impl_in_rule__Suite__Group_6__017204);
+            pushFollow(FOLLOW_rule__Suite__Group_6__0__Impl_in_rule__Suite__Group_6__017324);
             rule__Suite__Group_6__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_6__1_in_rule__Suite__Group_6__017207);
+            pushFollow(FOLLOW_rule__Suite__Group_6__1_in_rule__Suite__Group_6__017327);
             rule__Suite__Group_6__1();
 
             state._fsp--;
@@ -23067,20 +23220,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8538:1: rule__Suite__Group_6__0__Impl : ( 'on' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8599:1: rule__Suite__Group_6__0__Impl : ( 'on' ) ;
     public final void rule__Suite__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8542:1: ( ( 'on' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8543:1: ( 'on' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8603:1: ( ( 'on' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8604:1: ( 'on' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8543:1: ( 'on' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8544:1: 'on'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8604:1: ( 'on' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8605:1: 'on'
             {
              before(grammarAccess.getSuiteAccess().getOnKeyword_6_0()); 
-            match(input,46,FOLLOW_46_in_rule__Suite__Group_6__0__Impl17235); 
+            match(input,46,FOLLOW_46_in_rule__Suite__Group_6__0__Impl17355); 
              after(grammarAccess.getSuiteAccess().getOnKeyword_6_0()); 
 
             }
@@ -23104,21 +23257,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8557:1: rule__Suite__Group_6__1 : rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8618:1: rule__Suite__Group_6__1 : rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2 ;
     public final void rule__Suite__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8561:1: ( rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8562:2: rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8622:1: ( rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8623:2: rule__Suite__Group_6__1__Impl rule__Suite__Group_6__2
             {
-            pushFollow(FOLLOW_rule__Suite__Group_6__1__Impl_in_rule__Suite__Group_6__117266);
+            pushFollow(FOLLOW_rule__Suite__Group_6__1__Impl_in_rule__Suite__Group_6__117386);
             rule__Suite__Group_6__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_6__2_in_rule__Suite__Group_6__117269);
+            pushFollow(FOLLOW_rule__Suite__Group_6__2_in_rule__Suite__Group_6__117389);
             rule__Suite__Group_6__2();
 
             state._fsp--;
@@ -23142,20 +23295,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8569:1: rule__Suite__Group_6__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8630:1: rule__Suite__Group_6__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8573:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8574:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8634:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8635:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8574:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8575:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8635:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8636:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_6_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_6__1__Impl17296);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_6__1__Impl17416);
             ruleNL();
 
             state._fsp--;
@@ -23183,21 +23336,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8586:1: rule__Suite__Group_6__2 : rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8647:1: rule__Suite__Group_6__2 : rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3 ;
     public final void rule__Suite__Group_6__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8590:1: ( rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8591:2: rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8651:1: ( rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8652:2: rule__Suite__Group_6__2__Impl rule__Suite__Group_6__3
             {
-            pushFollow(FOLLOW_rule__Suite__Group_6__2__Impl_in_rule__Suite__Group_6__217325);
+            pushFollow(FOLLOW_rule__Suite__Group_6__2__Impl_in_rule__Suite__Group_6__217445);
             rule__Suite__Group_6__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_6__3_in_rule__Suite__Group_6__217328);
+            pushFollow(FOLLOW_rule__Suite__Group_6__3_in_rule__Suite__Group_6__217448);
             rule__Suite__Group_6__3();
 
             state._fsp--;
@@ -23221,23 +23374,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8598:1: rule__Suite__Group_6__2__Impl : ( ( rule__Suite__ForkAssignment_6_2 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8659:1: rule__Suite__Group_6__2__Impl : ( ( rule__Suite__ForkAssignment_6_2 ) ) ;
     public final void rule__Suite__Group_6__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8602:1: ( ( ( rule__Suite__ForkAssignment_6_2 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8603:1: ( ( rule__Suite__ForkAssignment_6_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8663:1: ( ( ( rule__Suite__ForkAssignment_6_2 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8664:1: ( ( rule__Suite__ForkAssignment_6_2 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8603:1: ( ( rule__Suite__ForkAssignment_6_2 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8604:1: ( rule__Suite__ForkAssignment_6_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8664:1: ( ( rule__Suite__ForkAssignment_6_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8665:1: ( rule__Suite__ForkAssignment_6_2 )
             {
              before(grammarAccess.getSuiteAccess().getForkAssignment_6_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8605:1: ( rule__Suite__ForkAssignment_6_2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8605:2: rule__Suite__ForkAssignment_6_2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8666:1: ( rule__Suite__ForkAssignment_6_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8666:2: rule__Suite__ForkAssignment_6_2
             {
-            pushFollow(FOLLOW_rule__Suite__ForkAssignment_6_2_in_rule__Suite__Group_6__2__Impl17355);
+            pushFollow(FOLLOW_rule__Suite__ForkAssignment_6_2_in_rule__Suite__Group_6__2__Impl17475);
             rule__Suite__ForkAssignment_6_2();
 
             state._fsp--;
@@ -23268,16 +23421,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8615:1: rule__Suite__Group_6__3 : rule__Suite__Group_6__3__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8676:1: rule__Suite__Group_6__3 : rule__Suite__Group_6__3__Impl ;
     public final void rule__Suite__Group_6__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8619:1: ( rule__Suite__Group_6__3__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8620:2: rule__Suite__Group_6__3__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8680:1: ( rule__Suite__Group_6__3__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8681:2: rule__Suite__Group_6__3__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group_6__3__Impl_in_rule__Suite__Group_6__317385);
+            pushFollow(FOLLOW_rule__Suite__Group_6__3__Impl_in_rule__Suite__Group_6__317505);
             rule__Suite__Group_6__3__Impl();
 
             state._fsp--;
@@ -23301,20 +23454,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8626:1: rule__Suite__Group_6__3__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8687:1: rule__Suite__Group_6__3__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_6__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8630:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8631:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8691:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8692:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8631:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8632:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8692:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8693:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_6_3()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_6__3__Impl17412);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_6__3__Impl17532);
             ruleNL();
 
             state._fsp--;
@@ -23342,21 +23495,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8651:1: rule__Suite__Group_7__0 : rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8712:1: rule__Suite__Group_7__0 : rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 ;
     public final void rule__Suite__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8655:1: ( rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8656:2: rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8716:1: ( rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8717:2: rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7__0__Impl_in_rule__Suite__Group_7__017449);
+            pushFollow(FOLLOW_rule__Suite__Group_7__0__Impl_in_rule__Suite__Group_7__017569);
             rule__Suite__Group_7__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_7__1_in_rule__Suite__Group_7__017452);
+            pushFollow(FOLLOW_rule__Suite__Group_7__1_in_rule__Suite__Group_7__017572);
             rule__Suite__Group_7__1();
 
             state._fsp--;
@@ -23380,20 +23533,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8663:1: rule__Suite__Group_7__0__Impl : ( 'in' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8724:1: rule__Suite__Group_7__0__Impl : ( 'in' ) ;
     public final void rule__Suite__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8667:1: ( ( 'in' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8668:1: ( 'in' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8728:1: ( ( 'in' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8729:1: ( 'in' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8668:1: ( 'in' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8669:1: 'in'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8729:1: ( 'in' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8730:1: 'in'
             {
              before(grammarAccess.getSuiteAccess().getInKeyword_7_0()); 
-            match(input,38,FOLLOW_38_in_rule__Suite__Group_7__0__Impl17480); 
+            match(input,38,FOLLOW_38_in_rule__Suite__Group_7__0__Impl17600); 
              after(grammarAccess.getSuiteAccess().getInKeyword_7_0()); 
 
             }
@@ -23417,21 +23570,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8682:1: rule__Suite__Group_7__1 : rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8743:1: rule__Suite__Group_7__1 : rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 ;
     public final void rule__Suite__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8686:1: ( rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8687:2: rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8747:1: ( rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8748:2: rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7__1__Impl_in_rule__Suite__Group_7__117511);
+            pushFollow(FOLLOW_rule__Suite__Group_7__1__Impl_in_rule__Suite__Group_7__117631);
             rule__Suite__Group_7__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_7__2_in_rule__Suite__Group_7__117514);
+            pushFollow(FOLLOW_rule__Suite__Group_7__2_in_rule__Suite__Group_7__117634);
             rule__Suite__Group_7__2();
 
             state._fsp--;
@@ -23455,20 +23608,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8694:1: rule__Suite__Group_7__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8755:1: rule__Suite__Group_7__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8698:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8699:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8759:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8760:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8699:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8700:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8760:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8761:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_7__1__Impl17541);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_7__1__Impl17661);
             ruleNL();
 
             state._fsp--;
@@ -23496,16 +23649,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8711:1: rule__Suite__Group_7__2 : rule__Suite__Group_7__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8772:1: rule__Suite__Group_7__2 : rule__Suite__Group_7__2__Impl ;
     public final void rule__Suite__Group_7__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8715:1: ( rule__Suite__Group_7__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8716:2: rule__Suite__Group_7__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8776:1: ( rule__Suite__Group_7__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8777:2: rule__Suite__Group_7__2__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7__2__Impl_in_rule__Suite__Group_7__217570);
+            pushFollow(FOLLOW_rule__Suite__Group_7__2__Impl_in_rule__Suite__Group_7__217690);
             rule__Suite__Group_7__2__Impl();
 
             state._fsp--;
@@ -23529,26 +23682,26 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8722:1: rule__Suite__Group_7__2__Impl : ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8783:1: rule__Suite__Group_7__2__Impl : ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) ) ;
     public final void rule__Suite__Group_7__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8726:1: ( ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8727:1: ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8787:1: ( ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8788:1: ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8727:1: ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8728:1: ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8788:1: ( ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8789:1: ( ( rule__Suite__Group_7_2__0 ) ) ( ( rule__Suite__Group_7_2__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8728:1: ( ( rule__Suite__Group_7_2__0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8729:1: ( rule__Suite__Group_7_2__0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8789:1: ( ( rule__Suite__Group_7_2__0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8790:1: ( rule__Suite__Group_7_2__0 )
             {
              before(grammarAccess.getSuiteAccess().getGroup_7_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8730:1: ( rule__Suite__Group_7_2__0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8730:2: rule__Suite__Group_7_2__0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8791:1: ( rule__Suite__Group_7_2__0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8791:2: rule__Suite__Group_7_2__0
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17599);
+            pushFollow(FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17719);
             rule__Suite__Group_7_2__0();
 
             state._fsp--;
@@ -23560,11 +23713,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8733:1: ( ( rule__Suite__Group_7_2__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8734:1: ( rule__Suite__Group_7_2__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8794:1: ( ( rule__Suite__Group_7_2__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8795:1: ( rule__Suite__Group_7_2__0 )*
             {
              before(grammarAccess.getSuiteAccess().getGroup_7_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8735:1: ( rule__Suite__Group_7_2__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8796:1: ( rule__Suite__Group_7_2__0 )*
             loop49:
             do {
                 int alt49=2;
@@ -23577,9 +23730,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt49) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8735:2: rule__Suite__Group_7_2__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8796:2: rule__Suite__Group_7_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17611);
+            	    pushFollow(FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17731);
             	    rule__Suite__Group_7_2__0();
 
             	    state._fsp--;
@@ -23619,21 +23772,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7_2__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8752:1: rule__Suite__Group_7_2__0 : rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8813:1: rule__Suite__Group_7_2__0 : rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1 ;
     public final void rule__Suite__Group_7_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8756:1: ( rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8757:2: rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8817:1: ( rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8818:2: rule__Suite__Group_7_2__0__Impl rule__Suite__Group_7_2__1
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7_2__0__Impl_in_rule__Suite__Group_7_2__017650);
+            pushFollow(FOLLOW_rule__Suite__Group_7_2__0__Impl_in_rule__Suite__Group_7_2__017770);
             rule__Suite__Group_7_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Suite__Group_7_2__1_in_rule__Suite__Group_7_2__017653);
+            pushFollow(FOLLOW_rule__Suite__Group_7_2__1_in_rule__Suite__Group_7_2__017773);
             rule__Suite__Group_7_2__1();
 
             state._fsp--;
@@ -23657,23 +23810,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7_2__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8764:1: rule__Suite__Group_7_2__0__Impl : ( ( rule__Suite__VariantsAssignment_7_2_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8825:1: rule__Suite__Group_7_2__0__Impl : ( ( rule__Suite__VariantsAssignment_7_2_0 ) ) ;
     public final void rule__Suite__Group_7_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8768:1: ( ( ( rule__Suite__VariantsAssignment_7_2_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8769:1: ( ( rule__Suite__VariantsAssignment_7_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8829:1: ( ( ( rule__Suite__VariantsAssignment_7_2_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8830:1: ( ( rule__Suite__VariantsAssignment_7_2_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8769:1: ( ( rule__Suite__VariantsAssignment_7_2_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8770:1: ( rule__Suite__VariantsAssignment_7_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8830:1: ( ( rule__Suite__VariantsAssignment_7_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8831:1: ( rule__Suite__VariantsAssignment_7_2_0 )
             {
              before(grammarAccess.getSuiteAccess().getVariantsAssignment_7_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8771:1: ( rule__Suite__VariantsAssignment_7_2_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8771:2: rule__Suite__VariantsAssignment_7_2_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8832:1: ( rule__Suite__VariantsAssignment_7_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8832:2: rule__Suite__VariantsAssignment_7_2_0
             {
-            pushFollow(FOLLOW_rule__Suite__VariantsAssignment_7_2_0_in_rule__Suite__Group_7_2__0__Impl17680);
+            pushFollow(FOLLOW_rule__Suite__VariantsAssignment_7_2_0_in_rule__Suite__Group_7_2__0__Impl17800);
             rule__Suite__VariantsAssignment_7_2_0();
 
             state._fsp--;
@@ -23704,16 +23857,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7_2__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8781:1: rule__Suite__Group_7_2__1 : rule__Suite__Group_7_2__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8842:1: rule__Suite__Group_7_2__1 : rule__Suite__Group_7_2__1__Impl ;
     public final void rule__Suite__Group_7_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8785:1: ( rule__Suite__Group_7_2__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8786:2: rule__Suite__Group_7_2__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8846:1: ( rule__Suite__Group_7_2__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8847:2: rule__Suite__Group_7_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Suite__Group_7_2__1__Impl_in_rule__Suite__Group_7_2__117710);
+            pushFollow(FOLLOW_rule__Suite__Group_7_2__1__Impl_in_rule__Suite__Group_7_2__117830);
             rule__Suite__Group_7_2__1__Impl();
 
             state._fsp--;
@@ -23737,20 +23890,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7_2__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8792:1: rule__Suite__Group_7_2__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8853:1: rule__Suite__Group_7_2__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_7_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8796:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8797:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8857:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8858:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8797:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8798:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8858:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8859:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_2_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_7_2__1__Impl17737);
+            pushFollow(FOLLOW_ruleNL_in_rule__Suite__Group_7_2__1__Impl17857);
             ruleNL();
 
             state._fsp--;
@@ -23778,21 +23931,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8813:1: rule__SuiteParameter__Group__0 : rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8874:1: rule__SuiteParameter__Group__0 : rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 ;
     public final void rule__SuiteParameter__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8817:1: ( rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8818:2: rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8878:1: ( rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8879:2: rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__0__Impl_in_rule__SuiteParameter__Group__017770);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__0__Impl_in_rule__SuiteParameter__Group__017890);
             rule__SuiteParameter__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__1_in_rule__SuiteParameter__Group__017773);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__1_in_rule__SuiteParameter__Group__017893);
             rule__SuiteParameter__Group__1();
 
             state._fsp--;
@@ -23816,23 +23969,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8825:1: rule__SuiteParameter__Group__0__Impl : ( ( rule__SuiteParameter__NameAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8886:1: rule__SuiteParameter__Group__0__Impl : ( ( rule__SuiteParameter__NameAssignment_0 ) ) ;
     public final void rule__SuiteParameter__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8829:1: ( ( ( rule__SuiteParameter__NameAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8830:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8890:1: ( ( ( rule__SuiteParameter__NameAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8891:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8830:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8831:1: ( rule__SuiteParameter__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8891:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8892:1: ( rule__SuiteParameter__NameAssignment_0 )
             {
              before(grammarAccess.getSuiteParameterAccess().getNameAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8832:1: ( rule__SuiteParameter__NameAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8832:2: rule__SuiteParameter__NameAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8893:1: ( rule__SuiteParameter__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8893:2: rule__SuiteParameter__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__NameAssignment_0_in_rule__SuiteParameter__Group__0__Impl17800);
+            pushFollow(FOLLOW_rule__SuiteParameter__NameAssignment_0_in_rule__SuiteParameter__Group__0__Impl17920);
             rule__SuiteParameter__NameAssignment_0();
 
             state._fsp--;
@@ -23863,21 +24016,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8842:1: rule__SuiteParameter__Group__1 : rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8903:1: rule__SuiteParameter__Group__1 : rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 ;
     public final void rule__SuiteParameter__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8846:1: ( rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8847:2: rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8907:1: ( rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8908:2: rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__1__Impl_in_rule__SuiteParameter__Group__117830);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__1__Impl_in_rule__SuiteParameter__Group__117950);
             rule__SuiteParameter__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__2_in_rule__SuiteParameter__Group__117833);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__2_in_rule__SuiteParameter__Group__117953);
             rule__SuiteParameter__Group__2();
 
             state._fsp--;
@@ -23901,20 +24054,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8854:1: rule__SuiteParameter__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8915:1: rule__SuiteParameter__Group__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteParameter__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8858:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8859:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8919:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8920:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8859:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8860:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8920:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8921:1: ruleNL
             {
              before(grammarAccess.getSuiteParameterAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__SuiteParameter__Group__1__Impl17860);
+            pushFollow(FOLLOW_ruleNL_in_rule__SuiteParameter__Group__1__Impl17980);
             ruleNL();
 
             state._fsp--;
@@ -23942,21 +24095,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8871:1: rule__SuiteParameter__Group__2 : rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8932:1: rule__SuiteParameter__Group__2 : rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 ;
     public final void rule__SuiteParameter__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8875:1: ( rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8876:2: rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8936:1: ( rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8937:2: rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__2__Impl_in_rule__SuiteParameter__Group__217889);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__2__Impl_in_rule__SuiteParameter__Group__218009);
             rule__SuiteParameter__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__3_in_rule__SuiteParameter__Group__217892);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__3_in_rule__SuiteParameter__Group__218012);
             rule__SuiteParameter__Group__3();
 
             state._fsp--;
@@ -23980,20 +24133,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8883:1: rule__SuiteParameter__Group__2__Impl : ( ':' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8944:1: rule__SuiteParameter__Group__2__Impl : ( ':' ) ;
     public final void rule__SuiteParameter__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8887:1: ( ( ':' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8888:1: ( ':' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8948:1: ( ( ':' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8949:1: ( ':' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8888:1: ( ':' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8889:1: ':'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8949:1: ( ':' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8950:1: ':'
             {
              before(grammarAccess.getSuiteParameterAccess().getColonKeyword_2()); 
-            match(input,25,FOLLOW_25_in_rule__SuiteParameter__Group__2__Impl17920); 
+            match(input,25,FOLLOW_25_in_rule__SuiteParameter__Group__2__Impl18040); 
              after(grammarAccess.getSuiteParameterAccess().getColonKeyword_2()); 
 
             }
@@ -24017,21 +24170,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8902:1: rule__SuiteParameter__Group__3 : rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8963:1: rule__SuiteParameter__Group__3 : rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 ;
     public final void rule__SuiteParameter__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8906:1: ( rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8907:2: rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8967:1: ( rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8968:2: rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__317951);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__318071);
             rule__SuiteParameter__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__4_in_rule__SuiteParameter__Group__317954);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__4_in_rule__SuiteParameter__Group__318074);
             rule__SuiteParameter__Group__4();
 
             state._fsp--;
@@ -24055,20 +24208,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8914:1: rule__SuiteParameter__Group__3__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8975:1: rule__SuiteParameter__Group__3__Impl : ( ruleNL ) ;
     public final void rule__SuiteParameter__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8918:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8919:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8979:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8980:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8919:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8920:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8980:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8981:1: ruleNL
             {
              before(grammarAccess.getSuiteParameterAccess().getNLParserRuleCall_3()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__SuiteParameter__Group__3__Impl17981);
+            pushFollow(FOLLOW_ruleNL_in_rule__SuiteParameter__Group__3__Impl18101);
             ruleNL();
 
             state._fsp--;
@@ -24096,16 +24249,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8931:1: rule__SuiteParameter__Group__4 : rule__SuiteParameter__Group__4__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8992:1: rule__SuiteParameter__Group__4 : rule__SuiteParameter__Group__4__Impl ;
     public final void rule__SuiteParameter__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8935:1: ( rule__SuiteParameter__Group__4__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8936:2: rule__SuiteParameter__Group__4__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8996:1: ( rule__SuiteParameter__Group__4__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8997:2: rule__SuiteParameter__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__Group__4__Impl_in_rule__SuiteParameter__Group__418010);
+            pushFollow(FOLLOW_rule__SuiteParameter__Group__4__Impl_in_rule__SuiteParameter__Group__418130);
             rule__SuiteParameter__Group__4__Impl();
 
             state._fsp--;
@@ -24129,23 +24282,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8942:1: rule__SuiteParameter__Group__4__Impl : ( ( rule__SuiteParameter__ValueAssignment_4 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9003:1: rule__SuiteParameter__Group__4__Impl : ( ( rule__SuiteParameter__ValueAssignment_4 ) ) ;
     public final void rule__SuiteParameter__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8946:1: ( ( ( rule__SuiteParameter__ValueAssignment_4 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8947:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9007:1: ( ( ( rule__SuiteParameter__ValueAssignment_4 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9008:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8947:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8948:1: ( rule__SuiteParameter__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9008:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9009:1: ( rule__SuiteParameter__ValueAssignment_4 )
             {
              before(grammarAccess.getSuiteParameterAccess().getValueAssignment_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8949:1: ( rule__SuiteParameter__ValueAssignment_4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8949:2: rule__SuiteParameter__ValueAssignment_4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9010:1: ( rule__SuiteParameter__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9010:2: rule__SuiteParameter__ValueAssignment_4
             {
-            pushFollow(FOLLOW_rule__SuiteParameter__ValueAssignment_4_in_rule__SuiteParameter__Group__4__Impl18037);
+            pushFollow(FOLLOW_rule__SuiteParameter__ValueAssignment_4_in_rule__SuiteParameter__Group__4__Impl18157);
             rule__SuiteParameter__ValueAssignment_4();
 
             state._fsp--;
@@ -24176,21 +24329,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8969:1: rule__Parameter__Group__0 : rule__Parameter__Group__0__Impl rule__Parameter__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9030:1: rule__Parameter__Group__0 : rule__Parameter__Group__0__Impl rule__Parameter__Group__1 ;
     public final void rule__Parameter__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8973:1: ( rule__Parameter__Group__0__Impl rule__Parameter__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8974:2: rule__Parameter__Group__0__Impl rule__Parameter__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9034:1: ( rule__Parameter__Group__0__Impl rule__Parameter__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9035:2: rule__Parameter__Group__0__Impl rule__Parameter__Group__1
             {
-            pushFollow(FOLLOW_rule__Parameter__Group__0__Impl_in_rule__Parameter__Group__018077);
+            pushFollow(FOLLOW_rule__Parameter__Group__0__Impl_in_rule__Parameter__Group__018197);
             rule__Parameter__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Parameter__Group__1_in_rule__Parameter__Group__018080);
+            pushFollow(FOLLOW_rule__Parameter__Group__1_in_rule__Parameter__Group__018200);
             rule__Parameter__Group__1();
 
             state._fsp--;
@@ -24214,23 +24367,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8981:1: rule__Parameter__Group__0__Impl : ( ( rule__Parameter__NameAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9042:1: rule__Parameter__Group__0__Impl : ( ( rule__Parameter__NameAssignment_0 ) ) ;
     public final void rule__Parameter__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8985:1: ( ( ( rule__Parameter__NameAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8986:1: ( ( rule__Parameter__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9046:1: ( ( ( rule__Parameter__NameAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9047:1: ( ( rule__Parameter__NameAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8986:1: ( ( rule__Parameter__NameAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8987:1: ( rule__Parameter__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9047:1: ( ( rule__Parameter__NameAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9048:1: ( rule__Parameter__NameAssignment_0 )
             {
              before(grammarAccess.getParameterAccess().getNameAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8988:1: ( rule__Parameter__NameAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8988:2: rule__Parameter__NameAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9049:1: ( rule__Parameter__NameAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9049:2: rule__Parameter__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__Parameter__NameAssignment_0_in_rule__Parameter__Group__0__Impl18107);
+            pushFollow(FOLLOW_rule__Parameter__NameAssignment_0_in_rule__Parameter__Group__0__Impl18227);
             rule__Parameter__NameAssignment_0();
 
             state._fsp--;
@@ -24261,21 +24414,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:8998:1: rule__Parameter__Group__1 : rule__Parameter__Group__1__Impl rule__Parameter__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9059:1: rule__Parameter__Group__1 : rule__Parameter__Group__1__Impl rule__Parameter__Group__2 ;
     public final void rule__Parameter__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9002:1: ( rule__Parameter__Group__1__Impl rule__Parameter__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9003:2: rule__Parameter__Group__1__Impl rule__Parameter__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9063:1: ( rule__Parameter__Group__1__Impl rule__Parameter__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9064:2: rule__Parameter__Group__1__Impl rule__Parameter__Group__2
             {
-            pushFollow(FOLLOW_rule__Parameter__Group__1__Impl_in_rule__Parameter__Group__118137);
+            pushFollow(FOLLOW_rule__Parameter__Group__1__Impl_in_rule__Parameter__Group__118257);
             rule__Parameter__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Parameter__Group__2_in_rule__Parameter__Group__118140);
+            pushFollow(FOLLOW_rule__Parameter__Group__2_in_rule__Parameter__Group__118260);
             rule__Parameter__Group__2();
 
             state._fsp--;
@@ -24299,20 +24452,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9010:1: rule__Parameter__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9071:1: rule__Parameter__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Parameter__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9014:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9015:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9075:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9076:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9015:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9016:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9076:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9077:1: ruleNL
             {
              before(grammarAccess.getParameterAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Parameter__Group__1__Impl18167);
+            pushFollow(FOLLOW_ruleNL_in_rule__Parameter__Group__1__Impl18287);
             ruleNL();
 
             state._fsp--;
@@ -24340,21 +24493,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9027:1: rule__Parameter__Group__2 : rule__Parameter__Group__2__Impl rule__Parameter__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9088:1: rule__Parameter__Group__2 : rule__Parameter__Group__2__Impl rule__Parameter__Group__3 ;
     public final void rule__Parameter__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9031:1: ( rule__Parameter__Group__2__Impl rule__Parameter__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9032:2: rule__Parameter__Group__2__Impl rule__Parameter__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9092:1: ( rule__Parameter__Group__2__Impl rule__Parameter__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9093:2: rule__Parameter__Group__2__Impl rule__Parameter__Group__3
             {
-            pushFollow(FOLLOW_rule__Parameter__Group__2__Impl_in_rule__Parameter__Group__218196);
+            pushFollow(FOLLOW_rule__Parameter__Group__2__Impl_in_rule__Parameter__Group__218316);
             rule__Parameter__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Parameter__Group__3_in_rule__Parameter__Group__218199);
+            pushFollow(FOLLOW_rule__Parameter__Group__3_in_rule__Parameter__Group__218319);
             rule__Parameter__Group__3();
 
             state._fsp--;
@@ -24378,20 +24531,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9039:1: rule__Parameter__Group__2__Impl : ( ':' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9100:1: rule__Parameter__Group__2__Impl : ( ':' ) ;
     public final void rule__Parameter__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9043:1: ( ( ':' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9044:1: ( ':' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9104:1: ( ( ':' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9105:1: ( ':' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9044:1: ( ':' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9045:1: ':'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9105:1: ( ':' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9106:1: ':'
             {
              before(grammarAccess.getParameterAccess().getColonKeyword_2()); 
-            match(input,25,FOLLOW_25_in_rule__Parameter__Group__2__Impl18227); 
+            match(input,25,FOLLOW_25_in_rule__Parameter__Group__2__Impl18347); 
              after(grammarAccess.getParameterAccess().getColonKeyword_2()); 
 
             }
@@ -24415,21 +24568,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9058:1: rule__Parameter__Group__3 : rule__Parameter__Group__3__Impl rule__Parameter__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9119:1: rule__Parameter__Group__3 : rule__Parameter__Group__3__Impl rule__Parameter__Group__4 ;
     public final void rule__Parameter__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9062:1: ( rule__Parameter__Group__3__Impl rule__Parameter__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9063:2: rule__Parameter__Group__3__Impl rule__Parameter__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9123:1: ( rule__Parameter__Group__3__Impl rule__Parameter__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9124:2: rule__Parameter__Group__3__Impl rule__Parameter__Group__4
             {
-            pushFollow(FOLLOW_rule__Parameter__Group__3__Impl_in_rule__Parameter__Group__318258);
+            pushFollow(FOLLOW_rule__Parameter__Group__3__Impl_in_rule__Parameter__Group__318378);
             rule__Parameter__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Parameter__Group__4_in_rule__Parameter__Group__318261);
+            pushFollow(FOLLOW_rule__Parameter__Group__4_in_rule__Parameter__Group__318381);
             rule__Parameter__Group__4();
 
             state._fsp--;
@@ -24453,20 +24606,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9070:1: rule__Parameter__Group__3__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9131:1: rule__Parameter__Group__3__Impl : ( ruleNL ) ;
     public final void rule__Parameter__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9074:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9075:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9135:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9136:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9075:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9076:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9136:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9137:1: ruleNL
             {
              before(grammarAccess.getParameterAccess().getNLParserRuleCall_3()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Parameter__Group__3__Impl18288);
+            pushFollow(FOLLOW_ruleNL_in_rule__Parameter__Group__3__Impl18408);
             ruleNL();
 
             state._fsp--;
@@ -24494,16 +24647,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9087:1: rule__Parameter__Group__4 : rule__Parameter__Group__4__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9148:1: rule__Parameter__Group__4 : rule__Parameter__Group__4__Impl ;
     public final void rule__Parameter__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9091:1: ( rule__Parameter__Group__4__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9092:2: rule__Parameter__Group__4__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9152:1: ( rule__Parameter__Group__4__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9153:2: rule__Parameter__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__Parameter__Group__4__Impl_in_rule__Parameter__Group__418317);
+            pushFollow(FOLLOW_rule__Parameter__Group__4__Impl_in_rule__Parameter__Group__418437);
             rule__Parameter__Group__4__Impl();
 
             state._fsp--;
@@ -24527,23 +24680,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9098:1: rule__Parameter__Group__4__Impl : ( ( rule__Parameter__ValueAssignment_4 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9159:1: rule__Parameter__Group__4__Impl : ( ( rule__Parameter__ValueAssignment_4 ) ) ;
     public final void rule__Parameter__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9102:1: ( ( ( rule__Parameter__ValueAssignment_4 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9103:1: ( ( rule__Parameter__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9163:1: ( ( ( rule__Parameter__ValueAssignment_4 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9164:1: ( ( rule__Parameter__ValueAssignment_4 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9103:1: ( ( rule__Parameter__ValueAssignment_4 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9104:1: ( rule__Parameter__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9164:1: ( ( rule__Parameter__ValueAssignment_4 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9165:1: ( rule__Parameter__ValueAssignment_4 )
             {
              before(grammarAccess.getParameterAccess().getValueAssignment_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9105:1: ( rule__Parameter__ValueAssignment_4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9105:2: rule__Parameter__ValueAssignment_4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9166:1: ( rule__Parameter__ValueAssignment_4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9166:2: rule__Parameter__ValueAssignment_4
             {
-            pushFollow(FOLLOW_rule__Parameter__ValueAssignment_4_in_rule__Parameter__Group__4__Impl18344);
+            pushFollow(FOLLOW_rule__Parameter__ValueAssignment_4_in_rule__Parameter__Group__4__Impl18464);
             rule__Parameter__ValueAssignment_4();
 
             state._fsp--;
@@ -24574,21 +24727,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9125:1: rule__ArbitraryParameterOrResultName__Group__0 : rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9186:1: rule__ArbitraryParameterOrResultName__Group__0 : rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 ;
     public final void rule__ArbitraryParameterOrResultName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9129:1: ( rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9130:2: rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9190:1: ( rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9191:2: rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1
             {
-            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__0__Impl_in_rule__ArbitraryParameterOrResultName__Group__018384);
+            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__0__Impl_in_rule__ArbitraryParameterOrResultName__Group__018504);
             rule__ArbitraryParameterOrResultName__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__1_in_rule__ArbitraryParameterOrResultName__Group__018387);
+            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__1_in_rule__ArbitraryParameterOrResultName__Group__018507);
             rule__ArbitraryParameterOrResultName__Group__1();
 
             state._fsp--;
@@ -24612,20 +24765,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9137:1: rule__ArbitraryParameterOrResultName__Group__0__Impl : ( '+' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9198:1: rule__ArbitraryParameterOrResultName__Group__0__Impl : ( '+' ) ;
     public final void rule__ArbitraryParameterOrResultName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9141:1: ( ( '+' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9142:1: ( '+' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9202:1: ( ( '+' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9203:1: ( '+' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9142:1: ( '+' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9143:1: '+'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9203:1: ( '+' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9204:1: '+'
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0()); 
-            match(input,47,FOLLOW_47_in_rule__ArbitraryParameterOrResultName__Group__0__Impl18415); 
+            match(input,47,FOLLOW_47_in_rule__ArbitraryParameterOrResultName__Group__0__Impl18535); 
              after(grammarAccess.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0()); 
 
             }
@@ -24649,16 +24802,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9156:1: rule__ArbitraryParameterOrResultName__Group__1 : rule__ArbitraryParameterOrResultName__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9217:1: rule__ArbitraryParameterOrResultName__Group__1 : rule__ArbitraryParameterOrResultName__Group__1__Impl ;
     public final void rule__ArbitraryParameterOrResultName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9160:1: ( rule__ArbitraryParameterOrResultName__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9161:2: rule__ArbitraryParameterOrResultName__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9221:1: ( rule__ArbitraryParameterOrResultName__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9222:2: rule__ArbitraryParameterOrResultName__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__1__Impl_in_rule__ArbitraryParameterOrResultName__Group__118446);
+            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__Group__1__Impl_in_rule__ArbitraryParameterOrResultName__Group__118566);
             rule__ArbitraryParameterOrResultName__Group__1__Impl();
 
             state._fsp--;
@@ -24682,23 +24835,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9167:1: rule__ArbitraryParameterOrResultName__Group__1__Impl : ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9228:1: rule__ArbitraryParameterOrResultName__Group__1__Impl : ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) ) ;
     public final void rule__ArbitraryParameterOrResultName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9171:1: ( ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9172:1: ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9232:1: ( ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9233:1: ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9172:1: ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9173:1: ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9233:1: ( ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9234:1: ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 )
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9174:1: ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9174:2: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9235:1: ( rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9235:2: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1
             {
-            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_in_rule__ArbitraryParameterOrResultName__Group__1__Impl18473);
+            pushFollow(FOLLOW_rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_in_rule__ArbitraryParameterOrResultName__Group__1__Impl18593);
             rule__ArbitraryParameterOrResultName__IdentifierAssignment_1();
 
             state._fsp--;
@@ -24729,21 +24882,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9188:1: rule__Operation__Group__0 : rule__Operation__Group__0__Impl rule__Operation__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9249:1: rule__Operation__Group__0 : rule__Operation__Group__0__Impl rule__Operation__Group__1 ;
     public final void rule__Operation__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9192:1: ( rule__Operation__Group__0__Impl rule__Operation__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9193:2: rule__Operation__Group__0__Impl rule__Operation__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9253:1: ( rule__Operation__Group__0__Impl rule__Operation__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9254:2: rule__Operation__Group__0__Impl rule__Operation__Group__1
             {
-            pushFollow(FOLLOW_rule__Operation__Group__0__Impl_in_rule__Operation__Group__018507);
+            pushFollow(FOLLOW_rule__Operation__Group__0__Impl_in_rule__Operation__Group__018627);
             rule__Operation__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__1_in_rule__Operation__Group__018510);
+            pushFollow(FOLLOW_rule__Operation__Group__1_in_rule__Operation__Group__018630);
             rule__Operation__Group__1();
 
             state._fsp--;
@@ -24767,20 +24920,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9200:1: rule__Operation__Group__0__Impl : ( '(' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9261:1: rule__Operation__Group__0__Impl : ( '(' ) ;
     public final void rule__Operation__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9204:1: ( ( '(' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9205:1: ( '(' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9265:1: ( ( '(' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9266:1: ( '(' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9205:1: ( '(' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9206:1: '('
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9266:1: ( '(' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9267:1: '('
             {
              before(grammarAccess.getOperationAccess().getLeftParenthesisKeyword_0()); 
-            match(input,48,FOLLOW_48_in_rule__Operation__Group__0__Impl18538); 
+            match(input,48,FOLLOW_48_in_rule__Operation__Group__0__Impl18658); 
              after(grammarAccess.getOperationAccess().getLeftParenthesisKeyword_0()); 
 
             }
@@ -24804,21 +24957,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9219:1: rule__Operation__Group__1 : rule__Operation__Group__1__Impl rule__Operation__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9280:1: rule__Operation__Group__1 : rule__Operation__Group__1__Impl rule__Operation__Group__2 ;
     public final void rule__Operation__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9223:1: ( rule__Operation__Group__1__Impl rule__Operation__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9224:2: rule__Operation__Group__1__Impl rule__Operation__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9284:1: ( rule__Operation__Group__1__Impl rule__Operation__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9285:2: rule__Operation__Group__1__Impl rule__Operation__Group__2
             {
-            pushFollow(FOLLOW_rule__Operation__Group__1__Impl_in_rule__Operation__Group__118569);
+            pushFollow(FOLLOW_rule__Operation__Group__1__Impl_in_rule__Operation__Group__118689);
             rule__Operation__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__2_in_rule__Operation__Group__118572);
+            pushFollow(FOLLOW_rule__Operation__Group__2_in_rule__Operation__Group__118692);
             rule__Operation__Group__2();
 
             state._fsp--;
@@ -24842,20 +24995,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9231:1: rule__Operation__Group__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9292:1: rule__Operation__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Operation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9235:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9236:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9296:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9297:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9236:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9237:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9297:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9298:1: ruleNL
             {
              before(grammarAccess.getOperationAccess().getNLParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group__1__Impl18599);
+            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group__1__Impl18719);
             ruleNL();
 
             state._fsp--;
@@ -24883,21 +25036,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9248:1: rule__Operation__Group__2 : rule__Operation__Group__2__Impl rule__Operation__Group__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9309:1: rule__Operation__Group__2 : rule__Operation__Group__2__Impl rule__Operation__Group__3 ;
     public final void rule__Operation__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9252:1: ( rule__Operation__Group__2__Impl rule__Operation__Group__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9253:2: rule__Operation__Group__2__Impl rule__Operation__Group__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9313:1: ( rule__Operation__Group__2__Impl rule__Operation__Group__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9314:2: rule__Operation__Group__2__Impl rule__Operation__Group__3
             {
-            pushFollow(FOLLOW_rule__Operation__Group__2__Impl_in_rule__Operation__Group__218628);
+            pushFollow(FOLLOW_rule__Operation__Group__2__Impl_in_rule__Operation__Group__218748);
             rule__Operation__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__3_in_rule__Operation__Group__218631);
+            pushFollow(FOLLOW_rule__Operation__Group__3_in_rule__Operation__Group__218751);
             rule__Operation__Group__3();
 
             state._fsp--;
@@ -24921,27 +25074,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9260:1: rule__Operation__Group__2__Impl : ( ( rule__Operation__Group_2__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9321:1: rule__Operation__Group__2__Impl : ( ( rule__Operation__Group_2__0 )? ) ;
     public final void rule__Operation__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9264:1: ( ( ( rule__Operation__Group_2__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9265:1: ( ( rule__Operation__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9325:1: ( ( ( rule__Operation__Group_2__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9326:1: ( ( rule__Operation__Group_2__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9265:1: ( ( rule__Operation__Group_2__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9266:1: ( rule__Operation__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9326:1: ( ( rule__Operation__Group_2__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9327:1: ( rule__Operation__Group_2__0 )?
             {
              before(grammarAccess.getOperationAccess().getGroup_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9267:1: ( rule__Operation__Group_2__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9328:1: ( rule__Operation__Group_2__0 )?
             int alt50=2;
             alt50 = dfa50.predict(input);
             switch (alt50) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9267:2: rule__Operation__Group_2__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9328:2: rule__Operation__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Operation__Group_2__0_in_rule__Operation__Group__2__Impl18658);
+                    pushFollow(FOLLOW_rule__Operation__Group_2__0_in_rule__Operation__Group__2__Impl18778);
                     rule__Operation__Group_2__0();
 
                     state._fsp--;
@@ -24975,21 +25128,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9277:1: rule__Operation__Group__3 : rule__Operation__Group__3__Impl rule__Operation__Group__4 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9338:1: rule__Operation__Group__3 : rule__Operation__Group__3__Impl rule__Operation__Group__4 ;
     public final void rule__Operation__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9281:1: ( rule__Operation__Group__3__Impl rule__Operation__Group__4 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9282:2: rule__Operation__Group__3__Impl rule__Operation__Group__4
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9342:1: ( rule__Operation__Group__3__Impl rule__Operation__Group__4 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9343:2: rule__Operation__Group__3__Impl rule__Operation__Group__4
             {
-            pushFollow(FOLLOW_rule__Operation__Group__3__Impl_in_rule__Operation__Group__318689);
+            pushFollow(FOLLOW_rule__Operation__Group__3__Impl_in_rule__Operation__Group__318809);
             rule__Operation__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__4_in_rule__Operation__Group__318692);
+            pushFollow(FOLLOW_rule__Operation__Group__4_in_rule__Operation__Group__318812);
             rule__Operation__Group__4();
 
             state._fsp--;
@@ -25013,23 +25166,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9289:1: rule__Operation__Group__3__Impl : ( ( rule__Operation__DefinitionAssignment_3 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9350:1: rule__Operation__Group__3__Impl : ( ( rule__Operation__DefinitionAssignment_3 ) ) ;
     public final void rule__Operation__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9293:1: ( ( ( rule__Operation__DefinitionAssignment_3 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9294:1: ( ( rule__Operation__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9354:1: ( ( ( rule__Operation__DefinitionAssignment_3 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9355:1: ( ( rule__Operation__DefinitionAssignment_3 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9294:1: ( ( rule__Operation__DefinitionAssignment_3 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9295:1: ( rule__Operation__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9355:1: ( ( rule__Operation__DefinitionAssignment_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9356:1: ( rule__Operation__DefinitionAssignment_3 )
             {
              before(grammarAccess.getOperationAccess().getDefinitionAssignment_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9296:1: ( rule__Operation__DefinitionAssignment_3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9296:2: rule__Operation__DefinitionAssignment_3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9357:1: ( rule__Operation__DefinitionAssignment_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9357:2: rule__Operation__DefinitionAssignment_3
             {
-            pushFollow(FOLLOW_rule__Operation__DefinitionAssignment_3_in_rule__Operation__Group__3__Impl18719);
+            pushFollow(FOLLOW_rule__Operation__DefinitionAssignment_3_in_rule__Operation__Group__3__Impl18839);
             rule__Operation__DefinitionAssignment_3();
 
             state._fsp--;
@@ -25060,21 +25213,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9306:1: rule__Operation__Group__4 : rule__Operation__Group__4__Impl rule__Operation__Group__5 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9367:1: rule__Operation__Group__4 : rule__Operation__Group__4__Impl rule__Operation__Group__5 ;
     public final void rule__Operation__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9310:1: ( rule__Operation__Group__4__Impl rule__Operation__Group__5 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9311:2: rule__Operation__Group__4__Impl rule__Operation__Group__5
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9371:1: ( rule__Operation__Group__4__Impl rule__Operation__Group__5 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9372:2: rule__Operation__Group__4__Impl rule__Operation__Group__5
             {
-            pushFollow(FOLLOW_rule__Operation__Group__4__Impl_in_rule__Operation__Group__418749);
+            pushFollow(FOLLOW_rule__Operation__Group__4__Impl_in_rule__Operation__Group__418869);
             rule__Operation__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__5_in_rule__Operation__Group__418752);
+            pushFollow(FOLLOW_rule__Operation__Group__5_in_rule__Operation__Group__418872);
             rule__Operation__Group__5();
 
             state._fsp--;
@@ -25098,27 +25251,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__4__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9318:1: rule__Operation__Group__4__Impl : ( ( rule__Operation__Group_4__0 )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9379:1: rule__Operation__Group__4__Impl : ( ( rule__Operation__Group_4__0 )? ) ;
     public final void rule__Operation__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9322:1: ( ( ( rule__Operation__Group_4__0 )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9323:1: ( ( rule__Operation__Group_4__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9383:1: ( ( ( rule__Operation__Group_4__0 )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9384:1: ( ( rule__Operation__Group_4__0 )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9323:1: ( ( rule__Operation__Group_4__0 )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9324:1: ( rule__Operation__Group_4__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9384:1: ( ( rule__Operation__Group_4__0 )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9385:1: ( rule__Operation__Group_4__0 )?
             {
              before(grammarAccess.getOperationAccess().getGroup_4()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9325:1: ( rule__Operation__Group_4__0 )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9386:1: ( rule__Operation__Group_4__0 )?
             int alt51=2;
             alt51 = dfa51.predict(input);
             switch (alt51) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9325:2: rule__Operation__Group_4__0
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9386:2: rule__Operation__Group_4__0
                     {
-                    pushFollow(FOLLOW_rule__Operation__Group_4__0_in_rule__Operation__Group__4__Impl18779);
+                    pushFollow(FOLLOW_rule__Operation__Group_4__0_in_rule__Operation__Group__4__Impl18899);
                     rule__Operation__Group_4__0();
 
                     state._fsp--;
@@ -25152,21 +25305,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9335:1: rule__Operation__Group__5 : rule__Operation__Group__5__Impl rule__Operation__Group__6 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9396:1: rule__Operation__Group__5 : rule__Operation__Group__5__Impl rule__Operation__Group__6 ;
     public final void rule__Operation__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9339:1: ( rule__Operation__Group__5__Impl rule__Operation__Group__6 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9340:2: rule__Operation__Group__5__Impl rule__Operation__Group__6
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9400:1: ( rule__Operation__Group__5__Impl rule__Operation__Group__6 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9401:2: rule__Operation__Group__5__Impl rule__Operation__Group__6
             {
-            pushFollow(FOLLOW_rule__Operation__Group__5__Impl_in_rule__Operation__Group__518810);
+            pushFollow(FOLLOW_rule__Operation__Group__5__Impl_in_rule__Operation__Group__518930);
             rule__Operation__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group__6_in_rule__Operation__Group__518813);
+            pushFollow(FOLLOW_rule__Operation__Group__6_in_rule__Operation__Group__518933);
             rule__Operation__Group__6();
 
             state._fsp--;
@@ -25190,20 +25343,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__5__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9347:1: rule__Operation__Group__5__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9408:1: rule__Operation__Group__5__Impl : ( ruleNL ) ;
     public final void rule__Operation__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9351:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9352:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9412:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9413:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9352:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9353:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9413:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9414:1: ruleNL
             {
              before(grammarAccess.getOperationAccess().getNLParserRuleCall_5()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group__5__Impl18840);
+            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group__5__Impl18960);
             ruleNL();
 
             state._fsp--;
@@ -25231,16 +25384,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9364:1: rule__Operation__Group__6 : rule__Operation__Group__6__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9425:1: rule__Operation__Group__6 : rule__Operation__Group__6__Impl ;
     public final void rule__Operation__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9368:1: ( rule__Operation__Group__6__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9369:2: rule__Operation__Group__6__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9429:1: ( rule__Operation__Group__6__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9430:2: rule__Operation__Group__6__Impl
             {
-            pushFollow(FOLLOW_rule__Operation__Group__6__Impl_in_rule__Operation__Group__618869);
+            pushFollow(FOLLOW_rule__Operation__Group__6__Impl_in_rule__Operation__Group__618989);
             rule__Operation__Group__6__Impl();
 
             state._fsp--;
@@ -25264,20 +25417,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group__6__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9375:1: rule__Operation__Group__6__Impl : ( ')' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9436:1: rule__Operation__Group__6__Impl : ( ')' ) ;
     public final void rule__Operation__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9379:1: ( ( ')' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9380:1: ( ')' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9440:1: ( ( ')' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9441:1: ( ')' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9380:1: ( ')' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9381:1: ')'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9441:1: ( ')' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9442:1: ')'
             {
              before(grammarAccess.getOperationAccess().getRightParenthesisKeyword_6()); 
-            match(input,49,FOLLOW_49_in_rule__Operation__Group__6__Impl18897); 
+            match(input,49,FOLLOW_49_in_rule__Operation__Group__6__Impl19017); 
              after(grammarAccess.getOperationAccess().getRightParenthesisKeyword_6()); 
 
             }
@@ -25301,21 +25454,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_2__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9408:1: rule__Operation__Group_2__0 : rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9469:1: rule__Operation__Group_2__0 : rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1 ;
     public final void rule__Operation__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9412:1: ( rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9413:2: rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9473:1: ( rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9474:2: rule__Operation__Group_2__0__Impl rule__Operation__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Operation__Group_2__0__Impl_in_rule__Operation__Group_2__018942);
+            pushFollow(FOLLOW_rule__Operation__Group_2__0__Impl_in_rule__Operation__Group_2__019062);
             rule__Operation__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group_2__1_in_rule__Operation__Group_2__018945);
+            pushFollow(FOLLOW_rule__Operation__Group_2__1_in_rule__Operation__Group_2__019065);
             rule__Operation__Group_2__1();
 
             state._fsp--;
@@ -25339,23 +25492,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_2__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9420:1: rule__Operation__Group_2__0__Impl : ( ( rule__Operation__PrefixOperandAssignment_2_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9481:1: rule__Operation__Group_2__0__Impl : ( ( rule__Operation__PrefixOperandAssignment_2_0 ) ) ;
     public final void rule__Operation__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9424:1: ( ( ( rule__Operation__PrefixOperandAssignment_2_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9425:1: ( ( rule__Operation__PrefixOperandAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9485:1: ( ( ( rule__Operation__PrefixOperandAssignment_2_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9486:1: ( ( rule__Operation__PrefixOperandAssignment_2_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9425:1: ( ( rule__Operation__PrefixOperandAssignment_2_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9426:1: ( rule__Operation__PrefixOperandAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9486:1: ( ( rule__Operation__PrefixOperandAssignment_2_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9487:1: ( rule__Operation__PrefixOperandAssignment_2_0 )
             {
              before(grammarAccess.getOperationAccess().getPrefixOperandAssignment_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9427:1: ( rule__Operation__PrefixOperandAssignment_2_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9427:2: rule__Operation__PrefixOperandAssignment_2_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9488:1: ( rule__Operation__PrefixOperandAssignment_2_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9488:2: rule__Operation__PrefixOperandAssignment_2_0
             {
-            pushFollow(FOLLOW_rule__Operation__PrefixOperandAssignment_2_0_in_rule__Operation__Group_2__0__Impl18972);
+            pushFollow(FOLLOW_rule__Operation__PrefixOperandAssignment_2_0_in_rule__Operation__Group_2__0__Impl19092);
             rule__Operation__PrefixOperandAssignment_2_0();
 
             state._fsp--;
@@ -25386,16 +25539,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_2__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9437:1: rule__Operation__Group_2__1 : rule__Operation__Group_2__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9498:1: rule__Operation__Group_2__1 : rule__Operation__Group_2__1__Impl ;
     public final void rule__Operation__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9441:1: ( rule__Operation__Group_2__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9442:2: rule__Operation__Group_2__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9502:1: ( rule__Operation__Group_2__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9503:2: rule__Operation__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Operation__Group_2__1__Impl_in_rule__Operation__Group_2__119002);
+            pushFollow(FOLLOW_rule__Operation__Group_2__1__Impl_in_rule__Operation__Group_2__119122);
             rule__Operation__Group_2__1__Impl();
 
             state._fsp--;
@@ -25419,20 +25572,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_2__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9448:1: rule__Operation__Group_2__1__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9509:1: rule__Operation__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__Operation__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9452:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9453:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9513:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9514:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9453:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9454:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9514:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9515:1: ruleNL
             {
              before(grammarAccess.getOperationAccess().getNLParserRuleCall_2_1()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group_2__1__Impl19029);
+            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group_2__1__Impl19149);
             ruleNL();
 
             state._fsp--;
@@ -25460,21 +25613,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9469:1: rule__Operation__Group_4__0 : rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9530:1: rule__Operation__Group_4__0 : rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1 ;
     public final void rule__Operation__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9473:1: ( rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9474:2: rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9534:1: ( rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9535:2: rule__Operation__Group_4__0__Impl rule__Operation__Group_4__1
             {
-            pushFollow(FOLLOW_rule__Operation__Group_4__0__Impl_in_rule__Operation__Group_4__019062);
+            pushFollow(FOLLOW_rule__Operation__Group_4__0__Impl_in_rule__Operation__Group_4__019182);
             rule__Operation__Group_4__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group_4__1_in_rule__Operation__Group_4__019065);
+            pushFollow(FOLLOW_rule__Operation__Group_4__1_in_rule__Operation__Group_4__019185);
             rule__Operation__Group_4__1();
 
             state._fsp--;
@@ -25498,20 +25651,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9481:1: rule__Operation__Group_4__0__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9542:1: rule__Operation__Group_4__0__Impl : ( ruleNL ) ;
     public final void rule__Operation__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9485:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9486:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9546:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9547:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9486:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9487:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9547:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9548:1: ruleNL
             {
              before(grammarAccess.getOperationAccess().getNLParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group_4__0__Impl19092);
+            pushFollow(FOLLOW_ruleNL_in_rule__Operation__Group_4__0__Impl19212);
             ruleNL();
 
             state._fsp--;
@@ -25539,21 +25692,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9498:1: rule__Operation__Group_4__1 : rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9559:1: rule__Operation__Group_4__1 : rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2 ;
     public final void rule__Operation__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9502:1: ( rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9503:2: rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9563:1: ( rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9564:2: rule__Operation__Group_4__1__Impl rule__Operation__Group_4__2
             {
-            pushFollow(FOLLOW_rule__Operation__Group_4__1__Impl_in_rule__Operation__Group_4__119121);
+            pushFollow(FOLLOW_rule__Operation__Group_4__1__Impl_in_rule__Operation__Group_4__119241);
             rule__Operation__Group_4__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Operation__Group_4__2_in_rule__Operation__Group_4__119124);
+            pushFollow(FOLLOW_rule__Operation__Group_4__2_in_rule__Operation__Group_4__119244);
             rule__Operation__Group_4__2();
 
             state._fsp--;
@@ -25577,20 +25730,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9510:1: rule__Operation__Group_4__1__Impl : ( 'with' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9571:1: rule__Operation__Group_4__1__Impl : ( 'with' ) ;
     public final void rule__Operation__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9514:1: ( ( 'with' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9515:1: ( 'with' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9575:1: ( ( 'with' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9576:1: ( 'with' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9515:1: ( 'with' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9516:1: 'with'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9576:1: ( 'with' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9577:1: 'with'
             {
              before(grammarAccess.getOperationAccess().getWithKeyword_4_1()); 
-            match(input,20,FOLLOW_20_in_rule__Operation__Group_4__1__Impl19152); 
+            match(input,20,FOLLOW_20_in_rule__Operation__Group_4__1__Impl19272); 
              after(grammarAccess.getOperationAccess().getWithKeyword_4_1()); 
 
             }
@@ -25614,16 +25767,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9529:1: rule__Operation__Group_4__2 : rule__Operation__Group_4__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9590:1: rule__Operation__Group_4__2 : rule__Operation__Group_4__2__Impl ;
     public final void rule__Operation__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9533:1: ( rule__Operation__Group_4__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9534:2: rule__Operation__Group_4__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9594:1: ( rule__Operation__Group_4__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9595:2: rule__Operation__Group_4__2__Impl
             {
-            pushFollow(FOLLOW_rule__Operation__Group_4__2__Impl_in_rule__Operation__Group_4__219183);
+            pushFollow(FOLLOW_rule__Operation__Group_4__2__Impl_in_rule__Operation__Group_4__219303);
             rule__Operation__Group_4__2__Impl();
 
             state._fsp--;
@@ -25647,23 +25800,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__Group_4__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9540:1: rule__Operation__Group_4__2__Impl : ( ( rule__Operation__PostfixOperandAssignment_4_2 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9601:1: rule__Operation__Group_4__2__Impl : ( ( rule__Operation__PostfixOperandAssignment_4_2 ) ) ;
     public final void rule__Operation__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9544:1: ( ( ( rule__Operation__PostfixOperandAssignment_4_2 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9545:1: ( ( rule__Operation__PostfixOperandAssignment_4_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9605:1: ( ( ( rule__Operation__PostfixOperandAssignment_4_2 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9606:1: ( ( rule__Operation__PostfixOperandAssignment_4_2 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9545:1: ( ( rule__Operation__PostfixOperandAssignment_4_2 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9546:1: ( rule__Operation__PostfixOperandAssignment_4_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9606:1: ( ( rule__Operation__PostfixOperandAssignment_4_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9607:1: ( rule__Operation__PostfixOperandAssignment_4_2 )
             {
              before(grammarAccess.getOperationAccess().getPostfixOperandAssignment_4_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9547:1: ( rule__Operation__PostfixOperandAssignment_4_2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9547:2: rule__Operation__PostfixOperandAssignment_4_2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9608:1: ( rule__Operation__PostfixOperandAssignment_4_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9608:2: rule__Operation__PostfixOperandAssignment_4_2
             {
-            pushFollow(FOLLOW_rule__Operation__PostfixOperandAssignment_4_2_in_rule__Operation__Group_4__2__Impl19210);
+            pushFollow(FOLLOW_rule__Operation__PostfixOperandAssignment_4_2_in_rule__Operation__Group_4__2__Impl19330);
             rule__Operation__PostfixOperandAssignment_4_2();
 
             state._fsp--;
@@ -25694,21 +25847,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9563:1: rule__ValueOrEnumValueOrOperationCollection__Group__0 : rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9624:1: rule__ValueOrEnumValueOrOperationCollection__Group__0 : rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9567:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9568:2: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9628:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9629:2: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__019246);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__019366);
             rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1_in_rule__ValueOrEnumValueOrOperationCollection__Group__019249);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1_in_rule__ValueOrEnumValueOrOperationCollection__Group__019369);
             rule__ValueOrEnumValueOrOperationCollection__Group__1();
 
             state._fsp--;
@@ -25732,23 +25885,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9575:1: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9636:1: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9579:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9580:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9640:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9641:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9580:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9581:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9641:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9642:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9582:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9582:2: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9643:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9643:2: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0_in_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl19276);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0_in_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl19396);
             rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0();
 
             state._fsp--;
@@ -25779,16 +25932,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9592:1: rule__ValueOrEnumValueOrOperationCollection__Group__1 : rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9653:1: rule__ValueOrEnumValueOrOperationCollection__Group__1 : rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9596:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9597:2: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9657:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9658:2: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__119306);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__119426);
             rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl();
 
             state._fsp--;
@@ -25812,29 +25965,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9603:1: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9664:1: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9607:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9608:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9668:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9669:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9608:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9609:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9669:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9670:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9610:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9671:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
             loop52:
             do {
                 int alt52=2;
                 alt52 = dfa52.predict(input);
                 switch (alt52) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9610:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9671:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0_in_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl19333);
+            	    pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0_in_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl19453);
             	    rule__ValueOrEnumValueOrOperationCollection__Group_1__0();
 
             	    state._fsp--;
@@ -25871,21 +26024,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9624:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0 : rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9685:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0 : rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9628:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9629:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9689:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9690:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019368);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019488);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019371);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019491);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__1();
 
             state._fsp--;
@@ -25909,20 +26062,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9636:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9697:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl : ( ruleNL ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9640:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9641:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9701:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9702:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9641:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9642:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9702:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9703:1: ruleNL
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl19398);
+            pushFollow(FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl19518);
             ruleNL();
 
             state._fsp--;
@@ -25950,21 +26103,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9653:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1 : rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9714:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1 : rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9657:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9658:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9718:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9719:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119427);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119547);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119430);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119550);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__2();
 
             state._fsp--;
@@ -25988,20 +26141,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9665:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl : ( ',' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9726:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl : ( ',' ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9669:1: ( ( ',' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9670:1: ( ',' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9730:1: ( ( ',' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9731:1: ( ',' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9670:1: ( ',' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9671:1: ','
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9731:1: ( ',' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9732:1: ','
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getCommaKeyword_1_1()); 
-            match(input,50,FOLLOW_50_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl19458); 
+            match(input,50,FOLLOW_50_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl19578); 
              after(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getCommaKeyword_1_1()); 
 
             }
@@ -26025,21 +26178,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9684:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2 : rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9745:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2 : rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9688:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9689:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9749:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9750:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219489);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219609);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219492);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219612);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__3();
 
             state._fsp--;
@@ -26063,20 +26216,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9696:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9757:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl : ( ruleNL ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9700:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9701:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9761:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9762:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9701:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9702:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9762:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9763:1: ruleNL
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_2()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl19519);
+            pushFollow(FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl19639);
             ruleNL();
 
             state._fsp--;
@@ -26104,16 +26257,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9713:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3 : rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9774:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3 : rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9717:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9718:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9778:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9779:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__319548);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__319668);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl();
 
             state._fsp--;
@@ -26137,23 +26290,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9724:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9785:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9728:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9729:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9789:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9790:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9729:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9730:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9790:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9791:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesAssignment_1_3()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9731:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9731:2: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9792:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9792:2: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3
             {
-            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl19575);
+            pushFollow(FOLLOW_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl19695);
             rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3();
 
             state._fsp--;
@@ -26184,21 +26337,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9749:1: rule__NullValue__Group__0 : rule__NullValue__Group__0__Impl rule__NullValue__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9810:1: rule__NullValue__Group__0 : rule__NullValue__Group__0__Impl rule__NullValue__Group__1 ;
     public final void rule__NullValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9753:1: ( rule__NullValue__Group__0__Impl rule__NullValue__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9754:2: rule__NullValue__Group__0__Impl rule__NullValue__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9814:1: ( rule__NullValue__Group__0__Impl rule__NullValue__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9815:2: rule__NullValue__Group__0__Impl rule__NullValue__Group__1
             {
-            pushFollow(FOLLOW_rule__NullValue__Group__0__Impl_in_rule__NullValue__Group__019613);
+            pushFollow(FOLLOW_rule__NullValue__Group__0__Impl_in_rule__NullValue__Group__019733);
             rule__NullValue__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NullValue__Group__1_in_rule__NullValue__Group__019616);
+            pushFollow(FOLLOW_rule__NullValue__Group__1_in_rule__NullValue__Group__019736);
             rule__NullValue__Group__1();
 
             state._fsp--;
@@ -26222,21 +26375,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9761:1: rule__NullValue__Group__0__Impl : ( () ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9822:1: rule__NullValue__Group__0__Impl : ( () ) ;
     public final void rule__NullValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9765:1: ( ( () ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9766:1: ( () )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9826:1: ( ( () ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9827:1: ( () )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9766:1: ( () )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9767:1: ()
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9827:1: ( () )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9828:1: ()
             {
              before(grammarAccess.getNullValueAccess().getNullAction_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9768:1: ()
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9770:1: 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9829:1: ()
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9831:1: 
             {
             }
 
@@ -26259,16 +26412,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9780:1: rule__NullValue__Group__1 : rule__NullValue__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9841:1: rule__NullValue__Group__1 : rule__NullValue__Group__1__Impl ;
     public final void rule__NullValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9784:1: ( rule__NullValue__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9785:2: rule__NullValue__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9845:1: ( rule__NullValue__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9846:2: rule__NullValue__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__NullValue__Group__1__Impl_in_rule__NullValue__Group__119674);
+            pushFollow(FOLLOW_rule__NullValue__Group__1__Impl_in_rule__NullValue__Group__119794);
             rule__NullValue__Group__1__Impl();
 
             state._fsp--;
@@ -26292,20 +26445,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9791:1: rule__NullValue__Group__1__Impl : ( 'null' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9852:1: rule__NullValue__Group__1__Impl : ( 'null' ) ;
     public final void rule__NullValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9795:1: ( ( 'null' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9796:1: ( 'null' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9856:1: ( ( 'null' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9857:1: ( 'null' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9796:1: ( 'null' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9797:1: 'null'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9857:1: ( 'null' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9858:1: 'null'
             {
              before(grammarAccess.getNullValueAccess().getNullKeyword_1()); 
-            match(input,51,FOLLOW_51_in_rule__NullValue__Group__1__Impl19702); 
+            match(input,51,FOLLOW_51_in_rule__NullValue__Group__1__Impl19822); 
              after(grammarAccess.getNullValueAccess().getNullKeyword_1()); 
 
             }
@@ -26329,21 +26482,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9814:1: rule__MethodReference__Group__0 : rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9875:1: rule__MethodReference__Group__0 : rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 ;
     public final void rule__MethodReference__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9818:1: ( rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9819:2: rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9879:1: ( rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9880:2: rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1
             {
-            pushFollow(FOLLOW_rule__MethodReference__Group__0__Impl_in_rule__MethodReference__Group__019737);
+            pushFollow(FOLLOW_rule__MethodReference__Group__0__Impl_in_rule__MethodReference__Group__019857);
             rule__MethodReference__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__MethodReference__Group__1_in_rule__MethodReference__Group__019740);
+            pushFollow(FOLLOW_rule__MethodReference__Group__1_in_rule__MethodReference__Group__019860);
             rule__MethodReference__Group__1();
 
             state._fsp--;
@@ -26367,23 +26520,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9826:1: rule__MethodReference__Group__0__Impl : ( ( rule__MethodReference__TypeAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9887:1: rule__MethodReference__Group__0__Impl : ( ( rule__MethodReference__TypeAssignment_0 ) ) ;
     public final void rule__MethodReference__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9830:1: ( ( ( rule__MethodReference__TypeAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9831:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9891:1: ( ( ( rule__MethodReference__TypeAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9892:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9831:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9832:1: ( rule__MethodReference__TypeAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9892:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9893:1: ( rule__MethodReference__TypeAssignment_0 )
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9833:1: ( rule__MethodReference__TypeAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9833:2: rule__MethodReference__TypeAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9894:1: ( rule__MethodReference__TypeAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9894:2: rule__MethodReference__TypeAssignment_0
             {
-            pushFollow(FOLLOW_rule__MethodReference__TypeAssignment_0_in_rule__MethodReference__Group__0__Impl19767);
+            pushFollow(FOLLOW_rule__MethodReference__TypeAssignment_0_in_rule__MethodReference__Group__0__Impl19887);
             rule__MethodReference__TypeAssignment_0();
 
             state._fsp--;
@@ -26414,21 +26567,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9843:1: rule__MethodReference__Group__1 : rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9904:1: rule__MethodReference__Group__1 : rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 ;
     public final void rule__MethodReference__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9847:1: ( rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9848:2: rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9908:1: ( rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9909:2: rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2
             {
-            pushFollow(FOLLOW_rule__MethodReference__Group__1__Impl_in_rule__MethodReference__Group__119797);
+            pushFollow(FOLLOW_rule__MethodReference__Group__1__Impl_in_rule__MethodReference__Group__119917);
             rule__MethodReference__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__MethodReference__Group__2_in_rule__MethodReference__Group__119800);
+            pushFollow(FOLLOW_rule__MethodReference__Group__2_in_rule__MethodReference__Group__119920);
             rule__MethodReference__Group__2();
 
             state._fsp--;
@@ -26452,20 +26605,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9855:1: rule__MethodReference__Group__1__Impl : ( '#' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9916:1: rule__MethodReference__Group__1__Impl : ( '#' ) ;
     public final void rule__MethodReference__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9859:1: ( ( '#' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9860:1: ( '#' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9920:1: ( ( '#' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9921:1: ( '#' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9860:1: ( '#' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9861:1: '#'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9921:1: ( '#' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9922:1: '#'
             {
              before(grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1()); 
-            match(input,52,FOLLOW_52_in_rule__MethodReference__Group__1__Impl19828); 
+            match(input,52,FOLLOW_52_in_rule__MethodReference__Group__1__Impl19948); 
              after(grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1()); 
 
             }
@@ -26489,16 +26642,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9874:1: rule__MethodReference__Group__2 : rule__MethodReference__Group__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9935:1: rule__MethodReference__Group__2 : rule__MethodReference__Group__2__Impl ;
     public final void rule__MethodReference__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9878:1: ( rule__MethodReference__Group__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9879:2: rule__MethodReference__Group__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9939:1: ( rule__MethodReference__Group__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9940:2: rule__MethodReference__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__MethodReference__Group__2__Impl_in_rule__MethodReference__Group__219859);
+            pushFollow(FOLLOW_rule__MethodReference__Group__2__Impl_in_rule__MethodReference__Group__219979);
             rule__MethodReference__Group__2__Impl();
 
             state._fsp--;
@@ -26522,23 +26675,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9885:1: rule__MethodReference__Group__2__Impl : ( ( rule__MethodReference__MethodAssignment_2 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9946:1: rule__MethodReference__Group__2__Impl : ( ( rule__MethodReference__MethodAssignment_2 ) ) ;
     public final void rule__MethodReference__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9889:1: ( ( ( rule__MethodReference__MethodAssignment_2 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9890:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9950:1: ( ( ( rule__MethodReference__MethodAssignment_2 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9951:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9890:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9891:1: ( rule__MethodReference__MethodAssignment_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9951:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9952:1: ( rule__MethodReference__MethodAssignment_2 )
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9892:1: ( rule__MethodReference__MethodAssignment_2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9892:2: rule__MethodReference__MethodAssignment_2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9953:1: ( rule__MethodReference__MethodAssignment_2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9953:2: rule__MethodReference__MethodAssignment_2
             {
-            pushFollow(FOLLOW_rule__MethodReference__MethodAssignment_2_in_rule__MethodReference__Group__2__Impl19886);
+            pushFollow(FOLLOW_rule__MethodReference__MethodAssignment_2_in_rule__MethodReference__Group__2__Impl20006);
             rule__MethodReference__MethodAssignment_2();
 
             state._fsp--;
@@ -26569,21 +26722,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9908:1: rule__ExecutionMultiplier__Group__0 : rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9969:1: rule__ExecutionMultiplier__Group__0 : rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 ;
     public final void rule__ExecutionMultiplier__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9912:1: ( rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9913:2: rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9973:1: ( rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9974:2: rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1
             {
-            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__0__Impl_in_rule__ExecutionMultiplier__Group__019922);
+            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__0__Impl_in_rule__ExecutionMultiplier__Group__020042);
             rule__ExecutionMultiplier__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__1_in_rule__ExecutionMultiplier__Group__019925);
+            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__1_in_rule__ExecutionMultiplier__Group__020045);
             rule__ExecutionMultiplier__Group__1();
 
             state._fsp--;
@@ -26607,23 +26760,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9920:1: rule__ExecutionMultiplier__Group__0__Impl : ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9981:1: rule__ExecutionMultiplier__Group__0__Impl : ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) ;
     public final void rule__ExecutionMultiplier__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9924:1: ( ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9925:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9985:1: ( ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9986:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9925:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9926:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9986:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9987:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
             {
              before(grammarAccess.getExecutionMultiplierAccess().getCountAssignment_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9927:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9927:2: rule__ExecutionMultiplier__CountAssignment_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9988:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9988:2: rule__ExecutionMultiplier__CountAssignment_0
             {
-            pushFollow(FOLLOW_rule__ExecutionMultiplier__CountAssignment_0_in_rule__ExecutionMultiplier__Group__0__Impl19952);
+            pushFollow(FOLLOW_rule__ExecutionMultiplier__CountAssignment_0_in_rule__ExecutionMultiplier__Group__0__Impl20072);
             rule__ExecutionMultiplier__CountAssignment_0();
 
             state._fsp--;
@@ -26654,16 +26807,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9937:1: rule__ExecutionMultiplier__Group__1 : rule__ExecutionMultiplier__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9998:1: rule__ExecutionMultiplier__Group__1 : rule__ExecutionMultiplier__Group__1__Impl ;
     public final void rule__ExecutionMultiplier__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9941:1: ( rule__ExecutionMultiplier__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9942:2: rule__ExecutionMultiplier__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10002:1: ( rule__ExecutionMultiplier__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10003:2: rule__ExecutionMultiplier__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__1__Impl_in_rule__ExecutionMultiplier__Group__119982);
+            pushFollow(FOLLOW_rule__ExecutionMultiplier__Group__1__Impl_in_rule__ExecutionMultiplier__Group__120102);
             rule__ExecutionMultiplier__Group__1__Impl();
 
             state._fsp--;
@@ -26687,20 +26840,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9948:1: rule__ExecutionMultiplier__Group__1__Impl : ( '*' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10009:1: rule__ExecutionMultiplier__Group__1__Impl : ( '*' ) ;
     public final void rule__ExecutionMultiplier__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9952:1: ( ( '*' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9953:1: ( '*' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10013:1: ( ( '*' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10014:1: ( '*' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9953:1: ( '*' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9954:1: '*'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10014:1: ( '*' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10015:1: '*'
             {
              before(grammarAccess.getExecutionMultiplierAccess().getAsteriskKeyword_1()); 
-            match(input,53,FOLLOW_53_in_rule__ExecutionMultiplier__Group__1__Impl20010); 
+            match(input,53,FOLLOW_53_in_rule__ExecutionMultiplier__Group__1__Impl20130); 
              after(grammarAccess.getExecutionMultiplierAccess().getAsteriskKeyword_1()); 
 
             }
@@ -26724,21 +26877,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9971:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10032:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
     public final void rule__QualifiedName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9975:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9976:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10036:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10037:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__020045);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__020165);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__020048);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__020168);
             rule__QualifiedName__Group__1();
 
             state._fsp--;
@@ -26762,20 +26915,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9983:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10044:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9987:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9988:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10048:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10049:1: ( RULE_ID )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9988:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:9989:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10049:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10050:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl20075); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl20195); 
              after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
 
             }
@@ -26799,16 +26952,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10000:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10061:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
     public final void rule__QualifiedName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10004:1: ( rule__QualifiedName__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10005:2: rule__QualifiedName__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10065:1: ( rule__QualifiedName__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10066:2: rule__QualifiedName__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__120104);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__120224);
             rule__QualifiedName__Group__1__Impl();
 
             state._fsp--;
@@ -26832,20 +26985,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10011:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10072:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
     public final void rule__QualifiedName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10015:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10016:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10076:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10077:1: ( ( rule__QualifiedName__Group_1__0 )* )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10016:1: ( ( rule__QualifiedName__Group_1__0 )* )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10017:1: ( rule__QualifiedName__Group_1__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10077:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10078:1: ( rule__QualifiedName__Group_1__0 )*
             {
              before(grammarAccess.getQualifiedNameAccess().getGroup_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10018:1: ( rule__QualifiedName__Group_1__0 )*
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10079:1: ( rule__QualifiedName__Group_1__0 )*
             loop53:
             do {
                 int alt53=2;
@@ -26864,9 +27017,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt53) {
             	case 1 :
-            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10018:2: rule__QualifiedName__Group_1__0
+            	    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10079:2: rule__QualifiedName__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl20131);
+            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl20251);
             	    rule__QualifiedName__Group_1__0();
 
             	    state._fsp--;
@@ -26903,21 +27056,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10032:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10093:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
     public final void rule__QualifiedName__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10036:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10037:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10097:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10098:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__020166);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__020286);
             rule__QualifiedName__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__020169);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__020289);
             rule__QualifiedName__Group_1__1();
 
             state._fsp--;
@@ -26941,20 +27094,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10044:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10105:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
     public final void rule__QualifiedName__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10048:1: ( ( '.' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10049:1: ( '.' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10109:1: ( ( '.' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10110:1: ( '.' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10049:1: ( '.' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10050:1: '.'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10110:1: ( '.' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10111:1: '.'
             {
              before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
-            match(input,54,FOLLOW_54_in_rule__QualifiedName__Group_1__0__Impl20197); 
+            match(input,54,FOLLOW_54_in_rule__QualifiedName__Group_1__0__Impl20317); 
              after(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
 
             }
@@ -26978,16 +27131,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10063:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10124:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
     public final void rule__QualifiedName__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10067:1: ( rule__QualifiedName__Group_1__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10068:2: rule__QualifiedName__Group_1__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10128:1: ( rule__QualifiedName__Group_1__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10129:2: rule__QualifiedName__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__120228);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__120348);
             rule__QualifiedName__Group_1__1__Impl();
 
             state._fsp--;
@@ -27011,20 +27164,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10074:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10135:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10078:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10079:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10139:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10140:1: ( RULE_ID )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10079:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10080:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10140:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10141:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl20255); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl20375); 
              after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
 
             }
@@ -27048,21 +27201,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10095:1: rule__QualifiedJavaClassName__Group__0 : rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10156:1: rule__QualifiedJavaClassName__Group__0 : rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 ;
     public final void rule__QualifiedJavaClassName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10099:1: ( rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10100:2: rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10160:1: ( rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10161:2: rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__0__Impl_in_rule__QualifiedJavaClassName__Group__020288);
+            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__0__Impl_in_rule__QualifiedJavaClassName__Group__020408);
             rule__QualifiedJavaClassName__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__1_in_rule__QualifiedJavaClassName__Group__020291);
+            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__1_in_rule__QualifiedJavaClassName__Group__020411);
             rule__QualifiedJavaClassName__Group__1();
 
             state._fsp--;
@@ -27086,20 +27239,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10107:1: rule__QualifiedJavaClassName__Group__0__Impl : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10168:1: rule__QualifiedJavaClassName__Group__0__Impl : ( ruleQualifiedName ) ;
     public final void rule__QualifiedJavaClassName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10111:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10112:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10172:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10173:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10112:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10113:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10173:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10174:1: ruleQualifiedName
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getQualifiedNameParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedJavaClassName__Group__0__Impl20318);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedJavaClassName__Group__0__Impl20438);
             ruleQualifiedName();
 
             state._fsp--;
@@ -27127,21 +27280,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10124:1: rule__QualifiedJavaClassName__Group__1 : rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10185:1: rule__QualifiedJavaClassName__Group__1 : rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 ;
     public final void rule__QualifiedJavaClassName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10128:1: ( rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10129:2: rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10189:1: ( rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10190:2: rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2
             {
-            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__1__Impl_in_rule__QualifiedJavaClassName__Group__120347);
+            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__1__Impl_in_rule__QualifiedJavaClassName__Group__120467);
             rule__QualifiedJavaClassName__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__2_in_rule__QualifiedJavaClassName__Group__120350);
+            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__2_in_rule__QualifiedJavaClassName__Group__120470);
             rule__QualifiedJavaClassName__Group__2();
 
             state._fsp--;
@@ -27165,20 +27318,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10136:1: rule__QualifiedJavaClassName__Group__1__Impl : ( '.' ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10197:1: rule__QualifiedJavaClassName__Group__1__Impl : ( '.' ) ;
     public final void rule__QualifiedJavaClassName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10140:1: ( ( '.' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10141:1: ( '.' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10201:1: ( ( '.' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10202:1: ( '.' )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10141:1: ( '.' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10142:1: '.'
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10202:1: ( '.' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10203:1: '.'
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
-            match(input,54,FOLLOW_54_in_rule__QualifiedJavaClassName__Group__1__Impl20378); 
+            match(input,54,FOLLOW_54_in_rule__QualifiedJavaClassName__Group__1__Impl20498); 
              after(grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
 
             }
@@ -27202,16 +27355,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10155:1: rule__QualifiedJavaClassName__Group__2 : rule__QualifiedJavaClassName__Group__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10216:1: rule__QualifiedJavaClassName__Group__2 : rule__QualifiedJavaClassName__Group__2__Impl ;
     public final void rule__QualifiedJavaClassName__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10159:1: ( rule__QualifiedJavaClassName__Group__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10160:2: rule__QualifiedJavaClassName__Group__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10220:1: ( rule__QualifiedJavaClassName__Group__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10221:2: rule__QualifiedJavaClassName__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__2__Impl_in_rule__QualifiedJavaClassName__Group__220409);
+            pushFollow(FOLLOW_rule__QualifiedJavaClassName__Group__2__Impl_in_rule__QualifiedJavaClassName__Group__220529);
             rule__QualifiedJavaClassName__Group__2__Impl();
 
             state._fsp--;
@@ -27235,20 +27388,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10166:1: rule__QualifiedJavaClassName__Group__2__Impl : ( RULE_UPPERCASE_ID ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10227:1: rule__QualifiedJavaClassName__Group__2__Impl : ( RULE_UPPERCASE_ID ) ;
     public final void rule__QualifiedJavaClassName__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10170:1: ( ( RULE_UPPERCASE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10171:1: ( RULE_UPPERCASE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10231:1: ( ( RULE_UPPERCASE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10232:1: ( RULE_UPPERCASE_ID )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10171:1: ( RULE_UPPERCASE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10172:1: RULE_UPPERCASE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10232:1: ( RULE_UPPERCASE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10233:1: RULE_UPPERCASE_ID
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getUPPERCASE_IDTerminalRuleCall_2()); 
-            match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_rule__QualifiedJavaClassName__Group__2__Impl20436); 
+            match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_rule__QualifiedJavaClassName__Group__2__Impl20556); 
              after(grammarAccess.getQualifiedJavaClassNameAccess().getUPPERCASE_IDTerminalRuleCall_2()); 
 
             }
@@ -27272,21 +27425,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10189:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10250:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
     public final void rule__QualifiedNameWithWildcard__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10193:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10194:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10254:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10255:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__020471);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__020591);
             rule__QualifiedNameWithWildcard__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__020474);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__020594);
             rule__QualifiedNameWithWildcard__Group__1();
 
             state._fsp--;
@@ -27310,20 +27463,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10201:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10262:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
     public final void rule__QualifiedNameWithWildcard__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10205:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10206:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10266:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10267:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10206:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10207:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10267:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10268:1: ruleQualifiedName
             {
              before(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl20501);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl20621);
             ruleQualifiedName();
 
             state._fsp--;
@@ -27351,16 +27504,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10218:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10279:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
     public final void rule__QualifiedNameWithWildcard__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10222:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10223:2: rule__QualifiedNameWithWildcard__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10283:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10284:2: rule__QualifiedNameWithWildcard__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__120530);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__120650);
             rule__QualifiedNameWithWildcard__Group__1__Impl();
 
             state._fsp--;
@@ -27384,20 +27537,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10229:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10290:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
     public final void rule__QualifiedNameWithWildcard__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10233:1: ( ( ( '.*' )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10234:1: ( ( '.*' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10294:1: ( ( ( '.*' )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10295:1: ( ( '.*' )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10234:1: ( ( '.*' )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10235:1: ( '.*' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10295:1: ( ( '.*' )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10296:1: ( '.*' )?
             {
              before(grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10236:1: ( '.*' )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10297:1: ( '.*' )?
             int alt54=2;
             int LA54_0 = input.LA(1);
 
@@ -27406,9 +27559,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt54) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10237:2: '.*'
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10298:2: '.*'
                     {
-                    match(input,55,FOLLOW_55_in_rule__QualifiedNameWithWildcard__Group__1__Impl20559); 
+                    match(input,55,FOLLOW_55_in_rule__QualifiedNameWithWildcard__Group__1__Impl20679); 
 
                     }
                     break;
@@ -27438,21 +27591,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10252:1: rule__NL__Group__0 : rule__NL__Group__0__Impl rule__NL__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10313:1: rule__NL__Group__0 : rule__NL__Group__0__Impl rule__NL__Group__1 ;
     public final void rule__NL__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10256:1: ( rule__NL__Group__0__Impl rule__NL__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10257:2: rule__NL__Group__0__Impl rule__NL__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10317:1: ( rule__NL__Group__0__Impl rule__NL__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10318:2: rule__NL__Group__0__Impl rule__NL__Group__1
             {
-            pushFollow(FOLLOW_rule__NL__Group__0__Impl_in_rule__NL__Group__020596);
+            pushFollow(FOLLOW_rule__NL__Group__0__Impl_in_rule__NL__Group__020716);
             rule__NL__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NL__Group__1_in_rule__NL__Group__020599);
+            pushFollow(FOLLOW_rule__NL__Group__1_in_rule__NL__Group__020719);
             rule__NL__Group__1();
 
             state._fsp--;
@@ -27476,20 +27629,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10264:1: rule__NL__Group__0__Impl : ( RULE_NEWLINE ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10325:1: rule__NL__Group__0__Impl : ( RULE_NEWLINE ) ;
     public final void rule__NL__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10268:1: ( ( RULE_NEWLINE ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10269:1: ( RULE_NEWLINE )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10329:1: ( ( RULE_NEWLINE ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10330:1: ( RULE_NEWLINE )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10269:1: ( RULE_NEWLINE )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10270:1: RULE_NEWLINE
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10330:1: ( RULE_NEWLINE )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10331:1: RULE_NEWLINE
             {
              before(grammarAccess.getNLAccess().getNEWLINETerminalRuleCall_0()); 
-            match(input,RULE_NEWLINE,FOLLOW_RULE_NEWLINE_in_rule__NL__Group__0__Impl20626); 
+            match(input,RULE_NEWLINE,FOLLOW_RULE_NEWLINE_in_rule__NL__Group__0__Impl20746); 
              after(grammarAccess.getNLAccess().getNEWLINETerminalRuleCall_0()); 
 
             }
@@ -27513,16 +27666,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10281:1: rule__NL__Group__1 : rule__NL__Group__1__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10342:1: rule__NL__Group__1 : rule__NL__Group__1__Impl ;
     public final void rule__NL__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10285:1: ( rule__NL__Group__1__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10286:2: rule__NL__Group__1__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10346:1: ( rule__NL__Group__1__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10347:2: rule__NL__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__NL__Group__1__Impl_in_rule__NL__Group__120655);
+            pushFollow(FOLLOW_rule__NL__Group__1__Impl_in_rule__NL__Group__120775);
             rule__NL__Group__1__Impl();
 
             state._fsp--;
@@ -27546,20 +27699,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10292:1: rule__NL__Group__1__Impl : ( ( RULE_WS )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10353:1: rule__NL__Group__1__Impl : ( ( RULE_WS )? ) ;
     public final void rule__NL__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10296:1: ( ( ( RULE_WS )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10297:1: ( ( RULE_WS )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10357:1: ( ( ( RULE_WS )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10358:1: ( ( RULE_WS )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10297:1: ( ( RULE_WS )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10298:1: ( RULE_WS )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10358:1: ( ( RULE_WS )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10359:1: ( RULE_WS )?
             {
              before(grammarAccess.getNLAccess().getWSTerminalRuleCall_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10299:1: ( RULE_WS )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10360:1: ( RULE_WS )?
             int alt55=2;
             int LA55_0 = input.LA(1);
 
@@ -27568,9 +27721,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt55) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10299:3: RULE_WS
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10360:3: RULE_WS
                     {
-                    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__NL__Group__1__Impl20683); 
+                    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__NL__Group__1__Impl20803); 
 
                     }
                     break;
@@ -27600,21 +27753,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10313:1: rule__NLFORCED__Group__0 : rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10374:1: rule__NLFORCED__Group__0 : rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 ;
     public final void rule__NLFORCED__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10317:1: ( rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10318:2: rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10378:1: ( rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10379:2: rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1
             {
-            pushFollow(FOLLOW_rule__NLFORCED__Group__0__Impl_in_rule__NLFORCED__Group__020718);
+            pushFollow(FOLLOW_rule__NLFORCED__Group__0__Impl_in_rule__NLFORCED__Group__020838);
             rule__NLFORCED__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NLFORCED__Group__1_in_rule__NLFORCED__Group__020721);
+            pushFollow(FOLLOW_rule__NLFORCED__Group__1_in_rule__NLFORCED__Group__020841);
             rule__NLFORCED__Group__1();
 
             state._fsp--;
@@ -27638,20 +27791,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__0__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10325:1: rule__NLFORCED__Group__0__Impl : ( RULE_NEWLINE ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10386:1: rule__NLFORCED__Group__0__Impl : ( RULE_NEWLINE ) ;
     public final void rule__NLFORCED__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10329:1: ( ( RULE_NEWLINE ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10330:1: ( RULE_NEWLINE )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10390:1: ( ( RULE_NEWLINE ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10391:1: ( RULE_NEWLINE )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10330:1: ( RULE_NEWLINE )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10331:1: RULE_NEWLINE
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10391:1: ( RULE_NEWLINE )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10392:1: RULE_NEWLINE
             {
              before(grammarAccess.getNLFORCEDAccess().getNEWLINETerminalRuleCall_0()); 
-            match(input,RULE_NEWLINE,FOLLOW_RULE_NEWLINE_in_rule__NLFORCED__Group__0__Impl20748); 
+            match(input,RULE_NEWLINE,FOLLOW_RULE_NEWLINE_in_rule__NLFORCED__Group__0__Impl20868); 
              after(grammarAccess.getNLFORCEDAccess().getNEWLINETerminalRuleCall_0()); 
 
             }
@@ -27675,21 +27828,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10342:1: rule__NLFORCED__Group__1 : rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10403:1: rule__NLFORCED__Group__1 : rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 ;
     public final void rule__NLFORCED__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10346:1: ( rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10347:2: rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10407:1: ( rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10408:2: rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2
             {
-            pushFollow(FOLLOW_rule__NLFORCED__Group__1__Impl_in_rule__NLFORCED__Group__120777);
+            pushFollow(FOLLOW_rule__NLFORCED__Group__1__Impl_in_rule__NLFORCED__Group__120897);
             rule__NLFORCED__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NLFORCED__Group__2_in_rule__NLFORCED__Group__120780);
+            pushFollow(FOLLOW_rule__NLFORCED__Group__2_in_rule__NLFORCED__Group__120900);
             rule__NLFORCED__Group__2();
 
             state._fsp--;
@@ -27713,20 +27866,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__1__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10354:1: rule__NLFORCED__Group__1__Impl : ( ( RULE_WS )? ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10415:1: rule__NLFORCED__Group__1__Impl : ( ( RULE_WS )? ) ;
     public final void rule__NLFORCED__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10358:1: ( ( ( RULE_WS )? ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10359:1: ( ( RULE_WS )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10419:1: ( ( ( RULE_WS )? ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10420:1: ( ( RULE_WS )? )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10359:1: ( ( RULE_WS )? )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10360:1: ( RULE_WS )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10420:1: ( ( RULE_WS )? )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10421:1: ( RULE_WS )?
             {
              before(grammarAccess.getNLFORCEDAccess().getWSTerminalRuleCall_1()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10361:1: ( RULE_WS )?
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10422:1: ( RULE_WS )?
             int alt56=2;
             int LA56_0 = input.LA(1);
 
@@ -27735,9 +27888,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             }
             switch (alt56) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10361:3: RULE_WS
+                    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10422:3: RULE_WS
                     {
-                    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__NLFORCED__Group__1__Impl20808); 
+                    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__NLFORCED__Group__1__Impl20928); 
 
                     }
                     break;
@@ -27767,16 +27920,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10371:1: rule__NLFORCED__Group__2 : rule__NLFORCED__Group__2__Impl ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10432:1: rule__NLFORCED__Group__2 : rule__NLFORCED__Group__2__Impl ;
     public final void rule__NLFORCED__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10375:1: ( rule__NLFORCED__Group__2__Impl )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10376:2: rule__NLFORCED__Group__2__Impl
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10436:1: ( rule__NLFORCED__Group__2__Impl )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10437:2: rule__NLFORCED__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__NLFORCED__Group__2__Impl_in_rule__NLFORCED__Group__220839);
+            pushFollow(FOLLOW_rule__NLFORCED__Group__2__Impl_in_rule__NLFORCED__Group__220959);
             rule__NLFORCED__Group__2__Impl();
 
             state._fsp--;
@@ -27800,20 +27953,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__2__Impl"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10382:1: rule__NLFORCED__Group__2__Impl : ( ruleNL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10443:1: rule__NLFORCED__Group__2__Impl : ( ruleNL ) ;
     public final void rule__NLFORCED__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10386:1: ( ( ruleNL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10387:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10447:1: ( ( ruleNL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10448:1: ( ruleNL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10387:1: ( ruleNL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10388:1: ruleNL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10448:1: ( ruleNL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10449:1: ruleNL
             {
              before(grammarAccess.getNLFORCEDAccess().getNLParserRuleCall_2()); 
-            pushFollow(FOLLOW_ruleNL_in_rule__NLFORCED__Group__2__Impl20866);
+            pushFollow(FOLLOW_ruleNL_in_rule__NLFORCED__Group__2__Impl20986);
             ruleNL();
 
             state._fsp--;
@@ -27841,20 +27994,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Model__StatementsAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10406:1: rule__Model__StatementsAssignment_2 : ( ruleStatement ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10467:1: rule__Model__StatementsAssignment_2 : ( ruleStatement ) ;
     public final void rule__Model__StatementsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10410:1: ( ( ruleStatement ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10411:1: ( ruleStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10471:1: ( ( ruleStatement ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10472:1: ( ruleStatement )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10411:1: ( ruleStatement )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10412:1: ruleStatement
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10472:1: ( ruleStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10473:1: ruleStatement
             {
              before(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleStatement_in_rule__Model__StatementsAssignment_220906);
+            pushFollow(FOLLOW_ruleStatement_in_rule__Model__StatementsAssignment_221026);
             ruleStatement();
 
             state._fsp--;
@@ -27882,20 +28035,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleSingleLineComment__ContentAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10421:1: rule__VisibleSingleLineComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_COMMENT ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10482:1: rule__VisibleSingleLineComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_COMMENT ) ;
     public final void rule__VisibleSingleLineComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10425:1: ( ( RULE_SL_VISIBLE_COMMENT ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10426:1: ( RULE_SL_VISIBLE_COMMENT )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10486:1: ( ( RULE_SL_VISIBLE_COMMENT ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10487:1: ( RULE_SL_VISIBLE_COMMENT )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10426:1: ( RULE_SL_VISIBLE_COMMENT )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10427:1: RULE_SL_VISIBLE_COMMENT
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10487:1: ( RULE_SL_VISIBLE_COMMENT )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10488:1: RULE_SL_VISIBLE_COMMENT
             {
              before(grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
-            match(input,RULE_SL_VISIBLE_COMMENT,FOLLOW_RULE_SL_VISIBLE_COMMENT_in_rule__VisibleSingleLineComment__ContentAssignment_020937); 
+            match(input,RULE_SL_VISIBLE_COMMENT,FOLLOW_RULE_SL_VISIBLE_COMMENT_in_rule__VisibleSingleLineComment__ContentAssignment_021057); 
              after(grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
 
             }
@@ -27919,20 +28072,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleMultiLineComment__ContentAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10436:1: rule__VisibleMultiLineComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_COMMENT ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10497:1: rule__VisibleMultiLineComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_COMMENT ) ;
     public final void rule__VisibleMultiLineComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10440:1: ( ( RULE_ML_VISIBLE_COMMENT ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10441:1: ( RULE_ML_VISIBLE_COMMENT )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10501:1: ( ( RULE_ML_VISIBLE_COMMENT ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10502:1: ( RULE_ML_VISIBLE_COMMENT )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10441:1: ( RULE_ML_VISIBLE_COMMENT )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10442:1: RULE_ML_VISIBLE_COMMENT
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10502:1: ( RULE_ML_VISIBLE_COMMENT )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10503:1: RULE_ML_VISIBLE_COMMENT
             {
              before(grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
-            match(input,RULE_ML_VISIBLE_COMMENT,FOLLOW_RULE_ML_VISIBLE_COMMENT_in_rule__VisibleMultiLineComment__ContentAssignment_020968); 
+            match(input,RULE_ML_VISIBLE_COMMENT,FOLLOW_RULE_ML_VISIBLE_COMMENT_in_rule__VisibleMultiLineComment__ContentAssignment_021088); 
              after(grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
 
             }
@@ -27956,20 +28109,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleDivider__ContentAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10451:1: rule__VisibleDivider__ContentAssignment_0 : ( RULE_DIVIDER ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10512:1: rule__VisibleDivider__ContentAssignment_0 : ( RULE_DIVIDER ) ;
     public final void rule__VisibleDivider__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10455:1: ( ( RULE_DIVIDER ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10456:1: ( RULE_DIVIDER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10516:1: ( ( RULE_DIVIDER ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10517:1: ( RULE_DIVIDER )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10456:1: ( RULE_DIVIDER )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10457:1: RULE_DIVIDER
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10517:1: ( RULE_DIVIDER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10518:1: RULE_DIVIDER
             {
              before(grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0()); 
-            match(input,RULE_DIVIDER,FOLLOW_RULE_DIVIDER_in_rule__VisibleDivider__ContentAssignment_020999); 
+            match(input,RULE_DIVIDER,FOLLOW_RULE_DIVIDER_in_rule__VisibleDivider__ContentAssignment_021119); 
              after(grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0()); 
 
             }
@@ -27993,20 +28146,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PackageDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10466:1: rule__PackageDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10527:1: rule__PackageDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__PackageDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10470:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10471:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10531:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10532:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10471:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10472:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10532:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10533:1: ruleQualifiedName
             {
              before(grammarAccess.getPackageDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PackageDefinition__NameAssignment_221030);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PackageDefinition__NameAssignment_221150);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28034,20 +28187,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PackageDefinition__StatementsAssignment_5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10481:1: rule__PackageDefinition__StatementsAssignment_5 : ( rulePackageStatement ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10542:1: rule__PackageDefinition__StatementsAssignment_5 : ( rulePackageStatement ) ;
     public final void rule__PackageDefinition__StatementsAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10485:1: ( ( rulePackageStatement ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10486:1: ( rulePackageStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10546:1: ( ( rulePackageStatement ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10547:1: ( rulePackageStatement )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10486:1: ( rulePackageStatement )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10487:1: rulePackageStatement
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10547:1: ( rulePackageStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10548:1: rulePackageStatement
             {
              before(grammarAccess.getPackageDefinitionAccess().getStatementsPackageStatementParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_rulePackageStatement_in_rule__PackageDefinition__StatementsAssignment_521061);
+            pushFollow(FOLLOW_rulePackageStatement_in_rule__PackageDefinition__StatementsAssignment_521181);
             rulePackageStatement();
 
             state._fsp--;
@@ -28075,20 +28228,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Import__ImportedNamespaceAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10496:1: rule__Import__ImportedNamespaceAssignment_2 : ( ruleQualifiedNameWithWildcard ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10557:1: rule__Import__ImportedNamespaceAssignment_2 : ( ruleQualifiedNameWithWildcard ) ;
     public final void rule__Import__ImportedNamespaceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10500:1: ( ( ruleQualifiedNameWithWildcard ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10501:1: ( ruleQualifiedNameWithWildcard )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10561:1: ( ( ruleQualifiedNameWithWildcard ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10562:1: ( ruleQualifiedNameWithWildcard )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10501:1: ( ruleQualifiedNameWithWildcard )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10502:1: ruleQualifiedNameWithWildcard
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10562:1: ( ruleQualifiedNameWithWildcard )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10563:1: ruleQualifiedNameWithWildcard
             {
              before(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_221092);
+            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_221212);
             ruleQualifiedNameWithWildcard();
 
             state._fsp--;
@@ -28116,20 +28269,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10511:1: rule__ForkDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10572:1: rule__ForkDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__ForkDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10515:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10516:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10576:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10577:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10516:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10517:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10577:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10578:1: ruleQualifiedName
             {
              before(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ForkDefinition__NameAssignment_221123);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ForkDefinition__NameAssignment_221243);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28157,20 +28310,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__DescriptionAssignment_4_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10526:1: rule__ForkDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10587:1: rule__ForkDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
     public final void rule__ForkDefinition__DescriptionAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10530:1: ( ( RULE_STRING ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10531:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10591:1: ( ( RULE_STRING ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10592:1: ( RULE_STRING )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10531:1: ( RULE_STRING )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10532:1: RULE_STRING
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10592:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10593:1: RULE_STRING
             {
              before(grammarAccess.getForkDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ForkDefinition__DescriptionAssignment_4_021154); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ForkDefinition__DescriptionAssignment_4_021274); 
              after(grammarAccess.getForkDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
 
             }
@@ -28194,20 +28347,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__ForkerClassAssignment_5_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10541:1: rule__ForkDefinition__ForkerClassAssignment_5_2 : ( ruleJavaClassReference ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10602:1: rule__ForkDefinition__ForkerClassAssignment_5_2 : ( ruleJavaClassReference ) ;
     public final void rule__ForkDefinition__ForkerClassAssignment_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10545:1: ( ( ruleJavaClassReference ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10546:1: ( ruleJavaClassReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10606:1: ( ( ruleJavaClassReference ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10607:1: ( ruleJavaClassReference )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10546:1: ( ruleJavaClassReference )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10547:1: ruleJavaClassReference
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10607:1: ( ruleJavaClassReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10608:1: ruleJavaClassReference
             {
              before(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_5_2_0()); 
-            pushFollow(FOLLOW_ruleJavaClassReference_in_rule__ForkDefinition__ForkerClassAssignment_5_221185);
+            pushFollow(FOLLOW_ruleJavaClassReference_in_rule__ForkDefinition__ForkerClassAssignment_5_221305);
             ruleJavaClassReference();
 
             state._fsp--;
@@ -28235,20 +28388,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__ParametersAssignment_6_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10556:1: rule__ForkDefinition__ParametersAssignment_6_0 : ( ruleForkParameter ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10617:1: rule__ForkDefinition__ParametersAssignment_6_0 : ( ruleForkParameter ) ;
     public final void rule__ForkDefinition__ParametersAssignment_6_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10560:1: ( ( ruleForkParameter ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10561:1: ( ruleForkParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10621:1: ( ( ruleForkParameter ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10622:1: ( ruleForkParameter )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10561:1: ( ruleForkParameter )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10562:1: ruleForkParameter
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10622:1: ( ruleForkParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10623:1: ruleForkParameter
             {
              before(grammarAccess.getForkDefinitionAccess().getParametersForkParameterParserRuleCall_6_0_0()); 
-            pushFollow(FOLLOW_ruleForkParameter_in_rule__ForkDefinition__ParametersAssignment_6_021216);
+            pushFollow(FOLLOW_ruleForkParameter_in_rule__ForkDefinition__ParametersAssignment_6_021336);
             ruleForkParameter();
 
             state._fsp--;
@@ -28276,20 +28429,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkParameter__NameAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10571:1: rule__ForkParameter__NameAssignment_0 : ( ruleFixedParameterName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10632:1: rule__ForkParameter__NameAssignment_0 : ( ruleFixedParameterName ) ;
     public final void rule__ForkParameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10575:1: ( ( ruleFixedParameterName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10576:1: ( ruleFixedParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10636:1: ( ( ruleFixedParameterName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10637:1: ( ruleFixedParameterName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10576:1: ( ruleFixedParameterName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10577:1: ruleFixedParameterName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10637:1: ( ruleFixedParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10638:1: ruleFixedParameterName
             {
              before(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleFixedParameterName_in_rule__ForkParameter__NameAssignment_021247);
+            pushFollow(FOLLOW_ruleFixedParameterName_in_rule__ForkParameter__NameAssignment_021367);
             ruleFixedParameterName();
 
             state._fsp--;
@@ -28317,20 +28470,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkParameter__ValueAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10586:1: rule__ForkParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperation ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10647:1: rule__ForkParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ForkParameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10590:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10591:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10651:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10652:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10591:1: ( ruleValueOrEnumValueOrOperation )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10592:1: ruleValueOrEnumValueOrOperation
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10652:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10653:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ForkParameter__ValueAssignment_421278);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ForkParameter__ValueAssignment_421398);
             ruleValueOrEnumValueOrOperation();
 
             state._fsp--;
@@ -28358,20 +28511,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10601:1: rule__VariantDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10662:1: rule__VariantDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__VariantDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10605:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10606:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10666:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10667:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10606:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10607:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10667:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10668:1: ruleQualifiedName
             {
              before(grammarAccess.getVariantDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariantDefinition__NameAssignment_221309);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariantDefinition__NameAssignment_221429);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28399,20 +28552,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantDefinition__DescriptionAssignment_4_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10616:1: rule__VariantDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10677:1: rule__VariantDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
     public final void rule__VariantDefinition__DescriptionAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10620:1: ( ( RULE_STRING ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10621:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10681:1: ( ( RULE_STRING ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10682:1: ( RULE_STRING )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10621:1: ( RULE_STRING )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10622:1: RULE_STRING
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10682:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10683:1: RULE_STRING
             {
              before(grammarAccess.getVariantDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__VariantDefinition__DescriptionAssignment_4_021340); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__VariantDefinition__DescriptionAssignment_4_021460); 
              after(grammarAccess.getVariantDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
 
             }
@@ -28436,20 +28589,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TestDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10631:1: rule__TestDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10692:1: rule__TestDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__TestDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10635:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10636:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10696:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10697:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10636:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10637:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10697:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10698:1: ruleQualifiedName
             {
              before(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__TestDefinition__NameAssignment_221371);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__TestDefinition__NameAssignment_221491);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28477,20 +28630,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TestDefinition__FixtureMethodAssignment_6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10646:1: rule__TestDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10707:1: rule__TestDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
     public final void rule__TestDefinition__FixtureMethodAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10650:1: ( ( ruleMethodReference ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10651:1: ( ruleMethodReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10711:1: ( ( ruleMethodReference ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10712:1: ( ruleMethodReference )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10651:1: ( ruleMethodReference )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10652:1: ruleMethodReference
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10712:1: ( ruleMethodReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10713:1: ruleMethodReference
             {
              before(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleMethodReference_in_rule__TestDefinition__FixtureMethodAssignment_621402);
+            pushFollow(FOLLOW_ruleMethodReference_in_rule__TestDefinition__FixtureMethodAssignment_621522);
             ruleMethodReference();
 
             state._fsp--;
@@ -28518,20 +28671,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CallDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10661:1: rule__CallDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10722:1: rule__CallDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__CallDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10665:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10666:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10726:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10727:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10666:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10667:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10727:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10728:1: ruleQualifiedName
             {
              before(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__CallDefinition__NameAssignment_221433);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__CallDefinition__NameAssignment_221553);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28559,20 +28712,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CallDefinition__FixtureMethodAssignment_6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10676:1: rule__CallDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10737:1: rule__CallDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
     public final void rule__CallDefinition__FixtureMethodAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10680:1: ( ( ruleMethodReference ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10681:1: ( ruleMethodReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10741:1: ( ( ruleMethodReference ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10742:1: ( ruleMethodReference )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10681:1: ( ruleMethodReference )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10682:1: ruleMethodReference
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10742:1: ( ruleMethodReference )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10743:1: ruleMethodReference
             {
              before(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleMethodReference_in_rule__CallDefinition__FixtureMethodAssignment_621464);
+            pushFollow(FOLLOW_ruleMethodReference_in_rule__CallDefinition__FixtureMethodAssignment_621584);
             ruleMethodReference();
 
             state._fsp--;
@@ -28600,20 +28753,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10691:1: rule__SuiteDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10752:1: rule__SuiteDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__SuiteDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10695:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10696:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10756:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10757:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10696:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10697:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10757:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10758:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__NameAssignment_221495);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__NameAssignment_221615);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28641,20 +28794,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__ParametersAssignment_4_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10706:1: rule__SuiteDefinition__ParametersAssignment_4_2_0 : ( ruleVariableEntity ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10767:1: rule__SuiteDefinition__ParametersAssignment_4_2_0 : ( ruleVariableEntity ) ;
     public final void rule__SuiteDefinition__ParametersAssignment_4_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10710:1: ( ( ruleVariableEntity ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10711:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10771:1: ( ( ruleVariableEntity ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10772:1: ( ruleVariableEntity )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10711:1: ( ruleVariableEntity )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10712:1: ruleVariableEntity
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10772:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10773:1: ruleVariableEntity
             {
              before(grammarAccess.getSuiteDefinitionAccess().getParametersVariableEntityParserRuleCall_4_2_0_0()); 
-            pushFollow(FOLLOW_ruleVariableEntity_in_rule__SuiteDefinition__ParametersAssignment_4_2_021526);
+            pushFollow(FOLLOW_ruleVariableEntity_in_rule__SuiteDefinition__ParametersAssignment_4_2_021646);
             ruleVariableEntity();
 
             state._fsp--;
@@ -28682,24 +28835,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__DependenciesAssignment_5_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10721:1: rule__SuiteDefinition__DependenciesAssignment_5_2_0 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10782:1: rule__SuiteDefinition__DependenciesAssignment_5_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__SuiteDefinition__DependenciesAssignment_5_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10725:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10726:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10786:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10787:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10726:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10727:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10787:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10788:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_5_2_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10728:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10729:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10789:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10790:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_5_2_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__DependenciesAssignment_5_2_021561);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__DependenciesAssignment_5_2_021681);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28731,24 +28884,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__FinalizersAssignment_6_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10740:1: rule__SuiteDefinition__FinalizersAssignment_6_2_0 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10801:1: rule__SuiteDefinition__FinalizersAssignment_6_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__SuiteDefinition__FinalizersAssignment_6_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10744:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10745:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10805:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10806:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10745:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10746:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10806:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10807:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_6_2_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10747:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10748:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10808:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10809:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_6_2_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__FinalizersAssignment_6_2_021600);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__FinalizersAssignment_6_2_021720);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28780,20 +28933,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__StatementsAssignment_9"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10759:1: rule__SuiteDefinition__StatementsAssignment_9 : ( ruleSuiteStatement ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10820:1: rule__SuiteDefinition__StatementsAssignment_9 : ( ruleSuiteStatement ) ;
     public final void rule__SuiteDefinition__StatementsAssignment_9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10763:1: ( ( ruleSuiteStatement ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10764:1: ( ruleSuiteStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10824:1: ( ( ruleSuiteStatement ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10825:1: ( ruleSuiteStatement )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10764:1: ( ruleSuiteStatement )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10765:1: ruleSuiteStatement
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10825:1: ( ruleSuiteStatement )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10826:1: ruleSuiteStatement
             {
              before(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_9_0()); 
-            pushFollow(FOLLOW_ruleSuiteStatement_in_rule__SuiteDefinition__StatementsAssignment_921635);
+            pushFollow(FOLLOW_ruleSuiteStatement_in_rule__SuiteDefinition__StatementsAssignment_921755);
             ruleSuiteStatement();
 
             state._fsp--;
@@ -28821,20 +28974,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10774:1: rule__OperationDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10835:1: rule__OperationDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__OperationDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10778:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10779:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10839:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10840:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10779:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10780:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10840:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10841:1: ruleQualifiedName
             {
              before(grammarAccess.getOperationDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__OperationDefinition__NameAssignment_221666);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__OperationDefinition__NameAssignment_221786);
             ruleQualifiedName();
 
             state._fsp--;
@@ -28862,24 +29015,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__OperationTypeAssignment_6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10789:1: rule__OperationDefinition__OperationTypeAssignment_6 : ( ( ruleQualifiedJavaClassName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10850:1: rule__OperationDefinition__OperationTypeAssignment_6 : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__OperationDefinition__OperationTypeAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10793:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10794:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10854:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10855:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10794:1: ( ( ruleQualifiedJavaClassName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10795:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10855:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10856:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getOperationDefinitionAccess().getOperationTypeJvmTypeCrossReference_6_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10796:1: ( ruleQualifiedJavaClassName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10797:1: ruleQualifiedJavaClassName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10857:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10858:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getOperationDefinitionAccess().getOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__OperationDefinition__OperationTypeAssignment_621701);
+            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__OperationDefinition__OperationTypeAssignment_621821);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -28911,20 +29064,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10808:1: rule__VariableDefinition__NameAssignment_2 : ( ruleVariableEntity ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10869:1: rule__VariableDefinition__NameAssignment_2 : ( ruleVariableEntity ) ;
     public final void rule__VariableDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10812:1: ( ( ruleVariableEntity ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10813:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10873:1: ( ( ruleVariableEntity ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10874:1: ( ruleVariableEntity )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10813:1: ( ruleVariableEntity )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10814:1: ruleVariableEntity
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10874:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10875:1: ruleVariableEntity
             {
              before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_221736);
+            pushFollow(FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_221856);
             ruleVariableEntity();
 
             state._fsp--;
@@ -28952,20 +29105,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__InitialValueAssignment_4_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10823:1: rule__VariableDefinition__InitialValueAssignment_4_2 : ( ruleValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10884:1: rule__VariableDefinition__InitialValueAssignment_4_2 : ( ruleValue ) ;
     public final void rule__VariableDefinition__InitialValueAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10827:1: ( ( ruleValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10828:1: ( ruleValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10888:1: ( ( ruleValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10889:1: ( ruleValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10828:1: ( ruleValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10829:1: ruleValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10889:1: ( ruleValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10890:1: ruleValue
             {
              before(grammarAccess.getVariableDefinitionAccess().getInitialValueValueParserRuleCall_4_2_0()); 
-            pushFollow(FOLLOW_ruleValue_in_rule__VariableDefinition__InitialValueAssignment_4_221767);
+            pushFollow(FOLLOW_ruleValue_in_rule__VariableDefinition__InitialValueAssignment_4_221887);
             ruleValue();
 
             state._fsp--;
@@ -28993,20 +29146,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10838:1: rule__ConstantDefinition__NameAssignment_2 : ( ruleVariableEntity ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10899:1: rule__ConstantDefinition__NameAssignment_2 : ( ruleVariableEntity ) ;
     public final void rule__ConstantDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10842:1: ( ( ruleVariableEntity ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10843:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10903:1: ( ( ruleVariableEntity ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10904:1: ( ruleVariableEntity )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10843:1: ( ruleVariableEntity )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10844:1: ruleVariableEntity
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10904:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10905:1: ruleVariableEntity
             {
              before(grammarAccess.getConstantDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleVariableEntity_in_rule__ConstantDefinition__NameAssignment_221798);
+            pushFollow(FOLLOW_ruleVariableEntity_in_rule__ConstantDefinition__NameAssignment_221918);
             ruleVariableEntity();
 
             state._fsp--;
@@ -29034,20 +29187,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__ValueAssignment_4_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10853:1: rule__ConstantDefinition__ValueAssignment_4_0 : ( ruleStaticValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10914:1: rule__ConstantDefinition__ValueAssignment_4_0 : ( ruleStaticValue ) ;
     public final void rule__ConstantDefinition__ValueAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10857:1: ( ( ruleStaticValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10858:1: ( ruleStaticValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10918:1: ( ( ruleStaticValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10919:1: ( ruleStaticValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10858:1: ( ruleStaticValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10859:1: ruleStaticValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10919:1: ( ruleStaticValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10920:1: ruleStaticValue
             {
              before(grammarAccess.getConstantDefinitionAccess().getValueStaticValueParserRuleCall_4_0_0()); 
-            pushFollow(FOLLOW_ruleStaticValue_in_rule__ConstantDefinition__ValueAssignment_4_021829);
+            pushFollow(FOLLOW_ruleStaticValue_in_rule__ConstantDefinition__ValueAssignment_4_021949);
             ruleStaticValue();
 
             state._fsp--;
@@ -29075,20 +29228,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__VariantValuesAssignment_5_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10868:1: rule__ConstantDefinition__VariantValuesAssignment_5_0 : ( ruleVariantValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10929:1: rule__ConstantDefinition__VariantValuesAssignment_5_0 : ( ruleVariantValue ) ;
     public final void rule__ConstantDefinition__VariantValuesAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10872:1: ( ( ruleVariantValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10873:1: ( ruleVariantValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10933:1: ( ( ruleVariantValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10934:1: ( ruleVariantValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10873:1: ( ruleVariantValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10874:1: ruleVariantValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10934:1: ( ruleVariantValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10935:1: ruleVariantValue
             {
              before(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_0_0()); 
-            pushFollow(FOLLOW_ruleVariantValue_in_rule__ConstantDefinition__VariantValuesAssignment_5_021860);
+            pushFollow(FOLLOW_ruleVariantValue_in_rule__ConstantDefinition__VariantValuesAssignment_5_021980);
             ruleVariantValue();
 
             state._fsp--;
@@ -29116,24 +29269,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__NamesAssignment_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10883:1: rule__VariantValue__NamesAssignment_2_0 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10944:1: rule__VariantValue__NamesAssignment_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__VariantValue__NamesAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10887:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10888:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10948:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10949:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10888:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10889:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10949:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10950:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getVariantValueAccess().getNamesVariantDefinitionCrossReference_2_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10890:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10891:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10951:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10952:1: ruleQualifiedName
             {
              before(grammarAccess.getVariantValueAccess().getNamesVariantDefinitionQualifiedNameParserRuleCall_2_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariantValue__NamesAssignment_2_021895);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariantValue__NamesAssignment_2_022015);
             ruleQualifiedName();
 
             state._fsp--;
@@ -29165,20 +29318,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__ValueAssignment_5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10902:1: rule__VariantValue__ValueAssignment_5 : ( ruleStaticValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10963:1: rule__VariantValue__ValueAssignment_5 : ( ruleStaticValue ) ;
     public final void rule__VariantValue__ValueAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10906:1: ( ( ruleStaticValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10907:1: ( ruleStaticValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10967:1: ( ( ruleStaticValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10968:1: ( ruleStaticValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10907:1: ( ruleStaticValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10908:1: ruleStaticValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10968:1: ( ruleStaticValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10969:1: ruleStaticValue
             {
              before(grammarAccess.getVariantValueAccess().getValueStaticValueParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleStaticValue_in_rule__VariantValue__ValueAssignment_521930);
+            pushFollow(FOLLOW_ruleStaticValue_in_rule__VariantValue__ValueAssignment_522050);
             ruleStaticValue();
 
             state._fsp--;
@@ -29206,20 +29359,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableEntity__NameAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10917:1: rule__VariableEntity__NameAssignment : ( ruleQualifiedName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10978:1: rule__VariableEntity__NameAssignment : ( ruleQualifiedName ) ;
     public final void rule__VariableEntity__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10921:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10922:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10982:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10983:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10922:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10923:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10983:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10984:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment21961);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment22081);
             ruleQualifiedName();
 
             state._fsp--;
@@ -29247,24 +29400,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__DefinitionAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10932:1: rule__Test__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10993:1: rule__Test__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Test__DefinitionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10936:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10937:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10997:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10998:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10937:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10938:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10998:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10999:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getTestAccess().getDefinitionTestDefinitionCrossReference_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10939:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10940:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11000:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11001:1: ruleQualifiedName
             {
              before(grammarAccess.getTestAccess().getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Test__DefinitionAssignment_221996);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Test__DefinitionAssignment_222116);
             ruleQualifiedName();
 
             state._fsp--;
@@ -29296,20 +29449,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ParametersAssignment_3_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10951:1: rule__Test__ParametersAssignment_3_1 : ( ruleParameter ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11012:1: rule__Test__ParametersAssignment_3_1 : ( ruleParameter ) ;
     public final void rule__Test__ParametersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10955:1: ( ( ruleParameter ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10956:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11016:1: ( ( ruleParameter ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11017:1: ( ruleParameter )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10956:1: ( ruleParameter )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10957:1: ruleParameter
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11017:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11018:1: ruleParameter
             {
              before(grammarAccess.getTestAccess().getParametersParameterParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleParameter_in_rule__Test__ParametersAssignment_3_122031);
+            pushFollow(FOLLOW_ruleParameter_in_rule__Test__ParametersAssignment_3_122151);
             ruleParameter();
 
             state._fsp--;
@@ -29337,20 +29490,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ResultsAssignment_4_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10966:1: rule__Test__ResultsAssignment_4_1 : ( ruleNamedResult ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11027:1: rule__Test__ResultsAssignment_4_1 : ( ruleNamedResult ) ;
     public final void rule__Test__ResultsAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10970:1: ( ( ruleNamedResult ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10971:1: ( ruleNamedResult )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11031:1: ( ( ruleNamedResult ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11032:1: ( ruleNamedResult )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10971:1: ( ruleNamedResult )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10972:1: ruleNamedResult
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11032:1: ( ruleNamedResult )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11033:1: ruleNamedResult
             {
              before(grammarAccess.getTestAccess().getResultsNamedResultParserRuleCall_4_1_0()); 
-            pushFollow(FOLLOW_ruleNamedResult_in_rule__Test__ResultsAssignment_4_122062);
+            pushFollow(FOLLOW_ruleNamedResult_in_rule__Test__ResultsAssignment_4_122182);
             ruleNamedResult();
 
             state._fsp--;
@@ -29378,20 +29531,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ResultAssignment_5_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10981:1: rule__Test__ResultAssignment_5_3 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11042:1: rule__Test__ResultAssignment_5_3 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Test__ResultAssignment_5_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10985:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10986:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11046:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11047:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10986:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10987:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11047:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11048:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getTestAccess().getResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Test__ResultAssignment_5_322093);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Test__ResultAssignment_5_322213);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -29419,24 +29572,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__DefinitionAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:10996:1: rule__TableTest__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11057:1: rule__TableTest__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__TableTest__DefinitionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11000:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11001:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11061:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11062:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11001:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11002:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11062:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11063:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getTableTestAccess().getDefinitionTestDefinitionCrossReference_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11003:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11004:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11064:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11065:1: ruleQualifiedName
             {
              before(grammarAccess.getTableTestAccess().getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__TableTest__DefinitionAssignment_222128);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__TableTest__DefinitionAssignment_222248);
             ruleQualifiedName();
 
             state._fsp--;
@@ -29467,26 +29620,26 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__TableTest__DefinitionAssignment_2"
 
 
-    // $ANTLR start "rule__TableTest__ParametersAssignment_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11015:1: rule__TableTest__ParametersAssignment_3 : ( ruleParameter ) ;
-    public final void rule__TableTest__ParametersAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__TableTest__ParametersAssignment_3_1"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11076:1: rule__TableTest__ParametersAssignment_3_1 : ( ruleParameter ) ;
+    public final void rule__TableTest__ParametersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11019:1: ( ( ruleParameter ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11020:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11080:1: ( ( ruleParameter ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11081:1: ( ruleParameter )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11020:1: ( ruleParameter )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11021:1: ruleParameter
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11081:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11082:1: ruleParameter
             {
-             before(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleParameter_in_rule__TableTest__ParametersAssignment_322163);
+             before(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_1_0()); 
+            pushFollow(FOLLOW_ruleParameter_in_rule__TableTest__ParametersAssignment_3_122283);
             ruleParameter();
 
             state._fsp--;
 
-             after(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_0()); 
+             after(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_1_0()); 
 
             }
 
@@ -29505,24 +29658,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__TableTest__ParametersAssignment_3"
+    // $ANTLR end "rule__TableTest__ParametersAssignment_3_1"
 
 
     // $ANTLR start "rule__TableTest__ParameterHeadersAssignment_5"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11030:1: rule__TableTest__ParameterHeadersAssignment_5 : ( ruleParameterTableHeader ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11091:1: rule__TableTest__ParameterHeadersAssignment_5 : ( ruleParameterTableHeader ) ;
     public final void rule__TableTest__ParameterHeadersAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11034:1: ( ( ruleParameterTableHeader ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11035:1: ( ruleParameterTableHeader )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11095:1: ( ( ruleParameterTableHeader ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11096:1: ( ruleParameterTableHeader )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11035:1: ( ruleParameterTableHeader )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11036:1: ruleParameterTableHeader
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11096:1: ( ruleParameterTableHeader )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11097:1: ruleParameterTableHeader
             {
              before(grammarAccess.getTableTestAccess().getParameterHeadersParameterTableHeaderParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleParameterTableHeader_in_rule__TableTest__ParameterHeadersAssignment_522194);
+            pushFollow(FOLLOW_ruleParameterTableHeader_in_rule__TableTest__ParameterHeadersAssignment_522314);
             ruleParameterTableHeader();
 
             state._fsp--;
@@ -29550,20 +29703,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__ResultHeadersAssignment_6"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11045:1: rule__TableTest__ResultHeadersAssignment_6 : ( ruleResultTableHeader ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11106:1: rule__TableTest__ResultHeadersAssignment_6 : ( ruleResultTableHeader ) ;
     public final void rule__TableTest__ResultHeadersAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11049:1: ( ( ruleResultTableHeader ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11050:1: ( ruleResultTableHeader )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11110:1: ( ( ruleResultTableHeader ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11111:1: ( ruleResultTableHeader )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11050:1: ( ruleResultTableHeader )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11051:1: ruleResultTableHeader
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11111:1: ( ruleResultTableHeader )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11112:1: ruleResultTableHeader
             {
              before(grammarAccess.getTableTestAccess().getResultHeadersResultTableHeaderParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleResultTableHeader_in_rule__TableTest__ResultHeadersAssignment_622225);
+            pushFollow(FOLLOW_ruleResultTableHeader_in_rule__TableTest__ResultHeadersAssignment_622345);
             ruleResultTableHeader();
 
             state._fsp--;
@@ -29591,24 +29744,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__DefaultResultColumnAssignment_8_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11060:1: rule__TableTest__DefaultResultColumnAssignment_8_0 : ( ( '=' ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11121:1: rule__TableTest__DefaultResultColumnAssignment_8_0 : ( ( '=' ) ) ;
     public final void rule__TableTest__DefaultResultColumnAssignment_8_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11064:1: ( ( ( '=' ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11065:1: ( ( '=' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11125:1: ( ( ( '=' ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11126:1: ( ( '=' ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11065:1: ( ( '=' ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11066:1: ( '=' )
-            {
-             before(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11067:1: ( '=' )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11068:1: '='
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11126:1: ( ( '=' ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11127:1: ( '=' )
             {
              before(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
-            match(input,40,FOLLOW_40_in_rule__TableTest__DefaultResultColumnAssignment_8_022261); 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11128:1: ( '=' )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11129:1: '='
+            {
+             before(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
+            match(input,40,FOLLOW_40_in_rule__TableTest__DefaultResultColumnAssignment_8_022381); 
              after(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
 
             }
@@ -29636,20 +29789,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__RowsAssignment_9_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11083:1: rule__TableTest__RowsAssignment_9_1 : ( ruleTableTestRow ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11144:1: rule__TableTest__RowsAssignment_9_1 : ( ruleTableTestRow ) ;
     public final void rule__TableTest__RowsAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11087:1: ( ( ruleTableTestRow ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11088:1: ( ruleTableTestRow )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11148:1: ( ( ruleTableTestRow ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11149:1: ( ruleTableTestRow )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11088:1: ( ruleTableTestRow )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11089:1: ruleTableTestRow
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11149:1: ( ruleTableTestRow )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11150:1: ruleTableTestRow
             {
              before(grammarAccess.getTableTestAccess().getRowsTableTestRowParserRuleCall_9_1_0()); 
-            pushFollow(FOLLOW_ruleTableTestRow_in_rule__TableTest__RowsAssignment_9_122300);
+            pushFollow(FOLLOW_ruleTableTestRow_in_rule__TableTest__RowsAssignment_9_122420);
             ruleTableTestRow();
 
             state._fsp--;
@@ -29677,20 +29830,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__ValuesAssignment_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11098:1: rule__TableTestRow__ValuesAssignment_1 : ( ruleParameterTableValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11159:1: rule__TableTestRow__ValuesAssignment_1 : ( ruleParameterTableValue ) ;
     public final void rule__TableTestRow__ValuesAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11102:1: ( ( ruleParameterTableValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11103:1: ( ruleParameterTableValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11163:1: ( ( ruleParameterTableValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11164:1: ( ruleParameterTableValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11103:1: ( ruleParameterTableValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11104:1: ruleParameterTableValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11164:1: ( ruleParameterTableValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11165:1: ruleParameterTableValue
             {
              before(grammarAccess.getTableTestRowAccess().getValuesParameterTableValueParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleParameterTableValue_in_rule__TableTestRow__ValuesAssignment_122331);
+            pushFollow(FOLLOW_ruleParameterTableValue_in_rule__TableTestRow__ValuesAssignment_122451);
             ruleParameterTableValue();
 
             state._fsp--;
@@ -29718,20 +29871,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__NameAssignment_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11113:1: rule__ParameterTableHeader__NameAssignment_1 : ( ruleParameterName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11174:1: rule__ParameterTableHeader__NameAssignment_1 : ( ruleParameterName ) ;
     public final void rule__ParameterTableHeader__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11117:1: ( ( ruleParameterName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11118:1: ( ruleParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11178:1: ( ( ruleParameterName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11179:1: ( ruleParameterName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11118:1: ( ruleParameterName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11119:1: ruleParameterName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11179:1: ( ruleParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11180:1: ruleParameterName
             {
              before(grammarAccess.getParameterTableHeaderAccess().getNameParameterNameParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleParameterName_in_rule__ParameterTableHeader__NameAssignment_122362);
+            pushFollow(FOLLOW_ruleParameterName_in_rule__ParameterTableHeader__NameAssignment_122482);
             ruleParameterName();
 
             state._fsp--;
@@ -29759,20 +29912,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__NameAssignment_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11128:1: rule__ResultTableHeader__NameAssignment_1 : ( ruleResultName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11189:1: rule__ResultTableHeader__NameAssignment_1 : ( ruleResultName ) ;
     public final void rule__ResultTableHeader__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11132:1: ( ( ruleResultName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11133:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11193:1: ( ( ruleResultName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11194:1: ( ruleResultName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11133:1: ( ruleResultName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11134:1: ruleResultName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11194:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11195:1: ruleResultName
             {
              before(grammarAccess.getResultTableHeaderAccess().getNameResultNameParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleResultName_in_rule__ResultTableHeader__NameAssignment_122393);
+            pushFollow(FOLLOW_ruleResultName_in_rule__ResultTableHeader__NameAssignment_122513);
             ruleResultName();
 
             state._fsp--;
@@ -29800,20 +29953,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__ValueAssignment_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11143:1: rule__ParameterTableValue__ValueAssignment_1 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11204:1: rule__ParameterTableValue__ValueAssignment_1 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__ParameterTableValue__ValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11147:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11148:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11208:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11209:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11148:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11149:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11209:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11210:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__ParameterTableValue__ValueAssignment_122424);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__ParameterTableValue__ValueAssignment_122544);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -29841,20 +29994,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__NameAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11158:1: rule__NamedResult__NameAssignment_0 : ( ruleResultName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11219:1: rule__NamedResult__NameAssignment_0 : ( ruleResultName ) ;
     public final void rule__NamedResult__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11162:1: ( ( ruleResultName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11163:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11223:1: ( ( ruleResultName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11224:1: ( ruleResultName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11163:1: ( ruleResultName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11164:1: ruleResultName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11224:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11225:1: ruleResultName
             {
              before(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleResultName_in_rule__NamedResult__NameAssignment_022455);
+            pushFollow(FOLLOW_ruleResultName_in_rule__NamedResult__NameAssignment_022575);
             ruleResultName();
 
             state._fsp--;
@@ -29882,20 +30035,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__ValueAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11173:1: rule__NamedResult__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11234:1: rule__NamedResult__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__NamedResult__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11177:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11178:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11238:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11239:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11178:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11179:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11239:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11240:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__NamedResult__ValueAssignment_422486);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__NamedResult__ValueAssignment_422606);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -29923,24 +30076,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FixedResultName__FieldAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11188:1: rule__FixedResultName__FieldAssignment : ( ( RULE_ID ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11249:1: rule__FixedResultName__FieldAssignment : ( ( RULE_ID ) ) ;
     public final void rule__FixedResultName__FieldAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11192:1: ( ( ( RULE_ID ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11193:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11253:1: ( ( ( RULE_ID ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11254:1: ( ( RULE_ID ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11193:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11194:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11254:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11255:1: ( RULE_ID )
             {
              before(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldCrossReference_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11195:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11196:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11256:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11257:1: RULE_ID
             {
              before(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FixedResultName__FieldAssignment22521); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FixedResultName__FieldAssignment22641); 
              after(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1()); 
 
             }
@@ -29968,20 +30121,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__MultiplierAssignment_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11207:1: rule__Call__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11268:1: rule__Call__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
     public final void rule__Call__MultiplierAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11211:1: ( ( ruleExecutionMultiplier ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11212:1: ( ruleExecutionMultiplier )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11272:1: ( ( ruleExecutionMultiplier ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11273:1: ( ruleExecutionMultiplier )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11212:1: ( ruleExecutionMultiplier )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11213:1: ruleExecutionMultiplier
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11273:1: ( ruleExecutionMultiplier )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11274:1: ruleExecutionMultiplier
             {
              before(grammarAccess.getCallAccess().getMultiplierExecutionMultiplierParserRuleCall_2_0_0()); 
-            pushFollow(FOLLOW_ruleExecutionMultiplier_in_rule__Call__MultiplierAssignment_2_022556);
+            pushFollow(FOLLOW_ruleExecutionMultiplier_in_rule__Call__MultiplierAssignment_2_022676);
             ruleExecutionMultiplier();
 
             state._fsp--;
@@ -30009,24 +30162,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__DefinitionAssignment_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11222:1: rule__Call__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11283:1: rule__Call__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Call__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11226:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11227:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11287:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11288:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11227:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11228:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11288:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11289:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getCallAccess().getDefinitionCallDefinitionCrossReference_3_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11229:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11230:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11290:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11291:1: ruleQualifiedName
             {
              before(grammarAccess.getCallAccess().getDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Call__DefinitionAssignment_322591);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Call__DefinitionAssignment_322711);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30058,20 +30211,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ParametersAssignment_4_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11241:1: rule__Call__ParametersAssignment_4_1 : ( ruleParameter ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11302:1: rule__Call__ParametersAssignment_4_1 : ( ruleParameter ) ;
     public final void rule__Call__ParametersAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11245:1: ( ( ruleParameter ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11246:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11306:1: ( ( ruleParameter ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11307:1: ( ruleParameter )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11246:1: ( ruleParameter )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11247:1: ruleParameter
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11307:1: ( ruleParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11308:1: ruleParameter
             {
              before(grammarAccess.getCallAccess().getParametersParameterParserRuleCall_4_1_0()); 
-            pushFollow(FOLLOW_ruleParameter_in_rule__Call__ParametersAssignment_4_122626);
+            pushFollow(FOLLOW_ruleParameter_in_rule__Call__ParametersAssignment_4_122746);
             ruleParameter();
 
             state._fsp--;
@@ -30099,20 +30252,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ResultsAssignment_5_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11256:1: rule__Call__ResultsAssignment_5_1 : ( ruleNamedCallResult ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11317:1: rule__Call__ResultsAssignment_5_1 : ( ruleNamedCallResult ) ;
     public final void rule__Call__ResultsAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11260:1: ( ( ruleNamedCallResult ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11261:1: ( ruleNamedCallResult )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11321:1: ( ( ruleNamedCallResult ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11322:1: ( ruleNamedCallResult )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11261:1: ( ruleNamedCallResult )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11262:1: ruleNamedCallResult
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11322:1: ( ruleNamedCallResult )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11323:1: ruleNamedCallResult
             {
              before(grammarAccess.getCallAccess().getResultsNamedCallResultParserRuleCall_5_1_0()); 
-            pushFollow(FOLLOW_ruleNamedCallResult_in_rule__Call__ResultsAssignment_5_122657);
+            pushFollow(FOLLOW_ruleNamedCallResult_in_rule__Call__ResultsAssignment_5_122777);
             ruleNamedCallResult();
 
             state._fsp--;
@@ -30140,20 +30293,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ResultAssignment_6_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11271:1: rule__Call__ResultAssignment_6_3 : ( ruleVariable ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11332:1: rule__Call__ResultAssignment_6_3 : ( ruleVariable ) ;
     public final void rule__Call__ResultAssignment_6_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11275:1: ( ( ruleVariable ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11276:1: ( ruleVariable )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11336:1: ( ( ruleVariable ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11337:1: ( ruleVariable )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11276:1: ( ruleVariable )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11277:1: ruleVariable
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11337:1: ( ruleVariable )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11338:1: ruleVariable
             {
              before(grammarAccess.getCallAccess().getResultVariableParserRuleCall_6_3_0()); 
-            pushFollow(FOLLOW_ruleVariable_in_rule__Call__ResultAssignment_6_322688);
+            pushFollow(FOLLOW_ruleVariable_in_rule__Call__ResultAssignment_6_322808);
             ruleVariable();
 
             state._fsp--;
@@ -30181,20 +30334,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__NameAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11286:1: rule__NamedCallResult__NameAssignment_0 : ( ruleResultName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11347:1: rule__NamedCallResult__NameAssignment_0 : ( ruleResultName ) ;
     public final void rule__NamedCallResult__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11290:1: ( ( ruleResultName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11291:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11351:1: ( ( ruleResultName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11352:1: ( ruleResultName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11291:1: ( ruleResultName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11292:1: ruleResultName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11352:1: ( ruleResultName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11353:1: ruleResultName
             {
              before(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleResultName_in_rule__NamedCallResult__NameAssignment_022719);
+            pushFollow(FOLLOW_ruleResultName_in_rule__NamedCallResult__NameAssignment_022839);
             ruleResultName();
 
             state._fsp--;
@@ -30222,20 +30375,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__TargetAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11301:1: rule__NamedCallResult__TargetAssignment_4 : ( ruleVariable ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11362:1: rule__NamedCallResult__TargetAssignment_4 : ( ruleVariable ) ;
     public final void rule__NamedCallResult__TargetAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11305:1: ( ( ruleVariable ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11306:1: ( ruleVariable )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11366:1: ( ( ruleVariable ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11367:1: ( ruleVariable )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11306:1: ( ruleVariable )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11307:1: ruleVariable
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11367:1: ( ruleVariable )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11368:1: ruleVariable
             {
              before(grammarAccess.getNamedCallResultAccess().getTargetVariableParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleVariable_in_rule__NamedCallResult__TargetAssignment_422750);
+            pushFollow(FOLLOW_ruleVariable_in_rule__NamedCallResult__TargetAssignment_422870);
             ruleVariable();
 
             state._fsp--;
@@ -30263,20 +30416,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__MultiplierAssignment_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11316:1: rule__Suite__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11377:1: rule__Suite__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
     public final void rule__Suite__MultiplierAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11320:1: ( ( ruleExecutionMultiplier ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11321:1: ( ruleExecutionMultiplier )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11381:1: ( ( ruleExecutionMultiplier ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11382:1: ( ruleExecutionMultiplier )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11321:1: ( ruleExecutionMultiplier )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11322:1: ruleExecutionMultiplier
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11382:1: ( ruleExecutionMultiplier )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11383:1: ruleExecutionMultiplier
             {
              before(grammarAccess.getSuiteAccess().getMultiplierExecutionMultiplierParserRuleCall_2_0_0()); 
-            pushFollow(FOLLOW_ruleExecutionMultiplier_in_rule__Suite__MultiplierAssignment_2_022781);
+            pushFollow(FOLLOW_ruleExecutionMultiplier_in_rule__Suite__MultiplierAssignment_2_022901);
             ruleExecutionMultiplier();
 
             state._fsp--;
@@ -30304,24 +30457,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__DefinitionAssignment_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11331:1: rule__Suite__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11392:1: rule__Suite__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11335:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11336:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11396:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11397:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11336:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11337:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11397:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11398:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_3_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11338:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11339:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11399:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11400:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionQualifiedNameParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__DefinitionAssignment_322816);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__DefinitionAssignment_322936);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30353,20 +30506,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__ParametersAssignment_5_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11350:1: rule__Suite__ParametersAssignment_5_0 : ( ruleSuiteParameter ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11411:1: rule__Suite__ParametersAssignment_5_0 : ( ruleSuiteParameter ) ;
     public final void rule__Suite__ParametersAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11354:1: ( ( ruleSuiteParameter ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11355:1: ( ruleSuiteParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11415:1: ( ( ruleSuiteParameter ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11416:1: ( ruleSuiteParameter )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11355:1: ( ruleSuiteParameter )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11356:1: ruleSuiteParameter
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11416:1: ( ruleSuiteParameter )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11417:1: ruleSuiteParameter
             {
              before(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_5_0_0()); 
-            pushFollow(FOLLOW_ruleSuiteParameter_in_rule__Suite__ParametersAssignment_5_022851);
+            pushFollow(FOLLOW_ruleSuiteParameter_in_rule__Suite__ParametersAssignment_5_022971);
             ruleSuiteParameter();
 
             state._fsp--;
@@ -30394,24 +30547,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__ForkAssignment_6_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11365:1: rule__Suite__ForkAssignment_6_2 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11426:1: rule__Suite__ForkAssignment_6_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__ForkAssignment_6_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11369:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11370:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11430:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11431:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11370:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11371:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11431:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11432:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_6_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11372:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11373:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11433:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11434:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getForkForkDefinitionQualifiedNameParserRuleCall_6_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__ForkAssignment_6_222886);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__ForkAssignment_6_223006);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30443,24 +30596,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__VariantsAssignment_7_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11384:1: rule__Suite__VariantsAssignment_7_2_0 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11445:1: rule__Suite__VariantsAssignment_7_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__VariantsAssignment_7_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11388:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11389:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11449:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11450:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11389:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11390:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11450:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11451:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionCrossReference_7_2_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11391:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11392:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11452:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11453:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionQualifiedNameParserRuleCall_7_2_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__VariantsAssignment_7_2_022925);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Suite__VariantsAssignment_7_2_023045);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30492,24 +30645,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__NameAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11403:1: rule__SuiteParameter__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11464:1: rule__SuiteParameter__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__SuiteParameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11407:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11408:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11468:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11469:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11408:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11409:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11469:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11470:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteParameterAccess().getNameVariableEntityCrossReference_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11410:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11411:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11471:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11472:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteParameterAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteParameter__NameAssignment_022964);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__SuiteParameter__NameAssignment_023084);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30541,20 +30694,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__ValueAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11422:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11483:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValue ) ;
     public final void rule__SuiteParameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11426:1: ( ( ruleValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11427:1: ( ruleValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11487:1: ( ( ruleValue ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11488:1: ( ruleValue )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11427:1: ( ruleValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11428:1: ruleValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11488:1: ( ruleValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11489:1: ruleValue
             {
              before(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_422999);
+            pushFollow(FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_423119);
             ruleValue();
 
             state._fsp--;
@@ -30582,20 +30735,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__NameAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11437:1: rule__Parameter__NameAssignment_0 : ( ruleParameterName ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11498:1: rule__Parameter__NameAssignment_0 : ( ruleParameterName ) ;
     public final void rule__Parameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11441:1: ( ( ruleParameterName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11442:1: ( ruleParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11502:1: ( ( ruleParameterName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11503:1: ( ruleParameterName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11442:1: ( ruleParameterName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11443:1: ruleParameterName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11503:1: ( ruleParameterName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11504:1: ruleParameterName
             {
              before(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleParameterName_in_rule__Parameter__NameAssignment_023030);
+            pushFollow(FOLLOW_ruleParameterName_in_rule__Parameter__NameAssignment_023150);
             ruleParameterName();
 
             state._fsp--;
@@ -30623,20 +30776,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__ValueAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11452:1: rule__Parameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11513:1: rule__Parameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Parameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11456:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11457:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11517:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11518:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11457:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11458:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11518:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11519:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Parameter__ValueAssignment_423061);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Parameter__ValueAssignment_423181);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -30664,24 +30817,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FixedParameterName__AnnotationAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11467:1: rule__FixedParameterName__AnnotationAssignment : ( ( RULE_ID ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11528:1: rule__FixedParameterName__AnnotationAssignment : ( ( RULE_ID ) ) ;
     public final void rule__FixedParameterName__AnnotationAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11471:1: ( ( ( RULE_ID ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11472:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11532:1: ( ( ( RULE_ID ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11533:1: ( ( RULE_ID ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11472:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11473:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11533:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11534:1: ( RULE_ID )
             {
              before(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceCrossReference_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11474:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11475:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11535:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11536:1: RULE_ID
             {
              before(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FixedParameterName__AnnotationAssignment23096); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FixedParameterName__AnnotationAssignment23216); 
              after(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1()); 
 
             }
@@ -30709,20 +30862,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11486:1: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 : ( RULE_ID ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11547:1: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1 : ( RULE_ID ) ;
     public final void rule__ArbitraryParameterOrResultName__IdentifierAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11490:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11491:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11551:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11552:1: ( RULE_ID )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11491:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11492:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11552:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11553:1: RULE_ID
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ArbitraryParameterOrResultName__IdentifierAssignment_123131); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ArbitraryParameterOrResultName__IdentifierAssignment_123251); 
              after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
 
             }
@@ -30746,20 +30899,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__PrefixOperandAssignment_2_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11501:1: rule__Operation__PrefixOperandAssignment_2_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11562:1: rule__Operation__PrefixOperandAssignment_2_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Operation__PrefixOperandAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11505:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11506:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11566:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11567:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11506:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11507:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11567:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11568:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getOperationAccess().getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PrefixOperandAssignment_2_023162);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PrefixOperandAssignment_2_023282);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -30787,24 +30940,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__DefinitionAssignment_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11516:1: rule__Operation__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11577:1: rule__Operation__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Operation__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11520:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11521:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11581:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11582:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11521:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11522:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11582:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11583:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getOperationAccess().getDefinitionOperationDefinitionCrossReference_3_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11523:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11524:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11584:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11585:1: ruleQualifiedName
             {
              before(grammarAccess.getOperationAccess().getDefinitionOperationDefinitionQualifiedNameParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Operation__DefinitionAssignment_323197);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Operation__DefinitionAssignment_323317);
             ruleQualifiedName();
 
             state._fsp--;
@@ -30836,20 +30989,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Operation__PostfixOperandAssignment_4_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11535:1: rule__Operation__PostfixOperandAssignment_4_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11596:1: rule__Operation__PostfixOperandAssignment_4_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Operation__PostfixOperandAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11539:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11540:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11600:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11601:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11540:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11541:1: ruleValueOrEnumValueOrOperationCollection
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11601:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11602:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PostfixOperandAssignment_4_223232);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PostfixOperandAssignment_4_223352);
             ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
@@ -30877,20 +31030,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11550:1: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 : ( ruleValueOrEnumValueOrOperation ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11611:1: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11554:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11555:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11615:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11616:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11555:1: ( ruleValueOrEnumValueOrOperation )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11556:1: ruleValueOrEnumValueOrOperation
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11616:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11617:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_023263);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_023383);
             ruleValueOrEnumValueOrOperation();
 
             state._fsp--;
@@ -30918,20 +31071,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11565:1: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 : ( ruleValueOrEnumValueOrOperation ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11626:1: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11569:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11570:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11630:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11631:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11570:1: ( ruleValueOrEnumValueOrOperation )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11571:1: ruleValueOrEnumValueOrOperation
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11631:1: ( ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11632:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesValueOrEnumValueOrOperationParserRuleCall_1_3_0()); 
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_323294);
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_323414);
             ruleValueOrEnumValueOrOperation();
 
             state._fsp--;
@@ -30959,20 +31112,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IntegerValue__IntegerValueAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11580:1: rule__IntegerValue__IntegerValueAssignment : ( RULE_INTEGER ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11641:1: rule__IntegerValue__IntegerValueAssignment : ( RULE_INTEGER ) ;
     public final void rule__IntegerValue__IntegerValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11584:1: ( ( RULE_INTEGER ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11585:1: ( RULE_INTEGER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11645:1: ( ( RULE_INTEGER ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11646:1: ( RULE_INTEGER )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11585:1: ( RULE_INTEGER )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11586:1: RULE_INTEGER
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11646:1: ( RULE_INTEGER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11647:1: RULE_INTEGER
             {
              before(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0()); 
-            match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_rule__IntegerValue__IntegerValueAssignment23325); 
+            match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_rule__IntegerValue__IntegerValueAssignment23445); 
              after(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0()); 
 
             }
@@ -30996,20 +31149,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DecimalValue__DecimalValueAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11595:1: rule__DecimalValue__DecimalValueAssignment : ( RULE_DECIMAL ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11656:1: rule__DecimalValue__DecimalValueAssignment : ( RULE_DECIMAL ) ;
     public final void rule__DecimalValue__DecimalValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11599:1: ( ( RULE_DECIMAL ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11600:1: ( RULE_DECIMAL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11660:1: ( ( RULE_DECIMAL ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11661:1: ( RULE_DECIMAL )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11600:1: ( RULE_DECIMAL )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11601:1: RULE_DECIMAL
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11661:1: ( RULE_DECIMAL )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11662:1: RULE_DECIMAL
             {
              before(grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0()); 
-            match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_rule__DecimalValue__DecimalValueAssignment23356); 
+            match(input,RULE_DECIMAL,FOLLOW_RULE_DECIMAL_in_rule__DecimalValue__DecimalValueAssignment23476); 
              after(grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0()); 
 
             }
@@ -31033,20 +31186,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StringValue__StringValueAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11610:1: rule__StringValue__StringValueAssignment : ( RULE_STRING ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11671:1: rule__StringValue__StringValueAssignment : ( RULE_STRING ) ;
     public final void rule__StringValue__StringValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11614:1: ( ( RULE_STRING ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11615:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11675:1: ( ( RULE_STRING ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11676:1: ( RULE_STRING )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11615:1: ( RULE_STRING )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11616:1: RULE_STRING
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11676:1: ( RULE_STRING )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11677:1: RULE_STRING
             {
              before(grammarAccess.getStringValueAccess().getStringValueSTRINGTerminalRuleCall_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__StringValue__StringValueAssignment23387); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__StringValue__StringValueAssignment23507); 
              after(grammarAccess.getStringValueAccess().getStringValueSTRINGTerminalRuleCall_0()); 
 
             }
@@ -31070,23 +31223,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BooleanValue__BooleanValueAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11625:1: rule__BooleanValue__BooleanValueAssignment : ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11686:1: rule__BooleanValue__BooleanValueAssignment : ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) ;
     public final void rule__BooleanValue__BooleanValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11629:1: ( ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11630:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11690:1: ( ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11691:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11630:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11631:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11691:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11692:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
             {
              before(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11632:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11632:2: rule__BooleanValue__BooleanValueAlternatives_0
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11693:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11693:2: rule__BooleanValue__BooleanValueAlternatives_0
             {
-            pushFollow(FOLLOW_rule__BooleanValue__BooleanValueAlternatives_0_in_rule__BooleanValue__BooleanValueAssignment23418);
+            pushFollow(FOLLOW_rule__BooleanValue__BooleanValueAlternatives_0_in_rule__BooleanValue__BooleanValueAssignment23538);
             rule__BooleanValue__BooleanValueAlternatives_0();
 
             state._fsp--;
@@ -31117,24 +31270,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__NameAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11641:1: rule__Variable__NameAssignment : ( ( ruleQualifiedName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11702:1: rule__Variable__NameAssignment : ( ( ruleQualifiedName ) ) ;
     public final void rule__Variable__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11645:1: ( ( ( ruleQualifiedName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11646:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11706:1: ( ( ( ruleQualifiedName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11707:1: ( ( ruleQualifiedName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11646:1: ( ( ruleQualifiedName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11647:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11707:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11708:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getVariableAccess().getNameVariableEntityCrossReference_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11648:1: ( ruleQualifiedName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11649:1: ruleQualifiedName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11709:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11710:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Variable__NameAssignment23455);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Variable__NameAssignment23575);
             ruleQualifiedName();
 
             state._fsp--;
@@ -31166,24 +31319,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumValue__EnumValueAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11660:1: rule__EnumValue__EnumValueAssignment : ( ( RULE_UPPERCASE_ID ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11721:1: rule__EnumValue__EnumValueAssignment : ( ( RULE_UPPERCASE_ID ) ) ;
     public final void rule__EnumValue__EnumValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11664:1: ( ( ( RULE_UPPERCASE_ID ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11665:1: ( ( RULE_UPPERCASE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11725:1: ( ( ( RULE_UPPERCASE_ID ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11726:1: ( ( RULE_UPPERCASE_ID ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11665:1: ( ( RULE_UPPERCASE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11666:1: ( RULE_UPPERCASE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11726:1: ( ( RULE_UPPERCASE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11727:1: ( RULE_UPPERCASE_ID )
             {
              before(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralCrossReference_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11667:1: ( RULE_UPPERCASE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11668:1: RULE_UPPERCASE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11728:1: ( RULE_UPPERCASE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11729:1: RULE_UPPERCASE_ID
             {
              before(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1()); 
-            match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_rule__EnumValue__EnumValueAssignment23494); 
+            match(input,RULE_UPPERCASE_ID,FOLLOW_RULE_UPPERCASE_ID_in_rule__EnumValue__EnumValueAssignment23614); 
              after(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1()); 
 
             }
@@ -31211,24 +31364,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaClassReference__TypeAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11679:1: rule__JavaClassReference__TypeAssignment : ( ( ruleQualifiedJavaClassName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11740:1: rule__JavaClassReference__TypeAssignment : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__JavaClassReference__TypeAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11683:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11684:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11744:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11745:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11684:1: ( ( ruleQualifiedJavaClassName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11685:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11745:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11746:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeCrossReference_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11686:1: ( ruleQualifiedJavaClassName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11687:1: ruleQualifiedJavaClassName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11747:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11748:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__JavaClassReference__TypeAssignment23533);
+            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__JavaClassReference__TypeAssignment23653);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -31260,24 +31413,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__TypeAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11698:1: rule__MethodReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11759:1: rule__MethodReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__MethodReference__TypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11702:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11703:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11763:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11764:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11703:1: ( ( ruleQualifiedJavaClassName ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11704:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11764:1: ( ( ruleQualifiedJavaClassName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11765:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11705:1: ( ruleQualifiedJavaClassName )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11706:1: ruleQualifiedJavaClassName
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11766:1: ( ruleQualifiedJavaClassName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11767:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__MethodReference__TypeAssignment_023572);
+            pushFollow(FOLLOW_ruleQualifiedJavaClassName_in_rule__MethodReference__TypeAssignment_023692);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -31309,24 +31462,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__MethodAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11717:1: rule__MethodReference__MethodAssignment_2 : ( ( RULE_ID ) ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11778:1: rule__MethodReference__MethodAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__MethodReference__MethodAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11721:1: ( ( ( RULE_ID ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11722:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11782:1: ( ( ( RULE_ID ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11783:1: ( ( RULE_ID ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11722:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11723:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11783:1: ( ( RULE_ID ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11784:1: ( RULE_ID )
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationCrossReference_2_0()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11724:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11725:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11785:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11786:1: RULE_ID
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__MethodReference__MethodAssignment_223611); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__MethodReference__MethodAssignment_223731); 
              after(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1()); 
 
             }
@@ -31354,20 +31507,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__CountAssignment_0"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11736:1: rule__ExecutionMultiplier__CountAssignment_0 : ( RULE_INTEGER ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11797:1: rule__ExecutionMultiplier__CountAssignment_0 : ( RULE_INTEGER ) ;
     public final void rule__ExecutionMultiplier__CountAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11740:1: ( ( RULE_INTEGER ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11741:1: ( RULE_INTEGER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11801:1: ( ( RULE_INTEGER ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11802:1: ( RULE_INTEGER )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11741:1: ( RULE_INTEGER )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11742:1: RULE_INTEGER
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11802:1: ( RULE_INTEGER )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:11803:1: RULE_INTEGER
             {
              before(grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0()); 
-            match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_rule__ExecutionMultiplier__CountAssignment_023646); 
+            match(input,RULE_INTEGER,FOLLOW_RULE_INTEGER_in_rule__ExecutionMultiplier__CountAssignment_023766); 
              after(grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0()); 
 
             }
@@ -31395,6 +31548,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     protected DFA29 dfa29 = new DFA29(this);
     protected DFA30 dfa30 = new DFA30(this);
     protected DFA31 dfa31 = new DFA31(this);
+    protected DFA32 dfa32 = new DFA32(this);
     protected DFA36 dfa36 = new DFA36(this);
     protected DFA42 dfa42 = new DFA42(this);
     protected DFA43 dfa43 = new DFA43(this);
@@ -31575,6 +31729,61 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             return "6121:1: ( rule__Test__Group_5__0 )?";
         }
     }
+    static final String DFA32_eotS =
+        "\7\uffff";
+    static final String DFA32_eofS =
+        "\7\uffff";
+    static final String DFA32_minS =
+        "\2\6\1\uffff\2\6\1\uffff\1\6";
+    static final String DFA32_maxS =
+        "\2\57\1\uffff\2\57\1\uffff\1\57";
+    static final String DFA32_acceptS =
+        "\2\uffff\1\1\2\uffff\1\2\1\uffff";
+    static final String DFA32_specialS =
+        "\7\uffff}>";
+    static final String[] DFA32_transitionS = {
+            "\1\2\1\uffff\1\1\46\uffff\1\2",
+            "\1\2\1\uffff\1\4\1\3\40\uffff\1\5\4\uffff\1\2",
+            "",
+            "\1\2\1\uffff\1\4\41\uffff\1\5\4\uffff\1\2",
+            "\1\2\1\uffff\1\4\1\6\40\uffff\1\5\4\uffff\1\2",
+            "",
+            "\1\2\1\uffff\1\4\41\uffff\1\5\4\uffff\1\2"
+    };
+
+    static final short[] DFA32_eot = DFA.unpackEncodedString(DFA32_eotS);
+    static final short[] DFA32_eof = DFA.unpackEncodedString(DFA32_eofS);
+    static final char[] DFA32_min = DFA.unpackEncodedStringToUnsignedChars(DFA32_minS);
+    static final char[] DFA32_max = DFA.unpackEncodedStringToUnsignedChars(DFA32_maxS);
+    static final short[] DFA32_accept = DFA.unpackEncodedString(DFA32_acceptS);
+    static final short[] DFA32_special = DFA.unpackEncodedString(DFA32_specialS);
+    static final short[][] DFA32_transition;
+
+    static {
+        int numStates = DFA32_transitionS.length;
+        DFA32_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA32_transition[i] = DFA.unpackEncodedString(DFA32_transitionS[i]);
+        }
+    }
+
+    class DFA32 extends DFA {
+
+        public DFA32(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 32;
+            this.eot = DFA32_eot;
+            this.eof = DFA32_eof;
+            this.min = DFA32_min;
+            this.max = DFA32_max;
+            this.accept = DFA32_accept;
+            this.special = DFA32_special;
+            this.transition = DFA32_transition;
+        }
+        public String getDescription() {
+            return "()* loopback of 6528:1: ( rule__TableTest__Group_3__0 )*";
+        }
+    }
     static final String DFA36_eotS =
         "\7\uffff";
     static final String DFA36_eofS =
@@ -31692,7 +31901,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA42_transition;
         }
         public String getDescription() {
-            return "()* loopback of 7579:1: ( rule__Call__Group_4__0 )*";
+            return "()* loopback of 7640:1: ( rule__Call__Group_4__0 )*";
         }
     }
     static final String DFA43_eotS =
@@ -31748,7 +31957,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "()* loopback of 7608:1: ( rule__Call__Group_5__0 )*";
+            return "()* loopback of 7669:1: ( rule__Call__Group_5__0 )*";
         }
     }
     static final String DFA44_eotS =
@@ -31804,7 +32013,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "7637:1: ( rule__Call__Group_6__0 )?";
+            return "7698:1: ( rule__Call__Group_6__0 )?";
         }
     }
     static final String DFA50_eotS =
@@ -31860,7 +32069,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA50_transition;
         }
         public String getDescription() {
-            return "9267:1: ( rule__Operation__Group_2__0 )?";
+            return "9328:1: ( rule__Operation__Group_2__0 )?";
         }
     }
     static final String DFA51_eotS =
@@ -31913,7 +32122,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA51_transition;
         }
         public String getDescription() {
-            return "9325:1: ( rule__Operation__Group_4__0 )?";
+            return "9386:1: ( rule__Operation__Group_4__0 )?";
         }
     }
     static final String DFA52_eotS =
@@ -31973,7 +32182,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = DFA52_transition;
         }
         public String getDescription() {
-            return "()* loopback of 9610:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*";
+            return "()* loopback of 9671:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*";
         }
     }
  
@@ -32586,12 +32795,12 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__TableTest__Group__1__Impl_in_rule__TableTest__Group__113096 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__TableTest__Group__2_in_rule__TableTest__Group__113099 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNL_in_rule__TableTest__Group__1__Impl13126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group__2__Impl_in_rule__TableTest__Group__213155 = new BitSet(new long[]{0x0000800000000140L});
+    public static final BitSet FOLLOW_rule__TableTest__Group__2__Impl_in_rule__TableTest__Group__213155 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_rule__TableTest__Group__3_in_rule__TableTest__Group__213158 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__TableTest__DefinitionAssignment_2_in_rule__TableTest__Group__2__Impl13185 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group__3__Impl_in_rule__TableTest__Group__313215 = new BitSet(new long[]{0x0000800000000140L});
+    public static final BitSet FOLLOW_rule__TableTest__Group__3__Impl_in_rule__TableTest__Group__313215 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_rule__TableTest__Group__4_in_rule__TableTest__Group__313218 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__ParametersAssignment_3_in_rule__TableTest__Group__3__Impl13245 = new BitSet(new long[]{0x0000800000000042L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_3__0_in_rule__TableTest__Group__3__Impl13245 = new BitSet(new long[]{0x0000000000000102L});
     public static final BitSet FOLLOW_rule__TableTest__Group__4__Impl_in_rule__TableTest__Group__413276 = new BitSet(new long[]{0x0000040000000000L});
     public static final BitSet FOLLOW_rule__TableTest__Group__5_in_rule__TableTest__Group__413279 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNLFORCED_in_rule__TableTest__Group__4__Impl13306 = new BitSet(new long[]{0x0000000000000002L});
@@ -32601,413 +32810,418 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__TableTest__Group__6__Impl_in_rule__TableTest__Group__613396 = new BitSet(new long[]{0x0000040000000000L});
     public static final BitSet FOLLOW_rule__TableTest__Group__7_in_rule__TableTest__Group__613399 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__TableTest__ResultHeadersAssignment_6_in_rule__TableTest__Group__6__Impl13426 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group__7__Impl_in_rule__TableTest__Group__713457 = new BitSet(new long[]{0x0000810000000140L});
+    public static final BitSet FOLLOW_rule__TableTest__Group__7__Impl_in_rule__TableTest__Group__713457 = new BitSet(new long[]{0x0000010000000100L});
     public static final BitSet FOLLOW_rule__TableTest__Group__8_in_rule__TableTest__Group__713460 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_42_in_rule__TableTest__Group__7__Impl13488 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group__8__Impl_in_rule__TableTest__Group__813519 = new BitSet(new long[]{0x0000810000000140L});
+    public static final BitSet FOLLOW_rule__TableTest__Group__8__Impl_in_rule__TableTest__Group__813519 = new BitSet(new long[]{0x0000010000000100L});
     public static final BitSet FOLLOW_rule__TableTest__Group__9_in_rule__TableTest__Group__813522 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__TableTest__Group_8__0_in_rule__TableTest__Group__8__Impl13549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group__9__Impl_in_rule__TableTest__Group__913580 = new BitSet(new long[]{0x0000800000000140L});
+    public static final BitSet FOLLOW_rule__TableTest__Group__9__Impl_in_rule__TableTest__Group__913580 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_rule__TableTest__Group__10_in_rule__TableTest__Group__913583 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_9__0_in_rule__TableTest__Group__9__Impl13612 = new BitSet(new long[]{0x0000810000000142L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_9__0_in_rule__TableTest__Group__9__Impl13624 = new BitSet(new long[]{0x0000810000000142L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_9__0_in_rule__TableTest__Group__9__Impl13612 = new BitSet(new long[]{0x0000010000000102L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_9__0_in_rule__TableTest__Group__9__Impl13624 = new BitSet(new long[]{0x0000010000000102L});
     public static final BitSet FOLLOW_rule__TableTest__Group__10__Impl_in_rule__TableTest__Group__1013657 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNLFORCED_in_rule__TableTest__Group__10__Impl13684 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_8__0__Impl_in_rule__TableTest__Group_8__013735 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_8__1_in_rule__TableTest__Group_8__013738 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__DefaultResultColumnAssignment_8_0_in_rule__TableTest__Group_8__0__Impl13765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_8__1__Impl_in_rule__TableTest__Group_8__113795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__TableTest__Group_8__1__Impl13823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_9__0__Impl_in_rule__TableTest__Group_9__013858 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_9__1_in_rule__TableTest__Group_9__013861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNLFORCED_in_rule__TableTest__Group_9__0__Impl13888 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__Group_9__1__Impl_in_rule__TableTest__Group_9__113917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTest__RowsAssignment_9_1_in_rule__TableTest__Group_9__1__Impl13944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTestRow__Group__0__Impl_in_rule__TableTestRow__Group__013978 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__TableTestRow__Group__1_in_rule__TableTestRow__Group__013981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTestRow__Group__1__Impl_in_rule__TableTestRow__Group__114039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14068 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14080 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__0__Impl_in_rule__ParameterTableHeader__Group__014117 = new BitSet(new long[]{0x0000800000000040L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__1_in_rule__ParameterTableHeader__Group__014120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ParameterTableHeader__Group__0__Impl14148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__1__Impl_in_rule__ParameterTableHeader__Group__114179 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__2_in_rule__ParameterTableHeader__Group__114182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__NameAssignment_1_in_rule__ParameterTableHeader__Group__1__Impl14209 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__2__Impl_in_rule__ParameterTableHeader__Group__214239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ParameterTableHeader__Group__2__Impl14268 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__0__Impl_in_rule__ResultTableHeader__Group__014307 = new BitSet(new long[]{0x0000800000000040L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__1_in_rule__ResultTableHeader__Group__014310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ResultTableHeader__Group__0__Impl14338 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__1__Impl_in_rule__ResultTableHeader__Group__114369 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__2_in_rule__ResultTableHeader__Group__114372 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__NameAssignment_1_in_rule__ResultTableHeader__Group__1__Impl14399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__2__Impl_in_rule__ResultTableHeader__Group__214429 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__3_in_rule__ResultTableHeader__Group__214432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rule__ResultTableHeader__Group__2__Impl14460 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__3__Impl_in_rule__ResultTableHeader__Group__314491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ResultTableHeader__Group__3__Impl14520 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__0__Impl_in_rule__ParameterTableValue__Group__014561 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__1_in_rule__ParameterTableValue__Group__014564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ParameterTableValue__Group__0__Impl14592 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__1__Impl_in_rule__ParameterTableValue__Group__114623 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__2_in_rule__ParameterTableValue__Group__114626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__ValueAssignment_1_in_rule__ParameterTableValue__Group__1__Impl14653 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__2__Impl_in_rule__ParameterTableValue__Group__214683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__ParameterTableValue__Group__2__Impl14712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__0__Impl_in_rule__NamedResult__Group__014751 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__1_in_rule__NamedResult__Group__014754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__NameAssignment_0_in_rule__NamedResult__Group__0__Impl14781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__1__Impl_in_rule__NamedResult__Group__114811 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__2_in_rule__NamedResult__Group__114814 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__NamedResult__Group__1__Impl14841 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__2__Impl_in_rule__NamedResult__Group__214870 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__3_in_rule__NamedResult__Group__214873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rule__NamedResult__Group__2__Impl14901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__3__Impl_in_rule__NamedResult__Group__314932 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__4_in_rule__NamedResult__Group__314935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__NamedResult__Group__3__Impl14962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__Group__4__Impl_in_rule__NamedResult__Group__414991 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedResult__ValueAssignment_4_in_rule__NamedResult__Group__4__Impl15018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__0__Impl_in_rule__Call__Group__015058 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group__1_in_rule__Call__Group__015061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_rule__Call__Group__0__Impl15089 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__1__Impl_in_rule__Call__Group__115120 = new BitSet(new long[]{0x0000000000004040L});
-    public static final BitSet FOLLOW_rule__Call__Group__2_in_rule__Call__Group__115123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group__1__Impl15150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__2__Impl_in_rule__Call__Group__215179 = new BitSet(new long[]{0x0000000000004040L});
-    public static final BitSet FOLLOW_rule__Call__Group__3_in_rule__Call__Group__215182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_2__0_in_rule__Call__Group__2__Impl15209 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__3__Impl_in_rule__Call__Group__315240 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group__4_in_rule__Call__Group__315243 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__DefinitionAssignment_3_in_rule__Call__Group__3__Impl15270 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__4__Impl_in_rule__Call__Group__415300 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group__5_in_rule__Call__Group__415303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_4__0_in_rule__Call__Group__4__Impl15330 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__Call__Group__5__Impl_in_rule__Call__Group__515361 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group__6_in_rule__Call__Group__515364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_5__0_in_rule__Call__Group__5__Impl15391 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__Call__Group__6__Impl_in_rule__Call__Group__615422 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group__7_in_rule__Call__Group__615425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__0_in_rule__Call__Group__6__Impl15452 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group__7__Impl_in_rule__Call__Group__715483 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group__7__Impl15510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_2__0__Impl_in_rule__Call__Group_2__015555 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group_2__1_in_rule__Call__Group_2__015558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__MultiplierAssignment_2_0_in_rule__Call__Group_2__0__Impl15585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_2__1__Impl_in_rule__Call__Group_2__115615 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_2__1__Impl15642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_4__0__Impl_in_rule__Call__Group_4__015675 = new BitSet(new long[]{0x0000800000000040L});
-    public static final BitSet FOLLOW_rule__Call__Group_4__1_in_rule__Call__Group_4__015678 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_4__0__Impl15705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_4__1__Impl_in_rule__Call__Group_4__115734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__ParametersAssignment_4_1_in_rule__Call__Group_4__1__Impl15761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_5__0__Impl_in_rule__Call__Group_5__015795 = new BitSet(new long[]{0x0000800000000040L});
-    public static final BitSet FOLLOW_rule__Call__Group_5__1_in_rule__Call__Group_5__015798 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_5__0__Impl15825 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_5__1__Impl_in_rule__Call__Group_5__115854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__ResultsAssignment_5_1_in_rule__Call__Group_5__1__Impl15881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__0__Impl_in_rule__Call__Group_6__015915 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__1_in_rule__Call__Group_6__015918 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_6__0__Impl15945 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__1__Impl_in_rule__Call__Group_6__115974 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__2_in_rule__Call__Group_6__115977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_rule__Call__Group_6__1__Impl16005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__2__Impl_in_rule__Call__Group_6__216036 = new BitSet(new long[]{0x000800000000E070L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__3_in_rule__Call__Group_6__216039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_6__2__Impl16066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__Group_6__3__Impl_in_rule__Call__Group_6__316095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Call__ResultAssignment_6_3_in_rule__Call__Group_6__3__Impl16122 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__0__Impl_in_rule__NamedCallResult__Group__016160 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__1_in_rule__NamedCallResult__Group__016163 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__NameAssignment_0_in_rule__NamedCallResult__Group__0__Impl16190 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__1__Impl_in_rule__NamedCallResult__Group__116220 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__2_in_rule__NamedCallResult__Group__116223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__NamedCallResult__Group__1__Impl16250 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__2__Impl_in_rule__NamedCallResult__Group__216279 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__3_in_rule__NamedCallResult__Group__216282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_rule__NamedCallResult__Group__2__Impl16310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__3__Impl_in_rule__NamedCallResult__Group__316341 = new BitSet(new long[]{0x000800000000E070L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__4_in_rule__NamedCallResult__Group__316344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__NamedCallResult__Group__3__Impl16371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__Group__4__Impl_in_rule__NamedCallResult__Group__416400 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NamedCallResult__TargetAssignment_4_in_rule__NamedCallResult__Group__4__Impl16427 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__0__Impl_in_rule__Suite__Group__016467 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group__1_in_rule__Suite__Group__016470 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_rule__Suite__Group__0__Impl16498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__1__Impl_in_rule__Suite__Group__116529 = new BitSet(new long[]{0x0000000000004040L});
-    public static final BitSet FOLLOW_rule__Suite__Group__2_in_rule__Suite__Group__116532 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group__1__Impl16559 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__2__Impl_in_rule__Suite__Group__216588 = new BitSet(new long[]{0x0000000000004040L});
-    public static final BitSet FOLLOW_rule__Suite__Group__3_in_rule__Suite__Group__216591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_2__0_in_rule__Suite__Group__2__Impl16618 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__3__Impl_in_rule__Suite__Group__316649 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group__4_in_rule__Suite__Group__316652 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__DefinitionAssignment_3_in_rule__Suite__Group__3__Impl16679 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__4__Impl_in_rule__Suite__Group__416709 = new BitSet(new long[]{0x0000404000000040L});
-    public static final BitSet FOLLOW_rule__Suite__Group__5_in_rule__Suite__Group__416712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group__4__Impl16739 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__5__Impl_in_rule__Suite__Group__516768 = new BitSet(new long[]{0x0000404000000040L});
-    public static final BitSet FOLLOW_rule__Suite__Group__6_in_rule__Suite__Group__516771 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_5__0_in_rule__Suite__Group__5__Impl16798 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_rule__Suite__Group__6__Impl_in_rule__Suite__Group__616829 = new BitSet(new long[]{0x0000404000000040L});
-    public static final BitSet FOLLOW_rule__Suite__Group__7_in_rule__Suite__Group__616832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__0_in_rule__Suite__Group__6__Impl16859 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group__7__Impl_in_rule__Suite__Group__716890 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__0_in_rule__Suite__Group__7__Impl16917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_2__0__Impl_in_rule__Suite__Group_2__016964 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_2__1_in_rule__Suite__Group_2__016967 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__MultiplierAssignment_2_0_in_rule__Suite__Group_2__0__Impl16994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_2__1__Impl_in_rule__Suite__Group_2__117024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_2__1__Impl17051 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_5__0__Impl_in_rule__Suite__Group_5__017084 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_5__1_in_rule__Suite__Group_5__017087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__ParametersAssignment_5_0_in_rule__Suite__Group_5__0__Impl17114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_5__1__Impl_in_rule__Suite__Group_5__117144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_5__1__Impl17171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__0__Impl_in_rule__Suite__Group_6__017204 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__1_in_rule__Suite__Group_6__017207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_rule__Suite__Group_6__0__Impl17235 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__1__Impl_in_rule__Suite__Group_6__117266 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__2_in_rule__Suite__Group_6__117269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_6__1__Impl17296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__2__Impl_in_rule__Suite__Group_6__217325 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__3_in_rule__Suite__Group_6__217328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__ForkAssignment_6_2_in_rule__Suite__Group_6__2__Impl17355 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_6__3__Impl_in_rule__Suite__Group_6__317385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_6__3__Impl17412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__0__Impl_in_rule__Suite__Group_7__017449 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__1_in_rule__Suite__Group_7__017452 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__Suite__Group_7__0__Impl17480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__1__Impl_in_rule__Suite__Group_7__117511 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__2_in_rule__Suite__Group_7__117514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_7__1__Impl17541 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7__2__Impl_in_rule__Suite__Group_7__217570 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17599 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17611 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0__Impl_in_rule__Suite__Group_7_2__017650 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7_2__1_in_rule__Suite__Group_7_2__017653 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__VariantsAssignment_7_2_0_in_rule__Suite__Group_7_2__0__Impl17680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Suite__Group_7_2__1__Impl_in_rule__Suite__Group_7_2__117710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_7_2__1__Impl17737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__0__Impl_in_rule__SuiteParameter__Group__017770 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__1_in_rule__SuiteParameter__Group__017773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__NameAssignment_0_in_rule__SuiteParameter__Group__0__Impl17800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__1__Impl_in_rule__SuiteParameter__Group__117830 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__2_in_rule__SuiteParameter__Group__117833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__SuiteParameter__Group__1__Impl17860 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__2__Impl_in_rule__SuiteParameter__Group__217889 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3_in_rule__SuiteParameter__Group__217892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__SuiteParameter__Group__2__Impl17920 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__317951 = new BitSet(new long[]{0x000800000000E070L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__4_in_rule__SuiteParameter__Group__317954 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__SuiteParameter__Group__3__Impl17981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__4__Impl_in_rule__SuiteParameter__Group__418010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__ValueAssignment_4_in_rule__SuiteParameter__Group__4__Impl18037 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__0__Impl_in_rule__Parameter__Group__018077 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__1_in_rule__Parameter__Group__018080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__NameAssignment_0_in_rule__Parameter__Group__0__Impl18107 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__1__Impl_in_rule__Parameter__Group__118137 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__2_in_rule__Parameter__Group__118140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Parameter__Group__1__Impl18167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__2__Impl_in_rule__Parameter__Group__218196 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__3_in_rule__Parameter__Group__218199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__Parameter__Group__2__Impl18227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__3__Impl_in_rule__Parameter__Group__318258 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__4_in_rule__Parameter__Group__318261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Parameter__Group__3__Impl18288 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__Group__4__Impl_in_rule__Parameter__Group__418317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Parameter__ValueAssignment_4_in_rule__Parameter__Group__4__Impl18344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__0__Impl_in_rule__ArbitraryParameterOrResultName__Group__018384 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__1_in_rule__ArbitraryParameterOrResultName__Group__018387 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_rule__ArbitraryParameterOrResultName__Group__0__Impl18415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__1__Impl_in_rule__ArbitraryParameterOrResultName__Group__118446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_in_rule__ArbitraryParameterOrResultName__Group__1__Impl18473 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__0__Impl_in_rule__Operation__Group__018507 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Operation__Group__1_in_rule__Operation__Group__018510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_rule__Operation__Group__0__Impl18538 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__1__Impl_in_rule__Operation__Group__118569 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__Operation__Group__2_in_rule__Operation__Group__118572 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group__1__Impl18599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__2__Impl_in_rule__Operation__Group__218628 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__Operation__Group__3_in_rule__Operation__Group__218631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_2__0_in_rule__Operation__Group__2__Impl18658 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__3__Impl_in_rule__Operation__Group__318689 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Operation__Group__4_in_rule__Operation__Group__318692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__DefinitionAssignment_3_in_rule__Operation__Group__3__Impl18719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__4__Impl_in_rule__Operation__Group__418749 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Operation__Group__5_in_rule__Operation__Group__418752 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__0_in_rule__Operation__Group__4__Impl18779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__5__Impl_in_rule__Operation__Group__518810 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_rule__Operation__Group__6_in_rule__Operation__Group__518813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group__5__Impl18840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group__6__Impl_in_rule__Operation__Group__618869 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rule__Operation__Group__6__Impl18897 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_2__0__Impl_in_rule__Operation__Group_2__018942 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Operation__Group_2__1_in_rule__Operation__Group_2__018945 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__PrefixOperandAssignment_2_0_in_rule__Operation__Group_2__0__Impl18972 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_2__1__Impl_in_rule__Operation__Group_2__119002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group_2__1__Impl19029 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__0__Impl_in_rule__Operation__Group_4__019062 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__1_in_rule__Operation__Group_4__019065 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group_4__0__Impl19092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__1__Impl_in_rule__Operation__Group_4__119121 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__2_in_rule__Operation__Group_4__119124 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__Operation__Group_4__1__Impl19152 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__Group_4__2__Impl_in_rule__Operation__Group_4__219183 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Operation__PostfixOperandAssignment_4_2_in_rule__Operation__Group_4__2__Impl19210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__019246 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1_in_rule__ValueOrEnumValueOrOperationCollection__Group__019249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0_in_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl19276 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__119306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0_in_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl19333 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019368 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl19398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119427 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl19458 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219489 = new BitSet(new long[]{0x000900000000E0F0L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219492 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl19519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__319548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl19575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NullValue__Group__0__Impl_in_rule__NullValue__Group__019613 = new BitSet(new long[]{0x000800000000E030L});
-    public static final BitSet FOLLOW_rule__NullValue__Group__1_in_rule__NullValue__Group__019616 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NullValue__Group__1__Impl_in_rule__NullValue__Group__119674 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rule__NullValue__Group__1__Impl19702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MethodReference__Group__0__Impl_in_rule__MethodReference__Group__019737 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_rule__MethodReference__Group__1_in_rule__MethodReference__Group__019740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MethodReference__TypeAssignment_0_in_rule__MethodReference__Group__0__Impl19767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MethodReference__Group__1__Impl_in_rule__MethodReference__Group__119797 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__MethodReference__Group__2_in_rule__MethodReference__Group__119800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rule__MethodReference__Group__1__Impl19828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MethodReference__Group__2__Impl_in_rule__MethodReference__Group__219859 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MethodReference__MethodAssignment_2_in_rule__MethodReference__Group__2__Impl19886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__0__Impl_in_rule__ExecutionMultiplier__Group__019922 = new BitSet(new long[]{0x0020000000000000L});
-    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__1_in_rule__ExecutionMultiplier__Group__019925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExecutionMultiplier__CountAssignment_0_in_rule__ExecutionMultiplier__Group__0__Impl19952 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__1__Impl_in_rule__ExecutionMultiplier__Group__119982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_rule__ExecutionMultiplier__Group__1__Impl20010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__020045 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__020048 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl20075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__120104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl20131 = new BitSet(new long[]{0x0040000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__020166 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__020169 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_rule__QualifiedName__Group_1__0__Impl20197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__120228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl20255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__0__Impl_in_rule__QualifiedJavaClassName__Group__020288 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__1_in_rule__QualifiedJavaClassName__Group__020291 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedJavaClassName__Group__0__Impl20318 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__1__Impl_in_rule__QualifiedJavaClassName__Group__120347 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__2_in_rule__QualifiedJavaClassName__Group__120350 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_rule__QualifiedJavaClassName__Group__1__Impl20378 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__2__Impl_in_rule__QualifiedJavaClassName__Group__220409 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_rule__QualifiedJavaClassName__Group__2__Impl20436 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__020471 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__020474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl20501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__120530 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_rule__QualifiedNameWithWildcard__Group__1__Impl20559 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NL__Group__0__Impl_in_rule__NL__Group__020596 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_rule__NL__Group__1_in_rule__NL__Group__020599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NEWLINE_in_rule__NL__Group__0__Impl20626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NL__Group__1__Impl_in_rule__NL__Group__120655 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__NL__Group__1__Impl20683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NLFORCED__Group__0__Impl_in_rule__NLFORCED__Group__020718 = new BitSet(new long[]{0x0000000000000300L});
-    public static final BitSet FOLLOW_rule__NLFORCED__Group__1_in_rule__NLFORCED__Group__020721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NEWLINE_in_rule__NLFORCED__Group__0__Impl20748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NLFORCED__Group__1__Impl_in_rule__NLFORCED__Group__120777 = new BitSet(new long[]{0x0000000000000300L});
-    public static final BitSet FOLLOW_rule__NLFORCED__Group__2_in_rule__NLFORCED__Group__120780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__NLFORCED__Group__1__Impl20808 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NLFORCED__Group__2__Impl_in_rule__NLFORCED__Group__220839 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNL_in_rule__NLFORCED__Group__2__Impl20866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStatement_in_rule__Model__StatementsAssignment_220906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_SL_VISIBLE_COMMENT_in_rule__VisibleSingleLineComment__ContentAssignment_020937 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ML_VISIBLE_COMMENT_in_rule__VisibleMultiLineComment__ContentAssignment_020968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DIVIDER_in_rule__VisibleDivider__ContentAssignment_020999 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PackageDefinition__NameAssignment_221030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePackageStatement_in_rule__PackageDefinition__StatementsAssignment_521061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_221092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ForkDefinition__NameAssignment_221123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ForkDefinition__DescriptionAssignment_4_021154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleJavaClassReference_in_rule__ForkDefinition__ForkerClassAssignment_5_221185 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleForkParameter_in_rule__ForkDefinition__ParametersAssignment_6_021216 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFixedParameterName_in_rule__ForkParameter__NameAssignment_021247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ForkParameter__ValueAssignment_421278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariantDefinition__NameAssignment_221309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__VariantDefinition__DescriptionAssignment_4_021340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__TestDefinition__NameAssignment_221371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMethodReference_in_rule__TestDefinition__FixtureMethodAssignment_621402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__CallDefinition__NameAssignment_221433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMethodReference_in_rule__CallDefinition__FixtureMethodAssignment_621464 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__NameAssignment_221495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__SuiteDefinition__ParametersAssignment_4_2_021526 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__DependenciesAssignment_5_2_021561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__FinalizersAssignment_6_2_021600 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSuiteStatement_in_rule__SuiteDefinition__StatementsAssignment_921635 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__OperationDefinition__NameAssignment_221666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__OperationDefinition__OperationTypeAssignment_621701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_221736 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__VariableDefinition__InitialValueAssignment_4_221767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__ConstantDefinition__NameAssignment_221798 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStaticValue_in_rule__ConstantDefinition__ValueAssignment_4_021829 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariantValue_in_rule__ConstantDefinition__VariantValuesAssignment_5_021860 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariantValue__NamesAssignment_2_021895 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStaticValue_in_rule__VariantValue__ValueAssignment_521930 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment21961 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Test__DefinitionAssignment_221996 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameter_in_rule__Test__ParametersAssignment_3_122031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNamedResult_in_rule__Test__ResultsAssignment_4_122062 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Test__ResultAssignment_5_322093 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__TableTest__DefinitionAssignment_222128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameter_in_rule__TableTest__ParametersAssignment_322163 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterTableHeader_in_rule__TableTest__ParameterHeadersAssignment_522194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultTableHeader_in_rule__TableTest__ResultHeadersAssignment_622225 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rule__TableTest__DefaultResultColumnAssignment_8_022261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTableTestRow_in_rule__TableTest__RowsAssignment_9_122300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterTableValue_in_rule__TableTestRow__ValuesAssignment_122331 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterName_in_rule__ParameterTableHeader__NameAssignment_122362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultName_in_rule__ResultTableHeader__NameAssignment_122393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__ParameterTableValue__ValueAssignment_122424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultName_in_rule__NamedResult__NameAssignment_022455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__NamedResult__ValueAssignment_422486 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FixedResultName__FieldAssignment22521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExecutionMultiplier_in_rule__Call__MultiplierAssignment_2_022556 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Call__DefinitionAssignment_322591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameter_in_rule__Call__ParametersAssignment_4_122626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNamedCallResult_in_rule__Call__ResultsAssignment_5_122657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_rule__Call__ResultAssignment_6_322688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultName_in_rule__NamedCallResult__NameAssignment_022719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_rule__NamedCallResult__TargetAssignment_422750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExecutionMultiplier_in_rule__Suite__MultiplierAssignment_2_022781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__DefinitionAssignment_322816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSuiteParameter_in_rule__Suite__ParametersAssignment_5_022851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__ForkAssignment_6_222886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__VariantsAssignment_7_2_022925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteParameter__NameAssignment_022964 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_422999 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleParameterName_in_rule__Parameter__NameAssignment_023030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Parameter__ValueAssignment_423061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FixedParameterName__AnnotationAssignment23096 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ArbitraryParameterOrResultName__IdentifierAssignment_123131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PrefixOperandAssignment_2_023162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Operation__DefinitionAssignment_323197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PostfixOperandAssignment_4_223232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_023263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_323294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INTEGER_in_rule__IntegerValue__IntegerValueAssignment23325 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DECIMAL_in_rule__DecimalValue__DecimalValueAssignment23356 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__StringValue__StringValueAssignment23387 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__BooleanValue__BooleanValueAlternatives_0_in_rule__BooleanValue__BooleanValueAssignment23418 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Variable__NameAssignment23455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_rule__EnumValue__EnumValueAssignment23494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__JavaClassReference__TypeAssignment23533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__MethodReference__TypeAssignment_023572 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__MethodReference__MethodAssignment_223611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INTEGER_in_rule__ExecutionMultiplier__CountAssignment_023646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_3__0__Impl_in_rule__TableTest__Group_3__013735 = new BitSet(new long[]{0x0000800000000040L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_3__1_in_rule__TableTest__Group_3__013738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__TableTest__Group_3__0__Impl13765 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_3__1__Impl_in_rule__TableTest__Group_3__113794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__ParametersAssignment_3_1_in_rule__TableTest__Group_3__1__Impl13821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_8__0__Impl_in_rule__TableTest__Group_8__013855 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_8__1_in_rule__TableTest__Group_8__013858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__DefaultResultColumnAssignment_8_0_in_rule__TableTest__Group_8__0__Impl13885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_8__1__Impl_in_rule__TableTest__Group_8__113915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__TableTest__Group_8__1__Impl13943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_9__0__Impl_in_rule__TableTest__Group_9__013978 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_9__1_in_rule__TableTest__Group_9__013981 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNLFORCED_in_rule__TableTest__Group_9__0__Impl14008 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__Group_9__1__Impl_in_rule__TableTest__Group_9__114037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTest__RowsAssignment_9_1_in_rule__TableTest__Group_9__1__Impl14064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTestRow__Group__0__Impl_in_rule__TableTestRow__Group__014098 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__TableTestRow__Group__1_in_rule__TableTestRow__Group__014101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTestRow__Group__1__Impl_in_rule__TableTestRow__Group__114159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14188 = new BitSet(new long[]{0x0000040000000002L});
+    public static final BitSet FOLLOW_rule__TableTestRow__ValuesAssignment_1_in_rule__TableTestRow__Group__1__Impl14200 = new BitSet(new long[]{0x0000040000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__0__Impl_in_rule__ParameterTableHeader__Group__014237 = new BitSet(new long[]{0x0000800000000040L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__1_in_rule__ParameterTableHeader__Group__014240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ParameterTableHeader__Group__0__Impl14268 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__1__Impl_in_rule__ParameterTableHeader__Group__114299 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__2_in_rule__ParameterTableHeader__Group__114302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__NameAssignment_1_in_rule__ParameterTableHeader__Group__1__Impl14329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableHeader__Group__2__Impl_in_rule__ParameterTableHeader__Group__214359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ParameterTableHeader__Group__2__Impl14388 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__0__Impl_in_rule__ResultTableHeader__Group__014427 = new BitSet(new long[]{0x0000800000000040L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__1_in_rule__ResultTableHeader__Group__014430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ResultTableHeader__Group__0__Impl14458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__1__Impl_in_rule__ResultTableHeader__Group__114489 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__2_in_rule__ResultTableHeader__Group__114492 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__NameAssignment_1_in_rule__ResultTableHeader__Group__1__Impl14519 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__2__Impl_in_rule__ResultTableHeader__Group__214549 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__3_in_rule__ResultTableHeader__Group__214552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__ResultTableHeader__Group__2__Impl14580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultTableHeader__Group__3__Impl_in_rule__ResultTableHeader__Group__314611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ResultTableHeader__Group__3__Impl14640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__0__Impl_in_rule__ParameterTableValue__Group__014681 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__1_in_rule__ParameterTableValue__Group__014684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ParameterTableValue__Group__0__Impl14712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__1__Impl_in_rule__ParameterTableValue__Group__114743 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__2_in_rule__ParameterTableValue__Group__114746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__ValueAssignment_1_in_rule__ParameterTableValue__Group__1__Impl14773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ParameterTableValue__Group__2__Impl_in_rule__ParameterTableValue__Group__214803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__ParameterTableValue__Group__2__Impl14832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__0__Impl_in_rule__NamedResult__Group__014871 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__1_in_rule__NamedResult__Group__014874 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__NameAssignment_0_in_rule__NamedResult__Group__0__Impl14901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__1__Impl_in_rule__NamedResult__Group__114931 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__2_in_rule__NamedResult__Group__114934 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__NamedResult__Group__1__Impl14961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__2__Impl_in_rule__NamedResult__Group__214990 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__3_in_rule__NamedResult__Group__214993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__NamedResult__Group__2__Impl15021 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__3__Impl_in_rule__NamedResult__Group__315052 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__4_in_rule__NamedResult__Group__315055 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__NamedResult__Group__3__Impl15082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__Group__4__Impl_in_rule__NamedResult__Group__415111 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedResult__ValueAssignment_4_in_rule__NamedResult__Group__4__Impl15138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__0__Impl_in_rule__Call__Group__015178 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group__1_in_rule__Call__Group__015181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_rule__Call__Group__0__Impl15209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__1__Impl_in_rule__Call__Group__115240 = new BitSet(new long[]{0x0000000000004040L});
+    public static final BitSet FOLLOW_rule__Call__Group__2_in_rule__Call__Group__115243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group__1__Impl15270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__2__Impl_in_rule__Call__Group__215299 = new BitSet(new long[]{0x0000000000004040L});
+    public static final BitSet FOLLOW_rule__Call__Group__3_in_rule__Call__Group__215302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_2__0_in_rule__Call__Group__2__Impl15329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__3__Impl_in_rule__Call__Group__315360 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group__4_in_rule__Call__Group__315363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__DefinitionAssignment_3_in_rule__Call__Group__3__Impl15390 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__4__Impl_in_rule__Call__Group__415420 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group__5_in_rule__Call__Group__415423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_4__0_in_rule__Call__Group__4__Impl15450 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Call__Group__5__Impl_in_rule__Call__Group__515481 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group__6_in_rule__Call__Group__515484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_5__0_in_rule__Call__Group__5__Impl15511 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Call__Group__6__Impl_in_rule__Call__Group__615542 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group__7_in_rule__Call__Group__615545 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__0_in_rule__Call__Group__6__Impl15572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group__7__Impl_in_rule__Call__Group__715603 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group__7__Impl15630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_2__0__Impl_in_rule__Call__Group_2__015675 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group_2__1_in_rule__Call__Group_2__015678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__MultiplierAssignment_2_0_in_rule__Call__Group_2__0__Impl15705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_2__1__Impl_in_rule__Call__Group_2__115735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_2__1__Impl15762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_4__0__Impl_in_rule__Call__Group_4__015795 = new BitSet(new long[]{0x0000800000000040L});
+    public static final BitSet FOLLOW_rule__Call__Group_4__1_in_rule__Call__Group_4__015798 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_4__0__Impl15825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_4__1__Impl_in_rule__Call__Group_4__115854 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__ParametersAssignment_4_1_in_rule__Call__Group_4__1__Impl15881 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_5__0__Impl_in_rule__Call__Group_5__015915 = new BitSet(new long[]{0x0000800000000040L});
+    public static final BitSet FOLLOW_rule__Call__Group_5__1_in_rule__Call__Group_5__015918 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_5__0__Impl15945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_5__1__Impl_in_rule__Call__Group_5__115974 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__ResultsAssignment_5_1_in_rule__Call__Group_5__1__Impl16001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__0__Impl_in_rule__Call__Group_6__016035 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__1_in_rule__Call__Group_6__016038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_6__0__Impl16065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__1__Impl_in_rule__Call__Group_6__116094 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__2_in_rule__Call__Group_6__116097 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_rule__Call__Group_6__1__Impl16125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__2__Impl_in_rule__Call__Group_6__216156 = new BitSet(new long[]{0x000800000000E070L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__3_in_rule__Call__Group_6__216159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Call__Group_6__2__Impl16186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__Group_6__3__Impl_in_rule__Call__Group_6__316215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Call__ResultAssignment_6_3_in_rule__Call__Group_6__3__Impl16242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__0__Impl_in_rule__NamedCallResult__Group__016280 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__1_in_rule__NamedCallResult__Group__016283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__NameAssignment_0_in_rule__NamedCallResult__Group__0__Impl16310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__1__Impl_in_rule__NamedCallResult__Group__116340 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__2_in_rule__NamedCallResult__Group__116343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__NamedCallResult__Group__1__Impl16370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__2__Impl_in_rule__NamedCallResult__Group__216399 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__3_in_rule__NamedCallResult__Group__216402 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_rule__NamedCallResult__Group__2__Impl16430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__3__Impl_in_rule__NamedCallResult__Group__316461 = new BitSet(new long[]{0x000800000000E070L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__4_in_rule__NamedCallResult__Group__316464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__NamedCallResult__Group__3__Impl16491 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__Group__4__Impl_in_rule__NamedCallResult__Group__416520 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NamedCallResult__TargetAssignment_4_in_rule__NamedCallResult__Group__4__Impl16547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__0__Impl_in_rule__Suite__Group__016587 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group__1_in_rule__Suite__Group__016590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_rule__Suite__Group__0__Impl16618 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__1__Impl_in_rule__Suite__Group__116649 = new BitSet(new long[]{0x0000000000004040L});
+    public static final BitSet FOLLOW_rule__Suite__Group__2_in_rule__Suite__Group__116652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group__1__Impl16679 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__2__Impl_in_rule__Suite__Group__216708 = new BitSet(new long[]{0x0000000000004040L});
+    public static final BitSet FOLLOW_rule__Suite__Group__3_in_rule__Suite__Group__216711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_2__0_in_rule__Suite__Group__2__Impl16738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__3__Impl_in_rule__Suite__Group__316769 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group__4_in_rule__Suite__Group__316772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__DefinitionAssignment_3_in_rule__Suite__Group__3__Impl16799 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__4__Impl_in_rule__Suite__Group__416829 = new BitSet(new long[]{0x0000404000000040L});
+    public static final BitSet FOLLOW_rule__Suite__Group__5_in_rule__Suite__Group__416832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group__4__Impl16859 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__5__Impl_in_rule__Suite__Group__516888 = new BitSet(new long[]{0x0000404000000040L});
+    public static final BitSet FOLLOW_rule__Suite__Group__6_in_rule__Suite__Group__516891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_5__0_in_rule__Suite__Group__5__Impl16918 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_rule__Suite__Group__6__Impl_in_rule__Suite__Group__616949 = new BitSet(new long[]{0x0000404000000040L});
+    public static final BitSet FOLLOW_rule__Suite__Group__7_in_rule__Suite__Group__616952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__0_in_rule__Suite__Group__6__Impl16979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group__7__Impl_in_rule__Suite__Group__717010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__0_in_rule__Suite__Group__7__Impl17037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_2__0__Impl_in_rule__Suite__Group_2__017084 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_2__1_in_rule__Suite__Group_2__017087 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__MultiplierAssignment_2_0_in_rule__Suite__Group_2__0__Impl17114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_2__1__Impl_in_rule__Suite__Group_2__117144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_2__1__Impl17171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_5__0__Impl_in_rule__Suite__Group_5__017204 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_5__1_in_rule__Suite__Group_5__017207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__ParametersAssignment_5_0_in_rule__Suite__Group_5__0__Impl17234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_5__1__Impl_in_rule__Suite__Group_5__117264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_5__1__Impl17291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__0__Impl_in_rule__Suite__Group_6__017324 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__1_in_rule__Suite__Group_6__017327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_rule__Suite__Group_6__0__Impl17355 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__1__Impl_in_rule__Suite__Group_6__117386 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__2_in_rule__Suite__Group_6__117389 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_6__1__Impl17416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__2__Impl_in_rule__Suite__Group_6__217445 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__3_in_rule__Suite__Group_6__217448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__ForkAssignment_6_2_in_rule__Suite__Group_6__2__Impl17475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_6__3__Impl_in_rule__Suite__Group_6__317505 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_6__3__Impl17532 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__0__Impl_in_rule__Suite__Group_7__017569 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__1_in_rule__Suite__Group_7__017572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_rule__Suite__Group_7__0__Impl17600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__1__Impl_in_rule__Suite__Group_7__117631 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__2_in_rule__Suite__Group_7__117634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_7__1__Impl17661 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7__2__Impl_in_rule__Suite__Group_7__217690 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17719 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0_in_rule__Suite__Group_7__2__Impl17731 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7_2__0__Impl_in_rule__Suite__Group_7_2__017770 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7_2__1_in_rule__Suite__Group_7_2__017773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__VariantsAssignment_7_2_0_in_rule__Suite__Group_7_2__0__Impl17800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Suite__Group_7_2__1__Impl_in_rule__Suite__Group_7_2__117830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Suite__Group_7_2__1__Impl17857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__0__Impl_in_rule__SuiteParameter__Group__017890 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__1_in_rule__SuiteParameter__Group__017893 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__NameAssignment_0_in_rule__SuiteParameter__Group__0__Impl17920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__1__Impl_in_rule__SuiteParameter__Group__117950 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__2_in_rule__SuiteParameter__Group__117953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__SuiteParameter__Group__1__Impl17980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__2__Impl_in_rule__SuiteParameter__Group__218009 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3_in_rule__SuiteParameter__Group__218012 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__SuiteParameter__Group__2__Impl18040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__318071 = new BitSet(new long[]{0x000800000000E070L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__4_in_rule__SuiteParameter__Group__318074 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__SuiteParameter__Group__3__Impl18101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__4__Impl_in_rule__SuiteParameter__Group__418130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__ValueAssignment_4_in_rule__SuiteParameter__Group__4__Impl18157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__0__Impl_in_rule__Parameter__Group__018197 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__1_in_rule__Parameter__Group__018200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__NameAssignment_0_in_rule__Parameter__Group__0__Impl18227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__1__Impl_in_rule__Parameter__Group__118257 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__2_in_rule__Parameter__Group__118260 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Parameter__Group__1__Impl18287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__2__Impl_in_rule__Parameter__Group__218316 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__3_in_rule__Parameter__Group__218319 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__Parameter__Group__2__Impl18347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__3__Impl_in_rule__Parameter__Group__318378 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__4_in_rule__Parameter__Group__318381 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Parameter__Group__3__Impl18408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__Group__4__Impl_in_rule__Parameter__Group__418437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Parameter__ValueAssignment_4_in_rule__Parameter__Group__4__Impl18464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__0__Impl_in_rule__ArbitraryParameterOrResultName__Group__018504 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__1_in_rule__ArbitraryParameterOrResultName__Group__018507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_rule__ArbitraryParameterOrResultName__Group__0__Impl18535 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__Group__1__Impl_in_rule__ArbitraryParameterOrResultName__Group__118566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_in_rule__ArbitraryParameterOrResultName__Group__1__Impl18593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__0__Impl_in_rule__Operation__Group__018627 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Operation__Group__1_in_rule__Operation__Group__018630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_rule__Operation__Group__0__Impl18658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__1__Impl_in_rule__Operation__Group__118689 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__Operation__Group__2_in_rule__Operation__Group__118692 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group__1__Impl18719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__2__Impl_in_rule__Operation__Group__218748 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__Operation__Group__3_in_rule__Operation__Group__218751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_2__0_in_rule__Operation__Group__2__Impl18778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__3__Impl_in_rule__Operation__Group__318809 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Operation__Group__4_in_rule__Operation__Group__318812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__DefinitionAssignment_3_in_rule__Operation__Group__3__Impl18839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__4__Impl_in_rule__Operation__Group__418869 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Operation__Group__5_in_rule__Operation__Group__418872 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__0_in_rule__Operation__Group__4__Impl18899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__5__Impl_in_rule__Operation__Group__518930 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_rule__Operation__Group__6_in_rule__Operation__Group__518933 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group__5__Impl18960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group__6__Impl_in_rule__Operation__Group__618989 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_rule__Operation__Group__6__Impl19017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_2__0__Impl_in_rule__Operation__Group_2__019062 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Operation__Group_2__1_in_rule__Operation__Group_2__019065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__PrefixOperandAssignment_2_0_in_rule__Operation__Group_2__0__Impl19092 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_2__1__Impl_in_rule__Operation__Group_2__119122 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group_2__1__Impl19149 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__0__Impl_in_rule__Operation__Group_4__019182 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__1_in_rule__Operation__Group_4__019185 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__Operation__Group_4__0__Impl19212 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__1__Impl_in_rule__Operation__Group_4__119241 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__2_in_rule__Operation__Group_4__119244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__Operation__Group_4__1__Impl19272 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__Group_4__2__Impl_in_rule__Operation__Group_4__219303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Operation__PostfixOperandAssignment_4_2_in_rule__Operation__Group_4__2__Impl19330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__019366 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1_in_rule__ValueOrEnumValueOrOperationCollection__Group__019369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0_in_rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl19396 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group__119426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0_in_rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl19453 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019488 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__019491 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl19518 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119547 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__119550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl19578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219609 = new BitSet(new long[]{0x000900000000E0F0L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__219612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl19639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__319668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3_in_rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl19695 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NullValue__Group__0__Impl_in_rule__NullValue__Group__019733 = new BitSet(new long[]{0x000800000000E030L});
+    public static final BitSet FOLLOW_rule__NullValue__Group__1_in_rule__NullValue__Group__019736 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NullValue__Group__1__Impl_in_rule__NullValue__Group__119794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rule__NullValue__Group__1__Impl19822 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MethodReference__Group__0__Impl_in_rule__MethodReference__Group__019857 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_rule__MethodReference__Group__1_in_rule__MethodReference__Group__019860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MethodReference__TypeAssignment_0_in_rule__MethodReference__Group__0__Impl19887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MethodReference__Group__1__Impl_in_rule__MethodReference__Group__119917 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__MethodReference__Group__2_in_rule__MethodReference__Group__119920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rule__MethodReference__Group__1__Impl19948 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MethodReference__Group__2__Impl_in_rule__MethodReference__Group__219979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MethodReference__MethodAssignment_2_in_rule__MethodReference__Group__2__Impl20006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__0__Impl_in_rule__ExecutionMultiplier__Group__020042 = new BitSet(new long[]{0x0020000000000000L});
+    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__1_in_rule__ExecutionMultiplier__Group__020045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExecutionMultiplier__CountAssignment_0_in_rule__ExecutionMultiplier__Group__0__Impl20072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExecutionMultiplier__Group__1__Impl_in_rule__ExecutionMultiplier__Group__120102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_rule__ExecutionMultiplier__Group__1__Impl20130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__020165 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__020168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl20195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__120224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl20251 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__020286 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__020289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_rule__QualifiedName__Group_1__0__Impl20317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__120348 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl20375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__0__Impl_in_rule__QualifiedJavaClassName__Group__020408 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__1_in_rule__QualifiedJavaClassName__Group__020411 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedJavaClassName__Group__0__Impl20438 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__1__Impl_in_rule__QualifiedJavaClassName__Group__120467 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__2_in_rule__QualifiedJavaClassName__Group__120470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_rule__QualifiedJavaClassName__Group__1__Impl20498 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedJavaClassName__Group__2__Impl_in_rule__QualifiedJavaClassName__Group__220529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_rule__QualifiedJavaClassName__Group__2__Impl20556 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__020591 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__020594 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl20621 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__120650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_rule__QualifiedNameWithWildcard__Group__1__Impl20679 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NL__Group__0__Impl_in_rule__NL__Group__020716 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__NL__Group__1_in_rule__NL__Group__020719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NEWLINE_in_rule__NL__Group__0__Impl20746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NL__Group__1__Impl_in_rule__NL__Group__120775 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__NL__Group__1__Impl20803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NLFORCED__Group__0__Impl_in_rule__NLFORCED__Group__020838 = new BitSet(new long[]{0x0000000000000300L});
+    public static final BitSet FOLLOW_rule__NLFORCED__Group__1_in_rule__NLFORCED__Group__020841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NEWLINE_in_rule__NLFORCED__Group__0__Impl20868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NLFORCED__Group__1__Impl_in_rule__NLFORCED__Group__120897 = new BitSet(new long[]{0x0000000000000300L});
+    public static final BitSet FOLLOW_rule__NLFORCED__Group__2_in_rule__NLFORCED__Group__120900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__NLFORCED__Group__1__Impl20928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NLFORCED__Group__2__Impl_in_rule__NLFORCED__Group__220959 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNL_in_rule__NLFORCED__Group__2__Impl20986 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStatement_in_rule__Model__StatementsAssignment_221026 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_SL_VISIBLE_COMMENT_in_rule__VisibleSingleLineComment__ContentAssignment_021057 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ML_VISIBLE_COMMENT_in_rule__VisibleMultiLineComment__ContentAssignment_021088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DIVIDER_in_rule__VisibleDivider__ContentAssignment_021119 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PackageDefinition__NameAssignment_221150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePackageStatement_in_rule__PackageDefinition__StatementsAssignment_521181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_221212 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ForkDefinition__NameAssignment_221243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ForkDefinition__DescriptionAssignment_4_021274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleJavaClassReference_in_rule__ForkDefinition__ForkerClassAssignment_5_221305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleForkParameter_in_rule__ForkDefinition__ParametersAssignment_6_021336 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFixedParameterName_in_rule__ForkParameter__NameAssignment_021367 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ForkParameter__ValueAssignment_421398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariantDefinition__NameAssignment_221429 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__VariantDefinition__DescriptionAssignment_4_021460 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__TestDefinition__NameAssignment_221491 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodReference_in_rule__TestDefinition__FixtureMethodAssignment_621522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__CallDefinition__NameAssignment_221553 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodReference_in_rule__CallDefinition__FixtureMethodAssignment_621584 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__NameAssignment_221615 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__SuiteDefinition__ParametersAssignment_4_2_021646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__DependenciesAssignment_5_2_021681 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteDefinition__FinalizersAssignment_6_2_021720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSuiteStatement_in_rule__SuiteDefinition__StatementsAssignment_921755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__OperationDefinition__NameAssignment_221786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__OperationDefinition__OperationTypeAssignment_621821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_221856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__VariableDefinition__InitialValueAssignment_4_221887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__ConstantDefinition__NameAssignment_221918 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStaticValue_in_rule__ConstantDefinition__ValueAssignment_4_021949 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariantValue_in_rule__ConstantDefinition__VariantValuesAssignment_5_021980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariantValue__NamesAssignment_2_022015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStaticValue_in_rule__VariantValue__ValueAssignment_522050 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment22081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Test__DefinitionAssignment_222116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameter_in_rule__Test__ParametersAssignment_3_122151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNamedResult_in_rule__Test__ResultsAssignment_4_122182 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Test__ResultAssignment_5_322213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__TableTest__DefinitionAssignment_222248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameter_in_rule__TableTest__ParametersAssignment_3_122283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterTableHeader_in_rule__TableTest__ParameterHeadersAssignment_522314 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultTableHeader_in_rule__TableTest__ResultHeadersAssignment_622345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__TableTest__DefaultResultColumnAssignment_8_022381 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableTestRow_in_rule__TableTest__RowsAssignment_9_122420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterTableValue_in_rule__TableTestRow__ValuesAssignment_122451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterName_in_rule__ParameterTableHeader__NameAssignment_122482 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultName_in_rule__ResultTableHeader__NameAssignment_122513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__ParameterTableValue__ValueAssignment_122544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultName_in_rule__NamedResult__NameAssignment_022575 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__NamedResult__ValueAssignment_422606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FixedResultName__FieldAssignment22641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExecutionMultiplier_in_rule__Call__MultiplierAssignment_2_022676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Call__DefinitionAssignment_322711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameter_in_rule__Call__ParametersAssignment_4_122746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNamedCallResult_in_rule__Call__ResultsAssignment_5_122777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_rule__Call__ResultAssignment_6_322808 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultName_in_rule__NamedCallResult__NameAssignment_022839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_rule__NamedCallResult__TargetAssignment_422870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExecutionMultiplier_in_rule__Suite__MultiplierAssignment_2_022901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__DefinitionAssignment_322936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSuiteParameter_in_rule__Suite__ParametersAssignment_5_022971 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__ForkAssignment_6_223006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__VariantsAssignment_7_2_023045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteParameter__NameAssignment_023084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_423119 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleParameterName_in_rule__Parameter__NameAssignment_023150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Parameter__ValueAssignment_423181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FixedParameterName__AnnotationAssignment23216 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ArbitraryParameterOrResultName__IdentifierAssignment_123251 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PrefixOperandAssignment_2_023282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Operation__DefinitionAssignment_323317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Operation__PostfixOperandAssignment_4_223352 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_023383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_323414 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INTEGER_in_rule__IntegerValue__IntegerValueAssignment23445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DECIMAL_in_rule__DecimalValue__DecimalValueAssignment23476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__StringValue__StringValueAssignment23507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__BooleanValue__BooleanValueAlternatives_0_in_rule__BooleanValue__BooleanValueAssignment23538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Variable__NameAssignment23575 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_rule__EnumValue__EnumValueAssignment23614 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__JavaClassReference__TypeAssignment23653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__MethodReference__TypeAssignment_023692 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__MethodReference__MethodAssignment_223731 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INTEGER_in_rule__ExecutionMultiplier__CountAssignment_023766 = new BitSet(new long[]{0x0000000000000002L});
 
 }

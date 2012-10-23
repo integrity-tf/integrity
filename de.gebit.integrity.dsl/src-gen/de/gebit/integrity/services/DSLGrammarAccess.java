@@ -1164,8 +1164,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
 		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
-		private final Assignment cParametersAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cParametersParameterParserRuleCall_3_0 = (RuleCall)cParametersAssignment_3.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Assignment cParametersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_3_1_0 = (RuleCall)cParametersAssignment_3_1.eContents().get(0);
 		private final RuleCall cNLFORCEDParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		private final Assignment cParameterHeadersAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cParameterHeadersParameterTableHeaderParserRuleCall_5_0 = (RuleCall)cParameterHeadersAssignment_5.eContents().get(0);
@@ -1184,14 +1186,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TableTest:
 		//
-		//	"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
+		//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 		//
 		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 		//
 		//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 		public ParserRule getRule() { return rule; }
 
-		//"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
+		//"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 		//
 		//parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")? (NLFORCED
 		//
@@ -1213,11 +1215,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1; }
 
-		//parameters+=Parameter*
-		public Assignment getParametersAssignment_3() { return cParametersAssignment_3; }
+		//(NL parameters+=Parameter)*
+		public Group getGroup_3() { return cGroup_3; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
+
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_3_1() { return cParametersAssignment_3_1; }
 
 		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_3_0() { return cParametersParameterParserRuleCall_3_0; }
+		public RuleCall getParametersParameterParserRuleCall_3_1_0() { return cParametersParameterParserRuleCall_3_1_0; }
 
 		//NLFORCED
 		public RuleCall getNLFORCEDParserRuleCall_4() { return cNLFORCEDParserRuleCall_4; }
@@ -2821,7 +2829,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTest:
 	//
-	//	"tabletest" NL definition=[TestDefinition|QualifiedName] parameters+=Parameter* NLFORCED
+	//	"tabletest" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 	//
 	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* "|" (defaultResultColumn="=" "|")?
 	//

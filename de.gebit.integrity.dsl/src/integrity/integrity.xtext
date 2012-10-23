@@ -72,7 +72,7 @@ Test:
 	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueOrOperationCollection)? NL;
 	
 TableTest:
-	'tabletest' NL definition=[TestDefinition|QualifiedName] (parameters+=Parameter)* NLFORCED
+	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
 		(parameterHeaders+=ParameterTableHeader)* (resultHeaders+=ResultTableHeader)* '|' (defaultResultColumn='=' '|')?  (NLFORCED rows+=TableTestRow)+ NLFORCED;
 		
 TableTestRow:

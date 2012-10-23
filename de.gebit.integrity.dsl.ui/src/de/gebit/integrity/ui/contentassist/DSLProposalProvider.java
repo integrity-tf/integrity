@@ -191,6 +191,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				completeCallParametersInternal(tempCall, aContext, anAcceptor);
 				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor);
 			}
+		} else if (aModel instanceof TableTest) {
+			TableTest tempTest = (TableTest) aModel;
+
+			if (aRuleCall == grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()) {
+				// We're inside the parameters group
+				completeTableTestParametersInternal(tempTest, aContext, anAcceptor);
+			}
 		}
 	}
 
@@ -200,21 +207,25 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		super.completeTableTest_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = (TableTest) aModel;
-		TestDefinition tempTestDef = tempTableTest.getDefinition();
+		completeTableTestParametersInternal((TableTest) aModel, aContext, anAcceptor);
+	}
+
+	private void completeTableTestParametersInternal(TableTest aTest, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		TestDefinition tempTestDef = aTest.getDefinition();
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-			for (Parameter tempParameter : tempTableTest.getParameters()) {
+			for (Parameter tempParameter : aTest.getParameters()) {
 				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
 						.getName()));
 			}
-			for (ParameterTableHeader tempHeader : tempTableTest.getParameterHeaders()) {
+			for (ParameterTableHeader tempHeader : aTest.getParameterHeaders()) {
 				tempAlreadyUsedParameters
 						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempHeader.getName()));
 			}
 
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
-					aContext, anAcceptor);
+			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, true, aContext,
+					anAcceptor);
 		}
 	}
 
