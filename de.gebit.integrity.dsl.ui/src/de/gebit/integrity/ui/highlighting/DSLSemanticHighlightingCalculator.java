@@ -10,6 +10,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
@@ -23,6 +25,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -36,6 +39,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.services.DSLGrammarAccess;
 
 /**
  * The semantic highlight calculator is responsible for performing the more complex syntax highlighting.
@@ -44,6 +48,12 @@ import de.gebit.integrity.dsl.Variable;
  * 
  */
 public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
+
+	/**
+	 * The grammar access.
+	 */
+	@Inject
+	private DSLGrammarAccess grammarAccess;
 
 	@Override
 	public void provideHighlightingFor(XtextResource aResource, IHighlightedPositionAcceptor anAcceptor) {
@@ -55,7 +65,9 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 		EObject tempLastSemanticElement = null;
 		for (INode tempNode : tempRoot.getAsTreeIterable()) {
 			EObject tempSemanticElement = tempNode.getSemanticElement();
-			if (tempNode.getGrammarElement() instanceof CrossReference) {
+			EObject tempGrammarElement = tempNode.getGrammarElement();
+			if (tempGrammarElement instanceof CrossReference) {
+				// There are different cross references which we want to highlight
 				if (tempSemanticElement instanceof SuiteParameter) {
 					anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 							DSLHighlightingConfiguration.PARAMETER_NAME_ID);
@@ -69,8 +81,24 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 						anAcceptor.addPosition(tempNode.getOffset(), tempIndex,
 								DSLHighlightingConfiguration.PACKAGE_PREFIX_ID);
 					}
+				} else if (tempSemanticElement instanceof Operation) {
+					Boolean tempIsResult = isResult(tempSemanticElement);
+					if (tempIsResult != null) {
+						anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
+								tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_IDENTIFIER_ID
+										: DSLHighlightingConfiguration.PARAMETER_OPERATION_IDENTIFIER_ID);
+					}
+				}
+			} else if (tempGrammarElement == grammarAccess.getOperationAccess().getWithKeyword_4_1()) {
+				// Special case for the "with" keyword in operations
+				Boolean tempIsResult = isResult(tempSemanticElement);
+				if (tempIsResult != null) {
+					anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
+							tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_IDENTIFIER_ID
+									: DSLHighlightingConfiguration.PARAMETER_OPERATION_IDENTIFIER_ID);
 				}
 			} else {
+				// All other cases highlight entire semantic elements at once
 				if (tempSemanticElement != null && tempLastSemanticElement != tempSemanticElement) {
 					tempLastSemanticElement = tempSemanticElement;
 					if (tempSemanticElement instanceof MethodReference) {
@@ -151,7 +179,7 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_CONSTANT_VALUE_ID
 												: DSLHighlightingConfiguration.PARAMETER_CONSTANT_VALUE_ID);
 							}
-						} else if (tempSemanticElement instanceof de.gebit.integrity.dsl.Operation) {
+						} else if (tempSemanticElement instanceof Operation) {
 							Boolean tempIsResult = isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),

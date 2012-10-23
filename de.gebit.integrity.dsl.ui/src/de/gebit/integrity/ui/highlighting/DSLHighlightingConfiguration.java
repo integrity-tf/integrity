@@ -118,6 +118,16 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String PARAMETER_OPERATION_ID = "parameteroperation";
 
 	/**
+	 * The ID for the operation identifier used as a result.
+	 */
+	public static final String RESULT_OPERATION_IDENTIFIER_ID = "resultoperationid";
+
+	/**
+	 * The ID for the operation identifier used as a parameter.
+	 */
+	public static final String PARAMETER_OPERATION_IDENTIFIER_ID = "parameteroperationid";
+
+	/**
 	 * Configures highlighting styles for the IDs.
 	 */
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
@@ -145,6 +155,10 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 				resultOperationTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_OPERATION_ID, "Operations (Parameters)",
 				parameterOperationTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_OPERATION_IDENTIFIER_ID, "Operation Identifier (Test Results)",
+				resultOperationIdentifierTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_OPERATION_IDENTIFIER_ID, "Operation Identifier (Parameters)",
+				parameterOperationIdentifierTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_ID, "Java Classes", javaClassTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_HIGHLIGHT_ID, "Java Classes (Highlight Parts)",
 				javaClassHighlightTextStyle());
@@ -393,6 +407,30 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle parameterOperationTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for operation identifiers used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultOperationIdentifierTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for operation identifiers used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterOperationIdentifierTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
 		return tempTextStyle;
 	}
 }
