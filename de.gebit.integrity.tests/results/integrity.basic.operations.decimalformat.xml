@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="23.10.12 02:58" isotimestamp="2012-10-23T02:58:33" duration="73.193">
+  <variables />
+  <suite id="0" name="integrity.basic.operations.decimalformat">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" name="echoStringTest" description="Echo the string '123.50'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.318" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.318" description="Echo the string '123.50'" type="success">
+            <parameters>
+              <parameter name="string" value="123.50" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123.50" value="123.50" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" name="echoStringTest" description="Echo the string '0012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.306" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.306" description="Echo the string '0012'" type="success">
+            <parameters>
+              <parameter name="string" value="0012" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="0012" value="0012" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="3" name="echoStringTest" description="Echo the string '12.35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.747" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.747" description="Echo the string '12.35'" type="success">
+            <parameters>
+              <parameter name="string" value="12.35" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="12.35" value="12.35" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="4" name="echoStringTest" description="Echo the string '12,35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.474" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.474" description="Echo the string '12,35'" type="success">
+            <parameters>
+              <parameter name="string" value="12,35" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="12,35" value="12,35" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="71.932" successCount="4" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

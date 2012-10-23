@@ -7,7 +7,10 @@ import de.gebit.integrity.operations.Operation;
 
 /**
  * This operation concatenates all provided values to a single result string. Prefix and postfix parameters are
- * supported. Any values not already a string are converted to strings.
+ * supported. Any values not already a string are converted to strings. Meant to be used like: <br>
+ * <br>
+ * ("a", "b" concatenated)
+ * 
  * 
  * @author Rene Schneider
  * 
