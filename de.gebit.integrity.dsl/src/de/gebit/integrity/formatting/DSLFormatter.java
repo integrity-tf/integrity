@@ -41,7 +41,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(
 				tempGrammar.getOperationAccess()
 						.getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0());
-		aConfig.setNoSpace().before(
+		aConfig.setNoSpace().after(
 				tempGrammar.getOperationAccess()
 						.getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0());
 		aConfig.setNoSpace().before(tempGrammar.getOperationAccess().getRightParenthesisKeyword_6());
