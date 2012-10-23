@@ -411,8 +411,10 @@ public final class IntegrityDSLUtil {
 					// if multiple values have been provided
 					Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
 					tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
-					int i = 1;
-					for (ValueOrEnumValueOrOperation tempSingleValue : tempValueOrEnumValueCollection.getMoreValues()) {
+					for (int i = 0; i <= tempValueOrEnumValueCollection.getMoreValues().size(); i++) {
+						ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? tempValueOrEnumValueCollection
+								.getValue() : tempValueOrEnumValueCollection.getMoreValues().get(i - 1));
+
 						tempValue = tempSingleValue;
 						if (tempSingleValue instanceof Variable) {
 							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
@@ -429,7 +431,7 @@ public final class IntegrityDSLUtil {
 								tempValue = null;
 							}
 						}
-						tempValueArray[i++] = tempValue;
+						tempValueArray[i] = tempValue;
 					}
 					tempValue = tempValueArray;
 				} else {

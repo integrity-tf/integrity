@@ -28,6 +28,11 @@ packagedef integrity.basic with
 		
 		call integrity.fixtures.basic.noop.echoBigDecimal bigdecimal: 1.8358974238957423098579234895724
 		test integrity.fixtures.basic.noop.echoBigDecimalTest bigdecimal: 1.8358974238957423098579234895724 = 1.8358974238957423098579234895724
+		
+		-- INT-20: If a variable is the first item in a parameter list (array) of a fixture call, it won't be resolved
+		variable aFirstVar initially "a"
+		variable aSecondVar initially "b"
+		test integrity.fixtures.basic.noop.echoStringArrayTest strings: aFirstVar, aSecondVar = "a", "b"
 	
 	suiteend
 	

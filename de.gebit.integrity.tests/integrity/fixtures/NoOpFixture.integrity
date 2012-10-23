@@ -7,6 +7,8 @@ packagedef integrity.fixtures.basic.noop with
 	
 	calldef echoString uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString
 	testdef echoStringTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString
+	calldef echoStringArray uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray
+	testdef echoStringArrayTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray
 	
 	calldef echoByte uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoByte
 	testdef echoByteTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoByte

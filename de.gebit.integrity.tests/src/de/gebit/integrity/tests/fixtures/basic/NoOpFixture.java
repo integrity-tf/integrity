@@ -31,6 +31,11 @@ public class NoOpFixture {
 		return aStringToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the string array '$strings$'")
+	public String[] echoStringArray(@FixtureParameter(name = "strings") String[] someStringsToEcho) {
+		return someStringsToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the integer '$integer$'")
 	public Integer echoInteger(@FixtureParameter(name = "integer") Integer anIntToEcho) {
 		return anIntToEcho;
