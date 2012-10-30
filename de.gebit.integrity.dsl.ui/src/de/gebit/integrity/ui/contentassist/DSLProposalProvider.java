@@ -440,8 +440,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									tempDescription += ": " + tempParameterDescription.getDescription();
 								}
 								String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
-								anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription,
-										null, aContext));
+								String tempPrefix = "+";
+								anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
+										tempDescription, null, aContext));
 							}
 						}
 					}
@@ -459,8 +460,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									if (tempResultDescription.getDescription() != null) {
 										tempDescription += ": " + tempResultDescription.getDescription();
 									}
-									anAcceptor.accept(createCompletionProposal(tempName + "=", tempDescription, null,
-											aContext));
+									String tempSuffix = "=";
+									String tempPrefix = "+";
+									anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
+											tempDescription, null, aContext));
 								}
 							}
 						}
