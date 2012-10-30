@@ -1,0 +1,28 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic with
+
+	suitedef nullChecks with
+	
+		// These tests should succeed, as they just return null(s) and expect those to be returned
+		test echoStringTest string: null = null
+		test echoStringArrayTest strings: null, null, null = null, null, null
+		
+		// These tests must fail
+		test echoStringTest string: "foo" = null
+		test echoStringTest string: null = "foo"
+		test echoStringArrayTest strings: null, "foo", null = null, null, "foo"
+		test echoStringArrayTest strings: null, null = null, null, null
+		test echoStringArrayTest strings: null, null = null
+		test echoStringArrayTest strings: null = null, null
+	
+		// Arbitrary parameters with null values and null checks; this must succeed
+		test echo fixparam: null +param1 = null fixedresult = null +result1 = null +result2 = null
+		
+		// This must fail
+		test echo fixparam: 1 +param1 = 2 +param2 = "foo" fixedresult = null +result1 = null +result2 = null
+	
+	suiteend
+
+packageend
