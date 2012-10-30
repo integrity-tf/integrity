@@ -8,7 +8,7 @@ packagedef mypackage with
 		test echo echo: null = null
 		test nulltest = null
 		test nullarraytest entries: 2 = null, null
-		test arbitrary
+		test arbitrary fixparam: 0 +testparam1: 0 +testparam2: null +testresult1 = null +testresult2 = 100
 	suiteend
 
 packageend
