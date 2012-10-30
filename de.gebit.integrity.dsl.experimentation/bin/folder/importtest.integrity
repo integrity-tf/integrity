@@ -10,6 +10,10 @@ packagedef mypackage with
 	
 	testdef failtest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnFalse
 	
+	testdef nulltest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnNull
+	
+	testdef nullarraytest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnNullArray
+	
 	calldef exceptioncall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException
 	
 	testdef arbitrary uses de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture#addition

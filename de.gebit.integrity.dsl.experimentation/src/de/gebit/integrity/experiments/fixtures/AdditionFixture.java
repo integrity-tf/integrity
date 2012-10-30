@@ -15,7 +15,8 @@ public class AdditionFixture {
 	 * @return the sum of both inputs
 	 */
 	@FixtureMethod(description = "addition of $summand1$ and $summand2$")
-	public Integer addition(@FixtureParameter(name = "summand1") Integer aSummand1,
+	public Integer addition(
+			@FixtureParameter(name = "summand1") Integer aSummand1,
 			@FixtureParameter(name = "summand2") Integer aSummand2) {
 		pause();
 		if (aSummand1 + aSummand2 == 50) {
@@ -59,13 +60,27 @@ public class AdditionFixture {
 		return false;
 	}
 
+	@FixtureMethod(description = "this test always returns null")
+	public Object returnNull() {
+		pause();
+		return null;
+	}
+
+	@FixtureMethod(description = "this test always returns nulls")
+	public String[] returnNullArray(
+			@FixtureParameter(name = "entries") Integer aNumberOfNulls) {
+		pause();
+		return new String[aNumberOfNulls];
+	}
+
 	@FixtureMethod(description = "This always throws an exception. We're so doomed!")
 	public boolean throwException() {
 		throw new RuntimeException("Holy shit!");
 	}
 
 	@FixtureMethod(description = "returns some named results")
-	public NamedResultContainer multiResultFixture(@FixtureParameter(name = "param") String aParam) {
+	public NamedResultContainer multiResultFixture(
+			@FixtureParameter(name = "param") String aParam) {
 		return new NamedResultContainer(aParam, 100);
 	}
 
@@ -83,7 +98,8 @@ public class AdditionFixture {
 
 		private Integer secondNamedResult;
 
-		public NamedResultContainer(String aFirstNamedResult, Integer aSecondNamedResult) {
+		public NamedResultContainer(String aFirstNamedResult,
+				Integer aSecondNamedResult) {
 			firstNamedResult = aFirstNamedResult;
 			secondNamedResult = aSecondNamedResult;
 		}

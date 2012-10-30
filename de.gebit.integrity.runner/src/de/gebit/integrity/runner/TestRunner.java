@@ -1160,7 +1160,14 @@ public class TestRunner {
 			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
 		if (anExpectedResult != null) {
-			if (aFixtureResult != null) {
+			if (aFixtureResult == null) {
+				if (anExpectedResult.getMoreValues().size() > 0) {
+					// if there's more than one value expected, this can never equal a single null value
+					return false;
+				} else {
+					return (anExpectedResult.getValue() instanceof NullValue);
+				}
+			} else {
 				if (aFixtureInstance.isCustomComparatorFixture()) {
 					// Custom comparators will get whole arrays at once if arrays are used
 					Object tempConvertedResult;
@@ -1199,16 +1206,23 @@ public class TestRunner {
 							Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
-							Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-									tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage,
-									getModelClassLoader());
+							if (tempSingleFixtureResult == null) {
+								// The fixture returned a null, we need to expect a null
+								return (tempSingleExpectedResult instanceof NullValue);
+							} else {
+								Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+										tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage,
+										getModelClassLoader());
 
-							if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
-								return false;
+								if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
+									return false;
+								}
 							}
 						}
 						return true;
 					} else {
+						// If we arrive here, the expected result is a simple, single value. But the fixture might still
+						// return an array
 						Object tempSingleFixtureResult = aFixtureResult;
 						// if the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course
@@ -1238,6 +1252,7 @@ public class TestRunner {
 								return true;
 							}
 						} else {
+							// This is the super-simple case where we basically have only one value to compare
 							if (tempConvertedResult.getClass().isArray()) {
 								// the converted result may still be an array
 								if (Array.getLength(tempConvertedResult) != 1) {
@@ -1249,8 +1264,6 @@ public class TestRunner {
 						return tempConvertedResult.equals(tempSingleFixtureResult);
 					}
 				}
-			} else {
-				return (anExpectedResult instanceof NullValue);
 			}
 		} else {
 			if (aFixtureInstance.isCustomComparatorFixture()) {

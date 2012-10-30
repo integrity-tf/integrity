@@ -5,7 +5,10 @@ packagedef mypackage with
 	operationdef concatenate uses de.gebit.integrity.experiments.fixtures.ConcatenationOperation
 
 	suitedef asuite with
-		test echo echo: ("1", 2 concatenate with (3, 4 concatenate)) = ("1", "3" concatenate)
+		test echo echo: null = null
+		test nulltest = null
+		test nullarraytest entries: 2 = null, null
+		test arbitrary
 	suiteend
 
 packageend
