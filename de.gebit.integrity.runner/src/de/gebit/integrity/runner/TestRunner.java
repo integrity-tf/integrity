@@ -1197,8 +1197,8 @@ public class TestRunner {
 					// Standard comparation compares each value for itself in case of arrays
 					if (anExpectedResult.getMoreValues().size() > 0) {
 						// multiple result values were given -> fixture result must be an array of same size
-						if (!aFixtureResult.getClass().isArray()
-								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1) {
+						if (!(aFixtureResult.getClass().isArray() && Array.getLength(aFixtureResult) == anExpectedResult
+								.getMoreValues().size() + 1)) {
 							return false;
 						}
 						// now compare all values
@@ -1208,13 +1208,15 @@ public class TestRunner {
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
 							if (tempSingleFixtureResult == null) {
 								// The fixture returned a null, we need to expect a null
-								return (tempSingleExpectedResult instanceof NullValue);
+								if (!(tempSingleExpectedResult instanceof NullValue)) {
+									return false;
+								}
 							} else {
 								Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
 										tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage,
 										getModelClassLoader());
 
-								if (!tempConvertedResult.equals(tempSingleFixtureResult)) {
+								if (!tempSingleFixtureResult.equals(tempConvertedResult)) {
 									return false;
 								}
 							}
@@ -1233,32 +1235,47 @@ public class TestRunner {
 								getModelClassLoader());
 
 						if (aFixtureResult.getClass().isArray()) {
-							if (!tempConvertedResult.getClass().isArray()) {
+							if (tempConvertedResult == null) {
 								// the fixture may still be returning an array that has to be unpacked
 								if (Array.getLength(aFixtureResult) != 1) {
 									return false;
 								}
 								tempSingleFixtureResult = Array.get(aFixtureResult, 0);
+								return (tempSingleFixtureResult == null);
 							} else {
-								if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
-									return false;
-								}
-								// both are converted arrays -> compare all values!
-								for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-									if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+								if (!tempConvertedResult.getClass().isArray()) {
+									// the fixture may still be returning an array that has to be unpacked
+									if (Array.getLength(aFixtureResult) != 1) {
 										return false;
 									}
+									tempSingleFixtureResult = Array.get(aFixtureResult, 0);
+								} else {
+									if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
+										return false;
+									}
+									// both are converted arrays -> compare all values!
+									for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
+										if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+											return false;
+										}
+									}
+									return true;
 								}
-								return true;
 							}
 						} else {
 							// This is the super-simple case where we basically have only one value to compare
-							if (tempConvertedResult.getClass().isArray()) {
-								// the converted result may still be an array
-								if (Array.getLength(tempConvertedResult) != 1) {
-									return false;
+							if (tempConvertedResult == null) {
+								// ...but even that can be null, and we need to handle this case separately in order to
+								// not get into NPEs
+								return (tempSingleFixtureResult instanceof NullValue);
+							} else {
+								if (tempConvertedResult.getClass().isArray()) {
+									// the converted result may still be an array
+									if (Array.getLength(tempConvertedResult) != 1) {
+										return false;
+									}
+									tempConvertedResult = Array.get(tempConvertedResult, 0);
 								}
-								tempConvertedResult = Array.get(tempConvertedResult, 0);
 							}
 						}
 						return tempConvertedResult.equals(tempSingleFixtureResult);
