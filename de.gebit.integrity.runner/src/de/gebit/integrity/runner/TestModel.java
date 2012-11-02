@@ -322,7 +322,7 @@ public class TestModel {
 		} else if (aTest.getDefinition().getFixtureMethod() == null
 				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
 			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
-					+ aTest.getDefinition().getName() + "'", aTest);
+					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
 		}
 	}
 
@@ -341,7 +341,7 @@ public class TestModel {
 		} else if (aCall.getDefinition().getFixtureMethod() == null
 				|| aCall.getDefinition().getFixtureMethod().getMethod() == null) {
 			throw new ModelRuntimeLinkException("Failed to resolve call fixture for call definition '"
-					+ aCall.getDefinition().getName() + "'", aCall);
+					+ aCall.getDefinition().getName() + "' (" + aCall.getDefinition() + ")", aCall);
 		}
 	}
 
@@ -360,7 +360,7 @@ public class TestModel {
 		} else if (aTest.getDefinition().getFixtureMethod() == null
 				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
 			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
-					+ aTest.getDefinition().getName() + "'", aTest);
+					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
 		}
 	}
 }
