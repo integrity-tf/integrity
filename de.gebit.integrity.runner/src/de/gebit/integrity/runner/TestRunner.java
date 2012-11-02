@@ -814,6 +814,8 @@ public class TestRunner {
 	 * @return the result
 	 */
 	protected TestResult executeTest(Test aTest) {
+		TestModel.ensureModelPartConsistency(aTest);
+
 		if (currentCallback != null) {
 			currentCallback.onTestStart(aTest);
 		}
@@ -921,6 +923,8 @@ public class TestRunner {
 	 * @return the result
 	 */
 	protected TestResult executeTableTest(TableTest aTest) {
+		TestModel.ensureModelPartConsistency(aTest);
+
 		if (currentCallback != null) {
 			currentCallback.onTableTestStart(aTest);
 		}
@@ -1374,6 +1378,8 @@ public class TestRunner {
 	 * @return the result
 	 */
 	protected CallResult executeCallSingle(Call aCall) {
+		TestModel.ensureModelPartConsistency(aCall);
+
 		if (currentCallback != null) {
 			currentCallback.onCallStart(aCall);
 		}

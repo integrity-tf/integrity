@@ -25,15 +25,19 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import com.google.inject.Injector;
 
 import de.gebit.integrity.DSLStandaloneSetup;
+import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
+import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
 /**
@@ -303,4 +307,60 @@ public class TestModel {
 		return classLoader;
 	}
 
+	/**
+	 * Checks if key references of the given {@link Test} are available and properly linked.
+	 * 
+	 * @param aTest
+	 *            the test to check
+	 * @throws ModelRuntimeLinkException
+	 *             in case of an error. Nothing happens if everything is fine.
+	 */
+	public static void ensureModelPartConsistency(Test aTest) throws ModelRuntimeLinkException {
+		if (aTest.getDefinition() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve test definition for test statement '"
+					+ aTest.toString() + "'", aTest);
+		} else if (aTest.getDefinition().getFixtureMethod() == null
+				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
+					+ aTest.getDefinition().getName() + "'", aTest);
+		}
+	}
+
+	/**
+	 * Checks if key references of the given {@link Call} are available and properly linked.
+	 * 
+	 * @param aCall
+	 *            the call to check
+	 * @throws ModelRuntimeLinkException
+	 *             in case of an error. Nothing happens if everything is fine.
+	 */
+	public static void ensureModelPartConsistency(Call aCall) throws ModelRuntimeLinkException {
+		if (aCall.getDefinition() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve call definition for call statement '"
+					+ aCall.toString() + "'", aCall);
+		} else if (aCall.getDefinition().getFixtureMethod() == null
+				|| aCall.getDefinition().getFixtureMethod().getMethod() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve call fixture for call definition '"
+					+ aCall.getDefinition().getName() + "'", aCall);
+		}
+	}
+
+	/**
+	 * Checks if key references of the given {@link TableTest} are available and properly linked.
+	 * 
+	 * @param aTest
+	 *            the test to check
+	 * @throws ModelRuntimeLinkException
+	 *             in case of an error. Nothing happens if everything is fine.
+	 */
+	public static void ensureModelPartConsistency(TableTest aTest) throws ModelRuntimeLinkException {
+		if (aTest.getDefinition() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve test definition for tabletest statement '"
+					+ aTest.toString() + "'", aTest);
+		} else if (aTest.getDefinition().getFixtureMethod() == null
+				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
+					+ aTest.getDefinition().getName() + "'", aTest);
+		}
+	}
 }
