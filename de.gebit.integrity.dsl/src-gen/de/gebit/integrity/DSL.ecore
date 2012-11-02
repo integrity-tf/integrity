@@ -217,17 +217,21 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IsoDateValue" eSuperTypes="#//DateValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateValue" eSuperTypes="#//DateValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="USDateValue" eSuperTypes="#//DateValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="TimeValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IsoTimeValue" eSuperTypes="#//TimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Simple24HrsTimeValue" eSuperTypes="#//TimeValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Simple12HrsTimeValue" eSuperTypes="#//TimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="DateAndTimeValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IsoDateAndTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateAnd24HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="USDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
   </eClassifiers>

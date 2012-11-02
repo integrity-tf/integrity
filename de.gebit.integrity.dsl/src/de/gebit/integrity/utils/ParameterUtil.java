@@ -362,7 +362,7 @@ public final class ParameterUtil {
 					return anAllowNullResultFlag ? null : "FAILURE";
 				}
 
-				if (tempResult.getClass().isArray()) {
+				if (tempResult != null && tempResult.getClass().isArray()) {
 					StringBuilder tempBuilder = new StringBuilder();
 					for (int i = 0; i < Array.getLength(tempResult); i++) {
 						if (i > 0) {

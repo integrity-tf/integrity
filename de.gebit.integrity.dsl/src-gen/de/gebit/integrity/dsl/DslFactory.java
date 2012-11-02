@@ -477,6 +477,15 @@ public interface DslFactory extends EFactory
   EuropeanDateValue createEuropeanDateValue();
 
   /**
+   * Returns a new object of class '<em>US Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>US Date Value</em>'.
+   * @generated
+   */
+  USDateValue createUSDateValue();
+
+  /**
    * Returns a new object of class '<em>Time Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -504,6 +513,15 @@ public interface DslFactory extends EFactory
   Simple24HrsTimeValue createSimple24HrsTimeValue();
 
   /**
+   * Returns a new object of class '<em>Simple12 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Simple12 Hrs Time Value</em>'.
+   * @generated
+   */
+  Simple12HrsTimeValue createSimple12HrsTimeValue();
+
+  /**
    * Returns a new object of class '<em>Date And Time Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -529,6 +547,24 @@ public interface DslFactory extends EFactory
    * @generated
    */
   EuropeanDateAnd24HrsTimeValue createEuropeanDateAnd24HrsTimeValue();
+
+  /**
+   * Returns a new object of class '<em>European Date And12 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>European Date And12 Hrs Time Value</em>'.
+   * @generated
+   */
+  EuropeanDateAnd12HrsTimeValue createEuropeanDateAnd12HrsTimeValue();
+
+  /**
+   * Returns a new object of class '<em>US Date And12 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>US Date And12 Hrs Time Value</em>'.
+   * @generated
+   */
+  USDateAnd12HrsTimeValue createUSDateAnd12HrsTimeValue();
 
   /**
    * Returns a new object of class '<em>Variable</em>'.

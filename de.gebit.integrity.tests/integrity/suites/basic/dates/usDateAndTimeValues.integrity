@@ -1,0 +1,28 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.dates with
+
+	suitedef usDateAndTimeValues with
+	
+		
+		// US format - date only
+
+		test echoDateTest date: 01/01/1970 = 01/01/1970
+		test echoDateTest date: 01/01/0001 = 01/01/0001
+		
+		variable tempDate
+		call echoDate date: 12/30/2012 -> tempDate
+		test echoDateTest date: tempDate = 12/30/2012
+
+				
+		// US format - date and time
+		
+		// this must return equality since it should only check the time portion
+		test echoDateTest date: 10/02/2010 01:00am = 01:00:00am
+				
+		// this must return unequality since it should check date and time
+		test echoDateTest date: 01:00am = 01/02/2010 01:00am
+		
+	suiteend
+	
+packageend

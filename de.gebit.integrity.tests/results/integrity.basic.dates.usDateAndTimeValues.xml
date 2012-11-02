@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="11/2/12 8:28 PM" isotimestamp="2012-11-02T20:28:10" duration="452.723">
+  <variables />
+  <suite id="0" name="integrity.basic.dates.usDateAndTimeValues">
+    <setup />
+    <variables>
+      <variable name="tempDate" />
+    </variables>
+    <statements>
+      <test id="1" name="echoDateTest" description="Echo the date 'January 1, 1970'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <results duration="4.344" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.344" description="Echo the date 'January 1, 1970'" type="success">
+            <parameters>
+              <parameter name="date" value="January 1, 1970" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="January 1, 1970" value="January 1, 1970 12:00:00 AM CET" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" name="echoDateTest" description="Echo the date 'January 1, 0001'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <results duration="1.918" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.918" description="Echo the date 'January 1, 0001'" type="success">
+            <parameters>
+              <parameter name="date" value="January 1, 0001" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="January 1, 0001" value="January 1, 0001 12:00:00 AM CET" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call id="3" name="echoDate" description="Echo the date 'December 30, 2012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <parameters>
+          <parameter name="date" value="December 30, 2012" />
+        </parameters>
+        <result duration="2.248" type="success">
+          <variableUpdate name="tempDate" value="December 30, 2012 12:00:00 AM CET" />
+        </result>
+      </call>
+      <test id="4" name="echoDateTest" description="Echo the date 'December 30, 2012 12:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <results duration="2.219" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.219" description="Echo the date 'December 30, 2012 12:00:00 AM CET'" type="success">
+            <parameters>
+              <parameter name="date" value="December 30, 2012 12:00:00 AM CET" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="December 30, 2012" value="December 30, 2012 12:00:00 AM CET" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="5" name="echoDateTest" description="Echo the date 'October 2, 2010 1:00:00 AM CEST'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <results duration="2.075" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.075" description="Echo the date 'October 2, 2010 1:00:00 AM CEST'" type="success">
+            <parameters>
+              <parameter name="date" value="October 2, 2010 1:00:00 AM CEST" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1:00:00 AM CET" value="October 2, 2010 1:00:00 AM CEST" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="6" name="echoDateTest" description="Echo the date '1:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate">
+        <results duration="1.964" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="1.964" description="Echo the date '1:00:00 AM CET'" type="failure">
+            <parameters>
+              <parameter name="date" value="1:00:00 AM CET" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="January 2, 2010 1:00:00 AM CET" value="January 1, 1970 1:00:00 AM CET" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="436.302" successCount="4" failureCount="1" exceptionCount="0" />
+  </suite>
+</integrity>
+

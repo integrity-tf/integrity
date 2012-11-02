@@ -3,12 +3,11 @@
  */
 package de.gebit.integrity.operations;
 
-
 /**
  * Implement this interface in order to create operation classes. An operation is expected to take zero, one or two
  * parameters (which can be arrays, thus containing multiple values) and return a value (can be an array as well).
  * Operations MUST be side-effect free, since there is no guarantee that a given operation statement leads to any
- * specific number of calls to the underlying operation class.<br />
+ * specific number of calls to the underlying operation class!<br />
  * <br/>
  * When an operation is to be executed, its class is instantiated using the default constructor, which must be present
  * and accessible. The resulting instance is used only for a single invocation of the {@link #execute(Object, Object)}
@@ -16,7 +15,12 @@ package de.gebit.integrity.operations;
  * <br/>
  * The parameter types supported are similar to those supported for {@link de.gebit.integrity.fixtures.FixtureMethod}
  * parameters, minus enumerations. The same is true for result value types. Integrity will perform autoconversion from
- * values given in test scripts into the types expected by a given operation class.
+ * values given in test scripts into the types expected by a given operation class.<br/>
+ * <br/>
+ * Note that an operation must be fine if called with null values, even for expected parameters. This can be the case in
+ * various situations. The operation may of course return null as well in that case, if no other behavior is desired.
+ * 
+ * 
  * 
  * @param <PREFIXPARAM>
  *            the type of the prefix parameter
@@ -33,9 +37,9 @@ public interface Operation<PREFIXPARAM extends Object, POSTFIXPARAM extends Obje
 	 * Executes the operation logic.
 	 * 
 	 * @param aPrefixParameter
-	 *            the prefix parameter, or null if none was given
+	 *            the prefix parameter, or null if none was given or the value is not available at the time of the call
 	 * @param aPostfixParameter
-	 *            the postfix parameter, or null if none was given
+	 *            the postfix parameter, or null if none was given or the value is not available at the time of the call
 	 * @return the result value
 	 */
 	RESULT execute(PREFIXPARAM aPrefixParameter, POSTFIXPARAM aPostfixParameter);

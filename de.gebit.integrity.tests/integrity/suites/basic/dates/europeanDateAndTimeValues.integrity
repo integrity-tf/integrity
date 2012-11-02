@@ -17,9 +17,20 @@ packagedef integrity.basic.dates with
 		
 		// 24hrs format - time only
 		
-		// a few simple cases
 		test echoDateTest date: 15:30:10 = 15:30:11
 		test echoDateTest date: 02:00 = 02:00:00
+				
+		
+		// 12hrs format - time only
+		
+		test echoDateTest date: 10:30:10am = 10:30:10pm
+		test echoDateTest date: 02:00am = 02:00:00am
+		
+		
+		// 12hrs and 24hrs mixed - time only
+		
+		test echoDateTest date: 10:30:10am = 10:30:10
+		test echoDateTest date: 02:00pm = 14:00:00
 				
 		
 		// European 24hrs format - date and time
@@ -38,6 +49,18 @@ packagedef integrity.basic.dates with
 
 		// this must return unequality, since it should check date and time
 		test echoDateTest date: 01.01.1980 12:31 = 01.01.1980 12:30
+		
+		
+		// European 12hrs format - date and time
+		
+		// this must return equality since it should only check the time portion
+		test echoDateTest date: 02.10.2010 01:00pm = 01:00pm
+		
+		// this must return unequality since it should check date and time
+		test echoDateTest date: 01:00am = 02.01.2010 01:00am
+
+		// this must return unequality, since it should check date and time
+		test echoDateTest date: 01.01.1980 12:31pm = 01.01.1980 12:30pm
 		
 	suiteend
 	

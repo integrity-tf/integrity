@@ -3807,6 +3807,16 @@ ruleDateValue returns [EObject current=null]
         $current = $this_EuropeanDateValue_1.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getDateValueAccess().getUSDateValueParserRuleCall_2()); 
+    }
+    this_USDateValue_2=ruleUSDateValue
+    { 
+        $current = $this_USDateValue_2.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -3892,6 +3902,45 @@ ruleEuropeanDateValue returns [EObject current=null]
 
 
 
+// Entry rule entryRuleUSDateValue
+entryRuleUSDateValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getUSDateValueRule()); }
+	 iv_ruleUSDateValue=ruleUSDateValue 
+	 { $current=$iv_ruleUSDateValue.current; } 
+	 EOF 
+;
+
+// Rule USDateValue
+ruleUSDateValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_dateValue_0_0=RULE_USDATE
+		{
+			newLeafNode(lv_dateValue_0_0, grammarAccess.getUSDateValueAccess().getDateValueUSDATETerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUSDateValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dateValue",
+        		lv_dateValue_0_0, 
+        		"USDATE");
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleTimeValue
 entryRuleTimeValue returns [EObject current=null] 
 	:
@@ -3923,6 +3972,16 @@ ruleTimeValue returns [EObject current=null]
     this_Simple24HrsTimeValue_1=ruleSimple24HrsTimeValue
     { 
         $current = $this_Simple24HrsTimeValue_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getTimeValueAccess().getSimple12HrsTimeValueParserRuleCall_2()); 
+    }
+    this_Simple12HrsTimeValue_2=ruleSimple12HrsTimeValue
+    { 
+        $current = $this_Simple12HrsTimeValue_2.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -4010,6 +4069,45 @@ ruleSimple24HrsTimeValue returns [EObject current=null]
 
 
 
+// Entry rule entryRuleSimple12HrsTimeValue
+entryRuleSimple12HrsTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getSimple12HrsTimeValueRule()); }
+	 iv_ruleSimple12HrsTimeValue=ruleSimple12HrsTimeValue 
+	 { $current=$iv_ruleSimple12HrsTimeValue.current; } 
+	 EOF 
+;
+
+// Rule Simple12HrsTimeValue
+ruleSimple12HrsTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_timeValue_0_0=RULE_TWELVEHRSTIME
+		{
+			newLeafNode(lv_timeValue_0_0, grammarAccess.getSimple12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSimple12HrsTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeValue",
+        		lv_timeValue_0_0, 
+        		"TWELVEHRSTIME");
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleDateAndTimeValue
 entryRuleDateAndTimeValue returns [EObject current=null] 
 	:
@@ -4041,6 +4139,26 @@ ruleDateAndTimeValue returns [EObject current=null]
     this_EuropeanDateAnd24HrsTimeValue_1=ruleEuropeanDateAnd24HrsTimeValue
     { 
         $current = $this_EuropeanDateAnd24HrsTimeValue_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getEuropeanDateAnd12HrsTimeValueParserRuleCall_2()); 
+    }
+    this_EuropeanDateAnd12HrsTimeValue_2=ruleEuropeanDateAnd12HrsTimeValue
+    { 
+        $current = $this_EuropeanDateAnd12HrsTimeValue_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getUSDateAnd12HrsTimeValueParserRuleCall_3()); 
+    }
+    this_USDateAnd12HrsTimeValue_3=ruleUSDateAnd12HrsTimeValue
+    { 
+        $current = $this_USDateAnd12HrsTimeValue_3.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -4162,6 +4280,136 @@ ruleNL
        			"timeValue",
         		lv_timeValue_2_0, 
         		"TWENTYFOURHRSTIME");
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleEuropeanDateAnd12HrsTimeValue
+entryRuleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEuropeanDateAnd12HrsTimeValueRule()); }
+	 iv_ruleEuropeanDateAnd12HrsTimeValue=ruleEuropeanDateAnd12HrsTimeValue 
+	 { $current=$iv_ruleEuropeanDateAnd12HrsTimeValue.current; } 
+	 EOF 
+;
+
+// Rule EuropeanDateAnd12HrsTimeValue
+ruleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_dateValue_0_0=RULE_EURODATE
+		{
+			newLeafNode(lv_dateValue_0_0, grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEuropeanDateAnd12HrsTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dateValue",
+        		lv_dateValue_0_0, 
+        		"EURODATE");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		lv_timeValue_2_0=RULE_TWELVEHRSTIME
+		{
+			newLeafNode(lv_timeValue_2_0, grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEuropeanDateAnd12HrsTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeValue",
+        		lv_timeValue_2_0, 
+        		"TWELVEHRSTIME");
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleUSDateAnd12HrsTimeValue
+entryRuleUSDateAnd12HrsTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getUSDateAnd12HrsTimeValueRule()); }
+	 iv_ruleUSDateAnd12HrsTimeValue=ruleUSDateAnd12HrsTimeValue 
+	 { $current=$iv_ruleUSDateAnd12HrsTimeValue.current; } 
+	 EOF 
+;
+
+// Rule USDateAnd12HrsTimeValue
+ruleUSDateAnd12HrsTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_dateValue_0_0=RULE_USDATE
+		{
+			newLeafNode(lv_dateValue_0_0, grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueUSDATETerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUSDateAnd12HrsTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dateValue",
+        		lv_dateValue_0_0, 
+        		"USDATE");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		lv_timeValue_2_0=RULE_TWELVEHRSTIME
+		{
+			newLeafNode(lv_timeValue_2_0, grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUSDateAnd12HrsTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeValue",
+        		lv_timeValue_2_0, 
+        		"TWELVEHRSTIME");
 	    }
 
 )
@@ -4646,7 +4894,11 @@ RULE_ISOTIMEZONE : ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9');
 
 RULE_EURODATE : '0'..'3' '0'..'9' '.' '0'..'1' '0'..'9' '.' '0'..'9' '0'..'9' '0'..'9' '0'..'9';
 
+RULE_USDATE : '0'..'1' '0'..'9' '/' '0'..'3' '0'..'9' '/' '0'..'9' '0'..'9' '0'..'9' '0'..'9';
+
 RULE_TWENTYFOURHRSTIME : '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')?;
+
+RULE_TWELVEHRSTIME : '0'..'1' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')? ('am'|'pm');
 
 RULE_ANY_OTHER : .;
 

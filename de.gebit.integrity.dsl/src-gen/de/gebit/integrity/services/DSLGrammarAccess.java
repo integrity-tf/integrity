@@ -2214,13 +2214,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cIsoDateValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cEuropeanDateValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUSDateValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//DateValue:
 		//
-		//	IsoDateValue | EuropeanDateValue;
+		//	IsoDateValue | EuropeanDateValue | USDateValue;
 		public ParserRule getRule() { return rule; }
 
-		//IsoDateValue | EuropeanDateValue
+		//IsoDateValue | EuropeanDateValue | USDateValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//IsoDateValue
@@ -2228,6 +2229,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//EuropeanDateValue
 		public RuleCall getEuropeanDateValueParserRuleCall_1() { return cEuropeanDateValueParserRuleCall_1; }
+
+		//USDateValue
+		public RuleCall getUSDateValueParserRuleCall_2() { return cUSDateValueParserRuleCall_2; }
 	}
 
 	public class IsoDateValueElements extends AbstractParserRuleElementFinder {
@@ -2264,18 +2268,36 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getDateValueEURODATETerminalRuleCall_0() { return cDateValueEURODATETerminalRuleCall_0; }
 	}
 
+	public class USDateValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "USDateValue");
+		private final Assignment cDateValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDateValueUSDATETerminalRuleCall_0 = (RuleCall)cDateValueAssignment.eContents().get(0);
+		
+		//USDateValue:
+		//
+		//	dateValue=USDATE;
+		public ParserRule getRule() { return rule; }
+
+		//dateValue=USDATE
+		public Assignment getDateValueAssignment() { return cDateValueAssignment; }
+
+		//USDATE
+		public RuleCall getDateValueUSDATETerminalRuleCall_0() { return cDateValueUSDATETerminalRuleCall_0; }
+	}
+
 	public class TimeValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TimeValue");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cIsoTimeValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cSimple24HrsTimeValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cSimple12HrsTimeValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//TimeValue:
 		//
-		//	IsoTimeValue | Simple24HrsTimeValue;
+		//	IsoTimeValue | Simple24HrsTimeValue | Simple12HrsTimeValue;
 		public ParserRule getRule() { return rule; }
 
-		//IsoTimeValue | Simple24HrsTimeValue
+		//IsoTimeValue | Simple24HrsTimeValue | Simple12HrsTimeValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//IsoTimeValue
@@ -2283,6 +2305,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Simple24HrsTimeValue
 		public RuleCall getSimple24HrsTimeValueParserRuleCall_1() { return cSimple24HrsTimeValueParserRuleCall_1; }
+
+		//Simple12HrsTimeValue
+		public RuleCall getSimple12HrsTimeValueParserRuleCall_2() { return cSimple12HrsTimeValueParserRuleCall_2; }
 	}
 
 	public class IsoTimeValueElements extends AbstractParserRuleElementFinder {
@@ -2319,18 +2344,37 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0() { return cTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0; }
 	}
 
+	public class Simple12HrsTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Simple12HrsTimeValue");
+		private final Assignment cTimeValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTimeValueTWELVEHRSTIMETerminalRuleCall_0 = (RuleCall)cTimeValueAssignment.eContents().get(0);
+		
+		//Simple12HrsTimeValue:
+		//
+		//	timeValue=TWELVEHRSTIME;
+		public ParserRule getRule() { return rule; }
+
+		//timeValue=TWELVEHRSTIME
+		public Assignment getTimeValueAssignment() { return cTimeValueAssignment; }
+
+		//TWELVEHRSTIME
+		public RuleCall getTimeValueTWELVEHRSTIMETerminalRuleCall_0() { return cTimeValueTWELVEHRSTIMETerminalRuleCall_0; }
+	}
+
 	public class DateAndTimeValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DateAndTimeValue");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cIsoDateAndTimeValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cEuropeanDateAnd24HrsTimeValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cEuropeanDateAnd12HrsTimeValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cUSDateAnd12HrsTimeValueParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//DateAndTimeValue:
 		//
-		//	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue;
+		//	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue | EuropeanDateAnd12HrsTimeValue | USDateAnd12HrsTimeValue;
 		public ParserRule getRule() { return rule; }
 
-		//IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue
+		//IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue | EuropeanDateAnd12HrsTimeValue | USDateAnd12HrsTimeValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//IsoDateAndTimeValue
@@ -2338,6 +2382,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//EuropeanDateAnd24HrsTimeValue
 		public RuleCall getEuropeanDateAnd24HrsTimeValueParserRuleCall_1() { return cEuropeanDateAnd24HrsTimeValueParserRuleCall_1; }
+
+		//EuropeanDateAnd12HrsTimeValue
+		public RuleCall getEuropeanDateAnd12HrsTimeValueParserRuleCall_2() { return cEuropeanDateAnd12HrsTimeValueParserRuleCall_2; }
+
+		//USDateAnd12HrsTimeValue
+		public RuleCall getUSDateAnd12HrsTimeValueParserRuleCall_3() { return cUSDateAnd12HrsTimeValueParserRuleCall_3; }
 	}
 
 	public class IsoDateAndTimeValueElements extends AbstractParserRuleElementFinder {
@@ -2400,6 +2450,72 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TWENTYFOURHRSTIME
 		public RuleCall getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0() { return cTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0; }
+	}
+
+	public class EuropeanDateAnd12HrsTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EuropeanDateAnd12HrsTimeValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDateValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDateValueEURODATETerminalRuleCall_0_0 = (RuleCall)cDateValueAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cTimeValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTimeValueTWELVEHRSTIMETerminalRuleCall_2_0 = (RuleCall)cTimeValueAssignment_2.eContents().get(0);
+		
+		//EuropeanDateAnd12HrsTimeValue:
+		//
+		//	dateValue=EURODATE NL timeValue=TWELVEHRSTIME;
+		public ParserRule getRule() { return rule; }
+
+		//dateValue=EURODATE NL timeValue=TWELVEHRSTIME
+		public Group getGroup() { return cGroup; }
+
+		//dateValue=EURODATE
+		public Assignment getDateValueAssignment_0() { return cDateValueAssignment_0; }
+
+		//EURODATE
+		public RuleCall getDateValueEURODATETerminalRuleCall_0_0() { return cDateValueEURODATETerminalRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//timeValue=TWELVEHRSTIME
+		public Assignment getTimeValueAssignment_2() { return cTimeValueAssignment_2; }
+
+		//TWELVEHRSTIME
+		public RuleCall getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0() { return cTimeValueTWELVEHRSTIMETerminalRuleCall_2_0; }
+	}
+
+	public class USDateAnd12HrsTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "USDateAnd12HrsTimeValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDateValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDateValueUSDATETerminalRuleCall_0_0 = (RuleCall)cDateValueAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cTimeValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTimeValueTWELVEHRSTIMETerminalRuleCall_2_0 = (RuleCall)cTimeValueAssignment_2.eContents().get(0);
+		
+		//USDateAnd12HrsTimeValue:
+		//
+		//	dateValue=USDATE NL timeValue=TWELVEHRSTIME;
+		public ParserRule getRule() { return rule; }
+
+		//dateValue=USDATE NL timeValue=TWELVEHRSTIME
+		public Group getGroup() { return cGroup; }
+
+		//dateValue=USDATE
+		public Assignment getDateValueAssignment_0() { return cDateValueAssignment_0; }
+
+		//USDATE
+		public RuleCall getDateValueUSDATETerminalRuleCall_0_0() { return cDateValueUSDATETerminalRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//timeValue=TWELVEHRSTIME
+		public Assignment getTimeValueAssignment_2() { return cTimeValueAssignment_2; }
+
+		//TWELVEHRSTIME
+		public RuleCall getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0() { return cTimeValueTWELVEHRSTIMETerminalRuleCall_2_0; }
 	}
 
 	public class VariableElements extends AbstractParserRuleElementFinder {
@@ -2724,12 +2840,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private DateValueElements pDateValue;
 	private IsoDateValueElements pIsoDateValue;
 	private EuropeanDateValueElements pEuropeanDateValue;
+	private USDateValueElements pUSDateValue;
 	private TimeValueElements pTimeValue;
 	private IsoTimeValueElements pIsoTimeValue;
 	private Simple24HrsTimeValueElements pSimple24HrsTimeValue;
+	private Simple12HrsTimeValueElements pSimple12HrsTimeValue;
 	private DateAndTimeValueElements pDateAndTimeValue;
 	private IsoDateAndTimeValueElements pIsoDateAndTimeValue;
 	private EuropeanDateAnd24HrsTimeValueElements pEuropeanDateAnd24HrsTimeValue;
+	private EuropeanDateAnd12HrsTimeValueElements pEuropeanDateAnd12HrsTimeValue;
+	private USDateAnd12HrsTimeValueElements pUSDateAnd12HrsTimeValue;
 	private VariableElements pVariable;
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
@@ -2759,7 +2879,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tISOTIME;
 	private TerminalRule tISOTIMEZONE;
 	private TerminalRule tEURODATE;
+	private TerminalRule tUSDATE;
 	private TerminalRule tTWENTYFOURHRSTIME;
+	private TerminalRule tTWELVEHRSTIME;
 	private TerminalRule tANY_OTHER;
 	
 	private final Grammar grammar;
@@ -3335,7 +3457,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//DateValue:
 	//
-	//	IsoDateValue | EuropeanDateValue;
+	//	IsoDateValue | EuropeanDateValue | USDateValue;
 	public DateValueElements getDateValueAccess() {
 		return (pDateValue != null) ? pDateValue : (pDateValue = new DateValueElements());
 	}
@@ -3366,9 +3488,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getEuropeanDateValueAccess().getRule();
 	}
 
+	//USDateValue:
+	//
+	//	dateValue=USDATE;
+	public USDateValueElements getUSDateValueAccess() {
+		return (pUSDateValue != null) ? pUSDateValue : (pUSDateValue = new USDateValueElements());
+	}
+	
+	public ParserRule getUSDateValueRule() {
+		return getUSDateValueAccess().getRule();
+	}
+
 	//TimeValue:
 	//
-	//	IsoTimeValue | Simple24HrsTimeValue;
+	//	IsoTimeValue | Simple24HrsTimeValue | Simple12HrsTimeValue;
 	public TimeValueElements getTimeValueAccess() {
 		return (pTimeValue != null) ? pTimeValue : (pTimeValue = new TimeValueElements());
 	}
@@ -3399,9 +3532,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getSimple24HrsTimeValueAccess().getRule();
 	}
 
+	//Simple12HrsTimeValue:
+	//
+	//	timeValue=TWELVEHRSTIME;
+	public Simple12HrsTimeValueElements getSimple12HrsTimeValueAccess() {
+		return (pSimple12HrsTimeValue != null) ? pSimple12HrsTimeValue : (pSimple12HrsTimeValue = new Simple12HrsTimeValueElements());
+	}
+	
+	public ParserRule getSimple12HrsTimeValueRule() {
+		return getSimple12HrsTimeValueAccess().getRule();
+	}
+
 	//DateAndTimeValue:
 	//
-	//	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue;
+	//	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue | EuropeanDateAnd12HrsTimeValue | USDateAnd12HrsTimeValue;
 	public DateAndTimeValueElements getDateAndTimeValueAccess() {
 		return (pDateAndTimeValue != null) ? pDateAndTimeValue : (pDateAndTimeValue = new DateAndTimeValueElements());
 	}
@@ -3430,6 +3574,28 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getEuropeanDateAnd24HrsTimeValueRule() {
 		return getEuropeanDateAnd24HrsTimeValueAccess().getRule();
+	}
+
+	//EuropeanDateAnd12HrsTimeValue:
+	//
+	//	dateValue=EURODATE NL timeValue=TWELVEHRSTIME;
+	public EuropeanDateAnd12HrsTimeValueElements getEuropeanDateAnd12HrsTimeValueAccess() {
+		return (pEuropeanDateAnd12HrsTimeValue != null) ? pEuropeanDateAnd12HrsTimeValue : (pEuropeanDateAnd12HrsTimeValue = new EuropeanDateAnd12HrsTimeValueElements());
+	}
+	
+	public ParserRule getEuropeanDateAnd12HrsTimeValueRule() {
+		return getEuropeanDateAnd12HrsTimeValueAccess().getRule();
+	}
+
+	//USDateAnd12HrsTimeValue:
+	//
+	//	dateValue=USDATE NL timeValue=TWELVEHRSTIME;
+	public USDateAnd12HrsTimeValueElements getUSDateAnd12HrsTimeValueAccess() {
+		return (pUSDateAnd12HrsTimeValue != null) ? pUSDateAnd12HrsTimeValue : (pUSDateAnd12HrsTimeValue = new USDateAnd12HrsTimeValueElements());
+	}
+	
+	public ParserRule getUSDateAnd12HrsTimeValueRule() {
+		return getUSDateAnd12HrsTimeValueAccess().getRule();
 	}
 
 	//Variable:
@@ -3681,11 +3847,25 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return (tEURODATE != null) ? tEURODATE : (tEURODATE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EURODATE"));
 	} 
 
+	//terminal USDATE:
+	//
+	//	"0".."1" "0".."9" "/" "0".."3" "0".."9" "/" "0".."9" "0".."9" "0".."9" "0".."9";
+	public TerminalRule getUSDATERule() {
+		return (tUSDATE != null) ? tUSDATE : (tUSDATE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "USDATE"));
+	} 
+
 	//terminal TWENTYFOURHRSTIME:
 	//
 	//	"0".."2" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")?;
 	public TerminalRule getTWENTYFOURHRSTIMERule() {
 		return (tTWENTYFOURHRSTIME != null) ? tTWENTYFOURHRSTIME : (tTWENTYFOURHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TWENTYFOURHRSTIME"));
+	} 
+
+	//terminal TWELVEHRSTIME:
+	//
+	//	"0".."1" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")? ("am" | "pm");
+	public TerminalRule getTWELVEHRSTIMERule() {
+		return (tTWELVEHRSTIME != null) ? tTWELVEHRSTIME : (tTWELVEHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TWELVEHRSTIME"));
 	} 
 
 	//terminal ANY_OTHER:

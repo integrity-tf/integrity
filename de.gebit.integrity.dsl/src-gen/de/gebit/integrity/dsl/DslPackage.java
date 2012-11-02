@@ -1740,6 +1740,34 @@ public interface DslPackage extends EPackage
   int EUROPEAN_DATE_VALUE_FEATURE_COUNT = DATE_VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.USDateValueImpl <em>US Date Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.USDateValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateValue()
+   * @generated
+   */
+  int US_DATE_VALUE = 50;
+
+  /**
+   * The feature id for the '<em><b>Date Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int US_DATE_VALUE__DATE_VALUE = DATE_VALUE__DATE_VALUE;
+
+  /**
+   * The number of structural features of the '<em>US Date Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int US_DATE_VALUE_FEATURE_COUNT = DATE_VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TimeValueImpl <em>Time Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1747,7 +1775,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTimeValue()
    * @generated
    */
-  int TIME_VALUE = 50;
+  int TIME_VALUE = 51;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1775,7 +1803,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIsoTimeValue()
    * @generated
    */
-  int ISO_TIME_VALUE = 51;
+  int ISO_TIME_VALUE = 52;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1803,7 +1831,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSimple24HrsTimeValue()
    * @generated
    */
-  int SIMPLE24_HRS_TIME_VALUE = 52;
+  int SIMPLE24_HRS_TIME_VALUE = 53;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1824,6 +1852,34 @@ public interface DslPackage extends EPackage
   int SIMPLE24_HRS_TIME_VALUE_FEATURE_COUNT = TIME_VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.Simple12HrsTimeValueImpl <em>Simple12 Hrs Time Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.Simple12HrsTimeValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSimple12HrsTimeValue()
+   * @generated
+   */
+  int SIMPLE12_HRS_TIME_VALUE = 54;
+
+  /**
+   * The feature id for the '<em><b>Time Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIMPLE12_HRS_TIME_VALUE__TIME_VALUE = TIME_VALUE__TIME_VALUE;
+
+  /**
+   * The number of structural features of the '<em>Simple12 Hrs Time Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIMPLE12_HRS_TIME_VALUE_FEATURE_COUNT = TIME_VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.DateAndTimeValueImpl <em>Date And Time Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1831,7 +1887,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDateAndTimeValue()
    * @generated
    */
-  int DATE_AND_TIME_VALUE = 53;
+  int DATE_AND_TIME_VALUE = 55;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1868,7 +1924,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIsoDateAndTimeValue()
    * @generated
    */
-  int ISO_DATE_AND_TIME_VALUE = 54;
+  int ISO_DATE_AND_TIME_VALUE = 56;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1905,7 +1961,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateAnd24HrsTimeValue()
    * @generated
    */
-  int EUROPEAN_DATE_AND24_HRS_TIME_VALUE = 55;
+  int EUROPEAN_DATE_AND24_HRS_TIME_VALUE = 57;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1935,6 +1991,80 @@ public interface DslPackage extends EPackage
   int EUROPEAN_DATE_AND24_HRS_TIME_VALUE_FEATURE_COUNT = DATE_AND_TIME_VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.EuropeanDateAnd12HrsTimeValueImpl <em>European Date And12 Hrs Time Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.EuropeanDateAnd12HrsTimeValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateAnd12HrsTimeValue()
+   * @generated
+   */
+  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE = 58;
+
+  /**
+   * The feature id for the '<em><b>Date Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE__DATE_VALUE = DATE_AND_TIME_VALUE__DATE_VALUE;
+
+  /**
+   * The feature id for the '<em><b>Time Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE__TIME_VALUE = DATE_AND_TIME_VALUE__TIME_VALUE;
+
+  /**
+   * The number of structural features of the '<em>European Date And12 Hrs Time Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE_FEATURE_COUNT = DATE_AND_TIME_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.USDateAnd12HrsTimeValueImpl <em>US Date And12 Hrs Time Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.USDateAnd12HrsTimeValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateAnd12HrsTimeValue()
+   * @generated
+   */
+  int US_DATE_AND12_HRS_TIME_VALUE = 59;
+
+  /**
+   * The feature id for the '<em><b>Date Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int US_DATE_AND12_HRS_TIME_VALUE__DATE_VALUE = DATE_AND_TIME_VALUE__DATE_VALUE;
+
+  /**
+   * The feature id for the '<em><b>Time Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int US_DATE_AND12_HRS_TIME_VALUE__TIME_VALUE = DATE_AND_TIME_VALUE__TIME_VALUE;
+
+  /**
+   * The number of structural features of the '<em>US Date And12 Hrs Time Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int US_DATE_AND12_HRS_TIME_VALUE_FEATURE_COUNT = DATE_AND_TIME_VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1942,7 +2072,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 56;
+  int VARIABLE = 60;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1970,7 +2100,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
    * @generated
    */
-  int NULL_VALUE = 57;
+  int NULL_VALUE = 61;
 
   /**
    * The number of structural features of the '<em>Null Value</em>' class.
@@ -1989,7 +2119,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 58;
+  int ENUM_VALUE = 62;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -2017,7 +2147,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 59;
+  int JAVA_CLASS_REFERENCE = 63;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2045,7 +2175,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 60;
+  int METHOD_REFERENCE = 64;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2082,7 +2212,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 61;
+  int EXECUTION_MULTIPLIER = 65;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2110,7 +2240,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 62;
+  int NULL = 66;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -3492,6 +3622,16 @@ public interface DslPackage extends EPackage
   EClass getEuropeanDateValue();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.USDateValue <em>US Date Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>US Date Value</em>'.
+   * @see de.gebit.integrity.dsl.USDateValue
+   * @generated
+   */
+  EClass getUSDateValue();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.TimeValue <em>Time Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3531,6 +3671,16 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getSimple24HrsTimeValue();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.Simple12HrsTimeValue <em>Simple12 Hrs Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Simple12 Hrs Time Value</em>'.
+   * @see de.gebit.integrity.dsl.Simple12HrsTimeValue
+   * @generated
+   */
+  EClass getSimple12HrsTimeValue();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.DateAndTimeValue <em>Date And Time Value</em>}'.
@@ -3583,6 +3733,26 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getEuropeanDateAnd24HrsTimeValue();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue <em>European Date And12 Hrs Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>European Date And12 Hrs Time Value</em>'.
+   * @see de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue
+   * @generated
+   */
+  EClass getEuropeanDateAnd12HrsTimeValue();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.USDateAnd12HrsTimeValue <em>US Date And12 Hrs Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>US Date And12 Hrs Time Value</em>'.
+   * @see de.gebit.integrity.dsl.USDateAnd12HrsTimeValue
+   * @generated
+   */
+  EClass getUSDateAnd12HrsTimeValue();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Variable <em>Variable</em>}'.
@@ -4876,6 +5046,16 @@ public interface DslPackage extends EPackage
     EClass EUROPEAN_DATE_VALUE = eINSTANCE.getEuropeanDateValue();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.USDateValueImpl <em>US Date Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.USDateValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateValue()
+     * @generated
+     */
+    EClass US_DATE_VALUE = eINSTANCE.getUSDateValue();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TimeValueImpl <em>Time Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4912,6 +5092,16 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass SIMPLE24_HRS_TIME_VALUE = eINSTANCE.getSimple24HrsTimeValue();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.Simple12HrsTimeValueImpl <em>Simple12 Hrs Time Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.Simple12HrsTimeValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSimple12HrsTimeValue()
+     * @generated
+     */
+    EClass SIMPLE12_HRS_TIME_VALUE = eINSTANCE.getSimple12HrsTimeValue();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.DateAndTimeValueImpl <em>Date And Time Value</em>}' class.
@@ -4958,6 +5148,26 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass EUROPEAN_DATE_AND24_HRS_TIME_VALUE = eINSTANCE.getEuropeanDateAnd24HrsTimeValue();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.EuropeanDateAnd12HrsTimeValueImpl <em>European Date And12 Hrs Time Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.EuropeanDateAnd12HrsTimeValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateAnd12HrsTimeValue()
+     * @generated
+     */
+    EClass EUROPEAN_DATE_AND12_HRS_TIME_VALUE = eINSTANCE.getEuropeanDateAnd12HrsTimeValue();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.USDateAnd12HrsTimeValueImpl <em>US Date And12 Hrs Time Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.USDateAnd12HrsTimeValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateAnd12HrsTimeValue()
+     * @generated
+     */
+    EClass US_DATE_AND12_HRS_TIME_VALUE = eINSTANCE.getUSDateAnd12HrsTimeValue();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.

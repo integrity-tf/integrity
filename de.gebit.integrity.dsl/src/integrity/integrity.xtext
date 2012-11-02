@@ -148,7 +148,7 @@ BooleanValue:
 	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
 	
 DateValue:
-	IsoDateValue | EuropeanDateValue;
+	IsoDateValue | EuropeanDateValue | USDateValue;
 	
 IsoDateValue:
 	dateValue=ISODATE;
@@ -156,8 +156,11 @@ IsoDateValue:
 EuropeanDateValue:
 	dateValue=EURODATE;
 	
+USDateValue:
+	dateValue=USDATE;
+	
 TimeValue:
-	IsoTimeValue | Simple24HrsTimeValue;
+	IsoTimeValue | Simple24HrsTimeValue | Simple12HrsTimeValue;
 
 IsoTimeValue:
 	timeValue=ISOTIME;
@@ -165,14 +168,23 @@ IsoTimeValue:
 Simple24HrsTimeValue:
 	timeValue=TWENTYFOURHRSTIME;
 	
+Simple12HrsTimeValue:
+	timeValue=TWELVEHRSTIME;
+	
 DateAndTimeValue:
-	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue;
+	IsoDateAndTimeValue | EuropeanDateAnd24HrsTimeValue | EuropeanDateAnd12HrsTimeValue | USDateAnd12HrsTimeValue;
 	
 IsoDateAndTimeValue:
 	dateValue=ISODATE timeValue=ISOTIME;
 	
 EuropeanDateAnd24HrsTimeValue:
 	dateValue=EURODATE NL timeValue=TWENTYFOURHRSTIME;
+	
+EuropeanDateAnd12HrsTimeValue:
+	dateValue=EURODATE NL timeValue=TWELVEHRSTIME;
+	
+USDateAnd12HrsTimeValue:
+	dateValue=USDATE NL timeValue=TWELVEHRSTIME;
 	
 Variable:
 	name=[VariableEntity|QualifiedName];
@@ -230,6 +242,8 @@ terminal ISOTIME: ('T' TWENTYFOURHRSTIME ISOTIMEZONE?) | (TWENTYFOURHRSTIME ISOT
 terminal ISOTIMEZONE: 'Z' | (('+' | '-') ('0'..'2')('0'..'9') ':'? ('0'..'5')('0'..'9'));
 
 terminal EURODATE: ('0'..'3')('0'..'9') '.' ('0'..'1')('0'..'9') '.' ('0'..'9')('0'..'9')('0'..'9')('0'..'9');
+terminal USDATE: ('0'..'1')('0'..'9') '/' ('0'..'3')('0'..'9') '/' ('0'..'9')('0'..'9')('0'..'9')('0'..'9');
 terminal TWENTYFOURHRSTIME: ('0'..'2')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9'))?;
+terminal TWELVEHRSTIME: ('0'..'1')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9'))? ('am'|'pm');
 
 terminal ANY_OTHER: .;
