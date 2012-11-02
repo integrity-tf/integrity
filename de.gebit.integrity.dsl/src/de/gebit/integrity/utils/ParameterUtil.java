@@ -249,6 +249,8 @@ public final class ParameterUtil {
 						return Float.parseFloat(((StringValue) aValue).getStringValue());
 					} else if (aParamType == Double.class) {
 						return Double.parseDouble(((StringValue) aValue).getStringValue());
+					} else if (aParamType == Boolean.class) {
+						return Boolean.parseBoolean(((StringValue) aValue).getStringValue());
 					}
 				} catch (NumberFormatException exc) {
 					throw new IllegalArgumentException("String value '" + ((StringValue) aValue).getStringValue() + "'"
