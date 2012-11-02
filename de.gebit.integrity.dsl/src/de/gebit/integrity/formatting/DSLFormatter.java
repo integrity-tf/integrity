@@ -67,6 +67,10 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().after(tempGrammar.getResultTableHeaderAccess().getVerticalLineKeyword_3());
 		aConfig.setNoSpace().after(tempGrammar.getParameterTableValueAccess().getVerticalLineKeyword_2());
 
+		// No spaces before the 'T' divider in ISO date/time strings
+		aConfig.setNoSpace()
+				.after(tempGrammar.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0());
+
 		// Indentations
 		// Suites and Packages
 		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(), tempGrammar
