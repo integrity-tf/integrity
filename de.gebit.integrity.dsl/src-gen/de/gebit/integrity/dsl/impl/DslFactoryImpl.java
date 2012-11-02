@@ -117,10 +117,13 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.BOOLEAN_VALUE: return createBooleanValue();
       case DslPackage.DATE_VALUE: return createDateValue();
       case DslPackage.ISO_DATE_VALUE: return createIsoDateValue();
+      case DslPackage.EUROPEAN_DATE_VALUE: return createEuropeanDateValue();
       case DslPackage.TIME_VALUE: return createTimeValue();
       case DslPackage.ISO_TIME_VALUE: return createIsoTimeValue();
+      case DslPackage.SIMPLE24_HRS_TIME_VALUE: return createSimple24HrsTimeValue();
       case DslPackage.DATE_AND_TIME_VALUE: return createDateAndTimeValue();
       case DslPackage.ISO_DATE_AND_TIME_VALUE: return createIsoDateAndTimeValue();
+      case DslPackage.EUROPEAN_DATE_AND24_HRS_TIME_VALUE: return createEuropeanDateAnd24HrsTimeValue();
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
@@ -677,6 +680,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public EuropeanDateValue createEuropeanDateValue()
+  {
+    EuropeanDateValueImpl europeanDateValue = new EuropeanDateValueImpl();
+    return europeanDateValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public TimeValue createTimeValue()
   {
     TimeValueImpl timeValue = new TimeValueImpl();
@@ -699,6 +713,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Simple24HrsTimeValue createSimple24HrsTimeValue()
+  {
+    Simple24HrsTimeValueImpl simple24HrsTimeValue = new Simple24HrsTimeValueImpl();
+    return simple24HrsTimeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public DateAndTimeValue createDateAndTimeValue()
   {
     DateAndTimeValueImpl dateAndTimeValue = new DateAndTimeValueImpl();
@@ -714,6 +739,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     IsoDateAndTimeValueImpl isoDateAndTimeValue = new IsoDateAndTimeValueImpl();
     return isoDateAndTimeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EuropeanDateAnd24HrsTimeValue createEuropeanDateAnd24HrsTimeValue()
+  {
+    EuropeanDateAnd24HrsTimeValueImpl europeanDateAnd24HrsTimeValue = new EuropeanDateAnd24HrsTimeValueImpl();
+    return europeanDateAnd24HrsTimeValue;
   }
 
   /**

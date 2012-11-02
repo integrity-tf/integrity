@@ -468,6 +468,15 @@ public interface DslFactory extends EFactory
   IsoDateValue createIsoDateValue();
 
   /**
+   * Returns a new object of class '<em>European Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>European Date Value</em>'.
+   * @generated
+   */
+  EuropeanDateValue createEuropeanDateValue();
+
+  /**
    * Returns a new object of class '<em>Time Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -486,6 +495,15 @@ public interface DslFactory extends EFactory
   IsoTimeValue createIsoTimeValue();
 
   /**
+   * Returns a new object of class '<em>Simple24 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Simple24 Hrs Time Value</em>'.
+   * @generated
+   */
+  Simple24HrsTimeValue createSimple24HrsTimeValue();
+
+  /**
    * Returns a new object of class '<em>Date And Time Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -502,6 +520,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   IsoDateAndTimeValue createIsoDateAndTimeValue();
+
+  /**
+   * Returns a new object of class '<em>European Date And24 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>European Date And24 Hrs Time Value</em>'.
+   * @generated
+   */
+  EuropeanDateAnd24HrsTimeValue createEuropeanDateAnd24HrsTimeValue();
 
   /**
    * Returns a new object of class '<em>Variable</em>'.

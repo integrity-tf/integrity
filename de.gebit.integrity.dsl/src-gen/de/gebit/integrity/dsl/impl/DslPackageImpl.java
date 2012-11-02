@@ -17,6 +17,8 @@ import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
 import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
@@ -44,6 +46,7 @@ import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Simple24HrsTimeValue;
 import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.StringValue;
@@ -434,6 +437,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass europeanDateValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass timeValueEClass = null;
 
   /**
@@ -448,6 +458,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass simple24HrsTimeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass dateAndTimeValueEClass = null;
 
   /**
@@ -456,6 +473,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass isoDateAndTimeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass europeanDateAnd24HrsTimeValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1837,6 +1861,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDateValue_DateValue()
+  {
+    return (EAttribute)dateValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIsoDateValue()
   {
     return isoDateValueEClass;
@@ -1847,9 +1881,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIsoDateValue_DateValue()
+  public EClass getEuropeanDateValue()
   {
-    return (EAttribute)isoDateValueEClass.getEStructuralFeatures().get(0);
+    return europeanDateValueEClass;
   }
 
   /**
@@ -1867,6 +1901,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTimeValue_TimeValue()
+  {
+    return (EAttribute)timeValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIsoTimeValue()
   {
     return isoTimeValueEClass;
@@ -1877,9 +1921,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIsoTimeValue_TimeValue()
+  public EClass getSimple24HrsTimeValue()
   {
-    return (EAttribute)isoTimeValueEClass.getEStructuralFeatures().get(0);
+    return simple24HrsTimeValueEClass;
   }
 
   /**
@@ -1897,6 +1941,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDateAndTimeValue_DateValue()
+  {
+    return (EAttribute)dateAndTimeValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDateAndTimeValue_TimeValue()
+  {
+    return (EAttribute)dateAndTimeValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIsoDateAndTimeValue()
   {
     return isoDateAndTimeValueEClass;
@@ -1907,19 +1971,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIsoDateAndTimeValue_DateValue()
+  public EClass getEuropeanDateAnd24HrsTimeValue()
   {
-    return (EAttribute)isoDateAndTimeValueEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getIsoDateAndTimeValue_TimeValue()
-  {
-    return (EAttribute)isoDateAndTimeValueEClass.getEStructuralFeatures().get(1);
+    return europeanDateAnd24HrsTimeValueEClass;
   }
 
   /**
@@ -2255,20 +2309,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(booleanValueEClass, BOOLEAN_VALUE__BOOLEAN_VALUE);
 
     dateValueEClass = createEClass(DATE_VALUE);
+    createEAttribute(dateValueEClass, DATE_VALUE__DATE_VALUE);
 
     isoDateValueEClass = createEClass(ISO_DATE_VALUE);
-    createEAttribute(isoDateValueEClass, ISO_DATE_VALUE__DATE_VALUE);
+
+    europeanDateValueEClass = createEClass(EUROPEAN_DATE_VALUE);
 
     timeValueEClass = createEClass(TIME_VALUE);
+    createEAttribute(timeValueEClass, TIME_VALUE__TIME_VALUE);
 
     isoTimeValueEClass = createEClass(ISO_TIME_VALUE);
-    createEAttribute(isoTimeValueEClass, ISO_TIME_VALUE__TIME_VALUE);
+
+    simple24HrsTimeValueEClass = createEClass(SIMPLE24_HRS_TIME_VALUE);
 
     dateAndTimeValueEClass = createEClass(DATE_AND_TIME_VALUE);
+    createEAttribute(dateAndTimeValueEClass, DATE_AND_TIME_VALUE__DATE_VALUE);
+    createEAttribute(dateAndTimeValueEClass, DATE_AND_TIME_VALUE__TIME_VALUE);
 
     isoDateAndTimeValueEClass = createEClass(ISO_DATE_AND_TIME_VALUE);
-    createEAttribute(isoDateAndTimeValueEClass, ISO_DATE_AND_TIME_VALUE__DATE_VALUE);
-    createEAttribute(isoDateAndTimeValueEClass, ISO_DATE_AND_TIME_VALUE__TIME_VALUE);
+
+    europeanDateAnd24HrsTimeValueEClass = createEClass(EUROPEAN_DATE_AND24_HRS_TIME_VALUE);
 
     variableEClass = createEClass(VARIABLE);
     createEReference(variableEClass, VARIABLE__NAME);
@@ -2359,10 +2419,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     booleanValueEClass.getESuperTypes().add(this.getStaticValue());
     dateValueEClass.getESuperTypes().add(this.getStaticValue());
     isoDateValueEClass.getESuperTypes().add(this.getDateValue());
+    europeanDateValueEClass.getESuperTypes().add(this.getDateValue());
     timeValueEClass.getESuperTypes().add(this.getStaticValue());
     isoTimeValueEClass.getESuperTypes().add(this.getTimeValue());
+    simple24HrsTimeValueEClass.getESuperTypes().add(this.getTimeValue());
     dateAndTimeValueEClass.getESuperTypes().add(this.getStaticValue());
     isoDateAndTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
+    europeanDateAnd24HrsTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
     variableEClass.getESuperTypes().add(this.getValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
@@ -2542,20 +2605,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getBooleanValue_BooleanValue(), ecorePackage.getEString(), "booleanValue", null, 0, 1, BooleanValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(dateValueEClass, DateValue.class, "DateValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDateValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, DateValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(isoDateValueEClass, IsoDateValue.class, "IsoDateValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIsoDateValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, IsoDateValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(europeanDateValueEClass, EuropeanDateValue.class, "EuropeanDateValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(timeValueEClass, TimeValue.class, "TimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, TimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(isoTimeValueEClass, IsoTimeValue.class, "IsoTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIsoTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, IsoTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(simple24HrsTimeValueEClass, Simple24HrsTimeValue.class, "Simple24HrsTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(dateAndTimeValueEClass, DateAndTimeValue.class, "DateAndTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDateAndTimeValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, DateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDateAndTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, DateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(isoDateAndTimeValueEClass, IsoDateAndTimeValue.class, "IsoDateAndTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIsoDateAndTimeValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, IsoDateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getIsoDateAndTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, IsoDateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(europeanDateAnd24HrsTimeValueEClass, EuropeanDateAnd24HrsTimeValue.class, "EuropeanDateAnd24HrsTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariable_Name(), this.getVariableEntity(), null, "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

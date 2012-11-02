@@ -10,6 +10,8 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
 import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
@@ -33,6 +35,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Simple24HrsTimeValue;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -124,6 +127,26 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getEnumValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_EnumValue(context, (EnumValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.EUROPEAN_DATE_AND24_HRS_TIME_VALUE:
+				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				   context == grammarAccess.getEuropeanDateAnd24HrsTimeValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_EuropeanDateAnd24HrsTimeValue(context, (EuropeanDateAnd24HrsTimeValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.EUROPEAN_DATE_VALUE:
+				if(context == grammarAccess.getDateValueRule() ||
+				   context == grammarAccess.getEuropeanDateValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_EuropeanDateValue(context, (EuropeanDateValue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -289,6 +312,16 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 			case DslPackage.RESULT_TABLE_HEADER:
 				if(context == grammarAccess.getResultTableHeaderRule()) {
 					sequence_ResultTableHeader(context, (ResultTableHeader) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.SIMPLE24_HRS_TIME_VALUE:
+				if(context == grammarAccess.getSimple24HrsTimeValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getTimeValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_Simple24HrsTimeValue(context, (Simple24HrsTimeValue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -514,6 +547,41 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     (dateValue=EURODATE timeValue=TWENTYFOURHRSTIME)
+	 */
+	protected void sequence_EuropeanDateAnd24HrsTimeValue(EObject context, EuropeanDateAnd24HrsTimeValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0(), semanticObject.getDateValue());
+		feeder.accept(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0(), semanticObject.getTimeValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     dateValue=EURODATE
+	 */
+	protected void sequence_EuropeanDateValue(EObject context, EuropeanDateValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEuropeanDateValueAccess().getDateValueEURODATETerminalRuleCall_0(), semanticObject.getDateValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     count=INTEGER
 	 */
 	protected void sequence_ExecutionMultiplier(EObject context, ExecutionMultiplier semanticObject) {
@@ -626,10 +694,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_IsoDateAndTimeValue(EObject context, IsoDateAndTimeValue semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__DATE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__TIME_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -645,8 +713,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_IsoDateValue(EObject context, IsoDateValue semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_VALUE__DATE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -661,8 +729,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_IsoTimeValue(EObject context, IsoTimeValue semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_TIME_VALUE__TIME_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -866,6 +934,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getResultTableHeaderAccess().getNameResultNameParserRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     timeValue=TWENTYFOURHRSTIME
+	 */
+	protected void sequence_Simple24HrsTimeValue(EObject context, Simple24HrsTimeValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
 	}
 	

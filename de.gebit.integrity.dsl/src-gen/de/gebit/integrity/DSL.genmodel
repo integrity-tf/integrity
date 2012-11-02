@@ -170,19 +170,22 @@
     <genClasses ecoreClass="DSL.ecore#//BooleanValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//BooleanValue/booleanValue"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//DateValue"/>
-    <genClasses ecoreClass="DSL.ecore#//IsoDateValue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateValue/dateValue"/>
+    <genClasses ecoreClass="DSL.ecore#//DateValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DateValue/dateValue"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//TimeValue"/>
-    <genClasses ecoreClass="DSL.ecore#//IsoTimeValue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoTimeValue/timeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//IsoDateValue"/>
+    <genClasses ecoreClass="DSL.ecore#//EuropeanDateValue"/>
+    <genClasses ecoreClass="DSL.ecore#//TimeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeValue/timeValue"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//DateAndTimeValue"/>
-    <genClasses ecoreClass="DSL.ecore#//IsoDateAndTimeValue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateAndTimeValue/dateValue"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateAndTimeValue/timeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//IsoTimeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//Simple24HrsTimeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//DateAndTimeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DateAndTimeValue/dateValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DateAndTimeValue/timeValue"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//IsoDateAndTimeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//EuropeanDateAnd24HrsTimeValue"/>
     <genClasses ecoreClass="DSL.ecore#//Variable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>
     </genClasses>

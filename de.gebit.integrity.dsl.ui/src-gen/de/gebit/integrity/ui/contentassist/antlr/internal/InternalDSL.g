@@ -1388,9 +1388,9 @@ ruleDateValue
     }
 	:
 (
-{ before(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall()); }
-	ruleIsoDateValue
-{ after(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall()); }
+{ before(grammarAccess.getDateValueAccess().getAlternatives()); }
+(rule__DateValue__Alternatives)
+{ after(grammarAccess.getDateValueAccess().getAlternatives()); }
 )
 
 ;
@@ -1428,6 +1428,34 @@ finally {
 
 
 
+// Entry rule entryRuleEuropeanDateValue
+entryRuleEuropeanDateValue 
+:
+{ before(grammarAccess.getEuropeanDateValueRule()); }
+	 ruleEuropeanDateValue
+{ after(grammarAccess.getEuropeanDateValueRule()); } 
+	 EOF 
+;
+
+// Rule EuropeanDateValue
+ruleEuropeanDateValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getEuropeanDateValueAccess().getDateValueAssignment()); }
+(rule__EuropeanDateValue__DateValueAssignment)
+{ after(grammarAccess.getEuropeanDateValueAccess().getDateValueAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleTimeValue
 entryRuleTimeValue 
 :
@@ -1444,9 +1472,9 @@ ruleTimeValue
     }
 	:
 (
-{ before(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall()); }
-	ruleIsoTimeValue
-{ after(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall()); }
+{ before(grammarAccess.getTimeValueAccess().getAlternatives()); }
+(rule__TimeValue__Alternatives)
+{ after(grammarAccess.getTimeValueAccess().getAlternatives()); }
 )
 
 ;
@@ -1484,6 +1512,34 @@ finally {
 
 
 
+// Entry rule entryRuleSimple24HrsTimeValue
+entryRuleSimple24HrsTimeValue 
+:
+{ before(grammarAccess.getSimple24HrsTimeValueRule()); }
+	 ruleSimple24HrsTimeValue
+{ after(grammarAccess.getSimple24HrsTimeValueRule()); } 
+	 EOF 
+;
+
+// Rule Simple24HrsTimeValue
+ruleSimple24HrsTimeValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueAssignment()); }
+(rule__Simple24HrsTimeValue__TimeValueAssignment)
+{ after(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleDateAndTimeValue
 entryRuleDateAndTimeValue 
 :
@@ -1500,9 +1556,9 @@ ruleDateAndTimeValue
     }
 	:
 (
-{ before(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall()); }
-	ruleIsoDateAndTimeValue
-{ after(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall()); }
+{ before(grammarAccess.getDateAndTimeValueAccess().getAlternatives()); }
+(rule__DateAndTimeValue__Alternatives)
+{ after(grammarAccess.getDateAndTimeValueAccess().getAlternatives()); }
 )
 
 ;
@@ -1531,6 +1587,34 @@ ruleIsoDateAndTimeValue
 { before(grammarAccess.getIsoDateAndTimeValueAccess().getGroup()); }
 (rule__IsoDateAndTimeValue__Group__0)
 { after(grammarAccess.getIsoDateAndTimeValueAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+// Entry rule entryRuleEuropeanDateAnd24HrsTimeValue
+entryRuleEuropeanDateAnd24HrsTimeValue 
+:
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueRule()); }
+	 ruleEuropeanDateAnd24HrsTimeValue
+{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueRule()); } 
+	 EOF 
+;
+
+// Rule EuropeanDateAnd24HrsTimeValue
+ruleEuropeanDateAnd24HrsTimeValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getGroup()); }
+(rule__EuropeanDateAnd24HrsTimeValue__Group__0)
+{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getGroup()); }
 )
 
 ;
@@ -2194,6 +2278,72 @@ rule__BooleanValue__BooleanValueAlternatives_0
 { before(grammarAccess.getBooleanValueAccess().getBooleanValueBOOLEAN_FALSETerminalRuleCall_0_1()); }
 	RULE_BOOLEAN_FALSE
 { after(grammarAccess.getBooleanValueAccess().getBooleanValueBOOLEAN_FALSETerminalRuleCall_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DateValue__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall_0()); }
+	ruleIsoDateValue
+{ after(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getDateValueAccess().getEuropeanDateValueParserRuleCall_1()); }
+	ruleEuropeanDateValue
+{ after(grammarAccess.getDateValueAccess().getEuropeanDateValueParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TimeValue__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall_0()); }
+	ruleIsoTimeValue
+{ after(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getTimeValueAccess().getSimple24HrsTimeValueParserRuleCall_1()); }
+	ruleSimple24HrsTimeValue
+{ after(grammarAccess.getTimeValueAccess().getSimple24HrsTimeValueParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DateAndTimeValue__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall_0()); }
+	ruleIsoDateAndTimeValue
+{ after(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getDateAndTimeValueAccess().getEuropeanDateAnd24HrsTimeValueParserRuleCall_1()); }
+	ruleEuropeanDateAnd24HrsTimeValue
+{ after(grammarAccess.getDateAndTimeValueAccess().getEuropeanDateAnd24HrsTimeValueParserRuleCall_1()); }
 )
 
 ;
@@ -10054,6 +10204,98 @@ finally {
 
 
 
+rule__EuropeanDateAnd24HrsTimeValue__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl
+	rule__EuropeanDateAnd24HrsTimeValue__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueAssignment_0()); }
+(rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0)
+{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueAssignment_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__EuropeanDateAnd24HrsTimeValue__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl
+	rule__EuropeanDateAnd24HrsTimeValue__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getNLParserRuleCall_1()); }
+	ruleNL
+{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getNLParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__EuropeanDateAnd24HrsTimeValue__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueAssignment_2()); }
+(rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2)
+{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
 rule__NullValue__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -11961,6 +12203,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__EuropeanDateValue__DateValueAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateValueAccess().getDateValueEURODATETerminalRuleCall_0()); }
+	RULE_EURODATE{ after(grammarAccess.getEuropeanDateValueAccess().getDateValueEURODATETerminalRuleCall_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__IsoTimeValue__TimeValueAssignment
     @init {
 		int stackSize = keepStackSize();
@@ -11969,6 +12226,21 @@ rule__IsoTimeValue__TimeValueAssignment
 (
 { before(grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0()); }
 	RULE_ISOTIME{ after(grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Simple24HrsTimeValue__TimeValueAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0()); }
+	RULE_TWENTYFOURHRSTIME{ after(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0()); }
 )
 
 ;
@@ -11999,6 +12271,36 @@ rule__IsoDateAndTimeValue__TimeValueAssignment_1
 (
 { before(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0()); }
 	RULE_ISOTIME{ after(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); }
+	RULE_EURODATE{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0()); }
+	RULE_TWENTYFOURHRSTIME{ after(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0()); }
 )
 
 ;
@@ -12147,7 +12449,13 @@ RULE_NEWLINE : ('\r'|'\n')+;
 
 RULE_ISODATE : '0'..'9' '0'..'9' '0'..'9' '0'..'9' '-' '0'..'1' '0'..'9' '-' '0'..'3' '0'..'9';
 
-RULE_ISOTIME : 'T'? '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')? ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9')?;
+RULE_ISOTIME : ('T' RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE?|RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE);
+
+RULE_ISOTIMEZONE : ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9');
+
+RULE_EURODATE : '0'..'3' '0'..'9' '.' '0'..'1' '0'..'9' '.' '0'..'9' '0'..'9' '0'..'9' '0'..'9';
+
+RULE_TWENTYFOURHRSTIME : '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')?;
 
 RULE_ANY_OTHER : .;
 

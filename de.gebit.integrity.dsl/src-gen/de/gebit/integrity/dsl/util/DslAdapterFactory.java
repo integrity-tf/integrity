@@ -324,6 +324,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createIsoDateValueAdapter();
       }
       @Override
+      public Adapter caseEuropeanDateValue(EuropeanDateValue object)
+      {
+        return createEuropeanDateValueAdapter();
+      }
+      @Override
       public Adapter caseTimeValue(TimeValue object)
       {
         return createTimeValueAdapter();
@@ -334,6 +339,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createIsoTimeValueAdapter();
       }
       @Override
+      public Adapter caseSimple24HrsTimeValue(Simple24HrsTimeValue object)
+      {
+        return createSimple24HrsTimeValueAdapter();
+      }
+      @Override
       public Adapter caseDateAndTimeValue(DateAndTimeValue object)
       {
         return createDateAndTimeValueAdapter();
@@ -342,6 +352,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseIsoDateAndTimeValue(IsoDateAndTimeValue object)
       {
         return createIsoDateAndTimeValueAdapter();
+      }
+      @Override
+      public Adapter caseEuropeanDateAnd24HrsTimeValue(EuropeanDateAnd24HrsTimeValue object)
+      {
+        return createEuropeanDateAnd24HrsTimeValueAdapter();
       }
       @Override
       public Adapter caseVariable(Variable object)
@@ -1136,6 +1151,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.EuropeanDateValue <em>European Date Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.EuropeanDateValue
+   * @generated
+   */
+  public Adapter createEuropeanDateValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TimeValue <em>Time Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1166,6 +1196,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Simple24HrsTimeValue <em>Simple24 Hrs Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.Simple24HrsTimeValue
+   * @generated
+   */
+  public Adapter createSimple24HrsTimeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.DateAndTimeValue <em>Date And Time Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1191,6 +1236,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIsoDateAndTimeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue <em>European Date And24 Hrs Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue
+   * @generated
+   */
+  public Adapter createEuropeanDateAnd24HrsTimeValueAdapter()
   {
     return null;
   }

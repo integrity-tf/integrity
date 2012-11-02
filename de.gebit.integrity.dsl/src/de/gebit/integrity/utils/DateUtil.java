@@ -11,13 +11,17 @@ import java.util.TimeZone;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
 import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
+import de.gebit.integrity.dsl.Simple24HrsTimeValue;
 import de.gebit.integrity.dsl.TimeValue;
 
 /**
- * A utility class to handle date/time parsing and other date stuff.
+ * A utility class to handle date/time parsing and other date stuff. Sorry for the uglyness, but date/time handling just
+ * IS ugly crap, especially when using Java's built-in functionality :-(.
  * 
  * @author Rene Schneider
  * 
@@ -53,16 +57,41 @@ public final class DateUtil {
 	 */
 	public static Calendar convertDateValue(DateValue aValue) throws ParseException {
 		if (aValue instanceof IsoDateValue) {
-			return parseIsoDateString(((IsoDateValue) aValue).getDateValue());
+			return parseIsoDateAndTimeString(aValue.getDateValue(), null);
+		} else if (aValue instanceof EuropeanDateValue) {
+			return parseDateOrTimeString(aValue.getDateValue(), "dd.MM.yyyy");
 		} else {
 			throw new UnsupportedOperationException("Someone forgot to implement a new date format!");
 		}
 	}
 
-	private static Calendar parseIsoDateString(String aDateString) throws ParseException {
+	private static Calendar parseDateOrTimeString(String aDateString, String aFormatString) throws ParseException {
 		Calendar tempCalendar = Calendar.getInstance();
-		tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd").parse(aDateString));
+		tempCalendar.setTime(getSimpleDateFormat(aFormatString).parse(aDateString));
 		return tempCalendar;
+	}
+
+	private static Calendar parseEuropeanDateAnd24HrsTimeString(String aDateString, String aTimeString)
+			throws ParseException {
+		String tempStringToParse;
+		if (aDateString != null) {
+			tempStringToParse = aDateString;
+		} else {
+			// use the common "zero" date if no date was given.
+			tempStringToParse = "01.01.1970";
+		}
+
+		// append a divider
+		tempStringToParse += "T";
+
+		if (aTimeString.length() < 6) {
+			// append seconds if they're not given; they're optional, but if not present :00 is assumed
+			tempStringToParse += aTimeString + ":00";
+		} else {
+			tempStringToParse += aTimeString;
+		}
+
+		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'HH:mm:ss");
 	}
 
 	/**
@@ -76,7 +105,9 @@ public final class DateUtil {
 	 */
 	public static Calendar convertTimeValue(TimeValue aValue) throws ParseException {
 		if (aValue instanceof IsoTimeValue) {
-			return parseIsoDateAndTimeString(null, ((IsoTimeValue) aValue).getTimeValue());
+			return parseIsoDateAndTimeString(null, aValue.getTimeValue());
+		} else if (aValue instanceof Simple24HrsTimeValue) {
+			return parseEuropeanDateAnd24HrsTimeString(null, aValue.getTimeValue());
 		} else {
 			throw new UnsupportedOperationException("Someone forgot to implement a new time format!");
 		}
@@ -89,13 +120,20 @@ public final class DateUtil {
 			tempDateValue = "1970-01-01";
 		}
 
-		String tempTimeValue = aTimeString;
-		if (!tempTimeValue.startsWith("T")) {
-			tempTimeValue = "T" + tempTimeValue;
-		}
+		String tempTimeValue;
 
-		// handle Zulu time
-		tempTimeValue = tempTimeValue.replace("Z", "+0000");
+		if (aTimeString == null) {
+			// in case no time is given, use the "zero" time
+			tempTimeValue = "T00:00:00";
+		} else {
+			tempTimeValue = aTimeString;
+			if (!tempTimeValue.startsWith("T")) {
+				tempTimeValue = "T" + tempTimeValue;
+			}
+
+			// handle Zulu time
+			tempTimeValue = tempTimeValue.replace("Z", "+0000");
+		}
 
 		boolean tempHasTimezone = tempTimeValue.contains("+") | tempTimeValue.contains("-");
 		boolean tempHasSeconds = (!tempHasTimezone && tempTimeValue.length() > 6)
@@ -142,8 +180,9 @@ public final class DateUtil {
 	 */
 	public static Calendar convertDateAndTimeValue(DateAndTimeValue aValue) throws ParseException {
 		if (aValue instanceof IsoDateAndTimeValue) {
-			return parseIsoDateAndTimeString(((IsoDateAndTimeValue) aValue).getDateValue(),
-					((IsoDateAndTimeValue) aValue).getTimeValue());
+			return parseIsoDateAndTimeString(aValue.getDateValue(), aValue.getTimeValue());
+		} else if (aValue instanceof EuropeanDateAnd24HrsTimeValue) {
+			return parseEuropeanDateAnd24HrsTimeString(aValue.getDateValue(), aValue.getTimeValue());
 		} else {
 			throw new UnsupportedOperationException("Someone forgot to implement a new time format!");
 		}

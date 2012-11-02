@@ -47,6 +47,9 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 					put(grammarAccess.getStaticValueAccess().getAlternatives(), "rule__StaticValue__Alternatives");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0(), "rule__BooleanValue__BooleanValueAlternatives_0");
+					put(grammarAccess.getDateValueAccess().getAlternatives(), "rule__DateValue__Alternatives");
+					put(grammarAccess.getTimeValueAccess().getAlternatives(), "rule__TimeValue__Alternatives");
+					put(grammarAccess.getDateAndTimeValueAccess().getAlternatives(), "rule__DateAndTimeValue__Alternatives");
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getGroup(), "rule__VisibleSingleLineComment__Group__0");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getGroup(), "rule__VisibleMultiLineComment__Group__0");
@@ -111,6 +114,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup(), "rule__ValueOrEnumValueOrOperationCollection__Group__0");
 					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueOrOperationCollection__Group_1__0");
 					put(grammarAccess.getIsoDateAndTimeValueAccess().getGroup(), "rule__IsoDateAndTimeValue__Group__0");
+					put(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getGroup(), "rule__EuropeanDateAnd24HrsTimeValue__Group__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
@@ -199,9 +203,13 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStringValueAccess().getStringValueAssignment(), "rule__StringValue__StringValueAssignment");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAssignment(), "rule__BooleanValue__BooleanValueAssignment");
 					put(grammarAccess.getIsoDateValueAccess().getDateValueAssignment(), "rule__IsoDateValue__DateValueAssignment");
+					put(grammarAccess.getEuropeanDateValueAccess().getDateValueAssignment(), "rule__EuropeanDateValue__DateValueAssignment");
 					put(grammarAccess.getIsoTimeValueAccess().getTimeValueAssignment(), "rule__IsoTimeValue__TimeValueAssignment");
+					put(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueAssignment(), "rule__Simple24HrsTimeValue__TimeValueAssignment");
 					put(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueAssignment_0(), "rule__IsoDateAndTimeValue__DateValueAssignment_0");
 					put(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueAssignment_1(), "rule__IsoDateAndTimeValue__TimeValueAssignment_1");
+					put(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueAssignment_0(), "rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0");
+					put(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueAssignment_2(), "rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
 					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");

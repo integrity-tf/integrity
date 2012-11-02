@@ -7,27 +7,27 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Iso Date Value</b></em>'.
+ * An implementation of the model object '<em><b>European Date Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class IsoDateValueImpl extends DateValueImpl implements IsoDateValue
+public class EuropeanDateValueImpl extends DateValueImpl implements EuropeanDateValue
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected IsoDateValueImpl()
+  protected EuropeanDateValueImpl()
   {
     super();
   }
@@ -40,7 +40,7 @@ public class IsoDateValueImpl extends DateValueImpl implements IsoDateValue
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.ISO_DATE_VALUE;
+    return DslPackage.Literals.EUROPEAN_DATE_VALUE;
   }
 
-} //IsoDateValueImpl
+} //EuropeanDateValueImpl

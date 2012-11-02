@@ -473,6 +473,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.EUROPEAN_DATE_VALUE:
+      {
+        EuropeanDateValue europeanDateValue = (EuropeanDateValue)theEObject;
+        T result = caseEuropeanDateValue(europeanDateValue);
+        if (result == null) result = caseDateValue(europeanDateValue);
+        if (result == null) result = caseStaticValue(europeanDateValue);
+        if (result == null) result = caseValue(europeanDateValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(europeanDateValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.TIME_VALUE:
       {
         TimeValue timeValue = (TimeValue)theEObject;
@@ -494,6 +505,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.SIMPLE24_HRS_TIME_VALUE:
+      {
+        Simple24HrsTimeValue simple24HrsTimeValue = (Simple24HrsTimeValue)theEObject;
+        T result = caseSimple24HrsTimeValue(simple24HrsTimeValue);
+        if (result == null) result = caseTimeValue(simple24HrsTimeValue);
+        if (result == null) result = caseStaticValue(simple24HrsTimeValue);
+        if (result == null) result = caseValue(simple24HrsTimeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(simple24HrsTimeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.DATE_AND_TIME_VALUE:
       {
         DateAndTimeValue dateAndTimeValue = (DateAndTimeValue)theEObject;
@@ -512,6 +534,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseStaticValue(isoDateAndTimeValue);
         if (result == null) result = caseValue(isoDateAndTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(isoDateAndTimeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.EUROPEAN_DATE_AND24_HRS_TIME_VALUE:
+      {
+        EuropeanDateAnd24HrsTimeValue europeanDateAnd24HrsTimeValue = (EuropeanDateAnd24HrsTimeValue)theEObject;
+        T result = caseEuropeanDateAnd24HrsTimeValue(europeanDateAnd24HrsTimeValue);
+        if (result == null) result = caseDateAndTimeValue(europeanDateAnd24HrsTimeValue);
+        if (result == null) result = caseStaticValue(europeanDateAnd24HrsTimeValue);
+        if (result == null) result = caseValue(europeanDateAnd24HrsTimeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(europeanDateAnd24HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1363,6 +1396,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>European Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>European Date Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEuropeanDateValue(EuropeanDateValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Time Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1395,6 +1444,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Simple24 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Simple24 Hrs Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSimple24HrsTimeValue(Simple24HrsTimeValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Date And Time Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1422,6 +1487,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseIsoDateAndTimeValue(IsoDateAndTimeValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>European Date And24 Hrs Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>European Date And24 Hrs Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEuropeanDateAnd24HrsTimeValue(EuropeanDateAnd24HrsTimeValue object)
   {
     return null;
   }

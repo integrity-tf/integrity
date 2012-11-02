@@ -1,6 +1,7 @@
-package de.gebit.integrity.tests.junit.basic;
+package de.gebit.integrity.tests.junit.basic.dates;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
@@ -16,7 +17,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
  * @author Rene Schneider
  * 
  */
-public class DateAndTimeValues extends IntegrityJUnitTest {
+public class IsoDateAndTimeValues extends IntegrityJUnitTest {
 
 	/**
 	 * Performs a suite which does fixture calls with date/time values and checks the resulting XML document.
@@ -27,9 +28,12 @@ public class DateAndTimeValues extends IntegrityJUnitTest {
 	 */
 	@Test
 	public void test() throws ModelLoadException, IOException, JDOMException {
+		// test with english locale, regardless of system settings
+		Locale.setDefault(Locale.ENGLISH);
+
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/dateAndTimeValues.integrity" },
-				"integrity.basic.dateAndTimeValues", null);
+				new String[] { "integrity/suites/basic/dates/isoDateAndTimeValues.integrity" },
+				"integrity.basic.dates.isoDateAndTimeValues", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 
