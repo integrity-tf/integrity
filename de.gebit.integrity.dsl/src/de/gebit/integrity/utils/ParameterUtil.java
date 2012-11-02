@@ -321,10 +321,10 @@ public final class ParameterUtil {
 						+ " is not autoconvertible to parameter type " + aParamType);
 			}
 		} else {
-			throw new UnsupportedOperationException("Value class " + aValue.getClass() + " is unsupported");
+			throw new UnsupportedOperationException("Value " + aValue.getClass() + " is unsupported");
 		}
 
-		throw new IllegalArgumentException("Value class " + aValue.getClass() + " is incompatible with parameter type "
+		throw new IllegalArgumentException("Value " + aValue.getClass() + " is incompatible with parameter type "
 				+ aParamType);
 	}
 
