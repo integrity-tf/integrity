@@ -28,5 +28,8 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoBigInteger uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigInteger
 	testdef echoBigIntegerTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigInteger
 	
+	calldef echoDate uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate
+	testdef echoDateTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate
+	
 
 packageend

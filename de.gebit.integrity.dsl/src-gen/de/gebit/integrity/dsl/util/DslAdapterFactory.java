@@ -314,6 +314,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createBooleanValueAdapter();
       }
       @Override
+      public Adapter caseDateValue(DateValue object)
+      {
+        return createDateValueAdapter();
+      }
+      @Override
+      public Adapter caseIsoDateValue(IsoDateValue object)
+      {
+        return createIsoDateValueAdapter();
+      }
+      @Override
+      public Adapter caseTimeValue(TimeValue object)
+      {
+        return createTimeValueAdapter();
+      }
+      @Override
+      public Adapter caseIsoTimeValue(IsoTimeValue object)
+      {
+        return createIsoTimeValueAdapter();
+      }
+      @Override
+      public Adapter caseDateAndTimeValue(DateAndTimeValue object)
+      {
+        return createDateAndTimeValueAdapter();
+      }
+      @Override
+      public Adapter caseIsoDateAndTimeValue(IsoDateAndTimeValue object)
+      {
+        return createIsoDateAndTimeValueAdapter();
+      }
+      @Override
       public Adapter caseVariable(Variable object)
       {
         return createVariableAdapter();
@@ -1071,6 +1101,96 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBooleanValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.DateValue <em>Date Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.DateValue
+   * @generated
+   */
+  public Adapter createDateValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.IsoDateValue <em>Iso Date Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.IsoDateValue
+   * @generated
+   */
+  public Adapter createIsoDateValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TimeValue <em>Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.TimeValue
+   * @generated
+   */
+  public Adapter createTimeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.IsoTimeValue <em>Iso Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.IsoTimeValue
+   * @generated
+   */
+  public Adapter createIsoTimeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.DateAndTimeValue <em>Date And Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.DateAndTimeValue
+   * @generated
+   */
+  public Adapter createDateAndTimeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.IsoDateAndTimeValue <em>Iso Date And Time Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.IsoDateAndTimeValue
+   * @generated
+   */
+  public Adapter createIsoDateAndTimeValueAdapter()
   {
     return null;
   }

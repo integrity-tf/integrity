@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -22,6 +23,7 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
@@ -39,6 +41,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
@@ -86,6 +89,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -1212,11 +1216,12 @@ public class TestRunner {
 									return false;
 								}
 							} else {
-								Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+								Object tempConvertedExpectedResult = ParameterUtil.convertEncapsulatedValueToParamType(
 										tempSingleFixtureResult.getClass(), tempSingleExpectedResult, variableStorage,
 										getModelClassLoader());
 
-								if (!tempSingleFixtureResult.equals(tempConvertedResult)) {
+								if (!performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
+										tempSingleExpectedResult)) {
 									return false;
 								}
 							}
@@ -1230,12 +1235,17 @@ public class TestRunner {
 						// component type, of course
 						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
 								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
-						Object tempConvertedResult = ParameterUtil.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue(), variableStorage,
+
+						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
+						Object tempConvertedExpectedResult = ParameterUtil.convertEncapsulatedValueToParamType(
+								tempConversionTargetType, tempSingleExpectedResult, variableStorage,
 								getModelClassLoader());
 
+						// Even though we assume that there's a single expected result after this point, the converted
+						// result might still be an array (because an operation has returned an array, for example).
+						// Therefore we need to allow for both, fixture result and expected result, to be arrays.
 						if (aFixtureResult.getClass().isArray()) {
-							if (tempConvertedResult == null) {
+							if (tempConvertedExpectedResult == null) {
 								// the fixture may still be returning an array that has to be unpacked
 								if (Array.getLength(aFixtureResult) != 1) {
 									return false;
@@ -1243,19 +1253,20 @@ public class TestRunner {
 								tempSingleFixtureResult = Array.get(aFixtureResult, 0);
 								return (tempSingleFixtureResult == null);
 							} else {
-								if (!tempConvertedResult.getClass().isArray()) {
-									// the fixture may still be returning an array that has to be unpacked
+								if (!tempConvertedExpectedResult.getClass().isArray()) {
+									// the fixture may be returning an array that has to be unpacked
 									if (Array.getLength(aFixtureResult) != 1) {
 										return false;
 									}
 									tempSingleFixtureResult = Array.get(aFixtureResult, 0);
 								} else {
-									if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedResult)) {
+									if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedExpectedResult)) {
 										return false;
 									}
 									// both are converted arrays -> compare all values!
 									for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-										if (!Array.get(tempConvertedResult, i).equals(Array.get(aFixtureResult, i))) {
+										if (!performEqualityCheck(Array.get(tempConvertedExpectedResult, i),
+												Array.get(aFixtureResult, i), tempSingleExpectedResult)) {
 											return false;
 										}
 									}
@@ -1264,21 +1275,22 @@ public class TestRunner {
 							}
 						} else {
 							// This is the super-simple case where we basically have only one value to compare
-							if (tempConvertedResult == null) {
+							if (tempConvertedExpectedResult == null) {
 								// ...but even that can be null, and we need to handle this case separately in order to
 								// not get into NPEs
 								return (tempSingleFixtureResult instanceof NullValue);
 							} else {
-								if (tempConvertedResult.getClass().isArray()) {
+								if (tempConvertedExpectedResult.getClass().isArray()) {
 									// the converted result may still be an array
-									if (Array.getLength(tempConvertedResult) != 1) {
+									if (Array.getLength(tempConvertedExpectedResult) != 1) {
 										return false;
 									}
-									tempConvertedResult = Array.get(tempConvertedResult, 0);
+									tempConvertedExpectedResult = Array.get(tempConvertedExpectedResult, 0);
 								}
 							}
 						}
-						return tempConvertedResult.equals(tempSingleFixtureResult);
+						return performEqualityCheck(tempConvertedExpectedResult, tempSingleFixtureResult,
+								tempSingleExpectedResult);
 					}
 				}
 			}
@@ -1295,6 +1307,41 @@ public class TestRunner {
 									+ "the test fixture must return a boolean result!");
 				}
 			}
+		}
+	}
+
+	/**
+	 * Perform the actual equality check between a real result returned from a fixture and a converted result gathered
+	 * from the test scripts. A few special cases are handled here, but if no special case applies, this just runs a
+	 * standard equals() comparison.
+	 * 
+	 * @param aConvertedResult
+	 *            the actual result
+	 * @param aConvertedExpectedResult
+	 *            the expected result from the scripts, converted to the same type as the actual result
+	 * @param aRawExpectedResult
+	 *            the raw expected result object from the scripts
+	 * @return true if equal, false otherwise
+	 */
+	protected boolean performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
+			ValueOrEnumValueOrOperation aRawExpectedResult) {
+		if (aConvertedExpectedResult == null) {
+			return (aConvertedResult == null);
+		} else {
+			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
+				if (aRawExpectedResult instanceof DateValue) {
+					// compare only the date part
+					return DateUtil.stripTimeFromDate((Date) aConvertedExpectedResult).equals(
+							DateUtil.stripTimeFromDate((Date) aConvertedResult));
+				} else if (aRawExpectedResult instanceof TimeValue) {
+					// compare only the time part
+					return DateUtil.stripDateFromTime((Date) aConvertedExpectedResult).equals(
+							DateUtil.stripDateFromTime((Date) aConvertedResult));
+				}
+			}
+
+			// If no special cases apply, perform standard equals comparison
+			return aConvertedExpectedResult.equals(aConvertedResult);
 		}
 	}
 

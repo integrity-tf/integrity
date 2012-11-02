@@ -450,6 +450,60 @@ public interface DslFactory extends EFactory
   BooleanValue createBooleanValue();
 
   /**
+   * Returns a new object of class '<em>Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Date Value</em>'.
+   * @generated
+   */
+  DateValue createDateValue();
+
+  /**
+   * Returns a new object of class '<em>Iso Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iso Date Value</em>'.
+   * @generated
+   */
+  IsoDateValue createIsoDateValue();
+
+  /**
+   * Returns a new object of class '<em>Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Time Value</em>'.
+   * @generated
+   */
+  TimeValue createTimeValue();
+
+  /**
+   * Returns a new object of class '<em>Iso Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iso Time Value</em>'.
+   * @generated
+   */
+  IsoTimeValue createIsoTimeValue();
+
+  /**
+   * Returns a new object of class '<em>Date And Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Date And Time Value</em>'.
+   * @generated
+   */
+  DateAndTimeValue createDateAndTimeValue();
+
+  /**
+   * Returns a new object of class '<em>Iso Date And Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iso Date And Time Value</em>'.
+   * @generated
+   */
+  IsoDateAndTimeValue createIsoDateAndTimeValue();
+
+  /**
    * Returns a new object of class '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

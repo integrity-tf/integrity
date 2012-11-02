@@ -3556,11 +3556,41 @@ ruleStaticValue returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getNullValueParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getDateValueParserRuleCall_4()); 
     }
-    this_NullValue_4=ruleNullValue
+    this_DateValue_4=ruleDateValue
     { 
-        $current = $this_NullValue_4.current; 
+        $current = $this_DateValue_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getTimeValueParserRuleCall_5()); 
+    }
+    this_TimeValue_5=ruleTimeValue
+    { 
+        $current = $this_TimeValue_5.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getDateAndTimeValueParserRuleCall_6()); 
+    }
+    this_DateAndTimeValue_6=ruleDateAndTimeValue
+    { 
+        $current = $this_DateAndTimeValue_6.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getNullValueParserRuleCall_7()); 
+    }
+    this_NullValue_7=ruleNullValue
+    { 
+        $current = $this_NullValue_7.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -3738,6 +3768,231 @@ ruleBooleanValue returns [EObject current=null]
 
 )
 )
+;
+
+
+
+
+
+// Entry rule entryRuleDateValue
+entryRuleDateValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDateValueRule()); }
+	 iv_ruleDateValue=ruleDateValue 
+	 { $current=$iv_ruleDateValue.current; } 
+	 EOF 
+;
+
+// Rule DateValue
+ruleDateValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+    { 
+        newCompositeNode(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall()); 
+    }
+    this_IsoDateValue_0=ruleIsoDateValue
+    { 
+        $current = $this_IsoDateValue_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+;
+
+
+
+
+
+// Entry rule entryRuleIsoDateValue
+entryRuleIsoDateValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getIsoDateValueRule()); }
+	 iv_ruleIsoDateValue=ruleIsoDateValue 
+	 { $current=$iv_ruleIsoDateValue.current; } 
+	 EOF 
+;
+
+// Rule IsoDateValue
+ruleIsoDateValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_dateValue_0_0=RULE_ISODATE
+		{
+			newLeafNode(lv_dateValue_0_0, grammarAccess.getIsoDateValueAccess().getDateValueISODATETerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIsoDateValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dateValue",
+        		lv_dateValue_0_0, 
+        		"ISODATE");
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleTimeValue
+entryRuleTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTimeValueRule()); }
+	 iv_ruleTimeValue=ruleTimeValue 
+	 { $current=$iv_ruleTimeValue.current; } 
+	 EOF 
+;
+
+// Rule TimeValue
+ruleTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+    { 
+        newCompositeNode(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall()); 
+    }
+    this_IsoTimeValue_0=ruleIsoTimeValue
+    { 
+        $current = $this_IsoTimeValue_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+;
+
+
+
+
+
+// Entry rule entryRuleIsoTimeValue
+entryRuleIsoTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getIsoTimeValueRule()); }
+	 iv_ruleIsoTimeValue=ruleIsoTimeValue 
+	 { $current=$iv_ruleIsoTimeValue.current; } 
+	 EOF 
+;
+
+// Rule IsoTimeValue
+ruleIsoTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_timeValue_0_0=RULE_ISOTIME
+		{
+			newLeafNode(lv_timeValue_0_0, grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIsoTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeValue",
+        		lv_timeValue_0_0, 
+        		"ISOTIME");
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleDateAndTimeValue
+entryRuleDateAndTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDateAndTimeValueRule()); }
+	 iv_ruleDateAndTimeValue=ruleDateAndTimeValue 
+	 { $current=$iv_ruleDateAndTimeValue.current; } 
+	 EOF 
+;
+
+// Rule DateAndTimeValue
+ruleDateAndTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+    { 
+        newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall()); 
+    }
+    this_IsoDateAndTimeValue_0=ruleIsoDateAndTimeValue
+    { 
+        $current = $this_IsoDateAndTimeValue_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+;
+
+
+
+
+
+// Entry rule entryRuleIsoDateAndTimeValue
+entryRuleIsoDateAndTimeValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getIsoDateAndTimeValueRule()); }
+	 iv_ruleIsoDateAndTimeValue=ruleIsoDateAndTimeValue 
+	 { $current=$iv_ruleIsoDateAndTimeValue.current; } 
+	 EOF 
+;
+
+// Rule IsoDateAndTimeValue
+ruleIsoDateAndTimeValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_dateValue_0_0=RULE_ISODATE
+		{
+			newLeafNode(lv_dateValue_0_0, grammarAccess.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIsoDateAndTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dateValue",
+        		lv_dateValue_0_0, 
+        		"ISODATE");
+	    }
+
+)
+)(
+(
+		lv_timeValue_1_0=RULE_ISOTIME
+		{
+			newLeafNode(lv_timeValue_1_0, grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIsoDateAndTimeValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeValue",
+        		lv_timeValue_1_0, 
+        		"ISOTIME");
+	    }
+
+)
+))
 ;
 
 
@@ -4209,6 +4464,10 @@ RULE_DIVIDER : '---' '-'*;
 RULE_WS : (' '|'\t')+;
 
 RULE_NEWLINE : ('\r'|'\n')+;
+
+RULE_ISODATE : '0'..'9' '0'..'9' '0'..'9' '0'..'9' '-' '0'..'1' '0'..'9' '-' '0'..'3' '0'..'9';
+
+RULE_ISOTIME : 'T'? '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')? ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9')?;
 
 RULE_ANY_OTHER : .;
 

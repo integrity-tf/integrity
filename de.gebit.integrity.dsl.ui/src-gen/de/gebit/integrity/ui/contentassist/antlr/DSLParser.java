@@ -110,6 +110,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOperationAccess().getGroup_4(), "rule__Operation__Group_4__0");
 					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup(), "rule__ValueOrEnumValueOrOperationCollection__Group__0");
 					put(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup_1(), "rule__ValueOrEnumValueOrOperationCollection__Group_1__0");
+					put(grammarAccess.getIsoDateAndTimeValueAccess().getGroup(), "rule__IsoDateAndTimeValue__Group__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
@@ -197,6 +198,10 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDecimalValueAccess().getDecimalValueAssignment(), "rule__DecimalValue__DecimalValueAssignment");
 					put(grammarAccess.getStringValueAccess().getStringValueAssignment(), "rule__StringValue__StringValueAssignment");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAssignment(), "rule__BooleanValue__BooleanValueAssignment");
+					put(grammarAccess.getIsoDateValueAccess().getDateValueAssignment(), "rule__IsoDateValue__DateValueAssignment");
+					put(grammarAccess.getIsoTimeValueAccess().getTimeValueAssignment(), "rule__IsoTimeValue__TimeValueAssignment");
+					put(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueAssignment_0(), "rule__IsoDateAndTimeValue__DateValueAssignment_0");
+					put(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueAssignment_1(), "rule__IsoDateAndTimeValue__TimeValueAssignment_1");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
 					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");

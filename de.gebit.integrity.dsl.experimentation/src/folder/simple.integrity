@@ -5,10 +5,13 @@ packagedef mypackage with
 	operationdef concatenate uses de.gebit.integrity.experiments.fixtures.ConcatenationOperation
 
 	suitedef asuite with
-		test echo echo: null = null
-		test nulltest = null
-		test nullarraytest entries: 2 = null, null
-		test arbitrary fixparam: 0 +testparam1: 0 +testparam2: null +testresult1 = null +testresult2 = 100
+		
+		//test echo echo: 1970-10-30 = "10/30/70"
+		//test echo echo: "12/31/80" = 1980-12-31
+		
+		test echoDate echo: 1970-10-30 = 1970-10-31
+	
+		
 	suiteend
 
 packageend

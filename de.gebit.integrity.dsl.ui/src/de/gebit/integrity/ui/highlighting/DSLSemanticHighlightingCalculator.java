@@ -15,6 +15,8 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.FixedParameterName;
@@ -37,6 +39,7 @@ import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.services.DSLGrammarAccess;
@@ -163,6 +166,14 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_STRING_ID
 												: DSLHighlightingConfiguration.PARAMETER_STRING_ID);
+							}
+						} else if (tempSemanticElement instanceof DateValue || tempSemanticElement instanceof TimeValue
+								|| tempSemanticElement instanceof DateAndTimeValue) {
+							Boolean tempIsResult = isResult(tempSemanticElement);
+							if (tempIsResult != null) {
+								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
+										tempIsResult ? DSLHighlightingConfiguration.RESULT_DATE_TIME_ID
+												: DSLHighlightingConfiguration.PARAMETER_DATE_TIME_ID);
 							}
 						} else if (tempSemanticElement instanceof Variable) {
 							Boolean tempIsResult = isResult(tempSemanticElement);

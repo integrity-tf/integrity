@@ -17,6 +17,9 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.IsoDateAndTimeValue;
+import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
@@ -172,6 +175,36 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_IntegerValue(context, (IntegerValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.ISO_DATE_AND_TIME_VALUE:
+				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				   context == grammarAccess.getIsoDateAndTimeValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_IsoDateAndTimeValue(context, (IsoDateAndTimeValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.ISO_DATE_VALUE:
+				if(context == grammarAccess.getDateValueRule() ||
+				   context == grammarAccess.getIsoDateValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_IsoDateValue(context, (IsoDateValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.ISO_TIME_VALUE:
+				if(context == grammarAccess.getIsoTimeValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getTimeValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_IsoTimeValue(context, (IsoTimeValue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -583,6 +616,57 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0(), semanticObject.getIntegerValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dateValue=ISODATE timeValue=ISOTIME)
+	 */
+	protected void sequence_IsoDateAndTimeValue(EObject context, IsoDateAndTimeValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__DATE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_AND_TIME_VALUE__TIME_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0(), semanticObject.getDateValue());
+		feeder.accept(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0(), semanticObject.getTimeValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     dateValue=ISODATE
+	 */
+	protected void sequence_IsoDateValue(EObject context, IsoDateValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_DATE_VALUE__DATE_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getIsoDateValueAccess().getDateValueISODATETerminalRuleCall_0(), semanticObject.getDateValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     timeValue=ISOTIME
+	 */
+	protected void sequence_IsoTimeValue(EObject context, IsoTimeValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ISO_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ISO_TIME_VALUE__TIME_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
 	}
 	

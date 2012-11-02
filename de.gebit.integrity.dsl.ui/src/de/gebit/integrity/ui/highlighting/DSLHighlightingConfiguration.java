@@ -93,6 +93,16 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String PARAMETER_VARIABLE_VALUE_ID = "parametervariablevalue";
 
 	/**
+	 * The ID for date/time used as a test result.
+	 */
+	public static final String RESULT_DATE_TIME_ID = "resultdatetime";
+
+	/**
+	 * The ID for date/time used as a parameter.
+	 */
+	public static final String PARAMETER_DATE_TIME_ID = "parameterdatetime";
+
+	/**
 	 * The ID for Java classes.
 	 */
 	public static final String JAVA_CLASS_ID = "javaclass";
@@ -151,6 +161,9 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NUMBER_ID, "Numbers (Parameters)", parameterNumberTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_STRING_ID, "Strings (Test Result)", resultStringTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_STRING_ID, "Strings (Parameters)", parameterStringTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_DATE_TIME_ID, "Date/Time (Test Result)", resultDateTimeTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_DATE_TIME_ID, "Date/Time (Parameters)",
+				parameterDateTimeTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_OPERATION_ID, "Operations (Test Result)",
 				resultOperationTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_OPERATION_ID, "Operations (Parameters)",
@@ -281,6 +294,28 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	 * @return
 	 */
 	public TextStyle parameterStringTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for strings used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultDateTimeTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for strings used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterDateTimeTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
 		return tempTextStyle;

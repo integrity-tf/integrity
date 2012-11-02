@@ -2,6 +2,7 @@ package de.gebit.integrity.tests.fixtures.basic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -27,17 +28,20 @@ public class NoOpFixture {
 	}
 
 	@FixtureMethod(description = "Echo the string '$string$'")
-	public String echoString(@FixtureParameter(name = "string") String aStringToEcho) {
+	public String echoString(
+			@FixtureParameter(name = "string") String aStringToEcho) {
 		return aStringToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the string array '$strings$'")
-	public String[] echoStringArray(@FixtureParameter(name = "strings") String[] someStringsToEcho) {
+	public String[] echoStringArray(
+			@FixtureParameter(name = "strings") String[] someStringsToEcho) {
 		return someStringsToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the integer '$integer$'")
-	public Integer echoInteger(@FixtureParameter(name = "integer") Integer anIntToEcho) {
+	public Integer echoInteger(
+			@FixtureParameter(name = "integer") Integer anIntToEcho) {
 		return anIntToEcho;
 	}
 
@@ -57,13 +61,20 @@ public class NoOpFixture {
 	}
 
 	@FixtureMethod(description = "Echo the BigDecimal '$bigdecimal$'")
-	public BigDecimal echoBigDecimal(@FixtureParameter(name = "bigdecimal") BigDecimal aBigDecimalToEcho) {
+	public BigDecimal echoBigDecimal(
+			@FixtureParameter(name = "bigdecimal") BigDecimal aBigDecimalToEcho) {
 		return aBigDecimalToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the BigInteger '$biginteger$'")
-	public BigInteger echoBigInteger(@FixtureParameter(name = "biginteger") BigInteger aBigIntegerToEcho) {
+	public BigInteger echoBigInteger(
+			@FixtureParameter(name = "biginteger") BigInteger aBigIntegerToEcho) {
 		return aBigIntegerToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the date '$date$'")
+	public Date echoDate(@FixtureParameter(name = "date") Date aDateToEcho) {
+		return aDateToEcho;
 	}
 
 }

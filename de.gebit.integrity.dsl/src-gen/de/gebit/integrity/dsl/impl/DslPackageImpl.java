@@ -11,6 +11,8 @@ import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
@@ -22,6 +24,9 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.IsoDateAndTimeValue;
+import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
@@ -51,6 +56,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
@@ -408,6 +414,48 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass booleanValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dateValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass isoDateValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass timeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass isoTimeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dateAndTimeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass isoDateAndTimeValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1779,6 +1827,106 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDateValue()
+  {
+    return dateValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIsoDateValue()
+  {
+    return isoDateValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIsoDateValue_DateValue()
+  {
+    return (EAttribute)isoDateValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTimeValue()
+  {
+    return timeValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIsoTimeValue()
+  {
+    return isoTimeValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIsoTimeValue_TimeValue()
+  {
+    return (EAttribute)isoTimeValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDateAndTimeValue()
+  {
+    return dateAndTimeValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIsoDateAndTimeValue()
+  {
+    return isoDateAndTimeValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIsoDateAndTimeValue_DateValue()
+  {
+    return (EAttribute)isoDateAndTimeValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIsoDateAndTimeValue_TimeValue()
+  {
+    return (EAttribute)isoDateAndTimeValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVariable()
   {
     return variableEClass;
@@ -2106,6 +2254,22 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     booleanValueEClass = createEClass(BOOLEAN_VALUE);
     createEAttribute(booleanValueEClass, BOOLEAN_VALUE__BOOLEAN_VALUE);
 
+    dateValueEClass = createEClass(DATE_VALUE);
+
+    isoDateValueEClass = createEClass(ISO_DATE_VALUE);
+    createEAttribute(isoDateValueEClass, ISO_DATE_VALUE__DATE_VALUE);
+
+    timeValueEClass = createEClass(TIME_VALUE);
+
+    isoTimeValueEClass = createEClass(ISO_TIME_VALUE);
+    createEAttribute(isoTimeValueEClass, ISO_TIME_VALUE__TIME_VALUE);
+
+    dateAndTimeValueEClass = createEClass(DATE_AND_TIME_VALUE);
+
+    isoDateAndTimeValueEClass = createEClass(ISO_DATE_AND_TIME_VALUE);
+    createEAttribute(isoDateAndTimeValueEClass, ISO_DATE_AND_TIME_VALUE__DATE_VALUE);
+    createEAttribute(isoDateAndTimeValueEClass, ISO_DATE_AND_TIME_VALUE__TIME_VALUE);
+
     variableEClass = createEClass(VARIABLE);
     createEReference(variableEClass, VARIABLE__NAME);
 
@@ -2193,6 +2357,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     decimalValueEClass.getESuperTypes().add(this.getStaticValue());
     stringValueEClass.getESuperTypes().add(this.getStaticValue());
     booleanValueEClass.getESuperTypes().add(this.getStaticValue());
+    dateValueEClass.getESuperTypes().add(this.getStaticValue());
+    isoDateValueEClass.getESuperTypes().add(this.getDateValue());
+    timeValueEClass.getESuperTypes().add(this.getStaticValue());
+    isoTimeValueEClass.getESuperTypes().add(this.getTimeValue());
+    dateAndTimeValueEClass.getESuperTypes().add(this.getStaticValue());
+    isoDateAndTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
     variableEClass.getESuperTypes().add(this.getValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
@@ -2370,6 +2540,22 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(booleanValueEClass, BooleanValue.class, "BooleanValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBooleanValue_BooleanValue(), ecorePackage.getEString(), "booleanValue", null, 0, 1, BooleanValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(dateValueEClass, DateValue.class, "DateValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(isoDateValueEClass, IsoDateValue.class, "IsoDateValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getIsoDateValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, IsoDateValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(timeValueEClass, TimeValue.class, "TimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(isoTimeValueEClass, IsoTimeValue.class, "IsoTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getIsoTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, IsoTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(dateAndTimeValueEClass, DateAndTimeValue.class, "DateAndTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(isoDateAndTimeValueEClass, IsoDateAndTimeValue.class, "IsoDateAndTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getIsoDateAndTimeValue_DateValue(), ecorePackage.getEString(), "dateValue", null, 0, 1, IsoDateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIsoDateAndTimeValue_TimeValue(), ecorePackage.getEString(), "timeValue", null, 0, 1, IsoDateAndTimeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariable_Name(), this.getVariableEntity(), null, "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

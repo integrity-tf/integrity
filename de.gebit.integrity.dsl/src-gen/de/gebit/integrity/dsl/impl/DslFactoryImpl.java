@@ -115,6 +115,12 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.DECIMAL_VALUE: return createDecimalValue();
       case DslPackage.STRING_VALUE: return createStringValue();
       case DslPackage.BOOLEAN_VALUE: return createBooleanValue();
+      case DslPackage.DATE_VALUE: return createDateValue();
+      case DslPackage.ISO_DATE_VALUE: return createIsoDateValue();
+      case DslPackage.TIME_VALUE: return createTimeValue();
+      case DslPackage.ISO_TIME_VALUE: return createIsoTimeValue();
+      case DslPackage.DATE_AND_TIME_VALUE: return createDateAndTimeValue();
+      case DslPackage.ISO_DATE_AND_TIME_VALUE: return createIsoDateAndTimeValue();
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
@@ -642,6 +648,72 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     BooleanValueImpl booleanValue = new BooleanValueImpl();
     return booleanValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DateValue createDateValue()
+  {
+    DateValueImpl dateValue = new DateValueImpl();
+    return dateValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IsoDateValue createIsoDateValue()
+  {
+    IsoDateValueImpl isoDateValue = new IsoDateValueImpl();
+    return isoDateValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeValue createTimeValue()
+  {
+    TimeValueImpl timeValue = new TimeValueImpl();
+    return timeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IsoTimeValue createIsoTimeValue()
+  {
+    IsoTimeValueImpl isoTimeValue = new IsoTimeValueImpl();
+    return isoTimeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DateAndTimeValue createDateAndTimeValue()
+  {
+    DateAndTimeValueImpl dateAndTimeValue = new DateAndTimeValueImpl();
+    return dateAndTimeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IsoDateAndTimeValue createIsoDateAndTimeValue()
+  {
+    IsoDateAndTimeValueImpl isoDateAndTimeValue = new IsoDateAndTimeValueImpl();
+    return isoDateAndTimeValue;
   }
 
   /**

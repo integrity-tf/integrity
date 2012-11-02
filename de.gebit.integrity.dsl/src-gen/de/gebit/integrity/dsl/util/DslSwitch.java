@@ -452,6 +452,69 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.DATE_VALUE:
+      {
+        DateValue dateValue = (DateValue)theEObject;
+        T result = caseDateValue(dateValue);
+        if (result == null) result = caseStaticValue(dateValue);
+        if (result == null) result = caseValue(dateValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(dateValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.ISO_DATE_VALUE:
+      {
+        IsoDateValue isoDateValue = (IsoDateValue)theEObject;
+        T result = caseIsoDateValue(isoDateValue);
+        if (result == null) result = caseDateValue(isoDateValue);
+        if (result == null) result = caseStaticValue(isoDateValue);
+        if (result == null) result = caseValue(isoDateValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(isoDateValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.TIME_VALUE:
+      {
+        TimeValue timeValue = (TimeValue)theEObject;
+        T result = caseTimeValue(timeValue);
+        if (result == null) result = caseStaticValue(timeValue);
+        if (result == null) result = caseValue(timeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(timeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.ISO_TIME_VALUE:
+      {
+        IsoTimeValue isoTimeValue = (IsoTimeValue)theEObject;
+        T result = caseIsoTimeValue(isoTimeValue);
+        if (result == null) result = caseTimeValue(isoTimeValue);
+        if (result == null) result = caseStaticValue(isoTimeValue);
+        if (result == null) result = caseValue(isoTimeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(isoTimeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.DATE_AND_TIME_VALUE:
+      {
+        DateAndTimeValue dateAndTimeValue = (DateAndTimeValue)theEObject;
+        T result = caseDateAndTimeValue(dateAndTimeValue);
+        if (result == null) result = caseStaticValue(dateAndTimeValue);
+        if (result == null) result = caseValue(dateAndTimeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(dateAndTimeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.ISO_DATE_AND_TIME_VALUE:
+      {
+        IsoDateAndTimeValue isoDateAndTimeValue = (IsoDateAndTimeValue)theEObject;
+        T result = caseIsoDateAndTimeValue(isoDateAndTimeValue);
+        if (result == null) result = caseDateAndTimeValue(isoDateAndTimeValue);
+        if (result == null) result = caseStaticValue(isoDateAndTimeValue);
+        if (result == null) result = caseValue(isoDateAndTimeValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(isoDateAndTimeValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VARIABLE:
       {
         Variable variable = (Variable)theEObject;
@@ -1263,6 +1326,102 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBooleanValue(BooleanValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Date Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDateValue(DateValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Iso Date Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Iso Date Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIsoDateValue(IsoDateValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTimeValue(TimeValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Iso Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Iso Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIsoTimeValue(IsoTimeValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Date And Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Date And Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDateAndTimeValue(DateAndTimeValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Iso Date And Time Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Iso Date And Time Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIsoDateAndTimeValue(IsoDateAndTimeValue object)
   {
     return null;
   }

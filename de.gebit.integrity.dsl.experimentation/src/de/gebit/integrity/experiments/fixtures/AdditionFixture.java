@@ -1,5 +1,7 @@
 package de.gebit.integrity.experiments.fixtures;
 
+import java.util.Date;
+
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
@@ -42,7 +44,14 @@ public class AdditionFixture {
 	}
 
 	@FixtureMethod(description = "echoes $echo$")
-	public Integer returnValue(@FixtureParameter(name = "echo") Integer anInput) {
+	public String returnValue(@FixtureParameter(name = "echo") String anInput) {
+		pause();
+		// throw new RuntimeException("An exception!");
+		return anInput;
+	}
+
+	@FixtureMethod(description = "echoes $echo$")
+	public Date returnDate(@FixtureParameter(name = "echo") Date anInput) {
 		pause();
 		// throw new RuntimeException("An exception!");
 		return anInput;

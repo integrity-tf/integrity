@@ -5,6 +5,8 @@ packagedef mypackage with
 	calldef random uses de.gebit.integrity.experiments.fixtures.AdditionFixture#randomNumber
 	
 	testdef echo uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValue
+	
+	testdef echoDate uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnDate
 
 	testdef stupidtest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnTrue
 	

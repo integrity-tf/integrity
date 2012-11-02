@@ -1,0 +1,50 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic with
+
+	suitedef dateAndTimeValues with
+	
+		
+		// ISO8601 format - date only
+
+		test echoDateTest date: 1970-01-01 = 1970-01-01
+		test echoDateTest date: 0001-01-01 = 0001-01-01
+		
+		variable tempDate
+		call echoDate date: 2012-12-30 -> tempDate
+		test echoDateTest date: tempDate = 2012-12-30
+
+		
+		// ISO8601 format - time only
+		
+		// a few simple cases
+		test echoDateTest date: 12:30:10 = 12:30:11
+		test echoDateTest date: 02:00 = 02:00:00
+		
+		// this must be equal because of time zones
+		test echoDateTest date: 02:00Z = 01:00:00-0100
+		
+		// this must return equality since it should only check the time portion
+		test echoDateTest date: 2010-10-02T01:00 = 01:00
+		
+		// this must return equality since it should only check the time portion
+		test echoDateTest date: 2010-01-02T01:00 = 01:00
+		
+		// this must return unequality since it should check date and time
+		test echoDateTest date: 01:00 = 2010-01-02T01:00
+
+		
+		// ISO8601 format - date and time
+
+		// this must return equality, since it should only check the date
+		test echoDateTest date: 1970-01-01T12:30+01:00 = 1970-01-01
+
+		// this must return unequality, since it should check date and time
+		test echoDateTest date: 1970-01-01T12:31 = 1970-01-01T12:30
+		
+		// this must be equal because of the timezone offsets
+		test echoDateTest date: 1970-01-01T12:00+02:00 = 1970-01-01T10:00Z
+		
+	suiteend
+	
+packageend

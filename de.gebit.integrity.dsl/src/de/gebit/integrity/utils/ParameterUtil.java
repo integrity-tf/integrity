@@ -8,17 +8,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.StringValue;
+import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
@@ -49,7 +56,7 @@ public final class ParameterUtil {
 	public static final String DEFAULT_PARAMETER_NAME = "";
 
 	/**
-	 * Converts a given value to a given Java type class, if possible.
+	 * Converts a given Java type value to a given Java type class, if possible.
 	 * 
 	 * @param aParamType
 	 *            the target type
@@ -86,12 +93,12 @@ public final class ParameterUtil {
 	}
 
 	/**
-	 * Convert single value to param type.
+	 * Convert a given single Java type value to param type (which is also a Java type).
 	 * 
 	 * @param aParamType
-	 *            the a param type
+	 *            the param type
 	 * @param aValue
-	 *            the a value
+	 *            the value
 	 * @return the object
 	 */
 	private static Object convertSingleValueToParamType(Class<?> aParamType, Object aValue) {
@@ -279,6 +286,40 @@ public final class ParameterUtil {
 			} else if (aParamType == String.class) {
 				return ((BooleanValue) aValue).getBooleanValue();
 			}
+		} else if (aValue instanceof DateValue) {
+			if (aParamType == Date.class) {
+				return guardedDateConversion((DateValue) aValue).getTime();
+			} else if (aParamType == Calendar.class) {
+				return guardedDateConversion((DateValue) aValue);
+			} else if (aParamType == String.class) {
+				return DateFormat.getDateInstance(DateFormat.LONG).format(guardedDateConversion((DateValue) aValue));
+			} else {
+				throw new IllegalArgumentException("Date value '" + aValue + "'"
+						+ " is not autoconvertible to parameter type " + aParamType);
+			}
+		} else if (aValue instanceof TimeValue) {
+			if (aParamType == Date.class) {
+				return guardedTimeConversion((TimeValue) aValue).getTime();
+			} else if (aParamType == Calendar.class) {
+				return guardedTimeConversion((TimeValue) aValue);
+			} else if (aParamType == String.class) {
+				return DateFormat.getTimeInstance(DateFormat.LONG).format(guardedTimeConversion((TimeValue) aValue));
+			} else {
+				throw new IllegalArgumentException("Date value '" + aValue + "'"
+						+ " is not autoconvertible to parameter type " + aParamType);
+			}
+		} else if (aValue instanceof DateAndTimeValue) {
+			if (aParamType == Date.class) {
+				return guardedDateAndTimeConversion((DateAndTimeValue) aValue).getTime();
+			} else if (aParamType == Calendar.class) {
+				return guardedDateAndTimeConversion((DateAndTimeValue) aValue);
+			} else if (aParamType == String.class) {
+				return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(
+						guardedDateAndTimeConversion((DateAndTimeValue) aValue));
+			} else {
+				throw new IllegalArgumentException("Date/Time value '" + aValue + "'"
+						+ " is not autoconvertible to parameter type " + aParamType);
+			}
 		} else {
 			throw new UnsupportedOperationException("Value class " + aValue.getClass() + " is unsupported");
 		}
@@ -377,6 +418,24 @@ public final class ParameterUtil {
 			return maskNullString(((EnumValue) aValue).getEnumValue().getSimpleName(), !anAllowNullResultFlag);
 		} else if (aValue instanceof BooleanValue) {
 			return maskNullString(((BooleanValue) aValue).getBooleanValue(), !anAllowNullResultFlag);
+		} else if (aValue instanceof DateValue) {
+			DateFormat tempFormat = DateFormat.getDateInstance(DateFormat.LONG);
+			Calendar tempCalendar = guardedDateConversion((DateValue) aValue);
+			tempFormat.setCalendar(tempCalendar);
+			return maskNullString(tempFormat.format(tempCalendar.getTime()), !anAllowNullResultFlag);
+		} else if (aValue instanceof TimeValue) {
+			DateFormat tempFormat = DateFormat.getTimeInstance(DateFormat.LONG);
+			Calendar tempCalendar = guardedTimeConversion((TimeValue) aValue);
+			tempFormat.setCalendar(tempCalendar);
+			return maskNullString(tempFormat.format(tempCalendar.getTime()), !anAllowNullResultFlag);
+		} else if (aValue instanceof DateAndTimeValue) {
+			DateFormat tempFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+			Calendar tempCalendar = guardedDateAndTimeConversion((DateAndTimeValue) aValue);
+			tempFormat.setCalendar(tempCalendar);
+			return maskNullString(tempFormat.format(tempCalendar.getTime()), !anAllowNullResultFlag);
+		} else if (aValue instanceof Date) {
+			return maskNullString(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aValue),
+					!anAllowNullResultFlag);
 		} else if (aValue instanceof NullValue) {
 			return "null";
 		} else {
@@ -533,6 +592,30 @@ public final class ParameterUtil {
 			}
 		}
 		return null;
+	}
+
+	private static Calendar guardedDateConversion(DateValue aValue) {
+		try {
+			return DateUtil.convertDateValue((DateValue) aValue);
+		} catch (ParseException exc) {
+			throw new IllegalArgumentException("Failed to parse date", exc);
+		}
+	}
+
+	private static Calendar guardedTimeConversion(TimeValue aValue) {
+		try {
+			return DateUtil.convertTimeValue((TimeValue) aValue);
+		} catch (ParseException exc) {
+			throw new IllegalArgumentException("Failed to parse time", exc);
+		}
+	}
+
+	private static Calendar guardedDateAndTimeConversion(DateAndTimeValue aValue) {
+		try {
+			return DateUtil.convertDateAndTimeValue((DateAndTimeValue) aValue);
+		} catch (ParseException exc) {
+			throw new IllegalArgumentException("Failed to parse date/time", exc);
+		}
 	}
 
 	/**

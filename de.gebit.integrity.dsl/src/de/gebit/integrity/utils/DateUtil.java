@@ -1,0 +1,192 @@
+/**
+ * 
+ */
+package de.gebit.integrity.utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.IsoDateAndTimeValue;
+import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.IsoTimeValue;
+import de.gebit.integrity.dsl.TimeValue;
+
+/**
+ * A utility class to handle date/time parsing and other date stuff.
+ * 
+ * @author Rene Schneider
+ * 
+ */
+public final class DateUtil {
+
+	private DateUtil() {
+		// nothing to do
+	}
+
+	/**
+	 * Creates a preconfigured {@link SimpleDateFormat} for the given format string which can be used by the class
+	 * internally.
+	 * 
+	 * @param aFormatString
+	 *            the format string to use
+	 * @return the date format instance
+	 */
+	private static SimpleDateFormat getSimpleDateFormat(String aFormatString) {
+		SimpleDateFormat tempFormat = new SimpleDateFormat(aFormatString);
+		tempFormat.setLenient(false);
+		return tempFormat;
+	}
+
+	/**
+	 * Converts a given date value to a {@link Calendar}.
+	 * 
+	 * @param aValue
+	 *            the date value
+	 * @return the calendar set to the specified date
+	 * @throws ParseException
+	 *             if the value cannot be parsed because it is of wrong format or depicts an illegal date/time
+	 */
+	public static Calendar convertDateValue(DateValue aValue) throws ParseException {
+		if (aValue instanceof IsoDateValue) {
+			return parseIsoDateString(((IsoDateValue) aValue).getDateValue());
+		} else {
+			throw new UnsupportedOperationException("Someone forgot to implement a new date format!");
+		}
+	}
+
+	private static Calendar parseIsoDateString(String aDateString) throws ParseException {
+		Calendar tempCalendar = Calendar.getInstance();
+		tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd").parse(aDateString));
+		return tempCalendar;
+	}
+
+	/**
+	 * Converts a given time value to a {@link Calendar}.
+	 * 
+	 * @param aValue
+	 *            the time value
+	 * @return the calendar set to the specified date
+	 * @throws ParseException
+	 *             if the value cannot be parsed because it is of wrong format or depicts an illegal date/time
+	 */
+	public static Calendar convertTimeValue(TimeValue aValue) throws ParseException {
+		if (aValue instanceof IsoTimeValue) {
+			return parseIsoDateAndTimeString(null, ((IsoTimeValue) aValue).getTimeValue());
+		} else {
+			throw new UnsupportedOperationException("Someone forgot to implement a new time format!");
+		}
+	}
+
+	private static Calendar parseIsoDateAndTimeString(String aDateString, String aTimeString) throws ParseException {
+		String tempDateValue = aDateString;
+		if (tempDateValue == null) {
+			// in case no date is given, use the "zero" date
+			tempDateValue = "1970-01-01";
+		}
+
+		String tempTimeValue = aTimeString;
+		if (!tempTimeValue.startsWith("T")) {
+			tempTimeValue = "T" + tempTimeValue;
+		}
+
+		// handle Zulu time
+		tempTimeValue = tempTimeValue.replace("Z", "+0000");
+
+		boolean tempHasTimezone = tempTimeValue.contains("+") | tempTimeValue.contains("-");
+		boolean tempHasSeconds = (!tempHasTimezone && tempTimeValue.length() > 6)
+				| (tempHasTimezone && tempTimeValue.length() > 12);
+
+		Calendar tempCalendar;
+
+		if (tempHasTimezone) {
+			if (tempTimeValue.charAt(tempTimeValue.length() - 3) == ':') {
+				// remove the optional colon in the timezone, if present
+				tempTimeValue = tempTimeValue.substring(0, tempTimeValue.length() - 3)
+						+ tempTimeValue.substring(tempTimeValue.length() - 2, tempTimeValue.length());
+			}
+			tempCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"
+					+ tempTimeValue.substring(tempHasSeconds ? 9 : 6)));
+
+			if (tempHasSeconds) {
+				tempCalendar
+						.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(tempDateValue + tempTimeValue));
+			} else {
+				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").parse(tempDateValue + tempTimeValue));
+			}
+		} else {
+			tempCalendar = Calendar.getInstance();
+
+			if (tempHasSeconds) {
+				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(tempDateValue + tempTimeValue));
+			} else {
+				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(tempDateValue + tempTimeValue));
+			}
+		}
+
+		return tempCalendar;
+	}
+
+	/**
+	 * Converts a given date and time to a {@link Calendar}.
+	 * 
+	 * @param aValue
+	 *            the date value
+	 * @return the calendar set to the specified date
+	 * @throws ParseException
+	 *             if the value cannot be parsed because it is of wrong format or depicts an illegal date/time
+	 */
+	public static Calendar convertDateAndTimeValue(DateAndTimeValue aValue) throws ParseException {
+		if (aValue instanceof IsoDateAndTimeValue) {
+			return parseIsoDateAndTimeString(((IsoDateAndTimeValue) aValue).getDateValue(),
+					((IsoDateAndTimeValue) aValue).getTimeValue());
+		} else {
+			throw new UnsupportedOperationException("Someone forgot to implement a new time format!");
+		}
+	}
+
+	/**
+	 * Strips the time information from a given {@link Date} (sets all time fields to zero).
+	 * 
+	 * @param aDate
+	 *            the date
+	 * @return a new Date without time information
+	 */
+	public static Date stripTimeFromDate(Date aDate) {
+		Calendar tempCalendar = Calendar.getInstance();
+
+		tempCalendar.setTime(aDate);
+		tempCalendar.set(Calendar.HOUR_OF_DAY, 0);
+		tempCalendar.set(Calendar.MINUTE, 0);
+		tempCalendar.set(Calendar.SECOND, 0);
+		tempCalendar.set(Calendar.MILLISECOND, 0);
+
+		return tempCalendar.getTime();
+	}
+
+	/**
+	 * Strips the date information from a given {@link Date} (sets all time fields to zero).
+	 * 
+	 * @param aTime
+	 *            the time
+	 * @return a new Time without the date information
+	 */
+	public static Date stripDateFromTime(Date aTime) {
+		if (aTime == null) {
+			return null;
+		}
+		Calendar tempCalendar = Calendar.getInstance();
+
+		tempCalendar.setTime(aTime);
+		tempCalendar.set(Calendar.YEAR, 0);
+		tempCalendar.set(Calendar.MONTH, 0);
+		tempCalendar.set(Calendar.DAY_OF_MONTH, 0);
+
+		return tempCalendar.getTime();
+	}
+
+}

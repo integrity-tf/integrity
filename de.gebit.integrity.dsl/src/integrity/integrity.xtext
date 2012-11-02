@@ -133,7 +133,7 @@ Value:
 	StaticValue | Variable;
 	
 StaticValue:
-	StringValue | IntegerValue | DecimalValue | BooleanValue | NullValue;
+	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -146,6 +146,24 @@ StringValue:
 	
 BooleanValue:
 	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
+	
+DateValue:
+	IsoDateValue;
+	
+IsoDateValue:
+	dateValue=ISODATE;
+	
+TimeValue:
+	IsoTimeValue;
+
+IsoTimeValue:
+	timeValue=ISOTIME;
+	
+DateAndTimeValue:
+	IsoDateAndTimeValue;
+	
+IsoDateAndTimeValue:
+	dateValue=ISODATE timeValue=ISOTIME;
 	
 Variable:
 	name=[VariableEntity|QualifiedName];
@@ -188,7 +206,7 @@ terminal INTEGER returns ecore::EBigInteger: '-'? ('0'..'9')+;
 terminal DECIMAL returns ecore::EBigDecimal: '-'? ('0'..'9')+ '.' ('0'..'9')+;
 terminal STRING: 
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 
+			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'";
 terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
 terminal SL_VISIBLE_COMMENT: '-- ' !('\n'|'\r')*;
@@ -198,5 +216,7 @@ terminal DIVIDER: '---' ('-')*;
 terminal WS: (' '|'\t')+;
 terminal NEWLINE: ('\r'|'\n')+;
 
+terminal ISODATE: ('0'..'9')('0'..'9')('0'..'9')('0'..'9') '-' ('0'..'1')('0'..'9') '-' ('0'..'3')('0'..'9');
+terminal ISOTIME: 'T'? ('0'..'2')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9'))? ('Z' | (('+' | '-') ('0'..'2')('0'..'9') ':'? ('0'..'5')('0'..'9')))?;
 
 terminal ANY_OTHER: .;

@@ -170,6 +170,19 @@
     <genClasses ecoreClass="DSL.ecore#//BooleanValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//BooleanValue/booleanValue"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//DateValue"/>
+    <genClasses ecoreClass="DSL.ecore#//IsoDateValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateValue/dateValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TimeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//IsoTimeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoTimeValue/timeValue"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//DateAndTimeValue"/>
+    <genClasses ecoreClass="DSL.ecore#//IsoDateAndTimeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateAndTimeValue/dateValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IsoDateAndTimeValue/timeValue"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Variable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>
     </genClasses>

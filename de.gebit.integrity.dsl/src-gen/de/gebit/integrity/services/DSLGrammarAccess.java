@@ -2095,14 +2095,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIntegerValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cDecimalValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cBooleanValueParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cNullValueParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cDateValueParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		
 		//StaticValue:
 		//
-		//	StringValue | IntegerValue | DecimalValue | BooleanValue | NullValue;
+		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
 		public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | BooleanValue | NullValue
+		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -2117,8 +2120,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//BooleanValue
 		public RuleCall getBooleanValueParserRuleCall_3() { return cBooleanValueParserRuleCall_3; }
 
+		//DateValue
+		public RuleCall getDateValueParserRuleCall_4() { return cDateValueParserRuleCall_4; }
+
+		//TimeValue
+		public RuleCall getTimeValueParserRuleCall_5() { return cTimeValueParserRuleCall_5; }
+
+		//DateAndTimeValue
+		public RuleCall getDateAndTimeValueParserRuleCall_6() { return cDateAndTimeValueParserRuleCall_6; }
+
 		//NullValue
-		public RuleCall getNullValueParserRuleCall_4() { return cNullValueParserRuleCall_4; }
+		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -2195,6 +2207,108 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//BOOLEAN_FALSE
 		public RuleCall getBooleanValueBOOLEAN_FALSETerminalRuleCall_0_1() { return cBooleanValueBOOLEAN_FALSETerminalRuleCall_0_1; }
+	}
+
+	public class DateValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DateValue");
+		private final RuleCall cIsoDateValueParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//DateValue:
+		//
+		//	IsoDateValue;
+		public ParserRule getRule() { return rule; }
+
+		//IsoDateValue
+		public RuleCall getIsoDateValueParserRuleCall() { return cIsoDateValueParserRuleCall; }
+	}
+
+	public class IsoDateValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IsoDateValue");
+		private final Assignment cDateValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDateValueISODATETerminalRuleCall_0 = (RuleCall)cDateValueAssignment.eContents().get(0);
+		
+		//IsoDateValue:
+		//
+		//	dateValue=ISODATE;
+		public ParserRule getRule() { return rule; }
+
+		//dateValue=ISODATE
+		public Assignment getDateValueAssignment() { return cDateValueAssignment; }
+
+		//ISODATE
+		public RuleCall getDateValueISODATETerminalRuleCall_0() { return cDateValueISODATETerminalRuleCall_0; }
+	}
+
+	public class TimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TimeValue");
+		private final RuleCall cIsoTimeValueParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//TimeValue:
+		//
+		//	IsoTimeValue;
+		public ParserRule getRule() { return rule; }
+
+		//IsoTimeValue
+		public RuleCall getIsoTimeValueParserRuleCall() { return cIsoTimeValueParserRuleCall; }
+	}
+
+	public class IsoTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IsoTimeValue");
+		private final Assignment cTimeValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTimeValueISOTIMETerminalRuleCall_0 = (RuleCall)cTimeValueAssignment.eContents().get(0);
+		
+		//IsoTimeValue:
+		//
+		//	timeValue=ISOTIME;
+		public ParserRule getRule() { return rule; }
+
+		//timeValue=ISOTIME
+		public Assignment getTimeValueAssignment() { return cTimeValueAssignment; }
+
+		//ISOTIME
+		public RuleCall getTimeValueISOTIMETerminalRuleCall_0() { return cTimeValueISOTIMETerminalRuleCall_0; }
+	}
+
+	public class DateAndTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DateAndTimeValue");
+		private final RuleCall cIsoDateAndTimeValueParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//DateAndTimeValue:
+		//
+		//	IsoDateAndTimeValue;
+		public ParserRule getRule() { return rule; }
+
+		//IsoDateAndTimeValue
+		public RuleCall getIsoDateAndTimeValueParserRuleCall() { return cIsoDateAndTimeValueParserRuleCall; }
+	}
+
+	public class IsoDateAndTimeValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IsoDateAndTimeValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDateValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDateValueISODATETerminalRuleCall_0_0 = (RuleCall)cDateValueAssignment_0.eContents().get(0);
+		private final Assignment cTimeValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTimeValueISOTIMETerminalRuleCall_1_0 = (RuleCall)cTimeValueAssignment_1.eContents().get(0);
+		
+		//IsoDateAndTimeValue:
+		//
+		//	dateValue=ISODATE timeValue=ISOTIME;
+		public ParserRule getRule() { return rule; }
+
+		//dateValue=ISODATE timeValue=ISOTIME
+		public Group getGroup() { return cGroup; }
+
+		//dateValue=ISODATE
+		public Assignment getDateValueAssignment_0() { return cDateValueAssignment_0; }
+
+		//ISODATE
+		public RuleCall getDateValueISODATETerminalRuleCall_0_0() { return cDateValueISODATETerminalRuleCall_0_0; }
+
+		//timeValue=ISOTIME
+		public Assignment getTimeValueAssignment_1() { return cTimeValueAssignment_1; }
+
+		//ISOTIME
+		public RuleCall getTimeValueISOTIMETerminalRuleCall_1_0() { return cTimeValueISOTIMETerminalRuleCall_1_0; }
 	}
 
 	public class VariableElements extends AbstractParserRuleElementFinder {
@@ -2516,6 +2630,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private DecimalValueElements pDecimalValue;
 	private StringValueElements pStringValue;
 	private BooleanValueElements pBooleanValue;
+	private DateValueElements pDateValue;
+	private IsoDateValueElements pIsoDateValue;
+	private TimeValueElements pTimeValue;
+	private IsoTimeValueElements pIsoTimeValue;
+	private DateAndTimeValueElements pDateAndTimeValue;
+	private IsoDateAndTimeValueElements pIsoDateAndTimeValue;
 	private VariableElements pVariable;
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
@@ -2541,6 +2661,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tDIVIDER;
 	private TerminalRule tWS;
 	private TerminalRule tNEWLINE;
+	private TerminalRule tISODATE;
+	private TerminalRule tISOTIME;
 	private TerminalRule tANY_OTHER;
 	
 	private final Grammar grammar;
@@ -3061,7 +3183,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//
-	//	StringValue | IntegerValue | DecimalValue | BooleanValue | NullValue;
+	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
 	public StaticValueElements getStaticValueAccess() {
 		return (pStaticValue != null) ? pStaticValue : (pStaticValue = new StaticValueElements());
 	}
@@ -3112,6 +3234,72 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getBooleanValueRule() {
 		return getBooleanValueAccess().getRule();
+	}
+
+	//DateValue:
+	//
+	//	IsoDateValue;
+	public DateValueElements getDateValueAccess() {
+		return (pDateValue != null) ? pDateValue : (pDateValue = new DateValueElements());
+	}
+	
+	public ParserRule getDateValueRule() {
+		return getDateValueAccess().getRule();
+	}
+
+	//IsoDateValue:
+	//
+	//	dateValue=ISODATE;
+	public IsoDateValueElements getIsoDateValueAccess() {
+		return (pIsoDateValue != null) ? pIsoDateValue : (pIsoDateValue = new IsoDateValueElements());
+	}
+	
+	public ParserRule getIsoDateValueRule() {
+		return getIsoDateValueAccess().getRule();
+	}
+
+	//TimeValue:
+	//
+	//	IsoTimeValue;
+	public TimeValueElements getTimeValueAccess() {
+		return (pTimeValue != null) ? pTimeValue : (pTimeValue = new TimeValueElements());
+	}
+	
+	public ParserRule getTimeValueRule() {
+		return getTimeValueAccess().getRule();
+	}
+
+	//IsoTimeValue:
+	//
+	//	timeValue=ISOTIME;
+	public IsoTimeValueElements getIsoTimeValueAccess() {
+		return (pIsoTimeValue != null) ? pIsoTimeValue : (pIsoTimeValue = new IsoTimeValueElements());
+	}
+	
+	public ParserRule getIsoTimeValueRule() {
+		return getIsoTimeValueAccess().getRule();
+	}
+
+	//DateAndTimeValue:
+	//
+	//	IsoDateAndTimeValue;
+	public DateAndTimeValueElements getDateAndTimeValueAccess() {
+		return (pDateAndTimeValue != null) ? pDateAndTimeValue : (pDateAndTimeValue = new DateAndTimeValueElements());
+	}
+	
+	public ParserRule getDateAndTimeValueRule() {
+		return getDateAndTimeValueAccess().getRule();
+	}
+
+	//IsoDateAndTimeValue:
+	//
+	//	dateValue=ISODATE timeValue=ISOTIME;
+	public IsoDateAndTimeValueElements getIsoDateAndTimeValueAccess() {
+		return (pIsoDateAndTimeValue != null) ? pIsoDateAndTimeValue : (pIsoDateAndTimeValue = new IsoDateAndTimeValueElements());
+	}
+	
+	public ParserRule getIsoDateAndTimeValueRule() {
+		return getIsoDateAndTimeValueAccess().getRule();
 	}
 
 	//Variable:
@@ -3333,6 +3521,22 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	("\r" | "\n")+;
 	public TerminalRule getNEWLINERule() {
 		return (tNEWLINE != null) ? tNEWLINE : (tNEWLINE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NEWLINE"));
+	} 
+
+	//terminal ISODATE:
+	//
+	//	"0".."9" "0".."9" "0".."9" "0".."9" "-" "0".."1" "0".."9" "-" "0".."3" "0".."9";
+	public TerminalRule getISODATERule() {
+		return (tISODATE != null) ? tISODATE : (tISODATE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ISODATE"));
+	} 
+
+	//terminal ISOTIME:
+	//
+	//	"T"? "0".."2" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")? ("Z" | ("+" | "-") "0".."2" "0".."9" ":"?
+	//
+	//	"0".."5" "0".."9")?;
+	public TerminalRule getISOTIMERule() {
+		return (tISOTIME != null) ? tISOTIME : (tISOTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ISOTIME"));
 	} 
 
 	//terminal ANY_OTHER:
