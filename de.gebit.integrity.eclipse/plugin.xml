@@ -9,7 +9,7 @@
             id="de.gebit.integrity.eclipse">
       </category>
       <view
-            name="Integrity Test Runner"
+            name="Integrity Test Control"
             icon="icons/view.gif"
             category="de.gebit.integrity.eclipse"
             class="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView"
