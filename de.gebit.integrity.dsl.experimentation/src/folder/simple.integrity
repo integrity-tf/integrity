@@ -4,14 +4,23 @@ packagedef mypackage with
 
 	operationdef concatenate uses de.gebit.integrity.experiments.fixtures.ConcatenationOperation
 
-	suitedef asuite with
+	suitedef asuite gets bludb with
 		
-		//test echo echo: 1970-10-30 = "10/30/70"
-		//test echo echo: "12/31/80" = 1980-12-31
+		test echo echo: 1970-10-30 = "10/30/70"
+		test echo echo: "12/31/80" = 1980-12-31
 		
-		test echoDate echo: 1970-10-30 = 1970-10-31
+		test echoDate echo: 1970-10-30 = 1970-10-30
+		
+		variable blah
+		test echo echo: bludb
 	
 		
+	suiteend
+ 	
+	suitedef bsuite gets haha with
+ 	
+		variable blub
+ 		
 	suiteend
 
 packageend

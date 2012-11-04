@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmGenericType;
@@ -339,7 +340,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		// fetch the host suite of the call
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite);
+		return filterVariableScope(tempScope, tempHostSuite, aCall);
 	}
 
 	/**
@@ -357,7 +358,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		// fetch the host suite of the parameter (should be correct for calls, tabletests and tests)
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aParam.eContainer().eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite);
+		return filterVariableScope(tempScope, tempHostSuite, aParam);
 	}
 
 	/**
@@ -373,13 +374,21 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite);
+		return filterVariableScope(tempScope, tempHostSuite, aTableTest);
 	}
 
-	private IScope filterVariableScope(IScope aScope, SuiteDefinition aCurrentSuite) {
+	private IScope filterVariableScope(IScope aScope, SuiteDefinition aCurrentSuite, EObject aContext) {
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 		for (IEObjectDescription tempElement : aScope.getAllElements()) {
-			EObject tempDefContainer = tempElement.getEObjectOrProxy().eContainer();
+			EObject tempEObject = tempElement.getEObjectOrProxy();
+			if (tempEObject.eIsProxy()) {
+				tempEObject = EcoreUtil.resolve(tempEObject, aContext);
+				if (tempEObject == null) {
+					continue;
+				}
+			}
+
+			EObject tempDefContainer = tempEObject.eContainer();
 
 			if (tempDefContainer instanceof SuiteDefinition) {
 				// this is a suite param -> must be the current suite
