@@ -987,7 +987,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
 								"Removes the breakpoint from the selected step.") {
 							public void run() {
-								if (!client.isActive()) {
+								if (client == null || !client.isActive()) {
 									showMessage("Sorry, but breakpoints can only be added or removed while connected "
 											+ "to a (running or paused) test runner instance!");
 								} else {
@@ -999,7 +999,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
 								"Adds a breakpoint to the selected step.") {
 							public void run() {
-								if (!client.isActive()) {
+								if (client == null || !client.isActive()) {
 									showMessage("Sorry, but breakpoints can only be added or removed while connected "
 											+ "to a (running or paused) test runner instance!");
 								} else {
