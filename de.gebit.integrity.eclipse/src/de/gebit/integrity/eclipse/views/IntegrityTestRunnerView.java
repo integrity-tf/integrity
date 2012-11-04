@@ -987,14 +987,24 @@ public class IntegrityTestRunnerView extends ViewPart {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
 								"Removes the breakpoint from the selected step.") {
 							public void run() {
-								client.deleteBreakpoint(tempEntry.getId());
+								if (!client.isActive()) {
+									showMessage("Sorry, but breakpoints can only be added or removed while connected "
+											+ "to a (running or paused) test runner instance!");
+								} else {
+									client.deleteBreakpoint(tempEntry.getId());
+								}
 							}
 						});
 					} else {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
 								"Adds a breakpoint to the selected step.") {
 							public void run() {
-								client.createBreakpoint(tempEntry.getId());
+								if (!client.isActive()) {
+									showMessage("Sorry, but breakpoints can only be added or removed while connected "
+											+ "to a (running or paused) test runner instance!");
+								} else {
+									client.createBreakpoint(tempEntry.getId());
+								}
 							}
 						});
 					}
@@ -1643,7 +1653,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 				@Override
 				public void run() {
 					treeViewer.setSelection(null);
-					treeViewer.setInput(setList);
+					treeViewer.setInput(null);
 
 					executionProgress.setSetList(setList);
 					executionProgress.redraw();
@@ -1654,11 +1664,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 							treeViewer));
 
 					// the drawer must be manually disposed
-					if (viewerContentDrawer != null) {
-						viewerContentDrawer.dispose(treeViewer.getTree());
-					}
+
+					TestTreeContentDrawer tempOldContentDrawer = viewerContentDrawer;
 					viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
 					viewerContentDrawer.attachToTree(treeViewer.getTree());
+					if (tempOldContentDrawer != null) {
+						tempOldContentDrawer.dispose(treeViewer.getTree());
+					}
+					treeViewer.setInput(setList);
 
 					((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
 

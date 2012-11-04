@@ -175,6 +175,8 @@ public class TestTreeContentDrawer {
 	 * @param aTree
 	 */
 	public void dispose(Tree aTree) {
+		aTree.removeListener(SWT.MeasureItem, measureListener);
+		aTree.removeListener(SWT.EraseItem, eraseListener);
 		nullColor.dispose();
 		suiteSuccessColor.dispose();
 		suiteFailureColor.dispose();
@@ -191,9 +193,6 @@ public class TestTreeContentDrawer {
 		for (int i = 0; i < forkColors.length; i++) {
 			forkColors[i].dispose();
 		}
-
-		aTree.removeListener(SWT.MeasureItem, measureListener);
-		aTree.removeListener(SWT.EraseItem, eraseListener);
 	}
 
 	/**
