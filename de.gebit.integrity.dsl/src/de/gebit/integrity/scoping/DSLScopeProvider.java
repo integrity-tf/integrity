@@ -336,14 +336,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	public IScope scope_Variable_name(Call aCall, EReference aRef) {
 		IScope tempScope = super.delegateGetScope(aCall, aRef);
 
-		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-		for (IEObjectDescription tempElement : tempScope.getAllElements()) {
-			EObject tempDefContainer = tempElement.getEObjectOrProxy().eContainer();
-			if (!((tempDefContainer instanceof SuiteDefinition) || (tempDefContainer instanceof ConstantDefinition))) {
-				tempList.add(tempElement);
-			}
-		}
-		return new SimpleScope(tempList);
+		// fetch the host suite of the call
+		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
+
+		return filterVariableScope(tempScope, tempHostSuite);
 	}
 
 	/**
