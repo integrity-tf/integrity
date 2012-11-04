@@ -294,7 +294,8 @@ public final class ParameterUtil {
 			} else if (aParamType == Calendar.class) {
 				return guardedDateConversion((DateValue) aValue);
 			} else if (aParamType == String.class) {
-				return DateFormat.getDateInstance(DateFormat.LONG).format(guardedDateConversion((DateValue) aValue));
+				return DateFormat.getDateInstance(DateFormat.LONG).format(
+						guardedDateConversion((DateValue) aValue).getTime());
 			} else {
 				throw new IllegalArgumentException("Date value '" + aValue + "'"
 						+ " is not autoconvertible to parameter type " + aParamType);
