@@ -1642,6 +1642,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
+					treeViewer.setSelection(null);
 					treeViewer.setInput(setList);
 
 					executionProgress.setSetList(setList);
