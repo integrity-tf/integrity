@@ -1515,7 +1515,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		Runnable tempRunnable = new Runnable() {
 			@Override
 			public void run() {
-				MessageDialog.openInformation(treeViewer.getControl().getShell(), "Integrity Test Runner", aMessage);
+				MessageDialog.openInformation(treeViewer.getControl().getShell(), "Integrity Test Control", aMessage);
 			}
 		};
 
