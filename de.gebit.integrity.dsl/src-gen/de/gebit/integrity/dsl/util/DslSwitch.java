@@ -6,7 +6,75 @@
  */
 package de.gebit.integrity.dsl.util;
 
-import de.gebit.integrity.dsl.*;
+import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
+import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.DecimalValue;
+import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
+import de.gebit.integrity.dsl.ExecutionMultiplier;
+import de.gebit.integrity.dsl.FixedParameterName;
+import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
+import de.gebit.integrity.dsl.Import;
+import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.IsoDateAndTimeValue;
+import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.IsoTimeValue;
+import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.KeyValuePair;
+import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.dsl.NamedCallResult;
+import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.Null;
+import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.dsl.PackageDefinition;
+import de.gebit.integrity.dsl.PackageStatement;
+import de.gebit.integrity.dsl.Parameter;
+import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.ResultName;
+import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Simple12HrsTimeValue;
+import de.gebit.integrity.dsl.Simple24HrsTimeValue;
+import de.gebit.integrity.dsl.Statement;
+import de.gebit.integrity.dsl.StaticValue;
+import de.gebit.integrity.dsl.StringValue;
+import de.gebit.integrity.dsl.Suite;
+import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteStatement;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
+import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.TableTestRow;
+import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
+import de.gebit.integrity.dsl.USDateValue;
+import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
+import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -616,6 +684,23 @@ public class DslSwitch<T> extends Switch<T>
         EnumValue enumValue = (EnumValue)theEObject;
         T result = caseEnumValue(enumValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(enumValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.OBJECT:
+      {
+        de.gebit.integrity.dsl.Object object = (de.gebit.integrity.dsl.Object)theEObject;
+        T result = caseObject(object);
+        if (result == null) result = caseStaticValue(object);
+        if (result == null) result = caseValue(object);
+        if (result == null) result = caseValueOrEnumValueOrOperation(object);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.KEY_VALUE_PAIR:
+      {
+        KeyValuePair keyValuePair = (KeyValuePair)theEObject;
+        T result = caseKeyValuePair(keyValuePair);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1659,6 +1744,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEnumValue(EnumValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseObject(de.gebit.integrity.dsl.Object object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseKeyValuePair(KeyValuePair object)
   {
     return null;
   }

@@ -133,7 +133,7 @@ Value:
 	StaticValue | Variable;
 	
 StaticValue:
-	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | Object;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -195,6 +195,12 @@ NullValue:
 EnumValue:
 	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
 	
+Object:
+	'{' NL (attributes+=KeyValuePair NL)+ '}';
+	
+KeyValuePair:
+	identifier=ID NL ':' NL value=ValueOrEnumValueOrOperationCollection;
+	
 JavaClassReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName];
 	
@@ -218,6 +224,7 @@ NL:
 	
 NLFORCED:
 	NEWLINE WS? NL;
+
 
 terminal BOOLEAN_TRUE: 'true';
 terminal BOOLEAN_FALSE: 'false';

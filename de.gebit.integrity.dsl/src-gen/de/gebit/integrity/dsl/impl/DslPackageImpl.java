@@ -31,6 +31,7 @@ import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
@@ -533,6 +534,20 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass enumValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass objectEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass keyValuePairEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2103,6 +2118,56 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getObject()
+  {
+    return objectEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObject_Attributes()
+  {
+    return (EReference)objectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getKeyValuePair()
+  {
+    return keyValuePairEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getKeyValuePair_Identifier()
+  {
+    return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getKeyValuePair_Value()
+  {
+    return (EReference)keyValuePairEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getJavaClassReference()
   {
     return javaClassReferenceEClass;
@@ -2418,6 +2483,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     enumValueEClass = createEClass(ENUM_VALUE);
     createEReference(enumValueEClass, ENUM_VALUE__ENUM_VALUE);
 
+    objectEClass = createEClass(OBJECT);
+    createEReference(objectEClass, OBJECT__ATTRIBUTES);
+
+    keyValuePairEClass = createEClass(KEY_VALUE_PAIR);
+    createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__IDENTIFIER);
+    createEReference(keyValuePairEClass, KEY_VALUE_PAIR__VALUE);
+
     javaClassReferenceEClass = createEClass(JAVA_CLASS_REFERENCE);
     createEReference(javaClassReferenceEClass, JAVA_CLASS_REFERENCE__TYPE);
 
@@ -2513,6 +2585,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableEClass.getESuperTypes().add(this.getValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
+    objectEClass.getESuperTypes().add(this.getStaticValue());
     nullEClass.getESuperTypes().add(this.getNullValue());
 
     // Initialize classes and features; add operations and parameters
@@ -2725,6 +2798,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(enumValueEClass, EnumValue.class, "EnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEnumValue_EnumValue(), theTypesPackage.getJvmEnumerationLiteral(), null, "enumValue", null, 0, 1, EnumValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(objectEClass, de.gebit.integrity.dsl.Object.class, "Object", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getObject_Attributes(), this.getKeyValuePair(), null, "attributes", null, 0, -1, de.gebit.integrity.dsl.Object.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(keyValuePairEClass, KeyValuePair.class, "KeyValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getKeyValuePair_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getKeyValuePair_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(javaClassReferenceEClass, JavaClassReference.class, "JavaClassReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getJavaClassReference_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, JavaClassReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

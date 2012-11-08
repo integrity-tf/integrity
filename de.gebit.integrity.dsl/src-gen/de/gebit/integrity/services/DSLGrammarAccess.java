@@ -2099,13 +2099,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cObjectParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
 		//StaticValue:
 		//
-		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
+		//
+		//	Object;
 		public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue
+		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | Object
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -2131,6 +2134,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NullValue
 		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
+
+		//Object
+		public RuleCall getObjectParserRuleCall_8() { return cObjectParserRuleCall_8; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -2581,6 +2587,88 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1() { return cEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1; }
 	}
 
+	public class ObjectElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Object");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cAttributesAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cAttributesKeyValuePairParserRuleCall_2_0_0 = (RuleCall)cAttributesAssignment_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Object:
+		//
+		//	"{" NL (attributes+=KeyValuePair NL)+ "}";
+		public ParserRule getRule() { return rule; }
+
+		//"{" NL (attributes+=KeyValuePair NL)+ "}"
+		public Group getGroup() { return cGroup; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//(attributes+=KeyValuePair NL)+
+		public Group getGroup_2() { return cGroup_2; }
+
+		//attributes+=KeyValuePair
+		public Assignment getAttributesAssignment_2_0() { return cAttributesAssignment_2_0; }
+
+		//KeyValuePair
+		public RuleCall getAttributesKeyValuePairParserRuleCall_2_0_0() { return cAttributesKeyValuePairParserRuleCall_2_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1() { return cNLParserRuleCall_2_1; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+	}
+
+	public class KeyValuePairElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "KeyValuePair");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cIdentifierAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cIdentifierIDTerminalRuleCall_0_0 = (RuleCall)cIdentifierAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		
+		//KeyValuePair:
+		//
+		//	identifier=ID NL ":" NL value=ValueOrEnumValueOrOperationCollection;
+		public ParserRule getRule() { return rule; }
+
+		//identifier=ID NL ":" NL value=ValueOrEnumValueOrOperationCollection
+		public Group getGroup() { return cGroup; }
+
+		//identifier=ID
+		public Assignment getIdentifierAssignment_0() { return cIdentifierAssignment_0; }
+
+		//ID
+		public RuleCall getIdentifierIDTerminalRuleCall_0_0() { return cIdentifierIDTerminalRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//":"
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//value=ValueOrEnumValueOrOperationCollection
+		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
+
+		//ValueOrEnumValueOrOperationCollection
+		public RuleCall getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0; }
+	}
+
 	public class JavaClassReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JavaClassReference");
 		private final Assignment cTypeAssignment = (Assignment)rule.eContents().get(1);
@@ -2853,6 +2941,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableElements pVariable;
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
+	private ObjectElements pObject;
+	private KeyValuePairElements pKeyValuePair;
 	private JavaClassReferenceElements pJavaClassReference;
 	private MethodReferenceElements pMethodReference;
 	private ExecutionMultiplierElements pExecutionMultiplier;
@@ -3402,7 +3492,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//
-	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
+	//
+	//	Object;
 	public StaticValueElements getStaticValueAccess() {
 		return (pStaticValue != null) ? pStaticValue : (pStaticValue = new StaticValueElements());
 	}
@@ -3629,6 +3721,28 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getEnumValueRule() {
 		return getEnumValueAccess().getRule();
+	}
+
+	//Object:
+	//
+	//	"{" NL (attributes+=KeyValuePair NL)+ "}";
+	public ObjectElements getObjectAccess() {
+		return (pObject != null) ? pObject : (pObject = new ObjectElements());
+	}
+	
+	public ParserRule getObjectRule() {
+		return getObjectAccess().getRule();
+	}
+
+	//KeyValuePair:
+	//
+	//	identifier=ID NL ":" NL value=ValueOrEnumValueOrOperationCollection;
+	public KeyValuePairElements getKeyValuePairAccess() {
+		return (pKeyValuePair != null) ? pKeyValuePair : (pKeyValuePair = new KeyValuePairElements());
+	}
+	
+	public ParserRule getKeyValuePairRule() {
+		return getKeyValuePairAccess().getRule();
 	}
 
 	//JavaClassReference:

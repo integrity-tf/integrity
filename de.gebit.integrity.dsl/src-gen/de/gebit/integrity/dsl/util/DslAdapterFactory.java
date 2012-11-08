@@ -6,7 +6,75 @@
  */
 package de.gebit.integrity.dsl.util;
 
-import de.gebit.integrity.dsl.*;
+import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
+import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DateAndTimeValue;
+import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.DecimalValue;
+import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
+import de.gebit.integrity.dsl.EuropeanDateValue;
+import de.gebit.integrity.dsl.ExecutionMultiplier;
+import de.gebit.integrity.dsl.FixedParameterName;
+import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
+import de.gebit.integrity.dsl.Import;
+import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.IsoDateAndTimeValue;
+import de.gebit.integrity.dsl.IsoDateValue;
+import de.gebit.integrity.dsl.IsoTimeValue;
+import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.KeyValuePair;
+import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.dsl.NamedCallResult;
+import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.Null;
+import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.dsl.PackageDefinition;
+import de.gebit.integrity.dsl.PackageStatement;
+import de.gebit.integrity.dsl.Parameter;
+import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.ResultName;
+import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Simple12HrsTimeValue;
+import de.gebit.integrity.dsl.Simple24HrsTimeValue;
+import de.gebit.integrity.dsl.Statement;
+import de.gebit.integrity.dsl.StaticValue;
+import de.gebit.integrity.dsl.StringValue;
+import de.gebit.integrity.dsl.Suite;
+import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteStatement;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
+import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.TableTestRow;
+import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
+import de.gebit.integrity.dsl.USDateValue;
+import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
+import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineComment;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -392,6 +460,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEnumValue(EnumValue object)
       {
         return createEnumValueAdapter();
+      }
+      @Override
+      public Adapter caseObject(de.gebit.integrity.dsl.Object object)
+      {
+        return createObjectAdapter();
+      }
+      @Override
+      public Adapter caseKeyValuePair(KeyValuePair object)
+      {
+        return createKeyValuePairAdapter();
       }
       @Override
       public Adapter caseJavaClassReference(JavaClassReference object)
@@ -1376,6 +1454,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEnumValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Object <em>Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.Object
+   * @generated
+   */
+  public Adapter createObjectAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.KeyValuePair <em>Key Value Pair</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.KeyValuePair
+   * @generated
+   */
+  public Adapter createKeyValuePairAdapter()
   {
     return null;
   }

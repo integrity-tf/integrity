@@ -24,6 +24,7 @@ import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
@@ -251,6 +252,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case DslPackage.KEY_VALUE_PAIR:
+				if(context == grammarAccess.getKeyValuePairRule()) {
+					sequence_KeyValuePair(context, (KeyValuePair) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.METHOD_REFERENCE:
 				if(context == grammarAccess.getMethodReferenceRule()) {
 					sequence_MethodReference(context, (MethodReference) semanticObject); 
@@ -281,6 +288,15 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_NullValue(context, (Null) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.OBJECT:
+				if(context == grammarAccess.getObjectRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_Object(context, (de.gebit.integrity.dsl.Object) semanticObject); 
 					return; 
 				}
 				else break;
@@ -820,6 +836,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     (identifier=ID value=ValueOrEnumValueOrOperationCollection)
+	 */
+	protected void sequence_KeyValuePair(EObject context, KeyValuePair semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0(), semanticObject.getIdentifier());
+		feeder.accept(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] method=[JvmOperation|ID])
 	 */
 	protected void sequence_MethodReference(EObject context, MethodReference semanticObject) {
@@ -889,6 +924,15 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     {Null}
 	 */
 	protected void sequence_NullValue(EObject context, Null semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     attributes+=KeyValuePair+
+	 */
+	protected void sequence_Object(EObject context, de.gebit.integrity.dsl.Object semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

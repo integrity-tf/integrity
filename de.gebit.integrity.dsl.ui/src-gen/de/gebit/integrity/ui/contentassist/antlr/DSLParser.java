@@ -118,6 +118,9 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getGroup(), "rule__EuropeanDateAnd12HrsTimeValue__Group__0");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getGroup(), "rule__USDateAnd12HrsTimeValue__Group__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
+					put(grammarAccess.getObjectAccess().getGroup(), "rule__Object__Group__0");
+					put(grammarAccess.getObjectAccess().getGroup_2(), "rule__Object__Group_2__0");
+					put(grammarAccess.getKeyValuePairAccess().getGroup(), "rule__KeyValuePair__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
@@ -220,6 +223,9 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2(), "rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
+					put(grammarAccess.getObjectAccess().getAttributesAssignment_2_0(), "rule__Object__AttributesAssignment_2_0");
+					put(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0(), "rule__KeyValuePair__IdentifierAssignment_0");
+					put(grammarAccess.getKeyValuePairAccess().getValueAssignment_4(), "rule__KeyValuePair__ValueAssignment_4");
 					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");
 					put(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0(), "rule__MethodReference__TypeAssignment_0");
 					put(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2(), "rule__MethodReference__MethodAssignment_2");

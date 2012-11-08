@@ -594,6 +594,24 @@ public interface DslFactory extends EFactory
   EnumValue createEnumValue();
 
   /**
+   * Returns a new object of class '<em>Object</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object</em>'.
+   * @generated
+   */
+  Object createObject();
+
+  /**
+   * Returns a new object of class '<em>Key Value Pair</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Key Value Pair</em>'.
+   * @generated
+   */
+  KeyValuePair createKeyValuePair();
+
+  /**
    * Returns a new object of class '<em>Java Class Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
