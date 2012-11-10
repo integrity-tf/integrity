@@ -22,6 +22,7 @@ import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
+import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -280,11 +281,11 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, IntegrityValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException {
-		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, aConverter,
+				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -311,11 +312,11 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, IntegrityValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException {
-		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, aConverter,
+				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -344,7 +345,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
@@ -359,8 +360,8 @@ public final class IntegrityDSLUtil {
 			tempCount++;
 		}
 
-		return createParameterMap(tempParameterMap, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+		return createParameterMap(tempParameterMap, aVariableMap, aClassLoader, aConverter,
+				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	/**
@@ -387,7 +388,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
@@ -395,20 +396,20 @@ public final class IntegrityDSLUtil {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
 		}
 
-		return createParameterMap(tempParameters, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+		return createParameterMap(tempParameters, aVariableMap, aClassLoader, aConverter,
+				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
 	}
 
 	private static Map<String, Object> createParameterMap(
 			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempEntry.getValue(),
-						aVariableMap, aClassLoader, aLeaveUnresolvableVariableReferencesIntact);
+						aVariableMap, aClassLoader, aConverter, aLeaveUnresolvableVariableReferencesIntact);
 
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
 					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
@@ -438,7 +439,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
 			ClassNotFoundException {
 		if (aValueCollection.getMoreValues().size() > 0) {
@@ -450,12 +451,12 @@ public final class IntegrityDSLUtil {
 						.getMoreValues().get(i - 1));
 
 				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue, aVariableMap, aClassLoader,
-						aLeaveUnresolvableVariableReferencesIntact);
+						aConverter, aLeaveUnresolvableVariableReferencesIntact);
 			}
 			return tempValueArray;
 		} else {
 			// if only one value has been provided
-			return resolveSingleParameterValue(aValueCollection.getValue(), aVariableMap, aClassLoader,
+			return resolveSingleParameterValue(aValueCollection.getValue(), aVariableMap, aClassLoader, aConverter,
 					aLeaveUnresolvableVariableReferencesIntact);
 		}
 	}
@@ -479,7 +480,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
 			ClassNotFoundException {
 		if (aValue instanceof Variable) {
@@ -489,7 +490,7 @@ public final class IntegrityDSLUtil {
 			}
 		} else if (aValue instanceof Operation) {
 			if (aClassLoader != null) {
-				OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader);
+				OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader, aConverter);
 				return tempWrapper.executeOperation(aVariableMap, false);
 			} else {
 				return null;
@@ -498,7 +499,7 @@ public final class IntegrityDSLUtil {
 			Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
 			for (KeyValuePair tempAttribute : ((NestedObject) aValue).getAttributes()) {
 				Object tempResolvedValue = resolveParameterValue(tempAttribute.getValue(), aVariableMap, aClassLoader,
-						aLeaveUnresolvableVariableReferencesIntact);
+						aConverter, aLeaveUnresolvableVariableReferencesIntact);
 				tempKeyValueMap.put(tempAttribute.getIdentifier(), tempResolvedValue);
 			}
 

@@ -8,8 +8,6 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
-import de.gebit.integrity.dsl.DslFactory;
-import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
@@ -122,9 +120,6 @@ public final class ConsoleTestExecutor {
 				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
 				return;
 			} else {
-				Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
-				tempRootSuiteCall.setDefinition(tempRootSuite);
-
 				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
 				if (!tempConsoleOption.isSet()) {
 					tempCallback.addCallback(new ConsoleTestCallback(tempResourceProvider.getClassLoader()));
@@ -143,8 +138,8 @@ public final class ConsoleTestExecutor {
 				}
 
 				try {
-					tempRunner = new TestRunner(tempModel, tempCallback, tempRemotePort, tempRemoteHost, someArgs);
-					tempRunner.run(tempRootSuiteCall, tempVariant, tempWaitForPlayOption.isSet());
+					tempRunner = tempModel.initializeTestRunner(tempCallback, tempRemotePort, tempRemoteHost, someArgs);
+					tempRunner.run(tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}

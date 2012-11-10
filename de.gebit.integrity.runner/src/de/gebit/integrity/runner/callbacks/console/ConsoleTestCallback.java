@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -80,6 +81,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	private Map<VariableEntity, Object> variableStorage;
 
 	/**
+	 * The value converter to use.
+	 */
+	private IntegrityValueConverter valueConverter;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aClassLoader
@@ -87,11 +93,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	 */
 	public ConsoleTestCallback(ClassLoader aClassLoader) {
 		classLoader = aClassLoader;
-		formatter = new TestFormatter(classLoader);
 	}
 
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
+			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
 		String tempLine = "Test execution has begun";
 		if (aVariant != null) {
 			tempLine += " (variant '" + aVariant.getName() + "'";
@@ -105,6 +111,8 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println(tempLine);
 		startTime = System.currentTimeMillis();
 		variableStorage = aVariableMap;
+		valueConverter = aValueConverter;
+		formatter = new TestFormatter(classLoader, aValueConverter);
 	}
 
 	@Override
@@ -149,14 +157,14 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 						ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue()
 								.getExpectedValue();
 						print("'"
-								+ ParameterUtil.convertValueToString((tempExpectedValue == null ? true
+								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
 										: tempExpectedValue), variableStorage, classLoader, false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
-								+ ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
-										classLoader, false) + "'!");
+								+ valueConverter.convertValueToString(tempEntry.getValue().getResult(),
+										variableStorage, classLoader, false) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -197,7 +205,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, classLoader, false)));
+						+ valueConverter.convertValueToString(anInitialValue, variableStorage, classLoader, false)));
 	}
 
 	@Override

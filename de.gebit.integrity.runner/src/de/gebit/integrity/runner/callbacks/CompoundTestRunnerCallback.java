@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
@@ -72,9 +73,10 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
+			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onExecutionStart(aModel, aVariant, aVariableMap);
+			tempCallback.onExecutionStart(aModel, aVariant, aVariableMap, aValueConverter);
 		}
 	}
 

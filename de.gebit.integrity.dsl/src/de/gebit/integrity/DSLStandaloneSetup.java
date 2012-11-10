@@ -13,7 +13,7 @@ public class DSLStandaloneSetup extends DSLStandaloneSetupGenerated {
 	/**
 	 * The classloader to use.
 	 */
-	ClassLoader classLoader;
+	private ClassLoader classLoader;
 
 	/**
 	 * Creates a new instance with the default classloader, which is the one that loaded the setup class.
@@ -38,6 +38,10 @@ public class DSLStandaloneSetup extends DSLStandaloneSetupGenerated {
 	 */
 	public static void doSetup(ClassLoader aClassLoader) {
 		new DSLStandaloneSetup(aClassLoader).createInjectorAndDoEMFRegistration();
+	}
+
+	protected ClassLoader getClassLoader() {
+		return classLoader;
 	}
 
 	@Override

@@ -8,10 +8,10 @@ import java.util.Map;
 
 import org.eclipse.xtext.common.types.JvmType;
 
+import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -34,6 +34,11 @@ public class OperationWrapper {
 	private Class<? extends de.gebit.integrity.operations.Operation<?, ?, ?>> operationClass;
 
 	/**
+	 * The value converter to use.
+	 */
+	private IntegrityValueConverter valueConverter;
+
+	/**
 	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the provided
 	 * classloader.
 	 * 
@@ -41,12 +46,16 @@ public class OperationWrapper {
 	 *            the operation to wrap
 	 * @param aClassLoader
 	 *            the classloader to use for loading the operation class
+	 * @param aValueConverter
+	 *            the value converter to use
 	 * @throws ClassNotFoundException
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader) throws ClassNotFoundException {
+	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader, IntegrityValueConverter aValueConverter)
+			throws ClassNotFoundException {
 		operation = anOperation;
+		valueConverter = aValueConverter;
 
 		OperationDefinition tempDefinition = operation.getDefinition();
 		if (tempDefinition == null) {
@@ -94,13 +103,13 @@ public class OperationWrapper {
 		try {
 			Object tempConvertedPrefixParameter = null;
 			if (operation.getPrefixOperand() != null) {
-				tempConvertedPrefixParameter = ParameterUtil.convertEncapsulatedValueCollectionToParamType(
+				tempConvertedPrefixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
 						determinePrefixParameterTargetType(), operation.getPrefixOperand(), aVariableMap,
 						operationClass.getClassLoader());
 			}
 			Object tempConvertedPostfixParameter = null;
 			if (operation.getPostfixOperand() != null) {
-				tempConvertedPostfixParameter = ParameterUtil.convertEncapsulatedValueCollectionToParamType(
+				tempConvertedPostfixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
 						determinePostfixParameterTargetType(), operation.getPostfixOperand(), aVariableMap,
 						operationClass.getClassLoader());
 			}

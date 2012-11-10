@@ -26,6 +26,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
@@ -53,7 +54,6 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.TestFormatter;
 
 /**
@@ -80,6 +80,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * The variable storage used to store variables during execution.
 	 */
 	private Map<VariableEntity, Object> variableStorage;
+
+	/**
+	 * The value converter to use.
+	 */
+	private IntegrityValueConverter valueConverter;
 
 	/**
 	 * The XML document that will be created.
@@ -314,7 +319,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	public XmlWriterTestCallback(ClassLoader aClassLoader, File anOutputFile, String aTitle,
 			boolean anEmbedXhtmlTransformFlag) {
 		classLoader = aClassLoader;
-		formatter = new TestFormatter(classLoader);
 		outputFile = anOutputFile;
 		title = aTitle;
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
@@ -331,7 +335,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 *            the a variable map
 	 */
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
+			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {
@@ -374,6 +379,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 
 		variableStorage = aVariableMap;
+		valueConverter = aValueConverter;
+		formatter = new TestFormatter(classLoader, aValueConverter);
 		executionStartTime = System.nanoTime();
 	}
 
@@ -619,7 +626,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, classLoader, true, false);
+			tempParameterMap = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, classLoader, valueConverter,
+					true, false);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -678,7 +686,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
 				tempParameterMap = IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, classLoader,
-						true, false);
+						valueConverter, true, false);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -756,7 +764,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
 			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(tempEntry.getValue(), variableStorage, classLoader, false));
+					valueConverter.convertValueToString(tempEntry.getValue(), variableStorage, classLoader, false));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
@@ -794,12 +802,12 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 				// Either there is an expected value, or if there isn't, "true" is the default
 				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
+				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
 						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
 								classLoader, false));
 				if (tempEntry.getValue().getResult() != null) {
 					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-							ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
+							valueConverter.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
 									classLoader, false));
 				}
 
@@ -850,7 +858,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(tempParameter.getValue(), variableStorage, classLoader, false));
+					valueConverter.convertValueToString(tempParameter.getValue(), variableStorage, classLoader, false));
 
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
@@ -905,7 +913,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
 								tempUpdatedVariable.getParameterName());
 					}
-					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, ParameterUtil
+					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, valueConverter
 							.convertValueToString(tempUpdatedVariable.getValue(), variableStorage, classLoader, false));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
@@ -1104,7 +1112,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(anInitialValue, variableStorage, classLoader, false));
+					valueConverter.convertValueToString(anInitialValue, variableStorage, classLoader, false));
 		}
 
 		if (!isDryRun()) {

@@ -24,7 +24,6 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Injector;
 
-import de.gebit.integrity.DSLStandaloneSetup;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Model;
@@ -34,6 +33,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
@@ -207,7 +207,7 @@ public class TestModel {
 	 */
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag)
 			throws ModelLoadException {
-		Injector tempInjector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
+		Injector tempInjector = new IntegrityDSLSetup(aResourceProvider.getClassLoader())
 				.createInjectorAndDoEMFRegistration();
 
 		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
@@ -362,5 +362,31 @@ public class TestModel {
 			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
 					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
 		}
+	}
+
+	/**
+	 * Initializes a fresh test runner instance, based on this test model.
+	 * 
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param aRemotingPort
+	 *            the port on which the remoting server should listen, or null if remoting should be disabled
+	 * @param aRemotingBindHost
+	 *            the host name (or IP) to which the remoting server should bind
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @return the initialized test runner instance
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
+	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Integer aRemotingPort,
+			String aRemotingBindHost, String[] someCommandLineArguments) throws IOException {
+		TestRunner tempRunner = injector.getInstance(TestRunner.class);
+
+		((DefaultTestRunner) tempRunner).initialize(this, aCallback, aRemotingPort, aRemotingBindHost,
+				someCommandLineArguments);
+
+		return tempRunner;
 	}
 }

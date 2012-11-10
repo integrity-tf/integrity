@@ -79,7 +79,7 @@ public abstract class IntegrityJUnitTest {
 					.getClassLoader()), new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile,
 					"Integrity JUnit Testing", false));
 
-			TestRunner tempRunner = new TestRunner(tempModel, tempCallback, null, null);
+			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 
