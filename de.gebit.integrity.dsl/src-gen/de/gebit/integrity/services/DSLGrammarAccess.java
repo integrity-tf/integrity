@@ -2072,13 +2072,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cStaticValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cVariableParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cNestedObjectParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Value:
 		//
-		//	StaticValue | Variable;
+		//	StaticValue | Variable | NestedObject;
 		public ParserRule getRule() { return rule; }
 
-		//StaticValue | Variable
+		//StaticValue | Variable | NestedObject
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StaticValue
@@ -2086,6 +2087,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Variable
 		public RuleCall getVariableParserRuleCall_1() { return cVariableParserRuleCall_1; }
+
+		//NestedObject
+		public RuleCall getNestedObjectParserRuleCall_2() { return cNestedObjectParserRuleCall_2; }
 	}
 
 	public class StaticValueElements extends AbstractParserRuleElementFinder {
@@ -2099,16 +2103,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cObjectParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
 		//StaticValue:
 		//
-		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-		//
-		//	Object;
+		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
 		public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | Object
+		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -2134,9 +2135,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NullValue
 		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
-
-		//Object
-		public RuleCall getObjectParserRuleCall_8() { return cObjectParserRuleCall_8; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -2587,8 +2585,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1() { return cEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1; }
 	}
 
-	public class ObjectElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Object");
+	public class NestedObjectElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NestedObject");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
@@ -2598,7 +2596,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//Object:
+		//NestedObject:
 		//
 		//	"{" NL (attributes+=KeyValuePair NL)+ "}";
 		public ParserRule getRule() { return rule; }
@@ -2941,7 +2939,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableElements pVariable;
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
-	private ObjectElements pObject;
+	private NestedObjectElements pNestedObject;
 	private KeyValuePairElements pKeyValuePair;
 	private JavaClassReferenceElements pJavaClassReference;
 	private MethodReferenceElements pMethodReference;
@@ -3481,7 +3479,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Value:
 	//
-	//	StaticValue | Variable;
+	//	StaticValue | Variable | NestedObject;
 	public ValueElements getValueAccess() {
 		return (pValue != null) ? pValue : (pValue = new ValueElements());
 	}
@@ -3492,9 +3490,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//
-	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-	//
-	//	Object;
+	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
 	public StaticValueElements getStaticValueAccess() {
 		return (pStaticValue != null) ? pStaticValue : (pStaticValue = new StaticValueElements());
 	}
@@ -3723,15 +3719,15 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getEnumValueAccess().getRule();
 	}
 
-	//Object:
+	//NestedObject:
 	//
 	//	"{" NL (attributes+=KeyValuePair NL)+ "}";
-	public ObjectElements getObjectAccess() {
-		return (pObject != null) ? pObject : (pObject = new ObjectElements());
+	public NestedObjectElements getNestedObjectAccess() {
+		return (pNestedObject != null) ? pNestedObject : (pNestedObject = new NestedObjectElements());
 	}
 	
-	public ParserRule getObjectRule() {
-		return getObjectAccess().getRule();
+	public ParserRule getNestedObjectRule() {
+		return getNestedObjectAccess().getRule();
 	}
 
 	//KeyValuePair:

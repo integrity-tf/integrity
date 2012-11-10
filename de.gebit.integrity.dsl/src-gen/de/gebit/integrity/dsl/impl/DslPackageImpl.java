@@ -36,6 +36,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Null;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.Operation;
@@ -540,7 +541,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass objectEClass = null;
+  private EClass nestedObjectEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2118,9 +2119,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getObject()
+  public EClass getNestedObject()
   {
-    return objectEClass;
+    return nestedObjectEClass;
   }
 
   /**
@@ -2128,9 +2129,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getObject_Attributes()
+  public EReference getNestedObject_Attributes()
   {
-    return (EReference)objectEClass.getEStructuralFeatures().get(0);
+    return (EReference)nestedObjectEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2483,8 +2484,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     enumValueEClass = createEClass(ENUM_VALUE);
     createEReference(enumValueEClass, ENUM_VALUE__ENUM_VALUE);
 
-    objectEClass = createEClass(OBJECT);
-    createEReference(objectEClass, OBJECT__ATTRIBUTES);
+    nestedObjectEClass = createEClass(NESTED_OBJECT);
+    createEReference(nestedObjectEClass, NESTED_OBJECT__ATTRIBUTES);
 
     keyValuePairEClass = createEClass(KEY_VALUE_PAIR);
     createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__IDENTIFIER);
@@ -2585,7 +2586,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableEClass.getESuperTypes().add(this.getValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
-    objectEClass.getESuperTypes().add(this.getStaticValue());
+    nestedObjectEClass.getESuperTypes().add(this.getValue());
     nullEClass.getESuperTypes().add(this.getNullValue());
 
     // Initialize classes and features; add operations and parameters
@@ -2799,8 +2800,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(enumValueEClass, EnumValue.class, "EnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEnumValue_EnumValue(), theTypesPackage.getJvmEnumerationLiteral(), null, "enumValue", null, 0, 1, EnumValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(objectEClass, de.gebit.integrity.dsl.Object.class, "Object", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getObject_Attributes(), this.getKeyValuePair(), null, "attributes", null, 0, -1, de.gebit.integrity.dsl.Object.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(nestedObjectEClass, NestedObject.class, "NestedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNestedObject_Attributes(), this.getKeyValuePair(), null, "attributes", null, 0, -1, NestedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(keyValuePairEClass, KeyValuePair.class, "KeyValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getKeyValuePair_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

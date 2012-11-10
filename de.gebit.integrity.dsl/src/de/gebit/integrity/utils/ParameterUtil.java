@@ -22,6 +22,7 @@ import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.IntegerValue;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.StringValue;
@@ -323,6 +324,15 @@ public final class ParameterUtil {
 				throw new IllegalArgumentException("Date/Time value '" + aValue + "'"
 						+ " is not autoconvertible to parameter type " + aParamType);
 			}
+		} else if (aValue instanceof NestedObject) {
+			if (aParamType == String.class) {
+				return aValue.toString();
+			} else if (Map.class.isAssignableFrom(aParamType)) {
+				return IntegrityDSLUtil.resolveSingleParameterValue(aValue, aVariableMap, aClassLoader, false);
+			} else {
+				throw new IllegalArgumentException("Cannot convert a nested object to parameter type " + aParamType
+						+ " - it's advised to use a java.util.Map as target type!");
+			}
 		} else {
 			throw new UnsupportedOperationException("Value " + aValue.getClass() + " is unsupported");
 		}
@@ -439,6 +449,18 @@ public final class ParameterUtil {
 		} else if (aValue instanceof Date) {
 			return maskNullString(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aValue),
 					!anAllowNullResultFlag);
+		} else if (aValue instanceof NestedObject) {
+			try {
+				return maskNullString(
+						IntegrityDSLUtil.resolveSingleParameterValue((NestedObject) aValue, aVariableMap, aClassLoader,
+								false).toString(), !anAllowNullResultFlag);
+			} catch (ClassNotFoundException exc) {
+				return anAllowNullResultFlag ? null : "FAILURE";
+			} catch (UnexecutableException exc) {
+				return anAllowNullResultFlag ? null : "FAILURE";
+			} catch (InstantiationException exc) {
+				return anAllowNullResultFlag ? null : "FAILURE";
+			}
 		} else if (aValue instanceof NullValue) {
 			return "null";
 		} else {

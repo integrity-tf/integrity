@@ -239,7 +239,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValueOrOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Object" eSuperTypes="#//StaticValue">
+  <eClassifiers xsi:type="ecore:EClass" name="NestedObject" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//KeyValuePair" containment="true"/>
   </eClassifiers>

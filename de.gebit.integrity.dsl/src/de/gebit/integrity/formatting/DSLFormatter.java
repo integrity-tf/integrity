@@ -80,8 +80,8 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				.getSuiteDefinitionAccess().getSuiteendKeyword_10());
 
 		// Objects
-		aConfig.setIndentation(tempGrammar.getObjectAccess().getLeftCurlyBracketKeyword_0(), tempGrammar
-				.getObjectAccess().getRightCurlyBracketKeyword_3());
+		aConfig.setIndentation(tempGrammar.getNestedObjectAccess().getLeftCurlyBracketKeyword_0(), tempGrammar
+				.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
 
 		// Constant Variants
 		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_1(), tempGrammar

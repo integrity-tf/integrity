@@ -1,6 +1,7 @@
 package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,10 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
@@ -404,54 +407,9 @@ public final class IntegrityDSLUtil {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
-				Object tempValue = null;
-				ValueOrEnumValueOrOperationCollection tempValueOrEnumValueCollection = (ValueOrEnumValueOrOperationCollection) tempEntry
-						.getValue();
-				if (tempValueOrEnumValueCollection.getMoreValues().size() > 0) {
-					// if multiple values have been provided
-					Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
-					tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
-					for (int i = 0; i <= tempValueOrEnumValueCollection.getMoreValues().size(); i++) {
-						ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? tempValueOrEnumValueCollection
-								.getValue() : tempValueOrEnumValueCollection.getMoreValues().get(i - 1));
+				Object tempValue = resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempEntry.getValue(),
+						aVariableMap, aClassLoader, aLeaveUnresolvableVariableReferencesIntact);
 
-						tempValue = tempSingleValue;
-						if (tempSingleValue instanceof Variable) {
-							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
-									.get(((Variable) tempSingleValue).getName()) : null);
-							if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-								tempValue = tempResolvedValue;
-							}
-						} else if (tempSingleValue instanceof Operation) {
-							if (aClassLoader != null) {
-								OperationWrapper tempWrapper = new OperationWrapper((Operation) tempSingleValue,
-										aClassLoader);
-								tempValue = tempWrapper.executeOperation(aVariableMap, false);
-							} else {
-								tempValue = null;
-							}
-						}
-						tempValueArray[i] = tempValue;
-					}
-					tempValue = tempValueArray;
-				} else {
-					// if only one value has been provided
-					tempValue = tempValueOrEnumValueCollection.getValue();
-					if (tempValue instanceof Variable) {
-						Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
-								.getName()) : null);
-						if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-							tempValue = tempResolvedValue;
-						}
-					} else if (tempValue instanceof Operation) {
-						if (aClassLoader != null) {
-							OperationWrapper tempWrapper = new OperationWrapper((Operation) tempValue, aClassLoader);
-							tempValue = tempWrapper.executeOperation(aVariableMap, false);
-						} else {
-							tempValue = null;
-						}
-					}
-				}
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
 					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
 				}
@@ -459,6 +417,95 @@ public final class IntegrityDSLUtil {
 		}
 
 		return tempResult;
+	}
+
+	/**
+	 * Resolves the given {@link ValueOrEnumValueOrOperationCollection}, using the variable map given. Resolving only
+	 * attempts to execute any operations and replace variable references with the current variable value, but does NOT
+	 * convert the values to any other target type.
+	 * 
+	 * @param aValueCollection
+	 *            the value collection to resolve
+	 * @param aVariableMap
+	 *            the variable map used to resolve variables (optional)
+	 * @param aClassLoader
+	 *            the classloader to use for loading of operation classes (optional)
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
+	 * @return the resolved value
+	 * @throws UnexecutableException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public static Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
+			ClassNotFoundException {
+		if (aValueCollection.getMoreValues().size() > 0) {
+			// if multiple values have been provided
+			Object[] tempValueArray = new Object[aValueCollection.getMoreValues().size() + 1];
+			tempValueArray[0] = aValueCollection.getValue();
+			for (int i = 0; i <= aValueCollection.getMoreValues().size(); i++) {
+				ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? aValueCollection.getValue() : aValueCollection
+						.getMoreValues().get(i - 1));
+
+				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue, aVariableMap, aClassLoader,
+						aLeaveUnresolvableVariableReferencesIntact);
+			}
+			return tempValueArray;
+		} else {
+			// if only one value has been provided
+			return resolveSingleParameterValue(aValueCollection.getValue(), aVariableMap, aClassLoader,
+					aLeaveUnresolvableVariableReferencesIntact);
+		}
+	}
+
+	/**
+	 * Resolves the given {@link ValueOrEnumValueOrOperation}, using the variable map given. Resolving only attempts to
+	 * execute any operations and replace variable references with the current variable value, but does NOT convert the
+	 * values to any other target type.
+	 * 
+	 * @param aValue
+	 *            the value to resolve
+	 * @param aVariableMap
+	 *            the variable map used to resolve variables (optional)
+	 * @param aClassLoader
+	 *            the classloader to use for loading of operation classes (optional)
+	 * @param aLeaveUnresolvableVariableReferencesIntact
+	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
+	 * @return the resolved value
+	 * @throws UnexecutableException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public static Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
+			ClassNotFoundException {
+		if (aValue instanceof Variable) {
+			Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) aValue).getName()) : null);
+			if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+				return tempResolvedValue;
+			}
+		} else if (aValue instanceof Operation) {
+			if (aClassLoader != null) {
+				OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader);
+				return tempWrapper.executeOperation(aVariableMap, false);
+			} else {
+				return null;
+			}
+		} else if (aValue instanceof NestedObject) {
+			Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
+			for (KeyValuePair tempAttribute : ((NestedObject) aValue).getAttributes()) {
+				Object tempResolvedValue = resolveParameterValue(tempAttribute.getValue(), aVariableMap, aClassLoader,
+						aLeaveUnresolvableVariableReferencesIntact);
+				tempKeyValueMap.put(tempAttribute.getIdentifier(), tempResolvedValue);
+			}
+
+			return tempKeyValueMap;
+		}
+
+		return aValue;
 	}
 
 	/**

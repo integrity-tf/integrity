@@ -837,6 +837,7 @@
     <alternatives xsi:type="xtext:Alternatives">
       <elements xsi:type="xtext:RuleCall" rule="//@rules.42"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.60"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.63"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="StaticValue">
@@ -852,7 +853,6 @@
       <elements xsi:type="xtext:RuleCall" rule="//@rules.51"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.55"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.61"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.63"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="IntegerValue">
@@ -1063,9 +1063,9 @@
       </terminal>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="Object">
+  <rules xsi:type="xtext:ParserRule" name="NestedObject">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//Object"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//NestedObject"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="{"/>

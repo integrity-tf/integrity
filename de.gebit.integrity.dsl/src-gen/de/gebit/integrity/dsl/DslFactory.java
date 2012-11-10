@@ -594,13 +594,13 @@ public interface DslFactory extends EFactory
   EnumValue createEnumValue();
 
   /**
-   * Returns a new object of class '<em>Object</em>'.
+   * Returns a new object of class '<em>Nested Object</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object</em>'.
+   * @return a new object of class '<em>Nested Object</em>'.
    * @generated
    */
-  Object createObject();
+  NestedObject createNestedObject();
 
   /**
    * Returns a new object of class '<em>Key Value Pair</em>'.

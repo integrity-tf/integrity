@@ -8,6 +8,7 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.KeyValuePair;
+import de.gebit.integrity.dsl.NestedObject;
 
 import java.util.Collection;
 
@@ -23,18 +24,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Object</b></em>'.
+ * An implementation of the model object '<em><b>Nested Object</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.ObjectImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.NestedObjectImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.dsl.Object
+public class NestedObjectImpl extends ValueImpl implements NestedObject
 {
   /**
    * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -51,7 +52,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ObjectImpl()
+  protected NestedObjectImpl()
   {
     super();
   }
@@ -64,7 +65,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.OBJECT;
+    return DslPackage.Literals.NESTED_OBJECT;
   }
 
   /**
@@ -76,7 +77,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     if (attributes == null)
     {
-      attributes = new EObjectContainmentEList<KeyValuePair>(KeyValuePair.class, this, DslPackage.OBJECT__ATTRIBUTES);
+      attributes = new EObjectContainmentEList<KeyValuePair>(KeyValuePair.class, this, DslPackage.NESTED_OBJECT__ATTRIBUTES);
     }
     return attributes;
   }
@@ -91,7 +92,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     switch (featureID)
     {
-      case DslPackage.OBJECT__ATTRIBUTES:
+      case DslPackage.NESTED_OBJECT__ATTRIBUTES:
         return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -107,7 +108,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     switch (featureID)
     {
-      case DslPackage.OBJECT__ATTRIBUTES:
+      case DslPackage.NESTED_OBJECT__ATTRIBUTES:
         return getAttributes();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -124,7 +125,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     switch (featureID)
     {
-      case DslPackage.OBJECT__ATTRIBUTES:
+      case DslPackage.NESTED_OBJECT__ATTRIBUTES:
         getAttributes().clear();
         getAttributes().addAll((Collection<? extends KeyValuePair>)newValue);
         return;
@@ -142,7 +143,7 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     switch (featureID)
     {
-      case DslPackage.OBJECT__ATTRIBUTES:
+      case DslPackage.NESTED_OBJECT__ATTRIBUTES:
         getAttributes().clear();
         return;
     }
@@ -159,10 +160,10 @@ public class ObjectImpl extends StaticValueImpl implements de.gebit.integrity.ds
   {
     switch (featureID)
     {
-      case DslPackage.OBJECT__ATTRIBUTES:
+      case DslPackage.NESTED_OBJECT__ATTRIBUTES:
         return attributes != null && !attributes.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //ObjectImpl
+} //NestedObjectImpl

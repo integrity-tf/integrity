@@ -29,6 +29,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Null;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
@@ -282,21 +283,20 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case DslPackage.NESTED_OBJECT:
+				if(context == grammarAccess.getNestedObjectRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_NestedObject(context, (NestedObject) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.NULL:
 				if(context == grammarAccess.getNullValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_NullValue(context, (Null) semanticObject); 
-					return; 
-				}
-				else break;
-			case DslPackage.OBJECT:
-				if(context == grammarAccess.getObjectRule() ||
-				   context == grammarAccess.getStaticValueRule() ||
-				   context == grammarAccess.getValueRule() ||
-				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
-					sequence_Object(context, (de.gebit.integrity.dsl.Object) semanticObject); 
 					return; 
 				}
 				else break;
@@ -921,18 +921,18 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     {Null}
+	 *     attributes+=KeyValuePair+
 	 */
-	protected void sequence_NullValue(EObject context, Null semanticObject) {
+	protected void sequence_NestedObject(EObject context, NestedObject semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     attributes+=KeyValuePair+
+	 *     {Null}
 	 */
-	protected void sequence_Object(EObject context, de.gebit.integrity.dsl.Object semanticObject) {
+	protected void sequence_NullValue(EObject context, Null semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
