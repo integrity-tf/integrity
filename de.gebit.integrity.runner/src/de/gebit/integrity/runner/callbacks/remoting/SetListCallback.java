@@ -14,7 +14,6 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
 
-import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
@@ -28,6 +27,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;

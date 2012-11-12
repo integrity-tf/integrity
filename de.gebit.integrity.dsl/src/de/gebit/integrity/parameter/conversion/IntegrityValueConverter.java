@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.gebit.integrity.conversion;
+package de.gebit.integrity.parameter.conversion;
 
 import java.util.Map;
 

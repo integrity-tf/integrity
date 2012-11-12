@@ -3,7 +3,6 @@ package de.gebit.integrity.runner.callbacks;
 import java.io.Serializable;
 import java.util.Map;
 
-import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
@@ -13,6 +12,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;

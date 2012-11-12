@@ -22,7 +22,6 @@ import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
-import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -57,6 +56,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 
 /**
  * A utility class providing various helper functions.

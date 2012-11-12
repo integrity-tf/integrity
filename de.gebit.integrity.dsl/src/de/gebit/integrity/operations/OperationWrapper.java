@@ -8,10 +8,10 @@ import java.util.Map;
 
 import org.eclipse.xtext.common.types.JvmType;
 
-import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**

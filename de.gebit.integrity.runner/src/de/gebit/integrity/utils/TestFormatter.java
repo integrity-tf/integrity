@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.gebit.integrity.conversion.IntegrityValueConverter;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.TableTest;
@@ -15,6 +14,7 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.

@@ -5,8 +5,8 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 
-import de.gebit.integrity.conversion.DefaultIntegrityValueConverter;
-import de.gebit.integrity.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.DefaultIntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
 import de.gebit.integrity.values.DSLValueConverters;
 
 /**
