@@ -384,7 +384,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				Test tempTest = (Test) aModel;
 				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, null, valueConverter, true,
 						false);
-				tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
+				tempExpectedResultMap = parameterResolver.createExpectedResultMap(tempTest, null, true);
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;

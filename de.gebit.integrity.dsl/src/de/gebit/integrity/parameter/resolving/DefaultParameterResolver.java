@@ -13,6 +13,7 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.KeyValuePair;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.Parameter;
@@ -205,6 +206,36 @@ public class DefaultParameterResolver implements ParameterResolver {
 			}
 		}
 		return tempValue;
+	}
+
+	@Override
+	public Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryResultFlag) {
+		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryResultFlag);
+	}
+
+	private Map<String, Object> createExpectedResultMap(List<NamedResult> aTestResultList,
+			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
+		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
+		for (NamedResult tempEntry : aTestResultList) {
+			if (tempEntry.getName() != null && tempEntry.getValue() != null) {
+				Object tempValue = tempEntry.getValue();
+				if (tempValue instanceof Variable) {
+					if (aVariableMap != null) {
+						tempValue = aVariableMap.get(((Variable) tempValue).getName());
+					} else {
+						tempValue = null;
+					}
+				}
+				if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
+					tempResultMap.put(
+							IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
+							tempEntry.getValue());
+				}
+			}
+		}
+
+		return tempResultMap;
 	}
 
 }

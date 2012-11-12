@@ -1,9 +1,7 @@
 package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
@@ -24,13 +22,10 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.SuiteDefinition;
-import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
@@ -284,47 +279,6 @@ public final class IntegrityDSLUtil {
 				return aVariable.getName();
 			}
 		}
-	}
-
-	/**
-	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual
-	 * values, with variable references being resolved if a variable map is provided.
-	 * 
-	 * @param aTest
-	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing all currently active variables and their values, or null if no resolution
-	 *            shall be done
-	 * @param anIncludeArbitraryResultFlag
-	 *            whether arbitrary results shall be included
-	 * @return a map of Strings to values
-	 */
-	public static Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryResultFlag) {
-		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryResultFlag);
-	}
-
-	private static Map<String, Object> createExpectedResultMap(List<NamedResult> aTestResultList,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
-		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
-		for (NamedResult tempEntry : aTestResultList) {
-			if (tempEntry.getName() != null && tempEntry.getValue() != null) {
-				Object tempValue = tempEntry.getValue();
-				if (tempValue instanceof Variable) {
-					if (aVariableMap != null) {
-						tempValue = aVariableMap.get(((Variable) tempValue).getName());
-					} else {
-						tempValue = null;
-					}
-				}
-				if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
-					tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
-							tempEntry.getValue());
-				}
-			}
-		}
-
-		return tempResultMap;
 	}
 
 	/**

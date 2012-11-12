@@ -212,4 +212,20 @@ public interface ParameterResolver {
 	 */
 	StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant);
 
+	/**
+	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual
+	 * values, with variable references being resolved if a variable map is provided.
+	 * 
+	 * @param aTest
+	 *            the test
+	 * @param aVariableMap
+	 *            the variable map containing all currently active variables and their values, or null if no resolution
+	 *            shall be done
+	 * @param anIncludeArbitraryResultFlag
+	 *            whether arbitrary results shall be included
+	 * @return a map of Strings to values
+	 */
+	Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
+			boolean anIncludeArbitraryResultFlag);
+
 }
