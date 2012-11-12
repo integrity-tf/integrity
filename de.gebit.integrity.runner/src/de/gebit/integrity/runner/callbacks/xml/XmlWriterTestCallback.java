@@ -38,7 +38,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
@@ -84,7 +84,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * The XML document that will be created.
@@ -336,7 +336,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 */
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
+			Map<VariableEntity, Object> aVariableMap, ValueConverter aValueConverter) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {

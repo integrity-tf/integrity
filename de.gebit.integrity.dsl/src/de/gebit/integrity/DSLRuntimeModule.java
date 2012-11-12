@@ -5,8 +5,8 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 
-import de.gebit.integrity.parameter.conversion.DefaultIntegrityValueConverter;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.DefaultValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.values.DSLValueConverters;
 
 /**
@@ -54,8 +54,8 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	/**
 	 * Bind the value converter.
 	 */
-	public Class<? extends IntegrityValueConverter> bindIntegrityValueConverter() {
-		return DefaultIntegrityValueConverter.class;
+	public Class<? extends ValueConverter> bindIntegrityValueConverter() {
+		return DefaultValueConverter.class;
 	}
 
 }

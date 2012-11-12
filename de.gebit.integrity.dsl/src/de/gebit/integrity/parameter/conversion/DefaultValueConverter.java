@@ -40,7 +40,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * @author Rene Schneider
  * 
  */
-public class DefaultIntegrityValueConverter implements IntegrityValueConverter {
+public class DefaultValueConverter implements ValueConverter {
 
 	@Override
 	public Object convertValueToParamType(Class<?> aParamType, Object aValue) {

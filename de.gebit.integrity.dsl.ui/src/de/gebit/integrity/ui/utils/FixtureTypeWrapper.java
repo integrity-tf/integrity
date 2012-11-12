@@ -38,7 +38,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -64,7 +64,7 @@ public class FixtureTypeWrapper {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * Creates a new instance.
@@ -72,7 +72,7 @@ public class FixtureTypeWrapper {
 	 * @param aFixtureType
 	 *            the type to encapsulate
 	 */
-	public FixtureTypeWrapper(IType aFixtureType, IntegrityValueConverter aValueConverter) {
+	public FixtureTypeWrapper(IType aFixtureType, ValueConverter aValueConverter) {
 		fixtureType = aFixtureType;
 		valueConverter = aValueConverter;
 	}

@@ -14,7 +14,7 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -39,7 +39,7 @@ public class TestFormatter {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * Creates a new instance.
@@ -47,7 +47,7 @@ public class TestFormatter {
 	 * @param aClassloader
 	 *            the classloader to use
 	 */
-	public TestFormatter(ClassLoader aClassloader, IntegrityValueConverter aValueConverter) {
+	public TestFormatter(ClassLoader aClassloader, ValueConverter aValueConverter) {
 		super();
 		classloader = aClassloader;
 		valueConverter = aValueConverter;

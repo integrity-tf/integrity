@@ -11,7 +11,7 @@ import org.eclipse.xtext.common.types.JvmType;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -36,7 +36,7 @@ public class OperationWrapper {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the provided
@@ -52,7 +52,7 @@ public class OperationWrapper {
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader, IntegrityValueConverter aValueConverter)
+	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader, ValueConverter aValueConverter)
 			throws ClassNotFoundException {
 		operation = anOperation;
 		valueConverter = aValueConverter;

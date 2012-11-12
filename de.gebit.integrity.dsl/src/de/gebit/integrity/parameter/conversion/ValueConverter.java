@@ -18,7 +18,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * @author Rene Schneider
  * 
  */
-public interface IntegrityValueConverter {
+public interface ValueConverter {
 
 	/**
 	 * Convert a given single Java type value to param type (which is also a Java type).

@@ -14,7 +14,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
@@ -74,7 +74,7 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
+			Map<VariableEntity, Object> aVariableMap, ValueConverter aValueConverter) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onExecutionStart(aModel, aVariant, aVariableMap, aValueConverter);
 		}

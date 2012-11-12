@@ -56,7 +56,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * A utility class providing various helper functions.
@@ -281,7 +281,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, IntegrityValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException {
 		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, aConverter,
@@ -312,7 +312,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, IntegrityValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
+			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException {
 		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, aConverter,
@@ -345,7 +345,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
@@ -388,7 +388,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
@@ -402,7 +402,7 @@ public final class IntegrityDSLUtil {
 
 	private static Map<String, Object> createParameterMap(
 			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
@@ -439,7 +439,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
 			ClassNotFoundException {
 		if (aValueCollection.getMoreValues().size() > 0) {
@@ -480,7 +480,7 @@ public final class IntegrityDSLUtil {
 	 * @throws ClassNotFoundException
 	 */
 	public static Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, IntegrityValueConverter aConverter,
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
 			ClassNotFoundException {
 		if (aValue instanceof Variable) {

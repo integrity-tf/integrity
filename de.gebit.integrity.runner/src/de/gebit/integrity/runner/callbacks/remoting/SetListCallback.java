@@ -27,7 +27,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
@@ -92,7 +92,7 @@ public class SetListCallback extends TestRunnerCallback {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * Format used for execution time.
@@ -117,7 +117,7 @@ public class SetListCallback extends TestRunnerCallback {
 
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap, IntegrityValueConverter aValueConverter) {
+			Map<VariableEntity, Object> aVariableMap, ValueConverter aValueConverter) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.EXECUTION);
 		entryStack.push(tempNewEntry);
 		variableStorage = aVariableMap;

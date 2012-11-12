@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.IntegrityValueConverter;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -44,7 +44,7 @@ public class FixtureWrapper<C extends Object> {
 	/**
 	 * The value converter to use.
 	 */
-	private IntegrityValueConverter valueConverter;
+	private ValueConverter valueConverter;
 
 	/**
 	 * Fixture instance factories are cached in this map.
@@ -62,7 +62,7 @@ public class FixtureWrapper<C extends Object> {
 	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings("unchecked")
-	public FixtureWrapper(Class<C> aFixtureClass, IntegrityValueConverter aValueConverter)
+	public FixtureWrapper(Class<C> aFixtureClass, ValueConverter aValueConverter)
 			throws InstantiationException, IllegalAccessException {
 		fixtureClass = aFixtureClass;
 		valueConverter = aValueConverter;
