@@ -1,11 +1,9 @@
 package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
@@ -23,40 +21,21 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
-import de.gebit.integrity.dsl.Call;
-import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
-import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
-import de.gebit.integrity.dsl.NestedObject;
-import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.PackageDefinition;
-import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
-import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.SuiteDefinition;
-import de.gebit.integrity.dsl.TableTest;
-import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.Value;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
-import de.gebit.integrity.operations.OperationWrapper;
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * A utility class providing various helper functions.
@@ -258,258 +237,6 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given {@link Test} to determine the valid
-	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
-	 * no type conversions will be done.
-	 * 
-	 * @param aTest
-	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
-		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, aConverter,
-				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
-	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
-	 * no type conversions will be done.
-	 * 
-	 * @param aCall
-	 *            the call
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
-		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, aConverter,
-				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
-	 * valid parameters. Parameters that contain operations and/or references to variables will be resolved if the
-	 * variable map is provided, but no type conversions will be done.
-	 * 
-	 * @param aTableTest
-	 *            the table test
-	 * @param aTableTestRow
-	 *            the row of the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
-		for (Parameter tempParameter : aTableTest.getParameters()) {
-			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
-		}
-
-		int tempCount = 0;
-		for (ParameterTableHeader tempParameterHeader : aTableTest.getParameterHeaders()) {
-			tempParameterMap.put(tempParameterHeader.getName(), (aTableTestRow == null || tempCount >= aTableTestRow
-					.getValues().size()) ? null : aTableTestRow.getValues().get(tempCount).getValue());
-			tempCount++;
-		}
-
-		return createParameterMap(tempParameterMap, aVariableMap, aClassLoader, aConverter,
-				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
-	 * valid parameters. Parameters that contain operations or references to variables will be resolved if the variable
-	 * map is provided, but no type conversions will be done.
-	 * 
-	 * @param someParameters
-	 *            the parameters
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
-		for (Parameter tempParameter : someParameters) {
-			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
-		}
-
-		return createParameterMap(tempParameters, aVariableMap, aClassLoader, aConverter,
-				anIncludeArbitraryParametersFlag, aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	private static Map<String, Object> createParameterMap(
-			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
-		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
-			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
-				Object tempValue = resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempEntry.getValue(),
-						aVariableMap, aClassLoader, aConverter, aLeaveUnresolvableVariableReferencesIntact);
-
-				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
-					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
-				}
-			}
-		}
-
-		return tempResult;
-	}
-
-	/**
-	 * Resolves the given {@link ValueOrEnumValueOrOperationCollection}, using the variable map given. Resolving only
-	 * attempts to execute any operations and replace variable references with the current variable value, but does NOT
-	 * convert the values to any other target type.
-	 * 
-	 * @param aValueCollection
-	 *            the value collection to resolve
-	 * @param aVariableMap
-	 *            the variable map used to resolve variables (optional)
-	 * @param aClassLoader
-	 *            the classloader to use for loading of operation classes (optional)
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
-	 * @return the resolved value
-	 * @throws UnexecutableException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
-	 */
-	public static Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException {
-		if (aValueCollection.getMoreValues().size() > 0) {
-			// if multiple values have been provided
-			Object[] tempValueArray = new Object[aValueCollection.getMoreValues().size() + 1];
-			tempValueArray[0] = aValueCollection.getValue();
-			for (int i = 0; i <= aValueCollection.getMoreValues().size(); i++) {
-				ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? aValueCollection.getValue() : aValueCollection
-						.getMoreValues().get(i - 1));
-
-				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue, aVariableMap, aClassLoader,
-						aConverter, aLeaveUnresolvableVariableReferencesIntact);
-			}
-			return tempValueArray;
-		} else {
-			// if only one value has been provided
-			return resolveSingleParameterValue(aValueCollection.getValue(), aVariableMap, aClassLoader, aConverter,
-					aLeaveUnresolvableVariableReferencesIntact);
-		}
-	}
-
-	/**
-	 * Resolves the given {@link ValueOrEnumValueOrOperation}, using the variable map given. Resolving only attempts to
-	 * execute any operations and replace variable references with the current variable value, but does NOT convert the
-	 * values to any other target type.
-	 * 
-	 * @param aValue
-	 *            the value to resolve
-	 * @param aVariableMap
-	 *            the variable map used to resolve variables (optional)
-	 * @param aClassLoader
-	 *            the classloader to use for loading of operation classes (optional)
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
-	 * @return the resolved value
-	 * @throws UnexecutableException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
-	 */
-	public static Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException {
-		if (aValue instanceof Variable) {
-			Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) aValue).getName()) : null);
-			if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-				return tempResolvedValue;
-			}
-		} else if (aValue instanceof Operation) {
-			if (aClassLoader != null) {
-				OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader, aConverter);
-				return tempWrapper.executeOperation(aVariableMap, false);
-			} else {
-				return null;
-			}
-		} else if (aValue instanceof NestedObject) {
-			Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
-			for (KeyValuePair tempAttribute : ((NestedObject) aValue).getAttributes()) {
-				Object tempResolvedValue = resolveParameterValue(tempAttribute.getValue(), aVariableMap, aClassLoader,
-						aConverter, aLeaveUnresolvableVariableReferencesIntact);
-				tempKeyValueMap.put(tempAttribute.getIdentifier(), tempResolvedValue);
-			}
-
-			return tempKeyValueMap;
-		}
-
-		return aValue;
-	}
-
-	/**
 	 * Returns the fully qualified name of the fixture method referenced by the given method reference.
 	 * 
 	 * @param aReference
@@ -670,58 +397,4 @@ public final class IntegrityDSLUtil {
 				"The given multi-line comment does not start and end with the expected literals.");
 	}
 
-	/**
-	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
-	 * to the actual variable store of a test runner instance, the resolving can only be successful in cases of
-	 * variables with initial value (giving that value) or constants.
-	 * 
-	 * @param aVariable
-	 *            the variable to resolve
-	 * @param aVariant
-	 *            the active variant
-	 * @return the result, or null if none was found
-	 */
-	public static Object resolveVariableStatically(Variable aVariable, VariantDefinition aVariant) {
-		Value tempValue = null;
-
-		if (aVariable.getName() != null) {
-			if (aVariable.getName().eContainer() instanceof VariableDefinition) {
-				VariableDefinition tempDefinition = (VariableDefinition) aVariable.getName().eContainer();
-				tempValue = tempDefinition.getInitialValue();
-			} else if (aVariable.getName().eContainer() instanceof ConstantDefinition) {
-				ConstantDefinition tempDefinition = (ConstantDefinition) aVariable.getName().eContainer();
-				tempValue = resolveConstantValue(tempDefinition, aVariant);
-			}
-		}
-
-		if (tempValue != null && tempValue instanceof Variable) {
-			return resolveVariableStatically(aVariable, aVariant);
-		} else {
-			return tempValue;
-		}
-	}
-
-	/**
-	 * Resolves a constant definition to its defined value, which may depend on the active variant.
-	 * 
-	 * @param aConstant
-	 *            the constant to resolve
-	 * @param aVariant
-	 *            the active variant
-	 * @return the result, or null if none is defined for the constant
-	 */
-	public static StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant) {
-		StaticValue tempValue = aConstant.getValue();
-		if (aVariant != null) {
-			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
-				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {
-					if (tempDefinition == aVariant) {
-						tempValue = tempVariantValue.getValue();
-						break outer;
-					}
-				}
-			}
-		}
-		return tempValue;
-	}
 }

@@ -1,7 +1,6 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ForkDefinition;
@@ -12,7 +11,6 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
@@ -38,11 +36,11 @@ public abstract class TestRunnerCallback {
 	 * 
 	 * @param aModel
 	 *            the test model that will be executed
-	 * @param aVariableMap
-	 *            the variable map used to store variable values during execution
+	 * @param aCapabilityObject
+	 *            an object containing various capabilities for callbacks to use
 	 */
 	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap, ValueConverter aValueConverter);
+			CallbackCapabilities aCapabilityObject);
 
 	/**
 	 * Called when a suite call is being followed.

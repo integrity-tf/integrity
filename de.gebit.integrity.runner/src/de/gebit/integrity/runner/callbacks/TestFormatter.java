@@ -1,4 +1,4 @@
-package de.gebit.integrity.utils;
+package de.gebit.integrity.runner.callbacks;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -14,7 +14,6 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -37,9 +36,9 @@ public class TestFormatter {
 	private ClassLoader classloader = getClass().getClassLoader();
 
 	/**
-	 * The value converter to use.
+	 * The formatteer gets the callback capabilities of the callback that it was created in.
 	 */
-	private ValueConverter valueConverter;
+	private CallbackCapabilities capabilities;
 
 	/**
 	 * Creates a new instance.
@@ -47,10 +46,10 @@ public class TestFormatter {
 	 * @param aClassloader
 	 *            the classloader to use
 	 */
-	public TestFormatter(ClassLoader aClassloader, ValueConverter aValueConverter) {
+	public TestFormatter(ClassLoader aClassloader, CallbackCapabilities aCapabilityObject) {
 		super();
 		classloader = aClassloader;
-		valueConverter = aValueConverter;
+		capabilities = aCapabilityObject;
 	}
 
 	public void setClassloader(ClassLoader aClassloader) {
@@ -71,9 +70,10 @@ public class TestFormatter {
 	 */
 	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, classloader, valueConverter, true, false),
-				false);
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				capabilities.getParameterResolver().createParameterMap(aTest, aVariableMap, classloader,
+						capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -93,9 +93,10 @@ public class TestFormatter {
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil
-						.createParameterMap(aTest, aRow, aVariableMap, classloader, valueConverter, true, false), false);
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				capabilities.getParameterResolver().createParameterMap(aTest, aRow, aVariableMap, classloader,
+						capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -112,9 +113,10 @@ public class TestFormatter {
 	 */
 	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, classloader, valueConverter,
-						true, false), true);
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				capabilities.getParameterResolver().createParameterMap(aTest.getParameters(), aVariableMap,
+						classloader, capabilities.getValueConverter(), true, false), true);
 	}
 
 	/**
@@ -131,9 +133,10 @@ public class TestFormatter {
 	 */
 	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, classloader, valueConverter, true, false),
-				false);
+		return fixtureMethodToHumanReadableString(
+				aCall.getDefinition().getFixtureMethod(),
+				capabilities.getParameterResolver().createParameterMap(aCall, aVariableMap, classloader,
+						capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -175,8 +178,8 @@ public class TestFormatter {
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
-			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)), null,
-					null, anExpectUnspecifiedParametersFlag);
+			String tempValue = capabilities.getValueConverter().convertValueToString(
+					someParameters.get(tempMatcher.group(2)), null, null, anExpectUnspecifiedParametersFlag);
 			if (tempValue == null) {
 				tempValue = "???";
 			}

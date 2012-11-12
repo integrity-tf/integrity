@@ -57,6 +57,7 @@ import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -70,6 +71,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
+import de.gebit.integrity.runner.callbacks.CallbackCapabilities;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
@@ -167,6 +169,12 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
 
 	/**
 	 * The remoting server.
@@ -379,7 +387,8 @@ public class DefaultTestRunner implements TestRunner {
 		variableStorage = new HashMap<VariableEntity, Object>();
 
 		if (currentCallback != null) {
-			currentCallback.onExecutionStart(model, variantInExecution, variableStorage, valueConverter);
+			currentCallback.onExecutionStart(model, variantInExecution, new CallbackCapabilities(valueConverter,
+					parameterResolver, variableStorage));
 		}
 
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
@@ -687,7 +696,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *            the suite in which the constant is defined
 	 */
 	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
-		StaticValue tempValue = IntegrityDSLUtil.resolveConstantValue(aDefinition, variantInExecution);
+		StaticValue tempValue = parameterResolver.resolveConstantValue(aDefinition, variantInExecution);
 		if (tempValue != null) {
 			defineVariable(aDefinition.getName(), tempValue, aSuite);
 		}
@@ -810,7 +819,7 @@ public class DefaultTestRunner implements TestRunner {
 
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, variableStorage,
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, variableStorage,
 						getModelClassLoader(), valueConverter, true, false);
 
 				tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
@@ -938,7 +947,7 @@ public class DefaultTestRunner implements TestRunner {
 				} else {
 					long tempStart = System.nanoTime();
 					try {
-						Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aTest, tempRow,
+						Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow,
 								variableStorage, getModelClassLoader(), valueConverter, true, false);
 
 						if (tempFixtureInstance == null) {
@@ -1368,7 +1377,7 @@ public class DefaultTestRunner implements TestRunner {
 			long tempStart = System.nanoTime();
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = IntegrityDSLUtil.createParameterMap(aCall, variableStorage,
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, variableStorage,
 						getModelClassLoader(), valueConverter, true, false);
 
 				tempFixtureInstance = instantiateFixture(aCall.getDefinition().getFixtureMethod());

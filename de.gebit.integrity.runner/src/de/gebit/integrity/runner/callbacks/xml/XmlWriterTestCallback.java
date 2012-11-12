@@ -38,9 +38,10 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.runner.callbacks.CallbackCapabilities;
+import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -54,7 +55,6 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.TestFormatter;
 
 /**
  * Test runner callback which writes to an XML result file. This runner may optionally add an XHTML transform to the
@@ -77,14 +77,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	private TestFormatter formatter;
 
 	/**
-	 * The variable storage used to store variables during execution.
+	 * The capability object.
 	 */
-	private Map<VariableEntity, Object> variableStorage;
-
-	/**
-	 * The value converter to use.
-	 */
-	private ValueConverter valueConverter;
+	private CallbackCapabilities capabilities;
 
 	/**
 	 * The XML document that will be created.
@@ -335,8 +330,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 *            the a variable map
 	 */
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap, ValueConverter aValueConverter) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, CallbackCapabilities aCapabilityObject) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {
@@ -378,9 +372,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			}
 		}
 
-		variableStorage = aVariableMap;
-		valueConverter = aValueConverter;
-		formatter = new TestFormatter(classLoader, aValueConverter);
+		capabilities = aCapabilityObject;
+		formatter = new TestFormatter(classLoader, capabilities);
 		executionStartTime = System.nanoTime();
 	}
 
@@ -518,7 +511,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.testToHumanReadableString(aTest, variableStorage));
+					formatter.testToHumanReadableString(aTest, capabilities.getVariableMap()));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -565,7 +558,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.tableTestToHumanReadableString(aTest, variableStorage));
+					formatter.tableTestToHumanReadableString(aTest, capabilities.getVariableMap()));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -626,8 +619,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, classLoader, valueConverter,
-					true, false);
+			tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTest,
+					capabilities.getVariableMap(), classLoader, capabilities.getValueConverter(), true, false);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -685,8 +678,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		if (!isDryRun()) {
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
-				tempParameterMap = IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, classLoader,
-						valueConverter, true, false);
+				tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTableTest, aRow,
+						capabilities.getVariableMap(), classLoader, capabilities.getValueConverter(), true, false);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -763,8 +756,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToString(tempEntry.getValue(), variableStorage, classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, capabilities.getValueConverter()
+					.convertValueToString(tempEntry.getValue(), capabilities.getVariableMap(), classLoader, false));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
@@ -802,13 +795,16 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 				// Either there is an expected value, or if there isn't, "true" is the default
 				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
-						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
+				tempComparisonResultElement.setAttribute(
+						RESULT_EXPECTED_VALUE_ATTRIBUTE,
+						capabilities.getValueConverter().convertValueToString(
+								(tempExpectedValue == null ? true : tempExpectedValue), capabilities.getVariableMap(),
 								classLoader, false));
 				if (tempEntry.getValue().getResult() != null) {
-					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-							valueConverter.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
-									classLoader, false));
+					tempComparisonResultElement.setAttribute(
+							RESULT_REAL_VALUE_ATTRIBUTE,
+							capabilities.getValueConverter().convertValueToString(tempEntry.getValue().getResult(),
+									capabilities.getVariableMap(), classLoader, false));
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -838,7 +834,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.callToHumanReadableString(aCall, variableStorage));
+					formatter.callToHumanReadableString(aCall, capabilities.getVariableMap()));
 		} catch (ClassNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -857,8 +853,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToString(tempParameter.getValue(), variableStorage, classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, capabilities.getValueConverter()
+					.convertValueToString(tempParameter.getValue(), capabilities.getVariableMap(), classLoader, false));
 
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
@@ -913,8 +909,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
 								tempUpdatedVariable.getParameterName());
 					}
-					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, valueConverter
-							.convertValueToString(tempUpdatedVariable.getValue(), variableStorage, classLoader, false));
+					tempVariableUpdateElement.setAttribute(
+							VARIABLE_VALUE_ATTRIBUTE,
+							capabilities.getValueConverter().convertValueToString(tempUpdatedVariable.getValue(),
+									capabilities.getVariableMap(), classLoader, false));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -1111,8 +1109,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToString(anInitialValue, variableStorage, classLoader, false));
+			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, capabilities.getValueConverter()
+					.convertValueToString(anInitialValue, capabilities.getVariableMap(), classLoader, false));
 		}
 
 		if (!isDryRun()) {

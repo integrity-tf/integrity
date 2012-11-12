@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
@@ -30,8 +32,8 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
-import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -41,6 +43,9 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * 
  */
 public class DefaultValueConverter implements ValueConverter {
+
+	@Inject
+	ParameterResolver parameterResolver;
 
 	@Override
 	public Object convertValueToParamType(Class<?> aParamType, Object aValue) {
@@ -281,7 +286,7 @@ public class DefaultValueConverter implements ValueConverter {
 			if (aParamType == String.class) {
 				return aValue.toString();
 			} else if (Map.class.isAssignableFrom(aParamType)) {
-				return IntegrityDSLUtil.resolveSingleParameterValue(aValue, aVariableMap, aClassLoader, this, false);
+				return parameterResolver.resolveSingleParameterValue(aValue, aVariableMap, aClassLoader, this, false);
 			} else {
 				throw new IllegalArgumentException("Cannot convert a nested object to parameter type " + aParamType
 						+ " - it's advised to use a java.util.Map as target type!");
@@ -390,8 +395,8 @@ public class DefaultValueConverter implements ValueConverter {
 		} else if (aValue instanceof NestedObject) {
 			try {
 				return maskNullString(
-						IntegrityDSLUtil.resolveSingleParameterValue((NestedObject) aValue, aVariableMap, aClassLoader,
-								this, false).toString(), !anAllowNullResultFlag);
+						parameterResolver.resolveSingleParameterValue((NestedObject) aValue, aVariableMap,
+								aClassLoader, this, false).toString(), !anAllowNullResultFlag);
 			} catch (ClassNotFoundException exc) {
 				return anAllowNullResultFlag ? null : "FAILURE";
 			} catch (UnexecutableException exc) {

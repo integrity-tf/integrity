@@ -55,6 +55,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.JavadocUtil;
@@ -90,6 +91,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	 */
 	@Inject
 	private ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	private ParameterResolver parameterResolver;
 
 	/**
 	 * This is added to the proposal priorities from fixture proposal providers to ensure they're listed top in the list
@@ -375,13 +382,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		try {
 			if (aModel instanceof Test) {
 				Test tempTest = (Test) aModel;
-				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, valueConverter, true,
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, null, valueConverter, true,
 						false);
 				tempExpectedResultMap = IntegrityDSLUtil.createExpectedResultMap(tempTest, null, true);
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;
-				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempTest, null, null, null, valueConverter,
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, null, null, valueConverter,
 						true, false);
 				tempExpectedResultMap = new LinkedHashMap<String, Object>();
 				for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
@@ -391,7 +398,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof Call) {
 				Call tempCall = (Call) aModel;
-				tempParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null, null,
+				tempParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), null, null,
 						valueConverter, true, false);
 				tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 			}
@@ -420,15 +427,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					Map<String, Object> tempFixedParameterMap = null;
 					if (aModel instanceof Test) {
 						Test tempTest = (Test) aModel;
-						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), null,
 								null, valueConverter, false, true);
 					} else if (aModel instanceof TableTest) {
 						TableTest tempTest = (TableTest) aModel;
-						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempTest.getParameters(), null,
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), null,
 								null, valueConverter, false, true);
 					} else if (aModel instanceof Call) {
 						Call tempCall = (Call) aModel;
-						tempFixedParameterMap = IntegrityDSLUtil.createParameterMap(tempCall.getParameters(), null,
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), null,
 								null, valueConverter, false, true);
 					}
 
@@ -499,10 +506,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	 * 
 	 * @param aParameterMap
 	 */
-	private static void resolveVariables(Map<String, Object> aParameterMap) {
+	private void resolveVariables(Map<String, Object> aParameterMap) {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			if (tempEntry.getValue() instanceof Variable) {
-				tempEntry.setValue(IntegrityDSLUtil.resolveVariableStatically((Variable) tempEntry.getValue(), null));
+				tempEntry.setValue(parameterResolver.resolveVariableStatically((Variable) tempEntry.getValue(), null));
 			}
 		}
 	}
@@ -528,8 +535,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
 								tempCompilationUnit.getTypes()[0], valueConverter);
 
-						Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
-								null, valueConverter, true, true);
+						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
+								null, null, valueConverter, true, true);
 
 						Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(
 								tempMethod.getMethod().getSimpleName(), null, tempTest.getResult());
@@ -571,7 +578,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
 							tempCompilationUnit.getTypes()[0], valueConverter);
 
-					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
+					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, null,
 							null, valueConverter, true, true);
 
 					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
@@ -618,7 +625,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				try {
-					Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempAllParameters, null,
+					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, null,
 							null, valueConverter, true, true);
 					completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
 				} catch (InstantiationException exc) {
@@ -666,7 +673,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (tempColumn >= 0) {
 					if (tempColumn < tempTest.getParameterHeaders().size()) {
 						try {
-							Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow,
+							Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
 									null, null, valueConverter, true, true);
 
 							completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
@@ -713,7 +720,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 								}
 
-								Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest,
+								Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest,
 										tempRow, null, null, valueConverter, true, true);
 
 								completeCustomProposalResultValuesInternal(tempResultName, tempMethod,
@@ -754,8 +761,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				int tempColumn = tempRow.getValues().indexOf(tempParam);
 				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
 					try {
-						Map<String, Object> tempParamMap = IntegrityDSLUtil.createParameterMap(tempTest, tempRow, null,
-								null, valueConverter, true, true);
+						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
+								null, null, valueConverter, true, true);
 
 						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 								tempMethod, tempParamMap, aContext, anAcceptor);
