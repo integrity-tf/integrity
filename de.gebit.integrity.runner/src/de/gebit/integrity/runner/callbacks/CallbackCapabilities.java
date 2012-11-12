@@ -33,6 +33,11 @@ public class CallbackCapabilities {
 	private Map<VariableEntity, Object> variableMap;
 
 	/**
+	 * The classloader to use in the callbacks.
+	 */
+	private ClassLoader classLoader;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aConverter
@@ -41,10 +46,11 @@ public class CallbackCapabilities {
 	 *            the parameter resolver
 	 */
 	public CallbackCapabilities(ValueConverter aConverter, ParameterResolver aResolver,
-			Map<VariableEntity, Object> aVariableMap) {
+			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader) {
 		valueConverter = aConverter;
 		parameterResolver = aResolver;
 		variableMap = aVariableMap;
+		classLoader = aClassLoader;
 	}
 
 	public ValueConverter getValueConverter() {
@@ -57,6 +63,10 @@ public class CallbackCapabilities {
 
 	public Map<VariableEntity, Object> getVariableMap() {
 		return variableMap;
+	}
+
+	public ClassLoader getClassLoader() {
+		return classLoader;
 	}
 
 }

@@ -31,11 +31,6 @@ public class TestFormatter {
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
 	/**
-	 * The classloader to use.
-	 */
-	private ClassLoader classloader = getClass().getClassLoader();
-
-	/**
 	 * The formatteer gets the callback capabilities of the callback that it was created in.
 	 */
 	private CallbackCapabilities capabilities;
@@ -43,17 +38,10 @@ public class TestFormatter {
 	/**
 	 * Creates a new instance.
 	 * 
-	 * @param aClassloader
-	 *            the classloader to use
 	 */
-	public TestFormatter(ClassLoader aClassloader, CallbackCapabilities aCapabilityObject) {
+	public TestFormatter(CallbackCapabilities aCapabilityObject) {
 		super();
-		classloader = aClassloader;
 		capabilities = aCapabilityObject;
-	}
-
-	public void setClassloader(ClassLoader aClassloader) {
-		classloader = aClassloader;
 	}
 
 	/**
@@ -72,8 +60,8 @@ public class TestFormatter {
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aTest, aVariableMap, classloader,
-						capabilities.getValueConverter(), true, false), false);
+				capabilities.getParameterResolver().createParameterMap(aTest, aVariableMap,
+						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -95,8 +83,8 @@ public class TestFormatter {
 			InstantiationException {
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aTest, aRow, aVariableMap, classloader,
-						capabilities.getValueConverter(), true, false), false);
+				capabilities.getParameterResolver().createParameterMap(aTest, aRow, aVariableMap,
+						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -116,7 +104,7 @@ public class TestFormatter {
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
 				capabilities.getParameterResolver().createParameterMap(aTest.getParameters(), aVariableMap,
-						classloader, capabilities.getValueConverter(), true, false), true);
+						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), true);
 	}
 
 	/**
@@ -135,8 +123,8 @@ public class TestFormatter {
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(
 				aCall.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aCall, aVariableMap, classloader,
-						capabilities.getValueConverter(), true, false), false);
+				capabilities.getParameterResolver().createParameterMap(aCall, aVariableMap,
+						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
 	}
 
 	/**
@@ -156,7 +144,7 @@ public class TestFormatter {
 			throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
-		Class<?> tempFixtureClass = classloader.loadClass(tempFixtureClassName);
+		Class<?> tempFixtureClass = capabilities.getClassLoader().loadClass(tempFixtureClassName);
 		Method tempMethod = FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
 		if (tempMethod == null) {
 			return null;

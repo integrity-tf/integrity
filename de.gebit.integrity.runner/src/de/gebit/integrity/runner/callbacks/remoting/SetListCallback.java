@@ -60,11 +60,6 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 public class SetListCallback extends TestRunnerCallback {
 
 	/**
-	 * Classloader to use.
-	 */
-	private ClassLoader classLoader;
-
-	/**
 	 * The remoting server.
 	 */
 	private IntegrityRemotingServer remotingServer;
@@ -101,11 +96,10 @@ public class SetListCallback extends TestRunnerCallback {
 	 *            the setlist to update
 	 * @param aRemotingServer
 	 *            the remoting server to use
-	 * @param aClassLoader
-	 *            the classloader to use
+	 * @param acapabilities
+	 *            .getClassLoader() the capabilities.getClassLoader() to use
 	 */
-	public SetListCallback(SetList aSetList, IntegrityRemotingServer aRemotingServer, ClassLoader aClassLoader) {
-		classLoader = aClassLoader;
+	public SetListCallback(SetList aSetList, IntegrityRemotingServer aRemotingServer) {
 		setList = aSetList;
 		remotingServer = aRemotingServer;
 	}
@@ -115,7 +109,7 @@ public class SetListCallback extends TestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.EXECUTION);
 		entryStack.push(tempNewEntry);
 		capabilities = aCapabilityObject;
-		formatter = new TestFormatter(classLoader, capabilities);
+		formatter = new TestFormatter(capabilities);
 	}
 
 	@Override
@@ -210,8 +204,8 @@ public class SetListCallback extends TestRunnerCallback {
 				// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated
 				// twice
 				tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTableTest,
-						aTableTest.getRows().get(tempCount), capabilities.getVariableMap(), classLoader,
-						capabilities.getValueConverter(), true, false);
+						aTableTest.getRows().get(tempCount), capabilities.getVariableMap(),
+						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -236,7 +230,8 @@ public class SetListCallback extends TestRunnerCallback {
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
 			tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTest,
-					capabilities.getVariableMap(), classLoader, capabilities.getValueConverter(), true, false);
+					capabilities.getVariableMap(), capabilities.getClassLoader(), capabilities.getValueConverter(),
+					true, false);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -282,8 +277,10 @@ public class SetListCallback extends TestRunnerCallback {
 			tempNewEntries.add(tempParameterEntry);
 
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
-			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE, capabilities.getValueConverter()
-					.convertValueToString(tempEntry.getValue(), capabilities.getVariableMap(), classLoader, false));
+			tempParameterEntry.setAttribute(
+					SetListEntryAttributeKeys.VALUE,
+					capabilities.getValueConverter().convertValueToString(tempEntry.getValue(),
+							capabilities.getVariableMap(), capabilities.getClassLoader(), false));
 
 			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.PARAMETERS, tempParameterEntry);
 		}
@@ -322,12 +319,12 @@ public class SetListCallback extends TestRunnerCallback {
 					SetListEntryAttributeKeys.EXPECTED_RESULT,
 					capabilities.getValueConverter().convertValueToString(
 							(tempExpectedValue == null ? true : tempExpectedValue), capabilities.getVariableMap(),
-							classLoader, false));
+							capabilities.getClassLoader(), false));
 			if (tempEntry.getValue().getResult() != null) {
 				tempComparisonEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
 						capabilities.getValueConverter().convertValueToString(tempEntry.getValue().getResult(),
-								capabilities.getVariableMap(), classLoader, false));
+								capabilities.getVariableMap(), capabilities.getClassLoader(), false));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -386,7 +383,7 @@ public class SetListCallback extends TestRunnerCallback {
 				tempResultEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
 						capabilities.getValueConverter().convertValueToString(tempUpdatedVariable.getValue(),
-								capabilities.getVariableMap(), classLoader, false));
+								capabilities.getVariableMap(), capabilities.getClassLoader(), false));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,
@@ -464,8 +461,10 @@ public class SetListCallback extends TestRunnerCallback {
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, capabilities.getValueConverter()
-					.convertValueToString(anInitialValue, capabilities.getVariableMap(), classLoader, false));
+			tempNewEntry.setAttribute(
+					SetListEntryAttributeKeys.VALUE,
+					capabilities.getValueConverter().convertValueToString(anInitialValue,
+							capabilities.getVariableMap(), capabilities.getClassLoader(), false));
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
@@ -489,7 +488,7 @@ public class SetListCallback extends TestRunnerCallback {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, formatter.fixtureMethodToHumanReadableString(
 					aMethod,
 					capabilities.getParameterResolver().createParameterMap(aParamList, capabilities.getVariableMap(),
-							classLoader, capabilities.getValueConverter(), true, false), true));
+							capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), true));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
@@ -509,8 +508,10 @@ public class SetListCallback extends TestRunnerCallback {
 			SetListEntry tempParamEntry = setList.createEntry(SetListEntryTypes.PARAMETER);
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE, capabilities.getValueConverter()
-					.convertValueToString(tempParameter.getValue(), capabilities.getVariableMap(), classLoader, false));
+			tempParamEntry.setAttribute(
+					SetListEntryAttributeKeys.VALUE,
+					capabilities.getValueConverter().convertValueToString(tempParameter.getValue(),
+							capabilities.getVariableMap(), capabilities.getClassLoader(), false));
 			if (tempParameter.getValue() instanceof Variable) {
 				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
 						((Variable) tempParameter.getValue()).getName().getName());

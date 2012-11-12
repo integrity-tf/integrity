@@ -320,7 +320,7 @@ public class DefaultTestRunner implements TestRunner {
 				currentPhase = Phase.DRY_RUN;
 				SetList tempSetList = new SetList();
 				reset();
-				setListCallback = new SetListCallback(tempSetList, remotingServer, model.getClassLoader());
+				setListCallback = new SetListCallback(tempSetList, remotingServer);
 				currentCallback = setListCallback;
 
 				currentCallback.setDryRun(true);
@@ -388,7 +388,7 @@ public class DefaultTestRunner implements TestRunner {
 
 		if (currentCallback != null) {
 			currentCallback.onExecutionStart(model, variantInExecution, new CallbackCapabilities(valueConverter,
-					parameterResolver, variableStorage));
+					parameterResolver, variableStorage, model.getClassLoader()));
 		}
 
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {

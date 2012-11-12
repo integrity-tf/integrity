@@ -122,7 +122,7 @@ public final class ConsoleTestExecutor {
 			} else {
 				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
 				if (!tempConsoleOption.isSet()) {
-					tempCallback.addCallback(new ConsoleTestCallback(tempResourceProvider.getClassLoader()));
+					tempCallback.addCallback(new ConsoleTestCallback());
 				}
 				String tempXmlFileName = tempXmlOption.getValue();
 				if (tempXmlFileName != null) {

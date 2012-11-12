@@ -40,11 +40,6 @@ import de.gebit.integrity.utils.ParameterUtil;
 public class ConsoleTestCallback extends TestRunnerCallback {
 
 	/**
-	 * The classloader to use for resolving purposes.
-	 */
-	private ClassLoader classLoader;
-
-	/**
 	 * Test execution start time.
 	 */
 	private long startTime;
@@ -79,16 +74,6 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	 */
 	private CallbackCapabilities capabilities;
 
-	/**
-	 * Creates a new instance.
-	 * 
-	 * @param aClassLoader
-	 *            the classloader to use
-	 */
-	public ConsoleTestCallback(ClassLoader aClassLoader) {
-		classLoader = aClassLoader;
-	}
-
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, CallbackCapabilities aCapabilityObject) {
 		String tempLine = "Test execution has begun";
@@ -104,7 +89,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println(tempLine);
 		startTime = System.currentTimeMillis();
 		capabilities = aCapabilityObject;
-		formatter = new TestFormatter(classLoader, capabilities);
+		formatter = new TestFormatter(capabilities);
 	}
 
 	@Override
@@ -151,14 +136,14 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 						print("'"
 								+ capabilities.getValueConverter().convertValueToString(
 										(tempExpectedValue == null ? true : tempExpectedValue),
-										capabilities.getVariableMap(), classLoader, false)
+										capabilities.getVariableMap(), capabilities.getClassLoader(), false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ capabilities.getValueConverter().convertValueToString(
-										tempEntry.getValue().getResult(), capabilities.getVariableMap(), classLoader,
-										false) + "'!");
+										tempEntry.getValue().getResult(), capabilities.getVariableMap(),
+										capabilities.getClassLoader(), false) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -200,7 +185,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
 						+ capabilities.getValueConverter().convertValueToString(anInitialValue,
-								capabilities.getVariableMap(), classLoader, false)));
+								capabilities.getVariableMap(), capabilities.getClassLoader(), false)));
 	}
 
 	@Override

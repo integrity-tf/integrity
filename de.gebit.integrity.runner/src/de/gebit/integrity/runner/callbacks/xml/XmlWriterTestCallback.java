@@ -319,16 +319,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
 	}
 
-	/**
-	 * On execution start.
-	 * 
-	 * @param aModel
-	 *            the a model
-	 * @param aVariant
-	 *            the a variant
-	 * @param aVariableMap
-	 *            the a variable map
-	 */
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, CallbackCapabilities aCapabilityObject) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
@@ -373,16 +363,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 
 		capabilities = aCapabilityObject;
-		formatter = new TestFormatter(classLoader, capabilities);
+		formatter = new TestFormatter(capabilities);
 		executionStartTime = System.nanoTime();
 	}
 
-	/**
-	 * On suite start.
-	 * 
-	 * @param aSuite
-	 *            the a suite
-	 */
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
@@ -426,12 +410,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aSuiteElement);
 	}
 
-	/**
-	 * On setup start.
-	 * 
-	 * @param aSetupSuite
-	 *            the a setup suite
-	 */
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
@@ -459,14 +437,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aSetupElement);
 	}
 
-	/**
-	 * On setup finish.
-	 * 
-	 * @param aSetupSuite
-	 *            the a setup suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -498,12 +468,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On test start.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 */
 	@Override
 	public void onTestStart(Test aTest) {
 		Element tempTestElement = new Element(TEST_ELEMENT);
@@ -545,12 +509,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aTestElement);
 	}
 
-	/**
-	 * On table test start.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 */
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
@@ -595,14 +553,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(tempResultCollectionElement);
 	}
 
-	/**
-	 * On test finish.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
@@ -650,29 +600,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
-	/**
-	 * On table test row start.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aRow
-	 *            the a row
-	 */
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		// nothing to do here
 	}
 
-	/**
-	 * On table test row finish.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aRow
-	 *            the a row
-	 * @param aSubResult
-	 *            the a sub result
-	 */
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
@@ -693,14 +625,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
-	/**
-	 * On table test finish.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
 		if (!isDryRun()) {
@@ -821,12 +745,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		aResultCollectionElement.addContent(tempTestResultElement);
 	}
 
-	/**
-	 * On call start.
-	 * 
-	 * @param aCall
-	 *            the a call
-	 */
 	@Override
 	public void onCallStart(Call aCall) {
 		Element tempCallElement = new Element(CALL_ELEMENT);
@@ -880,14 +798,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aCallElement);
 	}
 
-	/**
-	 * On call finish.
-	 * 
-	 * @param aCall
-	 *            the a call
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
 		Element tempCallResultElement = null;
@@ -949,12 +859,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop();
 	}
 
-	/**
-	 * On tear down start.
-	 * 
-	 * @param aTearDownSuite
-	 *            the a tear down suite
-	 */
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
@@ -982,14 +886,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aTearDownElement);
 	}
 
-	/**
-	 * On tear down finish.
-	 * 
-	 * @param aTearDownSuite
-	 *            the a tear down suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1021,14 +917,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On suite finish.
-	 * 
-	 * @param aSuite
-	 *            the a suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1060,14 +948,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On execution finish.
-	 * 
-	 * @param aModel
-	 *            the a model
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
@@ -1093,16 +973,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
-	/**
-	 * On variable definition.
-	 * 
-	 * @param aDefinition
-	 *            the a definition
-	 * @param aSuite
-	 *            the a suite
-	 * @param anInitialValue
-	 *            the an initial value
-	 */
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
@@ -1132,12 +1002,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
-	/**
-	 * On visible comment.
-	 * 
-	 * @param aCommentText
-	 *            the a comment text
-	 */
 	@Override
 	public void onVisibleComment(String aCommentText) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
@@ -1242,14 +1106,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
-	/**
-	 * On message from fork.
-	 * 
-	 * @param aMethod
-	 *            the a method
-	 * @param someObjects
-	 *            the some objects
-	 */
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];
