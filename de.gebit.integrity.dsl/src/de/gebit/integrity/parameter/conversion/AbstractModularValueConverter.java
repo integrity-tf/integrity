@@ -43,6 +43,17 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	private Map<TargetedConversionKey, Class<? extends TargetedConversion<?, ?>>> targetedConversions = new HashMap<TargetedConversionKey, Class<? extends TargetedConversion<?, ?>>>();
 
 	/**
+	 * The default targeted conversions for all known source types. These are the conversions with the highest priority
+	 * from their respective source types' conversion pool.
+	 */
+	private Map<Class<?>, Class<? extends TargetedConversion<?, ?>>> defaultTargetedConversions = new HashMap<Class<?>, Class<? extends TargetedConversion<?, ?>>>();
+
+	/**
+	 * The current defaults' priority. Used to fill the {@link #defaultTargetedConversions} map.
+	 */
+	private Map<Class<?>, Integer> targetedConversionPriority = new HashMap<Class<?>, Integer>();
+
+	/**
 	 * All known untargeted conversions.
 	 */
 	private Map<Class<?>, Class<? extends UntargetedConversion<?>>> untargetedConversions = new HashMap<Class<?>, Class<? extends UntargetedConversion<?>>>();
@@ -97,7 +108,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	private Object convertSingleValueToParamType(Class<?> aParamType, Object aValue) {
 		if (aValue == null) {
 			return null;
-		} else if (aParamType.isAssignableFrom(aValue.getClass())) {
+		} else if (aParamType != null && aParamType.isAssignableFrom(aValue.getClass())) {
 			// No conversion necessary
 			return aValue;
 		}
@@ -276,10 +287,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	@SuppressWarnings("unchecked")
 	protected void addConversion(Class<? extends Conversion> aConversion) {
 		if (TargetedConversion.class.isAssignableFrom(aConversion)) {
-			targetedConversions
-					.put(new TargetedConversionKey(
-							(Class<? extends TargetedConversion<?, ?>>) (Class<? extends TargetedConversion<?, ?>>) aConversion),
-							(Class<? extends TargetedConversion<?, ?>>) aConversion);
+			Class<? extends TargetedConversion<?, ?>> tempTargetedConversion = (Class<? extends TargetedConversion<?, ?>>) aConversion;
+			TargetedConversionKey tempTargetedConversionKey = new TargetedConversionKey(tempTargetedConversion);
+
+			// See whether the new conversion has a higher priority than the current default conversion for the given
+			// source type
+			try {
+				TargetedConversion<?, ?> tempInstance = (TargetedConversion<?, ?>) aConversion.newInstance();
+				int tempNewPriority = tempInstance.getPriority();
+				Integer tempCurrentPriority = targetedConversionPriority.get(tempTargetedConversionKey.getSourceType());
+				if (tempCurrentPriority == null || (tempNewPriority > tempCurrentPriority)) {
+					defaultTargetedConversions.put(tempTargetedConversionKey.getSourceType(), tempTargetedConversion);
+					targetedConversionPriority.put(tempTargetedConversionKey.getSourceType(), tempCurrentPriority);
+				}
+			} catch (InstantiationException exc) {
+				throw new IllegalArgumentException("Failed to instantiate targeted conversion: "
+						+ aConversion.getName());
+			} catch (IllegalAccessException exc) {
+				throw new IllegalArgumentException("Failed to instantiate targeted conversion: "
+						+ aConversion.getName());
+			}
+
+			targetedConversions.put(tempTargetedConversionKey, tempTargetedConversion);
 		} else if (UntargetedConversion.class.isAssignableFrom(aConversion)) {
 			untargetedConversions.put(
 					determineUntargetedConversionKey((Class<? extends UntargetedConversion<?>>) aConversion),
@@ -333,12 +362,32 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	protected static class TargetedConversionKey {
 
 		/**
+		 * The source type.
+		 */
+		private Class<?> sourceType;
+
+		/**
+		 * The target type.
+		 */
+		private Class<?> targetType;
+
+		/**
 		 * Internally, a string is used to determine equality and hash code.
 		 */
 		private String internalKey;
 
-		private void generateInternalKey(Class<?> aSourceType, Class<?> aTargetType) {
-			internalKey = (aSourceType.getName() + "|" + aTargetType.getName());
+		private void initializeInternalKey(Class<?> aSourceType, Class<?> aTargetType) {
+			sourceType = aSourceType;
+			targetType = aTargetType;
+			internalKey = (aSourceType.getName() + " -> " + aTargetType.getName());
+		}
+
+		public Class<?> getSourceType() {
+			return sourceType;
+		}
+
+		public Class<?> getTargetType() {
+			return targetType;
 		}
 
 		/**
@@ -350,7 +399,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		 *            the target type
 		 */
 		public TargetedConversionKey(Class<?> aSourceType, Class<?> aTargetType) {
-			generateInternalKey(aSourceType, aTargetType);
+			initializeInternalKey(aSourceType, aTargetType);
 		}
 
 		/**
@@ -366,7 +415,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			if (tempType != null) {
 				Class<?> tempSourceType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[0];
 				Class<?> tempTargetType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[1];
-				generateInternalKey(tempSourceType, tempTargetType);
+				initializeInternalKey(tempSourceType, tempTargetType);
 			} else {
 				throw new IllegalArgumentException("Was unable to find valid generic TargetedConversion superinterface");
 			}
@@ -384,6 +433,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			} else {
 				return internalKey.equals(((TargetedConversionKey) anObject).internalKey);
 			}
+		}
+
+		@Override
+		public String toString() {
+			return internalKey;
 		}
 	}
 
@@ -434,22 +488,29 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	protected TargetedConversion<?, ?> findTargetedConversion(Class<?> aSourceType, Class<?> aTargetType)
 			throws InstantiationException, IllegalAccessException {
-		Class<?> tempSourceTypeInFocus = aSourceType;
-		while (tempSourceTypeInFocus != null) {
-			Class<? extends TargetedConversion<?, ?>> tempConversionClass = targetedConversions
-					.get(new TargetedConversionKey(tempSourceTypeInFocus, aTargetType));
+		if (aTargetType == null) {
+			Class<? extends TargetedConversion<?, ?>> tempConversion = defaultTargetedConversions.get(aSourceType);
+			if (tempConversion != null) {
+				return tempConversion.newInstance();
+			}
+		} else {
+			Class<?> tempSourceTypeInFocus = aSourceType;
+			while (tempSourceTypeInFocus != null) {
+				Class<? extends TargetedConversion<?, ?>> tempConversionClass = targetedConversions
+						.get(new TargetedConversionKey(tempSourceTypeInFocus, aTargetType));
 
-			if (tempConversionClass != null) {
-				return tempConversionClass.newInstance();
-			} else {
-				for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
-					TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempInterface, aTargetType);
-					if (tempConversion != null) {
-						return tempConversion;
+				if (tempConversionClass != null) {
+					return tempConversionClass.newInstance();
+				} else {
+					for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
+						TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempInterface, aTargetType);
+						if (tempConversion != null) {
+							return tempConversion;
+						}
 					}
-				}
 
-				tempSourceTypeInFocus = tempSourceTypeInFocus.getSuperclass();
+					tempSourceTypeInFocus = tempSourceTypeInFocus.getSuperclass();
+				}
 			}
 		}
 
