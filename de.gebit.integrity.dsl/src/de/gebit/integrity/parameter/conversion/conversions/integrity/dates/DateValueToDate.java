@@ -30,7 +30,7 @@ public class DateValueToDate implements TargetedConversion<DateValue, Date> {
 
 	@Override
 	public int getPriority() {
-		return 0;
+		return Integer.MIN_VALUE;
 	}
 
 }

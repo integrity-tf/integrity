@@ -7,7 +7,7 @@ import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
@@ -21,7 +21,7 @@ public class DecimalValueToDouble implements TargetedConversion<DecimalValue, Do
 
 	@Override
 	public int getPriority() {
-		return 0;
+		return Integer.MIN_VALUE;
 	}
 
 }

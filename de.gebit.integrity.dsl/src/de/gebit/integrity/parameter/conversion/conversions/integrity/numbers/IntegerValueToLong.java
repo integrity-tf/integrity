@@ -7,7 +7,7 @@ import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
@@ -21,7 +21,7 @@ public class IntegerValueToLong implements TargetedConversion<IntegerValue, Long
 
 	@Override
 	public int getPriority() {
-		return 0;
+		return Integer.MIN_VALUE;
 	}
 
 }

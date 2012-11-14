@@ -30,7 +30,7 @@ public class DateValueToCalendar implements TargetedConversion<DateValue, Calend
 
 	@Override
 	public int getPriority() {
-		return Integer.MIN_VALUE;
+		return 0;
 	}
 
 }
