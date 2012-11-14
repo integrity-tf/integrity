@@ -21,20 +21,20 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 public interface ValueConverter {
 
 	/**
-	 * Convert a given single Java type value to param type (which is also a Java type).
+	 * Convert a given single Integrity or Java type value to a given target type (which is always a Java type).
 	 * 
 	 * @param aTargetClass
-	 *            the param type
+	 *            the target type
 	 * @param aValue
 	 *            the value
-	 * @return the object
+	 * @return the converted object
 	 */
 	Object convertValueToParamType(Class<?> aTargetClass, Object aValue);
 
 	/**
-	 * Converts a given parameter value to a given Java type class, if possible.
+	 * Converts a given {@link ValueOrEnumValueOrOperation} to a given Java type class, if possible.
 	 * 
-	 * @param aParamType
+	 * @param aTargetClass
 	 *            the target type
 	 * @param aValue
 	 *            the value
@@ -43,39 +43,19 @@ public interface ValueConverter {
 	 *            references given as values will provoke an exception!
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
-	 *             the unresolvable variable exception
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValueOrOperation aValue,
+	Object convertEncapsulatedValueToParamType(Class<?> aTargetClass, ValueOrEnumValueOrOperation aValue,
 			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader) throws UnresolvableVariableException,
 			ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
-	 * Converts a given value to a String.
-	 * 
-	 * @param aValue
-	 *            the value (can be an {@link OperationOrValueCollection} or a plain Java Object)
-	 * @param aVariableMap
-	 *            the variable map, if variable references as values shall be resolved. If this is null, unresolved
-	 *            variable references will always return either the string "(null)" or a null value, depending on the
-	 *            following flag
-	 * @param aClassLoader
-	 *            the classloader to use in order to resolve operations. If not given, operations will be "resolved" to
-	 *            the string "UNSUPPORTED".
-	 * @param anAllowNullResultFlag
-	 *            whether a null value shall be returned in case of unresolvable variable references or operations
-	 * @return the string
-	 */
-	String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
-			boolean anAllowNullResultFlag);
-
-	/**
 	 * Converts a given value collection to a given Java type class, if possible. Will return an array if the collection
-	 * contains more than one item. This method is only being called inside Eclipse!
+	 * contains more than one item.
 	 * 
-	 * @param aParamType
+	 * @param aTargetClass
 	 *            the target type
 	 * @param aCollection
 	 *            the value collection
@@ -86,14 +66,32 @@ public interface ValueConverter {
 	 *            the a class loader
 	 * @return the converted value
 	 * @throws ClassNotFoundException
-	 *             the class not found exception
 	 * @throws UnexecutableException
-	 *             the unexecutable exception
 	 * @throws InstantiationException
-	 *             the instantiation exception
 	 */
-	Object convertEncapsulatedValueCollectionToParamType(Class<?> aParamType,
+	Object convertEncapsulatedValueCollectionToParamType(Class<?> aTargetClass,
 			ValueOrEnumValueOrOperationCollection aCollection, Map<VariableEntity, Object> aVariableMap,
 			ClassLoader aClassLoader) throws ClassNotFoundException, UnexecutableException, InstantiationException;
+
+	/**
+	 * Converts a given value to a String. This method is intended to be used for the output of values (for example in
+	 * test results, on the console etc).
+	 * 
+	 * @param aValue
+	 *            the value (can be an {@link ValueOrEnumValueOrOperationCollection} or a plain Java Object)
+	 * @param aVariableMap
+	 *            the variable map, if variable references as values shall be resolved. If this is null, unresolved
+	 *            variable references will always return either the string "(null)" or a null value, depending on the
+	 *            following flag
+	 * @param aClassLoader
+	 *            the classloader to use in order to resolve operations. If not given, operations will be "resolved" to
+	 *            the string "UNSUPPORTED".
+	 * @param anAllowNullResultFlag
+	 *            whether a null value shall be returned in case of unresolvable variable references or operations - if
+	 *            this is not set, the method will not return null, but the String "null" instead!
+	 * @return the string
+	 */
+	String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
+			boolean anAllowNullResultFlag);
 
 }
