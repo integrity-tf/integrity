@@ -44,6 +44,9 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  */
 public class DeprecatedMonolithicValueConverter implements ValueConverter {
 
+	/**
+	 * The parameter resolver.
+	 */
 	@Inject
 	ParameterResolver parameterResolver;
 

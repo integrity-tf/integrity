@@ -5,7 +5,7 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 
-import de.gebit.integrity.parameter.conversion.DeprecatedMonolithicValueConverter;
+import de.gebit.integrity.parameter.conversion.DefaultModularValueConverter;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.DefaultParameterResolver;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -60,7 +60,7 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	 */
 	// SUPPRESS CHECKSTYLE Javadoc
 	public Class<? extends ValueConverter> bindValueConverter() {
-		return DeprecatedMonolithicValueConverter.class;
+		return DefaultModularValueConverter.class;
 	}
 
 	/**

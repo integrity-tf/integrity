@@ -24,7 +24,7 @@
               <parameter name="strings" value="null, null, null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null, null, null" value="(null), (null), (null)" type="success" />
+              <comparison expectedValue="null, null, null" value="null, null, null" type="success" />
             </comparisons>
           </result>
         </results>
@@ -60,7 +60,7 @@
               <parameter name="strings" value="null, foo, null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null, null, foo" value="(null), foo, (null)" type="failure" />
+              <comparison expectedValue="null, null, foo" value="null, foo, null" type="failure" />
             </comparisons>
           </result>
         </results>
@@ -72,7 +72,7 @@
               <parameter name="strings" value="null, null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null, null, null" value="(null), (null)" type="failure" />
+              <comparison expectedValue="null, null, null" value="null, null" type="failure" />
             </comparisons>
           </result>
         </results>
@@ -84,7 +84,7 @@
               <parameter name="strings" value="null, null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null" value="(null), (null)" type="failure" />
+              <comparison expectedValue="null" value="null, null" type="failure" />
             </comparisons>
           </result>
         </results>
@@ -96,12 +96,12 @@
               <parameter name="strings" value="null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null, null" value="(null)" type="failure" />
+              <comparison expectedValue="null, null" value="null" type="failure" />
             </comparisons>
           </result>
         </results>
       </test>
-      <test id="9" name="echo" description="echoes the values: null, (null), (null)" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
+      <test id="9" name="echo" description="echoes the values: null, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
         <results duration="0.579" successCount="1" failureCount="0" exceptionCount="0">
           <result duration="0.579" description="echoes the values: null, ???, ???" type="success">
             <parameters>
@@ -116,7 +116,7 @@
           </result>
         </results>
       </test>
-      <test id="10" name="echo" description="echoes the values: 1, (null), (null)" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
+      <test id="10" name="echo" description="echoes the values: 1, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
         <results duration="0.412" successCount="0" failureCount="1" exceptionCount="0">
           <result duration="0.412" description="echoes the values: 1, ???, ???" type="failure">
             <parameters>
