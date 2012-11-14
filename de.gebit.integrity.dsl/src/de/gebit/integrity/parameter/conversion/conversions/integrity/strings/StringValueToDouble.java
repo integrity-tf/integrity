@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToDouble implements TargetedConversion<StringValue, Double> {
 
 	@Override
-	public Double convert(StringValue aSource) {
+	public Double convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Double.parseDouble(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

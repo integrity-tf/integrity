@@ -20,7 +20,7 @@ import de.gebit.integrity.utils.DateUtil;
 public class TimeValueToCalendar implements TargetedConversion<TimeValue, Calendar> {
 
 	@Override
-	public Calendar convert(TimeValue aSource) {
+	public Calendar convert(TimeValue aSource) throws ConversionFailedException {
 		try {
 			return DateUtil.convertTimeValue(aSource);
 		} catch (ParseException exc) {

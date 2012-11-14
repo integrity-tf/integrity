@@ -4,6 +4,7 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.booleans;
 
 import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -15,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class BooleanValueToBoolean implements TargetedConversion<BooleanValue, Boolean> {
 
 	@Override
-	public Boolean convert(BooleanValue aSource) {
+	public Boolean convert(BooleanValue aSource) throws ConversionFailedException {
 		return Boolean.valueOf(aSource.getBooleanValue());
 	}
 

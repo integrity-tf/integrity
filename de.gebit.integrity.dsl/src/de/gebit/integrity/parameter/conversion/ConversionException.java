@@ -66,8 +66,8 @@ public class ConversionException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		return "Failed to convert from '" + sourceType.getName() + "' to '" + targetType.getName() + "': "
-				+ super.getMessage();
+		return "Failed to convert from '" + sourceType.getName() + "'"
+				+ (targetType != null ? " to '" + targetType.getName() + "' " : "") + ": " + super.getMessage();
 	}
 
 }

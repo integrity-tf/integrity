@@ -21,7 +21,9 @@ public interface UntargetedConversion<FROM extends Object> extends Conversion {
 	 * @param aTargetType
 	 *            the given target type for the conversion
 	 * @return the converted object
+	 * @throws ConversionFailedException
+	 *             in case of conversion errors
 	 */
-	Object convert(FROM aSource, Class<?> aTargetType);
+	Object convert(FROM aSource, Class<?> aTargetType) throws ConversionFailedException;
 
 }

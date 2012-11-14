@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.java.numbers;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -14,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class NumberToFloat implements TargetedConversion<Number, Float> {
 
 	@Override
-	public Float convert(Number aSource) {
+	public Float convert(Number aSource) throws ConversionFailedException {
 		return aSource.floatValue();
 	}
 

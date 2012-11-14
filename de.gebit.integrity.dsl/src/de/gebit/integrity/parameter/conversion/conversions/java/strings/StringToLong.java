@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -14,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class StringToLong implements TargetedConversion<String, Long> {
 
 	@Override
-	public Long convert(String aSource) {
+	public Long convert(String aSource) throws ConversionFailedException {
 		return Long.parseLong(aSource);
 	}
 

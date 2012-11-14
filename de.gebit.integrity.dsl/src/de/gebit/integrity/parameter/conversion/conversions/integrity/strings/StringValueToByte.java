@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToByte implements TargetedConversion<StringValue, Byte> {
 
 	@Override
-	public Byte convert(StringValue aSource) {
+	public Byte convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Byte.parseByte(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

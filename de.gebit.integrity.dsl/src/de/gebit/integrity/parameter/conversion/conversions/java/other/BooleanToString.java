@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -14,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class BooleanToString implements TargetedConversion<Boolean, String> {
 
 	@Override
-	public String convert(Boolean aSource) {
+	public String convert(Boolean aSource) throws ConversionFailedException {
 		return aSource.toString();
 	}
 

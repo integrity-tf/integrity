@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToBoolean implements TargetedConversion<StringValue, Boolean> {
 
 	@Override
-	public Boolean convert(StringValue aSource) {
+	public Boolean convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Boolean.parseBoolean(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

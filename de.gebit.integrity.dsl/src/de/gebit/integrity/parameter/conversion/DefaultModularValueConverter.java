@@ -3,6 +3,8 @@
  */
 package de.gebit.integrity.parameter.conversion;
 
+import com.google.inject.Singleton;
+
 import de.gebit.integrity.parameter.conversion.conversions.integrity.booleans.BooleanValueToBoolean;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.booleans.BooleanValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToCalendar;
@@ -28,6 +30,8 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToMap;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NullValueToNull;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigInteger;
@@ -74,6 +78,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringTo
  * @author Rene Schneider
  * 
  */
+@Singleton
 public class DefaultModularValueConverter extends AbstractModularValueConverter {
 
 	@Override
@@ -156,6 +161,8 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		// other conversions, Integrity -> Java
 		addConversion(NullValueToNull.class);
 		addConversion(EnumValueToEnumConstant.class);
+		addConversion(NestedObjectToMap.class);
+		addConversion(NestedObjectToString.class);
 	}
 
 }

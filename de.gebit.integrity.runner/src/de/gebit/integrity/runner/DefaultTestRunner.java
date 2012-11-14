@@ -22,6 +22,8 @@ import java.util.concurrent.Semaphore;
 import org.eclipse.xtext.common.types.JvmType;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -58,6 +60,7 @@ import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -71,7 +74,6 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
-import de.gebit.integrity.runner.callbacks.CallbackCapabilities;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
@@ -98,6 +100,7 @@ import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
+import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
  * The test runner executes tests. This class is the core of the Integrity runtime system.
@@ -106,6 +109,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * @author Rene Schneider
  * 
  */
+@Singleton
 public class DefaultTestRunner implements TestRunner {
 
 	/**
@@ -159,10 +163,10 @@ public class DefaultTestRunner implements TestRunner {
 	protected Phase currentPhase;
 
 	/**
-	 * The map that stores all variables and their corresponding values (local and global variables - scoping is being
-	 * enforced by the XText scoping system, not by the test runtime).
+	 * The variable manager, which keeps track of the variable values (local and global).
 	 */
-	protected Map<VariableEntity, Object> variableStorage = new HashMap<VariableEntity, Object>();
+	@Inject
+	protected VariableManager variableManager;
 
 	/**
 	 * The value converter.
@@ -175,6 +179,18 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected ParameterResolver parameterResolver;
+
+	/**
+	 * The wrapper factory.
+	 */
+	@Inject
+	protected WrapperFactory wrapperFactory;
+
+	/**
+	 * The Guice injector.
+	 */
+	@Inject
+	protected Injector injector;
 
 	/**
 	 * The remoting server.
@@ -269,6 +285,11 @@ public class DefaultTestRunner implements TestRunner {
 			String aRemotingBindHost, String[] someCommandLineArguments) throws IOException {
 		model = aModel;
 		callback = aCallback;
+
+		if (callback instanceof CompoundTestRunnerCallback) {
+			((CompoundTestRunnerCallback) callback).injectDependencies(injector);
+		}
+
 		commandLineArguments = someCommandLineArguments;
 		Integer tempRemotingPort = aRemotingPort;
 		if (isFork()) {
@@ -372,7 +393,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * Resets the internal variable state.
 	 */
 	protected void reset() {
-		variableStorage.clear();
+		variableManager.clear();
 		setupSuitesExecuted.clear();
 	}
 
@@ -384,11 +405,10 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
-		variableStorage = new HashMap<VariableEntity, Object>();
+		variableManager.clear();
 
 		if (currentCallback != null) {
-			currentCallback.onExecutionStart(model, variantInExecution, new CallbackCapabilities(valueConverter,
-					parameterResolver, variableStorage, model.getClassLoader()));
+			currentCallback.onExecutionStart(model, variantInExecution);
 		}
 
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
@@ -540,7 +560,7 @@ public class DefaultTestRunner implements TestRunner {
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
 			if (tempParam.getValue() instanceof Variable) {
 				Variable tempVariable = (Variable) tempParam.getValue();
-				defineVariable(tempParam.getName(), variableStorage.get(tempVariable.getName()),
+				defineVariable(tempParam.getName(), variableManager.get(tempVariable.getName()),
 						aSuiteCall.getDefinition());
 			} else {
 				defineVariable(tempParam.getName(), tempParam.getValue(), aSuiteCall.getDefinition());
@@ -715,12 +735,12 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(VariableEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {
 		Object tempInitialValue = null;
 		if (anInitialValue instanceof Variable) {
-			tempInitialValue = variableStorage.get(anInitialValue);
+			tempInitialValue = variableManager.get(((Variable) anInitialValue).getName());
 		} else {
 			tempInitialValue = anInitialValue;
 		}
 
-		variableStorage.put(anEntity, tempInitialValue);
+		variableManager.set(anEntity, tempInitialValue);
 		if (currentCallback != null) {
 			currentCallback.onVariableDefinition(anEntity, aSuite, tempInitialValue);
 		}
@@ -737,7 +757,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether this update should be sent to connected master/slaves
 	 */
 	protected void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
-		variableStorage.put(anEntity, aValue);
+		variableManager.set(anEntity, aValue);
 		if (aDoSendUpdateFlag) {
 			if (isFork()) {
 				// A fork will have to send updates to its master
@@ -770,11 +790,9 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether this update should be sent to connected master/slaves
 	 */
 	protected void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
-		for (VariableEntity tempEntity : variableStorage.keySet()) {
-			if (IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true).equals(aQualifiedVariableName)) {
-				setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
-				return;
-			}
+		VariableEntity tempEntity = variableManager.findEntity(aQualifiedVariableName);
+		if (tempEntity != null) {
+			setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
 		}
 	}
 
@@ -819,10 +837,10 @@ public class DefaultTestRunner implements TestRunner {
 
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, variableStorage,
-						getModelClassLoader(), valueConverter, true, false);
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true, false);
 
-				tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
+				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
+						.getType());
 
 				tempStart = System.nanoTime();
 				Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
@@ -947,12 +965,13 @@ public class DefaultTestRunner implements TestRunner {
 				} else {
 					long tempStart = System.nanoTime();
 					try {
-						Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow,
-								variableStorage, getModelClassLoader(), valueConverter, true, false);
+						Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow, true,
+								false);
 
 						if (tempFixtureInstance == null) {
 							// only instantiate on first pass
-							tempFixtureInstance = instantiateFixture(aTest.getDefinition().getFixtureMethod());
+							tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition()
+									.getFixtureMethod().getType());
 						}
 
 						tempStart = System.nanoTime();
@@ -1063,25 +1082,6 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * Instantiates a new fixture instance. Actually this creates an instance of {@link FixtureWrapper} which wraps the
-	 * fixture class in it.
-	 * 
-	 * @param aMethod
-	 *            the method reference, which includes the fixture class to instantiate
-	 * @return the new fixture instance
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 */
-	protected FixtureWrapper<?> instantiateFixture(MethodReference aMethod) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		Class<?> tempFixtureClass = getClassForJvmType(aMethod.getType());
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		FixtureWrapper<?> tempFixtureInstance = new FixtureWrapper(tempFixtureClass, valueConverter);
-		return tempFixtureInstance;
-	}
-
-	/**
 	 * Calls a given method on a fixture instance.
 	 * 
 	 * @param aFixtureInstance
@@ -1162,13 +1162,11 @@ public class DefaultTestRunner implements TestRunner {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
 							Array.set(tempConvertedResult, i, valueConverter.convertEncapsulatedValueToParamType(
-									tempConversionTargetType, tempSingleExpectedResult, variableStorage,
-									getModelClassLoader()));
+									tempConversionTargetType, tempSingleExpectedResult));
 						}
 					} else {
 						tempConvertedResult = valueConverter.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue(), variableStorage,
-								getModelClassLoader());
+								tempConversionTargetType, anExpectedResult.getValue());
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
@@ -1194,7 +1192,7 @@ public class DefaultTestRunner implements TestRunner {
 							} else {
 								Object tempConvertedExpectedResult = valueConverter
 										.convertEncapsulatedValueToParamType(tempSingleFixtureResult.getClass(),
-												tempSingleExpectedResult, variableStorage, getModelClassLoader());
+												tempSingleExpectedResult);
 
 								if (!performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
 										tempSingleExpectedResult)) {
@@ -1214,8 +1212,7 @@ public class DefaultTestRunner implements TestRunner {
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 						Object tempConvertedExpectedResult = valueConverter.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, tempSingleExpectedResult, variableStorage,
-								getModelClassLoader());
+								tempConversionTargetType, tempSingleExpectedResult);
 
 						// Even though we assume that there's a single expected result after this point, the converted
 						// result might still be an array (because an operation has returned an array, for example).
@@ -1377,10 +1374,10 @@ public class DefaultTestRunner implements TestRunner {
 			long tempStart = System.nanoTime();
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, variableStorage,
-						getModelClassLoader(), valueConverter, true, false);
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true, false);
 
-				tempFixtureInstance = instantiateFixture(aCall.getDefinition().getFixtureMethod());
+				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod()
+						.getType());
 
 				tempStart = System.nanoTime();
 				Object tempResult = executeFixtureMethod(tempFixtureInstance, aCall.getDefinition().getFixtureMethod(),
@@ -1688,8 +1685,7 @@ public class DefaultTestRunner implements TestRunner {
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
 									tempParameters[i] = valueConverter.convertEncapsulatedValueToParamType(
-											tempTargetType, tempParameter.getValue(), variableStorage,
-											getModelClassLoader());
+											tempTargetType, tempParameter.getValue());
 									break;
 								}
 							}
@@ -1773,7 +1769,7 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempFork.isAlive() && tempFork.isConnected()) {
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)
-			for (Entry<VariableEntity, Object> tempEntry : variableStorage.entrySet()) {
+			for (Entry<VariableEntity, Object> tempEntry : variableManager.getAllEntries()) {
 				if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)) {
 					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
 				}

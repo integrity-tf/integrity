@@ -21,8 +21,10 @@ public interface TargetedConversion<FROM extends Object, TO extends Object> exte
 	 * @param aSource
 	 *            the source object to convert
 	 * @return the converted object
+	 * @throws ConversionFailedException
+	 *             in case of conversion errors
 	 */
-	TO convert(FROM aSource);
+	TO convert(FROM aSource) throws ConversionFailedException;
 
 	/**
 	 * The priority returned by this method is used to determine the default conversion if an object is given, but no

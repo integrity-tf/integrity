@@ -18,7 +18,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToBigInteger implements TargetedConversion<StringValue, BigInteger> {
 
 	@Override
-	public BigInteger convert(StringValue aSource) {
+	public BigInteger convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return new BigInteger(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

@@ -382,14 +382,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		try {
 			if (aModel instanceof Test) {
 				Test tempTest = (Test) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, null, valueConverter, true,
-						false);
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, true, false);
 				tempExpectedResultMap = parameterResolver.createExpectedResultMap(tempTest, null, true);
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, null, null, valueConverter,
-						true, false);
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, true, false);
 				tempExpectedResultMap = new LinkedHashMap<String, Object>();
 				for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
 					tempExpectedResultMap.put(
@@ -398,8 +396,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof Call) {
 				Call tempCall = (Call) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), null, null,
-						valueConverter, true, false);
+				tempParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), true, false);
 				tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 			}
 		} catch (InstantiationException exc) {
@@ -427,16 +424,16 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					Map<String, Object> tempFixedParameterMap = null;
 					if (aModel instanceof Test) {
 						Test tempTest = (Test) aModel;
-						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), null,
-								null, valueConverter, false, true);
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), false,
+								true);
 					} else if (aModel instanceof TableTest) {
 						TableTest tempTest = (TableTest) aModel;
-						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), null,
-								null, valueConverter, false, true);
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), false,
+								true);
 					} else if (aModel instanceof Call) {
 						Call tempCall = (Call) aModel;
-						tempFixedParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), null,
-								null, valueConverter, false, true);
+						tempFixedParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), false,
+								true);
 					}
 
 					resolveVariables(tempFixedParameterMap);
@@ -536,7 +533,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								tempCompilationUnit.getTypes()[0], valueConverter);
 
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
-								null, null, valueConverter, true, true);
+								true, true);
 
 						Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(
 								tempMethod.getMethod().getSimpleName(), null, tempTest.getResult());
@@ -578,8 +575,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
 							tempCompilationUnit.getTypes()[0], valueConverter);
 
-					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, null,
-							null, valueConverter, true, true);
+					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
+							true);
 
 					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
 							.getMethod().getSimpleName(), tempResult.getName(), tempResult.getValue());
@@ -625,8 +622,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				try {
-					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, null,
-							null, valueConverter, true, true);
+					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
+							true);
 					completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
 				} catch (InstantiationException exc) {
 					// cannot occur, since thrown by operation execution which is not performed here
@@ -674,7 +671,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (tempColumn < tempTest.getParameterHeaders().size()) {
 						try {
 							Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-									null, null, valueConverter, true, true);
+									true, true);
 
 							completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 									tempMethod, tempParamMap, aContext, anAcceptor);
@@ -721,7 +718,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								}
 
 								Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest,
-										tempRow, null, null, valueConverter, true, true);
+										tempRow, true, true);
 
 								completeCustomProposalResultValuesInternal(tempResultName, tempMethod,
 										tempConvertedResultValue, tempParamMap, aContext, anAcceptor);
@@ -762,7 +759,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
 					try {
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-								null, null, valueConverter, true, true);
+								true, true);
 
 						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 								tempMethod, tempParamMap, aContext, anAcceptor);

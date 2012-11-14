@@ -6,7 +6,7 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 		
-		variable blah
+		variable blah initially 123
 		test echo echo: {
 				key1: blah
 				key2: "string"

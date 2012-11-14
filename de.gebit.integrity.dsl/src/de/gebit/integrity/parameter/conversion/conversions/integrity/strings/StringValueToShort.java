@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToShort implements TargetedConversion<StringValue, Short> {
 
 	@Override
-	public Short convert(StringValue aSource) {
+	public Short convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Short.parseShort(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

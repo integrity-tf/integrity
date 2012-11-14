@@ -20,7 +20,7 @@ import de.gebit.integrity.utils.DateUtil;
 public class DateAndTimeValueToDate implements TargetedConversion<DateAndTimeValue, Date> {
 
 	@Override
-	public Date convert(DateAndTimeValue aSource) {
+	public Date convert(DateAndTimeValue aSource) throws ConversionFailedException {
 		try {
 			return DateUtil.convertDateAndTimeValue(aSource).getTime();
 		} catch (ParseException exc) {

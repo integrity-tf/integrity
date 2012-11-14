@@ -36,11 +36,8 @@ public abstract class TestRunnerCallback {
 	 * 
 	 * @param aModel
 	 *            the test model that will be executed
-	 * @param aCapabilityObject
-	 *            an object containing various capabilities for callbacks to use
 	 */
-	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			CallbackCapabilities aCapabilityObject);
+	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant);
 
 	/**
 	 * Called when a suite call is being followed.

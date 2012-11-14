@@ -5,6 +5,7 @@ package de.gebit.integrity.parameter.conversion.conversions.java.numbers;
 
 import java.math.BigInteger;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -16,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class NumberToBigInteger implements TargetedConversion<Number, BigInteger> {
 
 	@Override
-	public BigInteger convert(Number aSource) {
+	public BigInteger convert(Number aSource) throws ConversionFailedException {
 		return BigInteger.valueOf(aSource.longValue());
 	}
 

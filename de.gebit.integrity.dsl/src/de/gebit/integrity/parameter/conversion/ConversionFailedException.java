@@ -4,7 +4,7 @@
 package de.gebit.integrity.parameter.conversion;
 
 /**
- * Thrown if a certain requested conversion is not supported, because no matching {@link TargetedConversion} was found.
+ * Thrown if a certain requested conversion did fail for whatever reason.
  * 
  * 
  * @author Rene Schneider
@@ -18,7 +18,7 @@ public class ConversionFailedException extends ConversionException {
 	private static final long serialVersionUID = 2394358953404897646L;
 
 	/**
-	 * Instantiates a new conversion unsupported exception.
+	 * Instantiates a new conversion failed exception.
 	 * 
 	 * @param aSourceType
 	 *            the a source type
@@ -46,11 +46,4 @@ public class ConversionFailedException extends ConversionException {
 	public ConversionFailedException(Class<?> aSourceType, Class<?> aTargetType, String aMessage) {
 		super(aSourceType, aTargetType, aMessage);
 	}
-
-	@Override
-	public String getMessage() {
-		return "Conversion from '" + getSourceType().getName() + "' to '" + getTargetType().getName() + "' failed"
-				+ (super.getMessage() != null ? ": " + super.getMessage() : "");
-	}
-
 }

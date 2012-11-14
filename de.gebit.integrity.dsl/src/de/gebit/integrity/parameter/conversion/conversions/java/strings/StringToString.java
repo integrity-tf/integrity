@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -14,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class StringToString implements TargetedConversion<String, String> {
 
 	@Override
-	public String convert(String aSource) {
+	public String convert(String aSource) throws ConversionFailedException {
 		return aSource;
 	}
 

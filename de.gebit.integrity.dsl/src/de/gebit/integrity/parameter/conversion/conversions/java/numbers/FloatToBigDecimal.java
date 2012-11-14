@@ -5,6 +5,7 @@ package de.gebit.integrity.parameter.conversion.conversions.java.numbers;
 
 import java.math.BigDecimal;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -16,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class FloatToBigDecimal implements TargetedConversion<Float, BigDecimal> {
 
 	@Override
-	public BigDecimal convert(Float aSource) {
+	public BigDecimal convert(Float aSource) throws ConversionFailedException {
 		return new BigDecimal(aSource);
 	}
 

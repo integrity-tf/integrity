@@ -19,7 +19,6 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * 
@@ -36,12 +35,6 @@ public interface ParameterResolver {
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
@@ -52,8 +45,7 @@ public interface ParameterResolver {
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
-	Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
+	Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException;
 
@@ -64,12 +56,6 @@ public interface ParameterResolver {
 	 * 
 	 * @param aCall
 	 *            the call
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
@@ -80,8 +66,7 @@ public interface ParameterResolver {
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
-	Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
+	Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException;
 
@@ -94,12 +79,6 @@ public interface ParameterResolver {
 	 *            the table test
 	 * @param aTableTestRow
 	 *            the row of the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
@@ -111,7 +90,6 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
@@ -122,12 +100,6 @@ public interface ParameterResolver {
 	 * 
 	 * @param someParameters
 	 *            the parameters
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param aLeaveUnresolvableVariableReferencesIntact
@@ -138,8 +110,7 @@ public interface ParameterResolver {
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
-	Map<String, Object> createParameterMap(List<Parameter> someParameters, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean anIncludeArbitraryParametersFlag,
+	Map<String, Object> createParameterMap(List<Parameter> someParameters, boolean anIncludeArbitraryParametersFlag,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException;
 
@@ -150,10 +121,6 @@ public interface ParameterResolver {
 	 * 
 	 * @param aValueCollection
 	 *            the value collection to resolve
-	 * @param aVariableMap
-	 *            the variable map used to resolve variables (optional)
-	 * @param aClassLoader
-	 *            the classloader to use for loading of operation classes (optional)
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
 	 * @return the resolved value
@@ -162,7 +129,6 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader, ValueConverter aConverter,
 			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
 			ClassNotFoundException;
 
@@ -173,10 +139,6 @@ public interface ParameterResolver {
 	 * 
 	 * @param aValue
 	 *            the value to resolve
-	 * @param aVariableMap
-	 *            the variable map used to resolve variables (optional)
-	 * @param aClassLoader
-	 *            the classloader to use for loading of operation classes (optional)
 	 * @param aLeaveUnresolvableVariableReferencesIntact
 	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
 	 * @return the resolved value
@@ -184,9 +146,9 @@ public interface ParameterResolver {
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 */
-	Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, ValueConverter aConverter, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws UnexecutableException, InstantiationException, ClassNotFoundException;
+	Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
+			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
+			ClassNotFoundException;
 
 	/**
 	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access

@@ -18,7 +18,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToBigDecimal implements TargetedConversion<StringValue, BigDecimal> {
 
 	@Override
-	public BigDecimal convert(StringValue aSource) {
+	public BigDecimal convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return new BigDecimal(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

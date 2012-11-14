@@ -8,19 +8,20 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
+import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
  * Abstract base class for a value converter which uses conversion classes to determine how a given value is to be
@@ -36,6 +37,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	@Inject
 	ParameterResolver parameterResolver;
+
+	@Inject(optional = true)
+	WrapperFactory wrapperFactory;
+
+	/**
+	 * The Guice injector. Required to inject stuff into instances of conversions.
+	 */
+	@Inject
+	Injector injector;
 
 	/**
 	 * All known targeted conversions.
@@ -77,24 +87,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return null;
 		}
 
-		if (aParamType.isArray()) {
+		if (aParamType != null && aParamType.isArray()) {
 			Class<?> tempActualParamType = aParamType.getComponentType();
 			Object tempResultArray;
 			if (aValue.getClass().isArray()) {
 				// both are arrays
 				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
 				for (int i = 0; i < Array.getLength(aValue); i++) {
-					Array.set(tempResultArray, i,
-							convertSingleValueToParamType(tempActualParamType, Array.get(aValue, i)));
+					Array.set(tempResultArray, i, convertValueToParamType(tempActualParamType, Array.get(aValue, i)));
 				}
 			} else {
 				// target is an array, but value is a single value
 				tempResultArray = Array.newInstance(tempActualParamType, 1);
-				Array.set(tempResultArray, 0, convertSingleValueToParamType(tempActualParamType, aValue));
+				Array.set(tempResultArray, 0, convertValueToParamType(tempActualParamType, aValue));
 			}
 			return tempResultArray;
 		} else {
 			// target is a single value
+			if (aValue instanceof Map) {
+				// maps are explored and all contained values are converted
+				convertMapOfValues((Map<?, ?>) aValue, aParamType);
+			}
+
 			if (aValue.getClass().isArray()) {
 				// this is not convertible, but since this method does not guarantee any conversion...
 				return aValue;
@@ -102,6 +116,30 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return convertSingleValueToParamType(aParamType, aValue);
 			}
 		}
+	}
+
+	/**
+	 * Internally used to convert trees of parameters to the given target type or their respective default target types.
+	 * The conversion happens "in-place", that is, the given map will be altered!
+	 * 
+	 * @param aMap
+	 *            the map to convert
+	 * @param aTargetType
+	 *            the target type (if null, default conversions are used)
+	 * @return the converted map (which is currently the same map that was given to the method!)
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected Map<?, ?> convertMapOfValues(Map<?, ?> aMap, Class<?> aTargetType) {
+		for (Entry tempEntry : aMap.entrySet()) {
+			if (tempEntry.getValue() instanceof Map) {
+				convertMapOfValues((Map) tempEntry.getValue(), aTargetType);
+			} else {
+				Object tempConvertedValue = convertSingleValueToParamType(aTargetType, tempEntry.getValue());
+				tempEntry.setValue(tempConvertedValue);
+			}
+		}
+
+		return aMap;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,54 +169,50 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
 		}
 
-		throw new ConversionFailedException(aValue.getClass(), aParamType, "Could not find a matching conversion");
+		throw new ConversionUnsupportedException(aValue.getClass(), aParamType, "Could not find a matching conversion");
 	}
 
 	@Override
-	public Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValueOrOperation aValue,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader) throws UnresolvableVariableException,
-			ClassNotFoundException, UnexecutableException, InstantiationException {
+	public Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValueOrOperation aValue)
+			throws UnresolvableVariableException, ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (aValue == null) {
 			return null;
 		}
 
 		if (aValue instanceof Operation) {
-			if (aClassLoader == null) {
+			if (wrapperFactory == null) {
 				// cannot execute operations without the ability to load them
 				return null;
 			} else {
-				OperationWrapper tempWrapper = new OperationWrapper((Operation) aValue, aClassLoader, this);
-				Object tempResult = tempWrapper.executeOperation(aVariableMap, false);
+				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
+				Object tempResult = tempWrapper.executeOperation(false);
 				return convertValueToParamType(aParamType, tempResult);
 			}
 		} else if (aValue instanceof Variable) {
-			Object tempResult;
-			if (aVariableMap != null) {
-				tempResult = parameterResolver.resolveSingleParameterValue(aValue, aVariableMap, aClassLoader, this,
-						true);
-				if (tempResult instanceof Variable) {
-					throw new UnresolvableVariableException("Unresolvable variable "
-							+ ((Variable) aValue).getName().getName() + " encountered!");
-				} else {
-					return convertSingleValueToParamType(aParamType, tempResult);
-				}
+			Object tempResult = parameterResolver.resolveSingleParameterValue(aValue, true);
+			if (tempResult instanceof Variable) {
+				throw new UnresolvableVariableException("Unresolvable variable "
+						+ ((Variable) aValue).getName().getName() + " encountered!");
 			} else {
-				throw new UnresolvableVariableException("Unresolved variable "
-						+ ((Variable) aValue).getName().getName() + " encountered, but missing variable to value map!");
+				return convertSingleValueToParamType(aParamType, tempResult);
 			}
-		} else if (aValue instanceof NestedObject) {
-			if (aParamType == String.class) {
-				return aValue.toString();
-			} else if (Map.class.isAssignableFrom(aParamType)) {
-				@SuppressWarnings("unchecked")
-				Map<String, Object> tempResult = (Map<String, Object>) parameterResolver.resolveSingleParameterValue(
-						aValue, aVariableMap, aClassLoader, this, false);
-				// TODO this must be converted!
-				return tempResult;
-			} else {
-				throw new IllegalArgumentException("Cannot convert a nested object to parameter type " + aParamType
-						+ " - it's advised to use a java.util.Map as target type!");
-			}
+			// } else if (aValue instanceof NestedObject) {
+			// if (Map.class.isAssignableFrom(aParamType)) {
+			// @SuppressWarnings("unchecked")
+			// Map<String, Object> tempResult = (Map<String, Object>) parameterResolver.resolveSingleParameterValue(
+			// aValue, aVariableMap, aClassLoader, this, false);
+			//
+			// convertMapOfValues(tempResult, null);
+			//
+			// return tempResult;
+			// } else if (aParamType == String.class) {
+			// Map<?, ?> tempMap = (Map<?, ?>) convertEncapsulatedValueToParamType(Map.class, aValue, aVariableMap,
+			// aClassLoader);
+			// return convertValueToString(tempMap, aVariableMap, aClassLoader, true);
+			// } else {
+			// throw new IllegalArgumentException("Cannot convert a nested object to parameter type " + aParamType
+			// + " - it's advised to use a java.util.Map as target type!");
+			// }
 		} else {
 			return convertValueToParamType(aParamType, aValue);
 		}
@@ -186,8 +220,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 	@Override
 	public Object convertEncapsulatedValueCollectionToParamType(Class<?> aParamType,
-			ValueOrEnumValueOrOperationCollection aCollection, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader) throws ClassNotFoundException, UnexecutableException, InstantiationException {
+			ValueOrEnumValueOrOperationCollection aCollection) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
 
 		Class<?> tempTargetParamType = null;
 		if (aParamType.isArray()) {
@@ -202,8 +236,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
 						.get(i - 1));
-				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue,
-						aVariableMap, aClassLoader);
+				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue);
 				Array.set(tempResultArray, i, tempResultValue);
 			}
 
@@ -216,8 +249,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 		} else {
 			// this is just a single value
-			Object tempResult = convertEncapsulatedValueToParamType(tempTargetParamType, aCollection.getValue(),
-					aVariableMap, aClassLoader);
+			Object tempResult = convertEncapsulatedValueToParamType(tempTargetParamType, aCollection.getValue());
 
 			// but we might need to return this as an array with one element
 			if (aParamType.isArray()) {
@@ -231,17 +263,16 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public String convertValueToString(Object aValue, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anAllowNullResultFlag) {
+	public String convertValueToString(Object aValue, boolean anAllowNullResultFlag) {
 		// always convert to an array, so array values will convert fine
 		String[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
 				tempResult = (String[]) convertEncapsulatedValueCollectionToParamType(String[].class,
-						(ValueOrEnumValueOrOperationCollection) aValue, aVariableMap, aClassLoader);
+						(ValueOrEnumValueOrOperationCollection) aValue);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
 				tempResult = (String[]) convertEncapsulatedValueToParamType(String[].class,
-						(ValueOrEnumValueOrOperation) aValue, aVariableMap, aClassLoader);
+						(ValueOrEnumValueOrOperation) aValue);
 			} else {
 				tempResult = (String[]) convertValueToParamType(String[].class, aValue);
 			}
@@ -293,7 +324,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// See whether the new conversion has a higher priority than the current default conversion for the given
 			// source type
 			try {
-				TargetedConversion<?, ?> tempInstance = (TargetedConversion<?, ?>) aConversion.newInstance();
+				TargetedConversion<?, ?> tempInstance = (TargetedConversion<?, ?>) createConversionInstance(
+						aConversion, false);
 				int tempNewPriority = tempInstance.getPriority();
 				Integer tempCurrentPriority = targetedConversionPriority.get(tempTargetedConversionKey.getSourceType());
 				if (tempCurrentPriority == null || (tempNewPriority > tempCurrentPriority)) {
@@ -458,7 +490,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					.get(tempSourceTypeInFocus);
 
 			if (tempConversionClass != null) {
-				return tempConversionClass.newInstance();
+				return createConversionInstance(tempConversionClass, true);
 			} else {
 				for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
 					UntargetedConversion<?> tempConversion = findUntargetedConversion(tempInterface);
@@ -488,33 +520,52 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	protected TargetedConversion<?, ?> findTargetedConversion(Class<?> aSourceType, Class<?> aTargetType)
 			throws InstantiationException, IllegalAccessException {
-		if (aTargetType == null) {
-			Class<? extends TargetedConversion<?, ?>> tempConversion = defaultTargetedConversions.get(aSourceType);
-			if (tempConversion != null) {
-				return tempConversion.newInstance();
+		Class<?> tempSourceTypeInFocus = aSourceType;
+		while (tempSourceTypeInFocus != null) {
+			Class<? extends TargetedConversion<?, ?>> tempConversionClass;
+			if (aTargetType == null) {
+				tempConversionClass = defaultTargetedConversions.get(aSourceType);
+			} else {
+				tempConversionClass = targetedConversions.get(new TargetedConversionKey(tempSourceTypeInFocus,
+						aTargetType));
 			}
-		} else {
-			Class<?> tempSourceTypeInFocus = aSourceType;
-			while (tempSourceTypeInFocus != null) {
-				Class<? extends TargetedConversion<?, ?>> tempConversionClass = targetedConversions
-						.get(new TargetedConversionKey(tempSourceTypeInFocus, aTargetType));
 
-				if (tempConversionClass != null) {
-					return tempConversionClass.newInstance();
-				} else {
-					for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
-						TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempInterface, aTargetType);
-						if (tempConversion != null) {
-							return tempConversion;
-						}
+			if (tempConversionClass != null) {
+				return createConversionInstance(tempConversionClass, true);
+			} else {
+				for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
+					TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempInterface, aTargetType);
+					if (tempConversion != null) {
+						return tempConversion;
 					}
-
-					tempSourceTypeInFocus = tempSourceTypeInFocus.getSuperclass();
 				}
+
+				tempSourceTypeInFocus = tempSourceTypeInFocus.getSuperclass();
 			}
 		}
 
 		return null;
+	}
+
+	/**
+	 * Creates an instance of the given conversion class. This also injects the Guice dependencies.
+	 * 
+	 * @param aConversionClass
+	 *            the conversion
+	 * @param anInjectFlag
+	 *            whether Guice dependencies shall be injected
+	 * @return the new instance
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	protected <C extends Conversion> C createConversionInstance(Class<C> aConversionClass, boolean anInjectFlag)
+			throws InstantiationException, IllegalAccessException {
+		C tempInstance = aConversionClass.newInstance();
+		if (anInjectFlag) {
+			injector.injectMembers(tempInstance);
+		}
+
+		return tempInstance;
 	}
 
 }

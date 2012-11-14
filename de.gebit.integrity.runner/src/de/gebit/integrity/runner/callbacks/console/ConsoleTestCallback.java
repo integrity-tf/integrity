@@ -3,6 +3,8 @@ package de.gebit.integrity.runner.callbacks.console;
 import java.io.Serializable;
 import java.util.Map.Entry;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -13,9 +15,11 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
-import de.gebit.integrity.runner.callbacks.CallbackCapabilities;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -45,11 +49,6 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	private long startTime;
 
 	/**
-	 * The test formatter to use for creating test/call description strings.
-	 */
-	private TestFormatter formatter;
-
-	/**
 	 * The number of tests executed.
 	 */
 	private int testCount;
@@ -70,12 +69,37 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	private int suiteCount;
 
 	/**
-	 * The capability object.
+	 * The classloader to use.
 	 */
-	private CallbackCapabilities capabilities;
+	@Inject
+	private ClassLoader classLoader;
+
+	/**
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	private ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	private VariableManager variableManager;
+
+	/**
+	 * The test formatter to use.
+	 */
+	@Inject
+	private TestFormatter testFormatter;
 
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, CallbackCapabilities aCapabilityObject) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		String tempLine = "Test execution has begun";
 		if (aVariant != null) {
 			tempLine += " (variant '" + aVariant.getName() + "'";
@@ -88,16 +112,13 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 
 		println(tempLine);
 		startTime = System.currentTimeMillis();
-		capabilities = aCapabilityObject;
-		formatter = new TestFormatter(capabilities);
 	}
 
 	@Override
 	public void onTestStart(Test aTest) {
 		testCount++;
 		try {
-			println("Now running test " + testCount + ": "
-					+ formatter.testToHumanReadableString(aTest, capabilities.getVariableMap()) + "...");
+			println("Now running test " + testCount + ": " + testFormatter.testToHumanReadableString(aTest) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -133,17 +154,14 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 						// Either there is an expected value, or if there isn't, "true" is the default
 						ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue()
 								.getExpectedValue();
+
 						print("'"
-								+ capabilities.getValueConverter().convertValueToString(
-										(tempExpectedValue == null ? true : tempExpectedValue),
-										capabilities.getVariableMap(), capabilities.getClassLoader(), false)
+								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
+										: tempExpectedValue), false)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
-										+ tempEntry.getKey() + "'")
-								+ ", but got '"
-								+ capabilities.getValueConverter().convertValueToString(
-										tempEntry.getValue().getResult(), capabilities.getVariableMap(),
-										capabilities.getClassLoader(), false) + "'!");
+										+ tempEntry.getKey() + "'") + ", but got '"
+								+ valueConverter.convertValueToString(tempEntry.getValue().getResult(), false) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -184,16 +202,14 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ capabilities.getValueConverter().convertValueToString(anInitialValue,
-								capabilities.getVariableMap(), capabilities.getClassLoader(), false)));
+						+ valueConverter.convertValueToString(anInitialValue, false)));
 	}
 
 	@Override
 	public void onCallStart(Call aCall) {
 		callCount++;
 		try {
-			println("Now executing call " + callCount + ": "
-					+ formatter.callToHumanReadableString(aCall, capabilities.getVariableMap()) + "...");
+			println("Now executing call " + callCount + ": " + testFormatter.callToHumanReadableString(aCall) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -245,8 +261,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		tableTestRowCount++;
 		try {
 			print("\tRow " + tableTestRowCount + " ("
-					+ formatter.tableTestRowToHumanReadableString(aTableTest, aRow, capabilities.getVariableMap())
-					+ ")...");
+					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {

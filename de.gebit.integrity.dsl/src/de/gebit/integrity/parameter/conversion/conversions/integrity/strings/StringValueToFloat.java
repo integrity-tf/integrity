@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToFloat implements TargetedConversion<StringValue, Float> {
 
 	@Override
-	public Float convert(StringValue aSource) {
+	public Float convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Float.parseFloat(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

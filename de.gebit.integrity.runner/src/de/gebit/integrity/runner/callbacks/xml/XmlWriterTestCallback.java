@@ -26,6 +26,8 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
@@ -38,9 +40,11 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
-import de.gebit.integrity.runner.callbacks.CallbackCapabilities;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -65,21 +69,6 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * 
  */
 public class XmlWriterTestCallback extends TestRunnerCallback {
-
-	/**
-	 * The classloader to use.
-	 */
-	private ClassLoader classLoader;
-
-	/**
-	 * The test formatter to use when creating test/call descriptions.
-	 */
-	private TestFormatter formatter;
-
-	/**
-	 * The capability object.
-	 */
-	private CallbackCapabilities capabilities;
 
 	/**
 	 * The XML document that will be created.
@@ -111,6 +100,36 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	 * be embedded into the result.
 	 */
 	private boolean embedXhtmlTransform;
+
+	/**
+	 * The classloader to use.
+	 */
+	@Inject
+	private ClassLoader classLoader;
+
+	/**
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	private ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	private VariableManager variableManager;
+
+	/**
+	 * The test formatter to use.
+	 */
+	@Inject
+	private TestFormatter testFormatter;
 
 	/**
 	 * The stack of elements.
@@ -320,7 +339,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, CallbackCapabilities aCapabilityObject) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {
@@ -362,8 +381,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			}
 		}
 
-		capabilities = aCapabilityObject;
-		formatter = new TestFormatter(capabilities);
 		executionStartTime = System.nanoTime();
 	}
 
@@ -474,8 +491,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		addId(tempTestElement);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.testToHumanReadableString(aTest, capabilities.getVariableMap()));
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.testToHumanReadableString(aTest));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -516,7 +532,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.tableTestToHumanReadableString(aTest, capabilities.getVariableMap()));
+					testFormatter.tableTestToHumanReadableString(aTest));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -569,8 +585,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTest,
-					capabilities.getVariableMap(), classLoader, capabilities.getValueConverter(), true, false);
+			tempParameterMap = parameterResolver.createParameterMap(aTest, true, false);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -610,8 +625,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		if (!isDryRun()) {
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
-				tempParameterMap = capabilities.getParameterResolver().createParameterMap(aTableTest, aRow,
-						capabilities.getVariableMap(), classLoader, capabilities.getValueConverter(), true, false);
+				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true, false);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -680,15 +694,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, capabilities.getValueConverter()
-					.convertValueToString(tempEntry.getValue(), capabilities.getVariableMap(), classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToString(tempEntry.getValue(), false));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
 
 		try {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
+					testFormatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -719,16 +733,11 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 				// Either there is an expected value, or if there isn't, "true" is the default
 				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-				tempComparisonResultElement.setAttribute(
-						RESULT_EXPECTED_VALUE_ATTRIBUTE,
-						capabilities.getValueConverter().convertValueToString(
-								(tempExpectedValue == null ? true : tempExpectedValue), capabilities.getVariableMap(),
-								classLoader, false));
+				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
+						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false));
 				if (tempEntry.getValue().getResult() != null) {
-					tempComparisonResultElement.setAttribute(
-							RESULT_REAL_VALUE_ATTRIBUTE,
-							capabilities.getValueConverter().convertValueToString(tempEntry.getValue().getResult(),
-									capabilities.getVariableMap(), classLoader, false));
+					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
+							valueConverter.convertValueToString(tempEntry.getValue().getResult(), false));
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -751,8 +760,7 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		addId(tempCallElement);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
-			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.callToHumanReadableString(aCall, capabilities.getVariableMap()));
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.callToHumanReadableString(aCall));
 		} catch (ClassNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -771,8 +779,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, capabilities.getValueConverter()
-					.convertValueToString(tempParameter.getValue(), capabilities.getVariableMap(), classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToString(tempParameter.getValue(), false));
 
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
@@ -819,10 +827,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
 								tempUpdatedVariable.getParameterName());
 					}
-					tempVariableUpdateElement.setAttribute(
-							VARIABLE_VALUE_ATTRIBUTE,
-							capabilities.getValueConverter().convertValueToString(tempUpdatedVariable.getValue(),
-									capabilities.getVariableMap(), classLoader, false));
+					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+							valueConverter.convertValueToString(tempUpdatedVariable.getValue(), false));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -979,8 +985,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, capabilities.getValueConverter()
-					.convertValueToString(anInitialValue, capabilities.getVariableMap(), classLoader, false));
+			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToString(anInitialValue, false));
 		}
 
 		if (!isDryRun()) {

@@ -20,7 +20,7 @@ import de.gebit.integrity.utils.DateUtil;
 public class TimeValueToString implements TargetedConversion<TimeValue, String> {
 
 	@Override
-	public String convert(TimeValue aSource) {
+	public String convert(TimeValue aSource) throws ConversionFailedException {
 		try {
 			return DateFormat.getTimeInstance(DateFormat.LONG).format(DateUtil.convertTimeValue(aSource).getTime());
 		} catch (ParseException exc) {

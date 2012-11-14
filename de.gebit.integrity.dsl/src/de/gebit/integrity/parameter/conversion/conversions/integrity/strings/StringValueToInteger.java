@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToInteger implements TargetedConversion<StringValue, Integer> {
 
 	@Override
-	public Integer convert(StringValue aSource) {
+	public Integer convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Integer.parseInt(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

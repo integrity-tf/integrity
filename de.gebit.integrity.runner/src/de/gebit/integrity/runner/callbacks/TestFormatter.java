@@ -5,15 +5,19 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -31,17 +35,35 @@ public class TestFormatter {
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
 	/**
-	 * The formatteer gets the callback capabilities of the callback that it was created in.
+	 * The classloader to use.
 	 */
-	private CallbackCapabilities capabilities;
+	@Inject
+	private ClassLoader classLoader;
+
+	/**
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	private ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	private VariableManager variableManager;
 
 	/**
 	 * Creates a new instance.
 	 * 
 	 */
-	public TestFormatter(CallbackCapabilities aCapabilityObject) {
+	public TestFormatter() {
 		super();
-		capabilities = aCapabilityObject;
 	}
 
 	/**
@@ -49,19 +71,15 @@ public class TestFormatter {
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variables
 	 * @return the human-readable test description
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aTest, aVariableMap,
-						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
+	public String testToHumanReadableString(Test aTest) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aTest, true, false), false);
 	}
 
 	/**
@@ -71,20 +89,15 @@ public class TestFormatter {
 	 *            the test
 	 * @param aRow
 	 *            the row (may be null if the string shall be for the whole test)
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable description
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
-			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aTest, aRow, aVariableMap,
-						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
+	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aTest, aRow, true, false), false);
 	}
 
 	/**
@@ -92,19 +105,15 @@ public class TestFormatter {
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aTest.getParameters(), aVariableMap,
-						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), true);
+	public String tableTestToHumanReadableString(TableTest aTest) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aTest.getParameters(), true, false), true);
 	}
 
 	/**
@@ -112,19 +121,15 @@ public class TestFormatter {
 	 * 
 	 * @param aCall
 	 *            the call
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(
-				aCall.getDefinition().getFixtureMethod(),
-				capabilities.getParameterResolver().createParameterMap(aCall, aVariableMap,
-						capabilities.getClassLoader(), capabilities.getValueConverter(), true, false), false);
+	public String callToHumanReadableString(Call aCall) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
+		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aCall, true, false), false);
 	}
 
 	/**
@@ -144,7 +149,7 @@ public class TestFormatter {
 			throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
-		Class<?> tempFixtureClass = capabilities.getClassLoader().loadClass(tempFixtureClassName);
+		Class<?> tempFixtureClass = classLoader.loadClass(tempFixtureClassName);
 		Method tempMethod = FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
 		if (tempMethod == null) {
 			return null;
@@ -166,8 +171,8 @@ public class TestFormatter {
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
-			String tempValue = capabilities.getValueConverter().convertValueToString(
-					someParameters.get(tempMatcher.group(2)), null, null, anExpectUnspecifiedParametersFlag);
+			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)),
+					anExpectUnspecifiedParametersFlag);
 			if (tempValue == null) {
 				tempValue = "???";
 			}

@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToLong implements TargetedConversion<StringValue, Long> {
 
 	@Override
-	public Long convert(StringValue aSource) {
+	public Long convert(StringValue aSource) throws ConversionFailedException {
 		try {
 			return Long.parseLong(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

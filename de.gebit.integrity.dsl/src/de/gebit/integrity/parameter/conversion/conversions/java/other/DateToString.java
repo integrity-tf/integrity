@@ -6,6 +6,7 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 import java.text.DateFormat;
 import java.util.Date;
 
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 
 /**
@@ -17,7 +18,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class DateToString implements TargetedConversion<Date, String> {
 
 	@Override
-	public String convert(Date aSource) {
+	public String convert(Date aSource) throws ConversionFailedException {
 		return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aSource);
 	}
 

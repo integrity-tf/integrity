@@ -49,8 +49,7 @@ public class ConversionUnsupportedException extends ConversionException {
 
 	@Override
 	public String getMessage() {
-		return "Conversion from '" + getSourceType().getName() + "' to '" + getTargetType().getName() + "' unsupported"
-				+ (super.getMessage() != null ? ": " + super.getMessage() : "");
+		return "Unsupported conversion: " + super.getMessage();
 	}
 
 }

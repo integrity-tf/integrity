@@ -4,14 +4,15 @@
 package de.gebit.integrity.operations;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
 import org.eclipse.xtext.common.types.JvmType;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -36,7 +37,11 @@ public class OperationWrapper {
 	/**
 	 * The value converter to use.
 	 */
+	@Inject
 	private ValueConverter valueConverter;
+
+	@Inject
+	private VariableManager variableManager;
 
 	/**
 	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the provided
@@ -52,10 +57,8 @@ public class OperationWrapper {
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader, ValueConverter aValueConverter)
-			throws ClassNotFoundException {
+	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader) throws ClassNotFoundException {
 		operation = anOperation;
-		valueConverter = aValueConverter;
 
 		OperationDefinition tempDefinition = operation.getDefinition();
 		if (tempDefinition == null) {
@@ -89,8 +92,8 @@ public class OperationWrapper {
 	 *             the class not found exception
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Object executeOperation(Map<VariableEntity, Object> aVariableMap, boolean aLeaveUnexecutableOperationIntact)
-			throws UnexecutableException, InstantiationException, ClassNotFoundException {
+	public Object executeOperation(boolean aLeaveUnexecutableOperationIntact) throws UnexecutableException,
+			InstantiationException, ClassNotFoundException {
 		de.gebit.integrity.operations.Operation tempOperationInstance;
 
 		try {
@@ -104,14 +107,12 @@ public class OperationWrapper {
 			Object tempConvertedPrefixParameter = null;
 			if (operation.getPrefixOperand() != null) {
 				tempConvertedPrefixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
-						determinePrefixParameterTargetType(), operation.getPrefixOperand(), aVariableMap,
-						operationClass.getClassLoader());
+						determinePrefixParameterTargetType(), operation.getPrefixOperand());
 			}
 			Object tempConvertedPostfixParameter = null;
 			if (operation.getPostfixOperand() != null) {
 				tempConvertedPostfixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
-						determinePostfixParameterTargetType(), operation.getPostfixOperand(), aVariableMap,
-						operationClass.getClassLoader());
+						determinePostfixParameterTargetType(), operation.getPostfixOperand());
 			}
 
 			return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);
