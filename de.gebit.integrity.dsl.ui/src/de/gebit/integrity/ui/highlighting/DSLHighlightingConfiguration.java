@@ -138,6 +138,31 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String PARAMETER_OPERATION_IDENTIFIER_ID = "parameteroperationid";
 
 	/**
+	 * The ID for nested objects used as a test result.
+	 */
+	public static final String RESULT_NESTED_OBJECT_ID = "resultnestedobject";
+
+	/**
+	 * The ID for nested objects used as a parameter.
+	 */
+	public static final String PARAMETER_NESTED_OBJECT_ID = "parameternestedobject";
+
+	/**
+	 * The ID for nested object keys used as a test result.
+	 */
+	public static final String RESULT_NESTED_OBJECT_KEY_ID = "resultnestedobjectkey";
+
+	/**
+	 * The ID for nested object keys used as a parameter.
+	 */
+	public static final String PARAMETER_NESTED_OBJECT_KEY_ID = "parameternestedobjectkey";
+
+	/**
+	 * The ID for nested object keys.
+	 */
+	public static final String NESTED_OBJECT_KEY_ID = "nestedobjectkey";
+
+	/**
 	 * Configures highlighting styles for the IDs.
 	 */
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
@@ -172,6 +197,15 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 				resultOperationIdentifierTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_OPERATION_IDENTIFIER_ID, "Operation Identifier (Parameters)",
 				parameterOperationIdentifierTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_NESTED_OBJECT_ID, "Nested Objects (Test Result)",
+				resultNestedObjectTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_NESTED_OBJECT_ID, "Nested Objects (Parameters)",
+				parameterNestedObjectTextStyle());
+		anAcceptor.acceptDefaultHighlighting(NESTED_OBJECT_KEY_ID, "Nested Object Key", nestedObjectKeyTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_NESTED_OBJECT_KEY_ID, "Nested Object Key (Test Result)",
+				resultNestedObjectKeyTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_NESTED_OBJECT_KEY_ID, "Nested Object Key (Parameters)",
+				parameterNestedObjectKeyTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_ID, "Java Classes", javaClassTextStyle());
 		anAcceptor.acceptDefaultHighlighting(JAVA_CLASS_HIGHLIGHT_ID, "Java Classes (Highlight Parts)",
 				javaClassHighlightTextStyle());
@@ -465,6 +499,64 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle parameterOperationIdentifierTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for nested objects used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultNestedObjectTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for nested objects used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterNestedObjectTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for nested objects used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultNestedObjectKeyTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(42, 0, 255));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for nested objects used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterNestedObjectKeyTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(150, 0, 0));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for nested objects used neither as parameter nor result.
+	 * 
+	 * @return
+	 */
+	public TextStyle nestedObjectKeyTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(0, 0, 0));
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.BOLD);
 		return tempTextStyle;
 	}
