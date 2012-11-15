@@ -298,6 +298,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	@Override
 	public String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		// always convert to an array, so array values will convert fine
+		String[] tempResult = convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+
+		StringBuilder tempBuffer = new StringBuilder();
+		for (String tempSingleResult : tempResult) {
+			if (tempBuffer.length() > 0) {
+				tempBuffer.append(", ");
+			}
+			tempBuffer.append(tempSingleResult);
+		}
+
+		return tempBuffer.toString();
+	}
+
+	@Override
+	public String[] convertValueToStringArray(Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		String[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
@@ -312,30 +328,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
-			return "FAILURE";
+			return new String[] { "FAILURE" };
 		} catch (UnresolvableVariableException exc) {
 			exc.printStackTrace();
-			return "FAILURE";
+			return new String[] { "FAILURE" };
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
-			return "FAILURE";
+			return new String[] { "FAILURE" };
 		} catch (UnexecutableException exc) {
 			exc.printStackTrace();
-			return "FAILURE";
+			return new String[] { "FAILURE" };
 		}
 
 		if (tempResult == null) {
-			return "null";
+			return new String[] { "null" };
 		} else {
-			StringBuilder tempBuffer = new StringBuilder();
-			for (String tempSingleResult : tempResult) {
-				if (tempBuffer.length() > 0) {
-					tempBuffer.append(", ");
-				}
-				tempBuffer.append(tempSingleResult);
-			}
-
-			return tempBuffer.toString();
+			return tempResult;
 		}
 	}
 

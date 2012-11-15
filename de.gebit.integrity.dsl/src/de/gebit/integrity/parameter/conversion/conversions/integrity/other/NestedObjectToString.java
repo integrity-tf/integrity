@@ -3,6 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
+import java.lang.reflect.Array;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -36,7 +37,7 @@ public class NestedObjectToString implements TargetedConversion<NestedObject, St
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = valueConverter.convertEncapsulatedValueCollectionToParamType(String.class,
+				tempConvertedValue = valueConverter.convertEncapsulatedValueCollectionToParamType(String[].class,
 						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
@@ -49,7 +50,30 @@ public class NestedObjectToString implements TargetedConversion<NestedObject, St
 			if (tempBuilder.length() > 0) {
 				tempBuilder.append(", ");
 			}
-			tempBuilder.append(tempAttribute.getIdentifier() + "=" + tempConvertedValue);
+
+			StringBuilder tempConvertedValueStringBuilder = new StringBuilder();
+
+			if (tempConvertedValue == null) {
+				tempConvertedValueStringBuilder.append("null");
+			} else {
+				int tempArrayLength = Array.getLength(tempConvertedValue);
+				if (tempArrayLength > 1) {
+					tempConvertedValueStringBuilder.append("[");
+				}
+				for (int i = 0; i < tempArrayLength; i++) {
+					if (i > 0) {
+						tempConvertedValueStringBuilder.append(", ");
+					}
+					Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
+					tempConvertedValueStringBuilder.append(tempSingleArrayValue != null ? tempSingleArrayValue
+							.toString() : "null");
+				}
+				if (tempArrayLength > 1) {
+					tempConvertedValueStringBuilder.append("]");
+				}
+			}
+
+			tempBuilder.append(tempAttribute.getIdentifier() + "=" + tempConvertedValueStringBuilder.toString());
 		}
 
 		return "{" + tempBuilder.toString() + "}";

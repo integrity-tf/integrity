@@ -119,55 +119,7 @@ public class DefaultResultComparator implements ResultComparator {
 								tempConversionTargetType, tempSingleExpectedResult,
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-						// Even though we assume that there's a single expected result after this point, the converted
-						// result might still be an array (because an operation has returned an array, for example).
-						// Therefore we need to allow for both, fixture result and expected result, to be arrays.
-						if (aFixtureResult.getClass().isArray()) {
-							if (tempConvertedExpectedResult == null) {
-								// the fixture may still be returning an array that has to be unpacked
-								if (Array.getLength(aFixtureResult) != 1) {
-									return false;
-								}
-								tempSingleFixtureResult = Array.get(aFixtureResult, 0);
-								return (tempSingleFixtureResult == null);
-							} else {
-								if (!tempConvertedExpectedResult.getClass().isArray()) {
-									// the fixture may be returning an array that has to be unpacked
-									if (Array.getLength(aFixtureResult) != 1) {
-										return false;
-									}
-									tempSingleFixtureResult = Array.get(aFixtureResult, 0);
-								} else {
-									if (Array.getLength(aFixtureResult) != Array.getLength(tempConvertedExpectedResult)) {
-										return false;
-									}
-									// both are converted arrays -> compare all values!
-									for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-										if (!performEqualityCheck(Array.get(tempConvertedExpectedResult, i),
-												Array.get(aFixtureResult, i), tempSingleExpectedResult)) {
-											return false;
-										}
-									}
-									return true;
-								}
-							}
-						} else {
-							// This is the super-simple case where we basically have only one value to compare
-							if (tempConvertedExpectedResult == null) {
-								// ...but even that can be null, and we need to handle this case separately in order to
-								// not get into NPEs
-								return (tempSingleFixtureResult instanceof NullValue);
-							} else {
-								if (tempConvertedExpectedResult.getClass().isArray()) {
-									// the converted result may still be an array
-									if (Array.getLength(tempConvertedExpectedResult) != 1) {
-										return false;
-									}
-									tempConvertedExpectedResult = Array.get(tempConvertedExpectedResult, 0);
-								}
-							}
-						}
-						return performEqualityCheck(tempConvertedExpectedResult, tempSingleFixtureResult,
+						return performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
 								tempSingleExpectedResult);
 					}
 				}
@@ -203,11 +155,11 @@ public class DefaultResultComparator implements ResultComparator {
 	 */
 	protected boolean performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
 			ValueOrEnumValueOrOperation aRawExpectedResult) {
-		if (aConvertedExpectedResult == null) {
-			return (aConvertedResult == null);
+		if (aConvertedResult == null) {
+			return (aConvertedExpectedResult == null || (aConvertedExpectedResult.getClass().isArray()
+					&& Array.getLength(aConvertedExpectedResult) == 1 && Array.get(aConvertedExpectedResult, 0) == null));
 		} else {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
-				//
 				if (aRawExpectedResult instanceof DateValue) {
 					// compare only the date part
 					return DateUtil.stripTimeFromDate((Date) aConvertedExpectedResult).equals(
@@ -216,6 +168,9 @@ public class DefaultResultComparator implements ResultComparator {
 					// compare only the time part
 					return DateUtil.stripDateFromTime((Date) aConvertedExpectedResult).equals(
 							DateUtil.stripDateFromTime((Date) aConvertedResult));
+				} else {
+					// compare both parts
+					return aConvertedExpectedResult.equals(aConvertedResult);
 				}
 			} else if (aConvertedResult instanceof Map && aConvertedExpectedResult instanceof Map) {
 				// maps are compared by exploring them
@@ -227,10 +182,54 @@ public class DefaultResultComparator implements ResultComparator {
 				}
 
 				return true;
+			} else if (aConvertedResult.getClass().isArray()) {
+				if (aConvertedExpectedResult == null) {
+					// the fixture may still be returning an array that has to be unpacked
+					if (Array.getLength(aConvertedResult) != 1) {
+						return false;
+					}
+					return (Array.get(aConvertedResult, 0) == null);
+				} else {
+					if (!aConvertedExpectedResult.getClass().isArray()) {
+						// the fixture may be returning an array that has to be unpacked
+						if (Array.getLength(aConvertedResult) != 1) {
+							return false;
+						}
+						return performEqualityCheck(Array.get(aConvertedResult, 0), aConvertedExpectedResult,
+								aRawExpectedResult);
+					} else {
+						if (Array.getLength(aConvertedResult) != Array.getLength(aConvertedExpectedResult)) {
+							return false;
+						}
+						// both are converted arrays -> compare all values!
+						for (int i = 0; i < Array.getLength(aConvertedResult); i++) {
+							if (!performEqualityCheck(Array.get(aConvertedExpectedResult, i),
+									Array.get(aConvertedResult, i), aRawExpectedResult)) {
+								return false;
+							}
+						}
+						return true;
+					}
+				}
+			} else {
+				// This is the super-simple case where we basically have only one value to compare
+				if (aConvertedExpectedResult == null) {
+					// we have validated convertedResult to be non-null before
+					return false;
+				} else {
+					if (aConvertedExpectedResult.getClass().isArray()) {
+						// the converted result may still be an array
+						if (Array.getLength(aConvertedExpectedResult) != 1) {
+							return false;
+						}
+						return performEqualityCheck(aConvertedResult, Array.get(aConvertedExpectedResult, 0),
+								aRawExpectedResult);
+					} else {
+						// If no special cases apply, perform standard equals comparison
+						return aConvertedExpectedResult.equals(aConvertedResult);
+					}
+				}
 			}
-
-			// If no special cases apply, perform standard equals comparison
-			return aConvertedExpectedResult.equals(aConvertedResult);
 		}
 	}
 

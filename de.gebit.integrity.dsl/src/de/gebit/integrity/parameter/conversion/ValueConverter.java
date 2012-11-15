@@ -76,7 +76,9 @@ public interface ValueConverter {
 
 	/**
 	 * Converts a given value to a String. This method is intended to be used for the output of values (for example in
-	 * test results, on the console etc).
+	 * test results, on the console etc). In comparison to
+	 * {@link #convertValueToStringArray(Object, UnresolvableVariableHandling)}, this method always returns only a
+	 * single String value, concatenating arrays first if necessary.
 	 * 
 	 * @param aValue
 	 *            the value (can be an {@link ValueOrEnumValueOrOperationCollection} or a plain Java Object)
@@ -87,4 +89,16 @@ public interface ValueConverter {
 	 */
 	String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 
+	/**
+	 * Converts a given value to a String array. This method is intended to be used for the output of values (for
+	 * example in test results, on the console etc).
+	 * 
+	 * @param aValue
+	 *            the value (can be an {@link ValueOrEnumValueOrOperationCollection} or a plain Java Object)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @return the string array
+	 */
+	String[] convertValueToStringArray(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 }

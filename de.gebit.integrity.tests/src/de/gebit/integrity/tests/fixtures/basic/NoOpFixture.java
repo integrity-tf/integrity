@@ -3,6 +3,7 @@ package de.gebit.integrity.tests.fixtures.basic;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Map;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -75,6 +76,12 @@ public class NoOpFixture {
 	@FixtureMethod(description = "Echo the date '$date$'")
 	public Date echoDate(@FixtureParameter(name = "date") Date aDateToEcho) {
 		return aDateToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the map '$map$'")
+	public Map<String, Object> echoMap(
+			@FixtureParameter(name = "map") Map<String, Object> aMapToEcho) {
+		return aMapToEcho;
 	}
 
 }

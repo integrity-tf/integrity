@@ -60,6 +60,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberTo
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.ShortToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.BooleanToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToBigInteger;
@@ -115,6 +116,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(BooleanToString.class);
 		addConversion(DateToString.class);
 		addConversion(ObjectToString.class);
+		addConversion(MapToString.class);
 
 		// numeric conversions, Integrity -> Java
 		addConversion(DecimalValueToBigDecimal.class);

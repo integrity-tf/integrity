@@ -6,27 +6,10 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 		
-		variable var initially {
-			key1: blah
-			key2: "string"
-			key3: {
-				subkey1: blub
-			}
-		}
-		
-		variable blah initially 123
 		test echo echo: {
-				key1: blah
-				key2: "string"
-				key3: {
-					subkey1: blub
-				}
+				key1: 1, 2
 			} = {
-				key1: blah
-				key2: "string"
-				key3: {
-					subkey1: blub
-				}
+				key1: 1, 2
 			}
 				
 				
