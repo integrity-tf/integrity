@@ -27,13 +27,13 @@ public class DefaultWrapperFactory implements WrapperFactory {
 	 * The classloader to use.
 	 */
 	@Inject
-	private ClassLoader classLoader;
+	protected ClassLoader classLoader;
 
 	/**
 	 * The {@link Injector} to use for injection of dependencies into the new wrapper.
 	 */
 	@Inject
-	private Injector injector;
+	protected Injector injector;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override

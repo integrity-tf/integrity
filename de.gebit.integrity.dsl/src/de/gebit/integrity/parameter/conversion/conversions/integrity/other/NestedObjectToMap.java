@@ -22,7 +22,8 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * @author Rene Schneider
  * 
  */
-public class NestedObjectToMap implements TargetedConversion<NestedObject, Map<?, ?>> {
+@SuppressWarnings("rawtypes")
+public class NestedObjectToMap implements TargetedConversion<NestedObject, Map> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -31,7 +32,7 @@ public class NestedObjectToMap implements TargetedConversion<NestedObject, Map<?
 	private ValueConverter valueConverter;
 
 	@Override
-	public Map<?, ?> convert(NestedObject aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+	public Map convert(NestedObject aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ConversionFailedException {
 		Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {

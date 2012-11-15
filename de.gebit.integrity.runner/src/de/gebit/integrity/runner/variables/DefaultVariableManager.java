@@ -23,7 +23,7 @@ public class DefaultVariableManager implements VariableManager {
 	/**
 	 * The map used to store variables.
 	 */
-	private Map<VariableEntity, Object> variableMap = new HashMap<VariableEntity, Object>();
+	protected Map<VariableEntity, Object> variableMap = new HashMap<VariableEntity, Object>();
 
 	@Override
 	public Object get(VariableEntity anEntity) {

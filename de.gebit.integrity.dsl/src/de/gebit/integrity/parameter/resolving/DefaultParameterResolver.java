@@ -50,13 +50,13 @@ public class DefaultParameterResolver implements ParameterResolver {
 	 * The wrapper factory to use.
 	 */
 	@Inject(optional = true)
-	private WrapperFactory wrapperFactory;
+	protected WrapperFactory wrapperFactory;
 
 	/**
 	 * The variable manager to use.
 	 */
 	@Inject(optional = true)
-	private VariableManager variableManager;
+	protected VariableManager variableManager;
 
 	@Override
 	public Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,

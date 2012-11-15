@@ -35,19 +35,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * The parameter resolver.
 	 */
 	@Inject
-	ParameterResolver parameterResolver;
+	protected ParameterResolver parameterResolver;
 
 	/**
 	 * The wrapper factory.
 	 */
 	@Inject(optional = true)
-	WrapperFactory wrapperFactory;
+	protected WrapperFactory wrapperFactory;
 
 	/**
 	 * The Guice injector. Required to inject stuff into instances of conversions.
 	 */
 	@Inject
-	Injector injector;
+	protected Injector injector;
 
 	/**
 	 * All known targeted conversions.
