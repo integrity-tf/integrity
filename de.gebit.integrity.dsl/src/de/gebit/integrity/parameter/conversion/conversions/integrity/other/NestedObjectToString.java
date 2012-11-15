@@ -23,6 +23,9 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  */
 public class NestedObjectToString implements TargetedConversion<NestedObject, String> {
 
+	/**
+	 * The value converter used for recursive conversion and resolution of inner nested objects.
+	 */
 	@Inject
 	private ValueConverter valueConverter;
 

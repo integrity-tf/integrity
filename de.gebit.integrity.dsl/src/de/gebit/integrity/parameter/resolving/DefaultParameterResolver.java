@@ -33,13 +33,12 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
- * 
+ * The default implementation of a parameter resolver.
  * 
  * @author Rene Schneider
  * 
@@ -47,14 +46,17 @@ import de.gebit.integrity.wrapper.WrapperFactory;
 @Singleton
 public class DefaultParameterResolver implements ParameterResolver {
 
+	/**
+	 * The wrapper factory to use.
+	 */
 	@Inject(optional = true)
-	WrapperFactory wrapperFactory;
+	private WrapperFactory wrapperFactory;
 
+	/**
+	 * The variable manager to use.
+	 */
 	@Inject(optional = true)
-	VariableManager variableManager;
-
-	@Inject
-	ValueConverter valueConverter;
+	private VariableManager variableManager;
 
 	@Override
 	public Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
@@ -92,6 +94,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 				aLeaveUnresolvableVariableReferencesIntact);
 	}
 
+	@Override
 	public Map<String, Object> createParameterMap(List<Parameter> someParameters,
 			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
@@ -162,15 +165,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 			} else {
 				return null;
 			}
-			// } else if (aValue instanceof NestedObject) {
-			// Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
-			// for (KeyValuePair tempAttribute : ((NestedObject) aValue).getAttributes()) {
-			// Object tempResolvedValue = resolveParameterValue(tempAttribute.getValue(), aVariableMap, aClassLoader,
-			// aConverter, aLeaveUnresolvableVariableReferencesIntact);
-			// tempKeyValueMap.put(tempAttribute.getIdentifier(), tempResolvedValue);
-			// }
-			//
-			// return tempKeyValueMap;
+			// TODO what about nested objects with inner operations or variables?
 		}
 
 		return aValue;

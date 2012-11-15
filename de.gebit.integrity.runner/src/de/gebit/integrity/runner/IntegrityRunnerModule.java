@@ -34,16 +34,22 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	}
 
 	/**
-	 * Binding of the test runner class.
+	 * Binding of the {@link TestRunner}.
 	 */
 	public Class<? extends TestRunner> bindTestRunner() {
 		return DefaultTestRunner.class;
 	}
 
+	/**
+	 * Binding of the {@link VariableManager}.
+	 */
 	public Class<? extends VariableManager> bindVariableManager() {
 		return DefaultVariableManager.class;
 	}
 
+	/**
+	 * Binding of the {@link WrapperFactory}.
+	 */
 	public Class<? extends WrapperFactory> bindWrapperFactory() {
 		return DefaultWrapperFactory.class;
 	}

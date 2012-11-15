@@ -12,7 +12,6 @@ import com.google.inject.Singleton;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
@@ -24,14 +23,17 @@ import de.gebit.integrity.wrapper.WrapperFactory;
 @Singleton
 public class DefaultWrapperFactory implements WrapperFactory {
 
+	/**
+	 * The classloader to use.
+	 */
 	@Inject
 	private ClassLoader classLoader;
 
+	/**
+	 * The {@link Injector} to use for injection of dependencies into the new wrapper.
+	 */
 	@Inject
-	ValueConverter valueConverter;
-
-	@Inject
-	Injector injector;
+	private Injector injector;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override

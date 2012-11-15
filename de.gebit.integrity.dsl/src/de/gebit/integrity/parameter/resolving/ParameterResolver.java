@@ -21,7 +21,8 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 
 /**
- * 
+ * The parameter resolver is responsible for the creation of a map of parameters for fixture executions. It does NOT
+ * convert any values, which is the duty of the {@link de.gebit.integrity.parameter.conversion.ValueConverter}.
  * 
  * @author Rene Schneider
  * 

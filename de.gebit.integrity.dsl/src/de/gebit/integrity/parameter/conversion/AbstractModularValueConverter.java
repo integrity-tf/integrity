@@ -37,6 +37,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	@Inject
 	ParameterResolver parameterResolver;
 
+	/**
+	 * The wrapper factory.
+	 */
 	@Inject(optional = true)
 	WrapperFactory wrapperFactory;
 

@@ -41,19 +41,21 @@ public class OperationWrapper {
 	@Inject
 	private ValueConverter valueConverter;
 
+	/**
+	 * The variable manager to use.
+	 */
 	@Inject
 	private VariableManager variableManager;
 
 	/**
-	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the provided
+	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the injected
 	 * classloader.
 	 * 
 	 * @param anOperation
 	 *            the operation to wrap
 	 * @param aClassLoader
-	 *            the classloader to use for loading the operation class
-	 * @param aValueConverter
-	 *            the value converter to use
+	 *            the classloader to use (cannot be injected at the moment because it's required during object
+	 *            construction)
 	 * @throws ClassNotFoundException
 	 *             if the operations' class could not be found
 	 */
@@ -79,8 +81,6 @@ public class OperationWrapper {
 	/**
 	 * Executes the wrapped operation logic.
 	 * 
-	 * @param aVariableMap
-	 *            the current variable map
 	 * @param aLeaveUnexecutableOperationIntact
 	 *            true in case an operation that cannot be executed (because it depends on variable values which are not
 	 *            defined) shall result in the operation object being returned instead of an exception
