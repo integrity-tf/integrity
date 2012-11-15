@@ -163,15 +163,14 @@ public class FixtureWrapper<C extends Object> {
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
 		Object[] tempParams = new Object[tempMethodParamCount];
 		for (int i = 0; i < tempMethodParamCount; i++) {
-			if (Map.class.equals(tempMethod.getParameterTypes()[i])) {
+			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
+					tempMethod.getParameterAnnotations()[i]);
+
+			if (tempAnnotation != null && tempAnnotation.name() != null) {
+				tempParams[i] = someParameters.remove(tempAnnotation.name());
+			} else if (Map.class.equals(tempMethod.getParameterTypes()[i])) {
 				// this gets any arbitrary parameters left over
 				tempParams[i] = someParameters;
-			} else {
-				FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
-						tempMethod.getParameterAnnotations()[i]);
-				if (tempAnnotation != null && tempAnnotation.name() != null) {
-					tempParams[i] = someParameters.remove(tempAnnotation.name());
-				}
 			}
 		}
 

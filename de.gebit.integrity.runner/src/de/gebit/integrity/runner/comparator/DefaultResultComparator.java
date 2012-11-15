@@ -5,6 +5,8 @@ package de.gebit.integrity.runner.comparator;
 
 import java.lang.reflect.Array;
 import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 
@@ -205,6 +207,7 @@ public class DefaultResultComparator implements ResultComparator {
 			return (aConvertedResult == null);
 		} else {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
+				//
 				if (aRawExpectedResult instanceof DateValue) {
 					// compare only the date part
 					return DateUtil.stripTimeFromDate((Date) aConvertedExpectedResult).equals(
@@ -214,6 +217,16 @@ public class DefaultResultComparator implements ResultComparator {
 					return DateUtil.stripDateFromTime((Date) aConvertedExpectedResult).equals(
 							DateUtil.stripDateFromTime((Date) aConvertedResult));
 				}
+			} else if (aConvertedResult instanceof Map && aConvertedExpectedResult instanceof Map) {
+				// maps are compared by exploring them
+				for (Entry<?, ?> tempEntry : ((Map<?, ?>) aConvertedResult).entrySet()) {
+					Object tempReferenceValue = ((Map<?, ?>) aConvertedExpectedResult).get(tempEntry.getKey());
+					if (!performEqualityCheck(tempEntry.getValue(), tempReferenceValue, null)) {
+						return false;
+					}
+				}
+
+				return true;
 			}
 
 			// If no special cases apply, perform standard equals comparison
