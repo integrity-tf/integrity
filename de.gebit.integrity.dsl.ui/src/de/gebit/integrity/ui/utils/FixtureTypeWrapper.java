@@ -37,6 +37,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -166,13 +167,13 @@ public class FixtureTypeWrapper {
 											Array.set(tempConvertedValueArray, k, valueConverter
 													.convertEncapsulatedValueToParamType(
 															tempExpectedType.getComponentType(),
-															(ValueOrEnumValueOrOperation) tempSingleValue));
+															(ValueOrEnumValueOrOperation) tempSingleValue,
+															UnresolvableVariableHandling.EXCEPTION));
 										} else {
-											Array.set(
-													tempConvertedValueArray,
-													k,
-													valueConverter.convertValueToParamType(
-															tempExpectedType.getComponentType(), tempSingleValue));
+											Array.set(tempConvertedValueArray, k, valueConverter
+													.convertValueToParamType(tempExpectedType.getComponentType(),
+															tempSingleValue,
+															UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 										}
 									}
 									tempConvertedValue = tempConvertedValueArray;
@@ -184,10 +185,12 @@ public class FixtureTypeWrapper {
 											.getComponentType() : tempExpectedType;
 									if (tempValue instanceof ValueOrEnumValueOrOperation) {
 										tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(
-												tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue);
+												tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue,
+												UnresolvableVariableHandling.EXCEPTION);
 									} else {
 										tempConvertedValue = valueConverter.convertValueToParamType(
-												tempConversionTargetType, tempValue);
+												tempConversionTargetType, tempValue,
+												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 									}
 									if (tempExpectedType.isArray()) {
 										// ...and if the expected type is an array, now we create one
@@ -231,23 +234,23 @@ public class FixtureTypeWrapper {
 										Array.set(tempConvertedValueArray, k, valueConverter
 												.convertEncapsulatedValueToParamType(
 														tempExpectedType.getComponentType(),
-														(ValueOrEnumValueOrOperation) tempSingleValue));
+														(ValueOrEnumValueOrOperation) tempSingleValue,
+														UnresolvableVariableHandling.EXCEPTION));
 									} else {
-										Array.set(
-												tempConvertedValueArray,
-												k,
-												valueConverter.convertValueToParamType(
-														tempExpectedType.getComponentType(), tempSingleValue));
+										Array.set(tempConvertedValueArray, k, valueConverter.convertValueToParamType(
+												tempExpectedType.getComponentType(), tempSingleValue,
+												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 									}
 								}
 								tempConvertedValue = tempConvertedValueArray;
 							} else {
 								if (tempValue instanceof ValueOrEnumValueOrOperation) {
 									tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(
-											tempExpectedType, (ValueOrEnumValueOrOperation) tempValue);
+											tempExpectedType, (ValueOrEnumValueOrOperation) tempValue,
+											UnresolvableVariableHandling.EXCEPTION);
 								} else {
 									tempConvertedValue = valueConverter.convertValueToParamType(tempExpectedType,
-											tempValue);
+											tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 								}
 								if (tempExpectedType.isArray()) {
 									// The target type may still be an array, even though just one parameter value was
@@ -320,7 +323,8 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
-				return valueConverter.convertEncapsulatedValueCollectionToParamType(tempTargetType, aValue);
+				return valueConverter.convertEncapsulatedValueCollectionToParamType(tempTargetType, aValue,
+						UnresolvableVariableHandling.EXCEPTION);
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert
 			} catch (UnexecutableException exc) {

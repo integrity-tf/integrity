@@ -6,6 +6,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -16,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class IntegerValueToLong implements TargetedConversion<IntegerValue, Long> {
 
 	@Override
-	public Long convert(IntegerValue aSource) throws ConversionFailedException {
+	public Long convert(IntegerValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource.getIntegerValue().longValue();
 	}
 

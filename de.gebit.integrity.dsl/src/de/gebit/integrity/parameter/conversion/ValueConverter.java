@@ -24,9 +24,13 @@ public interface ValueConverter {
 	 *            the target type
 	 * @param aValue
 	 *            the value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted object
 	 */
-	Object convertValueToParamType(Class<?> aTargetClass, Object aValue);
+	Object convertValueToParamType(Class<?> aTargetClass, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 
 	/**
 	 * Converts a given {@link ValueOrEnumValueOrOperation} to a given Java type class, if possible.
@@ -35,14 +39,18 @@ public interface ValueConverter {
 	 *            the target type
 	 * @param aValue
 	 *            the value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	Object convertEncapsulatedValueToParamType(Class<?> aTargetClass, ValueOrEnumValueOrOperation aValue)
-			throws UnresolvableVariableException, ClassNotFoundException, UnexecutableException, InstantiationException;
+	Object convertEncapsulatedValueToParamType(Class<?> aTargetClass, ValueOrEnumValueOrOperation aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Converts a given value collection to a given Java type class, if possible. Will return an array if the collection
@@ -52,14 +60,19 @@ public interface ValueConverter {
 	 *            the target type
 	 * @param aCollection
 	 *            the value collection
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted value
+	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
 	 * @throws UnexecutableException
 	 * @throws InstantiationException
 	 */
 	Object convertEncapsulatedValueCollectionToParamType(Class<?> aTargetClass,
-			ValueOrEnumValueOrOperationCollection aCollection) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException;
+			ValueOrEnumValueOrOperationCollection aCollection,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Converts a given value to a String. This method is intended to be used for the output of values (for example in
@@ -67,11 +80,11 @@ public interface ValueConverter {
 	 * 
 	 * @param aValue
 	 *            the value (can be an {@link ValueOrEnumValueOrOperationCollection} or a plain Java Object)
-	 * @param anAllowNullResultFlag
-	 *            whether a null value shall be returned in case of unresolvable variable references or operations - if
-	 *            this is not set, the method will not return null, but the String "null" instead!
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the string
 	 */
-	String convertValueToString(Object aValue, boolean anAllowNullResultFlag);
+	String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 
 }

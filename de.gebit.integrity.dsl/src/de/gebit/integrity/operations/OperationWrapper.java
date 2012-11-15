@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -107,12 +108,14 @@ public class OperationWrapper {
 			Object tempConvertedPrefixParameter = null;
 			if (operation.getPrefixOperand() != null) {
 				tempConvertedPrefixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
-						determinePrefixParameterTargetType(), operation.getPrefixOperand());
+						determinePrefixParameterTargetType(), operation.getPrefixOperand(),
+						UnresolvableVariableHandling.EXCEPTION);
 			}
 			Object tempConvertedPostfixParameter = null;
 			if (operation.getPostfixOperand() != null) {
 				tempConvertedPostfixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
-						determinePostfixParameterTargetType(), operation.getPostfixOperand());
+						determinePostfixParameterTargetType(), operation.getPostfixOperand(),
+						UnresolvableVariableHandling.EXCEPTION);
 			}
 
 			return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);

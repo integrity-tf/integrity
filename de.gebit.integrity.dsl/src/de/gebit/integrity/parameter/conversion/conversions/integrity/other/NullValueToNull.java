@@ -4,10 +4,11 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.UntargetedConversion;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
@@ -15,7 +16,8 @@ import de.gebit.integrity.parameter.conversion.UntargetedConversion;
 public class NullValueToNull implements UntargetedConversion<NullValue> {
 
 	@Override
-	public Object convert(NullValue aSource, Class<?> aTargetType) {
+	public Object convert(NullValue aSource, Class<?> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		return null;
 	}
 

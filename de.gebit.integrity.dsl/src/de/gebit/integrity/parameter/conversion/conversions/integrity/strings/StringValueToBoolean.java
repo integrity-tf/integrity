@@ -6,6 +6,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. 
@@ -16,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToBoolean implements TargetedConversion<StringValue, Boolean> {
 
 	@Override
-	public Boolean convert(StringValue aSource) throws ConversionFailedException {
+	public Boolean convert(StringValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return Boolean.parseBoolean(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -118,7 +119,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	public void onTestStart(Test aTest) {
 		testCount++;
 		try {
-			println("Now running test " + testCount + ": " + testFormatter.testToHumanReadableString(aTest) + "...");
+			println("Now running test "
+					+ testCount
+					+ ": "
+					+ testFormatter.testToHumanReadableString(aTest,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -157,11 +162,13 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 
 						print("'"
 								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), false)
+										: tempExpectedValue), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
-										+ tempEntry.getKey() + "'") + ", but got '"
-								+ valueConverter.convertValueToString(tempEntry.getValue().getResult(), false) + "'!");
+										+ tempEntry.getKey() + "'")
+								+ ", but got '"
+								+ valueConverter.convertValueToString(tempEntry.getValue().getResult(),
+										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -202,14 +209,19 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ valueConverter.convertValueToString(anInitialValue, false)));
+						+ valueConverter.convertValueToString(anInitialValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)));
 	}
 
 	@Override
 	public void onCallStart(Call aCall) {
 		callCount++;
 		try {
-			println("Now executing call " + callCount + ": " + testFormatter.callToHumanReadableString(aCall) + "...");
+			println("Now executing call "
+					+ callCount
+					+ ": "
+					+ testFormatter.callToHumanReadableString(aCall,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -260,8 +272,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		tableTestRowCount++;
 		try {
-			print("\tRow " + tableTestRowCount + " ("
-					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow) + ")...");
+			print("\tRow "
+					+ tableTestRowCount
+					+ " ("
+					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {

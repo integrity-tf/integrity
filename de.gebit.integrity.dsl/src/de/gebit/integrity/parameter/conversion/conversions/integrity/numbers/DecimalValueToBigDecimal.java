@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. 
@@ -18,7 +19,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class DecimalValueToBigDecimal implements TargetedConversion<DecimalValue, BigDecimal> {
 
 	@Override
-	public BigDecimal convert(DecimalValue aSource) throws ConversionFailedException {
+	public BigDecimal convert(DecimalValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource.getDecimalValue();
 	}
 

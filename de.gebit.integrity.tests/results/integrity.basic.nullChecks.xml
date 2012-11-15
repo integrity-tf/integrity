@@ -103,7 +103,7 @@
       </test>
       <test id="9" name="echo" description="echoes the values: null, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
         <results duration="0.579" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.579" description="echoes the values: null, ???, ???" type="success">
+          <result duration="0.579" description="echoes the values: null, null, null" type="success">
             <parameters>
               <parameter name="fixparam" value="null" />
             </parameters>
@@ -118,7 +118,7 @@
       </test>
       <test id="10" name="echo" description="echoes the values: 1, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
         <results duration="0.412" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.412" description="echoes the values: 1, ???, ???" type="failure">
+          <result duration="0.412" description="echoes the values: 1, null, null" type="failure">
             <parameters>
               <parameter name="fixparam" value="1" />
             </parameters>

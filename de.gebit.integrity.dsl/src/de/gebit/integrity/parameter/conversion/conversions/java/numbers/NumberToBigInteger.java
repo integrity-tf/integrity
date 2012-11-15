@@ -7,6 +7,7 @@ import java.math.BigInteger;
 
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. 
@@ -17,7 +18,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class NumberToBigInteger implements TargetedConversion<Number, BigInteger> {
 
 	@Override
-	public BigInteger convert(Number aSource) throws ConversionFailedException {
+	public BigInteger convert(Number aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return BigInteger.valueOf(aSource.longValue());
 	}
 

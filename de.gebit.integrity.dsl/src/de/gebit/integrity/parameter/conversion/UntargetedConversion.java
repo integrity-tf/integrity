@@ -20,10 +20,14 @@ public interface UntargetedConversion<FROM extends Object> extends Conversion {
 	 *            the source object to convert
 	 * @param aTargetType
 	 *            the given target type for the conversion
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted object
 	 * @throws ConversionFailedException
 	 *             in case of conversion errors
 	 */
-	Object convert(FROM aSource, Class<?> aTargetType) throws ConversionFailedException;
+	Object convert(FROM aSource, Class<?> aTargetType, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+			throws ConversionFailedException;
 
 }

@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -76,10 +77,11 @@ public class TestFormatter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String testToHumanReadableString(Test aTest) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+	public String testToHumanReadableString(Test aTest,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest, true, false), false);
+				parameterResolver.createParameterMap(aTest, true, false), anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -94,10 +96,11 @@ public class TestFormatter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow) throws ClassNotFoundException,
+	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest, aRow, true, false), false);
+				parameterResolver.createParameterMap(aTest, aRow, true, false), anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -110,10 +113,12 @@ public class TestFormatter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String tableTestToHumanReadableString(TableTest aTest) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+	public String tableTestToHumanReadableString(TableTest aTest,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest.getParameters(), true, false), true);
+				parameterResolver.createParameterMap(aTest.getParameters(), true, false),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -126,10 +131,11 @@ public class TestFormatter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String callToHumanReadableString(Call aCall) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+	public String callToHumanReadableString(Call aCall,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aCall, true, false), false);
+				parameterResolver.createParameterMap(aCall, true, false), anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -139,13 +145,14 @@ public class TestFormatter {
 	 *            the fixture method
 	 * @param someParameters
 	 *            a map of parameters used for the test
-	 * @param anExpectUnspecifiedParametersFlag
-	 *            whether unspecified parameters shall result in "???" replacements
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
-			Map<String, Object> someParameters, boolean anExpectUnspecifiedParametersFlag)
+			Map<String, Object> someParameters, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
@@ -172,10 +179,7 @@ public class TestFormatter {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
 			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)),
-					anExpectUnspecifiedParametersFlag);
-			if (tempValue == null) {
-				tempValue = "???";
-			}
+					anUnresolvableVariableHandlingPolicy);
 
 			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
 			tempMatcher = PARAMETER_PATTERN.matcher(tempText);

@@ -5,6 +5,7 @@ package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. 
@@ -15,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.TargetedConversion;
 public class StringToByte implements TargetedConversion<String, Byte> {
 
 	@Override
-	public Byte convert(String aSource) throws ConversionFailedException {
+	public Byte convert(String aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return Byte.parseByte(aSource);
 	}
 

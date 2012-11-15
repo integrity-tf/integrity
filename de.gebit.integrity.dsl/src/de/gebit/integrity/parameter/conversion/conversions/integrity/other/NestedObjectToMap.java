@@ -13,6 +13,7 @@ import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
@@ -27,13 +28,14 @@ public class NestedObjectToMap implements TargetedConversion<NestedObject, Map> 
 	private ValueConverter valueConverter;
 
 	@Override
-	public Map convert(NestedObject aSource) throws ConversionFailedException {
+	public Map convert(NestedObject aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+			throws ConversionFailedException {
 		Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
 				tempConvertedValue = valueConverter.convertEncapsulatedValueCollectionToParamType(null,
-						tempAttribute.getValue());
+						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 			} catch (UnexecutableException exc) {

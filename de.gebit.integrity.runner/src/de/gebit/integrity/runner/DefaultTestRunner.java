@@ -58,6 +58,7 @@ import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -288,6 +289,8 @@ public class DefaultTestRunner implements TestRunner {
 
 		if (callback instanceof CompoundTestRunnerCallback) {
 			((CompoundTestRunnerCallback) callback).injectDependencies(injector);
+		} else {
+			injector.injectMembers(callback);
 		}
 
 		commandLineArguments = someCommandLineArguments;
@@ -342,6 +345,7 @@ public class DefaultTestRunner implements TestRunner {
 				SetList tempSetList = new SetList();
 				reset();
 				setListCallback = new SetListCallback(tempSetList, remotingServer);
+				injector.injectMembers(setListCallback);
 				currentCallback = setListCallback;
 
 				currentCallback.setDryRun(true);
@@ -1162,11 +1166,13 @@ public class DefaultTestRunner implements TestRunner {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
 							Array.set(tempConvertedResult, i, valueConverter.convertEncapsulatedValueToParamType(
-									tempConversionTargetType, tempSingleExpectedResult));
+									tempConversionTargetType, tempSingleExpectedResult,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 					} else {
 						tempConvertedResult = valueConverter.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue());
+								tempConversionTargetType, anExpectedResult.getValue(),
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
@@ -1192,7 +1198,8 @@ public class DefaultTestRunner implements TestRunner {
 							} else {
 								Object tempConvertedExpectedResult = valueConverter
 										.convertEncapsulatedValueToParamType(tempSingleFixtureResult.getClass(),
-												tempSingleExpectedResult);
+												tempSingleExpectedResult,
+												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 								if (!performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
 										tempSingleExpectedResult)) {
@@ -1212,7 +1219,8 @@ public class DefaultTestRunner implements TestRunner {
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 						Object tempConvertedExpectedResult = valueConverter.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, tempSingleExpectedResult);
+								tempConversionTargetType, tempSingleExpectedResult,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 						// Even though we assume that there's a single expected result after this point, the converted
 						// result might still be an array (because an operation has returned an array, for example).
@@ -1685,7 +1693,8 @@ public class DefaultTestRunner implements TestRunner {
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
 									tempParameters[i] = valueConverter.convertEncapsulatedValueToParamType(
-											tempTargetType, tempParameter.getValue());
+											tempTargetType, tempParameter.getValue(),
+											UnresolvableVariableHandling.EXCEPTION);
 									break;
 								}
 							}

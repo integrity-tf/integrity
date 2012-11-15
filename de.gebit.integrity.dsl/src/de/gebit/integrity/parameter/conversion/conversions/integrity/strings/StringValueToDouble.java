@@ -6,6 +6,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.TargetedConversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. 
@@ -16,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 public class StringValueToDouble implements TargetedConversion<StringValue, Double> {
 
 	@Override
-	public Double convert(StringValue aSource) throws ConversionFailedException {
+	public Double convert(StringValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return Double.parseDouble(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

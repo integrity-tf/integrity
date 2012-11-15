@@ -8,7 +8,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -82,7 +81,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public Object convertValueToParamType(Class<?> aParamType, Object aValue) {
+	public Object convertValueToParamType(Class<?> aParamType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aValue == null) {
 			return null;
 		}
@@ -94,56 +94,64 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// both are arrays
 				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
 				for (int i = 0; i < Array.getLength(aValue); i++) {
-					Array.set(tempResultArray, i, convertValueToParamType(tempActualParamType, Array.get(aValue, i)));
+					Array.set(
+							tempResultArray,
+							i,
+							convertValueToParamType(tempActualParamType, Array.get(aValue, i),
+									anUnresolvableVariableHandlingPolicy));
 				}
 			} else {
 				// target is an array, but value is a single value
 				tempResultArray = Array.newInstance(tempActualParamType, 1);
-				Array.set(tempResultArray, 0, convertValueToParamType(tempActualParamType, aValue));
+				Array.set(tempResultArray, 0,
+						convertValueToParamType(tempActualParamType, aValue, anUnresolvableVariableHandlingPolicy));
 			}
 			return tempResultArray;
 		} else {
 			// target is a single value
-			if (aValue instanceof Map) {
-				// maps are explored and all contained values are converted
-				convertMapOfValues((Map<?, ?>) aValue, aParamType);
-			}
+			// if (aValue instanceof Map) {
+			// // maps are explored and all contained values are converted
+			// convertMapOfValues((Map<?, ?>) aValue, aParamType);
+			// }
 
 			if (aValue.getClass().isArray()) {
 				// this is not convertible, but since this method does not guarantee any conversion...
 				return aValue;
 			} else {
-				return convertSingleValueToParamType(aParamType, aValue);
+				// unresolvable variables can't happen here, since variable values should have gone down the other path
+				return convertSingleValueToParamType(aParamType, aValue, anUnresolvableVariableHandlingPolicy);
 			}
 		}
 	}
 
-	/**
-	 * Internally used to convert trees of parameters to the given target type or their respective default target types.
-	 * The conversion happens "in-place", that is, the given map will be altered!
-	 * 
-	 * @param aMap
-	 *            the map to convert
-	 * @param aTargetType
-	 *            the target type (if null, default conversions are used)
-	 * @return the converted map (which is currently the same map that was given to the method!)
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Map<?, ?> convertMapOfValues(Map<?, ?> aMap, Class<?> aTargetType) {
-		for (Entry tempEntry : aMap.entrySet()) {
-			if (tempEntry.getValue() instanceof Map) {
-				convertMapOfValues((Map) tempEntry.getValue(), aTargetType);
-			} else {
-				Object tempConvertedValue = convertSingleValueToParamType(aTargetType, tempEntry.getValue());
-				tempEntry.setValue(tempConvertedValue);
-			}
-		}
-
-		return aMap;
-	}
+	// /**
+	// * Internally used to convert trees of parameters to the given target type or their respective default target
+	// types.
+	// * The conversion happens "in-place", that is, the given map will be altered!
+	// *
+	// * @param aMap
+	// * the map to convert
+	// * @param aTargetType
+	// * the target type (if null, default conversions are used)
+	// * @return the converted map (which is currently the same map that was given to the method!)
+	// */
+	// @SuppressWarnings({ "rawtypes", "unchecked" })
+	// protected Map<?, ?> convertMapOfValues(Map<?, ?> aMap, Class<?> aTargetType) {
+	// for (Entry tempEntry : aMap.entrySet()) {
+	// if (tempEntry.getValue() instanceof Map) {
+	// convertMapOfValues((Map) tempEntry.getValue(), aTargetType);
+	// } else {
+	// Object tempConvertedValue = convertSingleValueToParamType(aTargetType, tempEntry.getValue());
+	// tempEntry.setValue(tempConvertedValue);
+	// }
+	// }
+	//
+	// return aMap;
+	// }
 
 	@SuppressWarnings("unchecked")
-	private Object convertSingleValueToParamType(Class<?> aParamType, Object aValue) {
+	private Object convertSingleValueToParamType(Class<?> aParamType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aValue == null) {
 			return null;
 		} else if (aParamType != null && aParamType.isAssignableFrom(aValue.getClass())) {
@@ -155,13 +163,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			@SuppressWarnings("rawtypes")
 			UntargetedConversion tempUntargetedConversion = findUntargetedConversion(aValue.getClass());
 			if (tempUntargetedConversion != null) {
-				return tempUntargetedConversion.convert(aValue, aParamType);
+				return tempUntargetedConversion.convert(aValue, aParamType, anUnresolvableVariableHandlingPolicy);
 			}
 
 			@SuppressWarnings("rawtypes")
 			TargetedConversion tempTargetedConversion = findTargetedConversion(aValue.getClass(), aParamType);
 			if (tempTargetedConversion != null) {
-				return tempTargetedConversion.convert(aValue);
+				return tempTargetedConversion.convert(aValue, anUnresolvableVariableHandlingPolicy);
 			}
 		} catch (InstantiationException exc) {
 			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
@@ -173,8 +181,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValueOrOperation aValue)
-			throws UnresolvableVariableException, ClassNotFoundException, UnexecutableException, InstantiationException {
+	public Object convertEncapsulatedValueToParamType(Class<?> aParamType, ValueOrEnumValueOrOperation aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (aValue == null) {
 			return null;
 		}
@@ -186,15 +195,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			} else {
 				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
 				Object tempResult = tempWrapper.executeOperation(false);
-				return convertValueToParamType(aParamType, tempResult);
+				return convertValueToParamType(aParamType, tempResult, anUnresolvableVariableHandlingPolicy);
 			}
 		} else if (aValue instanceof Variable) {
 			Object tempResult = parameterResolver.resolveSingleParameterValue(aValue, true);
 			if (tempResult instanceof Variable) {
-				throw new UnresolvableVariableException("Unresolvable variable "
-						+ ((Variable) aValue).getName().getName() + " encountered!");
+				// the variable was not resolvable
+				switch (anUnresolvableVariableHandlingPolicy) {
+				case RESOLVE_TO_NULL_VALUE:
+					return null;
+				case RESOLVE_TO_NAME_STRING:
+					return ((Variable) tempResult).getName().getName();
+				case RESOLVE_TO_NULL_STRING:
+					return "null";
+				case RESOLVE_TO_QUESTIONMARK_STRING:
+					return "???";
+				case EXCEPTION:
+				default:
+					throw new UnresolvableVariableException("Unresolvable variable "
+							+ ((Variable) aValue).getName().getName() + " encountered!");
+				}
 			} else {
-				return convertSingleValueToParamType(aParamType, tempResult);
+				return convertSingleValueToParamType(aParamType, tempResult, anUnresolvableVariableHandlingPolicy);
 			}
 			// } else if (aValue instanceof NestedObject) {
 			// if (Map.class.isAssignableFrom(aParamType)) {
@@ -214,34 +236,41 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// + " - it's advised to use a java.util.Map as target type!");
 			// }
 		} else {
-			return convertValueToParamType(aParamType, aValue);
+			return convertValueToParamType(aParamType, aValue, anUnresolvableVariableHandlingPolicy);
 		}
 	}
 
 	@Override
 	public Object convertEncapsulatedValueCollectionToParamType(Class<?> aParamType,
-			ValueOrEnumValueOrOperationCollection aCollection) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+			ValueOrEnumValueOrOperationCollection aCollection,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException {
 
 		Class<?> tempTargetParamType = null;
-		if (aParamType.isArray()) {
+		if (aParamType != null && aParamType.isArray()) {
 			tempTargetParamType = aParamType.getComponentType();
 		} else {
 			tempTargetParamType = aParamType;
 		}
 
+		Class<?> tempTargetArrayType = tempTargetParamType;
+		if (tempTargetArrayType == null) {
+			tempTargetArrayType = Object.class;
+		}
+
 		if (aCollection.getMoreValues() != null && aCollection.getMoreValues().size() > 0) {
 			// this is actually an array
-			Object tempResultArray = Array.newInstance(tempTargetParamType, aCollection.getMoreValues().size() + 1);
+			Object tempResultArray = Array.newInstance(tempTargetArrayType, aCollection.getMoreValues().size() + 1);
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
 						.get(i - 1));
-				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue);
+				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue,
+						anUnresolvableVariableHandlingPolicy);
 				Array.set(tempResultArray, i, tempResultValue);
 			}
 
 			// now we need to see whether we're even allowed to return an array
-			if (aParamType.isArray()) {
+			if (aParamType == null || aParamType.isArray()) {
 				return tempResultArray;
 			} else {
 				throw new IllegalArgumentException("Parameter type class " + aParamType
@@ -249,11 +278,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 		} else {
 			// this is just a single value
-			Object tempResult = convertEncapsulatedValueToParamType(tempTargetParamType, aCollection.getValue());
+			Object tempResult = convertEncapsulatedValueToParamType(tempTargetParamType, aCollection.getValue(),
+					anUnresolvableVariableHandlingPolicy);
 
 			// but we might need to return this as an array with one element
-			if (aParamType.isArray()) {
-				Object tempResultArray = Array.newInstance(tempTargetParamType, 1);
+			if (aParamType != null && aParamType.isArray()) {
+				Object tempResultArray = Array.newInstance(tempTargetArrayType, 1);
 				Array.set(tempResultArray, 0, tempResult);
 				return tempResultArray;
 			} else {
@@ -263,18 +293,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public String convertValueToString(Object aValue, boolean anAllowNullResultFlag) {
+	public String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		// always convert to an array, so array values will convert fine
 		String[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
 				tempResult = (String[]) convertEncapsulatedValueCollectionToParamType(String[].class,
-						(ValueOrEnumValueOrOperationCollection) aValue);
+						(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
 				tempResult = (String[]) convertEncapsulatedValueToParamType(String[].class,
-						(ValueOrEnumValueOrOperation) aValue);
+						(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy);
 			} else {
-				tempResult = (String[]) convertValueToParamType(String[].class, aValue);
+				tempResult = (String[]) convertValueToParamType(String[].class, aValue,
+						anUnresolvableVariableHandlingPolicy);
 			}
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
@@ -290,22 +321,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return "FAILURE";
 		}
 
-		if (tempResult == null && !anAllowNullResultFlag) {
+		if (tempResult == null) {
 			return "null";
 		} else {
-			if (tempResult != null) {
-				StringBuilder tempBuffer = new StringBuilder();
-				for (String tempSingleResult : tempResult) {
-					if (tempBuffer.length() > 0) {
-						tempBuffer.append(", ");
-					}
-					tempBuffer.append(tempSingleResult);
+			StringBuilder tempBuffer = new StringBuilder();
+			for (String tempSingleResult : tempResult) {
+				if (tempBuffer.length() > 0) {
+					tempBuffer.append(", ");
 				}
-
-				return tempBuffer.toString();
-			} else {
-				return null;
+				tempBuffer.append(tempSingleResult);
 			}
+
+			return tempBuffer.toString();
 		}
 	}
 
@@ -522,21 +549,53 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throws InstantiationException, IllegalAccessException {
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
-			Class<? extends TargetedConversion<?, ?>> tempConversionClass;
+			Class<? extends TargetedConversion<?, ?>> tempConversionClass = null;
 			if (aTargetType == null) {
-				tempConversionClass = defaultTargetedConversions.get(aSourceType);
+				// This is the default target type case
+				tempConversionClass = defaultTargetedConversions.get(tempSourceTypeInFocus);
 			} else {
-				tempConversionClass = targetedConversions.get(new TargetedConversionKey(tempSourceTypeInFocus,
-						aTargetType));
+				// We actually have a target type
+				Class<?> tempTargetTypeInFocus = aTargetType;
+				while (tempTargetTypeInFocus != null) {
+					tempConversionClass = targetedConversions.get(new TargetedConversionKey(tempSourceTypeInFocus,
+							tempTargetTypeInFocus));
+					if (tempConversionClass != null) {
+						break;
+					}
+
+					tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
+				}
 			}
 
 			if (tempConversionClass != null) {
 				return createConversionInstance(tempConversionClass, true);
 			} else {
-				for (Class<?> tempInterface : tempSourceTypeInFocus.getInterfaces()) {
-					TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempInterface, aTargetType);
-					if (tempConversion != null) {
-						return tempConversion;
+				for (Class<?> tempSourceInterface : tempSourceTypeInFocus.getInterfaces()) {
+					if (aTargetType == null) {
+						// This is the default target type case
+						TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempSourceInterface, null);
+						if (tempConversion != null) {
+							return tempConversion;
+						}
+					} else {
+						// We actually have a target type
+						Class<?> tempTargetTypeInFocus = aTargetType;
+						while (tempTargetTypeInFocus != null) {
+							TargetedConversion<?, ?> tempConversion = findTargetedConversion(tempSourceInterface,
+									tempTargetTypeInFocus);
+							if (tempConversion != null) {
+								return tempConversion;
+							}
+
+							for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
+								tempConversion = findTargetedConversion(tempSourceInterface, tempTargetInterface);
+								if (tempConversion != null) {
+									return tempConversion;
+								}
+							}
+
+							tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
+						}
 					}
 				}
 

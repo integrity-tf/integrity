@@ -29,6 +29,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -294,15 +295,17 @@ public class SetListCallback extends TestRunnerCallback {
 			tempNewEntries.add(tempParameterEntry);
 
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
-			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					valueConverter.convertValueToString(tempEntry.getValue(), false));
+			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+					tempEntry.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 
 			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.PARAMETERS, tempParameterEntry);
 		}
 
 		try {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
-					testFormatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
+					.fixtureMethodToHumanReadableString(aMethod, aParameterMap,
+							isDryRun() ? UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING
+									: UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
@@ -330,11 +333,12 @@ public class SetListCallback extends TestRunnerCallback {
 
 			// Either there is an expected value, or if there isn't, "true" is the default
 			ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT,
-					valueConverter.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false));
+			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, valueConverter
+					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			if (tempEntry.getValue().getResult() != null) {
-				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-						valueConverter.convertValueToString(tempEntry.getValue().getResult(), false));
+				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+						tempEntry.getValue().getResult(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -390,8 +394,8 @@ public class SetListCallback extends TestRunnerCallback {
 						.getTargetVariable().getName());
 			}
 			if (tempUpdatedVariable.getValue() != null) {
-				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-						valueConverter.convertValueToString(tempUpdatedVariable.getValue(), false));
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+						tempUpdatedVariable.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,
@@ -469,8 +473,8 @@ public class SetListCallback extends TestRunnerCallback {
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					valueConverter.convertValueToString(anInitialValue, false));
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+					anInitialValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
@@ -491,10 +495,10 @@ public class SetListCallback extends TestRunnerCallback {
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
 			SetListEntry anEntry) {
 		try {
-			anEntry.setAttribute(
-					SetListEntryAttributeKeys.DESCRIPTION,
-					testFormatter.fixtureMethodToHumanReadableString(aMethod,
-							parameterResolver.createParameterMap(aParamList, true, false), true));
+			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
+					.fixtureMethodToHumanReadableString(aMethod, parameterResolver.createParameterMap(aParamList, true,
+							false), isDryRun() ? UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING
+							: UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
@@ -514,8 +518,8 @@ public class SetListCallback extends TestRunnerCallback {
 			SetListEntry tempParamEntry = setList.createEntry(SetListEntryTypes.PARAMETER);
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					valueConverter.convertValueToString(tempParameter.getValue(), false));
+			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+					tempParameter.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			if (tempParameter.getValue() instanceof Variable) {
 				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
 						((Variable) tempParameter.getValue()).getName().getName());
