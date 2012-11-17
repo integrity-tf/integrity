@@ -173,9 +173,8 @@ public class FixtureTypeWrapper {
 									// component type, of course
 									Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 											.getComponentType() : tempExpectedType;
-									tempConvertedValue = valueConverter.convertValue(
-											tempConversionTargetType, tempValue,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+									tempConvertedValue = valueConverter.convertValue(tempConversionTargetType,
+											tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 									if (tempExpectedType.isArray()) {
 										// ...and if the expected type is an array, now we create one
 										Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -200,36 +199,10 @@ public class FixtureTypeWrapper {
 					for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
 						String tempName = tempArbitraryParameter.getName();
 						Object tempValue = aParameterMap.remove(tempName);
-						Class<?> tempExpectedType = tempArbitraryParameter.getType();
 						if (tempValue != null) {
 							Object tempConvertedValue;
-							if (tempValue instanceof Object[]) {
-								if (!tempExpectedType.isArray()) {
-									throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-											+ aFixtureMethodName + "' in fixture '"
-											+ fixtureType.getFullyQualifiedName()
-											+ "' is not an array type, thus you cannot put multiple values into it!");
-								}
-								Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
-										((Object[]) tempValue).length);
-								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-									Object tempSingleValue = ((Object[]) tempValue)[k];
-									Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-											tempExpectedType.getComponentType(), tempSingleValue,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-								}
-								tempConvertedValue = tempConvertedValueArray;
-							} else {
-								tempConvertedValue = valueConverter.convertValue(tempExpectedType,
-										tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-								if (tempExpectedType.isArray()) {
-									// The target type may still be an array, even though just one parameter value was
-									// given
-									Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-									Array.set(tempNewArray, 0, tempConvertedValue);
-									tempConvertedValue = tempNewArray;
-								}
-							}
+							tempConvertedValue = valueConverter.convertValue(null, tempValue,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 							aParameterMap.put(tempName, tempConvertedValue);
 						}
 					}
@@ -293,8 +266,7 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
-				return valueConverter.convertValue(tempTargetType, aValue,
-						UnresolvableVariableHandling.EXCEPTION);
+				return valueConverter.convertValue(tempTargetType, aValue, UnresolvableVariableHandling.EXCEPTION);
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert
 			} catch (UnexecutableException exc) {

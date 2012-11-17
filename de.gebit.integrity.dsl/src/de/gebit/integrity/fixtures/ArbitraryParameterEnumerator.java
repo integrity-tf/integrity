@@ -76,32 +76,20 @@ public interface ArbitraryParameterEnumerator {
 		private String description;
 
 		/**
-		 * The type of the parameter. Will be used for autoconversion purposes.
-		 */
-		private Class<?> type;
-
-		/**
 		 * Creates a new instance.
 		 * 
 		 * @param aName
 		 *            The parameter name
-		 * @param aType
-		 *            The type of the parameter
 		 * @param aDescription
 		 *            The description for content assist
 		 */
-		public ArbitraryParameterDefinition(String aName, Class<?> aType, String aDescription) {
+		public ArbitraryParameterDefinition(String aName, String aDescription) {
 			name = aName;
-			type = aType;
 			description = aDescription;
 		}
 
 		public String getName() {
 			return name;
-		}
-
-		public Class<?> getType() {
-			return type;
 		}
 
 		public String getDescription() {
