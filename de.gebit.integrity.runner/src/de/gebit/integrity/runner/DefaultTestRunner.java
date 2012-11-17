@@ -842,7 +842,8 @@ public class DefaultTestRunner implements TestRunner {
 
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true, false);
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
 						.getType());
@@ -971,7 +972,7 @@ public class DefaultTestRunner implements TestRunner {
 					long tempStart = System.nanoTime();
 					try {
 						Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow, true,
-								false);
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 						if (tempFixtureInstance == null) {
 							// only instantiate on first pass
@@ -1181,7 +1182,8 @@ public class DefaultTestRunner implements TestRunner {
 			long tempStart = System.nanoTime();
 			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
-				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true, false);
+				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod()
 						.getType());

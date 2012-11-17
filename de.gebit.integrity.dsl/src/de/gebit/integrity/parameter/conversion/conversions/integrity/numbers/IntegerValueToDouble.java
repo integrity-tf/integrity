@@ -5,19 +5,20 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
  */
-public class IntegerValueToDouble implements TargetedConversion<IntegerValue, Double> {
+public class IntegerValueToDouble implements Conversion<IntegerValue, Double> {
 
 	@Override
-	public Double convert(IntegerValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Double convert(IntegerValue aSource, Class<? extends Double> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource.getIntegerValue().doubleValue();
 	}
 

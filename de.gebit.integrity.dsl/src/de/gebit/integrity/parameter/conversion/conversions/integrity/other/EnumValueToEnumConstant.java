@@ -5,8 +5,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.UntargetedConversion;
 
 /**
  * A default Integrity conversion.
@@ -14,13 +14,14 @@ import de.gebit.integrity.parameter.conversion.UntargetedConversion;
  * @author Rene Schneider
  * 
  */
-public class EnumValueToEnumConstant implements UntargetedConversion<EnumValue> {
+@SuppressWarnings("rawtypes")
+public class EnumValueToEnumConstant implements Conversion<EnumValue, Enum> {
 
 	@Override
-	public Object convert(EnumValue aSource, Class<?> aTargetType,
+	public Enum convert(EnumValue aSource, Class<? extends Enum> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (Enum.class.isAssignableFrom(aTargetType)) {
-			for (Object tempConstant : aTargetType.getEnumConstants()) {
+			for (Enum tempConstant : aTargetType.getEnumConstants()) {
 				if (tempConstant.toString().equals(aSource.getEnumValue().getSimpleName())) {
 					return tempConstant;
 				}
@@ -31,6 +32,11 @@ public class EnumValueToEnumConstant implements UntargetedConversion<EnumValue> 
 		}
 		throw new ConversionFailedException(EnumValue.class, aTargetType, "Class '" + aTargetType.getName()
 				+ "' is not an enum");
+	}
+
+	@Override
+	public int getPriority() {
+		return Integer.MIN_VALUE;
 	}
 
 }

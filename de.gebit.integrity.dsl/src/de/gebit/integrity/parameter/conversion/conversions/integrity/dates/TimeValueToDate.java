@@ -8,7 +8,7 @@ import java.util.Date;
 
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -18,10 +18,11 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class TimeValueToDate implements TargetedConversion<TimeValue, Date> {
+public class TimeValueToDate implements Conversion<TimeValue, Date> {
 
 	@Override
-	public Date convert(TimeValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Date convert(TimeValue aSource, Class<? extends Date> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return DateUtil.convertTimeValue(aSource).getTime();
 		} catch (ParseException exc) {

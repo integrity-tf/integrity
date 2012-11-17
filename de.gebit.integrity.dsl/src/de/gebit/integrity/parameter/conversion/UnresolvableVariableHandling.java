@@ -34,6 +34,11 @@ public enum UnresolvableVariableHandling {
 	/**
 	 * Resolve to the string '???'.
 	 */
-	RESOLVE_TO_QUESTIONMARK_STRING;
+	RESOLVE_TO_QUESTIONMARK_STRING,
+
+	/**
+	 * Keep the variable reference as-is.
+	 */
+	KEEP_UNRESOLVED;
 
 }

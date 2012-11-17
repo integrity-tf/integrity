@@ -225,7 +225,7 @@ public class SetListCallback extends TestRunnerCallback {
 				// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated
 				// twice
 				tempParameterMap = parameterResolver.createParameterMap(aTableTest,
-						aTableTest.getRows().get(tempCount), true, false);
+						aTableTest.getRows().get(tempCount), true, determineUnresolvableVariableHandlingPolicy());
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -249,7 +249,8 @@ public class SetListCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = parameterResolver.createParameterMap(aTest, true, false);
+			tempParameterMap = parameterResolver.createParameterMap(aTest, true,
+					determineUnresolvableVariableHandlingPolicy());
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -296,7 +297,7 @@ public class SetListCallback extends TestRunnerCallback {
 
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-					tempEntry.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+					tempEntry.getValue(), determineUnresolvableVariableHandlingPolicy()));
 
 			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.PARAMETERS, tempParameterEntry);
 		}
@@ -304,8 +305,7 @@ public class SetListCallback extends TestRunnerCallback {
 		try {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
 					.fixtureMethodToHumanReadableString(aMethod, aParameterMap,
-							isDryRun() ? UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING
-									: UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+							determineUnresolvableVariableHandlingPolicy()));
 		} catch (ClassNotFoundException exc) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
@@ -335,10 +335,10 @@ public class SetListCallback extends TestRunnerCallback {
 			ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, valueConverter
 					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+							determineUnresolvableVariableHandlingPolicy()));
 			if (tempEntry.getValue().getResult() != null) {
 				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-						tempEntry.getValue().getResult(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+						tempEntry.getValue().getResult(), determineUnresolvableVariableHandlingPolicy()));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -395,7 +395,7 @@ public class SetListCallback extends TestRunnerCallback {
 			}
 			if (tempUpdatedVariable.getValue() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-						tempUpdatedVariable.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+						tempUpdatedVariable.getValue(), determineUnresolvableVariableHandlingPolicy()));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,
@@ -473,12 +473,25 @@ public class SetListCallback extends TestRunnerCallback {
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-					anInitialValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
+					valueConverter.convertValueToString(anInitialValue, determineUnresolvableVariableHandlingPolicy()));
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
 		sendUpdateToClients(null, tempNewEntry);
+	}
+
+	/**
+	 * Determines the way unresolvable variables are to be handled.
+	 * 
+	 * @return
+	 */
+	protected UnresolvableVariableHandling determineUnresolvableVariableHandlingPolicy() {
+		if (isDryRun()) {
+			return UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING;
+		} else {
+			return UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING;
+		}
 	}
 
 	/**
@@ -497,8 +510,8 @@ public class SetListCallback extends TestRunnerCallback {
 		try {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
 					.fixtureMethodToHumanReadableString(aMethod, parameterResolver.createParameterMap(aParamList, true,
-							false), isDryRun() ? UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING
-							: UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+							determineUnresolvableVariableHandlingPolicy()),
+							determineUnresolvableVariableHandlingPolicy()));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
@@ -519,7 +532,7 @@ public class SetListCallback extends TestRunnerCallback {
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-					tempParameter.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+					tempParameter.getValue(), determineUnresolvableVariableHandlingPolicy()));
 			if (tempParameter.getValue() instanceof Variable) {
 				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
 						((Variable) tempParameter.getValue()).getName().getName());

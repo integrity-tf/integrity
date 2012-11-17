@@ -54,6 +54,7 @@ import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
@@ -382,12 +383,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		try {
 			if (aModel instanceof Test) {
 				Test tempTest = (Test) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempTest, true, false);
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, true,
+						UnresolvableVariableHandling.KEEP_UNRESOLVED);
 				tempExpectedResultMap = parameterResolver.createExpectedResultMap(tempTest, null, true);
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, true, false);
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, true,
+						UnresolvableVariableHandling.KEEP_UNRESOLVED);
 				tempExpectedResultMap = new LinkedHashMap<String, Object>();
 				for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
 					tempExpectedResultMap.put(
@@ -396,7 +399,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof Call) {
 				Call tempCall = (Call) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), true, false);
+				tempParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), true,
+						UnresolvableVariableHandling.KEEP_UNRESOLVED);
 				tempMethodReference = tempCall.getDefinition().getFixtureMethod();
 			}
 		} catch (InstantiationException exc) {
@@ -425,15 +429,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (aModel instanceof Test) {
 						Test tempTest = (Test) aModel;
 						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), false,
-								true);
+								UnresolvableVariableHandling.KEEP_UNRESOLVED);
 					} else if (aModel instanceof TableTest) {
 						TableTest tempTest = (TableTest) aModel;
 						tempFixedParameterMap = parameterResolver.createParameterMap(tempTest.getParameters(), false,
-								true);
+								UnresolvableVariableHandling.KEEP_UNRESOLVED);
 					} else if (aModel instanceof Call) {
 						Call tempCall = (Call) aModel;
 						tempFixedParameterMap = parameterResolver.createParameterMap(tempCall.getParameters(), false,
-								true);
+								UnresolvableVariableHandling.KEEP_UNRESOLVED);
 					}
 
 					resolveVariables(tempFixedParameterMap);
@@ -533,7 +537,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								tempCompilationUnit.getTypes()[0], valueConverter);
 
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
-								true, true);
+								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 						Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(
 								tempMethod.getMethod().getSimpleName(), null, tempTest.getResult());
@@ -576,7 +580,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							tempCompilationUnit.getTypes()[0], valueConverter);
 
 					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
-							true);
+							UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
 							.getMethod().getSimpleName(), tempResult.getName(), tempResult.getValue());
@@ -623,7 +627,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				try {
 					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
-							true);
+							UnresolvableVariableHandling.KEEP_UNRESOLVED);
 					completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, aContext, anAcceptor);
 				} catch (InstantiationException exc) {
 					// cannot occur, since thrown by operation execution which is not performed here
@@ -671,7 +675,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (tempColumn < tempTest.getParameterHeaders().size()) {
 						try {
 							Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-									true, true);
+									true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 							completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 									tempMethod, tempParamMap, aContext, anAcceptor);
@@ -718,7 +722,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								}
 
 								Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest,
-										tempRow, true, true);
+										tempRow, true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 								completeCustomProposalResultValuesInternal(tempResultName, tempMethod,
 										tempConvertedResultValue, tempParamMap, aContext, anAcceptor);
@@ -759,7 +763,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
 					try {
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-								true, true);
+								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 								tempMethod, tempParamMap, aContext, anAcceptor);

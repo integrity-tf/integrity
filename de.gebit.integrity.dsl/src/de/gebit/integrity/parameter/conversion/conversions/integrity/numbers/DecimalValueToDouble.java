@@ -5,7 +5,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
@@ -14,10 +14,11 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class DecimalValueToDouble implements TargetedConversion<DecimalValue, Double> {
+public class DecimalValueToDouble implements Conversion<DecimalValue, Double> {
 
 	@Override
-	public Double convert(DecimalValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Double convert(DecimalValue aSource, Class<? extends Double> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource.getDecimalValue().doubleValue();
 	}
 

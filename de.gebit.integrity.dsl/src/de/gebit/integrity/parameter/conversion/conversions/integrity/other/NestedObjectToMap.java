@@ -12,7 +12,7 @@ import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
@@ -23,7 +23,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * 
  */
 @SuppressWarnings("rawtypes")
-public class NestedObjectToMap implements TargetedConversion<NestedObject, Map> {
+public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -32,8 +32,8 @@ public class NestedObjectToMap implements TargetedConversion<NestedObject, Map> 
 	private ValueConverter valueConverter;
 
 	@Override
-	public Map convert(NestedObject aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ConversionFailedException {
+	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;

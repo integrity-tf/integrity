@@ -30,6 +30,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NullValueToNull;
@@ -163,6 +164,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		// other conversions, Integrity -> Java
 		addConversion(NullValueToNull.class);
 		addConversion(EnumValueToEnumConstant.class);
+		addConversion(EnumValueToString.class);
 		addConversion(NestedObjectToMap.class);
 		addConversion(NestedObjectToString.class);
 	}

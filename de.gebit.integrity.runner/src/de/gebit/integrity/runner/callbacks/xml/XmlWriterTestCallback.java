@@ -588,7 +588,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = parameterResolver.createParameterMap(aTest, true, false);
+			tempParameterMap = parameterResolver.createParameterMap(aTest, true,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -628,7 +629,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		if (!isDryRun()) {
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
-				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true, false);
+				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {

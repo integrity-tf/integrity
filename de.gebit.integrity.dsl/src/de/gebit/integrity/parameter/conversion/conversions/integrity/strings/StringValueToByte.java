@@ -4,20 +4,21 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
  */
-public class StringValueToByte implements TargetedConversion<StringValue, Byte> {
+public class StringValueToByte implements Conversion<StringValue, Byte> {
 
 	@Override
-	public Byte convert(StringValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Byte convert(StringValue aSource, Class<? extends Byte> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return Byte.parseByte(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

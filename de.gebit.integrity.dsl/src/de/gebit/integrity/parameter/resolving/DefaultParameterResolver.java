@@ -33,8 +33,10 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
@@ -60,23 +62,23 @@ public class DefaultParameterResolver implements ParameterResolver {
 
 	@Override
 	public Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return createParameterMap(aTest.getParameters(), anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	@Override
 	public Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return createParameterMap(aCall.getParameters(), anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	@Override
 	public Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
 		for (Parameter tempParameter : aTableTest.getParameters()) {
@@ -91,12 +93,12 @@ public class DefaultParameterResolver implements ParameterResolver {
 		}
 
 		return createParameterMap(tempParameterMap, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	@Override
 	public Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
 		for (Parameter tempParameter : someParameters) {
@@ -104,18 +106,18 @@ public class DefaultParameterResolver implements ParameterResolver {
 		}
 
 		return createParameterMap(tempParameters, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	private Map<String, Object> createParameterMap(
 			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempEntry.getValue(),
-						aLeaveUnresolvableVariableReferencesIntact);
+						anUnresolvableVariableHandlingPolicy);
 
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
 					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
@@ -128,8 +130,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 
 	@Override
 	public Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
+			InstantiationException, ClassNotFoundException {
 		if (aValueCollection.getMoreValues().size() > 0) {
 			// if multiple values have been provided
 			Object[] tempValueArray = new Object[aValueCollection.getMoreValues().size() + 1];
@@ -138,30 +140,46 @@ public class DefaultParameterResolver implements ParameterResolver {
 				ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? aValueCollection.getValue() : aValueCollection
 						.getMoreValues().get(i - 1));
 
-				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue,
-						aLeaveUnresolvableVariableReferencesIntact);
+				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue, anUnresolvableVariableHandlingPolicy);
 			}
 			return tempValueArray;
 		} else {
 			// if only one value has been provided
-			return resolveSingleParameterValue(aValueCollection.getValue(), aLeaveUnresolvableVariableReferencesIntact);
+			return resolveSingleParameterValue(aValueCollection.getValue(), anUnresolvableVariableHandlingPolicy);
 		}
 	}
 
 	@Override
 	public Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
+			InstantiationException, ClassNotFoundException {
 		if (aValue instanceof Variable) {
-			Object tempResolvedValue = (variableManager != null ? variableManager.get(((Variable) aValue).getName())
-					: null);
-			if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
+			Variable tempVariable = (Variable) aValue;
+			Object tempResolvedValue = (variableManager != null ? variableManager.get(tempVariable.getName()) : null);
+			if (tempResolvedValue != null) {
 				return tempResolvedValue;
+			} else {
+				switch (anUnresolvableVariableHandlingPolicy) {
+				case KEEP_UNRESOLVED:
+					return tempVariable;
+				case RESOLVE_TO_NULL_VALUE:
+					return null;
+				case RESOLVE_TO_NAME_STRING:
+					return tempVariable.getName().getName();
+				case RESOLVE_TO_NULL_STRING:
+					return "null";
+				case RESOLVE_TO_QUESTIONMARK_STRING:
+					return "???";
+				case EXCEPTION:
+				default:
+					throw new UnresolvableVariableException("Unresolvable variable " + tempVariable.getName().getName()
+							+ " encountered!");
+				}
 			}
 		} else if (aValue instanceof Operation) {
 			if (wrapperFactory != null) {
 				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
-				return tempWrapper.executeOperation(false);
+				return tempWrapper.executeOperation(anUnresolvableVariableHandlingPolicy);
 			} else {
 				return null;
 			}

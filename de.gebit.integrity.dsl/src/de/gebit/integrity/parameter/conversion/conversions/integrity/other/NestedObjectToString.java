@@ -12,7 +12,7 @@ import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
@@ -22,7 +22,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * @author Rene Schneider
  * 
  */
-public class NestedObjectToString implements TargetedConversion<NestedObject, String> {
+public class NestedObjectToString implements Conversion<NestedObject, String> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -31,8 +31,8 @@ public class NestedObjectToString implements TargetedConversion<NestedObject, St
 	private ValueConverter valueConverter;
 
 	@Override
-	public String convert(NestedObject aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ConversionFailedException {
+	public String convert(NestedObject aSource, Class<? extends String> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		StringBuilder tempBuilder = new StringBuilder();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;

@@ -3,7 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
-import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
@@ -13,12 +13,13 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class NullValueToNull implements Conversion<NullValue, Object> {
+@SuppressWarnings("rawtypes")
+public class EnumValueToString implements Conversion<EnumValue, String> {
 
 	@Override
-	public Object convert(NullValue aSource, Class<? extends Object> aTargetType,
+	public String convert(EnumValue aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		return null;
+		return aSource.getEnumValue().getSimpleName();
 	}
 
 	@Override

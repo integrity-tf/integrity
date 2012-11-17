@@ -81,7 +81,8 @@ public class TestFormatter {
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest, true, false), anUnresolvableVariableHandlingPolicy);
+				parameterResolver.createParameterMap(aTest, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -100,7 +101,8 @@ public class TestFormatter {
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest, aRow, true, false), anUnresolvableVariableHandlingPolicy);
+				parameterResolver.createParameterMap(aTest, aRow, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -116,8 +118,9 @@ public class TestFormatter {
 	public String tableTestToHumanReadableString(TableTest aTest,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aTest.getParameters(), true, false),
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aTest.getParameters(), true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
 	}
 
@@ -135,7 +138,8 @@ public class TestFormatter {
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				parameterResolver.createParameterMap(aCall, true, false), anUnresolvableVariableHandlingPolicy);
+				parameterResolver.createParameterMap(aCall, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**

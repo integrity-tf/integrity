@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
@@ -20,7 +20,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * 
  */
 @SuppressWarnings("rawtypes")
-public class MapToString implements TargetedConversion<Map, String> {
+public class MapToString implements Conversion<Map, String> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -29,8 +29,8 @@ public class MapToString implements TargetedConversion<Map, String> {
 	private ValueConverter valueConverter;
 
 	@Override
-	public String convert(Map aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ConversionFailedException {
+	public String convert(Map aSource, Class<? extends String> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		StringBuilder tempBuilder = new StringBuilder();
 
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {

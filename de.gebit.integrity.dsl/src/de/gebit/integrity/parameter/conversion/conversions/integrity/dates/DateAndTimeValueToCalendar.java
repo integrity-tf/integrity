@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -18,10 +18,11 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class DateAndTimeValueToCalendar implements TargetedConversion<DateAndTimeValue, Calendar> {
+public class DateAndTimeValueToCalendar implements Conversion<DateAndTimeValue, Calendar> {
 
 	@Override
-	public Calendar convert(DateAndTimeValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Calendar convert(DateAndTimeValue aSource, Class<? extends Calendar> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return DateUtil.convertDateAndTimeValue(aSource);
 		} catch (ParseException exc) {

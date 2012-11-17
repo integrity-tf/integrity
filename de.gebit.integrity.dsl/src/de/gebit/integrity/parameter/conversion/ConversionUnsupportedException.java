@@ -4,7 +4,7 @@
 package de.gebit.integrity.parameter.conversion;
 
 /**
- * Thrown if a certain requested conversion is not supported, because no matching {@link TargetedConversion} was found.
+ * Thrown if a certain requested conversion is not supported, because no matching {@link Conversion} was found.
  * 
  * 
  * @author Rene Schneider

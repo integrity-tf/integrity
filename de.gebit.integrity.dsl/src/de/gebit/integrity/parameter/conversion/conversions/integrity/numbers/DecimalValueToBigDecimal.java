@@ -7,19 +7,20 @@ import java.math.BigDecimal;
 
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
  */
-public class DecimalValueToBigDecimal implements TargetedConversion<DecimalValue, BigDecimal> {
+public class DecimalValueToBigDecimal implements Conversion<DecimalValue, BigDecimal> {
 
 	@Override
-	public BigDecimal convert(DecimalValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public BigDecimal convert(DecimalValue aSource, Class<? extends BigDecimal> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource.getDecimalValue();
 	}
 

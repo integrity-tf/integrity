@@ -8,7 +8,7 @@ import java.text.ParseException;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -18,10 +18,11 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class DateAndTimeValueToString implements TargetedConversion<DateAndTimeValue, String> {
+public class DateAndTimeValueToString implements Conversion<DateAndTimeValue, String> {
 
 	@Override
-	public String convert(DateAndTimeValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public String convert(DateAndTimeValue aSource, Class<? extends String> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(
 					DateUtil.convertDateAndTimeValue(aSource).getTime());

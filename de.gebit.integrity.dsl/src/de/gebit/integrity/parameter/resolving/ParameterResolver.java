@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * The parameter resolver is responsible for the creation of a map of parameters for fixture executions. It does NOT
@@ -38,17 +39,17 @@ public interface ParameterResolver {
 	 *            the test
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return a map with a String to value mapping
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
@@ -59,17 +60,17 @@ public interface ParameterResolver {
 	 *            the call
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return a map with a String to value mapping
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
@@ -82,16 +83,16 @@ public interface ParameterResolver {
 	 *            the row of the test
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return a map with a String to value mapping
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
+			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
@@ -103,17 +104,17 @@ public interface ParameterResolver {
 	 *            the parameters
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return a map with a String to value mapping
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(List<Parameter> someParameters, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperationCollection}, using the variable map given. Resolving only
@@ -122,16 +123,17 @@ public interface ParameterResolver {
 	 * 
 	 * @param aValueCollection
 	 *            the value collection to resolve
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the resolved value
 	 * @throws UnexecutableException
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 */
 	Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
+			InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperation}, using the variable map given. Resolving only attempts to
@@ -140,16 +142,17 @@ public interface ParameterResolver {
 	 * 
 	 * @param aValue
 	 *            the value to resolve
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether unresolvable variable references shall be left as they are. otherwise they resolve to null.
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the resolved value
 	 * @throws UnexecutableException
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 */
 	Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws UnexecutableException, InstantiationException,
-			ClassNotFoundException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
+			InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access

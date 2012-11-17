@@ -4,20 +4,21 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
- * A default Integrity conversion. 
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
  */
-public class StringValueToFloat implements TargetedConversion<StringValue, Float> {
+public class StringValueToFloat implements Conversion<StringValue, Float> {
 
 	@Override
-	public Float convert(StringValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Float convert(StringValue aSource, Class<? extends Float> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return Float.parseFloat(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

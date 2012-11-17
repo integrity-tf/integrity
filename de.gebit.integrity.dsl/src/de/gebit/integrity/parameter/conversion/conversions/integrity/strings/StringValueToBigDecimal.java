@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.TargetedConversion;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
@@ -16,11 +16,11 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class StringValueToBigDecimal implements TargetedConversion<StringValue, BigDecimal> {
+public class StringValueToBigDecimal implements Conversion<StringValue, BigDecimal> {
 
 	@Override
-	public BigDecimal convert(StringValue aSource, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ConversionFailedException {
+	public BigDecimal convert(StringValue aSource, Class<? extends BigDecimal> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
 			return new BigDecimal(aSource.getStringValue());
 		} catch (NumberFormatException exc) {
