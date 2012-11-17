@@ -30,9 +30,4 @@ public class TimeValueToString implements Conversion<TimeValue, String> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

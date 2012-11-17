@@ -26,9 +26,4 @@ public class StringValueToShort implements Conversion<StringValue, Short> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

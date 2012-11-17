@@ -28,9 +28,4 @@ public class StringValueToBigDecimal implements Conversion<StringValue, BigDecim
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

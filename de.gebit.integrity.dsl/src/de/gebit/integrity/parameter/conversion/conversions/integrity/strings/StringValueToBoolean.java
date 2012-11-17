@@ -26,9 +26,4 @@ public class StringValueToBoolean implements Conversion<StringValue, Boolean> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

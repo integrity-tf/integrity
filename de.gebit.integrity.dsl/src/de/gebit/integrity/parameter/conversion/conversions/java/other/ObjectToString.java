@@ -21,9 +21,4 @@ public class ObjectToString implements Conversion<Object, String> {
 		return aSource.toString();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

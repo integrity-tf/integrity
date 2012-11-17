@@ -18,6 +18,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.Conversion.Priority;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -335,25 +336,23 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param aConversion
 	 *            the conversion to add
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void addConversion(Class<? extends Conversion> aConversion) {
 		Class<? extends Conversion<?, ?>> tempConversion = (Class<? extends Conversion<?, ?>>) aConversion;
 		ConversionKey tempConversionKey = new ConversionKey(tempConversion);
 
 		// See whether the new conversion has a higher priority than the current default conversion for the given
 		// source type
-		try {
-			Conversion<?, ?> tempInstance = (Conversion<?, ?>) createConversionInstance(aConversion, false);
-			int tempNewPriority = tempInstance.getPriority();
-			Integer tempCurrentPriority = conversionPriority.get(tempConversionKey.getSourceType());
-			if (tempCurrentPriority == null || (tempNewPriority > tempCurrentPriority)) {
-				defaultConversions.put(tempConversionKey.getSourceType(), tempConversion);
-				conversionPriority.put(tempConversionKey.getSourceType(), tempCurrentPriority);
-			}
-		} catch (InstantiationException exc) {
-			throw new IllegalArgumentException("Failed to instantiate conversion: " + aConversion.getName());
-		} catch (IllegalAccessException exc) {
-			throw new IllegalArgumentException("Failed to instantiate conversion: " + aConversion.getName());
+		Priority tempPriorityAnnotation = aConversion.getAnnotation(Priority.class);
+		int tempNewPriority = Integer.MIN_VALUE;
+		if (tempPriorityAnnotation != null) {
+			tempNewPriority = tempPriorityAnnotation.value();
+		}
+
+		Integer tempCurrentPriority = conversionPriority.get(tempConversionKey.getSourceType());
+		if (tempCurrentPriority == null || (tempNewPriority > tempCurrentPriority)) {
+			defaultConversions.put(tempConversionKey.getSourceType(), tempConversion);
+			conversionPriority.put(tempConversionKey.getSourceType(), tempNewPriority);
 		}
 
 		conversions.put(tempConversionKey, tempConversion);
@@ -554,6 +553,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
+	@SuppressWarnings("rawtypes")
 	protected <C extends Conversion> C createConversionInstance(Class<C> aConversionClass, boolean anInjectFlag)
 			throws InstantiationException, IllegalAccessException {
 		C tempInstance = aConversionClass.newInstance();

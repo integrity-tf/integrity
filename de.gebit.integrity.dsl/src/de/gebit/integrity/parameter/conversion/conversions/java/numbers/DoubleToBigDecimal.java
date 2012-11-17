@@ -23,9 +23,4 @@ public class DoubleToBigDecimal implements Conversion<Double, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

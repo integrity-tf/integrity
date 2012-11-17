@@ -23,9 +23,4 @@ public class StringToBigDecimal implements Conversion<String, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

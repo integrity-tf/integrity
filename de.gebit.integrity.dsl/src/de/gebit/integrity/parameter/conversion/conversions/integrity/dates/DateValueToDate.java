@@ -30,9 +30,4 @@ public class DateValueToDate implements Conversion<DateValue, Date> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

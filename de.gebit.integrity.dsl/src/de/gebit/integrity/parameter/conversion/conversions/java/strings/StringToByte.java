@@ -21,9 +21,4 @@ public class StringToByte implements Conversion<String, Byte> {
 		return Byte.parseByte(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

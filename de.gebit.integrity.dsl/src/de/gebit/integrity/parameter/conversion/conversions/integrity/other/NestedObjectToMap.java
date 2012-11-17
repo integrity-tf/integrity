@@ -3,8 +3,8 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.google.inject.Inject;
 
@@ -23,6 +23,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * 
  */
 @SuppressWarnings("rawtypes")
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 
 	/**
@@ -34,7 +35,8 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 	@Override
 	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		Map<String, Object> tempKeyValueMap = new HashMap<String, Object>();
+		// Using a Tree Map here for values ordered by key
+		Map<String, Object> tempKeyValueMap = new TreeMap<String, Object>();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
@@ -52,11 +54,6 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 		}
 
 		return tempKeyValueMap;
-	}
-
-	@Override
-	public int getPriority() {
-		return 0;
 	}
 
 }

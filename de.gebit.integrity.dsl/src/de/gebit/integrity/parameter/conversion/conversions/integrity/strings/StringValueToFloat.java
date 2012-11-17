@@ -26,9 +26,4 @@ public class StringValueToFloat implements Conversion<StringValue, Float> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

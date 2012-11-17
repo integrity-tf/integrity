@@ -21,9 +21,4 @@ public class NumberToDouble implements Conversion<Number, Double> {
 		return aSource.doubleValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

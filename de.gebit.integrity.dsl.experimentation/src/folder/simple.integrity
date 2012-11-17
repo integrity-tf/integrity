@@ -6,11 +6,9 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 		
-		test echo echo: {
-				key1: 1, 2
-			} = {
-				key1: 1, 2
-			}
+		test arbitrary
+			fixparam: 666
+			+testparam1: 12.10.1984
 				
 				
 				

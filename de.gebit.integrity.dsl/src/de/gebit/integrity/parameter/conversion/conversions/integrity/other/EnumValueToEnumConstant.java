@@ -34,9 +34,4 @@ public class EnumValueToEnumConstant implements Conversion<EnumValue, Enum> {
 				+ "' is not an enum");
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

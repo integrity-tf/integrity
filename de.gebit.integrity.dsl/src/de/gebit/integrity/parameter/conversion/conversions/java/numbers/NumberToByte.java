@@ -21,9 +21,4 @@ public class NumberToByte implements Conversion<Number, Byte> {
 		return aSource.byteValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

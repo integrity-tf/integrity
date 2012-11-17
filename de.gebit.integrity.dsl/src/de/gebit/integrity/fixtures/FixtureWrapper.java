@@ -200,7 +200,8 @@ public class FixtureWrapper<C extends Object> {
 	public void convertParameterValuesToFixtureDefinedTypes(Method aFixtureMethod, Map<String, Object> aParameterMap,
 			boolean anIncludeArbitraryParametersFlag) throws UnresolvableVariableException, ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
+		Map<String, Object> tempClonedParameterMap = new HashMap<String, Object>(aParameterMap);
+
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {
 			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
@@ -231,8 +232,8 @@ public class FixtureWrapper<C extends Object> {
 						// component type, of course
 						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 								.getComponentType() : tempExpectedType;
-						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType,
-								tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 						if (tempExpectedType.isArray()) {
 							// ...and if the expected type is an array, now we create one
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -241,51 +242,29 @@ public class FixtureWrapper<C extends Object> {
 						}
 					}
 					aParameterMap.put(tempName, tempConvertedValue);
-					tempFixedParamsMap.put(tempName, tempConvertedValue);
 				}
+				tempClonedParameterMap.remove(tempName);
 			}
 		}
 
 		if (anIncludeArbitraryParametersFlag && (getFixtureInstance() instanceof ArbitraryParameterFixture)) {
-			// Map<String, Class<?>> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
-			// .defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
-			for (Entry<String, Object> tempParameter : aParameterMap.entrySet()) {
+			for (Entry<String, Object> tempParameter : tempClonedParameterMap.entrySet()) {
 				String tempName = tempParameter.getKey();
-				if (tempFixedParamsMap.containsKey(tempName)) {
-					continue;
-				}
 
 				Object tempValue = aParameterMap.remove(tempName);
-				Class<?> tempExpectedType = null; // tempArbitraryParameter.getValue();
 				if (tempValue != null) {
 					Object tempConvertedValue;
-					if (tempValue instanceof Object[]) {
-						if (!tempExpectedType.isArray()) {
-							throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-									+ aFixtureMethod.getName() + "' in fixture '" + fixtureClass.getName()
-									+ "' is not an array type, thus you cannot put multiple values into it!");
-						}
-						Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
-								((Object[]) tempValue).length);
-						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-							Object tempSingleValue = ((Object[]) tempValue)[k];
-							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-									tempExpectedType.getComponentType(), tempSingleValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-						}
-						tempConvertedValue = tempConvertedValueArray;
-					} else {
-						tempConvertedValue = valueConverter.convertValue(tempExpectedType, tempValue,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						if (tempExpectedType.isArray()) {
-							// The target type may still be an array, even though just one parameter value was given
-							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-							Array.set(tempNewArray, 0, tempConvertedValue);
-							tempConvertedValue = tempNewArray;
-						}
-					}
+					tempConvertedValue = valueConverter.convertValue(null, tempValue,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
+			}
+		} else {
+			if (tempClonedParameterMap.size() > 0) {
+				throw new IllegalStateException("There were " + tempClonedParameterMap.size()
+						+ " parameters left after processing the fixed params, but the fixture '"
+						+ fixtureClass.getName() + "' is not an arbitrary parameter fixture. Left-over params: "
+						+ tempClonedParameterMap.keySet());
 			}
 		}
 	}

@@ -23,9 +23,4 @@ public class StringToBigInteger implements Conversion<String, BigInteger> {
 		return new BigInteger(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -22,9 +22,4 @@ public class IntegerValueToByte implements Conversion<IntegerValue, Byte> {
 		return aSource.getIntegerValue().byteValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

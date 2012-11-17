@@ -31,9 +31,4 @@ public class DateAndTimeValueToString implements Conversion<DateAndTimeValue, St
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

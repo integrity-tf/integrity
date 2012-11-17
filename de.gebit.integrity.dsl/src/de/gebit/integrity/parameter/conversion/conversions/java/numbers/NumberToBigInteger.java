@@ -23,9 +23,4 @@ public class NumberToBigInteger implements Conversion<Number, BigInteger> {
 		return BigInteger.valueOf(aSource.longValue());
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -22,9 +22,4 @@ public class DecimalValueToString implements Conversion<DecimalValue, String> {
 		return aSource.getDecimalValue().toString();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

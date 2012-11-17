@@ -21,9 +21,4 @@ public class StringToDouble implements Conversion<String, Double> {
 		return Double.parseDouble(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -23,9 +23,4 @@ public class LongToBigDecimal implements Conversion<Long, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

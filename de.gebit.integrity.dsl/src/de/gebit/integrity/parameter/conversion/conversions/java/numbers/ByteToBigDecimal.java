@@ -23,9 +23,4 @@ public class ByteToBigDecimal implements Conversion<Byte, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

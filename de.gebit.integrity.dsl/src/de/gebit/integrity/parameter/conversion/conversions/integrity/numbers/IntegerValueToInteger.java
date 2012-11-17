@@ -22,9 +22,4 @@ public class IntegerValueToInteger implements Conversion<IntegerValue, Integer> 
 		return aSource.getIntegerValue().intValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

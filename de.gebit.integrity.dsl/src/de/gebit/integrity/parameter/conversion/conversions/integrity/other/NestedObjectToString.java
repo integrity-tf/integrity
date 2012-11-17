@@ -79,9 +79,4 @@ public class NestedObjectToString implements Conversion<NestedObject, String> {
 		return "{" + tempBuilder.toString() + "}";
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

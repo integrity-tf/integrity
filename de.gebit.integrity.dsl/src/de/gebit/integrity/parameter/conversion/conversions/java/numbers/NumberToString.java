@@ -21,9 +21,4 @@ public class NumberToString implements Conversion<Number, String> {
 		return aSource.toString();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

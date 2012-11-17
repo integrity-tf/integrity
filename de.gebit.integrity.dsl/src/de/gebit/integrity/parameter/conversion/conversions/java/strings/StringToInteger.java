@@ -21,9 +21,4 @@ public class StringToInteger implements Conversion<String, Integer> {
 		return Integer.parseInt(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

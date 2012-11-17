@@ -14,17 +14,13 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @SuppressWarnings("rawtypes")
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class EnumValueToString implements Conversion<EnumValue, String> {
 
 	@Override
 	public String convert(EnumValue aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		return aSource.getEnumValue().getSimpleName();
-	}
-
-	@Override
-	public int getPriority() {
-		return 0;
 	}
 
 }

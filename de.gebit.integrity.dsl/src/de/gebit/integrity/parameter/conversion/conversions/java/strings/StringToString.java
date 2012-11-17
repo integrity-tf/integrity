@@ -3,8 +3,8 @@
  */
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
@@ -14,17 +14,13 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class StringToString implements Conversion<String, String> {
 
 	@Override
 	public String convert(String aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		return aSource;
-	}
-
-	@Override
-	public int getPriority() {
-		return 0;
 	}
 
 }

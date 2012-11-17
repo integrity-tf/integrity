@@ -30,9 +30,4 @@ public class DateAndTimeValueToDate implements Conversion<DateAndTimeValue, Date
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

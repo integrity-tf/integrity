@@ -21,9 +21,4 @@ public class NumberToShort implements Conversion<Number, Short> {
 		return aSource.shortValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

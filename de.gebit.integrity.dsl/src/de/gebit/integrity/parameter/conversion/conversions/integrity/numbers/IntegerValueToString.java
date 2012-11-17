@@ -22,9 +22,4 @@ public class IntegerValueToString implements Conversion<IntegerValue, String> {
 		return aSource.getIntegerValue().toString();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -26,9 +26,4 @@ public class StringValueToByte implements Conversion<StringValue, Byte> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

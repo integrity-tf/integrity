@@ -24,9 +24,4 @@ public class DecimalValueToBigDecimal implements Conversion<DecimalValue, BigDec
 		return aSource.getDecimalValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

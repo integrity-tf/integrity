@@ -21,9 +21,4 @@ public class StringToFloat implements Conversion<String, Float> {
 		return Float.parseFloat(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

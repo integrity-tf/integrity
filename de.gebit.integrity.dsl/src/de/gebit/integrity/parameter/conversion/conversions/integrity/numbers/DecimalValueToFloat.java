@@ -22,9 +22,4 @@ public class DecimalValueToFloat implements Conversion<DecimalValue, Float> {
 		return aSource.getDecimalValue().floatValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

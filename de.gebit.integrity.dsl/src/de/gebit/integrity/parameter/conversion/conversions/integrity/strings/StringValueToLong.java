@@ -26,9 +26,4 @@ public class StringValueToLong implements Conversion<StringValue, Long> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="15.11.12 22:36" isotimestamp="2012-11-15T22:36:59" duration="372.223">
+<integrity name="Integrity JUnit Testing" timestamp="17.11.12 22:15" isotimestamp="2012-11-17T22:15:46" duration="281.481">
   <variables />
   <suite id="0" name="integrity.basic.nestedobjects.nestedobjects">
     <setup />
@@ -13,37 +13,37 @@
         <parameters>
           <parameter name="map" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" />
         </parameters>
-        <result duration="4.665" type="success">
-          <variableUpdate name="obj2" value="{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}" />
+        <result duration="4.210" type="success">
+          <variableUpdate name="obj2" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" />
         </result>
       </call>
       <test id="2" name="echoMapTest" description="Echo the map '{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
-        <results duration="3.007" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="3.007" description="Echo the map '{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}'" type="success">
+        <results duration="1.082" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.082" description="Echo the map '{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}'" type="success">
             <parameters>
               <parameter name="map" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}" value="{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}" type="success" />
+              <comparison expectedValue="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" type="success" />
             </comparisons>
           </result>
         </results>
       </test>
-      <test id="3" name="echoMapTest" description="Echo the map '{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
-        <results duration="1.956" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.956" description="Echo the map '{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}'" type="failure">
+      <test id="3" name="echoMapTest" description="Echo the map '{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
+        <results duration="2.123" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="2.123" description="Echo the map '{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}'" type="failure">
             <parameters>
-              <parameter name="map" value="{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}" />
+              <parameter name="map" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="{key1=The first value, key2=[31337, 31339], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" value="{key4=true, key3=123.456, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}, key5=null, key2=[31337, 31338], key1=The first value}" type="failure" />
+              <comparison expectedValue="{key1=The first value, key2=[31337, 31339], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" value="{key1=The first value, key2=[31337, 31338], key3=123.456, key4=true, key5=null, key6={subkey1=A String in a Variable, subkey2={subsubkey1=10000}}}" type="failure" />
             </comparisons>
           </result>
         </results>
       </test>
     </statements>
     <teardown />
-    <result duration="359.038" successCount="1" failureCount="1" exceptionCount="0" />
+    <result duration="271.867" successCount="1" failureCount="1" exceptionCount="0" />
   </suite>
 </integrity>
 

@@ -21,9 +21,4 @@ public class StringToLong implements Conversion<String, Long> {
 		return Long.parseLong(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

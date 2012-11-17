@@ -22,9 +22,4 @@ public class DecimalValueToDouble implements Conversion<DecimalValue, Double> {
 		return aSource.getDecimalValue().doubleValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

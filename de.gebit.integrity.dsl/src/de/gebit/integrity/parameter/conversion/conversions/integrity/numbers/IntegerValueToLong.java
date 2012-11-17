@@ -22,9 +22,4 @@ public class IntegerValueToLong implements Conversion<IntegerValue, Long> {
 		return aSource.getIntegerValue().longValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

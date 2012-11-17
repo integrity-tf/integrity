@@ -23,9 +23,4 @@ public class ShortToBigDecimal implements Conversion<Short, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

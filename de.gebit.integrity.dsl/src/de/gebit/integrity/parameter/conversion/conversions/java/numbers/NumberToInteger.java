@@ -21,9 +21,4 @@ public class NumberToInteger implements Conversion<Number, Integer> {
 		return aSource.intValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

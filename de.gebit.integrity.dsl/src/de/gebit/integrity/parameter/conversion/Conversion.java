@@ -3,6 +3,11 @@
  */
 package de.gebit.integrity.parameter.conversion;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * A {@link Conversion} defines a transformation from one type into another.
  * 
@@ -33,11 +38,23 @@ public interface Conversion<FROM extends Object, TO extends Object> {
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException;
 
 	/**
-	 * The priority returned by this method is used to determine the default conversion if an object is given, but no
-	 * target type is defined. Highest priority wins!
+	 * Add this annotation to a {@link Conversion} implementation to set the priority of this conversion. Priorities are
+	 * used to determine the default conversion which is used if no target conversion is given and thus multiple
+	 * conversions may be used. Highest priority wins. If none is given {@link Integer#MIN_VALUE} is assumed.
 	 * 
-	 * @return the priority number
+	 * 
+	 * @author Rene Schneider
+	 * 
 	 */
-	int getPriority();
+	@Target(ElementType.TYPE)
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Priority {
+
+		/**
+		 * The priority. Higher is more.
+		 */
+		int value() default Integer.MIN_VALUE;
+
+	}
 
 }

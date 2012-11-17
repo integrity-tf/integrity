@@ -23,9 +23,4 @@ public class FloatToBigDecimal implements Conversion<Float, BigDecimal> {
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

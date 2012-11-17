@@ -21,9 +21,4 @@ public class NumberToFloat implements Conversion<Number, Float> {
 		return aSource.floatValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

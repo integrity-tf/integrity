@@ -21,9 +21,4 @@ public class StringToShort implements Conversion<String, Short> {
 		return Short.parseShort(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

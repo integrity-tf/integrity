@@ -22,9 +22,4 @@ public class IntegerValueToDouble implements Conversion<IntegerValue, Double> {
 		return aSource.getIntegerValue().doubleValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

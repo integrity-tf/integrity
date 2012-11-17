@@ -7,8 +7,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import de.gebit.integrity.dsl.TimeValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -18,6 +18,7 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class TimeValueToCalendar implements Conversion<TimeValue, Calendar> {
 
 	@Override
@@ -28,11 +29,6 @@ public class TimeValueToCalendar implements Conversion<TimeValue, Calendar> {
 		} catch (ParseException exc) {
 			throw new ConversionFailedException(TimeValue.class, Calendar.class, null, exc);
 		}
-	}
-
-	@Override
-	public int getPriority() {
-		return 0;
 	}
 
 }

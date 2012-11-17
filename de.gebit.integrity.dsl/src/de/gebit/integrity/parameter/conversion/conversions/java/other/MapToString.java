@@ -8,8 +8,8 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
@@ -20,6 +20,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * 
  */
 @SuppressWarnings("rawtypes")
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class MapToString implements Conversion<Map, String> {
 
 	/**
@@ -59,11 +60,6 @@ public class MapToString implements Conversion<Map, String> {
 		}
 
 		return "{" + tempBuilder.toString() + "}";
-	}
-
-	@Override
-	public int getPriority() {
-		return 0;
 	}
 
 }

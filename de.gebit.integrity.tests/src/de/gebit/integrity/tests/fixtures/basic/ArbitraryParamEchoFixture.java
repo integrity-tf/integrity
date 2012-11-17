@@ -10,28 +10,8 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 //SUPPRESS CHECKSTYLE LONG Javadoc
 public class ArbitraryParamEchoFixture implements ArbitraryParameterFixture {
 
-	@Override
-	public Map<String, Class<?>> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
-		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
-		tempMap.put("param1", Integer.class);
-		tempMap.put("param2", String.class);
-		return tempMap;
-	}
-
-	@Override
-	public Map<String, Class<?>> defineArbitraryResults(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
-		Map<String, Class<?>> tempMap = new HashMap<String, Class<?>>();
-		tempMap.put("result1", Integer.class);
-		tempMap.put("result2", String.class);
-		return tempMap;
-	}
-
 	@FixtureMethod(description = "echoes the values: $fixparam$, $testparam1$, $testparam2$")
-	public ResultClass echo(
-			@FixtureParameter(name = "fixparam") Integer aFixParam,
-			Map<String, Object> someMoreParams) {
+	public ResultClass echo(@FixtureParameter(name = "fixparam") Integer aFixParam, Map<String, Object> someMoreParams) {
 		ResultClass tempResultObject = new ResultClass();
 		tempResultObject.setFixedresult(aFixParam);
 

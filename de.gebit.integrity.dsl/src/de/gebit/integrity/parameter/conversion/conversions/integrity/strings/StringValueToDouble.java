@@ -26,9 +26,4 @@ public class StringValueToDouble implements Conversion<StringValue, Double> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

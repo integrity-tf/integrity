@@ -22,9 +22,4 @@ public class IntegerValueToFloat implements Conversion<IntegerValue, Float> {
 		return aSource.getIntegerValue().floatValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -26,9 +26,4 @@ public class StringValueToInteger implements Conversion<StringValue, Integer> {
 		}
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -22,9 +22,4 @@ public class IntegerValueToShort implements Conversion<IntegerValue, Short> {
 		return aSource.getIntegerValue().shortValue();
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }

@@ -24,9 +24,4 @@ public class BigIntegerToBigDecimal implements Conversion<BigInteger, BigDecimal
 		return new BigDecimal(aSource);
 	}
 
-	@Override
-	public int getPriority() {
-		return Integer.MIN_VALUE;
-	}
-
 }
