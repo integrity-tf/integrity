@@ -120,7 +120,10 @@ public class DefaultParameterResolver implements ParameterResolver {
 						anUnresolvableVariableHandlingPolicy);
 
 				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
-					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
+					String tempKey = IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey());
+					if (tempKey != null) {
+						tempResult.put(tempKey, tempValue);
+					}
 				}
 			}
 		}
