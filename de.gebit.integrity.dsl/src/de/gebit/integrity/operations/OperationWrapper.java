@@ -104,13 +104,12 @@ public class OperationWrapper {
 
 		Object tempConvertedPrefixParameter = null;
 		if (operation.getPrefixOperand() != null) {
-			tempConvertedPrefixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
-					determinePrefixParameterTargetType(), operation.getPrefixOperand(),
-					anUnresolvableVariableHandlingPolicy);
+			tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
+					operation.getPrefixOperand(), anUnresolvableVariableHandlingPolicy);
 		}
 		Object tempConvertedPostfixParameter = null;
 		if (operation.getPostfixOperand() != null) {
-			tempConvertedPostfixParameter = valueConverter.convertEncapsulatedValueCollectionToParamType(
+			tempConvertedPostfixParameter = valueConverter.convertValue(
 					determinePostfixParameterTargetType(), operation.getPostfixOperand(),
 					anUnresolvableVariableHandlingPolicy);
 		}

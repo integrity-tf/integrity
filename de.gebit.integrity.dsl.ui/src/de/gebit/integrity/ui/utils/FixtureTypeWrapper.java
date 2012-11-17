@@ -26,7 +26,6 @@ import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
@@ -163,18 +162,9 @@ public class FixtureTypeWrapper {
 											tempExpectedType.getComponentType(), ((Object[]) tempValue).length);
 									for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 										Object tempSingleValue = ((Object[]) tempValue)[k];
-										if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-											Array.set(tempConvertedValueArray, k, valueConverter
-													.convertEncapsulatedValueToParamType(
-															tempExpectedType.getComponentType(),
-															(ValueOrEnumValueOrOperation) tempSingleValue,
-															UnresolvableVariableHandling.EXCEPTION));
-										} else {
-											Array.set(tempConvertedValueArray, k, valueConverter
-													.convertValueToParamType(tempExpectedType.getComponentType(),
-															tempSingleValue,
-															UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-										}
+										Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+												tempExpectedType.getComponentType(), tempSingleValue,
+												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 									}
 									tempConvertedValue = tempConvertedValueArray;
 								} else {
@@ -183,15 +173,9 @@ public class FixtureTypeWrapper {
 									// component type, of course
 									Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 											.getComponentType() : tempExpectedType;
-									if (tempValue instanceof ValueOrEnumValueOrOperation) {
-										tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(
-												tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue,
-												UnresolvableVariableHandling.EXCEPTION);
-									} else {
-										tempConvertedValue = valueConverter.convertValueToParamType(
-												tempConversionTargetType, tempValue,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-									}
+									tempConvertedValue = valueConverter.convertValue(
+											tempConversionTargetType, tempValue,
+											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 									if (tempExpectedType.isArray()) {
 										// ...and if the expected type is an array, now we create one
 										Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -230,28 +214,14 @@ public class FixtureTypeWrapper {
 										((Object[]) tempValue).length);
 								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 									Object tempSingleValue = ((Object[]) tempValue)[k];
-									if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-										Array.set(tempConvertedValueArray, k, valueConverter
-												.convertEncapsulatedValueToParamType(
-														tempExpectedType.getComponentType(),
-														(ValueOrEnumValueOrOperation) tempSingleValue,
-														UnresolvableVariableHandling.EXCEPTION));
-									} else {
-										Array.set(tempConvertedValueArray, k, valueConverter.convertValueToParamType(
-												tempExpectedType.getComponentType(), tempSingleValue,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-									}
+									Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+											tempExpectedType.getComponentType(), tempSingleValue,
+											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 								}
 								tempConvertedValue = tempConvertedValueArray;
 							} else {
-								if (tempValue instanceof ValueOrEnumValueOrOperation) {
-									tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(
-											tempExpectedType, (ValueOrEnumValueOrOperation) tempValue,
-											UnresolvableVariableHandling.EXCEPTION);
-								} else {
-									tempConvertedValue = valueConverter.convertValueToParamType(tempExpectedType,
-											tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-								}
+								tempConvertedValue = valueConverter.convertValue(tempExpectedType,
+										tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 								if (tempExpectedType.isArray()) {
 									// The target type may still be an array, even though just one parameter value was
 									// given
@@ -323,7 +293,7 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
-				return valueConverter.convertEncapsulatedValueCollectionToParamType(tempTargetType, aValue,
+				return valueConverter.convertValue(tempTargetType, aValue,
 						UnresolvableVariableHandling.EXCEPTION);
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert

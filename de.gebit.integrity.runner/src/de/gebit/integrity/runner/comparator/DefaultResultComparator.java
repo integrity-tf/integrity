@@ -62,14 +62,13 @@ public class DefaultResultComparator implements ResultComparator {
 						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
-							Array.set(tempConvertedResult, i, valueConverter.convertEncapsulatedValueToParamType(
+							Array.set(tempConvertedResult, i, valueConverter.convertValue(
 									tempConversionTargetType, tempSingleExpectedResult,
 									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 					} else {
-						tempConvertedResult = valueConverter.convertEncapsulatedValueToParamType(
-								tempConversionTargetType, anExpectedResult.getValue(),
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						tempConvertedResult = valueConverter.convertValue(tempConversionTargetType,
+								anExpectedResult.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
@@ -93,10 +92,9 @@ public class DefaultResultComparator implements ResultComparator {
 									return false;
 								}
 							} else {
-								Object tempConvertedExpectedResult = valueConverter
-										.convertEncapsulatedValueToParamType(tempSingleFixtureResult.getClass(),
-												tempSingleExpectedResult,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								Object tempConvertedExpectedResult = valueConverter.convertValue(
+										tempSingleFixtureResult.getClass(), tempSingleExpectedResult,
+										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 								if (!performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
 										tempSingleExpectedResult)) {
@@ -115,7 +113,7 @@ public class DefaultResultComparator implements ResultComparator {
 								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
-						Object tempConvertedExpectedResult = valueConverter.convertEncapsulatedValueToParamType(
+						Object tempConvertedExpectedResult = valueConverter.convertValue(
 								tempConversionTargetType, tempSingleExpectedResult,
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 

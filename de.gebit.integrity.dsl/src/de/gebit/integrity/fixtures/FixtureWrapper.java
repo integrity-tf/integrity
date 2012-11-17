@@ -13,7 +13,6 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -222,16 +221,9 @@ public class FixtureWrapper<C extends Object> {
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-								Array.set(tempConvertedValueArray, k, valueConverter
-										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-												(ValueOrEnumValueOrOperation) tempSingleValue,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-							} else {
-								Array.set(tempConvertedValueArray, k, valueConverter.convertValueToParamType(
-										tempExpectedType.getComponentType(), tempSingleValue,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-							}
+							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+									tempExpectedType.getComponentType(), tempSingleValue,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
@@ -239,14 +231,8 @@ public class FixtureWrapper<C extends Object> {
 						// component type, of course
 						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 								.getComponentType() : tempExpectedType;
-						if (tempValue instanceof ValueOrEnumValueOrOperation) {
-							tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(
-									tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						} else {
-							tempConvertedValue = valueConverter.convertValueToParamType(tempConversionTargetType,
-									tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						}
+						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType,
+								tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 						if (tempExpectedType.isArray()) {
 							// ...and if the expected type is an array, now we create one
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -261,12 +247,16 @@ public class FixtureWrapper<C extends Object> {
 		}
 
 		if (anIncludeArbitraryParametersFlag && (getFixtureInstance() instanceof ArbitraryParameterFixture)) {
-			Map<String, Class<?>> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
-					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
-			for (Entry<String, Class<?>> tempArbitraryParameter : tempArbitraryParameters.entrySet()) {
-				String tempName = tempArbitraryParameter.getKey();
+			// Map<String, Class<?>> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
+			// .defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
+			for (Entry<String, Object> tempParameter : aParameterMap.entrySet()) {
+				String tempName = tempParameter.getKey();
+				if (tempFixedParamsMap.containsKey(tempName)) {
+					continue;
+				}
+
 				Object tempValue = aParameterMap.remove(tempName);
-				Class<?> tempExpectedType = tempArbitraryParameter.getValue();
+				Class<?> tempExpectedType = null; // tempArbitraryParameter.getValue();
 				if (tempValue != null) {
 					Object tempConvertedValue;
 					if (tempValue instanceof Object[]) {
@@ -279,27 +269,14 @@ public class FixtureWrapper<C extends Object> {
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-								Array.set(tempConvertedValueArray, k, valueConverter
-										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-												(ValueOrEnumValueOrOperation) tempSingleValue,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-							} else {
-								Array.set(tempConvertedValueArray, k, valueConverter.convertValueToParamType(
-										tempExpectedType.getComponentType(), tempSingleValue,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-							}
+							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+									tempExpectedType.getComponentType(), tempSingleValue,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
-						if (tempValue instanceof ValueOrEnumValueOrOperation) {
-							tempConvertedValue = valueConverter.convertEncapsulatedValueToParamType(tempExpectedType,
-									(ValueOrEnumValueOrOperation) tempValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						} else {
-							tempConvertedValue = valueConverter.convertValueToParamType(tempExpectedType, tempValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						}
+						tempConvertedValue = valueConverter.convertValue(tempExpectedType, tempValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 						if (tempExpectedType.isArray()) {
 							// The target type may still be an array, even though just one parameter value was given
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);

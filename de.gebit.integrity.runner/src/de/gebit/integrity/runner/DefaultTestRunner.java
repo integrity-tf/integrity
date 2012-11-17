@@ -1493,9 +1493,8 @@ public class DefaultTestRunner implements TestRunner {
 										.getParamNameStringFromParameterName(tempParameter.getName());
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-									tempParameters[i] = valueConverter.convertEncapsulatedValueToParamType(
-											tempTargetType, tempParameter.getValue(),
-											UnresolvableVariableHandling.EXCEPTION);
+									tempParameters[i] = valueConverter.convertValue(tempTargetType,
+											tempParameter.getValue(), UnresolvableVariableHandling.EXCEPTION);
 									break;
 								}
 							}

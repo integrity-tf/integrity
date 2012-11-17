@@ -11,8 +11,8 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
@@ -38,8 +38,8 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = valueConverter.convertEncapsulatedValueCollectionToParamType(null,
-						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
+				tempConvertedValue = valueConverter.convertValue(null, tempAttribute.getValue(),
+						anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 			} catch (UnexecutableException exc) {
