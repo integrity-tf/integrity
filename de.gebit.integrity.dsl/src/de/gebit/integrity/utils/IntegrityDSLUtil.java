@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmArrayType;
@@ -19,13 +20,24 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
+import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
+import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
+import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.TableTestRow;
+import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
@@ -349,6 +361,55 @@ public final class IntegrityDSLUtil {
 
 		throw new IllegalArgumentException(
 				"The given multi-line comment does not start and end with the expected literals.");
+	}
+
+	/**
+	 * Determines whether a given {@link EObject} is part of a result of a test/call/tabletest.
+	 * 
+	 * @param anObject
+	 *            the object to look at
+	 * @return true if it is a result, false if not. Null if not determinable.
+	 */
+	public static Boolean isResult(EObject anObject) {
+		if (anObject instanceof ValueOrEnumValueOrOperationCollection) {
+			ValueOrEnumValueOrOperationCollection tempCollection = (ValueOrEnumValueOrOperationCollection) anObject;
+			if (tempCollection.eContainer() instanceof Test) {
+				return ((Test) tempCollection.eContainer()).getResult() == tempCollection;
+			} else if (tempCollection.eContainer() instanceof Suite) {
+				return false;
+			} else if (tempCollection.eContainer() instanceof NamedResult) {
+				NamedResult tempResult = (NamedResult) tempCollection.eContainer();
+				if (tempResult.eContainer() instanceof Test || tempResult.eContainer() instanceof TableTest) {
+					return true;
+				}
+			} else if (tempCollection.eContainer() instanceof ParameterTableValue) {
+				ParameterTableValue tempParameter = (ParameterTableValue) tempCollection.eContainer();
+				TableTestRow tempRow = (TableTestRow) tempParameter.eContainer();
+				int tempColumnNumber = tempRow.getValues().indexOf(tempParameter);
+				if (tempColumnNumber >= 0) {
+					TableTest tempTest = (TableTest) tempRow.eContainer();
+					return (tempColumnNumber >= tempTest.getParameterHeaders().size());
+				}
+			} else if (tempCollection.eContainer() instanceof Parameter) {
+				Parameter tempParameter = (Parameter) tempCollection.eContainer();
+				if (tempParameter.eContainer() instanceof Test || tempParameter.eContainer() instanceof Call
+						|| tempParameter.eContainer() instanceof TableTest) {
+					return false;
+				}
+			}
+		} else if (anObject instanceof Call) {
+			return ((Call) anObject).getResult() == anObject;
+		} else if (anObject instanceof NamedCallResult) {
+			return true;
+		} else if (anObject instanceof SuiteParameter) {
+			return false;
+		}
+
+		if (anObject != null && !(anObject instanceof SuiteDefinition)) {
+			return isResult(anObject.eContainer());
+		} else {
+			return null;
+		}
 	}
 
 }

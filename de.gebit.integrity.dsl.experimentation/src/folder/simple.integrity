@@ -8,7 +8,11 @@ packagedef mypackage with
 		
 		test arbitrary
 			fixparam: 666
-			+testparam1: 12.10.1984
+			+testparam3: {
+				testparam31: {
+					testparam311: null
+				}
+			}
 				
 				
 				

@@ -10,9 +10,11 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class ArbitraryParamFixture implements ArbitraryParameterFixture {
 
 	@FixtureMethod(description = "addition of $fixparam$ and $testparam1$")
-	public ResultClass addition(@FixtureParameter(name = "fixparam") Integer aFixParam,
+	public ResultClass addition(
+			@FixtureParameter(name = "fixparam") Integer aFixParam,
 			Map<String, Object> someMoreParams) {
-		int tempResult = (aFixParam + (Integer) someMoreParams.get("testparam1"));
+		int tempResult = (aFixParam + (Integer) someMoreParams
+				.get("testparam1"));
 		ResultClass tempResultObject = new ResultClass();
 		tempResultObject.setFixedresult(tempResult);
 

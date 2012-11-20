@@ -13,8 +13,8 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 	private static String stored;
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public List<ArbitraryParameterDefinition> defineArbitraryParameters(
+			String aFixtureName, Map<String, Object> someFixedParameters) {
 		if (stored == null) {
 			System.out.println("NOT STORED");
 			stored = "STORED";
@@ -22,17 +22,33 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 			System.out.println(stored);
 		}
 		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testparam1", "This is the first parameter."));
-		tempList.add(new ArbitraryParameterDefinition("testparam2", "This is the second parameter."));
+		tempList.add(new ArbitraryParameterDefinition("testparam1",
+				"This is the first parameter."));
+		tempList.add(new ArbitraryParameterDefinition("testparam2",
+				"This is the second parameter."));
+
+		ArbitraryParameterDefinition tempDefinition = new ArbitraryParameterDefinition(
+				"testparam3", "This is the third parameter.");
+		ArbitraryParameterDefinition tempSubDefinition = new ArbitraryParameterDefinition(
+				"testparam31", "This is a sub parameter.");
+		ArbitraryParameterDefinition tempSubSubDefinition = new ArbitraryParameterDefinition(
+				"testparam311", "This is a sub sub parameter.");
+
+		tempDefinition.addSubdefinition(tempSubDefinition);
+		tempSubDefinition.addSubdefinition(tempSubSubDefinition);
+		tempList.add(tempDefinition);
+
 		return tempList;
 	}
 
 	@Override
-	public List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureName,
-			Map<String, Object> someFixedParameters) {
+	public List<ArbitraryParameterDefinition> defineArbitraryResults(
+			String aFixtureName, Map<String, Object> someFixedParameters) {
 		List<ArbitraryParameterDefinition> tempList = new LinkedList<ArbitraryParameterDefinition>();
-		tempList.add(new ArbitraryParameterDefinition("testresult1", "This is the first result."));
-		tempList.add(new ArbitraryParameterDefinition("testresult2", "This is the second result."));
+		tempList.add(new ArbitraryParameterDefinition("testresult1",
+				"This is the first result."));
+		tempList.add(new ArbitraryParameterDefinition("testresult2",
+				"This is the second result."));
 		return tempList;
 	}
 

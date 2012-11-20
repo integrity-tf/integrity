@@ -24,7 +24,6 @@ import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.NullValue;
@@ -32,19 +31,15 @@ import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
-import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.dsl.Suite;
-import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
-import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TimeValue;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.services.DSLGrammarAccess;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * The semantic highlight calculator is responsible for performing the more complex syntax highlighting.
@@ -87,7 +82,7 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 								DSLHighlightingConfiguration.PACKAGE_PREFIX_ID);
 					}
 				} else if (tempSemanticElement instanceof Operation) {
-					Boolean tempIsResult = isResult(tempSemanticElement);
+					Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 					if (tempIsResult != null) {
 						anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 								tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_IDENTIFIER_ID
@@ -96,7 +91,7 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 				}
 			} else if (tempGrammarElement == grammarAccess.getOperationAccess().getWithKeyword_4_1()) {
 				// Special case for the "with" keyword in operations
-				Boolean tempIsResult = isResult(tempSemanticElement);
+				Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 				if (tempIsResult != null) {
 					anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 							tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_IDENTIFIER_ID
@@ -104,7 +99,7 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 				}
 			} else if (tempGrammarElement == grammarAccess.getKeyValuePairAccess()
 					.getIdentifierIDTerminalRuleCall_0_0()) {
-				Boolean tempIsResult = isResult(tempSemanticElement);
+				Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 				anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 						tempIsResult == null ? DSLHighlightingConfiguration.NESTED_OBJECT_KEY_ID
 								: (tempIsResult ? DSLHighlightingConfiguration.RESULT_NESTED_OBJECT_KEY_ID
@@ -163,14 +158,14 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 								DSLHighlightingConfiguration.RESULT_NAME_ID);
 					} else {
 						if (tempSemanticElement instanceof IntegerValue || tempSemanticElement instanceof DecimalValue) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_NUMBER_ID
 												: DSLHighlightingConfiguration.PARAMETER_NUMBER_ID);
 							}
 						} else if (tempSemanticElement instanceof StringValue) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_STRING_ID
@@ -178,14 +173,14 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 							}
 						} else if (tempSemanticElement instanceof DateValue || tempSemanticElement instanceof TimeValue
 								|| tempSemanticElement instanceof DateAndTimeValue) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_DATE_TIME_ID
 												: DSLHighlightingConfiguration.PARAMETER_DATE_TIME_ID);
 							}
 						} else if (tempSemanticElement instanceof Variable) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_VARIABLE_VALUE_ID
@@ -193,21 +188,21 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 							}
 						} else if (tempSemanticElement instanceof NullValue || tempSemanticElement instanceof EnumValue
 								|| tempSemanticElement instanceof BooleanValue) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_CONSTANT_VALUE_ID
 												: DSLHighlightingConfiguration.PARAMETER_CONSTANT_VALUE_ID);
 							}
 						} else if (tempSemanticElement instanceof Operation) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_OPERATION_ID
 												: DSLHighlightingConfiguration.PARAMETER_OPERATION_ID);
 							}
 						} else if (tempSemanticElement instanceof NestedObject) {
-							Boolean tempIsResult = isResult(tempSemanticElement);
+							Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 							if (tempIsResult != null) {
 								anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 										tempIsResult ? DSLHighlightingConfiguration.RESULT_NESTED_OBJECT_ID
@@ -217,50 +212,6 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 					}
 				}
 			}
-		}
-	}
-
-	private Boolean isResult(EObject anObject) {
-		EObject tempContainer = anObject.eContainer();
-
-		if (tempContainer instanceof ValueOrEnumValueOrOperationCollection) {
-			ValueOrEnumValueOrOperationCollection tempCollection = (ValueOrEnumValueOrOperationCollection) tempContainer;
-			if (tempCollection.eContainer() instanceof Test) {
-				return ((Test) tempCollection.eContainer()).getResult() == tempCollection;
-			} else if (tempCollection.eContainer() instanceof Suite) {
-				return false;
-			} else if (tempCollection.eContainer() instanceof NamedResult) {
-				NamedResult tempResult = (NamedResult) tempCollection.eContainer();
-				if (tempResult.eContainer() instanceof Test || tempResult.eContainer() instanceof TableTest) {
-					return true;
-				}
-			} else if (tempCollection.eContainer() instanceof ParameterTableValue) {
-				ParameterTableValue tempParameter = (ParameterTableValue) tempCollection.eContainer();
-				TableTestRow tempRow = (TableTestRow) tempParameter.eContainer();
-				int tempColumnNumber = tempRow.getValues().indexOf(tempParameter);
-				if (tempColumnNumber >= 0) {
-					TableTest tempTest = (TableTest) tempRow.eContainer();
-					return (tempColumnNumber >= tempTest.getParameterHeaders().size());
-				}
-			} else if (tempCollection.eContainer() instanceof Parameter) {
-				Parameter tempParameter = (Parameter) tempCollection.eContainer();
-				if (tempParameter.eContainer() instanceof Test || tempParameter.eContainer() instanceof Call
-						|| tempParameter.eContainer() instanceof TableTest) {
-					return false;
-				}
-			}
-		} else if (tempContainer instanceof Call) {
-			return ((Call) tempContainer).getResult() == anObject;
-		} else if (tempContainer instanceof NamedCallResult) {
-			return true;
-		} else if (tempContainer instanceof SuiteParameter) {
-			return false;
-		}
-
-		if (tempContainer != null && !(tempContainer instanceof SuiteDefinition)) {
-			return isResult(anObject.eContainer());
-		} else {
-			return null;
 		}
 	}
 
