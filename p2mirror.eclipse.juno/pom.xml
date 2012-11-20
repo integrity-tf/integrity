@@ -34,6 +34,11 @@
 	                        <layout>p2</layout>
 	                        <!-- supported layouts are "p2-metadata", "p2-artifacts", and "p2" (for joint repositories; default) -->
 	                    </repository>
+	                    <repository>
+	                        <url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
+	                        <layout>p2</layout>
+	                        <!-- supported layouts are "p2-metadata", "p2-artifacts", and "p2" (for joint repositories; default) -->
+	                    </repository>
 	                </source>
 	
 	                <!-- starting from here all configuration parameters are optional -->
