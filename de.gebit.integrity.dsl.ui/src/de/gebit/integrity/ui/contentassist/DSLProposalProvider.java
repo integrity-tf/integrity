@@ -66,7 +66,7 @@ import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ParamAnnotationTuple;
+import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.utils.ResultFieldTuple;
 
@@ -315,8 +315,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 		Map<String, String> tempJavadocMap = JavadocUtil.getMethodParamJavadoc(aMethod.getMethod(), elementFinder);
 
-		List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aMethod);
-		for (ParamAnnotationTuple tempParam : tempParamList) {
+		List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aMethod);
+		for (ParamAnnotationTypeTriplet tempParam : tempParamList) {
 			if (!someAlreadyUsedParameters.contains(tempParam.getParamName())) {
 				String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
 						.getJavaParamName()) : null;
@@ -380,7 +380,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	}
 
 	private void completeArbitraryParameterOrResultNameInternal(EObject aModel, ContentAssistContext aContext,
-			ICompletionProposalAcceptor anAcceptor, EObject aSubObject, List<String> aParameterPath) {
+			ICompletionProposalAcceptor anAcceptor, Boolean anIsResultFlag, List<String> aParameterPath) {
 		// We need these parameter and result maps in order to sort out proposals for parameters/results already given
 		Map<String, Object> tempParameterMap = null;
 		Map<String, Object> tempExpectedResultMap = null;
@@ -483,12 +483,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						// This is the path to take if we were given a subparameter path, which means we're actually
 						// inside a nested parameter object, either used as a result or as a parameter.
 
-						Boolean tempIsResult = IntegrityDSLUtil.isResult(aSubObject);
 						List<ArbitraryParameterDefinition> tempParameterDescriptions = null;
-						if (Boolean.FALSE.equals(tempIsResult)) {
+						if (Boolean.FALSE.equals(anIsResultFlag)) {
 							tempParameterDescriptions = tempEnumerator.defineArbitraryParameters(tempMethodReference
 									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
-						} else if (Boolean.TRUE.equals(tempIsResult)) {
+						} else if (Boolean.TRUE.equals(anIsResultFlag)) {
 							tempParameterDescriptions = tempEnumerator.defineArbitraryResults(tempMethodReference
 									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
 						}
@@ -542,7 +541,20 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Collections.reverse(tempParameterPath);
 
 		if ((tempOwner instanceof Test) || (tempOwner instanceof Call) || (tempOwner instanceof TableTest)) {
-			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
+			Boolean tempIsResult = IntegrityDSLUtil.isResult(aModel);
+
+			// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param method
+			// here as well
+			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
+					tempParameterPath);
+
+			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
+			if (tempMethodReference != null && tempMethodReference.getMethod() != null) {
+				List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
+						.getAllParamNamesFromFixtureMethod(tempMethodReference);
+
+				// TODO use these parameter info to autocomplete simple Java Bean types
+			}
 		}
 	}
 

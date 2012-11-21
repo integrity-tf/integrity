@@ -42,7 +42,7 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ParamAnnotationTuple;
+import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ResultFieldTuple;
 
 /**
@@ -88,10 +88,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			if (tempForkDef.getForkerClass() != null
 					&& (tempForkDef.getForkerClass().getType() instanceof JvmGenericType)) {
 				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-				List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil
+				List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
 						.getAllParamNamesFromForker((JvmGenericType) tempForkDef.getForkerClass().getType());
 
-				for (ParamAnnotationTuple tempParam : tempParamList) {
+				for (ParamAnnotationTypeTriplet tempParam : tempParamList) {
 					tempList.add(EObjectDescription.create(tempParam.getParamName(), tempParam.getAnnotation()));
 				}
 
@@ -101,9 +101,9 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		if (tempMethodRef != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-			List<ParamAnnotationTuple> tempParamList = IntegrityDSLUtil
+			List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
 					.getAllParamNamesFromFixtureMethod(tempMethodRef);
-			for (ParamAnnotationTuple tempParam : tempParamList) {
+			for (ParamAnnotationTypeTriplet tempParam : tempParamList) {
 				tempList.add(EObjectDescription.create(tempParam.getParamName(), tempParam.getAnnotation()));
 			}
 

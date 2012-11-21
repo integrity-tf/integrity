@@ -21,6 +21,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
@@ -37,6 +38,7 @@ import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
@@ -64,16 +66,16 @@ public final class IntegrityDSLUtil {
 	 *            the method to inspect
 	 * @return a list of parameters and annotation references
 	 */
-	public static List<ParamAnnotationTuple> getAllParamNamesFromFixtureMethod(MethodReference aMethod) {
-		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromFixtureMethod(MethodReference aMethod) {
+		ArrayList<ParamAnnotationTypeTriplet> tempList = new ArrayList<ParamAnnotationTypeTriplet>();
 		JvmOperation tempOperation = aMethod.getMethod();
 		if (tempOperation != null) {
 			for (JvmFormalParameter tempParam : tempOperation.getParameters()) {
 				for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
 					String tempParamName = getParamNameFromAnnotation(tempAnnotation);
 					if (tempParamName != null) {
-						tempList.add(new ParamAnnotationTuple(tempParamName, tempParam.getQualifiedName(),
-								tempAnnotation));
+						tempList.add(new ParamAnnotationTypeTriplet(tempParamName, tempParam.getQualifiedName(),
+								tempAnnotation, tempParam.getParameterType()));
 					}
 				}
 			}
@@ -112,8 +114,8 @@ public final class IntegrityDSLUtil {
 	 *            the forker to inspect
 	 * @return a list of parameters and annotation references
 	 */
-	public static List<ParamAnnotationTuple> getAllParamNamesFromForker(JvmGenericType aForkerType) {
-		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromForker(JvmGenericType aForkerType) {
+		ArrayList<ParamAnnotationTypeTriplet> tempList = new ArrayList<ParamAnnotationTypeTriplet>();
 		try {
 			JvmConstructor tempConstructor = aForkerType.getDeclaredConstructors().iterator().next();
 			if (tempConstructor != null) {
@@ -121,8 +123,8 @@ public final class IntegrityDSLUtil {
 					for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
 						String tempParamName = getParamNameFromAnnotation(tempAnnotation);
 						if (tempParamName != null) {
-							tempList.add(new ParamAnnotationTuple(tempParamName, tempParam.getQualifiedName(),
-									tempAnnotation));
+							tempList.add(new ParamAnnotationTypeTriplet(tempParamName, tempParam.getQualifiedName(),
+									tempAnnotation, tempParam.getParameterType()));
 						}
 					}
 				}
@@ -412,6 +414,14 @@ public final class IntegrityDSLUtil {
 		}
 	}
 
+	/**
+	 * Finds the corresponding table header element to a given table cell element.
+	 * 
+	 * @param aTableCell
+	 *            the table cell element
+	 * @return the table header element if one exists, the table itself in case of the default result column or null if
+	 *         nothing was found
+	 */
 	public static EObject getTableHeaderForTableCell(ParameterTableValue aTableCell) {
 		int tempColumn = ((TableTestRow) aTableCell.eContainer()).getValues().indexOf(aTableCell);
 
@@ -434,6 +444,34 @@ public final class IntegrityDSLUtil {
 						return tempTest;
 					}
 				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Finds the matching method reference for a given {@link Test}, {@link Call} or {@link TableTest}.
+	 * 
+	 * @param anAction
+	 *            the action to find a method for
+	 * @return the method or null if none was found
+	 */
+	public static MethodReference getMethodReferenceForAction(EObject anAction) {
+		if (anAction instanceof Test) {
+			TestDefinition tempDefinition = ((Test) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
+			}
+		} else if (anAction instanceof Call) {
+			CallDefinition tempDefinition = ((Call) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
+			}
+		} else if (anAction instanceof TableTest) {
+			TestDefinition tempDefinition = ((TableTest) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
 			}
 		}
 

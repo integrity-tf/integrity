@@ -1,6 +1,7 @@
 package de.gebit.integrity.utils;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 
 /**
  * Instances of this class are used as containers to link a parameter name (logical name used within Integrity scripts),
@@ -9,7 +10,7 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
  * @author Rene Schneider
  * 
  */
-public class ParamAnnotationTuple {
+public class ParamAnnotationTypeTriplet {
 
 	/**
 	 * The name of the parameter, as used in Integrity test scripts.
@@ -27,15 +28,21 @@ public class ParamAnnotationTuple {
 	private JvmAnnotationReference annotation;
 
 	/**
+	 * The declared parameter type.
+	 */
+	private JvmTypeReference type;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aParamName
 	 * @param anAnnotation
 	 */
-	public ParamAnnotationTuple(String aParamName, JvmAnnotationReference anAnnotation) {
+	public ParamAnnotationTypeTriplet(String aParamName, JvmAnnotationReference anAnnotation, JvmTypeReference aType) {
 		super();
 		paramName = aParamName;
 		annotation = anAnnotation;
+		type = aType;
 	}
 
 	/**
@@ -45,11 +52,13 @@ public class ParamAnnotationTuple {
 	 * @param aJavaParamName
 	 * @param anAnnotation
 	 */
-	public ParamAnnotationTuple(String aParamName, String aJavaParamName, JvmAnnotationReference anAnnotation) {
+	public ParamAnnotationTypeTriplet(String aParamName, String aJavaParamName, JvmAnnotationReference anAnnotation,
+			JvmTypeReference aType) {
 		super();
 		paramName = aParamName;
 		javaParamName = aJavaParamName;
 		annotation = anAnnotation;
+		type = aType;
 	}
 
 	public String getParamName() {
@@ -62,6 +71,10 @@ public class ParamAnnotationTuple {
 
 	public JvmAnnotationReference getAnnotation() {
 		return annotation;
+	}
+
+	public JvmTypeReference getType() {
+		return type;
 	}
 
 }
