@@ -156,7 +156,7 @@ public interface ArbitraryParameterEnumerator {
 			ArbitraryParameterDefinition tempDefinitionInFocus = null;
 			for (String tempPathPart : aPath) {
 				if (tempDefinitionInFocus == null) {
-					if (tempPathPart.equals(getName())) {
+					if ((getName() == null && tempPathPart == null) || tempPathPart.equals(getName())) {
 						tempDefinitionInFocus = this;
 					} else {
 						return null;

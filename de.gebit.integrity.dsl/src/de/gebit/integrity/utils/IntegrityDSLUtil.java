@@ -412,4 +412,32 @@ public final class IntegrityDSLUtil {
 		}
 	}
 
+	public static EObject getTableHeaderForTableCell(ParameterTableValue aTableCell) {
+		int tempColumn = ((TableTestRow) aTableCell.eContainer()).getValues().indexOf(aTableCell);
+
+		if (tempColumn >= 0) {
+			TableTestRow tempRow = (TableTestRow) aTableCell.eContainer();
+			TableTest tempTest = (TableTest) tempRow.eContainer();
+			if (tempColumn < tempTest.getParameterHeaders().size()) {
+				return tempTest.getParameterHeaders().get(tempColumn);
+			} else {
+				// we might be in the range of the result columns
+				int tempResultColumn = tempColumn - tempTest.getParameterHeaders().size();
+				boolean tempDefaultResultExists = tempTest.getDefaultResultColumn() != null;
+				if (tempResultColumn >= 0
+						&& tempResultColumn < tempTest.getResultHeaders().size() + (tempDefaultResultExists ? 1 : 0)) {
+
+					ResultName tempResultName = null;
+					if (tempResultColumn < tempTest.getResultHeaders().size()) {
+						return tempTest.getResultHeaders().get(tempResultColumn);
+					} else if (tempResultColumn == tempTest.getResultHeaders().size()) {
+						return tempTest;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 }

@@ -493,7 +493,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									if (tempParameterDescription.hasSubdefinitions()) {
 										ArbitraryParameterDefinition tempDefinition = tempParameterDescription
 												.getSubdefinitionByPath(aParameterPath);
-										if (tempDefinition.hasSubdefinitions()) {
+										if (tempDefinition != null && tempDefinition.hasSubdefinitions()) {
 											for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
 													.getSubdefinitions()) {
 												String tempDescription = tempSubdefinition.getName();
@@ -509,7 +509,29 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								}
 							}
 						} else if (Boolean.TRUE.equals(tempIsResult)) {
-							// TODO write this (and account for the default result as well!)
+							List<ArbitraryParameterDefinition> tempResultDescriptions = tempEnumerator
+									.defineArbitraryResults(tempMethodReference.getMethod().getSimpleName(),
+											tempParameterMap, aParameterPath);
+							if (tempResultDescriptions != null) {
+								for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
+									if (tempResultDescription.hasSubdefinitions()) {
+										ArbitraryParameterDefinition tempDefinition = tempResultDescription
+												.getSubdefinitionByPath(aParameterPath);
+										if (tempDefinition != null && tempDefinition.hasSubdefinitions()) {
+											for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
+													.getSubdefinitions()) {
+												String tempDescription = tempSubdefinition.getName();
+												if (tempResultDescription.getDescription() != null) {
+													tempDescription += ": " + tempResultDescription.getDescription();
+												}
+												String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
+												anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
+														+ tempSuffix, tempDescription, null, aContext));
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -540,6 +562,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 		if (tempOwner instanceof Test) {
 			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
+		} else if (tempOwner instanceof Call) {
+			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
+		} else if (tempOwner instanceof TableTest) {
+			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
 		}
 	}
 
@@ -557,7 +583,24 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		} else if (tempParent instanceof NamedResult) {
 			aParameterPath.add(IntegrityDSLUtil
 					.getExpectedResultNameStringFromTestResultName(((NamedResult) tempParent).getName()));
+		} else if (tempParent instanceof ParameterTableValue) {
+			// in case of tabletests we need to trace the table cell to its header
+			EObject tempHeaderCell = IntegrityDSLUtil.getTableHeaderForTableCell((ParameterTableValue) tempParent);
+			if (tempHeaderCell instanceof ParameterTableHeader) {
+				aParameterPath.add(IntegrityDSLUtil
+						.getParamNameStringFromParameterName(((ParameterTableHeader) tempHeaderCell).getName()));
+			} else if (tempHeaderCell instanceof ResultTableHeader) {
+				aParameterPath.add(IntegrityDSLUtil
+						.getExpectedResultNameStringFromTestResultName(((ResultTableHeader) tempHeaderCell).getName()));
+			} else if (tempHeaderCell instanceof TableTest) {
+				// default result column case
+				aParameterPath.add(null);
+			}
 		} else if (tempParent instanceof Test) {
+			if (aNestedObject == ((Test) tempParent).getResult()) {
+				// default result case
+				aParameterPath.add(null);
+			}
 			return tempParent;
 		} else if (tempParent instanceof Call) {
 			return tempParent;

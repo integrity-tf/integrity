@@ -6,15 +6,7 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 		
-		call beanCall bean: {
-				firstParameter: 123
-				secondParameter: 999
-				thirdParameter: {
-					innerParameter: 1.99
-				}
-			}
-				
-				
+			
 	suiteend
  	
 
