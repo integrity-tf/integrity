@@ -500,6 +500,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						break;
 					}
 
+					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
+						Conversion<?, ?> tempConversion = findConversion(tempSourceTypeInFocus, tempTargetInterface);
+						if (tempConversion != null) {
+							return tempConversion;
+						}
+					}
+
 					tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
 				}
 			}
