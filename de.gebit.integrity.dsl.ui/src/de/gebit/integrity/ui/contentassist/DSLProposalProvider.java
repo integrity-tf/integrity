@@ -481,58 +481,39 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						}
 					} else {
 						// This is the path to take if we were given a subparameter path, which means we're actually
-						// inside a nested parameter object
+						// inside a nested parameter object, either used as a result or as a parameter.
 
 						Boolean tempIsResult = IntegrityDSLUtil.isResult(aSubObject);
+						List<ArbitraryParameterDefinition> tempParameterDescriptions = null;
 						if (Boolean.FALSE.equals(tempIsResult)) {
-							List<ArbitraryParameterDefinition> tempParameterDescriptions = tempEnumerator
-									.defineArbitraryParameters(tempMethodReference.getMethod().getSimpleName(),
-											tempParameterMap, aParameterPath);
-							if (tempParameterDescriptions != null) {
-								for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
-									if (tempParameterDescription.hasSubdefinitions()) {
-										ArbitraryParameterDefinition tempDefinition = tempParameterDescription
-												.getSubdefinitionByPath(aParameterPath);
-										if (tempDefinition != null && tempDefinition.hasSubdefinitions()) {
-											for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
-													.getSubdefinitions()) {
-												String tempDescription = tempSubdefinition.getName();
-												if (tempParameterDescription.getDescription() != null) {
-													tempDescription += ": " + tempParameterDescription.getDescription();
-												}
-												String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
-												anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
-														+ tempSuffix, tempDescription, null, aContext));
-											}
-										}
-									}
-								}
-							}
+							tempParameterDescriptions = tempEnumerator.defineArbitraryParameters(tempMethodReference
+									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
 						} else if (Boolean.TRUE.equals(tempIsResult)) {
-							List<ArbitraryParameterDefinition> tempResultDescriptions = tempEnumerator
-									.defineArbitraryResults(tempMethodReference.getMethod().getSimpleName(),
-											tempParameterMap, aParameterPath);
-							if (tempResultDescriptions != null) {
-								for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
-									if (tempResultDescription.hasSubdefinitions()) {
-										ArbitraryParameterDefinition tempDefinition = tempResultDescription
-												.getSubdefinitionByPath(aParameterPath);
-										if (tempDefinition != null && tempDefinition.hasSubdefinitions()) {
-											for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
-													.getSubdefinitions()) {
-												String tempDescription = tempSubdefinition.getName();
-												if (tempResultDescription.getDescription() != null) {
-													tempDescription += ": " + tempResultDescription.getDescription();
-												}
-												String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
-												anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
-														+ tempSuffix, tempDescription, null, aContext));
+							tempParameterDescriptions = tempEnumerator.defineArbitraryResults(tempMethodReference
+									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
+						}
+
+						if (tempParameterDescriptions != null) {
+							for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
+								if (tempParameterDescription.hasSubdefinitions()) {
+									ArbitraryParameterDefinition tempDefinition = tempParameterDescription
+											.getSubdefinitionByPath(aParameterPath);
+									if (tempDefinition != null && tempDefinition.hasSubdefinitions()) {
+										for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
+												.getSubdefinitions()) {
+											String tempDescription = tempSubdefinition.getName();
+											if (tempParameterDescription.getDescription() != null) {
+												tempDescription += ": " + tempParameterDescription.getDescription();
 											}
+											String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
+											anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
+													+ tempSuffix, tempDescription, null, aContext));
 										}
 									}
 								}
 							}
 						}
+
 					}
 				}
 			} catch (JavaModelException exc) {
@@ -560,11 +541,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		EObject tempOwner = determineNestedObjectOwner(aModel, tempParameterPath);
 		Collections.reverse(tempParameterPath);
 
-		if (tempOwner instanceof Test) {
-			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
-		} else if (tempOwner instanceof Call) {
-			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
-		} else if (tempOwner instanceof TableTest) {
+		if ((tempOwner instanceof Test) || (tempOwner instanceof Call) || (tempOwner instanceof TableTest)) {
 			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, aModel, tempParameterPath);
 		}
 	}
