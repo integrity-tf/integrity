@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>integrity</artifactId>
+    <groupId>de.gebit.integrity</groupId>
+    <version>0.6.5-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  
+  <artifactId>distribution</artifactId>
+  <packaging>pom</packaging>
+  <name>Integrity Eclipse Dropins</name>
+  
+  <dependencies>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.eclipse</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.runner</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.dsl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.dsl.ui</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.remoting</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+  	<plugins>
+	    <plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <version>2.3</version>
+	      <executions>
+	        <execution>
+	          <id>plugin-assembly</id>
+	          <phase>package</phase>
+	          <goals>
+	            <goal>single</goal>
+	          </goals>
+	          <configuration>
+	            <descriptors>
+	              <descriptor>assemble/assemble-plugins.xml</descriptor>
+	            </descriptors>
+	            <finalName>integrity-eclipse-dropins</finalName>
+	            <outputDirectory>target/assembly/</outputDirectory>
+	          </configuration>
+	        </execution>
+	      </executions>
+	    </plugin>
+    </plugins>
+  </build>
+</project>

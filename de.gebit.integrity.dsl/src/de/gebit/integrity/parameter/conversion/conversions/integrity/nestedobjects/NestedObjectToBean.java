@@ -1,0 +1,82 @@
+/**
+ * A default Integrity conversion. 
+ */
+package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.google.inject.Inject;
+
+import de.gebit.integrity.dsl.KeyValuePair;
+import de.gebit.integrity.dsl.NestedObject;
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
+
+/**
+ * A default Integrity conversion.
+ * 
+ * @author Rene Schneider
+ * 
+ */
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
+public class NestedObjectToBean implements Conversion<NestedObject, Object> {
+
+	/**
+	 * The value converter used for recursive conversion and resolution of inner nested objects.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	@Override
+	public Object convert(NestedObject aSource, Class<? extends Object> aTargetType,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+
+		if (aTargetType == null) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType,
+					"Cannot convert nested object to non-Map object if the target type is not specified!");
+		}
+
+		try {
+			Object tempTargetInstance = aTargetType.newInstance();
+
+			for (KeyValuePair tempAttribute : aSource.getAttributes()) {
+				Method tempWriteMethod = new PropertyDescriptor(tempAttribute.getIdentifier(), aTargetType)
+						.getWriteMethod();
+				if (tempWriteMethod == null || tempWriteMethod.getParameterTypes().length != 1) {
+					throw new ConversionFailedException(aSource.getClass(), aTargetType,
+							"No accessible standards-compliant setter found for '" + tempAttribute.getIdentifier()
+									+ "'");
+				}
+
+				Object tempConvertedValue = valueConverter.convertValue(tempWriteMethod.getParameterTypes()[0],
+						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
+				tempWriteMethod.invoke(tempTargetInstance, new Object[] { tempConvertedValue });
+			}
+
+			return tempTargetInstance;
+		} catch (InstantiationException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (IllegalAccessException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (UnresolvableVariableException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (ClassNotFoundException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (UnexecutableException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (IntrospectionException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (IllegalArgumentException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		} catch (InvocationTargetException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
+		}
+	}
+}

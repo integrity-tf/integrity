@@ -16,6 +16,9 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateV
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToBean;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToMap;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToFloat;
@@ -31,8 +34,6 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToString;
-import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToMap;
-import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NullValueToNull;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigInteger;
@@ -161,12 +162,15 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(TimeValueToDate.class);
 		addConversion(TimeValueToString.class);
 
+		// nested objects, Integrity -> Java
+		addConversion(NestedObjectToMap.class);
+		addConversion(NestedObjectToString.class);
+		addConversion(NestedObjectToBean.class);
+
 		// other conversions, Integrity -> Java
 		addConversion(NullValueToNull.class);
 		addConversion(EnumValueToEnumConstant.class);
 		addConversion(EnumValueToString.class);
-		addConversion(NestedObjectToMap.class);
-		addConversion(NestedObjectToString.class);
 	}
 
 }

@@ -102,6 +102,8 @@ public class FixtureTypeWrapper {
 	 *            the method name
 	 * @param aParameterMap
 	 *            the parameter map
+	 * @param aParameterPath
+	 *            the path inside a nested object, if applicable
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters shall be included
 	 * @throws JavaModelException
@@ -109,8 +111,8 @@ public class FixtureTypeWrapper {
 	 * @throws UnresolvableVariableException
 	 */
 	public void convertParameterValuesToFixtureDefinedTypes(String aFixtureMethodName,
-			Map<String, Object> aParameterMap, boolean anIncludeArbitraryParametersFlag) throws JavaModelException,
-			UnresolvableVariableException, UnexecutableException {
+			Map<String, Object> aParameterMap, List<String> aParameterPath, boolean anIncludeArbitraryParametersFlag)
+			throws JavaModelException, UnresolvableVariableException, UnexecutableException {
 		IMethod tempMethod = findMethod(aFixtureMethodName);
 
 		try {
@@ -194,7 +196,7 @@ public class FixtureTypeWrapper {
 				ArbitraryParameterEnumerator tempArbitraryParameterEnumerator = instantiateArbitraryParameterEnumerator();
 
 				List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
-						.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap);
+						.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap, aParameterPath);
 				if (tempArbitraryParameters != null) {
 					for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
 						String tempName = tempArbitraryParameter.getName();

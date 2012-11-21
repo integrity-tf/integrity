@@ -39,10 +39,13 @@ public interface ArbitraryParameterEnumerator {
 	 *            The name of the fixture method being called or entered
 	 * @param someFixedParameters
 	 *            A map of fixed parameters and values
+	 * @param aNestedObjectPath
+	 *            A path to the current position in a nested object (null if not in a nested object; this can be used to
+	 *            optimize the amount of information to return)
 	 * @return A list with definitions of arbitrary parameters.
 	 */
 	List<ArbitraryParameterDefinition> defineArbitraryParameters(String aFixtureMethodName,
-			Map<String, Object> someFixedParameters);
+			Map<String, Object> someFixedParameters, List<String> aNestedObjectPath);
 
 	/**
 	 * Returns a list of valid result names. This basically works like
@@ -50,10 +53,11 @@ public interface ArbitraryParameterEnumerator {
 	 * 
 	 * @param aFixtureMethodName
 	 * @param someFixedParameters
+	 * @param aNestedObjectPath
 	 * @return
 	 */
 	List<ArbitraryParameterDefinition> defineArbitraryResults(String aFixtureMethodName,
-			Map<String, Object> someFixedParameters);
+			Map<String, Object> someFixedParameters, List<String> aNestedObjectPath);
 
 	/**
 	 * A container for the definition of one arbitrary parameter.

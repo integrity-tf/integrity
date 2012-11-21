@@ -1,10 +1,10 @@
 /**
  * A default Integrity conversion. 
  */
-package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
+package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects;
 
+import java.lang.reflect.Array;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.google.inject.Inject;
 
@@ -22,9 +22,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * @author Rene Schneider
  * 
  */
-@SuppressWarnings("rawtypes")
-@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class NestedObjectToMap implements Conversion<NestedObject, Map> {
+public class NestedObjectToString implements Conversion<NestedObject, String> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -33,14 +31,13 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 	private ValueConverter valueConverter;
 
 	@Override
-	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType,
+	public String convert(NestedObject aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		// Using a Tree Map here for values ordered by key
-		Map<String, Object> tempKeyValueMap = new TreeMap<String, Object>();
+		StringBuilder tempBuilder = new StringBuilder();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = valueConverter.convertValue(null, tempAttribute.getValue(),
+				tempConvertedValue = valueConverter.convertValue(String[].class, tempAttribute.getValue(),
 						anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
@@ -50,10 +47,36 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 			}
 
-			tempKeyValueMap.put(tempAttribute.getIdentifier(), tempConvertedValue);
+			if (tempBuilder.length() > 0) {
+				tempBuilder.append(", ");
+			}
+
+			StringBuilder tempConvertedValueStringBuilder = new StringBuilder();
+
+			if (tempConvertedValue == null) {
+				tempConvertedValueStringBuilder.append("null");
+			} else {
+				int tempArrayLength = Array.getLength(tempConvertedValue);
+				if (tempArrayLength > 1) {
+					tempConvertedValueStringBuilder.append("[");
+				}
+				for (int i = 0; i < tempArrayLength; i++) {
+					if (i > 0) {
+						tempConvertedValueStringBuilder.append(", ");
+					}
+					Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
+					tempConvertedValueStringBuilder.append(tempSingleArrayValue != null ? tempSingleArrayValue
+							.toString() : "null");
+				}
+				if (tempArrayLength > 1) {
+					tempConvertedValueStringBuilder.append("]");
+				}
+			}
+
+			tempBuilder.append(tempAttribute.getIdentifier() + "=" + tempConvertedValueStringBuilder.toString());
 		}
 
-		return tempKeyValueMap;
+		return "{" + tempBuilder.toString() + "}";
 	}
 
 }

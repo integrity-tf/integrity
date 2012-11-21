@@ -2,18 +2,17 @@ import mypackage.*
 
 packagedef mypackage with
 
-	operationdef concatenate uses de.gebit.integrity.experiments.fixtures.ConcatenationOperation
+	calldef beanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
 
 	suitedef asuite gets blub with
 		
-		test arbitrary
-			fixparam: 666
-			+testparam3: {
-				testparam31: {
-					testparam311: null
+		call beanCall bean: {
+				firstParameter: 123
+				secondParameter: 999
+				thirdParameter: {
+					innerParameter: 1.99
 				}
 			}
-				
 				
 				
 	suiteend
