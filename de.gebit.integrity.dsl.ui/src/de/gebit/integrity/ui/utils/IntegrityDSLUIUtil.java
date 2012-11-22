@@ -40,23 +40,24 @@ public final class IntegrityDSLUIUtil {
 	 *            the type signature
 	 * @param aDeclaringType
 	 *            the type in which the type signature was found
-	 * @return the fully qualified class name
+	 * @return the fully qualified class name, packaged up with generics parameter information
 	 * @throws JavaModelException
 	 */
-	public static String getResolvedTypeName(String aTypeSignature, IType aDeclaringType) throws JavaModelException {
+	public static ResolvedTypeName getResolvedTypeName(String aTypeSignature, IType aDeclaringType)
+			throws JavaModelException {
 		int tempArrayCount = Signature.getArrayCount(aTypeSignature);
 		char tempType = aTypeSignature.charAt(tempArrayCount);
 		if (tempType == Signature.C_UNRESOLVED) {
 			String tempName = "";
-			int tempBracket = aTypeSignature.indexOf(Signature.C_GENERIC_START, tempArrayCount + 1);
-			if (tempBracket > 0) {
-				tempName = aTypeSignature.substring(tempArrayCount + 1, tempBracket);
+			int tempBracketOpenPosition = aTypeSignature.indexOf(Signature.C_GENERIC_START, tempArrayCount + 1);
+			if (tempBracketOpenPosition > 0) {
+				tempName = aTypeSignature.substring(tempArrayCount + 1, tempBracketOpenPosition);
 			} else {
-				int tempSemi = aTypeSignature.indexOf(Signature.C_SEMICOLON, tempArrayCount + 1);
-				if (tempSemi == -1) {
+				int tempSemicolonPosition = aTypeSignature.indexOf(Signature.C_SEMICOLON, tempArrayCount + 1);
+				if (tempSemicolonPosition == -1) {
 					throw new IllegalArgumentException();
 				}
-				tempName = aTypeSignature.substring(tempArrayCount + 1, tempSemi);
+				tempName = aTypeSignature.substring(tempArrayCount + 1, tempSemicolonPosition);
 			}
 			String[][] tempResolvedNames = aDeclaringType.resolveType(tempName);
 			if (tempResolvedNames != null && tempResolvedNames.length > 0) {
@@ -70,12 +71,102 @@ public final class IntegrityDSLUIUtil {
 					}
 					tempBuffer.append(tempResolvedNames[0][1]);
 				}
-				return tempBuffer.toString();
+				String tempRawTypeName = tempBuffer.toString();
+
+				// Now on to the generic parameters
+				if (tempBracketOpenPosition > 0) {
+					int tempBracketClosePosition = aTypeSignature.lastIndexOf(Signature.C_GENERIC_END);
+					if (tempBracketClosePosition == -1) {
+						throw new IllegalArgumentException();
+					}
+
+					String tempParameterNamesSignature = aTypeSignature.substring(tempBracketOpenPosition + 1,
+							tempBracketClosePosition);
+
+					// This one must be splitted now
+					List<String> tempParameterNameSignatures = new ArrayList<String>();
+					int tempGenericStackSize = 0;
+					int tempStart = 0;
+					for (int i = 0; i < tempParameterNamesSignature.length(); i++) {
+						char tempChar = tempParameterNamesSignature.charAt(i);
+						if (tempChar == Signature.C_GENERIC_START) {
+							tempGenericStackSize++;
+						} else if (tempChar == Signature.C_GENERIC_END) {
+							tempGenericStackSize--;
+						} else if (tempChar == Signature.C_SEMICOLON) {
+							if (tempGenericStackSize == 0) {
+								// this is a valid splitting point
+								tempParameterNameSignatures
+										.add(tempParameterNamesSignature.substring(tempStart, i + 1));
+								tempStart = i + 1;
+							}
+						}
+					}
+
+					ResolvedTypeName[] tempGenericParameterTypes = new ResolvedTypeName[tempParameterNameSignatures
+							.size()];
+					for (int i = 0; i < tempParameterNameSignatures.size(); i++) {
+						tempGenericParameterTypes[i] = getResolvedTypeName(tempParameterNameSignatures.get(i),
+								aDeclaringType);
+					}
+
+					return new ResolvedTypeName(tempRawTypeName, tempGenericParameterTypes);
+				} else {
+					return new ResolvedTypeName(tempRawTypeName);
+				}
 			}
 			return null;
 		} else {
-			return Signature.toString(aTypeSignature.substring(tempArrayCount));
+			return new ResolvedTypeName(Signature.toString(aTypeSignature.substring(tempArrayCount)));
 		}
+	}
+
+	/**
+	 * Holds a resolved type name, as returned by {@link IntegrityDSLUIUtil#getResolvedTypeName(String, IType)}.
+	 * 
+	 * 
+	 * @author Slartibartfast
+	 * 
+	 */
+	public static class ResolvedTypeName {
+		/**
+		 * The raw type name.
+		 */
+		private String rawType;
+
+		/**
+		 * The generic parameters, if present.
+		 */
+		private ResolvedTypeName[] genericParameterTypes;
+
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aRawType
+		 */
+		public ResolvedTypeName(String aRawType) {
+			rawType = aRawType;
+		}
+
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aRawType
+		 * @param someGenericParameterTypes
+		 */
+		public ResolvedTypeName(String aRawType, ResolvedTypeName[] someGenericParameterTypes) {
+			rawType = aRawType;
+			genericParameterTypes = someGenericParameterTypes;
+		}
+
+		public String getRawType() {
+			return rawType;
+		}
+
+		public ResolvedTypeName[] getGenericParameterTypes() {
+			return genericParameterTypes;
+		}
+
 	}
 
 	/**

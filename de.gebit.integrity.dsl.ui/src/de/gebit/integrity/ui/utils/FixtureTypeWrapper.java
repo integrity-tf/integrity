@@ -38,6 +38,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.ResolvedTypeName;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -118,13 +119,13 @@ public class FixtureTypeWrapper {
 		try {
 			Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
 			for (ILocalVariable tempParam : tempMethod.getParameters()) {
-				String tempParamTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempParam.getTypeSignature(),
-						fixtureType);
+				ResolvedTypeName tempParamTypeName = IntegrityDSLUIUtil.getResolvedTypeName(
+						tempParam.getTypeSignature(), fixtureType);
 				if (tempParamTypeName == null) {
 					continue;
 				}
 
-				if (tempParamTypeName.startsWith(Map.class.getName())) {
+				if (tempParamTypeName.getRawType().startsWith(Map.class.getName())) {
 					// ignore the arbitrary parameter parameter
 				} else {
 					IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
@@ -142,7 +143,8 @@ public class FixtureTypeWrapper {
 							if (tempValue != null) {
 								Class<?> tempExpectedType;
 								try {
-									tempExpectedType = getClass().getClassLoader().loadClass(tempParamTypeName);
+									tempExpectedType = getClass().getClassLoader().loadClass(
+											tempParamTypeName.getRawType());
 								} catch (ClassNotFoundException exc) {
 									// we'll skip this param
 									continue;
@@ -241,7 +243,7 @@ public class FixtureTypeWrapper {
 
 		// TODO this doesn't seem to be able to work with arrays?! Check that!
 
-		String tempTargetTypeName = null;
+		ResolvedTypeName tempTargetTypeName = null;
 		if (aResultName == null) {
 			// it's the default result type
 			tempTargetTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempMethod.getReturnType(),
@@ -250,10 +252,10 @@ public class FixtureTypeWrapper {
 			// must be a named result, we'll thus have to explore the container type
 			String tempResultNameString = IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(aResultName);
 
-			String tempContainerTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempMethod.getReturnType(),
+			ResolvedTypeName tempContainerTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempMethod.getReturnType(),
 					tempMethod.getDeclaringType());
 			if (tempContainerTypeName != null) {
-				IType tempContainerType = IntegrityDSLUIUtil.findTypeByName(tempContainerTypeName);
+				IType tempContainerType = IntegrityDSLUIUtil.findTypeByName(tempContainerTypeName.getRawType());
 				if (tempContainerType != null) {
 					IField tempResultField = IntegrityDSLUIUtil
 							.findFieldByName(tempContainerType, tempResultNameString);
@@ -267,7 +269,7 @@ public class FixtureTypeWrapper {
 
 		if (tempTargetTypeName != null) {
 			try {
-				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName);
+				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName.getRawType());
 				return valueConverter.convertValue(tempTargetType, aValue, UnresolvableVariableHandling.EXCEPTION);
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert

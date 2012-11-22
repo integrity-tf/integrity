@@ -67,6 +67,7 @@ import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil;
+import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.ResolvedTypeName;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
@@ -612,8 +613,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									// we should have found another field, but couldn't!
 									tempTypeInFocus = null;
 								} else {
-									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(IntegrityDSLUIUtil
-											.getResolvedTypeName(tempField.getTypeSignature(), tempTypeInFocus));
+									ResolvedTypeName tempResolvedTypeName = IntegrityDSLUIUtil.getResolvedTypeName(
+											tempField.getTypeSignature(), tempTypeInFocus);
+									if (tempResolvedTypeName.getGenericParameterTypes() == null) {
+										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempResolvedTypeName
+												.getRawType());
+									} else {
+										// We support 1 single generic parameter only here, since that's enough to deal
+										// with the also-supported collections like List<Integer> or Set<Boolean>
+										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempResolvedTypeName
+												.getGenericParameterTypes()[0].getRawType());
+									}
 								}
 								tempDepth++;
 							}
