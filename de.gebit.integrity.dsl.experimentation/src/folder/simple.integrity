@@ -8,7 +8,9 @@ packagedef mypackage with
 	suitedef asuite gets blub with
 	
 		call beanCall bean: {
-				stringListParam: "aha", "oho", 123
+				innerBeanListParam: {
+					innerParameter: 123
+				}
 			}
 			
 		

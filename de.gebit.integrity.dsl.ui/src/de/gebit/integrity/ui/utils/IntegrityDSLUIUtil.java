@@ -3,6 +3,10 @@
  */
 package de.gebit.integrity.ui.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IType;
@@ -113,6 +117,27 @@ public final class IntegrityDSLUIUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Finds all {@link IField}s in a given {@link IType} (including fields defined in supertypes!).
+	 * 
+	 * @param aType
+	 *            the type to search in
+	 * @return all fields
+	 * @throws JavaModelException
+	 */
+	public static List<IField> getAllFields(IType aType) throws JavaModelException {
+		ITypeHierarchy tempTypeHierarchy = aType.newSupertypeHierarchy(null);
+		IType tempTypeInFocus = aType;
+
+		List<IField> tempResults = new ArrayList<IField>();
+		while (tempTypeInFocus != null) {
+			Collections.addAll(tempResults, tempTypeInFocus.getFields());
+			tempTypeInFocus = tempTypeHierarchy.getSuperclass(tempTypeInFocus);
+		}
+
+		return tempResults;
 	}
 
 	/**

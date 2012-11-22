@@ -559,6 +559,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
 					tempParameterPath);
 
+			// The following code deals with Java Bean classes used for nested param storage
 			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
 			if (tempMethodReference != null && tempMethodReference.getMethod() != null) {
 				if (tempParameterPath.size() > 0) {
@@ -619,7 +620,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 							if (tempTypeInFocus != null) {
 								// Okay, we have reached our goal - the fields of this type are our proposals
-								for (IField tempField : tempTypeInFocus.getFields()) {
+								for (IField tempField : IntegrityDSLUIUtil.getAllFields(tempTypeInFocus)) {
 									String tempJavadocDescription = JavadocUtil.getFieldJavadoc(tempField);
 									String tempDisplayText = tempField.getElementName();
 
