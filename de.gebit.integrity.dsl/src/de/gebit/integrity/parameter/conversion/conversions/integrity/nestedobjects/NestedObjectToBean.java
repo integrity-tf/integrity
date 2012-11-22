@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.WildcardType;
 
 import com.google.inject.Inject;
 
@@ -68,8 +69,28 @@ public class NestedObjectToBean implements Conversion<NestedObject, Object> {
 						Field tempField = tempClassInFocus.getDeclaredField(tempAttribute.getIdentifier());
 						Type tempGenericType = tempField.getGenericType();
 						if (tempGenericType instanceof ParameterizedType) {
-							tempParameterizedType = (Class<?>) ((ParameterizedType) tempGenericType)
-									.getActualTypeArguments()[0];
+							Type tempInnerType = ((ParameterizedType) tempGenericType).getActualTypeArguments()[0];
+							if (tempInnerType instanceof WildcardType) {
+								if (((WildcardType) tempInnerType).getUpperBounds() == null) {
+									tempParameterizedType = null;
+								} else {
+									Type tempUpperBound = ((WildcardType) tempInnerType).getUpperBounds()[0];
+									if (tempUpperBound instanceof ParameterizedType) {
+										tempParameterizedType = (Class<?>) ((ParameterizedType) tempUpperBound)
+												.getRawType();
+									} else {
+										tempParameterizedType = (Class<?>) tempUpperBound;
+									}
+								}
+								// lower bounds not currently supported!
+
+							} else {
+								if (tempInnerType instanceof ParameterizedType) {
+									tempParameterizedType = (Class<?>) ((ParameterizedType) tempInnerType).getRawType();
+								} else {
+									tempParameterizedType = (Class<?>) tempInnerType;
+								}
+							}
 						}
 						break;
 					} catch (SecurityException exc) {

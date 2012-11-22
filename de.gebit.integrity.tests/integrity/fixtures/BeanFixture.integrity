@@ -1,5 +1,7 @@
 packagedef integrity.fixtures.basic.beans with
 
 	testdef checkSimpleBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean
+	
+	testdef checkCollectionBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean
 
 packageend

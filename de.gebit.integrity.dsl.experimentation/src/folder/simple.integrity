@@ -7,12 +7,7 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 	
-		call beanCall bean: {
-				innerBeanListParam: {
-					innerParameter: 123
-				}
-			}
-			
+		
 		
 	suiteend
 

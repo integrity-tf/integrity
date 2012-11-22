@@ -1,0 +1,42 @@
+import integrity.fixtures.basic.beans.*
+
+packagedef integrity.basic.beans with
+	
+	suitedef collectionBeanTest with
+		
+		-- This must deliver all given parameters as strings in an array
+		test checkCollectionBean bean: {
+				arrayParameter: 123, "123", true, null
+			} = 4
+			
+		-- This must autoconvert the parameters to integers
+		test checkCollectionBean bean: {
+				parameterizedListParameter: 1, "2"
+			} = 2
+		
+		-- These should autoconvert to the default types
+		test checkCollectionBean bean: {
+				plainCollectionParameter: 1, "2", 1.30
+			} = 3
+		
+		test checkCollectionBean bean: {
+				plainListParameter: 1, 2, 3, "4"
+			} = 4
+			
+		test checkCollectionBean bean: {
+				lowerBoundParameterizedListParameter: 1, 2, "3", 4
+			} = 4
+		
+		-- This should also work fine!
+		test checkCollectionBean bean: {
+				setParameterWithInnerBean: {
+					innerParameter: 1.99
+				}, {
+					innerParameter: 2.99
+				}
+			} = 2
+				
+				
+	suiteend
+
+packageend
