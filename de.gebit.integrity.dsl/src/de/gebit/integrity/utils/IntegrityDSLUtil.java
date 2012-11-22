@@ -437,7 +437,6 @@ public final class IntegrityDSLUtil {
 				if (tempResultColumn >= 0
 						&& tempResultColumn < tempTest.getResultHeaders().size() + (tempDefaultResultExists ? 1 : 0)) {
 
-					ResultName tempResultName = null;
 					if (tempResultColumn < tempTest.getResultHeaders().size()) {
 						return tempTest.getResultHeaders().get(tempResultColumn);
 					} else if (tempResultColumn == tempTest.getResultHeaders().size()) {
