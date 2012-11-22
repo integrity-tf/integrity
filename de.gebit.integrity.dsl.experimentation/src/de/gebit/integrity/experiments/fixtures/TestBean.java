@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 public class TestBean {
 
+	/**
+	 * This one has a comment!
+	 */
 	private String firstParameter;
 
 	private Integer secondParameter;
@@ -36,6 +39,9 @@ public class TestBean {
 
 	public static class InnerBean {
 
+		/**
+		 * Another comment.
+		 */
 		private BigDecimal innerParameter;
 
 		public BigDecimal getInnerParameter() {

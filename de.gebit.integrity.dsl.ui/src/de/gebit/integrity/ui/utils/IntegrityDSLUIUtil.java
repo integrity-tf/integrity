@@ -82,6 +82,10 @@ public final class IntegrityDSLUIUtil {
 	 * @return the type or null if not found
 	 */
 	public static IType findTypeByName(String aFullyQualifiedClassName) {
+		if (aFullyQualifiedClassName == null) {
+			return null;
+		}
+
 		return new TypeFinder().findTypeByName(aFullyQualifiedClassName);
 	}
 

@@ -6,8 +6,9 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class BeanFixture {
 
 	@FixtureMethod(description = "inputs $bean$")
-	public void beanInput(@FixtureParameter(name = "bean") TestBean aBean) {
+	public TestBean beanInput(@FixtureParameter(name = "bean") TestBean aBean) {
 		System.out.println(aBean);
+		return null;
 	}
 
 }

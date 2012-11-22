@@ -3,11 +3,12 @@ import mypackage.*
 packagedef mypackage with
 
 	calldef beanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
+	testdef beanTest uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
 
 	suitedef asuite gets blub with
+	
+				
 		
-			
 	suiteend
- 	
 
 packageend

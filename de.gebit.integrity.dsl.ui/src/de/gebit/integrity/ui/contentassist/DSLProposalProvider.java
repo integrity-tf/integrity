@@ -13,7 +13,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
@@ -64,6 +66,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
+import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
@@ -292,16 +295,24 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		super.completeParameterTableHeader_Name(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = (TableTest) aModel;
-		TestDefinition tempTestDef = (tempTableTest).getDefinition();
-		if (tempTestDef != null) {
-			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-			for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
-						.getName()));
+		TableTest tempTableTest = null;
+		if (aModel instanceof TableTest) {
+			tempTableTest = (TableTest) aModel;
+		} else {
+			tempTableTest = (TableTest) NodeModelUtils.findActualSemanticObjectFor(aContext.getCurrentNode());
+		}
+
+		if (tempTableTest != null) {
+			TestDefinition tempTestDef = (tempTableTest).getDefinition();
+			if (tempTestDef != null) {
+				Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+				for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
+					tempAlreadyUsedParameters.add(IntegrityDSLUtil
+							.getParamNameStringFromParameterName(tempParameterHeader.getName()));
+				}
+				completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
+						aContext, anAcceptor);
 			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
-					aContext, anAcceptor);
 		}
 	}
 
@@ -550,10 +561,85 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
 			if (tempMethodReference != null && tempMethodReference.getMethod() != null) {
-				List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
-						.getAllParamNamesFromFixtureMethod(tempMethodReference);
+				if (tempParameterPath.size() > 0) {
+					String tempParamName = tempParameterPath.get(0);
+					IType tempTypeInFocus = null;
 
-				// TODO use these parameter info to autocomplete simple Java Bean types
+					if (tempParamName == null) {
+						// this must be the default result
+						tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempMethodReference.getMethod()
+								.getReturnType().getQualifiedName());
+					} else {
+						// First, search for parameters...
+						List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
+								.getAllParamNamesFromFixtureMethod(tempMethodReference);
+						for (ParamAnnotationTypeTriplet tempPossibleParam : tempParamList) {
+							if (tempParamName.equals(tempPossibleParam.getParamName())) {
+								if (tempPossibleParam != null && tempPossibleParam.getType() != null
+										&& tempPossibleParam.getType().getType() != null) {
+									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempPossibleParam.getType()
+											.getType().getQualifiedName());
+								}
+								break;
+							}
+						}
+
+						if (tempTypeInFocus == null) {
+							// If nothing was found, look into named test results
+							List<ResultFieldTuple> tempResultList = IntegrityDSLUtil
+									.getAllResultNamesFromFixtureMethod(tempMethodReference);
+							for (ResultFieldTuple tempPossibleResult : tempResultList) {
+								if (tempParamName.equals(tempPossibleResult.getResultName())) {
+									if (tempPossibleResult != null && tempPossibleResult.getField() != null) {
+										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempPossibleResult
+												.getField().getQualifiedName());
+									}
+									break;
+								}
+							}
+						}
+					}
+
+					try {
+						if (tempTypeInFocus != null) {
+							int tempDepth = 1;
+							while (tempDepth < tempParameterPath.size()) {
+								String tempPathSegment = tempParameterPath.get(tempDepth);
+								IField tempField = IntegrityDSLUIUtil.findFieldByName(tempTypeInFocus, tempPathSegment);
+
+								if (tempField == null) {
+									// we should have found another field, but couldn't!
+									tempTypeInFocus = null;
+								} else {
+									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(IntegrityDSLUIUtil
+											.getResolvedTypeName(tempField.getTypeSignature(), tempTypeInFocus));
+								}
+								tempDepth++;
+							}
+
+							if (tempTypeInFocus != null) {
+								// Okay, we have reached our goal - the fields of this type are our proposals
+								for (IField tempField : tempTypeInFocus.getFields()) {
+									String tempJavadocDescription = JavadocUtil.getFieldJavadoc(tempField);
+									String tempDisplayText = tempField.getElementName();
+
+									ICompletionProposal tempCompletionProposal = createCompletionProposal(
+											tempField.getElementName() + ": ", tempDisplayText, null, aContext);
+									if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
+										if (tempJavadocDescription != null) {
+											((ConfigurableCompletionProposal) tempCompletionProposal)
+													.setAdditionalProposalInfo(tempJavadocDescription);
+										}
+									}
+									anAcceptor.accept(tempCompletionProposal);
+								}
+							}
+						}
+					} catch (JavaModelException exc) {
+						// TODO Auto-generated catch block
+						exc.printStackTrace();
+					}
+				}
 			}
 		}
 	}
