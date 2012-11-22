@@ -5,8 +5,11 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobje
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import com.google.inject.Inject;
 
@@ -55,7 +58,29 @@ public class NestedObjectToBean implements Conversion<NestedObject, Object> {
 									+ "'");
 				}
 
-				Object tempConvertedValue = valueConverter.convertValue(tempWriteMethod.getParameterTypes()[0],
+				Class<?> tempTargetType = tempWriteMethod.getParameterTypes()[0];
+				Class<?> tempParameterizedType = null;
+
+				// See whether we can find a generic type parameter for the given target class
+				Class<?> tempClassInFocus = aTargetType;
+				while (tempClassInFocus != null) {
+					try {
+						Field tempField = tempClassInFocus.getDeclaredField(tempAttribute.getIdentifier());
+						Type tempGenericType = tempField.getGenericType();
+						if (tempGenericType instanceof ParameterizedType) {
+							tempParameterizedType = (Class<?>) ((ParameterizedType) tempGenericType)
+									.getActualTypeArguments()[0];
+						}
+						break;
+					} catch (SecurityException exc) {
+						// don't care, just continue
+					} catch (NoSuchFieldException exc) {
+						// don't care, just continue
+					}
+					tempClassInFocus = tempClassInFocus.getSuperclass();
+				}
+
+				Object tempConvertedValue = valueConverter.convertValue(tempTargetType, tempParameterizedType,
 						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
 				tempWriteMethod.invoke(tempTargetInstance, new Object[] { tempConvertedValue });
 			}

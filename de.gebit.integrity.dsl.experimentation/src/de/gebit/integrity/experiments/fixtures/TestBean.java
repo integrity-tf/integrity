@@ -1,40 +1,28 @@
 package de.gebit.integrity.experiments.fixtures;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class TestBean {
+public class TestBean extends SuperTestBean {
 
-	/**
-	 * This one has a comment!
-	 */
-	private String firstParameter;
+	private InnerBean[] innerBeanArrayParam;
 
-	private Integer secondParameter;
+	private List<InnerBean> innerBeanListParam;
 
-	private InnerBean thirdParameter;
-
-	public String getFirstParameter() {
-		return firstParameter;
+	public InnerBean[] getInnerBeanArrayParam() {
+		return innerBeanArrayParam;
 	}
 
-	public void setFirstParameter(String firstParameter) {
-		this.firstParameter = firstParameter;
+	public void setInnerBeanArrayParam(InnerBean[] innerBeanArrayParam) {
+		this.innerBeanArrayParam = innerBeanArrayParam;
 	}
 
-	public Integer getSecondParameter() {
-		return secondParameter;
+	public List<InnerBean> getInnerBeanListParam() {
+		return innerBeanListParam;
 	}
 
-	public void setSecondParameter(Integer secondParameter) {
-		this.secondParameter = secondParameter;
-	}
-
-	public InnerBean getThirdParameter() {
-		return thirdParameter;
-	}
-
-	public void setThirdParameter(InnerBean thirdParameter) {
-		this.thirdParameter = thirdParameter;
+	public void setInnerBeanListParam(List<InnerBean> innerBeanListParam) {
+		this.innerBeanListParam = innerBeanListParam;
 	}
 
 	public static class InnerBean {

@@ -6,7 +6,11 @@ package de.gebit.integrity.parameter.conversion;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -80,17 +84,25 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public Object convertValue(Class<?> aTargetClass, Object aValue,
+	public Object convertValue(Class<?> aTargetType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException {
+		return convertValue(aTargetType, null, aValue, anUnresolvableVariableHandlingPolicy);
+	}
+
+	@Override
+	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
 			ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
-			return convertEncapsulatedValueCollectionToParamType(aTargetClass,
+			return convertEncapsulatedValueCollectionToParamType(aTargetType, aParameterizedType,
 					(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy);
 		} else if (aValue instanceof ValueOrEnumValueOrOperation) {
-			return convertEncapsulatedValueToParamType(aTargetClass, (ValueOrEnumValueOrOperation) aValue,
-					anUnresolvableVariableHandlingPolicy);
+			return convertEncapsulatedValueToParamType(aTargetType, aParameterizedType,
+					(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy);
 		} else {
-			return convertPlainValueToParamType(aTargetClass, aValue, anUnresolvableVariableHandlingPolicy);
+			return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+					anUnresolvableVariableHandlingPolicy);
 		}
 	}
 
@@ -98,8 +110,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * Converts a given plain value (no instance of {@link ValueOrEnumValueOrOperation} or
 	 * {@link ValueOrEnumValueOrOperationCollection}) to a given Java type class, if possible.
 	 * 
-	 * @param aTargetClass
+	 * @param aTargetType
 	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized (via generics) type attached to the given target type, if applicable - for example
+	 *            if a conversion to List<Integer> is desired, the target type is List, and the parameterized type is
+	 *            Integer
 	 * @param aValue
 	 *            the value
 	 * @param anUnresolvableVariableHandlingPolicy
@@ -107,14 +123,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted value
 	 */
-	protected Object convertPlainValueToParamType(Class<?> aTargetClass, Object aValue,
+	protected Object convertPlainValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aValue == null) {
 			return null;
 		}
 
-		if (aTargetClass != null && aTargetClass.isArray()) {
-			Class<?> tempActualParamType = aTargetClass.getComponentType();
+		if (aTargetType != null && aTargetType.isArray()) {
+			Class<?> tempActualParamType = aTargetType.getComponentType();
 			Object tempResultArray;
 			if (aValue.getClass().isArray()) {
 				// both are arrays
@@ -123,14 +139,17 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					Array.set(
 							tempResultArray,
 							i,
-							convertPlainValueToParamType(tempActualParamType, Array.get(aValue, i),
+							convertPlainValueToParamType(tempActualParamType, aParameterizedType, Array.get(aValue, i),
 									anUnresolvableVariableHandlingPolicy));
 				}
 			} else {
 				// target is an array, but value is a single value
 				tempResultArray = Array.newInstance(tempActualParamType, 1);
-				Array.set(tempResultArray, 0,
-						convertPlainValueToParamType(tempActualParamType, aValue, anUnresolvableVariableHandlingPolicy));
+				Array.set(
+						tempResultArray,
+						0,
+						convertPlainValueToParamType(tempActualParamType, aParameterizedType, aValue,
+								anUnresolvableVariableHandlingPolicy));
 			}
 			return tempResultArray;
 		} else {
@@ -139,13 +158,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return aValue;
 			} else {
 				// unresolvable variables can't happen here, since variable values should have gone down the other path
-				return convertSingleValueToParamType(aTargetClass, aValue, anUnresolvableVariableHandlingPolicy);
+				return convertSingleValueToParamType(aTargetType, aParameterizedType, aValue,
+						anUnresolvableVariableHandlingPolicy);
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object convertSingleValueToParamType(Class<?> aParamType, Object aValue,
+	private Object convertSingleValueToParamType(Class<?> aParamType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aValue == null) {
 			return null;
@@ -172,8 +192,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	/**
 	 * Converts a given {@link ValueOrEnumValueOrOperation} to a given Java type class, if possible.
 	 * 
-	 * @param aTargetClass
+	 * @param aTargetType
 	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized (via generics) type attached to the given target type, if applicable - for example
+	 *            if a conversion to List<Integer> is desired, the target type is List, and the parameterized type is
+	 *            Integer
 	 * @param aValue
 	 *            the value
 	 * @param anUnresolvableVariableHandlingPolicy
@@ -185,9 +209,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	protected Object convertEncapsulatedValueToParamType(Class<?> aTargetClass, ValueOrEnumValueOrOperation aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			ClassNotFoundException, UnexecutableException, InstantiationException {
+	protected Object convertEncapsulatedValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
+			ValueOrEnumValueOrOperation aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+			throws UnresolvableVariableException, ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (aValue == null) {
 			return null;
 		}
@@ -199,14 +223,17 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			} else {
 				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
 				Object tempResult = tempWrapper.executeOperation(anUnresolvableVariableHandlingPolicy);
-				return convertPlainValueToParamType(aTargetClass, tempResult, anUnresolvableVariableHandlingPolicy);
+				return convertPlainValueToParamType(aTargetType, aParameterizedType, tempResult,
+						anUnresolvableVariableHandlingPolicy);
 			}
 		} else if (aValue instanceof Variable) {
 			Object tempResult = parameterResolver.resolveSingleParameterValue(aValue,
 					anUnresolvableVariableHandlingPolicy);
-			return convertSingleValueToParamType(aTargetClass, tempResult, anUnresolvableVariableHandlingPolicy);
+			return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
+					anUnresolvableVariableHandlingPolicy);
 		} else {
-			return convertPlainValueToParamType(aTargetClass, aValue, anUnresolvableVariableHandlingPolicy);
+			return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+					anUnresolvableVariableHandlingPolicy);
 		}
 	}
 
@@ -214,8 +241,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * Converts a given value collection to a given Java type class, if possible. Will return an array if the collection
 	 * contains more than one item.
 	 * 
-	 * @param aTargetClass
+	 * @param aTargetType
 	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized (via generics) type attached to the given target type, if applicable - for example
+	 *            if a conversion to List<Integer> is desired, the target type is List, and the parameterized type is
+	 *            Integer
 	 * @param aCollection
 	 *            the value collection
 	 * @param anUnresolvableVariableHandlingPolicy
@@ -227,19 +258,32 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws UnexecutableException
 	 * @throws InstantiationException
 	 */
-	protected Object convertEncapsulatedValueCollectionToParamType(Class<?> aTargetClass,
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected Object convertEncapsulatedValueCollectionToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
 			ValueOrEnumValueOrOperationCollection aCollection,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
 			ClassNotFoundException, UnexecutableException, InstantiationException {
 
-		Class<?> tempTargetParamType = null;
-		if (aTargetClass != null && aTargetClass.isArray()) {
-			tempTargetParamType = aTargetClass.getComponentType();
-		} else {
-			tempTargetParamType = aTargetClass;
+		Class<?> tempTargetType = null;
+		Class<? extends Collection> tempCollectionType = null;
+		if (aTargetType != null) {
+			if (aTargetType.isArray()) {
+				tempTargetType = aTargetType.getComponentType();
+			} else if (aTargetType.isAssignableFrom(ArrayList.class)) {
+				tempCollectionType = ArrayList.class;
+			} else if (aTargetType.isAssignableFrom(HashSet.class)) {
+				tempCollectionType = HashSet.class;
+			} else {
+				tempTargetType = aTargetType;
+			}
 		}
 
-		Class<?> tempTargetArrayType = tempTargetParamType;
+		// Collections may specify a target type via a generics parameter
+		if (tempCollectionType != null && aParameterizedType != null) {
+			tempTargetType = aParameterizedType;
+		}
+
+		Class<?> tempTargetArrayType = tempTargetType;
 		if (tempTargetArrayType == null) {
 			tempTargetArrayType = Object.class;
 		}
@@ -250,32 +294,69 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
 						.get(i - 1));
-				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetParamType, tempValue,
-						anUnresolvableVariableHandlingPolicy);
+				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetType, aParameterizedType,
+						tempValue, anUnresolvableVariableHandlingPolicy);
 				Array.set(tempResultArray, i, tempResultValue);
 			}
 
 			// now we need to see whether we're even allowed to return an array
-			if (aTargetClass == null || aTargetClass.isArray()) {
+			if (aTargetType == null) {
 				return tempResultArray;
+			} else if (aTargetType.isArray()) {
+				return tempResultArray;
+			} else if (tempCollectionType != null) {
+				return wrapInCollection((Class<? extends Collection>) tempCollectionType, tempResultArray);
 			} else {
-				throw new IllegalArgumentException("Parameter type class " + aTargetClass
+				throw new IllegalArgumentException("Parameter type class " + aTargetType
 						+ " is not an array, but more than one value was given for conversion.");
 			}
 		} else {
 			// this is just a single value
-			Object tempResult = convertEncapsulatedValueToParamType(tempTargetParamType, aCollection.getValue(),
-					anUnresolvableVariableHandlingPolicy);
+			Object tempResult = convertEncapsulatedValueToParamType(tempTargetType, aParameterizedType,
+					aCollection.getValue(), anUnresolvableVariableHandlingPolicy);
 
 			// but we might need to return this as an array with one element
-			if (aTargetClass != null && aTargetClass.isArray()) {
+			if (aTargetType == null) {
+				return tempResult;
+			} else if (aTargetType.isArray()) {
 				Object tempResultArray = Array.newInstance(tempTargetArrayType, 1);
 				Array.set(tempResultArray, 0, tempResult);
 				return tempResultArray;
+			} else if (tempCollectionType != null) {
+				return wrapInCollection((Class<? extends Collection>) tempCollectionType, tempResult);
 			} else {
 				return tempResult;
 			}
 		}
+	}
+
+	/**
+	 * Wraps a value (or an array of values) in a collection of the given type.
+	 * 
+	 * @param aCollectionType
+	 *            the collection type
+	 * @param anArrayOrSingleType
+	 *            the array or value to wrap
+	 * @return the collection
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected <T extends Collection> T wrapInCollection(Class<T> aCollectionType, Object anArrayOrSingleType) {
+		T tempCollectionInstance;
+		try {
+			tempCollectionInstance = aCollectionType.newInstance();
+		} catch (IllegalAccessException exc) {
+			throw new RuntimeException("Failed to create collection instance", exc);
+		} catch (InstantiationException exc) {
+			throw new RuntimeException("Failed to create collection instance", exc);
+		}
+		if (anArrayOrSingleType.getClass().isArray()) {
+			for (int i = 0; i < Array.getLength(anArrayOrSingleType); i++) {
+				Collections.addAll(tempCollectionInstance, Array.get(anArrayOrSingleType, i));
+			}
+		} else {
+			Collections.addAll(tempCollectionInstance, anArrayOrSingleType);
+		}
+		return tempCollectionInstance;
 	}
 
 	@Override
@@ -300,13 +381,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		String[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
-				tempResult = (String[]) convertEncapsulatedValueCollectionToParamType(String[].class,
+				tempResult = (String[]) convertEncapsulatedValueCollectionToParamType(String[].class, null,
 						(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
-				tempResult = (String[]) convertEncapsulatedValueToParamType(String[].class,
+				tempResult = (String[]) convertEncapsulatedValueToParamType(String[].class, null,
 						(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy);
 			} else {
-				tempResult = (String[]) convertPlainValueToParamType(String[].class, aValue,
+				tempResult = (String[]) convertPlainValueToParamType(String[].class, null, aValue,
 						anUnresolvableVariableHandlingPolicy);
 			}
 		} catch (InstantiationException exc) {

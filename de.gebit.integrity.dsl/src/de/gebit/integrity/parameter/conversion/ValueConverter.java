@@ -18,7 +18,7 @@ public interface ValueConverter {
 	/**
 	 * Convert a given single Integrity or Java type value to a given target type (which is always a Java type).
 	 * 
-	 * @param aTargetClass
+	 * @param aTargetType
 	 *            the target type
 	 * @param aValue
 	 *            the value
@@ -27,7 +27,27 @@ public interface ValueConverter {
 	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted object
 	 */
-	Object convertValue(Class<?> aTargetClass, Object aValue,
+	Object convertValue(Class<?> aTargetType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException;
+
+	/**
+	 * Convert a given single Integrity or Java type value to a given target type (which is always a Java type).
+	 * 
+	 * @param aTargetType
+	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized (via generics) type attached to the given target type, if applicable - for example
+	 *            if a conversion to List<Integer> is desired, the target type is List, and the parameterized type is
+	 *            Integer
+	 * @param aValue
+	 *            the value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @return the converted object
+	 */
+	Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
 			ClassNotFoundException, UnexecutableException, InstantiationException;
 
