@@ -81,7 +81,20 @@ public interface ArbitraryParameterEnumerator {
 		private String description;
 
 		/**
-		 * Subdefinitions in case of nested parameters.
+		 * What to add after the parameter. Optional - if not present, a default is used (usually a colon in case of
+		 * parameters and an equals sign in case of results). This is ignored in case of tabletests and inside nested
+		 * objects!
+		 */
+		private ArbitraryParameterSuffix suffix;
+
+		/**
+		 * Whether this is a parameter that shall contain a nested object. If this is set, the required brackets are
+		 * autocreated.
+		 */
+		private boolean nestedObjectParam;
+
+		/**
+		 * Subdefinitions in case of nested objects/parameters.
 		 */
 		private List<ArbitraryParameterDefinition> subdefinitions = new ArrayList<ArbitraryParameterDefinition>();
 
@@ -98,12 +111,40 @@ public interface ArbitraryParameterEnumerator {
 			description = aDescription;
 		}
 
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aName
+		 *            The parameter name
+		 * @param aDescription
+		 *            The description for content assist
+		 * @param aSuffix
+		 *            What to add after the parameter.
+		 * @param anIsNestedObjectParamFlag
+		 *            Whether this is a parameter that will contain a nested object.
+		 */
+		public ArbitraryParameterDefinition(String aName, String aDescription, ArbitraryParameterSuffix aSuffix,
+				boolean anIsNestedObjectParamFlag) {
+			name = aName;
+			description = aDescription;
+			suffix = aSuffix;
+			nestedObjectParam = anIsNestedObjectParamFlag;
+		}
+
 		public String getName() {
 			return name;
 		}
 
 		public String getDescription() {
 			return description;
+		}
+
+		public ArbitraryParameterSuffix getSuffix() {
+			return suffix;
+		}
+
+		public boolean isNestedObjectParam() {
+			return nestedObjectParam;
 		}
 
 		/**
@@ -170,6 +211,33 @@ public interface ArbitraryParameterEnumerator {
 			}
 
 			return tempDefinitionInFocus;
+		}
+
+	}
+
+	/**
+	 * The suffix types that may follow a parameter name in a suggestion.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
+	public enum ArbitraryParameterSuffix {
+
+		COLON(": "),
+
+		EQUALS(" = "),
+
+		SPACE(" ");
+
+		private String text;
+
+		private ArbitraryParameterSuffix(String aText) {
+			text = aText;
+		}
+
+		public String getText() {
+			return text;
 		}
 
 	}

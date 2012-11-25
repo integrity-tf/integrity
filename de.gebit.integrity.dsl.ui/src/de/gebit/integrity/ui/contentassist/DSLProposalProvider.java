@@ -462,10 +462,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									if (tempParameterDescription.getDescription() != null) {
 										tempDescription += ": " + tempParameterDescription.getDescription();
 									}
-									String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
-									String tempPrefix = "+";
-									anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
-											tempDescription, null, aContext));
+									String tempSuffix = (aModel instanceof TableTest) ? "" : (tempParameterDescription
+											.getSuffix() != null ? tempParameterDescription.getSuffix().getText()
+											: ": ");
+
+									anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription,
+											null, aContext));
 								}
 							}
 						}
@@ -483,9 +485,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										if (tempResultDescription.getDescription() != null) {
 											tempDescription += ": " + tempResultDescription.getDescription();
 										}
-										String tempSuffix = "=";
-										String tempPrefix = "+";
-										anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
+										String tempSuffix = tempResultDescription.getSuffix() != null ? tempResultDescription
+												.getSuffix().getText() : " = ";
+										anAcceptor.accept(createCompletionProposal(tempName + tempSuffix,
 												tempDescription, null, aContext));
 									}
 								}
@@ -513,8 +515,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
 												.getSubdefinitions()) {
 											String tempDescription = tempSubdefinition.getName();
-											if (tempParameterDescription.getDescription() != null) {
-												tempDescription += ": " + tempParameterDescription.getDescription();
+											if (tempSubdefinition.getDescription() != null) {
+												tempDescription += ": " + tempSubdefinition.getDescription();
 											}
 											String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
 											anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
