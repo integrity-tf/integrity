@@ -224,12 +224,24 @@ public interface ArbitraryParameterEnumerator {
 	 */
 	public enum ArbitraryParameterSuffix {
 
+		/**
+		 * A colon.
+		 */
 		COLON(": "),
 
+		/**
+		 * An equals sign.
+		 */
 		EQUALS(" = "),
 
+		/**
+		 * A space.
+		 */
 		SPACE(" ");
 
+		/**
+		 * Textual representation of the suffix.
+		 */
 		private String text;
 
 		private ArbitraryParameterSuffix(String aText) {
