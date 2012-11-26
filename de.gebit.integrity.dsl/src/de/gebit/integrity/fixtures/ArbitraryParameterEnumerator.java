@@ -147,6 +147,22 @@ public interface ArbitraryParameterEnumerator {
 			return nestedObjectParam;
 		}
 
+		public void setName(String aName) {
+			this.name = aName;
+		}
+
+		public void setDescription(String aDescription) {
+			this.description = aDescription;
+		}
+
+		public void setSuffix(ArbitraryParameterSuffix aSuffix) {
+			this.suffix = aSuffix;
+		}
+
+		public void setNestedObjectParam(boolean aNestedObjectParam) {
+			this.nestedObjectParam = aNestedObjectParam;
+		}
+
 		/**
 		 * Adds a subdefinition.
 		 * 

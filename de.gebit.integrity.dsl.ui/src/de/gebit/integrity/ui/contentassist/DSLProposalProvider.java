@@ -458,13 +458,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
 								String tempName = tempParameterDescription.getName();
 								if (!tempParameterMap.containsKey(tempName)) {
-									String tempDescription = tempName;
+									String tempDescription = tempName + ": ?";
 									if (tempParameterDescription.getDescription() != null) {
-										tempDescription += ": " + tempParameterDescription.getDescription();
+										tempDescription += " (" + tempParameterDescription.getDescription() + ")";
 									}
 									String tempSuffix = (aModel instanceof TableTest) ? "" : (tempParameterDescription
 											.getSuffix() != null ? tempParameterDescription.getSuffix().getText()
 											: ": ");
+									if (!(aModel instanceof TableTest)
+											&& tempParameterDescription.isNestedObjectParam()) {
+										tempSuffix += "{}";
+									}
 
 									anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription,
 											null, aContext));
@@ -481,12 +485,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								for (ArbitraryParameterDefinition tempResultDescription : tempResultDescriptions) {
 									String tempName = tempResultDescription.getName();
 									if (!tempExpectedResultMap.containsKey(tempName)) {
-										String tempDescription = tempName;
+										String tempDescription = tempName + " = ?";
 										if (tempResultDescription.getDescription() != null) {
-											tempDescription += ": " + tempResultDescription.getDescription();
+											tempDescription += " (" + tempResultDescription.getDescription() + ")";
 										}
 										String tempSuffix = tempResultDescription.getSuffix() != null ? tempResultDescription
 												.getSuffix().getText() : " = ";
+										if (tempResultDescription.isNestedObjectParam()) {
+											tempSuffix += "{}";
+										}
 										anAcceptor.accept(createCompletionProposal(tempName + tempSuffix,
 												tempDescription, null, aContext));
 									}
@@ -518,7 +525,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 											if (tempSubdefinition.getDescription() != null) {
 												tempDescription += ": " + tempSubdefinition.getDescription();
 											}
-											String tempSuffix = (aModel instanceof TableTest) ? "" : ": ";
+											String tempSuffix = ": ";
+											if (tempSubdefinition.isNestedObjectParam()) {
+												tempSuffix += "{}";
+											}
 											anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
 													+ tempSuffix, tempDescription, null, aContext));
 										}
@@ -638,6 +648,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 									ICompletionProposal tempCompletionProposal = createCompletionProposal(
 											tempField.getElementName() + ": ", tempDisplayText, null, aContext);
+
 									if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
 										if (tempJavadocDescription != null) {
 											((ConfigurableCompletionProposal) tempCompletionProposal)
