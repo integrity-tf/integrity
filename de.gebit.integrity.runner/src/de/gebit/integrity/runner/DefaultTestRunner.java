@@ -862,7 +862,7 @@ public class DefaultTestRunner implements TestRunner {
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 						if (resultComparator.compareResult(tempSingleFixtureResult, tempNamedResult.getValue(),
-								tempFixtureInstance, aTest.getDefinition().getFixtureMethod())) {
+								tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
 							tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
 									tempSingleFixtureResult, tempNamedResult.getValue());
 						} else {
@@ -873,7 +873,7 @@ public class DefaultTestRunner implements TestRunner {
 					}
 				} else {
 					if (resultComparator.compareResult(tempFixtureResult, aTest.getResult(), tempFixtureInstance, aTest
-							.getDefinition().getFixtureMethod())) {
+							.getDefinition().getFixtureMethod(), null)) {
 						tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 								tempFixtureResult, aTest.getResult());
 					} else {
@@ -999,7 +999,7 @@ public class DefaultTestRunner implements TestRunner {
 								Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
 								if (resultComparator.compareResult(tempSingleFixtureResult, tempExpectedValue,
-										tempFixtureInstance, aTest.getDefinition().getFixtureMethod())) {
+										tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
 									tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
 											tempSingleFixtureResult, tempExpectedValue);
 								} else {
@@ -1018,7 +1018,7 @@ public class DefaultTestRunner implements TestRunner {
 							}
 
 							if (resultComparator.compareResult(tempFixtureResult, tempExpectedValue,
-									tempFixtureInstance, aTest.getDefinition().getFixtureMethod())) {
+									tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null)) {
 								tempComparisonResult = new TestComparisonSuccessResult(
 										ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
 							} else {

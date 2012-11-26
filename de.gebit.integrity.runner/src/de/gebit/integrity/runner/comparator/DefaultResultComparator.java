@@ -38,8 +38,8 @@ public class DefaultResultComparator implements ResultComparator {
 
 	@Override
 	public boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
-			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod, String aPropertyName)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (anExpectedResult != null) {
 			if (aFixtureResult == null) {
 				if (anExpectedResult.getMoreValues().size() > 0) {
@@ -51,9 +51,18 @@ public class DefaultResultComparator implements ResultComparator {
 			} else {
 				if (aFixtureInstance.isCustomComparatorFixture()) {
 					// Custom comparators will get whole arrays at once if arrays are used
-					Object tempConvertedResult;
-					Class<?> tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
-							.getComponentType() : aFixtureResult.getClass();
+					String tempMethodName = aFixtureMethod.getMethod().getSimpleName();
+					Object tempConvertedResult = null;
+					Class<?> tempConversionTargetType = null;
+
+					if (aFixtureInstance.isCustomComparatorAndConversionFixture()) {
+						tempConversionTargetType = aFixtureInstance.determineCustomConversionTargetType(aFixtureResult,
+								tempMethodName, aPropertyName);
+					} else {
+						tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
+								.getComponentType() : aFixtureResult.getClass();
+					}
+
 					if (anExpectedResult.getMoreValues().size() > 0) {
 						// multiple result values given -> we're going to put them into an array of the same type
 						// as the fixture result
@@ -62,9 +71,8 @@ public class DefaultResultComparator implements ResultComparator {
 						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
-							Array.set(tempConvertedResult, i, valueConverter.convertValue(
-									tempConversionTargetType, tempSingleExpectedResult,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+							Array.set(tempConvertedResult, i, valueConverter.convertValue(tempConversionTargetType,
+									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 					} else {
 						tempConvertedResult = valueConverter.convertValue(tempConversionTargetType,
@@ -72,7 +80,7 @@ public class DefaultResultComparator implements ResultComparator {
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
-							aFixtureMethod.getMethod().getSimpleName());
+							tempMethodName, aPropertyName);
 				} else {
 					// Standard comparation compares each value for itself in case of arrays
 					if (anExpectedResult.getMoreValues().size() > 0) {
@@ -113,9 +121,8 @@ public class DefaultResultComparator implements ResultComparator {
 								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
-						Object tempConvertedExpectedResult = valueConverter.convertValue(
-								tempConversionTargetType, tempSingleExpectedResult,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						Object tempConvertedExpectedResult = valueConverter.convertValue(tempConversionTargetType,
+								tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 						return performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
 								tempSingleExpectedResult);
@@ -125,7 +132,7 @@ public class DefaultResultComparator implements ResultComparator {
 		} else {
 			if (aFixtureInstance.isCustomComparatorFixture()) {
 				return aFixtureInstance.performCustomComparation(null, aFixtureResult, aFixtureMethod.getMethod()
-						.getSimpleName());
+						.getSimpleName(), aPropertyName);
 			} else {
 				if (aFixtureResult instanceof Boolean) {
 					return (Boolean) aFixtureResult;

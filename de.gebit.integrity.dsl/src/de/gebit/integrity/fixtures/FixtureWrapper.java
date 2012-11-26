@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -59,11 +60,16 @@ public class FixtureWrapper<C extends Object> {
 	 * 
 	 * @param aFixtureClass
 	 *            the fixture class to be wrapped
+	 * @param anInjector
+	 *            The injector required to inject dependencies into fixture instances and factories. (I don't really
+	 *            like to provide this explicitly here, but cannot use injection, since that happens after the
+	 *            constructor. Maybe I'll refactor this some time later...)
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings("unchecked")
-	public FixtureWrapper(Class<C> aFixtureClass) throws InstantiationException, IllegalAccessException {
+	public FixtureWrapper(Class<C> aFixtureClass, Injector anInjector) throws InstantiationException,
+			IllegalAccessException {
 		fixtureClass = aFixtureClass;
 
 		FixtureInstanceFactory<C> tempFactory = null;
@@ -73,6 +79,7 @@ public class FixtureWrapper<C extends Object> {
 			FixtureFactory tempFactoryAnnotation = fixtureClass.getAnnotation(FixtureFactory.class);
 			if (tempFactoryAnnotation != null) {
 				tempFactory = (FixtureInstanceFactory<C>) tempFactoryAnnotation.value().newInstance();
+				anInjector.injectMembers(tempFactory);
 			}
 			factoryCache.put(aFixtureClass, tempFactory);
 		}
@@ -83,6 +90,9 @@ public class FixtureWrapper<C extends Object> {
 		} else {
 			fixtureInstance = fixtureClass.newInstance();
 		}
+
+		anInjector.injectMembers(fixtureInstance);
+		anInjector.injectMembers(this);
 	}
 
 	/**
@@ -122,6 +132,15 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
+	 * Checks whether the wrapped fixture is a {@link CustomComparatorAndConversionFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isCustomComparatorAndConversionFixture() {
+		return (CustomComparatorAndConversionFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
 	 * Performs a custom comparation using the wrapped fixture, which must be a {@link CustomComparatorFixture}. Only
 	 * usable if {@link #isCustomComparatorFixture()} returns true.
 	 * 
@@ -131,11 +150,34 @@ public class FixtureWrapper<C extends Object> {
 	 *            the result actually returned by the fixture
 	 * @param aMethodName
 	 *            the name of the fixture method
+	 * @param aPropertyName
+	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if comparation was successful, false otherwise
 	 */
-	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName) {
-		return ((CustomComparatorFixture) fixtureInstance)
-				.compareResults(anExpectedResult, aFixtureResult, aMethodName);
+	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName,
+			String aPropertyName) {
+		return ((CustomComparatorFixture) fixtureInstance).compareResults(anExpectedResult, aFixtureResult,
+				aMethodName, aPropertyName);
+	}
+
+	/**
+	 * Returns the type to which the expected result (the data given in the test script) that corresponds to the given
+	 * fixture result is to be converted. This can only be used for {@link CustomComparatorAndConversionFixture}
+	 * instances, which can be checked via {@link #isCustomComparatorAndConversionFixture()}.
+	 * 
+	 * @param aFixtureResult
+	 *            the result value returned by the fixture call
+	 * @param aMethodName
+	 *            the fixture method that was called
+	 * @param aPropertyName
+	 *            the property name that is to be compared (null if it's the default result)
+	 * @return the desired target type. "null" chooses the default conversion, but note that this does NOT mean "the
+	 *         conversion that would have been used if the fixture was just a {@link CustomComparatorFixture}", but "the
+	 *         conversion that has the highest priority for the data type found in the script".
+	 */
+	public Class<?> determineCustomConversionTargetType(Object aFixtureResult, String aMethodName, String aPropertyName) {
+		return ((CustomComparatorAndConversionFixture) fixtureInstance).determineConversionTargetType(aFixtureResult,
+				aMethodName, aPropertyName);
 	}
 
 	/**

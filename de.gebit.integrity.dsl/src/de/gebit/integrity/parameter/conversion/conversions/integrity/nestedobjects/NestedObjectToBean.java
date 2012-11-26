@@ -29,7 +29,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * @author Rene Schneider
  * 
  */
-@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
+@de.gebit.integrity.parameter.conversion.Conversion.Priority(Integer.MIN_VALUE)
 public class NestedObjectToBean implements Conversion<NestedObject, Object> {
 
 	/**

@@ -17,13 +17,15 @@ public interface CustomComparatorFixture {
 	 * differentiate between different fixture methods, the method name is also provided.
 	 * 
 	 * @param anExpectedResult
-	 *            the result expected by the test script
+	 *            the (converted) result expected by the test script
 	 * @param aFixtureResult
 	 *            the actual result obtained by calling the fixture
 	 * @param aMethodName
 	 *            the fixture method name
+	 * @param aPropertyName
+	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if both results are considered to match, false otherwise
 	 */
-	boolean compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName);
+	boolean compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName, String aPropertyName);
 
 }

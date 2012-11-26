@@ -28,13 +28,15 @@ public interface ResultComparator {
 	 *            the fixture instance that was used
 	 * @param aFixtureMethod
 	 *            the fixture method that was called
+	 * @param aPropertyName
+	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if the comparison was successful, false if the results are not considered equal
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
 	boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
-			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException;
+			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod, String aPropertyName)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 }

@@ -40,8 +40,7 @@ public class DefaultWrapperFactory implements WrapperFactory {
 	public FixtureWrapper<?> newFixtureWrapper(JvmType aFixtureType) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		Class<?> tempClass = classLoader.loadClass(aFixtureType.getQualifiedName());
-		FixtureWrapper<?> tempWrapper = new FixtureWrapper(tempClass);
-		injector.injectMembers(tempWrapper);
+		FixtureWrapper<?> tempWrapper = new FixtureWrapper(tempClass, injector);
 		return tempWrapper;
 	}
 
