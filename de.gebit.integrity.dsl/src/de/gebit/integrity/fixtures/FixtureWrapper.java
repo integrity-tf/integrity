@@ -141,6 +141,15 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
+	 * Checks whether the wrapped fixture is a {@link CustomStringConversionFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isCustomStringConversionFixture() {
+		return (CustomStringConversionFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
 	 * Performs a custom comparation using the wrapped fixture, which must be a {@link CustomComparatorFixture}. Only
 	 * usable if {@link #isCustomComparatorFixture()} returns true.
 	 * 
@@ -178,6 +187,15 @@ public class FixtureWrapper<C extends Object> {
 	public Class<?> determineCustomConversionTargetType(Object aFixtureResult, String aMethodName, String aPropertyName) {
 		return ((CustomComparatorAndConversionFixture) fixtureInstance).determineConversionTargetType(aFixtureResult,
 				aMethodName, aPropertyName);
+	}
+
+	public String performValueToStringConversion(Object aValue, String aFixtureMethod,
+			UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
+		if (isCustomStringConversionFixture()) {
+			return ((CustomStringConversionFixture) fixtureInstance).convertValueToString(aValue, aFixtureMethod);
+		} else {
+			return valueConverter.convertValueToString(aValue, anUnresolvedVariableHandlingPolicy);
+		}
 	}
 
 	/**

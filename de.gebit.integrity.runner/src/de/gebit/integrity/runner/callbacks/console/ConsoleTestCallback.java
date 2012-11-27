@@ -16,13 +16,12 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
-import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -42,62 +41,56 @@ import de.gebit.integrity.utils.ParameterUtil;
  * @author Rene Schneider
  * 
  */
-public class ConsoleTestCallback extends TestRunnerCallback {
+public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 
 	/**
 	 * Test execution start time.
 	 */
-	private long startTime;
+	protected long startTime;
 
 	/**
 	 * The number of tests executed.
 	 */
-	private int testCount;
+	protected int testCount;
 
 	/**
 	 * Counting table test rows.
 	 */
-	private int tableTestRowCount;
+	protected int tableTestRowCount;
 
 	/**
 	 * The number of calls executed.
 	 */
-	private int callCount;
+	protected int callCount;
 
 	/**
 	 * The number of suites executed.
 	 */
-	private int suiteCount;
+	protected int suiteCount;
 
 	/**
 	 * The classloader to use.
 	 */
 	@Inject
-	private ClassLoader classLoader;
-
-	/**
-	 * The value converter to use.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
+	protected ClassLoader classLoader;
 
 	/**
 	 * The parameter resolver to use.
 	 */
 	@Inject
-	private ParameterResolver parameterResolver;
+	protected ParameterResolver parameterResolver;
 
 	/**
 	 * The variable manager to use.
 	 */
 	@Inject
-	private VariableManager variableManager;
+	protected VariableManager variableManager;
 
 	/**
 	 * The test formatter to use.
 	 */
 	@Inject
-	private TestFormatter testFormatter;
+	protected TestFormatter testFormatter;
 
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
@@ -167,7 +160,7 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
-								+ valueConverter.convertValueToString(tempEntry.getValue().getResult(),
+								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
 										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "'!");
 						tempHasBegun = true;
 					}

@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class DecimalValueToString implements Conversion<DecimalValue, String> {
+public class DecimalValueToString extends Conversion<DecimalValue, String> {
 
 	@Override
 	public String convert(DecimalValue aSource, Class<? extends String> aTargetType,

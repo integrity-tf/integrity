@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class StringValueToLong implements Conversion<StringValue, Long> {
+public class StringValueToLong extends Conversion<StringValue, Long> {
 
 	@Override
 	public Long convert(StringValue aSource, Class<? extends Long> aTargetType,

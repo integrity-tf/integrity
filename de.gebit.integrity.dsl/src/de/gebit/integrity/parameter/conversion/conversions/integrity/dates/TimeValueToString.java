@@ -18,7 +18,7 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class TimeValueToString implements Conversion<TimeValue, String> {
+public class TimeValueToString extends Conversion<TimeValue, String> {
 
 	@Override
 	public String convert(TimeValue aSource, Class<? extends String> aTargetType,

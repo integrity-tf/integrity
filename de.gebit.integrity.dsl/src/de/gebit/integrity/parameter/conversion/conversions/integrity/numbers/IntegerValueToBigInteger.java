@@ -17,7 +17,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class IntegerValueToBigInteger implements Conversion<IntegerValue, BigInteger> {
+public class IntegerValueToBigInteger extends Conversion<IntegerValue, BigInteger> {
 
 	@Override
 	public BigInteger convert(IntegerValue aSource, Class<? extends BigInteger> aTargetType,

@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class DecimalValueToFloat implements Conversion<DecimalValue, Float> {
+public class DecimalValueToFloat extends Conversion<DecimalValue, Float> {
 
 	@Override
 	public Float convert(DecimalValue aSource, Class<? extends Float> aTargetType,

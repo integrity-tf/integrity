@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class StringValueToString implements Conversion<StringValue, String> {
+public class StringValueToString extends Conversion<StringValue, String> {
 
 	@Override
 	public String convert(StringValue aSource, Class<? extends String> aTargetType,

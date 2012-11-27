@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class BooleanValueToBoolean implements Conversion<BooleanValue, Boolean> {
+public class BooleanValueToBoolean extends Conversion<BooleanValue, Boolean> {
 
 	@Override
 	public Boolean convert(BooleanValue aSource, Class<? extends Boolean> aTargetType,

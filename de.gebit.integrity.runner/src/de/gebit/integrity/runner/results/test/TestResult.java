@@ -2,7 +2,8 @@ package de.gebit.integrity.runner.results.test;
 
 import java.util.List;
 
-import de.gebit.integrity.runner.results.Result;
+import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
 /**
  * Base class for test results.
@@ -11,7 +12,7 @@ import de.gebit.integrity.runner.results.Result;
  * @author Rene Schneider
  * 
  */
-public class TestResult extends Result {
+public class TestResult extends FixtureExecutionResult {
 
 	/**
 	 * All sub-results of this test.
@@ -38,11 +39,17 @@ public class TestResult extends Result {
 	 * 
 	 * @param someSubResults
 	 *            sub-results of this test
+	 * @param aFixtureInstance
+	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
+	 *            example during the dry run).
+	 * @param aFixtureMethod
+	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            test method execution time
 	 */
-	public TestResult(List<TestSubResult> someSubResults, Long anExecutionTime) {
-		super(anExecutionTime);
+	public TestResult(List<TestSubResult> someSubResults, FixtureWrapper<?> aFixtureInstance, String aFixtureMethod,
+			Long anExecutionTime) {
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
 		subResults = someSubResults;
 	}
 

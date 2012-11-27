@@ -3,7 +3,8 @@ package de.gebit.integrity.runner.results.call;
 import java.util.List;
 
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.runner.results.Result;
+import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
 /**
  * An abstract base class for call results.
@@ -12,7 +13,7 @@ import de.gebit.integrity.runner.results.Result;
  * @author Rene Schneider
  * 
  */
-public abstract class CallResult extends Result {
+public abstract class CallResult extends FixtureExecutionResult {
 
 	/**
 	 * Variables updated by the call.
@@ -24,11 +25,17 @@ public abstract class CallResult extends Result {
 	 * 
 	 * @param someUpdatedVariables
 	 *            variables updated by the call
+	 * @param aFixtureInstance
+	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
+	 *            example during the dry run).
+	 * @param aFixtureMethod
+	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time taken to execute the call
 	 */
-	public CallResult(List<UpdatedVariable> someUpdatedVariables, Long anExecutionTime) {
-		super(anExecutionTime);
+	public CallResult(List<UpdatedVariable> someUpdatedVariables, FixtureWrapper<?> aFixtureInstance,
+			String aFixtureMethod, Long anExecutionTime) {
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
 		updatedVariables = someUpdatedVariables;
 	}
 

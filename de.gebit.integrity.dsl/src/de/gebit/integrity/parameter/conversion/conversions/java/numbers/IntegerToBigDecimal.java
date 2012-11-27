@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class IntegerToBigDecimal implements Conversion<Integer, BigDecimal> {
+public class IntegerToBigDecimal extends Conversion<Integer, BigDecimal> {
 
 	@Override
 	public BigDecimal convert(Integer aSource, Class<? extends BigDecimal> aTargetType,

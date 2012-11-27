@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class IntegerValueToShort implements Conversion<IntegerValue, Short> {
+public class IntegerValueToShort extends Conversion<IntegerValue, Short> {
 
 	@Override
 	public Short convert(IntegerValue aSource, Class<? extends Short> aTargetType,

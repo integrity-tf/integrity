@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class IntegerValueToDouble implements Conversion<IntegerValue, Double> {
+public class IntegerValueToDouble extends Conversion<IntegerValue, Double> {
 
 	@Override
 	public Double convert(IntegerValue aSource, Class<? extends Double> aTargetType,

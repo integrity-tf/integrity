@@ -819,6 +819,8 @@ public class DefaultTestRunner implements TestRunner {
 		TestComparisonResult tempComparisonResult;
 		Throwable tempException = null;
 		Long tempDuration = null;
+		FixtureWrapper<?> tempFixtureInstance = null;
+		String tempFixtureMethodName = aTest.getDefinition().getFixtureMethod().getMethod().getSimpleName();
 
 		Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
 		if (!shouldExecuteFixtures()) {
@@ -840,7 +842,6 @@ public class DefaultTestRunner implements TestRunner {
 
 			long tempStart = System.nanoTime();
 
-			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
@@ -889,23 +890,25 @@ public class DefaultTestRunner implements TestRunner {
 				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 						aTest.getResult());
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
-			} finally {
-				if (tempFixtureInstance != null) {
-					tempFixtureInstance.release();
-				}
 			}
 		}
 
 		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
 		if (tempException != null) {
-			tempSubResults.add(new TestExceptionSubResult(tempException, tempComparisonMap, tempDuration));
+			tempSubResults.add(new TestExceptionSubResult(tempException, tempComparisonMap, tempFixtureInstance,
+					tempFixtureMethodName, tempDuration));
 		} else {
-			tempSubResults.add(new TestExecutedSubResult(tempComparisonMap, tempDuration));
+			tempSubResults.add(new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance, tempFixtureMethodName,
+					tempDuration));
 		}
-		tempReturn = new TestResult(tempSubResults, tempDuration);
+		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration);
 
 		if (currentCallback != null) {
 			currentCallback.onTestFinish(aTest, tempReturn);
+		}
+
+		if (tempFixtureInstance != null) {
+			tempFixtureInstance.release();
 		}
 
 		return tempReturn;
@@ -930,32 +933,117 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		List<TestSubResult> tempSubResults = new LinkedList<TestSubResult>();
+		String tempFixtureMethodName = aTest.getDefinition().getFixtureMethod().getMethod().getSimpleName();
 		long tempOuterStart = System.nanoTime();
 
 		FixtureWrapper<?> tempFixtureInstance = null;
-		try {
-			for (TableTestRow tempRow : aTest.getRows()) {
-				if (currentCallback != null) {
-					currentCallback.onTableTestRowStart(aTest, tempRow);
+		for (TableTestRow tempRow : aTest.getRows()) {
+			if (currentCallback != null) {
+				currentCallback.onTableTestRowStart(aTest, tempRow);
+			}
+
+			Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
+			TestComparisonResult tempComparisonResult = null;
+			Throwable tempException = null;
+			Long tempDuration = null;
+
+			if (!shouldExecuteFixtures()) {
+				if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+					int tempColumn = aTest.getParameterHeaders().size();
+					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+						String tempParameter = IntegrityDSLUtil
+								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+						ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
+								.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
+						tempComparisonMap.put(tempParameter, tempComparisonResult);
+
+						tempColumn++;
+					}
+				} else {
+					ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
+					if (aTest.getDefaultResultColumn() != null) {
+						// the last column MUST be the result column
+						tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+					}
+					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempExpectedValue);
+					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
+			} else {
+				long tempStart = System.nanoTime();
+				try {
+					Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow, true,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-				Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
-				TestComparisonResult tempComparisonResult = null;
-				Throwable tempException = null;
-				Long tempDuration = null;
+					if (tempFixtureInstance == null) {
+						// only instantiate on first pass
+						tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
+								.getType());
+					}
 
-				if (!shouldExecuteFixtures()) {
+					tempStart = System.nanoTime();
+					Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
+							.getFixtureMethod(), tempParameters);
+					tempDuration = System.nanoTime() - tempStart;
+
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+						Map<String, Object> tempFixtureResultMap = ParameterUtil
+								.getValuesFromNamedResultContainer(tempFixtureResult);
+
 						int tempColumn = aTest.getParameterHeaders().size();
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
-							String tempParameter = IntegrityDSLUtil
+							String tempResultName = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
 							ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
 									.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
-							tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
-									tempExpectedValue);
-							tempComparisonMap.put(tempParameter, tempComparisonResult);
 
+							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
+
+							if (resultComparator.compareResult(tempSingleFixtureResult, tempExpectedValue,
+									tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
+								tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
+										tempSingleFixtureResult, tempExpectedValue);
+							} else {
+								tempComparisonResult = new TestComparisonFailureResult(tempResultName,
+										tempSingleFixtureResult, tempExpectedValue);
+							}
+							tempComparisonMap.put(tempResultName, tempComparisonResult);
+
+							tempColumn++;
+						}
+					} else {
+						ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
+						if (aTest.getDefaultResultColumn() != null) {
+							// the last column MUST be the result column
+							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+						}
+
+						if (resultComparator.compareResult(tempFixtureResult, tempExpectedValue, tempFixtureInstance,
+								aTest.getDefinition().getFixtureMethod(), null)) {
+							tempComparisonResult = new TestComparisonSuccessResult(
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
+						} else {
+							tempComparisonResult = new TestComparisonFailureResult(
+									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
+						}
+						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+					}
+					// SUPPRESS CHECKSTYLE IllegalCatch
+				} catch (Throwable exc) {
+					tempDuration = System.nanoTime() - tempStart;
+					tempException = exc;
+					// add undetermined result entries for all comparisons
+					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+						int tempColumn = aTest.getParameterHeaders().size();
+						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+							String tempResultName = IntegrityDSLUtil
+									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+							ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
+									.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+							tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
+									tempExpectedValue);
+							tempComparisonMap.put(tempResultName, tempComparisonResult);
 							tempColumn++;
 						}
 					} else {
@@ -968,120 +1056,36 @@ public class DefaultTestRunner implements TestRunner {
 								ParameterUtil.DEFAULT_PARAMETER_NAME, tempExpectedValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
-				} else {
-					long tempStart = System.nanoTime();
-					try {
-						Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow, true,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-
-						if (tempFixtureInstance == null) {
-							// only instantiate on first pass
-							tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition()
-									.getFixtureMethod().getType());
-						}
-
-						tempStart = System.nanoTime();
-						Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
-								.getFixtureMethod(), tempParameters);
-						tempDuration = System.nanoTime() - tempStart;
-
-						if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
-							Map<String, Object> tempFixtureResultMap = ParameterUtil
-									.getValuesFromNamedResultContainer(tempFixtureResult);
-
-							int tempColumn = aTest.getParameterHeaders().size();
-							for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
-								String tempResultName = IntegrityDSLUtil
-										.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-								ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow
-										.getValues().size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
-
-								Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
-
-								if (resultComparator.compareResult(tempSingleFixtureResult, tempExpectedValue,
-										tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
-									tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
-											tempSingleFixtureResult, tempExpectedValue);
-								} else {
-									tempComparisonResult = new TestComparisonFailureResult(tempResultName,
-											tempSingleFixtureResult, tempExpectedValue);
-								}
-								tempComparisonMap.put(tempResultName, tempComparisonResult);
-
-								tempColumn++;
-							}
-						} else {
-							ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
-							if (aTest.getDefaultResultColumn() != null) {
-								// the last column MUST be the result column
-								tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
-							}
-
-							if (resultComparator.compareResult(tempFixtureResult, tempExpectedValue,
-									tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null)) {
-								tempComparisonResult = new TestComparisonSuccessResult(
-										ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
-							} else {
-								tempComparisonResult = new TestComparisonFailureResult(
-										ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
-							}
-							tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
-						}
-						// SUPPRESS CHECKSTYLE IllegalCatch
-					} catch (Throwable exc) {
-						tempDuration = System.nanoTime() - tempStart;
-						tempException = exc;
-						// add undetermined result entries for all comparisons
-						if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
-							int tempColumn = aTest.getParameterHeaders().size();
-							for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
-								String tempResultName = IntegrityDSLUtil
-										.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-								ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow
-										.getValues().size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
-								tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
-										tempExpectedValue);
-								tempComparisonMap.put(tempResultName, tempComparisonResult);
-								tempColumn++;
-							}
-						} else {
-							ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
-							if (aTest.getDefaultResultColumn() != null) {
-								// the last column MUST be the result column
-								tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
-							}
-							tempComparisonResult = new TestComparisonUndeterminedResult(
-									ParameterUtil.DEFAULT_PARAMETER_NAME, tempExpectedValue);
-							tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
-						}
-					}
-				}
-
-				TestSubResult tempSubResult;
-
-				if (tempException != null) {
-					tempSubResult = new TestExceptionSubResult(tempException, tempComparisonMap, tempDuration);
-				} else {
-					tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempDuration);
-				}
-				tempSubResults.add(tempSubResult);
-
-				if (currentCallback != null) {
-					currentCallback.onTableTestRowFinish(aTest, tempRow, tempSubResult);
 				}
 			}
-		} finally {
-			if (tempFixtureInstance != null) {
-				tempFixtureInstance.release();
+
+			TestSubResult tempSubResult;
+
+			if (tempException != null) {
+				tempSubResult = new TestExceptionSubResult(tempException, tempComparisonMap, tempFixtureInstance,
+						tempFixtureMethodName, tempDuration);
+			} else {
+				tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance,
+						tempFixtureMethodName, tempDuration);
+			}
+			tempSubResults.add(tempSubResult);
+
+			if (currentCallback != null) {
+				currentCallback.onTableTestRowFinish(aTest, tempRow, tempSubResult);
 			}
 		}
 
 		Long tempOuterDuration = System.nanoTime() - tempOuterStart;
 
-		TestResult tempReturn = new TestResult(tempSubResults, currentPhase == Phase.DRY_RUN ? null : tempOuterDuration);
+		TestResult tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName,
+				currentPhase == Phase.DRY_RUN ? null : tempOuterDuration);
 
 		if (currentCallback != null) {
 			currentCallback.onTableTestFinish(aTest, tempReturn);
+		}
+
+		if (tempFixtureInstance != null) {
+			tempFixtureInstance.release();
 		}
 
 		return tempReturn;
@@ -1174,13 +1178,16 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		CallResult tempReturn;
+		String tempFixtureMethodName = aCall.getDefinition().getFixtureMethod().getMethod().getSimpleName();
+		FixtureWrapper<?> tempFixtureInstance = null;
+
 		if (!shouldExecuteFixtures()) {
-			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(tempUpdatedVariables);
+			tempReturn = new de.gebit.integrity.runner.results.call.UndeterminedResult(tempUpdatedVariables,
+					tempFixtureMethodName);
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
 			long tempStart = System.nanoTime();
-			FixtureWrapper<?> tempFixtureInstance = null;
 			try {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
@@ -1204,29 +1211,29 @@ public class DefaultTestRunner implements TestRunner {
 								true);
 					}
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration);
 				} else if (aCall.getResult() != null) {
 					tempUpdatedVariables.get(0).setValue(tempResult);
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration);
 					setVariableValue(aCall.getResult().getName(), tempResult, true);
 				} else {
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration);
 				}
 				// SUPPRESS CHECKSTYLE IllegalCatch
 			} catch (Throwable exc) {
 				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
-						System.nanoTime() - tempStart);
-			} finally {
-				if (tempFixtureInstance != null) {
-					tempFixtureInstance.release();
-				}
+						tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
 			}
 		}
 
 		if (currentCallback != null) {
 			currentCallback.onCallFinish(aCall, tempReturn);
+		}
+
+		if (tempFixtureInstance != null) {
+			tempFixtureInstance.release();
 		}
 
 		return tempReturn;

@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class StringToBigInteger implements Conversion<String, BigInteger> {
+public class StringToBigInteger extends Conversion<String, BigInteger> {
 
 	@Override
 	public BigInteger convert(String aSource, Class<? extends BigInteger> aTargetType,

@@ -19,7 +19,7 @@ import de.gebit.integrity.utils.DateUtil;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class TimeValueToCalendar implements Conversion<TimeValue, Calendar> {
+public class TimeValueToCalendar extends Conversion<TimeValue, Calendar> {
 
 	@Override
 	public Calendar convert(TimeValue aSource, Class<? extends Calendar> aTargetType,

@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class NumberToLong implements Conversion<Number, Long> {
+public class NumberToLong extends Conversion<Number, Long> {
 
 	@Override
 	public Long convert(Number aSource, Class<? extends Long> aTargetType,

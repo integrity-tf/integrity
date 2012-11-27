@@ -13,7 +13,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class NumberToDouble implements Conversion<Number, Double> {
+public class NumberToDouble extends Conversion<Number, Double> {
 
 	@Override
 	public Double convert(Number aSource, Class<? extends Double> aTargetType,

@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
+import de.gebit.integrity.fixtures.FixtureWrapper;
+
 /**
  * The result returned if a call resulted in an exception.
  * 
@@ -25,11 +27,17 @@ public class ExceptionResult extends CallResult {
 	 *            the exception that was thrown
 	 * @param someVariablesToUpdate
 	 *            the variables that were to be updated
+	 * @param aFixtureInstance
+	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
+	 *            example during the dry run).
+	 * @param aFixtureMethod
+	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time it took to execute the call
 	 */
-	public ExceptionResult(Throwable anException, List<UpdatedVariable> someVariablesToUpdate, Long anExecutionTime) {
-		super(someVariablesToUpdate, anExecutionTime);
+	public ExceptionResult(Throwable anException, List<UpdatedVariable> someVariablesToUpdate,
+			FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime) {
+		super(someVariablesToUpdate, aFixtureInstance, aFixtureMethod, anExecutionTime);
 		exception = anException;
 	}
 

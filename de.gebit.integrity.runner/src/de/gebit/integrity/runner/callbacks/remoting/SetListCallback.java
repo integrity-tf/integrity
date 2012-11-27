@@ -30,7 +30,6 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -40,8 +39,8 @@ import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
-import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -62,7 +61,7 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * @author Rene Schneider
  * 
  */
-public class SetListCallback extends TestRunnerCallback {
+public class SetListCallback extends AbstractTestRunnerCallback {
 
 	/**
 	 * The remoting server.
@@ -84,12 +83,6 @@ public class SetListCallback extends TestRunnerCallback {
 	 */
 	@Inject
 	private ClassLoader classLoader;
-
-	/**
-	 * The value converter to use.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
 
 	/**
 	 * The parameter resolver to use.
@@ -337,8 +330,10 @@ public class SetListCallback extends TestRunnerCallback {
 					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
 							determineUnresolvableVariableHandlingPolicy()));
 			if (tempEntry.getValue().getResult() != null) {
-				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-						tempEntry.getValue().getResult(), determineUnresolvableVariableHandlingPolicy()));
+				tempComparisonEntry.setAttribute(
+						SetListEntryAttributeKeys.VALUE,
+						convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+								determineUnresolvableVariableHandlingPolicy()));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -394,8 +389,10 @@ public class SetListCallback extends TestRunnerCallback {
 						.getTargetVariable().getName());
 			}
 			if (tempUpdatedVariable.getValue() != null) {
-				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-						tempUpdatedVariable.getValue(), determineUnresolvableVariableHandlingPolicy()));
+				tempResultEntry.setAttribute(
+						SetListEntryAttributeKeys.VALUE,
+						convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult,
+								determineUnresolvableVariableHandlingPolicy()));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,

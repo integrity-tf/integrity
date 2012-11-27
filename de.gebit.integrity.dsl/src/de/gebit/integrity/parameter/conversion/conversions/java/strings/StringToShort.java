@@ -13,7 +13,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class StringToShort implements Conversion<String, Short> {
+public class StringToShort extends Conversion<String, Short> {
 
 	@Override
 	public Short convert(String aSource, Class<? extends Short> aTargetType,

@@ -18,7 +18,7 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class DateAndTimeValueToDate implements Conversion<DateAndTimeValue, Date> {
+public class DateAndTimeValueToDate extends Conversion<DateAndTimeValue, Date> {
 
 	@Override
 	public Date convert(DateAndTimeValue aSource, Class<? extends Date> aTargetType,

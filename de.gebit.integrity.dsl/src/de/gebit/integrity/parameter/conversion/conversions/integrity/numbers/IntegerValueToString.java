@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class IntegerValueToString implements Conversion<IntegerValue, String> {
+public class IntegerValueToString extends Conversion<IntegerValue, String> {
 
 	@Override
 	public String convert(IntegerValue aSource, Class<? extends String> aTargetType,

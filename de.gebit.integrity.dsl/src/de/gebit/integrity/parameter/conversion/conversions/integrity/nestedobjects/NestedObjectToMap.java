@@ -6,15 +6,12 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobje
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.google.inject.Inject;
-
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * A default Integrity conversion.
@@ -24,13 +21,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  */
 @SuppressWarnings("rawtypes")
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class NestedObjectToMap implements Conversion<NestedObject, Map> {
-
-	/**
-	 * The value converter used for recursive conversion and resolution of inner nested objects.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
+public class NestedObjectToMap extends Conversion<NestedObject, Map> {
 
 	@Override
 	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType,
@@ -40,7 +31,7 @@ public class NestedObjectToMap implements Conversion<NestedObject, Map> {
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = valueConverter.convertValue(null, tempAttribute.getValue(),
+				tempConvertedValue = convertValueRecursive(null, null, tempAttribute.getValue(),
 						anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(aSource.getClass(), Map.class, null, exc);

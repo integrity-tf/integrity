@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @SuppressWarnings("rawtypes")
-public class EnumValueToEnumConstant implements Conversion<EnumValue, Enum> {
+public class EnumValueToEnumConstant extends Conversion<EnumValue, Enum> {
 
 	@Override
 	public Enum convert(EnumValue aSource, Class<? extends Enum> aTargetType,

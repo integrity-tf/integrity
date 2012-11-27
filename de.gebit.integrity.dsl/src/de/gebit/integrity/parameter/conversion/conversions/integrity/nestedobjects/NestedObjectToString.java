@@ -22,7 +22,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * @author Rene Schneider
  * 
  */
-public class NestedObjectToString implements Conversion<NestedObject, String> {
+public class NestedObjectToString extends Conversion<NestedObject, String> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -37,7 +37,7 @@ public class NestedObjectToString implements Conversion<NestedObject, String> {
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = valueConverter.convertValue(String[].class, tempAttribute.getValue(),
+				tempConvertedValue = convertValueRecursive(String[].class, null, tempAttribute.getValue(),
 						anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);

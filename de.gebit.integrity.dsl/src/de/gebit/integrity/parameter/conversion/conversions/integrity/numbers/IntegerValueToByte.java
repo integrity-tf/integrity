@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class IntegerValueToByte implements Conversion<IntegerValue, Byte> {
+public class IntegerValueToByte extends Conversion<IntegerValue, Byte> {
 
 	@Override
 	public Byte convert(IntegerValue aSource, Class<? extends Byte> aTargetType,

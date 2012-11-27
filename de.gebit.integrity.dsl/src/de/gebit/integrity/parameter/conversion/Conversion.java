@@ -7,6 +7,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Set;
+
+import com.google.inject.Inject;
+
+import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * A {@link Conversion} defines a transformation from one type into another.
@@ -18,7 +24,18 @@ import java.lang.annotation.Target;
  * @author Rene Schneider
  * 
  */
-public interface Conversion<FROM extends Object, TO extends Object> {
+public abstract class Conversion<FROM extends Object, TO extends Object> {
+
+	/**
+	 * The value converter used for recursive conversion.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * This set is used for automatic endless loop protection.
+	 */
+	private Set<Object> visitedObjects;
 
 	/**
 	 * Performs the conversion.
@@ -34,7 +51,7 @@ public interface Conversion<FROM extends Object, TO extends Object> {
 	 * @throws ConversionFailedException
 	 *             in case of conversion errors
 	 */
-	TO convert(FROM aSource, Class<? extends TO> aTargetType,
+	public abstract TO convert(FROM aSource, Class<? extends TO> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException;
 
 	/**
@@ -55,6 +72,32 @@ public interface Conversion<FROM extends Object, TO extends Object> {
 		 */
 		int value() default Integer.MIN_VALUE;
 
+	}
+
+	public void setVisitedObjects(Set<Object> someVisitedObjects) {
+		visitedObjects = someVisitedObjects;
+	}
+
+	protected Object convertValueRecursive(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
+			ClassNotFoundException, UnexecutableException, InstantiationException {
+		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {
+			return ((AbstractModularValueConverter) valueConverter).convertValue(aTargetType, aParameterizedType,
+					aValue, anUnresolvableVariableHandlingPolicy, visitedObjects);
+		} else {
+			return valueConverter.convertValue(aTargetType, aParameterizedType, aValue,
+					anUnresolvableVariableHandlingPolicy);
+		}
+	}
+
+	protected String[] convertValueToStringArrayRecursive(Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {
+			return ((AbstractModularValueConverter) valueConverter).convertValueToStringArray(aValue,
+					anUnresolvableVariableHandlingPolicy, visitedObjects);
+		} else {
+			return valueConverter.convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+		}
 	}
 
 }

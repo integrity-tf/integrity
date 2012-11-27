@@ -18,7 +18,7 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider
  * 
  */
-public class DateValueToString implements Conversion<DateValue, String> {
+public class DateValueToString extends Conversion<DateValue, String> {
 
 	@Override
 	public String convert(DateValue aSource, Class<? extends String> aTargetType,

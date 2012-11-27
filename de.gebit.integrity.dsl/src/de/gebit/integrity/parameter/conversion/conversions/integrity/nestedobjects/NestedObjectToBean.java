@@ -12,15 +12,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 
-import com.google.inject.Inject;
-
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -30,13 +27,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(Integer.MIN_VALUE)
-public class NestedObjectToBean implements Conversion<NestedObject, Object> {
-
-	/**
-	 * The value converter used for recursive conversion and resolution of inner nested objects.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
+public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 
 	@Override
 	public Object convert(NestedObject aSource, Class<? extends Object> aTargetType,
@@ -101,7 +92,7 @@ public class NestedObjectToBean implements Conversion<NestedObject, Object> {
 					tempClassInFocus = tempClassInFocus.getSuperclass();
 				}
 
-				Object tempConvertedValue = valueConverter.convertValue(tempTargetType, tempParameterizedType,
+				Object tempConvertedValue = convertValueRecursive(tempTargetType, tempParameterizedType,
 						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
 				tempWriteMethod.invoke(tempTargetInstance, new Object[] { tempConvertedValue });
 			}

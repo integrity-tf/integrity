@@ -16,7 +16,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class DateToString implements Conversion<Date, String> {
+public class DateToString extends Conversion<Date, String> {
 
 	@Override
 	public String convert(Date aSource, Class<? extends String> aTargetType,

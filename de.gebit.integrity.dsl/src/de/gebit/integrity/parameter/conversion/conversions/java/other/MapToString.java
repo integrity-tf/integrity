@@ -6,12 +6,9 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.inject.Inject;
-
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
  * A default Integrity conversion.
@@ -21,13 +18,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  */
 @SuppressWarnings("rawtypes")
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class MapToString implements Conversion<Map, String> {
-
-	/**
-	 * The value converter used for recursive conversion and resolution of inner nested objects.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
+public class MapToString extends Conversion<Map, String> {
 
 	@Override
 	public String convert(Map aSource, Class<? extends String> aTargetType,
@@ -35,7 +26,7 @@ public class MapToString implements Conversion<Map, String> {
 		StringBuilder tempBuilder = new StringBuilder();
 
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
-			String[] tempConvertedValues = valueConverter.convertValueToStringArray(tempEntry.getValue(),
+			String[] tempConvertedValues = convertValueToStringArrayRecursive(tempEntry.getValue(),
 					anUnresolvableVariableHandlingPolicy);
 
 			if (tempBuilder.length() > 0) {

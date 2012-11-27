@@ -13,9 +13,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-@SuppressWarnings("rawtypes")
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class EnumValueToString implements Conversion<EnumValue, String> {
+public class EnumValueToString extends Conversion<EnumValue, String> {
 
 	@Override
 	public String convert(EnumValue aSource, Class<? extends String> aTargetType,

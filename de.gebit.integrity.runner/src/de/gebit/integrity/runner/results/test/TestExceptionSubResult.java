@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import de.gebit.integrity.fixtures.FixtureWrapper;
+
 /**
  * This result is returned if an exception occurred during test execution.
  * 
@@ -29,8 +31,8 @@ public class TestExceptionSubResult extends TestSubResult {
 	 *            Time taken to execute the test method
 	 */
 	public TestExceptionSubResult(Throwable anException, Map<String, TestComparisonResult> aComparisonResult,
-			Long anExecutionTime) {
-		super(aComparisonResult, anExecutionTime);
+			FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime) {
+		super(aComparisonResult, aFixtureInstance, aFixtureMethod, anExecutionTime);
 		exception = anException;
 	}
 

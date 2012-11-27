@@ -15,7 +15,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class ShortToBigDecimal implements Conversion<Short, BigDecimal> {
+public class ShortToBigDecimal extends Conversion<Short, BigDecimal> {
 
 	@Override
 	public BigDecimal convert(Short aSource, Class<? extends BigDecimal> aTargetType,

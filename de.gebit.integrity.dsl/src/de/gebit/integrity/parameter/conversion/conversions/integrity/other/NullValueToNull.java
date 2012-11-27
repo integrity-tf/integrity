@@ -14,7 +14,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class NullValueToNull implements Conversion<NullValue, Object> {
+public class NullValueToNull extends Conversion<NullValue, Object> {
 
 	@Override
 	public Object convert(NullValue aSource, Class<? extends Object> aTargetType,

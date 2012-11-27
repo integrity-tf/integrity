@@ -249,8 +249,8 @@ public class TestModel {
 				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
 			}
 
-			System.out.println("Loaded test resource '" + tempResourceName + "': " + tempResource.getErrors().size()
-					+ " errors.");
+			System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
+					+ tempResource.getErrors().size() + " errors.");
 			tempErrors.addAll(tempResource.getErrors());
 
 			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();

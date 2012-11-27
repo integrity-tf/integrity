@@ -13,7 +13,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class BooleanToString implements Conversion<Boolean, String> {
+public class BooleanToString extends Conversion<Boolean, String> {
 
 	@Override
 	public String convert(Boolean aSource, Class<? extends String> aTargetType,

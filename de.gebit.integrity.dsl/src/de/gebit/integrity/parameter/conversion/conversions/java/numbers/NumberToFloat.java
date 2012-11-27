@@ -13,7 +13,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-public class NumberToFloat implements Conversion<Number, Float> {
+public class NumberToFloat extends Conversion<Number, Float> {
 
 	@Override
 	public Float convert(Number aSource, Class<? extends Float> aTargetType,
