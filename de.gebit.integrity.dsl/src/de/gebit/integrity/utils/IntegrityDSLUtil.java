@@ -1,12 +1,10 @@
 package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmArrayType;
@@ -23,36 +21,30 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
-import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
-import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
-import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.StaticValue;
+import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.Value;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
-import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
-import de.gebit.integrity.operations.OperationWrapper;
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 
 /**
  * A utility class providing various helper functions.
@@ -74,16 +66,16 @@ public final class IntegrityDSLUtil {
 	 *            the method to inspect
 	 * @return a list of parameters and annotation references
 	 */
-	public static List<ParamAnnotationTuple> getAllParamNamesFromFixtureMethod(MethodReference aMethod) {
-		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromFixtureMethod(MethodReference aMethod) {
+		ArrayList<ParamAnnotationTypeTriplet> tempList = new ArrayList<ParamAnnotationTypeTriplet>();
 		JvmOperation tempOperation = aMethod.getMethod();
 		if (tempOperation != null) {
 			for (JvmFormalParameter tempParam : tempOperation.getParameters()) {
 				for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
 					String tempParamName = getParamNameFromAnnotation(tempAnnotation);
 					if (tempParamName != null) {
-						tempList.add(new ParamAnnotationTuple(tempParamName, tempParam.getQualifiedName(),
-								tempAnnotation));
+						tempList.add(new ParamAnnotationTypeTriplet(tempParamName, tempParam.getQualifiedName(),
+								tempAnnotation, tempParam.getParameterType()));
 					}
 				}
 			}
@@ -122,8 +114,8 @@ public final class IntegrityDSLUtil {
 	 *            the forker to inspect
 	 * @return a list of parameters and annotation references
 	 */
-	public static List<ParamAnnotationTuple> getAllParamNamesFromForker(JvmGenericType aForkerType) {
-		ArrayList<ParamAnnotationTuple> tempList = new ArrayList<ParamAnnotationTuple>();
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromForker(JvmGenericType aForkerType) {
+		ArrayList<ParamAnnotationTypeTriplet> tempList = new ArrayList<ParamAnnotationTypeTriplet>();
 		try {
 			JvmConstructor tempConstructor = aForkerType.getDeclaredConstructors().iterator().next();
 			if (tempConstructor != null) {
@@ -131,8 +123,8 @@ public final class IntegrityDSLUtil {
 					for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
 						String tempParamName = getParamNameFromAnnotation(tempAnnotation);
 						if (tempParamName != null) {
-							tempList.add(new ParamAnnotationTuple(tempParamName, tempParam.getQualifiedName(),
-									tempAnnotation));
+							tempList.add(new ParamAnnotationTypeTriplet(tempParamName, tempParam.getQualifiedName(),
+									tempAnnotation, tempParam.getParameterType()));
 						}
 					}
 				}
@@ -254,214 +246,6 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given {@link Test} to determine the valid
-	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
-	 * no type conversions will be done.
-	 * 
-	 * @param aTest
-	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
-		return createParameterMap(aTest.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
-	 * parameters. Parameters that contain references to variables will be resolved if the variable map is provided, but
-	 * no type conversions will be done.
-	 * 
-	 * @param aCall
-	 *            the call
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(Call aCall, Map<VariableEntity, Object> aVariableMap,
-			ClassLoader aClassLoader, boolean anIncludeArbitraryParametersFlag,
-			boolean aLeaveUnresolvableVariableReferencesIntact) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
-		return createParameterMap(aCall.getParameters(), aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
-	 * valid parameters. Parameters that contain operations and/or references to variables will be resolved if the
-	 * variable map is provided, but no type conversions will be done.
-	 * 
-	 * @param aTableTest
-	 *            the table test
-	 * @param aTableTestRow
-	 *            the row of the test
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
-		for (Parameter tempParameter : aTableTest.getParameters()) {
-			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
-		}
-
-		int tempCount = 0;
-		for (ParameterTableHeader tempParameterHeader : aTableTest.getParameterHeaders()) {
-			tempParameterMap.put(tempParameterHeader.getName(), (aTableTestRow == null || tempCount >= aTableTestRow
-					.getValues().size()) ? null : aTableTestRow.getValues().get(tempCount).getValue());
-			tempCount++;
-		}
-
-		return createParameterMap(tempParameterMap, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	/**
-	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
-	 * valid parameters. Parameters that contain operations or references to variables will be resolved if the variable
-	 * map is provided, but no type conversions will be done.
-	 * 
-	 * @param someParameters
-	 *            the parameters
-	 * @param aVariableMap
-	 *            the variable map containing the current value of various variables, or null if no variable resolution
-	 *            shall be done
-	 * @param aClassLoader
-	 *            the classloader to use for instantiation of operations, or null if operations shall not be executed
-	 *            (will result in null values automatically)
-	 * @param anIncludeArbitraryParametersFlag
-	 *            whether arbitrary parameters should be determined and included as well
-	 * @param aLeaveUnresolvableVariableReferencesIntact
-	 *            whether non-resolvable variable references should be left in the list (otherwise they're replaced with
-	 *            null)
-	 * @return a map with a String to value mapping
-	 * @throws InstantiationException
-	 * @throws UnexecutableException
-	 * @throws ClassNotFoundException
-	 */
-	public static Map<String, Object> createParameterMap(List<Parameter> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
-		for (Parameter tempParameter : someParameters) {
-			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
-		}
-
-		return createParameterMap(tempParameters, aVariableMap, aClassLoader, anIncludeArbitraryParametersFlag,
-				aLeaveUnresolvableVariableReferencesIntact);
-	}
-
-	private static Map<String, Object> createParameterMap(
-			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
-			Map<VariableEntity, Object> aVariableMap, ClassLoader aClassLoader,
-			boolean anIncludeArbitraryParametersFlag, boolean aLeaveUnresolvableVariableReferencesIntact)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
-		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
-			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
-				Object tempValue = null;
-				ValueOrEnumValueOrOperationCollection tempValueOrEnumValueCollection = (ValueOrEnumValueOrOperationCollection) tempEntry
-						.getValue();
-				if (tempValueOrEnumValueCollection.getMoreValues().size() > 0) {
-					// if multiple values have been provided
-					Object[] tempValueArray = new Object[tempValueOrEnumValueCollection.getMoreValues().size() + 1];
-					tempValueArray[0] = tempValueOrEnumValueCollection.getValue();
-					for (int i = 0; i <= tempValueOrEnumValueCollection.getMoreValues().size(); i++) {
-						ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? tempValueOrEnumValueCollection
-								.getValue() : tempValueOrEnumValueCollection.getMoreValues().get(i - 1));
-
-						tempValue = tempSingleValue;
-						if (tempSingleValue instanceof Variable) {
-							Object tempResolvedValue = (aVariableMap != null ? aVariableMap
-									.get(((Variable) tempSingleValue).getName()) : null);
-							if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-								tempValue = tempResolvedValue;
-							}
-						} else if (tempSingleValue instanceof Operation) {
-							if (aClassLoader != null) {
-								OperationWrapper tempWrapper = new OperationWrapper((Operation) tempSingleValue,
-										aClassLoader);
-								tempValue = tempWrapper.executeOperation(aVariableMap, false);
-							} else {
-								tempValue = null;
-							}
-						}
-						tempValueArray[i] = tempValue;
-					}
-					tempValue = tempValueArray;
-				} else {
-					// if only one value has been provided
-					tempValue = tempValueOrEnumValueCollection.getValue();
-					if (tempValue instanceof Variable) {
-						Object tempResolvedValue = (aVariableMap != null ? aVariableMap.get(((Variable) tempValue)
-								.getName()) : null);
-						if (tempResolvedValue != null || !aLeaveUnresolvableVariableReferencesIntact) {
-							tempValue = tempResolvedValue;
-						}
-					} else if (tempValue instanceof Operation) {
-						if (aClassLoader != null) {
-							OperationWrapper tempWrapper = new OperationWrapper((Operation) tempValue, aClassLoader);
-							tempValue = tempWrapper.executeOperation(aVariableMap, false);
-						} else {
-							tempValue = null;
-						}
-					}
-				}
-				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
-					tempResult.put(IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey()), tempValue);
-				}
-			}
-		}
-
-		return tempResult;
-	}
-
-	/**
 	 * Returns the fully qualified name of the fixture method referenced by the given method reference.
 	 * 
 	 * @param aReference
@@ -509,47 +293,6 @@ public final class IntegrityDSLUtil {
 				return aVariable.getName();
 			}
 		}
-	}
-
-	/**
-	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual
-	 * values, with variable references being resolved if a variable map is provided.
-	 * 
-	 * @param aTest
-	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing all currently active variables and their values, or null if no resolution
-	 *            shall be done
-	 * @param anIncludeArbitraryResultFlag
-	 *            whether arbitrary results shall be included
-	 * @return a map of Strings to values
-	 */
-	public static Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryResultFlag) {
-		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryResultFlag);
-	}
-
-	private static Map<String, Object> createExpectedResultMap(List<NamedResult> aTestResultList,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
-		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
-		for (NamedResult tempEntry : aTestResultList) {
-			if (tempEntry.getName() != null && tempEntry.getValue() != null) {
-				Object tempValue = tempEntry.getValue();
-				if (tempValue instanceof Variable) {
-					if (aVariableMap != null) {
-						tempValue = aVariableMap.get(((Variable) tempValue).getName());
-					} else {
-						tempValue = null;
-					}
-				}
-				if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
-					tempResultMap.put(getExpectedResultNameStringFromTestResultName(tempEntry.getName()),
-							tempEntry.getValue());
-				}
-			}
-		}
-
-		return tempResultMap;
 	}
 
 	/**
@@ -623,57 +366,115 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
-	 * to the actual variable store of a test runner instance, the resolving can only be successful in cases of
-	 * variables with initial value (giving that value) or constants.
+	 * Determines whether a given {@link EObject} is part of a result of a test/call/tabletest.
 	 * 
-	 * @param aVariable
-	 *            the variable to resolve
-	 * @param aVariant
-	 *            the active variant
-	 * @return the result, or null if none was found
+	 * @param anObject
+	 *            the object to look at
+	 * @return true if it is a result, false if not. Null if not determinable.
 	 */
-	public static Object resolveVariableStatically(Variable aVariable, VariantDefinition aVariant) {
-		Value tempValue = null;
-
-		if (aVariable.getName() != null) {
-			if (aVariable.getName().eContainer() instanceof VariableDefinition) {
-				VariableDefinition tempDefinition = (VariableDefinition) aVariable.getName().eContainer();
-				tempValue = tempDefinition.getInitialValue();
-			} else if (aVariable.getName().eContainer() instanceof ConstantDefinition) {
-				ConstantDefinition tempDefinition = (ConstantDefinition) aVariable.getName().eContainer();
-				tempValue = resolveConstantValue(tempDefinition, aVariant);
+	public static Boolean isResult(EObject anObject) {
+		if (anObject instanceof ValueOrEnumValueOrOperationCollection) {
+			ValueOrEnumValueOrOperationCollection tempCollection = (ValueOrEnumValueOrOperationCollection) anObject;
+			if (tempCollection.eContainer() instanceof Test) {
+				return ((Test) tempCollection.eContainer()).getResult() == tempCollection;
+			} else if (tempCollection.eContainer() instanceof Suite) {
+				return false;
+			} else if (tempCollection.eContainer() instanceof NamedResult) {
+				NamedResult tempResult = (NamedResult) tempCollection.eContainer();
+				if (tempResult.eContainer() instanceof Test || tempResult.eContainer() instanceof TableTest) {
+					return true;
+				}
+			} else if (tempCollection.eContainer() instanceof ParameterTableValue) {
+				ParameterTableValue tempParameter = (ParameterTableValue) tempCollection.eContainer();
+				TableTestRow tempRow = (TableTestRow) tempParameter.eContainer();
+				int tempColumnNumber = tempRow.getValues().indexOf(tempParameter);
+				if (tempColumnNumber >= 0) {
+					TableTest tempTest = (TableTest) tempRow.eContainer();
+					return (tempColumnNumber >= tempTest.getParameterHeaders().size());
+				}
+			} else if (tempCollection.eContainer() instanceof Parameter) {
+				Parameter tempParameter = (Parameter) tempCollection.eContainer();
+				if (tempParameter.eContainer() instanceof Test || tempParameter.eContainer() instanceof Call
+						|| tempParameter.eContainer() instanceof TableTest) {
+					return false;
+				}
 			}
+		} else if (anObject instanceof Call) {
+			return ((Call) anObject).getResult() == anObject;
+		} else if (anObject instanceof NamedCallResult) {
+			return true;
+		} else if (anObject instanceof SuiteParameter) {
+			return false;
 		}
 
-		if (tempValue != null && tempValue instanceof Variable) {
-			return resolveVariableStatically(aVariable, aVariant);
+		if (anObject != null && !(anObject instanceof SuiteDefinition)) {
+			return isResult(anObject.eContainer());
 		} else {
-			return tempValue;
+			return null;
 		}
 	}
 
 	/**
-	 * Resolves a constant definition to its defined value, which may depend on the active variant.
+	 * Finds the corresponding table header element to a given table cell element.
 	 * 
-	 * @param aConstant
-	 *            the constant to resolve
-	 * @param aVariant
-	 *            the active variant
-	 * @return the result, or null if none is defined for the constant
+	 * @param aTableCell
+	 *            the table cell element
+	 * @return the table header element if one exists, the table itself in case of the default result column or null if
+	 *         nothing was found
 	 */
-	public static StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant) {
-		StaticValue tempValue = aConstant.getValue();
-		if (aVariant != null) {
-			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
-				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {
-					if (tempDefinition == aVariant) {
-						tempValue = tempVariantValue.getValue();
-						break outer;
+	public static EObject getTableHeaderForTableCell(ParameterTableValue aTableCell) {
+		int tempColumn = ((TableTestRow) aTableCell.eContainer()).getValues().indexOf(aTableCell);
+
+		if (tempColumn >= 0) {
+			TableTestRow tempRow = (TableTestRow) aTableCell.eContainer();
+			TableTest tempTest = (TableTest) tempRow.eContainer();
+			if (tempColumn < tempTest.getParameterHeaders().size()) {
+				return tempTest.getParameterHeaders().get(tempColumn);
+			} else {
+				// we might be in the range of the result columns
+				int tempResultColumn = tempColumn - tempTest.getParameterHeaders().size();
+				boolean tempDefaultResultExists = tempTest.getDefaultResultColumn() != null;
+				if (tempResultColumn >= 0
+						&& tempResultColumn < tempTest.getResultHeaders().size() + (tempDefaultResultExists ? 1 : 0)) {
+
+					if (tempResultColumn < tempTest.getResultHeaders().size()) {
+						return tempTest.getResultHeaders().get(tempResultColumn);
+					} else if (tempResultColumn == tempTest.getResultHeaders().size()) {
+						return tempTest;
 					}
 				}
 			}
 		}
-		return tempValue;
+
+		return null;
 	}
+
+	/**
+	 * Finds the matching method reference for a given {@link Test}, {@link Call} or {@link TableTest}.
+	 * 
+	 * @param anAction
+	 *            the action to find a method for
+	 * @return the method or null if none was found
+	 */
+	public static MethodReference getMethodReferenceForAction(EObject anAction) {
+		if (anAction instanceof Test) {
+			TestDefinition tempDefinition = ((Test) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
+			}
+		} else if (anAction instanceof Call) {
+			CallDefinition tempDefinition = ((Call) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
+			}
+		} else if (anAction instanceof TableTest) {
+			TestDefinition tempDefinition = ((TableTest) anAction).getDefinition();
+			if (tempDefinition != null) {
+				return tempDefinition.getFixtureMethod();
+			}
+		}
+
+		return null;
+	}
+
 }

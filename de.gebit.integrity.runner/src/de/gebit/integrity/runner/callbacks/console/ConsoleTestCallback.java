@@ -1,8 +1,9 @@
 package de.gebit.integrity.runner.callbacks.console;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Suite;
@@ -14,9 +15,13 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
-import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -28,7 +33,6 @@ import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
-import de.gebit.integrity.utils.TestFormatter;
 
 /**
  * A simple callback which prints out test progression information onto the console.
@@ -37,61 +41,59 @@ import de.gebit.integrity.utils.TestFormatter;
  * @author Rene Schneider
  * 
  */
-public class ConsoleTestCallback extends TestRunnerCallback {
-
-	/**
-	 * The classloader to use for resolving purposes.
-	 */
-	private ClassLoader classLoader;
+public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 
 	/**
 	 * Test execution start time.
 	 */
-	private long startTime;
-
-	/**
-	 * The test formatter to use for creating test/call description strings.
-	 */
-	private TestFormatter formatter;
+	protected long startTime;
 
 	/**
 	 * The number of tests executed.
 	 */
-	private int testCount;
+	protected int testCount;
 
 	/**
 	 * Counting table test rows.
 	 */
-	private int tableTestRowCount;
+	protected int tableTestRowCount;
 
 	/**
 	 * The number of calls executed.
 	 */
-	private int callCount;
+	protected int callCount;
 
 	/**
 	 * The number of suites executed.
 	 */
-	private int suiteCount;
+	protected int suiteCount;
 
 	/**
-	 * The variable storage map.
+	 * The classloader to use.
 	 */
-	private Map<VariableEntity, Object> variableStorage;
+	@Inject
+	protected ClassLoader classLoader;
 
 	/**
-	 * Creates a new instance.
-	 * 
-	 * @param aClassLoader
-	 *            the classloader to use
+	 * The parameter resolver to use.
 	 */
-	public ConsoleTestCallback(ClassLoader aClassLoader) {
-		classLoader = aClassLoader;
-		formatter = new TestFormatter(classLoader);
-	}
+	@Inject
+	protected ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	protected VariableManager variableManager;
+
+	/**
+	 * The test formatter to use.
+	 */
+	@Inject
+	protected TestFormatter testFormatter;
 
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		String tempLine = "Test execution has begun";
 		if (aVariant != null) {
 			tempLine += " (variant '" + aVariant.getName() + "'";
@@ -104,15 +106,17 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 
 		println(tempLine);
 		startTime = System.currentTimeMillis();
-		variableStorage = aVariableMap;
 	}
 
 	@Override
 	public void onTestStart(Test aTest) {
 		testCount++;
 		try {
-			println("Now running test " + testCount + ": "
-					+ formatter.testToHumanReadableString(aTest, variableStorage) + "...");
+			println("Now running test "
+					+ testCount
+					+ ": "
+					+ testFormatter.testToHumanReadableString(aTest,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -148,15 +152,16 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 						// Either there is an expected value, or if there isn't, "true" is the default
 						ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue()
 								.getExpectedValue();
+
 						print("'"
-								+ ParameterUtil.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), variableStorage, classLoader, false)
+								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
+										: tempExpectedValue), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
-								+ ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
-										classLoader, false) + "'!");
+								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -197,15 +202,19 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ ParameterUtil.convertValueToString(anInitialValue, variableStorage, classLoader, false)));
+						+ valueConverter.convertValueToString(anInitialValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)));
 	}
 
 	@Override
 	public void onCallStart(Call aCall) {
 		callCount++;
 		try {
-			println("Now executing call " + callCount + ": "
-					+ formatter.callToHumanReadableString(aCall, variableStorage) + "...");
+			println("Now executing call "
+					+ callCount
+					+ ": "
+					+ testFormatter.callToHumanReadableString(aCall,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -256,8 +265,11 @@ public class ConsoleTestCallback extends TestRunnerCallback {
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		tableTestRowCount++;
 		try {
-			print("\tRow " + tableTestRowCount + " ("
-					+ formatter.tableTestRowToHumanReadableString(aTableTest, aRow, variableStorage) + ")...");
+			print("\tRow "
+					+ tableTestRowCount
+					+ " ("
+					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {

@@ -1,0 +1,27 @@
+import integrity.fixtures.basic.beans.*
+
+packagedef integrity.basic.beans with
+	
+	suitedef simpleBeanTest with
+		
+		-- This should succeed
+		test checkSimpleBean bean: {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+		
+		-- This should fail	
+		test checkSimpleBean bean: {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.98
+				}
+			}
+		
+	suiteend
+
+packageend

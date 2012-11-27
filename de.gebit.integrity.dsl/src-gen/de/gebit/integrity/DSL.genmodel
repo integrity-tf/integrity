@@ -197,6 +197,13 @@
     <genClasses ecoreClass="DSL.ecore#//EnumValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//EnumValue/enumValue"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//NestedObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NestedObject/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//KeyValuePair">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//KeyValuePair/identifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//KeyValuePair/value"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//JavaClassReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//JavaClassReference/type"/>
     </genClasses>

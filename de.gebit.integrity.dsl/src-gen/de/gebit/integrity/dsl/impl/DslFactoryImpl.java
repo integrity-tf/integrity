@@ -131,6 +131,8 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
+      case DslPackage.NESTED_OBJECT: return createNestedObject();
+      case DslPackage.KEY_VALUE_PAIR: return createKeyValuePair();
       case DslPackage.JAVA_CLASS_REFERENCE: return createJavaClassReference();
       case DslPackage.METHOD_REFERENCE: return createMethodReference();
       case DslPackage.EXECUTION_MULTIPLIER: return createExecutionMultiplier();
@@ -831,6 +833,28 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     EnumValueImpl enumValue = new EnumValueImpl();
     return enumValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NestedObject createNestedObject()
+  {
+    NestedObjectImpl nestedObject = new NestedObjectImpl();
+    return nestedObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public KeyValuePair createKeyValuePair()
+  {
+    KeyValuePairImpl keyValuePair = new KeyValuePairImpl();
+    return keyValuePair;
   }
 
   /**

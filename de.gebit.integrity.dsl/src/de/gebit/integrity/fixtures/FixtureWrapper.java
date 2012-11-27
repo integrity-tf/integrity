@@ -11,9 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
-import de.gebit.integrity.utils.ParameterUtil;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -42,6 +45,12 @@ public class FixtureWrapper<C extends Object> {
 	private FixtureInstanceFactory<C> factory;
 
 	/**
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
 	 * Fixture instance factories are cached in this map.
 	 */
 	private static Map<Class<?>, FixtureInstanceFactory<?>> factoryCache = new HashMap<Class<?>, FixtureInstanceFactory<?>>();
@@ -51,11 +60,16 @@ public class FixtureWrapper<C extends Object> {
 	 * 
 	 * @param aFixtureClass
 	 *            the fixture class to be wrapped
+	 * @param anInjector
+	 *            The injector required to inject dependencies into fixture instances and factories. (I don't really
+	 *            like to provide this explicitly here, but cannot use injection, since that happens after the
+	 *            constructor. Maybe I'll refactor this some time later...)
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings("unchecked")
-	public FixtureWrapper(Class<C> aFixtureClass) throws InstantiationException, IllegalAccessException {
+	public FixtureWrapper(Class<C> aFixtureClass, Injector anInjector) throws InstantiationException,
+			IllegalAccessException {
 		fixtureClass = aFixtureClass;
 
 		FixtureInstanceFactory<C> tempFactory = null;
@@ -65,6 +79,7 @@ public class FixtureWrapper<C extends Object> {
 			FixtureFactory tempFactoryAnnotation = fixtureClass.getAnnotation(FixtureFactory.class);
 			if (tempFactoryAnnotation != null) {
 				tempFactory = (FixtureInstanceFactory<C>) tempFactoryAnnotation.value().newInstance();
+				anInjector.injectMembers(tempFactory);
 			}
 			factoryCache.put(aFixtureClass, tempFactory);
 		}
@@ -75,6 +90,9 @@ public class FixtureWrapper<C extends Object> {
 		} else {
 			fixtureInstance = fixtureClass.newInstance();
 		}
+
+		anInjector.injectMembers(fixtureInstance);
+		anInjector.injectMembers(this);
 	}
 
 	/**
@@ -114,6 +132,24 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
+	 * Checks whether the wrapped fixture is a {@link CustomComparatorAndConversionFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isCustomComparatorAndConversionFixture() {
+		return (CustomComparatorAndConversionFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
+	 * Checks whether the wrapped fixture is a {@link CustomStringConversionFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isCustomStringConversionFixture() {
+		return (CustomStringConversionFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
 	 * Performs a custom comparation using the wrapped fixture, which must be a {@link CustomComparatorFixture}. Only
 	 * usable if {@link #isCustomComparatorFixture()} returns true.
 	 * 
@@ -123,11 +159,57 @@ public class FixtureWrapper<C extends Object> {
 	 *            the result actually returned by the fixture
 	 * @param aMethodName
 	 *            the name of the fixture method
+	 * @param aPropertyName
+	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if comparation was successful, false otherwise
 	 */
-	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName) {
-		return ((CustomComparatorFixture) fixtureInstance)
-				.compareResults(anExpectedResult, aFixtureResult, aMethodName);
+	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName,
+			String aPropertyName) {
+		return ((CustomComparatorFixture) fixtureInstance).compareResults(anExpectedResult, aFixtureResult,
+				aMethodName, aPropertyName);
+	}
+
+	/**
+	 * Returns the type to which the expected result (the data given in the test script) that corresponds to the given
+	 * fixture result is to be converted. This can only be used for {@link CustomComparatorAndConversionFixture}
+	 * instances, which can be checked via {@link #isCustomComparatorAndConversionFixture()}.
+	 * 
+	 * @param aFixtureResult
+	 *            the result value returned by the fixture call
+	 * @param aMethodName
+	 *            the fixture method that was called
+	 * @param aPropertyName
+	 *            the property name that is to be compared (null if it's the default result)
+	 * @return the desired target type. "null" chooses the default conversion, but note that this does NOT mean "the
+	 *         conversion that would have been used if the fixture was just a {@link CustomComparatorFixture}", but "the
+	 *         conversion that has the highest priority for the data type found in the script".
+	 */
+	public Class<?> determineCustomConversionTargetType(Object aFixtureResult, String aMethodName, String aPropertyName) {
+		return ((CustomComparatorAndConversionFixture) fixtureInstance).determineConversionTargetType(aFixtureResult,
+				aMethodName, aPropertyName);
+	}
+
+	/**
+	 * Converts the given value to a string. This method either calls the
+	 * {@link ValueConverter#convertValueToString(Object, UnresolvableVariableHandling)} method or delegates the
+	 * conversion to the contained fixture instance, if it does implement the {@link CustomStringConversionFixture}
+	 * interface.
+	 * 
+	 * @param aValue
+	 *            the value to convert
+	 * @param aFixtureMethod
+	 *            the fixture method that was called to return the given value
+	 * @param anUnresolvedVariableHandlingPolicy
+	 *            how to handle unresolvable variables
+	 * @return the converted string
+	 */
+	public String performValueToStringConversion(Object aValue, String aFixtureMethod,
+			UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
+		if (isCustomStringConversionFixture()) {
+			return ((CustomStringConversionFixture) fixtureInstance).convertValueToString(aValue, aFixtureMethod);
+		} else {
+			return valueConverter.convertValueToString(aValue, anUnresolvedVariableHandlingPolicy);
+		}
 	}
 
 	/**
@@ -154,15 +236,14 @@ public class FixtureWrapper<C extends Object> {
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
 		Object[] tempParams = new Object[tempMethodParamCount];
 		for (int i = 0; i < tempMethodParamCount; i++) {
-			if (Map.class.equals(tempMethod.getParameterTypes()[i])) {
+			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
+					tempMethod.getParameterAnnotations()[i]);
+
+			if (tempAnnotation != null && tempAnnotation.name() != null) {
+				tempParams[i] = someParameters.remove(tempAnnotation.name());
+			} else if (Map.class.equals(tempMethod.getParameterTypes()[i])) {
 				// this gets any arbitrary parameters left over
 				tempParams[i] = someParameters;
-			} else {
-				FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
-						tempMethod.getParameterAnnotations()[i]);
-				if (tempAnnotation != null && tempAnnotation.name() != null) {
-					tempParams[i] = someParameters.remove(tempAnnotation.name());
-				}
 			}
 		}
 
@@ -193,73 +274,16 @@ public class FixtureWrapper<C extends Object> {
 	public void convertParameterValuesToFixtureDefinedTypes(Method aFixtureMethod, Map<String, Object> aParameterMap,
 			boolean anIncludeArbitraryParametersFlag) throws UnresolvableVariableException, ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
+		Map<String, Object> tempClonedParameterMap = new HashMap<String, Object>(aParameterMap);
+
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {
-			if (Map.class.equals(aFixtureMethod.getParameterTypes()[i])) {
-				// ignore the arbitrary parameter parameter
-			} else {
-				FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
-						aFixtureMethod.getParameterAnnotations()[i]);
-				if (tempAnnotation != null && tempAnnotation.name() != null) {
-					String tempName = tempAnnotation.name();
-					Object tempValue = aParameterMap.get(tempName);
-					Class<?> tempExpectedType = aFixtureMethod.getParameterTypes()[i];
-					if (tempValue != null) {
-						Object tempConvertedValue;
-						if (tempValue instanceof Object[]) {
-							if (!tempExpectedType.isArray()) {
-								throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-										+ aFixtureMethod.getName() + "' in fixture '" + fixtureClass.getName()
-										+ "' is not an array type, thus you cannot put multiple values into it!");
-							}
-							Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
-									((Object[]) tempValue).length);
-							for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-								Object tempSingleValue = ((Object[]) tempValue)[k];
-								if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-									Array.set(tempConvertedValueArray, k, ParameterUtil
-											.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-													(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
-								} else {
-									Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
-											tempExpectedType.getComponentType(), tempSingleValue));
-								}
-							}
-							tempConvertedValue = tempConvertedValueArray;
-						} else {
-							// if the expected type is an array, we don't want to convert to that array, but to the
-							// component type, of course
-							Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
-									.getComponentType() : tempExpectedType;
-							if (tempValue instanceof ValueOrEnumValueOrOperation) {
-								tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(
-										tempConversionTargetType, (ValueOrEnumValueOrOperation) tempValue, null, null);
-							} else {
-								tempConvertedValue = ParameterUtil.convertValueToParamType(tempConversionTargetType,
-										tempValue);
-							}
-							if (tempExpectedType.isArray()) {
-								// ...and if the expected type is an array, now we create one
-								Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-								Array.set(tempNewArray, 0, tempConvertedValue);
-								tempConvertedValue = tempNewArray;
-							}
-						}
-						aParameterMap.put(tempName, tempConvertedValue);
-						tempFixedParamsMap.put(tempName, tempConvertedValue);
-					}
-				}
-			}
-		}
-
-		if (anIncludeArbitraryParametersFlag && (getFixtureInstance() instanceof ArbitraryParameterFixture)) {
-			Map<String, Class<?>> tempArbitraryParameters = ((ArbitraryParameterFixture) getFixtureInstance())
-					.defineArbitraryParameters(aFixtureMethod.getName(), tempFixedParamsMap);
-			for (Entry<String, Class<?>> tempArbitraryParameter : tempArbitraryParameters.entrySet()) {
-				String tempName = tempArbitraryParameter.getKey();
-				Object tempValue = aParameterMap.remove(tempName);
-				Class<?> tempExpectedType = tempArbitraryParameter.getValue();
+			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
+					aFixtureMethod.getParameterAnnotations()[i]);
+			if (tempAnnotation != null && tempAnnotation.name() != null) {
+				String tempName = tempAnnotation.name();
+				Object tempValue = aParameterMap.get(tempName);
+				Class<?> tempExpectedType = aFixtureMethod.getParameterTypes()[i];
 				if (tempValue != null) {
 					Object tempConvertedValue;
 					if (tempValue instanceof Object[]) {
@@ -272,25 +296,20 @@ public class FixtureWrapper<C extends Object> {
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							if (tempSingleValue instanceof ValueOrEnumValueOrOperation) {
-								Array.set(tempConvertedValueArray, k, ParameterUtil
-										.convertEncapsulatedValueToParamType(tempExpectedType.getComponentType(),
-												(ValueOrEnumValueOrOperation) tempSingleValue, null, null));
-							} else {
-								Array.set(tempConvertedValueArray, k, ParameterUtil.convertValueToParamType(
-										tempExpectedType.getComponentType(), tempSingleValue));
-							}
+							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+									tempExpectedType.getComponentType(), tempSingleValue,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
-						if (tempValue instanceof ValueOrEnumValueOrOperation) {
-							tempConvertedValue = ParameterUtil.convertEncapsulatedValueToParamType(tempExpectedType,
-									(ValueOrEnumValueOrOperation) tempValue, null, null);
-						} else {
-							tempConvertedValue = ParameterUtil.convertValueToParamType(tempExpectedType, tempValue);
-						}
+						// if the expected type is an array, we don't want to convert to that array, but to the
+						// component type, of course
+						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
+								.getComponentType() : tempExpectedType;
+						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 						if (tempExpectedType.isArray()) {
-							// The target type may still be an array, even though just one parameter value was given
+							// ...and if the expected type is an array, now we create one
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
 							Array.set(tempNewArray, 0, tempConvertedValue);
 							tempConvertedValue = tempNewArray;
@@ -298,6 +317,28 @@ public class FixtureWrapper<C extends Object> {
 					}
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
+				tempClonedParameterMap.remove(tempName);
+			}
+		}
+
+		if (anIncludeArbitraryParametersFlag && (getFixtureInstance() instanceof ArbitraryParameterFixture)) {
+			for (Entry<String, Object> tempParameter : tempClonedParameterMap.entrySet()) {
+				String tempName = tempParameter.getKey();
+
+				Object tempValue = aParameterMap.remove(tempName);
+				if (tempValue != null) {
+					Object tempConvertedValue;
+					tempConvertedValue = valueConverter.convertValue(null, tempValue,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					aParameterMap.put(tempName, tempConvertedValue);
+				}
+			}
+		} else {
+			if (tempClonedParameterMap.size() > 0) {
+				throw new IllegalStateException("There were " + tempClonedParameterMap.size()
+						+ " parameters left after processing the fixed params, but the fixture '"
+						+ fixtureClass.getName() + "' is not an arbitrary parameter fixture. Left-over params: "
+						+ tempClonedParameterMap.keySet());
 			}
 		}
 	}

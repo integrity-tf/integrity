@@ -26,6 +26,8 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
@@ -38,9 +40,13 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
-import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -53,8 +59,6 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ParameterUtil;
-import de.gebit.integrity.utils.TestFormatter;
 
 /**
  * Test runner callback which writes to an XML result file. This runner may optionally add an XHTML transform to the
@@ -64,236 +68,245 @@ import de.gebit.integrity.utils.TestFormatter;
  * @author Rene Schneider
  * 
  */
-public class XmlWriterTestCallback extends TestRunnerCallback {
-
-	/**
-	 * The classloader to use.
-	 */
-	private ClassLoader classLoader;
-
-	/**
-	 * The test formatter to use when creating test/call descriptions.
-	 */
-	private TestFormatter formatter;
-
-	/**
-	 * The variable storage used to store variables during execution.
-	 */
-	private Map<VariableEntity, Object> variableStorage;
+public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/**
 	 * The XML document that will be created.
 	 */
-	private Document document;
+	protected Document document;
 
 	/**
 	 * The file in which to serialize the document.
 	 */
-	private File outputFile;
+	protected File outputFile;
 
 	/**
 	 * The title of the result document.
 	 */
-	private String title;
+	protected String title;
 
 	/**
 	 * The timestamp of execution start.
 	 */
-	private long executionStartTime;
+	protected long executionStartTime;
 
 	/**
 	 * Counter used to generate unique IDs for a lot of XML elements.
 	 */
-	private long idCounter;
+	protected long idCounter;
 
 	/**
 	 * Whether the XSLT transformation script that transforms the XML result data into a viewable XHTML document shall
 	 * be embedded into the result.
 	 */
-	private boolean embedXhtmlTransform;
+	protected boolean embedXhtmlTransform;
+
+	/**
+	 * The classloader to use.
+	 */
+	@Inject
+	protected ClassLoader classLoader;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	protected VariableManager variableManager;
+
+	/**
+	 * The test formatter to use.
+	 */
+	@Inject
+	protected TestFormatter testFormatter;
 
 	/**
 	 * The stack of elements.
 	 */
-	private Stack<Element> currentElement = new Stack<Element>();
+	protected Stack<Element> currentElement = new Stack<Element>();
 
 	/** The Constant ROOT_ELEMENT. */
-	private static final String ROOT_ELEMENT = "integrity";
+	protected static final String ROOT_ELEMENT = "integrity";
 
 	/** The Constant TEST_RUN_NAME_ATTRIBUTE. */
-	private static final String TEST_RUN_NAME_ATTRIBUTE = "name";
+	protected static final String TEST_RUN_NAME_ATTRIBUTE = "name";
 
 	/** The Constant TEST_RUN_TIMESTAMP. */
-	private static final String TEST_RUN_TIMESTAMP = "timestamp";
+	protected static final String TEST_RUN_TIMESTAMP = "timestamp";
 
 	/** The Constant TEST_RUN_TIMESTAMP_ISO8601. */
-	private static final String TEST_RUN_TIMESTAMP_ISO8601 = "isotimestamp";
+	protected static final String TEST_RUN_TIMESTAMP_ISO8601 = "isotimestamp";
 
 	/** The Constant TEST_RUN_DURATION. */
-	private static final String TEST_RUN_DURATION = "duration";
+	protected static final String TEST_RUN_DURATION = "duration";
 
 	/** The Constant VARIANT_ELEMENT. */
-	private static final String VARIANT_ELEMENT = "variant";
+	protected static final String VARIANT_ELEMENT = "variant";
 
 	/** The Constant VARIANT_NAME_ATTRIBUTE. */
-	private static final String VARIANT_NAME_ATTRIBUTE = "name";
+	protected static final String VARIANT_NAME_ATTRIBUTE = "name";
 
 	/** The Constant VARIANT_DESCRIPTION_ATTRIBUTE. */
-	private static final String VARIANT_DESCRIPTION_ATTRIBUTE = "description";
+	protected static final String VARIANT_DESCRIPTION_ATTRIBUTE = "description";
 
 	/** The Constant SUITE_ELEMENT. */
-	private static final String SUITE_ELEMENT = "suite";
+	protected static final String SUITE_ELEMENT = "suite";
 
 	/** The Constant SUITE_NAME_ATTRIBUTE. */
-	private static final String SUITE_NAME_ATTRIBUTE = "name";
+	protected static final String SUITE_NAME_ATTRIBUTE = "name";
 
 	/** The Constant VARIABLE_DEFINITION_COLLECTION_ELEMENT. */
-	private static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
+	protected static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
 
 	/** The Constant STATEMENT_COLLECTION_ELEMENT. */
-	private static final String STATEMENT_COLLECTION_ELEMENT = "statements";
+	protected static final String STATEMENT_COLLECTION_ELEMENT = "statements";
 
 	/** The Constant SETUP_COLLECTION_ELEMENT. */
-	private static final String SETUP_COLLECTION_ELEMENT = "setup";
+	protected static final String SETUP_COLLECTION_ELEMENT = "setup";
 
 	/** The Constant TEARDOWN_COLLECTION_ELEMENT. */
-	private static final String TEARDOWN_COLLECTION_ELEMENT = "teardown";
+	protected static final String TEARDOWN_COLLECTION_ELEMENT = "teardown";
 
 	/** The Constant TEST_ELEMENT. */
-	private static final String TEST_ELEMENT = "test";
+	protected static final String TEST_ELEMENT = "test";
 
 	/** The Constant TABLETEST_ELEMENT. */
-	private static final String TABLETEST_ELEMENT = "tabletest";
+	protected static final String TABLETEST_ELEMENT = "tabletest";
 
 	/** The Constant CALL_ELEMENT. */
-	private static final String CALL_ELEMENT = "call";
+	protected static final String CALL_ELEMENT = "call";
 
 	/** The Constant RESULT_ELEMENT. */
-	private static final String RESULT_ELEMENT = "result";
+	protected static final String RESULT_ELEMENT = "result";
 
 	/** The Constant RESULT_COLLECTION_ELEMENT. */
-	private static final String RESULT_COLLECTION_ELEMENT = "results";
+	protected static final String RESULT_COLLECTION_ELEMENT = "results";
 
 	/** The Constant VARIABLE_UPDATE_ELEMENT. */
-	private static final String VARIABLE_UPDATE_ELEMENT = "variableUpdate";
+	protected static final String VARIABLE_UPDATE_ELEMENT = "variableUpdate";
 
 	/** The Constant VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE. */
-	private static final String VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE = "parameter";
+	protected static final String VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE = "parameter";
 
 	/** The Constant COMPARISON_ELEMENT. */
-	private static final String COMPARISON_ELEMENT = "comparison";
+	protected static final String COMPARISON_ELEMENT = "comparison";
 
 	/** The Constant COMPARISON_COLLECTION_ELEMENT. */
-	private static final String COMPARISON_COLLECTION_ELEMENT = "comparisons";
+	protected static final String COMPARISON_COLLECTION_ELEMENT = "comparisons";
 
 	/** The Constant COMPARISON_NAME_ATTRIBUTE. */
-	private static final String COMPARISON_NAME_ATTRIBUTE = "name";
+	protected static final String COMPARISON_NAME_ATTRIBUTE = "name";
 
 	/** The Constant VARIABLE_NAME_ATTRIBUTE. */
-	private static final String VARIABLE_NAME_ATTRIBUTE = "name";
+	protected static final String VARIABLE_NAME_ATTRIBUTE = "name";
 
 	/** The Constant VARIABLE_ELEMENT. */
-	private static final String VARIABLE_ELEMENT = "variable";
+	protected static final String VARIABLE_ELEMENT = "variable";
 
 	/** The Constant COMMENT_ELEMENT. */
-	private static final String COMMENT_ELEMENT = "comment";
+	protected static final String COMMENT_ELEMENT = "comment";
 
 	/** The Constant COMMENT_TEXT_ATTRIBUTE. */
-	private static final String COMMENT_TEXT_ATTRIBUTE = "text";
+	protected static final String COMMENT_TEXT_ATTRIBUTE = "text";
 
 	/** The Constant DIVIDER_ELEMENT. */
-	private static final String DIVIDER_ELEMENT = "divider";
+	protected static final String DIVIDER_ELEMENT = "divider";
 
 	/** The Constant DIVIDER_TEXT_ATTRIBUTE. */
-	private static final String DIVIDER_TEXT_ATTRIBUTE = "text";
+	protected static final String DIVIDER_TEXT_ATTRIBUTE = "text";
 
 	/** The Constant PARAMETER_COLLECTION_ELEMENT. */
-	private static final String PARAMETER_COLLECTION_ELEMENT = "parameters";
+	protected static final String PARAMETER_COLLECTION_ELEMENT = "parameters";
 
 	/** The Constant PARAMETER_ELEMENT. */
-	private static final String PARAMETER_ELEMENT = "parameter";
+	protected static final String PARAMETER_ELEMENT = "parameter";
 
 	/** The Constant PARAMETER_NAME_ATTRIBUTE. */
-	private static final String PARAMETER_NAME_ATTRIBUTE = "name";
+	protected static final String PARAMETER_NAME_ATTRIBUTE = "name";
 
 	/** The Constant PARAMETER_VALUE_ATTRIBUTE. */
-	private static final String PARAMETER_VALUE_ATTRIBUTE = "value";
+	protected static final String PARAMETER_VALUE_ATTRIBUTE = "value";
 
 	/** The Constant VARIABLE_VALUE_ATTRIBUTE. */
-	private static final String VARIABLE_VALUE_ATTRIBUTE = "value";
+	protected static final String VARIABLE_VALUE_ATTRIBUTE = "value";
 
 	/** The Constant RESULT_EXPECTED_VALUE_ATTRIBUTE. */
-	private static final String RESULT_EXPECTED_VALUE_ATTRIBUTE = "expectedValue";
+	protected static final String RESULT_EXPECTED_VALUE_ATTRIBUTE = "expectedValue";
 
 	/** The Constant RESULT_REAL_VALUE_ATTRIBUTE. */
-	private static final String RESULT_REAL_VALUE_ATTRIBUTE = "value";
+	protected static final String RESULT_REAL_VALUE_ATTRIBUTE = "value";
 
 	/** The Constant RESULT_TYPE_ATTRIBUTE. */
-	private static final String RESULT_TYPE_ATTRIBUTE = "type";
+	protected static final String RESULT_TYPE_ATTRIBUTE = "type";
 
 	/** The Constant RESULT_TYPE_SUCCESS. */
-	private static final String RESULT_TYPE_SUCCESS = "success";
+	protected static final String RESULT_TYPE_SUCCESS = "success";
 
 	/** The Constant RESULT_TYPE_FAILURE. */
-	private static final String RESULT_TYPE_FAILURE = "failure";
+	protected static final String RESULT_TYPE_FAILURE = "failure";
 
 	/** The Constant RESULT_TYPE_EXCEPTION. */
-	private static final String RESULT_TYPE_EXCEPTION = "exception";
+	protected static final String RESULT_TYPE_EXCEPTION = "exception";
 
 	/** The Constant RESULT_EXCEPTION_MESSAGE_ATTRIBUTE. */
-	private static final String RESULT_EXCEPTION_MESSAGE_ATTRIBUTE = "exceptionMessage";
+	protected static final String RESULT_EXCEPTION_MESSAGE_ATTRIBUTE = "exceptionMessage";
 
 	/** The Constant RESULT_EXCEPTION_TRACE_ATTRIBUTE. */
-	private static final String RESULT_EXCEPTION_TRACE_ATTRIBUTE = "exceptionTrace";
+	protected static final String RESULT_EXCEPTION_TRACE_ATTRIBUTE = "exceptionTrace";
 
 	/** The Constant EXECUTION_DURATION_ATTRIBUTE. */
-	private static final String EXECUTION_DURATION_ATTRIBUTE = "duration";
+	protected static final String EXECUTION_DURATION_ATTRIBUTE = "duration";
 
 	/** The Constant SUCCESS_COUNT_ATTRIBUTE. */
-	private static final String SUCCESS_COUNT_ATTRIBUTE = "successCount";
+	protected static final String SUCCESS_COUNT_ATTRIBUTE = "successCount";
 
 	/** The Constant FAILURE_COUNT_ATTRIBUTE. */
-	private static final String FAILURE_COUNT_ATTRIBUTE = "failureCount";
+	protected static final String FAILURE_COUNT_ATTRIBUTE = "failureCount";
 
 	/** The Constant EXCEPTION_COUNT_ATTRIBUTE. */
-	private static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
+	protected static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
 
 	/** The Constant FIXTURE_DESCRIPTION_ATTRIBUTE. */
-	private static final String FIXTURE_DESCRIPTION_ATTRIBUTE = "description";
+	protected static final String FIXTURE_DESCRIPTION_ATTRIBUTE = "description";
 
 	/** The Constant TEST_NAME_ELEMENT. */
-	private static final String TEST_NAME_ELEMENT = "name";
+	protected static final String TEST_NAME_ELEMENT = "name";
 
 	/** The Constant CALL_NAME_ELEMENT. */
-	private static final String CALL_NAME_ELEMENT = "name";
+	protected static final String CALL_NAME_ELEMENT = "name";
 
 	/** The Constant FIXTURE_METHOD_ATTRIBUTE. */
-	private static final String FIXTURE_METHOD_ATTRIBUTE = "fixture";
+	protected static final String FIXTURE_METHOD_ATTRIBUTE = "fixture";
 
 	/** The Constant FORK_NAME_ATTRIBUTE. */
-	private static final String FORK_NAME_ATTRIBUTE = "forkName";
+	protected static final String FORK_NAME_ATTRIBUTE = "forkName";
 
 	/** The Constant FORK_DESCRIPTION_ATTRIBUTE. */
-	private static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
+	protected static final String FORK_DESCRIPTION_ATTRIBUTE = "forkDescription";
 
 	/** The Constant ID_ATTRIBUTE. */
-	private static final String ID_ATTRIBUTE = "id";
+	protected static final String ID_ATTRIBUTE = "id";
 
 	/**
 	 * The time format used to format execution times.
 	 */
-	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
+	protected static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
 	/**
 	 * The generally used date format.
 	 */
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
+	protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
 
 	/**
 	 * The ISO-standardized date format (this is mostly added to the XML to allow for easy transformation into a
 	 * JUnit-compatible result XML.
 	 */
-	private static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	protected static final SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	static {
 		EXECUTION_TIME_FORMAT.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
@@ -314,24 +327,13 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 	public XmlWriterTestCallback(ClassLoader aClassLoader, File anOutputFile, String aTitle,
 			boolean anEmbedXhtmlTransformFlag) {
 		classLoader = aClassLoader;
-		formatter = new TestFormatter(classLoader);
 		outputFile = anOutputFile;
 		title = aTitle;
 		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
 	}
 
-	/**
-	 * On execution start.
-	 * 
-	 * @param aModel
-	 *            the a model
-	 * @param aVariant
-	 *            the a variant
-	 * @param aVariableMap
-	 *            the a variable map
-	 */
 	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {
@@ -373,16 +375,9 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			}
 		}
 
-		variableStorage = aVariableMap;
 		executionStartTime = System.nanoTime();
 	}
 
-	/**
-	 * On suite start.
-	 * 
-	 * @param aSuite
-	 *            the a suite
-	 */
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
@@ -426,12 +421,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aSuiteElement);
 	}
 
-	/**
-	 * On setup start.
-	 * 
-	 * @param aSetupSuite
-	 *            the a setup suite
-	 */
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
@@ -459,14 +448,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aSetupElement);
 	}
 
-	/**
-	 * On setup finish.
-	 * 
-	 * @param aSetupSuite
-	 *            the a setup suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -498,20 +479,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On test start.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 */
 	@Override
 	public void onTestStart(Test aTest) {
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		addId(tempTestElement);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.testToHumanReadableString(aTest, variableStorage));
+			tempTestElement
+					.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.testToHumanReadableString(aTest,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -545,20 +521,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aTestElement);
 	}
 
-	/**
-	 * On table test start.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 */
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		addId(tempTestElement);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.tableTestToHumanReadableString(aTest, variableStorage));
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.tableTestToHumanReadableString(
+					aTest, UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -595,14 +565,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(tempResultCollectionElement);
 	}
 
-	/**
-	 * On test finish.
-	 * 
-	 * @param aTest
-	 *            the a test
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
@@ -619,7 +581,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = IntegrityDSLUtil.createParameterMap(aTest, variableStorage, classLoader, true, false);
+			tempParameterMap = parameterResolver.createParameterMap(aTest, true,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -649,36 +612,18 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
-	/**
-	 * On table test row start.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aRow
-	 *            the a row
-	 */
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		// nothing to do here
 	}
 
-	/**
-	 * On table test row finish.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aRow
-	 *            the a row
-	 * @param aSubResult
-	 *            the a sub result
-	 */
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
-				tempParameterMap = IntegrityDSLUtil.createParameterMap(aTableTest, aRow, variableStorage, classLoader,
-						true, false);
+				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
 			} catch (ClassNotFoundException exc) {
@@ -692,14 +637,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
-	/**
-	 * On table test finish.
-	 * 
-	 * @param aTableTest
-	 *            the a table test
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
 		if (!isDryRun()) {
@@ -755,15 +692,16 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(tempEntry.getValue(), variableStorage, classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
+					tempEntry.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
 
 		try {
-			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.fixtureMethodToHumanReadableString(aMethod, aParameterMap, true));
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter
+					.fixtureMethodToHumanReadableString(aMethod, aParameterMap,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -794,13 +732,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 
 				// Either there is an expected value, or if there isn't, "true" is the default
 				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
-				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, ParameterUtil
-						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), variableStorage,
-								classLoader, false));
+				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
+						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 				if (tempEntry.getValue().getResult() != null) {
-					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-							ParameterUtil.convertValueToString(tempEntry.getValue().getResult(), variableStorage,
-									classLoader, false));
+					tempComparisonResultElement.setAttribute(
+							RESULT_REAL_VALUE_ATTRIBUTE,
+							convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -817,20 +756,15 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		aResultCollectionElement.addContent(tempTestResultElement);
 	}
 
-	/**
-	 * On call start.
-	 * 
-	 * @param aCall
-	 *            the a call
-	 */
 	@Override
 	public void onCallStart(Call aCall) {
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		addId(tempCallElement);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
-			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					formatter.callToHumanReadableString(aCall, variableStorage));
+			tempCallElement
+					.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.callToHumanReadableString(aCall,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -849,8 +783,8 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(tempParameter.getValue(), variableStorage, classLoader, false));
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
+					tempParameter.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
@@ -876,14 +810,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aCallElement);
 	}
 
-	/**
-	 * On call finish.
-	 * 
-	 * @param aCall
-	 *            the a call
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
 		Element tempCallResultElement = null;
@@ -905,8 +831,10 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
 								tempUpdatedVariable.getParameterName());
 					}
-					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, ParameterUtil
-							.convertValueToString(tempUpdatedVariable.getValue(), variableStorage, classLoader, false));
+					tempVariableUpdateElement.setAttribute(
+							VARIABLE_VALUE_ATTRIBUTE,
+							convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -943,12 +871,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop();
 	}
 
-	/**
-	 * On tear down start.
-	 * 
-	 * @param aTearDownSuite
-	 *            the a tear down suite
-	 */
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
@@ -976,14 +898,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.push(aTearDownElement);
 	}
 
-	/**
-	 * On tear down finish.
-	 * 
-	 * @param aTearDownSuite
-	 *            the a tear down suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1015,14 +929,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On suite finish.
-	 * 
-	 * @param aSuite
-	 *            the a suite
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1054,14 +960,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		currentElement.pop().addContent(aSuiteResultElement);
 	}
 
-	/**
-	 * On execution finish.
-	 * 
-	 * @param aModel
-	 *            the a model
-	 * @param aResult
-	 *            the a result
-	 */
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
@@ -1087,24 +985,14 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		}
 	}
 
-	/**
-	 * On variable definition.
-	 * 
-	 * @param aDefinition
-	 *            the a definition
-	 * @param aSuite
-	 *            the a suite
-	 * @param anInitialValue
-	 *            the an initial value
-	 */
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
-					ParameterUtil.convertValueToString(anInitialValue, variableStorage, classLoader, false));
+			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
+					anInitialValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		}
 
 		if (!isDryRun()) {
@@ -1126,12 +1014,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
-	/**
-	 * On visible comment.
-	 * 
-	 * @param aCommentText
-	 *            the a comment text
-	 */
 	@Override
 	public void onVisibleComment(String aCommentText) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
@@ -1236,14 +1118,6 @@ public class XmlWriterTestCallback extends TestRunnerCallback {
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
-	/**
-	 * On message from fork.
-	 * 
-	 * @param aMethod
-	 *            the a method
-	 * @param someObjects
-	 *            the some objects
-	 */
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];

@@ -2,7 +2,8 @@ package de.gebit.integrity.runner.results.test;
 
 import java.util.Map;
 
-import de.gebit.integrity.runner.results.Result;
+import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
 /**
  * Tests have one or more sub-results, with standard tests always having one, but tabletests potentially having more of
@@ -12,7 +13,7 @@ import de.gebit.integrity.runner.results.Result;
  * @author Rene Schneider
  * 
  */
-public abstract class TestSubResult extends Result {
+public abstract class TestSubResult extends FixtureExecutionResult {
 
 	/**
 	 * The comparison results, mapped by the respective parameter name.
@@ -24,11 +25,17 @@ public abstract class TestSubResult extends Result {
 	 * 
 	 * @param someComparisonResults
 	 *            the comparison results
+	 * @param aFixtureInstance
+	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
+	 *            example during the dry run).
+	 * @param aFixtureMethod
+	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time taken to execute the fixture method
 	 */
-	public TestSubResult(Map<String, TestComparisonResult> someComparisonResults, Long anExecutionTime) {
-		super(anExecutionTime);
+	public TestSubResult(Map<String, TestComparisonResult> someComparisonResults, FixtureWrapper<?> aFixtureInstance,
+			String aFixtureMethod, Long anExecutionTime) {
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
 		this.comparisonResults = someComparisonResults;
 	}
 

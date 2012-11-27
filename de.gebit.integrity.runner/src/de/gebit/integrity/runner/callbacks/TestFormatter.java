@@ -1,19 +1,24 @@
-package de.gebit.integrity.utils;
+package de.gebit.integrity.runner.callbacks;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -33,21 +38,33 @@ public class TestFormatter {
 	/**
 	 * The classloader to use.
 	 */
-	private ClassLoader classloader = getClass().getClassLoader();
+	@Inject
+	private ClassLoader classLoader;
+
+	/**
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	private ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	private VariableManager variableManager;
 
 	/**
 	 * Creates a new instance.
 	 * 
-	 * @param aClassloader
-	 *            the classloader to use
 	 */
-	public TestFormatter(ClassLoader aClassloader) {
+	public TestFormatter() {
 		super();
-		classloader = aClassloader;
-	}
-
-	public void setClassloader(ClassLoader aClassloader) {
-		classloader = aClassloader;
 	}
 
 	/**
@@ -55,17 +72,17 @@ public class TestFormatter {
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variables
 	 * @return the human-readable test description
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String testToHumanReadableString(Test aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+	public String testToHumanReadableString(Test aTest,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aVariableMap, classloader, true, false), false);
+				parameterResolver.createParameterMap(aTest, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -75,18 +92,17 @@ public class TestFormatter {
 	 *            the test
 	 * @param aRow
 	 *            the row (may be null if the string shall be for the whole test)
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable description
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
-			Map<VariableEntity, Object> aVariableMap) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest, aRow, aVariableMap, classloader, true, false), false);
+				parameterResolver.createParameterMap(aTest, aRow, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -94,18 +110,18 @@ public class TestFormatter {
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String tableTestToHumanReadableString(TableTest aTest, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aTest.getParameters(), aVariableMap, classloader, true, false),
-				true);
+	public String tableTestToHumanReadableString(TableTest aTest,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				parameterResolver.createParameterMap(aTest.getParameters(), true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -113,17 +129,17 @@ public class TestFormatter {
 	 * 
 	 * @param aCall
 	 *            the call
-	 * @param aVariableMap
-	 *            the variable map
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	public String callToHumanReadableString(Call aCall, Map<VariableEntity, Object> aVariableMap)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+	public String callToHumanReadableString(Call aCall,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
-				IntegrityDSLUtil.createParameterMap(aCall, aVariableMap, classloader, true, false), false);
+				parameterResolver.createParameterMap(aCall, true, anUnresolvableVariableHandlingPolicy),
+				anUnresolvableVariableHandlingPolicy);
 	}
 
 	/**
@@ -133,17 +149,18 @@ public class TestFormatter {
 	 *            the fixture method
 	 * @param someParameters
 	 *            a map of parameters used for the test
-	 * @param anExpectUnspecifiedParametersFlag
-	 *            whether unspecified parameters shall result in "???" replacements
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
-			Map<String, Object> someParameters, boolean anExpectUnspecifiedParametersFlag)
+			Map<String, Object> someParameters, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
-		Class<?> tempFixtureClass = classloader.loadClass(tempFixtureClassName);
+		Class<?> tempFixtureClass = classLoader.loadClass(tempFixtureClassName);
 		Method tempMethod = FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
 		if (tempMethod == null) {
 			return null;
@@ -165,11 +182,8 @@ public class TestFormatter {
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
-			String tempValue = ParameterUtil.convertValueToString(someParameters.get(tempMatcher.group(2)), null, null,
-					anExpectUnspecifiedParametersFlag);
-			if (tempValue == null) {
-				tempValue = "???";
-			}
+			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)),
+					anUnresolvableVariableHandlingPolicy);
 
 			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
 			tempMatcher = PARAMETER_PATTERN.matcher(tempText);

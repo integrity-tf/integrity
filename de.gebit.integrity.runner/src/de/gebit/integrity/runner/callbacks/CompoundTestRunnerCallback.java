@@ -3,7 +3,8 @@ package de.gebit.integrity.runner.callbacks;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import com.google.inject.Injector;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ForkDefinition;
@@ -71,10 +72,26 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 		callbacks.remove(aCallback);
 	}
 
-	@Override
-	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant, Map<VariableEntity, Object> aVariableMap) {
+	/**
+	 * Injects Guice dependencies into all contained callbacks.
+	 * 
+	 * @param anInjector
+	 *            the guice injector
+	 */
+	public void injectDependencies(Injector anInjector) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onExecutionStart(aModel, aVariant, aVariableMap);
+			if (tempCallback instanceof CompoundTestRunnerCallback) {
+				((CompoundTestRunnerCallback) tempCallback).injectDependencies(anInjector);
+			} else {
+				anInjector.injectMembers(tempCallback);
+			}
+		}
+	}
+
+	@Override
+	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onExecutionStart(aModel, aVariant);
 		}
 	}
 

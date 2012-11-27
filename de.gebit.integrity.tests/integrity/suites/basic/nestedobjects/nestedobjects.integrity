@@ -1,0 +1,58 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.nestedobjects with
+
+	suitedef nestedobjects with
+	
+		variable stringVar initially "A String in a Variable"
+	
+		variable obj1 initially {
+			key1: "The first value"
+			key2: 31337, 31338
+			key3: 123.456
+			key4: true
+			key5: null
+			key6: {
+				subkey1: stringVar
+				subkey2: {
+					subsubkey1: 10000
+				}
+			}
+		}
+		
+		variable obj2
+		
+		call echoMap map: {
+				key1: "The first value"
+				key2: 31337, 31338
+				key3: 123.456
+				key4: true
+				key5: null
+				key6: {
+					subkey1: stringVar
+					subkey2: {
+						subsubkey1: 10000
+					}
+				}
+			} -> obj2
+			
+		test echoMapTest map: obj1 = obj2
+		
+		test echoMapTest map: obj2 = {
+				key1: "The first value"
+				key2: 31337, 31339
+				key3: 123.456
+				key4: true
+				key5: null
+				key6: {
+					subkey1: stringVar
+					subkey2: {
+						subsubkey1: 10000
+					}
+				}
+			}
+		
+	suiteend
+
+packageend

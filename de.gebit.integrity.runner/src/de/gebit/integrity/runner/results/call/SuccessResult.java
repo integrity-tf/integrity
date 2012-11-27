@@ -2,6 +2,8 @@ package de.gebit.integrity.runner.results.call;
 
 import java.util.List;
 
+import de.gebit.integrity.fixtures.FixtureWrapper;
+
 /**
  * Result for successful calls.
  * 
@@ -16,11 +18,17 @@ public class SuccessResult extends CallResult {
 	 * 
 	 * @param someUpdatedVariables
 	 *            variables updated by the call
+	 * @param aFixtureInstance
+	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
+	 *            example during the dry run).
+	 * @param aFixtureMethod
+	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time to execute the call
 	 */
-	public SuccessResult(List<UpdatedVariable> someUpdatedVariables, Long anExecutionTime) {
-		super(someUpdatedVariables, anExecutionTime);
+	public SuccessResult(List<UpdatedVariable> someUpdatedVariables, FixtureWrapper<?> aFixtureInstance,
+			String aFixtureMethod, Long anExecutionTime) {
+		super(someUpdatedVariables, aFixtureInstance, aFixtureMethod, anExecutionTime);
 	}
 
 }

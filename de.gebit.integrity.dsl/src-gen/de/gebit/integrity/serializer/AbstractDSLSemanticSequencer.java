@@ -24,10 +24,12 @@ import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Null;
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
@@ -251,6 +253,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case DslPackage.KEY_VALUE_PAIR:
+				if(context == grammarAccess.getKeyValuePairRule()) {
+					sequence_KeyValuePair(context, (KeyValuePair) semanticObject); 
+					return; 
+				}
+				else break;
 			case DslPackage.METHOD_REFERENCE:
 				if(context == grammarAccess.getMethodReferenceRule()) {
 					sequence_MethodReference(context, (MethodReference) semanticObject); 
@@ -272,6 +280,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 			case DslPackage.NAMED_RESULT:
 				if(context == grammarAccess.getNamedResultRule()) {
 					sequence_NamedResult(context, (NamedResult) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.NESTED_OBJECT:
+				if(context == grammarAccess.getNestedObjectRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_NestedObject(context, (NestedObject) semanticObject); 
 					return; 
 				}
 				else break;
@@ -820,6 +836,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     (identifier=ID value=ValueOrEnumValueOrOperationCollection)
+	 */
+	protected void sequence_KeyValuePair(EObject context, KeyValuePair semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0(), semanticObject.getIdentifier());
+		feeder.accept(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] method=[JvmOperation|ID])
 	 */
 	protected void sequence_MethodReference(EObject context, MethodReference semanticObject) {
@@ -881,6 +916,15 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		feeder.accept(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     attributes+=KeyValuePair+
+	 */
+	protected void sequence_NestedObject(EObject context, NestedObject semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

@@ -4,15 +4,16 @@
 package de.gebit.integrity.operations;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
 import org.eclipse.xtext.common.types.JvmType;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
-import de.gebit.integrity.utils.ParameterUtil;
-import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
  * The operation wrapper is used to wrap an operation class and instance for execution. The wrapper does perform class
@@ -34,13 +35,26 @@ public class OperationWrapper {
 	private Class<? extends de.gebit.integrity.operations.Operation<?, ?, ?>> operationClass;
 
 	/**
-	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the provided
+	 * The value converter to use.
+	 */
+	@Inject
+	private ValueConverter valueConverter;
+
+	/**
+	 * The variable manager to use.
+	 */
+	@Inject
+	private VariableManager variableManager;
+
+	/**
+	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the injected
 	 * classloader.
 	 * 
 	 * @param anOperation
 	 *            the operation to wrap
 	 * @param aClassLoader
-	 *            the classloader to use for loading the operation class
+	 *            the classloader to use (cannot be injected at the moment because it's required during object
+	 *            construction)
 	 * @throws ClassNotFoundException
 	 *             if the operations' class could not be found
 	 */
@@ -66,11 +80,8 @@ public class OperationWrapper {
 	/**
 	 * Executes the wrapped operation logic.
 	 * 
-	 * @param aVariableMap
-	 *            the current variable map
-	 * @param aLeaveUnexecutableOperationIntact
-	 *            true in case an operation that cannot be executed (because it depends on variable values which are not
-	 *            defined) shall result in the operation object being returned instead of an exception
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            defines the way to handle unresolvable variables
 	 * @return the result of the operation
 	 * @throws UnexecutableException
 	 *             if the operation cannot be executed because it depends on variables which are not defined
@@ -80,7 +91,7 @@ public class OperationWrapper {
 	 *             the class not found exception
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Object executeOperation(Map<VariableEntity, Object> aVariableMap, boolean aLeaveUnexecutableOperationIntact)
+	public Object executeOperation(UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
 			throws UnexecutableException, InstantiationException, ClassNotFoundException {
 		de.gebit.integrity.operations.Operation tempOperationInstance;
 
@@ -91,31 +102,19 @@ public class OperationWrapper {
 					+ operationClass + "'", exc);
 		}
 
-		try {
-			Object tempConvertedPrefixParameter = null;
-			if (operation.getPrefixOperand() != null) {
-				tempConvertedPrefixParameter = ParameterUtil.convertEncapsulatedValueCollectionToParamType(
-						determinePrefixParameterTargetType(), operation.getPrefixOperand(), aVariableMap,
-						operationClass.getClassLoader());
-			}
-			Object tempConvertedPostfixParameter = null;
-			if (operation.getPostfixOperand() != null) {
-				tempConvertedPostfixParameter = ParameterUtil.convertEncapsulatedValueCollectionToParamType(
-						determinePostfixParameterTargetType(), operation.getPostfixOperand(), aVariableMap,
-						operationClass.getClassLoader());
-			}
-
-			return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);
-		} catch (UnresolvableVariableException exc) {
-			if (aLeaveUnexecutableOperationIntact) {
-				// We shall continue execution, but with the operation not being resolvable due to undefined values, we
-				// can only return the operation as-is
-				return operation;
-			} else {
-				throw new UnexecutableException("Failed to resolve a variable during execution of operation '"
-						+ operation.getDefinition().getName() + "'", exc);
-			}
+		Object tempConvertedPrefixParameter = null;
+		if (operation.getPrefixOperand() != null) {
+			tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
+					operation.getPrefixOperand(), anUnresolvableVariableHandlingPolicy);
 		}
+		Object tempConvertedPostfixParameter = null;
+		if (operation.getPostfixOperand() != null) {
+			tempConvertedPostfixParameter = valueConverter.convertValue(
+					determinePostfixParameterTargetType(), operation.getPostfixOperand(),
+					anUnresolvableVariableHandlingPolicy);
+		}
+
+		return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);
 	}
 
 	/**

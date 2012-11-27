@@ -1,7 +1,6 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ForkDefinition;
@@ -37,11 +36,8 @@ public abstract class TestRunnerCallback {
 	 * 
 	 * @param aModel
 	 *            the test model that will be executed
-	 * @param aVariableMap
-	 *            the variable map used to store variable values during execution
 	 */
-	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant,
-			Map<VariableEntity, Object> aVariableMap);
+	public abstract void onExecutionStart(TestModel aModel, VariantDefinition aVariant);
 
 	/**
 	 * Called when a suite call is being followed.

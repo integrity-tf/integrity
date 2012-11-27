@@ -130,7 +130,7 @@ ValueOrEnumValueOrOperation:
 	Value | EnumValue | Operation;
 	
 Value:
-	StaticValue | Variable;
+	StaticValue | Variable | NestedObject;
 	
 StaticValue:
 	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
@@ -195,6 +195,12 @@ NullValue:
 EnumValue:
 	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
 	
+NestedObject:
+	'{' NL (attributes+=KeyValuePair NL)+ '}';
+	
+KeyValuePair:
+	identifier=ID NL ':' NL value=ValueOrEnumValueOrOperationCollection;
+	
 JavaClassReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName];
 	
@@ -218,6 +224,7 @@ NL:
 	
 NLFORCED:
 	NEWLINE WS? NL;
+
 
 terminal BOOLEAN_TRUE: 'true';
 terminal BOOLEAN_FALSE: 'false';

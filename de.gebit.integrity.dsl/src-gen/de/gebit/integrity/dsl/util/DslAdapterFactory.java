@@ -394,6 +394,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createEnumValueAdapter();
       }
       @Override
+      public Adapter caseNestedObject(NestedObject object)
+      {
+        return createNestedObjectAdapter();
+      }
+      @Override
+      public Adapter caseKeyValuePair(KeyValuePair object)
+      {
+        return createKeyValuePairAdapter();
+      }
+      @Override
       public Adapter caseJavaClassReference(JavaClassReference object)
       {
         return createJavaClassReferenceAdapter();
@@ -1376,6 +1386,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEnumValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.NestedObject <em>Nested Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.NestedObject
+   * @generated
+   */
+  public Adapter createNestedObjectAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.KeyValuePair <em>Key Value Pair</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.KeyValuePair
+   * @generated
+   */
+  public Adapter createKeyValuePairAdapter()
   {
     return null;
   }

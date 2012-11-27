@@ -60,6 +60,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_3());
 		aConfig.setNoSpace().after(tempGrammar.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
 		aConfig.setNoSpace().around(tempGrammar.getMethodReferenceAccess().getNumberSignKeyword_1());
+		aConfig.setNoSpace().before(tempGrammar.getKeyValuePairAccess().getColonKeyword_2());
 
 		// No spaces at the end of table lines
 		aConfig.setNoSpace().after(tempGrammar.getTableTestAccess().getVerticalLineKeyword_8_1());
@@ -77,6 +78,10 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				.getPackageDefinitionAccess().getPackageendKeyword_6());
 		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_0(), tempGrammar
 				.getSuiteDefinitionAccess().getSuiteendKeyword_10());
+
+		// Objects
+		aConfig.setIndentation(tempGrammar.getNestedObjectAccess().getLeftCurlyBracketKeyword_0(), tempGrammar
+				.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
 
 		// Constant Variants
 		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_1(), tempGrammar

@@ -619,6 +619,22 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.NESTED_OBJECT:
+      {
+        NestedObject nestedObject = (NestedObject)theEObject;
+        T result = caseNestedObject(nestedObject);
+        if (result == null) result = caseValue(nestedObject);
+        if (result == null) result = caseValueOrEnumValueOrOperation(nestedObject);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.KEY_VALUE_PAIR:
+      {
+        KeyValuePair keyValuePair = (KeyValuePair)theEObject;
+        T result = caseKeyValuePair(keyValuePair);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.JAVA_CLASS_REFERENCE:
       {
         JavaClassReference javaClassReference = (JavaClassReference)theEObject;
@@ -1659,6 +1675,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEnumValue(EnumValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Nested Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Nested Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNestedObject(NestedObject object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseKeyValuePair(KeyValuePair object)
   {
     return null;
   }

@@ -2,13 +2,14 @@ package de.gebit.integrity.runner;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -24,7 +25,6 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Injector;
 
-import de.gebit.integrity.DSLStandaloneSetup;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Model;
@@ -34,11 +34,13 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * The test model. There's not much more to say ;-)
@@ -149,10 +151,21 @@ public class TestModel {
 	/**
 	 * Iterates through the whole model and searches for variable definitions hosted in packages (global variables).
 	 * 
-	 * @return a set of variable definitions
+	 * @return a set of variable definitions (sorted by fully qualified name)
 	 */
-	public Set<VariableDefinition> getVariableDefinitionsInPackages() {
-		Set<VariableDefinition> tempResultSet = new HashSet<VariableDefinition>();
+	public TreeSet<VariableDefinition> getVariableDefinitionsInPackages() {
+		TreeSet<VariableDefinition> tempResultSet = new TreeSet<VariableDefinition>(
+				new Comparator<VariableDefinition>() {
+
+					@Override
+					public int compare(VariableDefinition aFirst, VariableDefinition aSecond) {
+						String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
+						String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(),
+								false);
+
+						return tempFirstName.compareTo(tempSecondName);
+					}
+				});
 
 		for (Model tempModel : models) {
 			TreeIterator<EObject> tempIter = tempModel.eAllContents();
@@ -172,10 +185,21 @@ public class TestModel {
 	/**
 	 * Iterates through the whole model and searches for constant definitions.
 	 * 
-	 * @return a set of constant definitions
+	 * @return a set of constant definitions (sorted by fully qualified name)
 	 */
-	public Set<ConstantDefinition> getConstantDefinitionsInPackages() {
-		Set<ConstantDefinition> tempResultSet = new HashSet<ConstantDefinition>();
+	public TreeSet<ConstantDefinition> getConstantDefinitionsInPackages() {
+		TreeSet<ConstantDefinition> tempResultSet = new TreeSet<ConstantDefinition>(
+				new Comparator<ConstantDefinition>() {
+
+					@Override
+					public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
+						String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
+						String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(),
+								false);
+
+						return tempFirstName.compareTo(tempSecondName);
+					}
+				});
 
 		for (Model tempModel : models) {
 			TreeIterator<EObject> tempIter = tempModel.eAllContents();
@@ -207,7 +231,7 @@ public class TestModel {
 	 */
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag)
 			throws ModelLoadException {
-		Injector tempInjector = new DSLStandaloneSetup(aResourceProvider.getClassLoader())
+		Injector tempInjector = new IntegrityDSLSetup(aResourceProvider.getClassLoader())
 				.createInjectorAndDoEMFRegistration();
 
 		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
@@ -225,8 +249,8 @@ public class TestModel {
 				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
 			}
 
-			System.out.println("Loaded test resource '" + tempResourceName + "': " + tempResource.getErrors().size()
-					+ " errors.");
+			System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
+					+ tempResource.getErrors().size() + " errors.");
 			tempErrors.addAll(tempResource.getErrors());
 
 			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
@@ -362,5 +386,31 @@ public class TestModel {
 			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
 					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
 		}
+	}
+
+	/**
+	 * Initializes a fresh test runner instance, based on this test model.
+	 * 
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param aRemotingPort
+	 *            the port on which the remoting server should listen, or null if remoting should be disabled
+	 * @param aRemotingBindHost
+	 *            the host name (or IP) to which the remoting server should bind
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @return the initialized test runner instance
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
+	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Integer aRemotingPort,
+			String aRemotingBindHost, String[] someCommandLineArguments) throws IOException {
+		TestRunner tempRunner = injector.getInstance(TestRunner.class);
+
+		((DefaultTestRunner) tempRunner).initialize(this, aCallback, aRemotingPort, aRemotingBindHost,
+				someCommandLineArguments);
+
+		return tempRunner;
 	}
 }

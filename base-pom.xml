@@ -12,7 +12,6 @@
   <version>0.6.3-SNAPSHOT</version>
   <name>Integrity Base Build</name>
   <packaging>pom</packaging>
-  
     
   <scm>
   	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
