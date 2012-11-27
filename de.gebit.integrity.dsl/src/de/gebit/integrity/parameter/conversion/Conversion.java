@@ -78,6 +78,24 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 		visitedObjects = someVisitedObjects;
 	}
 
+	/**
+	 * Recursively converts the given value to the defined target type. This method provides implicit protection against
+	 * endless recursion loops.
+	 * 
+	 * @param aTargetType
+	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized type in case of generics
+	 * @param aValue
+	 *            the value to convert
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            what to do with unresolvable variables
+	 * @return the converted value
+	 * @throws UnresolvableVariableException
+	 * @throws ClassNotFoundException
+	 * @throws UnexecutableException
+	 * @throws InstantiationException
+	 */
 	protected Object convertValueRecursive(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
 			ClassNotFoundException, UnexecutableException, InstantiationException {
@@ -90,6 +108,16 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 		}
 	}
 
+	/**
+	 * Recursively converts the given value to a string array. This method provides implicit protection against endless
+	 * recursion loops.
+	 * 
+	 * @param aValue
+	 *            the value to convert
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            how to deal with unresolvable variables
+	 * @return the converted string array
+	 */
 	protected String[] convertValueToStringArrayRecursive(Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {

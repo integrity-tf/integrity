@@ -15,7 +15,7 @@ import de.gebit.integrity.operations.OperationWrapper;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
- * 
+ * The basic wrapper factory.
  * 
  * @author Rene Schneider
  * 

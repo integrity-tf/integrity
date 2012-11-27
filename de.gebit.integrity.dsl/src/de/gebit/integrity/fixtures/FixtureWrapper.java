@@ -189,6 +189,20 @@ public class FixtureWrapper<C extends Object> {
 				aMethodName, aPropertyName);
 	}
 
+	/**
+	 * Converts the given value to a string. This method either calls the
+	 * {@link ValueConverter#convertValueToString(Object, UnresolvableVariableHandling)} method or delegates the
+	 * conversion to the contained fixture instance, if it does implement the {@link CustomStringConversionFixture}
+	 * interface.
+	 * 
+	 * @param aValue
+	 *            the value to convert
+	 * @param aFixtureMethod
+	 *            the fixture method that was called to return the given value
+	 * @param anUnresolvedVariableHandlingPolicy
+	 *            how to handle unresolvable variables
+	 * @return the converted string
+	 */
 	public String performValueToStringConversion(Object aValue, String aFixtureMethod,
 			UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
 		if (isCustomStringConversionFixture()) {

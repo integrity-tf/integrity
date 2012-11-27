@@ -99,6 +99,20 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				new HashSet<Object>());
 	}
 
+	/**
+	 * Extended version of #convertValue(Class, Class, Object, UnresolvableVariableHandling).
+	 * 
+	 * @param aTargetType
+	 * @param aParameterizedType
+	 * @param aValue
+	 * @param anUnresolvableVariableHandlingPolicy
+	 * @param someVisitedObjects
+	 * @return
+	 * @throws UnresolvableVariableException
+	 * @throws ClassNotFoundException
+	 * @throws UnexecutableException
+	 * @throws InstantiationException
+	 */
 	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedObjects)
 			throws UnresolvableVariableException, ClassNotFoundException, UnexecutableException, InstantiationException {
@@ -402,6 +416,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		return convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy, new HashSet<Object>());
 	}
 
+	/**
+	 * Extended version of {@link #convertValueToStringArray(Object, UnresolvableVariableHandling)}.
+	 * 
+	 * @param aValue
+	 * @param anUnresolvableVariableHandlingPolicy
+	 * @param someVisitedValues
+	 * @return
+	 */
 	public String[] convertValueToStringArray(Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
 		String[] tempResult;
@@ -483,7 +505,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 			Type tempGenericSupertype = ((Class<?>) aType).getGenericSuperclass();
 			if (tempGenericSupertype != null) {
-				ParameterizedType tempType = findGenericInterfaceOrSuperType(tempGenericSupertype, aGenericInterfaceClass);
+				ParameterizedType tempType = findGenericInterfaceOrSuperType(tempGenericSupertype,
+						aGenericInterfaceClass);
 				if (tempType != null) {
 					return tempType;
 				}
