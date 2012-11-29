@@ -218,6 +218,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
 		} catch (IllegalAccessException exc) {
 			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
+			// SUPPRESS CHECKSTYLE IllegalCatch
+		} catch (Throwable exc) {
+			throw new ConversionFailedException(aValue.getClass(), aParamType, "Unexpected error during conversion",
+					exc);
 		}
 
 		throw new ConversionUnsupportedException(aValue.getClass(), aParamType, "Could not find a matching conversion");
@@ -257,7 +261,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return null;
 			} else {
 				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
-				Object tempResult = tempWrapper.executeOperation(anUnresolvableVariableHandlingPolicy);
+				Object tempResult = tempWrapper.executeOperation();
 				return convertPlainValueToParamType(aTargetType, aParameterizedType, tempResult,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			}

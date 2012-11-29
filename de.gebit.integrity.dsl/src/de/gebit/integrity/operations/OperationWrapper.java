@@ -91,8 +91,7 @@ public class OperationWrapper {
 	 *             the class not found exception
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Object executeOperation(UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws UnexecutableException, InstantiationException, ClassNotFoundException {
+	public Object executeOperation() throws UnexecutableException, InstantiationException, ClassNotFoundException {
 		de.gebit.integrity.operations.Operation tempOperationInstance;
 
 		try {
@@ -105,13 +104,12 @@ public class OperationWrapper {
 		Object tempConvertedPrefixParameter = null;
 		if (operation.getPrefixOperand() != null) {
 			tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
-					operation.getPrefixOperand(), anUnresolvableVariableHandlingPolicy);
+					operation.getPrefixOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 		}
 		Object tempConvertedPostfixParameter = null;
 		if (operation.getPostfixOperand() != null) {
-			tempConvertedPostfixParameter = valueConverter.convertValue(
-					determinePostfixParameterTargetType(), operation.getPostfixOperand(),
-					anUnresolvableVariableHandlingPolicy);
+			tempConvertedPostfixParameter = valueConverter.convertValue(determinePostfixParameterTargetType(),
+					operation.getPostfixOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 		}
 
 		return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);

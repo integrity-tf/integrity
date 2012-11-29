@@ -182,7 +182,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 		} else if (aValue instanceof Operation) {
 			if (wrapperFactory != null) {
 				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
-				return tempWrapper.executeOperation(anUnresolvableVariableHandlingPolicy);
+				return tempWrapper.executeOperation();
 			} else {
 				return null;
 			}

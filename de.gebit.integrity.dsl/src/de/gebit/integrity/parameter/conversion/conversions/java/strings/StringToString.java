@@ -20,7 +20,12 @@ public class StringToString extends Conversion<String, String> {
 	@Override
 	public String convert(String aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return aSource;
+		try {
+			return aSource;
+		} catch (NumberFormatException exc) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
+					+ aSource + "'");
+		}
 	}
 
 }
