@@ -452,22 +452,7 @@
     </xsl:template>
     <xsl:template match="comment">
       <div class="comment">
-      	<xsl:for-each select="child::node()">
-      		<xsl:choose>
-      			<xsl:when test="name() = 'a'">
-      				<xsl:copy>
-						<xsl:attribute name="href">
-							<xsl:value-of select="@href"/>
-						</xsl:attribute>
-						<xsl:attribute name="target">_blank</xsl:attribute>
-						<xsl:value-of select="."/>
-					</xsl:copy>
-      			</xsl:when>
-      			<xsl:otherwise>
-      				<xsl:copy-of select="."/>
-      			</xsl:otherwise>
-      		</xsl:choose>
-      	</xsl:for-each>
+      	<xsl:copy-of select="child::node()" />
       </div>
     </xsl:template>
     <xsl:template match="divider">
