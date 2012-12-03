@@ -1,0 +1,14 @@
+packagedef integrity.basic with
+
+	suitedef commentsWithLinks with
+		
+		/- A multiline visible comment with a link: http://www.google.de
+		   and another link: uuid://abcdef -/
+		   
+		-- A singleline visible comment with no valid link: http:/www.invalid.com
+		
+		-- But this one has one: http://a.link.org
+	
+	suiteend
+
+packageend

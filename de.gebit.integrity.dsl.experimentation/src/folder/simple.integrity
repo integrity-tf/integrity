@@ -7,6 +7,9 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 	
+		-- Before http://www.google.de and after is this: uuid://fskdfjlskdafjskdf and another
+		
+		-- No links!
 		
 		
 	suiteend

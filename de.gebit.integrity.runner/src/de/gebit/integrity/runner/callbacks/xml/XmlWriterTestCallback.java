@@ -10,18 +10,24 @@ import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.ProcessingInstruction;
+import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -1014,11 +1020,44 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
+	protected static final Pattern URL_PATTERN = Pattern.compile("(.*?)(\\w+://\\S+)(.*)");
+
+	protected List<Content> parseComment(String aCommment) {
+		List<Content> tempList = new ArrayList<Content>();
+
+		String tempTextLeft = aCommment;
+		Matcher tempMatcher = URL_PATTERN.matcher(tempTextLeft);
+		while (tempMatcher.matches()) {
+			String tempPrefix = tempMatcher.group(1);
+			String tempUrl = tempMatcher.group(2);
+			String tempSuffix = tempMatcher.group(3);
+
+			if (tempPrefix != null && tempPrefix.length() > 0) {
+				tempList.add(new Text(tempPrefix));
+			}
+
+			Element tempAnchorElement = new Element("a");
+			tempAnchorElement.setAttribute("href", tempUrl);
+			tempAnchorElement.setText(tempUrl);
+			tempList.add(tempAnchorElement);
+
+			tempTextLeft = tempSuffix;
+			tempMatcher = URL_PATTERN.matcher(tempTextLeft);
+		}
+
+		if (tempTextLeft != null && tempTextLeft.length() > 0) {
+			tempList.add(new Text(tempTextLeft));
+		}
+
+		return tempList;
+	}
+
 	@Override
 	public void onVisibleComment(String aCommentText) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
 		addId(tempCommentElement);
-		tempCommentElement.setAttribute(COMMENT_TEXT_ATTRIBUTE, aCommentText);
+
+		tempCommentElement.addContent(parseComment(aCommentText));
 
 		if (!isDryRun()) {
 			if (isFork()) {

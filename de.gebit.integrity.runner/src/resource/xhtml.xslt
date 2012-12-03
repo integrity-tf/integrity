@@ -47,6 +47,9 @@
 					.box { border: solid 1px; margin-top: 8px; margin-bottom: 8px; }
 					.boxtitle { color: #FFF; font-weight: bold; padding: 2px 2px 2px
 					2px; position: relative; left: 0px; top: 0px; border: none; }
+					.boxtitle a:link { color: #FFF; text-decoration: none; font-weight: bold; }
+					.boxtitle a:hover { color: #FFF; text-decoration: underline; font-weight: bold; }
+					.boxtitle a:visited { color: #FFF; text-decoration: none; font-weight: bold; }
 					.boxtitleright { position: absolute; right: 2px; }
 					.boxcontent { padding: 10px 10px 10px 10px; }
 					table { border-spacing: 0px; margin-bottom: 2px; border-bottom: 1px
@@ -93,7 +96,10 @@
 					.exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
 					.tab { padding-right: 20px; }
 					.fixturename { font-size: 8pt; padding: 4px; }
-					.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px;
+					.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; }
+					.comment a:link { color: #0E4600; text-decoration: none; font-weight: bold; }
+					.comment a:hover { color: #0E4600; text-decoration: underline; font-weight: bold; }
+					.comment a:visited { color: #0E4600; text-decoration: none; font-weight: bold; }
 					padding-bottom: 4px; font-weight: bold; color: #0E4600; font-style:
 					italic; }
 					hr { margin-top: 8px; margin-bottom: 8px; border: 0px; height: 2px;
@@ -125,13 +131,26 @@
 			  lastSelection = window.getSelection().toString();
 			}
 		  
-		    function boxMouseUp(aBox) {
-			  if(window.getSelection().toString() != lastSelection) return;			  
-			  var div=aBox.parentNode.getElementsByTagName('div')[1]; 
-			  if(div.style.display!='none') 
-			    div.style.display='none';
-			  else
-			    div.style.display='block';
+		    function jumpToAnchor() {
+				var hash = self.document.location.hash;
+				if(hash) {
+					window.location.hash = hash;
+				}
+			}
+		  
+		    function boxMouseUp(aBox, e) {
+			  if(window.getSelection().toString() != lastSelection) return;
+			  var rightclick;
+				if (!e) var e = window.event;
+				if (e.which) rightclick = (e.which == 3);
+				else if (e.button) rightclick = (e.button == 2);
+				if(!rightclick) {
+			  	var div=aBox.parentNode.getElementsByTagName('div')[1]; 
+			  	if(div.style.display!='none') 
+				    div.style.display='none';
+				  else
+				    div.style.display='block';
+				}
 			}
 			
 			function cellMouseUp(aCell) {
@@ -356,9 +375,17 @@
       </xsl:call-template>
     </xsl:template>
     <xsl:template match="suite">
+      <xsl:variable name="permalink">
+    		<xsl:call-template name="suitePath" />
+    	</xsl:variable>
       <a>
         <xsl:attribute name="name">
           <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="$permalink"/>
         </xsl:attribute>
       </a>
       <xsl:variable name="result">
@@ -377,7 +404,12 @@
           </xsl:choose>
         </xsl:with-param>
         <xsl:with-param name="title">
-          <xsl:value-of select="@name" />
+          <a>
+       		<xsl:attribute name="href">
+       			<xsl:value-of select="concat('#', $permalink)"/>
+       		</xsl:attribute>
+       		<xsl:value-of select="@name" />
+       	  </a>
           <xsl:if test="@forkName">
             @
             <xsl:value-of select="@forkName" />
@@ -420,7 +452,22 @@
     </xsl:template>
     <xsl:template match="comment">
       <div class="comment">
-        <xsl:value-of select="@text" />
+      	<xsl:for-each select="child::node()">
+      		<xsl:choose>
+      			<xsl:when test="name() = 'a'">
+      				<xsl:copy>
+						<xsl:attribute name="href">
+							<xsl:value-of select="@href"/>
+						</xsl:attribute>
+						<xsl:attribute name="target">_blank</xsl:attribute>
+						<xsl:value-of select="."/>
+					</xsl:copy>
+      			</xsl:when>
+      			<xsl:otherwise>
+      				<xsl:copy-of select="."/>
+      			</xsl:otherwise>
+      		</xsl:choose>
+      	</xsl:for-each>
       </div>
     </xsl:template>
     <xsl:template match="divider">
@@ -913,7 +960,7 @@
           <xsl:value-of select="$color" />
           ;
         </xsl:attribute>
-        <div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';">
+        <div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';">
           <xsl:attribute name="onMouseOut">
             <xsl:text>this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='</xsl:text>
             <xsl:value-of select="normalize-space($color)" />
@@ -925,7 +972,7 @@
             ;
           </xsl:attribute>
           <span class="boxtitleleft">
-            <xsl:value-of select="$title" />
+            <xsl:copy-of select="$title" />
           </span>
           <xsl:if test="$titleRight">
             <span class="boxtitleright">
@@ -1151,4 +1198,23 @@
         ⚠
       </xsl:if>
     </xsl:template>
+    <xsl:template name="suitePath">
+		<xsl:param name="path" />
+		<xsl:param name="prefix" />
+		<xsl:choose>
+			<xsl:when test="name() = 'suite'">
+				<xsl:variable name="currentSuiteName" select="@name" />
+				<xsl:for-each select="../../.">
+					<xsl:call-template name="suitePath">
+						<xsl:with-param name="path"
+							select="concat($currentSuiteName, ':', $path)" />
+						<xsl:with-param name="prefix" select="$prefix" />
+					</xsl:call-template>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="concat($prefix, $path)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
   </xsl:stylesheet>

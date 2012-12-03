@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="03.12.12 03:02" isotimestamp="2012-12-03T03:02:05" duration="0.813">
+  <variables />
+  <suite id="0" name="integrity.basic.commentsWithLinks">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1">
+        A multiline visible comment with a link:
+        <a href="http://www.google.de">http://www.google.de</a>
+        and another link:
+        <a href="uuid://abcdef">uuid://abcdef</a>
+      </comment>
+      <comment id="2">A singleline visible comment with no valid link: http:/www.invalid.com</comment>
+      <comment id="3">
+        But this one has one:
+        <a href="http://a.link.org">http://a.link.org</a>
+      </comment>
+    </statements>
+    <teardown />
+    <result duration="0.518" successCount="0" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+
