@@ -699,7 +699,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
 			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
-					tempEntry.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+					tempEntry.getValue(), false, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
@@ -738,14 +738,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 				// Either there is an expected value, or if there isn't, "true" is the default
 				ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
+
+				boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
+
 				tempComparisonResultElement.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
-						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
+						.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false,
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 				if (tempEntry.getValue().getResult() != null) {
 					tempComparisonResultElement.setAttribute(
 							RESULT_REAL_VALUE_ATTRIBUTE,
 							convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+									tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -790,7 +793,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
-					tempParameter.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+					tempParameter.getValue(), false, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
@@ -839,7 +842,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 					tempVariableUpdateElement.setAttribute(
 							VARIABLE_VALUE_ATTRIBUTE,
-							convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult,
+							convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
 									UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
@@ -998,7 +1001,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
-					anInitialValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+					anInitialValue, false, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		}
 
 		if (!isDryRun()) {
@@ -1020,8 +1023,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
+	/**
+	 * The pattern for URL detection.
+	 */
 	protected static final Pattern URL_PATTERN = Pattern.compile("(.*?)(\\w+://\\S+)(.*)");
 
+	/**
+	 * Parses a comment into a list of {@link Content} elements. This takes care of URLs embedded in the comment.
+	 */
 	protected List<Content> parseComment(String aCommment) {
 		List<Content> tempList = new ArrayList<Content>();
 

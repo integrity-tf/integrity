@@ -5,6 +5,9 @@ package de.gebit.integrity.runner.callbacks;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.dsl.NestedObject;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
@@ -32,18 +35,46 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	 *            the result value to convert
 	 * @param aResult
 	 *            the execution result which provides access to the fixture instance and method
+	 * @param aForceIntermediateMapFlag
+	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
 	 * @param anUnresolvableVariableHandlingPolicy
 	 *            what to do with unresolvable variables
 	 * @return the converted string
 	 */
 	protected String convertResultValueToStringGuarded(Object aResultValue, FixtureExecutionResult aResult,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			boolean aForceIntermediateMapFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aResult.getFixtureInstance() != null) {
 			return aResult.getFixtureInstance().performValueToStringConversion(aResultValue,
-					aResult.getFixtureMethod(), anUnresolvableVariableHandlingPolicy);
+					aResult.getFixtureMethod(), aForceIntermediateMapFlag, anUnresolvableVariableHandlingPolicy);
 		} else {
-			return valueConverter.convertValueToString(aResultValue, anUnresolvableVariableHandlingPolicy);
+			return valueConverter.convertValueToString(aResultValue, aForceIntermediateMapFlag,
+					anUnresolvableVariableHandlingPolicy);
 		}
+	}
+
+	/**
+	 * Determines whether a given {@link ValueOrEnumValueOrOperationCollection} contains at least one nested object.
+	 * 
+	 * @param aCollection
+	 *            the collection to check
+	 * @return true or false
+	 */
+	protected boolean containsNestedObject(ValueOrEnumValueOrOperationCollection aCollection) {
+		if (aCollection == null) {
+			return false;
+		}
+
+		if (aCollection.getValue() instanceof NestedObject) {
+			return true;
+		} else {
+			for (ValueOrEnumValueOrOperation tempSingleValue : aCollection.getMoreValues()) {
+				if (tempSingleValue instanceof NestedObject) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 }

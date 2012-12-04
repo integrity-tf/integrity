@@ -199,16 +199,19 @@ public class FixtureWrapper<C extends Object> {
 	 *            the value to convert
 	 * @param aFixtureMethod
 	 *            the fixture method that was called to return the given value
+	 * @param aForceIntermediateMapFlag
+	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
 	 * @param anUnresolvedVariableHandlingPolicy
 	 *            how to handle unresolvable variables
 	 * @return the converted string
 	 */
 	public String performValueToStringConversion(Object aValue, String aFixtureMethod,
-			UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
+			boolean aForceIntermediateMapFlag, UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
 		if (isCustomStringConversionFixture()) {
 			return ((CustomStringConversionFixture) fixtureInstance).convertValueToString(aValue, aFixtureMethod);
 		} else {
-			return valueConverter.convertValueToString(aValue, anUnresolvedVariableHandlingPolicy);
+			return valueConverter.convertValueToString(aValue, aForceIntermediateMapFlag,
+					anUnresolvedVariableHandlingPolicy);
 		}
 	}
 

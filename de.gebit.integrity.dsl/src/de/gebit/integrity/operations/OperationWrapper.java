@@ -80,8 +80,6 @@ public class OperationWrapper {
 	/**
 	 * Executes the wrapped operation logic.
 	 * 
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            defines the way to handle unresolvable variables
 	 * @return the result of the operation
 	 * @throws UnexecutableException
 	 *             if the operation cannot be executed because it depends on variables which are not defined

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class TestBean extends SuperTestBean {
 
+	private int primitiveInt;
+
 	private InnerBean[] innerBeanArrayParam;
 
 	private List<InnerBean> innerBeanListParam;
@@ -23,6 +25,14 @@ public class TestBean extends SuperTestBean {
 
 	public void setInnerBeanListParam(List<InnerBean> innerBeanListParam) {
 		this.innerBeanListParam = innerBeanListParam;
+	}
+
+	public int getPrimitiveInt() {
+		return primitiveInt;
+	}
+
+	public void setPrimitiveInt(int primitiveInt) {
+		this.primitiveInt = primitiveInt;
 	}
 
 	public static class InnerBean {

@@ -52,4 +52,10 @@ public class BeanFixture {
 		return tempCount;
 	}
 
+	@FixtureMethod(description = "takes the bean $bean$, alters it a little bit and returns it")
+	public PrimitiveTypeTestBean alterPrimitiveBean(@FixtureParameter(name = "bean") PrimitiveTypeTestBean aBean) {
+		aBean.alterABit();
+		return aBean;
+	}
+
 }

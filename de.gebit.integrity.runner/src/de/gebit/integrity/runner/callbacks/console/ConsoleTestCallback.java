@@ -153,15 +153,19 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 						ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue()
 								.getExpectedValue();
 
+						boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
+
 						print("'"
 								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
+										: tempExpectedValue), false,
+										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "'!");
+										tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
+								+ "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -202,7 +206,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ valueConverter.convertValueToString(anInitialValue,
+						+ valueConverter.convertValueToString(anInitialValue, false,
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)));
 	}
 

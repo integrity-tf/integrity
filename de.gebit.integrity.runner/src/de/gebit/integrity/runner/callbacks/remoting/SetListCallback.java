@@ -290,7 +290,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.NAME, tempEntry.getKey());
 			tempParameterEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-					tempEntry.getValue(), determineUnresolvableVariableHandlingPolicy()));
+					tempEntry.getValue(), false, determineUnresolvableVariableHandlingPolicy()));
 
 			setList.addReference(tempNewEntry, SetListEntryAttributeKeys.PARAMETERS, tempParameterEntry);
 		}
@@ -326,14 +326,17 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 			// Either there is an expected value, or if there isn't, "true" is the default
 			ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue().getExpectedValue();
+
+			boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
+
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, valueConverter
-					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
+					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false,
 							determineUnresolvableVariableHandlingPolicy()));
 			if (tempEntry.getValue().getResult() != null) {
 				tempComparisonEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
 						convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-								determineUnresolvableVariableHandlingPolicy()));
+								tempExpectedIsNestedObject, determineUnresolvableVariableHandlingPolicy()));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -391,7 +394,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			if (tempUpdatedVariable.getValue() != null) {
 				tempResultEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
-						convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult,
+						convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
 								determineUnresolvableVariableHandlingPolicy()));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
@@ -470,8 +473,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					valueConverter.convertValueToString(anInitialValue, determineUnresolvableVariableHandlingPolicy()));
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
+					anInitialValue, false, determineUnresolvableVariableHandlingPolicy()));
 		}
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
@@ -529,7 +532,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			tempParamEntry.setAttribute(SetListEntryAttributeKeys.VALUE, valueConverter.convertValueToString(
-					tempParameter.getValue(), determineUnresolvableVariableHandlingPolicy()));
+					tempParameter.getValue(), false, determineUnresolvableVariableHandlingPolicy()));
 			if (tempParameter.getValue() instanceof Variable) {
 				tempParamEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
 						((Variable) tempParameter.getValue()).getName().getName());

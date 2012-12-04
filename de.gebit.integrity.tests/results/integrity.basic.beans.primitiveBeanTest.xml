@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.12.12 22:19" isotimestamp="2012-12-04T22:19:02" duration="125.402">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.primitiveBeanTest">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1">this should succeed</comment>
+      <test id="2" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean">
+        <results duration="4.328" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.328" description="takes the bean {primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}, alters it a little bit and returns it" type="success">
+            <parameters>
+              <parameter name="bean" value="{primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="{primitiveBoolean=false, primitiveByte=43, primitiveChar=B, primitiveDouble=2.5, primitiveFloat=5.5, primitiveInt=100000001, primitiveLong=1000000000, primitiveShort=2001}" value="{primitiveBoolean=false, primitiveByte=43, primitiveChar=B, primitiveDouble=2.5, primitiveFloat=5.5, primitiveInt=100000001, primitiveLong=1000000000, primitiveShort=2001}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="3">this should fail</comment>
+      <test id="4" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean">
+        <results duration="2.456" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="2.456" description="takes the bean {primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}, alters it a little bit and returns it" type="failure">
+            <parameters>
+              <parameter name="bean" value="{primitiveBoolean=true, primitiveByte=42, primitiveChar=A, primitiveDouble=1.5, primitiveFloat=4.5, primitiveInt=100000000, primitiveLong=999999999, primitiveShort=2000}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="{primitiveBoolean=false, primitiveByte=43, primitiveChar=B, primitiveDouble=2.5, primitiveFloat=5.5, primitiveInt=100000002, primitiveLong=1000000000, primitiveShort=2001}" value="{primitiveBoolean=false, primitiveByte=43, primitiveChar=B, primitiveDouble=2.5, primitiveFloat=5.5, primitiveInt=100000001, primitiveLong=1000000000, primitiveShort=2001}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="120.305" successCount="1" failureCount="1" exceptionCount="0" />
+  </suite>
+</integrity>
+

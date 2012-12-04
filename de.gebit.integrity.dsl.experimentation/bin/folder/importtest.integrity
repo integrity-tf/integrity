@@ -37,6 +37,9 @@ packagedef mypackage with
 	
 	testdef customproposaltest uses de.gebit.integrity.experiments.fixtures.CustomProposalTestFixture#dummyMethod
 	
+	calldef beanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
+	testdef beanTest uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
+	
 	variable dummy initially 2
 
 packageend

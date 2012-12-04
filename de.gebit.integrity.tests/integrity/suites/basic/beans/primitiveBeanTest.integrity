@@ -1,0 +1,51 @@
+import integrity.fixtures.basic.beans.*
+
+packagedef integrity.basic.beans with
+	
+	suitedef primitiveBeanTest with
+		
+		-- this should succeed
+		test alterPrimitiveBean bean: {
+				primitiveBoolean: true
+				primitiveByte: 42
+				primitiveChar: "A"
+				primitiveDouble: 1.5
+				primitiveFloat: 4.5
+				primitiveInt: 100000000
+				primitiveLong: 999999999
+				primitiveShort: 2000
+			} = {
+				primitiveBoolean: false
+				primitiveByte: 43
+				primitiveChar: "B"
+				primitiveDouble: 2.5
+				primitiveFloat: 5.5
+				primitiveInt: 100000001
+				primitiveLong: 1000000000
+				primitiveShort: 2001
+			}
+			
+		-- this should fail
+		test alterPrimitiveBean bean: {
+				primitiveBoolean: true
+				primitiveByte: 42
+				primitiveChar: "A"
+				primitiveDouble: 1.5
+				primitiveFloat: 4.5
+				primitiveInt: 100000000
+				primitiveLong: 999999999
+				primitiveShort: 2000
+			} = {
+				primitiveBoolean: false
+				primitiveByte: 43
+				primitiveChar: "B"
+				primitiveDouble: 2.5
+				primitiveFloat: 5.5
+				primitiveInt: 100000002
+				primitiveLong: 1000000000
+				primitiveShort: 2001
+			}
+		
+	suiteend
+
+packageend

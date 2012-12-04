@@ -26,6 +26,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Dec
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToByte;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToInteger;
@@ -39,12 +40,24 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.Str
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBoolean;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToByte;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToLong;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.BigDecimalToBigDecimal;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.BigIntegerToBigInteger;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.BooleanToBoolean;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.ByteToByte;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.CharacterToCharacter;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.DoubleToDouble;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.FloatToFloat;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.IntegerToInteger;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.LongToLong;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.ShortToShort;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.StringToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.BigIntegerToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.ByteToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.DoubleToBigDecimal;
@@ -53,6 +66,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.numbers.IntegerT
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.LongToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToByte;
+import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToInteger;
@@ -66,15 +80,18 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToStri
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigDecimal;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigInteger;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToByte;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToLong;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToShort;
-import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToString;
 
 /**
  * Default implementation of a modular value converter. This adds all the standard Integrity-supplied conversions. You
@@ -97,6 +114,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(NumberToFloat.class);
 		addConversion(NumberToDouble.class);
 		addConversion(NumberToString.class);
+		addConversion(NumberToCharacter.class);
 		addConversion(IntegerToBigDecimal.class);
 		addConversion(LongToBigDecimal.class);
 		addConversion(ShortToBigDecimal.class);
@@ -114,7 +132,10 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringToLong.class);
 		addConversion(StringToShort.class);
 		addConversion(StringToByte.class);
-		addConversion(StringToString.class);
+		addConversion(StringToCharacter.class);
+		addConversion(CharacterToString.class);
+		addConversion(CharacterToBigInteger.class);
+		addConversion(CharacterToBigDecimal.class);
 
 		// other conversions, Java -> Java
 		addConversion(BooleanToString.class);
@@ -123,6 +144,19 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(MapToString.class);
 		addConversion(ObjectToMap.class);
 		addConversion(EnumToString.class);
+
+		// identity conversions, Java -> Java
+		addConversion(StringToString.class);
+		addConversion(BooleanToBoolean.class);
+		addConversion(BigDecimalToBigDecimal.class);
+		addConversion(BigIntegerToBigInteger.class);
+		addConversion(ByteToByte.class);
+		addConversion(CharacterToCharacter.class);
+		addConversion(DoubleToDouble.class);
+		addConversion(FloatToFloat.class);
+		addConversion(IntegerToInteger.class);
+		addConversion(LongToLong.class);
+		addConversion(ShortToShort.class);
 
 		// numeric conversions, Integrity -> Java
 		addConversion(DecimalValueToBigDecimal.class);
@@ -138,6 +172,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(IntegerValueToLong.class);
 		addConversion(IntegerValueToShort.class);
 		addConversion(IntegerValueToString.class);
+		addConversion(IntegerValueToCharacter.class);
 
 		// string conversions, Integrity -> Java
 		addConversion(StringValueToBigDecimal.class);
@@ -150,6 +185,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringValueToLong.class);
 		addConversion(StringValueToShort.class);
 		addConversion(StringValueToString.class);
+		addConversion(StringValueToCharacter.class);
 
 		// boolean conversions, Integrity -> Java
 		addConversion(BooleanValueToBoolean.class);

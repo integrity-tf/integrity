@@ -6,8 +6,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 import java.math.BigDecimal;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
@@ -24,7 +24,7 @@ public class StringValueToBigDecimal extends Conversion<StringValue, BigDecimal>
 		try {
 			return new BigDecimal(aSource.getStringValue());
 		} catch (NumberFormatException exc) {
-			throw new ConversionFailedException(StringValue.class, BigDecimal.class, null, exc);
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
 		}
 	}
 

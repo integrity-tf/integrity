@@ -8,24 +8,24 @@ import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
- * A default Integrity conversion. This conversion actually doesn't convert anything - it exists solely to keep strings
- * as strings by default.
+ * A default Integrity conversion.
  * 
  * @author Rene Schneider
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class StringToString extends Conversion<String, String> {
+public class StringToCharacter extends Conversion<String, Character> {
 
 	@Override
-	public String convert(String aSource, Class<? extends String> aTargetType,
+	public Character convert(String aSource, Class<? extends Character> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		try {
-			return aSource;
-		} catch (NumberFormatException exc) {
-			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+		if (aSource.length() != 1) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, "String '" + aSource
+					+ "' does not consist of a single character.");
 		}
+
+		return aSource.charAt(0);
+
 	}
 
 }

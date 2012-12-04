@@ -2,14 +2,13 @@ import mypackage.*
 
 packagedef mypackage with
 
-	calldef beanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
-	testdef beanTest uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
+	
 
 	suitedef asuite gets blub with
 	
-		-- Before http://www.google.de and after is this: uuid://fskdfjlskdafjskdf and another
-		
-		-- No links!
+		call beanCall bean: {
+				primitiveInt: 123
+			}
 		
 		
 	suiteend

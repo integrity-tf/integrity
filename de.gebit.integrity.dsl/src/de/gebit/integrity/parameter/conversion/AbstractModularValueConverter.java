@@ -199,32 +199,62 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object convertSingleValueToParamType(Class<?> aParamType, Class<?> aParameterizedType, Object aValue,
+	private Object convertSingleValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
 		if (aValue == null) {
 			return null;
-		} else if (aParamType != null && aParamType.isAssignableFrom(aValue.getClass())) {
+		}
+
+		Class<?> tempTargetType = transformPrimitiveTypes(aTargetType);
+		Class<?> tempSourceType = transformPrimitiveTypes(aValue.getClass());
+
+		if (tempTargetType != null && tempTargetType.isAssignableFrom(tempSourceType)) {
 			// No conversion necessary
 			return aValue;
 		}
 
 		try {
 			@SuppressWarnings("rawtypes")
-			Conversion tempConversion = findConversion(aValue.getClass(), aParamType, someVisitedValues);
+			Conversion tempConversion = findConversion(tempSourceType, tempTargetType, someVisitedValues);
 			if (tempConversion != null) {
-				return tempConversion.convert(aValue, aParamType, anUnresolvableVariableHandlingPolicy);
+				return tempConversion.convert(aValue, tempTargetType, anUnresolvableVariableHandlingPolicy);
 			}
 		} catch (InstantiationException exc) {
-			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
+			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Failed to instantiate conversion",
+					exc);
 		} catch (IllegalAccessException exc) {
-			throw new ConversionFailedException(aValue.getClass(), aParamType, "Failed to instantiate conversion", exc);
+			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Failed to instantiate conversion",
+					exc);
 			// SUPPRESS CHECKSTYLE IllegalCatch
 		} catch (Throwable exc) {
-			throw new ConversionFailedException(aValue.getClass(), aParamType, "Unexpected error during conversion",
-					exc);
+			throw new ConversionFailedException(aValue.getClass(), tempTargetType,
+					"Unexpected error during conversion", exc);
 		}
 
-		throw new ConversionUnsupportedException(aValue.getClass(), aParamType, "Could not find a matching conversion");
+		throw new ConversionUnsupportedException(aValue.getClass(), tempTargetType,
+				"Could not find a matching conversion");
+	}
+
+	private Class<?> transformPrimitiveTypes(Class<?> aType) {
+		if (int.class.equals(aType)) {
+			return Integer.class;
+		} else if (long.class.equals(aType)) {
+			return Long.class;
+		} else if (short.class.equals(aType)) {
+			return Short.class;
+		} else if (byte.class.equals(aType)) {
+			return Byte.class;
+		} else if (float.class.equals(aType)) {
+			return Float.class;
+		} else if (double.class.equals(aType)) {
+			return Double.class;
+		} else if (char.class.equals(aType)) {
+			return Character.class;
+		} else if (boolean.class.equals(aType)) {
+			return Boolean.class;
+		} else {
+			return aType;
+		}
 	}
 
 	/**
@@ -399,7 +429,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+	public String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		if (aForceIntermediateMapFlag) {
+			try {
+				Map<?, ?>[] tempIntermediateMap = (Map[]) convertValue(Map[].class, aValue,
+						anUnresolvableVariableHandlingPolicy);
+				return convertValueToString(tempIntermediateMap, false, anUnresolvableVariableHandlingPolicy);
+			} catch (UnresolvableVariableException exc) {
+				exc.printStackTrace();
+				return "FAILURE";
+			} catch (ClassNotFoundException exc) {
+				exc.printStackTrace();
+				return "FAILURE";
+			} catch (UnexecutableException exc) {
+				exc.printStackTrace();
+				return "FAILURE";
+			} catch (InstantiationException exc) {
+				exc.printStackTrace();
+				return "FAILURE";
+			}
+		}
+
 		// always convert to an array, so array values will convert fine
 		String[] tempResult = convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy);
 

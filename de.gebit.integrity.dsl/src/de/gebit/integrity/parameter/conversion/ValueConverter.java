@@ -59,12 +59,15 @@ public interface ValueConverter {
 	 * 
 	 * @param aValue
 	 *            the value (can be an Integrity-internal type or a plain Java Object)
+	 * @param aForceIntermediateMapFlag
+	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
 	 * @param anUnresolvableVariableHandlingPolicy
 	 *            Defines the policy how unresolvable variable references (no variable given or no
 	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the string
 	 */
-	String convertValueToString(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+	String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 
 	/**
 	 * Converts a given value to a String array. This method is intended to be used for the output of values (for

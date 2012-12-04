@@ -182,7 +182,7 @@ public class TestFormatter {
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
-			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)),
+			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)), false,
 					anUnresolvableVariableHandlingPolicy);
 
 			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);

@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
@@ -21,6 +22,7 @@ import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.DateUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * The standard result comparator component.
@@ -100,11 +102,29 @@ public class DefaultResultComparator implements ResultComparator {
 									return false;
 								}
 							} else {
-								Object tempConvertedExpectedResult = valueConverter.convertValue(
-										tempSingleFixtureResult.getClass(), tempSingleExpectedResult,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								Object tempConvertedExpectedResult;
+								Object tempConvertedFixtureResult = tempSingleFixtureResult;
 
-								if (!performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
+								if ((tempSingleExpectedResult instanceof NestedObject)
+										&& !(tempSingleFixtureResult instanceof Map)) {
+									// if the expected result is a nested object, and the fixture has NOT returned a
+									// map, we assume
+									// the fixture result to be a bean class/instance. We'll convert both to maps for
+									// comparison!
+									tempConvertedFixtureResult = valueConverter
+											.convertValue(Map.class, tempSingleFixtureResult,
+													UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+									tempConvertedExpectedResult = valueConverter.convertValue(Map.class,
+											tempSingleExpectedResult,
+											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								} else {
+									// Convert the expected result to match the given fixture result
+									tempConvertedExpectedResult = valueConverter.convertValue(
+											tempSingleFixtureResult.getClass(), tempSingleExpectedResult,
+											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								}
+
+								if (!performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult,
 										tempSingleExpectedResult)) {
 									return false;
 								}
@@ -121,10 +141,27 @@ public class DefaultResultComparator implements ResultComparator {
 								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
-						Object tempConvertedExpectedResult = valueConverter.convertValue(tempConversionTargetType,
-								tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-						return performEqualityCheck(tempSingleFixtureResult, tempConvertedExpectedResult,
+						Object tempConvertedExpectedResult;
+						Object tempConvertedFixtureResult = tempSingleFixtureResult;
+
+						if ((tempSingleExpectedResult instanceof NestedObject)
+								&& !(tempSingleFixtureResult instanceof Map)) {
+							// if the expected result is a nested object, and the fixture has NOT returned a
+							// map, we assume
+							// the fixture result to be a bean class/instance. We'll convert both to maps for
+							// comparison!
+							tempConvertedFixtureResult = valueConverter.convertValue(Map.class,
+									tempSingleFixtureResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+							tempConvertedExpectedResult = valueConverter.convertValue(Map.class,
+									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						} else {
+							// Convert the expected result to match the given fixture result
+							tempConvertedExpectedResult = valueConverter.convertValue(tempConversionTargetType,
+									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						}
+
+						return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult,
 								tempSingleExpectedResult);
 					}
 				}
@@ -181,7 +218,26 @@ public class DefaultResultComparator implements ResultComparator {
 				// maps are compared by exploring them
 				for (Entry<?, ?> tempEntry : ((Map<?, ?>) aConvertedResult).entrySet()) {
 					Object tempReferenceValue = ((Map<?, ?>) aConvertedExpectedResult).get(tempEntry.getKey());
-					if (!performEqualityCheck(tempEntry.getValue(), tempReferenceValue, null)) {
+					Object tempActualValue = tempEntry.getValue();
+
+					// ...but we have to ensure both values are of equal type first, since even though both outer values
+					// are maps, their inner values have not been necessarily converted to the same types
+					Object tempConvertedReferenceValue = tempReferenceValue;
+					try {
+						tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
+								tempActualValue.getClass(), tempReferenceValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
+					} catch (UnresolvableVariableException exc) {
+						exc.printStackTrace();
+					} catch (ClassNotFoundException exc) {
+						exc.printStackTrace();
+					} catch (UnexecutableException exc) {
+						exc.printStackTrace();
+					} catch (InstantiationException exc) {
+						exc.printStackTrace();
+					}
+
+					if (!performEqualityCheck(tempActualValue, tempConvertedReferenceValue, null)) {
 						return false;
 					}
 				}
@@ -237,5 +293,4 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 		}
 	}
-
 }
