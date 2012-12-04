@@ -54,9 +54,6 @@ public class ObjectToMap extends Conversion<Object, Map> {
 						}
 						tempKeyValueMap.put(tempDescriptor.getName(), tempList.toArray());
 					} else {
-						System.out.println("converting " + tempValue + " ("
-								+ (tempValue != null ? tempValue.getClass().getName() : "null") + ") from "
-								+ tempDescriptor.getName());
 						Object tempConvertedValue = convertValueRecursive(null, null, tempValue,
 								anUnresolvableVariableHandlingPolicy);
 						tempKeyValueMap.put(tempDescriptor.getName(), tempConvertedValue);
