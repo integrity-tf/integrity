@@ -36,6 +36,7 @@ public class ArbitraryParamEnumerator implements ArbitraryParameterEnumerator {
 
 		tempDefinition.addSubdefinition(tempSubDefinition);
 		tempSubDefinition.addSubdefinition(tempSubSubDefinition);
+		tempDefinition.setNestedObjectParam(true);
 		tempList.add(tempDefinition);
 
 		return tempList;

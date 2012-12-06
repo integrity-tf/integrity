@@ -6,12 +6,9 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 	
-		call beanCall bean: {
-				primitiveInt: 123
-				
-			}
-		
-		
+		call arbitraryCall
+			
+			
 	suiteend
 
 packageend

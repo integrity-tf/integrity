@@ -137,7 +137,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	public void completeTest_Parameters(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
 			ICompletionProposalAcceptor anAcceptor) {
 		completeTestParametersInternal((Test) aModel, aContext, anAcceptor);
-		completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, null);
+		completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
 	}
 
 	private void completeTestParametersInternal(Test aTest, ContentAssistContext aContext,
@@ -161,6 +161,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		super.completeCall_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
 		completeCallParametersInternal((Call) aModel, aContext, anAcceptor);
+		completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
 	}
 
 	private void completeCallParametersInternal(Call aCall, ContentAssistContext aContext,
@@ -183,13 +184,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		super.complete_NL(aModel, aRuleCall, aContext, anAcceptor);
 
+		// boolean tempLeadingPlusSign = aContext.getPrefix() != null && aContext.getPrefix().startsWith("+");
+
 		if (aModel instanceof Test) {
 			Test tempTest = (Test) aModel;
 
 			if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_3_0()) {
 				// We're inside the parameters group
 				completeTestParametersInternal((Test) aModel, aContext, anAcceptor);
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, null);
+				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
 			} else if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the named results group
 				TestDefinition tempDefinition = tempTest.getDefinition();
@@ -203,7 +206,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						}
 
 						completeNamedResultsInternal(tempAlreadyUsedResults, tempMethodRef, null, aContext, anAcceptor);
-						completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, null);
+						completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null,
+								null);
 					}
 				}
 			}
@@ -213,7 +217,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			if (aRuleCall == grammarAccess.getCallAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the parameters group
 				completeCallParametersInternal(tempCall, aContext, anAcceptor);
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, null);
+				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
 			}
 		} else if (aModel instanceof TableTest) {
 			TableTest tempTest = (TableTest) aModel;
@@ -388,11 +392,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempContainer = aModel;
 		}
 
-		completeArbitraryParameterOrResultNameInternal(tempContainer, aContext, anAcceptor, null, null);
+		completeArbitraryParameterOrResultNameInternal(tempContainer, aContext, anAcceptor, null, false, null, null);
 	}
 
 	private void completeArbitraryParameterOrResultNameInternal(EObject aModel, ContentAssistContext aContext,
-			ICompletionProposalAcceptor anAcceptor, Boolean anIsResultFlag, List<String> aParameterPath) {
+			ICompletionProposalAcceptor anAcceptor, Boolean anIsResultFlag, boolean aPrefixPlusSignFlag,
+			List<String> aParameterPath, Set<String> someAlreadyUsedNestedParameters) {
 		// We need these parameter and result maps in order to sort out proposals for parameters/results already given
 		Map<String, Object> tempParameterMap = null;
 		Map<String, Object> tempExpectedResultMap = null;
@@ -448,7 +453,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							.getSimpleName(), tempParameterMap, aParameterPath, false);
 
 					if (aParameterPath == null) {
-						// This is the "classic" path, if we're directly creating a parameter
+						// This is the "classic" path, if we're directly creating a parameter. We dont need the already
+						// used nested param set here.
 
 						// first fetch the arbitrary parameter names...
 						List<ArbitraryParameterDefinition> tempParameterDescriptions = tempEnumerator
@@ -458,10 +464,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							for (ArbitraryParameterDefinition tempParameterDescription : tempParameterDescriptions) {
 								String tempName = tempParameterDescription.getName();
 								if (!tempParameterMap.containsKey(tempName)) {
-									String tempDescription = tempName + ": ?";
+									String tempDescription = tempName + ": ";
 									if (tempParameterDescription.getDescription() != null) {
 										tempDescription += " (" + tempParameterDescription.getDescription() + ")";
 									}
+									String tempPrefix = aPrefixPlusSignFlag ? "+" : "";
 									String tempSuffix = (aModel instanceof TableTest) ? "" : (tempParameterDescription
 											.getSuffix() != null ? tempParameterDescription.getSuffix().getText()
 											: ": ");
@@ -470,8 +477,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										tempSuffix += "{}";
 									}
 
-									anAcceptor.accept(createCompletionProposal(tempName + tempSuffix, tempDescription,
-											null, aContext));
+									anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
+											tempPrefix + tempDescription, null, aContext));
 								}
 							}
 						}
@@ -489,13 +496,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										if (tempResultDescription.getDescription() != null) {
 											tempDescription += " (" + tempResultDescription.getDescription() + ")";
 										}
+										String tempPrefix = aPrefixPlusSignFlag ? "+" : "";
 										String tempSuffix = tempResultDescription.getSuffix() != null ? tempResultDescription
 												.getSuffix().getText() : " = ";
 										if (tempResultDescription.isNestedObjectParam()) {
 											tempSuffix += "{}";
 										}
-										anAcceptor.accept(createCompletionProposal(tempName + tempSuffix,
-												tempDescription, null, aContext));
+										anAcceptor.accept(createCompletionProposal(tempPrefix + tempName + tempSuffix,
+												tempPrefix + tempDescription, null, aContext));
 									}
 								}
 							}
@@ -522,15 +530,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										for (ArbitraryParameterDefinition tempSubdefinition : tempDefinition
 												.getSubdefinitions()) {
 											String tempDescription = tempSubdefinition.getName();
-											if (tempSubdefinition.getDescription() != null) {
-												tempDescription += ": " + tempSubdefinition.getDescription();
+											if (!someAlreadyUsedNestedParameters.contains(tempDescription)) {
+												if (tempSubdefinition.getDescription() != null) {
+													tempDescription += ": " + tempSubdefinition.getDescription();
+												}
+												String tempSuffix = ": ";
+												if (tempSubdefinition.isNestedObjectParam()) {
+													tempSuffix += "{}";
+												}
+												anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
+														+ tempSuffix, tempDescription, null, aContext));
 											}
-											String tempSuffix = ": ";
-											if (tempSubdefinition.isNestedObjectParam()) {
-												tempSuffix += "{}";
-											}
-											anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
-													+ tempSuffix, tempDescription, null, aContext));
 										}
 									}
 								}
@@ -559,6 +569,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	private void completeKeyValuePairInternal(EObject aModel, ContentAssistContext aContext,
 			ICompletionProposalAcceptor anAcceptor) {
+		Set<String> tempAlreadyUsedKeys = new HashSet<String>();
+		if (aModel instanceof NestedObject) {
+			for (KeyValuePair tempPair : ((NestedObject) aModel).getAttributes()) {
+				tempAlreadyUsedKeys.add(tempPair.getIdentifier());
+			}
+		}
 
 		List<String> tempParameterPath = new ArrayList<String>();
 		EObject tempOwner = determineNestedObjectOwner(aModel, tempParameterPath);
@@ -569,8 +585,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param method
 			// here as well
-			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
-					tempParameterPath);
+			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult, false,
+					tempParameterPath, tempAlreadyUsedKeys);
 
 			// The following code deals with Java Bean classes used for nested param storage
 			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
@@ -646,16 +662,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									String tempJavadocDescription = JavadocUtil.getFieldJavadoc(tempField);
 									String tempDisplayText = tempField.getElementName();
 
-									ICompletionProposal tempCompletionProposal = createCompletionProposal(
-											tempField.getElementName() + ": ", tempDisplayText, null, aContext);
+									if (!tempAlreadyUsedKeys.contains(tempField.getElementName())) {
+										ICompletionProposal tempCompletionProposal = createCompletionProposal(
+												tempField.getElementName() + ": ", tempDisplayText, null, aContext);
 
-									if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
-										if (tempJavadocDescription != null) {
-											((ConfigurableCompletionProposal) tempCompletionProposal)
-													.setAdditionalProposalInfo(tempJavadocDescription);
+										if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
+											if (tempJavadocDescription != null) {
+												((ConfigurableCompletionProposal) tempCompletionProposal)
+														.setAdditionalProposalInfo(tempJavadocDescription);
+											}
 										}
+										anAcceptor.accept(tempCompletionProposal);
 									}
-									anAcceptor.accept(tempCompletionProposal);
 								}
 							}
 						}
@@ -767,7 +785,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					}
 				}
 
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, null);
+				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, false, null, null);
 			}
 		}
 	}
