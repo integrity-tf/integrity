@@ -8,6 +8,7 @@ packagedef mypackage with
 	
 		call beanCall bean: {
 				primitiveInt: 123
+				
 			}
 		
 		

@@ -4,11 +4,12 @@
 package de.gebit.integrity.ui.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
@@ -215,16 +216,44 @@ public final class IntegrityDSLUIUtil {
 	 * 
 	 * @param aType
 	 *            the type to search in
+	 * @param aFilterSetterlessPrivateFields
+	 *            whether setterless private fields shall be filtered out
 	 * @return all fields
 	 * @throws JavaModelException
 	 */
-	public static List<IField> getAllFields(IType aType) throws JavaModelException {
+	public static List<IField> getAllFields(IType aType, boolean aFilterSetterlessPrivateFields)
+			throws JavaModelException {
 		ITypeHierarchy tempTypeHierarchy = aType.newSupertypeHierarchy(null);
 		IType tempTypeInFocus = aType;
 
 		List<IField> tempResults = new ArrayList<IField>();
 		while (tempTypeInFocus != null) {
-			Collections.addAll(tempResults, tempTypeInFocus.getFields());
+			for (IField tempField : tempTypeInFocus.getFields()) {
+				if (aFilterSetterlessPrivateFields) {
+					boolean tempIsReachable = false;
+					if (Flags.isPublic(tempField.getFlags())) {
+						tempIsReachable = true;
+					} else {
+						// We are doing the bean introspection by ourself because we don't want to load the class, which
+						// would be necessary for using the java.bean.* stuff.
+						String tempSetterMethodName = "set" + tempField.getElementName().substring(0, 1).toUpperCase();
+						if (tempField.getElementName().length() > 1) {
+							tempSetterMethodName += tempField.getElementName().substring(1);
+						}
+						for (IMethod tempMethod : tempTypeInFocus.getMethods()) {
+							if (tempSetterMethodName.equals(tempMethod.getElementName())) {
+								tempIsReachable = true;
+								break;
+							}
+						}
+					}
+					if (!tempIsReachable) {
+						continue;
+					}
+				}
+				tempResults.add(tempField);
+			}
+
 			tempTypeInFocus = tempTypeHierarchy.getSuperclass(tempTypeInFocus);
 		}
 

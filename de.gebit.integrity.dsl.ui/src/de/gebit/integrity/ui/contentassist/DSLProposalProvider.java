@@ -642,7 +642,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 							if (tempTypeInFocus != null) {
 								// Okay, we have reached our goal - the fields of this type are our proposals
-								for (IField tempField : IntegrityDSLUIUtil.getAllFields(tempTypeInFocus)) {
+								for (IField tempField : IntegrityDSLUIUtil.getAllFields(tempTypeInFocus, true)) {
 									String tempJavadocDescription = JavadocUtil.getFieldJavadoc(tempField);
 									String tempDisplayText = tempField.getElementName();
 

@@ -7,9 +7,15 @@ public class TestBean extends SuperTestBean {
 
 	private int primitiveInt;
 
+	private String nonaccessibleString;
+
 	private InnerBean[] innerBeanArrayParam;
 
 	private List<InnerBean> innerBeanListParam;
+
+	public String getNonaccessibleString() {
+		return nonaccessibleString;
+	}
 
 	public InnerBean[] getInnerBeanArrayParam() {
 		return innerBeanArrayParam;
