@@ -6,5 +6,8 @@
   -->
   <f:entry title="Integrity Result XML File(s)" field="testResultFileNamePattern">
     <f:textbox />
+    <span>
+		IMPORTANT FOR JUNIT USERS: Due to problematic behavior of the default Jenkins test result classes, you'll need to put the default JUnit result parsing action ABOVE this action if you want to have the JUnit results to show up correctly in the project overview and general test result history!  
+  	</span>
   </f:entry>
 </j:jelly>
