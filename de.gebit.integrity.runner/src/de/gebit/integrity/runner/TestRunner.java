@@ -16,7 +16,7 @@ import de.gebit.integrity.runner.results.SuiteSummaryResult;
 public interface TestRunner {
 
 	/**
-	 * Executes a specified suite.
+	 * Executes a specified suite. Designated starting point for test execution.
 	 * 
 	 * @param aRootSuite
 	 *            the suite to execute

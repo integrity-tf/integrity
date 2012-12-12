@@ -27,7 +27,7 @@ public interface ForkedProcess {
 	boolean isAlive();
 
 	/**
-	 * Kills the forked process, if it is running.<br>
+	 * Kills the forked process, if it is running, and waits for it to exit.<br>
 	 * <br>
 	 * This functionality is not strictly required, since a test runner process should always end itself after finishing
 	 * all its tests, which then leads to the forks automatically exiting gracefully after doing their duty as well. But
@@ -35,7 +35,7 @@ public interface ForkedProcess {
 	 * main process will call this method in order to ensure clean termination of the forked process, which would
 	 * otherwise sit there forever and wait for its master to connect.
 	 */
-	void kill();
+	void kill() throws InterruptedException;
 
 	/**
 	 * Returns the stream carrying standard output (STDOUT) of the process. Supporting this kind of communication is

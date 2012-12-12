@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
@@ -27,6 +29,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.runner.forking.processes.ProcessWatchdog;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -38,6 +41,16 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 public class Fork {
 
 	/**
+	 * The forker to use to create the actual {@link ForkedProcess}.
+	 */
+	private Forker forker;
+
+	/**
+	 * The command line arguments to pass on to the forked process.
+	 */
+	private String[] commandLineArguments;
+
+	/**
 	 * The definition of the fork.
 	 */
 	private ForkDefinition definition;
@@ -46,6 +59,11 @@ public class Fork {
 	 * The actual process running the fork.
 	 */
 	private ForkedProcess process;
+
+	/**
+	 * A flag remembering whether the fork has been started once.
+	 */
+	private boolean wasStarted;
 
 	/**
 	 * The remoting client used to communicate with the fork. Each fork gets its own client which connects to the
@@ -114,6 +132,12 @@ public class Fork {
 	private ExecutionStates executionState;
 
 	/**
+	 * The process watchdog, used to govern other processes started by the test runner.
+	 */
+	@Inject
+	protected ProcessWatchdog processWatchdog;
+
+	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
 	 * established.
 	 */
@@ -138,13 +162,10 @@ public class Fork {
 	 *            the remoting server of the parent test runner
 	 * @param aForkCallback
 	 *            the fork callback to use
-	 * @throws ForkException
-	 *             if something goes wrong
 	 */
 	// SUPPRESS CHECKSTYLE ParameterNum
 	public Fork(ForkDefinition aDefinition, Forker aForker, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback)
-			throws ForkException {
+			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback) {
 		super();
 
 		definition = aDefinition;
@@ -152,24 +173,35 @@ public class Fork {
 		setList = aSetList;
 		server = aServer;
 		forkCallback = aForkCallback;
+		forker = aForker;
+		commandLineArguments = someCommandLineArguments;
+	}
 
-		process = aForker.fork(someCommandLineArguments, aDefinition.getName());
+	public void start() throws ForkException {
+		if (wasStarted) {
+			throw new IllegalStateException("The fork has already been started. A fork can only be started once!");
+		}
+
+		wasStarted = true;
+		process = forker.fork(commandLineArguments, definition.getName());
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
 		}
+
+		processWatchdog.registerFork(process);
 
 		forkMonitor = new ForkMonitor();
 		forkMonitor.start();
 
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
-			new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stdout copy: " + aDefinition.getName(),
+			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stdout copy: " + definition.getName(),
 					tempStdOut, System.out).start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
-			new StreamCopier("\tFORK '" + aDefinition.getName() + "': ", "stderr copy: " + aDefinition.getName(),
+			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stderr copy: " + definition.getName(),
 					tempStdErr, System.err).start();
 		}
 	}
@@ -177,9 +209,10 @@ public class Fork {
 	/**
 	 * Destroy a fork.
 	 */
-	public void kill() {
+	public void kill() throws InterruptedException {
 		if (process != null && isAlive()) {
 			process.kill();
+			processWatchdog.unregisterFork(process);
 			process = null;
 		}
 	}
@@ -481,7 +514,9 @@ public class Fork {
 					synchronized (Fork.this) {
 						if (!forkDeathConfirmed) {
 							forkDeathConfirmed = true;
+							processWatchdog.unregisterFork(process);
 							client = null;
+							process = null;
 							forkCallback.onForkExit(Fork.this);
 							Fork.this.notifyAll();
 							return;

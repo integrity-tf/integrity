@@ -80,6 +80,7 @@ import de.gebit.integrity.runner.forking.ForkCallback;
 import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
+import de.gebit.integrity.runner.forking.processes.ProcessWatchdog;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -189,6 +190,12 @@ public class DefaultTestRunner implements TestRunner {
 	protected ResultComparator resultComparator;
 
 	/**
+	 * The process watchdog, used to govern other processes started by the test runner.
+	 */
+	@Inject
+	protected ProcessWatchdog processWatchdog;
+
+	/**
 	 * The Guice injector.
 	 */
 	@Inject
@@ -235,21 +242,46 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected static final int FORK_CONNECTION_TIMEOUT_DEFAULT = 180;
 
+	protected static int getForkConnectionTimeoutDefault() {
+		return FORK_CONNECTION_TIMEOUT_DEFAULT;
+	}
+
 	/**
 	 * The timeout in milliseconds used for a single connection attempt to a fork. If this timeout is hit, but the total
 	 * timeout for connecting is not yet over, another attempt is being started.
 	 */
 	protected static final int FORK_SINGLE_CONNECT_TIMEOUT = 10000;
 
+	protected static int getForkSingleConnectTimeout() {
+		return FORK_SINGLE_CONNECT_TIMEOUT;
+	}
+
 	/**
 	 * The delay until connection attempts are made to a newly started fork.
 	 */
 	protected static final int FORK_CONNECT_DELAY = 5000;
 
+	protected static int getForkConnectDelay() {
+		return FORK_CONNECT_DELAY;
+	}
+
 	/**
 	 * The interval in which the forks' execution state is checked on first connect.
 	 */
 	protected static final int FORK_PAUSE_WAIT_INTERVAL = 200;
+
+	protected static int getForkPauseWaitInterval() {
+		return FORK_PAUSE_WAIT_INTERVAL;
+	}
+
+	/**
+	 * The time to wait for child processes to be killed.
+	 */
+	protected static final int CHILD_PROCESS_KILL_TIMEOUT = 60000;
+
+	protected int getChildProcessKillTimeout() {
+		return CHILD_PROCESS_KILL_TIMEOUT;
+	}
 
 	/**
 	 * The fork that is currently being executed.
@@ -328,7 +360,7 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * Executes a specific suite call.
+	 * Executes a specific suite call. Internal starting point for test execution.
 	 * 
 	 * @param aRootSuiteCall
 	 *            the suite call to execute
@@ -336,9 +368,17 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	public SuiteSummaryResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+	protected SuiteSummaryResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
 		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
+
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+
+			@Override
+			public void run() {
+				processWatchdog.killAndWait(getChildProcessKillTimeout());
+			}
+		});
 
 		try {
 			if (remotingServer != null) {
@@ -390,7 +430,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (remotingServer != null) {
 				remotingServer.closeAll(true);
 			}
-			killAllForks();
+			processWatchdog.killAndWait(getChildProcessKillTimeout());
 		}
 	}
 
@@ -454,15 +494,6 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * Kills all forks. 'Nuff said.
-	 */
-	protected void killAllForks() {
-		for (Fork tempFork : forkMap.values()) {
-			tempFork.kill();
-		}
-	}
-
-	/**
 	 * Performs a specified suite call (doesn't honor the multiplier!).
 	 * 
 	 * @param aSuiteCall
@@ -497,7 +528,6 @@ public class DefaultTestRunner implements TestRunner {
 						// but first see if this fork has already died once. if true, then the fork has died
 						// prematurely, which means we cannot continue execution at all
 						if (diedForks.contains(aSuiteCall.getFork())) {
-							killAllForks();
 							throw new RuntimeException("Fork " + aSuiteCall.getFork().getName()
 									+ " has died prematurely!");
 						}
@@ -506,7 +536,6 @@ public class DefaultTestRunner implements TestRunner {
 						} catch (ForkException exc) {
 							// forking failed -> cannot continue at all :( kill all other still-living forks and
 							// then exit with a runtime exception
-							killAllForks();
 							throw new RuntimeException(exc);
 						}
 					}
@@ -1561,14 +1590,16 @@ public class DefaultTestRunner implements TestRunner {
 						}
 					}
 				});
+		injector.injectMembers(tempFork);
+		tempFork.start();
 
 		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
-				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : FORK_CONNECTION_TIMEOUT_DEFAULT;
+				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : getForkConnectionTimeoutDefault();
 
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
 			try {
-				if (!tempFork.isAlive() || tempFork.connect(FORK_SINGLE_CONNECT_TIMEOUT)) {
+				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout())) {
 					break;
 				}
 			} catch (IOException exc) {
@@ -1576,7 +1607,7 @@ public class DefaultTestRunner implements TestRunner {
 			}
 
 			try {
-				Thread.sleep(FORK_CONNECT_DELAY);
+				Thread.sleep(getForkConnectDelay());
 			} catch (InterruptedException exc) {
 				// ignored
 			}
@@ -1600,7 +1631,7 @@ public class DefaultTestRunner implements TestRunner {
 			while (tempFork.isAlive() && tempFork.isConnected()
 					&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
 				try {
-					Thread.sleep(FORK_PAUSE_WAIT_INTERVAL);
+					Thread.sleep(getForkPauseWaitInterval());
 				} catch (InterruptedException exc) {
 					// nothing to do here
 				}
@@ -1612,7 +1643,11 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
-		tempFork.kill();
+		try {
+			tempFork.kill();
+		} catch (InterruptedException exc) {
+			exc.printStackTrace();
+		}
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 }

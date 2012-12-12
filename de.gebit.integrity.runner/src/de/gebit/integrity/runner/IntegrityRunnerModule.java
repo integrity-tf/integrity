@@ -7,6 +7,8 @@ import de.gebit.integrity.DSLRuntimeModule;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.runner.comparator.DefaultResultComparator;
 import de.gebit.integrity.runner.comparator.ResultComparator;
+import de.gebit.integrity.runner.forking.processes.DefaultProcessWatchdog;
+import de.gebit.integrity.runner.forking.processes.ProcessWatchdog;
 import de.gebit.integrity.runner.variables.DefaultVariableManager;
 import de.gebit.integrity.runner.wrapper.DefaultWrapperFactory;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -61,6 +63,15 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends ResultComparator> bindResultComparator() {
 		return DefaultResultComparator.class;
+	}
+
+	/**
+	 * Binding of the {@link ProcessWatchdog}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ProcessWatchdog> bindProcessWatchdog() {
+		return DefaultProcessWatchdog.class;
 	}
 
 }
