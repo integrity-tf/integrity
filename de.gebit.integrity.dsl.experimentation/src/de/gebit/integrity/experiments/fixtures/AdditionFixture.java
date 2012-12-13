@@ -57,6 +57,16 @@ public class AdditionFixture {
 		return anInput;
 	}
 
+	@FixtureMethod(description = "waits for $seconds$ seconds")
+	public void wait(@FixtureParameter(name = "seconds") int seconds) {
+		try {
+			Thread.sleep(seconds * 1000);
+		} catch (InterruptedException exc) {
+			// TODO Auto-generated catch block
+			exc.printStackTrace();
+		}
+	}
+
 	@FixtureMethod(description = "this test always succeeds :-)")
 	public boolean returnTrue() {
 		pause();

@@ -4,6 +4,8 @@ packagedef mypackage with
 
 	calldef random uses de.gebit.integrity.experiments.fixtures.AdditionFixture#randomNumber
 	
+	calldef wait uses de.gebit.integrity.experiments.fixtures.AdditionFixture#wait
+	
 	testdef echo uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValue
 	
 	testdef echoDate uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnDate

@@ -80,7 +80,7 @@ import de.gebit.integrity.runner.forking.ForkCallback;
 import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
-import de.gebit.integrity.runner.forking.processes.ProcessWatchdog;
+import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -193,7 +193,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * The process watchdog, used to govern other processes started by the test runner.
 	 */
 	@Inject
-	protected ProcessWatchdog processWatchdog;
+	protected ProcessTerminator processTerminator;
 
 	/**
 	 * The Guice injector.
@@ -376,7 +376,7 @@ public class DefaultTestRunner implements TestRunner {
 
 			@Override
 			public void run() {
-				processWatchdog.killAndWait(getChildProcessKillTimeout());
+				processTerminator.killAndWait(getChildProcessKillTimeout());
 			}
 		});
 
@@ -430,7 +430,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (remotingServer != null) {
 				remotingServer.closeAll(true);
 			}
-			processWatchdog.killAndWait(getChildProcessKillTimeout());
+			processTerminator.killAndWait(getChildProcessKillTimeout());
 		}
 	}
 
@@ -1478,6 +1478,12 @@ public class DefaultTestRunner implements TestRunner {
 		@Override
 		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
 			setVariableValue(aVariableName, aValue, false);
+		}
+
+		@Override
+		public void onShutdownRequest() {
+			// Shutdown hook(s) will be called after this command automatically!
+			System.exit(-1);
 		}
 	}
 

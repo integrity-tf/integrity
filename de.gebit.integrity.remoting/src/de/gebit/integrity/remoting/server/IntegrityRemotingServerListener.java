@@ -93,4 +93,9 @@ public interface IntegrityRemotingServerListener {
 	 */
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
+	/**
+	 * Called when a client requested a process shutdown.
+	 */
+	void onShutdownRequest();
+
 }

@@ -20,6 +20,7 @@ import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
+import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
@@ -147,6 +148,13 @@ public class IntegrityRemotingClient {
 	 */
 	public void updateVariableValue(String aName, Serializable aValue) {
 		sendMessage(new VariableUpdateMessage(aName, aValue));
+	}
+
+	/**
+	 * Requests an immediate shutdown.
+	 */
+	public void requestShutdown() {
+		sendMessage(new ShutdownRequestMessage());
 	}
 
 	/**

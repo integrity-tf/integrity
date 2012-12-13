@@ -369,6 +369,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Action executeTestAction;
 
 	/**
+	 * The action allowing to shut down a running test execution.
+	 */
+	private Action shutdownAction;
+
+	/**
 	 * The action allowing to configure what is executed with {@link #executeTestAction}.
 	 */
 	private Action configureTestAction;
@@ -963,6 +968,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void fillLocalPullDown(IMenuManager aManager) {
 		aManager.add(executeTestAction);
+		aManager.add(shutdownAction);
 		aManager.add(configureTestAction);
 		aManager.add(new Separator());
 		aManager.add(playAction);
@@ -1016,6 +1022,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private void fillLocalToolBar(IToolBarManager aManager) {
 		// These are still in development...
 		aManager.add(executeTestAction);
+		aManager.add(shutdownAction);
 		aManager.add(configureTestAction);
 		aManager.add(new Separator());
 		aManager.add(expandAllAction);
@@ -1198,6 +1205,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
 		executeTestAction.setEnabled(false);
 
+		shutdownAction = new Action() {
+			public void run() {
+				client.requestShutdown();
+				updateStatus("Requested immediate shutdown...");
+			};
+		};
+		shutdownAction.setText("Shutdown running test application");
+		shutdownAction.setToolTipText("Requests the test application to shut down immediately.");
+		shutdownAction.setImageDescriptor(Activator.getImageDescriptor("icons/shutdown.gif"));
+		shutdownAction.setEnabled(false);
+
 		configureTestAction = new Action() {
 			@Override
 			public void run() {
@@ -1265,6 +1283,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					pauseAction.setEnabled(false);
 					stepIntoAction.setEnabled(false);
 					stepOverAction.setEnabled(false);
+					shutdownAction.setEnabled(false);
 				} else {
 					connectToTestRunnerAction.setText("Disconnect from test runner");
 					connectToTestRunnerAction
@@ -1275,7 +1294,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 						pauseAction.setEnabled(false);
 						stepIntoAction.setEnabled(false);
 						stepOverAction.setEnabled(false);
+						shutdownAction.setEnabled(false);
 					} else {
+						shutdownAction.setEnabled(true);
 						switch (anExecutionState) {
 						case BLOCKED:
 							playAction.setEnabled(true);

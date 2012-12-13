@@ -29,7 +29,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
-import de.gebit.integrity.runner.forking.processes.ProcessWatchdog;
+import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -135,13 +135,18 @@ public class Fork {
 	 * The process watchdog, used to govern other processes started by the test runner.
 	 */
 	@Inject
-	protected ProcessWatchdog processWatchdog;
+	protected ProcessTerminator processWatchdog;
 
 	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
 	 * established.
 	 */
 	private static final int FORK_CHECK_INTERVAL = 1000;
+
+	/**
+	 * The time available for the fork to shutdown in case of a kill request, before it is killed forcefully.
+	 */
+	private static final int FORK_SHUTDOWN_GRACE_TIME = 5000;
 
 	/**
 	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
@@ -177,6 +182,12 @@ public class Fork {
 		commandLineArguments = someCommandLineArguments;
 	}
 
+	/**
+	 * Actually start the fork. May only be called once!
+	 * 
+	 * @throws ForkException
+	 *             in case of errors
+	 */
 	public void start() throws ForkException {
 		if (wasStarted) {
 			throw new IllegalStateException("The fork has already been started. A fork can only be started once!");
@@ -189,7 +200,7 @@ public class Fork {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
 		}
 
-		processWatchdog.registerFork(process);
+		processWatchdog.registerFork(this);
 
 		forkMonitor = new ForkMonitor();
 		forkMonitor.start();
@@ -211,8 +222,24 @@ public class Fork {
 	 */
 	public void kill() throws InterruptedException {
 		if (process != null && isAlive()) {
-			process.kill();
-			processWatchdog.unregisterFork(process);
+			boolean tempDead = false;
+			if (isConnected()) {
+				// attempt to send a shutdown signal first
+				client.requestShutdown();
+				long tempStart = System.nanoTime();
+				while (System.nanoTime() - tempStart < (FORK_SHUTDOWN_GRACE_TIME * 1000000L)) {
+					Thread.sleep(200);
+					if (!process.isAlive()) {
+						tempDead = true;
+						break;
+					}
+				}
+			}
+			if (!tempDead) {
+				// if still not dead now, just terminate it
+				process.kill();
+			}
+			processWatchdog.unregisterFork(this);
 			process = null;
 		}
 	}
@@ -514,7 +541,7 @@ public class Fork {
 					synchronized (Fork.this) {
 						if (!forkDeathConfirmed) {
 							forkDeathConfirmed = true;
-							processWatchdog.unregisterFork(process);
+							processWatchdog.unregisterFork(Fork.this);
 							client = null;
 							process = null;
 							forkCallback.onForkExit(Fork.this);
