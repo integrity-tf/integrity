@@ -6,7 +6,9 @@ packagedef mypackage with
 
 	suitedef asuite gets blub with
 	
-		call arbitraryCall
+		call random min: 1 max: 3
+		call random
+		test nulltest = null
 			
 			
 	suiteend

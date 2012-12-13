@@ -155,11 +155,16 @@
 			
 			function cellMouseUp(aCell) {
 			  if(window.getSelection().toString() != lastSelection) return;			  
-			  var div=aCell.getElementsByTagName('div')[2];
-			  if(div.style.display!='block')
-			    div.style.display='block';
-		      else
-			    div.style.display='none';
+			  for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
+			  	var div=aCell.getElementsByTagName('div')[i];
+			  	if(div.className=='testparameters') {
+			  		if(div.style.display!='block')
+			    		div.style.display='block';
+		      	else
+			    		div.style.display='none';
+			    	break;
+			    }
+			  }
 			}
 			
 			function resizeProgressBar() {
