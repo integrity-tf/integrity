@@ -42,7 +42,7 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 		final IntegrityCompoundTestResult tempCompoundTestResult = new IntegrityCompoundTestResult();
 
 		for (File tempFile : someReportFiles) {
-			aListener.getLogger().println("Now parsing Integrity test result file" + tempFile.getAbsolutePath());
+			aListener.getLogger().println("Now parsing Integrity test result file: " + tempFile.getAbsolutePath());
 
 			FileReader tempFileReader = null;
 			try {
@@ -63,18 +63,38 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 					tempInputStream.close();
 				}
 
+				String tempContentType = null;
+				if (tempBuffer.length > 5) {
+					if (tempBuffer[0] == '<' && tempBuffer[1] == '?' && tempBuffer[2] == 'x' && tempBuffer[3] == 'm'
+							&& tempBuffer[4] == 'l') {
+						// This seems to be XML data
+						tempContentType = "text/xml;charset=UTF-8";
+					} else {
+						// This seems to be HTML
+						tempContentType = "text/html;charset=UTF-8";
+					}
+				}
+
 				final IntegrityContentHandler tempContentHandler = new IntegrityContentHandler();
 
 				XMLReader tempXmlReader = XMLReaderFactory.createXMLReader();
 				tempXmlReader.setContentHandler(tempContentHandler);
+				tempXmlReader.setFeature("http://xml.org/sax/features/validation", false);
+				tempXmlReader.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+				tempXmlReader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 
 				InputSource tempInputSource = new InputSource(new ByteArrayInputStream(tempBuffer));
 
-				tempXmlReader.parse(tempInputSource);
+				try {
+					tempXmlReader.parse(tempInputSource);
+				} catch (EndParsingException exc) {
+					// this isn't an error, but expected to abort parsing
+				}
 
 				tempCompoundTestResult.addChild(new IntegrityTestResult(tempCompoundTestResult, tempFile.getName(),
-						tempContentHandler.getTestName(), tempBuffer, tempContentHandler.getSuccessCount(),
-						tempContentHandler.getFailureCount(), tempContentHandler.getExceptionCount()));
+						tempContentHandler.getTestName(), tempBuffer, tempContentType, tempContentHandler
+								.getSuccessCount(), tempContentHandler.getFailureCount(), tempContentHandler
+								.getExceptionCount()));
 			} catch (SAXException exc) {
 				aListener.getLogger().println("Exception while parsing Integrity result: " + exc.getMessage());
 			} finally {
@@ -85,6 +105,13 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 		}
 
 		return tempCompoundTestResult;
+	}
+
+	private static class EndParsingException extends SAXException {
+
+		public EndParsingException() {
+			super();
+		}
 	}
 
 	private static class IntegrityContentHandler implements ContentHandler {
@@ -170,10 +197,8 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 				} else if ("result".equals(aLocalName)) {
 					if (suiteStackDepth == 1 && someAttributes.getValue("type") == null) {
 						// This seems to be the outermost suite result element (call results are also <result> elements,
-						// but
-						// they contain a result type instead of a summary). We simply fetch the execution totals from
-						// this
-						// one and rely on Integrity for summing them up correctly.
+						// but they contain a result type instead of a summary). We simply fetch the execution totals
+						// from this one and rely on Integrity for summing them up correctly.
 
 						String tempSuccessCount = someAttributes.getValue("successCount");
 						if (tempSuccessCount != null) {
@@ -189,6 +214,9 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 						if (tempExceptionCount != null) {
 							exceptionCount = Integer.parseInt(tempExceptionCount);
 						}
+
+						// When we've arrived here, we have parsed everything necessary out of the file!
+						throw new EndParsingException();
 					}
 				}
 			}

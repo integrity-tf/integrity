@@ -53,6 +53,11 @@ public class IntegrityTestResult extends TabulatedResult {
 	private String displayName;
 
 	/**
+	 * The content type.
+	 */
+	private String contentType;
+
+	/**
 	 * The raw test report XML data. Stored GZIP-compressed to save on hard disk space while persisted. Decompression
 	 * and compression happen on-the-fly in the getter/setter.
 	 */
@@ -92,7 +97,7 @@ public class IntegrityTestResult extends TabulatedResult {
 	 *            the number of exceptions
 	 */
 	public IntegrityTestResult(TestObject aParent, String aName, String aDisplayName, byte[] someRawData,
-			int aSuccessCount, int aFailureCount, int anExceptionCount) {
+			String aContentType, int aSuccessCount, int aFailureCount, int anExceptionCount) {
 		super();
 		this.parent = aParent;
 		this.name = aName;
@@ -101,6 +106,7 @@ public class IntegrityTestResult extends TabulatedResult {
 		this.successCount = aSuccessCount;
 		this.failureCount = aFailureCount;
 		this.exceptionCount = anExceptionCount;
+		this.contentType = aContentType;
 	}
 
 	@Override
@@ -257,4 +263,11 @@ public class IntegrityTestResult extends TabulatedResult {
 		}
 	}
 
+	public String getContentType() {
+		if (contentType == null) {
+			return "text/xml;charset=UTF-8";
+		} else {
+			return contentType;
+		}
+	}
 }

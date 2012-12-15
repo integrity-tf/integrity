@@ -25,6 +25,7 @@ import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.console.ConsoleTestCallback;
+import de.gebit.integrity.runner.callbacks.xml.TransformHandling;
 import de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
@@ -77,7 +78,7 @@ public abstract class IntegrityJUnitTest {
 
 			TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(),
 					new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile, "Integrity JUnit Testing",
-							false));
+							TransformHandling.NO_TRANSFORM));
 
 			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);

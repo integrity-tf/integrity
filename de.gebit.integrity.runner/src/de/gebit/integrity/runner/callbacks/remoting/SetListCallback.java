@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.inject.Inject;
 
@@ -128,6 +130,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onSuiteStart(Suite aSuite) {
+		ICompositeNode tempNode = NodeModelUtils.getNode(aSuite);
+		if (tempNode != null) {
+			System.out.println("Line " + tempNode.getStartLine() + " in " + aSuite.eResource().getURI());
+
+		}
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));

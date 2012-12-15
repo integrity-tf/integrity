@@ -15,6 +15,7 @@ import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.console.ConsoleTestCallback;
+import de.gebit.integrity.runner.callbacks.xml.TransformHandling;
 import de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
@@ -49,10 +50,13 @@ public final class ConsoleTestExecutor {
 		SimpleCommandLineParser tempParser = new SimpleCommandLineParser();
 		SimpleCommandLineParser.BooleanOption tempConsoleOption = new SimpleCommandLineParser.BooleanOption("s",
 				"silent", "Disable console logging during test execution", "[{-s,--silent}]");
-		SimpleCommandLineParser.StringOption tempXmlOption = new SimpleCommandLineParser.StringOption("x", "xml",
-				"Enable XML file logging (supply a target filename!)", "[{-x,--xml} filename]");
-		SimpleCommandLineParser.BooleanOption tempXsltOption = new SimpleCommandLineParser.BooleanOption(null,
-				"noxslt", "Disables embedding of the XML->XHTML transform into the XML file", "[{--noxslt}]");
+		SimpleCommandLineParser.StringOption tempXmlOption = new SimpleCommandLineParser.StringOption("x", "xhtml",
+				"Enable XHTML/XML file logging (supply a target filename!)", "[{-x,--xhtml} filename]");
+		SimpleCommandLineParser.StringOption tempXsltOption = new SimpleCommandLineParser.StringOption(
+				null,
+				"xslt",
+				"Specify how the XML->XHTML transformation of the result shall be handled. Valid options are 'none' (output is plain XML), 'embed' (embed stylesheet in XML output) and 'execute' (execute immediately; default setting).",
+				"[{--xslt} none|embed|execute]");
 		SimpleCommandLineParser.StringOption tempNameOption = new SimpleCommandLineParser.StringOption("n", "name",
 				"Specify a name for the test run", "[{-n,--name}]");
 		SimpleCommandLineParser.StringOption tempVariantOption = new SimpleCommandLineParser.StringOption("v",
@@ -100,6 +104,20 @@ public final class ConsoleTestExecutor {
 			tempTestPaths.add(new File(tempRemainingParameters[i]));
 		}
 
+		TransformHandling tempTransformHandling = TransformHandling.EXECUTE_TRANSFORM;
+		if (tempXsltOption.getValue() != null) {
+			if ("none".equals(tempXsltOption.getValue())) {
+				tempTransformHandling = TransformHandling.NO_TRANSFORM;
+			} else if ("embed".equals(tempXsltOption.getValue())) {
+				tempTransformHandling = TransformHandling.EMBED_TRANSFORM;
+			} else if ("execute".equals(tempXsltOption.getValue())) {
+				tempTransformHandling = TransformHandling.EXECUTE_TRANSFORM;
+			} else {
+				System.err.println("--xslt option value '" + tempXsltOption.getValue()
+						+ "' not understood; valid values are 'none', 'embed', 'execute'.");
+			}
+		}
+
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempTestPaths, true);
 
 		TestRunner tempRunner;
@@ -127,7 +145,7 @@ public final class ConsoleTestExecutor {
 				String tempXmlFileName = tempXmlOption.getValue();
 				if (tempXmlFileName != null) {
 					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							tempXmlFileName), tempExecutionName, !tempXsltOption.isSet()));
+							tempXmlFileName), tempExecutionName, tempTransformHandling));
 				}
 
 				Integer tempRemotePort = null;

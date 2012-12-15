@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
@@ -21,6 +22,15 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -31,6 +41,7 @@ import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.jdom.transform.JDOMSource;
 
 import com.google.inject.Inject;
 
@@ -102,10 +113,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected long idCounter;
 
 	/**
-	 * Whether the XSLT transformation script that transforms the XML result data into a viewable XHTML document shall
-	 * be embedded into the result.
+	 * How the XML -> XHTML transform shall be handled.
 	 */
-	protected boolean embedXhtmlTransform;
+	protected TransformHandling transformHandling;
 
 	/**
 	 * The classloader to use.
@@ -327,15 +337,20 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the file to write the result into
 	 * @param aTitle
 	 *            the title of the result
-	 * @param anEmbedXhtmlTransformFlag
-	 *            whether an XSLT script which transforms the raw result data into viewable XHTML shall be included
+	 * @param aTransformHandling
+	 *            how the XML -> XHTML transform shall be handled
+	 * 
 	 */
 	public XmlWriterTestCallback(ClassLoader aClassLoader, File anOutputFile, String aTitle,
-			boolean anEmbedXhtmlTransformFlag) {
+			TransformHandling aTransformHandling) {
 		classLoader = aClassLoader;
 		outputFile = anOutputFile;
 		title = aTitle;
-		embedXhtmlTransform = anEmbedXhtmlTransformFlag;
+		transformHandling = aTransformHandling != null ? aTransformHandling : TransformHandling.EXECUTE_TRANSFORM;
+	}
+
+	private InputStream getXsltStream() {
+		return getClass().getClassLoader().getResourceAsStream("resource/xhtml.xslt");
 	}
 
 	@Override
@@ -358,26 +373,27 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		document = new Document(tempRootElement);
 		currentElement.push(tempRootElement);
 
-		if (!isFork() && embedXhtmlTransform) {
-			try {
-				Document tempTransform = new SAXBuilder().build(getClass().getClassLoader().getResourceAsStream(
-						"resource/xhtml.xslt"));
-				tempRootElement.addContent(0, tempTransform.getRootElement().detach());
+		if (!isFork()) {
+			if (transformHandling == TransformHandling.EMBED_TRANSFORM) {
+				try {
+					Document tempTransform = new SAXBuilder().build(getXsltStream());
+					tempRootElement.addContent(0, tempTransform.getRootElement().detach());
 
-				DocType tempDocType = new DocType("doc");
-				tempDocType.setInternalSubset("<!ATTLIST xsl:stylesheet\nid ID #REQUIRED>");
-				document.setDocType(tempDocType);
+					DocType tempDocType = new DocType("doc");
+					tempDocType.setInternalSubset("<!ATTLIST xsl:stylesheet\nid ID #REQUIRED>");
+					document.setDocType(tempDocType);
 
-				HashMap<String, String> tempProcessingInstructionMap = new HashMap<String, String>(2);
-				tempProcessingInstructionMap.put("type", "text/xsl");
-				tempProcessingInstructionMap.put("href", "#xhtmltransform");
-				ProcessingInstruction tempProcessingInstruction = new ProcessingInstruction("xml-stylesheet",
-						tempProcessingInstructionMap);
-				document.addContent(0, tempProcessingInstruction);
-			} catch (JDOMException exc) {
-				exc.printStackTrace();
-			} catch (IOException exc) {
-				exc.printStackTrace();
+					HashMap<String, String> tempProcessingInstructionMap = new HashMap<String, String>(2);
+					tempProcessingInstructionMap.put("type", "text/xsl");
+					tempProcessingInstructionMap.put("href", "#xhtmltransform");
+					ProcessingInstruction tempProcessingInstruction = new ProcessingInstruction("xml-stylesheet",
+							tempProcessingInstructionMap);
+					document.addContent(0, tempProcessingInstruction);
+				} catch (JDOMException exc) {
+					exc.printStackTrace();
+				} catch (IOException exc) {
+					exc.printStackTrace();
+				}
 			}
 		}
 
@@ -973,23 +989,54 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
-		FileOutputStream tempOutputStream;
-		try {
-			tempOutputStream = new FileOutputStream(outputFile);
-		} catch (FileNotFoundException exc) {
-			exc.printStackTrace();
-			return;
-		}
-		XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
-		try {
-			tempSerializer.output(document, tempOutputStream);
-		} catch (IOException exc) {
-			exc.printStackTrace();
-		} finally {
+		if (!isFork()) {
+			FileOutputStream tempOutputStream;
 			try {
-				tempOutputStream.close();
+				tempOutputStream = new FileOutputStream(outputFile);
+			} catch (FileNotFoundException exc) {
+				exc.printStackTrace();
+				return;
+			}
+
+			try {
+				if (transformHandling == TransformHandling.EXECUTE_TRANSFORM) {
+					// Transform the XML to XHTML and output that (this actually contains a copy of the original XML
+					// result tree in an invisible element!)
+					try {
+						if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
+							// Explicitly specify the JRE-bundled XSLT transformer if nothing else was specified via the
+							// system property, so we at least know for sure what to expect
+							System.setProperty("javax.xml.transform.TransformerFactory",
+									"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+						}
+						TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
+
+						Transformer tempTransformer = tempTransformerFactory.newTransformer(new StreamSource(
+								getXsltStream()));
+						tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
+						tempTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+						Source tempSource = new JDOMSource(document);
+						StreamResult tempResult = new StreamResult(tempOutputStream);
+						tempTransformer.transform(tempSource, tempResult);
+					} catch (TransformerConfigurationException exc) {
+						exc.printStackTrace();
+					} catch (TransformerException exc) {
+						exc.printStackTrace();
+					}
+				} else {
+					// Output the XML (with XSLT inlined or not)
+					XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
+					tempSerializer.output(document, tempOutputStream);
+				}
 			} catch (IOException exc) {
-				// ignore
+				exc.printStackTrace();
+			} finally {
+				try {
+					tempOutputStream.close();
+				} catch (IOException exc) {
+					// ignore
+				}
 			}
 		}
 	}

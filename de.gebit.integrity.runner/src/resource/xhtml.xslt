@@ -2,14 +2,14 @@
     <xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" />
     <xsl:variable name="suiteLinkKey" select="0" />
     <xsl:template match="integrity">
-      <xmldata style="display: none;">
-        <integrity>
-          <xsl:copy-of select="attribute::*" />
-          <xsl:copy-of select="variables" />
-          <xsl:copy-of select="suite" />
-        </integrity>
-      </xmldata>
       <html>
+       <xmldata style="display: none;">
+          <integrity>
+            <xsl:copy-of select="attribute::*" />
+            <xsl:copy-of select="variables" />
+            <xsl:copy-of select="suite" />
+          </integrity>
+        </xmldata>
         <head>
           <title>
             <xsl:text>Integration Test '</xsl:text>

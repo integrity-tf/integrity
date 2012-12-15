@@ -1,1 +1,1 @@
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"><st:header name="Content-Type" value="text/xml;charset=UTF-8" />${it.rawDataString}</j:jelly>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"><st:header name="Content-Type" value="${it.contentType}" />${it.rawDataString}</j:jelly>
