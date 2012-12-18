@@ -30,6 +30,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -460,7 +462,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText) {
+	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.COMMENT);
 
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, aCommentText);
@@ -470,7 +472,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleDivider(String aDividerText) {
+	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		// currently these are ignored here
 	}
 

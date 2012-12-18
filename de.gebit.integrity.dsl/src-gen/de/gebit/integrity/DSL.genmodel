@@ -4,19 +4,18 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.7" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.8" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Model/statements"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Statement"/>
-    <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineComment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleSingleLineComment/content"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleComment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleComment/content"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineComment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleMultiLineComment/content"/>
-    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineComment"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineComment"/>
     <genClasses ecoreClass="DSL.ecore#//VisibleDivider">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleDivider/content"/>
     </genClasses>

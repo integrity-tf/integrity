@@ -495,6 +495,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.VISIBLE_MULTI_LINE_COMMENT:
 				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getVisibleCommentRule() ||
 				   context == grammarAccess.getVisibleMultiLineCommentRule()) {
 					sequence_VisibleMultiLineComment(context, (VisibleMultiLineComment) semanticObject); 
 					return; 
@@ -502,6 +503,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.VISIBLE_SINGLE_LINE_COMMENT:
 				if(context == grammarAccess.getSuiteStatementRule() ||
+				   context == grammarAccess.getVisibleCommentRule() ||
 				   context == grammarAccess.getVisibleSingleLineCommentRule()) {
 					sequence_VisibleSingleLineComment(context, (VisibleSingleLineComment) semanticObject); 
 					return; 
@@ -1320,8 +1322,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_VisibleMultiLineComment(EObject context, VisibleMultiLineComment semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_MULTI_LINE_COMMENT__CONTENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_MULTI_LINE_COMMENT__CONTENT));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -1336,8 +1338,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_VisibleSingleLineComment(EObject context, VisibleSingleLineComment semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_SINGLE_LINE_COMMENT__CONTENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_SINGLE_LINE_COMMENT__CONTENT));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);

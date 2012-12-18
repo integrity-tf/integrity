@@ -14,6 +14,8 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -295,14 +297,14 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText) {
+	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
 		if (!isDryRun()) { // don't want to print this if we're not actually executing stuff
 			System.out.println(" -- " + aCommentText + " --");
 		}
 	}
 
 	@Override
-	public void onVisibleDivider(String aDividerText) {
+	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		if (!isDryRun()) { // don't want to print this if we're not actually executing stuff
 			System.out.println(" " + aDividerText + "");
 		}

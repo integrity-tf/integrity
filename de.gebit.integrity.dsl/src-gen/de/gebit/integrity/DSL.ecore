@@ -6,12 +6,11 @@
         eType="#//Statement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="VisibleSingleLineComment" eSuperTypes="#//SuiteStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleComment" eSuperTypes="#//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VisibleMultiLineComment" eSuperTypes="#//SuiteStatement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleSingleLineComment" eSuperTypes="#//VisibleComment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleMultiLineComment" eSuperTypes="#//VisibleComment"/>
   <eClassifiers xsi:type="ecore:EClass" name="VisibleDivider" eSuperTypes="#//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

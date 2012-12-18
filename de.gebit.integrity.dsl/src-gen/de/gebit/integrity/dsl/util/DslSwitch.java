@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -90,10 +86,19 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VISIBLE_COMMENT:
+      {
+        VisibleComment visibleComment = (VisibleComment)theEObject;
+        T result = caseVisibleComment(visibleComment);
+        if (result == null) result = caseSuiteStatement(visibleComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VISIBLE_SINGLE_LINE_COMMENT:
       {
         VisibleSingleLineComment visibleSingleLineComment = (VisibleSingleLineComment)theEObject;
         T result = caseVisibleSingleLineComment(visibleSingleLineComment);
+        if (result == null) result = caseVisibleComment(visibleSingleLineComment);
         if (result == null) result = caseSuiteStatement(visibleSingleLineComment);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -102,6 +107,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         VisibleMultiLineComment visibleMultiLineComment = (VisibleMultiLineComment)theEObject;
         T result = caseVisibleMultiLineComment(visibleMultiLineComment);
+        if (result == null) result = caseVisibleComment(visibleMultiLineComment);
         if (result == null) result = caseSuiteStatement(visibleMultiLineComment);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -699,6 +705,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStatement(Statement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleComment(VisibleComment object)
   {
     return null;
   }

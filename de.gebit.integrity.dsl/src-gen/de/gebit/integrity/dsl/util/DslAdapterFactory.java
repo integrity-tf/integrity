@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -87,6 +83,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseStatement(Statement object)
       {
         return createStatementAdapter();
+      }
+      @Override
+      public Adapter caseVisibleComment(VisibleComment object)
+      {
+        return createVisibleCommentAdapter();
       }
       @Override
       public Adapter caseVisibleSingleLineComment(VisibleSingleLineComment object)
@@ -471,6 +472,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleComment <em>Visible Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleComment
+   * @generated
+   */
+  public Adapter createVisibleCommentAdapter()
   {
     return null;
   }

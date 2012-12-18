@@ -31,6 +31,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -56,6 +59,8 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -308,6 +313,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant ID_ATTRIBUTE. */
 	protected static final String ID_ATTRIBUTE = "id";
 
+	/** The constant LINE_NUMBER_ATTRIBUTE. */
+	protected static final String LINE_NUMBER_ATTRIBUTE = "line";
+
 	/**
 	 * The time format used to format execution times.
 	 */
@@ -404,6 +412,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
 		addId(tempSuiteElement);
+		addLineNumber(tempSuiteElement, aSuite);
 		tempSuiteElement.setAttribute(SUITE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 		tempSuiteElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
@@ -447,6 +456,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
 		addId(tempSetupElement);
+		addLineNumber(tempSetupElement, aSetupSuite);
 		tempSetupElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -505,6 +515,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onTestStart(Test aTest) {
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		addId(tempTestElement);
+		addLineNumber(tempTestElement, aTest);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement
@@ -547,6 +558,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onTableTestStart(TableTest aTest) {
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		addId(tempTestElement);
+		addLineNumber(tempTestElement, aTest);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.tableTestToHumanReadableString(
@@ -785,6 +797,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onCallStart(Call aCall) {
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		addId(tempCallElement);
+		addLineNumber(tempCallElement, aCall);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
 			tempCallElement
@@ -900,6 +913,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
 		addId(tempTearDownElement);
+		addLineNumber(tempTearDownElement, aTearDownSuite);
 		tempTearDownElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
 		tempTearDownElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempTearDownElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -1109,10 +1123,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText) {
+	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
 		addId(tempCommentElement);
-
+		addLineNumber(tempCommentElement, aCommentElement);
 		tempCommentElement.addContent(parseComment(aCommentText));
 
 		if (!isDryRun()) {
@@ -1124,9 +1138,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleDivider(String aDividerText) {
+	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		Element tempCommentElement = new Element(DIVIDER_ELEMENT);
 		addId(tempCommentElement);
+		addLineNumber(tempCommentElement, aDividerElement);
 		tempCommentElement.setAttribute(DIVIDER_TEXT_ATTRIBUTE, aDividerText);
 
 		if (!isDryRun()) {
@@ -1278,5 +1293,21 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected void addId(Element anElement) {
 		anElement.setAttribute(ID_ATTRIBUTE, Long.toString(idCounter));
 		idCounter++;
+	}
+
+	/**
+	 * Adds the line number to the element where the given {@link EObject} starts.
+	 * 
+	 * @param anElement
+	 *            the element to add the number
+	 * @param anObject
+	 *            the object to find
+	 */
+	protected void addLineNumber(Element anElement, EObject anObject) {
+		ICompositeNode tempNode = NodeModelUtils.getNode(anObject);
+		if (tempNode != null) {
+			int tempLine = tempNode.getStartLine();
+			anElement.setAttribute(LINE_NUMBER_ATTRIBUTE, Integer.toString(tempLine));
+		}
 	}
 }

@@ -15,6 +15,8 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
@@ -236,16 +238,16 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText) {
+	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onVisibleComment(aCommentText);
+			tempCallback.onVisibleComment(aCommentText, aCommentElement);
 		}
 	}
 
 	@Override
-	public void onVisibleDivider(String aDividerText) {
+	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onVisibleDivider(aDividerText);
+			tempCallback.onVisibleDivider(aDividerText, aDividerElement);
 		}
 	}
 

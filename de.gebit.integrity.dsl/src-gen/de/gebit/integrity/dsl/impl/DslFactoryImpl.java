@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -70,6 +66,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
     {
       case DslPackage.MODEL: return createModel();
       case DslPackage.STATEMENT: return createStatement();
+      case DslPackage.VISIBLE_COMMENT: return createVisibleComment();
       case DslPackage.VISIBLE_SINGLE_LINE_COMMENT: return createVisibleSingleLineComment();
       case DslPackage.VISIBLE_MULTI_LINE_COMMENT: return createVisibleMultiLineComment();
       case DslPackage.VISIBLE_DIVIDER: return createVisibleDivider();
@@ -162,6 +159,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     StatementImpl statement = new StatementImpl();
     return statement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VisibleComment createVisibleComment()
+  {
+    VisibleCommentImpl visibleComment = new VisibleCommentImpl();
+    return visibleComment;
   }
 
   /**

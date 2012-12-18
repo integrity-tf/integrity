@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="30.10.12 12:27" isotimestamp="2012-10-30T12:27:20" duration="176.466">
+<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:19" duration="39.671">
   <variables />
   <suite id="0" name="integrity.basic.nullChecks">
     <setup />
     <variables />
     <statements>
-      <test id="1" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.557" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.557" description="Echo the string 'null'" type="success">
+      <test id="1" line="9" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.174" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.174" description="Echo the string 'null'" type="success">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" name="echoStringArrayTest" description="Echo the string array 'null, null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
-        <results duration="0.517" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.517" description="Echo the string array 'null, null, null'" type="success">
+      <test id="2" line="10" name="echoStringArrayTest" description="Echo the string array 'null, null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
+        <results duration="0.352" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.352" description="Echo the string array 'null, null, null'" type="success">
             <parameters>
               <parameter name="strings" value="null, null, null" />
             </parameters>
@@ -29,9 +29,9 @@
           </result>
         </results>
       </test>
-      <test id="3" name="echoStringTest" description="Echo the string 'foo'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.668" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.668" description="Echo the string 'foo'" type="failure">
+      <test id="3" line="13" name="echoStringTest" description="Echo the string 'foo'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.141" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.141" description="Echo the string 'foo'" type="failure">
             <parameters>
               <parameter name="string" value="foo" />
             </parameters>
@@ -41,9 +41,9 @@
           </result>
         </results>
       </test>
-      <test id="4" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="1.005" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.005" description="Echo the string 'null'" type="failure">
+      <test id="4" line="14" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
+        <results duration="0.169" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.169" description="Echo the string 'null'" type="failure">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
@@ -53,9 +53,9 @@
           </result>
         </results>
       </test>
-      <test id="5" name="echoStringArrayTest" description="Echo the string array 'null, foo, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
-        <results duration="0.578" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.578" description="Echo the string array 'null, foo, null'" type="failure">
+      <test id="5" line="15" name="echoStringArrayTest" description="Echo the string array 'null, foo, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
+        <results duration="0.322" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.322" description="Echo the string array 'null, foo, null'" type="failure">
             <parameters>
               <parameter name="strings" value="null, foo, null" />
             </parameters>
@@ -65,9 +65,9 @@
           </result>
         </results>
       </test>
-      <test id="6" name="echoStringArrayTest" description="Echo the string array 'null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
-        <results duration="0.810" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.810" description="Echo the string array 'null, null'" type="failure">
+      <test id="6" line="16" name="echoStringArrayTest" description="Echo the string array 'null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
+        <results duration="0.277" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.277" description="Echo the string array 'null, null'" type="failure">
             <parameters>
               <parameter name="strings" value="null, null" />
             </parameters>
@@ -77,9 +77,9 @@
           </result>
         </results>
       </test>
-      <test id="7" name="echoStringArrayTest" description="Echo the string array 'null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
-        <results duration="0.541" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.541" description="Echo the string array 'null, null'" type="failure">
+      <test id="7" line="17" name="echoStringArrayTest" description="Echo the string array 'null, null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
+        <results duration="0.258" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.258" description="Echo the string array 'null, null'" type="failure">
             <parameters>
               <parameter name="strings" value="null, null" />
             </parameters>
@@ -89,9 +89,9 @@
           </result>
         </results>
       </test>
-      <test id="8" name="echoStringArrayTest" description="Echo the string array 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
-        <results duration="0.996" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.996" description="Echo the string array 'null'" type="failure">
+      <test id="8" line="18" name="echoStringArrayTest" description="Echo the string array 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray">
+        <results duration="0.180" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.180" description="Echo the string array 'null'" type="failure">
             <parameters>
               <parameter name="strings" value="null" />
             </parameters>
@@ -101,9 +101,9 @@
           </result>
         </results>
       </test>
-      <test id="9" name="echo" description="echoes the values: null, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
-        <results duration="0.579" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.579" description="echoes the values: null, null, null" type="success">
+      <test id="9" line="21" name="echo" description="echoes the values: null, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
+        <results duration="0.199" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.199" description="echoes the values: null, null, null" type="success">
             <parameters>
               <parameter name="fixparam" value="null" />
             </parameters>
@@ -116,9 +116,9 @@
           </result>
         </results>
       </test>
-      <test id="10" name="echo" description="echoes the values: 1, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
-        <results duration="0.412" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.412" description="echoes the values: 1, null, null" type="failure">
+      <test id="10" line="24" name="echo" description="echoes the values: 1, null, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo">
+        <results duration="0.185" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.185" description="echoes the values: 1, null, null" type="failure">
             <parameters>
               <parameter name="fixparam" value="1" />
             </parameters>
@@ -134,7 +134,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="175.225" successCount="3" failureCount="7" exceptionCount="0" />
+    <result duration="39.338" successCount="3" failureCount="7" exceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,187 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="01.09.12 20:12" isotimestamp="2012-09-01T20:12:34" duration="92.746">
+<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:17" duration="29.236">
   <variables />
   <suite id="0" name="integrity.basic.dependencies.dependencies">
     <setup />
     <variables />
     <statements>
-      <suite id="1" name="integrity.basic.dependencies.firstSubSuite">
+      <suite id="1" line="6" name="integrity.basic.dependencies.firstSubSuite">
         <setup>
-          <suite id="2" name="integrity.basic.dependencies.firstDependency">
+          <suite id="2" line="23" name="integrity.basic.dependencies.firstDependency">
             <variables />
             <statements>
-              <call id="3" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="3" line="24" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.158" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="34.151" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="11.332" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </setup>
         <variables />
         <statements>
-          <suite id="4" name="integrity.basic.dependencies.secondSubSuite">
+          <suite id="4" line="11" name="integrity.basic.dependencies.secondSubSuite">
             <setup>
-              <suite id="5" name="integrity.basic.dependencies.secondDependency">
+              <suite id="5" line="27" name="integrity.basic.dependencies.secondDependency">
                 <variables />
                 <statements>
-                  <call id="6" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                  <call id="6" line="28" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                     <parameters />
-                    <result duration="0.207" type="success" />
+                    <result duration="0.049" type="success" />
                   </call>
                 </statements>
-                <result duration="1.819" successCount="0" failureCount="0" exceptionCount="0" />
+                <result duration="0.849" successCount="0" failureCount="0" exceptionCount="0" />
               </suite>
-              <suite id="7" name="integrity.basic.dependencies.thirdDependency">
+              <suite id="7" line="31" name="integrity.basic.dependencies.thirdDependency">
                 <variables />
                 <statements>
-                  <call id="8" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                  <call id="8" line="32" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                     <parameters />
-                    <result duration="0.458" type="success" />
+                    <result duration="0.049" type="success" />
                   </call>
                 </statements>
-                <result duration="6.067" successCount="0" failureCount="0" exceptionCount="0" />
+                <result duration="0.826" successCount="0" failureCount="0" exceptionCount="0" />
               </suite>
             </setup>
             <variables />
             <statements>
-              <suite id="9" name="integrity.basic.dependencies.thirdSubSuite">
+              <suite id="9" line="15" name="integrity.basic.dependencies.thirdSubSuite">
                 <setup />
                 <variables />
                 <statements>
-                  <call id="10" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                  <call id="10" line="19" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                     <parameters />
-                    <result duration="0.317" type="success" />
+                    <result duration="0.050" type="success" />
                   </call>
                 </statements>
                 <teardown />
-                <result duration="3.571" successCount="0" failureCount="0" exceptionCount="0" />
+                <result duration="0.918" successCount="0" failureCount="0" exceptionCount="0" />
               </suite>
             </statements>
             <teardown>
-              <suite id="11" name="integrity.basic.dependencies.secondTeardown">
+              <suite id="11" line="39" name="integrity.basic.dependencies.secondTeardown">
                 <variables />
                 <statements>
-                  <call id="12" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                  <call id="12" line="40" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                     <parameters />
-                    <result duration="0.276" type="success" />
+                    <result duration="0.049" type="success" />
                   </call>
                 </statements>
-                <result duration="2.334" successCount="0" failureCount="0" exceptionCount="0" />
+                <result duration="0.856" successCount="0" failureCount="0" exceptionCount="0" />
               </suite>
-              <suite id="13" name="integrity.basic.dependencies.thirdTeardown">
+              <suite id="13" line="43" name="integrity.basic.dependencies.thirdTeardown">
                 <variables />
                 <statements>
-                  <call id="14" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+                  <call id="14" line="44" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                     <parameters />
-                    <result duration="0.140" type="success" />
+                    <result duration="0.049" type="success" />
                   </call>
                 </statements>
-                <result duration="2.280" successCount="0" failureCount="0" exceptionCount="0" />
+                <result duration="0.961" successCount="0" failureCount="0" exceptionCount="0" />
               </suite>
             </teardown>
-            <result duration="5.550" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="1.439" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </statements>
         <teardown>
-          <suite id="15" name="integrity.basic.dependencies.firstTeardown">
+          <suite id="15" line="35" name="integrity.basic.dependencies.firstTeardown">
             <variables />
             <statements>
-              <call id="16" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="16" line="36" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.148" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="1.916" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.838" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </teardown>
-        <result duration="25.608" successCount="0" failureCount="0" exceptionCount="0" />
+        <result duration="7.653" successCount="0" failureCount="0" exceptionCount="0" />
       </suite>
-      <suite id="17" name="integrity.basic.dependencies.secondSubSuite">
+      <suite id="17" line="7" name="integrity.basic.dependencies.secondSubSuite">
         <setup>
-          <suite id="18" name="integrity.basic.dependencies.firstDependency">
+          <suite id="18" line="23" name="integrity.basic.dependencies.firstDependency">
             <variables />
             <statements>
-              <call id="19" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="19" line="24" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.126" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="0.757" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.369" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
-          <suite id="20" name="integrity.basic.dependencies.secondDependency">
+          <suite id="20" line="27" name="integrity.basic.dependencies.secondDependency">
             <variables />
             <statements>
-              <call id="21" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="21" line="28" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.113" type="success" />
+                <result duration="0.048" type="success" />
               </call>
             </statements>
-            <result duration="0.667" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.361" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
-          <suite id="22" name="integrity.basic.dependencies.thirdDependency">
+          <suite id="22" line="31" name="integrity.basic.dependencies.thirdDependency">
             <variables />
             <statements>
-              <call id="23" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="23" line="32" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.119" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="0.642" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.365" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </setup>
         <variables />
         <statements>
-          <suite id="24" name="integrity.basic.dependencies.thirdSubSuite">
+          <suite id="24" line="15" name="integrity.basic.dependencies.thirdSubSuite">
             <setup />
             <variables />
             <statements>
-              <call id="25" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="25" line="19" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.250" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
             <teardown />
-            <result duration="1.647" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.362" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </statements>
         <teardown>
-          <suite id="26" name="integrity.basic.dependencies.secondTeardown">
+          <suite id="26" line="39" name="integrity.basic.dependencies.secondTeardown">
             <variables />
             <statements>
-              <call id="27" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="27" line="40" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.253" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="1.244" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.366" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
-          <suite id="28" name="integrity.basic.dependencies.thirdTeardown">
+          <suite id="28" line="43" name="integrity.basic.dependencies.thirdTeardown">
             <variables />
             <statements>
-              <call id="29" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="29" line="44" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.397" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="1.459" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.366" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
-          <suite id="30" name="integrity.basic.dependencies.firstTeardown">
+          <suite id="30" line="35" name="integrity.basic.dependencies.firstTeardown">
             <variables />
             <statements>
-              <call id="31" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="31" line="36" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.234" type="success" />
+                <result duration="0.049" type="success" />
               </call>
             </statements>
-            <result duration="1.057" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="0.368" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </teardown>
-        <result duration="2.214" successCount="0" failureCount="0" exceptionCount="0" />
+        <result duration="0.503" successCount="0" failureCount="0" exceptionCount="0" />
       </suite>
     </statements>
     <teardown />
-    <result duration="91.226" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="28.530" successCount="0" failureCount="0" exceptionCount="0" />
   </suite>
 </integrity>
 

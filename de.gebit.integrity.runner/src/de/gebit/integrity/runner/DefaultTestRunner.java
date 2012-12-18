@@ -47,6 +47,7 @@ import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
@@ -711,17 +712,20 @@ public class DefaultTestRunner implements TestRunner {
 				defineConstant((ConstantDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
-					currentCallback.onVisibleComment(IntegrityDSLUtil
-							.cleanSingleLineComment((VisibleSingleLineComment) tempStatement));
+					currentCallback.onVisibleComment(
+							IntegrityDSLUtil.cleanSingleLineComment((VisibleSingleLineComment) tempStatement),
+							(VisibleComment) tempStatement);
 				}
 			} else if (tempStatement instanceof VisibleMultiLineComment) {
 				if (currentCallback != null) {
-					currentCallback.onVisibleComment(IntegrityDSLUtil
-							.cleanMultiLineComment((VisibleMultiLineComment) tempStatement));
+					currentCallback.onVisibleComment(
+							IntegrityDSLUtil.cleanMultiLineComment((VisibleMultiLineComment) tempStatement),
+							(VisibleComment) tempStatement);
 				}
 			} else if (tempStatement instanceof VisibleDivider) {
 				if (currentCallback != null) {
-					currentCallback.onVisibleDivider(((VisibleDivider) tempStatement).getContent());
+					currentCallback.onVisibleDivider(((VisibleDivider) tempStatement).getContent(),
+							(VisibleDivider) tempStatement);
 				}
 			}
 		}

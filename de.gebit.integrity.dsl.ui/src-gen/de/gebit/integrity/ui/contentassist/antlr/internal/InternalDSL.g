@@ -112,6 +112,34 @@ finally {
 
 
 
+// Entry rule entryRuleVisibleComment
+entryRuleVisibleComment 
+:
+{ before(grammarAccess.getVisibleCommentRule()); }
+	 ruleVisibleComment
+{ after(grammarAccess.getVisibleCommentRule()); } 
+	 EOF 
+;
+
+// Rule VisibleComment
+ruleVisibleComment
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getVisibleCommentAccess().getAlternatives()); }
+(rule__VisibleComment__Alternatives)
+{ after(grammarAccess.getVisibleCommentAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleVisibleSingleLineComment
 entryRuleVisibleSingleLineComment 
 :
@@ -2135,6 +2163,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__VisibleComment__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getVisibleCommentAccess().getVisibleSingleLineCommentParserRuleCall_0()); }
+	ruleVisibleSingleLineComment
+{ after(grammarAccess.getVisibleCommentAccess().getVisibleSingleLineCommentParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getVisibleCommentAccess().getVisibleMultiLineCommentParserRuleCall_1()); }
+	ruleVisibleMultiLineComment
+{ after(grammarAccess.getVisibleCommentAccess().getVisibleMultiLineCommentParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__PackageStatement__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -2223,21 +2273,15 @@ rule__SuiteStatement__Alternatives
 )
 
     |(
-{ before(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); }
-	ruleVisibleSingleLineComment
-{ after(grammarAccess.getSuiteStatementAccess().getVisibleSingleLineCommentParserRuleCall_3()); }
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_3()); }
+	ruleVisibleComment
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_3()); }
 )
 
     |(
-{ before(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); }
-	ruleVisibleMultiLineComment
-{ after(grammarAccess.getSuiteStatementAccess().getVisibleMultiLineCommentParserRuleCall_4()); }
-)
-
-    |(
-{ before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); }
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_4()); }
 	ruleVisibleDivider
-{ after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); }
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_4()); }
 )
 
 ;

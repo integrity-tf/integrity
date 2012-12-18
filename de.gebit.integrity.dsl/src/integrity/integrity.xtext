@@ -11,6 +11,9 @@ Model:
 Statement:
 	Import | PackageDefinition | ForkDefinition | VariantDefinition;
 	
+VisibleComment:
+	VisibleSingleLineComment | VisibleMultiLineComment;
+	
 VisibleSingleLineComment:
 	content=SL_VISIBLE_COMMENT NL;
 	
@@ -51,7 +54,7 @@ OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleSingleLineComment | VisibleMultiLineComment | VisibleDivider;
+	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest | Call;

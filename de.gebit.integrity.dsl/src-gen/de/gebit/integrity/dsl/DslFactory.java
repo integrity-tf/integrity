@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -43,6 +39,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   Statement createStatement();
+
+  /**
+   * Returns a new object of class '<em>Visible Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Comment</em>'.
+   * @generated
+   */
+  VisibleComment createVisibleComment();
 
   /**
    * Returns a new object of class '<em>Visible Single Line Comment</em>'.

@@ -18,6 +18,8 @@ import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 import de.gebit.integrity.ui.highlighting.DSLSemanticHighlightingCalculator;
 import de.gebit.integrity.ui.preferences.IntegrityRootPreferencePage;
+import de.gebit.integrity.ui.search.DefaultIntegritySearch;
+import de.gebit.integrity.ui.search.IntegritySearch;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -96,6 +98,15 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends LanguageRootPreferencePage> bindLanguageRootPreferencePage() {
 		return IntegrityRootPreferencePage.class;
+	}
+
+	/**
+	 * Defines the {@link IntegritySearch} implementation.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IntegritySearch> bindIntegritySearch() {
+		return DefaultIntegritySearch.class;
 	}
 
 }

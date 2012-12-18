@@ -280,8 +280,14 @@
   <extension
         point="org.eclipse.core.runtime.preferences">
      <initializer
-           class="de.gebit.integrity.ui.preferences.IntegrityPreferenceInitializer">
+           class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:de.gebit.integrity.ui.preferences.IntegrityPreferenceInitializer">
      </initializer>
+  </extension>
+  <extension
+        point="org.eclipse.ui.startup">
+     <startup
+           class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:de.gebit.integrity.ui.IntegrityUIStartup">
+     </startup>
   </extension>
 
 </plugin>

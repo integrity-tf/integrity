@@ -11,6 +11,8 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VisibleComment;
+import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
@@ -196,16 +198,20 @@ public abstract class TestRunnerCallback {
 	 * 
 	 * @param aCommentText
 	 *            the text inside the comment
+	 * @param aCommentElement
+	 *            the raw comment element
 	 */
-	public abstract void onVisibleComment(String aCommentText);
+	public abstract void onVisibleComment(String aCommentText, VisibleComment aCommentElement);
 
 	/**
 	 * Called when a visible divider is encountered during execution.
 	 * 
 	 * @param aDividerText
 	 *            the divider text (basically a String of '-' chars with minimum length of 3 chars)
+	 * @param aDividerElement
+	 *            the raw divider element
 	 */
-	public abstract void onVisibleDivider(String aDividerText);
+	public abstract void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement);
 
 	/**
 	 * Called when a fork has sent a message to the masters' callback. In order to merge results determined by forks

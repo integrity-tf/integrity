@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="01.09.12 20:12" isotimestamp="2012-09-01T20:12:36" duration="53.997">
+<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:19" duration="10.565">
   <variables>
     <variable name="integrity.basic.variants.myConstant" value="100" />
   </variables>
@@ -7,29 +7,29 @@
     <setup />
     <variables />
     <statements>
-      <suite id="1" name="integrity.basic.variants.varyingSuite">
+      <suite id="1" line="31" name="integrity.basic.variants.varyingSuite">
         <setup />
         <variables />
         <statements>
-          <suite id="2" name="integrity.basic.variants.otherSuite0">
+          <suite id="2" line="25" name="integrity.basic.variants.otherSuite0">
             <setup />
             <variables />
             <statements>
-              <call id="3" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
+              <call id="3" line="45" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.258" type="success" />
+                <result duration="0.025" type="success" />
               </call>
             </statements>
             <teardown />
-            <result duration="33.032" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="6.799" successCount="0" failureCount="0" exceptionCount="0" />
           </suite>
         </statements>
         <teardown />
-        <result duration="39.194" successCount="0" failureCount="0" exceptionCount="0" />
+        <result duration="7.848" successCount="0" failureCount="0" exceptionCount="0" />
       </suite>
     </statements>
     <teardown />
-    <result duration="51.546" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="9.909" successCount="0" failureCount="0" exceptionCount="0" />
   </suite>
 </integrity>
 
