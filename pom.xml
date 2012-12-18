@@ -20,7 +20,7 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>0.14.0</tycho-version>
+    <tycho-version>0.16.0</tycho-version>
     
     <isRelease>false</isRelease>
     <validateManifestVersions>true</validateManifestVersions>
