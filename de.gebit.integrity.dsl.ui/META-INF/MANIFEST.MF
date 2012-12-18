@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.xtext.ui.shared,
  org.eclipse.ui.editors,
  org.eclipse.ui,
  org.antlr.runtime,
- org.eclipse.compare
+ org.eclipse.compare,
+ org.eclipse.ui.browser
 Import-Package: org.apache.log4j,
  org.eclipse.compare,
  org.eclipse.core.commands.common,
@@ -30,8 +31,6 @@ Import-Package: org.apache.log4j,
  org.eclipse.jface.viewers,
  org.eclipse.swt.graphics,
  org.eclipse.ui,
- org.eclipse.ui.browser,
- org.eclipse.ui.internal.browser,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
