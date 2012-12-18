@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IStartup;
@@ -25,6 +26,7 @@ import org.eclipse.ui.internal.browser.WebBrowserView;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.ui.search.IntegritySearch;
+import de.gebit.integrity.ui.utils.EditorUtil;
 
 /**
  * 
@@ -46,6 +48,13 @@ public class IntegrityUIStartup implements IStartup {
 		registerBrowserLocationListener();
 	}
 
+	/**
+	 * Registers a location listener on every browser created. This is a rather ugly way to do it, but unfortunately I
+	 * don't know about any better way, maybe not involving accessing private attributes via reflection. This
+	 * implementation was basically taken from a <a
+	 * href="http://stackoverflow.com/questions/10391090/how-to-hook-into-the-internal-eclipse-browser">StackOverflow
+	 * thread</a>.
+	 */
 	private void registerBrowserLocationListener() {
 		final IPartListener partListener = new IPartListener() {
 			@Override
@@ -199,7 +208,11 @@ public class IntegrityUIStartup implements IStartup {
 			Matcher tempMatcher = INTEGRITY_URL_PATTERN.matcher(anEvent.location);
 			if (tempMatcher.matches()) {
 				anEvent.doit = false;
-				integritySearch.openSuiteDefinitionByName(tempMatcher.group(1));
+				IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempMatcher.group(1));
+				if (tempEditor != null && tempMatcher.groupCount() > 1) {
+					int tempLineNumber = Integer.parseInt(tempMatcher.group(2));
+					EditorUtil.jumpToLine(tempEditor, tempLineNumber);
+				}
 			}
 		}
 	}
