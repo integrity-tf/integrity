@@ -7,9 +7,11 @@ import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
@@ -208,13 +210,32 @@ public class IntegrityUIStartup implements IStartup {
 			Matcher tempMatcher = INTEGRITY_URL_PATTERN.matcher(anEvent.location);
 			if (tempMatcher.matches()) {
 				anEvent.doit = false;
-				IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempMatcher.group(1));
-				if (tempEditor != null && tempMatcher.groupCount() > 1) {
-					int tempLineNumber = Integer.parseInt(tempMatcher.group(2));
-					EditorUtil.jumpToLine(tempEditor, tempLineNumber);
+				String tempSuiteName = tempMatcher.group(1);
+				IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempSuiteName);
+				if (tempEditor == null) {
+					showError("Could not find a suite named '" + tempSuiteName + "' in your workspace.");
+				} else {
+					if (tempMatcher.groupCount() > 1) {
+						int tempLineNumber = Integer.parseInt(tempMatcher.group(2));
+						if (!EditorUtil.jumpToLine(tempEditor, tempLineNumber)) {
+							showError("Could not find line number " + tempLineNumber + " in suite '" + tempSuiteName
+									+ "'");
+						}
+					}
 				}
 			}
 		}
+	}
+
+	private void showError(final String aMessage) {
+		Runnable tempRunnable = new Runnable() {
+			@Override
+			public void run() {
+				MessageDialog.openError(null, "Integrity Editor", aMessage);
+			}
+		};
+
+		Display.getDefault().asyncExec(tempRunnable);
 	}
 
 }

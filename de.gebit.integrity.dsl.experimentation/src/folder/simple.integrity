@@ -3,21 +3,15 @@ import mypackage.*
 packagedef mypackage with
 
 	suitedef asuite with
-	
+		suite bsuite
 		suite bsuite
 		
-		suite bsuite
-		
-		-- Visible comment with < and >
-		
+		-- Visible comment with < and >		
 		test stupidtest
-			
 	suiteend
 	
 	suitedef bsuite with
-	
-		call wait seconds:1
-		
+		call wait seconds: 1
 	suiteend
-
+	
 packageend

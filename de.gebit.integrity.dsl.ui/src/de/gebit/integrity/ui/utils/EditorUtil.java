@@ -21,9 +21,9 @@ public final class EditorUtil {
 		// private constructor
 	}
 
-	public static final void jumpToLine(IEditorPart anEditor, int aLineNumber) {
+	public static final boolean jumpToLine(IEditorPart anEditor, int aLineNumber) {
 		if (!(anEditor instanceof ITextEditor) || aLineNumber <= 0) {
-			return;
+			return false;
 		}
 		ITextEditor tempEditor = (ITextEditor) anEditor;
 		IDocument tempDocument = tempEditor.getDocumentProvider().getDocument(tempEditor.getEditorInput());
@@ -36,8 +36,13 @@ public final class EditorUtil {
 			}
 			if (tempLineInfo != null) {
 				tempEditor.selectAndReveal(tempLineInfo.getOffset(), tempLineInfo.getLength());
+				return true;
+			} else {
+				return false;
 			}
 		}
+
+		return false;
 	}
 
 }

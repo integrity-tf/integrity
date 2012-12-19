@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <xmldata style="display: none;">
-<integrity name="unnamed" timestamp="12/17/12 11:14 PM" isotimestamp="2012-12-17T23:14:49" duration="3022.753">
+<integrity name="unnamed" timestamp="12/19/12 4:59 PM" isotimestamp="2012-12-19T16:59:13" duration="3040.594">
 <variables>
 <variable name="mypackage.deeper.yeah" value="10"></variable>
 <variable name="mypackage.dummy" value="2"></variable>
@@ -20,11 +20,11 @@
 <parameters>
 <parameter name="seconds" value="1"></parameter>
 </parameters>
-<result duration="1000.030" type="success"></result>
+<result duration="1000.694" type="success"></result>
 </call>
 </statements>
 <teardown></teardown>
-<result duration="1003.904" successCount="0" failureCount="0" exceptionCount="0"></result>
+<result duration="1013.226" successCount="0" failureCount="0" exceptionCount="0"></result>
 </suite>
 <suite id="3" line="9" name="mypackage.bsuite">
 <setup></setup>
@@ -34,16 +34,16 @@
 <parameters>
 <parameter name="seconds" value="1"></parameter>
 </parameters>
-<result duration="1000.418" type="success"></result>
+<result duration="993.704" type="success"></result>
 </call>
 </statements>
 <teardown></teardown>
-<result duration="1004.646" successCount="0" failureCount="0" exceptionCount="0"></result>
+<result duration="997.568" successCount="0" failureCount="0" exceptionCount="0"></result>
 </suite>
 <comment id="5" line="11"> Visible comment with &lt; and &gt;</comment>
 <test id="6" line="13" name="stupidtest" description="this test always succeeds :-)" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#returnTrue">
-<results duration="1000.064" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="1000.064" description="this test always succeeds :-)" type="success">
+<results duration="997.620" successCount="1" failureCount="0" exceptionCount="0">
+<result duration="997.620" description="this test always succeeds :-)" type="success">
 <parameters></parameters>
 <comparisons>
 <comparison expectedValue="true" value="true" type="success"></comparison>
@@ -53,13 +53,13 @@
 </test>
 </statements>
 <teardown></teardown>
-<result duration="3014.972" successCount="1" failureCount="0" exceptionCount="0"></result>
+<result duration="3018.880" successCount="1" failureCount="0" exceptionCount="0"></result>
 </suite>
 </integrity>
 </xmldata>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Integration Test 'unnamed' Results (12/17/12 11:14 PM) - Integrity Test Framework</title>
+<title>Integration Test 'unnamed' Results (12/19/12 4:59 PM) - Integrity Test Framework</title>
 <style type="text/css">body { color: #000; background-color: #FFF;
 					font-family: Helvetica, Arial, sans-serif; font-size:12px; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
@@ -125,7 +125,7 @@
 					.testresultvalue { font-weight: bold; }
 					.testresultvaluesuccess { color: #063; }
 					.testresultvaluefailure { color: #C00; }
-					.testduration { font-size: 8pt; position: absolute; top: 2px; right: 4px; color:
+					.durationandicons { font-size: 8pt; position: absolute; top: 2px; right: 4px; color:
 					#555; }
 					.test { min-height: 46px; }
 					.callexception { min-height: 46px; }
@@ -164,7 +164,11 @@
 					url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAPCAYAAAA4crG6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHlJREFUeNrs1jEKgDAQRcHVThBiiMfPXeMKW3gAyxn4pEmaVG9ba0XMeUTEmWu5K9dzI3fXxufsdafVm/ctAABl9wUAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAH7zCDAAwRoFUjYtVxsAAAAASUVORK5CYII="); }
 					.nav_suiteexception { background-image:
 					url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAPCAYAAAA4crG6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHxJREFUeNrs1rEJgDAQhtHTThBiiPvP4UaOEU+4wgEs34OfNEmT6lvmnBH3tUXEnmu5I9dzI3fWxufsdafVm/ctAABl9QUAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAH7zCDAAXFQFuTlYBeAAAAAASUVORK5CYII="); }
-					#progressbar { margin-top: 6px; border: 1px solid #000; }</style>
+					#progressbar { margin-top: 6px; border: 1px solid #000; }
+					.testicons { margin-left: 6px; }
+					.suiteicons { margin-left: 6px; }
+					.scriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKFJREFUeNpskDEOhSAQRBdj5QHsgAbssQTuokfzRBaUxMZwkP1ZEsyKf5NJyOQxm1mBiMAnxvg22hDYZK1F5xxyjxRCwIF/yjmLaZpgWZZP6qi1fplSSvDefzbXxPu+BYkgYwwcxyH2fUeePPASHLquC+Z5hnVdKzw2kKCUEjSolFI3Uep5ngKUUk/LbduQGtKb+/WEvdHU+3V13/zf/AQYAPpsgATFn91/AAAAAElFTkSuQmCC") no-repeat right 1px; }
+					.suitescriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }</style>
 <script type="text/javascript">var lastSelection;
 		  
 		    function boxOrCellMouseDown() {
@@ -327,14 +331,14 @@
 <body onLoad="resizeProgressBar()" onResize="resizeProgressBar()">
 <div id="header">
 <div align="left" class="pagesubtitle">
-                Test: 
-				<span class="pagesubtitlebold">unnamed</span>
+                Test:
+                <span class="pagesubtitlebold">unnamed</span>
 </div>
 <div align="left" class="pagesubtitle">
               Started
-			  <span class="pagesubtitlebold">12/17/12 11:14 PM</span>
+              <span class="pagesubtitlebold">12/19/12 4:59 PM</span>
               and took
-			  <span class="pagesubtitlebold">  3s 23ms</span>
+              <span class="pagesubtitlebold">3s41ms</span>
               to complete
             </div>
 <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';"></canvas>
@@ -418,7 +422,7 @@
         ✔
       
             in
-              3s 15ms</span>
+            3s19ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i1"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
@@ -434,7 +438,7 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">  1s 4ms</span>
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">1s13ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.bsuite"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i2"></a>
@@ -451,7 +455,7 @@
 </tr>
 </table>
 </div>
-<span class="testduration">  1s 0ms</span>
+<span class="durationandicons">1s1ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#19"></a></span></span>
 </div>
 </div>
 </div>
@@ -468,7 +472,7 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">  1s 5ms</span>
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">998ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.bsuite"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i4"></a>
@@ -485,7 +489,7 @@
 </tr>
 </table>
 </div>
-<span class="testduration">  1s 0ms</span>
+<span class="durationandicons">994ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#19"></a></span></span>
 </div>
 </div>
 </div>
@@ -501,7 +505,7 @@
               result:
               <span class="testresultvalue testresultvaluesuccess value">true</span>
 </div>
-<span class="testduration">  1s 0ms</span>
+<span class="durationandicons">998ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.asuite#13"></a></span></span>
 </div>
 </div>
 </div>
