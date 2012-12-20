@@ -4,6 +4,9 @@
 package de.gebit.integrity.eclipse.running;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -159,7 +162,37 @@ public class TestActionConfigurationDialog extends Dialog {
 
 		launchConfigurations.clear();
 		try {
-			for (ILaunchConfiguration tempLaunchConfig : tempLaunchManager.getLaunchConfigurations()) {
+			ILaunchConfiguration[] tempLaunchConfigs = tempLaunchManager.getLaunchConfigurations();
+			java.util.List<ILaunchConfiguration> tempLaunchConfigList = Arrays.asList(tempLaunchConfigs);
+			Collections.sort(tempLaunchConfigList, new Comparator<ILaunchConfiguration>() {
+
+				private static final String TRIGGER_WORD = "integrity";
+
+				/**
+				 * For easier usage, we apply a simple heuristic to sorting the launch configs: if the name contains
+				 * 'integrity', the config is moved to the top.
+				 * 
+				 * @param aFirstConfig
+				 * @param aSecondConfig
+				 * @return
+				 */
+				@Override
+				public int compare(ILaunchConfiguration aFirstConfig, ILaunchConfiguration aSecondConfig) {
+					if (aFirstConfig.getName().toLowerCase().contains(TRIGGER_WORD)) {
+						if (!aSecondConfig.getName().toLowerCase().contains(TRIGGER_WORD)) {
+							return -1;
+						}
+					} else {
+						if (aSecondConfig.getName().toLowerCase().contains(TRIGGER_WORD)) {
+							return 1;
+						}
+					}
+
+					return aFirstConfig.getName().compareTo(aSecondConfig.getName());
+				}
+			});
+
+			for (ILaunchConfiguration tempLaunchConfig : tempLaunchConfigList) {
 				if (tempLaunchConfig.getType() == tempJavaLaunchConfigType) {
 					launchConfigList.add(tempLaunchConfig.getName());
 					launchConfigurations.add(tempLaunchConfig);
