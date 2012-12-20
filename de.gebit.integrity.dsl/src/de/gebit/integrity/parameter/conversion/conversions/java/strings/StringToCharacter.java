@@ -13,7 +13,6 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider
  * 
  */
-@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class StringToCharacter extends Conversion<String, Character> {
 
 	@Override

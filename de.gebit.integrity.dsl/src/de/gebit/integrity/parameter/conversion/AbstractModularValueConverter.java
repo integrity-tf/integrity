@@ -213,6 +213,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return aValue;
 		}
 
+		if (tempTargetType == null && tempSourceType.getName().startsWith("java.")) {
+			// Java types generally have themselves as "default type" and don't need to be converted to anything
+			return aValue;
+		}
+
 		try {
 			@SuppressWarnings("rawtypes")
 			Conversion tempConversion = findConversion(tempSourceType, tempTargetType, someVisitedValues);
