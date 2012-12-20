@@ -1049,16 +1049,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 							}
 						});
 					}
+				}
 
-					String tempLink = (String) tempEntry.getAttribute(SetListEntryAttributeKeys.LINK);
-					if (tempLink != null) {
-						aManager.add(new JumpToLinkAction(INTEGRITY_URL_PREFIX + tempLink, "Jump to script",
-								"Jumps to the position of this element in the test scripts.") {
-							public void run() {
-								urlResolver.parseURL(getURL());
-							}
-						});
-					}
+				String tempLink = (String) tempEntry.getAttribute(SetListEntryAttributeKeys.LINK);
+				if (tempLink != null) {
+					aManager.add(new JumpToLinkAction(INTEGRITY_URL_PREFIX + tempLink, "Jump to script",
+							"Jumps to the position of this element in the test scripts.") {
+						public void run() {
+							urlResolver.parseURL(getURL());
+						}
+					});
 				}
 			}
 		}
