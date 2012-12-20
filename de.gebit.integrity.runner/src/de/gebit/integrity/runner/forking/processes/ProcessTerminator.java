@@ -49,7 +49,7 @@ public interface ProcessTerminator {
 	void unregisterProcess(Process aProcess);
 
 	/**
-	 * Kill all known forks and processes,
+	 * Kill all known forks and processes.
 	 * 
 	 * @param aTimeout
 	 * @return
