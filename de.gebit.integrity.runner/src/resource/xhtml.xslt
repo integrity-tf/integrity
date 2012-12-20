@@ -438,10 +438,13 @@
             <xsl:with-param name="value" select="result/@duration" />
           </xsl:call-template>
           <span class="suiteicons">
-	          <xsl:call-template name="scriptlink">
-	          	<xsl:with-param name="suite" select="@name" />
-	          	<xsl:with-param name="class" select="'suitescriptlink'" />
-	          </xsl:call-template>
+              <xsl:if test="ancestor::suite[1]/@name">
+		          <xsl:call-template name="scriptlink">
+		            <xsl:with-param name="line" select="@line" />
+		          	<xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+		          	<xsl:with-param name="class" select="'suitescriptlink'" />
+		          </xsl:call-template>
+	          </xsl:if>
           </span>
         </xsl:with-param>
         <xsl:with-param name="content">
