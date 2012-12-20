@@ -109,6 +109,11 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 
 	private static class EndParsingException extends SAXException {
 
+		/**
+		 * Serial version ID.
+		 */
+		private static final long serialVersionUID = 8064327549601301643L;
+
 		public EndParsingException() {
 			super();
 		}

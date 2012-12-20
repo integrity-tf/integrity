@@ -96,6 +96,7 @@ public class IntegrityTestResult extends TabulatedResult {
 	 * @param anExceptionCount
 	 *            the number of exceptions
 	 */
+	// SUPPRESS CHECKSTYLE ParameterNumber
 	public IntegrityTestResult(TestObject aParent, String aName, String aDisplayName, byte[] someRawData,
 			String aContentType, int aSuccessCount, int aFailureCount, int anExceptionCount) {
 		super();
@@ -263,6 +264,11 @@ public class IntegrityTestResult extends TabulatedResult {
 		}
 	}
 
+	/**
+	 * Return the content type.
+	 * 
+	 * @return the content type
+	 */
 	public String getContentType() {
 		if (contentType == null) {
 			return "text/xml;charset=UTF-8";
