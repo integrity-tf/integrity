@@ -1311,8 +1311,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private void updateLaunchButtonState() {
 		if (launchConfiguration != null) {
 			executeTestAction.setEnabled(true);
-			executeTestAction.setToolTipText("Launches the test run configuration (" + launchConfiguration.getName()
-					+ ")");
+			executeTestAction.setToolTipText("Launches the test run configuration '" + launchConfiguration.getName()
+					+ "'");
 		} else {
 			executeTestAction.setEnabled(true);
 			executeTestAction.setToolTipText("Launches the test run configuration.");
