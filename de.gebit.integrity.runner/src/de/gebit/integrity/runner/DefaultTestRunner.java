@@ -1332,6 +1332,7 @@ public class DefaultTestRunner implements TestRunner {
 			shallWaitBeforeNextStep = false;
 		} else {
 			// do not wait
+			remotingServer.updateExecutionState(ExecutionStates.RUNNING);
 			return;
 		}
 

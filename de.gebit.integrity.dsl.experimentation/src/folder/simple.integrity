@@ -11,7 +11,7 @@ packagedef mypackage with
 	suiteend
 	
 	suitedef bsuite with
-		call wait seconds: 1
+		call wait seconds: 10
 	suiteend
 	
 packageend

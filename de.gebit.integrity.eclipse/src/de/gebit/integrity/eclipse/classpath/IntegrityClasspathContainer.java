@@ -86,7 +86,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 			aList.add(tempEntry);
 		} else {
 			Activator
-					.getDefault()
+					.getInstance()
 					.getLog()
 					.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Was unable to find bundle '" + aBundleName
 							+ "' to add it to a projects' classpath!"));

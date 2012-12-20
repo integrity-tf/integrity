@@ -39,6 +39,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -81,8 +83,11 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.eclipse.Activator;
 import de.gebit.integrity.eclipse.actions.BreakpointAction;
+import de.gebit.integrity.eclipse.actions.JumpToLinkAction;
 import de.gebit.integrity.eclipse.controls.ProgressBar;
 import de.gebit.integrity.eclipse.running.TestActionConfigurationDialog;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
@@ -99,6 +104,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
+import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 
 /**
  * The Integrity Test Runner Eclipse Plugin main view.
@@ -111,6 +117,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The ID of the view as specified by the extension.
 	 */
 	public static final String ID = "de.gebit.integrity.eclipse.views.IntegrityTestRunnerView";
+
+	/**
+	 * The prefix for Integrity URLs. Required to add to links provided by {@link SetListEntry} instances, which don't
+	 * include the prefix to save some space.
+	 */
+	protected static final String INTEGRITY_URL_PREFIX = "integrity://";
+
+	/**
+	 * The Integrity URL resolver.
+	 */
+	@Inject
+	private IntegrityURLResolver urlResolver;
 
 	/**
 	 * The sash form used to split the screen in one half for the tree, and another for the details view.
@@ -945,6 +963,23 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		});
+
+		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
+
+			@Override
+			public void doubleClick(DoubleClickEvent anEvent) {
+				if (anEvent.getSelection() instanceof TreeSelection) {
+					TreeSelection tempSelection = (TreeSelection) anEvent.getSelection();
+					if (tempSelection.getFirstElement() instanceof SetListEntry) {
+						SetListEntry tempEntry = (SetListEntry) tempSelection.getFirstElement();
+						String tempLink = (String) tempEntry.getAttribute(SetListEntryAttributeKeys.LINK);
+						if (tempLink != null) {
+							urlResolver.parseURL(INTEGRITY_URL_PREFIX + tempLink);
+						}
+					}
+				}
+			}
+		});
 	}
 
 	private void hookContextMenu() {
@@ -1011,6 +1046,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 								} else {
 									client.createBreakpoint(tempEntry.getId());
 								}
+							}
+						});
+					}
+
+					String tempLink = (String) tempEntry.getAttribute(SetListEntryAttributeKeys.LINK);
+					if (tempLink != null) {
+						aManager.add(new JumpToLinkAction(INTEGRITY_URL_PREFIX + tempLink, "Jump to script",
+								"Jumps to the position of this element in the test scripts.") {
+							public void run() {
+								urlResolver.parseURL(getURL());
 							}
 						});
 					}
@@ -1703,6 +1748,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
+			System.out.println(aState);
 			updateActionStatus(aState);
 		}
 

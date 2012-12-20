@@ -4,15 +4,10 @@
 package de.gebit.integrity.ui;
 
 import java.lang.reflect.Field;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IStartup;
@@ -27,11 +22,10 @@ import org.eclipse.ui.internal.browser.WebBrowserView;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.ui.search.IntegritySearch;
-import de.gebit.integrity.ui.utils.EditorUtil;
+import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 
 /**
- * 
+ * This startup code is run when the Integrity UI bundle is started.
  * 
  * @author Slartibartfast
  * 
@@ -40,10 +34,10 @@ import de.gebit.integrity.ui.utils.EditorUtil;
 public class IntegrityUIStartup implements IStartup {
 
 	/**
-	 * The {@link IntegritySearch} engine.
+	 * The {@link IntegrityURLResolver}.
 	 */
 	@Inject
-	protected IntegritySearch integritySearch;
+	private IntegrityURLResolver urlResolver;
 
 	@Override
 	public void earlyStartup() {
@@ -190,10 +184,8 @@ public class IntegrityUIStartup implements IStartup {
 		}
 	}
 
-	private static final Pattern INTEGRITY_URL_PATTERN = Pattern.compile("integrity:\\/\\/([^#]+?)\\/?(?:\\#(\\d+))?");
-
 	/**
-	 * 
+	 * This location listener intercepts any location changes and sends URLs to the Integrity URL parser.
 	 * 
 	 * 
 	 * @author Slartibartfast
@@ -207,35 +199,10 @@ public class IntegrityUIStartup implements IStartup {
 
 		@Override
 		public void changing(LocationEvent anEvent) {
-			Matcher tempMatcher = INTEGRITY_URL_PATTERN.matcher(anEvent.location);
-			if (tempMatcher.matches()) {
+			if (urlResolver.parseURL(anEvent.location)) {
 				anEvent.doit = false;
-				String tempSuiteName = tempMatcher.group(1);
-				IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempSuiteName);
-				if (tempEditor == null) {
-					showError("Could not find a suite named '" + tempSuiteName + "' in your workspace.");
-				} else {
-					if (tempMatcher.groupCount() > 1) {
-						int tempLineNumber = Integer.parseInt(tempMatcher.group(2));
-						if (!EditorUtil.jumpToLine(tempEditor, tempLineNumber)) {
-							showError("Could not find line number " + tempLineNumber + " in suite '" + tempSuiteName
-									+ "'");
-						}
-					}
-				}
 			}
 		}
-	}
-
-	private void showError(final String aMessage) {
-		Runnable tempRunnable = new Runnable() {
-			@Override
-			public void run() {
-				MessageDialog.openError(null, "Integrity Editor", aMessage);
-			}
-		};
-
-		Display.getDefault().asyncExec(tempRunnable);
 	}
 
 }

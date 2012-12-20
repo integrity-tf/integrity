@@ -17,6 +17,8 @@ import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 import de.gebit.integrity.ui.highlighting.DSLSemanticHighlightingCalculator;
+import de.gebit.integrity.ui.linking.DefaultIntegrityURLResolver;
+import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 import de.gebit.integrity.ui.preferences.IntegrityRootPreferencePage;
 import de.gebit.integrity.ui.search.DefaultIntegritySearch;
 import de.gebit.integrity.ui.search.IntegritySearch;
@@ -107,6 +109,15 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends IntegritySearch> bindIntegritySearch() {
 		return DefaultIntegritySearch.class;
+	}
+
+	/**
+	 * Defines the {@link IntegrityURLResolver} implementation.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IntegrityURLResolver> bindIntegrityURLResolver() {
+		return DefaultIntegrityURLResolver.class;
 	}
 
 }

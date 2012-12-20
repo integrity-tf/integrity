@@ -12,7 +12,7 @@
             name="Integrity Test Control"
             icon="icons/view.gif"
             category="de.gebit.integrity.eclipse"
-            class="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView"
+            class="de.gebit.integrity.eclipse.DSLExecutableExtensionFactory:de.gebit.integrity.eclipse.views.IntegrityTestRunnerView"
             id="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView">
       </view>
    </extension>

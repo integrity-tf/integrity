@@ -4,8 +4,10 @@ Bundle-Name: Integrity Test Framework - Eclipse Integration
 Bundle-SymbolicName: de.gebit.integrity.eclipse;singleton:=true
 Bundle-Version: 0.6.5.qualifier
 Bundle-Activator: de.gebit.integrity.eclipse.Activator
-Require-Bundle: de.gebit.integrity.remoting;bundle-version="0.1.0",
- org.eclipse.osgi;bundle-version="3.7.0"
+Require-Bundle: de.gebit.integrity.remoting;bundle-version="0.6.5",
+ de.gebit.integrity.dsl.ui;bundle-version="0.6.5",
+ org.eclipse.osgi;bundle-version="3.7.0",
+ org.eclipse.xtext.ui;bundle-version="2.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.core.commands.common,
@@ -39,3 +41,9 @@ Import-Package: org.eclipse.core.commands.common,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
 Bundle-Vendor: GEBIT Solutions GmbH
+Export-Package: de.gebit.integrity.eclipse,
+ de.gebit.integrity.eclipse.actions,
+ de.gebit.integrity.eclipse.classpath,
+ de.gebit.integrity.eclipse.controls,
+ de.gebit.integrity.eclipse.running,
+ de.gebit.integrity.eclipse.views

@@ -126,6 +126,11 @@ public enum SetListEntryAttributeKeys {
 	/**
 	 * Updates of variables after a call.
 	 */
-	VARIABLE_UPDATES;
+	VARIABLE_UPDATES,
+
+	/**
+	 * A link to the test script (suite and optionally line).
+	 */
+	LINK;
 
 }

@@ -80,7 +80,7 @@ public class TestActionConfigurationDialog extends Dialog {
 	protected void initializeBounds() {
 		super.initializeBounds();
 
-		IDialogSettings tempSettings = Activator.getDefault().getDialogSettings()
+		IDialogSettings tempSettings = Activator.getInstance().getDialogSettings()
 				.getSection(TestActionConfigurationDialog.class.getName());
 		int tempWidth = 400;
 		int tempHeight = 500;
@@ -94,7 +94,7 @@ public class TestActionConfigurationDialog extends Dialog {
 				tempHeight = 500;
 			}
 		} else {
-			tempSettings = Activator.getDefault().getDialogSettings()
+			tempSettings = Activator.getInstance().getDialogSettings()
 					.addNewSection(TestActionConfigurationDialog.class.getName());
 			tempSettings.put("width", tempWidth);
 			tempSettings.put("height", tempHeight);

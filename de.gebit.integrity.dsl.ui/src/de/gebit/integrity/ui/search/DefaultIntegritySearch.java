@@ -18,19 +18,26 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.SuiteDefinition;
 
 /**
- * 
+ * The default implementation of {@link IntegritySearch}.
  * 
  * @author Slartibartfast
  * 
  */
 public class DefaultIntegritySearch implements IntegritySearch {
 
+	/**
+	 * The XText search engine that's used to back the Integrity-specific search features.
+	 */
 	@Inject
 	private IXtextEObjectSearch searchEngine;
 
+	/**
+	 * Opens XText editors based on Ecore URIs.
+	 */
 	@Inject
 	private IURIEditorOpener uriEditorOpener;
 
+	@Override
 	public SuiteDefinition[] findSuiteDefinitionByName(String aSuiteName) {
 		List<SuiteDefinition> tempResult = new ArrayList<SuiteDefinition>();
 
@@ -49,6 +56,7 @@ public class DefaultIntegritySearch implements IntegritySearch {
 		}
 	}
 
+	@Override
 	public IEditorPart openSuiteDefinitionByName(String aSuiteName) {
 		SuiteDefinition[] tempSuiteDef = findSuiteDefinitionByName(aSuiteName);
 		if (tempSuiteDef != null) {

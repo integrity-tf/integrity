@@ -39,10 +39,14 @@ Export-Package: de.gebit.integrity.ui,
  de.gebit.integrity.ui.contentassist.antlr,
  de.gebit.integrity.ui.contentassist.antlr.internal,
  de.gebit.integrity.ui.documentation,
+ de.gebit.integrity.ui.highlighting,
  de.gebit.integrity.ui.internal,
  de.gebit.integrity.ui.labeling,
+ de.gebit.integrity.ui.linking,
  de.gebit.integrity.ui.outline,
+ de.gebit.integrity.ui.preferences,
  de.gebit.integrity.ui.quickfix,
+ de.gebit.integrity.ui.search,
  de.gebit.integrity.ui.utils
 Bundle-Activator: de.gebit.integrity.ui.internal.DSLActivator
 Bundle-Vendor: GEBIT Solutions GmbH

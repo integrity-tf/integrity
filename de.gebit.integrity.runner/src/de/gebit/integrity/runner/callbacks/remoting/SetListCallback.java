@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
@@ -132,11 +133,6 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onSuiteStart(Suite aSuite) {
-		ICompositeNode tempNode = NodeModelUtils.getNode(aSuite);
-		if (tempNode != null) {
-			System.out.println("Line " + tempNode.getStartLine() + " in " + aSuite.eResource().getURI());
-
-		}
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
@@ -149,6 +145,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			}
 		}
 
+		addLinkToEntry(tempNewEntry, aSuite);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
 	}
@@ -157,6 +154,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+		addLinkToEntry(tempNewEntry, aSetupSuite);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.SETUP, tempNewEntry);
 		entryStack.push(tempNewEntry);
 	}
@@ -173,6 +171,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTest.getDefinition().getFixtureMethod(),
 				aTest.getParameters(), tempNewEntry);
 
+		addLinkToEntry(tempNewEntry, aTest);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
 		setList.setEntryInExecutionReference(tempNewEntry.getId());
@@ -186,6 +185,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTableTest.getDefinition().getFixtureMethod(),
 				aTableTest.getParameters(), tempNewEntry);
 
+		addLinkToEntry(tempNewEntry, aTableTest);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
 		setList.setEntryInExecutionReference(tempNewEntry.getId());
@@ -369,6 +369,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aCall.getDefinition().getFixtureMethod(),
 				aCall.getParameters(), tempNewEntry);
 
+		addLinkToEntry(tempNewEntry, aCall);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		entryStack.push(tempNewEntry);
 		setList.setEntryInExecutionReference(tempNewEntry.getId());
@@ -424,6 +425,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+		addLinkToEntry(tempNewEntry, aTearDownSuite);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.TEARDOWN, tempNewEntry);
 		entryStack.push(tempNewEntry);
 		sendUpdateToClients(null, tempNewEntry);
@@ -467,6 +469,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, aCommentText);
 
+		addLinkToEntry(tempNewEntry, aCommentElement);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
 		sendUpdateToClients(null, tempNewEntry);
 	}
@@ -635,4 +638,35 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		// not used
 	}
 
+	/**
+	 * Adds a link (to suite and line number) to the given {@link SetListEntry}.
+	 * 
+	 * @param anEntry
+	 *            the entry to add the link to
+	 * @param anObject
+	 *            the object to link to
+	 */
+	protected void addLinkToEntry(SetListEntry anEntry, EObject anObject) {
+		SuiteDefinition tempParentSuite = null;
+		EObject tempParent = anObject;
+		while (tempParentSuite == null && tempParent != null) {
+			if (tempParent instanceof SuiteDefinition) {
+				tempParentSuite = (SuiteDefinition) tempParent;
+			} else {
+				tempParent = tempParent.eContainer();
+			}
+		}
+
+		if (tempParentSuite != null) {
+			String tempLink = IntegrityDSLUtil.getQualifiedSuiteName(tempParentSuite);
+			if (!(anObject instanceof SuiteDefinition)) {
+				ICompositeNode tempNode = NodeModelUtils.getNode(anObject);
+				if (tempNode != null) {
+					int tempLine = tempNode.getStartLine();
+					tempLink += "#" + tempLine;
+				}
+			}
+			anEntry.setAttribute(SetListEntryAttributeKeys.LINK, tempLink);
+		}
+	}
 }
