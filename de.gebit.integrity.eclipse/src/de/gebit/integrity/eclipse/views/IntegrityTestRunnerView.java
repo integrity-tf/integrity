@@ -1246,9 +1246,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			}
 		};
 		executeTestAction.setText("Launch test application");
-		executeTestAction.setToolTipText("Launches the test run configuration.");
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
-		executeTestAction.setEnabled(false);
+		updateLaunchButtonState();
 
 		shutdownAction = new Action() {
 			public void run() {
@@ -1267,9 +1266,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
 				if (tempDialog.open() == Dialog.OK) {
 					launchConfiguration = tempDialog.getSelectedConfiguration();
-					if (launchConfiguration != null) {
-						executeTestAction.setEnabled(true);
-					}
+					updateLaunchButtonState();
 				}
 			}
 		};
@@ -1309,6 +1306,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 		scrollLockAction.setImageDescriptor(Activator.getImageDescriptor("icons/scrolllock.gif"));
 
 		updateActionStatus(null);
+	}
+
+	private void updateLaunchButtonState() {
+		if (launchConfiguration != null) {
+			executeTestAction.setEnabled(true);
+			executeTestAction.setToolTipText("Launches the test run configuration (" + launchConfiguration.getName()
+					+ ")");
+		} else {
+			executeTestAction.setEnabled(true);
+			executeTestAction.setToolTipText("Launches the test run configuration.");
+		}
 	}
 
 	private boolean isConnected() {
