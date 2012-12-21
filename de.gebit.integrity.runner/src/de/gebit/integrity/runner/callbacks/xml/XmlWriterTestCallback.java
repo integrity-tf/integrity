@@ -3,6 +3,7 @@ package de.gebit.integrity.runner.callbacks.xml;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -1031,7 +1032,87 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						tempTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
 						Source tempSource = new JDOMSource(document);
-						StreamResult tempResult = new StreamResult(tempOutputStream);
+
+						/*
+						 * There is a problem with the XML source data that is copied to the transformed HTML result
+						 * (into the "xmldata" element): since the output method for the serializer is set to HTML, it
+						 * seems to inevitably output '<' and '>' in attributes as characters, which is no problem for
+						 * HTML, but strict XML requires those to be replaced by their corresponding entities. I could
+						 * solve this by outputting strict XML, but that renders the output unrenderable by browsers :-(
+						 * well, for some reason I don't fully understand at least, I'm no browser developer. To solve
+						 * this, the following very ugly hack replaces the characters by their entities in all attribute
+						 * values inside the xmldata section on a character stream level. That makes the xmldata content
+						 * valid XML and thus conveniently parseable for example by a SAX parser (just be sure to stop
+						 * the parsing when reaching the end of that section, because the HTML afterwards definitely
+						 * doesn't parse as XML!), while keeping viewability on all browsers. It should not have any
+						 * negative side-effects, apart from being disgusting and everything, but well, this can still
+						 * be replaced by a more elegant solution if someone comes up with one.
+						 */
+						StreamResult tempResult = new StreamResult(new FilterOutputStream(tempOutputStream) {
+
+							private static final String TAG_START = "<xmldata";
+
+							private static final String TAG_END = "</xmldata>";
+
+							private static final char TRIGGER_TAG = '<';
+
+							private static final char TRIGGER_ATTRIBUTE = '"';
+
+							private boolean insideXmlPart;
+
+							private boolean insideAttribute;
+
+							private boolean pastXmlPart;
+
+							private StringBuilder buffer = new StringBuilder();
+
+							@Override
+							public void write(int aByte) throws IOException {
+								char tempChar = (char) aByte;
+
+								if (!pastXmlPart) {
+									if (!insideAttribute) {
+										if (tempChar == TRIGGER_TAG) {
+											buffer.setLength(0);
+											buffer.append(tempChar);
+										} else if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
+											insideAttribute = true;
+										} else {
+											buffer.append(tempChar);
+											if (insideXmlPart) {
+												if (TAG_END.equals(buffer.toString())) {
+													insideXmlPart = false;
+													pastXmlPart = true;
+													buffer.setLength(0);
+												}
+											} else {
+												if (TAG_START.equals(buffer.toString())) {
+													insideXmlPart = true;
+													buffer.setLength(0);
+												}
+											}
+										}
+									} else {
+										if (insideXmlPart) {
+											if (tempChar == TRIGGER_ATTRIBUTE) {
+												insideAttribute = false;
+											} else {
+												if (tempChar == '<') {
+													super.write("&lt;".getBytes("UTF-8"));
+													return;
+												} else if (tempChar == '>') {
+													super.write("&gt;".getBytes("UTF-8"));
+													return;
+												}
+											}
+										}
+									}
+								}
+
+								super.write(aByte);
+							}
+						});
+
 						tempTransformer.transform(tempSource, tempResult);
 					} catch (TransformerConfigurationException exc) {
 						exc.printStackTrace();
