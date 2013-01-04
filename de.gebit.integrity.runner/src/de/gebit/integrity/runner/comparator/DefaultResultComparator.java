@@ -68,8 +68,10 @@ public class DefaultResultComparator implements ResultComparator {
 					if (anExpectedResult.getMoreValues().size() > 0) {
 						// multiple result values given -> we're going to put them into an array of the same type
 						// as the fixture result
-						tempConvertedResult = Array.newInstance(tempConversionTargetType, anExpectedResult
-								.getMoreValues().size() + 1);
+						Class<?> tempArrayType = (tempConversionTargetType == null) ? Object.class
+								: tempConversionTargetType;
+						tempConvertedResult = Array.newInstance(tempArrayType,
+								anExpectedResult.getMoreValues().size() + 1);
 						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
