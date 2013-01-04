@@ -192,14 +192,19 @@ public class DefaultForker implements Forker {
 	private static final int MAX_PORT_NUMBER = 65535;
 
 	/**
-	 * Finds a free port on the machine by randomly checking ports above 1024.
+	 * The minimum possible port number.
+	 */
+	private static final int MIN_PORT_NUMBER = 1024;
+
+	/**
+	 * Finds a free port on the machine by randomly checking ports above {@link #MIN_PORT_NUMBER}.
 	 * 
 	 * @return
 	 */
 	private static int getFreePort() {
 		int tempPort = 0;
 		do {
-			tempPort = (int) Math.floor(Math.random() * (double) (MAX_PORT_NUMBER - 1024));
+			tempPort = (int) Math.floor(Math.random() * (double) (MAX_PORT_NUMBER - MIN_PORT_NUMBER)) + MIN_PORT_NUMBER;
 		} while (!isPortAvailable(tempPort));
 		return tempPort;
 	}
