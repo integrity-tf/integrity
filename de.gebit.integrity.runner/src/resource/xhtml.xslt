@@ -161,7 +161,7 @@
 			  if(window.getSelection().toString() != lastSelection) return;			  
 			  for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
 			  	var div=aCell.getElementsByTagName('div')[i];
-			  	if(div.className=='testparameters') {
+			  	if(div.className=='testparameters' || div.className=='tabletestresults') {
 			  		if(div.style.display!='block')
 			    		div.style.display='block';
 		      	else
