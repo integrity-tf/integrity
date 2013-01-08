@@ -2,6 +2,7 @@ package de.gebit.integrity.tests.fixtures.basic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -29,20 +30,17 @@ public class NoOpFixture {
 	}
 
 	@FixtureMethod(description = "Echo the string '$string$'")
-	public String echoString(
-			@FixtureParameter(name = "string") String aStringToEcho) {
+	public String echoString(@FixtureParameter(name = "string") String aStringToEcho) {
 		return aStringToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the string array '$strings$'")
-	public String[] echoStringArray(
-			@FixtureParameter(name = "strings") String[] someStringsToEcho) {
+	public String[] echoStringArray(@FixtureParameter(name = "strings") String[] someStringsToEcho) {
 		return someStringsToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the integer '$integer$'")
-	public Integer echoInteger(
-			@FixtureParameter(name = "integer") Integer anIntToEcho) {
+	public Integer echoInteger(@FixtureParameter(name = "integer") Integer anIntToEcho) {
 		return anIntToEcho;
 	}
 
@@ -62,14 +60,12 @@ public class NoOpFixture {
 	}
 
 	@FixtureMethod(description = "Echo the BigDecimal '$bigdecimal$'")
-	public BigDecimal echoBigDecimal(
-			@FixtureParameter(name = "bigdecimal") BigDecimal aBigDecimalToEcho) {
+	public BigDecimal echoBigDecimal(@FixtureParameter(name = "bigdecimal") BigDecimal aBigDecimalToEcho) {
 		return aBigDecimalToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the BigInteger '$biginteger$'")
-	public BigInteger echoBigInteger(
-			@FixtureParameter(name = "biginteger") BigInteger aBigIntegerToEcho) {
+	public BigInteger echoBigInteger(@FixtureParameter(name = "biginteger") BigInteger aBigIntegerToEcho) {
 		return aBigIntegerToEcho;
 	}
 
@@ -78,9 +74,13 @@ public class NoOpFixture {
 		return aDateToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the calendar '$calendar$'")
+	public Calendar echoCalendar(@FixtureParameter(name = "calendar") Calendar aCalendarToEcho) {
+		return aCalendarToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the map '$map$'")
-	public Map<String, Object> echoMap(
-			@FixtureParameter(name = "map") Map<String, Object> aMapToEcho) {
+	public Map<String, Object> echoMap(@FixtureParameter(name = "map") Map<String, Object> aMapToEcho) {
 		return aMapToEcho;
 	}
 

@@ -1,0 +1,13 @@
+packagedef integrity.basic.conversions with
+
+	suitedef dateConversions with
+		
+		variable temp
+		
+		// See if calendar to string conversion works correctly
+		call integrity.fixtures.basic.noop.echoCalendar calendar: 1970-01-01T12:00+02:00 -> temp
+		test integrity.fixtures.basic.noop.echoStringTest string: temp = "January 1, 1970 11:00:00 AM CET"
+	
+	suiteend
+
+packageend
