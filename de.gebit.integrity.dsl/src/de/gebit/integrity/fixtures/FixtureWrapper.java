@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;

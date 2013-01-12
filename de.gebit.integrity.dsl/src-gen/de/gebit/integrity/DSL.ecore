@@ -183,7 +183,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="ArbitraryParameterOrResultName" eSuperTypes="#//ResultName #//ParameterName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Operation" eSuperTypes="#//ValueOrEnumValueOrOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="Operation" eSuperTypes="#//ValueOrEnumValueOrOperation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StandardOperation" eSuperTypes="#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstOperand" eType="#//ValueOrEnumValueOrOperation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operators" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moreOperands" upperBound="-1"
+        eType="#//ValueOrEnumValueOrOperation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomOperation" eSuperTypes="#//Operation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="prefixOperand" eType="#//ValueOrEnumValueOrOperationCollection"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="#//OperationDefinition"/>

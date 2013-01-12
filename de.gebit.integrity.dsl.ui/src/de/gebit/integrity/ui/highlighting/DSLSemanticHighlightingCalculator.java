@@ -89,7 +89,7 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 										: DSLHighlightingConfiguration.PARAMETER_OPERATION_IDENTIFIER_ID);
 					}
 				}
-			} else if (tempGrammarElement == grammarAccess.getOperationAccess().getWithKeyword_4_1()) {
+			} else if (tempGrammarElement == grammarAccess.getCustomOperationAccess().getWithKeyword_4_1()) {
 				// Special case for the "with" keyword in operations
 				Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 				if (tempIsResult != null) {

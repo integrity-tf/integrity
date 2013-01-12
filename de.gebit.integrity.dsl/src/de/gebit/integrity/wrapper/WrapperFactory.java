@@ -5,12 +5,12 @@ package de.gebit.integrity.wrapper;
 
 import org.eclipse.xtext.common.types.JvmType;
 
-import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.fixtures.FixtureWrapper;
-import de.gebit.integrity.operations.OperationWrapper;
+import de.gebit.integrity.operations.CustomOperationWrapper;
 
 /**
- * The wrapper factory is responsible for the actual creation of the {@link FixtureWrapper} and {@link OperationWrapper}
+ * The wrapper factory is responsible for the actual creation of the {@link FixtureWrapper} and {@link CustomOperationWrapper}
  * instances. This also includes instantiation of the fixture/operation classes.
  * 
  * @author Rene Schneider
@@ -32,13 +32,13 @@ public interface WrapperFactory {
 			IllegalAccessException;
 
 	/**
-	 * Creates a new {@link OperationWrapper} for the given {@link Operation}.
+	 * Creates a new {@link CustomOperationWrapper} for the given {@link CustomOperation}.
 	 * 
 	 * @param anOperation
 	 *            the operation to instantiate
-	 * @return the {@link OperationWrapper} instance
+	 * @return the {@link CustomOperationWrapper} instance
 	 * @throws ClassNotFoundException
 	 */
-	OperationWrapper newOperationWrapper(Operation anOperation) throws ClassNotFoundException;
+	CustomOperationWrapper newCustomOperationWrapper(CustomOperation anOperation) throws ClassNotFoundException;
 
 }

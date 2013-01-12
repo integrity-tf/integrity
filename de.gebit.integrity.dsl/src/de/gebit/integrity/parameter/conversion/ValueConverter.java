@@ -3,7 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion;
 
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**

@@ -124,7 +124,13 @@ ArbitraryParameterOrResultName:
 	'+' identifier=ID;
 	
 Operation:
-	'(' NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL 'with' postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ')';
+	StandardOperation | CustomOperation;
+	
+StandardOperation:
+	'(' NL (firstOperand=ValueOrEnumValueOrOperation NL) (operators+=ARITHMETRIC_OPERATOR NL moreOperands+=ValueOrEnumValueOrOperation NL)+ ')';
+	
+CustomOperation:
+	'[' NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL 'with' postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ']';
 	
 ValueOrEnumValueOrOperationCollection:
 	value=ValueOrEnumValueOrOperation (NL ',' NL moreValues+=ValueOrEnumValueOrOperation)*;
@@ -255,5 +261,7 @@ terminal EURODATE: ('0'..'3')('0'..'9') '.' ('0'..'1')('0'..'9') '.' ('0'..'9')(
 terminal USDATE: ('0'..'1')('0'..'9') '/' ('0'..'3')('0'..'9') '/' ('0'..'9')('0'..'9')('0'..'9')('0'..'9');
 terminal TWENTYFOURHRSTIME: ('0'..'2')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9'))?;
 terminal TWELVEHRSTIME: ('0'..'1')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9'))? ('am'|'pm');
+
+terminal ARITHMETRIC_OPERATOR: ('+'|'-'|'*'|'/'|'%');
 
 terminal ANY_OTHER: .;

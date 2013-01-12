@@ -7,6 +7,7 @@ import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
@@ -47,6 +48,7 @@ import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
+import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.StringValue;
@@ -371,6 +373,20 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass operationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass standardOperationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass customOperationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1733,9 +1749,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOperation_PrefixOperand()
+  public EClass getStandardOperation()
   {
-    return (EReference)operationEClass.getEStructuralFeatures().get(0);
+    return standardOperationEClass;
   }
 
   /**
@@ -1743,9 +1759,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOperation_Definition()
+  public EReference getStandardOperation_FirstOperand()
   {
-    return (EReference)operationEClass.getEStructuralFeatures().get(1);
+    return (EReference)standardOperationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1753,9 +1769,59 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOperation_PostfixOperand()
+  public EAttribute getStandardOperation_Operators()
   {
-    return (EReference)operationEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)standardOperationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStandardOperation_MoreOperands()
+  {
+    return (EReference)standardOperationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCustomOperation()
+  {
+    return customOperationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomOperation_PrefixOperand()
+  {
+    return (EReference)customOperationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomOperation_Definition()
+  {
+    return (EReference)customOperationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCustomOperation_PostfixOperand()
+  {
+    return (EReference)customOperationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2425,9 +2491,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(arbitraryParameterOrResultNameEClass, ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER);
 
     operationEClass = createEClass(OPERATION);
-    createEReference(operationEClass, OPERATION__PREFIX_OPERAND);
-    createEReference(operationEClass, OPERATION__DEFINITION);
-    createEReference(operationEClass, OPERATION__POSTFIX_OPERAND);
+
+    standardOperationEClass = createEClass(STANDARD_OPERATION);
+    createEReference(standardOperationEClass, STANDARD_OPERATION__FIRST_OPERAND);
+    createEAttribute(standardOperationEClass, STANDARD_OPERATION__OPERATORS);
+    createEReference(standardOperationEClass, STANDARD_OPERATION__MORE_OPERANDS);
+
+    customOperationEClass = createEClass(CUSTOM_OPERATION);
+    createEReference(customOperationEClass, CUSTOM_OPERATION__PREFIX_OPERAND);
+    createEReference(customOperationEClass, CUSTOM_OPERATION__DEFINITION);
+    createEReference(customOperationEClass, CUSTOM_OPERATION__POSTFIX_OPERAND);
 
     valueOrEnumValueOrOperationCollectionEClass = createEClass(VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION);
     createEReference(valueOrEnumValueOrOperationCollectionEClass, VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION__VALUE);
@@ -2570,6 +2643,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getResultName());
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getParameterName());
     operationEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
+    standardOperationEClass.getESuperTypes().add(this.getOperation());
+    customOperationEClass.getESuperTypes().add(this.getOperation());
     valueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
     staticValueEClass.getESuperTypes().add(this.getValue());
     integerValueEClass.getESuperTypes().add(this.getStaticValue());
@@ -2743,9 +2818,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getArbitraryParameterOrResultName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, ArbitraryParameterOrResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(operationEClass, Operation.class, "Operation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOperation_PrefixOperand(), this.getValueOrEnumValueOrOperationCollection(), null, "prefixOperand", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOperation_Definition(), this.getOperationDefinition(), null, "definition", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOperation_PostfixOperand(), this.getValueOrEnumValueOrOperationCollection(), null, "postfixOperand", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(standardOperationEClass, StandardOperation.class, "StandardOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStandardOperation_FirstOperand(), this.getValueOrEnumValueOrOperation(), null, "firstOperand", null, 0, 1, StandardOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStandardOperation_Operators(), ecorePackage.getEString(), "operators", null, 0, -1, StandardOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStandardOperation_MoreOperands(), this.getValueOrEnumValueOrOperation(), null, "moreOperands", null, 0, -1, StandardOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(customOperationEClass, CustomOperation.class, "CustomOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCustomOperation_PrefixOperand(), this.getValueOrEnumValueOrOperationCollection(), null, "prefixOperand", null, 0, 1, CustomOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomOperation_Definition(), this.getOperationDefinition(), null, "definition", null, 0, 1, CustomOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomOperation_PostfixOperand(), this.getValueOrEnumValueOrOperationCollection(), null, "postfixOperand", null, 0, 1, CustomOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valueOrEnumValueOrOperationCollectionEClass, ValueOrEnumValueOrOperationCollection.class, "ValueOrEnumValueOrOperationCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getValueOrEnumValueOrOperationCollection_Value(), this.getValueOrEnumValueOrOperation(), null, "value", null, 0, 1, ValueOrEnumValueOrOperationCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

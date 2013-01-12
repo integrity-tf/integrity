@@ -1931,8 +1931,102 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class OperationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Operation");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cStandardOperationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cCustomOperationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//Operation:
+		//
+		//	StandardOperation | CustomOperation;
+		public ParserRule getRule() { return rule; }
+
+		//StandardOperation | CustomOperation
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//StandardOperation
+		public RuleCall getStandardOperationParserRuleCall_0() { return cStandardOperationParserRuleCall_0; }
+
+		//CustomOperation
+		public RuleCall getCustomOperationParserRuleCall_1() { return cCustomOperationParserRuleCall_1; }
+	}
+
+	public class StandardOperationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StandardOperation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cFirstOperandAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0_0 = (RuleCall)cFirstOperandAssignment_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cOperatorsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cOperatorsARITHMETRIC_OPERATORTerminalRuleCall_3_0_0 = (RuleCall)cOperatorsAssignment_3_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Assignment cMoreOperandsAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final RuleCall cMoreOperandsValueOrEnumValueOrOperationParserRuleCall_3_2_0 = (RuleCall)cMoreOperandsAssignment_3_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3_3 = (RuleCall)cGroup_3.eContents().get(3);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//StandardOperation:
+		//
+		//	"(" NL (firstOperand=ValueOrEnumValueOrOperation NL) (operators+=ARITHMETRIC_OPERATOR NL
+		//
+		//	moreOperands+=ValueOrEnumValueOrOperation NL)+ ")";
+		public ParserRule getRule() { return rule; }
+
+		//"(" NL (firstOperand=ValueOrEnumValueOrOperation NL) (operators+=ARITHMETRIC_OPERATOR NL
+		//
+		//moreOperands+=ValueOrEnumValueOrOperation NL)+ ")"
+		public Group getGroup() { return cGroup; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//firstOperand=ValueOrEnumValueOrOperation NL
+		public Group getGroup_2() { return cGroup_2; }
+
+		//firstOperand=ValueOrEnumValueOrOperation
+		public Assignment getFirstOperandAssignment_2_0() { return cFirstOperandAssignment_2_0; }
+
+		//ValueOrEnumValueOrOperation
+		public RuleCall getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0_0() { return cFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1() { return cNLParserRuleCall_2_1; }
+
+		//(operators+=ARITHMETRIC_OPERATOR NL moreOperands+=ValueOrEnumValueOrOperation NL)+
+		public Group getGroup_3() { return cGroup_3; }
+
+		//operators+=ARITHMETRIC_OPERATOR
+		public Assignment getOperatorsAssignment_3_0() { return cOperatorsAssignment_3_0; }
+
+		//ARITHMETRIC_OPERATOR
+		public RuleCall getOperatorsARITHMETRIC_OPERATORTerminalRuleCall_3_0_0() { return cOperatorsARITHMETRIC_OPERATORTerminalRuleCall_3_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3_1() { return cNLParserRuleCall_3_1; }
+
+		//moreOperands+=ValueOrEnumValueOrOperation
+		public Assignment getMoreOperandsAssignment_3_2() { return cMoreOperandsAssignment_3_2; }
+
+		//ValueOrEnumValueOrOperation
+		public RuleCall getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_3_2_0() { return cMoreOperandsValueOrEnumValueOrOperationParserRuleCall_3_2_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3_3() { return cNLParserRuleCall_3_3; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+
+	public class CustomOperationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CustomOperation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cPrefixOperandAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
@@ -1947,22 +2041,22 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPostfixOperandAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
 		private final RuleCall cPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0 = (RuleCall)cPostfixOperandAssignment_4_2.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//Operation:
+		//CustomOperation:
 		//
-		//	"(" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
+		//	"[" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
 		//
-		//	"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ")";
+		//	"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL "]";
 		public ParserRule getRule() { return rule; }
 
-		//"(" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
+		//"[" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
 		//
-		//"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ")"
+		//"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL "]"
 		public Group getGroup() { return cGroup; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
@@ -2006,8 +2100,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
-		//")"
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		//"]"
+		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
 	}
 
 	public class ValueOrEnumValueOrOperationCollectionElements extends AbstractParserRuleElementFinder {
@@ -2929,6 +3023,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private FixedParameterNameElements pFixedParameterName;
 	private ArbitraryParameterOrResultNameElements pArbitraryParameterOrResultName;
 	private OperationElements pOperation;
+	private StandardOperationElements pStandardOperation;
+	private CustomOperationElements pCustomOperation;
 	private ValueOrEnumValueOrOperationCollectionElements pValueOrEnumValueOrOperationCollection;
 	private ValueOrEnumValueOrOperationElements pValueOrEnumValueOrOperation;
 	private ValueElements pValue;
@@ -2984,6 +3080,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tUSDATE;
 	private TerminalRule tTWENTYFOURHRSTIME;
 	private TerminalRule tTWELVEHRSTIME;
+	private TerminalRule tARITHMETRIC_OPERATOR;
 	private TerminalRule tANY_OTHER;
 	
 	private final Grammar grammar;
@@ -3467,15 +3564,39 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Operation:
 	//
-	//	"(" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
-	//
-	//	"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL ")";
+	//	StandardOperation | CustomOperation;
 	public OperationElements getOperationAccess() {
 		return (pOperation != null) ? pOperation : (pOperation = new OperationElements());
 	}
 	
 	public ParserRule getOperationRule() {
 		return getOperationAccess().getRule();
+	}
+
+	//StandardOperation:
+	//
+	//	"(" NL (firstOperand=ValueOrEnumValueOrOperation NL) (operators+=ARITHMETRIC_OPERATOR NL
+	//
+	//	moreOperands+=ValueOrEnumValueOrOperation NL)+ ")";
+	public StandardOperationElements getStandardOperationAccess() {
+		return (pStandardOperation != null) ? pStandardOperation : (pStandardOperation = new StandardOperationElements());
+	}
+	
+	public ParserRule getStandardOperationRule() {
+		return getStandardOperationAccess().getRule();
+	}
+
+	//CustomOperation:
+	//
+	//	"[" NL (prefixOperand=ValueOrEnumValueOrOperationCollection NL)? definition=[OperationDefinition|QualifiedName] (NL
+	//
+	//	"with" postfixOperand=ValueOrEnumValueOrOperationCollection)? NL "]";
+	public CustomOperationElements getCustomOperationAccess() {
+		return (pCustomOperation != null) ? pCustomOperation : (pCustomOperation = new CustomOperationElements());
+	}
+	
+	public ParserRule getCustomOperationRule() {
+		return getCustomOperationAccess().getRule();
 	}
 
 	//ValueOrEnumValueOrOperationCollection:
@@ -3999,6 +4120,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	"0".."1" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")? ("am" | "pm");
 	public TerminalRule getTWELVEHRSTIMERule() {
 		return (tTWELVEHRSTIME != null) ? tTWELVEHRSTIME : (tTWELVEHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TWELVEHRSTIME"));
+	} 
+
+	//terminal ARITHMETRIC_OPERATOR:
+	//
+	//	"+" | "-" | "*" | "/" | "%";
+	public TerminalRule getARITHMETRIC_OPERATORRule() {
+		return (tARITHMETRIC_OPERATOR != null) ? tARITHMETRIC_OPERATOR : (tARITHMETRIC_OPERATOR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ARITHMETRIC_OPERATOR"));
 	} 
 
 	//terminal ANY_OTHER:

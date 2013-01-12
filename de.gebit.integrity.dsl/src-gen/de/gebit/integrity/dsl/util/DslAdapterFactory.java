@@ -275,6 +275,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createOperationAdapter();
       }
       @Override
+      public Adapter caseStandardOperation(StandardOperation object)
+      {
+        return createStandardOperationAdapter();
+      }
+      @Override
+      public Adapter caseCustomOperation(CustomOperation object)
+      {
+        return createCustomOperationAdapter();
+      }
+      @Override
       public Adapter caseValueOrEnumValueOrOperationCollection(ValueOrEnumValueOrOperationCollection object)
       {
         return createValueOrEnumValueOrOperationCollectionAdapter();
@@ -1042,6 +1052,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createOperationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.StandardOperation <em>Standard Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.StandardOperation
+   * @generated
+   */
+  public Adapter createStandardOperationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.CustomOperation <em>Custom Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.CustomOperation
+   * @generated
+   */
+  public Adapter createCustomOperationAdapter()
   {
     return null;
   }

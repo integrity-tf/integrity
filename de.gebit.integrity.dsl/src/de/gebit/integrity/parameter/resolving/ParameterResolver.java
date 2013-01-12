@@ -18,7 +18,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**

@@ -387,6 +387,24 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.STANDARD_OPERATION:
+      {
+        StandardOperation standardOperation = (StandardOperation)theEObject;
+        T result = caseStandardOperation(standardOperation);
+        if (result == null) result = caseOperation(standardOperation);
+        if (result == null) result = caseValueOrEnumValueOrOperation(standardOperation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.CUSTOM_OPERATION:
+      {
+        CustomOperation customOperation = (CustomOperation)theEObject;
+        T result = caseCustomOperation(customOperation);
+        if (result == null) result = caseOperation(customOperation);
+        if (result == null) result = caseValueOrEnumValueOrOperation(customOperation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION:
       {
         ValueOrEnumValueOrOperationCollection valueOrEnumValueOrOperationCollection = (ValueOrEnumValueOrOperationCollection)theEObject;
@@ -1313,6 +1331,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseOperation(Operation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Standard Operation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Standard Operation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStandardOperation(StandardOperation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Custom Operation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Custom Operation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCustomOperation(CustomOperation object)
   {
     return null;
   }

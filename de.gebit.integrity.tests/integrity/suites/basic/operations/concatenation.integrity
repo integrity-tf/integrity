@@ -7,9 +7,9 @@ packagedef integrity.basic.operations with
 	
 		variable localVar
 	 
-		call echoString string: ("foo", "bar" concatenated) -> localVar
-		test echoStringTest string: (1, "2" concatenated with localVar) = "12foobar"
-		test echoStringTest string: "abcd" = ("a", ("b", "c" concatenated), "d" concatenated)
+		call echoString string: ["foo", "bar" concatenated] -> localVar
+		test echoStringTest string: [1, "2" concatenated with localVar] = "12foobar"
+		test echoStringTest string: "abcd" = ["a", ["b", "c" concatenated], "d" concatenated]
 		
 	suiteend
 

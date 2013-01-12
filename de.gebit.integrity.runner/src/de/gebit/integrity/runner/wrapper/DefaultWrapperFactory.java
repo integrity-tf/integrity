@@ -9,9 +9,9 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
-import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.fixtures.FixtureWrapper;
-import de.gebit.integrity.operations.OperationWrapper;
+import de.gebit.integrity.operations.CustomOperationWrapper;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
@@ -45,8 +45,8 @@ public class DefaultWrapperFactory implements WrapperFactory {
 	}
 
 	@Override
-	public OperationWrapper newOperationWrapper(Operation anOperation) throws ClassNotFoundException {
-		OperationWrapper tempWrapper = new OperationWrapper(anOperation, classLoader);
+	public CustomOperationWrapper newCustomOperationWrapper(CustomOperation anOperation) throws ClassNotFoundException {
+		CustomOperationWrapper tempWrapper = new CustomOperationWrapper(anOperation, classLoader);
 		injector.injectMembers(tempWrapper);
 		return tempWrapper;
 	}

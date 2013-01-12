@@ -9,25 +9,25 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
- * The operation wrapper is used to wrap an operation class and instance for execution. The wrapper does perform class
- * loading and instantiation.
+ * The custom operation wrapper is used to wrap a custom operation class and instance for execution. The wrapper does
+ * perform class loading and instantiation.
  * 
  * @author Rene Schneider
  * 
  */
-public class OperationWrapper {
+public class CustomOperationWrapper {
 
 	/**
 	 * The operation to perform.
 	 */
-	private Operation operation;
+	private CustomOperation operation;
 
 	/**
 	 * The operation class.
@@ -59,7 +59,7 @@ public class OperationWrapper {
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public OperationWrapper(Operation anOperation, ClassLoader aClassLoader) throws ClassNotFoundException {
+	public CustomOperationWrapper(CustomOperation anOperation, ClassLoader aClassLoader) throws ClassNotFoundException {
 		operation = anOperation;
 
 		OperationDefinition tempDefinition = operation.getDefinition();

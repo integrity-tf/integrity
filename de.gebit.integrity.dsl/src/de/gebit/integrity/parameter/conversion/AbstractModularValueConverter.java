@@ -17,12 +17,12 @@ import java.util.Set;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import de.gebit.integrity.dsl.Operation;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.operations.OperationWrapper;
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.CustomOperationWrapper;
+import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -290,12 +290,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return null;
 		}
 
-		if (aValue instanceof Operation) {
+		if (aValue instanceof CustomOperation) {
 			if (wrapperFactory == null) {
 				// cannot execute operations without the ability to load them
 				return null;
 			} else {
-				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
+				CustomOperationWrapper tempWrapper = wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);
 				Object tempResult = tempWrapper.executeOperation();
 				return convertPlainValueToParamType(aTargetType, aParameterizedType, tempResult,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);

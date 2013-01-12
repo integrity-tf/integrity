@@ -145,10 +145,16 @@
     <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterOrResultName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterOrResultName/identifier"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//Operation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/prefixOperand"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/definition"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Operation/postfixOperand"/>
+    <genClasses ecoreClass="DSL.ecore#//Operation"/>
+    <genClasses ecoreClass="DSL.ecore#//StandardOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//StandardOperation/firstOperand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//StandardOperation/operators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//StandardOperation/moreOperands"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//CustomOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CustomOperation/prefixOperand"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//CustomOperation/definition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CustomOperation/postfixOperand"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValueOrOperationCollection">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ValueOrEnumValueOrOperationCollection/value"/>

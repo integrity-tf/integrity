@@ -5,10 +5,10 @@ packagedef integrity.basic.operations with
 
 	suitedef decimalformat with
 	 
-		test echoStringTest string: (123.5 formatted with "0.00", "enUS") = "123.50"
-		test echoStringTest string: (12.5 formatted with "0000") = (12 formatted with "0000")
-		test echoStringTest string: "12.35" = (12.3456 formatted with ".00", "en")
-		test echoStringTest string: (12.3456 formatted with ".00", "deDE") = "12,35"
+		test echoStringTest string: [123.5 formatted with "0.00", "enUS"] = "123.50"
+		test echoStringTest string: [12.5 formatted with "0000"] = [12 formatted with "0000"]
+		test echoStringTest string: "12.35" = [12.3456 formatted with ".00", "en"]
+		test echoStringTest string: [12.3456 formatted with ".00", "deDE"] = "12,35"
 		
 	suiteend
 

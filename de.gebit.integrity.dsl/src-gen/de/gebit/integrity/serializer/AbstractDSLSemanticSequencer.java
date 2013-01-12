@@ -7,6 +7,7 @@ import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
@@ -31,7 +32,6 @@ import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Null;
-import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
@@ -40,6 +40,7 @@ import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
+import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -117,6 +118,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getPackageStatementRule() ||
 				   context == grammarAccess.getSuiteStatementRule()) {
 					sequence_ConstantDefinition(context, (ConstantDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.CUSTOM_OPERATION:
+				if(context == grammarAccess.getCustomOperationRule() ||
+				   context == grammarAccess.getOperationRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_CustomOperation(context, (CustomOperation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -300,13 +309,6 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
-			case DslPackage.OPERATION:
-				if(context == grammarAccess.getOperationRule() ||
-				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
-					sequence_Operation(context, (Operation) semanticObject); 
-					return; 
-				}
-				else break;
 			case DslPackage.OPERATION_DEFINITION:
 				if(context == grammarAccess.getOperationDefinitionRule() ||
 				   context == grammarAccess.getPackageStatementRule()) {
@@ -362,6 +364,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
 					sequence_Simple24HrsTimeValue(context, (Simple24HrsTimeValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.STANDARD_OPERATION:
+				if(context == grammarAccess.getOperationRule() ||
+				   context == grammarAccess.getStandardOperationRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_StandardOperation(context, (StandardOperation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -571,6 +581,19 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     (name=VariableEntity value=StaticValue? variantValues+=VariantValue*)
 	 */
 	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         prefixOperand=ValueOrEnumValueOrOperationCollection? 
+	 *         definition=[OperationDefinition|QualifiedName] 
+	 *         postfixOperand=ValueOrEnumValueOrOperationCollection?
+	 *     )
+	 */
+	protected void sequence_CustomOperation(EObject context, CustomOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -960,19 +983,6 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         prefixOperand=ValueOrEnumValueOrOperationCollection? 
-	 *         definition=[OperationDefinition|QualifiedName] 
-	 *         postfixOperand=ValueOrEnumValueOrOperationCollection?
-	 *     )
-	 */
-	protected void sequence_Operation(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=QualifiedName statements+=PackageStatement*)
 	 */
 	protected void sequence_PackageDefinition(EObject context, PackageDefinition semanticObject) {
@@ -1076,6 +1086,15 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (firstOperand=ValueOrEnumValueOrOperation (operators+=ARITHMETRIC_OPERATOR moreOperands+=ValueOrEnumValueOrOperation)+)
+	 */
+	protected void sequence_StandardOperation(EObject context, StandardOperation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

@@ -383,6 +383,24 @@ public interface DslFactory extends EFactory
   Operation createOperation();
 
   /**
+   * Returns a new object of class '<em>Standard Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Standard Operation</em>'.
+   * @generated
+   */
+  StandardOperation createStandardOperation();
+
+  /**
+   * Returns a new object of class '<em>Custom Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Custom Operation</em>'.
+   * @generated
+   */
+  CustomOperation createCustomOperation();
+
+  /**
    * Returns a new object of class '<em>Value Or Enum Value Or Operation Collection</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

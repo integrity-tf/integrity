@@ -14,8 +14,8 @@ import com.google.inject.Singleton;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.NamedResult;
-import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -31,8 +31,8 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
-import de.gebit.integrity.operations.OperationWrapper;
-import de.gebit.integrity.operations.OperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.CustomOperationWrapper;
+import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -179,9 +179,9 @@ public class DefaultParameterResolver implements ParameterResolver {
 							+ " encountered!");
 				}
 			}
-		} else if (aValue instanceof Operation) {
+		} else if (aValue instanceof CustomOperation) {
 			if (wrapperFactory != null) {
-				OperationWrapper tempWrapper = wrapperFactory.newOperationWrapper((Operation) aValue);
+				CustomOperationWrapper tempWrapper = wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);
 				return tempWrapper.executeOperation();
 			} else {
 				return null;

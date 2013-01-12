@@ -3261,13 +3261,53 @@ ruleOperation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getOperationAccess().getStandardOperationParserRuleCall_0()); 
+    }
+    this_StandardOperation_0=ruleStandardOperation
+    { 
+        $current = $this_StandardOperation_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getOperationAccess().getCustomOperationParserRuleCall_1()); 
+    }
+    this_CustomOperation_1=ruleCustomOperation
+    { 
+        $current = $this_CustomOperation_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleStandardOperation
+entryRuleStandardOperation returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getStandardOperationRule()); }
+	 iv_ruleStandardOperation=ruleStandardOperation 
+	 { $current=$iv_ruleStandardOperation.current; } 
+	 EOF 
+;
+
+// Rule StandardOperation
+ruleStandardOperation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
 (	otherlv_0='(' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getOperationAccess().getLeftParenthesisKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getStandardOperationAccess().getLeftParenthesisKeyword_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getOperationAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_1()); 
     }
 ruleNL
     { 
@@ -3276,11 +3316,126 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOperationAccess().getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getStandardOperationAccess().getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0_0()); 
+	    }
+		lv_firstOperand_2_0=ruleValueOrEnumValueOrOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStandardOperationRule());
+	        }
+       		set(
+       			$current, 
+       			"firstOperand",
+        		lv_firstOperand_2_0, 
+        		"ValueOrEnumValueOrOperation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_2_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)((
+(
+		lv_operators_4_0=RULE_ARITHMETRIC_OPERATOR
+		{
+			newLeafNode(lv_operators_4_0, grammarAccess.getStandardOperationAccess().getOperatorsARITHMETRIC_OPERATORTerminalRuleCall_3_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"operators",
+        		lv_operators_4_0, 
+        		"ARITHMETRIC_OPERATOR");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getStandardOperationAccess().getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_3_2_0()); 
+	    }
+		lv_moreOperands_6_0=ruleValueOrEnumValueOrOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStandardOperationRule());
+	        }
+       		add(
+       			$current, 
+       			"moreOperands",
+        		lv_moreOperands_6_0, 
+        		"ValueOrEnumValueOrOperation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3_3()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)+	otherlv_8=')' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getStandardOperationAccess().getRightParenthesisKeyword_4());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleCustomOperation
+entryRuleCustomOperation returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getCustomOperationRule()); }
+	 iv_ruleCustomOperation=ruleCustomOperation 
+	 { $current=$iv_ruleCustomOperation.current; } 
+	 EOF 
+;
+
+// Rule CustomOperation
+ruleCustomOperation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='[' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getCustomOperationAccess().getLeftSquareBracketKeyword_0());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getCustomOperationAccess().getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0()); 
 	    }
 		lv_prefixOperand_2_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOperationRule());
+	            $current = createModelElementForParent(grammarAccess.getCustomOperationRule());
 	        }
        		set(
        			$current, 
@@ -3293,7 +3448,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getOperationAccess().getNLParserRuleCall_2_1()); 
+        newCompositeNode(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_2_1()); 
     }
 ruleNL
     { 
@@ -3303,11 +3458,11 @@ ruleNL
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOperationRule());
+	            $current = createModelElement(grammarAccess.getCustomOperationRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getOperationAccess().getDefinitionOperationDefinitionCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getCustomOperationAccess().getDefinitionOperationDefinitionCrossReference_3_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -3316,7 +3471,7 @@ ruleNL
 )
 )(
     { 
-        newCompositeNode(grammarAccess.getOperationAccess().getNLParserRuleCall_4_0()); 
+        newCompositeNode(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_4_0()); 
     }
 ruleNL
     { 
@@ -3324,16 +3479,16 @@ ruleNL
     }
 	otherlv_6='with' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getOperationAccess().getWithKeyword_4_1());
+    	newLeafNode(otherlv_6, grammarAccess.getCustomOperationAccess().getWithKeyword_4_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
+	        newCompositeNode(grammarAccess.getCustomOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
 	    }
 		lv_postfixOperand_7_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOperationRule());
+	            $current = createModelElementForParent(grammarAccess.getCustomOperationRule());
 	        }
        		set(
        			$current, 
@@ -3346,15 +3501,15 @@ ruleNL
 )
 ))?
     { 
-        newCompositeNode(grammarAccess.getOperationAccess().getNLParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_5()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-	otherlv_9=')' 
+	otherlv_9=']' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getOperationAccess().getRightParenthesisKeyword_6());
+    	newLeafNode(otherlv_9, grammarAccess.getCustomOperationAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;
@@ -5079,6 +5234,8 @@ RULE_USDATE : '0'..'1' '0'..'9' '/' '0'..'3' '0'..'9' '/' '0'..'9' '0'..'9' '0'.
 RULE_TWENTYFOURHRSTIME : '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')?;
 
 RULE_TWELVEHRSTIME : '0'..'1' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')? ('am'|'pm');
+
+RULE_ARITHMETRIC_OPERATOR : ('+'|'-'|'*'|'/'|'%');
 
 RULE_ANY_OTHER : .;
 
