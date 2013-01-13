@@ -1,6 +1,4 @@
 packagedef integrity.operations.default with
-
-	operationdef concatenated uses de.gebit.integrity.runner.operations.ConcatenationOperation
 	
 	operationdef formatted uses de.gebit.integrity.runner.operations.DecimalFormatOperation
 

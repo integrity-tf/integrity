@@ -7,7 +7,7 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.fixtures.FixtureWrapper;
-import de.gebit.integrity.operations.CustomOperationWrapper;
+import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 
 /**
  * The wrapper factory is responsible for the actual creation of the {@link FixtureWrapper} and {@link CustomOperationWrapper}

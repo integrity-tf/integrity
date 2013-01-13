@@ -1091,7 +1091,20 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (firstOperand=ValueOrEnumValueOrOperation (operators+=ARITHMETRIC_OPERATOR moreOperands+=ValueOrEnumValueOrOperation)+)
+	 *     (
+	 *         firstOperand=ValueOrEnumValueOrOperation 
+	 *         (
+	 *             (
+	 *                 operators+='+' | 
+	 *                 operators+='-' | 
+	 *                 operators+='*' | 
+	 *                 operators+='/' | 
+	 *                 operators+='%' | 
+	 *                 operators+='..'
+	 *             ) 
+	 *             moreOperands+=ValueOrEnumValueOrOperation
+	 *         )+
+	 *     )
 	 */
 	protected void sequence_StandardOperation(EObject context, StandardOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -1,6 +1,6 @@
 package de.gebit.integrity.experiments.fixtures;
 
-import de.gebit.integrity.operations.Operation;
+import de.gebit.integrity.operations.custom.Operation;
 
 public class ConcatenationOperation implements Operation<String[], String[], String> {
 

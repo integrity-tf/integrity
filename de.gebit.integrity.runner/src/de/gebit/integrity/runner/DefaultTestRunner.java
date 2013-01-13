@@ -53,7 +53,8 @@ import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -1549,13 +1550,10 @@ public class DefaultTestRunner implements TestRunner {
 					}
 				}
 			}
-		} catch (InstantiationException exc) {
+		} catch (ConversionException exc) {
 			throw new ForkException("Could not create fork '" + tempForkDef.getName()
 					+ "': failed to resolve forker parameters.", exc);
 		} catch (UnresolvableVariableException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': failed to resolve forker parameters.", exc);
-		} catch (ClassNotFoundException exc) {
 			throw new ForkException("Could not create fork '" + tempForkDef.getName()
 					+ "': failed to resolve forker parameters.", exc);
 		} catch (UnexecutableException exc) {

@@ -45,6 +45,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultNameAccess().getAlternatives(), "rule__ResultName__Alternatives");
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
 					put(grammarAccess.getOperationAccess().getAlternatives(), "rule__Operation__Alternatives");
+					put(grammarAccess.getStandardOperationAccess().getOperatorsAlternatives_4_0_0(), "rule__StandardOperation__OperatorsAlternatives_4_0_0");
 					put(grammarAccess.getValueOrEnumValueOrOperationAccess().getAlternatives(), "rule__ValueOrEnumValueOrOperation__Alternatives");
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 					put(grammarAccess.getStaticValueAccess().getAlternatives(), "rule__StaticValue__Alternatives");
@@ -111,8 +112,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getGroup(), "rule__ArbitraryParameterOrResultName__Group__0");
 					put(grammarAccess.getStandardOperationAccess().getGroup(), "rule__StandardOperation__Group__0");
-					put(grammarAccess.getStandardOperationAccess().getGroup_2(), "rule__StandardOperation__Group_2__0");
-					put(grammarAccess.getStandardOperationAccess().getGroup_3(), "rule__StandardOperation__Group_3__0");
+					put(grammarAccess.getStandardOperationAccess().getGroup_4(), "rule__StandardOperation__Group_4__0");
 					put(grammarAccess.getCustomOperationAccess().getGroup(), "rule__CustomOperation__Group__0");
 					put(grammarAccess.getCustomOperationAccess().getGroup_2(), "rule__CustomOperation__Group_2__0");
 					put(grammarAccess.getCustomOperationAccess().getGroup_4(), "rule__CustomOperation__Group_4__0");
@@ -203,9 +203,9 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterAccess().getValueAssignment_4(), "rule__Parameter__ValueAssignment_4");
 					put(grammarAccess.getFixedParameterNameAccess().getAnnotationAssignment(), "rule__FixedParameterName__AnnotationAssignment");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1(), "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1");
-					put(grammarAccess.getStandardOperationAccess().getFirstOperandAssignment_2_0(), "rule__StandardOperation__FirstOperandAssignment_2_0");
-					put(grammarAccess.getStandardOperationAccess().getOperatorsAssignment_3_0(), "rule__StandardOperation__OperatorsAssignment_3_0");
-					put(grammarAccess.getStandardOperationAccess().getMoreOperandsAssignment_3_2(), "rule__StandardOperation__MoreOperandsAssignment_3_2");
+					put(grammarAccess.getStandardOperationAccess().getFirstOperandAssignment_2(), "rule__StandardOperation__FirstOperandAssignment_2");
+					put(grammarAccess.getStandardOperationAccess().getOperatorsAssignment_4_0(), "rule__StandardOperation__OperatorsAssignment_4_0");
+					put(grammarAccess.getStandardOperationAccess().getMoreOperandsAssignment_4_2(), "rule__StandardOperation__MoreOperandsAssignment_4_2");
 					put(grammarAccess.getCustomOperationAccess().getPrefixOperandAssignment_2_0(), "rule__CustomOperation__PrefixOperandAssignment_2_0");
 					put(grammarAccess.getCustomOperationAccess().getDefinitionAssignment_3(), "rule__CustomOperation__DefinitionAssignment_3");
 					put(grammarAccess.getCustomOperationAccess().getPostfixOperandAssignment_4_2(), "rule__CustomOperation__PostfixOperandAssignment_4_2");

@@ -11,7 +11,7 @@ import java.util.Set;
 
 import com.google.inject.Inject;
 
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**

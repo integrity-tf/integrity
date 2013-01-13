@@ -18,7 +18,7 @@ import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.FixtureWrapper;
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.DateUtil;
@@ -231,11 +231,7 @@ public class DefaultResultComparator implements ResultComparator {
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
 					} catch (UnresolvableVariableException exc) {
 						exc.printStackTrace();
-					} catch (ClassNotFoundException exc) {
-						exc.printStackTrace();
 					} catch (UnexecutableException exc) {
-						exc.printStackTrace();
-					} catch (InstantiationException exc) {
 						exc.printStackTrace();
 					}
 

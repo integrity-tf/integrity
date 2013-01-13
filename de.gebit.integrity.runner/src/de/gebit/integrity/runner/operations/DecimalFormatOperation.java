@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import de.gebit.integrity.operations.Operation;
+import de.gebit.integrity.operations.custom.Operation;
 
 /**
  * This operation formats a decimal number using a given format string. Meant to be used like:<br>

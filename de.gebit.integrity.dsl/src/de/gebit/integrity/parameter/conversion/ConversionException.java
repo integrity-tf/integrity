@@ -9,7 +9,7 @@ package de.gebit.integrity.parameter.conversion;
  * @author Rene Schneider
  * 
  */
-public class ConversionException extends RuntimeException {
+public abstract class ConversionException extends RuntimeException {
 
 	/**
 	 * Serial Version.

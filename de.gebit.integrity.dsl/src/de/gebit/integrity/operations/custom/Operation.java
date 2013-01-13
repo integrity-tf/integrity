@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.gebit.integrity.operations;
+package de.gebit.integrity.operations.custom;
 
 /**
  * Implement this interface in order to create operation classes. An operation is expected to take zero, one or two

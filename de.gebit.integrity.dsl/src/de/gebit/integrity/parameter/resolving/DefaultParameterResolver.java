@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
@@ -31,8 +32,9 @@ import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
-import de.gebit.integrity.operations.CustomOperationWrapper;
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.operations.custom.CustomOperationWrapper;
+import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -59,6 +61,12 @@ public class DefaultParameterResolver implements ParameterResolver {
 	 */
 	@Inject(optional = true)
 	protected VariableManager variableManager;
+
+	/**
+	 * The processor for standard operations.
+	 */
+	@Inject
+	protected StandardOperationProcessor standardOperationProcessor;
 
 	@Override
 	public Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
@@ -179,6 +187,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 							+ " encountered!");
 				}
 			}
+		} else if (aValue instanceof StandardOperation) {
+			return standardOperationProcessor.executeOperation((StandardOperation) aValue);
 		} else if (aValue instanceof CustomOperation) {
 			if (wrapperFactory != null) {
 				CustomOperationWrapper tempWrapper = wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);
@@ -186,6 +196,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 			} else {
 				return null;
 			}
+		} else {
 			// TODO what about nested objects with inner operations or variables?
 		}
 

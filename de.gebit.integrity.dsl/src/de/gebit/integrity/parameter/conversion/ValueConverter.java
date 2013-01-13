@@ -3,7 +3,7 @@
  */
 package de.gebit.integrity.parameter.conversion;
 
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -29,7 +29,7 @@ public interface ValueConverter {
 	 */
 	Object convertValue(Class<?> aTargetType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			ClassNotFoundException, UnexecutableException, InstantiationException;
+			UnexecutableException;
 
 	/**
 	 * Convert a given single Integrity or Java type value to a given target type (which is always a Java type).
@@ -49,7 +49,7 @@ public interface ValueConverter {
 	 */
 	Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			ClassNotFoundException, UnexecutableException, InstantiationException;
+			UnexecutableException;
 
 	/**
 	 * Converts a given value to a String. This method is intended to be used for the output of values (for example in

@@ -3313,10 +3313,10 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStandardOperationAccess().getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getStandardOperationAccess().getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0()); 
 	    }
 		lv_firstOperand_2_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
@@ -3333,33 +3333,93 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_2_1()); 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)((
+((
 (
-		lv_operators_4_0=RULE_ARITHMETRIC_OPERATOR
-		{
-			newLeafNode(lv_operators_4_0, grammarAccess.getStandardOperationAccess().getOperatorsARITHMETRIC_OPERATORTerminalRuleCall_3_0_0()); 
-		}
-		{
+(
+		lv_operators_4_1=	'+' 
+    {
+        newLeafNode(lv_operators_4_1, grammarAccess.getStandardOperationAccess().getOperatorsPlusSignKeyword_4_0_0_0());
+    }
+ 
+	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getStandardOperationRule());
 	        }
-       		addWithLastConsumed(
-       			$current, 
-       			"operators",
-        		lv_operators_4_0, 
-        		"ARITHMETRIC_OPERATOR");
+       		addWithLastConsumed($current, "operators", lv_operators_4_1, null);
 	    }
+
+    |		lv_operators_4_2=	'-' 
+    {
+        newLeafNode(lv_operators_4_2, grammarAccess.getStandardOperationAccess().getOperatorsHyphenMinusKeyword_4_0_0_1());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed($current, "operators", lv_operators_4_2, null);
+	    }
+
+    |		lv_operators_4_3=	'*' 
+    {
+        newLeafNode(lv_operators_4_3, grammarAccess.getStandardOperationAccess().getOperatorsAsteriskKeyword_4_0_0_2());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed($current, "operators", lv_operators_4_3, null);
+	    }
+
+    |		lv_operators_4_4=	'/' 
+    {
+        newLeafNode(lv_operators_4_4, grammarAccess.getStandardOperationAccess().getOperatorsSolidusKeyword_4_0_0_3());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed($current, "operators", lv_operators_4_4, null);
+	    }
+
+    |		lv_operators_4_5=	'%' 
+    {
+        newLeafNode(lv_operators_4_5, grammarAccess.getStandardOperationAccess().getOperatorsPercentSignKeyword_4_0_0_4());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed($current, "operators", lv_operators_4_5, null);
+	    }
+
+    |		lv_operators_4_6=	'..' 
+    {
+        newLeafNode(lv_operators_4_6, grammarAccess.getStandardOperationAccess().getOperatorsFullStopFullStopKeyword_4_0_0_5());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStandardOperationRule());
+	        }
+       		addWithLastConsumed($current, "operators", lv_operators_4_6, null);
+	    }
+
+)
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3_1()); 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_4_1()); 
     }
 ruleNL
     { 
@@ -3368,7 +3428,7 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStandardOperationAccess().getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_3_2_0()); 
+	        newCompositeNode(grammarAccess.getStandardOperationAccess().getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0()); 
 	    }
 		lv_moreOperands_6_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
@@ -3385,7 +3445,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3_3()); 
+        newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_4_3()); 
     }
 ruleNL
     { 
@@ -3393,7 +3453,7 @@ ruleNL
     }
 )+	otherlv_8=')' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getStandardOperationAccess().getRightParenthesisKeyword_4());
+    	newLeafNode(otherlv_8, grammarAccess.getStandardOperationAccess().getRightParenthesisKeyword_5());
     }
 )
 ;
@@ -5234,8 +5294,6 @@ RULE_USDATE : '0'..'1' '0'..'9' '/' '0'..'3' '0'..'9' '/' '0'..'9' '0'..'9' '0'.
 RULE_TWENTYFOURHRSTIME : '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')?;
 
 RULE_TWELVEHRSTIME : '0'..'1' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9')? ('am'|'pm');
-
-RULE_ARITHMETRIC_OPERATOR : ('+'|'-'|'*'|'/'|'%');
 
 RULE_ANY_OTHER : .;
 

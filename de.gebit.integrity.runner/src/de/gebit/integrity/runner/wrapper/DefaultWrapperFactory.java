@@ -11,7 +11,7 @@ import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.fixtures.FixtureWrapper;
-import de.gebit.integrity.operations.CustomOperationWrapper;
+import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**

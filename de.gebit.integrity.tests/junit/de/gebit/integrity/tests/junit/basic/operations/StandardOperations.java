@@ -16,7 +16,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
  * @author Rene Schneider
  * 
  */
-public class Concatenation extends IntegrityJUnitTest {
+public class StandardOperations extends IntegrityJUnitTest {
 
 	/**
 	 * Performs the test.
@@ -28,8 +28,8 @@ public class Concatenation extends IntegrityJUnitTest {
 	@Test
 	public void test() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/operations/concatenation.integrity" },
-				"integrity.basic.operations.concatenation", null);
+				new String[] { "integrity/suites/basic/operations/standardOperations.integrity" },
+				"integrity.basic.operations.standardOperations", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

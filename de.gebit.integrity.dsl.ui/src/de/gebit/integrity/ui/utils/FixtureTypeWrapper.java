@@ -35,7 +35,8 @@ import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
-import de.gebit.integrity.operations.CustomOperationWrapper.UnexecutableException;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.ResolvedTypeName;
@@ -116,108 +117,96 @@ public class FixtureTypeWrapper {
 			throws JavaModelException, UnresolvableVariableException, UnexecutableException {
 		IMethod tempMethod = findMethod(aFixtureMethodName);
 
-		try {
-			Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
-			for (ILocalVariable tempParam : tempMethod.getParameters()) {
-				ResolvedTypeName tempParamTypeName = IntegrityDSLUIUtil.getResolvedTypeName(
-						tempParam.getTypeSignature(), fixtureType);
-				if (tempParamTypeName == null) {
-					continue;
-				}
-
-				if (tempParamTypeName.getRawType().startsWith(Map.class.getName())) {
-					// ignore the arbitrary parameter parameter
-				} else {
-					IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
-
-					if (tempAnnotation != null) {
-						String tempName = null;
-						for (IMemberValuePair tempPair : tempAnnotation.getMemberValuePairs()) {
-							if ("name".equals(tempPair.getMemberName())) {
-								tempName = (String) tempPair.getValue();
-							}
-						}
-
-						if (tempName != null) {
-							Object tempValue = aParameterMap.get(tempName);
-							if (tempValue != null) {
-								Class<?> tempExpectedType;
-								try {
-									tempExpectedType = getClass().getClassLoader().loadClass(
-											tempParamTypeName.getRawType());
-								} catch (ClassNotFoundException exc) {
-									// we'll skip this param
-									continue;
-								}
-
-								Object tempConvertedValue;
-								if (tempValue instanceof Object[]) {
-									if (!tempExpectedType.isArray()) {
-										throw new IllegalArgumentException(
-												"The parameter '"
-														+ tempName
-														+ "' of method '"
-														+ aFixtureMethodName
-														+ "' in fixture '"
-														+ fixtureType.getFullyQualifiedName()
-														+ "' is not an array type, thus you cannot put multiple values into it!");
-									}
-									Object tempConvertedValueArray = Array.newInstance(
-											tempExpectedType.getComponentType(), ((Object[]) tempValue).length);
-									for (int k = 0; k < ((Object[]) tempValue).length; k++) {
-										Object tempSingleValue = ((Object[]) tempValue)[k];
-										Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-												tempExpectedType.getComponentType(), tempSingleValue,
-												UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-									}
-									tempConvertedValue = tempConvertedValueArray;
-								} else {
-									// if the expected type is an array, we don't want to convert to that array, but to
-									// the
-									// component type, of course
-									Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
-											.getComponentType() : tempExpectedType;
-									tempConvertedValue = valueConverter.convertValue(tempConversionTargetType,
-											tempValue, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-									if (tempExpectedType.isArray()) {
-										// ...and if the expected type is an array, now we create one
-										Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
-										Array.set(tempNewArray, 0, tempConvertedValue);
-										tempConvertedValue = tempNewArray;
-									}
-								}
-								aParameterMap.put(tempName, tempConvertedValue);
-								tempFixedParamsMap.put(tempName, tempConvertedValue);
-							}
-						}
-					}
-				}
+		Map<String, Object> tempFixedParamsMap = new HashMap<String, Object>();
+		for (ILocalVariable tempParam : tempMethod.getParameters()) {
+			ResolvedTypeName tempParamTypeName = IntegrityDSLUIUtil.getResolvedTypeName(tempParam.getTypeSignature(),
+					fixtureType);
+			if (tempParamTypeName == null) {
+				continue;
 			}
 
-			if (anIncludeArbitraryParametersFlag && isArbitraryParameterFixtureClass()) {
-				ArbitraryParameterEnumerator tempArbitraryParameterEnumerator = instantiateArbitraryParameterEnumerator();
+			if (tempParamTypeName.getRawType().startsWith(Map.class.getName())) {
+				// ignore the arbitrary parameter parameter
+			} else {
+				IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
 
-				List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
-						.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap, aParameterPath);
-				if (tempArbitraryParameters != null) {
-					for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
-						String tempName = tempArbitraryParameter.getName();
-						Object tempValue = aParameterMap.remove(tempName);
+				if (tempAnnotation != null) {
+					String tempName = null;
+					for (IMemberValuePair tempPair : tempAnnotation.getMemberValuePairs()) {
+						if ("name".equals(tempPair.getMemberName())) {
+							tempName = (String) tempPair.getValue();
+						}
+					}
+
+					if (tempName != null) {
+						Object tempValue = aParameterMap.get(tempName);
 						if (tempValue != null) {
+							Class<?> tempExpectedType;
+							try {
+								tempExpectedType = getClass().getClassLoader()
+										.loadClass(tempParamTypeName.getRawType());
+							} catch (ClassNotFoundException exc) {
+								// we'll skip this param
+								continue;
+							}
+
 							Object tempConvertedValue;
-							tempConvertedValue = valueConverter.convertValue(null, tempValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+							if (tempValue instanceof Object[]) {
+								if (!tempExpectedType.isArray()) {
+									throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
+											+ aFixtureMethodName + "' in fixture '"
+											+ fixtureType.getFullyQualifiedName()
+											+ "' is not an array type, thus you cannot put multiple values into it!");
+								}
+								Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
+										((Object[]) tempValue).length);
+								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
+									Object tempSingleValue = ((Object[]) tempValue)[k];
+									Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
+											tempExpectedType.getComponentType(), tempSingleValue,
+											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+								}
+								tempConvertedValue = tempConvertedValueArray;
+							} else {
+								// if the expected type is an array, we don't want to convert to that array, but to
+								// the
+								// component type, of course
+								Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
+										.getComponentType() : tempExpectedType;
+								tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
+										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								if (tempExpectedType.isArray()) {
+									// ...and if the expected type is an array, now we create one
+									Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
+									Array.set(tempNewArray, 0, tempConvertedValue);
+									tempConvertedValue = tempNewArray;
+								}
+							}
 							aParameterMap.put(tempName, tempConvertedValue);
+							tempFixedParamsMap.put(tempName, tempConvertedValue);
 						}
 					}
 				}
 			}
-		} catch (ClassNotFoundException exc) {
-			// Should never be thrown here since we don't provide a class loader to load operation classes
-			exc.printStackTrace();
-		} catch (InstantiationException exc) {
-			// Should never be thrown here since we don't provide a class loader to load operation classes
-			exc.printStackTrace();
+		}
+
+		if (anIncludeArbitraryParametersFlag && isArbitraryParameterFixtureClass()) {
+			ArbitraryParameterEnumerator tempArbitraryParameterEnumerator = instantiateArbitraryParameterEnumerator();
+
+			List<ArbitraryParameterDefinition> tempArbitraryParameters = tempArbitraryParameterEnumerator
+					.defineArbitraryParameters(aFixtureMethodName, tempFixedParamsMap, aParameterPath);
+			if (tempArbitraryParameters != null) {
+				for (ArbitraryParameterDefinition tempArbitraryParameter : tempArbitraryParameters) {
+					String tempName = tempArbitraryParameter.getName();
+					Object tempValue = aParameterMap.remove(tempName);
+					if (tempValue != null) {
+						Object tempConvertedValue;
+						tempConvertedValue = valueConverter.convertValue(null, tempValue,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						aParameterMap.put(tempName, tempConvertedValue);
+					}
+				}
+			}
 		}
 	}
 
@@ -275,7 +264,7 @@ public class FixtureTypeWrapper {
 				// skip this one; cannot convert
 			} catch (UnexecutableException exc) {
 				// skip this one; cannot convert
-			} catch (InstantiationException exc) {
+			} catch (ConversionException exc) {
 				// skip this one; cannot convert
 			}
 		}

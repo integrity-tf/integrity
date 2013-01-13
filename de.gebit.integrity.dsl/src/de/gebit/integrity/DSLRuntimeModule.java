@@ -5,6 +5,8 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 
+import de.gebit.integrity.operations.standard.DefaultModularStandardOperationProcessor;
+import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.DefaultModularValueConverter;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.DefaultParameterResolver;
@@ -69,6 +71,15 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	// SUPPRESS CHECKSTYLE Javadoc
 	public Class<? extends ParameterResolver> bindParameterResolver() {
 		return DefaultParameterResolver.class;
+	}
+
+	/**
+	 * Bind the standard operation processor.
+	 * 
+	 * @return
+	 */
+	public Class<? extends StandardOperationProcessor> bindStandardOperationProcessor() {
+		return DefaultModularStandardOperationProcessor.class;
 	}
 
 }

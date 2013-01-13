@@ -8,11 +8,12 @@ packagedef mypackage with
 		suite bsuite
 		
 		-- Visible comment with < and >		
-		test stupidtest
+		// test stupidtest
 	suiteend
 	
 	suitedef bsuite with
-		call wait seconds: 1
+		// call wait seconds: ("1" .. "2")
+		call 
 	suiteend
 	
 packageend

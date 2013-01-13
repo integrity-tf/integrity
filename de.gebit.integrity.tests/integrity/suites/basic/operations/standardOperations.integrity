@@ -1,0 +1,33 @@
+import integrity.operations.default.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.operations with
+
+	suitedef standardOperations with
+	 
+		test echoIntegerTest integer: (1 + 1) = 2
+		test echoIntegerTest integer: (1 + 1 + 2) = 4
+		test echoIntegerTest integer: (2 + 4 * 2) = 10
+		test echoIntegerTest integer: (4 * 2 + 2) = 10
+		test echoIntegerTest integer: (4 * (2 + 2)) = 16
+		
+		test echoBigDecimalTest bigdecimal: (3 / 2) = 1.5
+		test echoIntegerTest integer: (3 / 2) = 1
+		
+		test echoIntegerTest integer: (100 % 98) = 2
+		
+		variable one initially 1
+		variable two initially 2
+		variable three initially 3
+		
+		test echoIntegerTest integer: (one + two + three + 4) = 10
+		test echoIntegerTest integer: (one + (two * (three + 4))) = 15
+		
+		test echoStringTest string: ("a" .. "b") = "ab"
+		test echoStringTest string: ("a" .. one) = "a1"
+		test echoStringTest string: ("a" .. (1 + 2)) = "a3"
+		test echoStringTest string: ("1" + "2") = "3"
+		
+	suiteend
+
+packageend

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.gebit.integrity.operations;
+package de.gebit.integrity.operations.custom;
 
 import java.lang.reflect.Method;
 
@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -32,7 +33,7 @@ public class CustomOperationWrapper {
 	/**
 	 * The operation class.
 	 */
-	private Class<? extends de.gebit.integrity.operations.Operation<?, ?, ?>> operationClass;
+	private Class<? extends de.gebit.integrity.operations.custom.Operation<?, ?, ?>> operationClass;
 
 	/**
 	 * The value converter to use.
@@ -73,7 +74,7 @@ public class CustomOperationWrapper {
 					+ tempDefinition.getName() + "'");
 		}
 
-		operationClass = (Class<? extends de.gebit.integrity.operations.Operation<?, ?, ?>>) aClassLoader
+		operationClass = (Class<? extends de.gebit.integrity.operations.custom.Operation<?, ?, ?>>) aClassLoader
 				.loadClass(tempType.getQualifiedName());
 	}
 
@@ -90,7 +91,7 @@ public class CustomOperationWrapper {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object executeOperation() throws UnexecutableException, InstantiationException, ClassNotFoundException {
-		de.gebit.integrity.operations.Operation tempOperationInstance;
+		de.gebit.integrity.operations.custom.Operation tempOperationInstance;
 
 		try {
 			tempOperationInstance = operationClass.newInstance();
@@ -152,61 +153,5 @@ public class CustomOperationWrapper {
 		}
 
 		return tempMethod;
-	}
-
-	/**
-	 * This exception is thrown if an operation cannot be executed (usually because it depends on variables which are
-	 * not resolvable because no variable map was given).
-	 * 
-	 * 
-	 * @author Rene Schneider
-	 * 
-	 */
-	public class UnexecutableException extends Exception {
-
-		/**
-		 * The serialization version.
-		 */
-		private static final long serialVersionUID = -6492533441071927015L;
-
-		/**
-		 * Instantiates a new unexecutable exception.
-		 */
-		public UnexecutableException() {
-			super();
-		}
-
-		/**
-		 * Instantiates a new unexecutable exception.
-		 * 
-		 * @param aMessage
-		 *            the a message
-		 * @param aCause
-		 *            the a cause
-		 */
-		public UnexecutableException(String aMessage, Throwable aCause) {
-			super(aMessage, aCause);
-		}
-
-		/**
-		 * Instantiates a new unexecutable exception.
-		 * 
-		 * @param aMessage
-		 *            the a message
-		 */
-		public UnexecutableException(String aMessage) {
-			super(aMessage);
-		}
-
-		/**
-		 * Instantiates a new unexecutable exception.
-		 * 
-		 * @param aCause
-		 *            the a cause
-		 */
-		public UnexecutableException(Throwable aCause) {
-			super(aCause);
-		}
-
 	}
 }
