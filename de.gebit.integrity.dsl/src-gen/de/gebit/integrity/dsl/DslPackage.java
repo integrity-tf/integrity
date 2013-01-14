@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -716,13 +720,22 @@ public interface DslPackage extends EPackage
   int CONSTANT_DEFINITION__VARIANT_VALUES = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Parameterized</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_DEFINITION__PARAMETERIZED = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Constant Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+  int CONSTANT_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariantValueImpl <em>Variant Value</em>}' class.
@@ -762,14 +775,14 @@ public interface DslPackage extends EPackage
   int VARIANT_VALUE_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableEntityImpl <em>Variable Entity</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableOrConstantEntityImpl <em>Variable Or Constant Entity</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.VariableEntityImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntity()
+   * @see de.gebit.integrity.dsl.impl.VariableOrConstantEntityImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableOrConstantEntity()
    * @generated
    */
-  int VARIABLE_ENTITY = 21;
+  int VARIABLE_OR_CONSTANT_ENTITY = 23;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -778,16 +791,72 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_ENTITY__NAME = 0;
+  int VARIABLE_OR_CONSTANT_ENTITY__NAME = 0;
 
   /**
-   * The number of structural features of the '<em>Variable Entity</em>' class.
+   * The number of structural features of the '<em>Variable Or Constant Entity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_ENTITY_FEATURE_COUNT = 1;
+  int VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableEntityyImpl <em>Variable Entityy</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.VariableEntityyImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntityy()
+   * @generated
+   */
+  int VARIABLE_ENTITYY = 21;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_ENTITYY__NAME = VARIABLE_OR_CONSTANT_ENTITY__NAME;
+
+  /**
+   * The number of structural features of the '<em>Variable Entityy</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_ENTITYY_FEATURE_COUNT = VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ConstantEntityImpl <em>Constant Entity</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.ConstantEntityImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getConstantEntity()
+   * @generated
+   */
+  int CONSTANT_ENTITY = 22;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_ENTITY__NAME = VARIABLE_OR_CONSTANT_ENTITY__NAME;
+
+  /**
+   * The number of structural features of the '<em>Constant Entity</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_ENTITY_FEATURE_COUNT = VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestImpl <em>Test</em>}' class.
@@ -797,7 +866,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTest()
    * @generated
    */
-  int TEST = 22;
+  int TEST = 24;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -852,7 +921,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTableTest()
    * @generated
    */
-  int TABLE_TEST = 23;
+  int TABLE_TEST = 25;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -925,7 +994,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTableTestRow()
    * @generated
    */
-  int TABLE_TEST_ROW = 24;
+  int TABLE_TEST_ROW = 26;
 
   /**
    * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -953,7 +1022,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterTableHeader()
    * @generated
    */
-  int PARAMETER_TABLE_HEADER = 25;
+  int PARAMETER_TABLE_HEADER = 27;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -981,7 +1050,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultTableHeader()
    * @generated
    */
-  int RESULT_TABLE_HEADER = 26;
+  int RESULT_TABLE_HEADER = 28;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -1009,7 +1078,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterTableValue()
    * @generated
    */
-  int PARAMETER_TABLE_VALUE = 27;
+  int PARAMETER_TABLE_VALUE = 29;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1037,7 +1106,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedResult()
    * @generated
    */
-  int NAMED_RESULT = 28;
+  int NAMED_RESULT = 30;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -1074,7 +1143,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getResultName()
    * @generated
    */
-  int RESULT_NAME = 29;
+  int RESULT_NAME = 31;
 
   /**
    * The number of structural features of the '<em>Result Name</em>' class.
@@ -1093,7 +1162,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedResultName()
    * @generated
    */
-  int FIXED_RESULT_NAME = 30;
+  int FIXED_RESULT_NAME = 32;
 
   /**
    * The feature id for the '<em><b>Field</b></em>' reference.
@@ -1121,7 +1190,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getCall()
    * @generated
    */
-  int CALL = 31;
+  int CALL = 33;
 
   /**
    * The feature id for the '<em><b>Multiplier</b></em>' containment reference.
@@ -1185,7 +1254,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNamedCallResult()
    * @generated
    */
-  int NAMED_CALL_RESULT = 32;
+  int NAMED_CALL_RESULT = 34;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -1222,7 +1291,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuite()
    * @generated
    */
-  int SUITE = 33;
+  int SUITE = 35;
 
   /**
    * The feature id for the '<em><b>Multiplier</b></em>' containment reference.
@@ -1286,7 +1355,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSuiteParameter()
    * @generated
    */
-  int SUITE_PARAMETER = 34;
+  int SUITE_PARAMETER = 36;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -1323,7 +1392,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameter()
    * @generated
    */
-  int PARAMETER = 35;
+  int PARAMETER = 37;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -1360,7 +1429,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 36;
+  int PARAMETER_NAME = 38;
 
   /**
    * The number of structural features of the '<em>Parameter Name</em>' class.
@@ -1379,7 +1448,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getFixedParameterName()
    * @generated
    */
-  int FIXED_PARAMETER_NAME = 37;
+  int FIXED_PARAMETER_NAME = 39;
 
   /**
    * The feature id for the '<em><b>Annotation</b></em>' reference.
@@ -1407,7 +1476,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getArbitraryParameterOrResultName()
    * @generated
    */
-  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 38;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME = 40;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -1435,7 +1504,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperation()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE_OR_OPERATION = 43;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION = 45;
 
   /**
    * The number of structural features of the '<em>Value Or Enum Value Or Operation</em>' class.
@@ -1454,7 +1523,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 39;
+  int OPERATION = 41;
 
   /**
    * The number of structural features of the '<em>Operation</em>' class.
@@ -1473,7 +1542,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStandardOperation()
    * @generated
    */
-  int STANDARD_OPERATION = 40;
+  int STANDARD_OPERATION = 42;
 
   /**
    * The feature id for the '<em><b>First Operand</b></em>' containment reference.
@@ -1519,7 +1588,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getCustomOperation()
    * @generated
    */
-  int CUSTOM_OPERATION = 41;
+  int CUSTOM_OPERATION = 43;
 
   /**
    * The feature id for the '<em><b>Prefix Operand</b></em>' containment reference.
@@ -1565,7 +1634,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValueOrEnumValueOrOperationCollection()
    * @generated
    */
-  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION = 42;
+  int VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION = 44;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1602,7 +1671,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 44;
+  int VALUE = 46;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -1621,7 +1690,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStaticValue()
    * @generated
    */
-  int STATIC_VALUE = 45;
+  int STATIC_VALUE = 47;
 
   /**
    * The number of structural features of the '<em>Static Value</em>' class.
@@ -1640,7 +1709,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 46;
+  int INTEGER_VALUE = 48;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' attribute.
@@ -1668,7 +1737,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDecimalValue()
    * @generated
    */
-  int DECIMAL_VALUE = 47;
+  int DECIMAL_VALUE = 49;
 
   /**
    * The feature id for the '<em><b>Decimal Value</b></em>' attribute.
@@ -1696,7 +1765,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getStringValue()
    * @generated
    */
-  int STRING_VALUE = 48;
+  int STRING_VALUE = 50;
 
   /**
    * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -1724,7 +1793,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getBooleanValue()
    * @generated
    */
-  int BOOLEAN_VALUE = 49;
+  int BOOLEAN_VALUE = 51;
 
   /**
    * The feature id for the '<em><b>Boolean Value</b></em>' attribute.
@@ -1752,7 +1821,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDateValue()
    * @generated
    */
-  int DATE_VALUE = 50;
+  int DATE_VALUE = 52;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1780,7 +1849,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIsoDateValue()
    * @generated
    */
-  int ISO_DATE_VALUE = 51;
+  int ISO_DATE_VALUE = 53;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1808,7 +1877,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateValue()
    * @generated
    */
-  int EUROPEAN_DATE_VALUE = 52;
+  int EUROPEAN_DATE_VALUE = 54;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1836,7 +1905,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateValue()
    * @generated
    */
-  int US_DATE_VALUE = 53;
+  int US_DATE_VALUE = 55;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -1864,7 +1933,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTimeValue()
    * @generated
    */
-  int TIME_VALUE = 54;
+  int TIME_VALUE = 56;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1892,7 +1961,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIsoTimeValue()
    * @generated
    */
-  int ISO_TIME_VALUE = 55;
+  int ISO_TIME_VALUE = 57;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1920,7 +1989,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSimple24HrsTimeValue()
    * @generated
    */
-  int SIMPLE24_HRS_TIME_VALUE = 56;
+  int SIMPLE24_HRS_TIME_VALUE = 58;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1948,7 +2017,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getSimple12HrsTimeValue()
    * @generated
    */
-  int SIMPLE12_HRS_TIME_VALUE = 57;
+  int SIMPLE12_HRS_TIME_VALUE = 59;
 
   /**
    * The feature id for the '<em><b>Time Value</b></em>' attribute.
@@ -1976,7 +2045,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDateAndTimeValue()
    * @generated
    */
-  int DATE_AND_TIME_VALUE = 58;
+  int DATE_AND_TIME_VALUE = 60;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -2013,7 +2082,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getIsoDateAndTimeValue()
    * @generated
    */
-  int ISO_DATE_AND_TIME_VALUE = 59;
+  int ISO_DATE_AND_TIME_VALUE = 61;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -2050,7 +2119,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateAnd24HrsTimeValue()
    * @generated
    */
-  int EUROPEAN_DATE_AND24_HRS_TIME_VALUE = 60;
+  int EUROPEAN_DATE_AND24_HRS_TIME_VALUE = 62;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -2087,7 +2156,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEuropeanDateAnd12HrsTimeValue()
    * @generated
    */
-  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE = 61;
+  int EUROPEAN_DATE_AND12_HRS_TIME_VALUE = 63;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -2124,7 +2193,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getUSDateAnd12HrsTimeValue()
    * @generated
    */
-  int US_DATE_AND12_HRS_TIME_VALUE = 62;
+  int US_DATE_AND12_HRS_TIME_VALUE = 64;
 
   /**
    * The feature id for the '<em><b>Date Value</b></em>' attribute.
@@ -2161,7 +2230,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 63;
+  int VARIABLE = 65;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -2189,7 +2258,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
    * @generated
    */
-  int NULL_VALUE = 64;
+  int NULL_VALUE = 66;
 
   /**
    * The number of structural features of the '<em>Null Value</em>' class.
@@ -2208,7 +2277,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 65;
+  int ENUM_VALUE = 67;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -2236,7 +2305,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNestedObject()
    * @generated
    */
-  int NESTED_OBJECT = 66;
+  int NESTED_OBJECT = 68;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2264,7 +2333,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getKeyValuePair()
    * @generated
    */
-  int KEY_VALUE_PAIR = 67;
+  int KEY_VALUE_PAIR = 69;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -2301,7 +2370,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 68;
+  int JAVA_CLASS_REFERENCE = 70;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2329,7 +2398,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 69;
+  int METHOD_REFERENCE = 71;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2366,7 +2435,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 70;
+  int EXECUTION_MULTIPLIER = 72;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2394,7 +2463,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 71;
+  int NULL = 73;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -2937,6 +3006,17 @@ public interface DslPackage extends EPackage
   EReference getConstantDefinition_VariantValues();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ConstantDefinition#getParameterized <em>Parameterized</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Parameterized</em>'.
+   * @see de.gebit.integrity.dsl.ConstantDefinition#getParameterized()
+   * @see #getConstantDefinition()
+   * @generated
+   */
+  EAttribute getConstantDefinition_Parameterized();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariantValue <em>Variant Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2969,25 +3049,45 @@ public interface DslPackage extends EPackage
   EReference getVariantValue_Value();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableEntity <em>Variable Entity</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableEntityy <em>Variable Entityy</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Entity</em>'.
-   * @see de.gebit.integrity.dsl.VariableEntity
+   * @return the meta object for class '<em>Variable Entityy</em>'.
+   * @see de.gebit.integrity.dsl.VariableEntityy
    * @generated
    */
-  EClass getVariableEntity();
+  EClass getVariableEntityy();
 
   /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.VariableEntity#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.ConstantEntity <em>Constant Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Constant Entity</em>'.
+   * @see de.gebit.integrity.dsl.ConstantEntity
+   * @generated
+   */
+  EClass getConstantEntity();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableOrConstantEntity <em>Variable Or Constant Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable Or Constant Entity</em>'.
+   * @see de.gebit.integrity.dsl.VariableOrConstantEntity
+   * @generated
+   */
+  EClass getVariableOrConstantEntity();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.VariableOrConstantEntity#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see de.gebit.integrity.dsl.VariableEntity#getName()
-   * @see #getVariableEntity()
+   * @see de.gebit.integrity.dsl.VariableOrConstantEntity#getName()
+   * @see #getVariableOrConstantEntity()
    * @generated
    */
-  EAttribute getVariableEntity_Name();
+  EAttribute getVariableOrConstantEntity_Name();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Test <em>Test</em>}'.
@@ -4613,6 +4713,14 @@ public interface DslPackage extends EPackage
     EReference CONSTANT_DEFINITION__VARIANT_VALUES = eINSTANCE.getConstantDefinition_VariantValues();
 
     /**
+     * The meta object literal for the '<em><b>Parameterized</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONSTANT_DEFINITION__PARAMETERIZED = eINSTANCE.getConstantDefinition_Parameterized();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariantValueImpl <em>Variant Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4639,14 +4747,34 @@ public interface DslPackage extends EPackage
     EReference VARIANT_VALUE__VALUE = eINSTANCE.getVariantValue_Value();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableEntityImpl <em>Variable Entity</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableEntityyImpl <em>Variable Entityy</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.VariableEntityImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntity()
+     * @see de.gebit.integrity.dsl.impl.VariableEntityyImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntityy()
      * @generated
      */
-    EClass VARIABLE_ENTITY = eINSTANCE.getVariableEntity();
+    EClass VARIABLE_ENTITYY = eINSTANCE.getVariableEntityy();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ConstantEntityImpl <em>Constant Entity</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.ConstantEntityImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getConstantEntity()
+     * @generated
+     */
+    EClass CONSTANT_ENTITY = eINSTANCE.getConstantEntity();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableOrConstantEntityImpl <em>Variable Or Constant Entity</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.VariableOrConstantEntityImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableOrConstantEntity()
+     * @generated
+     */
+    EClass VARIABLE_OR_CONSTANT_ENTITY = eINSTANCE.getVariableOrConstantEntity();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -4654,7 +4782,7 @@ public interface DslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VARIABLE_ENTITY__NAME = eINSTANCE.getVariableEntity_Name();
+    EAttribute VARIABLE_OR_CONSTANT_ENTITY__NAME = eINSTANCE.getVariableOrConstantEntity_Name();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TestImpl <em>Test</em>}' class.

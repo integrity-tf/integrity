@@ -1,11 +1,15 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.Value;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -40,7 +44,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    * @ordered
    */
-  protected VariableEntity name;
+  protected VariableOrConstantEntity name;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -78,12 +82,12 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity getName()
+  public VariableOrConstantEntity getName()
   {
     if (name != null && name.eIsProxy())
     {
       InternalEObject oldName = (InternalEObject)name;
-      name = (VariableEntity)eResolveProxy(oldName);
+      name = (VariableOrConstantEntity)eResolveProxy(oldName);
       if (name != oldName)
       {
         if (eNotificationRequired())
@@ -98,7 +102,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity basicGetName()
+  public VariableOrConstantEntity basicGetName()
   {
     return name;
   }
@@ -108,9 +112,9 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(VariableEntity newName)
+  public void setName(VariableOrConstantEntity newName)
   {
-    VariableEntity oldName = name;
+    VariableOrConstantEntity oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE_PARAMETER__NAME, oldName, name));
@@ -210,7 +214,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
     switch (featureID)
     {
       case DslPackage.SUITE_PARAMETER__NAME:
-        setName((VariableEntity)newValue);
+        setName((VariableOrConstantEntity)newValue);
         return;
       case DslPackage.SUITE_PARAMETER__VALUE:
         setValue((Value)newValue);
@@ -230,7 +234,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
     switch (featureID)
     {
       case DslPackage.SUITE_PARAMETER__NAME:
-        setName((VariableEntity)null);
+        setName((VariableOrConstantEntity)null);
         return;
       case DslPackage.SUITE_PARAMETER__VALUE:
         setValue((Value)null);

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -50,12 +54,12 @@ public interface VariantValue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(StaticValue)
+   * @see #setValue(ValueOrEnumValueOrOperation)
    * @see de.gebit.integrity.dsl.DslPackage#getVariantValue_Value()
    * @model containment="true"
    * @generated
    */
-  StaticValue getValue();
+  ValueOrEnumValueOrOperation getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.VariantValue#getValue <em>Value</em>}' containment reference.
@@ -65,6 +69,6 @@ public interface VariantValue extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(StaticValue value);
+  void setValue(ValueOrEnumValueOrOperation value);
 
 } // VariantValue

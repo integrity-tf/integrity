@@ -407,7 +407,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				Test tempTest = (Test) aModel;
 				tempParameterMap = parameterResolver.createParameterMap(tempTest, true,
 						UnresolvableVariableHandling.KEEP_UNRESOLVED);
-				tempExpectedResultMap = parameterResolver.createExpectedResultMap(tempTest, null, true);
+				tempExpectedResultMap = parameterResolver.createExpectedResultMap(tempTest, true);
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;
@@ -740,7 +740,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private void resolveVariables(Map<String, Object> aParameterMap) {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			if (tempEntry.getValue() instanceof Variable) {
-				tempEntry.setValue(parameterResolver.resolveVariableStatically((Variable) tempEntry.getValue(), null));
+				tempEntry.setValue(parameterResolver.resolveStatically((Variable) tempEntry.getValue(), null));
 			}
 		}
 	}

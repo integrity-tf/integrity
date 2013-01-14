@@ -15,7 +15,10 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.CustomOperation;
+import de.gebit.integrity.dsl.EnumValue;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -24,14 +27,13 @@ import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
-import de.gebit.integrity.dsl.VariantValue;
+import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
@@ -204,60 +206,126 @@ public class DefaultParameterResolver implements ParameterResolver {
 	}
 
 	@Override
-	public Object resolveVariableStatically(Variable aVariable, VariantDefinition aVariant) {
-		Value tempValue = null;
-
-		if (aVariable.getName() != null) {
-			if (aVariable.getName().eContainer() instanceof VariableDefinition) {
-				VariableDefinition tempDefinition = (VariableDefinition) aVariable.getName().eContainer();
-				tempValue = tempDefinition.getInitialValue();
-			} else if (aVariable.getName().eContainer() instanceof ConstantDefinition) {
-				ConstantDefinition tempDefinition = (ConstantDefinition) aVariable.getName().eContainer();
-				tempValue = resolveConstantValue(tempDefinition, aVariant);
-			}
-		}
-
-		if (tempValue != null && tempValue instanceof Variable) {
-			return resolveVariableStatically(aVariable, aVariant);
-		} else {
-			return tempValue;
-		}
+	public Object resolveStatically(Variable aVariable, VariantDefinition aVariant) {
+		VariableOrConstantEntity tempEntity = aVariable.getName();
+		return IntegrityDSLUtil.getInitialValueForVariableOrConstantEntity(tempEntity, aVariant);
 	}
 
 	@Override
-	public StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant) {
-		StaticValue tempValue = aConstant.getValue();
-		if (aVariant != null) {
-			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
-				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {
-					if (tempDefinition == aVariant) {
-						tempValue = tempVariantValue.getValue();
-						break outer;
-					}
+	public Object resolveStatically(ValueOrEnumValueOrOperation aValue, VariantDefinition aVariant)
+			throws UnexecutableException, ClassNotFoundException, InstantiationException {
+		if (aValue instanceof Variable) {
+			VariableOrConstantEntity tempEntity = ((Variable) aValue).getName();
+			return resolveStatically(IntegrityDSLUtil.getInitialValueForVariableOrConstantEntity(tempEntity, aVariant),
+					aVariant);
+		} else if (aValue instanceof StandardOperation) {
+			return standardOperationProcessor.executeOperation((StandardOperation) aValue);
+		} else if (aValue instanceof CustomOperation) {
+			if (wrapperFactory != null) {
+				CustomOperationWrapper tempWrapper = wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);
+				return tempWrapper.executeOperation();
+			} else {
+				return null;
+			}
+		}
+
+		return aValue;
+	}
+
+	@Override
+	public boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperationCollection aValue, VariantDefinition aVariant) {
+		if (aValue == null) {
+			return true;
+		}
+
+		if (!isSafelyStaticallyResolvable(aValue.getValue(), aVariant)) {
+			return false;
+		}
+		for (ValueOrEnumValueOrOperation tempSubValue : aValue.getMoreValues()) {
+			if (!isSafelyStaticallyResolvable(tempSubValue, aVariant)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperation aValue, VariantDefinition aVariant) {
+		if (aValue == null) {
+			return true;
+		}
+
+		if (aValue instanceof StaticValue) {
+			return true;
+		} else if (aValue instanceof Variable) {
+			VariableOrConstantEntity tempEntity = ((Variable) aValue).getName();
+			if (tempEntity instanceof VariableDefinition) {
+				// Variables can be altered during runtime -> definitely not statically resolvable to a constant value
+				return false;
+			} else if (tempEntity instanceof ConstantDefinition) {
+				// trace the initial value and check whether that can be resolved
+				return isSafelyStaticallyResolvable(
+						IntegrityDSLUtil.getInitialValueForVariableOrConstantEntity(tempEntity, aVariant), aVariant);
+			}
+		} else if (aValue instanceof NestedObject) {
+			// Explore the nested object and check all attributes. Might of course create recursion, but hey, recursion
+			// is cool :-)
+			for (KeyValuePair tempAttribute : ((NestedObject) aValue).getAttributes()) {
+				if (!isSafelyStaticallyResolvable(tempAttribute.getValue(), aVariant)) {
+					return false;
 				}
 			}
+		} else if (aValue instanceof EnumValue) {
+			// Enum values only make sense in the context of a fixture call. This method does not require such a
+			// context, thus it considers enum values to be nonresolvable.
+			return false;
+		} else if (aValue instanceof StandardOperation) {
+			// All parameters of the operation must be statically resolvable, just like with nested objects.
+			if (!isSafelyStaticallyResolvable(((StandardOperation) aValue).getFirstOperand(), aVariant)) {
+				return false;
+			}
+			for (ValueOrEnumValueOrOperation tempSubValue : ((StandardOperation) aValue).getMoreOperands()) {
+				if (!isSafelyStaticallyResolvable(tempSubValue, aVariant)) {
+					return false;
+				}
+			}
+			return true;
+		} else if (aValue instanceof CustomOperation) {
+			// Custom operations are considered to return the same values if the input parameters are kept constant,
+			// thus we check those input parameters. Note however that we cannot make sure that the code of a given
+			// custom operation actually obeys the rule of providing a stable mapping between input parameters and
+			// output, thus this assumption is unfortunately not 100% safe.
+			return isSafelyStaticallyResolvable(((CustomOperation) aValue).getPrefixOperand(), aVariant)
+					&& isSafelyStaticallyResolvable(((CustomOperation) aValue).getPostfixOperand(), aVariant);
 		}
-		return tempValue;
+
+		throw new ThisShouldNeverHappenException();
 	}
 
 	@Override
-	public Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryResultFlag) {
-		return createExpectedResultMap(aTest.getResults(), aVariableMap, anIncludeArbitraryResultFlag);
+	public Object resolveStatically(ConstantDefinition aConstant, VariantDefinition aVariant)
+			throws UnexecutableException, ClassNotFoundException, InstantiationException {
+		ValueOrEnumValueOrOperation tempValue = IntegrityDSLUtil.getInitialValueForConstant(aConstant, aVariant);
+
+		return resolveStatically(tempValue, aVariant);
+	}
+
+	@Override
+	public Map<String, Object> createExpectedResultMap(Test aTest, boolean anIncludeArbitraryResultFlag) {
+		return createExpectedResultMap(aTest.getResults(), anIncludeArbitraryResultFlag);
 	}
 
 	private Map<String, Object> createExpectedResultMap(List<NamedResult> aTestResultList,
-			Map<VariableEntity, Object> aVariableMap, boolean anIncludeArbitraryResultFlag) {
+			boolean anIncludeArbitraryResultFlag) {
 		Map<String, Object> tempResultMap = new LinkedHashMap<String, Object>();
 		for (NamedResult tempEntry : aTestResultList) {
 			if (tempEntry.getName() != null && tempEntry.getValue() != null) {
 				Object tempValue = tempEntry.getValue();
 				if (tempValue instanceof Variable) {
-					if (aVariableMap != null) {
-						tempValue = aVariableMap.get(((Variable) tempValue).getName());
-					} else {
-						tempValue = null;
-					}
+					// Variable resolving is not supported here since this method is currently only used in
+					// circumstances where this is impossible anyway (autocompletion in the IDE)
+					tempValue = null;
 				}
 				if (anIncludeArbitraryResultFlag || !(tempEntry.getName() instanceof ArbitraryParameterOrResultName)) {
 					tempResultMap.put(

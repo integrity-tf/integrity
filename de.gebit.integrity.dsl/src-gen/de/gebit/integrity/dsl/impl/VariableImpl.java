@@ -1,10 +1,14 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -36,7 +40,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * @generated
    * @ordered
    */
-  protected VariableEntity name;
+  protected VariableOrConstantEntity name;
 
   /**
    * <!-- begin-user-doc -->
@@ -64,12 +68,12 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity getName()
+  public VariableOrConstantEntity getName()
   {
     if (name != null && name.eIsProxy())
     {
       InternalEObject oldName = (InternalEObject)name;
-      name = (VariableEntity)eResolveProxy(oldName);
+      name = (VariableOrConstantEntity)eResolveProxy(oldName);
       if (name != oldName)
       {
         if (eNotificationRequired())
@@ -84,7 +88,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity basicGetName()
+  public VariableOrConstantEntity basicGetName()
   {
     return name;
   }
@@ -94,9 +98,9 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(VariableEntity newName)
+  public void setName(VariableOrConstantEntity newName)
   {
-    VariableEntity oldName = name;
+    VariableOrConstantEntity oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIABLE__NAME, oldName, name));
@@ -130,7 +134,7 @@ public class VariableImpl extends ValueImpl implements Variable
     switch (featureID)
     {
       case DslPackage.VARIABLE__NAME:
-        setName((VariableEntity)newValue);
+        setName((VariableOrConstantEntity)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,7 +151,7 @@ public class VariableImpl extends ValueImpl implements Variable
     switch (featureID)
     {
       case DslPackage.VARIABLE__NAME:
-        setName((VariableEntity)null);
+        setName((VariableOrConstantEntity)null);
         return;
     }
     super.eUnset(featureID);

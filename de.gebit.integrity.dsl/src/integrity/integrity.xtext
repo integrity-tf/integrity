@@ -60,7 +60,7 @@ CallDefinition:
 	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
-	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
+	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=ConstantEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
@@ -72,17 +72,23 @@ SuiteStatementWithResult:
 	Suite | Test | TableTest | Call;
 	
 VariableDefinition:
-	'variable' NL name=VariableEntity NL ('initially' NL initialValue=Value NL)?;
+	'variable' NL name=VariableEntityy NL ('initially' NL initialValue=ValueOrEnumValueOrOperation NL)?;
 	
 ConstantDefinition:
-	'constant' NL name=VariableEntity NL (value=StaticValue NL)? (variantValues+=VariantValue NL)*;
+	'constant' NL name=ConstantEntity NL (((value=ValueOrEnumValueOrOperation NL)? (variantValues+=VariantValue NL)*) | parameterized='parameterized' NL);
 	
 VariantValue:
-	'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=StaticValue;
+	'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=ValueOrEnumValueOrOperation;
 	
-VariableEntity:
+VariableEntityy:
 	name=QualifiedName;
 	
+ConstantEntity:
+	name=QualifiedName;
+	
+VariableOrConstantEntity:
+	VariableEntityy | ConstantEntity;
+		
 Test:
 	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueOrOperationCollection)? NL;
 	
@@ -121,7 +127,7 @@ Suite:
 	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
 
 SuiteParameter:
-	name=[VariableEntity|QualifiedName] NL ':' NL value=Value;
+	name=[VariableOrConstantEntity|QualifiedName] NL ':' NL value=Value;
 
 Parameter:
 	name=ParameterName NL ':' NL value=ValueOrEnumValueOrOperationCollection;
@@ -208,7 +214,7 @@ USDateAnd12HrsTimeValue:
 	dateValue=USDATE NL timeValue=TWELVEHRSTIME;
 	
 Variable:
-	name=[VariableEntity|QualifiedName];
+	name=[VariableOrConstantEntity|QualifiedName];
 	
 NullValue:
 	{Null} 'null';

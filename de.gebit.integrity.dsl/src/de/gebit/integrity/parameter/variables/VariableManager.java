@@ -6,7 +6,7 @@ package de.gebit.integrity.parameter.variables;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 /**
  * The variable manager is responsible for keeping track of variable values.
@@ -23,22 +23,26 @@ public interface VariableManager {
 	 *            the variable entity
 	 * @return the value or null if none was defined
 	 */
-	Object get(VariableEntity anEntity);
+	Object get(VariableOrConstantEntity anEntity);
 
 	/**
-	 * Sets a value for a specific variable.
+	 * Sets a value for a specific variable. This is also used to define constants, as constants are technically also
+	 * {@link VariableEntity} instances (
 	 * 
 	 * @param anEntity
 	 *            the variable entity
 	 * @param aValue
 	 *            the value to set
 	 */
-	void set(VariableEntity anEntity, Object aValue);
+	void set(VariableOrConstantEntity anEntity, Object aValue);
 
 	/**
 	 * Clears all stored variable values.
+	 * 
+	 * @param aClearConstantsFlag
+	 *            Whether to clear constants as well. If false, only actual variables are cleared.
 	 */
-	void clear();
+	void clear(boolean aClearConstantsFlag);
 
 	// TODO eliminate the need for the methods below somehow!
 
@@ -49,13 +53,13 @@ public interface VariableManager {
 	 *            the fully qualified name of the variable
 	 * @return the entity or null if not found
 	 */
-	VariableEntity findEntity(String aQualifiedEntityName);
+	VariableOrConstantEntity findEntity(String aQualifiedEntityName);
 
 	/**
 	 * Returns all variable entity entries.
 	 * 
 	 * @return
 	 */
-	Set<Entry<VariableEntity, Object>> getAllEntries();
+	Set<Entry<VariableOrConstantEntity, Object>> getAllEntries();
 
 }

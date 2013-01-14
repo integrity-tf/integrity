@@ -15,7 +15,7 @@ packagedef integrity.basic.operations with
 		test echoIntegerTest integer: (3 / 2) = 1
 		
 		test echoIntegerTest integer: (100 % 98) = 2
-		
+		//variable one initially 1 variable two initially (1 + 1) constant three (1 + 2)
 		variable one initially 1
 		variable two initially 2
 		variable three initially 3

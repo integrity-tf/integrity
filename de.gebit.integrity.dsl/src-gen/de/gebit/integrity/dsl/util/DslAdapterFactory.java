@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -180,9 +184,19 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createVariantValueAdapter();
       }
       @Override
-      public Adapter caseVariableEntity(VariableEntity object)
+      public Adapter caseVariableEntityy(VariableEntityy object)
       {
-        return createVariableEntityAdapter();
+        return createVariableEntityyAdapter();
+      }
+      @Override
+      public Adapter caseConstantEntity(ConstantEntity object)
+      {
+        return createConstantEntityAdapter();
+      }
+      @Override
+      public Adapter caseVariableOrConstantEntity(VariableOrConstantEntity object)
+      {
+        return createVariableOrConstantEntityAdapter();
       }
       @Override
       public Adapter caseTest(Test object)
@@ -772,16 +786,46 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableEntity <em>Variable Entity</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableEntityy <em>Variable Entityy</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.VariableEntity
+   * @see de.gebit.integrity.dsl.VariableEntityy
    * @generated
    */
-  public Adapter createVariableEntityAdapter()
+  public Adapter createVariableEntityyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ConstantEntity <em>Constant Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ConstantEntity
+   * @generated
+   */
+  public Adapter createConstantEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableOrConstantEntity <em>Variable Or Constant Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VariableOrConstantEntity
+   * @generated
+   */
+  public Adapter createVariableOrConstantEntityAdapter()
   {
     return null;
   }

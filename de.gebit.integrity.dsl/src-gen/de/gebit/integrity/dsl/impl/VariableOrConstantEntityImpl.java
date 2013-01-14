@@ -1,9 +1,13 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -14,18 +18,18 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable Entity</b></em>'.
+ * An implementation of the model object '<em><b>Variable Or Constant Entity</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.VariableEntityImpl#getName <em>Name</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.VariableOrConstantEntityImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class VariableEntityImpl extends MinimalEObjectImpl.Container implements VariableEntity
+public class VariableOrConstantEntityImpl extends MinimalEObjectImpl.Container implements VariableOrConstantEntity
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -52,7 +56,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VariableEntityImpl()
+  protected VariableOrConstantEntityImpl()
   {
     super();
   }
@@ -65,7 +69,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.VARIABLE_ENTITY;
+    return DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY;
   }
 
   /**
@@ -88,7 +92,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIABLE_ENTITY__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIABLE_OR_CONSTANT_ENTITY__NAME, oldName, name));
   }
 
   /**
@@ -101,7 +105,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case DslPackage.VARIABLE_ENTITY__NAME:
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY__NAME:
         return getName();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -117,7 +121,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case DslPackage.VARIABLE_ENTITY__NAME:
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY__NAME:
         setName((String)newValue);
         return;
     }
@@ -134,7 +138,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case DslPackage.VARIABLE_ENTITY__NAME:
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY__NAME:
         setName(NAME_EDEFAULT);
         return;
     }
@@ -151,7 +155,7 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case DslPackage.VARIABLE_ENTITY__NAME:
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
@@ -174,4 +178,4 @@ public class VariableEntityImpl extends MinimalEObjectImpl.Container implements 
     return result.toString();
   }
 
-} //VariableEntityImpl
+} //VariableOrConstantEntityImpl

@@ -9,14 +9,12 @@ import java.util.Map;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Parameter;
-import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
-import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -165,7 +163,14 @@ public interface ParameterResolver {
 	 *            the active variant
 	 * @return the result, or null if none was found
 	 */
-	Object resolveVariableStatically(Variable aVariable, VariantDefinition aVariant);
+	Object resolveStatically(Variable aVariable, VariantDefinition aVariant);
+
+	Object resolveStatically(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant)
+			throws UnexecutableException, ClassNotFoundException, InstantiationException;
+
+	boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperationCollection aValue, VariantDefinition aVariant);
+
+	boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant);
 
 	/**
 	 * Resolves a constant definition to its defined value, which may depend on the active variant.
@@ -176,22 +181,19 @@ public interface ParameterResolver {
 	 *            the active variant
 	 * @return the result, or null if none is defined for the constant
 	 */
-	StaticValue resolveConstantValue(ConstantDefinition aConstant, VariantDefinition aVariant);
+	Object resolveStatically(ConstantDefinition aConstant, VariantDefinition aVariant) throws UnexecutableException,
+			ClassNotFoundException, InstantiationException;
 
 	/**
 	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual
-	 * values, with variable references being resolved if a variable map is provided.
+	 * values. Does not support variable resolving!
 	 * 
 	 * @param aTest
 	 *            the test
-	 * @param aVariableMap
-	 *            the variable map containing all currently active variables and their values, or null if no resolution
-	 *            shall be done
 	 * @param anIncludeArbitraryResultFlag
 	 *            whether arbitrary results shall be included
 	 * @return a map of Strings to values
 	 */
-	Map<String, Object> createExpectedResultMap(Test aTest, Map<VariableEntity, Object> aVariableMap,
-			boolean anIncludeArbitraryResultFlag);
+	Map<String, Object> createExpectedResultMap(Test aTest, boolean anIncludeArbitraryResultFlag);
 
 }

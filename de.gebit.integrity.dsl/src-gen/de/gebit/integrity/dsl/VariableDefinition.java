@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -31,12 +35,12 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
-   * @see #setName(VariableEntity)
+   * @see #setName(VariableEntityy)
    * @see de.gebit.integrity.dsl.DslPackage#getVariableDefinition_Name()
    * @model containment="true"
    * @generated
    */
-  VariableEntity getName();
+  VariableEntityy getName();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.VariableDefinition#getName <em>Name</em>}' containment reference.
@@ -46,7 +50,7 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * @see #getName()
    * @generated
    */
-  void setName(VariableEntity value);
+  void setName(VariableEntityy value);
 
   /**
    * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.
@@ -57,12 +61,12 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Initial Value</em>' containment reference.
-   * @see #setInitialValue(Value)
+   * @see #setInitialValue(ValueOrEnumValueOrOperation)
    * @see de.gebit.integrity.dsl.DslPackage#getVariableDefinition_InitialValue()
    * @model containment="true"
    * @generated
    */
-  Value getInitialValue();
+  ValueOrEnumValueOrOperation getInitialValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.VariableDefinition#getInitialValue <em>Initial Value</em>}' containment reference.
@@ -72,6 +76,6 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * @see #getInitialValue()
    * @generated
    */
-  void setInitialValue(Value value);
+  void setInitialValue(ValueOrEnumValueOrOperation value);
 
 } // VariableDefinition

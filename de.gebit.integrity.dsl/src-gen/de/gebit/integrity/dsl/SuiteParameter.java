@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -32,12 +36,12 @@ public interface SuiteParameter extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' reference.
-   * @see #setName(VariableEntity)
+   * @see #setName(VariableOrConstantEntity)
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteParameter_Name()
    * @model
    * @generated
    */
-  VariableEntity getName();
+  VariableOrConstantEntity getName();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.SuiteParameter#getName <em>Name</em>}' reference.
@@ -47,7 +51,7 @@ public interface SuiteParameter extends EObject
    * @see #getName()
    * @generated
    */
-  void setName(VariableEntity value);
+  void setName(VariableOrConstantEntity value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.

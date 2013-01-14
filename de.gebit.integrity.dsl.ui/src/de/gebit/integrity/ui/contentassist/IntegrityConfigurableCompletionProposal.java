@@ -16,7 +16,7 @@ import com.google.inject.Provider;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 /**
  * A context-aware configurable completion proposal. This proposal knows its content assist context and uses this in
@@ -78,9 +78,9 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 			});
 		} else {
 			// no resolving necessary
-			if (anAdditionalProposalInfo instanceof VariableEntity
-					&& ((VariableEntity) anAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
-				suiteDefiningProposedParameter = (SuiteDefinition) ((VariableEntity) anAdditionalProposalInfo)
+			if (anAdditionalProposalInfo instanceof VariableOrConstantEntity
+					&& ((VariableOrConstantEntity) anAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
+				suiteDefiningProposedParameter = (SuiteDefinition) ((VariableOrConstantEntity) anAdditionalProposalInfo)
 						.eContainer();
 
 				// suite parameter proposals are NEVER scoped, even though XText might think so...

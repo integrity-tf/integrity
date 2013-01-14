@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -85,7 +89,9 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VARIABLE_DEFINITION: return createVariableDefinition();
       case DslPackage.CONSTANT_DEFINITION: return createConstantDefinition();
       case DslPackage.VARIANT_VALUE: return createVariantValue();
-      case DslPackage.VARIABLE_ENTITY: return createVariableEntity();
+      case DslPackage.VARIABLE_ENTITYY: return createVariableEntityy();
+      case DslPackage.CONSTANT_ENTITY: return createConstantEntity();
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY: return createVariableOrConstantEntity();
       case DslPackage.TEST: return createTest();
       case DslPackage.TABLE_TEST: return createTableTest();
       case DslPackage.TABLE_TEST_ROW: return createTableTestRow();
@@ -377,10 +383,32 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity createVariableEntity()
+  public VariableEntityy createVariableEntityy()
   {
-    VariableEntityImpl variableEntity = new VariableEntityImpl();
-    return variableEntity;
+    VariableEntityyImpl variableEntityy = new VariableEntityyImpl();
+    return variableEntityy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantEntity createConstantEntity()
+  {
+    ConstantEntityImpl constantEntity = new ConstantEntityImpl();
+    return constantEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableOrConstantEntity createVariableOrConstantEntity()
+  {
+    VariableOrConstantEntityImpl variableOrConstantEntity = new VariableOrConstantEntityImpl();
+    return variableOrConstantEntity;
   }
 
   /**

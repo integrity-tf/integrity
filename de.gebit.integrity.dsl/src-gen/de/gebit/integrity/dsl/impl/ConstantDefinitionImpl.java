@@ -1,11 +1,15 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.StaticValue;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.VariantValue;
 
 import java.util.Collection;
@@ -33,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getValue <em>Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getVariantValues <em>Variant Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getParameterized <em>Parameterized</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,7 +53,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * @generated
    * @ordered
    */
-  protected VariableEntity name;
+  protected ConstantEntity name;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -58,7 +63,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * @generated
    * @ordered
    */
-  protected StaticValue value;
+  protected ValueOrEnumValueOrOperation value;
 
   /**
    * The cached value of the '{@link #getVariantValues() <em>Variant Values</em>}' containment reference list.
@@ -69,6 +74,26 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * @ordered
    */
   protected EList<VariantValue> variantValues;
+
+  /**
+   * The default value of the '{@link #getParameterized() <em>Parameterized</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParameterized()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARAMETERIZED_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParameterized() <em>Parameterized</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParameterized()
+   * @generated
+   * @ordered
+   */
+  protected String parameterized = PARAMETERIZED_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,7 +121,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity getName()
+  public ConstantEntity getName()
   {
     return name;
   }
@@ -106,9 +131,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(VariableEntity newName, NotificationChain msgs)
+  public NotificationChain basicSetName(ConstantEntity newName, NotificationChain msgs)
   {
-    VariableEntity oldName = name;
+    ConstantEntity oldName = name;
     name = newName;
     if (eNotificationRequired())
     {
@@ -123,7 +148,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(VariableEntity newName)
+  public void setName(ConstantEntity newName)
   {
     if (newName != name)
     {
@@ -144,7 +169,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public StaticValue getValue()
+  public ValueOrEnumValueOrOperation getValue()
   {
     return value;
   }
@@ -154,9 +179,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(StaticValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperation newValue, NotificationChain msgs)
   {
-    StaticValue oldValue = value;
+    ValueOrEnumValueOrOperation oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -171,7 +196,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(StaticValue newValue)
+  public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)
     {
@@ -199,6 +224,29 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
       variantValues = new EObjectContainmentEList<VariantValue>(VariantValue.class, this, DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES);
     }
     return variantValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getParameterized()
+  {
+    return parameterized;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setParameterized(String newParameterized)
+  {
+    String oldParameterized = parameterized;
+    parameterized = newParameterized;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.CONSTANT_DEFINITION__PARAMETERIZED, oldParameterized, parameterized));
   }
 
   /**
@@ -237,6 +285,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         return getValue();
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         return getVariantValues();
+      case DslPackage.CONSTANT_DEFINITION__PARAMETERIZED:
+        return getParameterized();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -253,14 +303,17 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
     switch (featureID)
     {
       case DslPackage.CONSTANT_DEFINITION__NAME:
-        setName((VariableEntity)newValue);
+        setName((ConstantEntity)newValue);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((StaticValue)newValue);
+        setValue((ValueOrEnumValueOrOperation)newValue);
         return;
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         getVariantValues().clear();
         getVariantValues().addAll((Collection<? extends VariantValue>)newValue);
+        return;
+      case DslPackage.CONSTANT_DEFINITION__PARAMETERIZED:
+        setParameterized((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -277,13 +330,16 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
     switch (featureID)
     {
       case DslPackage.CONSTANT_DEFINITION__NAME:
-        setName((VariableEntity)null);
+        setName((ConstantEntity)null);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((StaticValue)null);
+        setValue((ValueOrEnumValueOrOperation)null);
         return;
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         getVariantValues().clear();
+        return;
+      case DslPackage.CONSTANT_DEFINITION__PARAMETERIZED:
+        setParameterized(PARAMETERIZED_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -305,8 +361,27 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         return value != null;
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         return variantValues != null && !variantValues.isEmpty();
+      case DslPackage.CONSTANT_DEFINITION__PARAMETERIZED:
+        return PARAMETERIZED_EDEFAULT == null ? parameterized != null : !PARAMETERIZED_EDEFAULT.equals(parameterized);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (parameterized: ");
+    result.append(parameterized);
+    result.append(')');
+    return result.toString();
   }
 
 } //ConstantDefinitionImpl

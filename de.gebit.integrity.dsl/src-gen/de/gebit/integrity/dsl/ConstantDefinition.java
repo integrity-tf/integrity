@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -15,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getVariantValues <em>Variant Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getParameterized <em>Parameterized</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,12 +38,12 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
-   * @see #setName(VariableEntity)
+   * @see #setName(ConstantEntity)
    * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Name()
    * @model containment="true"
    * @generated
    */
-  VariableEntity getName();
+  ConstantEntity getName();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}' containment reference.
@@ -48,7 +53,7 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * @see #getName()
    * @generated
    */
-  void setName(VariableEntity value);
+  void setName(ConstantEntity value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
@@ -59,12 +64,12 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(StaticValue)
+   * @see #setValue(ValueOrEnumValueOrOperation)
    * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Value()
    * @model containment="true"
    * @generated
    */
-  StaticValue getValue();
+  ValueOrEnumValueOrOperation getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}' containment reference.
@@ -74,7 +79,7 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * @see #getValue()
    * @generated
    */
-  void setValue(StaticValue value);
+  void setValue(ValueOrEnumValueOrOperation value);
 
   /**
    * Returns the value of the '<em><b>Variant Values</b></em>' containment reference list.
@@ -91,5 +96,31 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * @generated
    */
   EList<VariantValue> getVariantValues();
+
+  /**
+   * Returns the value of the '<em><b>Parameterized</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Parameterized</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Parameterized</em>' attribute.
+   * @see #setParameterized(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Parameterized()
+   * @model
+   * @generated
+   */
+  String getParameterized();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getParameterized <em>Parameterized</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Parameterized</em>' attribute.
+   * @see #getParameterized()
+   * @generated
+   */
+  void setParameterized(String value);
 
 } // ConstantDefinition

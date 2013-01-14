@@ -2,7 +2,7 @@ package de.gebit.integrity.runner.results.call;
 
 import java.util.List;
 
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
@@ -55,7 +55,7 @@ public abstract class CallResult extends FixtureExecutionResult {
 		/**
 		 * The variable entity that is being updated.
 		 */
-		private VariableEntity targetVariable;
+		private VariableOrConstantEntity targetVariable;
 
 		/**
 		 * The name of the parameter (if not default parameter).
@@ -77,13 +77,13 @@ public abstract class CallResult extends FixtureExecutionResult {
 		 * @param aValue
 		 *            the new value
 		 */
-		public UpdatedVariable(VariableEntity aTargetVariable, String aParameterName, Object aValue) {
+		public UpdatedVariable(VariableOrConstantEntity aTargetVariable, String aParameterName, Object aValue) {
 			targetVariable = aTargetVariable;
 			parameterName = aParameterName;
 			value = aValue;
 		}
 
-		public VariableEntity getTargetVariable() {
+		public VariableOrConstantEntity getTargetVariable() {
 			return targetVariable;
 		}
 

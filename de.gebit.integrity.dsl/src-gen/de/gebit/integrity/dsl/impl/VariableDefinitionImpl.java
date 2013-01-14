@@ -1,11 +1,15 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableEntityy;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -39,7 +43,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * @generated
    * @ordered
    */
-  protected VariableEntity name;
+  protected VariableEntityy name;
 
   /**
    * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
@@ -49,7 +53,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * @generated
    * @ordered
    */
-  protected Value initialValue;
+  protected ValueOrEnumValueOrOperation initialValue;
 
   /**
    * <!-- begin-user-doc -->
@@ -77,7 +81,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntity getName()
+  public VariableEntityy getName()
   {
     return name;
   }
@@ -87,9 +91,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(VariableEntity newName, NotificationChain msgs)
+  public NotificationChain basicSetName(VariableEntityy newName, NotificationChain msgs)
   {
-    VariableEntity oldName = name;
+    VariableEntityy oldName = name;
     name = newName;
     if (eNotificationRequired())
     {
@@ -104,7 +108,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(VariableEntity newName)
+  public void setName(VariableEntityy newName)
   {
     if (newName != name)
     {
@@ -125,7 +129,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public Value getInitialValue()
+  public ValueOrEnumValueOrOperation getInitialValue()
   {
     return initialValue;
   }
@@ -135,9 +139,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetInitialValue(Value newInitialValue, NotificationChain msgs)
+  public NotificationChain basicSetInitialValue(ValueOrEnumValueOrOperation newInitialValue, NotificationChain msgs)
   {
-    Value oldInitialValue = initialValue;
+    ValueOrEnumValueOrOperation oldInitialValue = initialValue;
     initialValue = newInitialValue;
     if (eNotificationRequired())
     {
@@ -152,7 +156,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInitialValue(Value newInitialValue)
+  public void setInitialValue(ValueOrEnumValueOrOperation newInitialValue)
   {
     if (newInitialValue != initialValue)
     {
@@ -215,10 +219,10 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
     switch (featureID)
     {
       case DslPackage.VARIABLE_DEFINITION__NAME:
-        setName((VariableEntity)newValue);
+        setName((VariableEntityy)newValue);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
-        setInitialValue((Value)newValue);
+        setInitialValue((ValueOrEnumValueOrOperation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -235,10 +239,10 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
     switch (featureID)
     {
       case DslPackage.VARIABLE_DEFINITION__NAME:
-        setName((VariableEntity)null);
+        setName((VariableEntityy)null);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
-        setInitialValue((Value)null);
+        setInitialValue((ValueOrEnumValueOrOperation)null);
         return;
     }
     super.eUnset(featureID);

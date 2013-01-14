@@ -32,7 +32,6 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
-import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -45,7 +44,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -383,41 +382,37 @@ public class DefaultTestRunner implements TestRunner {
 		});
 
 		try {
-			if (remotingServer != null) {
-				currentPhase = Phase.DRY_RUN;
-				SetList tempSetList = new SetList();
-				reset();
-				setListCallback = new SetListCallback(tempSetList, remotingServer);
-				injector.injectMembers(setListCallback);
-				currentCallback = setListCallback;
+			currentPhase = Phase.DRY_RUN;
+			SetList tempSetList = new SetList();
+			reset(false);
+			setListCallback = new SetListCallback(tempSetList, remotingServer);
+			injector.injectMembers(setListCallback);
+			currentCallback = setListCallback;
 
-				currentCallback.setDryRun(true);
-				runInternal(aRootSuiteCall);
-				currentCallback.setDryRun(false);
+			currentCallback.setDryRun(true);
+			runInternal(aRootSuiteCall);
+			currentCallback.setDryRun(false);
 
-				synchronized (setListWaiter) {
-					setList = tempSetList;
-					setListWaiter.notify();
-				}
-
-				if (tempBlockForRemoting) {
-					try {
-						waitForContinue(false);
-					} catch (InterruptedException exc) {
-						if (remotingServer != null) {
-							remotingServer.closeAll(false);
-						}
-						return null;
-					}
-				}
-				tempSetList.rewind();
-				currentCallback = new CompoundTestRunnerCallback(setListCallback, callback);
-			} else {
-				currentCallback = callback;
+			synchronized (setListWaiter) {
+				setList = tempSetList;
+				setListWaiter.notify();
 			}
 
+			if (remotingServer != null && tempBlockForRemoting) {
+				try {
+					waitForContinue(false);
+				} catch (InterruptedException exc) {
+					if (remotingServer != null) {
+						remotingServer.closeAll(false);
+					}
+					return null;
+				}
+			}
+			tempSetList.rewind();
+			currentCallback = new CompoundTestRunnerCallback(setListCallback, callback);
+
 			currentPhase = Phase.TEST_RUN;
-			reset();
+			reset(true);
 
 			if (isFork()) {
 				// the callback will require the remoting server to be able to push stuff to the master
@@ -438,9 +433,14 @@ public class DefaultTestRunner implements TestRunner {
 
 	/**
 	 * Resets the internal variable state.
+	 * 
+	 * @param aSoftResetFlag
+	 *            Whether to perform a "soft" reset only. Soft resets are supposed to be performed between the dry run
+	 *            and the actual test run.
 	 */
-	protected void reset() {
-		variableManager.clear();
+	protected void reset(boolean aSoftResetFlag) {
+		// Soft reset doesn't clear constants
+		variableManager.clear(!aSoftResetFlag);
 		setupSuitesExecuted.clear();
 	}
 
@@ -452,8 +452,6 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
-		variableManager.clear();
-
 		if (currentCallback != null) {
 			currentCallback.onExecutionStart(model, variantInExecution);
 		}
@@ -753,11 +751,34 @@ public class DefaultTestRunner implements TestRunner {
 	 *            the constant definition
 	 * @param aSuite
 	 *            the suite in which the constant is defined
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws UnexecutableException
 	 */
 	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
-		StaticValue tempValue = parameterResolver.resolveConstantValue(aDefinition, variantInExecution);
-		if (tempValue != null) {
-			defineVariable(aDefinition.getName(), tempValue, aSuite);
+		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
+		// the actual test run.
+		if (currentPhase == Phase.DRY_RUN) {
+			Object tempValue;
+			try {
+				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+			} catch (UnexecutableException exc) {
+				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+			} catch (ClassNotFoundException exc) {
+				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+			} catch (InstantiationException exc) {
+				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+			}
+			if (tempValue != null) {
+				defineVariable(aDefinition.getName(), tempValue, aSuite);
+			}
+		} else {
+			// The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
+			// need to perform that call, basically just as if we had determined the value just now.
+			if (currentCallback != null) {
+				Object tempConstantValue = variableManager.get(aDefinition.getName());
+				currentCallback.onVariableDefinition(aDefinition.getName(), aSuite, tempConstantValue);
+			}
 		}
 	}
 
@@ -771,7 +792,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @param aSuite
 	 *            the suite in which the variable is defined
 	 */
-	protected void defineVariable(VariableEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {
+	protected void defineVariable(VariableOrConstantEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {
 		Object tempInitialValue = null;
 		if (anInitialValue instanceof Variable) {
 			tempInitialValue = variableManager.get(((Variable) anInitialValue).getName());
@@ -795,7 +816,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @param aDoSendUpdateFlag
 	 *            whether this update should be sent to connected master/slaves
 	 */
-	protected void setVariableValue(VariableEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
+	protected void setVariableValue(VariableOrConstantEntity anEntity, Object aValue, boolean aDoSendUpdateFlag) {
 		variableManager.set(anEntity, aValue);
 		if (aDoSendUpdateFlag) {
 			if (isFork()) {
@@ -829,7 +850,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether this update should be sent to connected master/slaves
 	 */
 	protected void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
-		VariableEntity tempEntity = variableManager.findEntity(aQualifiedVariableName);
+		VariableOrConstantEntity tempEntity = variableManager.findEntity(aQualifiedVariableName);
 		if (tempEntity != null) {
 			setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
 		}
@@ -1625,7 +1646,7 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempFork.isAlive() && tempFork.isConnected()) {
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)
-			for (Entry<VariableEntity, Object> tempEntry : variableManager.getAllEntries()) {
+			for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
 				if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)) {
 					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
 				}

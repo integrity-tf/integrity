@@ -58,7 +58,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -1137,7 +1137,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
+	public void onVariableDefinition(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));

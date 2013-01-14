@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -241,10 +245,26 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.VARIABLE_ENTITY:
+      case DslPackage.VARIABLE_ENTITYY:
       {
-        VariableEntity variableEntity = (VariableEntity)theEObject;
-        T result = caseVariableEntity(variableEntity);
+        VariableEntityy variableEntityy = (VariableEntityy)theEObject;
+        T result = caseVariableEntityy(variableEntityy);
+        if (result == null) result = caseVariableOrConstantEntity(variableEntityy);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.CONSTANT_ENTITY:
+      {
+        ConstantEntity constantEntity = (ConstantEntity)theEObject;
+        T result = caseConstantEntity(constantEntity);
+        if (result == null) result = caseVariableOrConstantEntity(constantEntity);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VARIABLE_OR_CONSTANT_ENTITY:
+      {
+        VariableOrConstantEntity variableOrConstantEntity = (VariableOrConstantEntity)theEObject;
+        T result = caseVariableOrConstantEntity(variableOrConstantEntity);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1032,17 +1052,49 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable Entity</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Variable Entityy</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable Entity</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Variable Entityy</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVariableEntity(VariableEntity object)
+  public T caseVariableEntityy(VariableEntityy object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant Entity</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant Entity</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstantEntity(ConstantEntity object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Or Constant Entity</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Or Constant Entity</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableOrConstantEntity(VariableOrConstantEntity object)
   {
     return null;
   }

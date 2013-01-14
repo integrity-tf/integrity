@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -30,12 +34,12 @@ public interface Variable extends Value
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' reference.
-   * @see #setName(VariableEntity)
+   * @see #setName(VariableOrConstantEntity)
    * @see de.gebit.integrity.dsl.DslPackage#getVariable_Name()
    * @model
    * @generated
    */
-  VariableEntity getName();
+  VariableOrConstantEntity getName();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Variable#getName <em>Name</em>}' reference.
@@ -45,6 +49,6 @@ public interface Variable extends Value
    * @see #getName()
    * @generated
    */
-  void setName(VariableEntity value);
+  void setName(VariableOrConstantEntity value);
 
 } // Variable

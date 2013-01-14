@@ -1,9 +1,13 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.StaticValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 
@@ -56,7 +60,7 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
    * @generated
    * @ordered
    */
-  protected StaticValue value;
+  protected ValueOrEnumValueOrOperation value;
 
   /**
    * <!-- begin-user-doc -->
@@ -98,7 +102,7 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
    * <!-- end-user-doc -->
    * @generated
    */
-  public StaticValue getValue()
+  public ValueOrEnumValueOrOperation getValue()
   {
     return value;
   }
@@ -108,9 +112,9 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(StaticValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperation newValue, NotificationChain msgs)
   {
-    StaticValue oldValue = value;
+    ValueOrEnumValueOrOperation oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -125,7 +129,7 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(StaticValue newValue)
+  public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)
     {
@@ -191,7 +195,7 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
         getNames().addAll((Collection<? extends VariantDefinition>)newValue);
         return;
       case DslPackage.VARIANT_VALUE__VALUE:
-        setValue((StaticValue)newValue);
+        setValue((ValueOrEnumValueOrOperation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -211,7 +215,7 @@ public class VariantValueImpl extends MinimalEObjectImpl.Container implements Va
         getNames().clear();
         return;
       case DslPackage.VARIANT_VALUE__VALUE:
-        setValue((StaticValue)null);
+        setValue((ValueOrEnumValueOrOperation)null);
         return;
     }
     super.eUnset(featureID);

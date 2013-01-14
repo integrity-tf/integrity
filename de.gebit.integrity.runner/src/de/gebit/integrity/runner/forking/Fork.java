@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.ForkDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -359,7 +359,7 @@ public class Fork {
 	 * @param aValue
 	 *            the new value
 	 */
-	public void updateVariableValue(VariableEntity aVariable, Object aValue) {
+	public void updateVariableValue(VariableOrConstantEntity aVariable, Object aValue) {
 		if (!ignoreVariableUpdates) {
 			variableUpdates.put(IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true), aValue);
 		}

@@ -7,6 +7,7 @@ import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DslPackage;
@@ -54,7 +55,7 @@ import de.gebit.integrity.dsl.USDateValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableEntityy;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -118,6 +119,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getPackageStatementRule() ||
 				   context == grammarAccess.getSuiteStatementRule()) {
 					sequence_ConstantDefinition(context, (ConstantDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.CONSTANT_ENTITY:
+				if(context == grammarAccess.getConstantEntityRule() ||
+				   context == grammarAccess.getVariableOrConstantEntityRule()) {
+					sequence_ConstantEntity(context, (ConstantEntity) semanticObject); 
 					return; 
 				}
 				else break;
@@ -476,9 +484,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
-			case DslPackage.VARIABLE_ENTITY:
-				if(context == grammarAccess.getVariableEntityRule()) {
-					sequence_VariableEntity(context, (VariableEntity) semanticObject); 
+			case DslPackage.VARIABLE_ENTITYY:
+				if(context == grammarAccess.getVariableEntityyRule() ||
+				   context == grammarAccess.getVariableOrConstantEntityRule()) {
+					sequence_VariableEntityy(context, (VariableEntityy) semanticObject); 
 					return; 
 				}
 				else break;
@@ -578,10 +587,26 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=VariableEntity value=StaticValue? variantValues+=VariantValue*)
+	 *     (name=ConstantEntity ((value=ValueOrEnumValueOrOperation? variantValues+=VariantValue*) | parameterized='parameterized'))
 	 */
 	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=QualifiedName
+	 */
+	protected void sequence_ConstantEntity(EObject context, ConstantEntity semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConstantEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	
@@ -1131,7 +1156,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         parameters+=VariableEntity* 
+	 *         parameters+=ConstantEntity* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 
 	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
 	 *         statements+=SuiteStatement*
@@ -1144,7 +1169,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=[VariableEntity|QualifiedName] value=Value)
+	 *     (name=[VariableOrConstantEntity|QualifiedName] value=Value)
 	 */
 	protected void sequence_SuiteParameter(EObject context, SuiteParameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -1155,7 +1180,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
 		feeder.accept(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
@@ -1275,7 +1300,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=VariableEntity initialValue=Value?)
+	 *     (name=VariableEntityy initialValue=ValueOrEnumValueOrOperation?)
 	 */
 	protected void sequence_VariableDefinition(EObject context, VariableDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1286,21 +1311,21 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 * Constraint:
 	 *     name=QualifiedName
 	 */
-	protected void sequence_VariableEntity(EObject context, VariableEntity semanticObject) {
+	protected void sequence_VariableEntityy(EObject context, VariableEntityy semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ENTITY__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_ENTITY__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     name=[VariableEntity|QualifiedName]
+	 *     name=[VariableOrConstantEntity|QualifiedName]
 	 */
 	protected void sequence_Variable(EObject context, Variable semanticObject) {
 		if(errorAcceptor != null) {
@@ -1309,7 +1334,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -1325,7 +1350,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (names+=[VariantDefinition|QualifiedName]+ value=StaticValue)
+	 *     (names+=[VariantDefinition|QualifiedName]+ value=ValueOrEnumValueOrOperation)
 	 */
 	protected void sequence_VariantValue(EObject context, VariantValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

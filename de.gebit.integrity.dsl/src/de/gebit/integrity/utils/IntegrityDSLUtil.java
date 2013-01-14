@@ -22,6 +22,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.MethodReference;
@@ -39,10 +40,15 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
+import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
 
@@ -281,7 +287,8 @@ public final class IntegrityDSLUtil {
 	 *            the variable
 	 * @return the fully qualified name
 	 */
-	public static String getQualifiedVariableEntityName(VariableEntity aVariable, boolean aQualifyLocalVariables) {
+	public static String getQualifiedVariableEntityName(VariableOrConstantEntity aVariable,
+			boolean aQualifyLocalVariables) {
 		if (aVariable.eContainer().eContainer() instanceof PackageDefinition) {
 			PackageDefinition tempPackageDef = (PackageDefinition) aVariable.eContainer().eContainer();
 			return tempPackageDef.getName() + "." + aVariable.getName();
@@ -477,4 +484,32 @@ public final class IntegrityDSLUtil {
 		return null;
 	}
 
+	public static ValueOrEnumValueOrOperation getInitialValueForVariableOrConstantEntity(
+			VariableOrConstantEntity anEntity, VariantDefinition aVariant) {
+		EObject tempDefiningStatement = anEntity.eContainer();
+		if (tempDefiningStatement instanceof VariableDefinition) {
+			return ((VariableDefinition) tempDefiningStatement).getInitialValue();
+		} else if (tempDefiningStatement instanceof ConstantDefinition) {
+			return getInitialValueForConstant((ConstantDefinition) tempDefiningStatement, aVariant);
+		}
+
+		throw new ThisShouldNeverHappenException();
+	}
+
+	public static ValueOrEnumValueOrOperation getInitialValueForConstant(ConstantDefinition aConstant,
+			VariantDefinition aVariant) {
+		ValueOrEnumValueOrOperation tempValue = aConstant.getValue();
+		if (aVariant != null) {
+			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
+				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {
+					if (tempDefinition == aVariant) {
+						tempValue = tempVariantValue.getValue();
+						break outer;
+					}
+				}
+			}
+		}
+
+		return tempValue;
+	}
 }

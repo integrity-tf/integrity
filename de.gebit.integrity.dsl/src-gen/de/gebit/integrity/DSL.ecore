@@ -54,7 +54,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SuiteDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//VariableEntity" containment="true"/>
+        eType="#//ConstantEntity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" unique="false"
         upperBound="-1" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="finalizers" unique="false"
@@ -69,26 +69,29 @@
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatementWithResult" eSuperTypes="#//SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntityy"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//Value"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstantDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ConstantEntity"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//StaticValue"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variantValues" upperBound="-1"
         eType="#//VariantValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameterized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariantValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="names" unique="false" upperBound="-1"
         eType="#//VariantDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//StaticValue"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableEntity">
+  <eClassifiers xsi:type="ecore:EClass" name="VariableEntityy" eSuperTypes="#//VariableOrConstantEntity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstantEntity" eSuperTypes="#//VariableOrConstantEntity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableOrConstantEntity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Test" eSuperTypes="#//SuiteStatementWithResult">
@@ -166,7 +169,7 @@
         upperBound="-1" eType="#//VariantDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteParameter">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
         containment="true"/>
   </eClassifiers>
@@ -241,7 +244,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="USDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValueOrOperation">

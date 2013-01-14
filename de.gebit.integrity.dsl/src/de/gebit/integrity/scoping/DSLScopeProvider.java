@@ -39,7 +39,7 @@ import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
@@ -174,7 +174,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		if (tempSuiteDef != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-			for (VariableEntity tempParam : tempSuiteDef.getParameters()) {
+			for (VariableOrConstantEntity tempParam : tempSuiteDef.getParameters()) {
 				tempList.add(EObjectDescription.create(tempParam.getName(), tempParam));
 			}
 
