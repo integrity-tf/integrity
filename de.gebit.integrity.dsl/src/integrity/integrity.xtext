@@ -5,6 +5,18 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 
 generate dsl "http://integrity.dsl"
 
+/* This is the Integrity grammar. It's basically just another XText grammar definition, but with one specialty: since
+ * the Integrity language needs to use line breaks as syntactically relevant elements in one specific place (in order to
+ * split lines of tabletest tables), the whole grammar is "newline-aware", although it actually allows optional newlines
+ * at pretty much ANY place where whitespace and newlines are usually allowed (except the mentioned tabletest lines, 
+ * where newlines are not only allowed, but required!). This is done by explicitly stating all the places where newlines
+ * are allowed, but not required (the NL rule), as well as the places where newlines are forced and used as a syntactically
+ * relevant element (NLFORCED rule). 
+ * 
+ * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
+ * syntactical elements, especially considering content assist and autoformatting.
+ */
+
 Model:
 	{Model} NL statements+=Statement*;
 	
