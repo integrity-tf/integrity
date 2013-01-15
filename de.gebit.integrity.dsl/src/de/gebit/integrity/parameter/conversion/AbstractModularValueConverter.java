@@ -18,6 +18,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 import de.gebit.integrity.dsl.Constant;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.StandardOperation;
@@ -52,7 +53,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	/**
 	 * The variable manager.
 	 */
-	@Inject
+	@Inject(optional = true)
 	protected VariableManager variableManager;
 
 	/**
@@ -367,10 +368,24 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		if (aValue instanceof Constant) {
-			// Constants need to be "constantly" defined in the variable manager, so we can ask it directly.
-			Object tempResult = variableManager.get(((Constant) aValue).getName());
-			return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
-					anUnresolvableVariableHandlingPolicy, someVisitedValues);
+			if (variableManager != null) {
+				// Constants need to be "constantly" defined in the variable manager at runtime, so we can ask it
+				// directly.
+				Object tempResult = variableManager.get(((Constant) aValue).getName());
+				return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
+						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+			} else if (((Constant) aValue).getName().eContainer() instanceof ConstantDefinition) {
+				// Without the variable manager, we can still attempt to resolve statically.
+				try {
+					return parameterResolver.resolveStatically((ConstantDefinition) ((Constant) aValue).getName()
+							.eContainer(), null);
+				} catch (ClassNotFoundException exc) {
+					exc.printStackTrace();
+				} catch (InstantiationException exc) {
+					exc.printStackTrace();
+				}
+			}
+			return null;
 		} else {
 			return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
 					anUnresolvableVariableHandlingPolicy, someVisitedValues);
