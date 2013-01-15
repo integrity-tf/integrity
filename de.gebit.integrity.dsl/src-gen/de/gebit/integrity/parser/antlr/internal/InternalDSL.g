@@ -1586,9 +1586,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityyParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
 	    }
-		lv_name_2_0=ruleVariableEntityy		{
+		lv_name_2_0=ruleVariableEntity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 	        }
@@ -1596,7 +1596,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"VariableEntityy");
+        		"VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1875,28 +1875,28 @@ ruleNL
 
 
 
-// Entry rule entryRuleVariableEntityy
-entryRuleVariableEntityy returns [EObject current=null] 
+// Entry rule entryRuleVariableEntity
+entryRuleVariableEntity returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getVariableEntityyRule()); }
-	 iv_ruleVariableEntityy=ruleVariableEntityy 
-	 { $current=$iv_ruleVariableEntityy.current; } 
+	{ newCompositeNode(grammarAccess.getVariableEntityRule()); }
+	 iv_ruleVariableEntity=ruleVariableEntity 
+	 { $current=$iv_ruleVariableEntity.current; } 
 	 EOF 
 ;
 
-// Rule VariableEntityy
-ruleVariableEntityy returns [EObject current=null] 
+// Rule VariableEntity
+ruleVariableEntity returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
 	    }
 		lv_name_0_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVariableEntityyRule());
+	            $current = createModelElementForParent(grammarAccess.getVariableEntityRule());
 	        }
        		set(
        			$current, 

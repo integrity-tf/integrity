@@ -11,7 +11,6 @@ import com.google.inject.Singleton;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.parameter.variables.VariableManager;
-import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * The simple, default variable manager which keeps variables in a map.
@@ -40,17 +39,6 @@ public class DefaultVariableManager implements VariableManager {
 			}
 		}
 		variableMap.put(anEntity, aValue);
-	}
-
-	@Override
-	public VariableOrConstantEntity findEntity(String aQualifiedEntityName) {
-		for (VariableOrConstantEntity tempEntity : variableMap.keySet()) {
-			if (IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true).equals(aQualifiedEntityName)) {
-				return tempEntity;
-			}
-		}
-
-		return null;
 	}
 
 	@Override

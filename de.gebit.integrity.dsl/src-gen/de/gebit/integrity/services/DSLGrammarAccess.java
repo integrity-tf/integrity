@@ -894,7 +894,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVariableKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameVariableEntityyParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameVariableEntityParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cInitiallyKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
@@ -905,10 +905,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VariableDefinition:
 		//
-		//	"variable" NL name=VariableEntityy NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?;
+		//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?;
 		public ParserRule getRule() { return rule; }
 
-		//"variable" NL name=VariableEntityy NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?
+		//"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?
 		public Group getGroup() { return cGroup; }
 
 		//"variable"
@@ -917,11 +917,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
-		//name=VariableEntityy
+		//name=VariableEntity
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//VariableEntityy
-		public RuleCall getNameVariableEntityyParserRuleCall_2_0() { return cNameVariableEntityyParserRuleCall_2_0; }
+		//VariableEntity
+		public RuleCall getNameVariableEntityParserRuleCall_2_0() { return cNameVariableEntityParserRuleCall_2_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
@@ -1095,12 +1095,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueValueOrEnumValueOrOperationParserRuleCall_5_0() { return cValueValueOrEnumValueOrOperationParserRuleCall_5_0; }
 	}
 
-	public class VariableEntityyElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableEntityy");
+	public class VariableEntityElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableEntity");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameQualifiedNameParserRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//VariableEntityy:
+		//VariableEntity:
 		//
 		//	name=QualifiedName;
 		public ParserRule getRule() { return rule; }
@@ -1132,19 +1132,19 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class VariableOrConstantEntityElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableOrConstantEntity");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cVariableEntityyParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cVariableEntityParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cConstantEntityParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//VariableOrConstantEntity:
 		//
-		//	VariableEntityy | ConstantEntity;
+		//	VariableEntity | ConstantEntity;
 		public ParserRule getRule() { return rule; }
 
-		//VariableEntityy | ConstantEntity
+		//VariableEntity | ConstantEntity
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//VariableEntityy
-		public RuleCall getVariableEntityyParserRuleCall_0() { return cVariableEntityyParserRuleCall_0; }
+		//VariableEntity
+		public RuleCall getVariableEntityParserRuleCall_0() { return cVariableEntityParserRuleCall_0; }
 
 		//ConstantEntity
 		public RuleCall getConstantEntityParserRuleCall_1() { return cConstantEntityParserRuleCall_1; }
@@ -3102,7 +3102,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableDefinitionElements pVariableDefinition;
 	private ConstantDefinitionElements pConstantDefinition;
 	private VariantValueElements pVariantValue;
-	private VariableEntityyElements pVariableEntityy;
+	private VariableEntityElements pVariableEntity;
 	private ConstantEntityElements pConstantEntity;
 	private VariableOrConstantEntityElements pVariableOrConstantEntity;
 	private TestElements pTest;
@@ -3432,7 +3432,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VariableDefinition:
 	//
-	//	"variable" NL name=VariableEntityy NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?;
+	//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperation NL)?;
 	public VariableDefinitionElements getVariableDefinitionAccess() {
 		return (pVariableDefinition != null) ? pVariableDefinition : (pVariableDefinition = new VariableDefinitionElements());
 	}
@@ -3465,15 +3465,15 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getVariantValueAccess().getRule();
 	}
 
-	//VariableEntityy:
+	//VariableEntity:
 	//
 	//	name=QualifiedName;
-	public VariableEntityyElements getVariableEntityyAccess() {
-		return (pVariableEntityy != null) ? pVariableEntityy : (pVariableEntityy = new VariableEntityyElements());
+	public VariableEntityElements getVariableEntityAccess() {
+		return (pVariableEntity != null) ? pVariableEntity : (pVariableEntity = new VariableEntityElements());
 	}
 	
-	public ParserRule getVariableEntityyRule() {
-		return getVariableEntityyAccess().getRule();
+	public ParserRule getVariableEntityRule() {
+		return getVariableEntityAccess().getRule();
 	}
 
 	//ConstantEntity:
@@ -3489,7 +3489,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VariableOrConstantEntity:
 	//
-	//	VariableEntityy | ConstantEntity;
+	//	VariableEntity | ConstantEntity;
 	public VariableOrConstantEntityElements getVariableOrConstantEntityAccess() {
 		return (pVariableOrConstantEntity != null) ? pVariableOrConstantEntity : (pVariableOrConstantEntity = new VariableOrConstantEntityElements());
 	}

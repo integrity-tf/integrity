@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -245,11 +241,11 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case DslPackage.VARIABLE_ENTITYY:
+      case DslPackage.VARIABLE_ENTITY:
       {
-        VariableEntityy variableEntityy = (VariableEntityy)theEObject;
-        T result = caseVariableEntityy(variableEntityy);
-        if (result == null) result = caseVariableOrConstantEntity(variableEntityy);
+        VariableEntity variableEntity = (VariableEntity)theEObject;
+        T result = caseVariableEntity(variableEntity);
+        if (result == null) result = caseVariableOrConstantEntity(variableEntity);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1052,17 +1048,17 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable Entityy</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Variable Entity</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable Entityy</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Variable Entity</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVariableEntityy(VariableEntityy object)
+  public T caseVariableEntity(VariableEntity object)
   {
     return null;
   }

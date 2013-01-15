@@ -644,25 +644,25 @@ finally {
 
 
 
-// Entry rule entryRuleVariableEntityy
-entryRuleVariableEntityy 
+// Entry rule entryRuleVariableEntity
+entryRuleVariableEntity 
 :
-{ before(grammarAccess.getVariableEntityyRule()); }
-	 ruleVariableEntityy
-{ after(grammarAccess.getVariableEntityyRule()); } 
+{ before(grammarAccess.getVariableEntityRule()); }
+	 ruleVariableEntity
+{ after(grammarAccess.getVariableEntityRule()); } 
 	 EOF 
 ;
 
-// Rule VariableEntityy
-ruleVariableEntityy
+// Rule VariableEntity
+ruleVariableEntity
     @init {
 		int stackSize = keepStackSize();
     }
 	:
 (
-{ before(grammarAccess.getVariableEntityyAccess().getNameAssignment()); }
-(rule__VariableEntityy__NameAssignment)
-{ after(grammarAccess.getVariableEntityyAccess().getNameAssignment()); }
+{ before(grammarAccess.getVariableEntityAccess().getNameAssignment()); }
+(rule__VariableEntity__NameAssignment)
+{ after(grammarAccess.getVariableEntityAccess().getNameAssignment()); }
 )
 
 ;
@@ -12737,8 +12737,8 @@ rule__VariableDefinition__NameAssignment_2
     }
 :
 (
-{ before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityyParserRuleCall_2_0()); }
-	ruleVariableEntityy{ after(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityyParserRuleCall_2_0()); }
+{ before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); }
+	ruleVariableEntity{ after(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); }
 )
 
 ;
@@ -12863,14 +12863,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VariableEntityy__NameAssignment
+rule__VariableEntity__NameAssignment
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0()); }
-	ruleQualifiedName{ after(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0()); }
+{ before(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); }
+	ruleQualifiedName{ after(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); }
 )
 
 ;

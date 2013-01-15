@@ -6,13 +6,14 @@ import java.util.Map.Entry;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
-import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -204,12 +205,23 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVariableDefinition(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
+	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
 						+ valueConverter.convertValueToString(anInitialValue, false,
 								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)));
+	}
+
+	@Override
+	public void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
+			boolean aParameterizedFlag) {
+		println("Defined constant "
+				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
+				+ (aValue == null ? "" : " with value: "
+						+ valueConverter.convertValueToString(aValue, false,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING))
+				+ (aParameterizedFlag ? " (parameterized)" : ""));
 	}
 
 	@Override

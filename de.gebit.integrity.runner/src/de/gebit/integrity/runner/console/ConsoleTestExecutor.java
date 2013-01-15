@@ -3,7 +3,9 @@ package de.gebit.integrity.runner.console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -76,10 +78,13 @@ public final class ConsoleTestExecutor {
 				"noresolve",
 				"Disable pre-executional resolving of all references in the loaded scripts. May significantly speed up the starting phase, but you risk getting strange NullPointerExceptions during execution.",
 				"[{--noresolve}]");
+		SimpleCommandLineParser.StringOption tempParameterizedConstantOption = new SimpleCommandLineParser.StringOption(
+				"p", "parameter", "Define a parameterized constants' value (can be used multiple times!)",
+				"[{-p,--parameter} fully.qualified.constant.name=value]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempNoResolveAllReferences);
+				tempNoResolveAllReferences, tempParameterizedConstantOption);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -134,6 +139,18 @@ public final class ConsoleTestExecutor {
 				}
 			}
 
+			Map<String, String> tempParameterizedConstants = new HashMap<String, String>();
+			for (String tempOptionValue : tempParameterizedConstantOption.getValues()) {
+				String[] tempParts = tempOptionValue.split("=", 2);
+				if (tempParts.length < 2) {
+					System.err.println("Could not parse parameterized constant definition '" + tempOptionValue
+							+ "' - definitions must follow the pattern 'fully.qualified.constant.name=value'!");
+					return;
+				} else {
+					tempParameterizedConstants.put(tempParts[0], tempParts[1]);
+				}
+			}
+
 			if (tempRootSuite == null) {
 				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
 				return;
@@ -156,7 +173,8 @@ public final class ConsoleTestExecutor {
 				}
 
 				try {
-					tempRunner = tempModel.initializeTestRunner(tempCallback, tempRemotePort, tempRemoteHost, someArgs);
+					tempRunner = tempModel.initializeTestRunner(tempCallback, tempParameterizedConstants,
+							tempRemotePort, tempRemoteHost, someArgs);
 					tempRunner.run(tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();

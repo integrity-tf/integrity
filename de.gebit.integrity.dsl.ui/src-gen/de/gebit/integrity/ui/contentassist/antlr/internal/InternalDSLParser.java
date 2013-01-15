@@ -1748,21 +1748,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleVariantValue"
 
 
-    // $ANTLR start "entryRuleVariableEntityy"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:648:1: entryRuleVariableEntityy : ruleVariableEntityy EOF ;
-    public final void entryRuleVariableEntityy() throws RecognitionException {
+    // $ANTLR start "entryRuleVariableEntity"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:648:1: entryRuleVariableEntity : ruleVariableEntity EOF ;
+    public final void entryRuleVariableEntity() throws RecognitionException {
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:649:1: ( ruleVariableEntityy EOF )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:650:1: ruleVariableEntityy EOF
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:649:1: ( ruleVariableEntity EOF )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:650:1: ruleVariableEntity EOF
             {
-             before(grammarAccess.getVariableEntityyRule()); 
-            pushFollow(FOLLOW_ruleVariableEntityy_in_entryRuleVariableEntityy1321);
-            ruleVariableEntityy();
+             before(grammarAccess.getVariableEntityRule()); 
+            pushFollow(FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1321);
+            ruleVariableEntity();
 
             state._fsp--;
 
-             after(grammarAccess.getVariableEntityyRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableEntityy1328); 
+             after(grammarAccess.getVariableEntityRule()); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariableEntity1328); 
 
             }
 
@@ -1775,35 +1775,35 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleVariableEntityy"
+    // $ANTLR end "entryRuleVariableEntity"
 
 
-    // $ANTLR start "ruleVariableEntityy"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:657:1: ruleVariableEntityy : ( ( rule__VariableEntityy__NameAssignment ) ) ;
-    public final void ruleVariableEntityy() throws RecognitionException {
+    // $ANTLR start "ruleVariableEntity"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:657:1: ruleVariableEntity : ( ( rule__VariableEntity__NameAssignment ) ) ;
+    public final void ruleVariableEntity() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:661:2: ( ( ( rule__VariableEntityy__NameAssignment ) ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:662:1: ( ( rule__VariableEntityy__NameAssignment ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:661:2: ( ( ( rule__VariableEntity__NameAssignment ) ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:662:1: ( ( rule__VariableEntity__NameAssignment ) )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:662:1: ( ( rule__VariableEntityy__NameAssignment ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:663:1: ( rule__VariableEntityy__NameAssignment )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:662:1: ( ( rule__VariableEntity__NameAssignment ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:663:1: ( rule__VariableEntity__NameAssignment )
             {
-             before(grammarAccess.getVariableEntityyAccess().getNameAssignment()); 
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:664:1: ( rule__VariableEntityy__NameAssignment )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:664:2: rule__VariableEntityy__NameAssignment
+             before(grammarAccess.getVariableEntityAccess().getNameAssignment()); 
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:664:1: ( rule__VariableEntity__NameAssignment )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:664:2: rule__VariableEntity__NameAssignment
             {
-            pushFollow(FOLLOW_rule__VariableEntityy__NameAssignment_in_ruleVariableEntityy1354);
-            rule__VariableEntityy__NameAssignment();
+            pushFollow(FOLLOW_rule__VariableEntity__NameAssignment_in_ruleVariableEntity1354);
+            rule__VariableEntity__NameAssignment();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getVariableEntityyAccess().getNameAssignment()); 
+             after(grammarAccess.getVariableEntityAccess().getNameAssignment()); 
 
             }
 
@@ -1822,7 +1822,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleVariableEntityy"
+    // $ANTLR end "ruleVariableEntity"
 
 
     // $ANTLR start "entryRuleConstantEntity"
@@ -34197,25 +34197,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__NameAssignment_2"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12734:1: rule__VariableDefinition__NameAssignment_2 : ( ruleVariableEntityy ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12734:1: rule__VariableDefinition__NameAssignment_2 : ( ruleVariableEntity ) ;
     public final void rule__VariableDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12738:1: ( ( ruleVariableEntityy ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12739:1: ( ruleVariableEntityy )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12738:1: ( ( ruleVariableEntity ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12739:1: ( ruleVariableEntity )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12739:1: ( ruleVariableEntityy )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12740:1: ruleVariableEntityy
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12739:1: ( ruleVariableEntity )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12740:1: ruleVariableEntity
             {
-             before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityyParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleVariableEntityy_in_rule__VariableDefinition__NameAssignment_225718);
-            ruleVariableEntityy();
+             before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
+            pushFollow(FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_225718);
+            ruleVariableEntity();
 
             state._fsp--;
 
-             after(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityyParserRuleCall_2_0()); 
+             after(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
 
             }
 
@@ -34536,9 +34536,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__VariantValue__ValueAssignment_5"
 
 
-    // $ANTLR start "rule__VariableEntityy__NameAssignment"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12866:1: rule__VariableEntityy__NameAssignment : ( ruleQualifiedName ) ;
-    public final void rule__VariableEntityy__NameAssignment() throws RecognitionException {
+    // $ANTLR start "rule__VariableEntity__NameAssignment"
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12866:1: rule__VariableEntity__NameAssignment : ( ruleQualifiedName ) ;
+    public final void rule__VariableEntity__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -34549,13 +34549,13 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12871:1: ( ruleQualifiedName )
             // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:12872:1: ruleQualifiedName
             {
-             before(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariableEntityy__NameAssignment25987);
+             before(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment25987);
             ruleQualifiedName();
 
             state._fsp--;
 
-             after(grammarAccess.getVariableEntityyAccess().getNameQualifiedNameParserRuleCall_0()); 
+             after(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
 
             }
 
@@ -34574,7 +34574,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__VariableEntityy__NameAssignment"
+    // $ANTLR end "rule__VariableEntity__NameAssignment"
 
 
     // $ANTLR start "rule__ConstantEntity__NameAssignment"
@@ -38384,9 +38384,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleVariantValue_in_entryRuleVariantValue1261 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleVariantValue1268 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VariantValue__Group__0_in_ruleVariantValue1294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntityy_in_entryRuleVariableEntityy1321 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariableEntityy1328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VariableEntityy__NameAssignment_in_ruleVariableEntityy1354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity1321 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariableEntity1328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VariableEntity__NameAssignment_in_ruleVariableEntity1354 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleConstantEntity_in_entryRuleConstantEntity1381 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleConstantEntity1388 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ConstantEntity__NameAssignment_in_ruleConstantEntity1414 = new BitSet(new long[]{0x0000000000000002L});
@@ -39477,7 +39477,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleSuiteStatement_in_rule__SuiteDefinition__StatementsAssignment_925617 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__OperationDefinition__NameAssignment_225648 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedJavaClassName_in_rule__OperationDefinition__OperationTypeAssignment_625683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariableEntityy_in_rule__VariableDefinition__NameAssignment_225718 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariableEntity_in_rule__VariableDefinition__NameAssignment_225718 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__VariableDefinition__InitialValueAssignment_4_225749 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleConstantEntity_in_rule__ConstantDefinition__NameAssignment_225780 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__ConstantDefinition__ValueAssignment_4_0_0_025811 = new BitSet(new long[]{0x0000000000000002L});
@@ -39485,7 +39485,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_71_in_rule__ConstantDefinition__ParameterizedAssignment_4_1_025878 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariantValue__NamesAssignment_2_025921 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_rule__VariantValue__ValueAssignment_525956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariableEntityy__NameAssignment25987 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariableEntity__NameAssignment25987 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ConstantEntity__NameAssignment26018 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Test__DefinitionAssignment_226053 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleParameter_in_rule__Test__ParametersAssignment_3_126088 = new BitSet(new long[]{0x0000000000000002L});

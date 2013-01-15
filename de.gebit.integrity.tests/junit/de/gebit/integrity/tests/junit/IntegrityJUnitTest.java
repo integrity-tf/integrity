@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.AssertionFailedError;
 
@@ -80,7 +81,8 @@ public abstract class IntegrityJUnitTest {
 					new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile, "Integrity JUnit Testing",
 							TransformHandling.NO_TRANSFORM));
 
-			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, null, null, null);
+			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(),
+					null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 
@@ -95,6 +97,10 @@ public abstract class IntegrityJUnitTest {
 				}
 			}
 		}
+	}
+
+	protected Map<String, String> getParameterizedConstantValues() {
+		return null;
 	}
 
 	/**

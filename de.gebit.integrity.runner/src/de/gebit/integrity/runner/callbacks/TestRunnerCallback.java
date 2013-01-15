@@ -3,13 +3,14 @@ package de.gebit.integrity.runner.callbacks;
 import java.io.Serializable;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -191,8 +192,23 @@ public abstract class TestRunnerCallback {
 	 * @param anInitialValue
 	 *            the initial value (may be null if no initial value is given)
 	 */
-	public abstract void onVariableDefinition(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite,
-			Object anInitialValue);
+	public abstract void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue);
+
+	/**
+	 * Called when a constant is being defined.
+	 * 
+	 * @param aDefinition
+	 *            the constant
+	 * @param aSuite
+	 *            the suite in which the constant is scoped (may be null if the constant is global)
+	 * @param aValue
+	 *            the value (may be null if no value was given)
+	 * @param aParameterizedFlag
+	 *            true if the constant was parameterized (value defined not in script, but from outside the test runner
+	 *            via parameter)
+	 */
+	public abstract void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
+			boolean aParameterizedFlag);
 
 	/**
 	 * Called when a visible comment is encountered during execution.

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -35,12 +31,12 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
-   * @see #setName(VariableEntityy)
+   * @see #setName(VariableEntity)
    * @see de.gebit.integrity.dsl.DslPackage#getVariableDefinition_Name()
    * @model containment="true"
    * @generated
    */
-  VariableEntityy getName();
+  VariableEntity getName();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.VariableDefinition#getName <em>Name</em>}' containment reference.
@@ -50,7 +46,7 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * @see #getName()
    * @generated
    */
-  void setName(VariableEntityy value);
+  void setName(VariableEntity value);
 
   /**
    * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.

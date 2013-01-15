@@ -44,16 +44,7 @@ public interface VariableManager {
 	 */
 	void clear(boolean aClearConstantsFlag);
 
-	// TODO eliminate the need for the methods below somehow!
-
-	/**
-	 * Searches the variable entities known by the manager for a specific entity.
-	 * 
-	 * @param aQualifiedEntityName
-	 *            the fully qualified name of the variable
-	 * @return the entity or null if not found
-	 */
-	VariableOrConstantEntity findEntity(String aQualifiedEntityName);
+	// TODO eliminate the need for the method below somehow!
 
 	/**
 	 * Returns all variable entity entries.

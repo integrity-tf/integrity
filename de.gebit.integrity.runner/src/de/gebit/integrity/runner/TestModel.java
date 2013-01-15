@@ -27,12 +27,15 @@ import com.google.inject.Injector;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
@@ -67,6 +70,11 @@ public class TestModel {
 	protected Map<String, VariantDefinition> variantMap;
 
 	/**
+	 * Variable/constant names -> Entities.
+	 */
+	protected Map<String, VariableOrConstantEntity> variableAndConstantMap;
+
+	/**
 	 * The Google Guice Injector.
 	 */
 	protected Injector injector;
@@ -92,6 +100,7 @@ public class TestModel {
 		classLoader = aClassLoader;
 		suiteMap = new HashMap<String, SuiteDefinition>();
 		variantMap = new HashMap<String, VariantDefinition>();
+		variableAndConstantMap = new HashMap<String, VariableOrConstantEntity>();
 
 		// scan all models for suite definitions and variants and put them into the maps for fast access
 		for (Model tempModel : models) {
@@ -113,6 +122,20 @@ public class TestModel {
 								+ tempVariantName;
 					}
 					variantMap.put(tempVariantName, tempVariant);
+				} else if (tempObject instanceof VariableDefinition) {
+					VariableEntity tempEntity = ((VariableDefinition) tempObject).getName();
+					String tempEntityName = tempEntity.getName();
+					if (tempObject.eContainer() instanceof PackageDefinition) {
+						tempEntityName = ((PackageDefinition) tempObject.eContainer()).getName() + "." + tempEntityName;
+					}
+					variableAndConstantMap.put(tempEntityName, tempEntity);
+				} else if (tempObject instanceof ConstantDefinition) {
+					ConstantEntity tempEntity = ((ConstantDefinition) tempObject).getName();
+					String tempEntityName = tempEntity.getName();
+					if (tempObject.eContainer() instanceof PackageDefinition) {
+						tempEntityName = ((PackageDefinition) tempObject.eContainer()).getName() + "." + tempEntityName;
+					}
+					variableAndConstantMap.put(tempEntityName, tempEntity);
 				}
 			}
 		}
@@ -146,6 +169,17 @@ public class TestModel {
 	 */
 	public VariantDefinition getVariantByName(String aFullyQualifiedVariantName) {
 		return variantMap.get(aFullyQualifiedVariantName);
+	}
+
+	/**
+	 * Resolves a fully qualified variable/constant name to the actual entity.
+	 * 
+	 * @param aFullyQualifiedName
+	 *            the name to resolve
+	 * @return the entity, or null if none was found
+	 */
+	public VariableOrConstantEntity getVariableOrConstantByName(String aFullyQualifiedName) {
+		return variableAndConstantMap.get(aFullyQualifiedName);
 	}
 
 	/**
@@ -393,6 +427,9 @@ public class TestModel {
 	 * 
 	 * @param aCallback
 	 *            the callback to use to report test results
+	 * @param someParameterizedConstants
+	 *            Maps fully qualified constant names (must be those with the "parameterized" keyword) to their desired
+	 *            value. This way, test execution can be parameterized from outside.
 	 * @param aRemotingPort
 	 *            the port on which the remoting server should listen, or null if remoting should be disabled
 	 * @param aRemotingBindHost
@@ -404,12 +441,13 @@ public class TestModel {
 	 * @throws IOException
 	 *             if the remoting server startup fails
 	 */
-	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Integer aRemotingPort,
-			String aRemotingBindHost, String[] someCommandLineArguments) throws IOException {
+	public TestRunner initializeTestRunner(TestRunnerCallback aCallback,
+			Map<String, String> someParameterizedConstants, Integer aRemotingPort, String aRemotingBindHost,
+			String[] someCommandLineArguments) throws IOException {
 		TestRunner tempRunner = injector.getInstance(TestRunner.class);
 
-		((DefaultTestRunner) tempRunner).initialize(this, aCallback, aRemotingPort, aRemotingBindHost,
-				someCommandLineArguments);
+		((DefaultTestRunner) tempRunner).initialize(this, someParameterizedConstants, aCallback, aRemotingPort,
+				aRemotingBindHost, someCommandLineArguments);
 
 		return tempRunner;
 	}

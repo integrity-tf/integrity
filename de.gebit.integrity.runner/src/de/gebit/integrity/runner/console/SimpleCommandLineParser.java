@@ -58,7 +58,7 @@ public class SimpleCommandLineParser {
 					if (tempOption instanceof ValueOption) {
 						i++;
 						if (i < someParameters.length) {
-							((ValueOption<?>) tempOption).setValue(someParameters[i]);
+							((ValueOption<?>) tempOption).addValue(someParameters[i]);
 						} else {
 							throw new IllegalArgumentException("A value is required for parameter '"
 									+ someParameters[i - 1] + "'");
@@ -282,7 +282,8 @@ public class SimpleCommandLineParser {
 	}
 
 	/**
-	 * A base class for an option that has a value.
+	 * A base class for an option that has one or more values. Generally, all options can have multiple values, with the
+	 * first one defined being returned if only one result is requested.
 	 * 
 	 * 
 	 * @author Rene Schneider
@@ -294,7 +295,7 @@ public class SimpleCommandLineParser {
 		/**
 		 * The value.
 		 */
-		private X value;
+		private List<X> values = new ArrayList<X>();
 
 		/**
 		 * Creates a new value option.
@@ -313,7 +314,7 @@ public class SimpleCommandLineParser {
 		}
 
 		public X getValue() {
-			return value;
+			return (values.size() > 0 ? values.get(0) : null);
 		}
 
 		/**
@@ -324,11 +325,20 @@ public class SimpleCommandLineParser {
 		 * @return the value from the user or the default
 		 */
 		public X getValue(X aDefault) {
-			if (value == null) {
+			if (values.size() == 0) {
 				return aDefault;
 			} else {
-				return value;
+				return values.get(0);
 			}
+		}
+
+		/**
+		 * Returns all the values found in the parameters from the user.
+		 * 
+		 * @return the values from the user (may be an empty list if none were given)
+		 */
+		public List<X> getValues() {
+			return values;
 		}
 
 		/**
@@ -337,10 +347,10 @@ public class SimpleCommandLineParser {
 		 * @param aValue
 		 *            the value
 		 */
-		protected abstract void setValue(String aValue);
+		protected abstract void addValue(String aValue);
 
-		protected void setValueInternal(X aValue) {
-			value = aValue;
+		protected void addValueInternal(X aValue) {
+			values.add(aValue);
 		}
 
 	}
@@ -399,8 +409,8 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
-		protected void setValue(String aValue) {
-			setValueInternal(aValue);
+		protected void addValue(String aValue) {
+			addValueInternal(aValue);
 		}
 
 	}
@@ -459,8 +469,8 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
-		protected void setValue(String aValue) {
-			setValueInternal(Integer.parseInt(aValue));
+		protected void addValue(String aValue) {
+			addValueInternal(Integer.parseInt(aValue));
 		}
 
 	}
@@ -519,8 +529,8 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
-		protected void setValue(String aValue) {
-			setValueInternal(new BigDecimal(aValue));
+		protected void addValue(String aValue) {
+			addValueInternal(new BigDecimal(aValue));
 		}
 	}
 

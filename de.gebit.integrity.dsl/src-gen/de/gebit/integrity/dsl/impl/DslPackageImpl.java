@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -74,7 +70,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntityy;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
@@ -252,7 +248,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass variableEntityyEClass = null;
+  private EClass variableEntityEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1229,9 +1225,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVariableEntityy()
+  public EClass getVariableEntity()
   {
-    return variableEntityyEClass;
+    return variableEntityEClass;
   }
 
   /**
@@ -2469,7 +2465,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(variantValueEClass, VARIANT_VALUE__NAMES);
     createEReference(variantValueEClass, VARIANT_VALUE__VALUE);
 
-    variableEntityyEClass = createEClass(VARIABLE_ENTITYY);
+    variableEntityEClass = createEClass(VARIABLE_ENTITY);
 
     constantEntityEClass = createEClass(CONSTANT_ENTITY);
 
@@ -2689,7 +2685,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
     constantDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     constantDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
-    variableEntityyEClass.getESuperTypes().add(this.getVariableOrConstantEntity());
+    variableEntityEClass.getESuperTypes().add(this.getVariableOrConstantEntity());
     constantEntityEClass.getESuperTypes().add(this.getVariableOrConstantEntity());
     testEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
@@ -2790,7 +2786,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(suiteStatementWithResultEClass, SuiteStatementWithResult.class, "SuiteStatementWithResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(variableDefinitionEClass, VariableDefinition.class, "VariableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariableDefinition_Name(), this.getVariableEntityy(), null, "name", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariableDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDefinition_InitialValue(), this.getValueOrEnumValueOrOperation(), null, "initialValue", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantDefinitionEClass, ConstantDefinition.class, "ConstantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2803,7 +2799,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getVariantValue_Names(), this.getVariantDefinition(), null, "names", null, 0, -1, VariantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariantValue_Value(), this.getValueOrEnumValueOrOperation(), null, "value", null, 0, 1, VariantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(variableEntityyEClass, VariableEntityy.class, "VariableEntityy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(variableEntityEClass, VariableEntity.class, "VariableEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(constantEntityEClass, ConstantEntity.class, "ConstantEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

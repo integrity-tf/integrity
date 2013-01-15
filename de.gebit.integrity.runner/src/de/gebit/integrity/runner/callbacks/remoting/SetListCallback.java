@@ -20,6 +20,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
@@ -29,6 +30,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
@@ -480,7 +482,19 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVariableDefinition(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
+	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
+		onVariableDefinitionInternal(aDefinition, aSuite, anInitialValue);
+	}
+
+	@Override
+	public void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
+			boolean aParameterizedFlag) {
+		// constants are handled like variables here (for now...)
+		onVariableDefinitionInternal(aDefinition, aSuite, aValue);
+	}
+
+	private void onVariableDefinitionInternal(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite,
+			Object anInitialValue) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));

@@ -1,15 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.VariableDefinition;
-import de.gebit.integrity.dsl.VariableEntityy;
+import de.gebit.integrity.dsl.VariableEntity;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -43,7 +39,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * @generated
    * @ordered
    */
-  protected VariableEntityy name;
+  protected VariableEntity name;
 
   /**
    * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
@@ -81,7 +77,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public VariableEntityy getName()
+  public VariableEntity getName()
   {
     return name;
   }
@@ -91,9 +87,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(VariableEntityy newName, NotificationChain msgs)
+  public NotificationChain basicSetName(VariableEntity newName, NotificationChain msgs)
   {
-    VariableEntityy oldName = name;
+    VariableEntity oldName = name;
     name = newName;
     if (eNotificationRequired())
     {
@@ -108,7 +104,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(VariableEntityy newName)
+  public void setName(VariableEntity newName)
   {
     if (newName != name)
     {
@@ -219,7 +215,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
     switch (featureID)
     {
       case DslPackage.VARIABLE_DEFINITION__NAME:
-        setName((VariableEntityy)newValue);
+        setName((VariableEntity)newValue);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         setInitialValue((ValueOrEnumValueOrOperation)newValue);
@@ -239,7 +235,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
     switch (featureID)
     {
       case DslPackage.VARIABLE_DEFINITION__NAME:
-        setName((VariableEntityy)null);
+        setName((VariableEntity)null);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         setInitialValue((ValueOrEnumValueOrOperation)null);

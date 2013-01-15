@@ -1,33 +1,29 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.VariableEntityy;
+import de.gebit.integrity.dsl.VariableEntity;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable Entityy</b></em>'.
+ * An implementation of the model object '<em><b>Variable Entity</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class VariableEntityyImpl extends VariableOrConstantEntityImpl implements VariableEntityy
+public class VariableEntityImpl extends VariableOrConstantEntityImpl implements VariableEntity
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VariableEntityyImpl()
+  protected VariableEntityImpl()
   {
     super();
   }
@@ -40,7 +36,7 @@ public class VariableEntityyImpl extends VariableOrConstantEntityImpl implements
   @Override
   protected EClass eStaticClass()
   {
-    return DslPackage.Literals.VARIABLE_ENTITYY;
+    return DslPackage.Literals.VARIABLE_ENTITY;
   }
 
-} //VariableEntityyImpl
+} //VariableEntityImpl

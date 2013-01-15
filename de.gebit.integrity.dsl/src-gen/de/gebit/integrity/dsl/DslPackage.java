@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -803,14 +799,14 @@ public interface DslPackage extends EPackage
   int VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableEntityyImpl <em>Variable Entityy</em>}' class.
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableEntityImpl <em>Variable Entity</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see de.gebit.integrity.dsl.impl.VariableEntityyImpl
-   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntityy()
+   * @see de.gebit.integrity.dsl.impl.VariableEntityImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntity()
    * @generated
    */
-  int VARIABLE_ENTITYY = 21;
+  int VARIABLE_ENTITY = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -819,16 +815,16 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_ENTITYY__NAME = VARIABLE_OR_CONSTANT_ENTITY__NAME;
+  int VARIABLE_ENTITY__NAME = VARIABLE_OR_CONSTANT_ENTITY__NAME;
 
   /**
-   * The number of structural features of the '<em>Variable Entityy</em>' class.
+   * The number of structural features of the '<em>Variable Entity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_ENTITYY_FEATURE_COUNT = VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT + 0;
+  int VARIABLE_ENTITY_FEATURE_COUNT = VARIABLE_OR_CONSTANT_ENTITY_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ConstantEntityImpl <em>Constant Entity</em>}' class.
@@ -3049,14 +3045,14 @@ public interface DslPackage extends EPackage
   EReference getVariantValue_Value();
 
   /**
-   * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableEntityy <em>Variable Entityy</em>}'.
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableEntity <em>Variable Entity</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Entityy</em>'.
-   * @see de.gebit.integrity.dsl.VariableEntityy
+   * @return the meta object for class '<em>Variable Entity</em>'.
+   * @see de.gebit.integrity.dsl.VariableEntity
    * @generated
    */
-  EClass getVariableEntityy();
+  EClass getVariableEntity();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ConstantEntity <em>Constant Entity</em>}'.
@@ -4747,14 +4743,14 @@ public interface DslPackage extends EPackage
     EReference VARIANT_VALUE__VALUE = eINSTANCE.getVariantValue_Value();
 
     /**
-     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableEntityyImpl <em>Variable Entityy</em>}' class.
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableEntityImpl <em>Variable Entity</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see de.gebit.integrity.dsl.impl.VariableEntityyImpl
-     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntityy()
+     * @see de.gebit.integrity.dsl.impl.VariableEntityImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableEntity()
      * @generated
      */
-    EClass VARIABLE_ENTITYY = eINSTANCE.getVariableEntityy();
+    EClass VARIABLE_ENTITY = eINSTANCE.getVariableEntity();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ConstantEntityImpl <em>Constant Entity</em>}' class.

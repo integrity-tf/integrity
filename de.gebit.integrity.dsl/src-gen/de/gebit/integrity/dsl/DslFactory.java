@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -216,13 +212,13 @@ public interface DslFactory extends EFactory
   VariantValue createVariantValue();
 
   /**
-   * Returns a new object of class '<em>Variable Entityy</em>'.
+   * Returns a new object of class '<em>Variable Entity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variable Entityy</em>'.
+   * @return a new object of class '<em>Variable Entity</em>'.
    * @generated
    */
-  VariableEntityy createVariableEntityy();
+  VariableEntity createVariableEntity();
 
   /**
    * Returns a new object of class '<em>Constant Entity</em>'.

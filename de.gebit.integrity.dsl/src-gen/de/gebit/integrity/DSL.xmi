@@ -420,9 +420,9 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="VariableEntityy">
+  <rules xsi:type="xtext:ParserRule" name="VariableEntity">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntityy"/>
+      <classifier xsi:type="ecore:EClass" href="http://integrity.dsl#//VariableEntity"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="name" operator="=">
       <terminal xsi:type="xtext:RuleCall" rule="//@rules.73"/>

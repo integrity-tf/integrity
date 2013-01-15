@@ -25,6 +25,7 @@ import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
@@ -44,6 +45,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
@@ -229,6 +231,12 @@ public class DefaultTestRunner implements TestRunner {
 	protected String[] commandLineArguments;
 
 	/**
+	 * This maps fully qualified constant names to parameter values. Defined during initialization. This allows to
+	 * define the values for "parameterized" constants.
+	 */
+	protected Map<String, String> parameterizedConstantValues;
+
+	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
 	 */
 	protected static final String MY_FORK_NAME = System.getProperty(Forker.SYSPARAM_FORK_NAME);
@@ -304,6 +312,9 @@ public class DefaultTestRunner implements TestRunner {
 	 * 
 	 * @param aModel
 	 *            the model to execute
+	 * @param someParameterizedConstants
+	 *            Maps fully qualified constant names (must be those with the "parameterized" keyword) to their desired
+	 *            value. This way, test execution can be parameterized from outside.
 	 * @param aCallback
 	 *            the callback to use to report test results
 	 * @param aRemotingPort
@@ -316,8 +327,9 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws IOException
 	 *             if the remoting server startup fails
 	 */
-	public void initialize(TestModel aModel, TestRunnerCallback aCallback, Integer aRemotingPort,
-			String aRemotingBindHost, String[] someCommandLineArguments) throws IOException {
+	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
+			TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost,
+			String[] someCommandLineArguments) throws IOException {
 		model = aModel;
 		callback = aCallback;
 
@@ -327,6 +339,7 @@ public class DefaultTestRunner implements TestRunner {
 			injector.injectMembers(callback);
 		}
 
+		parameterizedConstantValues = someParameterizedConstants;
 		commandLineArguments = someCommandLineArguments;
 		Integer tempRemotingPort = aRemotingPort;
 		if (isFork()) {
@@ -431,6 +444,44 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	protected void initializeParameterizedConstants() {
+		if (parameterizedConstantValues != null) {
+			for (Entry<String, String> tempEntry : parameterizedConstantValues.entrySet()) {
+				VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(tempEntry.getKey());
+				if (tempEntity == null) {
+					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
+							+ "' not defined in test scripts.");
+				}
+				ConstantDefinition tempDefinition = (ConstantDefinition) tempEntity.eContainer();
+				if (!(tempEntity instanceof ConstantEntity)) {
+					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
+							+ "' not defined as a constant in test scripts.");
+				} else if (tempDefinition.getParameterized() == null) {
+					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
+							+ "' not defined as 'parameterized' in test scripts.");
+				} else {
+					defineConstant(
+							tempDefinition,
+							tempEntry.getValue(),
+							(tempDefinition.eContainer() instanceof SuiteDefinition) ? ((SuiteDefinition) tempDefinition
+									.eContainer()) : null);
+				}
+			}
+		}
+	}
+
+	protected void initializeConstants() {
+		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
+			defineConstant(tempConstantDef, null);
+		}
+	}
+
+	protected void initializeVariables() {
+		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
+			defineVariable(tempVariableDef, null);
+		}
+	}
+
 	/**
 	 * Resets the internal variable state.
 	 * 
@@ -456,12 +507,9 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onExecutionStart(model, variantInExecution);
 		}
 
-		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
-			defineVariable(tempVariableDef, null);
-		}
-		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
-			defineConstant(tempConstantDef, null);
-		}
+		initializeParameterizedConstants();
+		initializeConstants();
+		initializeVariables();
 
 		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
@@ -756,18 +804,40 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws UnexecutableException
 	 */
 	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
+		defineConstant(aDefinition, null, aSuite);
+	}
+
+	/**
+	 * Defines a constant.
+	 * 
+	 * @param aDefinition
+	 *            the constant definition
+	 * @param aValue
+	 *            the value to define (if null, the value in the constant definition is used; this should only be set in
+	 *            case of parameterizable constants!)
+	 * @param aSuite
+	 *            the suite in which the constant is defined
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws UnexecutableException
+	 */
+	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite) {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
 		// the actual test run.
 		if (currentPhase == Phase.DRY_RUN) {
 			Object tempValue;
-			try {
-				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
-			} catch (UnexecutableException exc) {
-				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
-			} catch (ClassNotFoundException exc) {
-				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
-			} catch (InstantiationException exc) {
-				throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+			if (aValue == null) {
+				try {
+					tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+				} catch (UnexecutableException exc) {
+					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+				} catch (ClassNotFoundException exc) {
+					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+				} catch (InstantiationException exc) {
+					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
+				}
+			} else {
+				tempValue = aValue;
 			}
 			if (tempValue != null) {
 				defineVariable(aDefinition.getName(), tempValue, aSuite);
@@ -777,7 +847,8 @@ public class DefaultTestRunner implements TestRunner {
 			// need to perform that call, basically just as if we had determined the value just now.
 			if (currentCallback != null) {
 				Object tempConstantValue = variableManager.get(aDefinition.getName());
-				currentCallback.onVariableDefinition(aDefinition.getName(), aSuite, tempConstantValue);
+				currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
+						(aDefinition.getParameterized() != null));
 			}
 		}
 	}
@@ -802,7 +873,12 @@ public class DefaultTestRunner implements TestRunner {
 
 		variableManager.set(anEntity, tempInitialValue);
 		if (currentCallback != null) {
-			currentCallback.onVariableDefinition(anEntity, aSuite, tempInitialValue);
+			if (anEntity instanceof VariableEntity) {
+				currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
+			} else if (anEntity instanceof ConstantEntity) {
+				currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
+						(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
+			}
 		}
 	}
 
@@ -850,7 +926,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether this update should be sent to connected master/slaves
 	 */
 	protected void setVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag) {
-		VariableOrConstantEntity tempEntity = variableManager.findEntity(aQualifiedVariableName);
+		VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(aQualifiedVariableName);
 		if (tempEntity != null) {
 			setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
 		}
@@ -1262,8 +1338,7 @@ public class DefaultTestRunner implements TestRunner {
 						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempUpdatedVariable
 								.getParameterName());
 						tempUpdatedVariable.setValue(tempSingleFixtureResult);
-						setVariableValue(tempUpdatedVariable.getTargetVariable().getName(), tempSingleFixtureResult,
-								true);
+						setVariableValue(tempUpdatedVariable.getTargetVariable(), tempSingleFixtureResult, true);
 					}
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
 							tempFixtureInstance, tempFixtureMethodName, tempDuration);

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -184,9 +180,9 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createVariantValueAdapter();
       }
       @Override
-      public Adapter caseVariableEntityy(VariableEntityy object)
+      public Adapter caseVariableEntity(VariableEntity object)
       {
-        return createVariableEntityyAdapter();
+        return createVariableEntityAdapter();
       }
       @Override
       public Adapter caseConstantEntity(ConstantEntity object)
@@ -786,16 +782,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableEntityy <em>Variable Entityy</em>}'.
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableEntity <em>Variable Entity</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see de.gebit.integrity.dsl.VariableEntityy
+   * @see de.gebit.integrity.dsl.VariableEntity
    * @generated
    */
-  public Adapter createVariableEntityyAdapter()
+  public Adapter createVariableEntityAdapter()
   {
     return null;
   }

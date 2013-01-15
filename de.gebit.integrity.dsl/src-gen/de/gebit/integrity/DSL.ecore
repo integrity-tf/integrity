@@ -69,7 +69,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatementWithResult" eSuperTypes="#//SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntityy"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
@@ -89,7 +89,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableEntityy" eSuperTypes="#//VariableOrConstantEntity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableEntity" eSuperTypes="#//VariableOrConstantEntity"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConstantEntity" eSuperTypes="#//VariableOrConstantEntity"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableOrConstantEntity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -2,7 +2,10 @@ import mypackage.*
 
 packagedef mypackage with
 
-	variable testvar initially "\" & <<< test >>>"
+	constant fromoutside parameterized
+	//constant testconstant (1 + testvar) 
+	//constant firstconstant 1
+	
 
 	suitedef asuite with
 		suite bsuite
@@ -13,7 +16,7 @@ packagedef mypackage with
 	
 	suitedef bsuite with
 		// call wait seconds: ("1" .. "2")
-		call 
+		call wait seconds: fromoutside
 	suiteend
 	
 packageend
