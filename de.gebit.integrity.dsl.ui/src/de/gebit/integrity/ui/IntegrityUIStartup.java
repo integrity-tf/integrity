@@ -27,7 +27,7 @@ import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 /**
  * This startup code is run when the Integrity UI bundle is started.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 @SuppressWarnings("restriction")
@@ -188,7 +188,7 @@ public class IntegrityUIStartup implements IStartup {
 	 * This location listener intercepts any location changes and sends URLs to the Integrity URL parser.
 	 * 
 	 * 
-	 * @author Slartibartfast
+	 * @author Rene Schneider
 	 * 
 	 */
 	class IntegrityURLLocationListener implements LocationListener {

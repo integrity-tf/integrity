@@ -19,26 +19,50 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.standard.operands.OperatorNode;
 
 /**
+ * Abstract base implementation for a modular processor processing standard operations. This processor builds a kind of
+ * abstract syntax tree for evaluation of operations.
  * 
- * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public abstract class AbstractModularStandardOperationProcessor implements StandardOperationProcessor {
 
+	/**
+	 * A map storing the operator precedence order.
+	 */
 	private Map<String, Integer> operatorPrecedences = new HashMap<String, Integer>();
 
+	/**
+	 * A map storing the operator node classes for fast access.
+	 */
 	private Map<String, Class<? extends OperatorNode<?, ?>>> operatorNodeClasses = new HashMap<String, Class<? extends OperatorNode<?, ?>>>();
 
+	/**
+	 * The injector.
+	 */
 	@Inject
 	private Injector injector;
 
+	/**
+	 * Creates an instance.
+	 */
 	public AbstractModularStandardOperationProcessor() {
 		initializeOperatorInfo();
 	}
 
+	/**
+	 * Initializes all operators by calls to {@link #addOperatorInfo(String, Class)}.
+	 */
 	protected abstract void initializeOperatorInfo();
 
+	/**
+	 * Adds an operator.
+	 * 
+	 * @param anOperator
+	 *            the operator string
+	 * @param aNodeClass
+	 *            the node class representing this operator
+	 */
 	protected void addOperatorInfo(String anOperator, Class<? extends OperatorNode<?, ?>> aNodeClass) {
 		operatorPrecedences.put(anOperator, operatorPrecedences.size());
 		operatorNodeClasses.put(anOperator, aNodeClass);
@@ -65,6 +89,19 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 		}
 	}
 
+	/**
+	 * Parses the given operation.
+	 * 
+	 * @param anOperation
+	 *            the operation to parse
+	 * @return the AST representing the operation
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws NoSuchMethodException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
 	protected OperatorNode<?, ?> parseOperation(StandardOperation anOperation) throws SecurityException,
 			IllegalArgumentException, NoSuchMethodException, InstantiationException, IllegalAccessException,
 			InvocationTargetException {
@@ -112,6 +149,13 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 		return (OperatorNode<?, ?>) tempOperands.get(0);
 	}
 
+	/**
+	 * Determines the precedence (ordering) of the given operator.
+	 * 
+	 * @param anOperator
+	 *            the operator to evaluate
+	 * @return the numeric precedence (higher = evaluate first)
+	 */
 	protected int getOperatorPrecedence(String anOperator) {
 		Integer tempPrecedence = operatorPrecedences.get(anOperator);
 		if (tempPrecedence == null) {
@@ -122,6 +166,23 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 		return tempPrecedence;
 	}
 
+	/**
+	 * Creates a new node.
+	 * 
+	 * @param anOperator
+	 *            the operator
+	 * @param aLeftOperand
+	 *            the left operand (not evaluated)
+	 * @param aRightOperand
+	 *            the right operand (not evaluated)
+	 * @return the node
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws IllegalArgumentException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
 	protected OperatorNode<?, ?> createNode(String anOperator, Object aLeftOperand, Object aRightOperand)
 			throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {

@@ -10,7 +10,7 @@ import org.osgi.framework.Bundle;
  * purpose, just in a different Eclipse plugin.
  * 
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class DSLExecutableExtensionFactory extends de.gebit.integrity.ui.DSLExecutableExtensionFactory {

@@ -6,7 +6,7 @@ package de.gebit.integrity.ui.linking;
 /**
  * The {@link IntegrityURLResolver} is responsible to resolve integrity:// URLs.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public interface IntegrityURLResolver {

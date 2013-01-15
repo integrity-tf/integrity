@@ -16,16 +16,26 @@ import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
+ * Abstract base class for operator nodes. An operator node is a node in the AST built to evaluate
+ * {@link de.gebit.integrity.dsl.StandardOperation}s.
  * 
  * @param <LEFT>
+ *            the left argument
  * @param <RIGHT>
- * @author Slartibartfast
+ *            the right argument
+ * @author Rene Schneider
  * 
  */
 public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 
+	/**
+	 * The left operand.
+	 */
 	private Object leftOperand;
 
+	/**
+	 * The right operand.
+	 */
 	private Object rightOperand;
 
 	/**
@@ -40,11 +50,25 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 	@Inject
 	private VariableManager variableManager;
 
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aLeftOperand
+	 *            the left operand
+	 * @param aRightOperand
+	 *            the right operand
+	 */
 	public OperatorNode(Object aLeftOperand, Object aRightOperand) {
 		leftOperand = aLeftOperand;
 		rightOperand = aRightOperand;
 	}
 
+	/**
+	 * Returns the left operand in an evaluated version.
+	 * 
+	 * @return the result of the evaluation
+	 * @throws UnexecutableException
+	 */
 	protected Object getEvaluatedLeftOperand() throws UnexecutableException {
 		if (leftOperand instanceof OperatorNode<?, ?>) {
 			return ((OperatorNode<?, ?>) leftOperand).evaluate();
@@ -53,6 +77,12 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 		}
 	}
 
+	/**
+	 * Returns the right operand in an evaluated version.
+	 * 
+	 * @return the result of the evaluation
+	 * @throws UnexecutableException
+	 */
 	protected Object getEvaluatedRightOperand() throws UnexecutableException {
 		if (rightOperand instanceof OperatorNode<?, ?>) {
 			return ((OperatorNode<?, ?>) rightOperand).evaluate();
@@ -61,6 +91,12 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 		}
 	}
 
+	/**
+	 * Evaluates the whole node.
+	 * 
+	 * @return the evaluation result
+	 * @throws UnexecutableException
+	 */
 	@SuppressWarnings("unchecked")
 	public Object evaluate() throws UnexecutableException {
 		Type tempType = JavaTypeUtil.findGenericInterfaceOrSuperType(getClass(), OperatorNode.class);
@@ -83,6 +119,16 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 		}
 	}
 
+	/**
+	 * Must be implemented by subclasses to implement the actual evaluation of this node. It will get evaluated and
+	 * converted operands and needs to return the result of the evaluation.
+	 * 
+	 * @param aLeftOperand
+	 *            the evaluated left operand
+	 * @param aRightOperand
+	 *            the evaluated right operand
+	 * @return the result of the evaluation
+	 */
 	protected abstract Object evaluateInternal(LEFT aLeftOperand, RIGHT aRightOperand);
 
 }

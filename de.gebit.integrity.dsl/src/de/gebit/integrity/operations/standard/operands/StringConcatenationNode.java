@@ -3,15 +3,22 @@
  */
 package de.gebit.integrity.operations.standard.operands;
 
-
 /**
+ * Concatenates two strings.
  * 
- * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class StringConcatenationNode extends OperatorNode<String, String> {
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aLeftOperand
+	 *            the left operand
+	 * @param aRightOperand
+	 *            the right operand
+	 */
 	public StringConcatenationNode(Object aLeftOperand, Object aRightOperand) {
 		super(aLeftOperand, aRightOperand);
 	}

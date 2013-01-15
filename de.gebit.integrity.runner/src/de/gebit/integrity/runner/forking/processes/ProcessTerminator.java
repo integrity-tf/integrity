@@ -11,7 +11,7 @@ import de.gebit.integrity.runner.forking.Fork;
  * injected for usage). It is being called to terminate all "child" processes in the shutdown hook of the main test
  * runner VM.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public interface ProcessTerminator {

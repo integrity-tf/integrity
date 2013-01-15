@@ -126,7 +126,7 @@ public final class IntegrityDSLUIUtil {
 	 * Holds a resolved type name, as returned by {@link IntegrityDSLUIUtil#getResolvedTypeName(String, IType)}.
 	 * 
 	 * 
-	 * @author Slartibartfast
+	 * @author Rene Schneider
 	 * 
 	 */
 	public static class ResolvedTypeName {

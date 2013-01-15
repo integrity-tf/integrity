@@ -20,7 +20,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 /**
  * The default implementation of {@link IntegritySearch}.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class DefaultIntegritySearch implements IntegritySearch {

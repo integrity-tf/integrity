@@ -444,6 +444,9 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * Initializes the parameterized constants from the {@link #parameterizedConstantValues} map.
+	 */
 	protected void initializeParameterizedConstants() {
 		if (parameterizedConstantValues != null) {
 			for (Entry<String, String> tempEntry : parameterizedConstantValues.entrySet()) {
@@ -470,12 +473,18 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * Initializes all constants with the values given in the scripts.
+	 */
 	protected void initializeConstants() {
 		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
 			defineConstant(tempConstantDef, null);
 		}
 	}
 
+	/**
+	 * Initializes all variables with the initial values given in the scripts.
+	 */
 	protected void initializeVariables() {
 		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
 			defineVariable(tempVariableDef, null);

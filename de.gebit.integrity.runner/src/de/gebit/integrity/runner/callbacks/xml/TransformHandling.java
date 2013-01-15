@@ -7,7 +7,7 @@ package de.gebit.integrity.runner.callbacks.xml;
  * Enumerating the various ways in which the test runner can handle the supported transformation of the XML results into
  * a human-viewable HTML form.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public enum TransformHandling {

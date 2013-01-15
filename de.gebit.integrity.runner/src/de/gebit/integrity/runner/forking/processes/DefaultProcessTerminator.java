@@ -14,7 +14,7 @@ import de.gebit.integrity.runner.forking.Fork;
 /**
  * The standard process terminator implementation.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 @Singleton

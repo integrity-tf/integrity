@@ -21,7 +21,7 @@ import de.gebit.integrity.ui.search.IntegritySearch;
 /**
  * The default implementation of an {@link IntegrityURLResolver}.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class DefaultIntegrityURLResolver implements IntegrityURLResolver {

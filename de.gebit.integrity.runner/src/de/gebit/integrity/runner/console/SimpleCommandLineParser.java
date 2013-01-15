@@ -349,6 +349,12 @@ public class SimpleCommandLineParser {
 		 */
 		protected abstract void addValue(String aValue);
 
+		/**
+		 * Adds the given value internally to the list of values.
+		 * 
+		 * @param aValue
+		 *            the value to add
+		 */
 		protected void addValueInternal(X aValue) {
 			values.add(aValue);
 		}

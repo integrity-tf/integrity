@@ -10,7 +10,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 /**
  * The Integrity-specific search engine.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public interface IntegritySearch {

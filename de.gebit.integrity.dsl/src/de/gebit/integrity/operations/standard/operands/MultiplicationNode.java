@@ -6,13 +6,19 @@ package de.gebit.integrity.operations.standard.operands;
 import java.math.BigDecimal;
 
 /**
+ * Multiplies two numbers.
  * 
- * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class MultiplicationNode extends OperatorNode<BigDecimal, BigDecimal> {
 
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aLeftOperand
+	 * @param aRightOperand
+	 */
 	public MultiplicationNode(Object aLeftOperand, Object aRightOperand) {
 		super(aLeftOperand, aRightOperand);
 	}

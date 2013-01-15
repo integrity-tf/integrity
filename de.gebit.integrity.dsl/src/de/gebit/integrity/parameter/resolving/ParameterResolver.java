@@ -165,12 +165,47 @@ public interface ParameterResolver {
 	 */
 	Object resolveStatically(Variable aVariable, VariantDefinition aVariant);
 
+	/**
+	 * Resolves a {@link ValueOrEnumValueOrOperation} to its actual value statically, that is, not requiring a current
+	 * test execution context.
+	 * 
+	 * @param anEntity
+	 *            the entity to resolve
+	 * @param aVariant
+	 *            the variant in use
+	 * @return the result value
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 */
 	Object resolveStatically(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant)
 			throws UnexecutableException, ClassNotFoundException, InstantiationException;
 
+	/**
+	 * Determines whether the given {@link ValueOrEnumValueOrOperationCollection} is safely resolvable to a value in a
+	 * static way, that is, not requiring a current execution context. "Safely" means that the resolved value is
+	 * guaranteed not to change during runtime.
+	 * 
+	 * @param aValue
+	 *            the value to test
+	 * @param aVariant
+	 *            the variant to assume
+	 * @return true if the value is safely resolvable, false otherwise
+	 */
 	boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperationCollection aValue, VariantDefinition aVariant);
 
-	boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant);
+	/**
+	 * Determines whether the given {@link ValueOrEnumValueOrOperation} is safely resolvable to a value in a static way,
+	 * that is, not requiring a current execution context. "Safely" means that the resolved value is guaranteed not to
+	 * change during runtime.
+	 * 
+	 * @param aValue
+	 *            the value to test
+	 * @param aVariant
+	 *            the variant to assume
+	 * @return true if the value is safely resolvable, false otherwise
+	 */
+	boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperation aValue, VariantDefinition aVariant);
 
 	/**
 	 * Resolves a constant definition to its defined value, which may depend on the active variant.

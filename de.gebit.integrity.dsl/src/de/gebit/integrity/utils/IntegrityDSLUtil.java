@@ -281,7 +281,7 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Returns the fully qualified name of the given {@link VariableEntity}.
+	 * Returns the fully qualified name of the given {@link VariableOrConstantEntity}.
 	 * 
 	 * @param aVariable
 	 *            the variable
@@ -484,6 +484,15 @@ public final class IntegrityDSLUtil {
 		return null;
 	}
 
+	/**
+	 * Determines the initial value to use for the given {@link VariableOrConstantEntity}.
+	 * 
+	 * @param anEntity
+	 *            the entity to explore
+	 * @param aVariant
+	 *            the current variant being executed (null if no variant is used)
+	 * @return the initial value, or null if none was given
+	 */
 	public static ValueOrEnumValueOrOperation getInitialValueForVariableOrConstantEntity(
 			VariableOrConstantEntity anEntity, VariantDefinition aVariant) {
 		EObject tempDefiningStatement = anEntity.eContainer();
@@ -496,6 +505,15 @@ public final class IntegrityDSLUtil {
 		throw new ThisShouldNeverHappenException();
 	}
 
+	/**
+	 * Determines the initial value for the given constant.
+	 * 
+	 * @param aConstant
+	 *            the constant to explore
+	 * @param aVariant
+	 *            the current variant being executed (null if no variant is used)
+	 * @return the initial value, or null if none was given
+	 */
 	public static ValueOrEnumValueOrOperation getInitialValueForConstant(ConstantDefinition aConstant,
 			VariantDefinition aVariant) {
 		ValueOrEnumValueOrOperation tempValue = aConstant.getValue();

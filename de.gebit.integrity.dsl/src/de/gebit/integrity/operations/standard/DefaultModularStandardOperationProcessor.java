@@ -11,13 +11,14 @@ import de.gebit.integrity.operations.standard.operands.StringConcatenationNode;
 import de.gebit.integrity.operations.standard.operands.SubtractionNode;
 
 /**
+ * The {@link StandardOperationProcessor} used by default in Integrity.
  * 
- * 
- * @author Slartibartfast
+ * @author Rene Schneider
  * 
  */
 public class DefaultModularStandardOperationProcessor extends AbstractModularStandardOperationProcessor {
 
+	@Override
 	protected void initializeOperatorInfo() {
 		addOperatorInfo("+", AdditionNode.class);
 		addOperatorInfo("-", SubtractionNode.class);
