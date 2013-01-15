@@ -149,6 +149,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					return convertEncapsulatedValueToParamType(aTargetType, aParameterizedType,
 							(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy,
 							someVisitedObjects);
+				} else if (aValue instanceof ConstantValue) {
+					return convertEncapsulatedConstantValueToParamType(aTargetType, aParameterizedType,
+							(ConstantValue) aValue, anUnresolvableVariableHandlingPolicy, someVisitedObjects);
 				} else {
 					return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
 							anUnresolvableVariableHandlingPolicy, someVisitedObjects);
