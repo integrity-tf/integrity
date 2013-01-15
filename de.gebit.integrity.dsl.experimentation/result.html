@@ -1,10 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <xmldata style="display: none;">
-<integrity name="unnamed" timestamp="1/15/13 3:46 AM" isotimestamp="2013-01-15T03:46:42" duration="2012.913">
+<integrity name="unnamed" timestamp="1/15/13 7:32 PM" isotimestamp="2013-01-15T19:32:09" duration="3041.981">
 <variables>
-<variable name="mypackage.fromoutside" value="2"></variable>
-<variable name="mypackage.fromoutside" value="2"></variable>
+<variable name="mypackage.blah" value="3"></variable>
 <variable name="mypackage.deeper.yeah" value="10"></variable>
 <variable name="mypackage.dummy" value="2"></variable>
 <variable name="mysecondpackage.morePackageVars" value="String!!!"></variable>
@@ -14,30 +13,58 @@
 <setup></setup>
 <variables></variables>
 <statements>
-<suite id="1" line="11" name="mypackage.bsuite">
+<suite id="1" line="9" name="mypackage.bsuite">
 <setup></setup>
 <variables></variables>
 <statements>
-<call id="2" line="19" name="wait" description="waits for 2 seconds" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#wait">
+<call id="2" line="17" name="wait" description="waits for 1 seconds" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#wait">
 <parameters>
-<parameter name="seconds" value="2"></parameter>
+<parameter name="seconds" value="1"></parameter>
 </parameters>
-<result duration="2000.129" type="success"></result>
+<result duration="993.329" type="success"></result>
 </call>
 </statements>
 <teardown></teardown>
-<result duration="2003.334" successCount="0" failureCount="0" exceptionCount="0"></result>
+<result duration="1011.495" successCount="0" failureCount="0" exceptionCount="0"></result>
 </suite>
-<comment id="3" line="13"> Visible comment with &lt; and &gt;</comment>
+<suite id="3" line="9" name="mypackage.bsuite">
+<setup></setup>
+<variables></variables>
+<statements>
+<call id="4" line="17" name="wait" description="waits for 1 seconds" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#wait">
+<parameters>
+<parameter name="seconds" value="1"></parameter>
+</parameters>
+<result duration="993.813" type="success"></result>
+</call>
 </statements>
 <teardown></teardown>
-<result duration="2004.674" successCount="0" failureCount="0" exceptionCount="0"></result>
+<result duration="998.977" successCount="0" failureCount="0" exceptionCount="0"></result>
+</suite>
+<suite id="5" line="9" name="mypackage.bsuite">
+<setup></setup>
+<variables></variables>
+<statements>
+<call id="6" line="17" name="wait" description="waits for 1 seconds" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#wait">
+<parameters>
+<parameter name="seconds" value="1"></parameter>
+</parameters>
+<result duration="992.864" type="success"></result>
+</call>
+</statements>
+<teardown></teardown>
+<result duration="999.447" successCount="0" failureCount="0" exceptionCount="0"></result>
+</suite>
+<comment id="7" line="11"> Visible comment with &lt; and &gt;</comment>
+</statements>
+<teardown></teardown>
+<result duration="3014.398" successCount="0" failureCount="0" exceptionCount="0"></result>
 </suite>
 </integrity>
 </xmldata>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Integration Test 'unnamed' Results (1/15/13 3:46 AM) - Integrity Test Framework</title>
+<title>Integration Test 'unnamed' Results (1/15/13 7:32 PM) - Integrity Test Framework</title>
 <style type="text/css">body { color: #000; background-color: #FFF;
 					font-family: Helvetica, Arial, sans-serif; font-size:12px; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
@@ -314,9 +341,9 @@
 </div>
 <div align="left" class="pagesubtitle">
               Started
-              <span class="pagesubtitlebold">1/15/13 3:46 AM</span>
+              <span class="pagesubtitlebold">1/15/13 7:32 PM</span>
               and took
-              <span class="pagesubtitlebold">2s13ms</span>
+              <span class="pagesubtitlebold">3s42ms</span>
               to complete
             </div>
 <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';"></canvas>
@@ -331,9 +358,23 @@
 </div>
 <div class="nav_suiteresult nav_suitesuccess"></div>
 <div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
-<div class="nav_line nav_lineright"></div>
+<div class="nav_line nav_linedownright"></div>
 <div class="nav_suitetitle">
 <a href="#i1">bsuite</a>
+</div>
+<div class="nav_suiteresult nav_suitesuccess"></div>
+</div>
+<div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
+<div class="nav_line nav_linedownright"></div>
+<div class="nav_suitetitle">
+<a href="#i3">bsuite</a>
+</div>
+<div class="nav_suiteresult nav_suitesuccess"></div>
+</div>
+<div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
+<div class="nav_line nav_lineright"></div>
+<div class="nav_suitetitle">
+<a href="#i5">bsuite</a>
 </div>
 <div class="nav_suiteresult nav_suitesuccess"></div>
 </div>
@@ -360,21 +401,18 @@
 <th width="300px" align="left">Name</th><th align="left">Initial Value</th>
 </tr>
 <tr class="row1">
-<td>mypackage.fromoutside</td><td class="value">2</td>
+<td>mypackage.blah</td><td class="value">3</td>
 </tr>
 <tr class="row2">
-<td>mypackage.fromoutside</td><td class="value">2</td>
-</tr>
-<tr class="row1">
 <td>mypackage.deeper.yeah</td><td class="value">10</td>
 </tr>
-<tr class="row2">
+<tr class="row1">
 <td>mypackage.dummy</td><td class="value">2</td>
 </tr>
-<tr class="row1">
+<tr class="row2">
 <td>mysecondpackage.morePackageVars</td><td class="value">String!!!</td>
 </tr>
-<tr class="row2">
+<tr class="row1">
 <td>mysecondpackage.packagevar</td><td class="value"></td>
 </tr>
 </table>
@@ -393,7 +431,7 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:">mypackage.asuite</a></span><span class="boxtitleright">2s5ms<span class="suiteicons"></span></span>
+<span class="boxtitleleft"><a href="#mypackage.asuite:">mypackage.asuite</a></span><span class="boxtitleright">3s14ms<span class="suiteicons"></span></span>
 </div>
 <div class="boxcontent">
 <a name="i1"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
@@ -409,12 +447,12 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">2s3ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#11"></a></span></span>
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">1s11ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#9"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i2"></a>
 <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">waits for 2 seconds</div>
+<div class="testdescription">waits for 1 seconds</div>
 <div class="testparameters" style="display: none;">
 <div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#wait</div>
 <table class="parametertable" width="100%">
@@ -422,11 +460,79 @@
 <th width="200px" align="left">Parameter</th><th align="left">Value</th>
 </tr>
 <tr class="row1callsuccess">
-<td>seconds</td><td class="value">2</td>
+<td>seconds</td><td class="value">1</td>
 </tr>
 </table>
 </div>
-<span class="durationandicons">2s0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#19"></a></span></span>
+<span class="durationandicons">993ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#17"></a></span></span>
+</div>
+</div>
+</div>
+<a name="i3"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
+<div class="
+          box
+          " style="
+          border-color:
+          #009933
+          ;
+        ">
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
+            background-color:
+            #009933
+            ;
+          ">
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">999ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#9"></a></span></span>
+</div>
+<div class="boxcontent">
+<a name="i4"></a>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
+<div class="testdescription">waits for 1 seconds</div>
+<div class="testparameters" style="display: none;">
+<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#wait</div>
+<table class="parametertable" width="100%">
+<tr>
+<th width="200px" align="left">Parameter</th><th align="left">Value</th>
+</tr>
+<tr class="row1callsuccess">
+<td>seconds</td><td class="value">1</td>
+</tr>
+</table>
+</div>
+<span class="durationandicons">994ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#17"></a></span></span>
+</div>
+</div>
+</div>
+<a name="i5"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
+<div class="
+          box
+          " style="
+          border-color:
+          #009933
+          ;
+        ">
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
+            background-color:
+            #009933
+            ;
+          ">
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">999ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#9"></a></span></span>
+</div>
+<div class="boxcontent">
+<a name="i6"></a>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
+<div class="testdescription">waits for 1 seconds</div>
+<div class="testparameters" style="display: none;">
+<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#wait</div>
+<table class="parametertable" width="100%">
+<tr>
+<th width="200px" align="left">Parameter</th><th align="left">Value</th>
+</tr>
+<tr class="row1callsuccess">
+<td>seconds</td><td class="value">1</td>
+</tr>
+</table>
+</div>
+<span class="durationandicons">993ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#17"></a></span></span>
 </div>
 </div>
 </div>

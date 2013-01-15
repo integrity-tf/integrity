@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -58,12 +62,12 @@ public interface NamedCallResult extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' containment reference.
-   * @see #setTarget(Variable)
+   * @see #setTarget(VariableVariable)
    * @see de.gebit.integrity.dsl.DslPackage#getNamedCallResult_Target()
    * @model containment="true"
    * @generated
    */
-  Variable getTarget();
+  VariableVariable getTarget();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.NamedCallResult#getTarget <em>Target</em>}' containment reference.
@@ -73,6 +77,6 @@ public interface NamedCallResult extends EObject
    * @see #getTarget()
    * @generated
    */
-  void setTarget(Variable value);
+  void setTarget(VariableVariable value);
 
 } // NamedCallResult

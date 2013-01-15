@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -310,6 +314,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createValueAdapter();
       }
       @Override
+      public Adapter caseConstantValue(ConstantValue object)
+      {
+        return createConstantValueAdapter();
+      }
+      @Override
       public Adapter caseStaticValue(StaticValue object)
       {
         return createStaticValueAdapter();
@@ -403,6 +412,16 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseVariable(Variable object)
       {
         return createVariableAdapter();
+      }
+      @Override
+      public Adapter caseVariableVariable(VariableVariable object)
+      {
+        return createVariableVariableAdapter();
+      }
+      @Override
+      public Adapter caseConstant(Constant object)
+      {
+        return createConstantAdapter();
       }
       @Override
       public Adapter caseNullValue(NullValue object)
@@ -1172,6 +1191,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.ConstantValue <em>Constant Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.ConstantValue
+   * @generated
+   */
+  public Adapter createConstantValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.StaticValue <em>Static Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1452,6 +1486,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableVariable <em>Variable Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VariableVariable
+   * @generated
+   */
+  public Adapter createVariableVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Constant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.Constant
+   * @generated
+   */
+  public Adapter createConstantAdapter()
   {
     return null;
   }

@@ -17,6 +17,8 @@ import java.util.Set;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import de.gebit.integrity.dsl.Constant;
+import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
@@ -27,6 +29,7 @@ import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -45,6 +48,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	@Inject
 	protected ParameterResolver parameterResolver;
+
+	/**
+	 * The variable manager.
+	 */
+	@Inject
+	protected VariableManager variableManager;
 
 	/**
 	 * The wrapper factory.
@@ -327,6 +336,44 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throw new ConversionFailedException(null, aTargetType, exc.getMessage(), exc);
 		} catch (InstantiationException exc) {
 			throw new ConversionFailedException(null, aTargetType, exc.getMessage(), exc);
+		}
+	}
+
+	/**
+	 * Converts a given {@link ValueOrEnumValueOrOperation} to a given Java type class, if possible.
+	 * 
+	 * @param aTargetType
+	 *            the target type
+	 * @param aParameterizedType
+	 *            the parameterized (via generics) type attached to the given target type, if applicable - for example
+	 *            if a conversion to List<Integer> is desired, the target type is List, and the parameterized type is
+	 *            Integer
+	 * @param aValue
+	 *            the value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @return the converted value
+	 * @throws UnresolvableVariableException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws UnexecutableException
+	 */
+	protected Object convertEncapsulatedConstantValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
+			ConstantValue aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy,
+			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
+		if (aValue == null) {
+			return null;
+		}
+
+		if (aValue instanceof Constant) {
+			// Constants need to be "constantly" defined in the variable manager, so we can ask it directly.
+			Object tempResult = variableManager.get(((Constant) aValue).getName());
+			return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
+					anUnresolvableVariableHandlingPolicy, someVisitedValues);
+		} else {
+			return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+					anUnresolvableVariableHandlingPolicy, someVisitedValues);
 		}
 	}
 

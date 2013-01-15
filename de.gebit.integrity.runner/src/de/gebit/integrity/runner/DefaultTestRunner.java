@@ -24,8 +24,10 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
@@ -33,6 +35,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -52,6 +55,7 @@ import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
+import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -539,7 +543,16 @@ public class DefaultTestRunner implements TestRunner {
 	protected List<SuiteSummaryResult> callSuite(Suite aSuiteCall) {
 		int tempCount = 1;
 		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
-			tempCount = aSuiteCall.getMultiplier().getCount().intValue();
+			try {
+				tempCount = (Integer) valueConverter.convertValue(Integer.class, aSuiteCall.getMultiplier().getCount(),
+						UnresolvableVariableHandling.EXCEPTION);
+			} catch (UnresolvableVariableException exc) {
+				// should never happen, since constant values are not allowed to be variables which still need resolving
+				throw new ThisShouldNeverHappenException();
+			} catch (UnexecutableException exc) {
+				// should never happen, since constant values are not allowed to be unexecuted operations
+				throw new ThisShouldNeverHappenException();
+			}
 		}
 
 		List<SuiteSummaryResult> tempResults = new ArrayList<SuiteSummaryResult>();
@@ -942,6 +955,23 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
+	 * Resolves a constant value (either it's a static value anyway, or it's a constant which needs to be resolved).
+	 * 
+	 * @param aConstantValue
+	 *            the constant value
+	 * @return the value
+	 */
+	protected Object resolveConstantValue(ConstantValue aConstantValue) {
+		if (aConstantValue instanceof StaticValue) {
+			return aConstantValue;
+		} else if (aConstantValue instanceof Constant) {
+			return variableManager.get(((Constant) aConstantValue).getName());
+		}
+
+		throw new ThisShouldNeverHappenException();
+	}
+
+	/**
 	 * Executes a test (doesn't pay attention to the multiplier).
 	 * 
 	 * @param aTest
@@ -1280,7 +1310,16 @@ public class DefaultTestRunner implements TestRunner {
 	protected List<CallResult> executeCall(Call aCall) {
 		int tempCount = 1;
 		if (aCall.getMultiplier() != null && aCall.getMultiplier().getCount() != null) {
-			tempCount = aCall.getMultiplier().getCount().intValue();
+			try {
+				tempCount = (Integer) valueConverter.convertValue(Integer.class, aCall.getMultiplier().getCount(),
+						UnresolvableVariableHandling.EXCEPTION);
+			} catch (UnresolvableVariableException exc) {
+				// should never happen, since constant values are not allowed to be variables which still need resolving
+				throw new ThisShouldNeverHappenException();
+			} catch (UnexecutableException exc) {
+				// should never happen, since constant values are not allowed to be unexecuted operations
+				throw new ThisShouldNeverHappenException();
+			}
 		}
 
 		List<CallResult> tempResults = new ArrayList<CallResult>();

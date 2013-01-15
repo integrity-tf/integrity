@@ -1,11 +1,15 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.ResultName;
-import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableVariable;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -50,7 +54,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected Variable target;
+  protected VariableVariable target;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,7 +130,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Variable getTarget()
+  public VariableVariable getTarget()
   {
     return target;
   }
@@ -136,9 +140,9 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTarget(Variable newTarget, NotificationChain msgs)
+  public NotificationChain basicSetTarget(VariableVariable newTarget, NotificationChain msgs)
   {
-    Variable oldTarget = target;
+    VariableVariable oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
     {
@@ -153,7 +157,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(Variable newTarget)
+  public void setTarget(VariableVariable newTarget)
   {
     if (newTarget != target)
     {
@@ -219,7 +223,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
         setName((ResultName)newValue);
         return;
       case DslPackage.NAMED_CALL_RESULT__TARGET:
-        setTarget((Variable)newValue);
+        setTarget((VariableVariable)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,7 +243,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
         setName((ResultName)null);
         return;
       case DslPackage.NAMED_CALL_RESULT__TARGET:
-        setTarget((Variable)null);
+        setTarget((VariableVariable)null);
         return;
     }
     super.eUnset(featureID);

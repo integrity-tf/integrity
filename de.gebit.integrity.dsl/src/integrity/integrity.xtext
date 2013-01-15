@@ -118,10 +118,10 @@ FixedResultName:
 	field=[jvmTypes::JvmField|ID];
 	
 Call:
-	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedCallResult)* (NL '->' NL result=Variable)? NL;
+	'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedCallResult)* (NL '->' NL result=VariableVariable)? NL;
 	
 NamedCallResult:
-	name=ResultName NL '->' NL target=Variable;
+	name=ResultName NL '->' NL target=VariableVariable;
 	
 Suite:
 	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
@@ -158,6 +158,9 @@ ValueOrEnumValueOrOperation:
 	
 Value:
 	StaticValue | Variable | NestedObject;
+	
+ConstantValue:
+	StaticValue | Constant;
 	
 StaticValue:
 	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
@@ -216,6 +219,12 @@ USDateAnd12HrsTimeValue:
 Variable:
 	name=[VariableOrConstantEntity|QualifiedName];
 	
+VariableVariable:
+	name=[VariableEntity|QualifiedName];
+	
+Constant:
+	name=[ConstantEntity|QualifiedName];
+	
 NullValue:
 	{Null} 'null';
 	
@@ -235,7 +244,7 @@ MethodReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' method=[jvmTypes::JvmOperation];
 	
 ExecutionMultiplier:
-	count=INTEGER '*';
+	count=ConstantValue '*';
 	
 QualifiedName:
 	ID('.'ID)*;

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.util;
 
@@ -443,11 +447,19 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.CONSTANT_VALUE:
+      {
+        ConstantValue constantValue = (ConstantValue)theEObject;
+        T result = caseConstantValue(constantValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.STATIC_VALUE:
       {
         StaticValue staticValue = (StaticValue)theEObject;
         T result = caseStaticValue(staticValue);
         if (result == null) result = caseValue(staticValue);
+        if (result == null) result = caseConstantValue(staticValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(staticValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -458,6 +470,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseIntegerValue(integerValue);
         if (result == null) result = caseStaticValue(integerValue);
         if (result == null) result = caseValue(integerValue);
+        if (result == null) result = caseConstantValue(integerValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(integerValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -468,6 +481,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseDecimalValue(decimalValue);
         if (result == null) result = caseStaticValue(decimalValue);
         if (result == null) result = caseValue(decimalValue);
+        if (result == null) result = caseConstantValue(decimalValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(decimalValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -478,6 +492,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseStringValue(stringValue);
         if (result == null) result = caseStaticValue(stringValue);
         if (result == null) result = caseValue(stringValue);
+        if (result == null) result = caseConstantValue(stringValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(stringValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -488,6 +503,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseBooleanValue(booleanValue);
         if (result == null) result = caseStaticValue(booleanValue);
         if (result == null) result = caseValue(booleanValue);
+        if (result == null) result = caseConstantValue(booleanValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(booleanValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -498,6 +514,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseDateValue(dateValue);
         if (result == null) result = caseStaticValue(dateValue);
         if (result == null) result = caseValue(dateValue);
+        if (result == null) result = caseConstantValue(dateValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(dateValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -509,6 +526,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateValue(isoDateValue);
         if (result == null) result = caseStaticValue(isoDateValue);
         if (result == null) result = caseValue(isoDateValue);
+        if (result == null) result = caseConstantValue(isoDateValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(isoDateValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -520,6 +538,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateValue(europeanDateValue);
         if (result == null) result = caseStaticValue(europeanDateValue);
         if (result == null) result = caseValue(europeanDateValue);
+        if (result == null) result = caseConstantValue(europeanDateValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(europeanDateValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -531,6 +550,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateValue(usDateValue);
         if (result == null) result = caseStaticValue(usDateValue);
         if (result == null) result = caseValue(usDateValue);
+        if (result == null) result = caseConstantValue(usDateValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(usDateValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -541,6 +561,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseTimeValue(timeValue);
         if (result == null) result = caseStaticValue(timeValue);
         if (result == null) result = caseValue(timeValue);
+        if (result == null) result = caseConstantValue(timeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(timeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -552,6 +573,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseTimeValue(isoTimeValue);
         if (result == null) result = caseStaticValue(isoTimeValue);
         if (result == null) result = caseValue(isoTimeValue);
+        if (result == null) result = caseConstantValue(isoTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(isoTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -563,6 +585,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseTimeValue(simple24HrsTimeValue);
         if (result == null) result = caseStaticValue(simple24HrsTimeValue);
         if (result == null) result = caseValue(simple24HrsTimeValue);
+        if (result == null) result = caseConstantValue(simple24HrsTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(simple24HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -574,6 +597,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseTimeValue(simple12HrsTimeValue);
         if (result == null) result = caseStaticValue(simple12HrsTimeValue);
         if (result == null) result = caseValue(simple12HrsTimeValue);
+        if (result == null) result = caseConstantValue(simple12HrsTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(simple12HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -584,6 +608,7 @@ public class DslSwitch<T> extends Switch<T>
         T result = caseDateAndTimeValue(dateAndTimeValue);
         if (result == null) result = caseStaticValue(dateAndTimeValue);
         if (result == null) result = caseValue(dateAndTimeValue);
+        if (result == null) result = caseConstantValue(dateAndTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(dateAndTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -595,6 +620,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateAndTimeValue(isoDateAndTimeValue);
         if (result == null) result = caseStaticValue(isoDateAndTimeValue);
         if (result == null) result = caseValue(isoDateAndTimeValue);
+        if (result == null) result = caseConstantValue(isoDateAndTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(isoDateAndTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -606,6 +632,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateAndTimeValue(europeanDateAnd24HrsTimeValue);
         if (result == null) result = caseStaticValue(europeanDateAnd24HrsTimeValue);
         if (result == null) result = caseValue(europeanDateAnd24HrsTimeValue);
+        if (result == null) result = caseConstantValue(europeanDateAnd24HrsTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(europeanDateAnd24HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -617,6 +644,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateAndTimeValue(europeanDateAnd12HrsTimeValue);
         if (result == null) result = caseStaticValue(europeanDateAnd12HrsTimeValue);
         if (result == null) result = caseValue(europeanDateAnd12HrsTimeValue);
+        if (result == null) result = caseConstantValue(europeanDateAnd12HrsTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(europeanDateAnd12HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -628,6 +656,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseDateAndTimeValue(usDateAnd12HrsTimeValue);
         if (result == null) result = caseStaticValue(usDateAnd12HrsTimeValue);
         if (result == null) result = caseValue(usDateAnd12HrsTimeValue);
+        if (result == null) result = caseConstantValue(usDateAnd12HrsTimeValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(usDateAnd12HrsTimeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -641,12 +670,28 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VARIABLE_VARIABLE:
+      {
+        VariableVariable variableVariable = (VariableVariable)theEObject;
+        T result = caseVariableVariable(variableVariable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.CONSTANT:
+      {
+        Constant constant = (Constant)theEObject;
+        T result = caseConstant(constant);
+        if (result == null) result = caseConstantValue(constant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.NULL_VALUE:
       {
         NullValue nullValue = (NullValue)theEObject;
         T result = caseNullValue(nullValue);
         if (result == null) result = caseStaticValue(nullValue);
         if (result == null) result = caseValue(nullValue);
+        if (result == null) result = caseConstantValue(nullValue);
         if (result == null) result = caseValueOrEnumValueOrOperation(nullValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -703,6 +748,7 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseNullValue(null_);
         if (result == null) result = caseStaticValue(null_);
         if (result == null) result = caseValue(null_);
+        if (result == null) result = caseConstantValue(null_);
         if (result == null) result = caseValueOrEnumValueOrOperation(null_);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -1464,6 +1510,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstantValue(ConstantValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Static Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1763,6 +1825,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVariable(Variable object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Variable</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableVariable(VariableVariable object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstant(Constant object)
   {
     return null;
   }

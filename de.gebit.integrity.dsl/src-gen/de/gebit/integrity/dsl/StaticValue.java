@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -13,6 +17,6 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface StaticValue extends Value
+public interface StaticValue extends Value, ConstantValue
 {
 } // StaticValue

@@ -149,13 +149,13 @@
         eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//NamedCallResult" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//Variable"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//VariableVariable"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedCallResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ResultName"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Variable"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//VariableVariable"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//SuiteStatementWithResult">
@@ -210,7 +210,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueOrEnumValueOrOperation"/>
   <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//ValueOrEnumValueOrOperation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StaticValue" eSuperTypes="#//Value"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstantValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StaticValue" eSuperTypes="#//Value #//ConstantValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//StaticValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
   </eClassifiers>
@@ -246,6 +247,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableVariable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constant" eSuperTypes="#//ConstantValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ConstantEntity"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValueOrOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
@@ -267,7 +274,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExecutionMultiplier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="count" eType="#//ConstantValue"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Null" eSuperTypes="#//NullValue"/>
 </ecore:EPackage>

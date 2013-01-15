@@ -1,15 +1,20 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
+import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ExecutionMultiplier;
 
-import java.math.BigInteger;
-
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -30,24 +35,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implements ExecutionMultiplier
 {
   /**
-   * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
+   * The cached value of the '{@link #getCount() <em>Count</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCount()
    * @generated
    * @ordered
    */
-  protected static final BigInteger COUNT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCount()
-   * @generated
-   * @ordered
-   */
-  protected BigInteger count = COUNT_EDEFAULT;
+  protected ConstantValue count;
 
   /**
    * <!-- begin-user-doc -->
@@ -75,7 +70,7 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public BigInteger getCount()
+  public ConstantValue getCount()
   {
     return count;
   }
@@ -85,12 +80,53 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCount(BigInteger newCount)
+  public NotificationChain basicSetCount(ConstantValue newCount, NotificationChain msgs)
   {
-    BigInteger oldCount = count;
+    ConstantValue oldCount = count;
     count = newCount;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.EXECUTION_MULTIPLIER__COUNT, oldCount, count));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.EXECUTION_MULTIPLIER__COUNT, oldCount, newCount);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCount(ConstantValue newCount)
+  {
+    if (newCount != count)
+    {
+      NotificationChain msgs = null;
+      if (count != null)
+        msgs = ((InternalEObject)count).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.EXECUTION_MULTIPLIER__COUNT, null, msgs);
+      if (newCount != null)
+        msgs = ((InternalEObject)newCount).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.EXECUTION_MULTIPLIER__COUNT, null, msgs);
+      msgs = basicSetCount(newCount, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.EXECUTION_MULTIPLIER__COUNT, newCount, newCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DslPackage.EXECUTION_MULTIPLIER__COUNT:
+        return basicSetCount(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -120,7 +156,7 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
     switch (featureID)
     {
       case DslPackage.EXECUTION_MULTIPLIER__COUNT:
-        setCount((BigInteger)newValue);
+        setCount((ConstantValue)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -137,7 +173,7 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
     switch (featureID)
     {
       case DslPackage.EXECUTION_MULTIPLIER__COUNT:
-        setCount(COUNT_EDEFAULT);
+        setCount((ConstantValue)null);
         return;
     }
     super.eUnset(featureID);
@@ -154,26 +190,9 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
     switch (featureID)
     {
       case DslPackage.EXECUTION_MULTIPLIER__COUNT:
-        return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
+        return count != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (count: ");
-    result.append(count);
-    result.append(')');
-    return result.toString();
   }
 
 } //ExecutionMultiplierImpl

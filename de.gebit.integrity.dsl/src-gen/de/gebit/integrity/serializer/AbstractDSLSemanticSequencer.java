@@ -6,6 +6,7 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.CustomOperation;
@@ -56,6 +57,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariableVariable;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleDivider;
@@ -92,6 +94,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				else break;
 			case DslPackage.BOOLEAN_VALUE:
 				if(context == grammarAccess.getBooleanValueRule() ||
+				   context == grammarAccess.getConstantValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
@@ -111,6 +114,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getCallDefinitionRule() ||
 				   context == grammarAccess.getPackageStatementRule()) {
 					sequence_CallDefinition(context, (CallDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.CONSTANT:
+				if(context == grammarAccess.getConstantRule() ||
+				   context == grammarAccess.getConstantValueRule()) {
+					sequence_Constant(context, (Constant) semanticObject); 
 					return; 
 				}
 				else break;
@@ -138,7 +148,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.DECIMAL_VALUE:
-				if(context == grammarAccess.getDecimalValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDecimalValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
@@ -154,7 +165,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.EUROPEAN_DATE_AND12_HRS_TIME_VALUE:
-				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateAndTimeValueRule() ||
 				   context == grammarAccess.getEuropeanDateAnd12HrsTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -164,7 +176,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.EUROPEAN_DATE_AND24_HRS_TIME_VALUE:
-				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateAndTimeValueRule() ||
 				   context == grammarAccess.getEuropeanDateAnd24HrsTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -174,7 +187,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.EUROPEAN_DATE_VALUE:
-				if(context == grammarAccess.getDateValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateValueRule() ||
 				   context == grammarAccess.getEuropeanDateValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -226,7 +240,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.INTEGER_VALUE:
-				if(context == grammarAccess.getIntegerValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getIntegerValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
@@ -235,7 +250,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.ISO_DATE_AND_TIME_VALUE:
-				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateAndTimeValueRule() ||
 				   context == grammarAccess.getIsoDateAndTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -245,7 +261,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.ISO_DATE_VALUE:
-				if(context == grammarAccess.getDateValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateValueRule() ||
 				   context == grammarAccess.getIsoDateValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -255,7 +272,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.ISO_TIME_VALUE:
-				if(context == grammarAccess.getIsoTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getIsoTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getTimeValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -309,7 +327,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.NULL:
-				if(context == grammarAccess.getNullValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getNullValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
@@ -356,7 +375,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.SIMPLE12_HRS_TIME_VALUE:
-				if(context == grammarAccess.getSimple12HrsTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getSimple12HrsTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getTimeValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -366,7 +386,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.SIMPLE24_HRS_TIME_VALUE:
-				if(context == grammarAccess.getSimple24HrsTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getSimple24HrsTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getTimeValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -384,7 +405,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.STRING_VALUE:
-				if(context == grammarAccess.getStaticValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getStringValueRule() ||
 				   context == grammarAccess.getValueRule() ||
 				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
@@ -443,7 +465,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.US_DATE_AND12_HRS_TIME_VALUE:
-				if(context == grammarAccess.getDateAndTimeValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateAndTimeValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getUSDateAnd12HrsTimeValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -453,7 +476,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case DslPackage.US_DATE_VALUE:
-				if(context == grammarAccess.getDateValueRule() ||
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getDateValueRule() ||
 				   context == grammarAccess.getStaticValueRule() ||
 				   context == grammarAccess.getUSDateValueRule() ||
 				   context == grammarAccess.getValueRule() ||
@@ -488,6 +512,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getVariableEntityRule() ||
 				   context == grammarAccess.getVariableOrConstantEntityRule()) {
 					sequence_VariableEntity(context, (VariableEntity) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.VARIABLE_VARIABLE:
+				if(context == grammarAccess.getVariableVariableRule()) {
+					sequence_VariableVariable(context, (VariableVariable) semanticObject); 
 					return; 
 				}
 				else break;
@@ -578,7 +608,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (multiplier=ExecutionMultiplier? definition=[CallDefinition|QualifiedName] parameters+=Parameter* results+=NamedCallResult* result=Variable?)
+	 *     (
+	 *         multiplier=ExecutionMultiplier? 
+	 *         definition=[CallDefinition|QualifiedName] 
+	 *         parameters+=Parameter* 
+	 *         results+=NamedCallResult* 
+	 *         result=VariableVariable?
+	 *     )
 	 */
 	protected void sequence_Call(EObject context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -606,6 +642,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getConstantEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=[ConstantEntity|QualifiedName]
+	 */
+	protected void sequence_Constant(EObject context, Constant semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConstantAccess().getNameConstantEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -711,7 +763,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     count=INTEGER
+	 *     count=ConstantValue
 	 */
 	protected void sequence_ExecutionMultiplier(EObject context, ExecutionMultiplier semanticObject) {
 		if(errorAcceptor != null) {
@@ -720,7 +772,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0(), semanticObject.getCount());
+		feeder.accept(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0(), semanticObject.getCount());
 		feeder.finish();
 	}
 	
@@ -933,7 +985,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ResultName target=Variable)
+	 *     (name=ResultName target=VariableVariable)
 	 */
 	protected void sequence_NamedCallResult(EObject context, NamedCallResult semanticObject) {
 		if(errorAcceptor != null) {
@@ -945,7 +997,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getNamedCallResultAccess().getTargetVariableParserRuleCall_4_0(), semanticObject.getTarget());
+		feeder.accept(grammarAccess.getNamedCallResultAccess().getTargetVariableVariableParserRuleCall_4_0(), semanticObject.getTarget());
 		feeder.finish();
 	}
 	
@@ -1319,6 +1371,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=[VariableEntity|QualifiedName]
+	 */
+	protected void sequence_VariableVariable(EObject context, VariableVariable semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVariableVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
 	}
 	

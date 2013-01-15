@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
 
@@ -119,12 +123,12 @@ public interface Call extends SuiteStatementWithResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result</em>' containment reference.
-   * @see #setResult(Variable)
+   * @see #setResult(VariableVariable)
    * @see de.gebit.integrity.dsl.DslPackage#getCall_Result()
    * @model containment="true"
    * @generated
    */
-  Variable getResult();
+  VariableVariable getResult();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.Call#getResult <em>Result</em>}' containment reference.
@@ -134,6 +138,6 @@ public interface Call extends SuiteStatementWithResult
    * @see #getResult()
    * @generated
    */
-  void setResult(Variable value);
+  void setResult(VariableVariable value);
 
 } // Call

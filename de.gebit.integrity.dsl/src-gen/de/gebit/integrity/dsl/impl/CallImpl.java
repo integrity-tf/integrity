@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -8,7 +12,7 @@ import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ExecutionMultiplier;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.Parameter;
-import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableVariable;
 
 import java.util.Collection;
 
@@ -92,7 +96,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * @generated
    * @ordered
    */
-  protected Variable result;
+  protected VariableVariable result;
 
   /**
    * <!-- begin-user-doc -->
@@ -239,7 +243,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
-  public Variable getResult()
+  public VariableVariable getResult()
   {
     return result;
   }
@@ -249,9 +253,9 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetResult(Variable newResult, NotificationChain msgs)
+  public NotificationChain basicSetResult(VariableVariable newResult, NotificationChain msgs)
   {
-    Variable oldResult = result;
+    VariableVariable oldResult = result;
     result = newResult;
     if (eNotificationRequired())
     {
@@ -266,7 +270,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResult(Variable newResult)
+  public void setResult(VariableVariable newResult)
   {
     if (newResult != result)
     {
@@ -355,7 +359,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
         getResults().addAll((Collection<? extends NamedCallResult>)newValue);
         return;
       case DslPackage.CALL__RESULT:
-        setResult((Variable)newValue);
+        setResult((VariableVariable)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -384,7 +388,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
         getResults().clear();
         return;
       case DslPackage.CALL__RESULT:
-        setResult((Variable)null);
+        setResult((VariableVariable)null);
         return;
     }
     super.eUnset(featureID);

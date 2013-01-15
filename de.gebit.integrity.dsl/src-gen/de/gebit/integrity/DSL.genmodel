@@ -4,7 +4,7 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.8" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.7" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
@@ -165,6 +165,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ValueOrEnumValueOrOperation"/>
     <genClasses ecoreClass="DSL.ecore#//Value"/>
+    <genClasses ecoreClass="DSL.ecore#//ConstantValue"/>
     <genClasses ecoreClass="DSL.ecore#//StaticValue"/>
     <genClasses ecoreClass="DSL.ecore#//IntegerValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//IntegerValue/integerValue"/>
@@ -201,6 +202,12 @@
     <genClasses ecoreClass="DSL.ecore#//Variable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VariableVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableVariable/name"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//Constant">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Constant/name"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//NullValue"/>
     <genClasses ecoreClass="DSL.ecore#//EnumValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//EnumValue/enumValue"/>
@@ -220,7 +227,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//MethodReference/method"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ExecutionMultiplier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ExecutionMultiplier/count"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ExecutionMultiplier/count"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Null"/>
   </genPackages>

@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -111,6 +115,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION_COLLECTION: return createValueOrEnumValueOrOperationCollection();
       case DslPackage.VALUE_OR_ENUM_VALUE_OR_OPERATION: return createValueOrEnumValueOrOperation();
       case DslPackage.VALUE: return createValue();
+      case DslPackage.CONSTANT_VALUE: return createConstantValue();
       case DslPackage.STATIC_VALUE: return createStaticValue();
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
       case DslPackage.DECIMAL_VALUE: return createDecimalValue();
@@ -130,6 +135,8 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.EUROPEAN_DATE_AND12_HRS_TIME_VALUE: return createEuropeanDateAnd12HrsTimeValue();
       case DslPackage.US_DATE_AND12_HRS_TIME_VALUE: return createUSDateAnd12HrsTimeValue();
       case DslPackage.VARIABLE: return createVariable();
+      case DslPackage.VARIABLE_VARIABLE: return createVariableVariable();
+      case DslPackage.CONSTANT: return createConstant();
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
       case DslPackage.NESTED_OBJECT: return createNestedObject();
@@ -665,6 +672,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ConstantValue createConstantValue()
+  {
+    ConstantValueImpl constantValue = new ConstantValueImpl();
+    return constantValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public StaticValue createStaticValue()
   {
     StaticValueImpl staticValue = new StaticValueImpl();
@@ -867,6 +885,28 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     VariableImpl variable = new VariableImpl();
     return variable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableVariable createVariableVariable()
+  {
+    VariableVariableImpl variableVariable = new VariableVariableImpl();
+    return variableVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Constant createConstant()
+  {
+    ConstantImpl constant = new ConstantImpl();
+    return constant;
   }
 
   /**

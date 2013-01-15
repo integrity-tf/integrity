@@ -2759,9 +2759,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableParserRuleCall_6_3_0()); 
+	        newCompositeNode(grammarAccess.getCallAccess().getResultVariableVariableParserRuleCall_6_3_0()); 
 	    }
-		lv_result_12_0=ruleVariable		{
+		lv_result_12_0=ruleVariableVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallRule());
 	        }
@@ -2769,7 +2769,7 @@ ruleNL
        			$current, 
        			"result",
         		lv_result_12_0, 
-        		"Variable");
+        		"VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2844,9 +2844,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getNamedCallResultAccess().getTargetVariableParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getNamedCallResultAccess().getTargetVariableVariableParserRuleCall_4_0()); 
 	    }
-		lv_target_4_0=ruleVariable		{
+		lv_target_4_0=ruleVariableVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNamedCallResultRule());
 	        }
@@ -2854,7 +2854,7 @@ ruleNL
        			$current, 
        			"target",
         		lv_target_4_0, 
-        		"Variable");
+        		"VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3820,6 +3820,46 @@ ruleValue returns [EObject current=null]
 
 
 
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstantValueRule()); }
+	 iv_ruleConstantValue=ruleConstantValue 
+	 { $current=$iv_ruleConstantValue.current; } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getStaticValueParserRuleCall_0()); 
+    }
+    this_StaticValue_0=ruleStaticValue
+    { 
+        $current = $this_StaticValue_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getConstantParserRuleCall_1()); 
+    }
+    this_Constant_1=ruleConstant
+    { 
+        $current = $this_Constant_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
 // Entry rule entryRuleStaticValue
 entryRuleStaticValue returns [EObject current=null] 
 	:
@@ -4776,6 +4816,78 @@ ruleVariable returns [EObject current=null]
 
 
 
+// Entry rule entryRuleVariableVariable
+entryRuleVariableVariable returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVariableVariableRule()); }
+	 iv_ruleVariableVariable=ruleVariableVariable 
+	 { $current=$iv_ruleVariableVariable.current; } 
+	 EOF 
+;
+
+// Rule VariableVariable
+ruleVariableVariable returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVariableVariableRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVariableVariableAccess().getNameVariableEntityCrossReference_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleConstant
+entryRuleConstant returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstantRule()); }
+	 iv_ruleConstant=ruleConstant 
+	 { $current=$iv_ruleConstant.current; } 
+	 EOF 
+;
+
+// Rule Constant
+ruleConstant returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstantRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConstantAccess().getNameConstantEntityCrossReference_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleNullValue
 entryRuleNullValue returns [EObject current=null] 
 	:
@@ -5086,19 +5198,19 @@ ruleExecutionMultiplier returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		lv_count_0_0=RULE_INTEGER
-		{
-			newLeafNode(lv_count_0_0, grammarAccess.getExecutionMultiplierAccess().getCountINTEGERTerminalRuleCall_0_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0()); 
+	    }
+		lv_count_0_0=ruleConstantValue		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getExecutionMultiplierRule());
+	            $current = createModelElementForParent(grammarAccess.getExecutionMultiplierRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"count",
         		lv_count_0_0, 
-        		"INTEGER");
+        		"ConstantValue");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

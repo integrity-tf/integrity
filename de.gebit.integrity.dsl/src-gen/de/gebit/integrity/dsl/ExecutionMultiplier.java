@@ -1,8 +1,10 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package de.gebit.integrity.dsl;
-
-import java.math.BigInteger;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -25,29 +27,29 @@ import org.eclipse.emf.ecore.EObject;
 public interface ExecutionMultiplier extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Count</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Count</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Count</em>' attribute.
-   * @see #setCount(BigInteger)
+   * @return the value of the '<em>Count</em>' containment reference.
+   * @see #setCount(ConstantValue)
    * @see de.gebit.integrity.dsl.DslPackage#getExecutionMultiplier_Count()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  BigInteger getCount();
+  ConstantValue getCount();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.ExecutionMultiplier#getCount <em>Count</em>}' attribute.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ExecutionMultiplier#getCount <em>Count</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Count</em>' attribute.
+   * @param value the new value of the '<em>Count</em>' containment reference.
    * @see #getCount()
    * @generated
    */
-  void setCount(BigInteger value);
+  void setCount(ConstantValue value);
 
 } // ExecutionMultiplier
