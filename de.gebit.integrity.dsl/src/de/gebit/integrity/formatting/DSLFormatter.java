@@ -36,7 +36,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		// No line wrapping
 		aConfig.setAutoLinewrap(9999);
 
-		// No spaces after opening bracket or before closing bracket of custom operations
+		// No spaces after opening bracket or before closing bracket of custom operations...
 		aConfig.setNoSpace().after(tempGrammar.getCustomOperationAccess().getLeftSquareBracketKeyword_0());
 		aConfig.setNoSpace().before(
 				tempGrammar.getCustomOperationAccess()
@@ -47,6 +47,14 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(tempGrammar.getCustomOperationAccess().getRightSquareBracketKeyword_6());
 
 		// ...and the same with standard operations
+		aConfig.setNoSpace().after(tempGrammar.getStandardOperationAccess().getLeftParenthesisKeyword_0());
+		aConfig.setNoSpace()
+				.before(tempGrammar.getStandardOperationAccess()
+						.getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0());
+		aConfig.setNoSpace().after(
+				tempGrammar.getStandardOperationAccess()
+						.getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0());
+		aConfig.setNoSpace().before(tempGrammar.getStandardOperationAccess().getRightParenthesisKeyword_5());
 
 		// No spaces at the end of lines and before whitespace between tokens
 		aConfig.setNoSpace().before(tempGrammar.getNLRule());

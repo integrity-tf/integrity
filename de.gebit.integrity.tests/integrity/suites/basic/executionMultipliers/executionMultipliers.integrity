@@ -1,13 +1,13 @@
 packagedef integrity.basic.executionMultipliers with
 
-	constant aFirstGlobalConstant ( 1 + 2 )
-	constant aSecondGlobalConstant ( 1 + aFirstGlobalConstant )
+	constant aFirstGlobalConstant (1 + 2)
+	constant aSecondGlobalConstant (1 + aFirstGlobalConstant)
 
 	suitedef executionMultipliers with
 		
 		constant testconst 2
-		constant calculatedConstant ( 1 + 3 )
-		constant anotherCalculatedConstant ( ( 1 + 1 ) * testconst + 1 )
+		constant calculatedConstant (1 + 3)
+		constant anotherCalculatedConstant ((1 + 1) * testconst + 1)
 		
 		suite 6 * firstSuite
 		call 6 * integrity.fixtures.basic.noop.returnTrueCall
