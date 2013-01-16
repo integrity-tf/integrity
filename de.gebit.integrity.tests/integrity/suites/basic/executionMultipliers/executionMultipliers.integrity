@@ -17,6 +17,10 @@ packagedef integrity.basic.executionMultipliers with
 		call calculatedConstant * integrity.fixtures.basic.noop.returnTrueCall
 		suite anotherCalculatedConstant * firstSuite
 		call anotherCalculatedConstant * integrity.fixtures.basic.noop.returnTrueCall
+		suite aFirstGlobalConstant * secondSuite
+		call aFirstGlobalConstant * integrity.fixtures.basic.noop.returnTrueCall
+		suite aSecondGlobalConstant * firstSuite
+		call aSecondGlobalConstant * integrity.fixtures.basic.noop.returnTrueCall
 	
 	suiteend
 	

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="16.01.13 01:52" isotimestamp="2013-01-16T01:52:08" duration="7.052">
+  <variables />
+  <suite id="0" name="integrity.basic.xmlresult.urls">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="5">
+        A comment with a full URL:
+        <a href="http://www.google.de">http://www.google.de</a>
+      </comment>
+      <comment id="2" line="7">
+        A comment with a relative URL:
+        <a href="./blah/blub/foobar.html">./blah/blub/foobar.html</a>
+        and some more text behind it
+      </comment>
+      <comment id="3" line="9">
+        A comment with a full Markdown-style URL:
+        <a href="http://www.google.de">Google Search</a>
+      </comment>
+      <comment id="4" line="11">
+        A comment with a relative Markdown-style URL:
+        <a href="./blah/blub/foobar.html">foobar</a>
+      </comment>
+      <call id="5" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue">
+        <parameters />
+        <result duration="0.290" type="success" />
+      </call>
+    </statements>
+    <teardown />
+    <result duration="4.356" successCount="0" failureCount="0" exceptionCount="0" />
+  </suite>
+</integrity>
+

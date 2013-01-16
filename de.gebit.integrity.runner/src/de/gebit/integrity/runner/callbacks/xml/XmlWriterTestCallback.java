@@ -1182,15 +1182,50 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The pattern for URL detection.
 	 */
-	protected static final Pattern URL_PATTERN = Pattern.compile("(.*?)(\\w+://\\S+)(.*)");
+	protected static final Pattern URL_PATTERN = Pattern.compile("(.*?)((?:(?:\\w+://)|(?:\\./))\\S+)(.*)");
+
+	protected static final Pattern MARKDOWN_URL_PATTERN = Pattern
+			.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
 
 	/**
 	 * Parses a comment into a list of {@link Content} elements. This takes care of URLs embedded in the comment.
 	 */
 	protected List<Content> parseComment(String aCommment) {
 		List<Content> tempList = new ArrayList<Content>();
+		tempList.add(new Text(aCommment));
 
-		String tempTextLeft = aCommment;
+		outer: while (true) {
+			int i;
+			for (i = 0; i < tempList.size(); i++) {
+				Content tempElement = tempList.get(i);
+				if (tempElement instanceof Text) {
+					List<Content> tempInnerList = detectMarkdownURLs(((Text) tempElement).getText());
+					if (tempInnerList.size() > 1) {
+						tempList.remove(i);
+						tempList.addAll(i, tempInnerList);
+						break;
+					}
+
+					tempInnerList = detectSimpleURLs(((Text) tempElement).getText());
+					if (tempInnerList.size() > 1) {
+						tempList.remove(i);
+						tempList.addAll(i, tempInnerList);
+						break;
+					}
+				}
+			}
+			if (i >= tempList.size()) {
+				break outer;
+			}
+		}
+
+		return tempList;
+	}
+
+	protected List<Content> detectSimpleURLs(String aText) {
+		List<Content> tempElementList = new ArrayList<Content>();
+
+		String tempTextLeft = aText;
 		Matcher tempMatcher = URL_PATTERN.matcher(tempTextLeft);
 		while (tempMatcher.matches()) {
 			String tempPrefix = tempMatcher.group(1);
@@ -1198,23 +1233,54 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			String tempSuffix = tempMatcher.group(3);
 
 			if (tempPrefix != null && tempPrefix.length() > 0) {
-				tempList.add(new Text(tempPrefix));
+				tempElementList.add(new Text(tempPrefix));
 			}
 
 			Element tempAnchorElement = new Element("a");
 			tempAnchorElement.setAttribute("href", tempUrl);
 			tempAnchorElement.setText(tempUrl);
-			tempList.add(tempAnchorElement);
+			tempElementList.add(tempAnchorElement);
 
 			tempTextLeft = tempSuffix;
 			tempMatcher = URL_PATTERN.matcher(tempTextLeft);
 		}
 
 		if (tempTextLeft != null && tempTextLeft.length() > 0) {
-			tempList.add(new Text(tempTextLeft));
+			tempElementList.add(new Text(tempTextLeft));
 		}
 
-		return tempList;
+		return tempElementList;
+	}
+
+	protected List<Content> detectMarkdownURLs(String aText) {
+		List<Content> tempElementList = new ArrayList<Content>();
+
+		String tempTextLeft = aText;
+		Matcher tempMatcher = MARKDOWN_URL_PATTERN.matcher(tempTextLeft);
+		while (tempMatcher.matches()) {
+			String tempPrefix = tempMatcher.group(1);
+			String tempName = tempMatcher.group(2);
+			String tempUrl = tempMatcher.group(3);
+			String tempSuffix = tempMatcher.group(4);
+
+			if (tempPrefix != null && tempPrefix.length() > 0) {
+				tempElementList.add(new Text(tempPrefix));
+			}
+
+			Element tempAnchorElement = new Element("a");
+			tempAnchorElement.setAttribute("href", tempUrl);
+			tempAnchorElement.setText(tempName);
+			tempElementList.add(tempAnchorElement);
+
+			tempTextLeft = tempSuffix;
+			tempMatcher = URL_PATTERN.matcher(tempTextLeft);
+		}
+
+		if (tempTextLeft != null && tempTextLeft.length() > 0) {
+			tempElementList.add(new Text(tempTextLeft));
+		}
+
+		return tempElementList;
 	}
 
 	@Override

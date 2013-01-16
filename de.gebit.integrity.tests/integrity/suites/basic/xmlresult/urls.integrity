@@ -1,0 +1,17 @@
+packagedef integrity.basic.xmlresult with
+
+	suitedef urls with
+		
+		-- A comment with a full URL: http://www.google.de
+		
+		-- A comment with a relative URL: ./blah/blub/foobar.html and some more text behind it
+		
+		-- A comment with a full Markdown-style URL: [Google Search](http://www.google.de)
+		
+		-- A comment with a relative Markdown-style URL: [foobar](./blah/blub/foobar.html)
+		
+		call integrity.fixtures.basic.noop.returnTrueCall
+	
+	suiteend
+
+packageend
