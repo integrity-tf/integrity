@@ -676,17 +676,19 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		if (!isDryRun()) {
-			Element tempResultCollectionElement = currentElement.pop();
+		Element tempResultCollectionElement = currentElement.peek();
+		if (aResult.getExecutionTime() != null) {
 			tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
 					nanoTimeToString(aResult.getExecutionTime()));
-			tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getSubTestSuccessCount()));
-			tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getSubTestFailCount()));
-			tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getSubTestExceptionCount()));
+		}
+		tempResultCollectionElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestSuccessCount()));
+		tempResultCollectionElement.setAttribute(FAILURE_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestFailCount()));
+		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
+				Integer.toString(aResult.getSubTestExceptionCount()));
 
+		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
 			}
@@ -701,6 +703,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a result collection element
 	 */
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
+		currentElement.pop(); // remove result collection element from stack first
 		currentElement.pop().addContent(aResultCollectionElement);
 	}
 
