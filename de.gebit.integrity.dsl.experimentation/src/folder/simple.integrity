@@ -2,19 +2,22 @@ import mypackage.*
 
 packagedef mypackage with
 
-	constant blah 3
-	
+	constant blah (1 + 2)
+
+	forkdef testfork	
 
 	suitedef asuite with
-		suite 3 * bsuite
-		
-		-- Visible comment with < and >		 
-		// test stupidtest
-	suiteend
-		
-	suitedef bsuite with
-		// call wait seconds: ("1" .. "2")
+		suite bsuite on testfork
 		call wait seconds: 1
 	suiteend
+	
+	suitedef bsuite with
+		test addition summand1: 1 summand2: 2 = 3
+	suiteend
+		
+	/*suitedef bsuite gets aVariable with
+		constant aConstant aVariable
+		call aConstant * wait seconds: 1
+	suiteend*/
 	
 packageend

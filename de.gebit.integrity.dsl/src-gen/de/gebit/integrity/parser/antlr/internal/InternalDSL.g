@@ -1191,9 +1191,9 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getParametersConstantEntityParserRuleCall_4_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getParametersVariableEntityParserRuleCall_4_2_0_0()); 
 	    }
-		lv_parameters_6_0=ruleConstantEntity		{
+		lv_parameters_6_0=ruleVariableEntity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
 	        }
@@ -1201,7 +1201,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"ConstantEntity");
+        		"VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 

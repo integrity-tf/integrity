@@ -625,7 +625,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
 		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
 		private final Assignment cParametersAssignment_4_2_0 = (Assignment)cGroup_4_2.eContents().get(0);
-		private final RuleCall cParametersConstantEntityParserRuleCall_4_2_0_0 = (RuleCall)cParametersAssignment_4_2_0.eContents().get(0);
+		private final RuleCall cParametersVariableEntityParserRuleCall_4_2_0_0 = (RuleCall)cParametersAssignment_4_2_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_4_2_1 = (RuleCall)cGroup_4_2.eContents().get(1);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cRequiresKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
@@ -652,14 +652,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SuiteDefinition:
 		//
-		//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=ConstantEntity NL)*)? ("requires" NL
+		//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
 		//
 		//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
 		//
 		//	NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL;
 		public ParserRule getRule() { return rule; }
 
-		//"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=ConstantEntity NL)*)? ("requires" NL
+		//"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
 		//
 		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
 		//
@@ -681,7 +681,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
-		//("gets" NL (parameters+=ConstantEntity NL)*)?
+		//("gets" NL (parameters+=VariableEntity NL)*)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"gets"
@@ -690,14 +690,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
 
-		//(parameters+=ConstantEntity NL)*
+		//(parameters+=VariableEntity NL)*
 		public Group getGroup_4_2() { return cGroup_4_2; }
 
-		//parameters+=ConstantEntity
+		//parameters+=VariableEntity
 		public Assignment getParametersAssignment_4_2_0() { return cParametersAssignment_4_2_0; }
 
-		//ConstantEntity
-		public RuleCall getParametersConstantEntityParserRuleCall_4_2_0_0() { return cParametersConstantEntityParserRuleCall_4_2_0_0; }
+		//VariableEntity
+		public RuleCall getParametersVariableEntityParserRuleCall_4_2_0_0() { return cParametersVariableEntityParserRuleCall_4_2_0_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_4_2_1() { return cNLParserRuleCall_4_2_1; }
@@ -3450,7 +3450,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SuiteDefinition:
 	//
-	//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=ConstantEntity NL)*)? ("requires" NL
+	//	"suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
 	//
 	//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
 	//

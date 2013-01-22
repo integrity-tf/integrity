@@ -12741,8 +12741,8 @@ rule__SuiteDefinition__ParametersAssignment_4_2_0
     }
 :
 (
-{ before(grammarAccess.getSuiteDefinitionAccess().getParametersConstantEntityParserRuleCall_4_2_0_0()); }
-	ruleConstantEntity{ after(grammarAccess.getSuiteDefinitionAccess().getParametersConstantEntityParserRuleCall_4_2_0_0()); }
+{ before(grammarAccess.getSuiteDefinitionAccess().getParametersVariableEntityParserRuleCall_4_2_0_0()); }
+	ruleVariableEntity{ after(grammarAccess.getSuiteDefinitionAccess().getParametersVariableEntityParserRuleCall_4_2_0_0()); }
 )
 
 ;

@@ -13,7 +13,6 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.JavaTypeUtil;
-import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * Abstract base class for operator nodes. An operator node is a node in the AST built to evaluate
@@ -104,16 +103,12 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 			Class<?> tempLeftOperandType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[0];
 			Class<?> tempRightOperandType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[1];
 
-			try {
-				LEFT tempConvertedLeftOperand = (LEFT) valueConverter.convertValue(tempLeftOperandType,
-						getEvaluatedLeftOperand(), UnresolvableVariableHandling.EXCEPTION);
-				RIGHT tempConvertedRightOperand = (RIGHT) valueConverter.convertValue(tempRightOperandType,
-						getEvaluatedRightOperand(), UnresolvableVariableHandling.EXCEPTION);
+			LEFT tempConvertedLeftOperand = (LEFT) valueConverter.convertValue(tempLeftOperandType,
+					getEvaluatedLeftOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			RIGHT tempConvertedRightOperand = (RIGHT) valueConverter.convertValue(tempRightOperandType,
+					getEvaluatedRightOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-				return evaluateInternal(tempConvertedLeftOperand, tempConvertedRightOperand);
-			} catch (UnresolvableVariableException exc) {
-				throw new UnexecutableException(exc.getMessage(), exc);
-			}
+			return evaluateInternal(tempConvertedLeftOperand, tempConvertedRightOperand);
 		} else {
 			throw new IllegalArgumentException("Was unable to find valid generic Conversion superinterface");
 		}

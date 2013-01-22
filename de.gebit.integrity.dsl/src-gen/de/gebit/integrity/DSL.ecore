@@ -54,7 +54,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SuiteDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//ConstantEntity" containment="true"/>
+        eType="#//VariableEntity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" unique="false"
         upperBound="-1" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="finalizers" unique="false"

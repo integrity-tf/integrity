@@ -580,10 +580,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				tempResult = (String[]) convertPlainValueToParamType(String[].class, null, aValue,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			}
-		} catch (ConversionException exc) {
-			exc.printStackTrace();
-			return new String[] { "FAILURE" };
 		} catch (UnresolvableVariableException exc) {
+			// This is expected to happen - for example in case of operations depending on undefined variables.
+			return new String[] { "???" };
+		} catch (ConversionException exc) {
 			exc.printStackTrace();
 			return new String[] { "FAILURE" };
 		} catch (UnexecutableException exc) {

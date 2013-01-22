@@ -893,7 +893,7 @@ public class DefaultTestRunner implements TestRunner {
 			tempInitialValue = anInitialValue;
 		}
 
-		variableManager.set(anEntity, tempInitialValue);
+		setVariableValue(anEntity, tempInitialValue, false);
 		if (currentCallback != null) {
 			if (anEntity instanceof VariableEntity) {
 				currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
@@ -918,8 +918,8 @@ public class DefaultTestRunner implements TestRunner {
 		variableManager.set(anEntity, aValue);
 		if (aDoSendUpdateFlag) {
 			if (isFork()) {
-				// A fork will have to send updates to its master
-				if (remotingServer != null) {
+				// A fork will have to send updates to its master, but not for constants, as the master has those anyway
+				if (remotingServer != null && !(anEntity instanceof ConstantEntity)) {
 					String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true);
 					if (aValue == null || (aValue instanceof Serializable)) {
 						remotingServer.sendVariableUpdate(tempName, (Serializable) aValue);
@@ -1770,7 +1770,8 @@ public class DefaultTestRunner implements TestRunner {
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)
 			for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
-				if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)) {
+				if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)
+						&& !(tempEntry.getKey() instanceof ConstantEntity)) {
 					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
 				}
 			}

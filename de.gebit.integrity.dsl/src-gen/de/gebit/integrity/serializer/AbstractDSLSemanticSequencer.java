@@ -1208,7 +1208,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         parameters+=ConstantEntity* 
+	 *         parameters+=VariableEntity* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 
 	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
 	 *         statements+=SuiteStatement*

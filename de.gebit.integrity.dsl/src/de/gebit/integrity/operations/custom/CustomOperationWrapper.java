@@ -83,21 +83,18 @@ public class CustomOperationWrapper {
 	 * 
 	 * @return the result of the operation
 	 * @throws UnexecutableException
-	 *             if the operation cannot be executed because it depends on variables which are not defined
-	 * @throws InstantiationException
-	 *             the instantiation exception
-	 * @throws ClassNotFoundException
-	 *             the class not found exception
+	 *             if the operation cannot be executed for any reason
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Object executeOperation() throws UnexecutableException, InstantiationException, ClassNotFoundException {
+	public Object executeOperation() throws UnexecutableException {
 		de.gebit.integrity.operations.custom.Operation tempOperationInstance;
 
 		try {
 			tempOperationInstance = operationClass.newInstance();
 		} catch (IllegalAccessException exc) {
-			throw new IllegalArgumentException("Caught exception when trying to instantiate operation class '"
-					+ operationClass + "'", exc);
+			throw new UnexecutableException(exc);
+		} catch (InstantiationException exc) {
+			throw new UnexecutableException(exc);
 		}
 
 		Object tempConvertedPrefixParameter = null;

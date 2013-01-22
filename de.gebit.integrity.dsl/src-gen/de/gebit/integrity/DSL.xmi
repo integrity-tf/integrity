@@ -248,7 +248,7 @@
         <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
           </elements>
           <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
         </elements>
