@@ -88,6 +88,7 @@ import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -325,6 +326,8 @@ public class DefaultTestRunner implements TestRunner {
 	 *            the port on which the remoting server should listen, or null if remoting should be disabled
 	 * @param aRemotingBindHost
 	 *            the host name (or IP) to which the remoting server should bind
+	 * @param aRandomSeed
+	 *            the seed for the {@link RandomNumberOperation} (optional; randomly determined if not given).
 	 * @param someCommandLineArguments
 	 *            all command line arguments as given to the original Java programs' main routine (required for
 	 *            forking!)
@@ -332,7 +335,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *             if the remoting server startup fails
 	 */
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
-			TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost,
+			TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed,
 			String[] someCommandLineArguments) throws IOException {
 		model = aModel;
 		callback = aCallback;
@@ -341,6 +344,17 @@ public class DefaultTestRunner implements TestRunner {
 			((CompoundTestRunnerCallback) callback).injectDependencies(injector);
 		} else {
 			injector.injectMembers(callback);
+		}
+
+		if (aRandomSeed != null) {
+			RandomNumberOperation.seed(aRandomSeed);
+		} else {
+			String tempRandomSeed = System.getProperty(Forker.SYSPARAM_FORK_SEED);
+			if (tempRandomSeed != null) {
+				RandomNumberOperation.seed(Long.parseLong(tempRandomSeed));
+			} else {
+				RandomNumberOperation.seed(null);
+			}
 		}
 
 		parameterizedConstantValues = someParameterizedConstants;
@@ -506,6 +520,7 @@ public class DefaultTestRunner implements TestRunner {
 		// Soft reset doesn't clear constants
 		variableManager.clear(!aSoftResetFlag);
 		setupSuitesExecuted.clear();
+		RandomNumberOperation.reSeed();
 	}
 
 	/**
@@ -745,6 +760,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected Map<SuiteStatementWithResult, List<? extends Result>> executeSuite(SuiteDefinition aSuite) {
 		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = new LinkedHashMap<SuiteStatementWithResult, List<? extends Result>>();
 
+		List<VariableOrConstantEntity> tempDefinedVariables = new ArrayList<VariableOrConstantEntity>();
+
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof Suite) {
 				Suite tempSuite = (Suite) tempStatement;
@@ -776,8 +793,10 @@ public class DefaultTestRunner implements TestRunner {
 				tempInnerList.addAll(executeCall((Call) tempStatement));
 				tempResults.put((Call) tempStatement, tempInnerList);
 			} else if (tempStatement instanceof VariableDefinition) {
+				tempDefinedVariables.add(((VariableDefinition) tempStatement).getName());
 				defineVariable((VariableDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof ConstantDefinition) {
+				tempDefinedVariables.add(((ConstantDefinition) tempStatement).getName());
 				defineConstant((ConstantDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
@@ -797,6 +816,10 @@ public class DefaultTestRunner implements TestRunner {
 							(VisibleDivider) tempStatement);
 				}
 			}
+		}
+
+		for (VariableOrConstantEntity tempEntity : tempDefinedVariables) {
+			variableManager.unset(tempEntity);
 		}
 
 		return tempResults;
@@ -846,7 +869,7 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite) {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
 		// the actual test run.
-		if (currentPhase == Phase.DRY_RUN) {
+		if (currentPhase == Phase.DRY_RUN || !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
 			Object tempValue;
 			if (aValue == null) {
 				try {

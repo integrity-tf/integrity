@@ -42,6 +42,11 @@ public class DefaultVariableManager implements VariableManager {
 	}
 
 	@Override
+	public void unset(VariableOrConstantEntity anEntity) {
+		variableMap.remove(anEntity);
+	}
+
+	@Override
 	public Set<Entry<VariableOrConstantEntity, Object>> getAllEntries() {
 		return variableMap.entrySet();
 	}

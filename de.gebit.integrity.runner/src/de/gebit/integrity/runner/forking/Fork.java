@@ -30,6 +30,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -194,7 +195,7 @@ public class Fork {
 		}
 
 		wasStarted = true;
-		process = forker.fork(commandLineArguments, definition.getName());
+		process = forker.fork(commandLineArguments, definition.getName(), RandomNumberOperation.getSeed());
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");

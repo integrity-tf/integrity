@@ -82,7 +82,7 @@ public abstract class IntegrityJUnitTest {
 							TransformHandling.NO_TRANSFORM));
 
 			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(),
-					null, null, null);
+					null, null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 

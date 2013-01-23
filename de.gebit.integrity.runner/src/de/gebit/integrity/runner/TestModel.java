@@ -434,6 +434,9 @@ public class TestModel {
 	 *            the port on which the remoting server should listen, or null if remoting should be disabled
 	 * @param aRemotingBindHost
 	 *            the host name (or IP) to which the remoting server should bind
+	 * @param aRandomSeed
+	 *            the seed for the {@link de.gebit.integrity.runner.operations.RandomNumberOperation;} (optional;
+	 *            randomly determined if not given).
 	 * @param someCommandLineArguments
 	 *            all command line arguments as given to the original Java programs' main routine (required for
 	 *            forking!)
@@ -443,11 +446,11 @@ public class TestModel {
 	 */
 	public TestRunner initializeTestRunner(TestRunnerCallback aCallback,
 			Map<String, String> someParameterizedConstants, Integer aRemotingPort, String aRemotingBindHost,
-			String[] someCommandLineArguments) throws IOException {
+			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
 		TestRunner tempRunner = injector.getInstance(TestRunner.class);
 
 		((DefaultTestRunner) tempRunner).initialize(this, someParameterizedConstants, aCallback, aRemotingPort,
-				aRemotingBindHost, someCommandLineArguments);
+				aRemotingBindHost, aRandomSeed, someCommandLineArguments);
 
 		return tempRunner;
 	}

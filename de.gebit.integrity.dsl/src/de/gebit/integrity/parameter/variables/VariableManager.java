@@ -27,7 +27,7 @@ public interface VariableManager {
 
 	/**
 	 * Sets a value for a specific variable. This is also used to define constants, as constants are technically also
-	 * {@link VariableEntity} instances (
+	 * {@link de.gebit.integrity.dsl.VariableEntity} instances (
 	 * 
 	 * @param anEntity
 	 *            the variable entity
@@ -35,6 +35,14 @@ public interface VariableManager {
 	 *            the value to set
 	 */
 	void set(VariableOrConstantEntity anEntity, Object aValue);
+
+	/**
+	 * Unsets the specific variable or constant.
+	 * 
+	 * @param anEntity
+	 *            the variable entity
+	 */
+	void unset(VariableOrConstantEntity anEntity);
 
 	/**
 	 * Clears all stored variable values.

@@ -81,10 +81,12 @@ public final class ConsoleTestExecutor {
 		SimpleCommandLineParser.StringOption tempParameterizedConstantOption = new SimpleCommandLineParser.StringOption(
 				"p", "parameter", "Define a parameterized constants' value (can be used multiple times!)",
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
+		SimpleCommandLineParser.LongOption tempSeedOption = new SimpleCommandLineParser.LongOption(null, "seed",
+				"Sets the seed number to use for the RNG custom operation", "[{--seed} number]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempNoResolveAllReferences, tempParameterizedConstantOption);
+				tempNoResolveAllReferences, tempParameterizedConstantOption, tempSeedOption);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -172,9 +174,11 @@ public final class ConsoleTestExecutor {
 					tempRemoteHost = tempRemoteHostOption.getValue("0.0.0.0");
 				}
 
+				Long tempSeed = tempSeedOption.getValue();
+
 				try {
 					tempRunner = tempModel.initializeTestRunner(tempCallback, tempParameterizedConstants,
-							tempRemotePort, tempRemoteHost, someArgs);
+							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
 					tempRunner.run(tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();

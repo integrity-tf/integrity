@@ -24,16 +24,23 @@ public interface Forker {
 	String SYSPARAM_FORK_NAME = "integrity.fork.name";
 
 	/**
+	 * System parameter for the forks' RNG seed.
+	 */
+	String SYSPARAM_FORK_SEED = "integrity.fork.seed";
+
+	/**
 	 * Performs the actual forking.
 	 * 
 	 * @param someCommandLineArguments
 	 *            the original command line arguments given to the JVM of the parent process
 	 * @param aForkName
 	 *            the name of the fork
+	 * @param aRandomSeed
+	 *            the seed for the RNG of the fork
 	 * @return the newly created process
 	 * @throws ForkException
 	 *             if something goes wrong
 	 */
-	ForkedProcess fork(String[] someCommandLineArguments, String aForkName) throws ForkException;
+	ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed) throws ForkException;
 
 }

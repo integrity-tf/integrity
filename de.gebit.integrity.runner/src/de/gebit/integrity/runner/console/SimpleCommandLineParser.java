@@ -540,4 +540,64 @@ public class SimpleCommandLineParser {
 		}
 	}
 
+	/**
+	 * Long option.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
+	public static class LongOption extends ValueOption<Long> {
+
+		/**
+		 * Creates a long option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 */
+		public LongOption(String aShortName, String aLongName) {
+			this(aShortName, aLongName, null);
+		}
+
+		/**
+		 * Creates a new integer option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 */
+		public LongOption(String aShortName, String aLongName, String aDescription) {
+			this(aShortName, aLongName, aDescription, null);
+		}
+
+		/**
+		 * Creates a new integer option.
+		 * 
+		 * @param aShortName
+		 *            The short name of the option. Usually just one character.
+		 * @param aLongName
+		 *            The long name of the option, generelly a comprehendable, but not-too-long string.
+		 * @param aDescription
+		 *            The command line help string for this option.
+		 * @param aCommandLine
+		 *            The description for the help.
+		 */
+		public LongOption(String aShortName, String aLongName, String aDescription, String aCommandLine) {
+			super(aShortName, aLongName, aDescription, aCommandLine);
+		}
+
+		/**
+		 * Sets a value.
+		 */
+		protected void addValue(String aValue) {
+			addValueInternal(Long.parseLong(aValue));
+		}
+
+	}
+
 }

@@ -530,4 +530,15 @@ public final class IntegrityDSLUtil {
 
 		return tempValue;
 	}
+
+	/**
+	 * Checks whether the given variable/constant entity is defined in a global (package) context.
+	 * 
+	 * @param anEntity
+	 *            the entity to check
+	 * @return true if globally defined, false if defined in a suite
+	 */
+	public static boolean isGlobalVariableOrConstant(VariableOrConstantEntity anEntity) {
+		return (anEntity.eContainer().eContainer() instanceof PackageDefinition);
+	}
 }

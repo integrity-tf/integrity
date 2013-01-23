@@ -32,10 +32,11 @@ public class DefaultForker implements Forker {
 			+ "bin" + File.separatorChar + "java";
 
 	@Override
-	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName) throws ForkException {
+	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed)
+			throws ForkException {
 		int tempPortNumber = getFreePort();
 
-		List<String> tempArgs = createArgumentList(someCommandLineArguments, tempPortNumber, aForkName);
+		List<String> tempArgs = createArgumentList(someCommandLineArguments, tempPortNumber, aForkName, aRandomSeed);
 		return createProcess(tempArgs, tempPortNumber);
 	}
 
@@ -48,16 +49,19 @@ public class DefaultForker implements Forker {
 	 *            the port number to use by the fork
 	 * @param aForkName
 	 *            the name for the new fork
+	 * @param aRandomSeed
+	 *            the seed for the RNG of the fork
 	 * @return the argument list
 	 */
-	protected List<String> createArgumentList(String[] someCommandLineArguments, int aPortNumber, String aForkName) {
+	protected List<String> createArgumentList(String[] someCommandLineArguments, int aPortNumber, String aForkName,
+			long aRandomSeed) {
 		List<String> tempArgs = new ArrayList<String>();
 
 		addJavaExecutable(tempArgs);
 
 		addClassPath(tempArgs);
 
-		addForkInformation(tempArgs, aPortNumber, aForkName);
+		addForkInformation(tempArgs, aPortNumber, aForkName, aRandomSeed);
 
 		addJVMArguments(tempArgs);
 
@@ -103,10 +107,13 @@ public class DefaultForker implements Forker {
 	 *            the port number for the fork
 	 * @param aForkName
 	 *            the name for the fork
+	 * @param aRandomSeed
+	 *            the seed for the RNG of the fork
 	 */
-	protected void addForkInformation(List<String> anArgumentList, int aPortNumber, String aForkName) {
+	protected void addForkInformation(List<String> anArgumentList, int aPortNumber, String aForkName, long aRandomSeed) {
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_PORT + "=" + aPortNumber);
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_NAME + "=" + aForkName);
+		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_SEED + "=" + aRandomSeed);
 	}
 
 	/**

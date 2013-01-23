@@ -382,7 +382,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP_ISO8601, ISO_DATE_FORMAT.format(new Date()));
 		document = new Document(tempRootElement);
-		currentElement.push(tempRootElement);
+		stackPush(tempRootElement);
 
 		if (!isFork()) {
 			if (transformHandling == TransformHandling.EMBED_TRANSFORM) {
@@ -445,14 +445,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a suite element
 	 */
 	protected void internalOnSuiteStart(Element aSuiteElement) {
-		Element tempParentStatementElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempParentStatementElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		if (tempParentStatementElement == null) {
-			currentElement.peek().addContent(aSuiteElement);
+			stackPeek().addContent(aSuiteElement);
 		} else {
 			tempParentStatementElement.addContent(aSuiteElement);
 		}
 
-		currentElement.push(aSuiteElement);
+		stackPush(aSuiteElement);
 	}
 
 	@Override
@@ -479,8 +479,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a setup element
 	 */
 	protected void internalOnSetupStart(Element aSetupElement) {
-		currentElement.peek().getChild(SETUP_COLLECTION_ELEMENT).addContent(aSetupElement);
-		currentElement.push(aSetupElement);
+		stackPeek().getChild(SETUP_COLLECTION_ELEMENT).addContent(aSetupElement);
+		stackPush(aSetupElement);
 	}
 
 	@Override
@@ -511,7 +511,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a suite result element
 	 */
 	protected void internalOnSetupFinish(Element aSuiteResultElement) {
-		currentElement.pop().addContent(aSuiteResultElement);
+		stackPop().addContent(aSuiteResultElement);
 	}
 
 	@Override
@@ -552,9 +552,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a test element
 	 */
 	protected void internalOnTestStart(Element aTestElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aTestElement);
-		currentElement.push(aTestElement);
+		stackPush(aTestElement);
 	}
 
 	@Override
@@ -594,12 +594,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a test element
 	 */
 	protected void internalOnTableTestStart(Element aTestElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aTestElement);
-		currentElement.push(aTestElement);
+		stackPush(aTestElement);
 
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
-		currentElement.push(tempResultCollectionElement);
+		stackPush(tempResultCollectionElement);
 	}
 
 	@Override
@@ -646,7 +646,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a result collection element
 	 */
 	protected void internalOnTestFinish(Element aResultCollectionElement) {
-		currentElement.pop().addContent(aResultCollectionElement);
+		stackPop().addContent(aResultCollectionElement);
 	}
 
 	@Override
@@ -669,14 +669,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				exc.printStackTrace();
 			}
 
-			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), currentElement.peek(), aSubResult,
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), stackPeek(), aSubResult,
 					tempParameterMap);
 		}
 	}
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		Element tempResultCollectionElement = currentElement.peek();
+		Element tempResultCollectionElement = stackPeek();
 		if (aResult.getExecutionTime() != null) {
 			tempResultCollectionElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
 					nanoTimeToString(aResult.getExecutionTime()));
@@ -703,8 +703,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a result collection element
 	 */
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
-		currentElement.pop(); // remove result collection element from stack first
-		currentElement.pop().addContent(aResultCollectionElement);
+		stackPop(); // remove result collection element from stack first
+		stackPop().addContent(aResultCollectionElement);
 	}
 
 	/**
@@ -849,9 +849,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a call element
 	 */
 	protected void internalOnCallStart(Element aCallElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCallElement);
-		currentElement.push(aCallElement);
+		stackPush(aCallElement);
 	}
 
 	@Override
@@ -909,10 +909,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void internalOnCallFinish(Element aCallResultElement) {
 		if (aCallResultElement != null) {
-			currentElement.peek().addContent(aCallResultElement);
+			stackPeek().addContent(aCallResultElement);
 		}
 
-		currentElement.pop();
+		stackPop();
 	}
 
 	@Override
@@ -939,8 +939,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a tear down element
 	 */
 	protected void internalOnTearDownStart(Element aTearDownElement) {
-		currentElement.peek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(aTearDownElement);
-		currentElement.push(aTearDownElement);
+		stackPeek().getChild(TEARDOWN_COLLECTION_ELEMENT).addContent(aTearDownElement);
+		stackPush(aTearDownElement);
 	}
 
 	@Override
@@ -971,7 +971,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a suite result element
 	 */
 	protected void internalOnTearDownFinish(Element aSuiteResultElement) {
-		currentElement.pop().addContent(aSuiteResultElement);
+		stackPop().addContent(aSuiteResultElement);
 	}
 
 	@Override
@@ -1002,12 +1002,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a suite result element
 	 */
 	protected void internalOnSuiteFinish(Element aSuiteResultElement) {
-		currentElement.pop().addContent(aSuiteResultElement);
+		stackPop().addContent(aSuiteResultElement);
 	}
 
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
-		currentElement.pop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
+		stackPop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
 		if (!isFork()) {
 			FileOutputStream tempOutputStream;
@@ -1178,7 +1178,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a variable element
 	 */
 	protected void internalOnVariableDefinition(Element aVariableElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
@@ -1323,7 +1323,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a comment element
 	 */
 	protected void internalOnVisibleComment(Element aCommentElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCommentElement);
 	}
 
@@ -1334,7 +1334,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the divider element
 	 */
 	protected void internalOnVisibleDivider(Element aDividerElement) {
-		Element tempCollectionElement = currentElement.peek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aDividerElement);
 	}
 
@@ -1395,6 +1395,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];
+		// System.out.println("FORK: " + aMethod);
 
 		// dispatch message to matching internal... method
 		switch (aMethod) {
@@ -1414,7 +1415,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			internalOnTableTestStart(tempElement);
 			break;
 		case TEST_FINISH:
-			internalOnTableTestFinish(tempElement);
+			internalOnTestFinish(tempElement);
 			break;
 		case TABLE_TEST_FINISH:
 			internalOnTableTestFinish(tempElement);
@@ -1473,5 +1474,37 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			int tempLine = tempNode.getStartLine();
 			anElement.setAttribute(LINE_NUMBER_ATTRIBUTE, Integer.toString(tempLine));
 		}
+	}
+
+	/**
+	 * Pops an element from the stack.
+	 * 
+	 * @return
+	 */
+	protected Element stackPop() {
+		Element tempElement = currentElement.pop();
+		// System.out.println("POP: " + tempElement);
+		return tempElement;
+	}
+
+	/**
+	 * Pushes an element on the stack.
+	 * 
+	 * @param anElement
+	 */
+	protected void stackPush(Element anElement) {
+		// System.out.println("PUSH: " + anElement);
+		currentElement.push(anElement);
+	}
+
+	/**
+	 * Peeks onto the stack.
+	 * 
+	 * @return
+	 */
+	protected Element stackPeek() {
+		Element tempElement = currentElement.peek();
+		// System.out.println("PEEK: " + tempElement);
+		return tempElement;
 	}
 }
