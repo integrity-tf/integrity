@@ -49,7 +49,6 @@ public class RandomNumberOperation implements Operation<Object, Integer, BigDeci
 		} else {
 			seed = aSeed;
 		}
-		System.out.println("SEED: " + seed);
 		reSeed();
 	}
 
