@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="16.01.13 01:52" isotimestamp="2013-01-16T01:52:08" duration="7.052">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:46" duration="4.647">
   <variables />
   <suite id="0" name="integrity.basic.xmlresult.urls">
     <setup />
@@ -24,11 +24,11 @@
       </comment>
       <call id="5" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue">
         <parameters />
-        <result duration="0.290" type="success" />
+        <result duration="0.102" type="success" />
       </call>
     </statements>
     <teardown />
-    <result duration="4.356" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="3.613" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

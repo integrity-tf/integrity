@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:18" duration="14.079">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:42" duration="10.616">
   <variables />
   <suite id="0" name="integrity.basic.divider.divider">
     <setup />
@@ -7,30 +7,30 @@
     <statements>
       <call id="1" line="6" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
         <parameters />
-        <result duration="0.187" type="success" />
+        <result duration="0.824" type="success" />
       </call>
       <divider id="2" line="8" text="---" />
       <call id="3" line="10" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
         <parameters />
-        <result duration="0.041" type="success" />
+        <result duration="0.136" type="success" />
       </call>
       <comment id="4" line="12">This is a visible comment, not a divider!</comment>
       <call id="5" line="14" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
         <parameters />
-        <result duration="0.054" type="success" />
+        <result duration="0.106" type="success" />
       </call>
       <call id="6" line="15" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
         <parameters />
-        <result duration="0.036" type="success" />
+        <result duration="0.069" type="success" />
       </call>
       <divider id="7" line="18" text="-----------------------------------------------------------" />
       <call id="8" line="20" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
         <parameters />
-        <result duration="0.036" type="success" />
+        <result duration="0.056" type="success" />
       </call>
     </statements>
     <teardown />
-    <result duration="13.758" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="9.601" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

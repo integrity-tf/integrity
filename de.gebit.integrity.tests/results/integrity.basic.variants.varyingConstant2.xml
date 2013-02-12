@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:18" duration="18.152">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:40" duration="34.317">
   <variant name="var2" description="Variant 2" />
   <variables>
     <variable name="integrity.basic.variants.myConstant" value="300" />
@@ -9,8 +9,8 @@
     <variables />
     <statements>
       <test id="1" line="21" name="echoIntegerTest" description="Echo the integer '300'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.382" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.382" description="Echo the integer '300'" type="success">
+        <results duration="1.166" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.166" description="Echo the integer '300'" type="success">
             <parameters>
               <parameter name="integer" value="300" />
             </parameters>
@@ -22,7 +22,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="10.375" successCount="1" failureCount="0" exceptionCount="0" />
+    <result duration="10.944" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

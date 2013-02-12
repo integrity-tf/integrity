@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.12.12 03:14" isotimestamp="2012-12-18T03:14:19" duration="10.565">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:48" duration="9.885">
   <variables>
     <variable name="integrity.basic.variants.myConstant" value="100" />
   </variables>
@@ -17,19 +17,19 @@
             <statements>
               <call id="3" line="45" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp">
                 <parameters />
-                <result duration="0.025" type="success" />
+                <result duration="0.120" type="success" />
               </call>
             </statements>
             <teardown />
-            <result duration="6.799" successCount="0" failureCount="0" exceptionCount="0" />
+            <result duration="2.501" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
           </suite>
         </statements>
         <teardown />
-        <result duration="7.848" successCount="0" failureCount="0" exceptionCount="0" />
+        <result duration="3.208" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
     <teardown />
-    <result duration="9.909" successCount="0" failureCount="0" exceptionCount="0" />
+    <result duration="3.853" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="08.01.13 15:53" isotimestamp="2013-01-08T15:53:12" duration="111.024">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:45" duration="57.977">
   <variables />
   <suite id="0" name="integrity.basic.conversions.dateConversions">
     <setup />
@@ -11,13 +11,13 @@
         <parameters>
           <parameter name="calendar" value="January 1, 1970 11:00:00 AM CET" />
         </parameters>
-        <result duration="4.516" type="success">
+        <result duration="12.586" type="success">
           <variableUpdate name="temp" value="January 1, 1970 11:00:00 AM CET" />
         </result>
       </call>
       <test id="2" line="9" name="echoStringTest" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="1.102" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.102" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" type="success">
+        <results duration="1.240" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.240" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" type="success">
             <parameters>
               <parameter name="string" value="January 1, 1970 11:00:00 AM CET" />
             </parameters>
@@ -29,7 +29,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="105.869" successCount="1" failureCount="0" exceptionCount="0" />
+    <result duration="55.343" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

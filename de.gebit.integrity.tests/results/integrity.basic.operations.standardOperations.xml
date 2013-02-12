@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="14.01.13 00:36" isotimestamp="2013-01-14T00:36:00" duration="72.238">
+<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:41" duration="168.189">
   <variables />
   <suite id="0" name="integrity.basic.operations.standardOperations">
     <setup />
@@ -10,8 +10,8 @@
     </variables>
     <statements>
       <test id="1" line="8" name="echoIntegerTest" description="Echo the integer '2'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.433" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.433" description="Echo the integer '2'" type="success">
+        <results duration="1.186" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.186" description="Echo the integer '2'" type="success">
             <parameters>
               <parameter name="integer" value="2" />
             </parameters>
@@ -22,8 +22,8 @@
         </results>
       </test>
       <test id="2" line="9" name="echoIntegerTest" description="Echo the integer '4'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.274" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.274" description="Echo the integer '4'" type="success">
+        <results duration="0.673" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.673" description="Echo the integer '4'" type="success">
             <parameters>
               <parameter name="integer" value="4" />
             </parameters>
@@ -34,8 +34,8 @@
         </results>
       </test>
       <test id="3" line="10" name="echoIntegerTest" description="Echo the integer '10'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.272" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.272" description="Echo the integer '10'" type="success">
+        <results duration="1.055" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.055" description="Echo the integer '10'" type="success">
             <parameters>
               <parameter name="integer" value="10" />
             </parameters>
@@ -46,8 +46,8 @@
         </results>
       </test>
       <test id="4" line="11" name="echoIntegerTest" description="Echo the integer '10'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.270" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.270" description="Echo the integer '10'" type="success">
+        <results duration="0.979" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.979" description="Echo the integer '10'" type="success">
             <parameters>
               <parameter name="integer" value="10" />
             </parameters>
@@ -58,8 +58,8 @@
         </results>
       </test>
       <test id="5" line="12" name="echoIntegerTest" description="Echo the integer '16'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.258" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.258" description="Echo the integer '16'" type="success">
+        <results duration="0.366" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.366" description="Echo the integer '16'" type="success">
             <parameters>
               <parameter name="integer" value="16" />
             </parameters>
@@ -70,8 +70,8 @@
         </results>
       </test>
       <test id="6" line="14" name="echoBigDecimalTest" description="Echo the BigDecimal '1.5'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoBigDecimal">
-        <results duration="0.336" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.336" description="Echo the BigDecimal '1.5'" type="success">
+        <results duration="0.429" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.429" description="Echo the BigDecimal '1.5'" type="success">
             <parameters>
               <parameter name="bigdecimal" value="1.5" />
             </parameters>
@@ -82,8 +82,8 @@
         </results>
       </test>
       <test id="7" line="15" name="echoIntegerTest" description="Echo the integer '1.5'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.288" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.288" description="Echo the integer '1.5'" type="success">
+        <results duration="0.758" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.758" description="Echo the integer '1.5'" type="success">
             <parameters>
               <parameter name="integer" value="1.5" />
             </parameters>
@@ -94,8 +94,8 @@
         </results>
       </test>
       <test id="8" line="17" name="echoIntegerTest" description="Echo the integer '2'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.265" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.265" description="Echo the integer '2'" type="success">
+        <results duration="0.836" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.836" description="Echo the integer '2'" type="success">
             <parameters>
               <parameter name="integer" value="2" />
             </parameters>
@@ -106,8 +106,8 @@
         </results>
       </test>
       <test id="9" line="23" name="echoIntegerTest" description="Echo the integer '10'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.268" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.268" description="Echo the integer '10'" type="success">
+        <results duration="0.550" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.550" description="Echo the integer '10'" type="success">
             <parameters>
               <parameter name="integer" value="10" />
             </parameters>
@@ -118,8 +118,8 @@
         </results>
       </test>
       <test id="10" line="24" name="echoIntegerTest" description="Echo the integer '15'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="0.268" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.268" description="Echo the integer '15'" type="success">
+        <results duration="0.512" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.512" description="Echo the integer '15'" type="success">
             <parameters>
               <parameter name="integer" value="15" />
             </parameters>
@@ -130,8 +130,8 @@
         </results>
       </test>
       <test id="11" line="26" name="echoStringTest" description="Echo the string 'ab'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.173" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.173" description="Echo the string 'ab'" type="success">
+        <results duration="0.253" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.253" description="Echo the string 'ab'" type="success">
             <parameters>
               <parameter name="string" value="ab" />
             </parameters>
@@ -142,8 +142,8 @@
         </results>
       </test>
       <test id="12" line="27" name="echoStringTest" description="Echo the string 'a1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.173" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.173" description="Echo the string 'a1'" type="success">
+        <results duration="0.330" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.330" description="Echo the string 'a1'" type="success">
             <parameters>
               <parameter name="string" value="a1" />
             </parameters>
@@ -154,8 +154,8 @@
         </results>
       </test>
       <test id="13" line="28" name="echoStringTest" description="Echo the string 'a3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.175" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.175" description="Echo the string 'a3'" type="success">
+        <results duration="0.706" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.706" description="Echo the string 'a3'" type="success">
             <parameters>
               <parameter name="string" value="a3" />
             </parameters>
@@ -166,8 +166,8 @@
         </results>
       </test>
       <test id="14" line="29" name="echoStringTest" description="Echo the string '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString">
-        <results duration="0.212" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.212" description="Echo the string '3'" type="success">
+        <results duration="0.496" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.496" description="Echo the string '3'" type="success">
             <parameters>
               <parameter name="string" value="3" />
             </parameters>
@@ -179,7 +179,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="71.489" successCount="14" failureCount="0" exceptionCount="0" />
+    <result duration="165.331" successCount="14" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
