@@ -397,12 +397,15 @@ public class Fork {
 							SetListEntryAttributeKeys.SUCCESS_COUNT);
 					Integer tempFailureCount = tempEntry.getAttribute(Integer.class,
 							SetListEntryAttributeKeys.FAILURE_COUNT);
-					Integer tempExceptionCount = tempEntry.getAttribute(Integer.class,
-							SetListEntryAttributeKeys.EXCEPTION_COUNT);
-					if (tempSuccessCount != null && tempFailureCount != null && tempExceptionCount != null) {
+					Integer tempTestExceptionCount = tempEntry.getAttribute(Integer.class,
+							SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT);
+					Integer tempCallExceptionCount = tempEntry.getAttribute(Integer.class,
+							SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
+					if (tempSuccessCount != null && tempFailureCount != null && tempTestExceptionCount != null
+							&& tempCallExceptionCount != null) {
 						// ...must be a suite result!
 						lastResultSummary = new ForkResultSummary(tempSuccessCount, tempFailureCount,
-								tempExceptionCount);
+								tempTestExceptionCount, tempCallExceptionCount);
 					}
 				}
 			}

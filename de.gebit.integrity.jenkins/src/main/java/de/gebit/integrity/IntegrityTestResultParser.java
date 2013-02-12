@@ -94,7 +94,7 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 				tempCompoundTestResult.addChild(new IntegrityTestResult(tempCompoundTestResult, tempFile.getName(),
 						tempContentHandler.getTestName(), tempBuffer, tempContentType, tempContentHandler
 								.getSuccessCount(), tempContentHandler.getFailureCount(), tempContentHandler
-								.getExceptionCount()));
+								.getTestExceptionCount(), tempContentHandler.getCallExceptionCount()));
 			} catch (SAXException exc) {
 				aListener.getLogger().println("Exception while parsing Integrity result: " + exc.getMessage());
 			} finally {
@@ -132,9 +132,14 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 		private int failureCount;
 
 		/**
-		 * The number of exceptions.
+		 * The number of exceptions in tests.
 		 */
-		private int exceptionCount;
+		private int testExceptionCount;
+
+		/**
+		 * The number of exceptions in calls.
+		 */
+		private int callExceptionCount;
 
 		/**
 		 * The depth of the stack of suites at the moment.
@@ -159,8 +164,12 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 			return failureCount;
 		}
 
-		public int getExceptionCount() {
-			return exceptionCount;
+		public int getTestExceptionCount() {
+			return testExceptionCount;
+		}
+
+		public int getCallExceptionCount() {
+			return callExceptionCount;
 		}
 
 		public String getTestName() {
@@ -215,9 +224,14 @@ public class IntegrityTestResultParser extends DefaultTestResultParserImpl {
 							failureCount = Integer.parseInt(tempFailureCount);
 						}
 
-						String tempExceptionCount = someAttributes.getValue("exceptionCount");
-						if (tempExceptionCount != null) {
-							exceptionCount = Integer.parseInt(tempExceptionCount);
+						String tempTestExceptionCount = someAttributes.getValue("testExceptionCount");
+						if (tempTestExceptionCount != null) {
+							testExceptionCount = Integer.parseInt(tempTestExceptionCount);
+						}
+
+						String tempCallExceptionCount = someAttributes.getValue("callExceptionCount");
+						if (tempTestExceptionCount != null) {
+							callExceptionCount = Integer.parseInt(tempCallExceptionCount);
 						}
 
 						// When we've arrived here, we have parsed everything necessary out of the file!

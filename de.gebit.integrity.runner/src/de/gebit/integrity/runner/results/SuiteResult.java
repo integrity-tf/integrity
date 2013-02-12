@@ -78,32 +78,34 @@ public class SuiteResult extends SuiteSummaryResult {
 		// Counts are calculated and saved immediately.
 		int tempSuccessCount = 0;
 		int tempFailCount = 0;
-		int tempExceptionCount = 0;
+		int tempTestExceptionCount = 0;
+		int tempCallExceptionCount = 0;
 		for (Result tempResult : results) {
 			if (tempResult instanceof SuiteResult) {
 				tempSuccessCount += ((SuiteResult) tempResult).getTestSuccessCount();
 				tempFailCount += ((SuiteResult) tempResult).getTestFailCount();
-				tempExceptionCount += ((SuiteResult) tempResult).getTestExceptionCount();
+				tempTestExceptionCount += ((SuiteResult) tempResult).getTestExceptionCount();
+				tempCallExceptionCount += ((SuiteResult) tempResult).getCallExceptionCount();
 			} else if (tempResult instanceof SuiteSummaryResult) {
 				tempSuccessCount += ((SuiteSummaryResult) tempResult).getTestSuccessCount();
 				tempFailCount += ((SuiteSummaryResult) tempResult).getTestFailCount();
-				tempExceptionCount += ((SuiteSummaryResult) tempResult).getTestExceptionCount();
+				tempTestExceptionCount += ((SuiteSummaryResult) tempResult).getTestExceptionCount();
+				tempCallExceptionCount += ((SuiteSummaryResult) tempResult).getCallExceptionCount();
 			} else if (tempResult instanceof TestResult) {
 				tempSuccessCount += ((TestResult) tempResult).getSubTestSuccessCount();
 				tempFailCount += ((TestResult) tempResult).getSubTestFailCount();
-				tempExceptionCount += ((TestResult) tempResult).getSubTestExceptionCount();
+				tempTestExceptionCount += ((TestResult) tempResult).getSubTestExceptionCount();
 			} else if (tempResult instanceof CallResult) {
 				// Calls can only fail with exception or go through. But successful calls won't be counted, since the
 				// success count should only include tests (successful calls are the norm, successful tests should be,
-				// but failures are expected there). Exception counts however should include calls as well, everything
-				// else feels just strange.
+				// but failures are expected there). Call exceptions however are counted.
 				if (tempResult instanceof ExceptionResult) {
-					tempExceptionCount++;
+					tempCallExceptionCount++;
 				}
 			}
 		}
 
-		setResultCounts(tempSuccessCount, tempFailCount, tempExceptionCount);
+		setResultCounts(tempSuccessCount, tempFailCount, tempTestExceptionCount, tempCallExceptionCount);
 	}
 
 	public Map<SuiteStatementWithResult, List<? extends Result>> getResults() {

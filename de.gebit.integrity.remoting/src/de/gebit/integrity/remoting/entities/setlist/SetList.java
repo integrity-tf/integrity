@@ -119,8 +119,11 @@ public class SetList implements Serializable {
 				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) {
 					int tempFailureCount = (Integer) tempResultEntry
 							.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
-					int tempExceptionCount = (Integer) tempResultEntry
-							.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
+					int tempTestExceptionCount = (Integer) tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT);
+					int tempCallExceptionCount = (Integer) tempResultEntry
+							.getAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
+					int tempExceptionCount = tempTestExceptionCount + tempCallExceptionCount;
 					if (tempExceptionCount > 0) {
 						return SetListEntryResultStates.EXCEPTION;
 					} else if (tempFailureCount > 0) {

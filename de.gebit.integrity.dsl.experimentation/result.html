@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <xmldata style="display: none;">
-<integrity name="unnamed" timestamp="1/22/13 8:14 PM" isotimestamp="2013-01-22T20:14:31" duration="8375.048">
+<integrity name="unnamed" timestamp="2/12/13 12:30 PM" isotimestamp="2013-02-12T12:30:10" duration="56.439">
 <variables>
-<variable name="mypackage.blah" value="3"></variable>
 <variable name="mypackage.deeper.yeah" value="10"></variable>
 <variable name="mypackage.dummy" value="2"></variable>
 <variable name="mysecondpackage.morePackageVars" value="String!!!"></variable>
@@ -13,40 +12,110 @@
 <setup></setup>
 <variables></variables>
 <statements>
-<suite id="1" line="10" name="mypackage.bsuite" forkName="testfork">
+<suite id="1" line="8" name="mypackage.bsuite">
 <setup></setup>
 <variables></variables>
 <statements>
-<test id="2" line="15" name="addition" description="addition of 1 and 2" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#addition"></test>
-</statements>
-<teardown></teardown>
-<results duration="997.029" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="997.029" description="addition of 1 and 2" type="success">
-<parameters>
-<parameter name="summand1" value="1"></parameter>
-<parameter name="summand2" value="2"></parameter>
-</parameters>
-<comparisons>
-<comparison expectedValue="3" value="3" type="success"></comparison>
-</comparisons>
-</result>
-</results>
-</suite>
-<call id="3" line="11" name="wait" description="waits for 1 seconds" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#wait">
-<parameters>
-<parameter name="seconds" value="1"></parameter>
-</parameters>
-<result duration="1005.230" type="success"></result>
+<call id="2" line="14" name="exceptioncall" description="This always throws an exception. We're so doomed!" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException">
+<parameters></parameters>
+<result duration="1.842" type="exception" exceptionMessage="Holy shit!" exceptionTrace="java.lang.RuntimeException: Holy shit!
+	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeCallSingle(DefaultTestRunner.java:1401)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeCall(DefaultTestRunner.java:1350)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:793)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)
+	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)
+"></result>
 </call>
 </statements>
 <teardown></teardown>
-<result duration="8355.651" successCount="1" failureCount="0" exceptionCount="0"></result>
+<result duration="15.722" successCount="0" failureCount="0" exceptionCount="1" testExceptionCount="0" callExceptionCount="1"></result>
+</suite>
+<suite id="3" line="9" name="mypackage.bsuite">
+<setup></setup>
+<variables></variables>
+<statements>
+<call id="4" line="14" name="exceptioncall" description="This always throws an exception. We're so doomed!" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException">
+<parameters></parameters>
+<result duration="0.354" type="exception" exceptionMessage="Holy shit!" exceptionTrace="java.lang.RuntimeException: Holy shit!
+	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeCallSingle(DefaultTestRunner.java:1401)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeCall(DefaultTestRunner.java:1350)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:793)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)
+	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)
+"></result>
+</call>
+</statements>
+<teardown></teardown>
+<result duration="4.760" successCount="0" failureCount="0" exceptionCount="1" testExceptionCount="0" callExceptionCount="1"></result>
+</suite>
+<suite id="5" line="10" name="mypackage.csuite">
+<setup></setup>
+<variables></variables>
+<statements>
+<test id="6" line="18" name="exceptiontest" description="This always throws an exception. We're so doomed!" fixture="de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException">
+<results duration="0.198" successCount="0" failureCount="0" exceptionCount="1">
+<result duration="0.198" description="This always throws an exception. We're so doomed!" type="exception" exceptionMessage="Holy shit!" exceptionTrace="java.lang.RuntimeException: Holy shit!
+	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeTest(DefaultTestRunner.java:1046)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:785)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)
+	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)
+	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)
+	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)
+	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)
+	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)
+">
+<parameters></parameters>
+</result>
+</results>
+</test>
+</statements>
+<teardown></teardown>
+<result duration="5.020" successCount="0" failureCount="0" exceptionCount="1" testExceptionCount="1" callExceptionCount="0"></result>
+</suite>
+</statements>
+<teardown></teardown>
+<result duration="29.778" successCount="0" failureCount="0" exceptionCount="3" testExceptionCount="1" callExceptionCount="2"></result>
 </suite>
 </integrity>
 </xmldata>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Integration Test 'unnamed' Results (1/22/13 8:14 PM) - Integrity Test Framework</title>
+<title>Integration Test 'unnamed' Results (2/12/13 12:30 PM) - Integrity Test Framework</title>
 <style type="text/css">body { color: #000; background-color: #FFF;
 					font-family: Helvetica, Arial, sans-serif; font-size:12px; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
@@ -323,9 +392,9 @@
 </div>
 <div align="left" class="pagesubtitle">
               Started
-              <span class="pagesubtitlebold">1/22/13 8:14 PM</span>
+              <span class="pagesubtitlebold">2/12/13 12:30 PM</span>
               and took
-              <span class="pagesubtitlebold">8s375ms</span>
+              <span class="pagesubtitlebold">56ms</span>
               to complete
             </div>
 <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';"></canvas>
@@ -334,19 +403,39 @@
 <div id="viewport">
 <div id="navigation">
 <div id="navigation-header"></div>
-<div class="nav_suite nav_suitesuccess" style="background-position: -8px 0px;">
+<div class="nav_suite nav_suiteexception" style="background-position: -8px 0px;">
 <div class="nav_suitetitle">
 <a href="#i0">asuite</a>
 </div>
-<div class="nav_suiteresult nav_suitesuccess">1
-        ✔
+<div class="nav_suiteresult nav_suiteexception">3
+        ⚠
       </div>
-<div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
-<div class="nav_line nav_lineright"></div>
+<div class="nav_suite nav_suiteexception" style="background-position: 8px 0px;">
+<div class="nav_line nav_linedownright"></div>
 <div class="nav_suitetitle">
 <a href="#i1">bsuite</a>
 </div>
-<div class="nav_suiteresult nav_suitesuccess"></div>
+<div class="nav_suiteresult nav_suiteexception">1
+        ⚠
+      </div>
+</div>
+<div class="nav_suite nav_suiteexception" style="background-position: 8px 0px;">
+<div class="nav_line nav_linedownright"></div>
+<div class="nav_suitetitle">
+<a href="#i3">bsuite</a>
+</div>
+<div class="nav_suiteresult nav_suiteexception">1
+        ⚠
+      </div>
+</div>
+<div class="nav_suite nav_suiteexception" style="background-position: 8px 0px;">
+<div class="nav_line nav_lineright"></div>
+<div class="nav_suitetitle">
+<a href="#i5">csuite</a>
+</div>
+<div class="nav_suiteresult nav_suiteexception">1
+        ⚠
+      </div>
 </div>
 </div>
 </div>
@@ -371,18 +460,15 @@
 <th width="300px" align="left">Name</th><th align="left">Initial Value</th>
 </tr>
 <tr class="row1">
-<td>mypackage.blah</td><td class="value">3</td>
-</tr>
-<tr class="row2">
 <td>mypackage.deeper.yeah</td><td class="value">10</td>
 </tr>
-<tr class="row1">
+<tr class="row2">
 <td>mypackage.dummy</td><td class="value">2</td>
 </tr>
-<tr class="row2">
+<tr class="row1">
 <td>mysecondpackage.morePackageVars</td><td class="value">String!!!</td>
 </tr>
-<tr class="row1">
+<tr class="row2">
 <td>mysecondpackage.packagevar</td><td class="value"></td>
 </tr>
 </table>
@@ -393,19 +479,19 @@
           box
           " style="
           border-color:
-          #009933
+          #F99500
           ;
         ">
-<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#F99500';" style="
             background-color:
-            #009933
+            #F99500
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:">mypackage.asuite</a></span><span class="boxtitleright">1
-        ✔
+<span class="boxtitleleft"><a href="#mypackage.asuite:">mypackage.asuite</a></span><span class="boxtitleright">3
+        ⚠
       
             in
-            8s356ms<span class="suiteicons"></span></span>
+            30ms<span class="suiteicons"></span></span>
 </div>
 <div class="boxcontent">
 <a name="i1"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
@@ -413,46 +499,158 @@
           box
           " style="
           border-color:
-          #009933
+          #F99500
           ;
         ">
-<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#F99500';" style="
             background-color:
-            #009933
+            #F99500
             ;
           ">
-<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a>
-            @
-            testfork</span>
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">1
+        ⚠
+      
+            in
+            16ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#8"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i2"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1test">
-<div class="testicon testicon"></div>
-<div class="testdescription">addition of 1 and 2</div>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callexception">
+<div class="testicon testiconexception"></div>
+<div class="testdescription">This always throws an exception. We're so doomed!</div>
 <div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#addition</div>
+<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException</div>
+<div class="exceptiontrace">java.lang.RuntimeException: Holy shit!&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)&#13;<br>
+<span class="tab"></span>	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)&#13;<br>
+<span class="tab"></span>	at java.lang.reflect.Method.invoke(Method.java:597)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeCallSingle(DefaultTestRunner.java:1401)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeCall(DefaultTestRunner.java:1350)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:793)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)&#13;<br>
+<span class="tab"></span>
 </div>
-<div class="testresults"></div>
-<span class="durationandicons"><span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#15"></a></span></span>
+</div>
+<span class="value">Holy shit!</span><span class="durationandicons">2ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#14"></a></span></span>
 </div>
 </div>
 </div>
-<a name="i3"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">waits for 1 seconds</div>
+<a name="i3"></a><a name="mypackage.asuite:mypackage.bsuite:"></a>
+<div class="
+          box
+          " style="
+          border-color:
+          #F99500
+          ;
+        ">
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#F99500';" style="
+            background-color:
+            #F99500
+            ;
+          ">
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.bsuite:">mypackage.bsuite</a></span><span class="boxtitleright">1
+        ⚠
+      
+            in
+            5ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#9"></a></span></span>
+</div>
+<div class="boxcontent">
+<a name="i4"></a>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callexception">
+<div class="testicon testiconexception"></div>
+<div class="testdescription">This always throws an exception. We're so doomed!</div>
 <div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#wait</div>
-<table class="parametertable" width="100%">
-<tr>
-<th width="200px" align="left">Parameter</th><th align="left">Value</th>
-</tr>
-<tr class="row1callsuccess">
-<td>seconds</td><td class="value">1</td>
-</tr>
-</table>
+<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException</div>
+<div class="exceptiontrace">java.lang.RuntimeException: Holy shit!&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)&#13;<br>
+<span class="tab"></span>	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)&#13;<br>
+<span class="tab"></span>	at java.lang.reflect.Method.invoke(Method.java:597)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeCallSingle(DefaultTestRunner.java:1401)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeCall(DefaultTestRunner.java:1350)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:793)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)&#13;<br>
+<span class="tab"></span>
 </div>
-<span class="durationandicons">1s5ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.asuite#11"></a></span></span>
+</div>
+<span class="value">Holy shit!</span><span class="durationandicons">0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.bsuite#14"></a></span></span>
+</div>
+</div>
+</div>
+<a name="i5"></a><a name="mypackage.asuite:mypackage.csuite:"></a>
+<div class="
+          box
+          " style="
+          border-color:
+          #F99500
+          ;
+        ">
+<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#F99500';" style="
+            background-color:
+            #F99500
+            ;
+          ">
+<span class="boxtitleleft"><a href="#mypackage.asuite:mypackage.csuite:">mypackage.csuite</a></span><span class="boxtitleright">1
+        ⚠
+      
+            in
+            5ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://mypackage.asuite#10"></a></span></span>
+</div>
+<div class="boxcontent">
+<a name="i6"></a>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1testexception">
+<div class="testicon testiconexception"></div>
+<div class="testdescription">This always throws an exception. We're so doomed!</div>
+<div class="testparameters" style="display: none;">
+<div class="fixturename">de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException</div>
+<div class="exceptiontrace value">java.lang.RuntimeException: Holy shit!&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.experiments.fixtures.AdditionFixture.throwException(AdditionFixture.java:96)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;<br>
+<span class="tab"></span>	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)&#13;<br>
+<span class="tab"></span>	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)&#13;<br>
+<span class="tab"></span>	at java.lang.reflect.Method.invoke(Method.java:597)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.fixtures.FixtureWrapper.execute(FixtureWrapper.java:254)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeFixtureMethod(DefaultTestRunner.java:1301)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeTest(DefaultTestRunner.java:1046)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:785)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuite(DefaultTestRunner.java:575)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.executeSuite(DefaultTestRunner.java:781)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.callSuiteSingle(DefaultTestRunner.java:690)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.runInternal(DefaultTestRunner.java:542)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:456)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.DefaultTestRunner.run(DefaultTestRunner.java:391)&#13;<br>
+<span class="tab"></span>	at de.gebit.integrity.runner.console.ConsoleTestExecutor.main(ConsoleTestExecutor.java:182)&#13;<br>
+<span class="tab"></span>
+</div>
+</div>
+<div class="testresults">
+<span class="value">Holy shit!</span>
+</div>
+<span class="durationandicons">0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://mypackage.csuite#18"></a></span></span>
+</div>
+</div>
 </div>
 </div>
 </div>

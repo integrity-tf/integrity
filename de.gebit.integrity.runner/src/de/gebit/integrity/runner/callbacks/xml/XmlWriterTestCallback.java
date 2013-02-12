@@ -295,6 +295,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant EXCEPTION_COUNT_ATTRIBUTE. */
 	protected static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
 
+	/** The Constant TEST_EXCEPTION_COUNT_ATTRIBUTE */
+	protected static final String TEST_EXCEPTION_COUNT_ATTRIBUTE = "testExceptionCount";
+
+	/** The Constant CALL_EXCEPTION_COUNT_ATTRIBUTE */
+	protected static final String CALL_EXCEPTION_COUNT_ATTRIBUTE = "callExceptionCount";
+
 	/** The Constant FIXTURE_DESCRIPTION_ATTRIBUTE. */
 	protected static final String FIXTURE_DESCRIPTION_ATTRIBUTE = "description";
 
@@ -486,21 +492,32 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		if (aResult != null) {
-			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-					nanoTimeToString(aResult.getExecutionTime()));
-			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestSuccessCount()));
-			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestExceptionCount()));
-		}
+		addSuiteSummaryResultToElement(tempSuiteResultElement, aResult);
 
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
 			}
 			internalOnSetupFinish(tempSuiteResultElement);
+		}
+	}
+
+	/**
+	 * Adds the given suite summary result totals to the given result element as attributes.
+	 * 
+	 * @param anElement
+	 *            the XML element
+	 * @param aResult
+	 *            the result object
+	 */
+	protected void addSuiteSummaryResultToElement(Element anElement, SuiteSummaryResult aResult) {
+		if (aResult != null) {
+			anElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE, nanoTimeToString(aResult.getExecutionTime()));
+			anElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestSuccessCount()));
+			anElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
+			anElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE, Integer.toString(aResult.getExceptionCount()));
+			anElement.setAttribute(TEST_EXCEPTION_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestExceptionCount()));
+			anElement.setAttribute(CALL_EXCEPTION_COUNT_ATTRIBUTE, Integer.toString(aResult.getCallExceptionCount()));
 		}
 	}
 
@@ -946,15 +963,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		if (aResult != null) {
-			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-					nanoTimeToString(aResult.getExecutionTime()));
-			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestSuccessCount()));
-			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestExceptionCount()));
-		}
+		addSuiteSummaryResultToElement(tempSuiteResultElement, aResult);
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -977,15 +986,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
-		if (aResult != null) {
-			tempSuiteResultElement.setAttribute(EXECUTION_DURATION_ATTRIBUTE,
-					nanoTimeToString(aResult.getExecutionTime()));
-			tempSuiteResultElement.setAttribute(SUCCESS_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestSuccessCount()));
-			tempSuiteResultElement.setAttribute(FAILURE_COUNT_ATTRIBUTE, Integer.toString(aResult.getTestFailCount()));
-			tempSuiteResultElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
-					Integer.toString(aResult.getTestExceptionCount()));
-		}
+		addSuiteSummaryResultToElement(tempSuiteResultElement, aResult);
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1187,6 +1188,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected static final Pattern URL_PATTERN = Pattern.compile("(.*?)((?:(?:\\w+://)|(?:\\./))\\S+)(.*)");
 
+	/**
+	 * The pattern for Markdown-style URL detection.
+	 */
 	protected static final Pattern MARKDOWN_URL_PATTERN = Pattern
 			.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
 
@@ -1225,6 +1229,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		return tempList;
 	}
 
+	/**
+	 * Finds simple URLs in the given text and parses all into XML elements.
+	 * 
+	 * @param aText
+	 *            the text to parse
+	 * @return a list of XML elements, with the URLs converted to anchor tags
+	 */
 	protected List<Content> detectSimpleURLs(String aText) {
 		List<Content> tempElementList = new ArrayList<Content>();
 
@@ -1255,6 +1266,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		return tempElementList;
 	}
 
+	/**
+	 * Finds Markdown-style URLs in the given text and parses all into XML elements.
+	 * 
+	 * @param aText
+	 *            the text to parse
+	 * @return a list of XML elements, with the URLs converted to anchor tags
+	 */
 	protected List<Content> detectMarkdownURLs(String aText) {
 		List<Content> tempElementList = new ArrayList<Content>();
 

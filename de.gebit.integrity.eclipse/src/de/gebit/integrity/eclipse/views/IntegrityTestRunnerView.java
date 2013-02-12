@@ -1478,7 +1478,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 						int tempFailureCount = (Integer) tempResultEntry
 								.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
 						int tempExceptionCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT);
+								.getAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT)
+								+ (Integer) tempResultEntry
+										.getAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
 
 						resultSuccessCountLabel.setText(Integer.toString(tempSuccessCount));
 						resultFailureCountLabel.setText(Integer.toString(tempFailureCount));

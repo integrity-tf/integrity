@@ -152,6 +152,44 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 	}
 
 	/**
+	 * Returns the test exception count.
+	 * 
+	 * @return
+	 */
+	public int getTestExceptionCount() {
+		if (hasChildren()) {
+			int tempCount = 0;
+			for (TestResult tempResult : getChildren()) {
+				if (tempResult instanceof IntegrityTestResult) {
+					tempCount += ((IntegrityTestResult) tempResult).getTestExceptionCount();
+				}
+			}
+			return tempCount;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Returns the call exception count.
+	 * 
+	 * @return
+	 */
+	public int getCallExceptionCount() {
+		if (hasChildren()) {
+			int tempCount = 0;
+			for (TestResult tempResult : getChildren()) {
+				if (tempResult instanceof IntegrityTestResult) {
+					tempCount += ((IntegrityTestResult) tempResult).getCallExceptionCount();
+				}
+			}
+			return tempCount;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Gets the counter part of this {@link TestResult} in the specified run. This basically equals the upstream
 	 * function that is overridden here, but it also sets the parent action.
 	 * 

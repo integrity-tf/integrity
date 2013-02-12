@@ -74,9 +74,14 @@ public class IntegrityTestResult extends TabulatedResult {
 	private int failureCount;
 
 	/**
-	 * The number of exceptions.
+	 * The number of test exceptions.
 	 */
-	private int exceptionCount;
+	private int testExceptionCount;
+
+	/**
+	 * The number of call exceptions.
+	 */
+	private int callExceptionCount;
 
 	/**
 	 * Creates an instance.
@@ -93,12 +98,14 @@ public class IntegrityTestResult extends TabulatedResult {
 	 *            the number of successful tests
 	 * @param aFailureCount
 	 *            the number of failures
-	 * @param anExceptionCount
-	 *            the number of exceptions
+	 * @param aTestExceptionCount
+	 *            the number of test exceptions
+	 * @param aCallExceptionCount
+	 *            the number of call exceptions
 	 */
 	// SUPPRESS CHECKSTYLE ParameterNumber
 	public IntegrityTestResult(TestObject aParent, String aName, String aDisplayName, byte[] someRawData,
-			String aContentType, int aSuccessCount, int aFailureCount, int anExceptionCount) {
+			String aContentType, int aSuccessCount, int aFailureCount, int aTestExceptionCount, int aCallExceptionCount) {
 		super();
 		this.parent = aParent;
 		this.name = aName;
@@ -106,7 +113,8 @@ public class IntegrityTestResult extends TabulatedResult {
 		setRawData(someRawData);
 		this.successCount = aSuccessCount;
 		this.failureCount = aFailureCount;
-		this.exceptionCount = anExceptionCount;
+		this.testExceptionCount = aTestExceptionCount;
+		this.callExceptionCount = aCallExceptionCount;
 		this.contentType = aContentType;
 	}
 
@@ -218,7 +226,15 @@ public class IntegrityTestResult extends TabulatedResult {
 	}
 
 	public int getSkipCount() {
-		return exceptionCount;
+		return testExceptionCount;
+	}
+
+	public int getTestExceptionCount() {
+		return testExceptionCount;
+	}
+
+	public int getCallExceptionCount() {
+		return callExceptionCount;
 	}
 
 	public int getTotalCount() {

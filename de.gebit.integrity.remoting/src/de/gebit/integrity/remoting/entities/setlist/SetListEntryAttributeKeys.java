@@ -81,7 +81,12 @@ public enum SetListEntryAttributeKeys {
 	/**
 	 * Number of exceptions.
 	 */
-	EXCEPTION_COUNT,
+	TEST_EXCEPTION_COUNT,
+
+	/**
+	 * Number of exceptions in calls.
+	 */
+	CALL_EXCEPTION_COUNT,
 
 	/**
 	 * The result of a test or call.

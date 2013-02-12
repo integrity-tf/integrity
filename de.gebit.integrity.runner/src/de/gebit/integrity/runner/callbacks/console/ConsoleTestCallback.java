@@ -187,7 +187,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 					+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
 
 			println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
-					+ aResult.getTestFailCount() + " failures and " + aResult.getTestExceptionCount() + " exceptions.");
+					+ aResult.getTestFailCount() + " failures and " + aResult.getExceptionCount() + " exceptions.");
 		}
 	}
 

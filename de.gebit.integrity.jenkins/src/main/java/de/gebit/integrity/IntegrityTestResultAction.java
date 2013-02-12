@@ -113,7 +113,11 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 	@Override
 	public String getIconFileName() {
 		if (getSkipCount() + getFailCount() == 0) {
-			return "/plugin/de.gebit.integrity.jenkins/integrity_icon_success.png";
+			if (getExceptionCount() > 0) {
+				return "/plugin/de.gebit.integrity.jenkins/integrity_icon_exception.png";
+			} else {
+				return "/plugin/de.gebit.integrity.jenkins/integrity_icon_success.png";
+			}
 		} else {
 			return "/plugin/de.gebit.integrity.jenkins/integrity_icon_failure.png";
 		}
@@ -130,13 +134,14 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		if (tempTotalCount == 0) {
 			tempDescription = de.gebit.integrity.Messages._NoTestResult();
 		} else {
-			tempDescription = de.gebit.integrity.Messages._TestResult(getPassCount(), getFailCount(), getSkipCount());
+			tempDescription = de.gebit.integrity.Messages._TestResult(getPassCount(), getFailCount(),
+					getExceptionCount());
 		}
 		return new HealthReport(tempScore, tempDescription);
 	}
 
 	public String getSummary() {
-		return de.gebit.integrity.Messages.TestResult(getPassCount(), getFailCount(), getSkipCount());
+		return de.gebit.integrity.Messages.TestResult(getPassCount(), getFailCount(), getExceptionCount());
 	}
 
 	@Override
@@ -160,5 +165,20 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 	@Exported(visibility = 2)
 	public int getPassCount() {
 		return getResult().getPassCount();
+	}
+
+	@Exported(visibility = 2)
+	public int getExceptionCount() {
+		return getTestExceptionCount() + getCallExceptionCount();
+	}
+
+	@Exported(visibility = 2)
+	public int getTestExceptionCount() {
+		return getResult().getTestExceptionCount();
+	}
+
+	@Exported(visibility = 2)
+	public int getCallExceptionCount() {
+		return getResult().getCallExceptionCount();
 	}
 }

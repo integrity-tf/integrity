@@ -19,6 +19,7 @@ packagedef mypackage with
 	testdef nullarraytest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnNullArray
 	
 	calldef exceptioncall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException
+	testdef exceptiontest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException
 	
 	testdef arbitrary uses de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture#addition
 	calldef arbitraryCall uses de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture#addition

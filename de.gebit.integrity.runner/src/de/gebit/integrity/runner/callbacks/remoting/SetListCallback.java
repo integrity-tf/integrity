@@ -216,8 +216,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 				tempTestEntry.setAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT, aResult.getSubTestSuccessCount());
 				tempTestEntry.setAttribute(SetListEntryAttributeKeys.FAILURE_COUNT, aResult.getSubTestFailCount());
-				tempTestEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT,
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT,
 						aResult.getSubTestExceptionCount());
+				tempTestEntry.setAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT, 0);
 			}
 		}
 
@@ -453,7 +454,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			}
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT, aResult.getTestSuccessCount());
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.FAILURE_COUNT, aResult.getTestFailCount());
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION_COUNT, aResult.getTestExceptionCount());
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT, aResult.getTestExceptionCount());
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT, aResult.getCallExceptionCount());
 		}
 
 		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);

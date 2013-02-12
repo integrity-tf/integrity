@@ -732,8 +732,8 @@ public class DefaultTestRunner implements TestRunner {
 
 					if (tempForkResultSummary != null) {
 						tempResult = new SuiteSummaryResult(tempForkResultSummary.getSuccessCount(),
-								tempForkResultSummary.getFailureCount(), tempForkResultSummary.getExceptionCount(),
-								tempSuiteDuration);
+								tempForkResultSummary.getFailureCount(), tempForkResultSummary.getTestExceptionCount(),
+								tempForkResultSummary.getCallExceptionCount(), tempSuiteDuration);
 					}
 
 					// and afterwards we'll switch back to real test mode

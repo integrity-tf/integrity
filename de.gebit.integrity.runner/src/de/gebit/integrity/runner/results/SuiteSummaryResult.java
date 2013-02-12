@@ -14,19 +14,24 @@ package de.gebit.integrity.runner.results;
 public class SuiteSummaryResult extends Result {
 
 	/**
-	 * Number of failed tests. Calculated on demand.
+	 * Number of failed tests.
 	 */
 	private Integer testFailCount;
 
 	/**
-	 * Number of successful tests. Calculated on demand.
+	 * Number of successful tests.
 	 */
 	private Integer testSuccessCount;
 
 	/**
-	 * Number of tests that threw an exception. Calculated on demand.
+	 * Number of tests that threw an exception.
 	 */
 	private Integer testExceptionCount;
+
+	/**
+	 * Number of calls that threw an exception.
+	 */
+	private Integer callExceptionCount;
 
 	/**
 	 * Creates an instance.
@@ -50,9 +55,10 @@ public class SuiteSummaryResult extends Result {
 	 * @param anExecutionTime
 	 *            the execution time
 	 */
-	public SuiteSummaryResult(int aTestSuccessCount, int aTestFailCount, int aTestExceptionCount, long anExecutionTime) {
+	public SuiteSummaryResult(int aTestSuccessCount, int aTestFailCount, int aTestExceptionCount,
+			int aCallExceptionCount, long anExecutionTime) {
 		super(anExecutionTime);
-		setResultCounts(aTestSuccessCount, aTestFailCount, aTestExceptionCount);
+		setResultCounts(aTestSuccessCount, aTestFailCount, aTestExceptionCount, aCallExceptionCount);
 	}
 
 	/**
@@ -65,10 +71,12 @@ public class SuiteSummaryResult extends Result {
 	 * @param aTestExceptionCount
 	 *            the number of exceptions
 	 */
-	protected void setResultCounts(int aTestSuccessCount, int aTestFailCount, int aTestExceptionCount) {
+	protected void setResultCounts(int aTestSuccessCount, int aTestFailCount, int aTestExceptionCount,
+			int aCallExceptionCount) {
 		testSuccessCount = aTestSuccessCount;
 		testFailCount = aTestFailCount;
 		testExceptionCount = aTestExceptionCount;
+		callExceptionCount = aCallExceptionCount;
 	}
 
 	public Integer getTestFailCount() {
@@ -81,6 +89,23 @@ public class SuiteSummaryResult extends Result {
 
 	public Integer getTestExceptionCount() {
 		return testExceptionCount;
+	}
+
+	public Integer getCallExceptionCount() {
+		return callExceptionCount;
+	}
+
+	/**
+	 * Returns a total exception count, including tests and calls.
+	 * 
+	 * @return the total exception count or null if no counts are available
+	 */
+	public Integer getExceptionCount() {
+		if (testExceptionCount != null && callExceptionCount != null) {
+			return testExceptionCount + callExceptionCount;
+		} else {
+			return null;
+		}
 	}
 
 }

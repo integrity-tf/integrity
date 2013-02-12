@@ -22,9 +22,14 @@ public class ForkResultSummary {
 	private int failureCount;
 
 	/**
-	 * The number of exceptions.
+	 * The number of exceptions in tests.
 	 */
-	private int exceptionCount;
+	private int testExceptionCount;
+
+	/**
+	 * The number of exceptions in calls.
+	 */
+	private int callExceptionCount;
 
 	/**
 	 * Creates a new instance.
@@ -33,13 +38,16 @@ public class ForkResultSummary {
 	 *            the number of successful tests
 	 * @param aFailureCount
 	 *            the number of failed tests
-	 * @param anExceptionCount
-	 *            the number of exceptions
+	 * @param aTestExceptionCount
+	 *            the number of exceptions in tests
+	 * @param aCallExceptionCount
+	 *            the number of call exceptions in tests
 	 */
-	public ForkResultSummary(int aSuccessCount, int aFailureCount, int anExceptionCount) {
+	public ForkResultSummary(int aSuccessCount, int aFailureCount, int aTestExceptionCount, int aCallExceptionCount) {
 		successCount = aSuccessCount;
 		failureCount = aFailureCount;
-		exceptionCount = anExceptionCount;
+		testExceptionCount = aTestExceptionCount;
+		callExceptionCount = aCallExceptionCount;
 	}
 
 	public int getSuccessCount() {
@@ -51,7 +59,14 @@ public class ForkResultSummary {
 	}
 
 	public int getExceptionCount() {
-		return exceptionCount;
+		return testExceptionCount + callExceptionCount;
 	}
 
+	public int getTestExceptionCount() {
+		return testExceptionCount;
+	}
+
+	public int getCallExceptionCount() {
+		return callExceptionCount;
+	}
 }

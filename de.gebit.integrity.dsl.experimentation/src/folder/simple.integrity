@@ -2,26 +2,20 @@ import mypackage.*
 
 packagedef mypackage with
 
-	operationdef random uses de.gebit.integrity.runner.operations.RandomNumberOperation
-
-	constant blah 1 //(4 * [random with 4])
-
 	forkdef testfork
 
 	suitedef asuite with
-		suite blah * bsuite
-		suite blah * bsuite on testfork
-		suite blah * bsuite
+		suite bsuite
+		suite bsuite //on testfork
+		suite csuite
 	suiteend
 	
 	suitedef bsuite with
-		constant blub (2 * [random with 4])
-		test addition summand1: 1 summand2: 2 = 3
+		call exceptioncall
 	suiteend
 		
-	/*suitedef bsuite gets aVariable with
-		constant aConstant aVariable
-		call aConstant * wait seconds: 1
-	suiteend*/
+	suitedef csuite with
+		test exceptiontest
+	suiteend
 	
 packageend
