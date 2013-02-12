@@ -5,7 +5,7 @@
 	<j:if test="${it.hasChildren()}">
 		<tr><th>Name</th><th>Successes</th><th>Failures</th><th>Exceptions</th></tr>
 	    <j:forEach var="r" items="${it.getChildren()}">
-			<tr><td><a href="${r.safeName}">${r.displayName}</a></td><td>${r.passCount}</td><td>${r.failCount}</td><td>${r.skipCount}</td></tr>
+			<tr><td><a href="${r.safeName}">${r.displayName}</a></td><td>${r.passCount}</td><td>${r.failCount}</td><td>${r.exceptionCount}</td></tr>
 	    </j:forEach>
 	</j:if>
 	</table>

@@ -190,6 +190,15 @@ public class IntegrityCompoundTestResult extends TabulatedResult {
 	}
 
 	/**
+	 * Returns the total exception count.
+	 * 
+	 * @return
+	 */
+	public int getExceptionCount() {
+		return getTestExceptionCount() + getCallExceptionCount();
+	}
+
+	/**
 	 * Gets the counter part of this {@link TestResult} in the specified run. This basically equals the upstream
 	 * function that is overridden here, but it also sets the parent action.
 	 * 

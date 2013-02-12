@@ -44,6 +44,8 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		XSTREAM.registerConverter(new HeapSpaceStringConverter(), 100);
 	}
 
+	public static final String ACTION_URL = "integrityReport";
+
 	/**
 	 * Creates a new instance.
 	 * 
@@ -103,7 +105,7 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 
 	@Exported(visibility = 2)
 	public String getUrlName() {
-		return "integrityReport";
+		return ACTION_URL;
 	}
 
 	public Object getTarget() {
@@ -112,7 +114,7 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 
 	@Override
 	public String getIconFileName() {
-		if (getSkipCount() + getFailCount() == 0) {
+		if (getFailCount() == 0) {
 			if (getExceptionCount() > 0) {
 				return "/plugin/de.gebit.integrity.jenkins/integrity_icon_exception.png";
 			} else {
@@ -134,14 +136,15 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		if (tempTotalCount == 0) {
 			tempDescription = de.gebit.integrity.Messages._NoTestResult();
 		} else {
-			tempDescription = de.gebit.integrity.Messages._TestResult(getPassCount(), getFailCount(),
-					getExceptionCount());
+			tempDescription = de.gebit.integrity.Messages._TestResult(getPassCount(), getFailCount(), getSkipCount(),
+					getCallExceptionCount());
 		}
 		return new HealthReport(tempScore, tempDescription);
 	}
 
 	public String getSummary() {
-		return de.gebit.integrity.Messages.TestResult(getPassCount(), getFailCount(), getExceptionCount());
+		return de.gebit.integrity.Messages.TestResult(getPassCount(), getFailCount(), getSkipCount(),
+				getCallExceptionCount());
 	}
 
 	@Override

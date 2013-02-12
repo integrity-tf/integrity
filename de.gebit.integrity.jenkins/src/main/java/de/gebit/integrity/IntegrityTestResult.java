@@ -229,6 +229,10 @@ public class IntegrityTestResult extends TabulatedResult {
 		return testExceptionCount;
 	}
 
+	public int getExceptionCount() {
+		return testExceptionCount + callExceptionCount;
+	}
+
 	public int getTestExceptionCount() {
 		return testExceptionCount;
 	}

@@ -193,9 +193,10 @@ public class IntegrityHistory {
 				@Override
 				public String generateToolTip(CategoryDataset aDataset, int aRow, int aColumn) {
 					ChartLabel tempLabel = (ChartLabel) aDataset.getColumnKey(aColumn);
-					return tempLabel.result.getOwner().getDisplayName() + ": " + tempLabel.result.getPassCount()
-							+ " successful tests, " + tempLabel.result.getFailCount() + " failures, "
-							+ tempLabel.result.getSkipCount() + " exceptions";
+					TestResult tempResult = tempLabel.result;
+					return tempResult.getOwner().getDisplayName() + ": " + tempResult.getPassCount()
+							+ " successful tests, " + tempResult.getFailCount() + " failures, "
+							+ tempResult.getSkipCount() + " exceptions during tests";
 				}
 			};
 			plot.setRenderer(tempAreaRenderer);
@@ -237,7 +238,7 @@ public class IntegrityHistory {
 		private void generateUrl() {
 			AbstractBuild<?, ?> tempBuild = result.getOwner();
 			String tempBuildLink = tempBuild.getUrl();
-			String tempActionUrl = result.getTestResultAction().getUrlName();
+			String tempActionUrl = IntegrityTestResultAction.ACTION_URL;
 			this.url = Jenkins.getInstance().getRootUrl() + tempBuildLink + tempActionUrl + result.getUrl();
 		}
 
