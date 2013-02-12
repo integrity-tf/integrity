@@ -20,6 +20,13 @@
     
     <isRelease>false</isRelease>
     <validateManifestVersions>true</validateManifestVersions>
+    
+    <!-- Do not forget to specify the used nexus url in the settings.xml -->
+  	<gebit.nexus.host>http://gebit-cvs</gebit.nexus.host>
+  	<!-- Do not forget to specify the credentials in the used settings.xml -->
+  	<gebit.nexus.releases>releases</gebit.nexus.releases>
+  	<!-- Do not forget to specify the credentials in the used settings.xml -->
+  	<gebit.nexus.snapshots>snapshots</gebit.nexus.snapshots>
   </properties>
   
   <modules>
@@ -161,14 +168,6 @@
     </plugins>
   </build>
   
-  <properties>
-  	<!-- Do not forget to specify the used nexus url in the settings.xml -->
-  	<gebit.nexus.host>http://gebit-cvs</gebit.nexus.host>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.releases>releases</gebit.nexus.releases>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.snapshots>snapshots</gebit.nexus.snapshots>
-  </properties>
   <distributionManagement>
   	<repository>
   		<id>${gebit.nexus.releases}</id>
