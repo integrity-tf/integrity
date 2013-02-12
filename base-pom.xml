@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-  	<groupId>de.gebit.maven</groupId>
-  	<artifactId>gebit-poms</artifactId>
-  	<version>0.0.1</version>
-  </parent>
   
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-build-base</artifactId>
-  <version>0.6.3-SNAPSHOT</version>
+  <version>0.6.5-SNAPSHOT</version>
   <name>Integrity Base Build</name>
+  <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   <packaging>pom</packaging>
     
   <scm>
   	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
   </scm>
   <modules>
-  	<module>integrity</module>
     <module>targetplatform</module>
   </modules>
   <build>
