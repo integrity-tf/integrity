@@ -15,6 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
+import de.gebit.integrity.remoting.transport.messages.DisconnectMessage;
 
 /**
  * An endpoint is a client- or serverside termination point of a message channel. The endpoint uses a TCP connection to
@@ -49,6 +50,17 @@ public class Endpoint {
 	 * Whether the endpoint is active.
 	 */
 	private boolean isActive;
+
+	/**
+	 * An object used to wait on for the disconnect message handshake when closing the socket.
+	 */
+	private Object closeSyncObject = new Object();
+
+	/**
+	 * The maximum time in seconds to wait for the disconnect message handshake to be performed before closing the
+	 * socket.
+	 */
+	private static final int DISCONNECT_WAIT_TIME = 10000;
 
 	/**
 	 * A map of message processors.
@@ -138,25 +150,54 @@ public class Endpoint {
 	public void close(boolean anEmptyOutputQueueFlag) {
 		isActive = false;
 
-		if (anEmptyOutputQueueFlag && outputQueue.size() > 0) {
-			synchronized (outputQueue) {
-				outputProcessor.interrupt();
+		if (anEmptyOutputQueueFlag) {
+			// first: make sure the whole outqueue was sent
+			while (outputQueue.size() > 0) {
+				synchronized (outputQueue) {
+					outputProcessor.interrupt();
+					try {
+						outputQueue.wait();
+					} catch (InterruptedException exc) {
+						// don't care
+					}
+				}
+			}
+
+			// second: send a disconnect message (request) and wait for the confirmation or the timeout
+			synchronized (closeSyncObject) {
 				try {
-					outputQueue.wait();
+					outputQueue.put(new DisconnectMessage(false));
+				} catch (InterruptedException exc) {
+					// can't happen here, so don't care
+				}
+
+				try {
+					closeSyncObject.wait(DISCONNECT_WAIT_TIME);
 				} catch (InterruptedException exc) {
 					// don't care
 				}
 			}
+
+			// third: close the socket and kill the output processor
 		}
 
-		try {
-			socket.getOutputStream().flush();
-			socket.close();
-		} catch (IOException exc) {
-			exc.printStackTrace();
-		}
+		closeInternal();
 		if (listener != null) {
 			listener.onClosed(this);
+		}
+	}
+
+	private void closeInternal() {
+		isActive = false;
+		outputProcessor.kill();
+		outputProcessor.interrupt();
+		if (!socket.isClosed()) {
+			try {
+				socket.shutdownOutput();
+				socket.close();
+			} catch (IOException exc) {
+				// ignored; we're closing the socket anyway
+			}
 		}
 	}
 
@@ -172,11 +213,12 @@ public class Endpoint {
 			try {
 				InputStream tempInStream = socket.getInputStream();
 
-				while (socket.isConnected()) {
+				while (true) {
 					int tempMessageLength = 0;
 					for (int i = 0; i < 4; i++) {
 						int tempByte = tempInStream.read();
 						if (tempByte == -1) {
+							// socket was closed
 							return;
 						}
 						tempMessageLength |= tempByte << (i * 8);
@@ -185,28 +227,48 @@ public class Endpoint {
 					byte[] tempMessage = new byte[tempMessageLength];
 					int tempMessagePosition = 0;
 					while (tempMessagePosition < tempMessageLength) {
-						tempMessagePosition += tempInStream.read(tempMessage, tempMessagePosition, tempMessageLength
+						int tempBytesRead = tempInStream.read(tempMessage, tempMessagePosition, tempMessageLength
 								- tempMessagePosition);
+						if (tempBytesRead > -1) {
+							tempMessagePosition += tempBytesRead;
+						} else {
+							// socket was closed
+							return;
+						}
 					}
 
 					ObjectInputStream tempObjectStream = new ObjectInputStream(new ByteArrayInputStream(tempMessage));
 					try {
 						AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
-						MessageProcessor tempProcessor = messageProcessors.get(tempMessageObject.getClass());
-						if (tempProcessor != null) {
-							tempProcessor.processMessage(tempMessageObject, Endpoint.this);
+						if (tempMessageObject instanceof DisconnectMessage) {
+							// disconnect messages are handled directly in the endpoints
+							if (((DisconnectMessage) tempMessageObject).isConfirmation()) {
+								synchronized (closeSyncObject) {
+									closeSyncObject.notifyAll();
+								}
+							} else {
+								// this is a disconnect request message and should be answered by a confirmation when
+								// received
+								sendMessage(new DisconnectMessage(true));
+							}
+						} else {
+							// just a standard message; use the appropriate processor
+							MessageProcessor tempProcessor = messageProcessors.get(tempMessageObject.getClass());
+							if (tempProcessor != null) {
+								tempProcessor.processMessage(tempMessageObject, Endpoint.this);
+							}
 						}
 					} catch (ClassNotFoundException exc) {
 						exc.printStackTrace();
 					}
 				}
 			} catch (IOException exc) {
-				if (!"socket closed".equals(exc.getMessage())) {
+				// filter out socket closed messages; we're expecting those to happen and they're handled just fine
+				if (!"socket closed".equals(exc.getMessage().toLowerCase())) {
 					exc.printStackTrace();
 				}
 			} finally {
-				isActive = false;
-				outputProcessor.interrupt();
+				closeInternal();
 				if (listener != null) {
 					listener.onConnectionLost(Endpoint.this);
 				}
@@ -216,8 +278,17 @@ public class Endpoint {
 
 	private class EndpointOutputProcessor extends Thread {
 
+		/**
+		 * Used to gracefully kill this thread.
+		 */
+		private boolean killSwitch;
+
 		public EndpointOutputProcessor() {
 			super("Endpoint Output Processor");
+		}
+
+		public void kill() {
+			killSwitch = true;
 		}
 
 		@Override
@@ -225,14 +296,13 @@ public class Endpoint {
 			try {
 				OutputStream tempOutStream = socket.getOutputStream();
 
-				while (socket.isConnected()) {
+				while (socket.isConnected() && !killSwitch) {
 					AbstractMessage tempMessageObject = null;
 					try {
 						tempMessageObject = outputQueue.poll(1, TimeUnit.SECONDS);
 						if (outputQueue.size() == 0 && !isActive) {
 							synchronized (outputQueue) {
 								outputQueue.notify();
-								return;
 							}
 						}
 					} catch (InterruptedException exc) {

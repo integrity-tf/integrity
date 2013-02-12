@@ -1407,13 +1407,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the element to send
 	 */
 	protected void sendElementToMaster(TestRunnerCallbackMethods aMethod, Element anElement) {
+		// System.out.println("FORK OUT: " + aMethod);
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];
-		// System.out.println("FORK: " + aMethod);
+		// System.out.println("FORK IN: " + aMethod);
 
 		// dispatch message to matching internal... method
 		switch (aMethod) {

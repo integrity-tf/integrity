@@ -6,7 +6,7 @@ packagedef mypackage with
 
 	suitedef asuite with
 		suite bsuite
-		suite bsuite //on testfork
+		suite bsuite on testfork
 		suite csuite
 	suiteend
 	

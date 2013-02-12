@@ -108,6 +108,7 @@ public class ServerEndpoint {
 			while (isActive()) {
 				try {
 					Socket tempSocket = serverSocket.accept();
+					tempSocket.setSoLinger(true, 60);
 					synchronized (endpoints) {
 						endpoints.add(new Endpoint(tempSocket, messageProcessors, new EndpointListener() {
 
