@@ -123,26 +123,63 @@
 			</configuration>
 		  </plugin>
 		  
-		  <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-				  <encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-				  <source>1.6</source>
-				  <target>1.6</target>
-				  <encoding>ISO-8859-1</encoding>
-				</configuration>
-			</plugin>
-	      
-      
+		 <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.5</version>
+			<configuration>
+			  <encoding>${project.build.sourceEncoding}</encoding>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.2</version>
+			<configuration>
+			  <source>1.6</source>
+			  <target>1.6</target>
+			  <encoding>ISO-8859-1</encoding>
+			</configuration>
+		</plugin>
+		
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-release-plugin</artifactId>
+			<version>2.2.2</version>
+			<configuration>
+				<autoVersionSubmodules>true</autoVersionSubmodules>
+				<pushChanges>true</pushChanges>
+				<localCheckout>false</localCheckout>
+			</configuration>
+		</plugin>
+		<plugin>
+	    	<groupId>org.codehaus.mojo</groupId>
+	      	<artifactId>sonar-maven-plugin</artifactId>
+	        <version>2.0</version>
+	  	</plugin>
+		    	
     </plugins>
   </build>
+  
+  <properties>
+  	<!-- Do not forget to specify the used nexus url in the settings.xml -->
+  	<gebit.nexus.host>http://gebit-cvs</gebit.nexus.host>
+  	<!-- Do not forget to specify the credentials in the used settings.xml -->
+  	<gebit.nexus.releases>releases</gebit.nexus.releases>
+  	<!-- Do not forget to specify the credentials in the used settings.xml -->
+  	<gebit.nexus.snapshots>snapshots</gebit.nexus.snapshots>
+  </properties>
+  <distributionManagement>
+  	<repository>
+  		<id>${gebit.nexus.releases}</id>
+  		<name>Internal Releases</name>
+  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.releases}</url>
+  	</repository>
+  	<snapshotRepository>
+  		<id>${gebit.nexus.snapshots}</id>
+  		<name>Internal Snapshots</name>
+  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.snapshots}</url>
+  	</snapshotRepository>
+  </distributionManagement>
+  
 </project>
