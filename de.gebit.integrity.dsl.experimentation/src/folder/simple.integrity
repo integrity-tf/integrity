@@ -2,20 +2,15 @@ import mypackage.*
 
 packagedef mypackage with
 
-	forkdef testfork
+	variable var
 
 	suitedef asuite with
-		suite bsuite
-		suite bsuite on testfork
-		suite csuite
+		call echoInteger echo: 1 -> var
+		suite bsuite param: var 
 	suiteend
 	
-	suitedef bsuite with
-		call exceptioncall
-	suiteend
-		
-	suitedef csuite with
-		test exceptiontest
+	suitedef bsuite gets param with
+		test addition summand1: (param + 1) summand2: 2 = 4
 	suiteend
 	
 packageend

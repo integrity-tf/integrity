@@ -7,6 +7,7 @@ packagedef mypackage with
 	calldef wait uses de.gebit.integrity.experiments.fixtures.AdditionFixture#wait
 	
 	testdef echo uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValue
+	calldef echoInteger uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnInteger
 	
 	testdef echoDate uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnDate
 

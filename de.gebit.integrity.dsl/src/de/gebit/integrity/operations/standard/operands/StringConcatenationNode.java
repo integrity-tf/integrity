@@ -25,6 +25,9 @@ public class StringConcatenationNode extends OperatorNode<String, String> {
 
 	@Override
 	protected Object evaluateInternal(String aLeftOperand, String aRightOperand) {
-		return aLeftOperand + aRightOperand;
+		String tempLeftOperand = aLeftOperand == null ? "null" : aLeftOperand;
+		String tempRightOperand = aRightOperand == null ? "null" : aRightOperand;
+
+		return tempLeftOperand + tempRightOperand;
 	}
 }

@@ -190,7 +190,12 @@ public class DefaultParameterResolver implements ParameterResolver {
 				}
 			}
 		} else if (aValue instanceof StandardOperation) {
-			return standardOperationProcessor.executeOperation((StandardOperation) aValue);
+			try {
+				return standardOperationProcessor.executeOperation((StandardOperation) aValue);
+			} catch (UnexecutableException exc) {
+				// this is expected to happen in some cases during dry run - but not a problem
+				return null;
+			}
 		} else if (aValue instanceof CustomOperation) {
 			if (wrapperFactory != null) {
 				CustomOperationWrapper tempWrapper = wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);

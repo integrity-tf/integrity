@@ -1,0 +1,28 @@
+import integrity.operations.default.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.operations with
+	
+	// --------------------------------------------------------------------------------
+	// INT-42: Standard Operations with suite parameters result in NPE in some cases
+	
+	variable aVariable
+	
+	suitedef standardOperationWithParameter with
+	
+		// This has always worked fine
+		suite suiteWithParameter theParameter: 2
+		
+		// INT-42: This did not work because in dry run, the variable was not filled
+		call echoInteger integer: 2 -> aVariable
+		suite suiteWithParameter theParameter: aVariable 
+	
+	suiteend
+	
+	suitedef suiteWithParameter gets theParameter with
+	
+		test echoIntegerTest integer: (theParameter + 1) = 3
+	
+	suiteend
+
+packageend

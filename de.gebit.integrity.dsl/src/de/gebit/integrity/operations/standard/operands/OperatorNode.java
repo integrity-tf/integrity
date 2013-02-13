@@ -124,6 +124,6 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 	 *            the evaluated right operand
 	 * @return the result of the evaluation
 	 */
-	protected abstract Object evaluateInternal(LEFT aLeftOperand, RIGHT aRightOperand);
+	protected abstract Object evaluateInternal(LEFT aLeftOperand, RIGHT aRightOperand) throws UnexecutableException;
 
 }

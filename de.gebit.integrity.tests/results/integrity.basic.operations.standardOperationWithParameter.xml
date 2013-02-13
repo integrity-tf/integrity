@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="13.02.13 22:31" isotimestamp="2013-02-13T22:31:04" duration="22.214">
+  <variables>
+    <variable name="integrity.basic.operations.aVariable" />
+  </variables>
+  <suite id="0" name="integrity.basic.operations.standardOperationWithParameter">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="14" name="integrity.basic.operations.suiteWithParameter">
+        <setup />
+        <variables>
+          <variable name="integrity.basic.operations.theParameter" value="2" />
+        </variables>
+        <statements>
+          <test id="2" line="24" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+            <results duration="0.786" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.786" description="Echo the integer '3'" type="success">
+                <parameters>
+                  <parameter name="integer" value="3" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="3" value="3" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <teardown />
+        <result duration="8.980" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="3" line="17" name="echoInteger" description="Echo the integer '2'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+        <parameters>
+          <parameter name="integer" value="2" />
+        </parameters>
+        <result duration="0.458" type="success">
+          <variableUpdate name="aVariable" value="2" />
+        </result>
+      </call>
+      <suite id="4" line="18" name="integrity.basic.operations.suiteWithParameter">
+        <setup />
+        <variables>
+          <variable name="integrity.basic.operations.theParameter" value="2" />
+        </variables>
+        <statements>
+          <test id="5" line="24" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+            <results duration="0.516" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.516" description="Echo the integer '3'" type="success">
+                <parameters>
+                  <parameter name="integer" value="3" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="3" value="3" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <teardown />
+        <result duration="5.407" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <teardown />
+    <result duration="19.238" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
