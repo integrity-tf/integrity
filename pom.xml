@@ -4,7 +4,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
-  <version>0.6.5-SNAPSHOT</version>
+  <version>0.8.0-SNAPSHOT</version>
   <name>Integrity Main Build</name>
   <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   

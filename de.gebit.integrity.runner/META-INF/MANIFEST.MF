@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Test Runner
 Bundle-SymbolicName: de.gebit.integrity.runner
-Bundle-Version: 0.6.5.qualifier
+Bundle-Version: 0.8.0.qualifier
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.xtext;bundle-version="2.3.0",
  de.gebit.integrity.dsl;bundle-version="0.1.0",
