@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.02.13 20:43" isotimestamp="2013-02-18T20:43:52" duration="35.830">
+  <variables />
+  <suite id="0" name="integrity.basic.comments.commentsWithLinks" title="A title comment with link: &lt;a href=&quot;http://www.link.com&quot;&gt;http://www.link.com&lt;/a&gt;">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="5">
+        A multiline visible comment with a link:
+        <a href="http://www.google.de">http://www.google.de</a>
+        and another link:
+        <a href="uuid://abcdef">uuid://abcdef</a>
+      </comment>
+      <comment id="2" line="8">A singleline visible comment with no valid link: http:/www.invalid.com</comment>
+      <comment id="3" line="10">
+        But this one has one:
+        <a href="http://a.link.org">http://a.link.org</a>
+      </comment>
+      <comment id="4" line="12">
+        And this one has a Markdown-style URL:
+        <a href="http://www.heise.de">I am a link</a>
+        !
+      </comment>
+      <comment id="5" line="14" type="title">
+        A title comment with link:
+        <a href="http://www.link.com">http://www.link.com</a>
+      </comment>
+    </statements>
+    <teardown />
+    <result duration="20.068" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

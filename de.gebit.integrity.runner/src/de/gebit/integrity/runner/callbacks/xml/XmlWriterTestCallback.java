@@ -186,6 +186,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant SUITE_NAME_ATTRIBUTE. */
 	protected static final String SUITE_NAME_ATTRIBUTE = "name";
 
+	/** The Constant SUITE_TITLE_ATTRIBUTE. */
+	protected static final String SUITE_TITLE_ATTRIBUTE = "title";
+
 	/** The Constant VARIABLE_DEFINITION_COLLECTION_ELEMENT. */
 	protected static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
 
@@ -239,6 +242,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant COMMENT_TEXT_ATTRIBUTE. */
 	protected static final String COMMENT_TEXT_ATTRIBUTE = "text";
+
+	/** The Constant COMMENT_TYPE_ATTRIBUTE. */
+	protected static final String COMMENT_TYPE_ATTRIBUTE = "type";
+
+	/** The Constant COMMENT_TYPE_TITLE. */
+	protected static final String COMMENT_TYPE_TITLE = "title";
 
 	/** The Constant DIVIDER_ELEMENT. */
 	protected static final String DIVIDER_ELEMENT = "divider";
@@ -1311,11 +1320,15 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
+	public void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
 		addId(tempCommentElement);
 		addLineNumber(tempCommentElement, aCommentElement);
 		tempCommentElement.addContent(parseComment(aCommentText));
+
+		if (anIsTitle) {
+			tempCommentElement.setAttribute(COMMENT_TYPE_ATTRIBUTE, COMMENT_TYPE_TITLE);
+		}
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1349,6 +1362,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected void internalOnVisibleComment(Element aCommentElement) {
 		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCommentElement);
+
+		if (COMMENT_TYPE_TITLE.equals(aCommentElement.getAttributeValue(COMMENT_TYPE_ATTRIBUTE))) {
+			Element tempSuiteElement = stackFind(SUITE_ELEMENT);
+			if (tempSuiteElement.getAttribute(SUITE_TITLE_ATTRIBUTE) == null) {
+				tempSuiteElement.setAttribute(SUITE_TITLE_ATTRIBUTE,
+						new XMLOutputter().outputString(aCommentElement.getContent()));
+			}
+		}
 	}
 
 	/**
@@ -1485,6 +1506,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		idCounter++;
 	}
 
+	/**
+	 * Adds the version number of the test runner bundle to the given element.
+	 * 
+	 * @param anElement
+	 *            the element to add the version to
+	 */
 	protected void addVersion(Element anElement) {
 		String tempVersion = VersionUtil.getBundleVersionString(IntegrityRunnerModule.class);
 		if (tempVersion != null) {
@@ -1538,5 +1565,23 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		Element tempElement = currentElement.peek();
 		// System.out.println("PEEK: " + tempElement);
 		return tempElement;
+	}
+
+	/**
+	 * Finds a given element in the stack. The first (topmost) element is returned. The stack is not altered.
+	 * 
+	 * @param anElementName
+	 *            the name of the element to find
+	 * @return the element or null if none was found
+	 */
+	protected Element stackFind(String anElementName) {
+		for (int i = currentElement.size() - 1; i >= 0; i--) {
+			Element tempElement = currentElement.get(i);
+			if (anElementName.equals(tempElement.getName())) {
+				return tempElement;
+			}
+		}
+
+		return null;
 	}
 }

@@ -247,9 +247,9 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
+	public void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onVisibleComment(aCommentText, aCommentElement);
+			tempCallback.onVisibleComment(aCommentText, anIsTitle, aCommentElement);
 		}
 	}
 

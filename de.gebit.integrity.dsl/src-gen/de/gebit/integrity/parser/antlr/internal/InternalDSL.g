@@ -230,15 +230,55 @@ ruleVisibleSingleLineComment returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getVisibleSingleLineCommentAccess().getVisibleSingleLineNormalCommentParserRuleCall_0()); 
+    }
+    this_VisibleSingleLineNormalComment_0=ruleVisibleSingleLineNormalComment
+    { 
+        $current = $this_VisibleSingleLineNormalComment_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getVisibleSingleLineCommentAccess().getVisibleSingleLineTitleCommentParserRuleCall_1()); 
+    }
+    this_VisibleSingleLineTitleComment_1=ruleVisibleSingleLineTitleComment
+    { 
+        $current = $this_VisibleSingleLineTitleComment_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleVisibleSingleLineNormalComment
+entryRuleVisibleSingleLineNormalComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleSingleLineNormalCommentRule()); }
+	 iv_ruleVisibleSingleLineNormalComment=ruleVisibleSingleLineNormalComment 
+	 { $current=$iv_ruleVisibleSingleLineNormalComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleSingleLineNormalComment
+ruleVisibleSingleLineNormalComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
 ((
 (
 		lv_content_0_0=RULE_SL_VISIBLE_COMMENT
 		{
-			newLeafNode(lv_content_0_0, grammarAccess.getVisibleSingleLineCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleSingleLineNormalCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVisibleSingleLineCommentRule());
+	            $current = createModelElement(grammarAccess.getVisibleSingleLineNormalCommentRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -250,7 +290,54 @@ ruleVisibleSingleLineComment returns [EObject current=null]
 )
 )
     { 
-        newCompositeNode(grammarAccess.getVisibleSingleLineCommentAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getVisibleSingleLineNormalCommentAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleVisibleSingleLineTitleComment
+entryRuleVisibleSingleLineTitleComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleSingleLineTitleCommentRule()); }
+	 iv_ruleVisibleSingleLineTitleComment=ruleVisibleSingleLineTitleComment 
+	 { $current=$iv_ruleVisibleSingleLineTitleComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleSingleLineTitleComment
+ruleVisibleSingleLineTitleComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_content_0_0=RULE_SL_VISIBLE_TITLE_COMMENT
+		{
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleSingleLineTitleCommentAccess().getContentSL_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVisibleSingleLineTitleCommentRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"content",
+        		lv_content_0_0, 
+        		"SL_VISIBLE_TITLE_COMMENT");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getVisibleSingleLineTitleCommentAccess().getNLParserRuleCall_1()); 
     }
 ruleNL
     { 
@@ -277,15 +364,55 @@ ruleVisibleMultiLineComment returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getVisibleMultiLineCommentAccess().getVisibleMultiLineNormalCommentParserRuleCall_0()); 
+    }
+    this_VisibleMultiLineNormalComment_0=ruleVisibleMultiLineNormalComment
+    { 
+        $current = $this_VisibleMultiLineNormalComment_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getVisibleMultiLineCommentAccess().getVisibleMultiLineTitleCommentParserRuleCall_1()); 
+    }
+    this_VisibleMultiLineTitleComment_1=ruleVisibleMultiLineTitleComment
+    { 
+        $current = $this_VisibleMultiLineTitleComment_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleVisibleMultiLineNormalComment
+entryRuleVisibleMultiLineNormalComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleMultiLineNormalCommentRule()); }
+	 iv_ruleVisibleMultiLineNormalComment=ruleVisibleMultiLineNormalComment 
+	 { $current=$iv_ruleVisibleMultiLineNormalComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleMultiLineNormalComment
+ruleVisibleMultiLineNormalComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
 ((
 (
 		lv_content_0_0=RULE_ML_VISIBLE_COMMENT
 		{
-			newLeafNode(lv_content_0_0, grammarAccess.getVisibleMultiLineCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleMultiLineNormalCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVisibleMultiLineCommentRule());
+	            $current = createModelElement(grammarAccess.getVisibleMultiLineNormalCommentRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -297,7 +424,54 @@ ruleVisibleMultiLineComment returns [EObject current=null]
 )
 )
     { 
-        newCompositeNode(grammarAccess.getVisibleMultiLineCommentAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getVisibleMultiLineNormalCommentAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleVisibleMultiLineTitleComment
+entryRuleVisibleMultiLineTitleComment returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVisibleMultiLineTitleCommentRule()); }
+	 iv_ruleVisibleMultiLineTitleComment=ruleVisibleMultiLineTitleComment 
+	 { $current=$iv_ruleVisibleMultiLineTitleComment.current; } 
+	 EOF 
+;
+
+// Rule VisibleMultiLineTitleComment
+ruleVisibleMultiLineTitleComment returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_content_0_0=RULE_ML_VISIBLE_TITLE_COMMENT
+		{
+			newLeafNode(lv_content_0_0, grammarAccess.getVisibleMultiLineTitleCommentAccess().getContentML_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVisibleMultiLineTitleCommentRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"content",
+        		lv_content_0_0, 
+        		"ML_VISIBLE_TITLE_COMMENT");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getVisibleMultiLineTitleCommentAccess().getNLParserRuleCall_1()); 
     }
 ruleNL
     { 
@@ -5450,9 +5624,13 @@ RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 RULE_SL_VISIBLE_COMMENT : '-- ' ~(('\n'|'\r'))*;
 
-RULE_ML_VISIBLE_COMMENT : '/-' ( options {greedy=false;} : . )*'-/';
+RULE_SL_VISIBLE_TITLE_COMMENT : '--- ' ~(('\n'|'\r'))*;
 
-RULE_DIVIDER : '---' '-'*;
+RULE_ML_VISIBLE_COMMENT : '/- ' ( options {greedy=false;} : . )*'-/';
+
+RULE_ML_VISIBLE_TITLE_COMMENT : '/-- ' ( options {greedy=false;} : . )*'--/';
+
+RULE_DIVIDER : '----' '-'*;
 
 RULE_WS : (' '|'\t')+;
 

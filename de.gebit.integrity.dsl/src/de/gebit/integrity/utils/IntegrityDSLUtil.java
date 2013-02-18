@@ -329,9 +329,16 @@ public final class IntegrityDSLUtil {
 	 */
 	public static String cleanSingleLineComment(VisibleSingleLineComment aComment) {
 		String tempString = aComment.getContent().trim();
-		if (tempString.startsWith("--")) {
-			if (tempString.length() > 2) {
-				return tempString.substring(2);
+		int tempCharsToTrim = 0;
+		if (tempString.startsWith("--- ")) {
+			tempCharsToTrim = 4;
+		} else if (tempString.startsWith("-- ")) {
+			tempCharsToTrim = 3;
+		}
+
+		if (tempCharsToTrim > 0) {
+			if (tempString.length() > tempCharsToTrim) {
+				return tempString.substring(tempCharsToTrim);
 			} else {
 				return "";
 			}
@@ -349,10 +356,21 @@ public final class IntegrityDSLUtil {
 	 */
 	public static String cleanMultiLineComment(VisibleMultiLineComment aComment) {
 		String tempString = aComment.getContent().trim();
-		if (tempString.startsWith("/-") && tempString.endsWith("-/")) {
+		int tempCharsToTrimStart = 0;
+		int tempCharsToTrimEnd = 0;
+
+		if (tempString.startsWith("/--") && tempString.endsWith("--/")) {
+			tempCharsToTrimStart = 4;
+			tempCharsToTrimEnd = 3;
+		} else if (tempString.startsWith("/- ") && tempString.endsWith("-/")) {
+			tempCharsToTrimStart = 3;
+			tempCharsToTrimEnd = 2;
+		}
+
+		if (tempCharsToTrimStart > 0) {
 			StringBuilder tempBuilder = new StringBuilder();
 			boolean tempSpaceWasAdded = false;
-			for (int i = 2; i < tempString.length() - 2; i++) {
+			for (int i = tempCharsToTrimStart; i < tempString.length() - tempCharsToTrimEnd; i++) {
 				char tempChar = tempString.charAt(i);
 				if (!Character.isWhitespace(tempChar)) {
 					tempSpaceWasAdded = false;
@@ -365,7 +383,7 @@ public final class IntegrityDSLUtil {
 				}
 			}
 
-			return tempBuilder.toString();
+			return tempBuilder.toString().trim();
 		}
 
 		throw new IllegalArgumentException(

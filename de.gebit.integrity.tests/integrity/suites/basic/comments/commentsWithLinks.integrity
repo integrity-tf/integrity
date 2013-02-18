@@ -1,4 +1,4 @@
-packagedef integrity.basic with
+packagedef integrity.basic.comments with
 
 	suitedef commentsWithLinks with
 		
@@ -8,6 +8,10 @@ packagedef integrity.basic with
 		-- A singleline visible comment with no valid link: http:/www.invalid.com
 		
 		-- But this one has one: http://a.link.org
+		
+		-- And this one has a Markdown-style URL: [I am a link](http://www.heise.de)!
+		
+		--- A title comment with link: http://www.link.com
 	
 	suiteend
 

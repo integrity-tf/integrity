@@ -1,0 +1,22 @@
+packagedef integrity.basic.comments with
+
+	suitedef comments with
+		
+		// A simple invisible comment
+		
+		/* A multiline invisible comment
+		   This also belongs to it! */
+		
+		--- A title comment!
+		
+		-- A simple visible comment. This one is not a title.
+		
+		/- A simple multiline visible comment.
+		   Again, this second line also belongs to it -/
+		   
+		/-- A multiline title comment.
+		    This one is not used for the suites' title, since only the first one is taken for that. --/
+	
+	suiteend
+
+packageend

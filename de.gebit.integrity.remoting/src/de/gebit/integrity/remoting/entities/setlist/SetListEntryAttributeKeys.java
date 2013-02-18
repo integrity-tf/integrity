@@ -29,6 +29,11 @@ public enum SetListEntryAttributeKeys {
 	VALUE,
 
 	/**
+	 * Comment type.
+	 */
+	TYPE,
+
+	/**
 	 * Names of variables.
 	 */
 	VARIABLE_NAME,

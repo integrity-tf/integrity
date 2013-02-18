@@ -107,12 +107,52 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.VISIBLE_SINGLE_LINE_NORMAL_COMMENT:
+      {
+        VisibleSingleLineNormalComment visibleSingleLineNormalComment = (VisibleSingleLineNormalComment)theEObject;
+        T result = caseVisibleSingleLineNormalComment(visibleSingleLineNormalComment);
+        if (result == null) result = caseVisibleSingleLineComment(visibleSingleLineNormalComment);
+        if (result == null) result = caseVisibleComment(visibleSingleLineNormalComment);
+        if (result == null) result = caseSuiteStatement(visibleSingleLineNormalComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VISIBLE_SINGLE_LINE_TITLE_COMMENT:
+      {
+        VisibleSingleLineTitleComment visibleSingleLineTitleComment = (VisibleSingleLineTitleComment)theEObject;
+        T result = caseVisibleSingleLineTitleComment(visibleSingleLineTitleComment);
+        if (result == null) result = caseVisibleSingleLineComment(visibleSingleLineTitleComment);
+        if (result == null) result = caseVisibleComment(visibleSingleLineTitleComment);
+        if (result == null) result = caseSuiteStatement(visibleSingleLineTitleComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VISIBLE_MULTI_LINE_COMMENT:
       {
         VisibleMultiLineComment visibleMultiLineComment = (VisibleMultiLineComment)theEObject;
         T result = caseVisibleMultiLineComment(visibleMultiLineComment);
         if (result == null) result = caseVisibleComment(visibleMultiLineComment);
         if (result == null) result = caseSuiteStatement(visibleMultiLineComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VISIBLE_MULTI_LINE_NORMAL_COMMENT:
+      {
+        VisibleMultiLineNormalComment visibleMultiLineNormalComment = (VisibleMultiLineNormalComment)theEObject;
+        T result = caseVisibleMultiLineNormalComment(visibleMultiLineNormalComment);
+        if (result == null) result = caseVisibleMultiLineComment(visibleMultiLineNormalComment);
+        if (result == null) result = caseVisibleComment(visibleMultiLineNormalComment);
+        if (result == null) result = caseSuiteStatement(visibleMultiLineNormalComment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.VISIBLE_MULTI_LINE_TITLE_COMMENT:
+      {
+        VisibleMultiLineTitleComment visibleMultiLineTitleComment = (VisibleMultiLineTitleComment)theEObject;
+        T result = caseVisibleMultiLineTitleComment(visibleMultiLineTitleComment);
+        if (result == null) result = caseVisibleMultiLineComment(visibleMultiLineTitleComment);
+        if (result == null) result = caseVisibleComment(visibleMultiLineTitleComment);
+        if (result == null) result = caseSuiteStatement(visibleMultiLineTitleComment);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -822,6 +862,38 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Single Line Normal Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Single Line Normal Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleSingleLineNormalComment(VisibleSingleLineNormalComment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Single Line Title Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Single Line Title Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleSingleLineTitleComment(VisibleSingleLineTitleComment object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Visible Multi Line Comment</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -833,6 +905,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVisibleMultiLineComment(VisibleMultiLineComment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Multi Line Normal Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Multi Line Normal Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleMultiLineNormalComment(VisibleMultiLineNormalComment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Visible Multi Line Title Comment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Visible Multi Line Title Comment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVisibleMultiLineTitleComment(VisibleMultiLineTitleComment object)
   {
     return null;
   }

@@ -39,6 +39,8 @@ public class DSLParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getStatementAccess().getAlternatives(), "rule__Statement__Alternatives");
 					put(grammarAccess.getVisibleCommentAccess().getAlternatives(), "rule__VisibleComment__Alternatives");
+					put(grammarAccess.getVisibleSingleLineCommentAccess().getAlternatives(), "rule__VisibleSingleLineComment__Alternatives");
+					put(grammarAccess.getVisibleMultiLineCommentAccess().getAlternatives(), "rule__VisibleMultiLineComment__Alternatives");
 					put(grammarAccess.getPackageStatementAccess().getAlternatives(), "rule__PackageStatement__Alternatives");
 					put(grammarAccess.getSuiteStatementAccess().getAlternatives(), "rule__SuiteStatement__Alternatives");
 					put(grammarAccess.getSuiteStatementWithResultAccess().getAlternatives(), "rule__SuiteStatementWithResult__Alternatives");
@@ -57,8 +59,10 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeValueAccess().getAlternatives(), "rule__TimeValue__Alternatives");
 					put(grammarAccess.getDateAndTimeValueAccess().getAlternatives(), "rule__DateAndTimeValue__Alternatives");
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
-					put(grammarAccess.getVisibleSingleLineCommentAccess().getGroup(), "rule__VisibleSingleLineComment__Group__0");
-					put(grammarAccess.getVisibleMultiLineCommentAccess().getGroup(), "rule__VisibleMultiLineComment__Group__0");
+					put(grammarAccess.getVisibleSingleLineNormalCommentAccess().getGroup(), "rule__VisibleSingleLineNormalComment__Group__0");
+					put(grammarAccess.getVisibleSingleLineTitleCommentAccess().getGroup(), "rule__VisibleSingleLineTitleComment__Group__0");
+					put(grammarAccess.getVisibleMultiLineNormalCommentAccess().getGroup(), "rule__VisibleMultiLineNormalComment__Group__0");
+					put(grammarAccess.getVisibleMultiLineTitleCommentAccess().getGroup(), "rule__VisibleMultiLineTitleComment__Group__0");
 					put(grammarAccess.getVisibleDividerAccess().getGroup(), "rule__VisibleDivider__Group__0");
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
@@ -140,8 +144,10 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNLAccess().getGroup(), "rule__NL__Group__0");
 					put(grammarAccess.getNLFORCEDAccess().getGroup(), "rule__NLFORCED__Group__0");
 					put(grammarAccess.getModelAccess().getStatementsAssignment_2(), "rule__Model__StatementsAssignment_2");
-					put(grammarAccess.getVisibleSingleLineCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineComment__ContentAssignment_0");
-					put(grammarAccess.getVisibleMultiLineCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineComment__ContentAssignment_0");
+					put(grammarAccess.getVisibleSingleLineNormalCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineNormalComment__ContentAssignment_0");
+					put(grammarAccess.getVisibleSingleLineTitleCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineTitleComment__ContentAssignment_0");
+					put(grammarAccess.getVisibleMultiLineNormalCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineNormalComment__ContentAssignment_0");
+					put(grammarAccess.getVisibleMultiLineTitleCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineTitleComment__ContentAssignment_0");
 					put(grammarAccess.getVisibleDividerAccess().getContentAssignment_0(), "rule__VisibleDivider__ContentAssignment_0");
 					put(grammarAccess.getPackageDefinitionAccess().getNameAssignment_2(), "rule__PackageDefinition__NameAssignment_2");
 					put(grammarAccess.getPackageDefinitionAccess().getStatementsAssignment_5(), "rule__PackageDefinition__StatementsAssignment_5");

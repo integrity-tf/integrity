@@ -15,7 +15,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleComment/content"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineComment"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineNormalComment"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleSingleLineTitleComment"/>
     <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineComment"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineNormalComment"/>
+    <genClasses ecoreClass="DSL.ecore#//VisibleMultiLineTitleComment"/>
     <genClasses ecoreClass="DSL.ecore#//VisibleDivider">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleDivider/content"/>
     </genClasses>

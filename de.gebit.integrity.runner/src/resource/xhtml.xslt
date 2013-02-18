@@ -26,7 +26,7 @@
 					.pagetitle { font-size: larger; font-weight: bold; }
 					.pagesubtitle { font-weight: normal; }
 					.pagesubtitlebold { font-weight: bold; }
-					.version { position: absolute; top: 0px; right: 267px; font-size: 9px; display: inline; color: #999; }
+					.version { position: absolute; top: 0px; right: 267px; font-size: 8pt; display: inline; color: #999; }
 					.versionnumber { font-weight: bold; }
 					html, body { overflow: hidden; }
 					a:link { color: #000; text-decoration: none; }
@@ -99,6 +99,7 @@
 					.tab { padding-right: 20px; }
 					.fixturename { font-size: 8pt; padding: 4px; }
 					.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; }
+					.comment_title { font-weight: bold; font-size: 11pt; border-bottom: 1px dashed #000; margin-bottom: 6px;  }
 					.comment a:link { color: #0E4600; text-decoration: none; font-weight: bold; }
 					.comment a:hover { color: #0E4600; text-decoration: underline; font-weight: bold; }
 					.comment a:visited { color: #0E4600; text-decoration: none; font-weight: bold; }
@@ -478,7 +479,13 @@
       </xsl:call-template>
     </xsl:template>
     <xsl:template match="comment">
-      <div class="comment">
+      <div>
+        <xsl:attribute name="class">
+	   	  comment
+	   	  <xsl:if test="@type = 'title'">
+	 		comment_title
+	 	  </xsl:if>
+	    </xsl:attribute>
         <xsl:copy-of select="child::node()" />
       </div>
     </xsl:template>

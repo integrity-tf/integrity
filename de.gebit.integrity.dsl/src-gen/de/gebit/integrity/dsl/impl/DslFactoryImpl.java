@@ -72,7 +72,11 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.STATEMENT: return createStatement();
       case DslPackage.VISIBLE_COMMENT: return createVisibleComment();
       case DslPackage.VISIBLE_SINGLE_LINE_COMMENT: return createVisibleSingleLineComment();
+      case DslPackage.VISIBLE_SINGLE_LINE_NORMAL_COMMENT: return createVisibleSingleLineNormalComment();
+      case DslPackage.VISIBLE_SINGLE_LINE_TITLE_COMMENT: return createVisibleSingleLineTitleComment();
       case DslPackage.VISIBLE_MULTI_LINE_COMMENT: return createVisibleMultiLineComment();
+      case DslPackage.VISIBLE_MULTI_LINE_NORMAL_COMMENT: return createVisibleMultiLineNormalComment();
+      case DslPackage.VISIBLE_MULTI_LINE_TITLE_COMMENT: return createVisibleMultiLineTitleComment();
       case DslPackage.VISIBLE_DIVIDER: return createVisibleDivider();
       case DslPackage.PACKAGE_DEFINITION: return createPackageDefinition();
       case DslPackage.PACKAGE_STATEMENT: return createPackageStatement();
@@ -199,10 +203,54 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public VisibleSingleLineNormalComment createVisibleSingleLineNormalComment()
+  {
+    VisibleSingleLineNormalCommentImpl visibleSingleLineNormalComment = new VisibleSingleLineNormalCommentImpl();
+    return visibleSingleLineNormalComment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VisibleSingleLineTitleComment createVisibleSingleLineTitleComment()
+  {
+    VisibleSingleLineTitleCommentImpl visibleSingleLineTitleComment = new VisibleSingleLineTitleCommentImpl();
+    return visibleSingleLineTitleComment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VisibleMultiLineComment createVisibleMultiLineComment()
   {
     VisibleMultiLineCommentImpl visibleMultiLineComment = new VisibleMultiLineCommentImpl();
     return visibleMultiLineComment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VisibleMultiLineNormalComment createVisibleMultiLineNormalComment()
+  {
+    VisibleMultiLineNormalCommentImpl visibleMultiLineNormalComment = new VisibleMultiLineNormalCommentImpl();
+    return visibleMultiLineNormalComment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VisibleMultiLineTitleComment createVisibleMultiLineTitleComment()
+  {
+    VisibleMultiLineTitleCommentImpl visibleMultiLineTitleComment = new VisibleMultiLineTitleCommentImpl();
+    return visibleMultiLineTitleComment;
   }
 
   /**

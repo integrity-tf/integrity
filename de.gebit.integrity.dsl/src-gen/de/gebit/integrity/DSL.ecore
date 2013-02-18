@@ -10,7 +10,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VisibleSingleLineComment" eSuperTypes="#//VisibleComment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleSingleLineNormalComment" eSuperTypes="#//VisibleSingleLineComment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleSingleLineTitleComment" eSuperTypes="#//VisibleSingleLineComment"/>
   <eClassifiers xsi:type="ecore:EClass" name="VisibleMultiLineComment" eSuperTypes="#//VisibleComment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleMultiLineNormalComment" eSuperTypes="#//VisibleMultiLineComment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibleMultiLineTitleComment" eSuperTypes="#//VisibleMultiLineComment"/>
   <eClassifiers xsi:type="ecore:EClass" name="VisibleDivider" eSuperTypes="#//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

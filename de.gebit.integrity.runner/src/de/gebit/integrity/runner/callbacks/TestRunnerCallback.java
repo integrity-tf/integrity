@@ -218,7 +218,7 @@ public abstract class TestRunnerCallback {
 	 * @param aCommentElement
 	 *            the raw comment element
 	 */
-	public abstract void onVisibleComment(String aCommentText, VisibleComment aCommentElement);
+	public abstract void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement);
 
 	/**
 	 * Called when a visible divider is encountered during execution.

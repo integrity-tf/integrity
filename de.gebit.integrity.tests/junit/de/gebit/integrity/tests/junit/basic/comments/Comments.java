@@ -1,4 +1,4 @@
-package de.gebit.integrity.tests.junit.basic;
+package de.gebit.integrity.tests.junit.basic.comments;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
  * @author Rene Schneider
  * 
  */
-public class CommentsWithLinks extends IntegrityJUnitTest {
+public class Comments extends IntegrityJUnitTest {
 
 	/**
 	 * Performs a suite which does use comments with links and checks the resulting XML document.
@@ -28,8 +28,8 @@ public class CommentsWithLinks extends IntegrityJUnitTest {
 	@Test
 	public void test() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/commentsWithLinks.integrity" },
-				"integrity.basic.commentsWithLinks", null);
+				new String[] { "integrity/suites/basic/comments/comments.integrity" },
+				"integrity.basic.comments.comments", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

@@ -5,11 +5,12 @@ packagedef integrity.basic.divider with
 	suitedef divider with
 		call noOp
 		
-		--- // a minimum length divider
+		---- // a minimum length divider
 		
 		call noOp
 		
 		-- This is a visible comment, not a divider!
+		--- This too!
 		
 		call noOp
 		call noOp

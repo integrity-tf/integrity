@@ -99,9 +99,29 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createVisibleSingleLineCommentAdapter();
       }
       @Override
+      public Adapter caseVisibleSingleLineNormalComment(VisibleSingleLineNormalComment object)
+      {
+        return createVisibleSingleLineNormalCommentAdapter();
+      }
+      @Override
+      public Adapter caseVisibleSingleLineTitleComment(VisibleSingleLineTitleComment object)
+      {
+        return createVisibleSingleLineTitleCommentAdapter();
+      }
+      @Override
       public Adapter caseVisibleMultiLineComment(VisibleMultiLineComment object)
       {
         return createVisibleMultiLineCommentAdapter();
+      }
+      @Override
+      public Adapter caseVisibleMultiLineNormalComment(VisibleMultiLineNormalComment object)
+      {
+        return createVisibleMultiLineNormalCommentAdapter();
+      }
+      @Override
+      public Adapter caseVisibleMultiLineTitleComment(VisibleMultiLineTitleComment object)
+      {
+        return createVisibleMultiLineTitleCommentAdapter();
       }
       @Override
       public Adapter caseVisibleDivider(VisibleDivider object)
@@ -546,6 +566,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleSingleLineNormalComment <em>Visible Single Line Normal Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleSingleLineNormalComment
+   * @generated
+   */
+  public Adapter createVisibleSingleLineNormalCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleSingleLineTitleComment <em>Visible Single Line Title Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleSingleLineTitleComment
+   * @generated
+   */
+  public Adapter createVisibleSingleLineTitleCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleMultiLineComment <em>Visible Multi Line Comment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -556,6 +606,36 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVisibleMultiLineCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleMultiLineNormalComment <em>Visible Multi Line Normal Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleMultiLineNormalComment
+   * @generated
+   */
+  public Adapter createVisibleMultiLineNormalCommentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VisibleMultiLineTitleComment <em>Visible Multi Line Title Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VisibleMultiLineTitleComment
+   * @generated
+   */
+  public Adapter createVisibleMultiLineTitleCommentAdapter()
   {
     return null;
   }

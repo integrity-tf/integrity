@@ -468,10 +468,13 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
+	public void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.COMMENT);
 
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE, aCommentText);
+		if (anIsTitle) {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.TYPE, "title");
+		}
 
 		addLinkToEntry(tempNewEntry, aCommentElement);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);

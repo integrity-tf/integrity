@@ -63,6 +63,24 @@ public interface DslFactory extends EFactory
   VisibleSingleLineComment createVisibleSingleLineComment();
 
   /**
+   * Returns a new object of class '<em>Visible Single Line Normal Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Single Line Normal Comment</em>'.
+   * @generated
+   */
+  VisibleSingleLineNormalComment createVisibleSingleLineNormalComment();
+
+  /**
+   * Returns a new object of class '<em>Visible Single Line Title Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Single Line Title Comment</em>'.
+   * @generated
+   */
+  VisibleSingleLineTitleComment createVisibleSingleLineTitleComment();
+
+  /**
    * Returns a new object of class '<em>Visible Multi Line Comment</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -70,6 +88,24 @@ public interface DslFactory extends EFactory
    * @generated
    */
   VisibleMultiLineComment createVisibleMultiLineComment();
+
+  /**
+   * Returns a new object of class '<em>Visible Multi Line Normal Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Multi Line Normal Comment</em>'.
+   * @generated
+   */
+  VisibleMultiLineNormalComment createVisibleMultiLineNormalComment();
+
+  /**
+   * Returns a new object of class '<em>Visible Multi Line Title Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Visible Multi Line Title Comment</em>'.
+   * @generated
+   */
+  VisibleMultiLineTitleComment createVisibleMultiLineTitleComment();
 
   /**
    * Returns a new object of class '<em>Visible Divider</em>'.

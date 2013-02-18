@@ -309,9 +309,10 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVisibleComment(String aCommentText, VisibleComment aCommentElement) {
+	public void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement) {
 		if (!isDryRun()) { // don't want to print this if we're not actually executing stuff
-			System.out.println(" -- " + aCommentText + " --");
+			String tempDelimiters = (anIsTitle ? "**" : "--");
+			System.out.println(" " + tempDelimiters + " " + aCommentText + " " + tempDelimiters);
 		}
 	}
 

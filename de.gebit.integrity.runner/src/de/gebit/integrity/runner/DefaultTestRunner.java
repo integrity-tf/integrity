@@ -54,7 +54,9 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
+import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
@@ -800,15 +802,17 @@ public class DefaultTestRunner implements TestRunner {
 				defineConstant((ConstantDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
+					boolean tempIsTitle = (tempStatement instanceof VisibleSingleLineTitleComment);
 					currentCallback.onVisibleComment(
 							IntegrityDSLUtil.cleanSingleLineComment((VisibleSingleLineComment) tempStatement),
-							(VisibleComment) tempStatement);
+							tempIsTitle, (VisibleComment) tempStatement);
 				}
 			} else if (tempStatement instanceof VisibleMultiLineComment) {
 				if (currentCallback != null) {
+					boolean tempIsTitle = (tempStatement instanceof VisibleMultiLineTitleComment);
 					currentCallback.onVisibleComment(
 							IntegrityDSLUtil.cleanMultiLineComment((VisibleMultiLineComment) tempStatement),
-							(VisibleComment) tempStatement);
+							tempIsTitle, (VisibleComment) tempStatement);
 				}
 			} else if (tempStatement instanceof VisibleDivider) {
 				if (currentCallback != null) {

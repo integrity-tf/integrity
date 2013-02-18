@@ -27,10 +27,22 @@ VisibleComment:
 	VisibleSingleLineComment | VisibleMultiLineComment;
 	
 VisibleSingleLineComment:
+	VisibleSingleLineNormalComment | VisibleSingleLineTitleComment;
+	
+VisibleSingleLineNormalComment:
 	content=SL_VISIBLE_COMMENT NL;
 	
+VisibleSingleLineTitleComment:
+	content=SL_VISIBLE_TITLE_COMMENT NL;
+	
 VisibleMultiLineComment:
+	VisibleMultiLineNormalComment | VisibleMultiLineTitleComment;
+	
+VisibleMultiLineNormalComment:
 	content=ML_VISIBLE_COMMENT NL;
+	
+VisibleMultiLineTitleComment:
+	content=ML_VISIBLE_TITLE_COMMENT NL;
 	
 VisibleDivider:
 	content=DIVIDER NL;
@@ -274,8 +286,10 @@ terminal STRING:
 terminal ML_COMMENT: '/*' -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
 terminal SL_VISIBLE_COMMENT: '-- ' !('\n'|'\r')*;
-terminal ML_VISIBLE_COMMENT: '/-' -> '-/';
-terminal DIVIDER: '---' ('-')*;
+terminal SL_VISIBLE_TITLE_COMMENT: '--- ' !('\n'|'\r')*;
+terminal ML_VISIBLE_COMMENT: '/- ' -> '-/';
+terminal ML_VISIBLE_TITLE_COMMENT: '/-- ' -> '--/';
+terminal DIVIDER: '----' ('-')*;
 
 terminal WS: (' '|'\t')+;
 terminal NEWLINE: ('\r'|'\n')+;
