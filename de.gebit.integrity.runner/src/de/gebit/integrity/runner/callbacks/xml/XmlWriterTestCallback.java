@@ -69,6 +69,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
+import de.gebit.integrity.runner.IntegrityRunnerModule;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
@@ -84,6 +85,7 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.VersionUtil;
 
 /**
  * Test runner callback which writes to an XML result file. This runner may optionally add an XHTML transform to the
@@ -325,6 +327,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The constant LINE_NUMBER_ATTRIBUTE. */
 	protected static final String LINE_NUMBER_ATTRIBUTE = "line";
 
+	/** The constant VERSION_ATTRIBUTE. */
+	protected static final String VERSION_ATTRIBUTE = "version";
+
 	/**
 	 * The time format used to format execution times.
 	 */
@@ -387,6 +392,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempRootElement.setAttribute(TEST_RUN_NAME_ATTRIBUTE, title);
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP, DATE_FORMAT.format(new Date()));
 		tempRootElement.setAttribute(TEST_RUN_TIMESTAMP_ISO8601, ISO_DATE_FORMAT.format(new Date()));
+		addVersion(tempRootElement);
 		document = new Document(tempRootElement);
 		stackPush(tempRootElement);
 
@@ -1477,6 +1483,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected void addId(Element anElement) {
 		anElement.setAttribute(ID_ATTRIBUTE, Long.toString(idCounter));
 		idCounter++;
+	}
+
+	protected void addVersion(Element anElement) {
+		String tempVersion = VersionUtil.getBundleVersionString(IntegrityRunnerModule.class);
+		if (tempVersion != null) {
+			anElement.setAttribute(VERSION_ATTRIBUTE, tempVersion);
+		}
 	}
 
 	/**

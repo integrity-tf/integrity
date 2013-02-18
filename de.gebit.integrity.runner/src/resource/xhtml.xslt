@@ -26,6 +26,8 @@
 					.pagetitle { font-size: larger; font-weight: bold; }
 					.pagesubtitle { font-weight: normal; }
 					.pagesubtitlebold { font-weight: bold; }
+					.version { position: absolute; top: 0px; right: 267px; font-size: 9px; display: inline; color: #999; }
+					.versionnumber { font-weight: bold; }
 					html, body { overflow: hidden; }
 					a:link { color: #000; text-decoration: none; }
 					a:hover { color: #000; text-decoration: underline; }
@@ -320,6 +322,14 @@
               </span>
               to complete
             </div>
+            <xsl:if test="@version">
+	            <div align="right" class="version">
+	            	Integrity Test Runner Version 
+	            	<span class="versionnumber">
+	            		<xsl:value-of select="@version" /> 
+	            	</span>
+	            </div>
+            </xsl:if>
             <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
             <div id="headershadow" />
           </div>

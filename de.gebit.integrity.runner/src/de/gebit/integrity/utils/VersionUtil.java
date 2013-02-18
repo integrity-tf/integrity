@@ -14,7 +14,11 @@ import java.util.jar.Manifest;
  * @author Rene Schneider
  * 
  */
-public class VersionUtil {
+public final class VersionUtil {
+
+	private VersionUtil() {
+		// private constructor
+	}
 
 	/**
 	 * Returns the version string of the bundle/jar in which the given class exists.
@@ -23,8 +27,8 @@ public class VersionUtil {
 	 *            a class from the bundle
 	 * @return
 	 */
-	public String getBundleVersionString(Class<?> aClassFromTheBundle) {
-		InputStream tempStream = getClass().getResourceAsStream("/META-INF/MANIFEST.MF");
+	public static String getBundleVersionString(Class<?> aClassFromTheBundle) {
+		InputStream tempStream = aClassFromTheBundle.getResourceAsStream("/META-INF/MANIFEST.MF");
 		Manifest tempManifest;
 		try {
 			tempManifest = new Manifest(tempStream);
@@ -33,7 +37,11 @@ public class VersionUtil {
 		}
 
 		Attributes tempAttributes = tempManifest.getMainAttributes();
-		return tempAttributes.getValue("Bundle-Version");
+		if ("de.gebit.integrity.runner".equals(tempAttributes.getValue("Bundle-SymbolicName"))) {
+			return tempAttributes.getValue("Bundle-Version");
+		} else {
+			// cannot determine version - usually the case during Integrity development
+			return null;
+		}
 	}
-
 }
