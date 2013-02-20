@@ -5,7 +5,9 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
+	// test
 		--- Die erste Suite
+		--- Der erste Call
 		call echoInteger echo: 1 -> var
 		--- Noch ein Titel
 		-- Kein Titel

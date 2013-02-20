@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.02.13 20:43" isotimestamp="2013-02-18T20:43:52" duration="35.830">
+<integrity name="Integrity JUnit Testing" timestamp="20.02.13 13:16" isotimestamp="2013-02-20T13:16:12" duration="6.049">
   <variables />
-  <suite id="0" name="integrity.basic.comments.commentsWithLinks" title="A title comment with link: &lt;a href=&quot;http://www.link.com&quot;&gt;http://www.link.com&lt;/a&gt;">
+  <suite id="0" name="integrity.basic.comments.commentsWithLinks">
     <setup />
     <variables />
     <statements>
@@ -27,7 +27,7 @@
       </comment>
     </statements>
     <teardown />
-    <result duration="20.068" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="4.887" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.02.13 20:38" isotimestamp="2013-02-18T20:38:19" duration="15.078">
+<integrity name="Integrity JUnit Testing" timestamp="20.02.13 14:01" isotimestamp="2013-02-20T14:01:01" duration="11.879">
   <variables />
-  <suite id="0" name="integrity.basic.comments.comments" title="A title comment!">
+  <suite id="0" name="integrity.basic.comments.comments">
     <setup />
     <variables />
     <statements>
       <comment id="1" line="10" type="title">A title comment!</comment>
       <comment id="2" line="12">A simple visible comment. This one is not a title.</comment>
       <comment id="3" line="14">A simple multiline visible comment. Again, this second line also belongs to it</comment>
-      <comment id="4" line="17" type="title">A multiline title comment. This one is not used for the suites' title, since only the first one is taken for that.</comment>
+      <comment id="4" line="17" type="title">A multiline title comment.</comment>
     </statements>
     <teardown />
-    <result duration="4.107" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.478" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

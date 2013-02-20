@@ -55,6 +55,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -64,6 +65,8 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
+import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -126,6 +129,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * How the XML -> XHTML transform shall be handled.
 	 */
 	protected TransformHandling transformHandling;
+
+	/**
+	 * Whether the next title comment is to be treated as a suite title.
+	 */
+	protected boolean nextTitleCommentIsSuiteTitle;
 
 	/**
 	 * The classloader to use.
@@ -245,6 +253,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant COMMENT_TYPE_ATTRIBUTE. */
 	protected static final String COMMENT_TYPE_ATTRIBUTE = "type";
+
+	/** The Constant COMMENT_TYPE_SUITETITLE. */
+	protected static final String COMMENT_TYPE_SUITETITLE = "suitetitle";
 
 	/** The Constant COMMENT_TYPE_TITLE. */
 	protected static final String COMMENT_TYPE_TITLE = "title";
@@ -449,6 +460,35 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			if (getForkInExecution().getDescription() != null) {
 				tempSuiteElement.setAttribute(FORK_DESCRIPTION_ATTRIBUTE, getForkInExecution().getDescription());
 			}
+		}
+
+		// The XML output has a notion of a "suite title", which is a freely choosable title given to a suite. This
+		// title is derived from the first title comment in a suite. But since those comments can be used for multiple
+		// purposes, a special logic is applied to determine whether the first title in a suite shall be treated as
+		// suite title. If one of the following circumstances is met, this is the case:
+		// 1. The first statement in a suite is a title comment, and it is the only title comment in the suite.
+		// 2. The first statement is a title comment, directly followed by another title comment.
+		// In both of these cases, the first comment is assumed to be a suite title. In all other cases the logic
+		// assumes that the title comments are just simple titles used to structure a suite internally.
+		boolean tempFirstStatementWasTitleComment = false;
+		boolean tempSecondStatementWasTitleComment = false;
+		int tempTitleCommentCount = 0;
+		int tempStatementCount = 0;
+		for (SuiteStatement tempStatement : aSuite.getDefinition().getStatements()) {
+			tempStatementCount++;
+			if ((tempStatement instanceof VisibleSingleLineTitleComment)
+					|| (tempStatement instanceof VisibleMultiLineTitleComment)) {
+				tempTitleCommentCount++;
+				if (tempStatementCount == 1) {
+					tempFirstStatementWasTitleComment = true;
+				} else if (tempStatementCount == 2) {
+					tempSecondStatementWasTitleComment = true;
+				}
+			}
+		}
+		if ((tempFirstStatementWasTitleComment && tempTitleCommentCount == 1)
+				|| (tempFirstStatementWasTitleComment && tempSecondStatementWasTitleComment)) {
+			nextTitleCommentIsSuiteTitle = true;
 		}
 
 		if (!isDryRun()) {
@@ -1327,7 +1367,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempCommentElement.addContent(parseComment(aCommentText));
 
 		if (anIsTitle) {
-			tempCommentElement.setAttribute(COMMENT_TYPE_ATTRIBUTE, COMMENT_TYPE_TITLE);
+			tempCommentElement.setAttribute(COMMENT_TYPE_ATTRIBUTE,
+					nextTitleCommentIsSuiteTitle ? COMMENT_TYPE_SUITETITLE : COMMENT_TYPE_TITLE);
+			nextTitleCommentIsSuiteTitle = false;
 		}
 
 		if (!isDryRun()) {
@@ -1363,12 +1405,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aCommentElement);
 
-		if (COMMENT_TYPE_TITLE.equals(aCommentElement.getAttributeValue(COMMENT_TYPE_ATTRIBUTE))) {
+		if (COMMENT_TYPE_SUITETITLE.equals(aCommentElement.getAttributeValue(COMMENT_TYPE_ATTRIBUTE))) {
 			Element tempSuiteElement = stackFind(SUITE_ELEMENT);
-			if (tempSuiteElement.getAttribute(SUITE_TITLE_ATTRIBUTE) == null) {
-				tempSuiteElement.setAttribute(SUITE_TITLE_ATTRIBUTE,
-						new XMLOutputter().outputString(aCommentElement.getContent()));
-			}
+			tempSuiteElement.setAttribute(SUITE_TITLE_ATTRIBUTE,
+					new XMLOutputter().outputString(aCommentElement.getContent()));
 		}
 	}
 

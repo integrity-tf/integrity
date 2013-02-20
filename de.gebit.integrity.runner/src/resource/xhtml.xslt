@@ -100,6 +100,7 @@
 					.tab { padding-right: 20px; }
 					.fixturename { font-size: 8pt; padding: 4px; }
 					.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; }
+					.comment_suitetitle { font-weight: bold; font-size: 12pt; border-bottom: 1px dashed #000; margin-bottom: 6px;  }
 					.comment_title { font-weight: bold; font-size: 11pt; border-bottom: 1px dashed #000; margin-bottom: 6px;  }
 					.comment a:link { color: #0E4600; text-decoration: none; font-weight: bold; }
 					.comment a:hover { color: #0E4600; text-decoration: underline; font-weight: bold; }
@@ -493,6 +494,7 @@
       <div>
         <xsl:attribute name="class">
           comment
+          <xsl:if test="@type = 'suitetitle'">comment_suitetitle</xsl:if>
           <xsl:if test="@type = 'title'">comment_title</xsl:if>
         </xsl:attribute>
         <xsl:copy-of select="child::node()" />

@@ -1,0 +1,47 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.comments with
+
+	suitedef titleComments with
+		suite titleComments1
+		suite titleComments2
+		suite titleComments3	
+	suiteend
+
+	suitedef titleComments1 with
+		// This covers the first suite title case: multiple title comments in suite, but the first two statements are
+		// both title comments -> first is considered suite title
+		
+		--- This is a title comment used as suite title
+		
+		--- This title comment is not used as suite title
+		
+		call noOp
+		
+		--- This is also a title comment, but not used as suite title as well
+		
+		call noOp	
+	suiteend
+	
+	suitedef titleComments2 with
+		// This covers the second suite title case: there is only one title comment, and it is the first statement
+		
+		--- This is a title comment used as suite title
+		
+		call noOp
+	suiteend
+	
+	suitedef titleComments3 with
+		// These titles should not be used as suite titles, as there are multiple ones here and none of the special
+		// cases match.
+		
+		--- This title comment is the first one
+		
+		call noOp
+		
+		--- This is the second title comment
+		
+		call noOp	
+	suiteend
+
+packageend
