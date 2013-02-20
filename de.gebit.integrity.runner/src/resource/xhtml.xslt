@@ -53,6 +53,7 @@
 					.boxtitle a:hover { color: #FFF; text-decoration: underline; font-weight: bold; }
 					.boxtitle a:visited { color: #FFF; text-decoration: none; font-weight: bold; }
 					.boxtitleright { position: absolute; right: 2px; }
+					.nonbold { font-weight: normal !important; }
 					.boxcontent { padding: 10px 10px 10px 10px; }
 					table { border-spacing: 0px; margin-bottom: 2px; border-bottom: 1px
 					solid #000; }
@@ -324,12 +325,12 @@
               to complete
             </div>
             <xsl:if test="@version">
-	            <div align="right" class="version">
-	            	Integrity Test Runner Version 
-	            	<span class="versionnumber">
-	            		<xsl:value-of select="@version" /> 
-	            	</span>
-	            </div>
+              <div align="right" class="version">
+                Integrity Test Runner Version
+                <span class="versionnumber">
+                  <xsl:value-of select="@version" />
+                </span>
+              </div>
             </xsl:if>
             <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
             <div id="headershadow" />
@@ -427,7 +428,17 @@
             <xsl:attribute name="href">
               <xsl:value-of select="concat('#', $permalink)" />
             </xsl:attribute>
-            <xsl:value-of select="@name" />
+            <xsl:choose>
+            	<xsl:when test="@title">
+            		<xsl:value-of select="@title" />
+            		<span class="nonbold">
+            			<xsl:value-of select="concat(' (',@name,')')" />
+            		</span>
+            	</xsl:when>
+            	<xsl:otherwise>
+            		<xsl:value-of select="@name" />
+            	</xsl:otherwise>
+            </xsl:choose>
           </a>
           <xsl:if test="@forkName">
             @
@@ -449,13 +460,13 @@
             <xsl:with-param name="value" select="result/@duration" />
           </xsl:call-template>
           <span class="suiteicons">
-              <xsl:if test="ancestor::suite[1]/@name">
-		          <xsl:call-template name="scriptlink">
-		            <xsl:with-param name="line" select="@line" />
-		          	<xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-		          	<xsl:with-param name="class" select="'suitescriptlink'" />
-		          </xsl:call-template>
-	          </xsl:if>
+            <xsl:if test="ancestor::suite[1]/@name">
+              <xsl:call-template name="scriptlink">
+                <xsl:with-param name="line" select="@line" />
+                <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+                <xsl:with-param name="class" select="'suitescriptlink'" />
+              </xsl:call-template>
+            </xsl:if>
           </span>
         </xsl:with-param>
         <xsl:with-param name="content">
@@ -481,11 +492,9 @@
     <xsl:template match="comment">
       <div>
         <xsl:attribute name="class">
-	   	  comment
-	   	  <xsl:if test="@type = 'title'">
-	 		comment_title
-	 	  </xsl:if>
-	    </xsl:attribute>
+          comment
+          <xsl:if test="@type = 'title'">comment_title</xsl:if>
+        </xsl:attribute>
         <xsl:copy-of select="child::node()" />
       </div>
     </xsl:template>
@@ -631,11 +640,11 @@
             <xsl:with-param name="value" select="result/@duration" />
           </xsl:call-template>
           <span class="testicons">
-	          <xsl:call-template name="scriptlink">
-	          	<xsl:with-param name="line" select="@line" />
-	          	<xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-	          	<xsl:with-param name="class" select="'scriptlink'" />
-	          </xsl:call-template>
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
           </span>
         </span>
       </div>
@@ -838,11 +847,11 @@
             <xsl:with-param name="value" select="results/@duration" />
           </xsl:call-template>
           <span class="testicons">
-	          <xsl:call-template name="scriptlink">
-	          	<xsl:with-param name="line" select="@line" />
-	          	<xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-	          	<xsl:with-param name="class" select="'scriptlink'" />
-	          </xsl:call-template>
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
           </span>
         </span>
       </div>
@@ -973,11 +982,11 @@
             <xsl:with-param name="value" select="results/@duration" />
           </xsl:call-template>
           <span class="testicons">
-	          <xsl:call-template name="scriptlink">
-	          	<xsl:with-param name="line" select="@line" />
-	          	<xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-	          	<xsl:with-param name="class" select="'scriptlink'" />
-	          </xsl:call-template>
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
           </span>
         </span>
       </div>
@@ -1026,22 +1035,26 @@
       </div>
     </xsl:template>
     <xsl:template name="scriptlink">
-    	<xsl:param name="line" />
-    	<xsl:param name="suite" />
-    	<xsl:param name="class" />
-    	<a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();">
-    		<xsl:attribute name="class">
-    			<xsl:value-of select="$class"/>
-    		</xsl:attribute>
-	    	<xsl:choose>    		
-	    		<xsl:when test="$line">
-	    			<xsl:attribute name="href"><xsl:value-of select="concat('integrity://', $suite, '#', $line)"/></xsl:attribute>
-	    		</xsl:when>
-	    		<xsl:otherwise>
-	    			<xsl:attribute name="href"><xsl:value-of select="concat('integrity://', $suite)"/></xsl:attribute>
-	    		</xsl:otherwise>
-	    	</xsl:choose>
-    	</a>
+      <xsl:param name="line" />
+      <xsl:param name="suite" />
+      <xsl:param name="class" />
+      <a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();">
+        <xsl:attribute name="class">
+          <xsl:value-of select="$class" />
+        </xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="$line">
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('integrity://', $suite, '#', $line)" />
+            </xsl:attribute>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('integrity://', $suite)" />
+            </xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
     </xsl:template>
     <xsl:template name="duration">
       <xsl:param name="value" />
@@ -1161,13 +1174,36 @@
           <xsl:with-param name="isLast" select="$isLast" />
         </xsl:call-template>
         <div class="nav_suitetitle">
+        	<xsl:variable name="linktitle">
+        		<xsl:choose>
+            	<xsl:when test="@title">
+            		<xsl:value-of select="concat(@title, ' (', @name, ')')"/>	
+            	</xsl:when>
+            	<xsl:otherwise>
+            		<xsl:value-of select="@name"/>	
+            	</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
           <a>
             <xsl:attribute name="href">
               <xsl:value-of select="concat('#i', @id)" />
             </xsl:attribute>
-            <xsl:call-template name="simpleSuiteName">
-              <xsl:with-param name="fullSuiteName" select="@name" />
-            </xsl:call-template>
+            <xsl:attribute name="title">
+            	<xsl:value-of select="$linktitle"/>	
+            </xsl:attribute>
+            <xsl:choose>
+            	<xsl:when test="@title">
+            		<xsl:value-of select="@title"/>
+            		<xsl:attribute name="title">
+            			<xsl:value-of select="concat(@title, ' (', @name, ')')"/>	
+            		</xsl:attribute>
+            	</xsl:when>
+            	<xsl:otherwise>
+            		<xsl:call-template name="simpleSuiteName">
+              		<xsl:with-param name="fullSuiteName" select="@name" />
+            		</xsl:call-template>
+            	</xsl:otherwise>
+            </xsl:choose>
           </a>
         </div>
         <div>
