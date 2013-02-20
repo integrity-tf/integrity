@@ -21,9 +21,9 @@
             <xsl:text>) - Integrity Test Framework</xsl:text>
           </title>
           <style type="text/css">body { color: #000; background-color: #FFF;
-					font-family: Helvetica, Arial, sans-serif; font-size:12px; }
+					font-family: Calibri, Arial, sans-serif; font-size:10pt; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
-					.pagetitle { font-size: larger; font-weight: bold; }
+					.pagetitle { font-size: 12pt; font-weight: bold; }
 					.pagesubtitle { font-weight: normal; }
 					.pagesubtitlebold { font-weight: bold; }
 					.version { position: absolute; top: 0px; right: 267px; font-size: 8pt; display: inline; color: #999; }
@@ -62,7 +62,7 @@
 					.variabletable th { font-size: 8pt; }
 					.variabletable .row1 { background-color: #D0CCFF; }
 					.variabletable .row2 { background-color: #E7E6FF; }
-					.sectionTitle { font-size: small; font-weight: bold; margin-bottom: 0px;
+					.sectionTitle { font-size: 10pt; font-weight: bold; margin-bottom: 0px;
 					margin-top: 8px; border-bottom: 2px solid #000; }
 					.statement { border: 1px solid #FFF; position: relative; top: 0px; left: 0px;
 					margin-bottom: 1px; padding-left: 40px; padding-right: 4px; }
@@ -110,7 +110,7 @@
 					background-color: #000; }
 					.nav_suite { position: relative; background-repeat: no-repeat; background-position: 0px 0px; }
 					.nav_suitetitle { height: 16px; font-size: 10pt; margin-right: 2px; font-weight:
-					bold; position: relative; top: -2px; left: 2px; overflow: hidden; }
+					bold; position: relative; left: 2px; overflow: hidden; }
 					.nav_suiteresult { height: 16px; font-size: 10pt; text-align: right; padding-right: 2px; padding-left: 20px; position: absolute; top: -2px; right: 0px; background-repeat: no-repeat; background-position: 0px 2px; }
 					.nav_line { height: 16px; width: 16px; float: left; }
 					.nav_linedown { background-image:
@@ -1194,9 +1194,6 @@
             <xsl:choose>
             	<xsl:when test="@title">
             		<xsl:value-of select="@title"/>
-            		<xsl:attribute name="title">
-            			<xsl:value-of select="concat(@title, ' (', @name, ')')"/>	
-            		</xsl:attribute>
             	</xsl:when>
             	<xsl:otherwise>
             		<xsl:call-template name="simpleSuiteName">
@@ -1289,7 +1286,7 @@
       <xsl:if test="result/@exceptionCount &gt; 0">
         <xsl:if test="result/@successCount &gt; 0 or result/@failureCount &gt; 0" />
         <xsl:value-of select="result/@exceptionCount" />
-        ⚠
+   !
       </xsl:if>
     </xsl:template>
     <xsl:template name="suitePath">
