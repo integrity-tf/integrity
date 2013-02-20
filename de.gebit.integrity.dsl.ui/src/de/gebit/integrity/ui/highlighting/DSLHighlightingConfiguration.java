@@ -23,6 +23,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String VISIBLE_COMMENT_ID = "visiblecomment";
 
 	/**
+	 * The ID for visible title comments.
+	 */
+	public static final String VISIBLE_TITLE_COMMENT_ID = "visibletitlecomment";
+
+	/**
 	 * The ID for visible dividers.
 	 */
 	public static final String VISIBLE_DIVIDER_ID = "visibledivider";
@@ -168,6 +173,8 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
 		super.configure(anAcceptor);
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comment", visibleCommentTextStyle());
+		anAcceptor
+				.acceptDefaultHighlighting(VISIBLE_TITLE_COMMENT_ID, "Title Comments", visibleTitleCommentTextStyle());
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_DIVIDER_ID, "Visible Divider", visibleDividerTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NAME_ID, "Parameter Name", parameterNameTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_NAME_ID, "Result Name", resultNameTextStyle());
@@ -229,6 +236,19 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(14, 70, 0));
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC | SWT.BOLD);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for visible title comments.
+	 * 
+	 * @return the style
+	 */
+	public TextStyle visibleTitleCommentTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(14, 70, 0));
+		int tempUnderlineStyle = (1 << 30); // This constant is not present in the SWT class.
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC | SWT.BOLD | tempUnderlineStyle);
 		return tempTextStyle;
 	}
 
