@@ -144,12 +144,9 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		if (tempBundleLocation == null || tempBundleLocation.length() == 0) {
 			return null;
 		}
-		IPath tempBundlePath = new Path(tempBundleLocation);
-		if (tempBundlePath.isAbsolute()) {
-			return tempBundlePath;
-		}
-		if (tempBundlePath.toString().startsWith("reference:file:")) {
-			String tempPathString = tempBundlePath.toString().substring(15);
+		IPath tempBundlePath;
+		if (tempBundleLocation.startsWith("reference:file:")) {
+			String tempPathString = tempBundleLocation.substring(15);
 			if (tempPathString.endsWith("/")) {
 				// This is a directory! Happens during development, when an Eclipse instance is started from another
 				// Eclipse with the Integrity projects living there as projects and thus being included in the "inner"
@@ -158,6 +155,8 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				return new Path(tempPathString + "target/classes/");
 			}
 			tempBundlePath = new Path(tempPathString);
+		} else {
+			tempBundlePath = new Path(tempBundleLocation);
 		}
 
 		if (tempBundlePath.isAbsolute()) {
