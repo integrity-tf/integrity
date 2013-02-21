@@ -9,23 +9,7 @@ Export-Package: de.gebit.integrity.remoting,
  de.gebit.integrity.remoting.server,
  de.gebit.integrity.remoting.transport,
  de.gebit.integrity.remoting.transport.enums,
- de.gebit.integrity.remoting.transport.messages,
- org.jdom2,
- org.jdom2.adapters,
- org.jdom2.filter,
- org.jdom2.input,
- org.jdom2.input.sax,
- org.jdom2.input.stax,
- org.jdom2.internal,
- org.jdom2.located,
- org.jdom2.output,
- org.jdom2.output.support,
- org.jdom2.transform,
- org.jdom2.util,
- org.jdom2.xpath,
- org.jdom2.xpath.jaxen,
- org.jdom2.xpath.util
+ de.gebit.integrity.remoting.transport.messages
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: GEBIT Solutions GmbH
-Bundle-ClassPath: .,
- lib/jdom-2.0.4.jar
+Import-Package: org.jdom;version="1.0.0"
