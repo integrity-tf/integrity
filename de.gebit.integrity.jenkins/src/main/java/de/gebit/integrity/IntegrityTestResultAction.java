@@ -44,6 +44,9 @@ public class IntegrityTestResultAction extends AbstractTestResultAction<Integrit
 		XSTREAM.registerConverter(new HeapSpaceStringConverter(), 100);
 	}
 
+	/**
+	 * The action URL part.
+	 */
 	public static final String ACTION_URL = "integrityReport";
 
 	/**
