@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -19,6 +17,7 @@ import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.console.ConsoleTestCallback;
 import de.gebit.integrity.runner.callbacks.xml.TransformHandling;
 import de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback;
+import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
@@ -189,11 +188,9 @@ public final class ConsoleTestExecutor {
 				System.err.println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
 			}
 		} catch (ModelLinkException exc) {
-			Iterator<EObject> tempIter = exc.getUnresolvableObjects().iterator();
-			while (tempIter.hasNext()) {
-				EObject tempUnresolved = tempIter.next();
-				System.err.println("Unresolved reference " + tempUnresolved);
-			}
+			exc.printUnresolvableObjects();
+		} catch (ModelAmbiguousException exc) {
+			exc.printAmbiguousDefinitions();
 		} catch (ModelLoadException exc) {
 			exc.printStackTrace();
 		}

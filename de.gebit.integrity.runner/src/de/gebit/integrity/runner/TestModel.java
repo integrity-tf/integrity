@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,18 +27,22 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import com.google.inject.Injector;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
@@ -62,17 +67,37 @@ public class TestModel {
 	/**
 	 * Suite names -> Suites.
 	 */
-	protected Map<String, SuiteDefinition> suiteMap;
+	protected Map<String, SuiteDefinition> suiteMap = new HashMap<String, SuiteDefinition>();
 
 	/**
 	 * Variant names -> Variants.
 	 */
-	protected Map<String, VariantDefinition> variantMap;
+	protected Map<String, VariantDefinition> variantMap = new HashMap<String, VariantDefinition>();
+
+	/**
+	 * Fork names -> Forks.
+	 */
+	protected Map<String, ForkDefinition> forkMap = new HashMap<String, ForkDefinition>();
+
+	/**
+	 * Call names -> Calls.
+	 */
+	protected Map<String, CallDefinition> callMap = new HashMap<String, CallDefinition>();
+
+	/**
+	 * Test names -> Tests.
+	 */
+	protected Map<String, TestDefinition> testMap = new HashMap<String, TestDefinition>();
 
 	/**
 	 * Variable/constant names -> Entities.
 	 */
-	protected Map<String, VariableOrConstantEntity> variableAndConstantMap;
+	protected Map<String, VariableOrConstantEntity> variableAndConstantMap = new HashMap<String, VariableOrConstantEntity>();
+
+	/**
+	 * Ambiguous definitions which are found during variable/suite/etc. indexing are collected here.
+	 */
+	protected Set<AmbiguousDefinition> ambiguousDefinitions = new HashSet<AmbiguousDefinition>();
 
 	/**
 	 * The Google Guice Injector.
@@ -98,44 +123,67 @@ public class TestModel {
 		models = someModels;
 		injector = anInjector;
 		classLoader = aClassLoader;
-		suiteMap = new HashMap<String, SuiteDefinition>();
-		variantMap = new HashMap<String, VariantDefinition>();
-		variableAndConstantMap = new HashMap<String, VariableOrConstantEntity>();
 
-		// scan all models for suite definitions and variants and put them into the maps for fast access
+		Map<String, AmbiguousDefinition> tempDuplicateMap = new HashMap<String, AmbiguousDefinition>();
+
+		// Scan all models for suite definitions and variants and put them into the maps for fast access.
+		// Also search for duplicate definitions! Test Models with duplicate definitions are technically fine, but
+		// they may very likely result in strange behavior during execution, as the definition that is actually used
+		// when for example a variable with multiple definitions is accessed is not predictable.
 		for (Model tempModel : models) {
 			TreeIterator<EObject> tempIter = tempModel.eAllContents();
 			while (tempIter.hasNext()) {
 				EObject tempObject = tempIter.next();
+				String tempFullyQualifiedName = null;
+				String tempType;
+
 				if (tempObject instanceof SuiteDefinition) {
 					SuiteDefinition tempSuite = (SuiteDefinition) tempObject;
-					String tempSuiteName = tempSuite.getName();
-					if (tempSuite.eContainer() instanceof PackageDefinition) {
-						tempSuiteName = ((PackageDefinition) tempSuite.eContainer()).getName() + "." + tempSuiteName;
-					}
-					suiteMap.put(tempSuiteName, tempSuite);
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedSuiteName(tempSuite);
+					suiteMap.put(tempFullyQualifiedName, tempSuite);
+					tempType = "suite";
 				} else if (tempObject instanceof VariantDefinition) {
 					VariantDefinition tempVariant = (VariantDefinition) tempObject;
-					String tempVariantName = tempVariant.getName();
-					if (tempVariant.eContainer() instanceof PackageDefinition) {
-						tempVariantName = ((PackageDefinition) tempVariant.eContainer()).getName() + "."
-								+ tempVariantName;
-					}
-					variantMap.put(tempVariantName, tempVariant);
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariantName(tempVariant);
+					variantMap.put(tempFullyQualifiedName, tempVariant);
+					tempType = "variant";
+				} else if (tempObject instanceof ForkDefinition) {
+					ForkDefinition tempFork = (ForkDefinition) tempObject;
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedForkName(tempFork);
+					forkMap.put(tempFullyQualifiedName, tempFork);
+					tempType = "fork";
+				} else if (tempObject instanceof CallDefinition) {
+					CallDefinition tempCall = (CallDefinition) tempObject;
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedCallName(tempCall);
+					callMap.put(tempFullyQualifiedName, tempCall);
+					tempType = "call";
+				} else if (tempObject instanceof TestDefinition) {
+					TestDefinition tempTest = (TestDefinition) tempObject;
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedTestName(tempTest);
+					testMap.put(tempFullyQualifiedName, tempTest);
+					tempType = "test";
 				} else if (tempObject instanceof VariableDefinition) {
 					VariableEntity tempEntity = ((VariableDefinition) tempObject).getName();
-					String tempEntityName = tempEntity.getName();
-					if (tempObject.eContainer() instanceof PackageDefinition) {
-						tempEntityName = ((PackageDefinition) tempObject.eContainer()).getName() + "." + tempEntityName;
-					}
-					variableAndConstantMap.put(tempEntityName, tempEntity);
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+					variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+					tempType = "variable/constant";
 				} else if (tempObject instanceof ConstantDefinition) {
 					ConstantEntity tempEntity = ((ConstantDefinition) tempObject).getName();
-					String tempEntityName = tempEntity.getName();
-					if (tempObject.eContainer() instanceof PackageDefinition) {
-						tempEntityName = ((PackageDefinition) tempObject.eContainer()).getName() + "." + tempEntityName;
-					}
-					variableAndConstantMap.put(tempEntityName, tempEntity);
+					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+					variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+					tempType = "variable/constant";
+				} else {
+					continue;
+				}
+
+				AmbiguousDefinition tempDuplicateDefinition = new AmbiguousDefinition(tempFullyQualifiedName, tempType,
+						tempObject);
+				AmbiguousDefinition tempExistingDuplicate = tempDuplicateMap.get(tempDuplicateDefinition.getKey());
+				if (tempExistingDuplicate != null) {
+					tempExistingDuplicate.addDefinition(tempObject);
+					ambiguousDefinitions.add(tempExistingDuplicate);
+				} else {
+					tempDuplicateMap.put(tempDuplicateDefinition.getKey(), tempDuplicateDefinition);
 				}
 			}
 		}
@@ -147,6 +195,10 @@ public class TestModel {
 
 	public Map<String, SuiteDefinition> getSuiteMap() {
 		return suiteMap;
+	}
+
+	public Set<AmbiguousDefinition> getDuplicateDefinitions() {
+		return ambiguousDefinitions;
 	}
 
 	/**
@@ -169,6 +221,17 @@ public class TestModel {
 	 */
 	public VariantDefinition getVariantByName(String aFullyQualifiedVariantName) {
 		return variantMap.get(aFullyQualifiedVariantName);
+	}
+
+	/**
+	 * Resolves a fully qualified fork name to the actual fork definition.
+	 * 
+	 * @param aFullyQualifiedForkName
+	 *            the fork name
+	 * @return the fork, or null if none was found
+	 */
+	public VariantDefinition getForkByName(String aFullyQualifiedForkName) {
+		return variantMap.get(aFullyQualifiedForkName);
 	}
 
 	/**
@@ -313,7 +376,12 @@ public class TestModel {
 			}
 		}
 
-		return new TestModel(tempModels, tempInjector, aResourceProvider.getClassLoader());
+		TestModel tempModel = new TestModel(tempModels, tempInjector, aResourceProvider.getClassLoader());
+		if (tempModel.getDuplicateDefinitions().size() > 0) {
+			throw new ModelAmbiguousException("Encountered " + tempModel.getDuplicateDefinitions().size()
+					+ " ambiguous definitions in the test model.", tempModel.getDuplicateDefinitions());
+		}
+		return tempModel;
 	}
 
 	/**
@@ -454,4 +522,5 @@ public class TestModel {
 
 		return tempRunner;
 	}
+
 }

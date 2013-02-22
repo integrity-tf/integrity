@@ -25,6 +25,7 @@ import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
@@ -265,7 +266,7 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Returns the fully qualified name of a give {@link de.gebit.integrity.dsl.Suite}.
+	 * Returns the fully qualified name of a given {@link SuiteDefinition}.
 	 * 
 	 * @param aSuite
 	 *            the suite
@@ -277,6 +278,70 @@ public final class IntegrityDSLUtil {
 			return tempPackageDef.getName() + "." + aSuite.getName();
 		} else {
 			return aSuite.getName();
+		}
+	}
+
+	/**
+	 * Returns the fully qualified name of a given {@link VariantDefinition}.
+	 * 
+	 * @param aVariant
+	 *            the variant
+	 * @return the fully qualified name
+	 */
+	public static String getQualifiedVariantName(VariantDefinition aVariant) {
+		if (aVariant.eContainer() instanceof PackageDefinition) {
+			PackageDefinition tempPackageDef = (PackageDefinition) aVariant.eContainer();
+			return tempPackageDef.getName() + "." + aVariant.getName();
+		} else {
+			return aVariant.getName();
+		}
+	}
+
+	/**
+	 * Returns the fully qualified name of a given {@link ForkDefinition}.
+	 * 
+	 * @param aFork
+	 *            the fork
+	 * @return the fully qualified name
+	 */
+	public static String getQualifiedForkName(ForkDefinition aFork) {
+		if (aFork.eContainer() instanceof PackageDefinition) {
+			PackageDefinition tempPackageDef = (PackageDefinition) aFork.eContainer();
+			return tempPackageDef.getName() + "." + aFork.getName();
+		} else {
+			return aFork.getName();
+		}
+	}
+
+	/**
+	 * Returns the fully qualified name of a given {@link CallDefinition}.
+	 * 
+	 * @param aCall
+	 *            the call definition
+	 * @return the fully qualified name
+	 */
+	public static String getQualifiedCallName(CallDefinition aCall) {
+		if (aCall.eContainer() instanceof PackageDefinition) {
+			PackageDefinition tempPackageDef = (PackageDefinition) aCall.eContainer();
+			return tempPackageDef.getName() + "." + aCall.getName();
+		} else {
+			return aCall.getName();
+		}
+	}
+
+	/**
+	 * Returns the fully qualified name of a given {@link TestDefinition}.
+	 * 
+	 * @param aTest
+	 *            the test definition
+	 * @return the fully qualified name
+	 */
+	public static String getQualifiedTestName(TestDefinition aTest) {
+		if (aTest.eContainer() instanceof PackageDefinition) {
+			PackageDefinition tempPackageDef = (PackageDefinition) aTest.eContainer();
+			return tempPackageDef.getName() + "." + aTest.getName();
+		} else {
+			return aTest.getName();
 		}
 	}
 
@@ -295,7 +360,7 @@ public final class IntegrityDSLUtil {
 		} else {
 			if (aQualifyLocalVariables && aVariable.eContainer().eContainer() instanceof SuiteDefinition) {
 				SuiteDefinition tempSuiteDef = (SuiteDefinition) aVariable.eContainer().eContainer();
-				return getQualifiedSuiteName(tempSuiteDef) + "." + aVariable.getName();
+				return getQualifiedSuiteName(tempSuiteDef) + "$" + aVariable.getName();
 			} else {
 				return aVariable.getName();
 			}
@@ -559,4 +624,5 @@ public final class IntegrityDSLUtil {
 	public static boolean isGlobalVariableOrConstant(VariableOrConstantEntity anEntity) {
 		return (anEntity.eContainer().eContainer() instanceof PackageDefinition);
 	}
+
 }
