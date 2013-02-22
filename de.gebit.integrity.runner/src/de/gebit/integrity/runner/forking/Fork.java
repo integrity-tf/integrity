@@ -194,8 +194,10 @@ public class Fork {
 			throw new IllegalStateException("The fork has already been started. A fork can only be started once!");
 		}
 
+		String tempFullyQualifiedForkName = IntegrityDSLUtil.getQualifiedForkName(definition);
+
 		wasStarted = true;
-		process = forker.fork(commandLineArguments, definition.getName(), RandomNumberOperation.getSeed());
+		process = forker.fork(commandLineArguments, tempFullyQualifiedForkName, RandomNumberOperation.getSeed());
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");

@@ -632,7 +632,7 @@ public class DefaultTestRunner implements TestRunner {
 			} else {
 				if (forkInExecution != null) {
 					// now see if this is a job for us
-					if (forkInExecution.getName().equals(MY_FORK_NAME)) {
+					if (IntegrityDSLUtil.getQualifiedForkName(forkInExecution).equals(MY_FORK_NAME)) {
 						// we're a fork, and we are at a point where we're gonna execute some stuff
 						// but we have to wait until our master gives us the 'go'!
 						shallWaitBeforeNextStep = true;
@@ -1476,7 +1476,8 @@ public class DefaultTestRunner implements TestRunner {
 			return false;
 		} else {
 			if (MY_FORK_NAME != null) {
-				return (forkInExecution != null && forkInExecution.getName().equals(MY_FORK_NAME));
+				return (forkInExecution != null && IntegrityDSLUtil.getQualifiedForkName(forkInExecution).equals(
+						MY_FORK_NAME));
 			} else {
 				return (forkInExecution == null);
 			}
