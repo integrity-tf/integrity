@@ -1,6 +1,5 @@
 package de.gebit.integrity.eclipse.views;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ILazyTreeContentProvider;
@@ -9,8 +8,8 @@ import org.eclipse.jface.viewers.Viewer;
 
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
-import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
+import de.gebit.integrity.remoting.entities.setlist.SetListUtil;
 
 /**
  * Provides the content for the main test execution tree.
@@ -44,21 +43,21 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 	public void updateElement(Object aParent, int anIndex) {
 		SetListEntry tempChild;
 		if (aParent == setList) {
-			tempChild = getSetListEntryChild(setList.getRootEntry(), anIndex);
+			tempChild = SetListUtil.getSetListEntryChild(setList.getRootEntry(), setList, anIndex);
 		} else {
-			tempChild = getSetListEntryChild((SetListEntry) aParent, anIndex);
+			tempChild = SetListUtil.getSetListEntryChild((SetListEntry) aParent, setList, anIndex);
 		}
 		owner.replace(aParent, anIndex, tempChild);
-		owner.setChildCount(tempChild, getSetListEntryChildCount(tempChild));
+		owner.setChildCount(tempChild, SetListUtil.getSetListEntryChildCount(tempChild));
 	}
 
 	@Override
 	public void updateChildCount(Object anElement, int aCurrentChildCount) {
 		int tempCount;
 		if (anElement == setList) {
-			tempCount = getSetListEntryChildCount(setList.getRootEntry());
+			tempCount = SetListUtil.getSetListEntryChildCount(setList.getRootEntry());
 		} else {
-			tempCount = getSetListEntryChildCount((SetListEntry) anElement);
+			tempCount = SetListUtil.getSetListEntryChildCount((SetListEntry) anElement);
 		}
 
 		if (tempCount != aCurrentChildCount) {
@@ -105,7 +104,7 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 			if (anEntry instanceof SetListEntry) {
 				// table tests are excluded in automatic expansion
 				if (((SetListEntry) anEntry).getType() != SetListEntryTypes.TABLETEST) {
-					List<Integer> tempRefs = getSetListEntryChildReferences((SetListEntry) anEntry);
+					List<Integer> tempRefs = SetListUtil.getSetListEntryChildReferences((SetListEntry) anEntry);
 					if (tempRefs != null) {
 						owner.setExpandedState(anEntry, true);
 						for (Integer tempRef : tempRefs) {
@@ -121,90 +120,6 @@ public class TestTreeContentProvider implements ILazyTreeContentProvider {
 	@Override
 	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
 		setList = (SetList) aNewInput;
-	}
-
-	/**
-	 * Returns the number of children that a specified {@link SetListEntry} has. This includes only "children" to be
-	 * displayed as child nodes in the tree.
-	 * 
-	 * @param anEntry
-	 *            the entry
-	 * @return the number of child nodes
-	 */
-	@SuppressWarnings("unchecked")
-	protected int getSetListEntryChildCount(SetListEntry anEntry) {
-		switch (anEntry.getType()) {
-		case EXECUTION:
-		case SUITE:
-			int tempStatements = ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS)).size();
-			List<Integer> tempSetups = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.SETUP);
-			List<Integer> tempTeardowns = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
-			if (tempSetups != null) {
-				tempStatements += tempSetups.size();
-			}
-			if (tempTeardowns != null) {
-				tempStatements += tempTeardowns.size();
-			}
-			return tempStatements;
-		case TABLETEST:
-			return ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.RESULT)).size();
-		default:
-			return 0;
-		}
-	}
-
-	/**
-	 * Returns a list of child node references belonging to a specified {@link SetListEntry}. This only includes such
-	 * children that should be displayed in the tree.
-	 * 
-	 * @param anEntry
-	 *            the entry
-	 * @return a list of child references (entry IDs), or null if this is not applicable.
-	 */
-	@SuppressWarnings("unchecked")
-	protected List<Integer> getSetListEntryChildReferences(SetListEntry anEntry) {
-		switch (anEntry.getType()) {
-		case EXECUTION:
-		case SUITE:
-			List<Integer> tempStatements = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
-			List<Integer> tempSetups = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.SETUP);
-			List<Integer> tempTeardowns = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
-			if (tempSetups == null && tempTeardowns == null) {
-				return tempStatements;
-			} else {
-				List<Integer> tempTotal = new LinkedList<Integer>();
-				if (tempSetups != null) {
-					tempTotal.addAll(tempSetups);
-				}
-				tempTotal.addAll(tempStatements);
-				if (tempTeardowns != null) {
-					tempTotal.addAll(tempTeardowns);
-				}
-				return tempTotal;
-			}
-		case TABLETEST:
-			return (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.RESULT);
-		default:
-			return null;
-		}
-	}
-
-	/**
-	 * Returns the actual child entry at a specified position within the children of a specified {@link SetListEntry}.
-	 * 
-	 * @param anEntry
-	 *            the entry
-	 * @param aChildIndex
-	 *            the index of the child to get
-	 * @return the child entry, or null if there is none
-	 */
-	public SetListEntry getSetListEntryChild(SetListEntry anEntry, int aChildIndex) {
-		List<Integer> tempReferences = getSetListEntryChildReferences(anEntry);
-		if (tempReferences != null && aChildIndex >= 0 && aChildIndex < tempReferences.size()) {
-			return setList.resolveReference(tempReferences.get(aChildIndex));
-		} else {
-			return null;
-		}
 	}
 
 }

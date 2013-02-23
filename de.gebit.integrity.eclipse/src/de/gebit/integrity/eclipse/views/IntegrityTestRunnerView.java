@@ -45,12 +45,15 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -65,9 +68,12 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IActionBars;
@@ -90,6 +96,7 @@ import de.gebit.integrity.eclipse.actions.BreakpointAction;
 import de.gebit.integrity.eclipse.actions.JumpToLinkAction;
 import de.gebit.integrity.eclipse.controls.ProgressBar;
 import de.gebit.integrity.eclipse.running.TestActionConfigurationDialog;
+import de.gebit.integrity.eclipse.search.SetListSearch;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
@@ -139,6 +146,31 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The container for the tree.
 	 */
 	private Form treeContainer;
+
+	/**
+	 * This container is placed below the tree and contains the UI elements of the tree search function.
+	 */
+	private Composite searchContainer;
+
+	/**
+	 * The text input field for the tree search.
+	 */
+	private Text searchTextField;
+
+	/**
+	 * The "previous result" button for the tree search.
+	 */
+	private Button searchLeftButton;
+
+	/**
+	 * The "next result" button for the tree search.
+	 */
+	private Button searchRightButton;
+
+	/**
+	 * The label denoting the current position and number of results during searching in the tree.
+	 */
+	private Label searchPositionLabel;
 
 	/**
 	 * The test execution tree viewer.
@@ -297,6 +329,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Color resultExceptionColor;
 
 	/**
+	 * The background color of the search container.
+	 */
+	private Color searchContainerColor;
+
+	/**
 	 * The image used to display successful test results.
 	 */
 	private Image resultSuccessIconImage;
@@ -387,6 +424,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Action executeTestAction;
 
 	/**
+	 * The action that runs a predefined launch config in debug mode and connects to the test runner automatically.
+	 */
+	private Action executeDebugTestAction;
+
+	/**
 	 * The action allowing to shut down a running test execution.
 	 */
 	private Action shutdownAction;
@@ -420,6 +462,21 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The last level of node expansion.
 	 */
 	private int lastExpansionLevel;
+
+	/**
+	 * The search engine instance used to search the setlist tree.
+	 */
+	private SetListSearch setListSearch;
+
+	/**
+	 * The currently valid setlist tree search result. May be null if no search result is available.
+	 */
+	private List<SetListEntry> currentSearchResult;
+
+	/**
+	 * The current position in the setlist tree search result. May be null if no current position is available.
+	 */
+	private Integer currentSearchResultPosition;
 
 	/**
 	 * The remoting client instance.
@@ -464,6 +521,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultTableSuccessColor = new Color(Display.getCurrent(), 205, 255, 222);
 		resultTableFailureColor = new Color(Display.getCurrent(), 255, 130, 130);
 
+		searchContainerColor = new Color(Display.getCurrent(), 220, 220, 220);
+
 		resultSuccessIconImage = Activator.getImageDescriptor("icons/suite_success_big.png").createImage();
 		resultFailureIconImage = Activator.getImageDescriptor("icons/suite_failure_big.png").createImage();
 		resultExceptionIconImage = Activator.getImageDescriptor("icons/suite_exception_big.png").createImage();
@@ -493,7 +552,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.left = new FormAttachment(0, 0);
 		tempFormData.right = new FormAttachment(100, 0);
 		tempFormData.top = new FormAttachment(executionProgress, 0);
-		tempFormData.bottom = new FormAttachment(100, 0);
+		tempFormData.bottom = new FormAttachment(100, -18);
 		treeViewer.getTree().setLayoutData(tempFormData);
 		treeViewer.getTree().getVerticalBar().addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent anEvent) {
@@ -508,6 +567,86 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		});
+
+		searchContainer = new Composite(treeContainer.getBody(), SWT.NONE);
+		searchContainer.setLayout(new FormLayout());
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 0);
+		tempFormData.right = new FormAttachment(100, 0);
+		tempFormData.top = new FormAttachment(treeViewer.getControl(), 0);
+		tempFormData.height = 18;
+		searchContainer.setLayoutData(tempFormData);
+		searchContainer.setBackground(searchContainerColor);
+
+		searchTextField = new Text(searchContainer, SWT.SINGLE);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 0);
+		tempFormData.right = new FormAttachment(100, -100);
+		tempFormData.top = new FormAttachment(0, 2);
+		tempFormData.height = 16;
+		searchTextField.setText("Test");
+		searchTextField.setLayoutData(tempFormData);
+		searchTextField.addModifyListener(new ModifyListener() {
+
+			@Override
+			public void modifyText(ModifyEvent anEvent) {
+				String tempQuery = searchTextField.getText();
+				if (tempQuery.length() < 3) {
+					clearTreeSearchResult();
+				} else {
+					performTreeSearch(tempQuery);
+				}
+			}
+		});
+
+		searchLeftButton = new Button(searchContainer, SWT.ARROW | SWT.LEFT | SWT.FLAT);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(searchTextField, 0);
+		tempFormData.width = 16;
+		tempFormData.top = new FormAttachment(0, 2);
+		tempFormData.height = 16;
+		searchLeftButton.setLayoutData(tempFormData);
+		searchLeftButton.addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event anEvent) {
+				if (currentSearchResult != null && currentSearchResultPosition != null
+						&& currentSearchResultPosition - 1 >= 0) {
+					currentSearchResultPosition--;
+					jumpToCurrentSearchResult();
+				}
+			}
+		});
+
+		searchRightButton = new Button(searchContainer, SWT.ARROW | SWT.RIGHT | SWT.FLAT);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(searchLeftButton, 0);
+		tempFormData.width = 16;
+		tempFormData.top = new FormAttachment(0, 2);
+		tempFormData.height = 16;
+		searchRightButton.setLayoutData(tempFormData);
+		searchRightButton.addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event anEvent) {
+				if (currentSearchResult != null && currentSearchResultPosition != null
+						&& currentSearchResultPosition + 1 < currentSearchResult.size()) {
+					currentSearchResultPosition++;
+					jumpToCurrentSearchResult();
+				}
+			}
+		});
+
+		searchPositionLabel = new Label(searchContainer, SWT.NONE);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(searchRightButton, 0);
+		tempFormData.right = new FormAttachment(100, 0);
+		tempFormData.top = new FormAttachment(0, 2);
+		tempFormData.height = 16;
+		searchPositionLabel.setBackground(searchContainerColor);
+		searchPositionLabel.setLayoutData(tempFormData);
+		searchPositionLabel.setText("100 / 1000");
+		searchPositionLabel.setAlignment(SWT.CENTER);
 
 		detailsContainer = new Composite(sashForm, SWT.NONE);
 		detailsContainer.setLayout(new FillLayout());
@@ -1003,6 +1142,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void fillLocalPullDown(IMenuManager aManager) {
 		aManager.add(executeTestAction);
+		aManager.add(executeDebugTestAction);
 		aManager.add(shutdownAction);
 		aManager.add(configureTestAction);
 		aManager.add(new Separator());
@@ -1067,6 +1207,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private void fillLocalToolBar(IToolBarManager aManager) {
 		// These are still in development...
 		aManager.add(executeTestAction);
+		aManager.add(executeDebugTestAction);
 		aManager.add(shutdownAction);
 		aManager.add(configureTestAction);
 		aManager.add(new Separator());
@@ -1209,36 +1350,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 				if (launchConfiguration != null) {
 					try {
 						executeTestAction.setEnabled(false);
+						executeDebugTestAction.setEnabled(false);
 						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
-						new Thread() {
-
-							@Override
-							public void run() {
-								boolean tempSuccess = false;
-
-								while (!tempLaunch.isTerminated()) {
-									try {
-										if (!tempSuccess && !isConnected()) {
-											// try to connect at least once
-											connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
-											tempSuccess = true;
-										} else {
-											// Now we'll wait until the launch has terminated
-											try {
-												Thread.sleep(1000);
-											} catch (InterruptedException exc) {
-												// don't care
-											}
-										}
-									} catch (UnknownHostException exc) {
-										// exceptions are expected, that just means we need to retry
-									} catch (IOException exc) {
-										// exceptions are expected, that just means we need to retry
-									}
-								}
-								executeTestAction.setEnabled(true);
-							};
-						}.start();
+						new AutoConnectThread(tempLaunch).start();
 					} catch (CoreException exc) {
 						showException(exc);
 					}
@@ -1247,6 +1361,23 @@ public class IntegrityTestRunnerView extends ViewPart {
 		};
 		executeTestAction.setText("Launch test application");
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
+
+		executeDebugTestAction = new Action() {
+			public void run() {
+				if (launchConfiguration != null) {
+					try {
+						executeTestAction.setEnabled(false);
+						executeDebugTestAction.setEnabled(false);
+						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.DEBUG_MODE, null);
+						new AutoConnectThread(tempLaunch).start();
+					} catch (CoreException exc) {
+						showException(exc);
+					}
+				}
+			}
+		};
+		executeDebugTestAction.setText("Launch test application (debug mode)");
+		executeDebugTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_debug_enabled.gif"));
 		updateLaunchButtonState();
 
 		shutdownAction = new Action() {
@@ -1309,14 +1440,20 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void updateLaunchButtonState() {
+		String tempText;
+		boolean tempEnabled;
 		if (launchConfiguration != null) {
-			executeTestAction.setEnabled(true);
-			executeTestAction.setToolTipText("Launches the test run configuration '" + launchConfiguration.getName()
-					+ "'");
+			tempText = "Launches the test run configuration '" + launchConfiguration.getName() + "'";
+			tempEnabled = true;
 		} else {
-			executeTestAction.setEnabled(true);
-			executeTestAction.setToolTipText("Launches the test run configuration.");
+			tempText = "Launches the test run configuration";
+			tempEnabled = false;
 		}
+
+		executeTestAction.setEnabled(tempEnabled);
+		executeTestAction.setToolTipText(tempText);
+		executeDebugTestAction.setEnabled(tempEnabled);
+		executeDebugTestAction.setToolTipText(tempText + " (debug mode)");
 	}
 
 	private boolean isConnected() {
@@ -1705,6 +1842,84 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
+	private void performTreeSearch(String aSearchQuery) {
+		if (setListSearch == null) {
+			setListSearch = new SetListSearch(setList);
+		}
+
+		currentSearchResultPosition = null;
+		currentSearchResult = setListSearch.findEntries(aSearchQuery);
+		if (currentSearchResult.size() > 0) {
+			currentSearchResultPosition = 0;
+			jumpToCurrentSearchResult();
+		}
+		updateTreeSearchLabel();
+	}
+
+	private void clearTreeSearchResult() {
+		currentSearchResultPosition = null;
+		currentSearchResult = null;
+		searchPositionLabel.setText("");
+	}
+
+	private void updateTreeSearchLabel() {
+		if (currentSearchResult == null) {
+			searchPositionLabel.setText("");
+		} else {
+			if (currentSearchResult.size() == 0) {
+				searchPositionLabel.setText("no matches");
+			} else {
+				String tempCurrentPosition = (currentSearchResultPosition == null ? "?" : Integer
+						.toString(currentSearchResultPosition + 1));
+				searchPositionLabel.setText(tempCurrentPosition + " / " + currentSearchResult.size());
+			}
+		}
+	}
+
+	private void jumpToCurrentSearchResult() {
+		if (currentSearchResultPosition != null && currentSearchResult != null && currentSearchResultPosition >= 0
+				&& currentSearchResultPosition < currentSearchResult.size()) {
+			SetListEntry tempEntry = currentSearchResult.get(currentSearchResultPosition);
+			treeViewer.setSelection(new StructuredSelection(tempEntry));
+			updateTreeSearchLabel();
+		}
+	}
+
+	private void updateSetList(SetList aNewSetList) {
+		setList = aNewSetList;
+		breakpointSet.clear();
+		setListSearch = null;
+
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				searchTextField.setText("");
+				treeViewer.setSelection(null);
+				treeViewer.setInput(null);
+
+				executionProgress.setSetList(setList);
+				executionProgress.redraw();
+
+				// the following will automatically dispose the old provider!
+				treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet, Display.getCurrent(),
+						treeViewer));
+
+				// the drawer must be manually disposed
+				TestTreeContentDrawer tempOldContentDrawer = viewerContentDrawer;
+				viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
+				viewerContentDrawer.attachToTree(treeViewer.getTree());
+				if (tempOldContentDrawer != null) {
+					tempOldContentDrawer.dispose(treeViewer.getTree());
+				}
+				treeViewer.setInput(setList);
+
+				((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
+
+				updateStatus("Connected and ready");
+			}
+		});
+	}
+
 	private class RemotingListener implements IntegrityRemotingClientListener {
 
 		@Override
@@ -1723,37 +1938,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onBaselineReceived(SetList aSetList, Endpoint anEndpoint) {
-			setList = aSetList;
-			breakpointSet.clear();
-			Display.getDefault().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					treeViewer.setSelection(null);
-					treeViewer.setInput(null);
-
-					executionProgress.setSetList(setList);
-					executionProgress.redraw();
-
-					// the following will automatically dispose the old
-					// provider!
-					treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet, Display.getCurrent(),
-							treeViewer));
-
-					// the drawer must be manually disposed
-
-					TestTreeContentDrawer tempOldContentDrawer = viewerContentDrawer;
-					viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
-					viewerContentDrawer.attachToTree(treeViewer.getTree());
-					if (tempOldContentDrawer != null) {
-						tempOldContentDrawer.dispose(treeViewer.getTree());
-					}
-					treeViewer.setInput(setList);
-
-					((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
-
-					updateStatus("Connected and ready");
-				}
-			});
+			updateSetList(aSetList);
 		}
 
 		@Override
@@ -1838,5 +2023,49 @@ public class IntegrityTestRunnerView extends ViewPart {
 		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
 			// not used in this context
 		}
+	}
+
+	private class AutoConnectThread extends Thread {
+
+		/**
+		 * The launch to supervise.
+		 */
+		private ILaunch launch;
+
+		/**
+		 * Creates a new instance.
+		 */
+		public AutoConnectThread(ILaunch aLaunch) {
+			super("Integrity Autoconnect Thread");
+			launch = aLaunch;
+		}
+
+		@Override
+		public void run() {
+			boolean tempSuccess = false;
+
+			while (!launch.isTerminated()) {
+				try {
+					if (!tempSuccess && !isConnected()) {
+						// try to connect at least once
+						connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
+						tempSuccess = true;
+					} else {
+						// Now we'll wait until the launch has terminated
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException exc) {
+							// don't care
+						}
+					}
+				} catch (UnknownHostException exc) {
+					// exceptions are expected, that just means we need to retry
+				} catch (IOException exc) {
+					// exceptions are expected, that just means we need to retry
+				}
+			}
+			executeTestAction.setEnabled(true);
+			executeDebugTestAction.setEnabled(true);
+		};
 	}
 }
