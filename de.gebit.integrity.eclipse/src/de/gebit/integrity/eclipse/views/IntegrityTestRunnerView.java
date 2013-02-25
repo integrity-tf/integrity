@@ -645,7 +645,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.height = 16;
 		searchPositionLabel.setBackground(searchContainerColor);
 		searchPositionLabel.setLayoutData(tempFormData);
-		searchPositionLabel.setText("100 / 1000");
+		searchPositionLabel.setText("");
 		searchPositionLabel.setAlignment(SWT.CENTER);
 
 		detailsContainer = new Composite(sashForm, SWT.NONE);
