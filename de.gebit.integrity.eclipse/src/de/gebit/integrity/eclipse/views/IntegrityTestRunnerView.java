@@ -584,7 +584,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.right = new FormAttachment(100, -100);
 		tempFormData.top = new FormAttachment(0, 2);
 		tempFormData.height = 16;
-		searchTextField.setText("Test");
+		searchTextField.setText("");
 		searchTextField.setLayoutData(tempFormData);
 		searchTextField.addModifyListener(new ModifyListener() {
 
