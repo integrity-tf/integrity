@@ -82,10 +82,13 @@ public final class ConsoleTestExecutor {
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
 		SimpleCommandLineParser.LongOption tempSeedOption = new SimpleCommandLineParser.LongOption(null, "seed",
 				"Sets the seed number to use for the RNG custom operation", "[{--seed} number]");
+		SimpleCommandLineParser.BooleanOption tempExcludeConsoleStreamsOption = new SimpleCommandLineParser.BooleanOption(
+				"noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempNoResolveAllReferences, tempParameterizedConstantOption, tempSeedOption);
+				tempNoResolveAllReferences, tempParameterizedConstantOption, tempSeedOption,
+				tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -161,9 +164,12 @@ public final class ConsoleTestExecutor {
 					tempCallback.addCallback(new ConsoleTestCallback());
 				}
 				String tempXmlFileName = tempXmlOption.getValue();
+
 				if (tempXmlFileName != null) {
+					// TODO add ! before last booleans
 					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							tempXmlFileName), tempExecutionName, tempTransformHandling));
+							tempXmlFileName), tempExecutionName, tempTransformHandling, tempExcludeConsoleStreamsOption
+							.isSet()));
 				}
 
 				Integer tempRemotePort = null;

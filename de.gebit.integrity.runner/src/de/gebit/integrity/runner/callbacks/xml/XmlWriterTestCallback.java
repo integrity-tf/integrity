@@ -76,6 +76,7 @@ import de.gebit.integrity.runner.IntegrityRunnerModule;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
+import de.gebit.integrity.runner.callbacks.xml.ConsoleStreamInterceptor.InterceptedLine;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -134,6 +135,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Whether the next title comment is to be treated as a suite title.
 	 */
 	protected boolean nextTitleCommentIsSuiteTitle;
+
+	/**
+	 * If requested, this intercepts stderr/stdout and adds them to the test results.
+	 */
+	protected ConsoleStreamInterceptor consoleStreamInterceptor;
 
 	/**
 	 * The classloader to use.
@@ -350,6 +356,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The constant VERSION_ATTRIBUTE. */
 	protected static final String VERSION_ATTRIBUTE = "version";
 
+	protected static final String CONSOLE_ELEMENT = "console";
+
+	protected static final String CONSOLE_LINE_STDOUT_ELEMENT = "out";
+
+	protected static final String CONSOLE_LINE_STDERR_ELEMENT = "err";
+
 	/**
 	 * The time format used to format execution times.
 	 */
@@ -381,14 +393,19 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the title of the result
 	 * @param aTransformHandling
 	 *            how the XML -> XHTML transform shall be handled
+	 * @param aCaptureConsoleFlag
+	 *            whether stdout and stderr shall be captured
 	 * 
 	 */
 	public XmlWriterTestCallback(ClassLoader aClassLoader, File anOutputFile, String aTitle,
-			TransformHandling aTransformHandling) {
+			TransformHandling aTransformHandling, boolean aCaptureConsoleFlag) {
 		classLoader = aClassLoader;
 		outputFile = anOutputFile;
 		title = aTitle;
 		transformHandling = aTransformHandling != null ? aTransformHandling : TransformHandling.EXECUTE_TRANSFORM;
+		if (aCaptureConsoleFlag) {
+			consoleStreamInterceptor = new ConsoleStreamInterceptor();
+		}
 	}
 
 	private InputStream getXsltStream() {
@@ -397,6 +414,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
+		if (consoleStreamInterceptor != null) {
+			consoleStreamInterceptor.startIntercept();
+		}
+
 		Element tempRootElement = new Element(ROOT_ELEMENT);
 
 		if (aVariant != null) {
@@ -588,6 +609,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTestStart(Test aTest) {
+		addConsoleOutput(null);
+
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		addId(tempTestElement);
 		addLineNumber(tempTestElement, aTest);
@@ -631,6 +654,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestStart(TableTest aTest) {
+		addConsoleOutput(null);
+
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		addId(tempTestElement);
 		addLineNumber(tempTestElement, aTest);
@@ -703,6 +728,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
 				.getSubResults().get(0), tempParameterMap);
 
+		addConsoleOutput(tempResultCollectionElement);
+
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
@@ -759,6 +786,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				Integer.toString(aResult.getSubTestFailCount()));
 		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getSubTestExceptionCount()));
+
+		addConsoleOutput(tempResultCollectionElement);
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -873,6 +902,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onCallStart(Call aCall) {
+		addConsoleOutput(null);
+
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		addId(tempCallElement);
 		addLineNumber(tempCallElement, aCall);
@@ -964,6 +995,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 								.getException()));
 			}
 		}
+
+		addConsoleOutput(tempCallResultElement);
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1063,6 +1096,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
+		if (consoleStreamInterceptor != null) {
+			consoleStreamInterceptor.stopIntercept();
+		}
+
 		stackPop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
 		if (!isFork()) {
@@ -1532,6 +1569,24 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			break;
 		default:
 			return;
+		}
+	}
+
+	void addConsoleOutput(Element anElement) {
+		if (consoleStreamInterceptor != null) {
+			List<InterceptedLine> tempLines = consoleStreamInterceptor.retrieveLines();
+
+			if (anElement != null && tempLines.size() > 0) {
+				Element tempConsoleLines = new Element(CONSOLE_ELEMENT);
+				for (InterceptedLine tempLine : tempLines) {
+					Element tempConsoleLine = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
+							: CONSOLE_LINE_STDOUT_ELEMENT);
+					tempConsoleLine.addContent(new Text(tempLine.getText()));
+					tempConsoleLines.addContent(tempConsoleLine);
+				}
+
+				anElement.addContent(tempConsoleLines);
+			}
 		}
 	}
 

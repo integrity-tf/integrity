@@ -17,6 +17,7 @@ packagedef mypackage with
 	suitedef bsuite gets param with
 		--- Die zweite Suite
 		test addition summand1: (param + 1) summand2: 2 = 4
+		call exceptioncall
 	suiteend
 	
 packageend
