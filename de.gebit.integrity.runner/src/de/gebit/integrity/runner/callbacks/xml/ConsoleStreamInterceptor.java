@@ -143,12 +143,14 @@ public class ConsoleStreamInterceptor {
 		 */
 		private StringBuilder currentLine = new StringBuilder();
 
+		private boolean writingStringData;
+
 		public InterceptPrintStream(PrintStream aTarget, boolean anStdErrFlag) {
 			super(aTarget);
 			stdErr = anStdErrFlag;
 		}
 
-		private void newLine() {
+		public void flushBufferedLine() {
 			String tempCurrentLine = currentLine.toString();
 			currentLine = new StringBuilder();
 
@@ -162,116 +164,211 @@ public class ConsoleStreamInterceptor {
 
 		@Override
 		public void println(String aLine) {
-			super.println(aLine);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aLine);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println() {
-			super.println();
-			newLine();
+			writingStringData = true;
+			try {
+				super.println();
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(Object anObject) {
-			super.println(anObject);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(anObject);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(boolean aBoolean) {
-			super.println(aBoolean);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aBoolean);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(char aChar) {
-			super.println(aChar);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aChar);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(char[] someChars) {
-			super.println(someChars);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(someChars);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(double aDouble) {
-			super.println(aDouble);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aDouble);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(float aFloat) {
-			super.println(aFloat);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aFloat);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(int anInteger) {
-			super.println(anInteger);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(anInteger);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void println(long aLong) {
-			super.println(aLong);
-			newLine();
+			writingStringData = true;
+			try {
+				super.println(aLong);
+				flushBufferedLine();
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(String aString) {
-			currentLine.append(aString);
-			super.print(aString);
+			writingStringData = true;
+			try {
+				currentLine.append(aString);
+				super.print(aString);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(char aChar) {
-			currentLine.append(aChar);
-			super.print(aChar);
+			writingStringData = true;
+			try {
+				currentLine.append(aChar);
+				super.print(aChar);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(double aDouble) {
-			currentLine.append(aDouble);
-			super.print(aDouble);
+			writingStringData = true;
+			try {
+				currentLine.append(aDouble);
+				super.print(aDouble);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(boolean aBoolean) {
-			currentLine.append(aBoolean);
-			super.print(aBoolean);
+			writingStringData = true;
+			try {
+				currentLine.append(aBoolean);
+				super.print(aBoolean);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(int anInteger) {
-			currentLine.append(anInteger);
-			super.print(anInteger);
+			writingStringData = true;
+			try {
+				currentLine.append(anInteger);
+				super.print(anInteger);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(long aLong) {
-			currentLine.append(aLong);
-			super.print(aLong);
+			writingStringData = true;
+			try {
+				currentLine.append(aLong);
+				super.print(aLong);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(Object anObject) {
-			currentLine.append(anObject);
-			super.print(anObject);
+			writingStringData = true;
+			try {
+				currentLine.append(anObject);
+				super.print(anObject);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(char[] someChars) {
-			currentLine.append(someChars);
-			super.print(someChars);
+			writingStringData = true;
+			try {
+				currentLine.append(someChars);
+				super.print(someChars);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public void print(float aFloat) {
-			currentLine.append(aFloat);
-			super.print(aFloat);
+			writingStringData = true;
+			try {
+				currentLine.append(aFloat);
+				super.print(aFloat);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
@@ -296,20 +393,51 @@ public class ConsoleStreamInterceptor {
 
 		@Override
 		public PrintStream append(char aChar) {
-			currentLine.append(aChar);
-			return super.append(aChar);
+			writingStringData = true;
+			try {
+				currentLine.append(aChar);
+				return super.append(aChar);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public PrintStream append(CharSequence aSequence) {
-			currentLine.append(aSequence);
-			return super.append(aSequence);
+			writingStringData = true;
+			try {
+				currentLine.append(aSequence);
+				return super.append(aSequence);
+			} finally {
+				writingStringData = false;
+			}
 		}
 
 		@Override
 		public PrintStream append(CharSequence aSequence, int aStart, int anEnd) {
-			currentLine.append(aSequence, aStart, anEnd);
-			return super.append(aSequence, aStart, anEnd);
+			writingStringData = true;
+			try {
+				currentLine.append(aSequence, aStart, anEnd);
+				return super.append(aSequence, aStart, anEnd);
+			} finally {
+				writingStringData = false;
+			}
+		}
+
+		@Override
+		public void write(int aByte) {
+			if (!writingStringData) {
+				currentLine.append((char) aByte);
+			}
+			super.write(aByte);
+		}
+
+		@Override
+		public void write(byte[] someBytes, int anOffset, int aLength) {
+			if (!writingStringData) {
+				currentLine.append(new String(someBytes, anOffset, aLength));
+			}
+			super.write(someBytes, anOffset, aLength);
 		}
 
 	}
