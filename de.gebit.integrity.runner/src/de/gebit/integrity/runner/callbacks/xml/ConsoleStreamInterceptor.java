@@ -9,29 +9,46 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * 
+ * Intercepts STDOUT and STDERR and provides a method to access the intercepted lines.
  * 
  * @author Rene Schneider
  * 
  */
 public class ConsoleStreamInterceptor {
 
+	/**
+	 * The original STDOUT stream.
+	 */
 	private PrintStream stdout;
 
+	/**
+	 * The interceptor stream for STDOUT.
+	 */
 	private InterceptPrintStream interceptStdout;
 
+	/**
+	 * The original STDERR stream.
+	 */
 	private PrintStream stderr;
 
+	/**
+	 * The interceptor stream for STDERR.
+	 */
 	private InterceptPrintStream interceptStderr;
 
-	private Object interceptionBufferSync = new Object();
+	/**
+	 * A sync object used to synchronize access to the interception buffer.
+	 */
+	private final Object interceptionBufferSync = new Object();
 
+	/**
+	 * The intercepted lines are collected in this buffer.
+	 */
 	private List<InterceptedLine> interceptionBuffer = new ArrayList<InterceptedLine>();
 
-	public ConsoleStreamInterceptor() {
-
-	}
-
+	/**
+	 * Starts interception. Must be called at least once. May be called repeatedly without any effect.
+	 */
 	public void startIntercept() {
 		if (interceptStdout == null) {
 			stdout = System.out;
@@ -44,6 +61,10 @@ public class ConsoleStreamInterceptor {
 		}
 	}
 
+	/**
+	 * Stops interception. Must be called at some point in time if an interception has been started! Can be called
+	 * repeatedly without any effect.
+	 */
 	public void stopIntercept() {
 		if (interceptStdout != null) {
 			System.setOut(stdout);
@@ -54,6 +75,12 @@ public class ConsoleStreamInterceptor {
 		}
 	}
 
+	/**
+	 * Returns the list of captured lines. Lines are sorted by time. Calling this method clears the internal capture
+	 * buffer, so each line will only be returned once!
+	 * 
+	 * @return the captured lines or an empty list if none were captured
+	 */
 	public List<InterceptedLine> retrieveLines() {
 		synchronized (interceptionBufferSync) {
 			List<InterceptedLine> tempBuffer = interceptionBuffer;
@@ -63,7 +90,7 @@ public class ConsoleStreamInterceptor {
 	}
 
 	/**
-	 * 
+	 * Represents a single captured line.
 	 * 
 	 * 
 	 * @author Rene Schneider
@@ -71,10 +98,24 @@ public class ConsoleStreamInterceptor {
 	 */
 	public static class InterceptedLine {
 
+		/**
+		 * The text.
+		 */
 		private String text;
 
+		/**
+		 * Whether the line was captured from STDERR.
+		 */
 		private boolean stdErr;
 
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aText
+		 *            the text
+		 * @param anStdErrFlag
+		 *            whether the line was captured from STDERR
+		 */
 		public InterceptedLine(String aText, boolean anStdErrFlag) {
 			text = aText;
 			stdErr = anStdErrFlag;
@@ -92,15 +133,18 @@ public class ConsoleStreamInterceptor {
 
 	private class InterceptPrintStream extends PrintStream {
 
-		private PrintStream target;
-
+		/**
+		 * Whether this interceptor is capturing STDERR.
+		 */
 		private boolean stdErr;
 
+		/**
+		 * The currently captured line.
+		 */
 		private StringBuilder currentLine = new StringBuilder();
 
 		public InterceptPrintStream(PrintStream aTarget, boolean anStdErrFlag) {
 			super(aTarget);
-			target = aTarget;
 			stdErr = anStdErrFlag;
 		}
 
@@ -267,30 +311,6 @@ public class ConsoleStreamInterceptor {
 			currentLine.append(aSequence, aStart, anEnd);
 			return super.append(aSequence, aStart, anEnd);
 		}
-
-		// @Override
-		// public void write(byte[] someBytes, int anOffset, int aLength) {
-		// if (anOffset != 0 || aLength != someBytes.length) {
-		// byte[] tempBytes = new byte[aLength];
-		// System.arraycopy(someBytes, anOffset, tempBytes, 0, aLength);
-		// currentLine.append(tempBytes);
-		// } else {
-		// currentLine.append(someBytes);
-		// }
-		//
-		// super.write(someBytes, anOffset, aLength);
-		// }
-		//
-		// @Override
-		// public void write(byte[] someBytes) throws IOException {
-		// super.write(someBytes); // calls the write method above
-		// }
-		//
-		// @Override
-		// public void write(int aByte) {
-		// currentLine.append((char) aByte);
-		// super.write(aByte);
-		// }
 
 	}
 

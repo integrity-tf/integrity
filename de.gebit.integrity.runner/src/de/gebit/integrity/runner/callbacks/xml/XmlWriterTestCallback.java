@@ -323,10 +323,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant EXCEPTION_COUNT_ATTRIBUTE. */
 	protected static final String EXCEPTION_COUNT_ATTRIBUTE = "exceptionCount";
 
-	/** The Constant TEST_EXCEPTION_COUNT_ATTRIBUTE */
+	/** The Constant TEST_EXCEPTION_COUNT_ATTRIBUTE. */
 	protected static final String TEST_EXCEPTION_COUNT_ATTRIBUTE = "testExceptionCount";
 
-	/** The Constant CALL_EXCEPTION_COUNT_ATTRIBUTE */
+	/** The Constant CALL_EXCEPTION_COUNT_ATTRIBUTE. */
 	protected static final String CALL_EXCEPTION_COUNT_ATTRIBUTE = "callExceptionCount";
 
 	/** The Constant FIXTURE_DESCRIPTION_ATTRIBUTE. */
@@ -356,10 +356,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The constant VERSION_ATTRIBUTE. */
 	protected static final String VERSION_ATTRIBUTE = "version";
 
+	/** The Constant CONSOLE_ELEMENT. */
 	protected static final String CONSOLE_ELEMENT = "console";
 
+	/** The Constant CONSOLE_LINE_STDOUT_ELEMENT. */
 	protected static final String CONSOLE_LINE_STDOUT_ELEMENT = "out";
 
+	/** The Constant CONSOLE_LINE_STDERR_ELEMENT. */
 	protected static final String CONSOLE_LINE_STDERR_ELEMENT = "err";
 
 	/**
@@ -408,10 +411,23 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Gets the xslt stream.
+	 * 
+	 * @return the xslt stream
+	 */
 	private InputStream getXsltStream() {
 		return getClass().getClassLoader().getResourceAsStream("resource/xhtml.xslt");
 	}
 
+	/**
+	 * On execution start.
+	 * 
+	 * @param aModel
+	 *            the a model
+	 * @param aVariant
+	 *            the a variant
+	 */
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		if (consoleStreamInterceptor != null) {
@@ -464,6 +480,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		executionStartTime = System.nanoTime();
 	}
 
+	/**
+	 * On suite start.
+	 * 
+	 * @param aSuite
+	 *            the a suite
+	 */
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		Element tempSuiteElement = new Element(SUITE_ELEMENT);
@@ -537,6 +559,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(aSuiteElement);
 	}
 
+	/**
+	 * On setup start.
+	 * 
+	 * @param aSetupSuite
+	 *            the a setup suite
+	 */
 	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		Element tempSetupElement = new Element(SUITE_ELEMENT);
@@ -565,6 +593,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(aSetupElement);
 	}
 
+	/**
+	 * On setup finish.
+	 * 
+	 * @param aSetupSuite
+	 *            the a setup suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -607,6 +643,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On test start.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 */
 	@Override
 	public void onTestStart(Test aTest) {
 		addConsoleOutput(null);
@@ -652,6 +694,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(aTestElement);
 	}
 
+	/**
+	 * On table test start.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 */
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		addConsoleOutput(null);
@@ -699,6 +747,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(tempResultCollectionElement);
 	}
 
+	/**
+	 * On test finish.
+	 * 
+	 * @param aTest
+	 *            the a test
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
@@ -748,11 +804,29 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop().addContent(aResultCollectionElement);
 	}
 
+	/**
+	 * On table test row start.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aRow
+	 *            the a row
+	 */
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		// nothing to do here
 	}
 
+	/**
+	 * On table test row finish.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aRow
+	 *            the a row
+	 * @param aSubResult
+	 *            the a sub result
+	 */
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
@@ -773,6 +847,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On table test finish.
+	 * 
+	 * @param aTableTest
+	 *            the a table test
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
 		Element tempResultCollectionElement = stackPeek();
@@ -900,6 +982,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		aResultCollectionElement.addContent(tempTestResultElement);
 	}
 
+	/**
+	 * On call start.
+	 * 
+	 * @param aCall
+	 *            the a call
+	 */
 	@Override
 	public void onCallStart(Call aCall) {
 		addConsoleOutput(null);
@@ -957,6 +1045,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(aCallElement);
 	}
 
+	/**
+	 * On call finish.
+	 * 
+	 * @param aCall
+	 *            the a call
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onCallFinish(Call aCall, CallResult aResult) {
 		Element tempCallResultElement = null;
@@ -1020,6 +1116,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop();
 	}
 
+	/**
+	 * On tear down start.
+	 * 
+	 * @param aTearDownSuite
+	 *            the a tear down suite
+	 */
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		Element tempTearDownElement = new Element(SUITE_ELEMENT);
@@ -1048,6 +1150,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPush(aTearDownElement);
 	}
 
+	/**
+	 * On tear down finish.
+	 * 
+	 * @param aTearDownSuite
+	 *            the a tear down suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onTearDownFinish(SuiteDefinition aTearDownSuite, SuiteResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1071,6 +1181,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On suite finish.
+	 * 
+	 * @param aSuite
+	 *            the a suite
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		Element tempSuiteResultElement = new Element(RESULT_ELEMENT);
@@ -1094,6 +1212,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop().addContent(aSuiteResultElement);
 	}
 
+	/**
+	 * On execution finish.
+	 * 
+	 * @param aModel
+	 *            the a model
+	 * @param aResult
+	 *            the a result
+	 */
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		if (consoleStreamInterceptor != null) {
@@ -1234,11 +1360,33 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On variable definition.
+	 * 
+	 * @param aDefinition
+	 *            the a definition
+	 * @param aSuite
+	 *            the a suite
+	 * @param anInitialValue
+	 *            the an initial value
+	 */
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
 		onVariableDefinitionInternal(aDefinition, aSuite, anInitialValue);
 	}
 
+	/**
+	 * On constant definition.
+	 * 
+	 * @param aDefinition
+	 *            the a definition
+	 * @param aSuite
+	 *            the a suite
+	 * @param aValue
+	 *            the a value
+	 * @param aParameterizedFlag
+	 *            the a parameterized flag
+	 */
 	@Override
 	public void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
 			boolean aParameterizedFlag) {
@@ -1246,6 +1394,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		onVariableDefinitionInternal(aDefinition, aSuite, aValue);
 	}
 
+	/**
+	 * On variable definition internal.
+	 * 
+	 * @param aDefinition
+	 *            the a definition
+	 * @param aSuite
+	 *            the a suite
+	 * @param anInitialValue
+	 *            the an initial value
+	 */
 	private void onVariableDefinitionInternal(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite,
 			Object anInitialValue) {
 		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
@@ -1288,6 +1446,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/**
 	 * Parses a comment into a list of {@link Content} elements. This takes care of URLs embedded in the comment.
+	 * 
+	 * @param aCommment
+	 *            the a commment
+	 * @return the list
 	 */
 	protected List<Content> parseComment(String aCommment) {
 		List<Content> tempList = new ArrayList<Content>();
@@ -1396,6 +1558,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		return tempElementList;
 	}
 
+	/**
+	 * On visible comment.
+	 * 
+	 * @param aCommentText
+	 *            the a comment text
+	 * @param anIsTitle
+	 *            the an is title
+	 * @param aCommentElement
+	 *            the a comment element
+	 */
 	@Override
 	public void onVisibleComment(String aCommentText, boolean anIsTitle, VisibleComment aCommentElement) {
 		Element tempCommentElement = new Element(COMMENT_ELEMENT);
@@ -1417,6 +1589,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On visible divider.
+	 * 
+	 * @param aDividerText
+	 *            the a divider text
+	 * @param aDividerElement
+	 *            the a divider element
+	 */
 	@Override
 	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		Element tempCommentElement = new Element(DIVIDER_ELEMENT);
@@ -1515,6 +1695,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		sendToMaster(aMethod, (Serializable) anElement.clone());
 	}
 
+	/**
+	 * On message from fork.
+	 * 
+	 * @param aMethod
+	 *            the a method
+	 * @param someObjects
+	 *            the some objects
+	 */
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		Element tempElement = (Element) someObjects[0];
@@ -1572,6 +1760,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * Adds the console output.
+	 * 
+	 * @param anElement
+	 *            the an element
+	 */
 	void addConsoleOutput(Element anElement) {
 		if (consoleStreamInterceptor != null) {
 			List<InterceptedLine> tempLines = consoleStreamInterceptor.retrieveLines();
@@ -1633,7 +1827,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * Pops an element from the stack.
 	 * 
-	 * @return
+	 * @return the element
 	 */
 	protected Element stackPop() {
 		Element tempElement = currentElement.pop();
@@ -1645,6 +1839,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Pushes an element on the stack.
 	 * 
 	 * @param anElement
+	 *            the an element
 	 */
 	protected void stackPush(Element anElement) {
 		// System.out.println("PUSH: " + anElement);
@@ -1654,7 +1849,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * Peeks onto the stack.
 	 * 
-	 * @return
+	 * @return the element
 	 */
 	protected Element stackPeek() {
 		Element tempElement = currentElement.peek();
