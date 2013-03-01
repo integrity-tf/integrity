@@ -88,6 +88,7 @@
 					.testresultvalue { font-weight: bold; }
 					.testresultvaluesuccess { color: #063; }
 					.testresultvaluefailure { color: #C00; }
+					.exceptionmessage { padding: 4px; }
 					.durationandicons { font-size: 8pt; position: absolute; top: 2px; right: 4px; color:
 					#555; }
 					.test { min-height: 46px; }
@@ -133,7 +134,16 @@
 					.testicons { margin-left: 6px; }
 					.suiteicons { margin-left: 6px; }
 					.scriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKFJREFUeNpskDEOhSAQRBdj5QHsgAbssQTuokfzRBaUxMZwkP1ZEsyKf5NJyOQxm1mBiMAnxvg22hDYZK1F5xxyjxRCwIF/yjmLaZpgWZZP6qi1fplSSvDefzbXxPu+BYkgYwwcxyH2fUeePPASHLquC+Z5hnVdKzw2kKCUEjSolFI3Uep5ngKUUk/LbduQGtKb+/WEvdHU+3V13/zf/AQYAPpsgATFn91/AAAAAElFTkSuQmCC") no-repeat right 1px; }
-					.suitescriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }</style>
+					.suitescriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }
+					.console { border: 1px solid #000; margin-bottom: 5px; margin-top: 4px; background-color: #FFF; display: none; }
+					.console ol { padding-left: 0px; margin-top: 0px; margin-bottom: 0px; counter-reset: item; list-style-type: none; }
+					.console li { padding-left: 4px; padding-right: 4px; }
+					.console li:before { content: counter(item) "  "; counter-increment: item; width: 40px; text-align: right; display: block; float: left; padding-right: 4px; margin-right: 4px; border-right: 1px solid #DDD; }
+					.consoleheader { font-weight: bold; padding-left: 3px; padding-top: 0px; padding-bottom: 2px; color: #FFF; background-color: #000; }
+					.err { color: #FF3030; font-weight: bold; }
+					.row0c { background-color: #F8F8F8; }
+					.row1c { background-color: #FFFFFF; }
+					</style>
           <script type="text/javascript">var lastSelection;
 		  
 		    function boxOrCellMouseDown() {
@@ -166,12 +176,11 @@
 			  if(window.getSelection().toString() != lastSelection) return;			  
 			  for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
 			  	var div=aCell.getElementsByTagName('div')[i];
-			  	if(div.className=='testparameters' || div.className=='tabletestresults') {
+			  	if(div.className=='testparameters' || div.className=='tabletestresults' || div.className=='console') {
 			  		if(div.style.display!='block')
 			    		div.style.display='block';
 		      	else
 			    		div.style.display='none';
-			    	break;
 			    }
 			  }
 			}
@@ -430,15 +439,15 @@
               <xsl:value-of select="concat('#', $permalink)" />
             </xsl:attribute>
             <xsl:choose>
-            	<xsl:when test="@title">
-            		<xsl:value-of select="@title" />
-            		<span class="nonbold">
-            			<xsl:value-of select="concat(' (',@name,')')" />
-            		</span>
-            	</xsl:when>
-            	<xsl:otherwise>
-            		<xsl:value-of select="@name" />
-            	</xsl:otherwise>
+              <xsl:when test="@title">
+                <xsl:value-of select="@title" />
+                <span class="nonbold">
+                  <xsl:value-of select="concat(' (',@name,')')" />
+                </span>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@name" />
+              </xsl:otherwise>
             </xsl:choose>
           </a>
           <xsl:if test="@forkName">
@@ -633,10 +642,11 @@
           </div>
         </xsl:if>
         <xsl:if test="result/@type = 'exception'">
-          <span class="value">
+          <div class="value exceptionmessage">
             <xsl:value-of select="result/@exceptionMessage" />
-          </span>
+          </div>
         </xsl:if>
+        <xsl:apply-templates select="result/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="result/@duration" />
@@ -650,6 +660,32 @@
           </span>
         </span>
       </div>
+    </xsl:template>
+    <xsl:template match="console">
+    	<xsl:variable name="headerending">
+	      <xsl:choose>
+	        <xsl:when test="count(out|err) = 1">
+	          <xsl:text>line</xsl:text>
+	        </xsl:when>
+	        <xsl:otherwise>lines</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:variable>
+    	<div class="console">
+    		<div class="consoleheader">
+    			<xsl:value-of select="concat('Console output: ', count(out|err), ' ', $headerending)" />
+    		</div>
+      	<ol>
+      		<xsl:apply-templates select="out | err" />
+      	</ol>
+      </div>
+    </xsl:template>
+    <xsl:template match="out | err">
+    	<li>
+    		<xsl:attribute name="class">
+    			<xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c')" />
+    		</xsl:attribute>
+    		<xsl:value-of select="." />
+    	</li>
     </xsl:template>
     <xsl:template match="test">
       <a>
@@ -839,11 +875,12 @@
             </xsl:if>
           </xsl:if>
           <xsl:if test="results/result/@type = 'exception'">
-            <span class="value">
+            <div class="value exceptionmessage">
               <xsl:value-of select="results/result/@exceptionMessage" />
-            </span>
+            </div>
           </xsl:if>
         </div>
+        <xsl:apply-templates select="results/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="results/@duration" />
@@ -979,6 +1016,7 @@
           <xsl:value-of select="count(results/result)" />
           results
         </div>
+        <xsl:apply-templates select="results/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="results/@duration" />
@@ -1176,14 +1214,14 @@
           <xsl:with-param name="isLast" select="$isLast" />
         </xsl:call-template>
         <div class="nav_suitetitle">
-        	<xsl:variable name="linktitle">
-        		<xsl:choose>
-            	<xsl:when test="@title">
-            		<xsl:value-of select="concat(@title, ' (', @name, ')')"/>	
-            	</xsl:when>
-            	<xsl:otherwise>
-            		<xsl:value-of select="@name"/>	
-            	</xsl:otherwise>
+          <xsl:variable name="linktitle">
+            <xsl:choose>
+              <xsl:when test="@title">
+                <xsl:value-of select="concat(@title, ' (', @name, ')')" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@name" />
+              </xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
           <a>
@@ -1191,17 +1229,17 @@
               <xsl:value-of select="concat('#i', @id)" />
             </xsl:attribute>
             <xsl:attribute name="title">
-            	<xsl:value-of select="$linktitle"/>	
+              <xsl:value-of select="$linktitle" />
             </xsl:attribute>
             <xsl:choose>
-            	<xsl:when test="@title">
-            		<xsl:value-of select="@title"/>
-            	</xsl:when>
-            	<xsl:otherwise>
-            		<xsl:call-template name="simpleSuiteName">
-              		<xsl:with-param name="fullSuiteName" select="@name" />
-            		</xsl:call-template>
-            	</xsl:otherwise>
+              <xsl:when test="@title">
+                <xsl:value-of select="@title" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:call-template name="simpleSuiteName">
+                  <xsl:with-param name="fullSuiteName" select="@name" />
+                </xsl:call-template>
+              </xsl:otherwise>
             </xsl:choose>
           </a>
         </div>
@@ -1288,7 +1326,7 @@
       <xsl:if test="result/@exceptionCount &gt; 0">
         <xsl:if test="result/@successCount &gt; 0 or result/@failureCount &gt; 0" />
         <xsl:value-of select="result/@exceptionCount" />
-   !
+        !
       </xsl:if>
     </xsl:template>
     <xsl:template name="suitePath">

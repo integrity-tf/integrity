@@ -166,10 +166,9 @@ public final class ConsoleTestExecutor {
 				String tempXmlFileName = tempXmlOption.getValue();
 
 				if (tempXmlFileName != null) {
-					// TODO add ! before last booleans
 					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							tempXmlFileName), tempExecutionName, tempTransformHandling, tempExcludeConsoleStreamsOption
-							.isSet()));
+							tempXmlFileName), tempExecutionName, tempTransformHandling,
+							!tempExcludeConsoleStreamsOption.isSet()));
 				}
 
 				Integer tempRemotePort = null;

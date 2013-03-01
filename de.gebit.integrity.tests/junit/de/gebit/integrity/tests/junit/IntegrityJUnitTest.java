@@ -79,7 +79,7 @@ public abstract class IntegrityJUnitTest {
 
 			TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(),
 					new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile, "Integrity JUnit Testing",
-							TransformHandling.NO_TRANSFORM));
+							TransformHandling.NO_TRANSFORM, false));
 
 			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(),
 					null, null, null, null);
