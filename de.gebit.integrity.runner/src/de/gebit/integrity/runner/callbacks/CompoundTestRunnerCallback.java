@@ -92,6 +92,20 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onCallbackProcessingStart() {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onCallbackProcessingStart();
+		}
+	}
+
+	@Override
+	public void onCallbackProcessingEnd() {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onCallbackProcessingEnd();
+		}
+	}
+
+	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onExecutionStart(aModel, aVariant);

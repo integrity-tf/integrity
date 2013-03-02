@@ -100,6 +100,7 @@ public class AdditionFixture {
 
 	@FixtureMethod(description = "This always throws an exception. We're so doomed!")
 	public boolean throwException() {
+		System.out.println("Wow!");
 		throw new RuntimeException("Holy shit!");
 	}
 

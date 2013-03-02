@@ -365,6 +365,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant CONSOLE_LINE_STDERR_ELEMENT. */
 	protected static final String CONSOLE_LINE_STDERR_ELEMENT = "err";
 
+	/** The Constant CONSOLE_LINE_TEXT_ATTRIBUTE. */
+	protected static final String CONSOLE_LINE_TEXT_ATTRIBUTE = "text";
+
 	/**
 	 * The time format used to format execution times.
 	 */
@@ -1760,6 +1763,20 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	@Override
+	public void onCallbackProcessingStart() {
+		if (consoleStreamInterceptor != null) {
+			consoleStreamInterceptor.pauseIntercept();
+		}
+	}
+
+	@Override
+	public void onCallbackProcessingEnd() {
+		if (consoleStreamInterceptor != null) {
+			consoleStreamInterceptor.resumeIntercept();
+		}
+	}
+
 	/**
 	 * Adds the console output.
 	 * 
@@ -1775,7 +1792,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				for (InterceptedLine tempLine : tempLines) {
 					Element tempConsoleLine = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
 							: CONSOLE_LINE_STDOUT_ELEMENT);
-					tempConsoleLine.addContent(new Text(tempLine.getText()));
+
+					String tempText = tempLine.getText();
+					tempText.replace("\t", "    ");
+
+					tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE, tempText);
 					tempConsoleLines.addContent(tempConsoleLine);
 				}
 

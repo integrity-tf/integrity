@@ -34,6 +34,22 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
 public abstract class TestRunnerCallback {
 
 	/**
+	 * Called when a call to all callbacks is imminent.
+	 */
+	public void onCallbackProcessingStart() {
+		// do nothing; can be overridden if callback wants to be notified when the test runner starts calling the
+		// callbacks
+	}
+
+	/**
+	 * Called after a call has been performed on all callbacks.
+	 */
+	public void onCallbackProcessingEnd() {
+		// do nothing; can be overridden if callback wants to be notified when the test runner has finished calling
+		// the callbacks
+	}
+
+	/**
 	 * Called when the execution starts, that is, before the first (root) suite is entered. This is always the first
 	 * call of an execution phase.
 	 * 

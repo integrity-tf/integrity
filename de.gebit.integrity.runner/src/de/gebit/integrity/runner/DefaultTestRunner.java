@@ -530,7 +530,9 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onExecutionStart(model, variantInExecution);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		initializeParameterizedConstants();
@@ -540,7 +542,9 @@ public class DefaultTestRunner implements TestRunner {
 		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onExecutionFinish(model, tempResult);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		return tempResult;
@@ -645,7 +649,9 @@ public class DefaultTestRunner implements TestRunner {
 		Map<SuiteDefinition, Result> tempTearDownResults = new HashMap<SuiteDefinition, Result>();
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onSuiteStart(aSuiteCall);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		List<SuiteDefinition> tempSetupSuitesExecuted = new ArrayList<SuiteDefinition>();
@@ -659,7 +665,9 @@ public class DefaultTestRunner implements TestRunner {
 				tempSetupsAlreadyRun.add(tempSetupSuite);
 				tempSetupSuitesExecuted.add(tempSetupSuite);
 				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onSetupStart(tempSetupSuite);
+					currentCallback.onCallbackProcessingEnd();
 				}
 
 				long tempStart = System.nanoTime();
@@ -669,7 +677,9 @@ public class DefaultTestRunner implements TestRunner {
 				tempSetupResults.put(tempSetupSuite, tempSetupResult);
 
 				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
+					currentCallback.onCallbackProcessingEnd();
 				}
 			}
 		}
@@ -692,7 +702,9 @@ public class DefaultTestRunner implements TestRunner {
 			SuiteDefinition tempSetupSuite = tempSetupSuitesExecuted.get(i);
 			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
 				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onTearDownStart(tempTearDownSuite);
+					currentCallback.onCallbackProcessingEnd();
 				}
 
 				long tempStart = System.nanoTime();
@@ -702,7 +714,9 @@ public class DefaultTestRunner implements TestRunner {
 				tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
 
 				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
+					currentCallback.onCallbackProcessingEnd();
 				}
 			}
 
@@ -713,7 +727,9 @@ public class DefaultTestRunner implements TestRunner {
 				tempSetupResults, tempTearDownResults, tempSuiteDuration);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onSuiteFinish(aSuiteCall, tempResult);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
@@ -799,21 +815,27 @@ public class DefaultTestRunner implements TestRunner {
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
 					boolean tempIsTitle = (tempStatement instanceof VisibleSingleLineTitleComment);
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onVisibleComment(
 							IntegrityDSLUtil.cleanSingleLineComment((VisibleSingleLineComment) tempStatement),
 							tempIsTitle, (VisibleComment) tempStatement);
+					currentCallback.onCallbackProcessingEnd();
 				}
 			} else if (tempStatement instanceof VisibleMultiLineComment) {
 				if (currentCallback != null) {
 					boolean tempIsTitle = (tempStatement instanceof VisibleMultiLineTitleComment);
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onVisibleComment(
 							IntegrityDSLUtil.cleanMultiLineComment((VisibleMultiLineComment) tempStatement),
 							tempIsTitle, (VisibleComment) tempStatement);
+					currentCallback.onCallbackProcessingEnd();
 				}
 			} else if (tempStatement instanceof VisibleDivider) {
 				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onVisibleDivider(((VisibleDivider) tempStatement).getContent(),
 							(VisibleDivider) tempStatement);
+					currentCallback.onCallbackProcessingEnd();
 				}
 			}
 		}
@@ -893,8 +915,10 @@ public class DefaultTestRunner implements TestRunner {
 			if (currentCallback != null) {
 				Object tempConstantValue = variableManager.get(aDefinition.getName());
 				if (tempConstantValue != null) {
+					currentCallback.onCallbackProcessingStart();
 					currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
 							(aDefinition.getParameterized() != null));
+					currentCallback.onCallbackProcessingEnd();
 				}
 			}
 		}
@@ -920,12 +944,14 @@ public class DefaultTestRunner implements TestRunner {
 
 		setVariableValue(anEntity, tempInitialValue, false);
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			if (anEntity instanceof VariableEntity) {
 				currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
 			} else if (anEntity instanceof ConstantEntity) {
 				currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
 						(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
 			}
+			currentCallback.onCallbackProcessingEnd();
 		}
 	}
 
@@ -1007,7 +1033,9 @@ public class DefaultTestRunner implements TestRunner {
 		TestModel.ensureModelPartConsistency(aTest);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onTestStart(aTest);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		TestResult tempReturn = null;
@@ -1099,7 +1127,9 @@ public class DefaultTestRunner implements TestRunner {
 		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onTestFinish(aTest, tempReturn);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		if (tempFixtureInstance != null) {
@@ -1120,7 +1150,9 @@ public class DefaultTestRunner implements TestRunner {
 		TestModel.ensureModelPartConsistency(aTest);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onTableTestStart(aTest);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		if (currentPhase == Phase.TEST_RUN) {
@@ -1134,7 +1166,9 @@ public class DefaultTestRunner implements TestRunner {
 		FixtureWrapper<?> tempFixtureInstance = null;
 		for (TableTestRow tempRow : aTest.getRows()) {
 			if (currentCallback != null) {
+				currentCallback.onCallbackProcessingStart();
 				currentCallback.onTableTestRowStart(aTest, tempRow);
+				currentCallback.onCallbackProcessingEnd();
 			}
 
 			Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
@@ -1266,7 +1300,9 @@ public class DefaultTestRunner implements TestRunner {
 			tempSubResults.add(tempSubResult);
 
 			if (currentCallback != null) {
+				currentCallback.onCallbackProcessingStart();
 				currentCallback.onTableTestRowFinish(aTest, tempRow, tempSubResult);
+				currentCallback.onCallbackProcessingEnd();
 			}
 		}
 
@@ -1276,7 +1312,9 @@ public class DefaultTestRunner implements TestRunner {
 				currentPhase == Phase.DRY_RUN ? null : tempOuterDuration);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onTableTestFinish(aTest, tempReturn);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		if (tempFixtureInstance != null) {
@@ -1366,7 +1404,9 @@ public class DefaultTestRunner implements TestRunner {
 		TestModel.ensureModelPartConsistency(aCall);
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onCallStart(aCall);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		List<UpdatedVariable> tempUpdatedVariables = new ArrayList<UpdatedVariable>();
@@ -1432,7 +1472,9 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
 			currentCallback.onCallFinish(aCall, tempReturn);
+			currentCallback.onCallbackProcessingEnd();
 		}
 
 		if (tempFixtureInstance != null) {

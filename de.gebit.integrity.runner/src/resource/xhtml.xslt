@@ -136,12 +136,12 @@
 					.scriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKFJREFUeNpskDEOhSAQRBdj5QHsgAbssQTuokfzRBaUxMZwkP1ZEsyKf5NJyOQxm1mBiMAnxvg22hDYZK1F5xxyjxRCwIF/yjmLaZpgWZZP6qi1fplSSvDefzbXxPu+BYkgYwwcxyH2fUeePPASHLquC+Z5hnVdKzw2kKCUEjSolFI3Uep5ngKUUk/LbduQGtKb+/WEvdHU+3V13/zf/AQYAPpsgATFn91/AAAAAElFTkSuQmCC") no-repeat right 1px; }
 					.suitescriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }
 					.console { border: 1px solid #000; margin-bottom: 5px; margin-top: 4px; background-color: #FFF; display: none; }
-					.console ol { padding-left: 0px; margin-top: 0px; margin-bottom: 0px; counter-reset: item; list-style-type: none; }
+					.console ol { padding-left: 0px; margin-top: 0px; margin-bottom: 0px; counter-reset: item; list-style-type: none; font-family: Courier, Courier New, Lucida Console, monospace; }
 					.console li { padding-left: 4px; padding-right: 4px; }
-					.console li:before { content: counter(item) "  "; counter-increment: item; width: 40px; text-align: right; display: block; float: left; padding-right: 4px; margin-right: 4px; border-right: 1px solid #DDD; }
+					.console li:before { content: counter(item) "  "; counter-increment: item; width: 46px; text-align: right; display: block; float: left; padding-right: 4px; margin-right: 4px; border-right: 1px solid #DDD; }
 					.consoleheader { font-weight: bold; padding-left: 3px; padding-top: 0px; padding-bottom: 2px; color: #FFF; background-color: #000; }
 					.err { color: #FF3030; font-weight: bold; }
-					.row0c { background-color: #F8F8F8; }
+					.row0c { background-color: #F6F6F6; }
 					.row1c { background-color: #FFFFFF; }
 					</style>
           <script type="text/javascript">var lastSelection;
@@ -684,7 +684,9 @@
     		<xsl:attribute name="class">
     			<xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c')" />
     		</xsl:attribute>
-    		<xsl:value-of select="." />
+    		<xsl:call-template name="fixSpaces">
+    			<xsl:with-param name="text" select="@text" />
+    		</xsl:call-template>
     	</li>
     </xsl:template>
     <xsl:template match="test">
@@ -1140,6 +1142,23 @@
         </xsl:choose>
       </xsl:if>
     </xsl:template>
+    <xsl:template name="fixSpaces">
+	  <xsl:param name="text" />
+	  <xsl:choose>
+	    <xsl:when test="contains($text, '  ')">
+	      <xsl:call-template name="fixSpaces">
+	        <xsl:with-param name="text" select="substring-before($text, '  ')"/>
+	      </xsl:call-template>
+	      <xsl:text>&#xA0;&#xA0;</xsl:text>
+	      <xsl:call-template name="fixSpaces">
+	        <xsl:with-param name="text" select="substring-after($text, '  ')" />
+	      </xsl:call-template>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="$text" />
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:template>
     <xsl:template name="formatExceptionTrace">
       <xsl:param name="text" />
       <xsl:choose>
