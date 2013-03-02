@@ -468,26 +468,19 @@ public class DefaultTestRunner implements TestRunner {
 	 * Initializes the parameterized constants from the {@link #parameterizedConstantValues} map.
 	 */
 	protected void initializeParameterizedConstants() {
-		if (parameterizedConstantValues != null) {
-			for (Entry<String, String> tempEntry : parameterizedConstantValues.entrySet()) {
-				VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(tempEntry.getKey());
-				if (tempEntity == null) {
-					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
-							+ "' not defined in test scripts.");
-				}
-				ConstantDefinition tempDefinition = (ConstantDefinition) tempEntity.eContainer();
-				if (!(tempEntity instanceof ConstantEntity)) {
-					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
-							+ "' not defined as a constant in test scripts.");
-				} else if (tempDefinition.getParameterized() == null) {
-					throw new IllegalArgumentException("Parameterized constant '" + tempEntry.getKey()
-							+ "' not defined as 'parameterized' in test scripts.");
-				} else {
-					defineConstant(
-							tempDefinition,
-							tempEntry.getValue(),
-							(tempDefinition.eContainer() instanceof SuiteDefinition) ? ((SuiteDefinition) tempDefinition
-									.eContainer()) : null);
+		for (ConstantDefinition tempConstant : model.getConstantDefinitionsInPackages()) {
+			String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempConstant.getName(), false);
+			String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName) : null;
+			if (tempConstant.getParameterized() != null) {
+				defineConstant(
+						tempConstant,
+						tempValue,
+						(tempConstant.eContainer() instanceof SuiteDefinition) ? ((SuiteDefinition) tempConstant
+								.eContainer()) : null);
+			} else {
+				if (tempValue != null) {
+					throw new IllegalArgumentException("Constant '" + tempName
+							+ "' is not defined as 'parameterized' in test scripts, but parameter data was specified.");
 				}
 			}
 		}
@@ -498,7 +491,10 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void initializeConstants() {
 		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
-			defineConstant(tempConstantDef, null);
+			// Parameterized constants have already been initialized separately, so we don't initialize them here again
+			if (tempConstantDef.getParameterized() == null) {
+				defineConstant(tempConstantDef, null);
+			}
 		}
 	}
 
@@ -896,8 +892,10 @@ public class DefaultTestRunner implements TestRunner {
 			// need to perform that call, basically just as if we had determined the value just now.
 			if (currentCallback != null) {
 				Object tempConstantValue = variableManager.get(aDefinition.getName());
-				currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
-						(aDefinition.getParameterized() != null));
+				if (tempConstantValue != null) {
+					currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
+							(aDefinition.getParameterized() != null));
+				}
 			}
 		}
 	}

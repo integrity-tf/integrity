@@ -239,7 +239,12 @@ public class SetList implements Serializable {
 		if (entries.size() > entryListPosition) {
 			lastCreatedEntryIdMap.put(aType, entryListPosition);
 			entryListPosition++;
-			return entries.get(entryListPosition - 1);
+			SetListEntry tempNextEntry = entries.get(entryListPosition - 1);
+			if (tempNextEntry.getType() != aType) {
+				throw new IllegalStateException(
+						"Severe internal data inconsistency detected! Cannot continue test execution.");
+			}
+			return tempNextEntry;
 		} else {
 			SetListEntry tempNewEntry = new SetListEntry(entryListPosition, aType);
 			entries.add(tempNewEntry);
