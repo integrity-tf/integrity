@@ -3,14 +3,14 @@
     <xsl:variable name="suiteLinkKey" select="0" />
     <xsl:template match="integrity">
       <html>
-        <xmldata style="display: none;">
-          <integrity>
-            <xsl:copy-of select="attribute::*" />
-            <xsl:copy-of select="variables" />
-            <xsl:copy-of select="suite" />
-          </integrity>
-        </xmldata>
-        <head>
+      	<head>
+          <xmldata style="display: none;">
+	        <integrity>
+	          <xsl:copy-of select="attribute::*" />
+	          <xsl:copy-of select="variables" />
+	          <xsl:copy-of select="suite" />
+	        </integrity>
+	      </xmldata>
           <title>
             <xsl:text>Integration Test '</xsl:text>
             <xsl:if test="@name">
