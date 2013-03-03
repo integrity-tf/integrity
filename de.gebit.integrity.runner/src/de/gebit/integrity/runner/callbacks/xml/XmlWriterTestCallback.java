@@ -1242,6 +1242,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			try {
 				if (transformHandling == TransformHandling.EXECUTE_TRANSFORM) {
+					System.out.print("Transforming Integrity Result XML to HTML...");
 					// Transform the XML to XHTML and output that (this actually contains a copy of the original XML
 					// result tree in an invisible element!)
 					try {
@@ -1341,6 +1342,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						});
 
 						tempTransformer.transform(tempSource, tempResult);
+						System.out.println("done!");
 					} catch (TransformerConfigurationException exc) {
 						exc.printStackTrace();
 					} catch (TransformerException exc) {
@@ -1348,8 +1350,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 				} else {
 					// Output the XML (with XSLT inlined or not)
+					System.out.print("Writing Result XML...");
 					XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
 					tempSerializer.output(document, tempOutputStream);
+					System.out.println("done!");
 				}
 			} catch (IOException exc) {
 				exc.printStackTrace();
