@@ -39,6 +39,7 @@ import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.IllegalDataException;
 import org.jdom.JDOMException;
 import org.jdom.ProcessingInstruction;
 import org.jdom.Text;
@@ -359,6 +360,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant CONSOLE_ELEMENT. */
 	protected static final String CONSOLE_ELEMENT = "console";
 
+	protected static final String CONSOLE_LINECOUNT_ATTRIBUTE = "lines";
+
+	protected static final String CONSOLE_TRUNCATED_ATTRIBUTE = "truncated";
+
 	/** The Constant CONSOLE_LINE_STDOUT_ELEMENT. */
 	protected static final String CONSOLE_LINE_STDOUT_ELEMENT = "out";
 
@@ -367,6 +372,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant CONSOLE_LINE_TEXT_ATTRIBUTE. */
 	protected static final String CONSOLE_LINE_TEXT_ATTRIBUTE = "text";
+
+	/**
+	 * Maximum number of lines of console output that is added to a single test/call.
+	 */
+	protected static final int MAX_CONSOLE_LINES = 10000;
+
+	/**
+	 * Maximum size of a single console line.
+	 */
+	protected static final int MAX_CONSOLE_LINE_SIZE = 1000;
 
 	/**
 	 * The time format used to format execution times.
@@ -1793,16 +1808,35 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			if (anElement != null && tempLines.size() > 0) {
 				Element tempConsoleLines = new Element(CONSOLE_ELEMENT);
+				int tempLineCount = 0;
 				for (InterceptedLine tempLine : tempLines) {
 					Element tempConsoleLine = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
 							: CONSOLE_LINE_STDOUT_ELEMENT);
 
 					String tempText = tempLine.getText();
 					tempText.replace("\t", "    ");
+					if (tempText.length() > MAX_CONSOLE_LINE_SIZE) {
+						tempText = tempText.substring(0, MAX_CONSOLE_LINE_SIZE) + "... ("
+								+ (tempText.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
+					}
 
-					tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE, tempText);
+					try {
+						tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE, tempText);
+					} catch (IllegalDataException exc) {
+						exc.printStackTrace();
+						tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE,
+								"LINE TRUNCATED: IllegalDataException");
+					}
 					tempConsoleLines.addContent(tempConsoleLine);
+					tempLineCount++;
+					if (tempLineCount >= MAX_CONSOLE_LINES) {
+						break;
+					}
 				}
+
+				tempConsoleLines.setAttribute(CONSOLE_LINECOUNT_ATTRIBUTE, Integer.toString(tempLineCount));
+				tempConsoleLines.setAttribute(CONSOLE_TRUNCATED_ATTRIBUTE,
+						Integer.toString(tempLines.size() - tempLineCount));
 
 				anElement.addContent(tempConsoleLines);
 			}

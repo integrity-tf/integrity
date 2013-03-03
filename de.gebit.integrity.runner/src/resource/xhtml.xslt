@@ -664,7 +664,7 @@
     <xsl:template match="console">
     	<xsl:variable name="headerending">
 	      <xsl:choose>
-	        <xsl:when test="count(out|err) = 1">
+	        <xsl:when test="@lines = 1">
 	          <xsl:text>line</xsl:text>
 	        </xsl:when>
 	        <xsl:otherwise>lines</xsl:otherwise>
@@ -672,10 +672,18 @@
 	    </xsl:variable>
     	<div class="console">
     		<div class="consoleheader">
-    			<xsl:value-of select="concat('Console output: ', count(out|err), ' ', $headerending)" />
+    			<xsl:value-of select="concat('Console output: ', @lines, ' ', $headerending)" />
+    			<xsl:if test="@truncated > 0">
+    				<xsl:value-of select="concat(' (', @truncated, ' additional lines were truncated)')" />
+    			</xsl:if>
     		</div>
       	<ol>
       		<xsl:apply-templates select="out | err" />
+      		<xsl:if test="@truncated &gt; 0">
+	          <li class="err row1c">
+	          	<xsl:value-of select="concat('LINE COUNT LIMIT WAS HIT - ', @truncated, ' ADDITIONAL LINES WERE TRUNCATED FROM CAPTURE')" />
+	          </li>
+	        </xsl:if>
       	</ol>
       </div>
     </xsl:template>
