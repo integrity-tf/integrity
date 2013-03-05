@@ -1520,7 +1520,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 
 					tempInnerList = detectSimpleURLs(((Text) tempElement).getText());
-					if (tempInnerList.size() > 1) {
+					if (tempInnerList.size() > 1
+							|| (tempInnerList.size() == 1 && !(tempInnerList.get(0) instanceof Text))) {
 						tempList.remove(i);
 						tempList.addAll(i, tempInnerList);
 						break;
