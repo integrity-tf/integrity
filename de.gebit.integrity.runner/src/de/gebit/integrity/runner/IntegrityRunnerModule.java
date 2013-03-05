@@ -7,6 +7,10 @@ import de.gebit.integrity.DSLRuntimeModule;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.runner.comparator.DefaultResultComparator;
 import de.gebit.integrity.runner.comparator.ResultComparator;
+import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
+import de.gebit.integrity.runner.console.intercept.ConsoleOutputInterceptor;
+import de.gebit.integrity.runner.console.intercept.DefaultConsoleInterceptionAggregator;
+import de.gebit.integrity.runner.console.intercept.DefaultConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.DefaultProcessTerminator;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.variables.DefaultVariableManager;
@@ -72,6 +76,24 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends ProcessTerminator> bindProcessWatchdog() {
 		return DefaultProcessTerminator.class;
+	}
+
+	/**
+	 * Binding of the {@link ConsoleInterceptionAggregator}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ConsoleInterceptionAggregator> bindConsoleInterceptionAggregator() {
+		return DefaultConsoleInterceptionAggregator.class;
+	}
+
+	/**
+	 * Binding of the {@link ConsoleOutputInterceptor}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ConsoleOutputInterceptor> bindConsoleOutputInterceptor() {
+		return DefaultConsoleOutputInterceptor.class;
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.gebit.integrity.runner.callbacks.xml;
+package de.gebit.integrity.runner.console.intercept;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -9,71 +9,61 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.inject.Singleton;
+
 /**
- * Intercepts STDOUT and STDERR and provides a method to access the intercepted lines.
+ * Default implementation of a console output interceptor. Hooks the System.out and System.err streams to do its work,
+ * thus it is critical that there's only one instance of this service in a given JVM. This imlementation automatically
+ * hooks the streams when at least one target is registered, and unhooks them when the last target unregisters.
  * 
  * @author Rene Schneider
  * 
  */
-public class ConsoleStreamInterceptor {
+@Singleton
+public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor {
+
+	/**
+	 * A sync object used to synchronize interception target access.
+	 */
+	protected final Object targetSync = new Object();
+
+	/**
+	 * The interception targets.
+	 */
+	protected List<ConsoleInterceptorTarget> targets = new ArrayList<ConsoleInterceptorTarget>();
 
 	/**
 	 * The original STDOUT stream.
 	 */
-	private PrintStream stdout;
+	protected final PrintStream stdout = System.out;
 
 	/**
 	 * The interceptor stream for STDOUT.
 	 */
-	private InterceptPrintStream interceptStdout;
+	protected InterceptPrintStream interceptStdout;
 
 	/**
 	 * The original STDERR stream.
 	 */
-	private PrintStream stderr;
+	protected final PrintStream stderr = System.err;
 
 	/**
 	 * The interceptor stream for STDERR.
 	 */
-	private InterceptPrintStream interceptStderr;
+	protected InterceptPrintStream interceptStderr;
 
 	/**
-	 * A sync object used to synchronize access to the interception buffer.
+	 * Reevaluates whether the streams are to be captured at the time of calling, and hooks or unhooks the streams as
+	 * necessary.
 	 */
-	private final Object interceptionBufferSync = new Object();
-
-	/**
-	 * The intercepted lines are collected in this buffer.
-	 */
-	private List<InterceptedLine> interceptionBuffer = new ArrayList<InterceptedLine>();
-
-	/**
-	 * Whether interception is temporarily paused. This flag is used for quick and lightweight interception pauses.
-	 */
-	private volatile boolean interceptPaused;
-
-	/**
-	 * Starts interception. This command hooks the normal stdout/err streams. Must be called at least once. May be
-	 * called repeatedly without any effect.
-	 */
-	public void startIntercept() {
-		if (interceptStdout == null) {
-			stdout = System.out;
+	protected void updateStreamCapture() {
+		if (targets.size() > 0 && interceptStdout == null) {
 			interceptStdout = new InterceptPrintStream(stdout, false);
 			System.setOut(interceptStdout);
 
-			stderr = System.err;
 			interceptStderr = new InterceptPrintStream(stderr, true);
 			System.setErr(interceptStderr);
-		}
-	}
-
-	/**
-	 * Stops interception. Unhooks the streams. Must be called at some point in time if an interception has been
-	 * started! Can be called repeatedly without any effect.
-	 */
-	public void stopIntercept() {
-		if (interceptStdout != null) {
+		} else if (targets.size() == 0 && interceptStdout != null) {
 			System.setOut(stdout);
 			interceptStdout = null;
 
@@ -82,81 +72,57 @@ public class ConsoleStreamInterceptor {
 		}
 	}
 
-	/**
-	 * Pauses interception. Streams are kept hooked; this command can thus be called often without negative effects on
-	 * performance.
-	 */
-	public void pauseIntercept() {
-		interceptPaused = true;
-	}
-
-	/**
-	 * Resumes a paused interception.
-	 */
-	public void resumeIntercept() {
-		interceptPaused = false;
-	}
-
-	/**
-	 * Returns the list of captured lines. Lines are sorted by time. Calling this method clears the internal capture
-	 * buffer, so each line will only be returned once!
-	 * 
-	 * @return the captured lines or an empty list if none were captured
-	 */
-	public List<InterceptedLine> retrieveLines() {
-		synchronized (interceptionBufferSync) {
-			interceptStdout.flushBufferedLine(false);
-			interceptStderr.flushBufferedLine(false);
-
-			List<InterceptedLine> tempBuffer = interceptionBuffer;
-			interceptionBuffer = new ArrayList<InterceptedLine>();
-			return tempBuffer;
+	@Override
+	public void registerTarget(ConsoleInterceptorTarget aTarget) {
+		synchronized (targetSync) {
+			if (!targets.contains(aTarget)) {
+				targets.add(aTarget);
+				updateStreamCapture();
+			}
 		}
 	}
 
+	@Override
+	public void unregisterTarget(ConsoleInterceptorTarget aTarget) {
+		synchronized (targetSync) {
+			if (targets.contains(aTarget)) {
+				targets.remove(aTarget);
+				updateStreamCapture();
+			}
+		}
+	}
+
+	@Override
+	public void printlnStdErr(String aLine) {
+		stderr.println(aLine);
+		stderr.flush();
+	}
+
+	@Override
+	public void printStdErr(String aText) {
+		stderr.print(aText);
+	}
+
+	@Override
+	public void printlnStdOut(String aLine) {
+		stdout.println(aLine);
+		stdout.flush();
+	}
+
+	@Override
+	public void printStdOut(String aText) {
+		stdout.print(aText);
+	}
+
 	/**
-	 * Represents a single captured line.
+	 * This stream is the core of this service: it captures all data being printed through it, splits it into single
+	 * lines and forwards the lines to all targets.
 	 * 
 	 * 
 	 * @author Rene Schneider
 	 * 
 	 */
-	public static class InterceptedLine {
-
-		/**
-		 * The text.
-		 */
-		private String text;
-
-		/**
-		 * Whether the line was captured from STDERR.
-		 */
-		private boolean stdErr;
-
-		/**
-		 * Creates a new instance.
-		 * 
-		 * @param aText
-		 *            the text
-		 * @param anStdErrFlag
-		 *            whether the line was captured from STDERR
-		 */
-		public InterceptedLine(String aText, boolean anStdErrFlag) {
-			text = aText;
-			stdErr = anStdErrFlag;
-		}
-
-		public String getText() {
-			return text;
-		}
-
-		public boolean isStdErr() {
-			return stdErr;
-		}
-
-	}
-
-	private class InterceptPrintStream extends PrintStream {
+	protected class InterceptPrintStream extends PrintStream {
 
 		/**
 		 * Whether this interceptor is capturing STDERR.
@@ -176,34 +142,54 @@ public class ConsoleStreamInterceptor {
 		 */
 		private boolean writingStringData;
 
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aTarget
+		 *            the actual stream which is to receive everything
+		 * @param anStdErrFlag
+		 *            whether this stream is used to intercept stderr
+		 */
 		public InterceptPrintStream(PrintStream aTarget, boolean anStdErrFlag) {
 			super(aTarget);
 			stdErr = anStdErrFlag;
 		}
 
-		public void flushBufferedLine(boolean aForceOnEmptyLine) {
-			if (currentLine.length() > 0 || aForceOnEmptyLine) {
+		/**
+		 * Flushes the current line to the targets, splitting it into single lines in the process. This does not flush
+		 * if the line is entirely empty, but it will flush incomplete lines as well.
+		 */
+		public void flushBufferedLine() {
+			if (currentLine.length() > 0) {
 				String tempCurrentLine = currentLine.toString();
 				currentLine = new StringBuilder();
 
 				String[] tempSplitted = tempCurrentLine.split("(\\r\\n)|(\\r)|(\\n)");
-				synchronized (interceptionBufferSync) {
+				synchronized (targetSync) {
 					for (String tempPart : tempSplitted) {
-						interceptionBuffer.add(new InterceptedLine(tempPart, stdErr));
+						for (ConsoleInterceptorTarget tempTarget : targets) {
+							tempTarget.onLine(tempPart, stdErr);
+						}
 					}
 				}
 			}
 		}
 
-		private void newLine() {
-			if (!interceptPaused) {
-				flushBufferedLine(true);
-			}
+		private void appendToCurrentLine(String aText) {
+			currentLine.append(aText);
+			flushIfNecessary();
 		}
 
-		public void appendToCurrentLine(String aText) {
-			if (!interceptPaused) {
-				currentLine.append(aText);
+		/**
+		 * Flushes the current line to the targets, but only if it ends with a newline and can thus be considered
+		 * "complete".
+		 */
+		public void flushIfNecessary() {
+			if (currentLine.length() > 0) {
+				char tempLastChar = currentLine.charAt(currentLine.length() - 1);
+				if (tempLastChar == '\r' || tempLastChar == '\n') {
+					flushBufferedLine();
+				}
 			}
 		}
 
@@ -212,7 +198,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aLine);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -223,7 +209,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println();
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -234,7 +220,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(anObject);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -245,7 +231,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aBoolean);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -256,7 +242,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aChar);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -267,7 +253,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(someChars);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -278,7 +264,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aDouble);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -289,7 +275,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aFloat);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -300,7 +286,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(anInteger);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -311,7 +297,7 @@ public class ConsoleStreamInterceptor {
 			writingStringData = true;
 			try {
 				super.println(aLong);
-				newLine();
+				flushIfNecessary();
 			} finally {
 				writingStringData = false;
 			}
@@ -451,9 +437,8 @@ public class ConsoleStreamInterceptor {
 		public PrintStream append(CharSequence aSequence) {
 			writingStringData = true;
 			try {
-				if (!interceptPaused) {
-					currentLine.append(aSequence);
-				}
+				currentLine.append(aSequence);
+				flushIfNecessary();
 				return super.append(aSequence);
 			} finally {
 				writingStringData = false;
@@ -464,9 +449,8 @@ public class ConsoleStreamInterceptor {
 		public PrintStream append(CharSequence aSequence, int aStart, int anEnd) {
 			writingStringData = true;
 			try {
-				if (!interceptPaused) {
-					currentLine.append(aSequence, aStart, anEnd);
-				}
+				currentLine.append(aSequence, aStart, anEnd);
+				flushIfNecessary();
 				return super.append(aSequence, aStart, anEnd);
 			} finally {
 				writingStringData = false;
@@ -476,9 +460,8 @@ public class ConsoleStreamInterceptor {
 		@Override
 		public void write(int aByte) {
 			if (!writingStringData) {
-				if (!interceptPaused) {
-					currentLine.append((char) aByte);
-				}
+				currentLine.append((char) aByte);
+				flushIfNecessary();
 			}
 			super.write(aByte);
 		}
@@ -486,13 +469,11 @@ public class ConsoleStreamInterceptor {
 		@Override
 		public void write(byte[] someBytes, int anOffset, int aLength) {
 			if (!writingStringData) {
-				if (!interceptPaused) {
-					currentLine.append(new String(someBytes, anOffset, aLength));
-				}
+				currentLine.append(new String(someBytes, anOffset, aLength));
+				flushIfNecessary();
 			}
 			super.write(someBytes, anOffset, aLength);
 		}
 
 	}
-
 }

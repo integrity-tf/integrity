@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -29,6 +28,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
+import de.gebit.integrity.runner.console.intercept.ConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -139,6 +139,13 @@ public class Fork {
 	protected ProcessTerminator processWatchdog;
 
 	/**
+	 * The console interceptor. Used to output strings to the console, which prevents them from being intercepted by the
+	 * interceptor!
+	 */
+	@Inject
+	protected ConsoleOutputInterceptor consoleInterceptor;
+
+	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
 	 * established.
 	 */
@@ -211,12 +218,12 @@ public class Fork {
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
 			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stdout copy: " + definition.getName(),
-					tempStdOut, System.out).start();
+					tempStdOut, false).start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
 			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stderr copy: " + definition.getName(),
-					tempStdErr, System.err).start();
+					tempStdErr, true).start();
 		}
 	}
 
@@ -475,7 +482,7 @@ public class Fork {
 		}
 	}
 
-	private static class StreamCopier extends Thread {
+	private class StreamCopier extends Thread {
 
 		/**
 		 * The prefix to add in front of each line.
@@ -488,21 +495,28 @@ public class Fork {
 		private BufferedReader source;
 
 		/**
-		 * The target.
+		 * Whether this stream copier shall forward the lines to stderr.
 		 */
-		private PrintStream target;
+		private boolean stdErr;
 
-		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, PrintStream aTarget) {
+		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag) {
 			super(aThreadName);
 			prefix = aPrefix;
-			target = aTarget;
 			source = new BufferedReader(new InputStreamReader(aSource));
+			stdErr = anStdErrFlag;
+		}
+
+		private void println(String aLine) {
+			if (stdErr) {
+				consoleInterceptor.printlnStdErr(aLine);
+			} else {
+				consoleInterceptor.printlnStdOut(aLine);
+			}
 		}
 
 		@Override
 		public void run() {
-			target.println(prefix + "Process started!");
-			target.flush();
+			println(prefix + "Process started!");
 
 			do {
 				String tempLine;
@@ -515,13 +529,11 @@ public class Fork {
 				if (tempLine == null) {
 					break;
 				} else {
-					target.println(prefix + tempLine);
-					target.flush();
+					println(prefix + tempLine);
 				}
 			} while (true);
 
-			target.println(prefix + "Process terminated!");
-			target.flush();
+			println(prefix + "Process terminated!");
 		}
 	}
 

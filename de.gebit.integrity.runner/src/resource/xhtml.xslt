@@ -143,6 +143,7 @@
 					.err { color: #FF3030; font-weight: bold; }
 					.row0c { background-color: #F6F6F6; }
 					.row1c { background-color: #FFFFFF; }
+					.masterconsole { font-style: italic; }
 					</style>
           <script type="text/javascript">var lastSelection;
 		  
@@ -689,8 +690,13 @@
     </xsl:template>
     <xsl:template match="out | err">
     	<li>
+    		<xsl:variable name="source">
+		      <xsl:if test="ancestor-or-self::suite[1]/@forkName and not(@source = 'fork')">
+		      	<xsl:value-of select="concat(' ', 'masterconsole')" />
+		      </xsl:if>
+		    </xsl:variable>
     		<xsl:attribute name="class">
-    			<xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c')" />
+    			<xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c', $source)" />
     		</xsl:attribute>
     		<xsl:call-template name="fixSpaces">
     			<xsl:with-param name="text" select="@text" />

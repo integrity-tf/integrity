@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,6 +36,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.jdom.Attribute;
 import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -77,7 +79,9 @@ import de.gebit.integrity.runner.IntegrityRunnerModule;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
-import de.gebit.integrity.runner.callbacks.xml.ConsoleStreamInterceptor.InterceptedLine;
+import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
+import de.gebit.integrity.runner.console.intercept.Intercept;
+import de.gebit.integrity.runner.console.intercept.InterceptedLine;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -138,11 +142,6 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected boolean nextTitleCommentIsSuiteTitle;
 
 	/**
-	 * If requested, this intercepts stderr/stdout and adds them to the test results.
-	 */
-	protected ConsoleStreamInterceptor consoleStreamInterceptor;
-
-	/**
 	 * The classloader to use.
 	 */
 	@Inject
@@ -167,9 +166,26 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected TestFormatter testFormatter;
 
 	/**
+	 * The interception service used to intercept console output.
+	 */
+	@Inject
+	protected ConsoleInterceptionAggregator consoleInterceptor;
+
+	/**
+	 * Whether console output shall be captured.
+	 */
+	protected boolean captureConsoleOutput;
+
+	/**
 	 * The stack of elements.
 	 */
 	protected Stack<Element> currentElement = new Stack<Element>();
+
+	/**
+	 * This prefix is used to mark temporary attributes (these are to be stripped before elements are serialized for the
+	 * final result).
+	 */
+	protected static final String TEMPORARY_ATTRIBUTE_PREFIX = "TEMP_";
 
 	/** The Constant ROOT_ELEMENT. */
 	protected static final String ROOT_ELEMENT = "integrity";
@@ -360,9 +376,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant CONSOLE_ELEMENT. */
 	protected static final String CONSOLE_ELEMENT = "console";
 
+	/** The Constant CONSOLE_LINECOUNT_ATTRIBUTE. */
 	protected static final String CONSOLE_LINECOUNT_ATTRIBUTE = "lines";
 
+	/** The Constant CONSOLE_TRUNCATED_ATTRIBUTE. */
 	protected static final String CONSOLE_TRUNCATED_ATTRIBUTE = "truncated";
+
+	/** The Constant CONSOLE_TEMP_STARTTIME_ATTRIBUTE. */
+	protected static final String CONSOLE_TEMP_STARTTIME_ATTRIBUTE = TEMPORARY_ATTRIBUTE_PREFIX + "starttime";
+
+	/** The Constant CONSOLE_TEMP_ENDTIME_ATTRIBUTE. */
+	protected static final String CONSOLE_TEMP_ENDTIME_ATTRIBUTE = TEMPORARY_ATTRIBUTE_PREFIX + "endtime";
 
 	/** The Constant CONSOLE_LINE_STDOUT_ELEMENT. */
 	protected static final String CONSOLE_LINE_STDOUT_ELEMENT = "out";
@@ -372,6 +396,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant CONSOLE_LINE_TEXT_ATTRIBUTE. */
 	protected static final String CONSOLE_LINE_TEXT_ATTRIBUTE = "text";
+
+	/** The Constant CONSOLE_LINE_TEMP_TIME_ATTRIBUTE. */
+	protected static final String CONSOLE_LINE_TEMP_TIME_ATTRIBUTE = TEMPORARY_ATTRIBUTE_PREFIX + "time";
+
+	/** The Constant CONSOLE_LINE_SOURCE_ATTRIBUTE. */
+	protected static final String CONSOLE_LINE_SOURCE_ATTRIBUTE = "source";
 
 	/**
 	 * Maximum number of lines of console output that is added to a single test/call.
@@ -424,9 +454,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		outputFile = anOutputFile;
 		title = aTitle;
 		transformHandling = aTransformHandling != null ? aTransformHandling : TransformHandling.EXECUTE_TRANSFORM;
-		if (aCaptureConsoleFlag) {
-			consoleStreamInterceptor = new ConsoleStreamInterceptor();
-		}
+		captureConsoleOutput = aCaptureConsoleFlag;
 	}
 
 	/**
@@ -448,8 +476,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onExecutionStart(TestModel aModel, VariantDefinition aVariant) {
-		if (consoleStreamInterceptor != null) {
-			consoleStreamInterceptor.startIntercept();
+		if (captureConsoleOutput) {
+			consoleInterceptor.startIntercept();
 		}
 
 		Element tempRootElement = new Element(ROOT_ELEMENT);
@@ -669,7 +697,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onTestStart(Test aTest) {
-		addConsoleOutput(null);
+		addConsoleOutput(null); // clear the console interceptor
 
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		addId(tempTestElement);
@@ -720,7 +748,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onTableTestStart(TableTest aTest) {
-		addConsoleOutput(null);
+		addConsoleOutput(null); // clear the console interceptor
 
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		addId(tempTestElement);
@@ -802,10 +830,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
 				.getSubResults().get(0), tempParameterMap);
 
-		addConsoleOutput(tempResultCollectionElement);
-
 		if (!isDryRun()) {
 			if (isFork()) {
+				addConsoleOutput(tempResultCollectionElement);
 				sendElementToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
 			}
 			internalOnTestFinish(tempResultCollectionElement);
@@ -819,6 +846,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the a result collection element
 	 */
 	protected void internalOnTestFinish(Element aResultCollectionElement) {
+		addConsoleOutput(aResultCollectionElement);
 		stackPop().addContent(aResultCollectionElement);
 	}
 
@@ -887,10 +915,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempResultCollectionElement.setAttribute(EXCEPTION_COUNT_ATTRIBUTE,
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
-		addConsoleOutput(tempResultCollectionElement);
-
 		if (!isDryRun()) {
 			if (isFork()) {
+				addConsoleOutput(tempResultCollectionElement);
 				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
 			}
 			internalOnTableTestFinish(tempResultCollectionElement);
@@ -905,6 +932,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
 		stackPop(); // remove result collection element from stack first
+		addConsoleOutput(aResultCollectionElement);
 		stackPop().addContent(aResultCollectionElement);
 	}
 
@@ -1008,7 +1036,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onCallStart(Call aCall) {
-		addConsoleOutput(null);
+		addConsoleOutput(null); // clear the console interceptor
 
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		addId(tempCallElement);
@@ -1110,10 +1138,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			}
 		}
 
-		addConsoleOutput(tempCallResultElement);
-
 		if (!isDryRun()) {
 			if (isFork()) {
+				addConsoleOutput(tempCallResultElement);
 				sendElementToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement);
 			}
 			internalOnCallFinish(tempCallResultElement);
@@ -1128,6 +1155,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void internalOnCallFinish(Element aCallResultElement) {
 		if (aCallResultElement != null) {
+			addConsoleOutput(aCallResultElement);
 			stackPeek().addContent(aCallResultElement);
 		}
 
@@ -1240,13 +1268,15 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
-		if (consoleStreamInterceptor != null) {
-			consoleStreamInterceptor.stopIntercept();
+		if (captureConsoleOutput) {
+			consoleInterceptor.stopIntercept();
 		}
 
 		stackPop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
 		if (!isFork()) {
+			stripTemporaryAttributes(document.getRootElement());
+
 			FileOutputStream tempOutputStream;
 			try {
 				tempOutputStream = new FileOutputStream(outputFile);
@@ -1782,35 +1812,96 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	/**
+	 * On callback processing start.
+	 */
 	@Override
 	public void onCallbackProcessingStart() {
-		if (consoleStreamInterceptor != null) {
-			consoleStreamInterceptor.pauseIntercept();
-		}
-	}
-
-	@Override
-	public void onCallbackProcessingEnd() {
-		if (consoleStreamInterceptor != null) {
-			consoleStreamInterceptor.resumeIntercept();
+		if (captureConsoleOutput) {
+			consoleInterceptor.pauseIntercept();
 		}
 	}
 
 	/**
-	 * Adds the console output.
+	 * On callback processing end.
+	 */
+	@Override
+	public void onCallbackProcessingEnd() {
+		if (captureConsoleOutput) {
+			consoleInterceptor.resumeIntercept();
+		}
+	}
+
+	/**
+	 * Adds the console output. Can also be called without an element. In that case, it just retrieves the current
+	 * intercept job from the interceptor. Since that automatically starts a new interception job, it is used as a means
+	 * to reset the interception at the start of a call or test.<br>
+	 * <br>
+	 * This method is able to deal with elements which already contain console output. In such a case, the existing
+	 * elements' {@link #CONSOLE_TEMP_STARTTIME_ATTRIBUTE} and {@link #CONSOLE_TEMP_ENDTIME_ATTRIBUTE} as well as the
+	 * existing lines' {@link #CONSOLE_LINE_TEMP_TIME_ATTRIBUTE} attributes are used to merge newly added lines with the
+	 * existing lines. This mechanism is designed to allow merging of console data from forks with data collected on the
+	 * master.
 	 * 
 	 * @param anElement
-	 *            the an element
+	 *            the element, or null if the interception result is not to be added to an element
 	 */
+	@SuppressWarnings("unchecked")
 	void addConsoleOutput(Element anElement) {
-		if (consoleStreamInterceptor != null) {
-			List<InterceptedLine> tempLines = consoleStreamInterceptor.retrieveLines();
+		if (captureConsoleOutput) {
+			Intercept tempIntercept = consoleInterceptor.retrieveIntercept();
 
-			if (anElement != null && tempLines.size() > 0) {
-				Element tempConsoleLines = new Element(CONSOLE_ELEMENT);
-				int tempLineCount = 0;
-				for (InterceptedLine tempLine : tempLines) {
-					Element tempConsoleLine = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
+			if (anElement != null) {
+				long tempLowerTimeBound;
+				long tempUpperTimeBound;
+				int tempLineCount;
+				int tempTruncatedCount;
+				boolean tempMerged;
+
+				Element tempLineElements = anElement.getChild(CONSOLE_ELEMENT);
+				if (tempLineElements == null) {
+					tempLineElements = new Element(CONSOLE_ELEMENT);
+					anElement.addContent(tempLineElements);
+					tempMerged = false;
+					tempLineCount = 0;
+					tempTruncatedCount = 0;
+					tempLowerTimeBound = tempIntercept.getStartTimestamp();
+					tempLineElements.setAttribute(CONSOLE_TEMP_STARTTIME_ATTRIBUTE, Long.toString(tempLowerTimeBound));
+					tempUpperTimeBound = tempIntercept.getEndTimestamp();
+					tempLineElements.setAttribute(CONSOLE_TEMP_ENDTIME_ATTRIBUTE, Long.toString(tempUpperTimeBound));
+				} else {
+					tempMerged = true;
+					tempLineCount = Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_LINECOUNT_ATTRIBUTE));
+					tempTruncatedCount = Integer.parseInt(tempLineElements
+							.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
+					tempLowerTimeBound = Long.parseLong(tempLineElements
+							.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
+					tempUpperTimeBound = Long.parseLong(tempLineElements
+							.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
+				}
+
+				int tempEarliestPossiblePosition = 0;
+				for (int i = 0; i < tempIntercept.getLines().size(); i++) {
+					InterceptedLine tempLine = tempIntercept.getLines().get(i);
+
+					// First check if we do even need to add this line
+					if (tempLowerTimeBound > tempLine.getTimestamp()) {
+						// This line is older than our timeframe of interest and thus skipped
+						continue;
+					}
+					if (tempUpperTimeBound < tempLine.getTimestamp()) {
+						// This line is newer than our timeframe of interest. The following lines will be even newer,
+						// so at this point we can abort processing
+						break;
+					}
+
+					if (tempLineCount >= MAX_CONSOLE_LINES) {
+						tempTruncatedCount++;
+						continue;
+					}
+
+					// Okay, the line needs to be added
+					Element tempLineElement = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
 							: CONSOLE_LINE_STDOUT_ELEMENT);
 
 					String tempText = tempLine.getText();
@@ -1820,25 +1911,59 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 								+ (tempText.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
 					}
 
+					// This time attribute does not actually go into the final result! It's just used to merge fork
+					// and master lines on the master after receiving test/call results from a fork.
+					tempLineElement.setAttribute(CONSOLE_LINE_TEMP_TIME_ATTRIBUTE,
+							Long.toString(tempLine.getTimestamp()));
+					if (isFork()) {
+						// At the moment, there is only one valid value for the source attribute: "fork" denotes a line
+						// that was created on a fork. If no source is given, the line came from the master.
+						tempLineElement.setAttribute(CONSOLE_LINE_SOURCE_ATTRIBUTE, "fork");
+					}
+
 					try {
-						tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE, tempText);
+						tempLineElement.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE, tempText);
 					} catch (IllegalDataException exc) {
 						exc.printStackTrace();
-						tempConsoleLine.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE,
+						tempLineElement.setAttribute(CONSOLE_LINE_TEXT_ATTRIBUTE,
 								"LINE TRUNCATED: IllegalDataException");
 					}
-					tempConsoleLines.addContent(tempConsoleLine);
-					tempLineCount++;
-					if (tempLineCount >= MAX_CONSOLE_LINES) {
-						break;
+
+					if (tempMerged) {
+						// We need to find the right position to add this element in. The mechanism used here should be
+						// a bit faster than any generic sorting, but it is based on the assumption that all existing
+						// data is already well-ordered, and any new data is also well-ordered, so they just need to
+						// be merged.
+						while (tempEarliestPossiblePosition < tempLineElements.getChildren().size()) {
+							Element tempChild = (Element) tempLineElements.getChildren().get(
+									tempEarliestPossiblePosition);
+							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TEMP_TIME_ATTRIBUTE)) > tempLine
+									.getTimestamp()) {
+								// The new line is to be added right before the current earliest possible position
+								break;
+							} else {
+								tempEarliestPossiblePosition++;
+							}
+						}
+						tempLineElements.getChildren().add(tempEarliestPossiblePosition, tempLineElement);
+						tempEarliestPossiblePosition++;
+					} else {
+						// This is simple: just add it at the end!
+						tempLineElements.addContent(tempLineElement);
 					}
+
+					tempLineCount++;
 				}
 
-				tempConsoleLines.setAttribute(CONSOLE_LINECOUNT_ATTRIBUTE, Integer.toString(tempLineCount));
-				tempConsoleLines.setAttribute(CONSOLE_TRUNCATED_ATTRIBUTE,
-						Integer.toString(tempLines.size() - tempLineCount));
+				tempLineElements.setAttribute(CONSOLE_LINECOUNT_ATTRIBUTE, Integer.toString(tempLineCount));
+				tempLineElements.setAttribute(CONSOLE_TRUNCATED_ATTRIBUTE, Integer.toString(tempTruncatedCount));
 
-				anElement.addContent(tempConsoleLines);
+				if (!isFork() && tempLineCount == 0) {
+					// If we're on the master, we can scrap console elements without any lines. Forks need to keep these
+					// to be sent to the master, since the master might have some lines to be merged into these empty
+					// elements.
+					anElement.removeContent(tempLineElements);
+				}
 			}
 		}
 	}
@@ -1880,6 +2005,32 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (tempNode != null) {
 			int tempLine = tempNode.getStartLine();
 			anElement.setAttribute(LINE_NUMBER_ATTRIBUTE, Integer.toString(tempLine));
+		}
+	}
+
+	/**
+	 * Strips any temporary attributes (recognized by the prefix {@link #TEMPORARY_ATTRIBUTE_PREFIX}) from an element
+	 * hierarchy.
+	 * 
+	 * @param anElement
+	 *            the an element
+	 */
+	protected void stripTemporaryAttributes(Element anElement) {
+		@SuppressWarnings("unchecked")
+		Iterator<Attribute> tempAttributeIterator = anElement.getAttributes().iterator();
+
+		// Strip the temporary attributes from the current element...
+		while (tempAttributeIterator.hasNext()) {
+			if (tempAttributeIterator.next().getName().startsWith(TEMPORARY_ATTRIBUTE_PREFIX)) {
+				tempAttributeIterator.remove();
+			}
+		}
+
+		// ...then recurse down the element tree
+		for (Object tempContent : anElement.getContent()) {
+			if (tempContent instanceof Element) {
+				stripTemporaryAttributes((Element) tempContent);
+			}
 		}
 	}
 
