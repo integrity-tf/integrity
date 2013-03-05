@@ -1275,6 +1275,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		stackPop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
 
 		if (!isFork()) {
+			long tempStart = System.nanoTime();
 			stripTemporaryAttributes(document.getRootElement());
 
 			FileOutputStream tempOutputStream;
@@ -1323,11 +1324,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						 */
 						StreamResult tempResult = new StreamResult(new FilterOutputStream(tempOutputStream) {
 
-							private static final String TAG_START = "<xmldata";
+							private final char[] triggerOpenTagName = new char[] { 'x', 'm', 'l', 'd', 'a', 't', 'a' };
 
-							private static final String TAG_END = "</xmldata>";
+							private final char[] triggerCloseTagName = new char[] { '/', 'x', 'm', 'l', 'd', 'a', 't',
+									'a' };
 
-							private static final char TRIGGER_TAG = '<';
+							private static final char TRIGGER_TAG_START = '<';
+
+							private static final char TRIGGER_TAG_END = '<';
 
 							private static final char TRIGGER_ATTRIBUTE = '"';
 
@@ -1337,7 +1341,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 							private boolean pastXmlPart;
 
-							private StringBuilder buffer = new StringBuilder();
+							private int tagPosition;
 
 							@Override
 							public void write(int aByte) throws IOException {
@@ -1345,23 +1349,33 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 								if (!pastXmlPart) {
 									if (!insideAttribute) {
-										if (tempChar == TRIGGER_TAG) {
-											buffer.setLength(0);
-											buffer.append(tempChar);
-										} else if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
-											insideAttribute = true;
-										} else {
-											buffer.append(tempChar);
-											if (insideXmlPart) {
-												if (TAG_END.equals(buffer.toString())) {
-													insideXmlPart = false;
-													pastXmlPart = true;
-													buffer.setLength(0);
-												}
+										if (tempChar == TRIGGER_TAG_START) {
+											tagPosition = 0;
+										} else if (tempChar == TRIGGER_TAG_END) {
+											tagPosition = -1;
+										} else if (tagPosition >= 0) {
+											if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
+												insideAttribute = true;
 											} else {
-												if (TAG_START.equals(buffer.toString())) {
-													insideXmlPart = true;
-													buffer.setLength(0);
+												tagPosition++;
+												if (insideXmlPart) {
+													if (tagPosition < triggerCloseTagName.length - 1) {
+														if (tempChar != triggerCloseTagName[tagPosition]) {
+															tagPosition = 0;
+														}
+													} else if (tagPosition == triggerCloseTagName.length - 1) {
+														insideXmlPart = false;
+														pastXmlPart = true;
+													}
+												} else {
+													if (tagPosition < triggerOpenTagName.length - 1) {
+														if (tempChar != triggerOpenTagName[tagPosition]) {
+															tagPosition = 0;
+														}
+													} else if (tagPosition == triggerOpenTagName.length - 1) {
+														insideXmlPart = true;
+														pastXmlPart = false;
+													}
 												}
 											}
 										}
@@ -1384,10 +1398,18 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 								super.write(aByte);
 							}
+
+							@Override
+							public void write(byte[] someBytes, int anOffset, int aLength) throws IOException {
+								if (!pastXmlPart) {
+									super.write(someBytes, anOffset, aLength);
+								} else {
+									out.write(someBytes, anOffset, aLength);
+								}
+							}
 						});
 
 						tempTransformer.transform(tempSource, tempResult);
-						System.out.println("done!");
 					} catch (TransformerConfigurationException exc) {
 						exc.printStackTrace();
 					} catch (TransformerException exc) {
@@ -1398,8 +1420,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					System.out.print("Writing Result XML...");
 					XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
 					tempSerializer.output(document, tempOutputStream);
-					System.out.println("done!");
 				}
+				long tempTime = System.nanoTime() - tempStart;
+
+				System.out.println("done in " + ((double) (tempTime / 1000000) / 1000.0) + " seconds!");
 			} catch (IOException exc) {
 				exc.printStackTrace();
 			} finally {
