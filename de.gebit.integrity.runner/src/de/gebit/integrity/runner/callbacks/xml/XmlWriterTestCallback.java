@@ -1366,6 +1366,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 													} else if (tagPosition == triggerCloseTagName.length - 1) {
 														insideXmlPart = false;
 														pastXmlPart = true;
+														tagPosition = 0;
 													}
 												} else {
 													if (tagPosition < triggerOpenTagName.length - 1) {
@@ -1375,6 +1376,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 													} else if (tagPosition == triggerOpenTagName.length - 1) {
 														insideXmlPart = true;
 														pastXmlPart = false;
+														tagPosition = 0;
 													}
 												}
 											}
