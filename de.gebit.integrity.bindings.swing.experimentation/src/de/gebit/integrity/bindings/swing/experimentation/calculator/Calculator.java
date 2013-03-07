@@ -10,6 +10,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,12 +31,22 @@ import javax.swing.border.EmptyBorder;
  */
 public class Calculator {
 
+	private static final char OP_ADDITION = '+';
+
+	private static final char OP_SUBTRACTION = '-';
+
+	private static final char OP_MULTIPLICATION = 'x';
+
+	private static final char OP_DIVISION = '/';
+
+	private static final MathContext MATH_CONTEXT = new MathContext(14, RoundingMode.HALF_UP);
+
 	private JFrame frame;
 
 	private JPanel resultPanel = new JPanel();
 
 	private JLabel resultLabel = new JLabel("0");
-	private JLabel historyLabel = new JLabel("0");
+	private JLabel inputLabel = new JLabel("0");
 
 	private JPanel buttonPanel = new JPanel();
 
@@ -50,14 +65,17 @@ public class Calculator {
 	private JButton numberButton00 = new JButton("00");
 
 	private JPanel operatorPanel = new JPanel();
-	private JButton additionButton = new JButton("+");
-	private JButton subtractionButton = new JButton("-");
-	private JButton multiplicationButton = new JButton("+");
-	private JButton divisionButton = new JButton("/");
+	private JButton additionButton = new JButton(Character.toString(OP_ADDITION));
+	private JButton subtractionButton = new JButton(Character.toString(OP_SUBTRACTION));
+	private JButton multiplicationButton = new JButton(Character.toString(OP_MULTIPLICATION));
+	private JButton divisionButton = new JButton(Character.toString(OP_DIVISION));
 
 	private JPanel actionPanel = new JPanel();
-	private JButton resultButton = new JButton("=");
+	private JButton evaluateButton = new JButton("=");
 	private JButton clearButton = new JButton("C");
+
+	private StringBuilder inputBuffer = new StringBuilder();
+	private BigDecimal result = BigDecimal.ZERO;
 
 	public Calculator() {
 		frame = new JFrame("Experimental Calculator");
@@ -70,15 +88,16 @@ public class Calculator {
 		resultLabel.setHorizontalAlignment(JLabel.RIGHT);
 		resultLabel.setBorder(new EmptyBorder(0, 6, 0, 6));
 		resultPanel.add(resultLabel, BorderLayout.NORTH);
-		historyLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		historyLabel.setHorizontalAlignment(JLabel.RIGHT);
-		historyLabel.setBorder(new EmptyBorder(0, 6, 0, 6));
-		resultPanel.add(historyLabel, BorderLayout.CENTER);
+		inputLabel.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		inputLabel.setHorizontalAlignment(JLabel.RIGHT);
+		inputLabel.setBorder(new EmptyBorder(0, 6, 0, 6));
+		inputLabel.setMinimumSize(new Dimension(1, 20));
+		inputLabel.setPreferredSize(new Dimension(1, 20));
+		resultPanel.add(inputLabel, BorderLayout.CENTER);
 
 		buttonPanel.setLayout(new GridBagLayout());
 
 		buttonPanel.setMinimumSize(new Dimension(360, 300));
-		// buttonPanel.setMaximumSize(new Dimension(360, 300));
 		numberPanel.setLayout(new GridLayout(4, 3, 10, 10));
 		nullButtonSize(numberButton7);
 		numberPanel.add(numberButton7);
@@ -182,8 +201,8 @@ public class Calculator {
 		tempConstraints.weightx = 0.5;
 		tempConstraints.weighty = 1.0;
 		tempConstraints.insets = new Insets(5, 5, 5, 5);
-		nullButtonSize(resultButton);
-		actionPanel.add(resultButton, tempConstraints);
+		nullButtonSize(evaluateButton);
+		actionPanel.add(evaluateButton, tempConstraints);
 
 		tempConstraints = new GridBagConstraints();
 		tempConstraints.gridx = 0;
@@ -197,11 +216,128 @@ public class Calculator {
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(resultPanel, BorderLayout.NORTH);
 		frame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+
+		addActions();
+		clear();
 	}
 
 	private static void nullButtonSize(JButton aButton) {
 		aButton.setMinimumSize(new Dimension(0, 0));
 		aButton.setPreferredSize(new Dimension(0, 0));
+	}
+
+	private void addActions() {
+		ActionListener tempNumberButtonListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent anEvent) {
+				inputBuffer.append(((JButton) anEvent.getSource()).getText());
+				updateDisplay();
+			}
+		};
+
+		numberButton1.addActionListener(tempNumberButtonListener);
+		numberButton2.addActionListener(tempNumberButtonListener);
+		numberButton3.addActionListener(tempNumberButtonListener);
+		numberButton4.addActionListener(tempNumberButtonListener);
+		numberButton5.addActionListener(tempNumberButtonListener);
+		numberButton6.addActionListener(tempNumberButtonListener);
+		numberButton7.addActionListener(tempNumberButtonListener);
+		numberButton8.addActionListener(tempNumberButtonListener);
+		numberButton9.addActionListener(tempNumberButtonListener);
+		numberButton0.addActionListener(tempNumberButtonListener);
+		numberButton00.addActionListener(tempNumberButtonListener);
+		numberButtonDot.addActionListener(tempNumberButtonListener);
+
+		additionButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				evaluate();
+				inputBuffer.append(OP_ADDITION);
+				updateDisplay();
+			}
+		});
+		subtractionButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				evaluate();
+				inputBuffer.append(OP_SUBTRACTION);
+				updateDisplay();
+			}
+		});
+		multiplicationButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				evaluate();
+				inputBuffer.append(OP_MULTIPLICATION);
+				updateDisplay();
+			}
+		});
+		divisionButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				evaluate();
+				inputBuffer.append(OP_DIVISION);
+				updateDisplay();
+			}
+		});
+
+		clearButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clear();
+			}
+		});
+		evaluateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				evaluate();
+			}
+		});
+	}
+
+	private void updateDisplay() {
+		inputLabel.setText(inputBuffer.toString());
+		resultLabel.setText(result.toString());
+	}
+
+	private void clear() {
+		inputBuffer = new StringBuilder();
+		result = BigDecimal.ZERO;
+		updateDisplay();
+	}
+
+	private void evaluate() {
+		String tempInput = inputBuffer.toString();
+		inputBuffer = new StringBuilder();
+		if (tempInput.length() >= 1) {
+			switch (tempInput.charAt(0)) {
+			case OP_ADDITION:
+				result = result.add(new BigDecimal(tempInput.substring(1)), MATH_CONTEXT);
+				break;
+			case OP_SUBTRACTION:
+				result = result.subtract(new BigDecimal(tempInput.substring(1)), MATH_CONTEXT);
+				break;
+			case OP_MULTIPLICATION:
+				result = result.multiply(new BigDecimal(tempInput.substring(1)), MATH_CONTEXT);
+				break;
+			case OP_DIVISION:
+				result = result.divide(new BigDecimal(tempInput.substring(1)), MATH_CONTEXT);
+				break;
+			default:
+				result = new BigDecimal(tempInput);
+			}
+
+			result = result.stripTrailingZeros();
+		}
+
+		updateDisplay();
 	}
 
 	/**
