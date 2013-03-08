@@ -164,8 +164,6 @@
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="StringLiteralEquality"/>
-    <module name="IllegalCatch"/>
-    <module name="IllegalThrows"/>
     <module name="PackageDeclaration"/>
     <module name="ExplicitInitialization"/>
     <module name="DefaultComesLast"/>
