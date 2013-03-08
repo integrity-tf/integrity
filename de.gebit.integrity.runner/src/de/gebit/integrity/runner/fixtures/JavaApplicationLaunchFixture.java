@@ -12,7 +12,7 @@ import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
- * 
+ * Generic fixture usable to start, check and kill a Java application class with a static main method.
  * 
  * @author Rene Schneider
  * 
@@ -31,10 +31,27 @@ public class JavaApplicationLaunchFixture {
 	 */
 	protected static final int WRAPPER_STARTUP_TIME = 1000;
 
+	/**
+	 * The fixture will wait this number of milliseconds for the application thread to die.
+	 */
 	protected static final int WRAPPER_KILL_TIME = 20000;
 
+	/**
+	 * The last application that was started is stored here. If the fixture methods are called without the
+	 * {@link ApplicationWrapper} parameter, this instance is used.
+	 */
 	protected static ApplicationWrapper lastApplication;
 
+	/**
+	 * Launches the provided application by calling the static main method of the application class.
+	 * 
+	 * @param aMainClassName
+	 *            the name of the application class
+	 * @param someArguments
+	 *            the arguments to provide to the main method
+	 * @return an application wrapper instance which can optionally be saved to handle multiple applications
+	 * @throws Throwable
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FixtureMethod(description = "Launch Java Application: $mainClass$")
 	public ApplicationWrapper launch(@FixtureParameter(name = "mainClass") String aMainClassName,
@@ -53,6 +70,14 @@ public class JavaApplicationLaunchFixture {
 		return tempApplication;
 	}
 
+	/**
+	 * Checks whether the provided application (if none was provided, the last started application is used) is still
+	 * alive.
+	 * 
+	 * @param aWrapper
+	 *            the application to check (if null, the last started application is used)
+	 * @return
+	 */
 	@FixtureMethod(description = "Check if the application is still alive")
 	public boolean isAlive(@FixtureParameter(name = "application") ApplicationWrapper aWrapper) {
 		ApplicationWrapper tempWrapper = aWrapper != null ? aWrapper : lastApplication;
