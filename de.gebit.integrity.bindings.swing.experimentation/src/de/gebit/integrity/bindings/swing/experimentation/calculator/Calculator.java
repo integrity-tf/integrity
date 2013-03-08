@@ -351,7 +351,6 @@ public class Calculator {
 		}
 
 		new Calculator();
-
 	}
 
 }

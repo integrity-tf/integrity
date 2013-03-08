@@ -1,0 +1,13 @@
+import launch.*
+
+packagedef swing.calculator with
+
+	suitedef main with
+		
+		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
+		test isAppAlive
+		test killApp
+	
+	suiteend
+
+packageend
