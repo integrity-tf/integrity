@@ -78,7 +78,11 @@ public class Calculator {
 	private BigDecimal result = BigDecimal.ZERO;
 
 	public Calculator() {
+		numberButton1.setName("numberButton1");
+		clearButton.setName("clearButton");
+
 		frame = new JFrame("Experimental Calculator");
+		frame.setName("calculator");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 300, 400);

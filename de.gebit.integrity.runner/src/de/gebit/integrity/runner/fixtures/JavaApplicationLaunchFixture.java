@@ -56,6 +56,11 @@ public class JavaApplicationLaunchFixture {
 	@FixtureMethod(description = "Launch Java Application: $mainClass$")
 	public ApplicationWrapper launch(@FixtureParameter(name = "mainClass") String aMainClassName,
 			@FixtureParameter(name = "arguments") String[] someArguments) throws Throwable {
+		return launchInternal(aMainClassName, someArguments);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected ApplicationWrapper launchInternal(String aMainClassName, String[] someArguments) throws Throwable {
 		if (aMainClassName == null) {
 			throw new IllegalArgumentException("A class name has to be provided.");
 		}
@@ -80,6 +85,10 @@ public class JavaApplicationLaunchFixture {
 	 */
 	@FixtureMethod(description = "Check if the application is still alive")
 	public boolean isAlive(@FixtureParameter(name = "application") ApplicationWrapper aWrapper) {
+		return isAliveInternal(aWrapper);
+	}
+
+	protected boolean isAliveInternal(ApplicationWrapper aWrapper) {
 		ApplicationWrapper tempWrapper = aWrapper != null ? aWrapper : lastApplication;
 
 		if (tempWrapper == null) {
@@ -93,6 +102,10 @@ public class JavaApplicationLaunchFixture {
 	// Deprecation is known, but there's no other way in this case...
 	@FixtureMethod(description = "Kills the application")
 	public boolean kill(@FixtureParameter(name = "application") ApplicationWrapper aWrapper) {
+		return killInternal(aWrapper);
+	}
+
+	protected boolean killInternal(ApplicationWrapper aWrapper) {
 		ApplicationWrapper tempWrapper = aWrapper != null ? aWrapper : lastApplication;
 
 		if (tempWrapper == null) {
@@ -100,7 +113,8 @@ public class JavaApplicationLaunchFixture {
 		}
 
 		if (!tempWrapper.isAlive()) {
-			return false;
+			// The application is already dead
+			return true;
 		}
 
 		tempWrapper.stop();
@@ -126,12 +140,14 @@ public class JavaApplicationLaunchFixture {
 			// ignored
 		}
 
-		checkWrapper(tempWrapper);
+		if (!checkWrapper(tempWrapper)) {
+			throw new RuntimeException("The application has not been started successfully");
+		}
 
 		return tempWrapper;
 	}
 
-	protected void checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
+	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
 		if (!aWrapper.isAlive()) {
 			Throwable tempException = aWrapper.getException();
 			if (tempException != null) {
@@ -140,6 +156,8 @@ public class JavaApplicationLaunchFixture {
 				throw new RuntimeException("The application died immediately");
 			}
 		}
+
+		return true;
 	}
 
 	/**
@@ -149,7 +167,7 @@ public class JavaApplicationLaunchFixture {
 	 * @author Rene Schneider
 	 * 
 	 */
-	protected class ApplicationWrapper extends Thread {
+	public class ApplicationWrapper extends Thread {
 
 		private Class mainClass;
 

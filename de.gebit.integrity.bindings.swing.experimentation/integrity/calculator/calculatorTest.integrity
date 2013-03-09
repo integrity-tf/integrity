@@ -1,4 +1,5 @@
 import launch.*
+import basic.*
 
 packagedef swing.calculator with
 
@@ -6,6 +7,10 @@ packagedef swing.calculator with
 		
 		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
 		test isAppAlive
+		
+		call 10 * clickButton name: "calculator.numberButton1"
+		
+		
 		test killApp
 	
 	suiteend

@@ -1,0 +1,9 @@
+packagedef launch with
+
+	calldef launchApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#launch
+	
+	testdef isAppAlive uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#isAlive
+	
+	testdef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
+
+packageend

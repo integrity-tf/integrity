@@ -1,0 +1,5 @@
+packagedef basic with
+
+	calldef clickButton uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
+
+packageend
