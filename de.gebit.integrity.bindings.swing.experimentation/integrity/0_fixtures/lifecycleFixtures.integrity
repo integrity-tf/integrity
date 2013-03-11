@@ -7,3 +7,9 @@ packagedef launch with
 	testdef killApp uses de.gebit.integrity.bindings.swing.launch.SwingApplicationLaunchFixture#kill
 
 packageend
+
+packagedef tools with
+
+	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
+
+packageend
