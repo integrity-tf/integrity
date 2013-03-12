@@ -160,24 +160,40 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		 * if the line is entirely empty, but it will flush incomplete lines as well.
 		 */
 		public void flushBufferedLine() {
-			if (currentLine.length() > 0) {
-				String tempCurrentLine = currentLine.toString();
-				currentLine = new StringBuilder();
+			try {
+				synchronized (currentLine) {
+					if (currentLine.length() > 0) {
+						String tempCurrentLine = currentLine.toString();
+						currentLine = new StringBuilder();
 
-				String[] tempSplitted = tempCurrentLine.split("(\\r\\n)|(\\r)|(\\n)");
-				synchronized (targetSync) {
-					for (String tempPart : tempSplitted) {
-						for (ConsoleInterceptorTarget tempTarget : targets) {
-							tempTarget.onLine(tempPart, stdErr);
+						String[] tempSplitted = tempCurrentLine.split("(\\r\\n)|(\\r)|(\\n)");
+						synchronized (targetSync) {
+							for (String tempPart : tempSplitted) {
+								for (ConsoleInterceptorTarget tempTarget : targets) {
+									tempTarget.onLine(tempPart, stdErr);
+								}
+							}
 						}
 					}
 				}
+				// SUPPRESS CHECKSTYLE IllegalCatch
+			} catch (Throwable exc) {
+				// caught here to prevent errors in the interceptor from harming the intercepted application
+				exc.printStackTrace();
 			}
 		}
 
 		private void appendToCurrentLine(String aText) {
-			currentLine.append(aText);
-			flushIfNecessary();
+			try {
+				synchronized (currentLine) {
+					currentLine.append(aText);
+					flushIfNecessary();
+				}
+				// SUPPRESS CHECKSTYLE IllegalCatch
+			} catch (Throwable exc) {
+				// caught here to prevent errors in the interceptor from harming the intercepted application
+				exc.printStackTrace();
+			}
 		}
 
 		/**
@@ -185,11 +201,19 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		 * "complete".
 		 */
 		public void flushIfNecessary() {
-			if (currentLine.length() > 0) {
-				char tempLastChar = currentLine.charAt(currentLine.length() - 1);
-				if (tempLastChar == '\r' || tempLastChar == '\n') {
-					flushBufferedLine();
+			try {
+				synchronized (currentLine) {
+					if (currentLine.length() > 0) {
+						char tempLastChar = currentLine.charAt(currentLine.length() - 1);
+						if (tempLastChar == '\r' || tempLastChar == '\n') {
+							flushBufferedLine();
+						}
+					}
 				}
+				// SUPPRESS CHECKSTYLE IllegalCatch
+			} catch (Throwable exc) {
+				// caught here to prevent errors in the interceptor from harming the intercepted application
+				exc.printStackTrace();
 			}
 		}
 
@@ -437,8 +461,7 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		public PrintStream append(CharSequence aSequence) {
 			writingStringData = true;
 			try {
-				currentLine.append(aSequence);
-				flushIfNecessary();
+				appendToCurrentLine(aSequence == null ? "null" : aSequence.toString());
 				return super.append(aSequence);
 			} finally {
 				writingStringData = false;
@@ -449,8 +472,7 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		public PrintStream append(CharSequence aSequence, int aStart, int anEnd) {
 			writingStringData = true;
 			try {
-				currentLine.append(aSequence, aStart, anEnd);
-				flushIfNecessary();
+				appendToCurrentLine(aSequence == null ? "null" : aSequence.subSequence(aStart, anEnd).toString());
 				return super.append(aSequence, aStart, anEnd);
 			} finally {
 				writingStringData = false;
@@ -460,8 +482,7 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		@Override
 		public void write(int aByte) {
 			if (!writingStringData) {
-				currentLine.append((char) aByte);
-				flushIfNecessary();
+				appendToCurrentLine(Character.toString((char) aByte));
 			}
 			super.write(aByte);
 		}
@@ -469,8 +490,7 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 		@Override
 		public void write(byte[] someBytes, int anOffset, int aLength) {
 			if (!writingStringData) {
-				currentLine.append(new String(someBytes, anOffset, aLength));
-				flushIfNecessary();
+				appendToCurrentLine(new String(someBytes, anOffset, aLength));
 			}
 			super.write(someBytes, anOffset, aLength);
 		}
