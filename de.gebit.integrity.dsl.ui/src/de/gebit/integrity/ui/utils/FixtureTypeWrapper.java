@@ -128,7 +128,15 @@ public class FixtureTypeWrapper {
 			if (tempParamTypeName.getRawType().startsWith(Map.class.getName())) {
 				// ignore the arbitrary parameter parameter
 			} else {
-				IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
+				IAnnotation tempAnnotation = null;
+				for (IAnnotation tempAnnotationCandidate : tempParam.getAnnotations()) {
+					String tempCandidateName = tempAnnotationCandidate.getElementName();
+					if (FixtureParameter.class.getName().equals(tempCandidateName)
+							|| FixtureParameter.class.getSimpleName().equals(tempCandidateName)) {
+						tempAnnotation = tempAnnotationCandidate;
+						break;
+					}
+				}
 
 				if (tempAnnotation != null) {
 					String tempName = null;

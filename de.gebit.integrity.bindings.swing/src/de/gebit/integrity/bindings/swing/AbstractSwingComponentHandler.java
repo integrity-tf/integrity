@@ -37,13 +37,16 @@ public abstract class AbstractSwingComponentHandler {
 
 	protected static final String COMPONENT_PATH_PARAMETER_NAME = "name";
 
-	public List<Component> findComponents(String aComponentPath, Class<? extends Component> aComponentClass) {
+	public List<Component> findComponents(String aComponentPath, Class<? extends Component> aComponentClass,
+			JFrame aFrameToIgnore) {
 		List<Component> tempComponents = new ArrayList<Component>(1);
 
 		for (Frame tempFrame : Frame.getFrames()) {
 			if (tempFrame.isVisible()) {
 				if (tempFrame instanceof JFrame) {
-					tempComponents.addAll(findComponentsInContainer(tempFrame, aComponentPath, aComponentClass));
+					if (aFrameToIgnore == null || aFrameToIgnore != tempFrame) {
+						tempComponents.addAll(findComponentsInContainer(tempFrame, aComponentPath, aComponentClass));
+					}
 				}
 			}
 		}
@@ -55,7 +58,7 @@ public abstract class AbstractSwingComponentHandler {
 			Class<? extends Component> aComponentClass) {
 		List<Component> tempComponents = new ArrayList<Component>(1);
 
-		String[] tempPathParts = splitPath(aComponentPath);
+		String[] tempPathParts = aComponentPath != null ? splitPath(aComponentPath) : null;
 		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1, aComponentClass, tempComponents);
 
 		return tempComponents;
@@ -63,52 +66,65 @@ public abstract class AbstractSwingComponentHandler {
 
 	protected void recursiveFindComponentsInContainer(Container aContainer, String[] somePathParts, int aPathPosition,
 			Class<? extends Component> aComponentClass, List<Component> aCollection) {
-		if (aPathPosition >= somePathParts.length) {
-			return;
-		} else if (aPathPosition == -1 && somePathParts.length > 0) {
-			boolean tempIsLastPart = somePathParts.length == 1;
-			String tempNameToFind = somePathParts[0];
-			String tempComponentName = aContainer.getName();
-			if (tempComponentName != null && tempNameToFind.equals(tempComponentName)) {
-				if (tempIsLastPart) {
-					if (aComponentClass == null || aComponentClass.isAssignableFrom(aContainer.getClass())) {
-						aCollection.add(aContainer);
-					}
-				} else {
-					recursiveFindComponentsInContainer(aContainer, somePathParts, 1, aComponentClass, aCollection);
+		if (somePathParts == null) {
+			for (Component tempComponent : aContainer.getComponents()) {
+				if (tempComponent instanceof Container) {
+					recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, 0, aComponentClass,
+							aCollection);
 				}
-			} else {
-				recursiveFindComponentsInContainer(aContainer, somePathParts, 0, aComponentClass, aCollection);
+				if (aComponentClass == null || (aComponentClass.isAssignableFrom(tempComponent.getClass()))) {
+					aCollection.add(tempComponent);
+				}
 			}
 		} else {
-			boolean tempIsLastPart = aPathPosition + 1 == somePathParts.length;
-			String tempNameToFind = somePathParts[aPathPosition];
-			for (Component tempComponent : aContainer.getComponents()) {
-				String tempComponentName = getComponentName(tempComponent);
-
-				if (tempComponentName == null) {
-					// Unnamed containers are ignored; those are allowed gaps in
-					// the path
-					if (tempComponent instanceof Container) {
-						recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, aPathPosition,
-								aComponentClass, aCollection);
+			if (aPathPosition >= somePathParts.length) {
+				return;
+			} else if (aPathPosition == -1 && somePathParts.length > 0) {
+				boolean tempIsLastPart = somePathParts.length == 1;
+				String tempNameToFind = somePathParts[0];
+				String tempComponentName = aContainer.getName();
+				if (tempComponentName != null && tempNameToFind.equals(tempComponentName)) {
+					if (tempIsLastPart) {
+						if (aComponentClass == null || aComponentClass.isAssignableFrom(aContainer.getClass())) {
+							aCollection.add(aContainer);
+						}
+					} else {
+						recursiveFindComponentsInContainer(aContainer, somePathParts, 1, aComponentClass, aCollection);
 					}
 				} else {
-					if (tempNameToFind.equals(tempComponentName)) {
-						if (tempIsLastPart) {
-							if (aComponentClass == null || aComponentClass.isAssignableFrom(tempComponent.getClass())) {
-								aCollection.add(tempComponent);
+					recursiveFindComponentsInContainer(aContainer, somePathParts, 0, aComponentClass, aCollection);
+				}
+			} else {
+				boolean tempIsLastPart = aPathPosition + 1 == somePathParts.length;
+				String tempNameToFind = somePathParts[aPathPosition];
+				for (Component tempComponent : aContainer.getComponents()) {
+					String tempComponentName = getComponentName(tempComponent);
+
+					if (tempComponentName == null) {
+						// Unnamed containers are ignored; those are allowed gaps in
+						// the path
+						if (tempComponent instanceof Container) {
+							recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, aPathPosition,
+									aComponentClass, aCollection);
+						}
+					} else {
+						if (tempNameToFind.equals(tempComponentName)) {
+							if (tempIsLastPart) {
+								if (aComponentClass == null
+										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
+									aCollection.add(tempComponent);
+								}
+							} else {
+								if (tempComponent instanceof Container) {
+									recursiveFindComponentsInContainer((Container) tempComponent, somePathParts,
+											aPathPosition + 1, aComponentClass, aCollection);
+								}
 							}
 						} else {
 							if (tempComponent instanceof Container) {
-								recursiveFindComponentsInContainer((Container) tempComponent, somePathParts,
-										aPathPosition + 1, aComponentClass, aCollection);
+								recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, 0,
+										aComponentClass, aCollection);
 							}
-						}
-					} else {
-						if (tempComponent instanceof Container) {
-							recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, 0,
-									aComponentClass, aCollection);
 						}
 					}
 				}
@@ -116,8 +132,9 @@ public abstract class AbstractSwingComponentHandler {
 		}
 	}
 
-	public Component findComponentGuarded(String aComponentPath, Class<? extends Component> aComponentClass) {
-		return filterComponentList(findComponents(aComponentPath, aComponentClass), aComponentPath);
+	public Component findComponentGuarded(String aComponentPath, Class<? extends Component> aComponentClass,
+			JFrame aFrameToIgnore) {
+		return filterComponentList(findComponents(aComponentPath, aComponentClass, aFrameToIgnore), aComponentPath);
 	}
 
 	public Component findComponentInContainerGuarded(Container aContainer, String aComponentPath,
@@ -159,7 +176,7 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	public boolean checkPathUniqueness(String aComponentPath, Class<? extends Component> aComponentClass) {
-		List<Component> tempMatches = findComponents(aComponentPath, aComponentClass);
+		List<Component> tempMatches = findComponents(aComponentPath, aComponentClass, null);
 
 		return (tempMatches.size() <= 1);
 	}

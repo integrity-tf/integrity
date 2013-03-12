@@ -17,6 +17,7 @@ import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.ClassFile;
 import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
@@ -1070,9 +1071,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		try {
 			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
-			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
-			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempCompilationUnit.getTypes()[0],
-					valueConverter);
+			Object tempParent = tempSourceMethod.getParent();
+			IType tempType = null;
+			if (tempParent instanceof CompilationUnit) {
+				tempType = ((CompilationUnit) tempParent).getTypes()[0];
+			} else if (tempParent instanceof ClassFile) {
+				((ClassFile) tempParent).open(null);
+				tempType = ((ClassFile) tempParent).getType();
+			}
+			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempType, valueConverter);
 
 			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
 			if (tempProposalProvider == null) {

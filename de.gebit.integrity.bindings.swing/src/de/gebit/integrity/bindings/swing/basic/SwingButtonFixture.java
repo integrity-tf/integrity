@@ -16,14 +16,11 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider
  * 
  */
-public class SwingButtonFixture extends AbstractSwingFixture implements
-		CustomProposalFixture {
+public class SwingButtonFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
 	@FixtureMethod(description = "Click the button $name$")
-	public void clickButton(
-			@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
-		JButton tempButton = (JButton) findComponentGuarded(aComponentPath,
-				JButton.class);
+	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath) {
+		JButton tempButton = (JButton) findComponentGuarded(aComponentPath, JButton.class, null);
 
 		tempButton.doClick();
 

@@ -5,6 +5,7 @@ Bundle-SymbolicName: de.gebit.integrity.bindings.swing.eclipse
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: GEBIT Solutions GmbH
 Import-Package: de.gebit.integrity.bindings.swing,
+ de.gebit.integrity.bindings.swing.authorassist,
  de.gebit.integrity.bindings.swing.basic,
  de.gebit.integrity.bindings.swing.launch,
  de.gebit.integrity.fixtures

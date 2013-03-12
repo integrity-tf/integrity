@@ -11,5 +11,5 @@ packageend
 packagedef tools with
 
 	calldef authorAssist uses de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist
-
+ 
 packageend

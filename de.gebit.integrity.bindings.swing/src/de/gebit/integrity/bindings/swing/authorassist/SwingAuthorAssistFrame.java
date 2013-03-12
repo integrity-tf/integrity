@@ -59,9 +59,10 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 	protected AbstractSwingComponentHandler swingComponentHandler;
 
+	protected SwingAuthorAssistServer autoCompleteServer;
+
 	public SwingAuthorAssistFrame() {
 		this(new AbstractSwingComponentHandler() {
-
 		});
 	}
 
@@ -151,7 +152,30 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 	@Override
 	public void setVisible(boolean aBoolean) {
+		if (aBoolean && !isVisible()) {
+			startUp();
+		}
+
 		super.setVisible(aBoolean);
+	}
+
+	protected void startUp() {
+		autoCompleteServer = new SwingAuthorAssistServer(swingComponentHandler, this);
+		autoCompleteServer.startUp();
+	}
+
+	protected void shutDown() {
+		if (autoCompleteServer != null) {
+			autoCompleteServer.shutDown();
+		}
+
+		if (identificationInjectionThread != null) {
+			identificationInjectionThread.kill();
+		}
+
+		synchronized (closeSync) {
+			closeSync.notifyAll();
+		}
 	}
 
 	protected void injectComponentListeners() {
@@ -282,13 +306,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 		@Override
 		public void windowClosed(WindowEvent anEvent) {
-			if (identificationInjectionThread != null) {
-				identificationInjectionThread.kill();
-			}
-
-			synchronized (closeSync) {
-				closeSync.notifyAll();
-			}
+			shutDown();
 		}
 
 		@Override
