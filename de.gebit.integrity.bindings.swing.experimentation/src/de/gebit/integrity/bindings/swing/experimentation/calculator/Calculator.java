@@ -79,8 +79,33 @@ public class Calculator {
 	private BigDecimal result = BigDecimal.ZERO;
 
 	public Calculator() {
+		buttonPanel.setName("buttonPanel");
+		numberPanel.setName("numberPanel");
+		numberButton0.setName("numberButton0");
+		numberButton00.setName("numberButton00");
 		numberButton1.setName("numberButton1");
+		numberButton2.setName("numberButton2");
+		numberButton3.setName("numberButton3");
+		numberButton4.setName("numberButton4");
+		numberButton5.setName("numberButton5");
+		numberButton6.setName("numberButton6");
+		numberButton7.setName("numberButton7");
+		numberButton8.setName("numberButton8");
+		numberButton9.setName("numberButton9");
+
+		actionPanel.setName("actionPanel");
+		evaluateButton.setName("evaluateButton");
 		clearButton.setName("clearButton");
+
+		operatorPanel.setName("operatorPanel");
+		additionButton.setName("additionButton");
+		subtractionButton.setName("subtractionButton");
+		multiplicationButton.setName("multiplicationButton");
+		divisionButton.setName("divisionButton");
+
+		resultPanel.setName("resultPanel");
+		resultLabel.setName("resultLabel");
+		inputLabel.setName("inputLabel");
 
 		frame = new JFrame("Experimental Calculator");
 		frame.setName("calculator");

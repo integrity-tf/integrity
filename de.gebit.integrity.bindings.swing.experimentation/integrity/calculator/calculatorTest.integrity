@@ -8,7 +8,19 @@ packagedef swing.calculator with
 		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.calculator.Calculator"
 		test isAppAlive
 		
-		call 10 * clickButton name: "calculator.numberButton1"
+		test labelText name: "calculator.resultPanel.resultLabel" = 0
+		test labelText name: "resultPanel.inputLabel" = ""
+		
+		call 10 * clickButton name: "numberButton1"
+		
+		test labelText name: "resultLabel" = 0
+		test labelText name: "inputLabel" = 1111111111
+		
+		call clickButton name: "evaluateButton"
+		
+		test labelText name: "resultLabel" = 111111111
+		test labelText name: "inputLabel" = ""
+		
 		call clickButton name: "clearButton"
 		call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
 		

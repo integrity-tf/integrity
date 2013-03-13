@@ -3,7 +3,7 @@
  */
 package de.gebit.integrity.bindings.swing.basic;
 
-import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingFixture;
 import de.gebit.integrity.bindings.swing.AmbiguousComponentPathException;
@@ -19,20 +19,14 @@ import de.gebit.integrity.fixtures.FixtureParameter;
  * @author Rene Schneider
  * 
  */
-public class SwingButtonFixture extends AbstractSwingFixture implements CustomProposalFixture {
+public class SwingLabelFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
-	@FixtureMethod(description = "Click the button '$name$'")
-	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
+	public String labelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JButton tempButton = (JButton) findComponentGuarded(aComponentPath, JButton.class, null);
+		final JLabel tempLabel = (JLabel) findComponentGuarded(aComponentPath, JLabel.class, null);
 
-		runOnEventQueueAndWait(new Runnable() {
-
-			@Override
-			public void run() {
-				tempButton.doClick();
-			}
-		});
+		return tempLabel.getText();
 	}
 
 }

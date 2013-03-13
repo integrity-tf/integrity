@@ -1,5 +1,8 @@
 packagedef basic with
 
 	calldef clickButton uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
+	
+	calldef getLabelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#labelText
+	testdef labelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#labelText
  
 packageend
