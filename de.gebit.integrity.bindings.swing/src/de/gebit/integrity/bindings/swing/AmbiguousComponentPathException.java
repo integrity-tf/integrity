@@ -5,8 +5,6 @@ package de.gebit.integrity.bindings.swing;
 
 import java.awt.Component;
 import java.awt.Window;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -15,40 +13,38 @@ import java.util.List;
  * @author Rene Schneider
  * 
  */
-public class AmbiguousComponentPathException extends Exception {
+public class AmbiguousComponentPathException extends AbstractSwingComponentPathException {
 
-	private String ambiguousPath;
+	/**
+	 * Serial Version.
+	 */
+	private static final long serialVersionUID = 4448538076639107014L;
 
 	private List<Component> components;
 
-	private StringBuilder detailString;
-
-	private static final String NEWLINE = System.getProperty("line.separator");
-
-	private static final String PREFIX = "      in ";
-
 	public AmbiguousComponentPathException(String aPath, List<Component> someComponents,
 			AbstractSwingComponentHandler aComponentHandler) {
-		super("Component path '" + aPath + "' is ambiguous (" + someComponents.size() + " matches)");
-		ambiguousPath = aPath;
+		super(aPath, aComponentHandler, "Component path '" + aPath + "' is ambiguous (" + someComponents.size()
+				+ " matches)");
 		components = someComponents;
+	}
 
-		detailString = new StringBuilder();
-
+	@Override
+	protected void buildDetailString(StringBuilder aStringBuilder, AbstractSwingComponentHandler aComponentHandler) {
 		int tempCount = 0;
-		for (Component tempComponent : someComponents) {
+		for (Component tempComponent : components) {
 			tempCount++;
-			detailString.append(tempCount + ": ");
+			aStringBuilder.append(tempCount + ": ");
 			String tempPath = aComponentHandler.createComponentPath(tempComponent);
 			String tempUniquifiedPath = aComponentHandler.createUniquifiedComponentPath(tempComponent);
-			detailString.append(tempPath + " (" + tempUniquifiedPath + ")");
-			detailString.append(NEWLINE);
+			aStringBuilder.append(tempPath + " (" + tempUniquifiedPath + ")");
+			aStringBuilder.append(NEWLINE);
 
 			Component tempComponentInFocus = tempComponent.getParent();
 			while (tempComponentInFocus != null) {
-				detailString.append(PREFIX);
-				detailString.append(aComponentHandler.getPrettyComponentDescription(tempComponentInFocus));
-				detailString.append(NEWLINE);
+				aStringBuilder.append(PREFIX);
+				aStringBuilder.append(aComponentHandler.getPrettyComponentDescription(tempComponentInFocus));
+				aStringBuilder.append(NEWLINE);
 
 				if (tempComponentInFocus instanceof Window) {
 					break;
@@ -58,57 +54,8 @@ public class AmbiguousComponentPathException extends Exception {
 		}
 	}
 
-	public String getAmbiguousPath() {
-		return ambiguousPath;
-	}
-
 	public List<Component> getComponents() {
 		return components;
 	}
 
-	public StringBuilder getDetailString() {
-		return detailString;
-	}
-
-	public void printActualStackTrace() {
-		super.printStackTrace();
-	}
-
-	public void printActualStackTrace(PrintStream aStream) {
-		super.printStackTrace(aStream);
-	}
-
-	public void printActualStackTrace(PrintWriter aWriter) {
-		super.printStackTrace(aWriter);
-	}
-
-	@Override
-	public void printStackTrace() {
-		printMessageAndDetails();
-	}
-
-	public void printStackTrace(PrintStream aStream) {
-		printMessageAndDetails(aStream);
-	}
-
-	@Override
-	public void printStackTrace(PrintWriter aWriter) {
-		printMessageAndDetails(aWriter);
-	}
-
-	public void printMessageAndDetails(PrintWriter aWriter) {
-		aWriter.println(getClass().getName() + ": " + getMessage());
-		aWriter.println("");
-		aWriter.print(getDetailString());
-	}
-
-	public void printMessageAndDetails(PrintStream aStream) {
-		aStream.println(getClass().getName() + ": " + getMessage());
-		aStream.println("");
-		aStream.print(getDetailString());
-	}
-
-	public void printMessageAndDetails() {
-		printMessageAndDetails(System.err);
-	}
 }

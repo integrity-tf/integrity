@@ -167,12 +167,13 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	public Component findComponentGuarded(String aComponentPath, Class<? extends Component> aComponentClass,
-			JFrame aFrameToIgnore) throws AmbiguousComponentPathException {
+			JFrame aFrameToIgnore) throws AmbiguousComponentPathException, InvalidComponentPathException {
 		return filterComponentList(findComponents(aComponentPath, aComponentClass, aFrameToIgnore), aComponentPath);
 	}
 
 	protected Component findComponentInContainerGuarded(Container aContainer, String aComponentPath,
-			Class<? extends Component> aComponentClass) throws AmbiguousComponentPathException {
+			Class<? extends Component> aComponentClass) throws AmbiguousComponentPathException,
+			InvalidComponentPathException {
 		return filterComponentList(findComponentsInContainer(aContainer, aComponentPath, aComponentClass),
 				aComponentPath);
 	}
@@ -197,10 +198,9 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	protected Component filterComponentList(List<Component> aComponentList, String aComponentPath)
-			throws AmbiguousComponentPathException {
+			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		if (aComponentList.size() == 0) {
-			throw new IllegalArgumentException("Component path '" + aComponentPath
-					+ "' was not found in any visible frame.");
+			throw new InvalidComponentPathException(aComponentPath, this);
 		} else if (aComponentList.size() > 1) {
 			throw new AmbiguousComponentPathException(aComponentPath, aComponentList, this);
 		} else {
