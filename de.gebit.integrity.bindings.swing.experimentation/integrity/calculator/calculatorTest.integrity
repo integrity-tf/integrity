@@ -9,7 +9,8 @@ packagedef swing.calculator with
 		test isAppAlive
 		
 		call 10 * clickButton name: "calculator.numberButton1"
-		call clickButton name: "numberButton1"
+		call clickButton name: "clearButton"
+		call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
 		
 		call tools.authorAssist
 		
