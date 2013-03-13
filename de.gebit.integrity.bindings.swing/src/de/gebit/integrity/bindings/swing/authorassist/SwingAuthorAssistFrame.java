@@ -5,13 +5,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -73,6 +74,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 		setBounds(100, 100, 540, 120);
 		setAlwaysOnTop(true);
+		setModalExclusionType(Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new AuthorAssistWindowListener());
 
@@ -138,6 +140,8 @@ public class SwingAuthorAssistFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent anEvent) {
 				if (identificationInjectionThread != null) {
+					((SwallowingEventQueue) Toolkit.getDefaultToolkit().getSystemEventQueue())
+							.setAuthorAssistFrame(null);
 					identificationInjectionThread.kill();
 					identificationInjectionThread = null;
 					identificationToggleButton.setText("Enable");
@@ -145,6 +149,8 @@ public class SwingAuthorAssistFrame extends JFrame {
 					identificationInjectionThread = new ComponentInjectionThread();
 					identificationInjectionThread.start();
 					identificationToggleButton.setText("Disable");
+					((SwallowingEventQueue) Toolkit.getDefaultToolkit().getSystemEventQueue())
+							.setAuthorAssistFrame(SwingAuthorAssistFrame.this);
 				}
 			}
 		});
@@ -160,6 +166,12 @@ public class SwingAuthorAssistFrame extends JFrame {
 	}
 
 	protected void startUp() {
+		EventQueue tempEventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+		if (!(tempEventQueue instanceof SwallowingEventQueue)) {
+			tempEventQueue = new SwallowingEventQueue();
+			Toolkit.getDefaultToolkit().getSystemEventQueue().push(tempEventQueue);
+		}
+
 		autoCompleteServer = new SwingAuthorAssistServer(swingComponentHandler, this);
 		autoCompleteServer.startUp();
 	}
@@ -179,15 +191,10 @@ public class SwingAuthorAssistFrame extends JFrame {
 	}
 
 	protected void injectComponentListeners() {
-		for (Frame tempFrame : Frame.getFrames()) {
-			if (tempFrame != this) {
-				injectListeners(tempFrame);
+		for (Window tempWindow : Window.getWindows()) {
+			if (tempWindow != this) {
+				injectListeners(tempWindow);
 			}
-		}
-
-		if (!eventQueueReplaced) {
-			Toolkit.getDefaultToolkit().getSystemEventQueue().push(new SwallowingEventQueue());
-			eventQueueReplaced = true;
 		}
 	}
 
@@ -235,7 +242,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 			identifiedComponentBorder = aComponent.getBorder();
 			aComponent.setBorder(new LineBorder(Color.RED, 1));
 
-			String tempFullPath = swingComponentHandler.createComponentPath(aComponent);
+			String tempFullPath = swingComponentHandler.createUniquifiedComponentPath(aComponent);
 			if (tempFullPath != null) {
 				String tempShortestPath = swingComponentHandler.createShortestComponentPath(aComponent);
 				identificationFullPathField.setText(tempFullPath);
@@ -399,32 +406,40 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
-	protected class SwallowingEventQueue extends EventQueue {
+	protected static class SwallowingEventQueue extends EventQueue {
+
+		private SwingAuthorAssistFrame authorAssistFrame;
+
+		public void setAuthorAssistFrame(SwingAuthorAssistFrame aFrame) {
+			authorAssistFrame = aFrame;
+		}
 
 		@Override
 		protected void dispatchEvent(AWTEvent anEvent) {
-			if (anEvent instanceof MouseEvent) {
-				MouseEvent tempMouseEvent = (MouseEvent) anEvent;
-				if (tempMouseEvent.getID() == MouseEvent.MOUSE_CLICKED
-						|| tempMouseEvent.getID() == MouseEvent.MOUSE_PRESSED
-						|| tempMouseEvent.getID() == MouseEvent.MOUSE_RELEASED) {
-					Component tempComponentInFocus = tempMouseEvent.getComponent();
-					boolean tempFound = false;
-					while (!tempFound && tempComponentInFocus != null) {
-						if (tempComponentInFocus == SwingAuthorAssistFrame.this) {
-							tempFound = true;
-						} else {
-							tempComponentInFocus = tempComponentInFocus.getParent();
+			if (authorAssistFrame != null) {
+				if (anEvent instanceof MouseEvent) {
+					MouseEvent tempMouseEvent = (MouseEvent) anEvent;
+					if (tempMouseEvent.getID() == MouseEvent.MOUSE_CLICKED
+							|| tempMouseEvent.getID() == MouseEvent.MOUSE_PRESSED
+							|| tempMouseEvent.getID() == MouseEvent.MOUSE_RELEASED) {
+						Component tempComponentInFocus = tempMouseEvent.getComponent();
+						boolean tempFound = false;
+						while (!tempFound && tempComponentInFocus != null) {
+							if (tempComponentInFocus == authorAssistFrame) {
+								tempFound = true;
+							} else {
+								tempComponentInFocus = tempComponentInFocus.getParent();
+							}
 						}
-					}
 
-					// swallow if the target component was not in our authors'
-					// tools frame, and freeze the current selection
-					if (!tempFound) {
-						if (tempMouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
-							toggleFreezeIdentification();
+						// swallow if the target component was not in our authors'
+						// tools frame, and freeze the current selection
+						if (!tempFound) {
+							if (tempMouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
+								authorAssistFrame.toggleFreezeIdentification();
+							}
+							return;
 						}
-						return;
 					}
 				}
 			}

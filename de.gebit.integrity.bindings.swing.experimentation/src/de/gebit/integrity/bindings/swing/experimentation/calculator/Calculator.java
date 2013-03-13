@@ -19,6 +19,7 @@ import java.math.RoundingMode;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -294,7 +295,10 @@ public class Calculator {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				clear();
+				if (JOptionPane.showConfirmDialog(null, "Really clear the current result?", "Calculator",
+						JOptionPane.OK_CANCEL_OPTION) == 0) {
+					clear();
+				}
 			}
 		});
 		evaluateButton.addActionListener(new ActionListener() {

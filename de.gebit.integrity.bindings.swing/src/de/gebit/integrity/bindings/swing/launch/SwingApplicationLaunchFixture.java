@@ -29,8 +29,6 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 
 	@Override
 	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
-		super.checkWrapper(aWrapper);
-
 		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(), getFrameCount());
 
 		synchronized (startupSync) {

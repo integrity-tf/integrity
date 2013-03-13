@@ -114,7 +114,8 @@ public class SwingAuthorAssistServer {
 
 								PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
 								for (Component tempComponent : tempComponents) {
-									String tempLongPath = swingComponentHandler.createComponentPath(tempComponent);
+									String tempLongPath = swingComponentHandler
+											.createUniquifiedComponentPath(tempComponent);
 									String tempShortPath = swingComponentHandler
 											.createShortestComponentPath(tempComponent);
 

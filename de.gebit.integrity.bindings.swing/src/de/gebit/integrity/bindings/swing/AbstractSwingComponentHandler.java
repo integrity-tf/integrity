@@ -5,12 +5,16 @@ package de.gebit.integrity.bindings.swing;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Frame;
+import java.awt.Window;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JRootPane;
@@ -37,16 +41,31 @@ public abstract class AbstractSwingComponentHandler {
 
 	protected static final String COMPONENT_PATH_PARAMETER_NAME = "name";
 
+	protected static final Pattern UNIQUIFIED_PATH_PATTERN = Pattern.compile("(.+)#(\\d+)");
+
 	public List<Component> findComponents(String aComponentPath, Class<? extends Component> aComponentClass,
 			JFrame aFrameToIgnore) {
 		List<Component> tempComponents = new ArrayList<Component>(1);
 
-		for (Frame tempFrame : Frame.getFrames()) {
-			if (tempFrame.isVisible()) {
-				if (tempFrame instanceof JFrame) {
-					if (aFrameToIgnore == null || aFrameToIgnore != tempFrame) {
-						tempComponents.addAll(findComponentsInContainer(tempFrame, aComponentPath, aComponentClass));
-					}
+		for (Window tempWindow : Window.getWindows()) {
+			if (tempWindow.isVisible()) {
+				if (aFrameToIgnore == null || aFrameToIgnore != tempWindow) {
+					tempComponents.addAll(findComponentsInContainer(tempWindow, aComponentPath, aComponentClass));
+				}
+			}
+		}
+
+		if (tempComponents.size() == 0) {
+			Matcher tempMatcher = UNIQUIFIED_PATH_PATTERN.matcher(aComponentPath);
+			if (tempMatcher.matches()) {
+				String tempPath = tempMatcher.group(1);
+				Integer tempNumber = Integer.parseInt(tempMatcher.group(2));
+
+				tempComponents = findComponents(tempPath, aComponentClass, aFrameToIgnore);
+				if (tempComponents.size() > tempNumber) {
+					return Collections.singletonList(tempComponents.get(tempNumber));
+				} else {
+					return tempComponents;
 				}
 			}
 		}
@@ -54,12 +73,13 @@ public abstract class AbstractSwingComponentHandler {
 		return tempComponents;
 	}
 
-	public List<Component> findComponentsInContainer(Container aContainer, String aComponentPath,
+	protected List<Component> findComponentsInContainer(Container aContainer, String aComponentPath,
 			Class<? extends Component> aComponentClass) {
 		List<Component> tempComponents = new ArrayList<Component>(1);
 
 		String[] tempPathParts = aComponentPath != null ? splitPath(aComponentPath) : null;
-		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1, aComponentClass, tempComponents);
+		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1,
+				resolveSwingComponentBaseClass(aComponentClass), tempComponents);
 
 		return tempComponents;
 	}
@@ -82,8 +102,8 @@ public abstract class AbstractSwingComponentHandler {
 			} else if (aPathPosition == -1 && somePathParts.length > 0) {
 				boolean tempIsLastPart = somePathParts.length == 1;
 				String tempNameToFind = somePathParts[0];
-				String tempComponentName = aContainer.getName();
-				if (tempComponentName != null && tempNameToFind.equals(tempComponentName)) {
+				String tempContainerName = getComponentName(aContainer);
+				if (tempContainerName != null && tempNameToFind.equals(tempContainerName)) {
 					if (tempIsLastPart) {
 						if (aComponentClass == null || aComponentClass.isAssignableFrom(aContainer.getClass())) {
 							aCollection.add(aContainer);
@@ -101,11 +121,25 @@ public abstract class AbstractSwingComponentHandler {
 					String tempComponentName = getComponentName(tempComponent);
 
 					if (tempComponentName == null) {
-						// Unnamed containers are ignored; those are allowed gaps in
-						// the path
+						// Unnamed containers are ignored; those are allowed gaps in the path
 						if (tempComponent instanceof Container) {
 							recursiveFindComponentsInContainer((Container) tempComponent, somePathParts, aPathPosition,
 									aComponentClass, aCollection);
+						}
+						// ...but this could also be a generically named component! We'll just go on with that now.
+						tempComponentName = getGenericComponentName(tempComponent);
+						if (tempNameToFind.equals(tempComponentName)) {
+							if (tempIsLastPart) {
+								if (aComponentClass == null
+										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
+									aCollection.add(tempComponent);
+								}
+							} else {
+								if (tempComponent instanceof Container) {
+									recursiveFindComponentsInContainer((Container) tempComponent, somePathParts,
+											aPathPosition + 1, aComponentClass, aCollection);
+								}
+							}
 						}
 					} else {
 						if (tempNameToFind.equals(tempComponentName)) {
@@ -133,43 +167,42 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	public Component findComponentGuarded(String aComponentPath, Class<? extends Component> aComponentClass,
-			JFrame aFrameToIgnore) {
+			JFrame aFrameToIgnore) throws AmbiguousComponentPathException {
 		return filterComponentList(findComponents(aComponentPath, aComponentClass, aFrameToIgnore), aComponentPath);
 	}
 
-	public Component findComponentInContainerGuarded(Container aContainer, String aComponentPath,
-			Class<? extends Component> aComponentClass) {
+	protected Component findComponentInContainerGuarded(Container aContainer, String aComponentPath,
+			Class<? extends Component> aComponentClass) throws AmbiguousComponentPathException {
 		return filterComponentList(findComponentsInContainer(aContainer, aComponentPath, aComponentClass),
 				aComponentPath);
 	}
 
 	protected String getComponentName(Component aComponent) {
 		String tempName = aComponent.getName();
-		if (tempName != null
-				&& ((aComponent.getParent() instanceof JRootPane) || (aComponent.getParent() instanceof JLayeredPane))
+
+		if (tempName == null) {
+			return null;
+		}
+
+		if (((aComponent.getParent() instanceof JRootPane) || (aComponent.getParent() instanceof JLayeredPane))
 				&& IGNORED_JROOTPANE_CONTAINERS.contains(tempName)) {
 			return null;
 		} else {
-			return tempName;
+			return tempName.replace('.', '_');
 		}
 	}
 
-	protected Component filterComponentList(List<Component> aComponentList, String aComponentPath) {
+	protected String getGenericComponentName(Component aComponent) {
+		return resolveSwingComponentBaseClass(aComponent.getClass()).getSimpleName();
+	}
+
+	protected Component filterComponentList(List<Component> aComponentList, String aComponentPath)
+			throws AmbiguousComponentPathException {
 		if (aComponentList.size() == 0) {
 			throw new IllegalArgumentException("Component path '" + aComponentPath
 					+ "' was not found in any visible frame.");
 		} else if (aComponentList.size() > 1) {
-			StringBuilder tempStringBuilder = new StringBuilder();
-
-			for (Component tempComponent : aComponentList) {
-				if (tempStringBuilder.length() > 0) {
-					tempStringBuilder.append(", ");
-				}
-				tempStringBuilder.append(createComponentPath(tempComponent));
-			}
-
-			throw new IllegalArgumentException("Component path '" + aComponentPath + "' is ambiguous, "
-					+ aComponentList.size() + " occurrences were found: " + tempStringBuilder.toString());
+			throw new AmbiguousComponentPathException(aComponentPath, aComponentList, this);
 		} else {
 			return aComponentList.get(0);
 		}
@@ -184,7 +217,7 @@ public abstract class AbstractSwingComponentHandler {
 	public String createComponentPath(Component aComponent) {
 		List<String> aList = new ArrayList<String>();
 
-		recursiveCreateComponentPath(aComponent, aList);
+		recursiveCreateComponentPath(aComponent, aList, 0);
 
 		if (aList.size() == 0) {
 			return null;
@@ -193,10 +226,35 @@ public abstract class AbstractSwingComponentHandler {
 		}
 	}
 
+	public String createUniqueOnlyComponentPath(Component aComponent) {
+		String tempPath = createComponentPath(aComponent);
+
+		if (checkPathUniqueness(tempPath, aComponent.getClass())) {
+			return tempPath;
+		} else {
+			return null;
+		}
+	}
+
+	public String createUniquifiedComponentPath(Component aComponent) {
+		String tempPath = createComponentPath(aComponent);
+
+		List<Component> tempMatches = findComponents(tempPath, aComponent.getClass(), null);
+
+		if (tempMatches.size() > 1) {
+			for (int i = 0; i < tempMatches.size(); i++) {
+				if (tempMatches.get(i) == aComponent) {
+					return tempPath + "#" + i;
+				}
+			}
+		}
+		return tempPath;
+	}
+
 	public String createShortestComponentPath(Component aComponent) {
 		List<String> aList = new ArrayList<String>();
 
-		recursiveCreateComponentPath(aComponent, aList);
+		recursiveCreateComponentPath(aComponent, aList, 0);
 
 		if (aList.size() == 0) {
 			return null;
@@ -228,63 +286,80 @@ public abstract class AbstractSwingComponentHandler {
 		return tempBuilder.toString();
 	}
 
-	protected void recursiveCreateComponentPath(Component aComponent, List<String> aList) {
+	protected void recursiveCreateComponentPath(Component aComponent, List<String> aList, int aDepth) {
 		String tempName = getComponentName(aComponent);
 
 		if (tempName != null) {
 			aList.add(0, tempName);
 		} else {
-			if (aList.size() == 0) {
-				// This is the first component, and it has no name, so there's no path to it
-				return;
+			if (aDepth == 0) {
+				// This is the first component, and it has no name, so we'll use its (Swing base) class instead
+				aList.add(getGenericComponentName(aComponent));
 			}
 		}
 
-		if (aComponent.getParent() != null) {
-			recursiveCreateComponentPath(aComponent.getParent(), aList);
+		if (aComponent instanceof Window) {
+			// This is a window, so we stop at this point.
+			return;
+		} else {
+			Container tempParent = aComponent.getParent();
+			if (tempParent != null) {
+				recursiveCreateComponentPath(tempParent, aList, aDepth + 1);
+			}
 		}
 	}
 
-	// protected String getComponentName(Component aComponent) {
-	// String tempName = aComponent.getName();
-	// if (tempName == null) {
-	// tempName = createGenericName(aComponent);
-	// }
-	//
-	// return tempName;
-	// }
-
-	// protected String createGenericName(Component aComponent) {
-	// String tempGenericName = genericNameCache.get(aComponent);
-	//
-	// if (tempGenericName == null) {
-	// int tempNumber = 0;
-	//
-	// if (aComponent instanceof Frame) {
-	// for (Frame tempFrame : Frame.getFrames()) {
-	// tempNumber++;
-	// if (tempFrame == aComponent) {
-	// break;
-	// }
-	// }
-	// } else {
-	// for (Component tempComponent : aComponent.getParent().getComponents()) {
-	// tempNumber++;
-	// if (tempComponent == aComponent) {
-	// break;
-	// }
-	// }
-	// }
-	//
-	// tempGenericName = aComponent.getClass().getSimpleName() + "#" +
-	// tempNumber;
-	// genericNameCache.put(aComponent, tempGenericName);
-	// }
-	//
-	// return tempGenericName;
-	// }
-
 	protected String[] splitPath(String aPath) {
 		return aPath.split("\\.");
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends Component> resolveSwingComponentBaseClass(Class<? extends Component> aClass) {
+		Class<?> aClassInFocus = aClass;
+
+		while (aClassInFocus != null
+				&& !"javax.swing.".equals(aClassInFocus.getName().substring(0,
+						aClassInFocus.getName().length() - aClassInFocus.getSimpleName().length()))) {
+			aClassInFocus = aClassInFocus.getSuperclass();
+		}
+
+		if (aClassInFocus == null) {
+			return aClass;
+		} else {
+			return (Class<? extends Component>) aClassInFocus;
+		}
+	}
+
+	public String getPrettyComponentDescription(Component aComponent) {
+		StringBuilder tempDescription = new StringBuilder(aComponent.getClass().getName() + " [");
+
+		String tempName = getComponentName(aComponent);
+		if (tempName != null) {
+			tempDescription.append("name='" + tempName + "'");
+		}
+
+		if (aComponent.isEnabled()) {
+			appendCommaIfNotFirst(tempDescription);
+			tempDescription.append("enabled=" + aComponent.isEnabled());
+		}
+
+		if (aComponent instanceof JButton) {
+			appendCommaIfNotFirst(tempDescription);
+			tempDescription.append("text='" + ((JButton) aComponent).getText() + "'");
+		}
+		// add more special attributes for specific components here!
+
+		if (tempDescription.charAt(tempDescription.length() - 1) != '[') {
+			tempDescription.append("]");
+			return tempDescription.toString();
+		} else {
+			return tempDescription.substring(0, tempDescription.length() - 2);
+		}
+	}
+
+	private void appendCommaIfNotFirst(StringBuilder aStringBuilder) {
+		if (aStringBuilder.charAt(aStringBuilder.length() - 1) != '[') {
+			aStringBuilder.append(", ");
+		}
 	}
 }
