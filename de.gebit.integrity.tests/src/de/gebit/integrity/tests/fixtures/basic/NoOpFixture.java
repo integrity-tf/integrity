@@ -84,4 +84,18 @@ public class NoOpFixture {
 		return aMapToEcho;
 	}
 
+	@FixtureMethod(descriptionCall = "I was used in a call!", description = "I don't care how I was used!")
+	public boolean specificDescriptionCall() {
+		return true;
+	}
+
+	@FixtureMethod(descriptionTest = "I was used in a test!", description = "I don't care how I was used!")
+	public boolean specificDescriptionTest() {
+		return true;
+	}
+
+	@FixtureMethod(descriptionTest = "I was used in a test!", descriptionCall = "I was used in a call!", description = "I don't care how I was used!")
+	public boolean specificDescriptionBoth() {
+		return true;
+	}
 }

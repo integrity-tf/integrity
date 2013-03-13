@@ -36,5 +36,14 @@ packagedef integrity.fixtures.basic.noop with
 	
 	calldef echoMap uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
 	testdef echoMapTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
+	
+	calldef specificDescriptionTest_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
+	testdef specificDescriptionTest_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
+	
+	calldef specificDescriptionCall_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall
+	testdef specificDescriptionCall_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall
+	
+	calldef specificDescriptionBoth_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth
+	testdef specificDescriptionBoth_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth
 
 packageend

@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -80,7 +81,7 @@ public class TestFormatter {
 	public String testToHumanReadableString(Test aTest,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
 				parameterResolver.createParameterMap(aTest, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
 	}
@@ -100,7 +101,7 @@ public class TestFormatter {
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(),
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
 				parameterResolver.createParameterMap(aTest, aRow, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
 	}
@@ -120,6 +121,7 @@ public class TestFormatter {
 			UnexecutableException, InstantiationException {
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
+				aTest,
 				parameterResolver.createParameterMap(aTest.getParameters(), true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
 	}
@@ -137,7 +139,7 @@ public class TestFormatter {
 	public String callToHumanReadableString(Call aCall,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
 			UnexecutableException, InstantiationException {
-		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(),
+		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall,
 				parameterResolver.createParameterMap(aCall, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
 	}
@@ -147,6 +149,8 @@ public class TestFormatter {
 	 * 
 	 * @param aFixtureMethod
 	 *            the fixture method
+	 * @param aStatement
+	 *            the suite statement currently being executed, if known
 	 * @param someParameters
 	 *            a map of parameters used for the test
 	 * @param anUnresolvableVariableHandlingPolicy
@@ -156,8 +160,8 @@ public class TestFormatter {
 	 * @throws ClassNotFoundException
 	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
-			Map<String, Object> someParameters, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ClassNotFoundException {
+			SuiteStatementWithResult aStatement, Map<String, Object> someParameters,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException {
 		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
 		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
 		Class<?> tempFixtureClass = classLoader.loadClass(tempFixtureClassName);
@@ -172,9 +176,18 @@ public class TestFormatter {
 		}
 
 		String tempText = null;
-		if (tempAnnotation.description() != null && tempAnnotation.description().length() > 0) {
+		// Prefer specific texts, if not possible prefer generic text, if not possible use fixture method name
+		if (aStatement != null) {
+			if ((aStatement instanceof Test) || (aStatement instanceof TableTest)) {
+				tempText = tempAnnotation.descriptionTest();
+			} else if (aStatement instanceof Call) {
+				tempText = tempAnnotation.descriptionCall();
+			}
+		}
+		if (tempText != null && tempText.length() == 0) {
 			tempText = tempAnnotation.description();
-		} else {
+		}
+		if (tempText != null && tempText.length() == 0) {
 			tempText = tempFixtureMethodName;
 		}
 
