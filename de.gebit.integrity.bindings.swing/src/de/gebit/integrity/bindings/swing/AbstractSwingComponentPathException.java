@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * @author Rene Schneider
  * 
  */
-public abstract class AbstractSwingComponentPathException extends Exception {
+public abstract class AbstractSwingComponentPathException extends IntegritySwingBindingsException {
 
 	/**
 	 * Serial Version.

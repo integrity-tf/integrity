@@ -22,7 +22,10 @@ packagedef swing.calculator with
 		test labelText name: "inputLabel" = ""
 		
 		call clickButton name: "clearButton"
-		call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
+		call answerDialog button: OK
+		
+		//call clickButton name: "dialog0.OptionPane_buttonArea.OptionPane_button#0"
+	
 		
 		call tools.authorAssist
 		

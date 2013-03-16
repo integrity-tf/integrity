@@ -321,7 +321,7 @@ public class Calculator {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Really clear the current result?", "Calculator",
-						JOptionPane.OK_CANCEL_OPTION) == 0) {
+						JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
 					clear();
 				}
 			}

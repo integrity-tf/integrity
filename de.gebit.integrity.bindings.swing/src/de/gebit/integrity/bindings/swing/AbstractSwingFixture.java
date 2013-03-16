@@ -4,6 +4,11 @@
 package de.gebit.integrity.bindings.swing;
 
 import java.awt.EventQueue;
+import java.awt.KeyboardFocusManager;
+import java.awt.Window;
+import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.JDialog;
 
 /**
  * 
@@ -40,6 +45,61 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 
 	protected int getEventQueueWaitTimeout() {
 		return DEFAULT_EVENT_QUEUE_WAIT_TIMEOUT;
+	}
+
+	protected JDialog findFocusedDialog() {
+		Window tempFocused = findFocusedWindow();
+		if (tempFocused instanceof JDialog) {
+			return (JDialog) tempFocused;
+		}
+
+		return null;
+	}
+
+	protected JDialog findFocusedDialogGuarded() {
+		JDialog tempDialog = findFocusedDialog();
+		if (tempDialog == null) {
+			throw new IllegalStateException("No focused dialog was found!");
+		} else {
+			return tempDialog;
+		}
+	}
+
+	protected Window findFocusedWindowGuarded() {
+		Window tempWindow = findFocusedWindow();
+		if (tempWindow == null) {
+			throw new IllegalStateException("No focused window was found!");
+		} else {
+			return tempWindow;
+		}
+	}
+
+	protected Window findFocusedWindow() {
+		return new FocusWindowFinder().findFocusedWindow();
+	}
+
+	protected static class FocusWindowFinder {
+
+		public Window window;
+
+		public Window findFocusedWindow() {
+			try {
+				EventQueue.invokeAndWait(new Runnable() {
+
+					@Override
+					public void run() {
+						window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+					}
+				});
+			} catch (InterruptedException exc) {
+				exc.printStackTrace();
+			} catch (InvocationTargetException exc) {
+				exc.printStackTrace();
+			}
+
+			return window;
+		}
+
 	}
 
 }
