@@ -24,9 +24,7 @@ public class SwingLabelFixture extends AbstractSwingFixture implements CustomPro
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
 	public String labelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
-		final JLabel tempLabel = (JLabel) findComponentGuarded(aComponentPath, JLabel.class, null);
-
-		return tempLabel.getText();
+		return findComponentGuarded(aComponentPath, JLabel.class, null).getText();
 	}
 
 }

@@ -43,9 +43,9 @@ public abstract class AbstractSwingComponentHandler {
 
 	protected static final Pattern UNIQUIFIED_PATH_PATTERN = Pattern.compile("(.+)#(\\d+)");
 
-	public List<Component> findComponents(String aComponentPath, Class<? extends Component> aComponentClass,
+	public <C extends Component> List<C> findComponents(String aComponentPath, Class<C> aComponentClass,
 			JFrame aFrameToIgnore) {
-		List<Component> tempComponents = new ArrayList<Component>(1);
+		List<C> tempComponents = new ArrayList<C>(1);
 
 		for (Window tempWindow : Window.getWindows()) {
 			if (tempWindow.isVisible()) {
@@ -73,9 +73,9 @@ public abstract class AbstractSwingComponentHandler {
 		return tempComponents;
 	}
 
-	protected List<Component> findComponentsInContainer(Container aContainer, String aComponentPath,
-			Class<? extends Component> aComponentClass) {
-		List<Component> tempComponents = new ArrayList<Component>(1);
+	protected <C extends Component> List<C> findComponentsInContainer(Container aContainer, String aComponentPath,
+			Class<C> aComponentClass) {
+		List<C> tempComponents = new ArrayList<C>(1);
 
 		String[] tempPathParts = aComponentPath != null ? splitPath(aComponentPath) : null;
 		recursiveFindComponentsInContainer(aContainer, tempPathParts, -1,
@@ -84,8 +84,9 @@ public abstract class AbstractSwingComponentHandler {
 		return tempComponents;
 	}
 
-	protected void recursiveFindComponentsInContainer(Container aContainer, String[] somePathParts, int aPathPosition,
-			Class<? extends Component> aComponentClass, List<Component> aCollection) {
+	@SuppressWarnings("unchecked")
+	protected <C extends Component> void recursiveFindComponentsInContainer(Container aContainer,
+			String[] somePathParts, int aPathPosition, Class<C> aComponentClass, List<C> aCollection) {
 		if (somePathParts == null) {
 			for (Component tempComponent : aContainer.getComponents()) {
 				if (tempComponent instanceof Container) {
@@ -93,7 +94,7 @@ public abstract class AbstractSwingComponentHandler {
 							aCollection);
 				}
 				if (aComponentClass == null || (aComponentClass.isAssignableFrom(tempComponent.getClass()))) {
-					aCollection.add(tempComponent);
+					aCollection.add((C) tempComponent);
 				}
 			}
 		} else {
@@ -106,7 +107,7 @@ public abstract class AbstractSwingComponentHandler {
 				if (tempContainerName != null && tempNameToFind.equals(tempContainerName)) {
 					if (tempIsLastPart) {
 						if (aComponentClass == null || aComponentClass.isAssignableFrom(aContainer.getClass())) {
-							aCollection.add(aContainer);
+							aCollection.add((C) aContainer);
 						}
 					} else {
 						recursiveFindComponentsInContainer(aContainer, somePathParts, 1, aComponentClass, aCollection);
@@ -132,7 +133,7 @@ public abstract class AbstractSwingComponentHandler {
 							if (tempIsLastPart) {
 								if (aComponentClass == null
 										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
-									aCollection.add(tempComponent);
+									aCollection.add((C) tempComponent);
 								}
 							} else {
 								if (tempComponent instanceof Container) {
@@ -146,7 +147,7 @@ public abstract class AbstractSwingComponentHandler {
 							if (tempIsLastPart) {
 								if (aComponentClass == null
 										|| aComponentClass.isAssignableFrom(tempComponent.getClass())) {
-									aCollection.add(tempComponent);
+									aCollection.add((C) tempComponent);
 								}
 							} else {
 								if (tempComponent instanceof Container) {
@@ -166,14 +167,13 @@ public abstract class AbstractSwingComponentHandler {
 		}
 	}
 
-	public Component findComponentGuarded(String aComponentPath, Class<? extends Component> aComponentClass,
+	public <C extends Component> C findComponentGuarded(String aComponentPath, Class<C> aComponentClass,
 			JFrame aFrameToIgnore) throws AmbiguousComponentPathException, InvalidComponentPathException {
 		return filterComponentList(findComponents(aComponentPath, aComponentClass, aFrameToIgnore), aComponentPath);
 	}
 
-	protected Component findComponentInContainerGuarded(Container aContainer, String aComponentPath,
-			Class<? extends Component> aComponentClass) throws AmbiguousComponentPathException,
-			InvalidComponentPathException {
+	protected <C extends Component> C findComponentInContainerGuarded(Container aContainer, String aComponentPath,
+			Class<C> aComponentClass) throws AmbiguousComponentPathException, InvalidComponentPathException {
 		return filterComponentList(findComponentsInContainer(aContainer, aComponentPath, aComponentClass),
 				aComponentPath);
 	}
@@ -197,19 +197,20 @@ public abstract class AbstractSwingComponentHandler {
 		return resolveSwingComponentBaseClass(aComponent.getClass()).getSimpleName();
 	}
 
-	protected Component filterComponentList(List<Component> aComponentList, String aComponentPath)
+	@SuppressWarnings("unchecked")
+	protected <C extends Component> C filterComponentList(List<C> aComponentList, String aComponentPath)
 			throws AmbiguousComponentPathException, InvalidComponentPathException {
 		if (aComponentList.size() == 0) {
 			throw new InvalidComponentPathException(aComponentPath, this);
 		} else if (aComponentList.size() > 1) {
-			throw new AmbiguousComponentPathException(aComponentPath, aComponentList, this);
+			throw new AmbiguousComponentPathException(aComponentPath, (List<Component>) aComponentList, this);
 		} else {
 			return aComponentList.get(0);
 		}
 	}
 
-	public boolean checkPathUniqueness(String aComponentPath, Class<? extends Component> aComponentClass) {
-		List<Component> tempMatches = findComponents(aComponentPath, aComponentClass, null);
+	public <C extends Component> boolean checkPathUniqueness(String aComponentPath, Class<C> aComponentClass) {
+		List<C> tempMatches = findComponents(aComponentPath, aComponentClass, null);
 
 		return (tempMatches.size() <= 1);
 	}
@@ -239,7 +240,8 @@ public abstract class AbstractSwingComponentHandler {
 	public String createUniquifiedComponentPath(Component aComponent) {
 		String tempPath = createComponentPath(aComponent);
 
-		List<Component> tempMatches = findComponents(tempPath, aComponent.getClass(), null);
+		@SuppressWarnings("unchecked")
+		List<Component> tempMatches = (List<Component>) findComponents(tempPath, aComponent.getClass(), null);
 
 		if (tempMatches.size() > 1) {
 			for (int i = 0; i < tempMatches.size(); i++) {
@@ -314,7 +316,7 @@ public abstract class AbstractSwingComponentHandler {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends Component> resolveSwingComponentBaseClass(Class<? extends Component> aClass) {
+	protected <C extends Component> Class<C> resolveSwingComponentBaseClass(Class<C> aClass) {
 		Class<?> aClassInFocus = aClass;
 
 		while (aClassInFocus != null
@@ -326,7 +328,7 @@ public abstract class AbstractSwingComponentHandler {
 		if (aClassInFocus == null) {
 			return aClass;
 		} else {
-			return (Class<? extends Component>) aClassInFocus;
+			return (Class<C>) aClassInFocus;
 		}
 	}
 

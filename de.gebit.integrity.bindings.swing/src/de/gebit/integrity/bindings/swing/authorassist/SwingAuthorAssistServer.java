@@ -109,8 +109,8 @@ public class SwingAuthorAssistServer {
 							try {
 								Class<?> tempFilterClass = getClass().getClassLoader().loadClass(tempFilterClassName);
 
-								List<Component> tempComponents = swingComponentHandler.findComponents(null,
-										(Class<? extends Component>) tempFilterClass, ownerFrame);
+								List<Component> tempComponents = (List<Component>) swingComponentHandler
+										.findComponents(null, (Class<? extends Component>) tempFilterClass, ownerFrame);
 
 								PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
 								for (Component tempComponent : tempComponents) {
