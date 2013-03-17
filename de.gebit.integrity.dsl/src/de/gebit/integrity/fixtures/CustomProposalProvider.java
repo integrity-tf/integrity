@@ -155,7 +155,7 @@ public interface CustomProposalProvider {
 		 * 
 		 * @return
 		 */
-		Class<? extends CustomProposalFixture> value();
+		Class<? extends CustomProposalFixture>[] value();
 
 	}
 
