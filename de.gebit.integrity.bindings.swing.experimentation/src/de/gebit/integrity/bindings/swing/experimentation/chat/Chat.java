@@ -54,7 +54,8 @@ public class Chat {
 	private JTextField messageField;
 	private JButton sendButton;
 
-	private DatagramSocket socket;
+	private DatagramSocket sendSocket;
+	private DatagramSocket recvSocket;
 
 	public Chat() {
 		frame = new JFrame("Simple Chat");
@@ -80,7 +81,9 @@ public class Chat {
 		rolePanel.setName("rolePanel");
 		rolePanel.setBorder(new TitledBorder("Role"));
 		clientChoice = new JRadioButton("Client");
+		clientChoice.setName("clientChoice");
 		serverChoice = new JRadioButton("Server");
+		serverChoice.setName("serverChoice");
 		ButtonGroup tempButtonGroup = new ButtonGroup();
 		tempButtonGroup.add(clientChoice);
 		tempButtonGroup.add(serverChoice);
@@ -125,7 +128,7 @@ public class Chat {
 	}
 
 	protected void updateButtons() {
-		if (socket == null) {
+		if (sendSocket == null) {
 			connectButton.setEnabled(true);
 			disconnectButton.setEnabled(false);
 			sendButton.setEnabled(false);
@@ -149,40 +152,34 @@ public class Chat {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (clientChoice.isSelected()) {
-					try {
-						socket = new DatagramSocket();
-						socket.connect(InetAddress.getByName(hostField.getText()),
-								Integer.parseInt(portField.getText()));
-					} catch (SocketException exc) {
-						exc.printStackTrace();
-						socket = null;
-					} catch (NumberFormatException exc) {
-						exc.printStackTrace();
-						socket = null;
-					} catch (UnknownHostException exc) {
-						exc.printStackTrace();
-						socket = null;
-					}
-				} else if (serverChoice.isSelected()) {
-					try {
-						socket = new DatagramSocket(Integer.parseInt(portField.getText()));
-					} catch (NumberFormatException exc) {
-						exc.printStackTrace();
-						socket = null;
-					} catch (SocketException exc) {
-						exc.printStackTrace();
-						socket = null;
-					}
+				int tempSendPort = Integer.parseInt(portField.getText()) + (serverChoice.isSelected() ? 0 : 1);
+				int tempRecvPort = Integer.parseInt(portField.getText()) + (clientChoice.isSelected() ? 0 : 1);
+
+				try {
+					sendSocket = new DatagramSocket();
+					sendSocket.connect(InetAddress.getByName(hostField.getText()), tempSendPort);
+					recvSocket = new DatagramSocket(tempRecvPort);
+				} catch (SocketException exc) {
+					exc.printStackTrace();
+					sendSocket = null;
+					recvSocket = null;
+				} catch (NumberFormatException exc) {
+					exc.printStackTrace();
+					sendSocket = null;
+					recvSocket = null;
+				} catch (UnknownHostException exc) {
+					exc.printStackTrace();
+					sendSocket = null;
+					recvSocket = null;
 				}
 
-				if (socket != null) {
+				if (recvSocket != null) {
 					Thread tempListenerThread = new Thread() {
 						public void run() {
-							while (socket != null && !socket.isClosed()) {
+							while (recvSocket != null && !recvSocket.isClosed()) {
 								try {
 									DatagramPacket tempPacket = new DatagramPacket(new byte[1024], 1024);
-									socket.receive(tempPacket);
+									recvSocket.receive(tempPacket);
 									((DefaultListModel) messageList.getModel()).addElement(new String(tempPacket
 											.getData(), tempPacket.getOffset(), tempPacket.getLength()));
 								} catch (IOException exc) {
@@ -204,8 +201,10 @@ public class Chat {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				socket.close();
-				socket = null;
+				sendSocket.close();
+				sendSocket = null;
+				recvSocket.close();
+				recvSocket = null;
 				updateButtons();
 			}
 		});
@@ -219,7 +218,7 @@ public class Chat {
 				if (tempMessage.length() > 0) {
 					try {
 						byte[] tempBytes = tempMessage.getBytes();
-						socket.send(new DatagramPacket(tempBytes, tempBytes.length));
+						sendSocket.send(new DatagramPacket(tempBytes, tempBytes.length));
 						messageField.setText("");
 					} catch (IOException exc) {
 						exc.printStackTrace();

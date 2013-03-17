@@ -31,7 +31,7 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 
 	public static final String DEFAULT_HOST = "127.0.0.1";
 
-	protected static final Pattern SUGGESTION_PATTERN = Pattern.compile("(.+?)(?:\\|\\|\\|(.*))?");
+	protected static final Pattern SUGGESTION_PATTERN = Pattern.compile("(.+?)\\|\\|\\|(\\d)(?:\\|\\|\\|(.*))?");
 
 	protected Socket createSocket() throws UnknownHostException, IOException {
 		return new Socket(DEFAULT_HOST, DEFAULT_PORT);
@@ -53,11 +53,13 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 				Matcher tempMatcher = SUGGESTION_PATTERN.matcher(tempLine);
 				if (tempMatcher.matches()) {
 					String tempPath = tempMatcher.group(1);
-					String tempDetails = (tempMatcher.groupCount() >= 2 ? tempMatcher.group(2) : null);
+					Integer tempPriority = Integer.parseInt(tempMatcher.group(2));
+					String tempDetails = (tempMatcher.groupCount() >= 3 ? tempMatcher.group(3) : null);
 					if (tempDetails != null) {
 						tempDetails = tempDetails.replace(SwingAuthorAssistServer.COMPONENT_LINE_NEWLINE, "\n");
 					}
-					tempList.add(new CustomProposalDefinition('"' + tempPath + '"', tempPath, tempDetails, null, true));
+					tempList.add(new CustomProposalDefinition('"' + tempPath + '"', tempPath, tempDetails,
+							tempPriority, true));
 				} else {
 					System.err.println("Suggestion line not parseable: '" + tempLine + "'");
 				}

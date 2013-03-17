@@ -1,0 +1,37 @@
+import launch.*
+import basic.*
+
+packagedef swing.chat with
+
+	forkdef chatServer "Chat Server"
+	forkdef chatClient "Chat Client"
+
+	suitedef main with
+		
+		suite launchChatAppAndConnect roleButton: "serverChoice" on chatServer
+		suite launchChatAppAndConnect roleButton: "clientChoice" on chatClient
+		
+		call wait seconds: 30
+				
+		suite killChatApp on chatServer
+		suite killChatApp on chatClient
+	
+	suiteend
+		
+	
+	suitedef launchChatAppAndConnect gets roleButton with
+		suite launchChatApp
+		call checkRadioButton name: roleButton
+		call clickButton name: "connectButton"
+	suiteend
+	
+	suitedef launchChatApp with
+		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.chat.Chat"
+		test isAppAlive
+	suiteend
+ 	
+	suitedef killChatApp with
+		test killApp
+	suiteend
+
+packageend

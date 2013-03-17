@@ -171,6 +171,6 @@ public class SwingAuthorAssistServer {
 		}
 		tempSuffix.append(COMPONENT_LINE_NEWLINE + "Enabled: " + aComponent.isEnabled());
 
-		return aPath + "|||" + tempSuffix.toString();
+		return aPath + "|||" + (anIsShortPath ? "1" : "0") + "|||" + tempSuffix.toString();
 	}
 }

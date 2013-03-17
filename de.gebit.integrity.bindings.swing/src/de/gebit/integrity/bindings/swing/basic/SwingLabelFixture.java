@@ -22,7 +22,7 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class SwingLabelFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
-	public String labelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
+	public String getLabelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		return findComponentGuarded(aComponentPath, JLabel.class, null).getText();
 	}

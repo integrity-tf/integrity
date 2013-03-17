@@ -56,7 +56,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected boolean identificationFrozen;
 
 	protected JComponent identifiedComponent;
+	protected boolean identifiedComponentViaBackground;
 	protected Border identifiedComponentBorder;
+	protected Color identifiedComponentBackground;
 
 	protected AbstractSwingComponentHandler swingComponentHandler;
 
@@ -239,8 +241,15 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected void identifyComponent(JComponent aComponent) {
 		if (!identificationFrozen && identifiedComponent == null) {
 			identifiedComponent = aComponent;
-			identifiedComponentBorder = aComponent.getBorder();
-			aComponent.setBorder(new LineBorder(Color.RED, 1));
+			if (aComponent.getBorder() != null) {
+				identifiedComponentViaBackground = true;
+				identifiedComponentBackground = aComponent.getBackground();
+				aComponent.setBackground(Color.RED);
+			} else {
+				identifiedComponentViaBackground = false;
+				identifiedComponentBorder = aComponent.getBorder();
+				aComponent.setBorder(new LineBorder(Color.RED, 1));
+			}
 
 			String tempFullPath = swingComponentHandler.createUniquifiedComponentPath(aComponent);
 			if (tempFullPath != null) {
@@ -257,8 +266,13 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected void clearIdentification(JComponent aComponent) {
 		if (!identificationFrozen && identifiedComponent != null) {
 			identifiedComponent = null;
-			aComponent.setBorder(identifiedComponentBorder);
-			identifiedComponentBorder = null;
+			if (identifiedComponentViaBackground) {
+				aComponent.setBackground(identifiedComponentBackground);
+				identifiedComponentBackground = null;
+			} else {
+				aComponent.setBorder(identifiedComponentBorder);
+				identifiedComponentBorder = null;
+			}
 		}
 	}
 

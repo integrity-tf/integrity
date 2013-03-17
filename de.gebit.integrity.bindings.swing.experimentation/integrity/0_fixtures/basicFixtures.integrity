@@ -1,10 +1,17 @@
 packagedef basic with
 
+	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
+	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
+
 	calldef clickButton uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
 	
 	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
 	
-	calldef getLabelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#labelText
-	testdef labelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#labelText
+	calldef getLabelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
+	testdef labelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
+	
+	calldef checkRadioButton uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton
+	calldef getRadioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
+	testdef radioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
  
 packageend
