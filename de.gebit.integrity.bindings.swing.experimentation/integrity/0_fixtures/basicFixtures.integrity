@@ -1,17 +1,27 @@
 packagedef basic with
 
+	// Various useful stuff
 	calldef wait uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait
 	calldef waitForEventQueue uses de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#waitForEventQueue
 
+	// Buttons
 	calldef clickButton uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton
 	
+	// (Modal) Dialogs
 	calldef answerDialog uses de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#answerDialog
 	
+	// Labels
 	calldef getLabelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
 	testdef labelText uses de.gebit.integrity.bindings.swing.basic.SwingLabelFixture#getLabelText
 	
+	// Radio Buttons
 	calldef checkRadioButton uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton
 	calldef getRadioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
 	testdef radioButtonState uses de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#getRadioButtonState
+	
+	// Text Fields
+	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
+	testdef textFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
+	calldef setTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setTextFieldContent
  
 packageend

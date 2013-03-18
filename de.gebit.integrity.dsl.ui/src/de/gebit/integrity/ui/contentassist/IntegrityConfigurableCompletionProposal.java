@@ -34,6 +34,7 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
  * @author Rene Schneider
  * 
  */
+@SuppressWarnings("restriction")
 public class IntegrityConfigurableCompletionProposal extends ConfigurableCompletionProposal implements
 		ICompletionProposalExtension3 {
 
@@ -53,7 +54,6 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	 * Whether to use a {@link BrowserInformationControl} to display the additional proposal info text. Otherwise, a
 	 * more simpler control is used.
 	 */
-	@SuppressWarnings("restriction")
 	private boolean useBrowserForAdditionalProposalInfo;
 
 	public void setUseBrowserForAdditionalProposalInfo(boolean aUseBrowserForAdditionalProposalInfo) {
@@ -125,7 +125,6 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	public IInformationControlCreator getInformationControlCreator() {
 		return new IInformationControlCreator() {
 
-			@SuppressWarnings("restriction")
 			@Override
 			public IInformationControl createInformationControl(Shell aParent) {
 				if (useBrowserForAdditionalProposalInfo && BrowserInformationControl.isAvailable(aParent)) {

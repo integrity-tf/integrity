@@ -1,31 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <xmldata style="display: none;">
-<integrity name="unnamed" timestamp="3/18/13 12:57 AM" isotimestamp="2013-03-18T00:57:06" duration="54933.152">
+<integrity name="unnamed" timestamp="3/18/13 6:02 PM" isotimestamp="2013-03-18T18:02:06" duration="181672.400">
 <variables></variables>
 <suite id="0" name="swing.chat.main">
 <setup></setup>
 <variables></variables>
 <statements>
-<suite id="1" line="11" name="swing.chat.launchChatAppAndConnect" forkName="chatServer" forkDescription="Chat Server">
+<suite id="1" line="11" name="swing.chat.launchChatAppAndConnect">
 <setup></setup>
 <variables>
 <variable name="swing.chat.roleButton" value="serverChoice"></variable>
 </variables>
 <statements>
-<suite id="2" line="23" name="swing.chat.launchChatApp" forkName="chatServer" forkDescription="Chat Server">
+<suite id="2" line="25" name="swing.chat.launchChatApp">
 <setup></setup>
 <variables></variables>
 <statements>
-<call id="3" line="29" name="launchApp" description="Launch Java Application: de.gebit.integrity.bindings.swing.experimentation.chat.Chat" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#launch">
+<call id="3" line="31" name="launchApp" description="Launch Java Application: de.gebit.integrity.bindings.swing.experimentation.chat.Chat" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#launch">
 <parameters>
 <parameter name="mainClass" value="de.gebit.integrity.bindings.swing.experimentation.chat.Chat"></parameter>
 </parameters>
-<result duration="6006.013" type="success"></result>
+<result duration="1007.945" type="success"></result>
 </call>
-<test id="4" line="30" name="isAppAlive" description="Check if the application is still alive" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#isAlive">
-<results duration="0.525" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="0.525" description="Check if the application is still alive" type="success">
+<test id="4" line="32" name="isAppAlive" description="Check if the application is still alive" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#isAlive">
+<results duration="0.480" successCount="1" failureCount="0" exceptionCount="0">
+<result duration="0.480" description="Check if the application is still alive" type="success">
 <parameters></parameters>
 <comparisons>
 <comparison expectedValue="true" value="true" type="success"></comparison>
@@ -35,43 +35,41 @@
 </test>
 </statements>
 <teardown></teardown>
-<result duration="6018.220" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
+<result duration="1027.988" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
 </suite>
-<call id="5" line="24" name="checkRadioButton" description="Check the radio button 'serverChoice'" fixture="de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton">
+<call id="5" line="26" name="checkRadioButton" description="Check the radio button 'serverChoice'" fixture="de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton">
 <parameters>
 <parameter name="name" value="serverChoice"></parameter>
 </parameters>
-<result duration="77.275" type="success"></result>
+<result duration="67.880" type="success"></result>
 </call>
-<call id="6" line="25" name="clickButton" description="Click the button 'connectButton'" fixture="de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton">
+<call id="6" line="27" name="clickButton" description="Click the button 'connectButton'" fixture="de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton">
 <parameters>
 <parameter name="name" value="connectButton"></parameter>
 </parameters>
-<result duration="93.081" type="success"></result>
+<result duration="82.945" type="success"></result>
 </call>
 </statements>
 <teardown></teardown>
-<result duration="6197.223" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
+<result duration="1192.474" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
 </suite>
-<suite id="7" line="12" name="swing.chat.launchChatAppAndConnect" forkName="chatClient" forkDescription="Chat Client">
-<setup></setup>
-<variables>
-<variable name="swing.chat.roleButton" value="clientChoice"></variable>
-</variables>
-<statements>
-<suite id="8" line="23" name="swing.chat.launchChatApp" forkName="chatClient" forkDescription="Chat Client">
+<call id="7" line="14" name="wait" description="Wait for 2 seconds." fixture="de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait">
+<parameters>
+<parameter name="seconds" value="2"></parameter>
+</parameters>
+<result duration="1993.237" type="success"></result>
+</call>
+<call id="8" line="16" name="authorAssist" description="Displays the test author assistance tools and pauses test execution" fixture="de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist">
+<parameters></parameters>
+<result duration="178451.820" type="success"></result>
+</call>
+<suite id="9" line="18" name="swing.chat.killChatApp">
 <setup></setup>
 <variables></variables>
 <statements>
-<call id="9" line="29" name="launchApp" description="Launch Java Application: de.gebit.integrity.bindings.swing.experimentation.chat.Chat" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#launch">
-<parameters>
-<parameter name="mainClass" value="de.gebit.integrity.bindings.swing.experimentation.chat.Chat"></parameter>
-</parameters>
-<result duration="6005.589" type="success"></result>
-</call>
-<test id="10" line="30" name="isAppAlive" description="Check if the application is still alive" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#isAlive">
-<results duration="0.179" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="0.179" description="Check if the application is still alive" type="success">
+<test id="10" line="36" name="killApp" description="Kills the application" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#kill">
+<results duration="5.394" successCount="1" failureCount="0" exceptionCount="0">
+<result duration="5.394" description="Kills the application" type="success">
 <parameters></parameters>
 <comparisons>
 <comparison expectedValue="true" value="true" type="success"></comparison>
@@ -81,75 +79,17 @@
 </test>
 </statements>
 <teardown></teardown>
-<result duration="6013.529" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
-</suite>
-<call id="11" line="24" name="checkRadioButton" description="Check the radio button 'clientChoice'" fixture="de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton">
-<parameters>
-<parameter name="name" value="clientChoice"></parameter>
-</parameters>
-<result duration="74.287" type="success"></result>
-</call>
-<call id="12" line="25" name="clickButton" description="Click the button 'connectButton'" fixture="de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton">
-<parameters>
-<parameter name="name" value="connectButton"></parameter>
-</parameters>
-<result duration="81.984" type="success"></result>
-</call>
-</statements>
-<teardown></teardown>
-<result duration="6174.761" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
-</suite>
-<call id="13" line="14" name="wait" description="Wait for 30 seconds." fixture="de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait">
-<parameters>
-<parameter name="seconds" value="30"></parameter>
-</parameters>
-<result duration="30000.121" type="success"></result>
-</call>
-<suite id="14" line="16" name="swing.chat.killChatApp" forkName="chatServer" forkDescription="Chat Server">
-<setup></setup>
-<variables></variables>
-<statements>
-<test id="15" line="34" name="killApp" description="Kills the application" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#kill">
-<results duration="2.549" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="2.549" description="Kills the application" type="success">
-<parameters></parameters>
-<comparisons>
-<comparison expectedValue="true" value="true" type="success"></comparison>
-</comparisons>
-</result>
-</results>
-</test>
-</statements>
-<teardown></teardown>
-<result duration="3.930" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
-</suite>
-<suite id="16" line="17" name="swing.chat.killChatApp" forkName="chatClient" forkDescription="Chat Client">
-<setup></setup>
-<variables></variables>
-<statements>
-<test id="17" line="34" name="killApp" description="Kills the application" fixture="de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#kill">
-<results duration="6.088" successCount="1" failureCount="0" exceptionCount="0">
-<result duration="6.088" description="Kills the application" type="success">
-<parameters></parameters>
-<comparisons>
-<comparison expectedValue="true" value="true" type="success"></comparison>
-</comparisons>
-</result>
-</results>
-</test>
-</statements>
-<teardown></teardown>
-<result duration="9.268" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
+<result duration="9.771" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
 </suite>
 </statements>
 <teardown></teardown>
-<result duration="54928.679" successCount="4" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
+<result duration="181660.072" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0"></result>
 </suite>
 </integrity>
 </xmldata>
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Integration Test 'unnamed' Results (3/18/13 12:57 AM) - Integrity Test Framework</title>
+<title>Integration Test 'unnamed' Results (3/18/13 6:02 PM) - Integrity Test Framework</title>
 <style type="text/css">body { color: #000; background-color: #FFF;
 					font-family: Calibri, Arial, sans-serif; font-size:10pt; }
 					.value { font-family: Courier, Courier New, Lucida Console, monospace; }
@@ -431,9 +371,9 @@
 </div>
 <div align="left" class="pagesubtitle">
               Started
-              <span class="pagesubtitlebold">3/18/13 12:57 AM</span>
+              <span class="pagesubtitlebold">3/18/13 6:02 PM</span>
               and took
-              <span class="pagesubtitlebold">54s933ms</span>
+              <span class="pagesubtitlebold">3m1s672ms</span>
               to complete
             </div>
 <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';"></canvas>
@@ -446,7 +386,7 @@
 <div class="nav_suitetitle">
 <a href="#i0" title="swing.chat.main">main</a>
 </div>
-<div class="nav_suiteresult nav_suitesuccess">4
+<div class="nav_suiteresult nav_suitesuccess">2
         ✔
       </div>
 <div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
@@ -469,37 +409,9 @@
 </div>
 </div>
 <div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
-<div class="nav_line nav_linedownright"></div>
-<div class="nav_suitetitle">
-<a href="#i7" title="swing.chat.launchChatAppAndConnect">launchChatAppAndConnect</a>
-</div>
-<div class="nav_suiteresult nav_suitesuccess">1
-        ✔
-      </div>
-<div class="nav_suite nav_suitesuccess" style="background-position: 24px 0px;">
-<div class="nav_line nav_linedown"></div>
 <div class="nav_line nav_lineright"></div>
 <div class="nav_suitetitle">
-<a href="#i8" title="swing.chat.launchChatApp">launchChatApp</a>
-</div>
-<div class="nav_suiteresult nav_suitesuccess">1
-        ✔
-      </div>
-</div>
-</div>
-<div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
-<div class="nav_line nav_linedownright"></div>
-<div class="nav_suitetitle">
-<a href="#i14" title="swing.chat.killChatApp">killChatApp</a>
-</div>
-<div class="nav_suiteresult nav_suitesuccess">1
-        ✔
-      </div>
-</div>
-<div class="nav_suite nav_suitesuccess" style="background-position: 8px 0px;">
-<div class="nav_line nav_lineright"></div>
-<div class="nav_suitetitle">
-<a href="#i16" title="swing.chat.killChatApp">killChatApp</a>
+<a href="#i9" title="swing.chat.killChatApp">killChatApp</a>
 </div>
 <div class="nav_suiteresult nav_suitesuccess">1
         ✔
@@ -521,11 +433,11 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#swing.chat.main:">swing.chat.main</a></span><span class="boxtitleright">4
+<span class="boxtitleleft"><a href="#swing.chat.main:">swing.chat.main</a></span><span class="boxtitleright">2
         ✔
       
             in
-            54s929ms<span class="suiteicons"></span></span>
+            3m1s660ms<span class="suiteicons"></span></span>
 </div>
 <div class="boxcontent">
 <a name="i1"></a><a name="swing.chat.main:swing.chat.launchChatAppAndConnect:"></a>
@@ -541,15 +453,11 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:">swing.chat.launchChatAppAndConnect</a>
-            @
-            chatServer
-              -
-              Chat Server</span><span class="boxtitleright">1
+<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:">swing.chat.launchChatAppAndConnect</a></span><span class="boxtitleright">1
         ✔
       
             in
-            6s197ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#11"></a></span></span>
+            1s192ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#11"></a></span></span>
 </div>
 <div class="boxcontent">
 <div class="sectionTitle">Variables</div>
@@ -575,15 +483,11 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:swing.chat.launchChatApp:">swing.chat.launchChatApp</a>
-            @
-            chatServer
-              -
-              Chat Server</span><span class="boxtitleright">1
+<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:swing.chat.launchChatApp:">swing.chat.launchChatApp</a></span><span class="boxtitleright">1
         ✔
       
             in
-            6s18ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.launchChatAppAndConnect#23"></a></span></span>
+            1s28ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.launchChatAppAndConnect#25"></a></span></span>
 </div>
 <div class="boxcontent">
 <a name="i3"></a>
@@ -600,7 +504,7 @@
 </tr>
 </table>
 </div>
-<span class="durationandicons">6s6ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#29"></a></span></span>
+<span class="durationandicons">1s8ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#31"></a></span></span>
 </div>
 <a name="i4"></a>
 <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1testsuccess">
@@ -613,7 +517,7 @@
               result:
               <span class="testresultvalue testresultvaluesuccess value">true</span>
 </div>
-<span class="durationandicons">1ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#30"></a></span></span>
+<span class="durationandicons">0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#32"></a></span></span>
 </div>
 </div>
 </div>
@@ -631,7 +535,7 @@
 </tr>
 </table>
 </div>
-<span class="durationandicons">77ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#24"></a></span></span>
+<span class="durationandicons">68ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#26"></a></span></span>
 </div>
 <a name="i6"></a>
 <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
@@ -647,136 +551,13 @@
 </tr>
 </table>
 </div>
-<span class="durationandicons">93ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#25"></a></span></span>
+<span class="durationandicons">83ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#27"></a></span></span>
 </div>
 </div>
 </div>
-<a name="i7"></a><a name="swing.chat.main:swing.chat.launchChatAppAndConnect:"></a>
-<div class="
-          box
-          " style="
-          border-color:
-          #009933
-          ;
-        ">
-<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
-            background-color:
-            #009933
-            ;
-          ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:">swing.chat.launchChatAppAndConnect</a>
-            @
-            chatClient
-              -
-              Chat Client</span><span class="boxtitleright">1
-        ✔
-      
-            in
-            6s175ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#12"></a></span></span>
-</div>
-<div class="boxcontent">
-<div class="sectionTitle">Variables</div>
-<table class="variabletable" width="100%">
-<tr>
-<th width="300px" align="left">Name</th><th align="left">Initial Value</th>
-</tr>
-<tr class="row1">
-<td>swing.chat.roleButton</td><td class="value">clientChoice</td>
-</tr>
-</table>
-<div class="sectionTitle">Suite</div>
-<a name="i8"></a><a name="swing.chat.main:swing.chat.launchChatAppAndConnect:swing.chat.launchChatApp:"></a>
-<div class="
-          box
-          " style="
-          border-color:
-          #009933
-          ;
-        ">
-<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
-            background-color:
-            #009933
-            ;
-          ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.launchChatAppAndConnect:swing.chat.launchChatApp:">swing.chat.launchChatApp</a>
-            @
-            chatClient
-              -
-              Chat Client</span><span class="boxtitleright">1
-        ✔
-      
-            in
-            6s14ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.launchChatAppAndConnect#23"></a></span></span>
-</div>
-<div class="boxcontent">
-<a name="i9"></a>
+<a name="i7"></a>
 <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">Launch Java Application: de.gebit.integrity.bindings.swing.experimentation.chat.Chat</div>
-<div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#launch</div>
-<table class="parametertable" width="100%">
-<tr>
-<th width="200px" align="left">Parameter</th><th align="left">Value</th>
-</tr>
-<tr class="row1callsuccess">
-<td>mainClass</td><td class="value">de.gebit.integrity.bindings.swing.experimentation.chat.Chat</td>
-</tr>
-</table>
-</div>
-<span class="durationandicons">6s6ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#29"></a></span></span>
-</div>
-<a name="i10"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1testsuccess">
-<div class="testicon testiconsuccess"></div>
-<div class="testdescription">Check if the application is still alive</div>
-<div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#isAlive</div>
-</div>
-<div class="testresults">
-              result:
-              <span class="testresultvalue testresultvaluesuccess value">true</span>
-</div>
-<span class="durationandicons">0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatApp#30"></a></span></span>
-</div>
-</div>
-</div>
-<a name="i11"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">Check the radio button 'clientChoice'</div>
-<div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.bindings.swing.basic.SwingRadioButtonFixture#checkRadioButton</div>
-<table class="parametertable" width="100%">
-<tr>
-<th width="200px" align="left">Parameter</th><th align="left">Value</th>
-</tr>
-<tr class="row1callsuccess">
-<td>name</td><td class="value">clientChoice</td>
-</tr>
-</table>
-</div>
-<span class="durationandicons">74ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#24"></a></span></span>
-</div>
-<a name="i12"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">Click the button 'connectButton'</div>
-<div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.bindings.swing.basic.SwingButtonFixture#clickButton</div>
-<table class="parametertable" width="100%">
-<tr>
-<th width="200px" align="left">Parameter</th><th align="left">Value</th>
-</tr>
-<tr class="row1callsuccess">
-<td>name</td><td class="value">connectButton</td>
-</tr>
-</table>
-</div>
-<span class="durationandicons">82ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.launchChatAppAndConnect#25"></a></span></span>
-</div>
-</div>
-</div>
-<a name="i13"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
-<div class="testdescription">Wait for 30 seconds.</div>
+<div class="testdescription">Wait for 2 seconds.</div>
 <div class="testparameters" style="display: none;">
 <div class="fixturename">de.gebit.integrity.bindings.swing.basic.SwingWaitFixture#wait</div>
 <table class="parametertable" width="100%">
@@ -784,13 +565,21 @@
 <th width="200px" align="left">Parameter</th><th align="left">Value</th>
 </tr>
 <tr class="row1callsuccess">
-<td>seconds</td><td class="value">30</td>
+<td>seconds</td><td class="value">2</td>
 </tr>
 </table>
 </div>
-<span class="durationandicons">30s0ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.main#14"></a></span></span>
+<span class="durationandicons">1s993ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.main#14"></a></span></span>
 </div>
-<a name="i14"></a><a name="swing.chat.main:swing.chat.killChatApp:"></a>
+<a name="i8"></a>
+<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement row1callsuccess">
+<div class="testdescription">Displays the test author assistance tools and pauses test execution</div>
+<div class="testparameters" style="display: none;">
+<div class="fixturename">de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFixture#authorAssist</div>
+</div>
+<span class="durationandicons">2m58s452ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.main#16"></a></span></span>
+</div>
+<a name="i9"></a><a name="swing.chat.main:swing.chat.killChatApp:"></a>
 <div class="
           box
           " style="
@@ -803,18 +592,14 @@
             #009933
             ;
           ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.killChatApp:">swing.chat.killChatApp</a>
-            @
-            chatServer
-              -
-              Chat Server</span><span class="boxtitleright">1
+<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.killChatApp:">swing.chat.killChatApp</a></span><span class="boxtitleright">1
         ✔
       
             in
-            4ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#16"></a></span></span>
+            10ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#18"></a></span></span>
 </div>
 <div class="boxcontent">
-<a name="i15"></a>
+<a name="i10"></a>
 <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1testsuccess">
 <div class="testicon testiconsuccess"></div>
 <div class="testdescription">Kills the application</div>
@@ -825,46 +610,7 @@
               result:
               <span class="testresultvalue testresultvaluesuccess value">true</span>
 </div>
-<span class="durationandicons">3ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.killChatApp#34"></a></span></span>
-</div>
-</div>
-</div>
-<a name="i16"></a><a name="swing.chat.main:swing.chat.killChatApp:"></a>
-<div class="
-          box
-          " style="
-          border-color:
-          #009933
-          ;
-        ">
-<div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';" onMouseOut="this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='#009933';" style="
-            background-color:
-            #009933
-            ;
-          ">
-<span class="boxtitleleft"><a href="#swing.chat.main:swing.chat.killChatApp:">swing.chat.killChatApp</a>
-            @
-            chatClient
-              -
-              Chat Client</span><span class="boxtitleright">1
-        ✔
-      
-            in
-            9ms<span class="suiteicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="suitescriptlink" href="integrity://swing.chat.main#17"></a></span></span>
-</div>
-<div class="boxcontent">
-<a name="i17"></a>
-<div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)" class="statement test row1testsuccess">
-<div class="testicon testiconsuccess"></div>
-<div class="testdescription">Kills the application</div>
-<div class="testparameters" style="display: none;">
-<div class="fixturename">de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture#kill</div>
-</div>
-<div class="testresults">
-              result:
-              <span class="testresultvalue testresultvaluesuccess value">true</span>
-</div>
-<span class="durationandicons">6ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.killChatApp#34"></a></span></span>
+<span class="durationandicons">5ms<span class="testicons"><a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();" class="scriptlink" href="integrity://swing.chat.killChatApp#36"></a></span></span>
 </div>
 </div>
 </div>

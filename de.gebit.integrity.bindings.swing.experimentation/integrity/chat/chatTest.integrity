@@ -3,21 +3,23 @@ import basic.*
 
 packagedef swing.chat with
 
-	forkdef chatServer "Chat Server"
-	forkdef chatClient "Chat Client"
+	// The master process will be the "server" 
+	forkdef chatClient "Chat Client Fork"
 
 	suitedef main with
 		
-		suite launchChatAppAndConnect roleButton: "serverChoice" on chatServer
-		suite launchChatAppAndConnect roleButton: "clientChoice" on chatClient
+		suite launchChatAppAndConnect roleButton: "serverChoice"
+		//suite launchChatAppAndConnect roleButton: "clientChoice" on chatClient
 		
-		call wait seconds: 30
+		call wait seconds: 2
+		
+		call tools.authorAssist
 				
-		suite killChatApp on chatServer
-		suite killChatApp on chatClient
+		suite killChatApp
+		//suite killChatApp on chatClient
 	
 	suiteend
-		
+			
 	
 	suitedef launchChatAppAndConnect gets roleButton with
 		suite launchChatApp
@@ -32,6 +34,10 @@ packagedef swing.chat with
  	
 	suitedef killChatApp with
 		test killApp
+	suiteend
+
+	suitedef sendMessageFromClientToServer gets message with
+		//call setTextFieldContent name:  
 	suiteend
 
 packageend

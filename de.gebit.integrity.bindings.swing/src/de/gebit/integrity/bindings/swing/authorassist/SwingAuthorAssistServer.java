@@ -41,13 +41,17 @@ public class SwingAuthorAssistServer {
 	/**
 	 * 
 	 */
-	public SwingAuthorAssistServer(AbstractSwingComponentHandler aSwingComponentHandler, JFrame anOwnerFrame) {
+	public SwingAuthorAssistServer(
+			AbstractSwingComponentHandler aSwingComponentHandler,
+			JFrame anOwnerFrame) {
 		swingComponentHandler = aSwingComponentHandler;
 		ownerFrame = anOwnerFrame;
 	}
 
-	protected ServerSocket createServerSocket() throws UnknownHostException, IOException {
-		return new ServerSocket(DEFAULT_PORT, 1, InetAddress.getByName(DEFAULT_HOST));
+	protected ServerSocket createServerSocket() throws UnknownHostException,
+			IOException {
+		return new ServerSocket(DEFAULT_PORT, 1,
+				InetAddress.getByName(DEFAULT_HOST));
 	}
 
 	public void startUp() {
@@ -101,18 +105,25 @@ public class SwingAuthorAssistServer {
 					}
 
 					try {
-						BufferedReader tempReader = new BufferedReader(new InputStreamReader(
-								tempClientSocket.getInputStream()));
+						BufferedReader tempReader = new BufferedReader(
+								new InputStreamReader(
+										tempClientSocket.getInputStream()));
 						String tempFilterClassName = tempReader.readLine();
 
 						if (tempFilterClassName != null) {
 							try {
-								Class<?> tempFilterClass = getClass().getClassLoader().loadClass(tempFilterClassName);
+								Class<?> tempFilterClass = getClass()
+										.getClassLoader().loadClass(
+												tempFilterClassName);
 
 								List<Component> tempComponents = (List<Component>) swingComponentHandler
-										.findComponents(null, (Class<? extends Component>) tempFilterClass, ownerFrame);
+										.findComponents(
+												null,
+												(Class<? extends Component>) tempFilterClass,
+												ownerFrame);
 
-								PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
+								PrintWriter tempWriter = new PrintWriter(
+										tempClientSocket.getOutputStream());
 								for (Component tempComponent : tempComponents) {
 									String tempLongPath = swingComponentHandler
 											.createUniquifiedComponentPath(tempComponent);
@@ -121,13 +132,21 @@ public class SwingAuthorAssistServer {
 
 									if (tempLongPath != null) {
 										if (tempShortPath != null) {
-											tempWriter.println(generateComponentLine(tempShortPath, tempComponent,
-													true, tempLongPath));
+											tempWriter
+													.println(generateComponentLine(
+															tempShortPath,
+															tempComponent,
+															true, tempLongPath));
 										}
 										if (tempLongPath != null
-												&& (tempShortPath == null || !tempLongPath.equals(tempShortPath))) {
-											tempWriter.println(generateComponentLine(tempLongPath, tempComponent,
-													false, tempShortPath));
+												&& (tempShortPath == null || !tempLongPath
+														.equals(tempShortPath))) {
+											tempWriter
+													.println(generateComponentLine(
+															tempLongPath,
+															tempComponent,
+															false,
+															tempShortPath));
 										}
 									}
 								}
@@ -151,26 +170,56 @@ public class SwingAuthorAssistServer {
 		}
 	}
 
-	public static final String COMPONENT_LINE_NEWLINE = "<nl>";
+	public static final String COMPONENT_LINE_NEWLINE = "<br>";
 
-	protected String generateComponentLine(String aPath, Component aComponent, boolean anIsShortPath, String anOtherPath) {
-		StringBuilder tempSuffix = new StringBuilder("Component: " + aComponent.getClass().getName());
+	protected String generateComponentLine(String aPath, Component aComponent,
+			boolean anIsShortPath, String anOtherPath) {
+		StringBuilder tempDescription = new StringBuilder();
+		addComponentLinePart_CSS(tempDescription);
+		addComponentLinePart_Tag(tempDescription, "Component");
+		tempDescription.append(aComponent.getClass().getName());
+		tempDescription.append(COMPONENT_LINE_NEWLINE);
+
 		if (anIsShortPath) {
-			tempSuffix.append(COMPONENT_LINE_NEWLINE + "Path: short path"
-					+ (anOtherPath != null && !anOtherPath.equals(aPath) ? " (long path: '" + anOtherPath + "')" : ""));
+			addComponentLinePart_Tag(tempDescription, "Path");
+			tempDescription
+					.append("short path"
+							+ (anOtherPath != null
+									&& !anOtherPath.equals(aPath) ? " (long path: '"
+									+ anOtherPath + "')"
+									: ""));
 		} else {
-			tempSuffix
-					.append(COMPONENT_LINE_NEWLINE
-							+ "Path: long path"
-							+ (anOtherPath != null && !anOtherPath.equals(aPath) ? " (short path: '" + anOtherPath
-									+ "')" : ""));
+			addComponentLinePart_Tag(tempDescription, "Path");
+			tempDescription
+					.append("long path"
+							+ (anOtherPath != null
+									&& !anOtherPath.equals(aPath) ? " (short path: '"
+									+ anOtherPath + "')"
+									: ""));
 		}
+		tempDescription.append(COMPONENT_LINE_NEWLINE);
 
 		if (aComponent instanceof JButton) {
-			tempSuffix.append(COMPONENT_LINE_NEWLINE + "Text: '" + ((JButton) aComponent).getText() + "'");
+			addComponentLinePart_Tag(tempDescription, "Text");
+			tempDescription
+					.append("'" + ((JButton) aComponent).getText() + "'");
+			tempDescription.append(COMPONENT_LINE_NEWLINE);
 		}
-		tempSuffix.append(COMPONENT_LINE_NEWLINE + "Enabled: " + aComponent.isEnabled());
 
-		return aPath + "|||" + (anIsShortPath ? "1" : "0") + "|||" + tempSuffix.toString();
+		addComponentLinePart_Tag(tempDescription, "Enabled");
+		tempDescription.append(aComponent.isEnabled());
+
+		return aPath + "|||" + (anIsShortPath ? "1" : "0") + "|||"
+				+ tempDescription.toString();
+	}
+
+	protected void addComponentLinePart_Tag(StringBuilder aBuilder, String aTag) {
+		aBuilder.append("<span class=\"tag\">" + aTag + ":</span> ");
+	}
+
+	protected void addComponentLinePart_CSS(StringBuilder aBuilder) {
+		aBuilder.append("<style type=\"text/css\">"
+				+ "body { font-family: Arial, Sans-Serif; font-size: x-small; margin: 4px; } "
+				+ ".tag { font-weight: bold; }" + "</style>");
 	}
 }

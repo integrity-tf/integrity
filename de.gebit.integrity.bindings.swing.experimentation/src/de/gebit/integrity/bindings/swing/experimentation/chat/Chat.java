@@ -57,6 +57,12 @@ public class Chat {
 	private DatagramSocket sendSocket;
 	private DatagramSocket recvSocket;
 
+	private static final int ACK_TIMEOUT = 5000;
+
+	private long ackReceived;
+
+	private static final String ACK = "!!!ACK!!!";
+
 	public Chat() {
 		frame = new JFrame("Simple Chat");
 		frame.setName("chat");
@@ -125,6 +131,8 @@ public class Chat {
 		frame.validate();
 		addActions();
 		updateButtons();
+
+		System.out.println("Simple Chat was started!");
 	}
 
 	protected void updateButtons() {
@@ -155,6 +163,9 @@ public class Chat {
 				int tempSendPort = Integer.parseInt(portField.getText()) + (serverChoice.isSelected() ? 0 : 1);
 				int tempRecvPort = Integer.parseInt(portField.getText()) + (clientChoice.isSelected() ? 0 : 1);
 
+				System.out.println("Setting up UDP sockets in " + (serverChoice.isSelected() ? "server" : "client")
+						+ " mode for sending on port " + tempSendPort + " and receiving on port " + tempRecvPort + ".");
+
 				try {
 					sendSocket = new DatagramSocket();
 					sendSocket.connect(InetAddress.getByName(hostField.getText()), tempSendPort);
@@ -180,8 +191,16 @@ public class Chat {
 								try {
 									DatagramPacket tempPacket = new DatagramPacket(new byte[1024], 1024);
 									recvSocket.receive(tempPacket);
-									((DefaultListModel) messageList.getModel()).addElement(new String(tempPacket
-											.getData(), tempPacket.getOffset(), tempPacket.getLength()));
+									String tempString = new String(tempPacket.getData(), tempPacket.getOffset(),
+											tempPacket.getLength());
+									if (ACK.equals(tempString)) {
+										synchronized (ACK) {
+											ackReceived = System.currentTimeMillis();
+											ACK.notifyAll();
+										}
+									} else {
+										((DefaultListModel) messageList.getModel()).addElement(tempString);
+									}
 								} catch (IOException exc) {
 									if (!"socket closed".equals(exc.getMessage())) {
 										exc.printStackTrace();
@@ -192,6 +211,8 @@ public class Chat {
 					};
 					tempListenerThread.start();
 					updateButtons();
+
+					System.out.println("Ports were successfully set up. Begin chatting!");
 				}
 			}
 
@@ -218,11 +239,28 @@ public class Chat {
 				if (tempMessage.length() > 0) {
 					try {
 						byte[] tempBytes = tempMessage.getBytes();
+						System.out.println("Now sending message '" + tempMessage + "'");
+						long tempSendTime = System.currentTimeMillis();
 						sendSocket.send(new DatagramPacket(tempBytes, tempBytes.length));
-						messageField.setText("");
+						synchronized (ACK) {
+							try {
+								ACK.wait(ACK_TIMEOUT);
+							} catch (InterruptedException exc) {
+								// ignored
+							}
+						}
+						if (ackReceived >= tempSendTime) {
+							System.out.println("Successfully sent the message '" + tempMessage + "'; ACK received in "
+									+ (ackReceived - tempSendTime) + " msecs.");
+							messageField.setText("");
+						} else {
+							System.err.println("Failed to send: did not receive an ACK in time!");
+						}
 					} catch (IOException exc) {
 						exc.printStackTrace();
 					}
+				} else {
+					System.out.println("No message was entered - will not send anything!");
 				}
 			}
 		});
