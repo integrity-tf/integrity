@@ -125,8 +125,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		int tempReplacementOffset = aContext.getReplaceRegion().getOffset();
 		int tempReplacementLength = aContext.getReplaceRegion().getLength();
 		ConfigurableCompletionProposal tempResult = new IntegrityConfigurableCompletionProposal(aProposal,
-				tempReplacementOffset, tempReplacementLength, aProposal.length(), anImage, aDisplayString, null, null,
-				aContext);
+				tempReplacementOffset, tempReplacementLength, aProposal.length(), anImage, aDisplayString, null, false,
+				null, aContext);
 		tempResult.setPriority(aPriority);
 		tempResult.setMatcher(aContext.getMatcher());
 		tempResult.setReplaceContextLength(aContext.getReplaceContextLength());
@@ -1148,10 +1148,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					new StyledString(tempProposal.getDisplayValue() != null ? tempProposal.getDisplayValue()
 							: tempProposal.getValue()), null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE,
 					tempProposal.getDoPrefixFiltering() ? aContext.getPrefix() : "", aContext);
-			if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
+			if (tempCompletionProposal instanceof IntegrityConfigurableCompletionProposal) {
 				if (tempProposal.getDescription() != null) {
 					((ConfigurableCompletionProposal) tempCompletionProposal).setAdditionalProposalInfo(tempProposal
 							.getDescription());
+					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
+							.setUseBrowserForAdditionalProposalInfo(tempProposal.isUseBrowserForDescription());
 				}
 			}
 

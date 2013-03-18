@@ -5,9 +5,16 @@ package de.gebit.integrity.ui.contentassist;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.internal.text.html.BrowserInformationControl;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.DefaultInformationControl;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlCreator;
+import org.eclipse.jface.text.contentassist.ICompletionProposalExtension3;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 
@@ -27,7 +34,8 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
  * @author Rene Schneider
  * 
  */
-public class IntegrityConfigurableCompletionProposal extends ConfigurableCompletionProposal {
+public class IntegrityConfigurableCompletionProposal extends ConfigurableCompletionProposal implements
+		ICompletionProposalExtension3 {
 
 	/**
 	 * The context.
@@ -40,6 +48,17 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	 * how to model this construction a little more elegant, I'll do it. Until then this hack should do the job ;-).
 	 */
 	private SuiteDefinition suiteDefiningProposedParameter;
+
+	/**
+	 * Whether to use a {@link BrowserInformationControl} to display the additional proposal info text. Otherwise, a
+	 * more simpler control is used.
+	 */
+	@SuppressWarnings("restriction")
+	private boolean useBrowserForAdditionalProposalInfo;
+
+	public void setUseBrowserForAdditionalProposalInfo(boolean aUseBrowserForAdditionalProposalInfo) {
+		useBrowserForAdditionalProposalInfo = aUseBrowserForAdditionalProposalInfo;
+	}
 
 	/**
 	 * Creates a new instance.
@@ -56,9 +75,11 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	// SUPPRESS CHECKSTYLE ParameterNumber
 	public IntegrityConfigurableCompletionProposal(String aReplacementString, int aReplacementOffset,
 			int aReplacementLength, int aCursorPosition, Image anImage, StyledString aDisplayString,
-			IContextInformation aContextInformation, String anAdditionalProposalInfo, ContentAssistContext aContext) {
+			IContextInformation aContextInformation, boolean aUseBrowserForAdditionalProposalInfo,
+			String anAdditionalProposalInfo, ContentAssistContext aContext) {
 		super(aReplacementString, aReplacementOffset, aReplacementLength, aCursorPosition, anImage, aDisplayString,
 				aContextInformation, anAdditionalProposalInfo);
+		useBrowserForAdditionalProposalInfo = aUseBrowserForAdditionalProposalInfo;
 		context = aContext;
 	}
 
@@ -98,6 +119,22 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 
 	public SuiteDefinition getSuiteDefiningProposedParameter() {
 		return suiteDefiningProposedParameter;
+	}
+
+	@Override
+	public IInformationControlCreator getInformationControlCreator() {
+		return new IInformationControlCreator() {
+
+			@SuppressWarnings("restriction")
+			@Override
+			public IInformationControl createInformationControl(Shell aParent) {
+				if (useBrowserForAdditionalProposalInfo && BrowserInformationControl.isAvailable(aParent)) {
+					return new BrowserInformationControl(aParent, JFaceResources.DIALOG_FONT, true);
+				} else {
+					return new DefaultInformationControl(aParent);
+				}
+			}
+		};
 	}
 
 }
