@@ -4,27 +4,56 @@
 package de.gebit.integrity.bindings.swing;
 
 /**
- * 
+ * Base class for all special exceptions used in the Swing Bindings for Integrity.
  * 
  * @author Rene Schneider
  * 
  */
 public class IntegritySwingBindingsException extends Exception {
 
-	public IntegritySwingBindingsException(String message, Throwable cause) {
-		super(message, cause);
+	/**
+	 * Serial version.
+	 */
+	private static final long serialVersionUID = 3204821991129408837L;
+
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aMessage
+	 *            the message
+	 * 
+	 * @param aCause
+	 *            the cause
+	 */
+	public IntegritySwingBindingsException(String aMessage, Throwable aCause) {
+		super(aMessage, aCause);
 	}
 
-	public IntegritySwingBindingsException(String message) {
-		super(message);
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aMessage
+	 *            the message
+	 */
+	public IntegritySwingBindingsException(String aMessage) {
+		super(aMessage);
 	}
 
+	/**
+	 * Creates an instance.
+	 */
 	public IntegritySwingBindingsException() {
 		super();
 	}
 
-	public IntegritySwingBindingsException(Throwable cause) {
-		super(cause);
+	/**
+	 * Creates an instance.
+	 * 
+	 * @param aCause
+	 *            the cause
+	 */
+	public IntegritySwingBindingsException(Throwable aCause) {
+		super(aCause);
 	}
 
 }

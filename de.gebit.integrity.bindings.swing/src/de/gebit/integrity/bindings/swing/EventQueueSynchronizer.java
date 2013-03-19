@@ -6,7 +6,7 @@ package de.gebit.integrity.bindings.swing;
 import java.awt.EventQueue;
 
 /**
- * 
+ * Can be used to synchronize execution of any thread with the AWT Event Queue.
  * 
  * @author Rene Schneider
  * 
@@ -15,7 +15,10 @@ public class EventQueueSynchronizer {
 
 	private static class SyncObject {
 
-		private volatile boolean touched = false;
+		/**
+		 * Whether this sync object has been touched.
+		 */
+		private volatile boolean touched;
 
 		public boolean isTouched() {
 			return touched;

@@ -7,9 +7,21 @@ import java.util.Map;
 import de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 
+/**
+ * Abstract base class for individual Proposal Providers for specific Swing components.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public abstract class SwingComponentFixtureProposalProvider extends AbstractSwingFixtureAssist implements
 		CustomProposalProvider {
 
+	/**
+	 * Must return the class for which to provide proposals.
+	 * 
+	 * @return
+	 */
 	protected abstract Class<? extends Component> getComponentClass();
 
 	@Override

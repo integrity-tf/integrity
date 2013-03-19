@@ -10,7 +10,8 @@ import java.awt.Window;
 import de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFrame;
 
 /**
- * 
+ * Thrown if no matching component was found for a given component path. This exception contains human-readable detail
+ * info which lay out the whole component graph in readable form, optimized to help identifying the problem in the path.
  * 
  * @author Rene Schneider
  * 
@@ -22,8 +23,19 @@ public class InvalidComponentPathException extends AbstractSwingComponentPathExc
 	 */
 	private static final long serialVersionUID = 9135172457237976659L;
 
+	/**
+	 * The inset to be added in front of every line, per depth step.
+	 */
 	protected static final String INSET_PER_STEP = "  ";
 
+	/**
+	 * Constructs a new instance.
+	 * 
+	 * @param aPath
+	 *            the path
+	 * @param aComponentHandler
+	 *            the component handler
+	 */
 	public InvalidComponentPathException(String aPath, AbstractSwingComponentHandler aComponentHandler) {
 		super(aPath, aComponentHandler, "No component found for path '" + aPath + "'.");
 	}
@@ -39,7 +51,7 @@ public class InvalidComponentPathException extends AbstractSwingComponentPathExc
 		}
 	}
 
-	protected void recursiveBuildComponentHierarchy(Component aComponent, int aDepth, StringBuilder aStringBuilder,
+	private void recursiveBuildComponentHierarchy(Component aComponent, int aDepth, StringBuilder aStringBuilder,
 			AbstractSwingComponentHandler aComponentHandler) {
 		appendInset(aStringBuilder, aDepth);
 		aStringBuilder.append("'" + aComponentHandler.createComponentPath(aComponent) + "' ");
@@ -53,7 +65,7 @@ public class InvalidComponentPathException extends AbstractSwingComponentPathExc
 		}
 	}
 
-	protected void appendInset(StringBuilder aStringBuilder, int aNumberOfTimes) {
+	private void appendInset(StringBuilder aStringBuilder, int aNumberOfTimes) {
 		for (int i = 0; i < aNumberOfTimes; i++) {
 			aStringBuilder.append(INSET_PER_STEP);
 		}

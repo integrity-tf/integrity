@@ -16,26 +16,42 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
+import de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistServer;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
 
 /**
- * 
+ * Abstract base class for providing content assist features to Swing fixtures. This basic functionality mostly covers
+ * the identification of components (= assistance while filling the "name" parameter).
  * 
  * @author Rene Schneider
  * 
  */
 public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 
-	public static final int DEFAULT_PORT = 61432;
-
-	public static final String DEFAULT_HOST = "127.0.0.1";
-
+	/**
+	 * This pattern is used to parse data lines received from the {@link SwingAuthorAssistServer}.
+	 */
 	protected static final Pattern SUGGESTION_PATTERN = Pattern.compile("(.+?)\\|\\|(.*?)\\|\\|(.*?)\\|\\|(.*)");
 
+	/**
+	 * Creates a socket for communication with the {@link SwingAuthorAssistServer}.
+	 * 
+	 * @return the initialized and connected socket
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	protected Socket createSocket() throws UnknownHostException, IOException {
-		return new Socket(DEFAULT_HOST, DEFAULT_PORT);
+		return new Socket(SwingAuthorAssistServer.DEFAULT_HOST, SwingAuthorAssistServer.DEFAULT_PORT);
 	}
 
+	/**
+	 * Requests all proposals from the {@link SwingAuthorAssistServer} for the given component class. The proposals
+	 * which are returned are parsed and converted into {@link CustomProposalDefinition} instances as well.
+	 * 
+	 * @param aComponentClass
+	 *            the component class to filter for
+	 * @return the list of proposals (may be empty or null in case of no proposals/errors)
+	 */
 	protected List<CustomProposalDefinition> requestProposals(Class<? extends Component> aComponentClass) {
 		Socket tempSocket = null;
 		try {
@@ -61,6 +77,9 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 					}
 					if (tempPlainDetails.length() == 0) {
 						tempPlainDetails = null;
+					} else {
+						tempPlainDetails = tempPlainDetails.replace(SwingAuthorAssistServer.COMPONENT_LINE_NEWLINE,
+								"\n");
 					}
 
 					boolean tempHasShortPath = tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath);

@@ -1,6 +1,8 @@
 /**
  * 
  */
+// Experimental examples are not obliged to obey Checkstyle rules.
+// CHECKSTYLE:OFF
 package de.gebit.integrity.bindings.swing.experimentation.chat;
 
 import java.awt.BorderLayout;
@@ -268,7 +270,7 @@ public class Chat {
 		connectButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				connect();
 				updateButtons();
 			}
@@ -278,7 +280,7 @@ public class Chat {
 		disconnectButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				disconnect();
 				updateButtons();
 			}
@@ -287,7 +289,7 @@ public class Chat {
 		sendButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				String tempMessage = messageField.getText();
 
 				if (tempMessage.length() > 0) {
@@ -320,11 +322,11 @@ public class Chat {
 		});
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] someArgs) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exc) {
+			exc.printStackTrace();
 		}
 
 		new Chat();

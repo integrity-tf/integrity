@@ -35,40 +35,130 @@ import javax.swing.border.TitledBorder;
 
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 
+/**
+ * The Frame used to display the author assist tools. These tools provide useful functionality during test editing, such
+ * as identification of components in the running application. There's a fixture ({@link SwingAuthorAssistFixture}) to
+ * be called which displays this frame into the running application and pauses test execution. Test execution will
+ * continue when the frame is closed.
+ * 
+ * 
+ * @author Rene Schneider
+ * 
+ */
 public class SwingAuthorAssistFrame extends JFrame {
 
+	/**
+	 * Serial Version.
+	 */
+	private static final long serialVersionUID = -7962874425773425945L;
+
+	/**
+	 * The panel containing the identification tool components.
+	 */
 	protected JPanel identificationPanel;
+
+	/**
+	 * Turns identification mode on and off.
+	 */
 	protected JButton identificationToggleButton;
+
+	/**
+	 * Contains the text fields with the component paths.
+	 */
 	protected JPanel identificationPathPanel;
+
+	/**
+	 * Label for the full component path text field.
+	 */
 	protected JLabel identificationFullPathLabel;
+
+	/**
+	 * Text field containing the full component path.
+	 */
 	protected JTextField identificationFullPathField;
+
+	/**
+	 * Label for the short component path text field.
+	 */
 	protected JLabel identificationShortPathLabel;
+
+	/**
+	 * Text field containing the short component path.
+	 */
 	protected JTextField identificationShortPathField;
 
+	/**
+	 * Thread used to inject component mouse listeners into all components which are required for identification
+	 * purposes.
+	 */
 	protected ComponentInjectionThread identificationInjectionThread;
 
+	/**
+	 * Flag to store whether the event queue has been replaced with the {@link SwallowingEventQueue}.
+	 */
 	protected boolean eventQueueReplaced;
 
+	/**
+	 * Synchronization object used to provide the "wait for this window to close" functionality (see
+	 * {@link #waitForClose()}).
+	 */
 	private Object closeSync = new Object();
 
+	/**
+	 * Map holding all created identification mouse listeners.
+	 */
 	protected Map<Component, AuthorAssistComponentListener> mouseListenersCreated = new HashMap<Component, AuthorAssistComponentListener>();
 
+	/**
+	 * Flag whether the identification feature is currently in "frozen" selection mode.
+	 */
 	protected boolean identificationFrozen;
 
+	/**
+	 * The currently identified component.
+	 */
 	protected JComponent identifiedComponent;
+
+	/**
+	 * Whether the currently identified component was marked by manipulating its background.
+	 */
 	protected boolean identifiedComponentViaBackground;
+
+	/**
+	 * The old border of the currently identified component.
+	 */
 	protected Border identifiedComponentBorder;
+
+	/**
+	 * The old background of the currently identified component.
+	 */
 	protected Color identifiedComponentBackground;
 
+	/**
+	 * The component handler.
+	 */
 	protected AbstractSwingComponentHandler swingComponentHandler;
 
+	/**
+	 * The author assist server instance (the server provides an entrance for the Eclipse autocompletion into the
+	 * running software).
+	 */
 	protected SwingAuthorAssistServer autoCompleteServer;
 
+	/**
+	 * Creates a new instance. This auto-creates a new component handler instance to use as well.
+	 */
 	public SwingAuthorAssistFrame() {
 		this(new AbstractSwingComponentHandler() {
 		});
 	}
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aSwingComponentHandler
+	 *            the component handler to use
+	 */
 	public SwingAuthorAssistFrame(AbstractSwingComponentHandler aSwingComponentHandler) {
 		super("Integrity Swing Bindings - Author Assist Tools");
 
@@ -83,6 +173,11 @@ public class SwingAuthorAssistFrame extends JFrame {
 		add(createIdentificationPanel());
 	}
 
+	/**
+	 * Creates the identification panel.
+	 * 
+	 * @return the finished panel
+	 */
 	protected JPanel createIdentificationPanel() {
 		identificationPanel = new JPanel();
 		identificationPanel.setBorder(new TitledBorder("Component Identification"));
@@ -136,6 +231,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 		return identificationPanel;
 	}
 
+	/**
+	 * Atteaches the action to toggle the identification feature on and off to the appropriate button.
+	 */
 	protected void attachIdentificationToggleButtonAction() {
 		identificationToggleButton.addActionListener(new ActionListener() {
 
@@ -167,6 +265,10 @@ public class SwingAuthorAssistFrame extends JFrame {
 		super.setVisible(aBoolean);
 	}
 
+	/**
+	 * Starts the whole inner workings of the author assist frame, such as the autocomplete server and the override over
+	 * the standard event queue.
+	 */
 	protected void startUp() {
 		EventQueue tempEventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
 		if (!(tempEventQueue instanceof SwallowingEventQueue)) {
@@ -178,6 +280,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 		autoCompleteServer.startUp();
 	}
 
+	/**
+	 * Shuts down the frame. This must be called when the frame is being closed.
+	 */
 	protected void shutDown() {
 		if (autoCompleteServer != null) {
 			autoCompleteServer.shutDown();
@@ -192,6 +297,10 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Inject component mouse listeners (for identification) into all components in all windows, except the components
+	 * of the author assist window itself.
+	 */
 	protected void injectComponentListeners() {
 		for (Window tempWindow : Window.getWindows()) {
 			if (tempWindow != this) {
@@ -200,11 +309,12 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Removes the component mouse listeners from all components where listeners have been added.
+	 */
 	protected void cleanupComponentListeners() {
 		unfreezeIdentification();
-		if (identifiedComponent != null) {
-			clearIdentification(identifiedComponent);
-		}
+		clearIdentification();
 
 		for (Entry<Component, AuthorAssistComponentListener> tempEntry : mouseListenersCreated.entrySet()) {
 			tempEntry.getValue().remove();
@@ -212,6 +322,13 @@ public class SwingAuthorAssistFrame extends JFrame {
 		mouseListenersCreated.clear();
 	}
 
+	/**
+	 * Inject listeners in all components within the given container. This will recurse through the whole component
+	 * hierarchy.
+	 * 
+	 * @param aContainer
+	 *            the container
+	 */
 	protected void injectListeners(Container aContainer) {
 		for (final Component tempComponent : aContainer.getComponents()) {
 			if (!mouseListenersCreated.containsKey(tempComponent)) {
@@ -226,18 +343,28 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Blocks and waits for this frame to close.
+	 */
 	public void waitForClose() {
 		synchronized (closeSync) {
 			while (isVisible()) {
 				try {
 					closeSync.wait();
-				} catch (InterruptedException e) {
+				} catch (InterruptedException exc) {
 					// ignored
 				}
 			}
 		}
 	}
 
+	/**
+	 * Identify the provided component. This actually adds the red background or border to the component, and the paths
+	 * are calculated and displayed.
+	 * 
+	 * @param aComponent
+	 *            the component to identify
+	 */
 	protected void identifyComponent(JComponent aComponent) {
 		if (!identificationFrozen && identifiedComponent == null) {
 			identifiedComponent = aComponent;
@@ -263,19 +390,26 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
-	protected void clearIdentification(JComponent aComponent) {
+	/**
+	 * Clears the identification from the currently identified component.
+	 */
+	protected void clearIdentification() {
 		if (!identificationFrozen && identifiedComponent != null) {
-			identifiedComponent = null;
 			if (identifiedComponentViaBackground) {
-				aComponent.setBackground(identifiedComponentBackground);
+				identifiedComponent.setBackground(identifiedComponentBackground);
 				identifiedComponentBackground = null;
 			} else {
-				aComponent.setBorder(identifiedComponentBorder);
+				identifiedComponent.setBorder(identifiedComponentBorder);
 				identifiedComponentBorder = null;
 			}
+			identifiedComponent = null;
 		}
 	}
 
+	/**
+	 * Freezes the currently identified component in the "identification state". Even if the user moves the mouse
+	 * outside the bounds of the component, it will still be identified.
+	 */
 	protected void freezeIdentification() {
 		if (!identificationFrozen && identifiedComponent != null) {
 			identificationFrozen = true;
@@ -283,6 +417,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Unfreezes the currently identified component.
+	 */
 	protected void unfreezeIdentification() {
 		if (identificationFrozen && identifiedComponent != null) {
 			identificationFrozen = false;
@@ -290,6 +427,9 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Toggles the freeze mode on the currently identified component.
+	 */
 	protected void toggleFreezeIdentification() {
 		if (identificationFrozen) {
 			unfreezeIdentification();
@@ -298,31 +438,38 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * The window listener.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected class AuthorAssistWindowListener implements WindowListener {
 
 		@Override
 		public void windowOpened(WindowEvent anEvent) {
-
+			// ignored
 		}
 
 		@Override
 		public void windowIconified(WindowEvent anEvent) {
-
+			// ignored
 		}
 
 		@Override
 		public void windowDeiconified(WindowEvent anEvent) {
-
+			// ignored
 		}
 
 		@Override
 		public void windowDeactivated(WindowEvent anEvent) {
-
+			// ignored
 		}
 
 		@Override
 		public void windowClosing(WindowEvent anEvent) {
-
+			// ignored
 		}
 
 		@Override
@@ -332,22 +479,44 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 		@Override
 		public void windowActivated(WindowEvent anEvent) {
-
+			// ignored
 		}
 	}
 
+	/**
+	 * The component listener.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected class AuthorAssistComponentListener implements MouseListener {
 
+		/**
+		 * The component to which this listener was added.
+		 */
 		private Component component;
 
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aComponent
+		 *            the component to which this listener will be added
+		 */
 		public AuthorAssistComponentListener(Component aComponent) {
 			component = aComponent;
 		}
 
+		/**
+		 * Remove the listener from its component.
+		 */
 		public void remove() {
 			component.removeMouseListener(this);
 		}
 
+		/**
+		 * Adds the listener to its component.
+		 */
 		public void attach() {
 			component.addMouseListener(this);
 		}
@@ -364,42 +533,53 @@ public class SwingAuthorAssistFrame extends JFrame {
 
 		@Override
 		public void mouseExited(MouseEvent anEvent) {
-			restoreBorder();
+			clearIdentification();
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent anEvent) {
-			replaceBorder();
+			if (component instanceof JComponent) {
+				identifyComponent((JComponent) component);
+			}
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent anEvent) {
 			anEvent.consume();
 		}
-
-		protected void replaceBorder() {
-			if (component instanceof JComponent) {
-				identifyComponent((JComponent) component);
-			}
-		}
-
-		protected void restoreBorder() {
-			if (component instanceof JComponent) {
-				clearIdentification((JComponent) component);
-			}
-		}
 	}
 
+	/**
+	 * This thread is running all the time while identification mode is enabled. It makes sure that all visible
+	 * components get the listeners injected which perform background/border coloring and path resolving when hovering
+	 * over the component with the mouse.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected class ComponentInjectionThread extends Thread {
 
+		/**
+		 * The interval in milliseconds in which the thread tries to inject listeners into new components.
+		 */
 		protected static final int INJECTION_INTERVAL = 500;
 
+		/**
+		 * The kill switch to terminate the thread.
+		 */
 		private volatile boolean killSwitch;
 
+		/**
+		 * Creates a new instance.
+		 */
 		public ComponentInjectionThread() {
 			super("Author Assist Component Injection");
 		}
 
+		/**
+		 * Kills the thread gracefully.
+		 */
 		public void kill() {
 			killSwitch = true;
 			this.interrupt();
@@ -411,7 +591,7 @@ public class SwingAuthorAssistFrame extends JFrame {
 				injectComponentListeners();
 				try {
 					Thread.sleep(INJECTION_INTERVAL);
-				} catch (InterruptedException e) {
+				} catch (InterruptedException exc) {
 					// ignored
 				}
 			}
@@ -420,8 +600,20 @@ public class SwingAuthorAssistFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * A subclass of {@link EventQueue} which is able to swallow certain mouse click events. This mode is used when
+	 * identification mode is active, in order to "freeze" the current identification on click and prevent the
+	 * application from processing that click normally.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	protected static class SwallowingEventQueue extends EventQueue {
 
+		/**
+		 * The author assist frame.
+		 */
 		private SwingAuthorAssistFrame authorAssistFrame;
 
 		public void setAuthorAssistFrame(SwingAuthorAssistFrame aFrame) {

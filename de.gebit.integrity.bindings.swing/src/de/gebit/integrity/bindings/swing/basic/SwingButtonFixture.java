@@ -19,19 +19,36 @@ import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
- * 
+ * This fixture provides access to {@link JButton} components.
  * 
  * @author Rene Schneider
  * 
  */
 public class SwingButtonFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
+	/**
+	 * Clicks the button.
+	 * 
+	 * @param aComponentPath
+	 *            the path to the component
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
 	@FixtureMethod(description = "Click the button '$name$'")
 	public void clickButton(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {
 		clickButton(findComponentGuarded(aComponentPath, JButton.class, null));
 	}
 
+	/**
+	 * Answers the currently visible {@link JDialog} by clicking the given {@link DialogButton}.
+	 * 
+	 * @param aButton
+	 *            the button to click
+	 * @throws IntegritySwingBindingsException
+	 * @throws EventQueueTimeoutException
+	 */
 	@FixtureMethod(description = "Answer the dialog by clicking '$button$'")
 	public void answerDialog(@FixtureParameter(name = "button") DialogButton aButton)
 			throws IntegritySwingBindingsException, EventQueueTimeoutException {
@@ -58,6 +75,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 			default:
 				break;
 			}
+			break;
 		case JOptionPane.YES_NO_OPTION:
 			switch (aButton) {
 			case YES:
@@ -69,6 +87,7 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 			default:
 				break;
 			}
+			break;
 		case JOptionPane.OK_CANCEL_OPTION:
 			switch (aButton) {
 			case OK:
@@ -80,31 +99,70 @@ public class SwingButtonFixture extends AbstractSwingFixture implements CustomPr
 			default:
 				break;
 			}
+			break;
+		default:
+			break;
 		}
 
 		throw new IllegalArgumentException("The button '" + aButton + "' was not found in the active dialog.");
 	}
 
+	/**
+	 * The standard responses available in the various {@link JDialog} dialog box variants.
+	 * 
+	 * 
+	 * @author Rene Schneider
+	 * 
+	 */
 	public static enum DialogButton {
 
+		/**
+		 * The "yes" button.
+		 */
 		YES,
 
+		/**
+		 * The "no" button.
+		 */
 		NO,
 
+		/**
+		 * The "OK" button.
+		 */
 		OK,
 
+		/**
+		 * The "Cancel" button.
+		 */
 		CANCEL;
 
 	}
 
-	protected void clickButton(final JButton aButton) throws EventQueueTimeoutException {
-		runOnEventQueueAndWait(new Runnable() {
+	/**
+	 * Actually clicks the provided button on the AWT event queue and waits for the queue to process the event.
+	 * 
+	 * @param aButton
+	 *            the button
+	 * @throws EventQueueTimeoutException
+	 */
+	protected void clickButton(JButton aButton) throws EventQueueTimeoutException {
+		runOnEventQueueAndWait(createButtonClickRunnable(aButton));
+	}
+
+	/**
+	 * Creates the runnable to click the given button. The runnable is to be run on the Event Queue.
+	 * 
+	 * @param aButton
+	 * @return the runnable
+	 */
+	protected Runnable createButtonClickRunnable(final JButton aButton) {
+		return new Runnable() {
 
 			@Override
 			public void run() {
 				aButton.doClick();
 			}
-		});
+		};
 	}
 
 }

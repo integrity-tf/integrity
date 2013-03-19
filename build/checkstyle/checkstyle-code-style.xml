@@ -76,7 +76,6 @@
       <property name="severity" value="error"/>
       <property name="excludes" value="de.gebit.trend.model.annotations"/>
     </module>
-    <module name="IllegalImport"/>
     <module name="LineLength">
       <property name="severity" value="ignore"/>
       <property name="max" value="120"/>

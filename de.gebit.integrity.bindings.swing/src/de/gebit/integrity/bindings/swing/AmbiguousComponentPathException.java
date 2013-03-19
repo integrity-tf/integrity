@@ -8,7 +8,8 @@ import java.awt.Window;
 import java.util.List;
 
 /**
- * 
+ * Thrown if there are multiple components matching a given path. This exception contains very detailed, human-readable
+ * information intended to help identifying the multiple matches.
  * 
  * @author Rene Schneider
  * 
@@ -20,8 +21,21 @@ public class AmbiguousComponentPathException extends AbstractSwingComponentPathE
 	 */
 	private static final long serialVersionUID = 4448538076639107014L;
 
+	/**
+	 * The components which were found.
+	 */
 	private List<Component> components;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aPath
+	 *            the path which was matched
+	 * @param someComponents
+	 *            all components found
+	 * @param aComponentHandler
+	 *            the component handler
+	 */
 	public AmbiguousComponentPathException(String aPath, List<Component> someComponents,
 			AbstractSwingComponentHandler aComponentHandler) {
 		super(aPath, aComponentHandler, "Component path '" + aPath + "' is ambiguous (" + someComponents.size()

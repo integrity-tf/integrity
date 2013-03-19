@@ -52,20 +52,29 @@ public class JavaApplicationLaunchFixture {
 	 * @return an application wrapper instance which can optionally be saved to handle multiple applications
 	 * @throws Throwable
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FixtureMethod(description = "Launch Java Application: $mainClass$")
 	public ApplicationWrapper launch(@FixtureParameter(name = "mainClass") String aMainClassName,
 			@FixtureParameter(name = "arguments") String[] someArguments) throws Throwable {
 		return launchInternal(aMainClassName, someArguments);
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Launches the provided main class by calling its main method with the provided arguments.
+	 * 
+	 * @param aMainClassName
+	 *            the main class name
+	 * @param someArguments
+	 *            the arguments
+	 * @return the launched application, contained in an {@link ApplicationWrapper} instance
+	 * @throws Throwable
+	 *             if something goes wrong
+	 */
 	protected ApplicationWrapper launchInternal(String aMainClassName, String[] someArguments) throws Throwable {
 		if (aMainClassName == null) {
 			throw new IllegalArgumentException("A class name has to be provided.");
 		}
 
-		Class tempMainClass = classLoader.loadClass(aMainClassName);
+		Class<?> tempMainClass = classLoader.loadClass(aMainClassName);
 		Method tempMainMethod = tempMainClass.getMethod("main", new Class[] { String[].class });
 
 		String[] tempArguments = someArguments != null ? someArguments : new String[0];
@@ -88,6 +97,13 @@ public class JavaApplicationLaunchFixture {
 		return isAliveInternal(aWrapper);
 	}
 
+	/**
+	 * Performs a liveliness check on the given application (or the last started one if none is provided).
+	 * 
+	 * @param aWrapper
+	 *            the application to check
+	 * @return true if alive, false if not
+	 */
 	protected boolean isAliveInternal(ApplicationWrapper aWrapper) {
 		ApplicationWrapper tempWrapper = aWrapper != null ? aWrapper : lastApplication;
 
@@ -98,13 +114,27 @@ public class JavaApplicationLaunchFixture {
 		return tempWrapper.isAlive();
 	}
 
-	@SuppressWarnings("deprecation")
-	// Deprecation is known, but there's no other way in this case...
+	/**
+	 * Kills the provided application (or the last started one, if none is explicitly provided).
+	 * 
+	 * @param aWrapper
+	 *            the application to kill
+	 * @return true if killing was successful, false otherwise
+	 */
 	@FixtureMethod(description = "Kills the application")
 	public boolean kill(@FixtureParameter(name = "application") ApplicationWrapper aWrapper) {
 		return killInternal(aWrapper);
 	}
 
+	/**
+	 * Actually kills the provided application (or the last started one, if none is explicitly provided).
+	 * 
+	 * @param aWrapper
+	 *            the application to kill
+	 * @return true if killing was successful, false otherwise
+	 */
+	// Deprecation is known, but there's no other way in this case...
+	@SuppressWarnings("deprecation")
 	protected boolean killInternal(ApplicationWrapper aWrapper) {
 		ApplicationWrapper tempWrapper = aWrapper != null ? aWrapper : lastApplication;
 
@@ -128,6 +158,19 @@ public class JavaApplicationLaunchFixture {
 		return !tempWrapper.isAlive();
 	}
 
+	/**
+	 * Here the main method in the given class is actually launched and the wrapper is created.
+	 * 
+	 * @param aMainClass
+	 *            the main class of the application
+	 * @param aMainMethod
+	 *            the main method
+	 * @param someArguments
+	 *            arguments to be provided to the call
+	 * @return the resulting application wrapper
+	 * @throws Throwable
+	 *             if the shit hits the fan
+	 */
 	protected ApplicationWrapper launchMain(Class<?> aMainClass, Method aMainMethod, String[] someArguments)
 			throws Throwable {
 		ApplicationWrapper tempWrapper = new ApplicationWrapper(aMainClass, aMainMethod, someArguments);
@@ -147,6 +190,14 @@ public class JavaApplicationLaunchFixture {
 		return tempWrapper;
 	}
 
+	/**
+	 * Checks whether a provided application wrapper is considered alive.
+	 * 
+	 * @param aWrapper
+	 *            the wrapped application to check
+	 * @return true if it is alive, false otherwise
+	 * @throws Throwable
+	 */
 	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
 		if (!aWrapper.isAlive()) {
 			Throwable tempException = aWrapper.getException();
@@ -169,12 +220,24 @@ public class JavaApplicationLaunchFixture {
 	 */
 	public class ApplicationWrapper extends Thread {
 
-		private Class mainClass;
+		/**
+		 * The main class of the application.
+		 */
+		private Class<?> mainClass;
 
+		/**
+		 * The main method.
+		 */
 		private Method mainMethod;
 
+		/**
+		 * The arguments provided to the main method call.
+		 */
 		private String[] arguments;
 
+		/**
+		 * Any exception which has been thrown.
+		 */
 		private Throwable exception;
 
 		/**

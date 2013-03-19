@@ -9,3 +9,4 @@ Import-Package: de.gebit.integrity.bindings.swing,
  de.gebit.integrity.bindings.swing.basic,
  de.gebit.integrity.bindings.swing.launch,
  de.gebit.integrity.fixtures
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

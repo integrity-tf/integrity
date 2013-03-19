@@ -14,13 +14,24 @@ import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
 /**
- * 
+ * This fixture deals with {@link JLabel} instances.
  * 
  * @author Rene Schneider
  * 
  */
 public class SwingLabelFixture extends AbstractSwingFixture implements CustomProposalFixture {
 
+	/**
+	 * Returns the text on the provided label. Can be used either as a test or a call fixture, in order to either
+	 * compare the text with a given expected text or return the current text for storage in a variable.
+	 * 
+	 * @param aComponentPath
+	 *            the component path
+	 * @return the text currently in the component
+	 * @throws AmbiguousComponentPathException
+	 * @throws EventQueueTimeoutException
+	 * @throws InvalidComponentPathException
+	 */
 	@FixtureMethod(descriptionCall = "Get the text displayed on label '$name$'", descriptionTest = "Check the text displayed on label '$name$'")
 	public String getLabelText(@FixtureParameter(name = COMPONENT_PATH_PARAMETER_NAME) String aComponentPath)
 			throws AmbiguousComponentPathException, EventQueueTimeoutException, InvalidComponentPathException {

@@ -1,6 +1,8 @@
 /**
  * 
  */
+// Experimental examples are not obliged to obey Checkstyle rules.
+// CHECKSTYLE:OFF
 package de.gebit.integrity.bindings.swing.experimentation.calculator;
 
 import java.awt.BorderLayout;
@@ -25,11 +27,12 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * 
+ * A demo program which implements a simple calculator application.
  * 
  * @author Rene Schneider
  * 
  */
+
 public class Calculator {
 
 	private static final char OP_ADDITION = '+';
@@ -282,7 +285,7 @@ public class Calculator {
 		additionButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				evaluate();
 				inputBuffer.append(OP_ADDITION);
 				updateDisplay();
@@ -291,7 +294,7 @@ public class Calculator {
 		subtractionButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				evaluate();
 				inputBuffer.append(OP_SUBTRACTION);
 				updateDisplay();
@@ -300,7 +303,7 @@ public class Calculator {
 		multiplicationButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				evaluate();
 				inputBuffer.append(OP_MULTIPLICATION);
 				updateDisplay();
@@ -309,7 +312,7 @@ public class Calculator {
 		divisionButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				evaluate();
 				inputBuffer.append(OP_DIVISION);
 				updateDisplay();
@@ -319,7 +322,7 @@ public class Calculator {
 		clearButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				if (JOptionPane.showConfirmDialog(null, "Really clear the current result?", "Calculator",
 						JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
 					clear();
@@ -329,24 +332,33 @@ public class Calculator {
 		evaluateButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent anEvent) {
 				evaluate();
 			}
 		});
 	}
 
-	private void updateDisplay() {
+	/**
+	 * Updates the labels with the current buffer contents.
+	 */
+	protected void updateDisplay() {
 		inputLabel.setText(inputBuffer.toString());
 		resultLabel.setText(result.toString());
 	}
 
-	private void clear() {
+	/**
+	 * Clears the memory and display.
+	 */
+	protected void clear() {
 		inputBuffer = new StringBuilder();
 		result = BigDecimal.ZERO;
 		updateDisplay();
 	}
 
-	private void evaluate() {
+	/**
+	 * Evaluates.
+	 */
+	protected void evaluate() {
 		String tempInput = inputBuffer.toString();
 		inputBuffer = new StringBuilder();
 		if (tempInput.length() >= 1) {
@@ -374,13 +386,15 @@ public class Calculator {
 	}
 
 	/**
+	 * Main method.
+	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] someArgs) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exc) {
+			exc.printStackTrace();
 		}
 
 		new Calculator();

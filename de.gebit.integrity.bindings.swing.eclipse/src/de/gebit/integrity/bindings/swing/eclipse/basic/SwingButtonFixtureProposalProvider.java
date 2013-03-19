@@ -11,7 +11,7 @@ import de.gebit.integrity.bindings.swing.basic.SwingButtonFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 
 /**
- * 
+ * Proposal provider class for the {@link SwingButtonFixture}.
  * 
  * @author Slartibartfast
  * 

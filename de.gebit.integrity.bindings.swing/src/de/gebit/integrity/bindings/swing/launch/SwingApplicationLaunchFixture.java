@@ -13,27 +13,36 @@ import javax.swing.JFrame;
 import de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture;
 
 /**
- * Swing applications are a bit...special. I need a special launching fixture
- * for those...
+ * Swing applications are a bit...special. I need a special launching fixture for those...
  * 
  * @author Rene Schneider
  * 
  */
 public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture {
 
+	/**
+	 * The default timeout to wait for the applications' frame to appear.
+	 */
 	private static final long DEFAULT_FRAME_TIMEOUT = 30000;
 
+	/**
+	 * The default number of frames to wait for until the application is considered "alive".
+	 */
 	private static final int DEFAULT_FRAME_COUNT = 1;
 
+	/**
+	 * Synchronization object used to wait for the app to start.
+	 */
 	private final Object startupSync = new Object();
 
+	/**
+	 * Whether the application is considered "started".
+	 */
 	private boolean startupSuccessful;
 
 	@Override
-	protected boolean checkWrapper(ApplicationWrapper aWrapper)
-			throws Throwable {
-		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(),
-				getFrameCount());
+	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
+		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(), getFrameCount());
 
 		synchronized (startupSync) {
 			tempWaiter.start();
@@ -67,8 +76,7 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 		// writing all results.
 		for (Window tempWindow : Window.getWindows()) {
 			if (tempWindow instanceof JFrame) {
-				((JFrame) tempWindow)
-						.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				((JFrame) tempWindow).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 			tempWindow.dispose();
 		}
@@ -85,7 +93,7 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	}
 
 	/**
-	 * 
+	 * Waits for the applications' frame(s) to come up after launch.
 	 * 
 	 * 
 	 * @author Rene Schneider
@@ -93,12 +101,18 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	 */
 	protected class FrameWaiter extends Thread {
 
+		/**
+		 * The nanoseconds to wait for.
+		 */
 		private long timeoutNanos;
 
+		/**
+		 * The number of frames to wait for.
+		 */
 		private int numberOfFrames;
 
 		/**
-		 * 
+		 * Creates an instance.
 		 */
 		public FrameWaiter(long aTimeout, int aNumberOfFrames) {
 			timeoutNanos = aTimeout * 1000000L;
@@ -130,6 +144,11 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 			}
 		}
 
+		/**
+		 * Checks whether enough frames have become visible.
+		 * 
+		 * @return true or false
+		 */
 		protected boolean areFramesVisible() {
 			int tempVisibleCount = 0;
 
@@ -142,6 +161,11 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 			return (tempVisibleCount >= numberOfFrames);
 		}
 
+		/**
+		 * Checks whether the AWT event thread is reacting and processing messages.
+		 * 
+		 * @return true if it is processing messages, false if not.
+		 */
 		protected boolean isEventThreadReactive() {
 			try {
 				EventQueue.invokeAndWait(new Runnable() {
