@@ -4,14 +4,14 @@
   <parent>
     <artifactId>integrity</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.8.0-SNAPSHOT</version>
+    <version>0.9.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   
-  <groupId>de.gebit.integrity.bindings</groupId>
-  <artifactId>de.gebit.integrity.bindings.swing</artifactId>
+  <groupId>de.gebit.integrity.bindings.swing</groupId>
+  <artifactId>de.gebit.integrity.bindings.swing.fixtures</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <name>Integrity Test Framework - Swing Bindings</name>
+  <name>Integrity Test Framework - Swing Bindings (Fixtures)</name>
   
   
   <!-- We're building a fat jar including the sources right now for simplicity -->

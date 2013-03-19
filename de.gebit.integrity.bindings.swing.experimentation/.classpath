@@ -5,7 +5,7 @@
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.dsl/target/classes"/>
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.remoting/target/classes"/>
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.runner/target/classes"/>	
-	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.bindings.swing/target/classes"/>
+	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.bindings.swing.fixtures/target/classes"/>
 	<classpathentry kind="lib" path="/de.gebit.integrity.dsl.runner.experimentation/lib/com.google.guava-10.0.1.1.jar"/>
 	<classpathentry kind="lib" path="/de.gebit.integrity.dsl.runner.experimentation/lib/com.google.inject-3.0.0.no_aop.jar"/>
 	<classpathentry kind="lib" path="/de.gebit.integrity.dsl.runner.experimentation/lib/com.ibm.icu-4.4.2.v20110208.jar"/>

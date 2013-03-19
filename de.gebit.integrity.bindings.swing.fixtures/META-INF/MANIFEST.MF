@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Swing Bindings
-Bundle-SymbolicName: de.gebit.integrity.bindings.swing
-Bundle-Version: 0.8.0.qualifier
+Bundle-SymbolicName: de.gebit.integrity.bindings.swing.fixtures
+Bundle-Version: 0.9.0.qualifier
 Export-Package: de.gebit.integrity.bindings.swing,
  de.gebit.integrity.bindings.swing.authorassist,
  de.gebit.integrity.bindings.swing.basic,

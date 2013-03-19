@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>integrity-parent</artifactId>
+    <groupId>de.gebit.integrity</groupId>
+    <version>0.9.0-SNAPSHOT</version>
+    <relativePath>parent.pom.xml</relativePath>
+  </parent>
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
@@ -9,26 +16,7 @@
   <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   
   <packaging>pom</packaging>
-  
-  <scm>
-  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
-  </scm>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>0.16.0</tycho-version>
     
-    <isRelease>false</isRelease>
-    <validateManifestVersions>true</validateManifestVersions>
-    
-    <!-- Do not forget to specify the used nexus url in the settings.xml -->
-  	<gebit.nexus.host>http://gebit-cvs</gebit.nexus.host>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.releases>releases</gebit.nexus.releases>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.snapshots>snapshots</gebit.nexus.snapshots>
-  </properties>
-  
   <modules>
   	<module>targetplatform</module>
     <module>de.gebit.integrity.dsl</module>
@@ -44,141 +32,5 @@
     <module>de.gebit.integrity.jenkins</module>
   </modules>
   
-  <build>
-    <plugins>
-      
-		  <plugin>
-		    <groupId>org.eclipse.tycho</groupId>
-		    <artifactId>tycho-maven-plugin</artifactId>
-		    <extensions>true</extensions>
-		    <version>${tycho-version}</version>
-		  </plugin>
-		  
-		  <plugin>
-		    <groupId>org.eclipse.tycho</groupId>
-		    <artifactId>target-platform-configuration</artifactId>
-		    <version>${tycho-version}</version>
-			<configuration>
-			  <resolver>p2</resolver>
-			  <target>
-			    <artifact>
-			      <groupId>de.gebit.integrity</groupId>
-			      <artifactId>integrity-target</artifactId>
-			      <version>${project.version}</version>
-			      <classifier>juno</classifier>
-			    </artifact>
-			  </target>
-			  <ignoreTychoRepositories>true</ignoreTychoRepositories>
-			  <environments>
-			  	<environment>
-					<os>win32</os>
-					<ws>win32</ws>
-					<arch>x86_64</arch>
-				</environment>
-			  </environments>
-			</configuration>
-		  </plugin>
-		  
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-checkstyle-plugin</artifactId>
-	        <version>2.9.1</version>
-	        <configuration>
-	          <configLocation>${basedir}/../build/checkstyle/checkstyle-code-style.xml</configLocation>
-	          <sourceDirectory>${basedir}/src</sourceDirectory>
-	       	  <headerLocation>${basedir}/../build/checkstyle/license.txt</headerLocation>
-	       	  <propertyExpansion>samedir=${basedir}/../build/checkstyle/</propertyExpansion>
-	        </configuration>
-<!-- 	        <executions> -->
-<!-- 				<execution> -->
-<!-- 				  <id>default-checkstyle</id> -->
-<!-- 				  <phase>test</phase> -->
-<!-- 				  <goals> -->
-<!-- 				    <goal>checkstyle</goal> -->
-<!-- 				  </goals> -->
-<!-- 				</execution> -->
-<!-- 	          </executions> -->
-	      </plugin>
-	      
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-javadoc-plugin</artifactId>
-	        <version>2.8</version>
-	      </plugin>
-	      
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-deploy-plugin</artifactId>
-	        <version>2.7</version>
-	        <configuration>
-	      	  <updateReleaseInfo>${isRelease}</updateReleaseInfo>
-	        </configuration>
-	      </plugin>
-	      
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-source-plugin</artifactId>
-	        <version>2.1.2</version>
-	      </plugin>
-	      
-	      <plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-packaging-plugin</artifactId>
-			<version>${tycho-version}</version>
-			<configuration>
-				<strictVersions>${validateManifestVersions}</strictVersions>
-			</configuration>
-		  </plugin>
-		  
-		 <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-resources-plugin</artifactId>
-			<version>2.5</version>
-			<configuration>
-			  <encoding>${project.build.sourceEncoding}</encoding>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.3.2</version>
-			<configuration>
-			  <source>1.6</source>
-			  <target>1.6</target>
-			  <encoding>ISO-8859-1</encoding>
-			</configuration>
-		</plugin>
-		
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-release-plugin</artifactId>
-			<version>2.2.2</version>
-			<configuration>
-				<autoVersionSubmodules>true</autoVersionSubmodules>
-				<pushChanges>true</pushChanges>
-				<localCheckout>false</localCheckout>
-			</configuration>
-		</plugin>
-		<plugin>
-	    	<groupId>org.codehaus.mojo</groupId>
-	      	<artifactId>sonar-maven-plugin</artifactId>
-	        <version>2.0</version>
-	  	</plugin>
-		    	
-    </plugins>
-  </build>
-  
-  <distributionManagement>
-  	<repository>
-  		<id>${gebit.nexus.releases}</id>
-  		<name>Internal Releases</name>
-  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.releases}</url>
-  	</repository>
-  	<snapshotRepository>
-  		<id>${gebit.nexus.snapshots}</id>
-  		<name>Internal Snapshots</name>
-  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.snapshots}</url>
-  	</snapshotRepository>
-  </distributionManagement>
   
 </project>
