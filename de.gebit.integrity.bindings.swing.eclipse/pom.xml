@@ -11,7 +11,7 @@
   <groupId>de.gebit.integrity.bindings.swing</groupId>
   <artifactId>de.gebit.integrity.bindings.swing.eclipse</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <name>Integrity Test Framework - Swing Bindings (Eclipse Assist)</name>
+  <name>Integrity Swing Bindings - Eclipse Assist</name>
   
   
   <!-- We're building a fat jar including the sources right now for simplicity -->

@@ -12,7 +12,7 @@
   <groupId>de.gebit.integrity.bindings.swing</groupId>
   <artifactId>swing-bindings</artifactId>
   <version>0.9.0-SNAPSHOT</version>
-  <name>Integrity Swing Bindings Build</name>
+  <name>Integrity Swing Bindings</name>
   <description>The Integrity Swing Bindings allow Swing applications to be tested with the Integrity Test Framework.</description>
   
   <packaging>pom</packaging>
