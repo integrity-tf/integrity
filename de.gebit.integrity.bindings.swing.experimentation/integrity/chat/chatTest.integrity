@@ -1,0 +1,64 @@
+import launch.*
+import basic.*
+
+packagedef swing.chat with
+
+	// The master process will be the "Client A" 
+	forkdef clientB "Client B"
+
+	suitedef main with
+		
+		suite launchChatAppAndConnect roleButton: "roleAChoice"
+		suite launchChatAppAndConnect roleButton: "roleBChoice" on clientB
+		
+		suite sendMessageFromAToB message: "Foo!"
+		
+		suite sendMessageFromBToA message: "Foo!"
+		
+		suite sendMessageFromAToB message: "Bar!"
+		
+		suite sendMessageFromBToA message: "Foobar!"
+		
+		//call tools.authorAssist
+				
+		suite killChatApp
+		suite killChatApp on clientB
+	
+	suiteend
+			
+	
+	suitedef launchChatAppAndConnect gets roleButton with
+		suite launchChatApp
+		call checkRadioButton name: roleButton
+		call clickButton name: "connectButton"
+	suiteend
+	
+	suitedef launchChatApp with
+		call launchApp mainClass: "de.gebit.integrity.bindings.swing.experimentation.chat.Chat"
+		test isAppAlive
+	suiteend
+ 	
+	suitedef killChatApp with
+		test killApp
+	suiteend
+
+	suitedef sendMessageFromAToB gets message with
+		suite sendMessage message: message
+		suite checkMessageReceived on clientB
+	suiteend
+	
+	suitedef sendMessageFromBToA gets message with
+		suite sendMessage message: message on clientB
+		suite checkMessageReceived
+	suiteend
+	
+	suitedef sendMessage gets message with
+		call setTextFieldContent name: "messageField" text: message
+		call clickButton name: "sendButton"
+	suiteend
+	
+	suitedef checkMessageReceived gets message with
+		// todo make this testable
+	suiteend
+
+packageend

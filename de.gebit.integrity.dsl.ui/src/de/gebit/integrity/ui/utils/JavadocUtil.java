@@ -47,17 +47,22 @@ public final class JavadocUtil {
 
 	private static MethodDeclaration getMethodDeclaration(JvmOperation aMethod, IJavaElementFinder anElementFinder) {
 		IJavaElement tempSourceMethod = (IJavaElement) anElementFinder.findElementFor(aMethod);
-		ICompilationUnit tempCompilationUnit = (ICompilationUnit) tempSourceMethod.getParent().getParent();
 
-		AbstractTypeDeclaration tempType = parseCompilationUnit(tempCompilationUnit);
+		// That parent may also be an instance of org.eclipse.jdt.internal.core.ClassFile - in that case there's
+		// no Javadoc anyway
+		if (tempSourceMethod.getParent().getParent() instanceof ICompilationUnit) {
+			ICompilationUnit tempCompilationUnit = (ICompilationUnit) tempSourceMethod.getParent().getParent();
 
-		if (tempType instanceof TypeDeclaration) {
-			for (MethodDeclaration tempMethod : ((TypeDeclaration) tempType).getMethods()) {
-				// We only check the plain method name and omit the full
-				// signature check here because fixture method names are
-				// required to be unique per class
-				if (aMethod.getSimpleName().equals(tempMethod.getName().getFullyQualifiedName())) {
-					return tempMethod;
+			AbstractTypeDeclaration tempType = parseCompilationUnit(tempCompilationUnit);
+
+			if (tempType instanceof TypeDeclaration) {
+				for (MethodDeclaration tempMethod : ((TypeDeclaration) tempType).getMethods()) {
+					// We only check the plain method name and omit the full
+					// signature check here because fixture method names are
+					// required to be unique per class
+					if (aMethod.getSimpleName().equals(tempMethod.getName().getFullyQualifiedName())) {
+						return tempMethod;
+					}
 				}
 			}
 		}

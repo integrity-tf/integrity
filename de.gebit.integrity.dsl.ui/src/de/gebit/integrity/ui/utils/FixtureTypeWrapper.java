@@ -128,7 +128,15 @@ public class FixtureTypeWrapper {
 			if (tempParamTypeName.getRawType().startsWith(Map.class.getName())) {
 				// ignore the arbitrary parameter parameter
 			} else {
-				IAnnotation tempAnnotation = tempParam.getAnnotation(FixtureParameter.class.getSimpleName());
+				IAnnotation tempAnnotation = null;
+				for (IAnnotation tempAnnotationCandidate : tempParam.getAnnotations()) {
+					String tempCandidateName = tempAnnotationCandidate.getElementName();
+					if (FixtureParameter.class.getName().equals(tempCandidateName)
+							|| FixtureParameter.class.getSimpleName().equals(tempCandidateName)) {
+						tempAnnotation = tempAnnotationCandidate;
+						break;
+					}
+				}
 
 				if (tempAnnotation != null) {
 					String tempName = null;
@@ -416,22 +424,39 @@ public class FixtureTypeWrapper {
 						try {
 							IMemberValuePair[] tempPairs = tempAnnotation.getMemberValuePairs();
 							if (tempPairs.length == 1) {
-								String tempLinkedClassName = (String) tempPairs[0].getValue();
-								if (aFullyQualifiedName.equals(tempLinkedClassName)) {
-									// this is a match
-									searchResult = tempType;
+								String[] tempLinkedClassNames;
+								if (tempPairs[0].getValue().getClass().isArray()) {
+									Object[] tempObjects = (Object[]) tempPairs[0].getValue();
+									tempLinkedClassNames = new String[tempObjects.length];
+									for (int i = 0; i < tempObjects.length; i++) {
+										tempLinkedClassNames[i] = (String) tempObjects[i];
+									}
 								} else {
-									// no match, but that could be because the linked class name is not fully qualified
-									if (aFullyQualifiedName.endsWith(tempLinkedClassName)) {
-										// okay, we have to check that
-										String[][] tempPossibleMatches = tempType.resolveType(tempLinkedClassName);
-										for (String[] tempMatch : tempPossibleMatches) {
-											// we can ignore the default package here as that case would have already
-											// matched before
-											String tempFullMatch = tempMatch[0] + "." + tempMatch[1];
-											if (aFullyQualifiedName.equals(tempFullMatch)) {
-												// yeah, a match
-												searchResult = tempType;
+									tempLinkedClassNames = new String[1];
+									tempLinkedClassNames[0] = (String) tempPairs[0].getValue();
+								}
+
+								outer: for (String tempLinkedClassName : tempLinkedClassNames) {
+									if (aFullyQualifiedName.equals(tempLinkedClassName)) {
+										// this is a match
+										searchResult = tempType;
+										break outer;
+									} else {
+										// no match, but that could be because the linked class name is not fully
+										// qualified
+										if (aFullyQualifiedName.endsWith(tempLinkedClassName)) {
+											// okay, we have to check that
+											String[][] tempPossibleMatches = tempType.resolveType(tempLinkedClassName);
+											for (String[] tempMatch : tempPossibleMatches) {
+												// we can ignore the default package here as that case would have
+												// already
+												// matched before
+												String tempFullMatch = tempMatch[0] + "." + tempMatch[1];
+												if (aFullyQualifiedName.equals(tempFullMatch)) {
+													// yeah, a match
+													searchResult = tempType;
+													break outer;
+												}
 											}
 										}
 									}

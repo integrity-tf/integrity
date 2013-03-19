@@ -55,10 +55,30 @@ public @interface FixtureMethod {
 	 * mechanisms used by Integrity to create human-readable test results.<br>
 	 * <br>
 	 * You may use placeholder values in the description string enclosed in dollar signs, like this: $parameter$. These
-	 * will be replaced by the matching parameter values at runtime.
+	 * will be replaced by the matching parameter values at runtime.<br>
+	 * <br>
+	 * For fixture methods which are suitable in both 'call' and 'test' scenarios, you can define separate description
+	 * texts via {@link #descriptionCall()} and {@link #descriptionTest()}. If such a specific text is defined, it does
+	 * automatically override this generic description text.
 	 * 
 	 * @return
 	 */
 	String description() default "";
+
+	/**
+	 * The description for the method, to be used if the method is included via 'testdef'.
+	 * 
+	 * @see #description()
+	 * @return
+	 */
+	String descriptionTest() default "";
+
+	/**
+	 * The description for the method, to be used if the method is included via 'calldef'.
+	 * 
+	 * @see #description()
+	 * @return
+	 */
+	String descriptionCall() default "";
 
 }

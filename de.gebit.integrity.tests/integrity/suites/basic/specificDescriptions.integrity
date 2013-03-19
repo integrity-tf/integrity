@@ -1,0 +1,19 @@
+packagedef integrity.basic with
+
+	suitedef specificDescriptions with
+		
+		call integrity.fixtures.basic.noop.specificDescriptionTest_call
+		test integrity.fixtures.basic.noop.specificDescriptionTest_test
+		
+		call integrity.fixtures.basic.noop.specificDescriptionCall_call
+		test integrity.fixtures.basic.noop.specificDescriptionCall_test
+		
+		call integrity.fixtures.basic.noop.specificDescriptionBoth_call
+		test integrity.fixtures.basic.noop.specificDescriptionBoth_test
+	
+	suiteend
+	
+	
+
+
+packageend

@@ -25,6 +25,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -171,7 +172,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TEST);
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTest.getDefinition().getFixtureMethod(),
-				aTest.getParameters(), tempNewEntry);
+				aTest.getParameters(), tempNewEntry, aTest);
 
 		addLinkToEntry(tempNewEntry, aTest);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
@@ -185,7 +186,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TABLETEST);
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTableTest.getDefinition().getFixtureMethod(),
-				aTableTest.getParameters(), tempNewEntry);
+				aTableTest.getParameters(), tempNewEntry, aTableTest);
 
 		addLinkToEntry(tempNewEntry, aTableTest);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
@@ -239,7 +240,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				exc.printStackTrace();
 			}
 
-			tempNewEntries.addAll(onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(),
+			tempNewEntries.addAll(onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest,
 					tempTestEntry, tempSubResult, tempParameterMap));
 			tempCount++;
 		}
@@ -264,7 +265,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			exc.printStackTrace();
 		}
 
-		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(),
+		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest,
 				tempTestEntry, aResult.getSubResults().get(0), tempParameterMap);
 		tempNewEntries.add(tempTestEntry);
 
@@ -277,6 +278,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aMethod
 	 *            the fixture method
+	 * @param aStatement
+	 *            the statement currently being executed
 	 * @param aTestEntry
 	 *            the setlist entry for the test
 	 * @param aSubResult
@@ -285,8 +288,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 *            the parameters given to the test method
 	 * @return a list of newly generated setlist entries
 	 */
-	protected List<SetListEntry> onAnyKindOfSubTestFinish(MethodReference aMethod, SetListEntry aTestEntry,
-			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
+	protected List<SetListEntry> onAnyKindOfSubTestFinish(MethodReference aMethod, SuiteStatementWithResult aStatement,
+			SetListEntry aTestEntry, TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.RESULT);
 		tempNewEntries.add(tempNewEntry);
@@ -309,7 +312,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		try {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
-					.fixtureMethodToHumanReadableString(aMethod, aParameterMap,
+					.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap,
 							determineUnresolvableVariableHandlingPolicy()));
 		} catch (ClassNotFoundException exc) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
@@ -370,7 +373,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.CALL);
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aCall.getDefinition().getFixtureMethod(),
-				aCall.getParameters(), tempNewEntry);
+				aCall.getParameters(), tempNewEntry, aCall);
 
 		addLinkToEntry(tempNewEntry, aCall);
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
@@ -534,14 +537,16 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 *            the parameters
 	 * @param anEntry
 	 *            the entry to add the information to
+	 * @param aStatement
+	 *            the statement currently in execution
 	 * @return the setlist entries created for the parameters
 	 */
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
-			SetListEntry anEntry) {
+			SetListEntry anEntry, SuiteStatementWithResult aStatement) {
 		try {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
-					.fixtureMethodToHumanReadableString(aMethod, parameterResolver.createParameterMap(aParamList, true,
-							determineUnresolvableVariableHandlingPolicy()),
+					.fixtureMethodToHumanReadableString(aMethod, aStatement, parameterResolver.createParameterMap(
+							aParamList, true, determineUnresolvableVariableHandlingPolicy()),
 							determineUnresolvableVariableHandlingPolicy()));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());

@@ -59,6 +59,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -827,7 +828,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			exc.printStackTrace();
 		}
 
-		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), tempResultCollectionElement, aResult
+		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest, tempResultCollectionElement, aResult
 				.getSubResults().get(0), tempParameterMap);
 
 		if (!isDryRun()) {
@@ -888,8 +889,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				exc.printStackTrace();
 			}
 
-			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), stackPeek(), aSubResult,
-					tempParameterMap);
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest, stackPeek(),
+					aSubResult, tempParameterMap);
 		}
 	}
 
@@ -941,6 +942,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aMethod
 	 *            the method executed
+	 * @param aStatement
+	 *            the statement currently being executed
 	 * @param aResultCollectionElement
 	 *            the result element
 	 * @param aSubResult
@@ -948,8 +951,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param aParameterMap
 	 *            the parameters
 	 */
-	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, Element aResultCollectionElement,
-			TestSubResult aSubResult, Map<String, Object> aParameterMap) {
+	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, SuiteStatementWithResult aStatement,
+			Element aResultCollectionElement, TestSubResult aSubResult, Map<String, Object> aParameterMap) {
 		Element tempTestResultElement = new Element(RESULT_ELEMENT);
 
 		if (aSubResult.getExecutionTime() != null) {
@@ -969,7 +972,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		try {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter
-					.fixtureMethodToHumanReadableString(aMethod, aParameterMap,
+					.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap,
 							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
