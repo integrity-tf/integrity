@@ -70,16 +70,19 @@ public interface CustomProposalProvider {
 		private String displayValue;
 
 		/**
-		 * The longer description / help text which will appear in the content assist window. This is entirely optional.
+		 * The optional longer description / help text which will appear in the content assist window. This text will be
+		 * displayed in a full-fledged browser window, if possible, so it can be basically an HTML snippet. If this text
+		 * is provided and the plain text is available as well, the HTML text will be preferred, except if it's not
+		 * possible to display a browser window for content assist.
 		 */
-		private String description;
+		private String htmlDescription;
 
 		/**
-		 * Whether a full-fledged browser shall be used to display the description (if possible). In that case, you can
-		 * use pretty much all the possibilities of HTML to style your description. The simpler display component used
-		 * if this is false only supports simple text and a few basic tags.
+		 * The optional longer description / help text which will appear in the content assist window. This text will be
+		 * displayed in a simple plain text window. If this text is provided and the HTML text is available as well, the
+		 * HTML text will be preferred, except if it's not possible to display a browser window for content assist.
 		 */
-		private boolean useBrowserForDescription;
+		private String plainDescription;
 
 		/**
 		 * The priority of this proposal. This defines the sorting of proposals. Higher priority is listed higher. 0 is
@@ -102,49 +105,30 @@ public interface CustomProposalProvider {
 		 * @param aDisplayValue
 		 *            The value displayed to the user in the proposal list. Is optional; if not present, the value from
 		 *            {@link #value} is used.
-		 * @param aDescription
-		 *            The longer description / help text which will appear in the content assist window. This is
+		 * @param anHTMLDescription
+		 *            The longer HTML description / help text which will appear in the content assist window. This is
 		 *            entirely optional.
-		 * @param aUseBrowserForDescriptionFlag
-		 *            Whether a full-fledged browser shall be used to display the description (if possible).
+		 * @param aPlainDescription
+		 *            The longer plaintext description / help text which will appear in the content assist window. This
+		 *            is entirely optional.
 		 * @param aDoPrefixFilteringFlag
 		 *            Whether this proposal shall be subject to prefix filtering (uses the {@link #value} and the input
 		 *            from the user to filter non-matching proposals out, like when the user typed "gr", the proposal
 		 *            "great" would be valid, but "bad" wouldn't). Defaults to true.
 		 */
-		public CustomProposalDefinition(String aValue, String aDisplayValue, String aDescription,
-				boolean aUseBrowserForDescriptionFlag, Integer aPriority, Boolean aDoPrefixFilteringFlag) {
+		public CustomProposalDefinition(String aValue, String aDisplayValue, String anHTMLDescription,
+				String aPlainDescription, Integer aPriority, Boolean aDoPrefixFilteringFlag) {
 			value = aValue;
 			displayValue = aDisplayValue;
-			description = aDescription;
-			useBrowserForDescription = aUseBrowserForDescriptionFlag;
+			htmlDescription = anHTMLDescription;
+			plainDescription = aPlainDescription;
+
 			if (aPriority != null) {
 				priority = aPriority;
 			}
 			if (aDoPrefixFilteringFlag != null) {
 				doPrefixFiltering = aDoPrefixFilteringFlag;
 			}
-		}
-
-		/**
-		 * Creates a new instance.
-		 * 
-		 * @param aValue
-		 *            The actual value that will be inserted when the user accepts the proposal
-		 * @param aDisplayValue
-		 *            The value displayed to the user in the proposal list. Is optional; if not present, the value from
-		 *            {@link #value} is used.
-		 * @param aDescription
-		 *            The longer description / help text which will appear in the content assist window. This is
-		 *            entirely optional.
-		 * @param aDoPrefixFilteringFlag
-		 *            Whether this proposal shall be subject to prefix filtering (uses the {@link #value} and the input
-		 *            from the user to filter non-matching proposals out, like when the user typed "gr", the proposal
-		 *            "great" would be valid, but "bad" wouldn't). Defaults to true.
-		 */
-		public CustomProposalDefinition(String aValue, String aDisplayValue, String aDescription, Integer aPriority,
-				Boolean aDoPrefixFilteringFlag) {
-			this(aValue, aDisplayValue, aDescription, false, aPriority, aDoPrefixFilteringFlag);
 		}
 
 		/**
@@ -162,7 +146,7 @@ public interface CustomProposalProvider {
 		 */
 		public CustomProposalDefinition(String aValue, String aDisplayValue, Integer aPriority,
 				Boolean aDoPrefixFilteringFlag) {
-			this(aValue, aDisplayValue, null, false, aPriority, aDoPrefixFilteringFlag);
+			this(aValue, aDisplayValue, null, null, aPriority, aDoPrefixFilteringFlag);
 		}
 
 		public String getValue() {
@@ -173,8 +157,12 @@ public interface CustomProposalProvider {
 			return displayValue;
 		}
 
-		public String getDescription() {
-			return description;
+		public String getHtmlDescription() {
+			return htmlDescription;
+		}
+
+		public String getPlainDescription() {
+			return plainDescription;
 		}
 
 		public int getPriority() {
@@ -183,10 +171,6 @@ public interface CustomProposalProvider {
 
 		public boolean getDoPrefixFiltering() {
 			return doPrefixFiltering;
-		}
-
-		public boolean isUseBrowserForDescription() {
-			return useBrowserForDescription;
 		}
 
 	}

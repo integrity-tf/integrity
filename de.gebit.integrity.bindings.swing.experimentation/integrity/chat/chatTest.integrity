@@ -37,7 +37,7 @@ packagedef swing.chat with
 	suiteend
 
 	suitedef sendMessageFromClientToServer gets message with
-		//call setTextFieldContent name:  
+		//call setTextFieldContent name:     
 	suiteend
 
 packageend

@@ -3,8 +3,15 @@
  */
 package de.gebit.integrity.bindings.swing.authorassist;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Window;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,9 +22,11 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import sun.misc.BASE64Encoder;
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
 
 /**
@@ -26,6 +35,7 @@ import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
  * @author Slartibartfast
  * 
  */
+@SuppressWarnings("restriction")
 public class SwingAuthorAssistServer {
 
 	protected SwingAuthorAssistServerThread serverThread;
@@ -41,17 +51,13 @@ public class SwingAuthorAssistServer {
 	/**
 	 * 
 	 */
-	public SwingAuthorAssistServer(
-			AbstractSwingComponentHandler aSwingComponentHandler,
-			JFrame anOwnerFrame) {
+	public SwingAuthorAssistServer(AbstractSwingComponentHandler aSwingComponentHandler, JFrame anOwnerFrame) {
 		swingComponentHandler = aSwingComponentHandler;
 		ownerFrame = anOwnerFrame;
 	}
 
-	protected ServerSocket createServerSocket() throws UnknownHostException,
-			IOException {
-		return new ServerSocket(DEFAULT_PORT, 1,
-				InetAddress.getByName(DEFAULT_HOST));
+	protected ServerSocket createServerSocket() throws UnknownHostException, IOException {
+		return new ServerSocket(DEFAULT_PORT, 1, InetAddress.getByName(DEFAULT_HOST));
 	}
 
 	public void startUp() {
@@ -105,25 +111,18 @@ public class SwingAuthorAssistServer {
 					}
 
 					try {
-						BufferedReader tempReader = new BufferedReader(
-								new InputStreamReader(
-										tempClientSocket.getInputStream()));
+						BufferedReader tempReader = new BufferedReader(new InputStreamReader(
+								tempClientSocket.getInputStream()));
 						String tempFilterClassName = tempReader.readLine();
 
 						if (tempFilterClassName != null) {
 							try {
-								Class<?> tempFilterClass = getClass()
-										.getClassLoader().loadClass(
-												tempFilterClassName);
+								Class<?> tempFilterClass = getClass().getClassLoader().loadClass(tempFilterClassName);
 
 								List<Component> tempComponents = (List<Component>) swingComponentHandler
-										.findComponents(
-												null,
-												(Class<? extends Component>) tempFilterClass,
-												ownerFrame);
+										.findComponents(null, (Class<? extends Component>) tempFilterClass, ownerFrame);
 
-								PrintWriter tempWriter = new PrintWriter(
-										tempClientSocket.getOutputStream());
+								PrintWriter tempWriter = new PrintWriter(tempClientSocket.getOutputStream());
 								for (Component tempComponent : tempComponents) {
 									String tempLongPath = swingComponentHandler
 											.createUniquifiedComponentPath(tempComponent);
@@ -131,23 +130,11 @@ public class SwingAuthorAssistServer {
 											.createShortestComponentPath(tempComponent);
 
 									if (tempLongPath != null) {
-										if (tempShortPath != null) {
-											tempWriter
-													.println(generateComponentLine(
-															tempShortPath,
-															tempComponent,
-															true, tempLongPath));
+										if (tempShortPath == null) {
+											tempShortPath = "";
 										}
-										if (tempLongPath != null
-												&& (tempShortPath == null || !tempLongPath
-														.equals(tempShortPath))) {
-											tempWriter
-													.println(generateComponentLine(
-															tempLongPath,
-															tempComponent,
-															false,
-															tempShortPath));
-										}
+										tempWriter.println(generateComponentLine(tempShortPath, tempLongPath,
+												tempComponent));
 									}
 								}
 
@@ -172,52 +159,139 @@ public class SwingAuthorAssistServer {
 
 	public static final String COMPONENT_LINE_NEWLINE = "<br>";
 
-	protected String generateComponentLine(String aPath, Component aComponent,
-			boolean anIsShortPath, String anOtherPath) {
-		StringBuilder tempDescription = new StringBuilder();
-		addComponentLinePart_CSS(tempDescription);
-		addComponentLinePart_Tag(tempDescription, "Component");
-		tempDescription.append(aComponent.getClass().getName());
-		tempDescription.append(COMPONENT_LINE_NEWLINE);
+	public static final int COMPONENT_LINE_OVERVIEW_IMG_MAXWIDTH = 300;
 
-		if (anIsShortPath) {
-			addComponentLinePart_Tag(tempDescription, "Path");
-			tempDescription
-					.append("short path"
-							+ (anOtherPath != null
-									&& !anOtherPath.equals(aPath) ? " (long path: '"
-									+ anOtherPath + "')"
-									: ""));
-		} else {
-			addComponentLinePart_Tag(tempDescription, "Path");
-			tempDescription
-					.append("long path"
-							+ (anOtherPath != null
-									&& !anOtherPath.equals(aPath) ? " (short path: '"
-									+ anOtherPath + "')"
-									: ""));
-		}
-		tempDescription.append(COMPONENT_LINE_NEWLINE);
+	public static final int COMPONENT_LINE_OVERVIEW_IMG_MAXHEIGHT = 180;
+
+	protected String generateComponentLine(String aShortPath, String aLongPath, Component aComponent) {
+		StringBuilder tempHTMLDescription = new StringBuilder();
+		StringBuilder tempPlainDescription = new StringBuilder();
+
+		addComponentHTMLLinePart_CSS(tempHTMLDescription);
+		addComponentHTMLLinePart_Tag(tempHTMLDescription, "Component");
+		tempHTMLDescription.append(aComponent.getClass().getName() + COMPONENT_LINE_NEWLINE);
+
+		tempPlainDescription.append("Component: " + aComponent.getClass().getName() + COMPONENT_LINE_NEWLINE);
 
 		if (aComponent instanceof JButton) {
-			addComponentLinePart_Tag(tempDescription, "Text");
-			tempDescription
-					.append("'" + ((JButton) aComponent).getText() + "'");
-			tempDescription.append(COMPONENT_LINE_NEWLINE);
+			String tempButtonText = "'" + ((JButton) aComponent).getText() + "'";
+			addComponentHTMLLinePart_Tag(tempHTMLDescription, "Text");
+			tempHTMLDescription.append(tempButtonText + COMPONENT_LINE_NEWLINE);
+
+			tempPlainDescription.append("Text: " + tempButtonText + COMPONENT_LINE_NEWLINE);
 		}
 
-		addComponentLinePart_Tag(tempDescription, "Enabled");
-		tempDescription.append(aComponent.isEnabled());
+		addComponentHTMLLinePart_Tag(tempHTMLDescription, "Enabled");
+		tempHTMLDescription.append(aComponent.isEnabled());
 
-		return aPath + "|||" + (anIsShortPath ? "1" : "0") + "|||"
-				+ tempDescription.toString();
+		tempPlainDescription.append("Enabled: " + aComponent.isEnabled() + COMPONENT_LINE_NEWLINE);
+
+		addComponentHTMLLinePart_Image(tempHTMLDescription, aComponent);
+
+		return aLongPath + "||" + aShortPath + "||" + tempHTMLDescription.toString() + "||"
+				+ tempPlainDescription.toString();
 	}
 
-	protected void addComponentLinePart_Tag(StringBuilder aBuilder, String aTag) {
+	protected void addComponentHTMLLinePart_Tag(StringBuilder aBuilder, String aTag) {
 		aBuilder.append("<span class=\"tag\">" + aTag + ":</span> ");
 	}
 
-	protected void addComponentLinePart_CSS(StringBuilder aBuilder) {
+	protected void addComponentHTMLLinePart_Image(StringBuilder aBuilder, Component aComponent) {
+		Window tempOuterContainer = null;
+		Container tempParent = aComponent.getParent();
+		while (tempParent != null) {
+			if (tempParent instanceof Window) {
+				tempOuterContainer = (Window) tempParent;
+				break;
+			}
+			tempParent = tempParent.getParent();
+		}
+
+		if (tempOuterContainer != null && tempOuterContainer.getWidth() > 10 && tempOuterContainer.getHeight() > 10) {
+			BufferedImage tempImage = new BufferedImage(tempOuterContainer.getWidth(), tempOuterContainer.getHeight(),
+					BufferedImage.TYPE_INT_RGB);
+			Graphics2D tempGraphics = (Graphics2D) tempImage.getGraphics();
+			tempOuterContainer.paintAll(tempGraphics);
+
+			float tempScalingFactor1 = (float) COMPONENT_LINE_OVERVIEW_IMG_MAXWIDTH / (float) tempImage.getWidth();
+			float tempScalingFactor2 = (float) COMPONENT_LINE_OVERVIEW_IMG_MAXHEIGHT / (float) tempImage.getHeight();
+			float tempScalingFactor = tempScalingFactor1 < tempScalingFactor2 ? tempScalingFactor1 : tempScalingFactor2;
+			BufferedImage tempScaledImage;
+			if (tempScalingFactor >= 1.0) {
+				tempScalingFactor = 1.0f;
+				tempScaledImage = tempImage;
+			} else {
+				tempScaledImage = new BufferedImage(Math.round((float) tempImage.getWidth() * tempScalingFactor),
+						Math.round((float) tempImage.getHeight() * tempScalingFactor), BufferedImage.TYPE_INT_RGB);
+				tempGraphics = (Graphics2D) tempScaledImage.getGraphics();
+				tempGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+						RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				tempGraphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+				tempGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				tempGraphics.drawImage(tempImage, 0, 0, tempScaledImage.getWidth(), tempScaledImage.getHeight(), 0, 0,
+						tempImage.getWidth(), tempImage.getHeight(), null);
+				tempGraphics.dispose();
+			}
+
+			int tempComponentX = aComponent.getX();
+			int tempComponentY = aComponent.getY();
+			int tempBorderWidth = aComponent.getWidth();
+			int tempBorderHeight = aComponent.getHeight();
+			tempParent = aComponent.getParent();
+			while (tempParent != null && !(tempParent == tempOuterContainer)) {
+				tempComponentX += tempParent.getX();
+				tempComponentY += tempParent.getY();
+				tempParent = tempParent.getParent();
+			}
+
+			tempComponentX = Math.round((float) tempComponentX * tempScalingFactor) - 2;
+			tempComponentY = Math.round((float) tempComponentY * tempScalingFactor) - 2;
+			tempBorderWidth = Math.round((float) tempBorderWidth * tempScalingFactor) + 2;
+			tempBorderHeight = Math.round((float) tempBorderHeight * tempScalingFactor) + 2;
+
+			if (tempComponentX < 0) {
+				tempComponentX = 0;
+			} else if (tempComponentX >= tempScaledImage.getWidth()) {
+				tempComponentX = tempScaledImage.getWidth() - 1;
+			}
+			if (tempComponentY < 0) {
+				tempComponentY = 0;
+			} else if (tempComponentY >= tempScaledImage.getHeight()) {
+				tempComponentY = tempScaledImage.getHeight() - 1;
+			}
+			if (tempBorderWidth + tempComponentX > tempScaledImage.getWidth()) {
+				tempBorderWidth = tempScaledImage.getWidth() - tempComponentX;
+			}
+			if (tempBorderHeight + tempComponentY > tempScaledImage.getHeight()) {
+				tempBorderHeight = tempScaledImage.getHeight() - tempComponentY;
+			}
+
+			tempGraphics = (Graphics2D) tempScaledImage.getGraphics();
+			tempGraphics.setColor(Color.BLACK);
+			tempGraphics.drawRect(0, 0, tempScaledImage.getWidth() - 1, tempScaledImage.getHeight() - 1);
+			tempGraphics.setColor(Color.RED);
+			tempGraphics.drawRect(tempComponentX, tempComponentY, tempBorderWidth, tempBorderHeight);
+			tempGraphics.dispose();
+
+			ByteArrayOutputStream tempOutBuffer = new ByteArrayOutputStream();
+			try {
+				ImageIO.write(tempScaledImage, "PNG", tempOutBuffer);
+				final byte[] tempByteArray = tempOutBuffer.toByteArray();
+				String tempEncodedData = new BASE64Encoder() {
+					protected int bytesPerLine() {
+						return tempByteArray.length + 10;
+					};
+				}.encode(tempByteArray);
+				aBuilder.append("<div style=\"width: " + tempScaledImage.getWidth() + "px; height: "
+						+ tempScaledImage.getHeight() + "px; background: #000 url(data:image/png;base64,"
+						+ tempEncodedData + ");\"/>");
+			} catch (IOException exc) {
+				exc.printStackTrace();
+			}
+		}
+	}
+
+	protected void addComponentHTMLLinePart_CSS(StringBuilder aBuilder) {
 		aBuilder.append("<style type=\"text/css\">"
 				+ "body { font-family: Arial, Sans-Serif; font-size: x-small; margin: 4px; } "
 				+ ".tag { font-weight: bold; }" + "</style>");

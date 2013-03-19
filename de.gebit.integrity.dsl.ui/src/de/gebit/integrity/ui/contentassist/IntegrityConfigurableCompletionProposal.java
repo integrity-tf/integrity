@@ -51,13 +51,12 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	private SuiteDefinition suiteDefiningProposedParameter;
 
 	/**
-	 * Whether to use a {@link BrowserInformationControl} to display the additional proposal info text. Otherwise, a
-	 * more simpler control is used.
+	 * Whether to use a HTML browser window to display the proposal info, if possible.
 	 */
-	private boolean useBrowserForAdditionalProposalInfo;
+	private boolean useHtmlAdditionalProposalInfo;
 
-	public void setUseBrowserForAdditionalProposalInfo(boolean aUseBrowserForAdditionalProposalInfo) {
-		useBrowserForAdditionalProposalInfo = aUseBrowserForAdditionalProposalInfo;
+	public void setUseHtmlAdditionalProposalInfo(boolean aUseHtmlAdditionalProposalInfoFlag) {
+		this.useHtmlAdditionalProposalInfo = aUseHtmlAdditionalProposalInfoFlag;
 	}
 
 	/**
@@ -75,11 +74,9 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	// SUPPRESS CHECKSTYLE ParameterNumber
 	public IntegrityConfigurableCompletionProposal(String aReplacementString, int aReplacementOffset,
 			int aReplacementLength, int aCursorPosition, Image anImage, StyledString aDisplayString,
-			IContextInformation aContextInformation, boolean aUseBrowserForAdditionalProposalInfo,
-			String anAdditionalProposalInfo, ContentAssistContext aContext) {
+			IContextInformation aContextInformation, ContentAssistContext aContext) {
 		super(aReplacementString, aReplacementOffset, aReplacementLength, aCursorPosition, anImage, aDisplayString,
-				aContextInformation, anAdditionalProposalInfo);
-		useBrowserForAdditionalProposalInfo = aUseBrowserForAdditionalProposalInfo;
+				aContextInformation, null);
 		context = aContext;
 	}
 
@@ -127,7 +124,7 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 
 			@Override
 			public IInformationControl createInformationControl(Shell aParent) {
-				if (useBrowserForAdditionalProposalInfo && BrowserInformationControl.isAvailable(aParent)) {
+				if (useHtmlAdditionalProposalInfo && BrowserInformationControl.isAvailable(aParent)) {
 					return new BrowserInformationControl(aParent, JFaceResources.DIALOG_FONT, true);
 				} else {
 					return new DefaultInformationControl(aParent);
@@ -135,5 +132,4 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 			}
 		};
 	}
-
 }

@@ -19,9 +19,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClassFile;
 import org.eclipse.jdt.internal.core.CompilationUnit;
+import org.eclipse.jface.internal.text.html.BrowserInformationControl;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.types.JvmTypeReference;
@@ -125,8 +127,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		int tempReplacementOffset = aContext.getReplaceRegion().getOffset();
 		int tempReplacementLength = aContext.getReplaceRegion().getLength();
 		ConfigurableCompletionProposal tempResult = new IntegrityConfigurableCompletionProposal(aProposal,
-				tempReplacementOffset, tempReplacementLength, aProposal.length(), anImage, aDisplayString, null, false,
-				null, aContext);
+				tempReplacementOffset, tempReplacementLength, aProposal.length(), anImage, aDisplayString, null,
+				aContext);
 		tempResult.setPriority(aPriority);
 		tempResult.setMatcher(aContext.getMatcher());
 		tempResult.setReplaceContextLength(aContext.getReplaceContextLength());
@@ -1149,16 +1151,23 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							: tempProposal.getValue()), null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE,
 					tempProposal.getDoPrefixFiltering() ? aContext.getPrefix() : "", aContext);
 			if (tempCompletionProposal instanceof IntegrityConfigurableCompletionProposal) {
-				if (tempProposal.getDescription() != null) {
-					((ConfigurableCompletionProposal) tempCompletionProposal).setAdditionalProposalInfo(tempProposal
-							.getDescription());
+				if (tempProposal.getHtmlDescription() != null && isBrowserInformationControlIsAvailable()) {
 					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
-							.setUseBrowserForAdditionalProposalInfo(tempProposal.isUseBrowserForDescription());
+							.setAdditionalProposalInfo(tempProposal.getHtmlDescription());
+					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
+							.setUseHtmlAdditionalProposalInfo(true);
+				} else if (tempProposal.getPlainDescription() != null) {
+					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
+							.setAdditionalProposalInfo(tempProposal.getPlainDescription());
 				}
 			}
 
 			anAcceptor.accept(tempCompletionProposal);
 		}
+	}
+
+	private static boolean isBrowserInformationControlIsAvailable() {
+		return BrowserInformationControl.isAvailable(Display.getDefault().getActiveShell());
 	}
 
 }

@@ -30,48 +30,49 @@ public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {
 
 	public static final String DEFAULT_HOST = "127.0.0.1";
 
-	protected static final Pattern SUGGESTION_PATTERN = Pattern
-			.compile("(.+?)\\|\\|\\|(\\d)(?:\\|\\|\\|(.*))?");
+	protected static final Pattern SUGGESTION_PATTERN = Pattern.compile("(.+?)\\|\\|(.*?)\\|\\|(.*?)\\|\\|(.*)");
 
 	protected Socket createSocket() throws UnknownHostException, IOException {
 		return new Socket(DEFAULT_HOST, DEFAULT_PORT);
 	}
 
-	protected List<CustomProposalDefinition> requestProposals(
-			Class<? extends Component> aComponentClass) {
+	protected List<CustomProposalDefinition> requestProposals(Class<? extends Component> aComponentClass) {
 		Socket tempSocket = null;
 		try {
 			tempSocket = createSocket();
 
-			PrintWriter tempWriter = new PrintWriter(
-					tempSocket.getOutputStream());
+			PrintWriter tempWriter = new PrintWriter(tempSocket.getOutputStream());
 			tempWriter.println(aComponentClass.getName());
 			tempWriter.flush();
-			BufferedReader tempReader = new BufferedReader(
-					new InputStreamReader(tempSocket.getInputStream()));
+			BufferedReader tempReader = new BufferedReader(new InputStreamReader(tempSocket.getInputStream()));
 			List<CustomProposalDefinition> tempList = new ArrayList<CustomProposalDefinition>();
 
 			String tempLine = tempReader.readLine();
 			while (tempLine != null) {
 				Matcher tempMatcher = SUGGESTION_PATTERN.matcher(tempLine);
 				if (tempMatcher.matches()) {
-					String tempPath = tempMatcher.group(1);
-					Integer tempPriority = Integer.parseInt(tempMatcher
-							.group(2));
-					String tempDetails = (tempMatcher.groupCount() >= 3 ? tempMatcher
-							.group(3) : null);
-					if (tempDetails != null) {
-						// tempDetails = tempDetails.replace(
-						// SwingAuthorAssistServer.COMPONENT_LINE_NEWLINE,
-						// "\n");
-						System.out.println(tempDetails);
+					String tempLongPath = tempMatcher.group(1);
+					String tempShortPath = tempMatcher.group(2);
+					String tempHTMLDetails = tempMatcher.group(3);
+					String tempPlainDetails = tempMatcher.group(4);
+
+					if (tempHTMLDetails.length() == 0) {
+						tempHTMLDetails = null;
 					}
-					tempList.add(new CustomProposalDefinition(
-							'"' + tempPath + '"', tempPath, tempDetails, true,
-							tempPriority, true));
+					if (tempPlainDetails.length() == 0) {
+						tempPlainDetails = null;
+					}
+
+					boolean tempHasShortPath = tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath);
+
+					tempList.add(new CustomProposalDefinition('"' + tempLongPath + '"', tempLongPath, tempHTMLDetails,
+							tempPlainDetails, tempHasShortPath ? 0 : 1, true));
+					if (tempShortPath.length() > 0 && !tempShortPath.equals(tempLongPath)) {
+						tempList.add(new CustomProposalDefinition('"' + tempShortPath + '"', tempShortPath,
+								tempHTMLDetails, tempPlainDetails, 2, true));
+					}
 				} else {
-					System.err.println("Suggestion line not parseable: '"
-							+ tempLine + "'");
+					System.err.println("Suggestion line not parseable: '" + tempLine + "'");
 				}
 				tempLine = tempReader.readLine();
 			}
