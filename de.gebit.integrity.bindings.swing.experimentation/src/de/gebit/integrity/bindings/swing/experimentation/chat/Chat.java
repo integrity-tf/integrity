@@ -196,20 +196,15 @@ public class Chat {
 	}
 
 	protected void connect() {
-		int tempSendPort = Integer.parseInt(portField.getText())
-				+ (roleBChoice.isSelected() ? 0 : 1);
-		int tempRecvPort = Integer.parseInt(portField.getText())
-				+ (roleAChoice.isSelected() ? 0 : 1);
+		int tempSendPort = Integer.parseInt(portField.getText()) + (roleBChoice.isSelected() ? 0 : 1);
+		int tempRecvPort = Integer.parseInt(portField.getText()) + (roleAChoice.isSelected() ? 0 : 1);
 
-		System.out.println("Setting up UDP sockets in '"
-				+ (roleBChoice.isSelected() ? "Client B" : "Client A")
-				+ "' mode for sending on port " + tempSendPort
-				+ " and receiving on port " + tempRecvPort + ".");
+		System.out.println("Setting up UDP sockets in '" + (roleBChoice.isSelected() ? "Client B" : "Client A")
+				+ "' mode for sending on port " + tempSendPort + " and receiving on port " + tempRecvPort + ".");
 
 		try {
 			sendSocket = new DatagramSocket();
-			sendSocket.connect(InetAddress.getByName(hostField.getText()),
-					tempSendPort);
+			sendSocket.connect(InetAddress.getByName(hostField.getText()), tempSendPort);
 			recvSocket = new DatagramSocket(tempRecvPort);
 		} catch (SocketException exc) {
 			exc.printStackTrace();
@@ -230,24 +225,19 @@ public class Chat {
 				public void run() {
 					while (recvSocket != null && !recvSocket.isClosed()) {
 						try {
-							DatagramPacket tempPacket = new DatagramPacket(
-									new byte[1024], 1024);
+							DatagramPacket tempPacket = new DatagramPacket(new byte[1024], 1024);
 							recvSocket.receive(tempPacket);
-							String tempString = new String(
-									tempPacket.getData(),
-									tempPacket.getOffset(),
+							String tempString = new String(tempPacket.getData(), tempPacket.getOffset(),
 									tempPacket.getLength());
 							if (ACK.equals(tempString)) {
 								synchronized (ACK) {
-									ackReceived = System.currentTimeMillis();
+									ackReceived = System.nanoTime();
 									ACK.notifyAll();
 								}
 							} else {
-								((DefaultListModel) messageList.getModel())
-										.addElement(tempString);
+								((DefaultListModel) messageList.getModel()).addElement(tempString);
 								byte[] tempAckBytes = ACK.getBytes();
-								sendSocket.send(new DatagramPacket(
-										tempAckBytes, tempAckBytes.length));
+								sendSocket.send(new DatagramPacket(tempAckBytes, tempAckBytes.length));
 							}
 						} catch (IOException exc) {
 							if (!"socket closed".equals(exc.getMessage())) {
@@ -259,8 +249,7 @@ public class Chat {
 			};
 			tempListenerThread.start();
 
-			System.out
-					.println("Ports were successfully set up. Begin chatting!");
+			System.out.println("Ports were successfully set up. Begin chatting!");
 		}
 	}
 
@@ -304,11 +293,9 @@ public class Chat {
 				if (tempMessage.length() > 0) {
 					try {
 						byte[] tempBytes = tempMessage.getBytes();
-						System.out.println("Now sending message '"
-								+ tempMessage + "'");
-						long tempSendTime = System.currentTimeMillis();
-						sendSocket.send(new DatagramPacket(tempBytes,
-								tempBytes.length));
+						System.out.println("Now sending message '" + tempMessage + "'");
+						long tempSendTime = System.nanoTime();
+						sendSocket.send(new DatagramPacket(tempBytes, tempBytes.length));
 						synchronized (ACK) {
 							try {
 								ACK.wait(ACK_TIMEOUT);
@@ -317,23 +304,17 @@ public class Chat {
 							}
 						}
 						if (ackReceived >= tempSendTime) {
-							System.out
-									.println("Successfully sent the message '"
-											+ tempMessage
-											+ "'; ACK received in "
-											+ (ackReceived - tempSendTime)
-											+ " msecs.");
+							System.out.println("Successfully sent the message '" + tempMessage + "'; ACK received in "
+									+ (((double) (ackReceived - tempSendTime)) / 1000000.0) + " msecs.");
 							messageField.setText("");
 						} else {
-							System.err
-									.println("Failed to send: did not receive an ACK in time!");
+							System.err.println("Failed to send: did not receive an ACK in time!");
 						}
 					} catch (IOException exc) {
 						exc.printStackTrace();
 					}
 				} else {
-					System.out
-							.println("No message was entered - will not send anything!");
+					System.out.println("No message was entered - will not send anything!");
 				}
 			}
 		});
