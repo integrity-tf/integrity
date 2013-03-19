@@ -175,6 +175,7 @@
       <property name="message" value="Usage of Class#forName(...) discouraged, use de.gebit.trend.util.Factory#classForName(...) instead."/>
       <property name="ignoreComments" value="true"/>
     </module>
+    <module name="IllegalImport"/>
   </module>
   <module name="SuppressionCommentFilter">
     <property name="offCommentFormat" value="\{\{[A-Z_]+"/>

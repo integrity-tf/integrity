@@ -29,8 +29,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 
-import sun.misc.BASE64Encoder;
 import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
+import de.gebit.integrity.bindings.swing.util.Base64;
 
 /**
  * The author assist server provides a kind of entrance into the running application, primarily used by the Swing
@@ -40,7 +40,6 @@ import de.gebit.integrity.bindings.swing.AbstractSwingComponentHandler;
  * @author Slartibartfast
  * 
  */
-@SuppressWarnings("restriction")
 public class SwingAuthorAssistServer {
 
 	/**
@@ -402,11 +401,7 @@ public class SwingAuthorAssistServer {
 			try {
 				ImageIO.write(tempScaledImage, "PNG", tempOutBuffer);
 				final byte[] tempByteArray = tempOutBuffer.toByteArray();
-				String tempEncodedData = new BASE64Encoder() {
-					protected int bytesPerLine() {
-						return tempByteArray.length + 10;
-					};
-				}.encode(tempByteArray);
+				String tempEncodedData = Base64.encodeBytes(tempByteArray);
 				aBuilder.append("<div style=\"width: " + tempScaledImage.getWidth() + "px; height: "
 						+ tempScaledImage.getHeight() + "px; background: #000 url(data:image/png;base64,"
 						+ tempEncodedData + ");\"/>");
