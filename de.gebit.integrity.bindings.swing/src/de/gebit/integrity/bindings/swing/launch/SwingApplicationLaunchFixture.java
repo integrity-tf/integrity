@@ -5,6 +5,7 @@ package de.gebit.integrity.bindings.swing.launch;
 
 import java.awt.EventQueue;
 import java.awt.Frame;
+import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
@@ -12,7 +13,8 @@ import javax.swing.JFrame;
 import de.gebit.integrity.runner.fixtures.JavaApplicationLaunchFixture;
 
 /**
- * Swing applications are a bit...special. I need a special launching fixture for those...
+ * Swing applications are a bit...special. I need a special launching fixture
+ * for those...
  * 
  * @author Rene Schneider
  * 
@@ -28,8 +30,10 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 	private boolean startupSuccessful;
 
 	@Override
-	protected boolean checkWrapper(ApplicationWrapper aWrapper) throws Throwable {
-		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(), getFrameCount());
+	protected boolean checkWrapper(ApplicationWrapper aWrapper)
+			throws Throwable {
+		FrameWaiter tempWaiter = new FrameWaiter(getFrameTimeout(),
+				getFrameCount());
 
 		synchronized (startupSync) {
 			tempWaiter.start();
@@ -57,15 +61,16 @@ public class SwingApplicationLaunchFixture extends JavaApplicationLaunchFixture 
 
 	@Override
 	protected boolean killInternal(ApplicationWrapper aWrapper) {
-		// A Swing application is killed by closing all frames. This of course leaves the Integrity thread, but
-		// that must be allowed to kill itself after finishing all tests and writing all results.
-		for (Frame tempFrame : Frame.getFrames()) {
-			if (tempFrame instanceof JFrame) {
-				((JFrame) tempFrame).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				tempFrame.dispose();
-			} else {
-				tempFrame.setVisible(false);
+		// A Swing application is killed by closing all frames. This of course
+		// leaves the Integrity thread, but
+		// that must be allowed to kill itself after finishing all tests and
+		// writing all results.
+		for (Window tempWindow : Window.getWindows()) {
+			if (tempWindow instanceof JFrame) {
+				((JFrame) tempWindow)
+						.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
+			tempWindow.dispose();
 		}
 
 		return super.killInternal(aWrapper);

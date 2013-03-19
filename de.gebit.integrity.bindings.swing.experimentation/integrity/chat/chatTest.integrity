@@ -3,20 +3,26 @@ import basic.*
 
 packagedef swing.chat with
 
-	// The master process will be the "server" 
-	forkdef chatClient "Chat Client Fork"
+	// The master process will be the "Client A" 
+	forkdef clientB "Client B"
 
 	suitedef main with
 		
-		suite launchChatAppAndConnect roleButton: "serverChoice"
-		//suite launchChatAppAndConnect roleButton: "clientChoice" on chatClient
+		suite launchChatAppAndConnect roleButton: "roleAChoice"
+		suite launchChatAppAndConnect roleButton: "roleBChoice" on clientB
 		
-		call wait seconds: 2
+		suite sendMessageFromAToB message: "Foo!"
 		
-		call tools.authorAssist
+		suite sendMessageFromBToA message: "Foo!"
+		
+		suite sendMessageFromAToB message: "Bar!"
+		
+		suite sendMessageFromBToA message: "Foobar!"
+		
+		//call tools.authorAssist
 				
 		suite killChatApp
-		//suite killChatApp on chatClient
+		suite killChatApp on clientB
 	
 	suiteend
 			
@@ -36,8 +42,23 @@ packagedef swing.chat with
 		test killApp
 	suiteend
 
-	suitedef sendMessageFromClientToServer gets message with
-		//call setTextFieldContent name:     
+	suitedef sendMessageFromAToB gets message with
+		suite sendMessage message: message
+		suite checkMessageReceived on clientB
+	suiteend
+	
+	suitedef sendMessageFromBToA gets message with
+		suite sendMessage message: message on clientB
+		suite checkMessageReceived
+	suiteend
+	
+	suitedef sendMessage gets message with
+		call setTextFieldContent name: "messageField" text: message
+		call clickButton name: "sendButton"
+	suiteend
+	
+	suitedef checkMessageReceived gets message with
+		// todo make this testable
 	suiteend
 
 packageend

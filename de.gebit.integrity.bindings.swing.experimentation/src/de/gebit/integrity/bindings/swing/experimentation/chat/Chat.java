@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -42,8 +44,8 @@ public class Chat {
 	private JTextField hostField;
 	private JTextField portField;
 	private JPanel rolePanel;
-	private JRadioButton clientChoice;
-	private JRadioButton serverChoice;
+	private JRadioButton roleAChoice;
+	private JRadioButton roleBChoice;
 	private JPanel actionPanel;
 	private JButton connectButton;
 	private JButton disconnectButton;
@@ -86,15 +88,15 @@ public class Chat {
 		rolePanel = new JPanel();
 		rolePanel.setName("rolePanel");
 		rolePanel.setBorder(new TitledBorder("Role"));
-		clientChoice = new JRadioButton("Client");
-		clientChoice.setName("clientChoice");
-		serverChoice = new JRadioButton("Server");
-		serverChoice.setName("serverChoice");
+		roleAChoice = new JRadioButton("Client A");
+		roleAChoice.setName("roleAChoice");
+		roleBChoice = new JRadioButton("Client B");
+		roleBChoice.setName("roleBChoice");
 		ButtonGroup tempButtonGroup = new ButtonGroup();
-		tempButtonGroup.add(clientChoice);
-		tempButtonGroup.add(serverChoice);
-		rolePanel.add(clientChoice);
-		rolePanel.add(serverChoice);
+		tempButtonGroup.add(roleAChoice);
+		tempButtonGroup.add(roleBChoice);
+		rolePanel.add(roleAChoice);
+		rolePanel.add(roleBChoice);
 		actionPanel = new JPanel();
 		actionPanel.setName("actionPanel");
 		actionPanel.setBorder(new TitledBorder("Connection"));
@@ -128,6 +130,44 @@ public class Chat {
 		inputPanel.add(sendButton, BorderLayout.EAST);
 		frame.getContentPane().add(inputPanel, BorderLayout.SOUTH);
 
+		frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void windowIconified(WindowEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void windowClosing(WindowEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void windowClosed(WindowEvent anEvent) {
+				disconnect();
+			}
+
+			@Override
+			public void windowActivated(WindowEvent anEvent) {
+				// ignored
+			}
+		});
+
 		frame.validate();
 		addActions();
 		updateButtons();
@@ -140,18 +180,98 @@ public class Chat {
 			connectButton.setEnabled(true);
 			disconnectButton.setEnabled(false);
 			sendButton.setEnabled(false);
-			clientChoice.setEnabled(true);
-			serverChoice.setEnabled(true);
+			roleAChoice.setEnabled(true);
+			roleBChoice.setEnabled(true);
 			hostField.setEditable(true);
 			portField.setEditable(true);
 		} else {
 			connectButton.setEnabled(false);
 			disconnectButton.setEnabled(true);
 			sendButton.setEnabled(true);
-			clientChoice.setEnabled(false);
-			serverChoice.setEnabled(false);
+			roleAChoice.setEnabled(false);
+			roleBChoice.setEnabled(false);
 			hostField.setEditable(false);
 			portField.setEditable(false);
+		}
+	}
+
+	protected void connect() {
+		int tempSendPort = Integer.parseInt(portField.getText())
+				+ (roleBChoice.isSelected() ? 0 : 1);
+		int tempRecvPort = Integer.parseInt(portField.getText())
+				+ (roleAChoice.isSelected() ? 0 : 1);
+
+		System.out.println("Setting up UDP sockets in '"
+				+ (roleBChoice.isSelected() ? "Client B" : "Client A")
+				+ "' mode for sending on port " + tempSendPort
+				+ " and receiving on port " + tempRecvPort + ".");
+
+		try {
+			sendSocket = new DatagramSocket();
+			sendSocket.connect(InetAddress.getByName(hostField.getText()),
+					tempSendPort);
+			recvSocket = new DatagramSocket(tempRecvPort);
+		} catch (SocketException exc) {
+			exc.printStackTrace();
+			sendSocket = null;
+			recvSocket = null;
+		} catch (NumberFormatException exc) {
+			exc.printStackTrace();
+			sendSocket = null;
+			recvSocket = null;
+		} catch (UnknownHostException exc) {
+			exc.printStackTrace();
+			sendSocket = null;
+			recvSocket = null;
+		}
+
+		if (recvSocket != null) {
+			Thread tempListenerThread = new Thread() {
+				public void run() {
+					while (recvSocket != null && !recvSocket.isClosed()) {
+						try {
+							DatagramPacket tempPacket = new DatagramPacket(
+									new byte[1024], 1024);
+							recvSocket.receive(tempPacket);
+							String tempString = new String(
+									tempPacket.getData(),
+									tempPacket.getOffset(),
+									tempPacket.getLength());
+							if (ACK.equals(tempString)) {
+								synchronized (ACK) {
+									ackReceived = System.currentTimeMillis();
+									ACK.notifyAll();
+								}
+							} else {
+								((DefaultListModel) messageList.getModel())
+										.addElement(tempString);
+								byte[] tempAckBytes = ACK.getBytes();
+								sendSocket.send(new DatagramPacket(
+										tempAckBytes, tempAckBytes.length));
+							}
+						} catch (IOException exc) {
+							if (!"socket closed".equals(exc.getMessage())) {
+								exc.printStackTrace();
+							}
+						}
+					}
+				};
+			};
+			tempListenerThread.start();
+
+			System.out
+					.println("Ports were successfully set up. Begin chatting!");
+		}
+	}
+
+	protected void disconnect() {
+		if (sendSocket != null) {
+			sendSocket.close();
+			sendSocket = null;
+		}
+		if (recvSocket != null) {
+			recvSocket.close();
+			recvSocket = null;
 		}
 	}
 
@@ -160,60 +280,8 @@ public class Chat {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tempSendPort = Integer.parseInt(portField.getText()) + (serverChoice.isSelected() ? 0 : 1);
-				int tempRecvPort = Integer.parseInt(portField.getText()) + (clientChoice.isSelected() ? 0 : 1);
-
-				System.out.println("Setting up UDP sockets in " + (serverChoice.isSelected() ? "server" : "client")
-						+ " mode for sending on port " + tempSendPort + " and receiving on port " + tempRecvPort + ".");
-
-				try {
-					sendSocket = new DatagramSocket();
-					sendSocket.connect(InetAddress.getByName(hostField.getText()), tempSendPort);
-					recvSocket = new DatagramSocket(tempRecvPort);
-				} catch (SocketException exc) {
-					exc.printStackTrace();
-					sendSocket = null;
-					recvSocket = null;
-				} catch (NumberFormatException exc) {
-					exc.printStackTrace();
-					sendSocket = null;
-					recvSocket = null;
-				} catch (UnknownHostException exc) {
-					exc.printStackTrace();
-					sendSocket = null;
-					recvSocket = null;
-				}
-
-				if (recvSocket != null) {
-					Thread tempListenerThread = new Thread() {
-						public void run() {
-							while (recvSocket != null && !recvSocket.isClosed()) {
-								try {
-									DatagramPacket tempPacket = new DatagramPacket(new byte[1024], 1024);
-									recvSocket.receive(tempPacket);
-									String tempString = new String(tempPacket.getData(), tempPacket.getOffset(),
-											tempPacket.getLength());
-									if (ACK.equals(tempString)) {
-										synchronized (ACK) {
-											ackReceived = System.currentTimeMillis();
-											ACK.notifyAll();
-										}
-									} else {
-										((DefaultListModel) messageList.getModel()).addElement(tempString);
-									}
-								} catch (IOException exc) {
-									if (!"socket closed".equals(exc.getMessage())) {
-										exc.printStackTrace();
-									}
-								}
-							}
-						};
-					};
-					tempListenerThread.start();
-					updateButtons();
-
-					System.out.println("Ports were successfully set up. Begin chatting!");
-				}
+				connect();
+				updateButtons();
 			}
 
 		});
@@ -222,10 +290,7 @@ public class Chat {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sendSocket.close();
-				sendSocket = null;
-				recvSocket.close();
-				recvSocket = null;
+				disconnect();
 				updateButtons();
 			}
 		});
@@ -239,9 +304,11 @@ public class Chat {
 				if (tempMessage.length() > 0) {
 					try {
 						byte[] tempBytes = tempMessage.getBytes();
-						System.out.println("Now sending message '" + tempMessage + "'");
+						System.out.println("Now sending message '"
+								+ tempMessage + "'");
 						long tempSendTime = System.currentTimeMillis();
-						sendSocket.send(new DatagramPacket(tempBytes, tempBytes.length));
+						sendSocket.send(new DatagramPacket(tempBytes,
+								tempBytes.length));
 						synchronized (ACK) {
 							try {
 								ACK.wait(ACK_TIMEOUT);
@@ -250,17 +317,23 @@ public class Chat {
 							}
 						}
 						if (ackReceived >= tempSendTime) {
-							System.out.println("Successfully sent the message '" + tempMessage + "'; ACK received in "
-									+ (ackReceived - tempSendTime) + " msecs.");
+							System.out
+									.println("Successfully sent the message '"
+											+ tempMessage
+											+ "'; ACK received in "
+											+ (ackReceived - tempSendTime)
+											+ " msecs.");
 							messageField.setText("");
 						} else {
-							System.err.println("Failed to send: did not receive an ACK in time!");
+							System.err
+									.println("Failed to send: did not receive an ACK in time!");
 						}
 					} catch (IOException exc) {
 						exc.printStackTrace();
 					}
 				} else {
-					System.out.println("No message was entered - will not send anything!");
+					System.out
+							.println("No message was entered - will not send anything!");
 				}
 			}
 		});
