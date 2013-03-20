@@ -28,7 +28,7 @@
       <metadata name="net.sf.eclipsecs.core.comment" value="Important note: the brackets surrounding the capital letters are a workaround in order to prevent the cvs-server to replace the keywords with real author and versioning information during the commit of the checkstyle-xml-file."/>
       <property name="severity" value="error"/>
       <property name="scope" value="package"/>
-      <property name="authorFormat" value=".+"/>
+      <property name="authorFormat" value="^((?!YOUR_NAME_HERE).)+$"/>
       <property name="allowUnknownTags" value="true"/>
     </module>
     <module name="JavadocVariable">
