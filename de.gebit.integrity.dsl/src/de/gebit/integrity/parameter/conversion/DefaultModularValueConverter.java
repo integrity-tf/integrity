@@ -79,9 +79,11 @@ import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberTo
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.NumberToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.numbers.ShortToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.BooleanToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToDate;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToBean;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
@@ -145,8 +147,10 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		// other conversions, Java -> Java
 		addConversion(BooleanToString.class);
 		addConversion(DateToString.class);
+		addConversion(CalendarToDate.class);
 		addConversion(CalendarToString.class);
 		addConversion(ObjectToString.class);
+		addConversion(MapToBean.class);
 		addConversion(MapToString.class);
 		addConversion(ObjectToMap.class);
 		addConversion(EnumToString.class);
