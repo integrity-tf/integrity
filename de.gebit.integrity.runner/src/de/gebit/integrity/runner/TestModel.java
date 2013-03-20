@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner;
 
 import java.io.IOException;
@@ -54,7 +61,7 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * The test model. There's not much more to say ;-)
  * 
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class TestModel {

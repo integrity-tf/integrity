@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.results.test;
 
 import java.util.Map;
@@ -8,7 +15,7 @@ import de.gebit.integrity.fixtures.FixtureWrapper;
  * A sub-result of an executed test.
  * 
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class TestExecutedSubResult extends TestSubResult {

@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.exceptions;
 
 import java.util.List;
@@ -8,7 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
  * Exception thrown if any errors appear during parsing of the data model.
  * 
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class ModelParseException extends ModelLoadException {

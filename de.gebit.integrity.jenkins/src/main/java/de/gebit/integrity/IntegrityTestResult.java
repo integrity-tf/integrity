@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity;
 
 import hudson.model.AbstractBuild;
@@ -22,7 +26,7 @@ import java.util.zip.GZIPOutputStream;
  * This result object encapsulates a single parsed Integrity test result file. There is a compound class which combines
  * multiple of these into one bigger result, {@link IntegrityCompoundTestResult}.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class IntegrityTestResult extends TabulatedResult {

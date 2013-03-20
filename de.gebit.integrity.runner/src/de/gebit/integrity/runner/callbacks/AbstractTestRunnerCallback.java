@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.callbacks;
 
 import com.google.inject.Inject;
@@ -16,7 +20,7 @@ import de.gebit.integrity.runner.results.FixtureExecutionResult;
  * Abstract base class for test runner callback implementation. Provides some generic functionality required by most
  * callbacks. Using this class is optional; a callback can directly inherit from {@link TestRunnerCallback} as well.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {

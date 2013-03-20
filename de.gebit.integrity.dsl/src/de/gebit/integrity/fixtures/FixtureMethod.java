@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
 import java.lang.annotation.ElementType;
@@ -34,7 +41,7 @@ import java.lang.annotation.Target;
  * that acts as a container for multiple named result values. The first two cases are suited for use in test and call
  * statements, while the latter is suitable for test statements with named results.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

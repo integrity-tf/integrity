@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.operations.standard;
 
 import java.lang.reflect.Constructor;
@@ -22,7 +26,7 @@ import de.gebit.integrity.operations.standard.operands.OperatorNode;
  * Abstract base implementation for a modular processor processing standard operations. This processor builds a kind of
  * abstract syntax tree for evaluation of operations.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractModularStandardOperationProcessor implements StandardOperationProcessor {

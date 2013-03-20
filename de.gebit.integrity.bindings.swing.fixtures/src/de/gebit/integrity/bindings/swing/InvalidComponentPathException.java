@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.bindings.swing;
 
 import java.awt.Component;
@@ -13,7 +17,7 @@ import de.gebit.integrity.bindings.swing.authorassist.SwingAuthorAssistFrame;
  * Thrown if no matching component was found for a given component path. This exception contains human-readable detail
  * info which lay out the whole component graph in readable form, optimized to help identifying the problem in the path.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class InvalidComponentPathException extends AbstractSwingComponentPathException {

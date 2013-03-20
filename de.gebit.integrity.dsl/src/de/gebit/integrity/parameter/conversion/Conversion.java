@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.parameter.conversion;
 
 import java.lang.annotation.ElementType;
@@ -21,7 +25,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  *            the source type
  * @param <TO>
  *            the target type
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class Conversion<FROM extends Object, TO extends Object> {
@@ -60,7 +64,7 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 * conversions may be used. Highest priority wins. If none is given {@link Integer#MIN_VALUE} is assumed.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	@Target(ElementType.TYPE)

@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.bindings.swing.eclipse;
 
 import java.awt.Component;
@@ -23,7 +27,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefiniti
  * Abstract base class for providing content assist features to Swing fixtures. This basic functionality mostly covers
  * the identification of components (= assistance while filling the "name" parameter).
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class AbstractSwingFixtureAssist extends AbstractSwingComponentHandler {

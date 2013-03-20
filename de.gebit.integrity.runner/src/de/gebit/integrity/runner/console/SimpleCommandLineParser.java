@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.console;
 
 import java.math.BigDecimal;
@@ -10,7 +14,7 @@ import java.util.List;
 /**
  * A very simple command line parser.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SimpleCommandLineParser {
@@ -109,7 +113,7 @@ public class SimpleCommandLineParser {
 	 * Base class for command line options.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static abstract class Option {
@@ -215,7 +219,7 @@ public class SimpleCommandLineParser {
 	 * A boolean command line option.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class BooleanOption extends Option {
@@ -286,7 +290,7 @@ public class SimpleCommandLineParser {
 	 * first one defined being returned if only one result is requested.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 * @param <X>
 	 */
@@ -365,7 +369,7 @@ public class SimpleCommandLineParser {
 	 * String option.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class StringOption extends ValueOption<String> {
@@ -425,7 +429,7 @@ public class SimpleCommandLineParser {
 	 * Integer option.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class IntegerOption extends ValueOption<Integer> {
@@ -485,7 +489,7 @@ public class SimpleCommandLineParser {
 	 * Decimal option.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class DecimalOption extends ValueOption<BigDecimal> {
@@ -544,7 +548,7 @@ public class SimpleCommandLineParser {
 	 * Long option.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class LongOption extends ValueOption<Long> {

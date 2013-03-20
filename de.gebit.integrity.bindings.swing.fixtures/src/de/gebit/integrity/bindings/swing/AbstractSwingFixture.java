@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.bindings.swing;
 
 import java.awt.EventQueue;
@@ -13,7 +17,7 @@ import javax.swing.JDialog;
 /**
  * Abstract base class for Swing component fixtures.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class AbstractSwingFixture extends AbstractSwingComponentHandler {
@@ -135,7 +139,7 @@ public class AbstractSwingFixture extends AbstractSwingComponentHandler {
 	 * Finds the window currently in focus.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	protected static class FocusWindowFinder {

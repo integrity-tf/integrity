@@ -1,13 +1,17 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
 /**
  * This fixture extends the {@link CustomComparatorFixture} by a means to manually determine the target type to which
  * the expected result in a test script is to be converted.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public interface CustomComparatorAndConversionFixture extends CustomComparatorFixture {

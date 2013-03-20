@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity;
 
 import hudson.model.Action;
@@ -11,7 +15,7 @@ import hudson.model.AbstractProject;
  * The project action for Integrity Test Results. This class is responsible for displaying the Integrity overview on the
  * projects' pages, where the results of the last build and historical graphs etc. are shown.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class IntegrityProjectAction implements Action {

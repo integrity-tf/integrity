@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.eclipse.views;
 
 import java.io.IOException;
@@ -116,7 +123,7 @@ import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 /**
  * The Integrity Test Runner Eclipse Plugin main view.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  */
 public class IntegrityTestRunnerView extends ViewPart {
 

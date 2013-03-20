@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity;
 
 import hudson.model.AbstractBuild;
@@ -35,7 +39,7 @@ import org.kohsuke.stapler.Stapler;
  * The history graph view for Integrity result history. Heavily based on the standard test history view in Jenkins,
  * which isn't that well-suited for customization, thus a some of the code was duplicated.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class IntegrityHistory {

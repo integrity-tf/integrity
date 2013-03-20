@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.ui.utils;
 
 import java.lang.annotation.Annotation;
@@ -47,7 +51,7 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * Wrapper used in a similar fashion as the {@link de.gebit.integrity.fixtures.FixtureWrapper}. It encapsulates an IType
  * object and provides methods required when accessing the type during autocompletion etc.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class FixtureTypeWrapper {
@@ -378,7 +382,7 @@ public class FixtureTypeWrapper {
 	 * Finds providers linked to fixtures using link annotations.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 * @param <Provider>
 	 */

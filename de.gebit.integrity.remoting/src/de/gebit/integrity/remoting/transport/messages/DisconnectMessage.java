@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.remoting.transport.messages;
 
 /**
@@ -8,7 +12,7 @@ package de.gebit.integrity.remoting.transport.messages;
  * is to prevent any actual message bytes from getting lost in the close process, which can happen if a socket is closed
  * while there are still bytes to be written in the buffer (a common Java socket problem).
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class DisconnectMessage extends AbstractMessage {

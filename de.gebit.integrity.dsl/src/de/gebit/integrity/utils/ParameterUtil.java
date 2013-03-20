@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.utils;
 
 import java.beans.IntrospectionException;
@@ -12,7 +19,7 @@ import java.util.Map.Entry;
 /**
  * A utility class for handling of test/call parameters.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public final class ParameterUtil {
@@ -98,7 +105,7 @@ public final class ParameterUtil {
 	 * Thrown if a variable value cannot be resolved because there's no variable map given.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public static class UnresolvableVariableException extends RuntimeException {

@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity;
 
 import hudson.AbortException;
@@ -28,7 +35,7 @@ import org.kohsuke.stapler.QueryParameter;
  * The result recorder for Integrity test results. This is the main class of the Integrity Test Result plugin - this
  * class is plugged into the Jenkins as a custom result recorder.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  */
 public class IntegrityTestResultRecorder extends Recorder {
 
@@ -115,7 +122,7 @@ public class IntegrityTestResultRecorder extends Recorder {
 	 * This descriptor is used to integrate the {@link IntegrityTestResultRecorder} as a post-build step into Jenkins.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	@Extension

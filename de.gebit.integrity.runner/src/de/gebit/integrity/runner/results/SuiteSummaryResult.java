@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.results;
 
 /**
@@ -8,7 +12,7 @@ package de.gebit.integrity.runner.results;
  * from a suite execution, detailed information about the tests which were run is not available, thus this class is
  * used. If suites are run locally, more detailed info is available, in which case {@link SuiteResult} is used.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SuiteSummaryResult extends Result {

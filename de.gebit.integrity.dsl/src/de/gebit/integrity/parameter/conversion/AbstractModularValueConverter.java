@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.parameter.conversion;
 
 import java.lang.reflect.Array;
@@ -39,7 +43,7 @@ import de.gebit.integrity.wrapper.WrapperFactory;
  * Abstract base class for a value converter which uses conversion classes to determine how a given value is to be
  * converted into a desired form. This modularity makes it easy to extend the converter with additional conversions.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractModularValueConverter implements ValueConverter {
@@ -630,7 +634,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * This class defines a key for efficient searching for conversions in maps.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	protected static class ConversionKey {

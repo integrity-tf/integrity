@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.eclipse.classpath;
 
 import org.eclipse.core.runtime.Path;
@@ -15,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
  * A very simple configuration page to make the Integrity Classpath Container show up in the libraries to add by the
  * user. The page is actually empty, besides some text, since there's nothing to configure anyway!
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class IntegrityClasspathContainerPage extends WizardPage implements IClasspathContainerPage {

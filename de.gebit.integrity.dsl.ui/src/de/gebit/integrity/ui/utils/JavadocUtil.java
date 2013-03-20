@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.ui.utils;
 
 import java.util.ArrayList;
@@ -30,7 +37,7 @@ import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
  * This utility class contains various helper functions to aid in the exploration of Javadoc data attached to classes.
  * Only for use inside Eclipse!
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public final class JavadocUtil {

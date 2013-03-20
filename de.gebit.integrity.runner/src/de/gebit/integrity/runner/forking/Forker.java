@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.forking;
 
 /**
@@ -8,7 +12,7 @@ package de.gebit.integrity.runner.forking;
  * is an exact clone of the current (parent) process. The idea is similar to a UNIX fork, but the child process is
  * expected to start "fresh" instead of continuing at the current instruction.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public interface Forker {

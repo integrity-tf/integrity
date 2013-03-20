@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.remoting.transport;
 
 import java.io.IOException;
@@ -16,7 +23,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
  * endpoints. When a connection is established, it spawns a new {@link Endpoint} for that specific connection and
  * continues listening for more connections.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class ServerEndpoint {

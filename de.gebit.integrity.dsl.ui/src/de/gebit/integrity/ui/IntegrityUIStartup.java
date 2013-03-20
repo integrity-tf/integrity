@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.ui;
 
 import java.lang.reflect.Field;
@@ -27,7 +31,7 @@ import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 /**
  * This startup code is run when the Integrity UI bundle is started.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 @SuppressWarnings("restriction")
@@ -188,7 +192,7 @@ public class IntegrityUIStartup implements IStartup {
 	 * This location listener intercepts any location changes and sends URLs to the Integrity URL parser.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	class IntegrityURLLocationListener implements LocationListener {

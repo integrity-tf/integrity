@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.bindings.swing.authorassist;
 
 import java.awt.Color;
@@ -37,7 +41,7 @@ import de.gebit.integrity.bindings.swing.util.Base64;
  * Fixture content assist feature in the Integrity editor. When the server is running, the content assist feature can
  * connect to it and query for information about components in the currently-running application.
  * 
- * @author Slartibartfast
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public class SwingAuthorAssistServer {
@@ -112,7 +116,7 @@ public class SwingAuthorAssistServer {
 	 * {@link de.gebit.integrity.bindings.swing.eclipse.AbstractSwingFixtureAssist}).
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	protected class SwingAuthorAssistServerThread extends Thread {

@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
 import java.util.ArrayList;
@@ -15,7 +19,7 @@ import java.util.Map;
  * Instances of this class must be instantiable using the default no-arg constructor. They will be instantiated inside
  * the Eclipse JVM.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public interface ArbitraryParameterEnumerator {
@@ -62,7 +66,7 @@ public interface ArbitraryParameterEnumerator {
 	/**
 	 * A container for the definition of one arbitrary parameter.
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public class ArbitraryParameterDefinition {
@@ -235,7 +239,7 @@ public interface ArbitraryParameterEnumerator {
 	 * The suffix types that may follow a parameter name in a suggestion.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public enum ArbitraryParameterSuffix {

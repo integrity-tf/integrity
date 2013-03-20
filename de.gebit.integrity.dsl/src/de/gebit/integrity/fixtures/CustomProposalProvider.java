@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
 import java.lang.annotation.ElementType;
@@ -14,7 +18,7 @@ import java.util.Map;
  * Implementations of this interface are used by Integrity inside Eclipse to determine proposals for parameter values.
  * Link implementations to their respective fixture classes by means of {@link CustomProposalFixtureLink}.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 public interface CustomProposalProvider {
@@ -53,7 +57,7 @@ public interface CustomProposalProvider {
 	/**
 	 * A container for the definition of one proposal.
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	public class CustomProposalDefinition {
@@ -180,7 +184,7 @@ public interface CustomProposalProvider {
 	 * {@link CustomProposalFixture}, for which it will provide the parameter value proposals.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	@Target(ElementType.TYPE)

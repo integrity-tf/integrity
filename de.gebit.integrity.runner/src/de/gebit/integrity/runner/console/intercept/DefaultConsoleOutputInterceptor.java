@@ -1,6 +1,10 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package de.gebit.integrity.runner.console.intercept;
 
 import java.io.PrintStream;
@@ -16,7 +20,7 @@ import com.google.inject.Singleton;
  * thus it is critical that there's only one instance of this service in a given JVM. This imlementation automatically
  * hooks the streams when at least one target is registered, and unhooks them when the last target unregisters.
  * 
- * @author Rene Schneider
+ * @author Rene Schneider - initial API and implementation
  * 
  */
 @Singleton
@@ -119,7 +123,7 @@ public class DefaultConsoleOutputInterceptor implements ConsoleOutputInterceptor
 	 * lines and forwards the lines to all targets.
 	 * 
 	 * 
-	 * @author Rene Schneider
+	 * @author Rene Schneider - initial API and implementation
 	 * 
 	 */
 	protected class InterceptPrintStream extends PrintStream {
