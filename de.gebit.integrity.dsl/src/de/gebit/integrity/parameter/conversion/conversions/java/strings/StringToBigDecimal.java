@@ -5,9 +5,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-/**
- * A default Integrity conversion. 
- */
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
 import java.math.BigDecimal;
