@@ -199,4 +199,9 @@
     <property name="commentFormat" value="SUPPRESS CHECKSTYLE LONG (\w+)"/>
     <property name="influenceFormat" value="999999"/>
   </module>
+  <module name="RegexpHeader">
+    <property name="severity" value="warning"/>
+    <property name="header" value="/\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\n \* Copyright \(c\) \d{4}(, \d{4})? Rene Schneider \(GEBIT Solutions GmbH\) and others.\n \* All rights reserved. This program and the accompanying materials\n \* are made available under the terms of the Eclipse Public License v1.0\n \* which accompanies this distribution, and is available at\n \* http://www.eclipse.org/legal/epl-v10.html\n \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/"/>
+    <property name="fileExtensions" value="java,xtext"/>
+  </module>
 </module>
