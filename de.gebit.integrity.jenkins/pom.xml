@@ -34,16 +34,16 @@
   
   <!-- Override default Jenkins-CI repositories, since we currently don't want to release the plugin there yet -->
   <distributionManagement>
-    <repository>
-      <id>releases</id>
-      <name>Internal Releases</name>
-      <url>http://gebit-cvs/nexus/content/repositories/releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>snapshots</id>
-      <name>Internal Snapshots</name>
-      <url>http://gebit-cvs/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
+  	<repository>
+  		<id>integrity.nexus.releases</id>
+  		<name>Integrity Releases</name>
+  		<url>http://nexus.integrity-tf.org/content/repositories/releases</url>
+  	</repository>
+  	<snapshotRepository>
+  		<id>integrity.nexus.snapshots</id>
+  		<name>Integrity Snapshots</name>
+  		<url>http://nexus.integrity-tf.org/content/repositories/snapshots</url>
+  	</snapshotRepository>
   </distributionManagement>
   <build>
   	<pluginManagement>

@@ -10,23 +10,12 @@
   
   <packaging>pom</packaging>
   
-  <scm>
-  	<developerConnection>scm:git:ssh://ci@gebit-git/var/lib/git/integrity.git</developerConnection>
-  </scm>
-  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho-version>0.16.0</tycho-version>
     
     <isRelease>false</isRelease>
     <validateManifestVersions>true</validateManifestVersions>
-    
-    <!-- Do not forget to specify the used nexus url in the settings.xml -->
-  	<gebit.nexus.host>http://gebit-cvs</gebit.nexus.host>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.releases>releases</gebit.nexus.releases>
-  	<!-- Do not forget to specify the credentials in the used settings.xml -->
-  	<gebit.nexus.snapshots>snapshots</gebit.nexus.snapshots>
   </properties>
   
   <build>
@@ -155,14 +144,14 @@
   
   <distributionManagement>
   	<repository>
-  		<id>${gebit.nexus.releases}</id>
-  		<name>Internal Releases</name>
-  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.releases}</url>
+  		<id>integrity.nexus.releases</id>
+  		<name>Integrity Releases</name>
+  		<url>http://nexus.integrity-tf.org/content/repositories/releases</url>
   	</repository>
   	<snapshotRepository>
-  		<id>${gebit.nexus.snapshots}</id>
-  		<name>Internal Snapshots</name>
-  		<url>${gebit.nexus.host}/nexus/content/repositories/${gebit.nexus.snapshots}</url>
+  		<id>integrity.nexus.snapshots</id>
+  		<name>Integrity Snapshots</name>
+  		<url>http://nexus.integrity-tf.org/content/repositories/snapshots</url>
   	</snapshotRepository>
   </distributionManagement>
   
