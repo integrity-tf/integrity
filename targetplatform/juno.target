@@ -32,7 +32,7 @@
 <unit id="org.eclipse.xtext.runtime.feature.group" version="2.3.1.v201208210947"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947"/>
 <unit id="org.eclipse.xtext.ui.feature.group" version="2.3.1.v201208210947"/>
-<repository location="http://10.0.0.31:8080/job/Integrity_P2Mirror_Juno/lastSuccessfulBuild/artifact/"/>
+<repository location="http://build.integrity-tf.org/job/integrity_p2mirror_juno/lastSuccessfulBuild/artifact/"/>
 </location>
 </locations>
 <includeBundles>
