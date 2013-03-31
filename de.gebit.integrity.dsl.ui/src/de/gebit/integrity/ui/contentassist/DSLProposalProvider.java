@@ -1153,10 +1153,19 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 
 		for (final CustomProposalDefinition tempProposal : someProposals) {
+			if (tempProposal.getValue() == null) {
+				continue;
+			}
+
+			String tempPrefix = "";
+			if (tempProposal.getDoPrefixFiltering()) {
+				tempPrefix = aContext.getPrefix();
+			}
+
 			ICompletionProposal tempCompletionProposal = createCompletionProposal(tempProposal.getValue(),
 					new StyledString(tempProposal.getDisplayValue() != null ? tempProposal.getDisplayValue()
 							: tempProposal.getValue()), null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE,
-					tempProposal.getDoPrefixFiltering() ? aContext.getPrefix() : "", aContext);
+					tempPrefix, aContext);
 			if (tempCompletionProposal instanceof IntegrityConfigurableCompletionProposal) {
 				if (tempProposal.getHtmlDescription() != null && isBrowserInformationControlIsAvailable()) {
 					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
