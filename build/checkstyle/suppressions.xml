@@ -15,4 +15,8 @@
 		checks=".*"
 		files="xtend-gen[\\/]" />
 		
+	<suppress
+		checks=".*"
+		files="target[\\/]" />
+		
 </suppressions>

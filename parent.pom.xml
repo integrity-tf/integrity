@@ -142,6 +142,14 @@
     </plugins>
   </build>
   
+  <repositories>
+  	<repository>
+  		<id>integrity.nexus.proxy</id>
+  		<name>Integrity Dependencies Proxy</name>
+  		<url>http://nexus.integrity-tf.org/content/groups/proxy/</url>
+  	</repository>
+  </repositories>
+  
   <distributionManagement>
   	<repository>
   		<id>integrity.nexus.releases</id>

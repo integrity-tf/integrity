@@ -83,6 +83,27 @@
   							<pluginExecution>
   								<pluginExecutionFilter>
   									<groupId>
+  										org.apache.maven.plugins
+  									</groupId>
+  									<artifactId>
+  										maven-enforcer-plugin
+  									</artifactId>
+  									<versionRange>
+  										[1.0.1,)
+  									</versionRange>
+  									<goals>
+  										<goal>
+  											display-info
+  										</goal>
+  									</goals>
+  								</pluginExecutionFilter>
+  								<action>
+  									<ignore></ignore>
+  								</action>
+  							</pluginExecution>
+  							<pluginExecution>
+  								<pluginExecutionFilter>
+  									<groupId>
   										org.codehaus.gmaven
   									</groupId>
   									<artifactId>
@@ -93,6 +114,26 @@
   									</versionRange>
   									<goals>
   										<goal>generateTestStubs</goal>
+  										<goal>testCompile</goal>
+  									</goals>
+  								</pluginExecutionFilter>
+  								<action>
+  									<ignore></ignore>
+  								</action>
+  							</pluginExecution>
+  							<pluginExecution>
+  								<pluginExecutionFilter>
+  									<groupId>
+  										org.jvnet.localizer
+  									</groupId>
+  									<artifactId>
+  										maven-localizer-plugin
+  									</artifactId>
+  									<versionRange>
+  										[1.13,)
+  									</versionRange>
+  									<goals>
+  										<goal>generate</goal>
   									</goals>
   								</pluginExecutionFilter>
   								<action>
