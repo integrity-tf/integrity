@@ -13,12 +13,14 @@ package de.gebit.integrity.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
+import de.gebit.integrity.ui.contentassist.IntegrityPrefixMatcher;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
@@ -125,6 +127,15 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends IntegrityURLResolver> bindIntegrityURLResolver() {
 		return DefaultIntegrityURLResolver.class;
+	}
+
+	/**
+	 * Defines the {@link PrefixMatcher} implementation.
+	 * 
+	 * @return
+	 */
+	public Class<? extends PrefixMatcher> bindPrefixMatcher() {
+		return IntegrityPrefixMatcher.class;
 	}
 
 }
