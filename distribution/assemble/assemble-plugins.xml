@@ -10,7 +10,6 @@
   	<dependencySets>
   		<dependencySet>
     		<unpack>false</unpack>
-    		<outputDirectory>dropins/integrity/eclipse/plugins/</outputDirectory>
   		</dependencySet>
 	</dependencySets>
   

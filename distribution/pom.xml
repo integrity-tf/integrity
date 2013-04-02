@@ -10,7 +10,7 @@
   
   <artifactId>distribution</artifactId>
   <packaging>pom</packaging>
-  <name>Integrity Eclipse Dropins</name>
+  <name>Integrity Bundle Packaging</name>
   
   <dependencies>
     <dependency>
@@ -56,7 +56,7 @@
 	            <descriptors>
 	              <descriptor>assemble/assemble-plugins.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-eclipse-dropins</finalName>
+	            <finalName>integrity-bundles</finalName>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
 	        </execution>
