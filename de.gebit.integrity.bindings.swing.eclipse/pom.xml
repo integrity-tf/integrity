@@ -23,4 +23,11 @@
   	</resources>
   </build> 
   
+  <dependencies>
+  	<dependency>
+  		<groupId>de.gebit.integrity</groupId>
+  		<artifactId>de.gebit.integrity.dsl</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>
