@@ -6,18 +6,18 @@
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
     <version>0.9.0-SNAPSHOT</version>
-    <relativePath>parent.pom.xml</relativePath>
+    <relativePath>integrity-parent/pom.xml</relativePath>
   </parent>
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity</artifactId>
   <version>0.9.0-SNAPSHOT</version>
   <name>Integrity Main Build</name>
-  <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   
   <packaging>pom</packaging>
     
   <modules>
+  	<module>integrity-parent</module>
   	<module>targetplatform</module>
     <module>de.gebit.integrity.dsl</module>
     <module>de.gebit.integrity.dsl.ui</module>
@@ -26,11 +26,22 @@
     <module>de.gebit.integrity.runner</module>
     <module>de.gebit.integrity.feature</module>
     <module>de.gebit.integrity.tests</module>
-    <module>distribution</module>
-    <module>standalonedeps.juno</module>
-    <module>updatesite</module>
-    <module>de.gebit.integrity.jenkins</module>
   </modules>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+  		  <!-- In some cases we need to purge stuff. -->
+	      <artifactId>maven-dependency-plugin</artifactId>
+	      <version>2.7</version>
+	      <configuration>
+	      	<includeGroupIds>de.gebit.integrity</includeGroupIds>
+	      	<actTransitively>false</actTransitively>
+	      	<reResolve>false</reResolve>
+	      </configuration>
+	    </plugin>
+  	</plugins>  
+  </build>
   
   
 </project>

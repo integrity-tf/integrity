@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <artifactId>integrity</artifactId>
+    <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
     <version>0.9.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>integrity-standalone-dependencies</artifactId>
@@ -28,64 +28,13 @@
 	            <descriptors>
 	              <descriptor>assemble/assemble-all.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-standalone</finalName>
+	            <finalName>integrity-standalone-dependencies</finalName>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
 	        </execution>
 	      </executions>
 	    </plugin>
     </plugins>
-<!--   	<plugins> -->
-<!--   		<plugin> -->
-<!-- 	       <groupId>org.apache.maven.plugins</groupId> -->
-<!-- 	       <artifactId>maven-dependency-plugin</artifactId> -->
-<!-- 	       <version>2.4</version> -->
-<!-- 	       <executions> -->
-<!-- 	         <execution> -->
-<!-- 	           <id>copy-dependencies</id> -->
-<!-- 	           <phase>package</phase> -->
-<!-- 	           <goals> -->
-<!-- 	             <goal>copy-dependencies</goal> -->
-<!-- 	           </goals> -->
-<!-- 	           <configuration> -->
-<!-- 	             <outputDirectory>${project.build.directory}/bundles</outputDirectory> -->
-	             
-<!-- 	             <overWriteReleases>false</overWriteReleases> -->
-<!-- 	             <overWriteSnapshots>false</overWriteSnapshots> -->
-<!-- 	             <overWriteIfNewer>true</overWriteIfNewer> -->
-<!-- 	           </configuration> -->
-<!-- 	         </execution> -->
-<!-- 	       </executions> -->
-<!-- 	     </plugin> -->
-<!--   	</plugins> -->
-<!--   	<pluginManagement> -->
-<!-- 	  <plugins> -->
-<!-- 	    <plugin> -->
-<!-- 	      <groupId>org.eclipse.m2e</groupId> -->
-<!-- 	      <artifactId>lifecycle-mapping</artifactId> -->
-<!-- 	      <version>1.0.0</version> -->
-<!-- 	      <configuration> -->
-<!-- 	        <lifecycleMappingMetadata> -->
-<!-- 	          <pluginExecutions> -->
-<!-- 	            <pluginExecution> -->
-<!-- 	              <pluginExecutionFilter> -->
-<!-- 	                <groupId>org.apache.maven.plugins</groupId> -->
-<!-- 	                <artifactId>maven-dependency-plugin</artifactId> -->
-<!-- 	                <versionRange>[1.0.0,)</versionRange> -->
-<!-- 	                <goals> -->
-<!-- 	                  <goal>copy-dependencies</goal> -->
-<!-- 	                </goals> -->
-<!-- 	              </pluginExecutionFilter> -->
-<!-- 	              <action> -->
-<!-- 	                <ignore /> -->
-<!-- 	              </action> -->
-<!-- 	            </pluginExecution> -->
-<!-- 	          </pluginExecutions> -->
-<!-- 	        </lifecycleMappingMetadata> -->
-<!-- 	      </configuration> -->
-<!-- 	    </plugin> -->
-<!-- 	  </plugins> -->
-<!-- 	</pluginManagement> -->
   </build>
   
   <dependencies>
@@ -315,24 +264,6 @@
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.jdom</artifactId>
   		<version>1.1.1.v201101151400</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>de.gebit.integrity</groupId>
-  		<artifactId>de.gebit.integrity.dsl</artifactId>
-  		<version>${project.version}</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>de.gebit.integrity</groupId>
-  		<artifactId>de.gebit.integrity.remoting</artifactId>
-  		<version>${project.version}</version>
-  		<scope>runtime</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>de.gebit.integrity</groupId>
-  		<artifactId>de.gebit.integrity.runner</artifactId>
-  		<version>${project.version}</version>
   		<scope>runtime</scope>
   	</dependency>
   	<dependency>

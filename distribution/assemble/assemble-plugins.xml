@@ -9,6 +9,7 @@
   
   	<dependencySets>
   		<dependencySet>
+  			<useProjectArtifact>false</useProjectArtifact>
     		<unpack>false</unpack>
   		</dependencySet>
 	</dependencySets>

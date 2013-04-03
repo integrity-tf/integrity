@@ -18,7 +18,7 @@ packagedef swing.calculator with
 		
 		call clickButton name: "evaluateButton"
 		
-		test labelText name: "resultLabel" = 111111111
+		test labelText name: "resultLabel" = 1234
 		test labelText name: "inputLabel" = ""
 		
 		call clickButton name: "clearButton"

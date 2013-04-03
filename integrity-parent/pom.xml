@@ -8,19 +8,18 @@
   <name>Integrity Parent POM</name>
   <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   
-  <packaging>pom</packaging>
+  <packaging>pom</packaging> 
   
   <properties>
+  	<isRelease>false</isRelease>
+  	  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho-version>0.16.0</tycho-version>
-    
-    <isRelease>false</isRelease>
     <validateManifestVersions>true</validateManifestVersions>
   </properties>
   
   <build>
-    <plugins>
-      
+    <plugins>      
 		  <plugin>
 		    <groupId>org.eclipse.tycho</groupId>
 		    <artifactId>tycho-maven-plugin</artifactId>
@@ -86,6 +85,7 @@
 	        <version>2.7</version>
 	        <configuration>
 	      	  <updateReleaseInfo>${isRelease}</updateReleaseInfo>
+	      	  
 	        </configuration>
 	      </plugin>
 	      

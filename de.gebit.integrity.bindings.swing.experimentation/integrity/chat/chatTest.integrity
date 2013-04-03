@@ -19,7 +19,19 @@ packagedef swing.chat with
 		
 		suite sendMessageFromBToA message: "Foobar!"
 		
-		//call tools.authorAssist
+		call tools.authorAssist
+		
+		//call clickButton name:
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 				
 		suite killChatApp
 		suite killChatApp on clientB
