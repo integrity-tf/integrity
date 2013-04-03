@@ -10,22 +10,17 @@
   
   <artifactId>distribution</artifactId>
   <packaging>pom</packaging>
-  <name>Integrity Test Framework - Distribution</name>
+  <name>Integrity Swing Bindings - Distribution</name>
   
   <dependencies>
     <dependency>
-      <groupId>de.gebit.integrity</groupId>
-      <artifactId>de.gebit.integrity.runner</artifactId>
+      <groupId>de.gebit.integrity.bindings.swing</groupId>
+      <artifactId>de.gebit.integrity.bindings.swing.eclipse</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>de.gebit.integrity</groupId>
-      <artifactId>de.gebit.integrity.dsl</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.gebit.integrity</groupId>
-      <artifactId>de.gebit.integrity.remoting</artifactId>
+      <groupId>de.gebit.integrity.bindings.swing</groupId>
+      <artifactId>de.gebit.integrity.bindings.swing.fixtures</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -46,7 +41,7 @@
 	            <descriptors>
 	              <descriptor>assemble/assemble-plugins.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-bundles</finalName>
+	            <finalName>integrity-swing-bindings</finalName>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
 	        </execution>
