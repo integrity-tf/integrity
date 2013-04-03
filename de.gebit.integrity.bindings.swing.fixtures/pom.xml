@@ -34,6 +34,11 @@
   		<artifactId>de.gebit.integrity.runner</artifactId>
   		<version>${project.version}</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.gebit.integrity</groupId>
+  		<artifactId>de.gebit.integrity.remoting</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
   </dependencies>
  
 </project>
