@@ -23,11 +23,6 @@
       <artifactId>de.gebit.integrity.runner</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>de.gebit.integrity</groupId>
-      <artifactId>de.gebit.integrity.feature</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
   
   <build>
