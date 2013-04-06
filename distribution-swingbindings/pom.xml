@@ -8,7 +8,7 @@
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>distribution</artifactId>
+  <artifactId>swingbindings-distribution</artifactId>
   <packaging>pom</packaging>
   <name>Integrity Swing Bindings - Distribution</name>
   

@@ -7,6 +7,7 @@
 <stringAttribute key="M2_PROFILES" value=""/>
 <listAttribute key="M2_PROPERTIES">
 <listEntry value="newVersion=0.9.0-SNAPSHOT"/>
+<listEntry value="artifacts=integrity-all,integrity-parent"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
