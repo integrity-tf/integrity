@@ -8,9 +8,9 @@
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>integrity-standalone-dependencies</artifactId>
+  <artifactId>integrity-standalone-dependencies-juno</artifactId>
   <packaging>pom</packaging>
-  <name>Integrity Standalone Dependencies</name>
+  <name>Integrity Standalone Dependencies - Juno</name>
   
   <build>
     <plugins>
@@ -28,7 +28,8 @@
 	            <descriptors>
 	              <descriptor>assemble/assemble-all.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-standalone-dependencies</finalName>
+	            <finalName>integrity-standalone-dependencies-juno</finalName>
+	            <appendAssemblyId>false</appendAssemblyId>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
 	        </execution>
