@@ -55,46 +55,55 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	public IClasspathEntry[] getClasspathEntries() {
 		ArrayList<IClasspathEntry> tempEntryList = new ArrayList<IClasspathEntry>();
 
-		addToList(tempEntryList, "de.gebit.integrity.runner");
-		addToList(tempEntryList, "de.gebit.integrity.remoting");
-		addToList(tempEntryList, "de.gebit.integrity.dsl");
+		addToList(tempEntryList, new String[] { "de.gebit.integrity.runner" });
+		addToList(tempEntryList, new String[] { "de.gebit.integrity.remoting" });
+		addToList(tempEntryList, new String[] { "de.gebit.integrity.dsl" });
 
-		addToList(tempEntryList, "javax.inject");
-		addToList(tempEntryList, "com.google.inject");
-		addToList(tempEntryList, "com.google.guava");
-		addToList(tempEntryList, "org.antlr.runtime");
-		addToList(tempEntryList, "org.apache.log4j");
-		addToList(tempEntryList, "org.eclipse.core.contenttype");
-		addToList(tempEntryList, "org.eclipse.core.jobs");
-		addToList(tempEntryList, "org.eclipse.core.resources");
-		addToList(tempEntryList, "org.eclipse.core.runtime");
-		addToList(tempEntryList, "org.eclipse.emf.common");
-		addToList(tempEntryList, "org.eclipse.emf.ecore");
-		addToList(tempEntryList, "org.eclipse.emf.ecore.xmi");
-		addToList(tempEntryList, "org.eclipse.emf.mwe.utils");
-		addToList(tempEntryList, "org.eclipse.equinox.preferences");
-		addToList(tempEntryList, "org.eclipse.text");
-		addToList(tempEntryList, "org.eclipse.xtext");
-		addToList(tempEntryList, "org.eclipse.xtext.util");
-		addToList(tempEntryList, "org.eclipse.xtext.common.types");
-		addToList(tempEntryList, "org.jdom");
+		addToList(tempEntryList, new String[] { "javax.inject" });
+		addToList(tempEntryList, new String[] { "com.google.inject" });
+		addToList(tempEntryList, new String[] { "com.google.guava" });
+		addToList(tempEntryList, new String[] { "org.antlr.runtime" });
+		addToList(tempEntryList, new String[] { "org.slf4j.log4j", "org.apache.log4j" });
+		addToList(tempEntryList, new String[] { "org.eclipse.core.contenttype" });
+		addToList(tempEntryList, new String[] { "org.eclipse.core.jobs" });
+		addToList(tempEntryList, new String[] { "org.eclipse.core.resources" });
+		addToList(tempEntryList, new String[] { "org.eclipse.core.runtime" });
+		addToList(tempEntryList, new String[] { "org.eclipse.emf.common" });
+		addToList(tempEntryList, new String[] { "org.eclipse.emf.ecore" });
+		addToList(tempEntryList, new String[] { "org.eclipse.emf.ecore.xmi" });
+		addToList(tempEntryList, new String[] { "org.eclipse.emf.mwe.utils" });
+		addToList(tempEntryList, new String[] { "org.eclipse.equinox.preferences" });
+		addToList(tempEntryList, new String[] { "org.eclipse.text" });
+		addToList(tempEntryList, new String[] { "org.eclipse.xtext" });
+		addToList(tempEntryList, new String[] { "org.eclipse.xtext.util" });
+		addToList(tempEntryList, new String[] { "org.eclipse.xtext.common.types" });
+		addToList(tempEntryList, new String[] { "org.jdom" });
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
 		return (IClasspathEntry[]) tempEntryList.toArray(tempEntryArray);
 	}
 
-	private void addToList(List<IClasspathEntry> aList, String aBundleName) {
-		IClasspathEntry tempEntry = getPluginEntry(findBundle(aBundleName));
-		if (tempEntry != null) {
-			aList.add(tempEntry);
-		} else {
-			Activator
-					.getInstance()
-					.getLog()
-					.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Was unable to find bundle '" + aBundleName
-							+ "' to add it to a projects' classpath!"));
+	private void addToList(List<IClasspathEntry> aList, String[] someBundleNames) {
+		StringBuffer tempBuffer = new StringBuffer();
+		for (String tempBundleName : someBundleNames) {
+			IClasspathEntry tempEntry = getPluginEntry(findBundle(tempBundleName));
+			if (tempEntry != null) {
+				aList.add(tempEntry);
+				return;
+			} else {
+				if (tempBuffer.length() > 0) {
+					tempBuffer.append(", ");
+				}
+				tempBuffer.append(tempBundleName);
+			}
 		}
+
+		Activator
+				.getInstance()
+				.getLog()
+				.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Was unable to find any of the bundles '"
+						+ tempBuffer + "' to add it to a projects' classpath!"));
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
