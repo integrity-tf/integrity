@@ -55,55 +55,71 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	public IClasspathEntry[] getClasspathEntries() {
 		ArrayList<IClasspathEntry> tempEntryList = new ArrayList<IClasspathEntry>();
 
-		addToList(tempEntryList, new String[] { "de.gebit.integrity.runner" });
-		addToList(tempEntryList, new String[] { "de.gebit.integrity.remoting" });
-		addToList(tempEntryList, new String[] { "de.gebit.integrity.dsl" });
+		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.runner" } });
+		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.remoting" } });
+		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.dsl" } });
 
-		addToList(tempEntryList, new String[] { "javax.inject" });
-		addToList(tempEntryList, new String[] { "com.google.inject" });
-		addToList(tempEntryList, new String[] { "com.google.guava" });
-		addToList(tempEntryList, new String[] { "org.antlr.runtime" });
-		addToList(tempEntryList, new String[] { "org.slf4j.log4j", "org.apache.log4j" });
-		addToList(tempEntryList, new String[] { "org.eclipse.core.contenttype" });
-		addToList(tempEntryList, new String[] { "org.eclipse.core.jobs" });
-		addToList(tempEntryList, new String[] { "org.eclipse.core.resources" });
-		addToList(tempEntryList, new String[] { "org.eclipse.core.runtime" });
-		addToList(tempEntryList, new String[] { "org.eclipse.emf.common" });
-		addToList(tempEntryList, new String[] { "org.eclipse.emf.ecore" });
-		addToList(tempEntryList, new String[] { "org.eclipse.emf.ecore.xmi" });
-		addToList(tempEntryList, new String[] { "org.eclipse.emf.mwe.utils" });
-		addToList(tempEntryList, new String[] { "org.eclipse.equinox.preferences" });
-		addToList(tempEntryList, new String[] { "org.eclipse.text" });
-		addToList(tempEntryList, new String[] { "org.eclipse.xtext" });
-		addToList(tempEntryList, new String[] { "org.eclipse.xtext.util" });
-		addToList(tempEntryList, new String[] { "org.eclipse.xtext.common.types" });
-		addToList(tempEntryList, new String[] { "org.jdom" });
+		addToList(tempEntryList, new String[][] { new String[] { "javax.inject" } });
+		addToList(tempEntryList, new String[][] { new String[] { "com.google.inject" } });
+		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.antlr.runtime" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.slf4j.log4j", "org.slf4j.api" },
+				new String[] { "org.apache.log4j" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.core.contenttype" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.core.jobs" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.core.resources" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.core.runtime" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.common" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore.xmi" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.mwe.utils" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.equinox.preferences" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.text" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.util" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.common.types" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" } });
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
 		return (IClasspathEntry[]) tempEntryList.toArray(tempEntryArray);
 	}
 
-	private void addToList(List<IClasspathEntry> aList, String[] someBundleNames) {
+	private void addToList(List<IClasspathEntry> aList, String[][] someBundleNames) {
 		StringBuffer tempBuffer = new StringBuffer();
-		for (String tempBundleName : someBundleNames) {
-			IClasspathEntry tempEntry = getPluginEntry(findBundle(tempBundleName));
-			if (tempEntry != null) {
-				aList.add(tempEntry);
-				return;
-			} else {
+		for (String[] tempBundleNames : someBundleNames) {
+			StringBuffer tempInnerBuffer = new StringBuffer();
+			List<IClasspathEntry> tempList = new ArrayList<IClasspathEntry>();
+			boolean tempFoundAll = true;
+			for (String tempBundleName : tempBundleNames) {
+				IClasspathEntry tempEntry = getPluginEntry(findBundle(tempBundleName));
+				if (tempEntry != null) {
+					tempList.add(tempEntry);
+				} else {
+					if (tempInnerBuffer.length() > 0) {
+						tempInnerBuffer.append(", ");
+					}
+					tempInnerBuffer.append(tempBundleName);
+					tempFoundAll = false;
+				}
+			}
+
+			if (tempList.size() == 0 || !tempFoundAll) {
 				if (tempBuffer.length() > 0) {
 					tempBuffer.append(", ");
 				}
-				tempBuffer.append(tempBundleName);
+				tempBuffer.append("{ " + tempInnerBuffer + " }");
+			} else {
+				aList.addAll(tempList);
 			}
 		}
 
 		Activator
 				.getInstance()
 				.getLog()
-				.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Was unable to find any of the bundles '"
-						+ tempBuffer + "' to add it to a projects' classpath!"));
+				.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"Was unable to find any of the bundle combinations '" + tempBuffer
+								+ "' to add it to a projects' classpath!"));
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
