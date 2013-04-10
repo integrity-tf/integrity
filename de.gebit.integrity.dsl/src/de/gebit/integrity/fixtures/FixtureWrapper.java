@@ -229,7 +229,7 @@ public class FixtureWrapper<C extends Object> {
 	 * @return the resulting object
 	 * @throws Throwable
 	 */
-	public Object execute(String aName, Map<String, Object> someParameters) throws Exception {
+	public Object execute(String aName, Map<String, Object> someParameters) throws Throwable {
 		Method tempMethod = findFixtureMethodByName(fixtureClass, aName);
 		if (tempMethod == null) {
 			throw new IllegalArgumentException("Did not find a fixture method of name '" + aName + "' in class "
@@ -259,7 +259,7 @@ public class FixtureWrapper<C extends Object> {
 		} catch (IllegalAccessException exc) {
 			throw new IllegalArgumentException("Caught exception when trying to invoke method '" + aName + "'", exc);
 		} catch (InvocationTargetException exc) {
-			throw (Exception) exc.getCause();
+			throw (Throwable) exc.getCause();
 		}
 	}
 

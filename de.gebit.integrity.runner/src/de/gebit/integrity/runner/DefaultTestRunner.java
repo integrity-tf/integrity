@@ -1344,7 +1344,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws Exception
 	 */
 	protected Object executeFixtureMethod(FixtureWrapper<?> aFixtureInstance, MethodReference aMethod,
-			Map<String, Object> someParameters) throws Exception {
+			Map<String, Object> someParameters) throws Throwable {
 		return aFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
 	}
 
