@@ -283,8 +283,22 @@ public class SwingAuthorAssistFrame extends JFrame {
 			Toolkit.getDefaultToolkit().getSystemEventQueue().push(tempEventQueue);
 		}
 
-		autoCompleteServer = new SwingAuthorAssistServer(swingComponentHandler, this);
+		autoCompleteServer = createAuthorAssistServer(swingComponentHandler, this);
 		autoCompleteServer.startUp();
+	}
+
+	/**
+	 * Creates the author assist server.
+	 * 
+	 * @param aSwingComponentHandler
+	 *            the swing component handler to use
+	 * @param anOwnerFrame
+	 *            the owner of this server
+	 * @return the author assist server (not started)
+	 */
+	protected SwingAuthorAssistServer createAuthorAssistServer(AbstractSwingComponentHandler aSwingComponentHandler,
+			JFrame anOwnerFrame) {
+		return new SwingAuthorAssistServer(aSwingComponentHandler, anOwnerFrame);
 	}
 
 	/**
@@ -420,7 +434,6 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected void freezeIdentification() {
 		if (!identificationFrozen && identifiedComponent != null) {
 			identificationFrozen = true;
-			identifiedComponent.setBorder(new LineBorder(Color.GREEN.darker(), 1));
 		}
 	}
 
@@ -430,7 +443,6 @@ public class SwingAuthorAssistFrame extends JFrame {
 	protected void unfreezeIdentification() {
 		if (identificationFrozen && identifiedComponent != null) {
 			identificationFrozen = false;
-			identifiedComponent.setBorder(new LineBorder(Color.RED, 1));
 		}
 	}
 

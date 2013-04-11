@@ -23,5 +23,17 @@ packagedef basic with
 	calldef getTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
 	testdef textFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#getTextFieldContent
 	calldef setTextFieldContent uses de.gebit.integrity.bindings.swing.basic.SwingTextFieldFixture#setTextFieldContent
+	
+	// Lists
+	calldef getListEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
+	testdef listEntryCount uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryCount
+	calldef getListEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryTopDown
+	testdef listEntry uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryTopDown
+	calldef getListText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextTopDown
+	testdef listText uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextTopDown
+	calldef getListEntryBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryBottomUp
+	testdef listEntryBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListEntryBottomUp
+	calldef getListTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
+	testdef listTextBottomUp uses de.gebit.integrity.bindings.swing.basic.SwingListFixture#getListTextBottomUp
  
 packageend

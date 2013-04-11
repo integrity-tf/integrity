@@ -215,14 +215,27 @@ public class SwingAuthorAssistServer {
 	public static final String COMPONENT_LINE_NEWLINE = "<br>";
 
 	/**
-	 * Maximum width for the quickhelp overview pictures pointing out a specific component.
+	 * Maximum width for the quickhelp overview pictures pointing out a specific component. If the real width is larger,
+	 * scaling will occur.
 	 */
-	public static final int COMPONENT_LINE_OVERVIEW_IMG_MAXWIDTH = 260;
+	public final int getComponentLineOverviewImgMaxWidth() {
+		return 260;
+	}
 
 	/**
-	 * Maximum height for the quickhelp overview pictures pointing out a specific component.
+	 * Maximum height for the quickhelp overview pictures pointing out a specific component. If the real height is
+	 * larger, scaling will occur.
 	 */
-	public static final int COMPONENT_LINE_OVERVIEW_IMG_MAXHEIGHT = 160;
+	public final int getComponentLineOverviewImgMaxHeight() {
+		return 160;
+	}
+
+	/**
+	 * Minimum scaling factor. If scaling below this factor would be necessary, the max height/width values are ignored.
+	 */
+	public final float getComponentLineOverviewMinScaling() {
+		return 0.33f;
+	}
 
 	/**
 	 * Generates the data line for a specific component.
@@ -322,8 +335,8 @@ public class SwingAuthorAssistServer {
 				Graphics2D tempGraphics = (Graphics2D) tempImage.getGraphics();
 				tempOuterContainer.paintAll(tempGraphics);
 
-				float tempScalingFactor1 = (float) COMPONENT_LINE_OVERVIEW_IMG_MAXWIDTH / (float) tempImage.getWidth();
-				float tempScalingFactor2 = (float) COMPONENT_LINE_OVERVIEW_IMG_MAXHEIGHT
+				float tempScalingFactor1 = (float) getComponentLineOverviewImgMaxWidth() / (float) tempImage.getWidth();
+				float tempScalingFactor2 = (float) getComponentLineOverviewImgMaxHeight()
 						/ (float) tempImage.getHeight();
 				tempScalingFactor = tempScalingFactor1 < tempScalingFactor2 ? tempScalingFactor1 : tempScalingFactor2;
 
@@ -331,6 +344,10 @@ public class SwingAuthorAssistServer {
 					tempScalingFactor = 1.0f;
 					tempScaledOriginalImage = tempImage;
 				} else {
+					if (tempScalingFactor < getComponentLineOverviewMinScaling()) {
+						tempScalingFactor = getComponentLineOverviewMinScaling();
+					}
+
 					tempScaledOriginalImage = new BufferedImage(Math.round((float) tempImage.getWidth()
 							* tempScalingFactor), Math.round((float) tempImage.getHeight() * tempScalingFactor),
 							BufferedImage.TYPE_INT_RGB);

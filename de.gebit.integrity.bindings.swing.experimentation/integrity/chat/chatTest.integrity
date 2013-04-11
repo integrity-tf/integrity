@@ -13,24 +13,21 @@ packagedef swing.chat with
 		
 		suite sendMessageFromAToB message: "Foo!"
 		
-		suite sendMessageFromBToA message: "Foo!"
-		
-		suite sendMessageFromAToB message: "Bar!"
+		suite sendMessageFromBToA message: "Bar!"
 		
 		suite sendMessageFromBToA message: "Foobar!"
 		
-		call tools.authorAssist
+		tabletest listText name: "messageList"
+			| position | =         |
+			| 0        | "Bar!"    |
+			| 1        | "Foobar!" |
+			
+		tabletest listText name: "messageList"
+			| =         |
+			| "Bar!"    |
+			| "Foobar!" |
 		
-		//call clickButton name:
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//call tools.authorAssist
 		
 				
 		suite killChatApp
@@ -56,12 +53,12 @@ packagedef swing.chat with
 
 	suitedef sendMessageFromAToB gets message with
 		suite sendMessage message: message
-		suite checkMessageReceived on clientB
+		suite checkMessageReceived message: message on clientB
 	suiteend
 	
 	suitedef sendMessageFromBToA gets message with
 		suite sendMessage message: message on clientB
-		suite checkMessageReceived
+		suite checkMessageReceived message: message
 	suiteend
 	
 	suitedef sendMessage gets message with
@@ -70,7 +67,8 @@ packagedef swing.chat with
 	suiteend
 	
 	suitedef checkMessageReceived gets message with
-		// todo make this testable
+		// received messages are added at the bottom of the list, so we can check the last one
+		test listEntryBottomUp name: "messageList" position: 0 = message
 	suiteend
 
 packageend
