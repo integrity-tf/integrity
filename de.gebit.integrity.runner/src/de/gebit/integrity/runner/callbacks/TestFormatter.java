@@ -202,8 +202,17 @@ public class TestFormatter {
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
 			// resolved
-			String tempValue = valueConverter.convertValueToString(someParameters.get(tempMatcher.group(2)), false,
-					anUnresolvableVariableHandlingPolicy);
+			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
+			String tempValue = null;
+			if (tempValueBeforeConversion == null
+					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING) {
+				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
+				// that's required for unresolvable parameters as well; this is typically required for tabletests.
+				tempValue = "???";
+			} else {
+				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false,
+						anUnresolvableVariableHandlingPolicy);
+			}
 
 			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
 			tempMatcher = PARAMETER_PATTERN.matcher(tempText);
