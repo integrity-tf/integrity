@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 Rene Schneider (GEBIT Solutions GmbH) and others.
+ * Copyright (c) 2013 Rene Schneider, GEBIT Solutions GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1344,7 +1344,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws Exception
 	 */
 	protected Object executeFixtureMethod(FixtureWrapper<?> aFixtureInstance, MethodReference aMethod,
-			Map<String, Object> someParameters) throws Exception {
+			Map<String, Object> someParameters) throws Throwable {
 		return aFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
 	}
 
