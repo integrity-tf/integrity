@@ -52,7 +52,7 @@
 					.boxtitle a:link { color: #FFF; text-decoration: none; font-weight: bold; }
 					.boxtitle a:hover { color: #FFF; text-decoration: underline; font-weight: bold; }
 					.boxtitle a:visited { color: #FFF; text-decoration: none; font-weight: bold; }
-					.boxtitleright { position: absolute; right: 2px; }
+					.boxtitleright { position: absolute; right: 2px; line-height: 14px; }
 					.nonbold { font-weight: normal !important; }
 					.boxcontent { padding: 10px 10px 10px 10px; }
 					table { border-spacing: 0px; margin-bottom: 2px; border-bottom: 1px
@@ -131,10 +131,12 @@
 					.nav_suiteexception { background-image:
 					url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAPCAYAAAA4crG6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHxJREFUeNrs1rEJgDAQhtHTThBiiPvP4UaOEU+4wgEs34OfNEmT6lvmnBH3tUXEnmu5I9dzI3fWxufsdafVm/ctAABl9QUAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAH7zCDAAXFQFuTlYBeAAAAAASUVORK5CYII="); }
 					#progressbar { margin-top: 6px; border: 1px solid #000; }
-					.testicons { margin-left: 6px; }
-					.suiteicons { margin-left: 6px; }
-					.scriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKFJREFUeNpskDEOhSAQRBdj5QHsgAbssQTuokfzRBaUxMZwkP1ZEsyKf5NJyOQxm1mBiMAnxvg22hDYZK1F5xxyjxRCwIF/yjmLaZpgWZZP6qi1fplSSvDefzbXxPu+BYkgYwwcxyH2fUeePPASHLquC+Z5hnVdKzw2kKCUEjSolFI3Uep5ngKUUk/LbduQGtKb+/WEvdHU+3V13/zf/AQYAPpsgATFn91/AAAAAElFTkSuQmCC") no-repeat right 1px; }
-					.suitescriptlink { padding-right: 10px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }
+					.testicons { margin-left: 6px; float: right; }
+					.testicons a { width: 10px; display: block; float: right; height: 12px; }
+					.suiteicons { margin-left: 6px; float: right; }
+					.suiteicons a { width: 10px; display: block; float: right; height: 12px; }
+					.scriptlink { padding-right: 4px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKFJREFUeNpskDEOhSAQRBdj5QHsgAbssQTuokfzRBaUxMZwkP1ZEsyKf5NJyOQxm1mBiMAnxvg22hDYZK1F5xxyjxRCwIF/yjmLaZpgWZZP6qi1fplSSvDefzbXxPu+BYkgYwwcxyH2fUeePPASHLquC+Z5hnVdKzw2kKCUEjSolFI3Uep5ngKUUk/LbduQGtKb+/WEvdHU+3V13/zf/AQYAPpsgATFn91/AAAAAElFTkSuQmCC") no-repeat right 1px; }
+					.suitescriptlink { padding-right: 4px; background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNqEUFsKwCAMq1Pww/sfVbBQ7cyg4GtbQEpCmhQdLRARpT/UWhXvtHyNgvfeqSqdzKG1NomdUyllrxuNqMg5PxzTkqdqEGamlJKDKcZI0xmWaAmYWDJ9M5rZvme9fRde9PBlHnELMABfRYFq6Zhw8gAAAABJRU5ErkJggg==") no-repeat right 2px; }
 					.console { border: 1px solid #000; margin-bottom: 5px; margin-top: 4px; background-color: #FFF; display: none; }
 					.console ol { padding-left: 0px; margin-top: 0px; margin-bottom: 0px; counter-reset: item; list-style-type: none; font-family: Courier, Courier New, Lucida Console, monospace; }
 					.console li { padding-left: 4px; padding-right: 4px; }
