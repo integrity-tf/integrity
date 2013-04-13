@@ -9,6 +9,7 @@ package de.gebit.integrity.ui.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.eclipse.jdt.core.IMemberValuePair;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
@@ -28,6 +30,11 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
+import org.eclipse.jdt.core.util.IAnnotationComponent;
+import org.eclipse.jdt.core.util.IAnnotationComponentValue;
+import org.eclipse.jdt.core.util.IClassFileAttribute;
+import org.eclipse.jdt.core.util.IClassFileReader;
+import org.eclipse.jdt.core.util.IRuntimeInvisibleAnnotationsAttribute;
 
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
@@ -379,7 +386,9 @@ public class FixtureTypeWrapper {
 	}
 
 	/**
-	 * Finds providers linked to fixtures using link annotations.
+	 * Finds providers linked to fixtures using link annotations. This class is able to deal with both relevant
+	 * situations: having the source code in the workspace, and having no source but just the classes inside jars in the
+	 * classpath.
 	 * 
 	 * 
 	 * @author Rene Schneider - initial API and implementation
@@ -417,57 +426,103 @@ public class FixtureTypeWrapper {
 				public void acceptSearchMatch(SearchMatch aMatch) throws CoreException {
 					IType tempType = (IType) aMatch.getElement();
 
-					// This will find the annotation if it's referred by its short name (using an import)...
-					IAnnotation tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getSimpleName());
-					if (tempAnnotation == null || !tempAnnotation.exists()) {
-						// ...and this will find it if it's referred by its fully qualified name
-						tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getName());
-					}
+					List<String> tempLinkedClassNames = new ArrayList<String>();
 
-					if (tempAnnotation != null && tempAnnotation.exists()) {
-						try {
-							IMemberValuePair[] tempPairs = tempAnnotation.getMemberValuePairs();
-							if (tempPairs.length == 1) {
-								String[] tempLinkedClassNames;
-								if (tempPairs[0].getValue().getClass().isArray()) {
-									Object[] tempObjects = (Object[]) tempPairs[0].getValue();
-									tempLinkedClassNames = new String[tempObjects.length];
-									for (int i = 0; i < tempObjects.length; i++) {
-										tempLinkedClassNames[i] = (String) tempObjects[i];
-									}
-								} else {
-									tempLinkedClassNames = new String[1];
-									tempLinkedClassNames[0] = (String) tempPairs[0].getValue();
-								}
-
-								outer: for (String tempLinkedClassName : tempLinkedClassNames) {
-									if (aFullyQualifiedName.equals(tempLinkedClassName)) {
-										// this is a match
-										searchResult = tempType;
-										break outer;
-									} else {
-										// no match, but that could be because the linked class name is not fully
-										// qualified
-										if (aFullyQualifiedName.endsWith(tempLinkedClassName)) {
-											// okay, we have to check that
-											String[][] tempPossibleMatches = tempType.resolveType(tempLinkedClassName);
-											for (String[] tempMatch : tempPossibleMatches) {
-												// we can ignore the default package here as that case would have
-												// already
-												// matched before
-												String tempFullMatch = tempMatch[0] + "." + tempMatch[1];
-												if (aFullyQualifiedName.equals(tempFullMatch)) {
-													// yeah, a match
-													searchResult = tempType;
-													break outer;
+					if (tempType.isBinary()) {
+						// It seems to be impossible to get values from annotations in binary types using the JDT Java
+						// model :-( thus an alternative way is implemented here using the ClassFileReader.
+						IClassFileReader tempReader = ToolFactory.createDefaultClassFileReader(tempType.getClassFile(),
+								IClassFileReader.CLASSFILE_ATTRIBUTES);
+						for (IClassFileAttribute tempAttribute : tempReader.getAttributes()) {
+							if (tempAttribute instanceof IRuntimeInvisibleAnnotationsAttribute) {
+								for (org.eclipse.jdt.core.util.IAnnotation tempAnnotation : ((IRuntimeInvisibleAnnotationsAttribute) tempAttribute)
+										.getAnnotations()) {
+									ResolvedTypeName tempAnnotationName = IntegrityDSLUIUtil.getResolvedTypeName(
+											new String(tempAnnotation.getTypeName()), tempType);
+									// Resolved type names have no $ in them in case of inner classes because of the
+									// behavior of the org.eclipse.jdt.core.Signature.toString() method, so we need to
+									// replace them in the class name as well for matching.
+									if (linkAnnotationClass.getName().replace('$', '.')
+											.equals(tempAnnotationName.getRawType())) {
+										// This is the right annotation, and it only has one component
+										IAnnotationComponent tempComponent = tempAnnotation.getComponents()[0];
+										IAnnotationComponentValue tempComponentValue = tempComponent
+												.getComponentValue();
+										if (tempComponentValue.getTag() == IAnnotationComponentValue.ARRAY_TAG) {
+											// Multiple values may be stored here...
+											for (IAnnotationComponentValue tempInnerValue : tempComponentValue
+													.getAnnotationComponentValues()) {
+												if (tempInnerValue.getTag() == IAnnotationComponentValue.CLASS_TAG) {
+													ResolvedTypeName tempResolvedLinkedClassName = IntegrityDSLUIUtil
+															.getResolvedTypeName(new String(tempInnerValue
+																	.getClassInfo().getUtf8Value()), tempType);
+													tempLinkedClassNames.add(tempResolvedLinkedClassName.getRawType());
 												}
 											}
+										} else if (tempComponentValue.getTag() == IAnnotationComponentValue.CLASS_TAG) {
+											ResolvedTypeName tempResolvedLinkedClassName = IntegrityDSLUIUtil
+													.getResolvedTypeName(new String(tempComponentValue.getClassInfo()
+															.getUtf8Value()), tempType);
+											tempLinkedClassNames.add(tempResolvedLinkedClassName.getRawType());
 										}
 									}
 								}
 							}
-						} catch (JavaModelException exc) {
-							exc.printStackTrace();
+						}
+					} else {
+						// For source types, we can use the JDT model to resolve the annotation which is much easier :-)
+
+						// This will find the annotation if it's referred by its short name (using an import)...
+						IAnnotation tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getSimpleName());
+						if (tempAnnotation == null || !tempAnnotation.exists()) {
+							// ...and this will find it if it's referred by its fully qualified name
+							tempAnnotation = tempType.getAnnotation(linkAnnotationClass.getName());
+						}
+
+						if (tempAnnotation != null && tempAnnotation.exists()) {
+							try {
+								IMemberValuePair[] tempPairs = tempAnnotation.getMemberValuePairs();
+								if (tempPairs.length == 1) {
+									if (tempPairs[0].getValue().getClass().isArray()) {
+										Object[] tempObjects = (Object[]) tempPairs[0].getValue();
+										for (int i = 0; i < tempObjects.length; i++) {
+											tempLinkedClassNames.add((String) tempObjects[i]);
+										}
+									} else {
+										tempLinkedClassNames.add((String) tempPairs[0].getValue());
+									}
+								}
+							} catch (JavaModelException exc) {
+								exc.printStackTrace();
+							}
+						}
+					}
+
+					// Now we'll see if we have a match
+					String tempNormalizedFullyQualifiedName = aFullyQualifiedName.replace('$', '.');
+					outer: for (String tempLinkedClassName : tempLinkedClassNames) {
+						if (tempNormalizedFullyQualifiedName.equals(tempLinkedClassName.replace('$', '.'))) {
+							// this is a match
+							searchResult = tempType;
+							break outer;
+						} else {
+							// no match, but that could be because the linked class name is not fully
+							// qualified
+							if (aFullyQualifiedName.endsWith(tempLinkedClassName)) {
+								// okay, we have to check that
+								String[][] tempPossibleMatches = tempType.resolveType(tempLinkedClassName);
+								for (String[] tempMatch : tempPossibleMatches) {
+									// we can ignore the default package here as that case would have
+									// already
+									// matched before
+									String tempFullMatch = tempMatch[0] + "." + tempMatch[1];
+									if (aFullyQualifiedName.equals(tempFullMatch)) {
+										// yeah, a match
+										searchResult = tempType;
+										break outer;
+									}
+								}
+							}
 						}
 					}
 				}

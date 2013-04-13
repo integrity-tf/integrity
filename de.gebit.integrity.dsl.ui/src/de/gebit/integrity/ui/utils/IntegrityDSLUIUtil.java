@@ -122,7 +122,7 @@ public final class IntegrityDSLUIUtil {
 			}
 			return null;
 		} else {
-			return new ResolvedTypeName(Signature.toString(aTypeSignature.substring(tempArrayCount)));
+			return new ResolvedTypeName(Signature.toString(aTypeSignature.substring(tempArrayCount)).replace('/', '.'));
 		}
 	}
 
