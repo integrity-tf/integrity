@@ -35,6 +35,8 @@ import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.string.FormattedString;
+import de.gebit.integrity.string.FormattedStringElement;
 import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -146,18 +148,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			try {
 				someVisitedObjects.add(aValue);
 				if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
-					return convertEncapsulatedValueCollectionToParamType(aTargetType, aParameterizedType,
+					return convertEncapsulatedValueCollectionToTargetType(aTargetType, aParameterizedType,
 							(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy,
 							someVisitedObjects);
 				} else if (aValue instanceof ValueOrEnumValueOrOperation) {
-					return convertEncapsulatedValueToParamType(aTargetType, aParameterizedType,
+					return convertEncapsulatedValueToTargetType(aTargetType, aParameterizedType,
 							(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy,
 							someVisitedObjects);
 				} else if (aValue instanceof ConstantValue) {
-					return convertEncapsulatedConstantValueToParamType(aTargetType, aParameterizedType,
+					return convertEncapsulatedConstantValueToTargetType(aTargetType, aParameterizedType,
 							(ConstantValue) aValue, anUnresolvableVariableHandlingPolicy, someVisitedObjects);
 				} else {
-					return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+					return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
 							anUnresolvableVariableHandlingPolicy, someVisitedObjects);
 				}
 			} finally {
@@ -183,7 +185,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the converted value
 	 */
-	protected Object convertPlainValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
+	protected Object convertPlainValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
 		if (aValue == null) {
 			return null;
@@ -199,8 +201,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					Array.set(
 							tempResultArray,
 							i,
-							convertPlainValueToParamType(tempActualParamType, aParameterizedType, Array.get(aValue, i),
-									anUnresolvableVariableHandlingPolicy, someVisitedValues));
+							convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
+									Array.get(aValue, i), anUnresolvableVariableHandlingPolicy, someVisitedValues));
 				}
 			} else {
 				// target is an array, but value is a single value
@@ -208,7 +210,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				Array.set(
 						tempResultArray,
 						0,
-						convertPlainValueToParamType(tempActualParamType, aParameterizedType, aValue,
+						convertPlainValueToTargetType(tempActualParamType, aParameterizedType, aValue,
 								anUnresolvableVariableHandlingPolicy, someVisitedValues));
 			}
 			return tempResultArray;
@@ -218,14 +220,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return aValue;
 			} else {
 				// unresolvable variables can't happen here, since variable values should have gone down the other path
-				return convertSingleValueToParamType(aTargetType, aParameterizedType, aValue,
+				return convertSingleValueToTargetType(aTargetType, aParameterizedType, aValue,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object convertSingleValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
+	private Object convertSingleValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
 		if (aValue == null) {
 			return null;
@@ -245,25 +247,59 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		try {
-			@SuppressWarnings("rawtypes")
-			Conversion tempConversion = findConversion(tempSourceType, tempTargetType, someVisitedValues);
-			if (tempConversion != null) {
-				return tempConversion.convert(aValue, tempTargetType, anUnresolvableVariableHandlingPolicy);
-			}
+			return convertSingleValueToTargetTypeGuarded(tempSourceType, tempTargetType, aValue,
+					anUnresolvableVariableHandlingPolicy, someVisitedValues);
 		} catch (InstantiationException exc) {
 			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Failed to instantiate conversion",
 					exc);
 		} catch (IllegalAccessException exc) {
 			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Failed to instantiate conversion",
 					exc);
+		} catch (ConversionUnsupportedException exc) {
+			throw exc;
 			// SUPPRESS CHECKSTYLE IllegalCatch
 		} catch (Throwable exc) {
 			throw new ConversionFailedException(aValue.getClass(), tempTargetType,
 					"Unexpected error during conversion", exc);
 		}
+	}
 
-		throw new ConversionUnsupportedException(aValue.getClass(), tempTargetType,
-				"Could not find a matching conversion");
+	@SuppressWarnings("unchecked")
+	private Object convertSingleValueToTargetTypeGuarded(Class<?> aSourceType, Class<?> aTargetType, Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues)
+			throws InstantiationException, IllegalAccessException {
+
+		if (aTargetType != null && aTargetType.isAssignableFrom(aSourceType)) {
+			// No conversion necessary
+			return aValue;
+		}
+
+		// "Guarded" means: if String is requested...
+		if (aTargetType == String.class) {
+			// ...we actually request FormattedString (since all conversions to String actually convert to
+			// FormattedString) and convert the result to an (unformatted) string. This way, implementing a conversion
+			// to FormattedString automatically supplies the conversion to String as well.
+			FormattedString tempFormattedString = (FormattedString) convertSingleValueToTargetTypeGuarded(aSourceType,
+					FormattedString.class, aValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
+			if (tempFormattedString != null) {
+				return tempFormattedString.toUnformattedString();
+			} else {
+				return null;
+			}
+		} else if (aSourceType == FormattedString.class) {
+			// ...and if FormattedString is the source, we simply convert that to an unformatted string first.
+			return convertSingleValueToTargetTypeGuarded(String.class, aTargetType,
+					((FormattedString) aValue).toUnformattedString(), anUnresolvableVariableHandlingPolicy,
+					someVisitedValues);
+		}
+
+		@SuppressWarnings("rawtypes")
+		Conversion tempConversion = findConversion(aSourceType, aTargetType, someVisitedValues);
+		if (tempConversion != null) {
+			return tempConversion.convert(aValue, aTargetType, anUnresolvableVariableHandlingPolicy);
+		}
+
+		throw new ConversionUnsupportedException(aValue.getClass(), aTargetType, "Could not find a matching conversion");
 	}
 
 	private Class<?> transformPrimitiveTypes(Class<?> aType) {
@@ -308,7 +344,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	protected Object convertEncapsulatedValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
+	protected Object convertEncapsulatedValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
 			ValueOrEnumValueOrOperation aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy,
 			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
 		if (aValue == null) {
@@ -318,7 +354,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		try {
 			if (aValue instanceof StandardOperation) {
 				Object tempResult = standardOperationProcessor.executeOperation((StandardOperation) aValue);
-				return convertPlainValueToParamType(aTargetType, aParameterizedType, tempResult,
+				return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			} else if (aValue instanceof CustomOperation) {
 				if (wrapperFactory == null) {
@@ -328,16 +364,16 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					CustomOperationWrapper tempWrapper = wrapperFactory
 							.newCustomOperationWrapper((CustomOperation) aValue);
 					Object tempResult = tempWrapper.executeOperation();
-					return convertPlainValueToParamType(aTargetType, aParameterizedType, tempResult,
+					return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult,
 							anUnresolvableVariableHandlingPolicy, someVisitedValues);
 				}
 			} else if (aValue instanceof Variable) {
 				Object tempResult = parameterResolver.resolveSingleParameterValue(aValue,
 						anUnresolvableVariableHandlingPolicy);
-				return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
+				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			} else {
-				return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+				return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			}
 		} catch (ClassNotFoundException exc) {
@@ -367,7 +403,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	protected Object convertEncapsulatedConstantValueToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
+	protected Object convertEncapsulatedConstantValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
 			ConstantValue aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy,
 			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
 		if (aValue == null) {
@@ -379,7 +415,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// Constants need to be "constantly" defined in the variable manager at runtime, so we can ask it
 				// directly.
 				Object tempResult = variableManager.get(((Constant) aValue).getName());
-				return convertSingleValueToParamType(aTargetType, aParameterizedType, tempResult,
+				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			} else if (((Constant) aValue).getName().eContainer() instanceof ConstantDefinition) {
 				// Without the variable manager, we can still attempt to resolve statically.
@@ -394,7 +430,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 			return null;
 		} else {
-			return convertPlainValueToParamType(aTargetType, aParameterizedType, aValue,
+			return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
 					anUnresolvableVariableHandlingPolicy, someVisitedValues);
 		}
 	}
@@ -421,7 +457,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	protected Object convertEncapsulatedValueCollectionToParamType(Class<?> aTargetType, Class<?> aParameterizedType,
+	protected Object convertEncapsulatedValueCollectionToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
 			ValueOrEnumValueOrOperationCollection aCollection,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues)
 			throws UnresolvableVariableException, UnexecutableException {
@@ -456,7 +492,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
 						.get(i - 1));
-				Object tempResultValue = convertEncapsulatedValueToParamType(tempTargetType, aParameterizedType,
+				Object tempResultValue = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
 						tempValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
 				Array.set(tempResultArray, i, tempResultValue);
 			}
@@ -474,7 +510,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 		} else {
 			// this is just a single value
-			Object tempResult = convertEncapsulatedValueToParamType(tempTargetType, aParameterizedType,
+			Object tempResult = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
 					aCollection.getValue(), anUnresolvableVariableHandlingPolicy, someVisitedValues);
 
 			// but we might need to return this as an array with one element
@@ -524,39 +560,60 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	@Override
 	public String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		return convertValueToFormattedString(aValue, aForceIntermediateMapFlag, anUnresolvableVariableHandlingPolicy)
+				.toUnformattedString();
+	}
+
+	@Override
+	public FormattedString convertValueToFormattedString(Object aValue, boolean aForceIntermediateMapFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if (aForceIntermediateMapFlag) {
 			try {
 				Map<?, ?>[] tempIntermediateMap = (Map[]) convertValue(Map[].class, aValue,
 						anUnresolvableVariableHandlingPolicy);
-				return convertValueToString(tempIntermediateMap, false, anUnresolvableVariableHandlingPolicy);
+				return convertValueToFormattedString(tempIntermediateMap, false, anUnresolvableVariableHandlingPolicy);
 			} catch (UnresolvableVariableException exc) {
 				exc.printStackTrace();
-				return "FAILURE";
+				return new FormattedString("FAILURE");
 			} catch (UnexecutableException exc) {
 				exc.printStackTrace();
-				return "FAILURE";
+				return new FormattedString("FAILURE");
 			} catch (ConversionException exc) {
 				exc.printStackTrace();
-				return "FAILURE";
+				return new FormattedString("FAILURE");
 			}
 		}
 
 		// always convert to an array, so array values will convert fine
-		String[] tempResult = convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+		FormattedString[] tempResult = convertValueToFormattedStringArray(aValue, anUnresolvableVariableHandlingPolicy);
 
-		StringBuilder tempBuffer = new StringBuilder();
-		for (String tempSingleResult : tempResult) {
-			if (tempBuffer.length() > 0) {
-				tempBuffer.append(", ");
+		FormattedString tempBuffer = new FormattedString();
+		for (FormattedString tempSingleResult : tempResult) {
+			if (tempBuffer.getElementCount() > 0) {
+				tempBuffer.add(new FormattedStringElement(", "));
 			}
-			tempBuffer.append(tempSingleResult);
+			tempBuffer.add(tempSingleResult);
 		}
 
-		return tempBuffer.toString();
+		return tempBuffer;
 	}
 
 	@Override
 	public String[] convertValueToStringArray(Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		FormattedString[] tempFormattedStrings = convertValueToStringArray(aValue,
+				anUnresolvableVariableHandlingPolicy, new HashSet<Object>());
+
+		String[] tempStrings = new String[tempFormattedStrings.length];
+		for (int i = 0; i < tempFormattedStrings.length; i++) {
+			tempStrings[i] = tempFormattedStrings[i].toUnformattedString();
+		}
+
+		return tempStrings;
+	}
+
+	@Override
+	public FormattedString[] convertValueToFormattedStringArray(Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		return convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy, new HashSet<Object>());
 	}
@@ -569,34 +626,34 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param someVisitedValues
 	 * @return
 	 */
-	public String[] convertValueToStringArray(Object aValue,
+	public FormattedString[] convertValueToStringArray(Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
-		String[] tempResult;
+		FormattedString[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
-				tempResult = (String[]) convertEncapsulatedValueCollectionToParamType(String[].class, null,
-						(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy,
-						someVisitedValues);
+				tempResult = (FormattedString[]) convertEncapsulatedValueCollectionToTargetType(
+						FormattedString[].class, null, (ValueOrEnumValueOrOperationCollection) aValue,
+						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
-				tempResult = (String[]) convertEncapsulatedValueToParamType(String[].class, null,
+				tempResult = (FormattedString[]) convertEncapsulatedValueToTargetType(FormattedString[].class, null,
 						(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			} else {
-				tempResult = (String[]) convertPlainValueToParamType(String[].class, null, aValue,
+				tempResult = (FormattedString[]) convertPlainValueToTargetType(FormattedString[].class, null, aValue,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
 			}
 		} catch (UnexecutableException exc) {
 			// this is expected to happen in some cases during dry run - but not a problem
-			return new String[] { "???" };
+			return new FormattedString[] { new FormattedString("???") };
 		} catch (UnresolvableVariableException exc) {
 			// This is expected to happen - for example in case of operations depending on undefined variables.
-			return new String[] { "???" };
+			return new FormattedString[] { new FormattedString("???") };
 		} catch (ConversionException exc) {
 			exc.printStackTrace();
-			return new String[] { "FAILURE" };
+			return new FormattedString[] { new FormattedString("FAILURE") };
 		}
 
 		if (tempResult == null) {
-			return new String[] { "null" };
+			return new FormattedString[] { new FormattedString("null") };
 		} else {
 			return tempResult;
 		}

@@ -11,6 +11,7 @@ import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -18,12 +19,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class BooleanValueToString extends Conversion<BooleanValue, String> {
+public class BooleanValueToString extends Conversion<BooleanValue, FormattedString> {
 
 	@Override
-	public String convert(BooleanValue aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(BooleanValue aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return aSource.getBooleanValue();
+		return new FormattedString(aSource.getBooleanValue());
 	}
 
 }

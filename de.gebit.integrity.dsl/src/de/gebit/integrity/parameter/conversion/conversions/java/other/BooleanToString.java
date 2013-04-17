@@ -7,9 +7,10 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -17,12 +18,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class BooleanToString extends Conversion<Boolean, String> {
+public class BooleanToString extends Conversion<Boolean, FormattedString> {
 
 	@Override
-	public String convert(Boolean aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(Boolean aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return aSource.toString();
+		return new FormattedString(aSource.toString());
 	}
 
 }

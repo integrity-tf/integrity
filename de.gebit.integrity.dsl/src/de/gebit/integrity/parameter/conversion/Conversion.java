@@ -16,6 +16,7 @@ import java.util.Set;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -122,13 +123,13 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 *            how to deal with unresolvable variables
 	 * @return the converted string array
 	 */
-	protected String[] convertValueToStringArrayRecursive(Object aValue,
+	protected FormattedString[] convertValueToFormattedStringArrayRecursive(Object aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
 		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {
 			return ((AbstractModularValueConverter) valueConverter).convertValueToStringArray(aValue,
 					anUnresolvableVariableHandlingPolicy, visitedObjects);
 		} else {
-			return valueConverter.convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+			return valueConverter.convertValueToFormattedStringArray(aValue, anUnresolvableVariableHandlingPolicy);
 		}
 	}
 

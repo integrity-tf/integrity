@@ -11,9 +11,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import de.gebit.integrity.dsl.DateValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.DateUtil;
 
 /**
@@ -22,15 +23,16 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class DateValueToString extends Conversion<DateValue, String> {
+public class DateValueToString extends Conversion<DateValue, FormattedString> {
 
 	@Override
-	public String convert(DateValue aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(DateValue aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
-			return DateFormat.getDateInstance(DateFormat.LONG).format(DateUtil.convertDateValue(aSource).getTime());
+			return new FormattedString(DateFormat.getDateInstance(DateFormat.LONG).format(
+					DateUtil.convertDateValue(aSource).getTime()));
 		} catch (ParseException exc) {
-			throw new ConversionFailedException(DateValue.class, String.class, null, exc);
+			throw new ConversionFailedException(DateValue.class, FormattedString.class, null, exc);
 		}
 	}
 

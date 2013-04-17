@@ -43,15 +43,11 @@ public class FormattedStringElement extends AbstractFormattedStringElement {
 
 	@Override
 	public String getFormattedText() {
-		if (text == null) {
-			return "";
-		}
-
 		StringBuilder tempBuilder = new StringBuilder();
 		for (FormatFlag tempFlag : formatFlags) {
 			tempBuilder.append(tempFlag.getStartTag());
 		}
-		tempBuilder.append(text);
+		tempBuilder.append(text == null ? "null" : text);
 		for (int i = formatFlags.size() - 1; i >= 0; i--) {
 			tempBuilder.append(formatFlags.get(i).getEndTag());
 		}

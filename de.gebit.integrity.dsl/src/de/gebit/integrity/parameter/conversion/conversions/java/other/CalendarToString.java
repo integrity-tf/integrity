@@ -13,6 +13,7 @@ import java.util.Calendar;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -20,12 +21,13 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class CalendarToString extends Conversion<Calendar, String> {
+public class CalendarToString extends Conversion<Calendar, FormattedString> {
 
 	@Override
-	public String convert(Calendar aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(Calendar aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aSource.getTime());
+		return new FormattedString(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(
+				aSource.getTime()));
 	}
 
 }

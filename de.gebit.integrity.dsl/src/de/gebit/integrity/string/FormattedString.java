@@ -23,33 +23,57 @@ public class FormattedString {
 
 	protected List<AbstractFormattedStringElement> elements = new ArrayList<AbstractFormattedStringElement>();
 
+	public FormattedString() {
+
+	}
+
 	public FormattedString(String aText) {
-		if (aText != null) {
-			elements.add(new FormattedStringElement(aText));
-		}
+		elements.add(new FormattedStringElement(aText));
 	}
 
 	public FormattedString(String aText, FormatFlag... someFlags) {
-		if (aText != null) {
-			elements.add(new FormattedStringElement(aText, someFlags));
-		}
+		elements.add(new FormattedStringElement(aText, someFlags));
 	}
 
 	public FormattedString(AbstractFormattedStringElement... someElements) {
 		elements.addAll(Arrays.asList(someElements));
 	}
 
-	public void addElement(AbstractFormattedStringElement anElement) {
-		elements.add(anElement);
+	public void add(AbstractFormattedStringElement anElement) {
+		if (anElement != null) {
+			elements.add(anElement);
+		}
 	}
 
-	public void addElements(AbstractFormattedStringElement... someElements) {
+	public void add(String aString) {
+		elements.add(new FormattedStringElement(aString));
+	}
+
+	public void add(String aString, FormatFlag... someFlags) {
+		elements.add(new FormattedStringElement(aString, someFlags));
+	}
+
+	public void add(AbstractFormattedStringElement... someElements) {
 		elements.addAll(Arrays.asList(someElements));
 	}
 
-	public String getFormattedString() {
+	public void add(FormattedString aFormattedString) {
+		if (aFormattedString != null) {
+			elements.addAll(aFormattedString.elements);
+		} else {
+			elements.add(new FormattedStringElement(null));
+		}
+	}
+
+	public void add(String... someStrings) {
+		for (String tempString : someStrings) {
+			elements.add(new FormattedStringElement(tempString));
+		}
+	}
+
+	public String toFormattedString() {
 		if (elements.size() == 0) {
-			return null;
+			return "null";
 		}
 
 		StringBuffer tempBuffer = new StringBuffer();
@@ -59,9 +83,9 @@ public class FormattedString {
 		return tempBuffer.toString();
 	}
 
-	public String getUnformattedString() {
+	public String toUnformattedString() {
 		if (elements.size() == 0) {
-			return null;
+			return "null";
 		}
 
 		StringBuffer tempBuffer = new StringBuffer();
@@ -71,9 +95,27 @@ public class FormattedString {
 		return tempBuffer.toString();
 	}
 
+	public int getElementCount() {
+		return elements.size();
+	}
+
 	@Override
 	public String toString() {
-		return getUnformattedString();
+		return toUnformattedString();
+	}
+
+	@Override
+	public boolean equals(Object anOtherObject) {
+		if (!(anOtherObject instanceof FormattedString)) {
+			return false;
+		}
+
+		return elements.equals(((FormattedString) anOtherObject).elements);
+	}
+
+	@Override
+	public int hashCode() {
+		return elements.hashCode();
 	}
 
 }

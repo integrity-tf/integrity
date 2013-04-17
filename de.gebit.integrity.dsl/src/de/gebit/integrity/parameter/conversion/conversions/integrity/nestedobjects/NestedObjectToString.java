@@ -19,6 +19,7 @@ import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -26,7 +27,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class NestedObjectToString extends Conversion<NestedObject, String> {
+public class NestedObjectToString extends Conversion<NestedObject, FormattedString> {
 
 	/**
 	 * The value converter used for recursive conversion and resolution of inner nested objects.
@@ -35,13 +36,13 @@ public class NestedObjectToString extends Conversion<NestedObject, String> {
 	private ValueConverter valueConverter;
 
 	@Override
-	public String convert(NestedObject aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(NestedObject aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		StringBuilder tempBuilder = new StringBuilder();
+		FormattedString tempBuffer = new FormattedString("{");
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = convertValueRecursive(String[].class, null, tempAttribute.getValue(),
+				tempConvertedValue = convertValueRecursive(FormattedString[].class, null, tempAttribute.getValue(),
 						anUnresolvableVariableHandlingPolicy);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
@@ -51,36 +52,43 @@ public class NestedObjectToString extends Conversion<NestedObject, String> {
 				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 			}
 
-			if (tempBuilder.length() > 0) {
-				tempBuilder.append(", ");
+			if (tempBuffer.getElementCount() > 1) {
+				tempBuffer.add(", ");
 			}
 
-			StringBuilder tempConvertedValueStringBuilder = new StringBuilder();
+			FormattedString tempConvertedValueStringBuffer = new FormattedString();
 
 			if (tempConvertedValue == null) {
-				tempConvertedValueStringBuilder.append("null");
+				tempConvertedValueStringBuffer.add("null");
 			} else {
 				int tempArrayLength = Array.getLength(tempConvertedValue);
 				if (tempArrayLength > 1) {
-					tempConvertedValueStringBuilder.append("[");
+					tempConvertedValueStringBuffer.add("[");
 				}
 				for (int i = 0; i < tempArrayLength; i++) {
 					if (i > 0) {
-						tempConvertedValueStringBuilder.append(", ");
+						tempConvertedValueStringBuffer.add(", ");
 					}
 					Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
-					tempConvertedValueStringBuilder.append(tempSingleArrayValue != null ? tempSingleArrayValue
-							.toString() : "null");
+					if (tempSingleArrayValue instanceof FormattedString) {
+						tempConvertedValueStringBuffer.add((FormattedString) tempSingleArrayValue);
+					} else {
+						tempConvertedValueStringBuffer.add(tempSingleArrayValue != null ? tempSingleArrayValue
+								.toString() : "null");
+					}
 				}
 				if (tempArrayLength > 1) {
-					tempConvertedValueStringBuilder.append("]");
+					tempConvertedValueStringBuffer.add("]");
 				}
 			}
 
-			tempBuilder.append(tempAttribute.getIdentifier() + "=" + tempConvertedValueStringBuilder.toString());
+			tempBuffer.add(tempAttribute.getIdentifier() + "=");
+			tempBuffer.add(tempConvertedValueStringBuffer);
 		}
 
-		return "{" + tempBuilder.toString() + "}";
+		tempBuffer.add("}");
+
+		return tempBuffer;
 	}
 
 }

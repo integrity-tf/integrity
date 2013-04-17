@@ -10,9 +10,10 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 import java.text.DateFormat;
 import java.util.Date;
 
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -20,12 +21,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class DateToString extends Conversion<Date, String> {
+public class DateToString extends Conversion<Date, FormattedString> {
 
 	@Override
-	public String convert(Date aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(Date aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aSource);
+		return new FormattedString(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(aSource));
 	}
 
 }

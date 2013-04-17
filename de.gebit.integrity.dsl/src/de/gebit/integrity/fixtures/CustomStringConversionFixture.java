@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
+import de.gebit.integrity.string.FormattedString;
+
 /**
  * A fixture may implement this optional interface to provide customized string conversion functionality, which will be
  * used to convert values returned by the fixture to strings to be displayed in the console or the XML result file. Note
@@ -27,6 +29,6 @@ public interface CustomStringConversionFixture {
 	 *            the fixture method name which was called and which returned the value
 	 * @return the resulting string
 	 */
-	String convertValueToString(Object aValue, String aFixtureMethod);
+	FormattedString convertValueToString(Object aValue, String aFixtureMethod);
 
 }

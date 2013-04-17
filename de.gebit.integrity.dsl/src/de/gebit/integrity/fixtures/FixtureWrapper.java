@@ -21,6 +21,7 @@ import com.google.inject.Injector;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -209,12 +210,12 @@ public class FixtureWrapper<C extends Object> {
 	 *            how to handle unresolvable variables
 	 * @return the converted string
 	 */
-	public String performValueToStringConversion(Object aValue, String aFixtureMethod,
+	public FormattedString performValueToFormattedStringConversion(Object aValue, String aFixtureMethod,
 			boolean aForceIntermediateMapFlag, UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
 		if (isCustomStringConversionFixture()) {
 			return ((CustomStringConversionFixture) fixtureInstance).convertValueToString(aValue, aFixtureMethod);
 		} else {
-			return valueConverter.convertValueToString(aValue, aForceIntermediateMapFlag,
+			return valueConverter.convertValueToFormattedString(aValue, aForceIntermediateMapFlag,
 					anUnresolvedVariableHandlingPolicy);
 		}
 	}

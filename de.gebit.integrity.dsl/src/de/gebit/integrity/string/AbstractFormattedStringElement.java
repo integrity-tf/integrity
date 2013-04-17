@@ -19,4 +19,34 @@ public abstract class AbstractFormattedStringElement {
 
 	public abstract String getFormattedText();
 
+	@Override
+	public boolean equals(Object anOtherObject) {
+		if (!(anOtherObject instanceof AbstractFormattedStringElement)) {
+			return false;
+		}
+
+		String tempOtherFormattedText = ((AbstractFormattedStringElement) anOtherObject).getFormattedText();
+		String tempFormattedText = getFormattedText();
+
+		if (tempOtherFormattedText == null) {
+			return tempFormattedText == null;
+		} else {
+			if (tempFormattedText == null) {
+				return false;
+			} else {
+				return tempOtherFormattedText.equals(tempFormattedText);
+			}
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		String tempFormattedText = getFormattedText();
+		if (tempFormattedText != null) {
+			return tempFormattedText.hashCode();
+		} else {
+			return 0;
+		}
+	}
+
 }

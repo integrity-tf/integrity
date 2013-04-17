@@ -8,6 +8,7 @@
 package de.gebit.integrity.parameter.conversion;
 
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -74,6 +75,24 @@ public interface ValueConverter {
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 
 	/**
+	 * Converts a given value to a formattedString. This method is intended to be used for the output of values (for
+	 * example in test results, on the console etc). In comparison to
+	 * {@link #convertValueToStringArray(Object, UnresolvableVariableHandling)}, this method always returns only a
+	 * single String value, concatenating arrays first if necessary.
+	 * 
+	 * @param aValue
+	 *            the value (can be an Integrity-internal type or a plain Java Object)
+	 * @param aForceIntermediateMapFlag
+	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @return the string
+	 */
+	FormattedString convertValueToFormattedString(Object aValue, boolean aForceIntermediateMapFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+
+	/**
 	 * Converts a given value to a String array. This method is intended to be used for the output of values (for
 	 * example in test results, on the console etc).
 	 * 
@@ -85,4 +104,18 @@ public interface ValueConverter {
 	 * @return the string array
 	 */
 	String[] convertValueToStringArray(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+
+	/**
+	 * Converts a given value to a formatted String array. This method is intended to be used for the output of values
+	 * (for example in test results, on the console etc).
+	 * 
+	 * @param aValue
+	 *            the value (can be an Integrity-internal type or a plain Java Object)
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            Defines the policy how unresolvable variable references (no variable given or no
+	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @return the string array
+	 */
+	FormattedString[] convertValueToFormattedStringArray(Object aValue,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
 }

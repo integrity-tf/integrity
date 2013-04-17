@@ -8,9 +8,10 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 
 import de.gebit.integrity.dsl.DecimalValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -18,12 +19,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class DecimalValueToString extends Conversion<DecimalValue, String> {
+public class DecimalValueToString extends Conversion<DecimalValue, FormattedString> {
 
 	@Override
-	public String convert(DecimalValue aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(DecimalValue aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return aSource.getDecimalValue().toString();
+		return new FormattedString(aSource.getDecimalValue().toString());
 	}
 
 }

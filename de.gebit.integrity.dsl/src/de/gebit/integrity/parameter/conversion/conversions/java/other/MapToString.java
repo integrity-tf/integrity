@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
+import de.gebit.integrity.string.FormattedStringElement;
 
 /**
  * A default Integrity conversion.
@@ -22,39 +24,41 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  */
 @SuppressWarnings("rawtypes")
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class MapToString extends Conversion<Map, String> {
+public class MapToString extends Conversion<Map, FormattedString> {
 
 	@Override
-	public String convert(Map aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(Map aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		StringBuilder tempBuilder = new StringBuilder();
+		FormattedString tempBuffer = new FormattedString("{");
 
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
-			String[] tempConvertedValues = convertValueToStringArrayRecursive(tempEntry.getValue(),
+			FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(tempEntry.getValue(),
 					anUnresolvableVariableHandlingPolicy);
 
-			if (tempBuilder.length() > 0) {
-				tempBuilder.append(", ");
+			if (tempBuffer.getElementCount() > 1) {
+				tempBuffer.add(", ");
 			}
 
-			StringBuilder tempInnerBuilder = new StringBuilder();
+			FormattedString tempInnerBuffer = new FormattedString();
 			if (tempConvertedValues.length == 1) {
-				tempInnerBuilder.append(tempConvertedValues[0]);
+				tempInnerBuffer.add(tempConvertedValues[0]);
 			} else {
-				tempInnerBuilder.append("[");
+				tempInnerBuffer.add("[");
 				for (int i = 0; i < tempConvertedValues.length; i++) {
 					if (i > 0) {
-						tempInnerBuilder.append(", ");
+						tempInnerBuffer.add(new FormattedStringElement(", "));
 					}
-					tempInnerBuilder.append(tempConvertedValues[i]);
+					tempInnerBuffer.add(tempConvertedValues[i]);
 				}
-				tempInnerBuilder.append("]");
+				tempInnerBuffer.add("]");
 			}
 
-			tempBuilder.append(tempEntry.getKey() + "=" + tempInnerBuilder.toString());
+			tempBuffer.add(tempEntry.getKey() + "=");
+			tempBuffer.add(tempInnerBuffer);
 		}
 
-		return "{" + tempBuilder.toString() + "}";
-	}
+		tempBuffer.add("}");
 
+		return tempBuffer;
+	}
 }
