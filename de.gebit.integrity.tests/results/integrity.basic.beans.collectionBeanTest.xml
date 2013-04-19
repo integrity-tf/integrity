@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:44" duration="249.225">
+<integrity name="Integrity JUnit Testing" timestamp="19.04.13 16:15" isotimestamp="2013-04-19T16:15:59" duration="78.880">
   <variables />
   <suite id="0" name="integrity.basic.beans.collectionBeanTest">
     <setup />
     <variables />
     <statements>
       <comment id="1" line="7">This must deliver all given parameters as strings in an array</comment>
-      <test id="2" line="8" name="checkCollectionBean" description="gets the bean {arrayParameter=[123, 123, true, null]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="5.465" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="5.465" description="gets the bean {arrayParameter=[123, 123, true, null]} and counts all entries in all lists" type="success">
+      <test id="2" line="8" name="checkCollectionBean" description="gets the bean {arrayParameter = 123, 123, true, null} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="3.044" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.044" description="gets the bean {arrayParameter = 123, 123, true, null} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{arrayParameter=[123, 123, true, null]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]arrayParameter = 123, 123, true, null[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="4" value="4" type="success" />
@@ -19,11 +19,11 @@
         </results>
       </test>
       <comment id="3" line="12">This must autoconvert the parameters to integers</comment>
-      <test id="4" line="13" name="checkCollectionBean" description="gets the bean {parameterizedListParameter=[1, 2]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="1.719" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.719" description="gets the bean {parameterizedListParameter=[1, 2]} and counts all entries in all lists" type="success">
+      <test id="4" line="13" name="checkCollectionBean" description="gets the bean {parameterizedListParameter = 1, 2} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="3.014" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.014" description="gets the bean {parameterizedListParameter = 1, 2} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{parameterizedListParameter=[1, 2]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]parameterizedListParameter = 1, 2[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="2" value="2" type="success" />
@@ -32,11 +32,11 @@
         </results>
       </test>
       <comment id="5" line="17">These should autoconvert to the default types</comment>
-      <test id="6" line="18" name="checkCollectionBean" description="gets the bean {plainCollectionParameter=[1, 2, 1.30]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="1.775" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.775" description="gets the bean {plainCollectionParameter=[1, 2, 1.30]} and counts all entries in all lists" type="success">
+      <test id="6" line="18" name="checkCollectionBean" description="gets the bean {plainCollectionParameter = 1, 2, 1.30} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="1.861" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.861" description="gets the bean {plainCollectionParameter = 1, 2, 1.30} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{plainCollectionParameter=[1, 2, 1.30]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]plainCollectionParameter = 1, 2, 1.30[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="3" value="3" type="success" />
@@ -44,11 +44,11 @@
           </result>
         </results>
       </test>
-      <test id="7" line="22" name="checkCollectionBean" description="gets the bean {plainListParameter=[1, 2, 3, 4]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="0.638" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.638" description="gets the bean {plainListParameter=[1, 2, 3, 4]} and counts all entries in all lists" type="success">
+      <test id="7" line="22" name="checkCollectionBean" description="gets the bean {plainListParameter = 1, 2, 3, 4} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="0.586" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.586" description="gets the bean {plainListParameter = 1, 2, 3, 4} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{plainListParameter=[1, 2, 3, 4]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]plainListParameter = 1, 2, 3, 4[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="4" value="4" type="success" />
@@ -56,11 +56,11 @@
           </result>
         </results>
       </test>
-      <test id="8" line="26" name="checkCollectionBean" description="gets the bean {lowerBoundParameterizedListParameter=[1, 2, 3, 4]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="4.182" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="4.182" description="gets the bean {lowerBoundParameterizedListParameter=[1, 2, 3, 4]} and counts all entries in all lists" type="success">
+      <test id="8" line="26" name="checkCollectionBean" description="gets the bean {lowerBoundParameterizedListParameter = 1, 2, 3, 4} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="1.622" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.622" description="gets the bean {lowerBoundParameterizedListParameter = 1, 2, 3, 4} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{lowerBoundParameterizedListParameter=[1, 2, 3, 4]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]lowerBoundParameterizedListParameter = 1, 2, 3, 4[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="4" value="4" type="success" />
@@ -69,11 +69,11 @@
         </results>
       </test>
       <comment id="9" line="30">This should also work fine!</comment>
-      <test id="10" line="31" name="checkCollectionBean" description="gets the bean {setParameterWithInnerBean=[{innerParameter=1.99}, {innerParameter=2.99}]} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
-        <results duration="8.777" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="8.777" description="gets the bean {setParameterWithInnerBean=[{innerParameter=1.99}, {innerParameter=2.99}]} and counts all entries in all lists" type="success">
+      <test id="10" line="31" name="checkCollectionBean" description="gets the bean {setParameterWithInnerBean = {innerParameter = 1.99}, {innerParameter = 2.99}} and counts all entries in all lists" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean">
+        <results duration="2.569" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.569" description="gets the bean {setParameterWithInnerBean = {innerParameter = 1.99}, {innerParameter = 2.99}} and counts all entries in all lists" type="success">
             <parameters>
-              <parameter name="bean" value="{setParameterWithInnerBean=[{innerParameter=1.99}, {innerParameter=2.99}]}" />
+              <parameter name="bean" value="[FORMATTED]{[NL][T]setParameterWithInnerBean = {[NL][T][T]innerParameter = 1.99[NL][T]}, {[NL][T][T]innerParameter = 2.99[NL][T]}[NL]}" />
             </parameters>
             <comparisons>
               <comparison expectedValue="2" value="2" type="success" />
@@ -83,7 +83,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="248.038" successCount="6" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="67.636" successCount="6" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
