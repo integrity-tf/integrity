@@ -11,15 +11,12 @@ import java.lang.reflect.Array;
 import java.util.Hashtable;
 import java.util.Map;
 
-import com.google.inject.Inject;
-
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.string.FormatTokenElement;
 import de.gebit.integrity.string.FormatTokenElement.FormatTokenType;
 import de.gebit.integrity.string.FormattedString;
@@ -31,12 +28,6 @@ import de.gebit.integrity.string.FormattedString;
  * 
  */
 public class NestedObjectToString extends Conversion<NestedObject, FormattedString> {
-
-	/**
-	 * The value converter used for recursive conversion and resolution of inner nested objects.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
 
 	/**
 	 * This static map stores the nesting depth information for string formatting. It is a map in order to be multi-
