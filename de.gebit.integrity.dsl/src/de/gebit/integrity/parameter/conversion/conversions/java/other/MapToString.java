@@ -7,12 +7,15 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormatTokenElement;
+import de.gebit.integrity.string.FormatTokenElement.FormatTokenType;
 import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.string.FormattedStringElement;
 
@@ -26,38 +29,63 @@ import de.gebit.integrity.string.FormattedStringElement;
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class MapToString extends Conversion<Map, FormattedString> {
 
+	/**
+	 * This static map stores the nesting depth information for string formatting. It is a map in order to be multi-
+	 * threading-safe, in case someone starts multiple test runner instances in one VM and runs them in parallel.
+	 */
+	private static Map<Thread, Integer> nestedObjectDepthMap = new Hashtable<Thread, Integer>();
+
 	@Override
 	public FormattedString convert(Map aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		FormattedString tempBuffer = new FormattedString("{");
 
+		Integer tempDepth = nestedObjectDepthMap.get(Thread.currentThread());
+		if (tempDepth == null) {
+			tempDepth = 1;
+		} else {
+			tempDepth++;
+		}
+		nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+
+		boolean tempFirst = true;
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
 			FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(tempEntry.getValue(),
 					anUnresolvableVariableHandlingPolicy);
 
-			if (tempBuffer.getElementCount() > 1) {
-				tempBuffer.add(", ");
+			if (!tempFirst) {
+				tempBuffer.add(" ");
 			}
+			tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
 			FormattedString tempInnerBuffer = new FormattedString();
 			if (tempConvertedValues.length == 1) {
 				tempInnerBuffer.add(tempConvertedValues[0]);
 			} else {
-				tempInnerBuffer.add("[");
 				for (int i = 0; i < tempConvertedValues.length; i++) {
 					if (i > 0) {
 						tempInnerBuffer.add(new FormattedStringElement(", "));
 					}
 					tempInnerBuffer.add(tempConvertedValues[i]);
 				}
-				tempInnerBuffer.add("]");
 			}
 
-			tempBuffer.add(tempEntry.getKey() + "=");
+			tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
+			tempBuffer.add(tempEntry.getKey() + " = ");
 			tempBuffer.add(tempInnerBuffer);
 		}
 
+		tempDepth--;
+
+		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
+		tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
 		tempBuffer.add("}");
+
+		if (tempDepth == 0) {
+			nestedObjectDepthMap.remove(Thread.currentThread());
+		} else {
+			nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+		}
 
 		return tempBuffer;
 	}
