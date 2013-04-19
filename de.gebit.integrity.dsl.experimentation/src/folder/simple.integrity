@@ -5,19 +5,16 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-	// test
-		--- Die erste Suite
-		--- Der erste Call
-		call echoInteger echo: 1 -> var
-		--- Noch ein Titel
-		-- Kein Titel
-		suite bsuite param: var 
-	suiteend
-	
-	suitedef bsuite gets param with
-		--- Die zweite Suite
-		test addition summand1: (param + 1) summand2: 2 = 4
-		call exceptioncall
+		test beanTest bean: {
+			primitiveInt: 123
+			innerBeanArrayParam: {
+				innerParameter: 12.23
+			}, {
+				innerParameter: 12.24
+			}
+		} = {
+			primitiveInt: 124
+		}
 	suiteend
 	
 packageend

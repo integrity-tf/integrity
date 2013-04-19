@@ -21,6 +21,8 @@ import de.gebit.integrity.string.FormattedStringElement.FormatFlag;
  */
 public class FormattedString {
 
+	public static final String FORMATTED_STRING_START_TOKEN = "[FORMATTED]";
+
 	protected List<AbstractFormattedStringElement> elements = new ArrayList<AbstractFormattedStringElement>();
 
 	public FormattedString() {
@@ -42,6 +44,12 @@ public class FormattedString {
 	public void add(AbstractFormattedStringElement anElement) {
 		if (anElement != null) {
 			elements.add(anElement);
+		}
+	}
+
+	public void addMultiple(AbstractFormattedStringElement anElement, int aNumber) {
+		for (int i = 0; i < aNumber; i++) {
+			add(anElement);
 		}
 	}
 
@@ -80,7 +88,13 @@ public class FormattedString {
 		for (AbstractFormattedStringElement tempElement : elements) {
 			tempBuffer.append(tempElement.getFormattedText());
 		}
-		return tempBuffer.toString();
+
+		String tempString = tempBuffer.toString();
+		if (tempString.length() == 0 || !tempString.contains("[")) {
+			return tempString;
+		} else {
+			return FORMATTED_STRING_START_TOKEN + tempString;
+		}
 	}
 
 	public String toUnformattedString() {
@@ -92,6 +106,7 @@ public class FormattedString {
 		for (AbstractFormattedStringElement tempElement : elements) {
 			tempBuffer.append(tempElement.getUnformattedText());
 		}
+
 		return tempBuffer.toString();
 	}
 

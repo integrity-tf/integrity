@@ -47,7 +47,8 @@ public class FormattedStringElement extends AbstractFormattedStringElement {
 		for (FormatFlag tempFlag : formatFlags) {
 			tempBuilder.append(tempFlag.getStartTag());
 		}
-		tempBuilder.append(text == null ? "null" : text);
+		// Opening brackets in the text need to be escaped
+		tempBuilder.append(text == null ? "null" : text.replace("[", "[["));
 		for (int i = formatFlags.size() - 1; i >= 0; i--) {
 			tempBuilder.append(formatFlags.get(i).getEndTag());
 		}
