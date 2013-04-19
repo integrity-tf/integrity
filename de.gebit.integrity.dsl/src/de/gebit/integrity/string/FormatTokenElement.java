@@ -17,8 +17,15 @@ public class FormatTokenElement extends AbstractFormattedStringElement {
 
 	private FormatTokenType type;
 
+	private String replacement;
+
 	public FormatTokenElement(FormatTokenType aType) {
 		type = aType;
+	}
+
+	public FormatTokenElement(FormatTokenType aType, String aReplacement) {
+		type = aType;
+		replacement = aReplacement;
 	}
 
 	public FormatTokenType getType() {
@@ -27,7 +34,7 @@ public class FormatTokenElement extends AbstractFormattedStringElement {
 
 	@Override
 	public String getUnformattedText() {
-		return "";
+		return replacement != null ? replacement : "";
 	}
 
 	@Override
@@ -36,7 +43,7 @@ public class FormatTokenElement extends AbstractFormattedStringElement {
 			return "";
 		}
 
-		return type.getTag();
+		return type.getTag(replacement);
 	}
 
 	/**
@@ -58,8 +65,8 @@ public class FormatTokenElement extends AbstractFormattedStringElement {
 			tag = aTag;
 		}
 
-		public String getTag() {
-			return "[" + tag + "]";
+		public String getTag(String aReplacement) {
+			return "[" + tag + (aReplacement != null ? "|" + aReplacement : "") + "]";
 		}
 
 	}

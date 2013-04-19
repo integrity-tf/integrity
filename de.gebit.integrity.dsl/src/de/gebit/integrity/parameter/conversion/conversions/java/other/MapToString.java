@@ -39,6 +39,7 @@ public class MapToString extends Conversion<Map, FormattedString> {
 	public FormattedString convert(Map aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		FormattedString tempBuffer = new FormattedString("{");
+		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
 		Integer tempDepth = nestedObjectDepthMap.get(Thread.currentThread());
 		if (tempDepth == null) {
@@ -54,9 +55,8 @@ public class MapToString extends Conversion<Map, FormattedString> {
 					anUnresolvableVariableHandlingPolicy);
 
 			if (!tempFirst) {
-				tempBuffer.add(" ");
+				tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
 			}
-			tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
 			FormattedString tempInnerBuffer = new FormattedString();
 			if (tempConvertedValues.length == 1) {

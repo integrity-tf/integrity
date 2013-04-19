@@ -1271,28 +1271,41 @@
 	          <xsl:when test="starts-with($wholeTrailingText, '[')">
 	          	<xsl:text>[</xsl:text>
 	          	<xsl:call-template name="processFormattedStringRecursive">
-	    					<xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
-	    				</xsl:call-template>
+	    			<xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+	    		  </xsl:call-template>
 	    			</xsl:when>
 	    			<xsl:otherwise>
-		          <xsl:variable name="token">
+		          <xsl:variable name="preToken">
 		            <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
 		          </xsl:variable>
 		          <xsl:variable name="trailingText">
 		          	<xsl:value-of select="substring-after($wholeTrailingText, ']')" />
 		          </xsl:variable>
+		          <xsl:variable name="token">
+		            <xsl:choose>
+		          	  <xsl:when test="contains($preToken, '|')">
+		          	    <xsl:value-of select="substring-before($preToken, '|')" />
+		          	  </xsl:when>
+		          	  <xsl:otherwise>
+		          	  	<xsl:value-of select="$preToken" />
+		          	  </xsl:otherwise>
+		          	</xsl:choose>
+		          </xsl:variable>
+		          <xsl:variable name="replacement">
+		          	<xsl:value-of select="substring-after($preToken, '|')" />
+		          </xsl:variable>
 		          <xsl:if test="$token = 'NL' or $token = 'T'">
 		          	<xsl:choose>
 		              <xsl:when test="$token = 'NL'">
-				    			  <br />
-				    		  </xsl:when>
-				    		  <xsl:when test="$token = 'T'">
-				    			  <xsl:text>&#xA0;&#xA0;&#xA0;&#xA0;</xsl:text>
-				    		  </xsl:when>
-				    		</xsl:choose>
-				    		<xsl:call-template name="processFormattedStringRecursive">
-		    					<xsl:with-param name="text" select="$trailingText" />
-		    				</xsl:call-template>
+		    			  <br />
+		    		  </xsl:when>
+		    		  <xsl:when test="$token = 'T'">
+		    			  <xsl:text>&#xA0;&#xA0;&#xA0;&#xA0;</xsl:text>
+		    		  </xsl:when>
+		    		</xsl:choose>
+		    		<xsl:call-template name="processFormattedStringRecursive">
+	 					<xsl:with-param name="text" select="$trailingText" />
+	 				</xsl:call-template>
 		          </xsl:if>
 		          <xsl:if test="$token = 'UL' or $token = 'B' or $token = 'I'">
 		          	<xsl:variable name="innerText">
@@ -1351,9 +1364,34 @@
       <xsl:choose>
         <xsl:when test="contains($text, '[')">
           <xsl:value-of select="substring-before($text, '[')" />
-          <xsl:call-template name="stripFormattedStringRecursive">
-          	<xsl:with-param name="text" select="substring-after($text, ']')" />
-          </xsl:call-template>
+          <xsl:variable name="wholeTrailingText">
+          	<xsl:value-of select="substring-after($text, '[')" />
+          </xsl:variable>
+          <xsl:choose>
+	          <xsl:when test="starts-with($wholeTrailingText, '[')">
+	          	<xsl:text>[</xsl:text>
+	          	<xsl:call-template name="stripFormattedStringRecursive">
+	    		  <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+	    		</xsl:call-template>
+	    	  </xsl:when>
+	    	  <xsl:otherwise>
+		        <xsl:variable name="preToken">
+		          <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
+		        </xsl:variable>
+		        <xsl:variable name="trailingText">
+		          <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
+		        </xsl:variable>
+		        <xsl:variable name="replacement">
+		          <xsl:value-of select="substring-after($preToken, '|')" />
+		        </xsl:variable>
+		        <xsl:if test="$replacement != ''">
+		          <xsl:value-of select="$replacement" />
+		        </xsl:if>
+			    <xsl:call-template name="stripFormattedStringRecursive">
+		    	  <xsl:with-param name="text" select="$trailingText" />
+		    	</xsl:call-template>
+	          </xsl:otherwise>
+	        </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$text" />

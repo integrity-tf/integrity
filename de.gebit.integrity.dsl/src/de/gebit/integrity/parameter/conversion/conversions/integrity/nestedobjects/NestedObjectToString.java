@@ -39,6 +39,7 @@ public class NestedObjectToString extends Conversion<NestedObject, FormattedStri
 	public FormattedString convert(NestedObject aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		FormattedString tempBuffer = new FormattedString("{");
+		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
 		Integer tempDepth = nestedObjectDepthMap.get(Thread.currentThread());
 		if (tempDepth == null) {
@@ -63,9 +64,8 @@ public class NestedObjectToString extends Conversion<NestedObject, FormattedStri
 			}
 
 			if (!tempFirst) {
-				tempBuffer.add(" ");
+				tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
 			}
-			tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
 			FormattedString tempConvertedValueStringBuffer = new FormattedString();
 
