@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="19.04.13 16:19" isotimestamp="2013-04-19T16:19:10" duration="103.563">
+<integrity name="Integrity JUnit Testing" timestamp="19.04.13 17:13" isotimestamp="2013-04-19T17:13:01" duration="44.333">
   <variables />
   <suite id="0" name="integrity.basic.nestedobjects.nestedobjects">
     <setup />
@@ -13,37 +13,37 @@
         <parameters>
           <parameter name="map" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
         </parameters>
-        <result duration="8.094" type="success">
-          <variableUpdate name="obj2" value="[FORMATTED]{[NL][T]key1 = The first value[T]key2 = 31337, 31338[T]key3 = 123.456[T]key4 = true[T]key5 = null[T]key6 = {[NL][T][T]subkey1 = A String in a Variable[T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
+        <result duration="1.974" type="success">
+          <variableUpdate name="obj2" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
         </result>
       </call>
       <test id="2" line="40" name="echoMapTest" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456, key4 = true, key5 = null, key6 = {subkey1 = A String in a Variable, subkey2 = {subsubkey1 = 10000}}}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
-        <results duration="2.753" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="2.753" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456, key4 = true, key5 = null, key6 = {subkey1 = A String in a Variable, subkey2 = {subsubkey1 = 10000}}}'" type="success">
+        <results duration="0.910" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.910" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456, key4 = true, key5 = null, key6 = {subkey1 = A String in a Variable, subkey2 = {subsubkey1 = 10000}}}'" type="success">
             <parameters>
               <parameter name="map" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = The first value[T]key2 = 31337, 31338[T]key3 = 123.456[T]key4 = true[T]key5 = null[T]key6 = {[NL][T][T]subkey1 = A String in a Variable[T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]key1 = The first value[T]key2 = 31337, 31338[T]key3 = 123.456[T]key4 = true[T]key5 = null[T]key6 = {[NL][T][T]subkey1 = A String in a Variable[T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" type="success" />
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" type="success" />
             </comparisons>
           </result>
         </results>
       </test>
-      <test id="3" line="42" name="echoMapTest" description="Echo the map '{key1 = The first valuekey2 = 31337, 31338key3 = 123.456key4 = truekey5 = nullkey6 = {subkey1 = A String in a Variablesubkey2 = {subsubkey1 = 10000}}}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
-        <results duration="2.231" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="2.231" description="Echo the map '{key1 = The first valuekey2 = 31337, 31338key3 = 123.456key4 = truekey5 = nullkey6 = {subkey1 = A String in a Variablesubkey2 = {subsubkey1 = 10000}}}'" type="failure">
+      <test id="3" line="42" name="echoMapTest" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456, key4 = true, key5 = null, key6 = {subkey1 = A String in a Variable, subkey2 = {subsubkey1 = 10000}}}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
+        <results duration="0.419" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.419" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456, key4 = true, key5 = null, key6 = {subkey1 = A String in a Variable, subkey2 = {subsubkey1 = 10000}}}'" type="failure">
             <parameters>
-              <parameter name="map" value="[FORMATTED]{[NL][T]key1 = The first value[T]key2 = 31337, 31338[T]key3 = 123.456[T]key4 = true[T]key5 = null[T]key6 = {[NL][T][T]subkey1 = A String in a Variable[T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
+              <parameter name="map" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31339[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]key1 = The first value[T]key2 = 31337, 31338[T]key3 = 123.456[T]key4 = true[T]key5 = null[T]key6 = {[NL][T][T]subkey1 = A String in a Variable[T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" type="failure" />
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31339[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL|, ][T]key4 = true[NL|, ][T]key5 = null[NL|, ][T]key6 = {[NL][T][T]subkey1 = A String in a Variable[NL|, ][T][T]subkey2 = {[NL][T][T][T]subsubkey1 = 10000[NL][T][T]}[NL][T]}[NL]}" type="failure" />
             </comparisons>
           </result>
         </results>
       </test>
     </statements>
     <teardown />
-    <result duration="88.490" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="42.385" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

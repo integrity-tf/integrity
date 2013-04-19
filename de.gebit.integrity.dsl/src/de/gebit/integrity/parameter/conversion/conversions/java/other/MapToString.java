@@ -73,6 +73,7 @@ public class MapToString extends Conversion<Map, FormattedString> {
 			tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
 			tempBuffer.add(tempEntry.getKey() + " = ");
 			tempBuffer.add(tempInnerBuffer);
+			tempFirst = false;
 		}
 
 		tempDepth--;

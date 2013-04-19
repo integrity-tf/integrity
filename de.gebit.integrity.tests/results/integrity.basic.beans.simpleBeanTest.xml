@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="19.04.13 16:13" isotimestamp="2013-04-19T16:13:39" duration="31.193">
+<integrity name="Integrity JUnit Testing" timestamp="19.04.13 17:13" isotimestamp="2013-04-19T17:13:02" duration="26.618">
   <variables />
   <suite id="0" name="integrity.basic.beans.simpleBeanTest">
     <setup />
@@ -7,8 +7,8 @@
     <statements>
       <comment id="1" line="7">This should succeed</comment>
       <test id="2" line="8" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean">
-        <results duration="3.854" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="3.854" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
+        <results duration="4.672" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.672" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" />
             </parameters>
@@ -20,8 +20,8 @@
       </test>
       <comment id="3" line="16">This should fail</comment>
       <test id="4" line="17" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean">
-        <results duration="1.120" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.120" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
+        <results duration="2.122" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="2.122" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.98[NL][T]}[NL]}" />
             </parameters>
@@ -33,7 +33,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="22.604" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="24.230" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
