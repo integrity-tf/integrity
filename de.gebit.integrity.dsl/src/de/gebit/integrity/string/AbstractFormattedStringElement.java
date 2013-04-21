@@ -8,16 +8,26 @@
 package de.gebit.integrity.string;
 
 /**
- * 
+ * Abstract base class for formatted string elements. These elements make up the formatted string.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
 public abstract class AbstractFormattedStringElement {
 
-	public abstract String getUnformattedText();
+	/**
+	 * Returns the elements' contents as a String without any formatting tokens.
+	 * 
+	 * @return the unformatted element contents
+	 */
+	public abstract String toUnformattedString();
 
-	public abstract String getFormattedText();
+	/**
+	 * Returns the elements' contents as a String with all necessary formatting tokens.
+	 * 
+	 * @return the formatted element contents
+	 */
+	public abstract String toFormattedString();
 
 	@Override
 	public boolean equals(Object anOtherObject) {
@@ -25,8 +35,8 @@ public abstract class AbstractFormattedStringElement {
 			return false;
 		}
 
-		String tempOtherFormattedText = ((AbstractFormattedStringElement) anOtherObject).getFormattedText();
-		String tempFormattedText = getFormattedText();
+		String tempOtherFormattedText = ((AbstractFormattedStringElement) anOtherObject).toFormattedString();
+		String tempFormattedText = toFormattedString();
 
 		if (tempOtherFormattedText == null) {
 			return tempFormattedText == null;
@@ -41,7 +51,7 @@ public abstract class AbstractFormattedStringElement {
 
 	@Override
 	public int hashCode() {
-		String tempFormattedText = getFormattedText();
+		String tempFormattedText = toFormattedString();
 		if (tempFormattedText != null) {
 			return tempFormattedText.hashCode();
 		} else {

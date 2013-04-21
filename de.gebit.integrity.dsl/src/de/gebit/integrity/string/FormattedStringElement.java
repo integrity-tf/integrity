@@ -12,28 +12,49 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 
+ * This is the main element for {@link FormattedString}s. It consists of a plain String value, to which an arbitrary
+ * number of formatting flags can be applied.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
 public class FormattedStringElement extends AbstractFormattedStringElement {
 
+	/**
+	 * The value.
+	 */
 	private String text;
 
+	/**
+	 * The format flags.
+	 */
 	private List<FormatFlag> formatFlags = new ArrayList<FormatFlag>();
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aText
+	 *            the string value
+	 */
 	public FormattedStringElement(String aText) {
 		text = aText;
 	}
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aText
+	 *            the string value
+	 * @param someFlags
+	 *            the formatting flags to apply
+	 */
 	public FormattedStringElement(String aText, FormatFlag... someFlags) {
 		text = aText;
 		formatFlags.addAll(Arrays.asList(someFlags));
 	}
 
 	@Override
-	public String getUnformattedText() {
+	public String toUnformattedString() {
 		return text;
 	}
 
@@ -42,7 +63,7 @@ public class FormattedStringElement extends AbstractFormattedStringElement {
 	}
 
 	@Override
-	public String getFormattedText() {
+	public String toFormattedString() {
 		StringBuilder tempBuilder = new StringBuilder();
 		for (FormatFlag tempFlag : formatFlags) {
 			tempBuilder.append(tempFlag.getStartTag());
@@ -65,12 +86,24 @@ public class FormattedStringElement extends AbstractFormattedStringElement {
 	 */
 	public static enum FormatFlag {
 
+		/**
+		 * Bold-print the text.
+		 */
 		BOLD("B"),
 
+		/**
+		 * Underlined text.
+		 */
 		UNDERLINE("UL"),
 
+		/**
+		 * Italic-printed text.
+		 */
 		ITALIC("I");
 
+		/**
+		 * The tag name.
+		 */
 		private String tag;
 
 		private FormatFlag(String aTag) {
