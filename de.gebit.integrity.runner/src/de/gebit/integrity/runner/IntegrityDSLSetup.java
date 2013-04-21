@@ -21,17 +21,26 @@ import de.gebit.integrity.DSLStandaloneSetup;
 public class IntegrityDSLSetup extends DSLStandaloneSetup {
 
 	/**
-	 * Creates a new instance using the given classloader.
-	 * 
-	 * @param aClassLoader
+	 * Creates a new instance.
 	 */
-	public IntegrityDSLSetup(ClassLoader aClassLoader) {
-		super(aClassLoader);
+	public IntegrityDSLSetup() {
+		super();
 	}
 
 	@Override
 	public Injector createInjector() {
-		return Guice.createInjector(new IntegrityRunnerModule(getClassLoader()));
+		return Guice.createInjector(createGuiceModule(getClassLoader()));
+	}
+
+	/**
+	 * Instantiates the Guice module class. This method is provided to have a nice place to override in subclasses if a
+	 * subclassed module class is to be used instead of the default.
+	 * 
+	 * @param aClassLoader
+	 * @return the module instance
+	 */
+	protected IntegrityRunnerModule createGuiceModule(ClassLoader aClassLoader) {
+		return new IntegrityRunnerModule(aClassLoader);
 	}
 
 }

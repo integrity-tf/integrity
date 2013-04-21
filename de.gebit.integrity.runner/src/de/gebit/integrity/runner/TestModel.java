@@ -329,14 +329,36 @@ public class TestModel {
 	 * 
 	 * @param aResourceProvider
 	 *            the resource provider to use for loading the model
+	 * @param aResolveAllFlag
+	 *            whether the model should be resolved after loading (this helps finding linking errors immediately, but
+	 *            can take some time)
+	 * @param aSetupClass
+	 *            the setup class to use for EMF setup and Guice initialization (if null, the default class is used)
 	 * @return the test model ready for execution
 	 * @throws ModelLoadException
 	 *             if any errors occur during loading (syntax errors or unresolvable references)
 	 */
-	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag)
-			throws ModelLoadException {
-		Injector tempInjector = new IntegrityDSLSetup(aResourceProvider.getClassLoader())
-				.createInjectorAndDoEMFRegistration();
+	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag,
+			Class<? extends IntegrityDSLSetup> aSetupClass) throws ModelLoadException {
+		Class<? extends IntegrityDSLSetup> tempSetupClass = aSetupClass;
+		if (tempSetupClass == null) {
+			tempSetupClass = IntegrityDSLSetup.class;
+		}
+
+		IntegrityDSLSetup tempSetup;
+		try {
+			tempSetup = tempSetupClass.newInstance();
+		} catch (InstantiationException exc) {
+			throw new IllegalArgumentException("Provided setup class '" + tempSetupClass
+					+ "' could not be instantiated.", exc);
+		} catch (IllegalAccessException exc) {
+			throw new IllegalArgumentException("Provided setup class '" + tempSetupClass
+					+ "' could not be instantiated.", exc);
+		}
+		if (aResourceProvider.getClassLoader() != null) {
+			tempSetup.setClassLoader(aResourceProvider.getClassLoader());
+		}
+		Injector tempInjector = tempSetup.createInjectorAndDoEMFRegistration();
 
 		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
 		IResourceFactory tempResourceFactory = tempInjector.getInstance(IResourceFactory.class);

@@ -74,7 +74,7 @@ public abstract class IntegrityJUnitTest {
 		}
 
 		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempFileList, true);
-		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false);
+		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false, null);
 
 		boolean tempKeepFiles = "true".equals(System.getProperty("keepFiles"));
 		try {

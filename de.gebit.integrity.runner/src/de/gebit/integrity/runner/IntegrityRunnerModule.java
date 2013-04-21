@@ -22,7 +22,9 @@ import de.gebit.integrity.runner.wrapper.DefaultWrapperFactory;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
- * The module class for registration of runtime modules with Google Guice.
+ * The module class for registration of runtime modules with Google Guice. Subclass this class in order to override one
+ * or more of the default services! If you subclass this, you need to subclass {@link IntegrityDSLSetup} as well and
+ * override {@link IntegrityDSLSetup#createGuiceModule(ClassLoader)} to ensure your subclass is actually used.
  * 
  * @author Rene Schneider - initial API and implementation
  * 

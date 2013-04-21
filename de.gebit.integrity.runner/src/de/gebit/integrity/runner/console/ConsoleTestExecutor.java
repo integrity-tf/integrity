@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
+import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
@@ -32,21 +34,43 @@ import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
 /**
- * A basic program to run Integrity tests from the console.
+ * A basic program to run Integrity tests from the console. This class has a main method, but you can also instantiate
+ * it on your own from a different entry point, like your own main method or similar. If you instantiate it for
+ * yourself, you can supply a setup class (subclass of {@link IntegrityDSLSetup}) which can be used to influence the
+ * Guice initialization, for example in order to replace certain services provided via Guice injection with subclasses
+ * of your own.
  * 
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public final class ConsoleTestExecutor {
+public class ConsoleTestExecutor {
 
 	/**
 	 * The help string to attach for the remaining unparsed args.
 	 */
 	private static final String REMAINING_ARGS_HELP = " suite_name scripts...";
 
-	private ConsoleTestExecutor() {
-		// is not instantiated
+	/**
+	 * The setup class to use.
+	 */
+	private Class<? extends IntegrityDSLSetup> setupClass = IntegrityDSLSetup.class;
+
+	/**
+	 * Creates a new instance using the default setup class.
+	 */
+	public ConsoleTestExecutor() {
+		// nothing to do
+	}
+
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aSetupClass
+	 *            the setup class to use
+	 */
+	public ConsoleTestExecutor(Class<? extends IntegrityDSLSetup> aSetupClass) {
+		setupClass = aSetupClass;
 	}
 
 	/**
@@ -55,6 +79,17 @@ public final class ConsoleTestExecutor {
 	 * @param someArgs
 	 */
 	public static void main(String[] someArgs) {
+		ConsoleTestExecutor tempExecutor = new ConsoleTestExecutor();
+		tempExecutor.run(someArgs);
+	}
+
+	/**
+	 * This is basically the actual "main" method. It instantiates the test model, runner etc. and executes the test.
+	 * 
+	 * @param someArgs
+	 *            the command-line arguments
+	 */
+	public void run(String[] someArgs) {
 		SimpleCommandLineParser tempParser = new SimpleCommandLineParser();
 		SimpleCommandLineParser.BooleanOption tempConsoleOption = new SimpleCommandLineParser.BooleanOption("s",
 				"silent", "Disable console logging during test execution", "[{-s,--silent}]");
@@ -134,11 +169,12 @@ public final class ConsoleTestExecutor {
 			}
 		}
 
-		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempTestPaths, true);
+		TestResourceProvider tempResourceProvider = createResourceProvider(tempTestPaths);
 
 		TestRunner tempRunner;
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, !tempNoResolveAllReferences.isSet());
+			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, !tempNoResolveAllReferences.isSet(),
+					setupClass);
 			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
 			VariantDefinition tempVariant = null;
 
@@ -206,5 +242,16 @@ public final class ConsoleTestExecutor {
 		} catch (ModelLoadException exc) {
 			exc.printStackTrace();
 		}
+	}
+
+	/**
+	 * Creates the {@link TestResourceProvider} instance.
+	 * 
+	 * @param aPathList
+	 *            the list with the test script paths
+	 * @return a resource provider instance
+	 */
+	protected TestResourceProvider createResourceProvider(List<File> aPathList) {
+		return new FilesystemTestResourceProvider(aPathList, true);
 	}
 }

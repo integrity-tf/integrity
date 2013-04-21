@@ -20,35 +20,20 @@ public class DSLStandaloneSetup extends DSLStandaloneSetupGenerated {
 	/**
 	 * The classloader to use.
 	 */
-	private ClassLoader classLoader;
+	private ClassLoader classLoader = getClass().getClassLoader();
 
 	/**
 	 * Creates a new instance with the default classloader, which is the one that loaded the setup class.
 	 */
 	public DSLStandaloneSetup() {
-		classLoader = getClass().getClassLoader();
 	}
 
-	/**
-	 * Creates a new instance with a given classloader.
-	 * 
-	 * @param aClassLoader
-	 */
-	public DSLStandaloneSetup(ClassLoader aClassLoader) {
-		classLoader = aClassLoader;
-	}
-
-	/**
-	 * Performs the setup.
-	 * 
-	 * @param aClassLoader
-	 */
-	public static void doSetup(ClassLoader aClassLoader) {
-		new DSLStandaloneSetup(aClassLoader).createInjectorAndDoEMFRegistration();
-	}
-
-	protected ClassLoader getClassLoader() {
+	public ClassLoader getClassLoader() {
 		return classLoader;
+	}
+
+	public void setClassLoader(ClassLoader aClassLoader) {
+		classLoader = aClassLoader;
 	}
 
 	@Override
