@@ -5,11 +5,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
+package de.gebit.integrity.parameter.conversion.conversions.java.numbers;
 
-import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -17,12 +17,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class DateValueToString extends AbstractDateValueToString<String> {
+public class NumberToFormattedString extends AbstractNumberToString<FormattedString> {
 
 	@Override
-	public String convert(DateValue aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(Number aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
 	}
 
 }

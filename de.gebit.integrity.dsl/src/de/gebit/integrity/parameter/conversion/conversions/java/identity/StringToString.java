@@ -7,10 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.identity;
 
-import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion. This conversion actually doesn't convert anything - it exists solely to keep strings
@@ -20,12 +18,12 @@ import de.gebit.integrity.string.FormattedString;
  * 
  */
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class StringToString extends Conversion<String, FormattedString> {
+public class StringToString extends AbstractStringToString<String> {
 
 	@Override
-	public FormattedString convert(String aSource, Class<? extends FormattedString> aTargetType,
+	public String convert(String aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return new FormattedString(aSource);
+		return aSource;
 	}
 
 }

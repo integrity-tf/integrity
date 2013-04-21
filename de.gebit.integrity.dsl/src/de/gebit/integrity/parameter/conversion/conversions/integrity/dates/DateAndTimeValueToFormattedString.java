@@ -7,9 +7,10 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
 
-import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -17,12 +18,12 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class DateValueToString extends AbstractDateValueToString<String> {
+public class DateAndTimeValueToFormattedString extends AbstractDateAndTimeValueToString<FormattedString> {
 
 	@Override
-	public String convert(DateValue aSource, Class<? extends String> aTargetType,
+	public FormattedString convert(DateAndTimeValue aSource, Class<? extends FormattedString> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
 	}
 
 }

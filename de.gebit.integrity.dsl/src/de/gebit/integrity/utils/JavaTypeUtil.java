@@ -29,12 +29,14 @@ public final class JavaTypeUtil {
 	 * @param aType
 	 *            the type to inspect
 	 * @param aGenericInterfaceClass
-	 *            the generic interface to search for
+	 *            the generic interface to search for (may be null, in which case the first generic superinterface that
+	 *            is found is returned)
 	 * @return the {@link ParameterizedType}, if found, otherwise null
 	 */
 	public static ParameterizedType findGenericInterfaceOrSuperType(Type aType, Class<?> aGenericInterfaceClass) {
 		if (aType instanceof ParameterizedType) {
-			if (((ParameterizedType) aType).getRawType().equals(aGenericInterfaceClass)) {
+			if (aGenericInterfaceClass == null
+					|| ((ParameterizedType) aType).getRawType().equals(aGenericInterfaceClass)) {
 				return (ParameterizedType) aType;
 			}
 		}

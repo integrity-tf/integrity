@@ -7,10 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
-import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -18,12 +16,12 @@ import de.gebit.integrity.string.FormattedString;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class CharacterToString extends Conversion<Character, FormattedString> {
+public class CharacterToString extends AbstractCharacterToString<String> {
 
 	@Override
-	public FormattedString convert(Character aSource, Class<? extends FormattedString> aTargetType,
+	public String convert(Character aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return new FormattedString(aSource.toString());
+		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
 	}
 
 }

@@ -8,22 +8,32 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
+ * @param <T>
+ *            the target type
  */
-@de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class StringValueToString extends AbstractStringValueToString<String> {
+public abstract class AbstractStringValueToString<T> extends Conversion<StringValue, T> {
 
-	@Override
-	public String convert(StringValue aSource, Class<? extends String> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+	/**
+	 * Converts the provided {@link StringValue} to a {@link FormattedString}.
+	 * 
+	 * @param aSource
+	 *            the source value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            how unresolvable variables shall be treated
+	 * @return the resulting string
+	 */
+	protected FormattedString convertToFormattedString(StringValue aSource,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		return new FormattedString(aSource.getStringValue());
 	}
 
 }

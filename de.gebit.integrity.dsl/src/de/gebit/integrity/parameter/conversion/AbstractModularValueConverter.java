@@ -10,6 +10,7 @@ package de.gebit.integrity.parameter.conversion;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -247,8 +248,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		try {
-			return convertSingleValueToTargetTypeGuarded(tempSourceType, tempTargetType, aValue,
-					anUnresolvableVariableHandlingPolicy, someVisitedValues);
+			@SuppressWarnings("rawtypes")
+			Conversion tempConversion = findConversion(tempSourceType, tempTargetType, someVisitedValues);
+			if (tempConversion != null) {
+				return tempConversion.convert(aValue, tempTargetType, anUnresolvableVariableHandlingPolicy);
+			}
+
+			throw new ConversionUnsupportedException(aValue.getClass(), aTargetType,
+					"Could not find a matching conversion");
 		} catch (InstantiationException exc) {
 			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Failed to instantiate conversion",
 					exc);
@@ -262,44 +269,6 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throw new ConversionFailedException(aValue.getClass(), tempTargetType,
 					"Unexpected error during conversion", exc);
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private Object convertSingleValueToTargetTypeGuarded(Class<?> aSourceType, Class<?> aTargetType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues)
-			throws InstantiationException, IllegalAccessException {
-
-		if (aTargetType != null && aTargetType.isAssignableFrom(aSourceType)) {
-			// No conversion necessary
-			return aValue;
-		}
-
-		// "Guarded" means: if String is requested...
-		if (aTargetType == String.class) {
-			// ...we actually request FormattedString (since all conversions to String actually convert to
-			// FormattedString) and convert the result to an (unformatted) string. This way, implementing a conversion
-			// to FormattedString automatically supplies the conversion to String as well.
-			FormattedString tempFormattedString = (FormattedString) convertSingleValueToTargetTypeGuarded(aSourceType,
-					FormattedString.class, aValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
-			if (tempFormattedString != null) {
-				return tempFormattedString.toUnformattedString();
-			} else {
-				return null;
-			}
-		} else if (aSourceType == FormattedString.class) {
-			// ...and if FormattedString is the source, we simply convert that to an unformatted string first.
-			return convertSingleValueToTargetTypeGuarded(String.class, aTargetType,
-					((FormattedString) aValue).toUnformattedString(), anUnresolvableVariableHandlingPolicy,
-					someVisitedValues);
-		}
-
-		@SuppressWarnings("rawtypes")
-		Conversion tempConversion = findConversion(aSourceType, aTargetType, someVisitedValues);
-		if (tempConversion != null) {
-			return tempConversion.convert(aValue, aTargetType, anUnresolvableVariableHandlingPolicy);
-		}
-
-		throw new ConversionUnsupportedException(aValue.getClass(), aTargetType, "Could not find a matching conversion");
 	}
 
 	private Class<?> transformPrimitiveTypes(Class<?> aType) {
@@ -748,8 +717,27 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 			Type tempType = JavaTypeUtil.findGenericInterfaceOrSuperType(tempClass, Conversion.class);
 			if (tempType != null) {
-				Class<?> tempSourceType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[0];
-				Class<?> tempTargetType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[1];
+				// Replacing one of the types (source OR target) in the Conversion superinterface with a variable is
+				// supported. In that case, it is expected that the first generic superinterface in the whole class
+				// hierarchy does define that variable.
+				Class<?> tempSourceType = null;
+				Object tempSourceTypeObj = ((ParameterizedType) tempType).getActualTypeArguments()[0];
+				if (tempSourceTypeObj instanceof Class) {
+					tempSourceType = (Class<?>) tempSourceTypeObj;
+				} else if (tempSourceTypeObj instanceof TypeVariable) {
+					Type tempSubType = JavaTypeUtil.findGenericInterfaceOrSuperType(tempClass, null);
+					tempSourceType = (Class<?>) ((ParameterizedType) tempSubType).getActualTypeArguments()[0];
+				}
+
+				Class<?> tempTargetType = null;
+				Object tempTargetTypeObj = ((ParameterizedType) tempType).getActualTypeArguments()[1];
+				if (tempTargetTypeObj instanceof Class) {
+					tempTargetType = (Class<?>) tempTargetTypeObj;
+				} else if (tempTargetTypeObj instanceof TypeVariable) {
+					Type tempSubType = JavaTypeUtil.findGenericInterfaceOrSuperType(tempClass, null);
+					tempTargetType = (Class<?>) ((ParameterizedType) tempSubType).getActualTypeArguments()[0];
+				}
+
 				initializeInternalKey(tempSourceType, tempTargetType);
 			} else {
 				throw new IllegalArgumentException("Was unable to find valid generic Conversion superinterface");

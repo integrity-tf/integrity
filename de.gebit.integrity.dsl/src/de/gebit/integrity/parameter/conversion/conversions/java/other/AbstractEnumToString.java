@@ -5,24 +5,36 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
+package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
-import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
+ * @param <T>
+ *            the target type
  */
-public class DateValueToString extends AbstractDateValueToString<String> {
+@SuppressWarnings("rawtypes")
+public abstract class AbstractEnumToString<T> extends Conversion<Enum, T> {
 
-	@Override
-	public String convert(DateValue aSource, Class<? extends String> aTargetType,
+	/**
+	 * Converts the provided {@link Enum} to a {@link FormattedString}.
+	 * 
+	 * @param aSource
+	 *            the source value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            how unresolvable variables shall be treated
+	 * @return the resulting string
+	 */
+	protected FormattedString convertToFormattedString(Enum aSource,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+		return new FormattedString(aSource.toString());
 	}
 
 }

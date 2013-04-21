@@ -5,9 +5,10 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
+package de.gebit.integrity.parameter.conversion.conversions.integrity.booleans;
 
-import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
@@ -16,13 +17,25 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * 
  * @author Rene Schneider - initial API and implementation
  * 
+ * @param <T>
+ *            the target type
+ * 
  */
-public class DateValueToString extends AbstractDateValueToString<String> {
+public abstract class AbstractBooleanValueToString<T> extends Conversion<BooleanValue, T> {
 
-	@Override
-	public String convert(DateValue aSource, Class<? extends String> aTargetType,
+	/**
+	 * Converts the given {@link Boolean} value to a string.
+	 * 
+	 * @param aSource
+	 *            the source value
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            how unresolvable variables shall be treated
+	 * @return the resulting string
+	 * @throws ConversionFailedException
+	 */
+	protected String convertToString(BooleanValue aSource,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+		return aSource.getBooleanValue();
 	}
 
 }

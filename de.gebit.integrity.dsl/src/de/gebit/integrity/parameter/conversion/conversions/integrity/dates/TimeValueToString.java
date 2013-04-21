@@ -7,15 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-
 import de.gebit.integrity.dsl.TimeValue;
-import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.string.FormattedString;
-import de.gebit.integrity.utils.DateUtil;
 
 /**
  * A default Integrity conversion.
@@ -23,17 +17,12 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class TimeValueToString extends Conversion<TimeValue, FormattedString> {
+public class TimeValueToString extends AbstractTimeValueToString<String> {
 
 	@Override
-	public FormattedString convert(TimeValue aSource, Class<? extends FormattedString> aTargetType,
+	public String convert(TimeValue aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		try {
-			return new FormattedString(DateFormat.getTimeInstance(DateFormat.LONG).format(
-					DateUtil.convertTimeValue(aSource).getTime()));
-		} catch (ParseException exc) {
-			throw new ConversionFailedException(TimeValue.class, FormattedString.class, null, exc);
-		}
+		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
 	}
 
 }

@@ -7,10 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
-import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.string.FormattedString;
 
 /**
  * A default Integrity conversion.
@@ -20,12 +18,12 @@ import de.gebit.integrity.string.FormattedString;
  */
 @SuppressWarnings("rawtypes")
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
-public class EnumToString extends Conversion<Enum, FormattedString> {
+public class EnumToString extends AbstractEnumToString<String> {
 
 	@Override
-	public FormattedString convert(Enum aSource, Class<? extends FormattedString> aTargetType,
+	public String convert(Enum aSource, Class<? extends String> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return new FormattedString(aSource.toString());
+		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
 	}
 
 }
