@@ -124,16 +124,21 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 
 	@Override
 	public IInformationControlCreator getInformationControlCreator() {
-		return new IInformationControlCreator() {
+		if (useHtmlAdditionalProposalInfo) {
+			return new IInformationControlCreator() {
 
-			@Override
-			public IInformationControl createInformationControl(Shell aParent) {
-				if (useHtmlAdditionalProposalInfo && BrowserInformationControl.isAvailable(aParent)) {
-					return new BrowserInformationControl(aParent, JFaceResources.DIALOG_FONT, true);
-				} else {
-					return new DefaultInformationControl(aParent);
+				@Override
+				public IInformationControl createInformationControl(Shell aParent) {
+					if (BrowserInformationControl.isAvailable(aParent)) {
+						return new BrowserInformationControl(aParent, JFaceResources.DIALOG_FONT, true);
+					} else {
+						return new DefaultInformationControl(aParent);
+					}
 				}
-			}
-		};
+			};
+		} else {
+			// just use the default
+			return super.getInformationControlCreator();
+		}
 	}
 }
