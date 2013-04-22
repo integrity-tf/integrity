@@ -111,6 +111,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				tempBuffer.append("{ " + tempInnerBuffer + " }");
 			} else {
 				aList.addAll(tempList);
+				return;
 			}
 		}
 
