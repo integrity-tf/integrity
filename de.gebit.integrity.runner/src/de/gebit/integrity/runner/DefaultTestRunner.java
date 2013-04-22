@@ -642,7 +642,7 @@ public class DefaultTestRunner implements TestRunner {
 					if (IntegrityDSLUtil.getQualifiedForkName(forkInExecution).equals(MY_FORK_NAME)) {
 						// we're a fork, and we are at a point where we're gonna execute some stuff
 						// but we have to wait until our master gives us the 'go'!
-						shallWaitBeforeNextStep = true;
+						scheduleWaitBeforeNextStep();
 						pauseIfRequiredByRemoteClient(true);
 
 						// and now we leave dry run mode
@@ -747,6 +747,13 @@ public class DefaultTestRunner implements TestRunner {
 					// we're the master and need to kick off the fork, which then actually executes the stuff we've just
 					// jumped over
 					Fork tempFork = forkMap.get(forkInExecution);
+
+					// Since we might have been requested to wait before the next step, we need to push that request
+					// forward to the fork, which will actually execute the next step.
+					if (shallWaitBeforeNextStep) {
+						tempFork.getClient().createBreakpoint(null);
+					}
+
 					tempSuiteDuration = System.nanoTime();
 					ForkResultSummary tempForkResultSummary = tempFork.executeNextSegment();
 					tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
@@ -1548,8 +1555,8 @@ public class DefaultTestRunner implements TestRunner {
 
 		if (tempLastTestOrCallEntryRef != null && breakpoints.contains(tempLastTestOrCallEntryRef)) {
 			removeBreakpoint(tempLastTestOrCallEntryRef);
-		} else if (shallWaitBeforeNextStep) {
-			shallWaitBeforeNextStep = false;
+		} else if (shallWaitBeforeNextStep && shouldExecuteFixtures()) {
+			resetWaitBeforeNextStep();
 		} else {
 			// do not wait
 			remotingServer.updateExecutionState(ExecutionStates.RUNNING);
@@ -1673,7 +1680,7 @@ public class DefaultTestRunner implements TestRunner {
 				// is meant for the fork
 				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.PAUSE);
 			} else {
-				shallWaitBeforeNextStep = true;
+				scheduleWaitBeforeNextStep();
 			}
 		}
 
@@ -1685,19 +1692,27 @@ public class DefaultTestRunner implements TestRunner {
 				Fork tempFork = forkMap.get(forkInExecution);
 				tempFork.getClient().controlExecution(ExecutionCommands.STEP_INTO);
 			} else {
-				shallWaitBeforeNextStep = true;
+				scheduleWaitBeforeNextStep();
 				executionWaiter.release();
 			}
 		}
 
 		@Override
-		public void onCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-			createBreakpoint(anEntryReference);
+		public void onCreateBreakpoint(Integer anEntryReference, Endpoint anEndpoint) {
+			if (anEntryReference == null) {
+				scheduleWaitBeforeNextStep();
+			} else {
+				createBreakpoint(anEntryReference);
+			}
 		}
 
 		@Override
-		public void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
-			removeBreakpoint(anEntryReference);
+		public void onRemoveBreakpoint(Integer anEntryReference, Endpoint anEndpoint) {
+			if (anEntryReference == null) {
+				resetWaitBeforeNextStep();
+			} else {
+				removeBreakpoint(anEntryReference);
+			}
 		}
 
 		@Override
@@ -1856,6 +1871,11 @@ public class DefaultTestRunner implements TestRunner {
 				tempFork.getClient().createBreakpoint(tempBreakpoint);
 			}
 
+			// and the magic pause-on-next-instruction "breakpoint" too
+			if (shallWaitBeforeNextStep) {
+				tempFork.getClient().createBreakpoint(null);
+			}
+
 			// and now we'll wait until the fork is paused
 			while (tempFork.isAlive() && tempFork.isConnected()
 					&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
@@ -1878,5 +1898,13 @@ public class DefaultTestRunner implements TestRunner {
 			exc.printStackTrace();
 		}
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
+	}
+
+	protected void scheduleWaitBeforeNextStep() {
+		shallWaitBeforeNextStep = true;
+	}
+
+	protected void resetWaitBeforeNextStep() {
+		shallWaitBeforeNextStep = false;
 	}
 }

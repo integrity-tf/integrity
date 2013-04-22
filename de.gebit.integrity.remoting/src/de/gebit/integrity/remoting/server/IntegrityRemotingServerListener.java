@@ -78,7 +78,7 @@ public interface IntegrityRemotingServerListener {
 	 * @param anEndpoint
 	 *            the endpoint
 	 */
-	void onCreateBreakpoint(int anEntryReference, Endpoint anEndpoint);
+	void onCreateBreakpoint(Integer anEntryReference, Endpoint anEndpoint);
 
 	/**
 	 * Called when a client wants to remove a breakpoint.
@@ -88,7 +88,7 @@ public interface IntegrityRemotingServerListener {
 	 * @param anEndpoint
 	 *            the endpoint
 	 */
-	void onRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+	void onRemoveBreakpoint(Integer anEntryReference, Endpoint anEndpoint);
 
 	/**
 	 * Called when an update for a variable was received from a master.

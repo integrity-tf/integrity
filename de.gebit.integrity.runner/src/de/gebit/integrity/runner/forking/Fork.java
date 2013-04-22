@@ -459,7 +459,7 @@ public class Fork {
 		}
 
 		@Override
-		public void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+		public void onConfirmRemoveBreakpoint(Integer anEntryReference, Endpoint anEndpoint) {
 			// forward this confirmation to the clients of the master
 			if (server != null) {
 				server.confirmBreakpointRemoval(anEntryReference);
@@ -467,7 +467,7 @@ public class Fork {
 		}
 
 		@Override
-		public void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint) {
+		public void onConfirmCreateBreakpoint(Integer anEntryReference, Endpoint anEndpoint) {
 			// not required in this context, since the master will already confirm this
 		}
 

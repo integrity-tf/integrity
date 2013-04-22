@@ -1999,7 +1999,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
-		public void onConfirmCreateBreakpoint(final int anEntryReference, Endpoint anEndpoint) {
+		public void onConfirmCreateBreakpoint(final Integer anEntryReference, Endpoint anEndpoint) {
+			if (anEntryReference == null) {
+				// We are only interested in real breakpoints, not pause-at-next-instructions.
+				return;
+			}
 			breakpointSet.add(anEntryReference);
 			Display.getDefault().syncExec(new Runnable() {
 				@Override
@@ -2010,7 +2014,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
-		public void onConfirmRemoveBreakpoint(final int anEntryReference, Endpoint anEndpoint) {
+		public void onConfirmRemoveBreakpoint(final Integer anEntryReference, Endpoint anEndpoint) {
+			if (anEntryReference == null) {
+				// We are only interested in real breakpoints, not pause-at-next-instructions.
+				return;
+			}
 			breakpointSet.remove(anEntryReference);
 			Display.getDefault().syncExec(new Runnable() {
 				@Override

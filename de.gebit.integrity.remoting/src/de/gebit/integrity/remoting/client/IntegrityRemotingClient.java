@@ -131,7 +131,7 @@ public class IntegrityRemotingClient {
 	 * 
 	 * @param anEntryReference
 	 */
-	public void createBreakpoint(int anEntryReference) {
+	public void createBreakpoint(Integer anEntryReference) {
 		sendMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, anEntryReference));
 	}
 
@@ -141,7 +141,7 @@ public class IntegrityRemotingClient {
 	 * @param anEntryReference
 	 *            the entry at which the breakpoint shall be deleted
 	 */
-	public void deleteBreakpoint(int anEntryReference) {
+	public void deleteBreakpoint(Integer anEntryReference) {
 		sendMessage(new BreakpointUpdateMessage(BreakpointActions.REMOVE, anEntryReference));
 	}
 

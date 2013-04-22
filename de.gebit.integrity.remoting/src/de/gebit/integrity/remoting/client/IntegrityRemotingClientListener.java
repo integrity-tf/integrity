@@ -93,7 +93,7 @@ public interface IntegrityRemotingClientListener {
 	 * @param anEndpoint
 	 *            the endpoint
 	 */
-	void onConfirmCreateBreakpoint(int anEntryReference, Endpoint anEndpoint);
+	void onConfirmCreateBreakpoint(Integer anEntryReference, Endpoint anEndpoint);
 
 	/**
 	 * Called when the server confirms the removal of a breakpoint.
@@ -103,7 +103,7 @@ public interface IntegrityRemotingClientListener {
 	 * @param anEndpoint
 	 *            the endpoint
 	 */
-	void onConfirmRemoveBreakpoint(int anEntryReference, Endpoint anEndpoint);
+	void onConfirmRemoveBreakpoint(Integer anEntryReference, Endpoint anEndpoint);
 
 	/**
 	 * Called when data for a test runner callback was received from a fork.

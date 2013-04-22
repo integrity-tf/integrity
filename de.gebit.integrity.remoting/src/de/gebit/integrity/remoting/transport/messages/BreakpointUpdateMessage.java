@@ -29,9 +29,10 @@ public class BreakpointUpdateMessage extends AbstractMessage {
 	private BreakpointActions action;
 
 	/**
-	 * The entry reference on which to perform the action.
+	 * The entry reference on which to perform the action. Can be null, in which case the "next step pause flag" is to
+	 * be set or unset instead of an actual breakpoint being created/removed.
 	 */
-	private int entryReference;
+	private Integer entryReference;
 
 	/**
 	 * Creates a new message instance.
@@ -41,7 +42,7 @@ public class BreakpointUpdateMessage extends AbstractMessage {
 	 * @param anEntryReference
 	 *            the entry reference on which to perform the action
 	 */
-	public BreakpointUpdateMessage(BreakpointActions anAction, int anEntryReference) {
+	public BreakpointUpdateMessage(BreakpointActions anAction, Integer anEntryReference) {
 		action = anAction;
 		entryReference = anEntryReference;
 	}
@@ -50,7 +51,7 @@ public class BreakpointUpdateMessage extends AbstractMessage {
 		return action;
 	}
 
-	public int getEntryReference() {
+	public Integer getEntryReference() {
 		return entryReference;
 	}
 
