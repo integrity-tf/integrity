@@ -114,11 +114,11 @@ public class ConsoleTestExecutor {
 				"[{--remotehost} host]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
 				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
-		SimpleCommandLineParser.BooleanOption tempNoResolveAllReferences = new SimpleCommandLineParser.BooleanOption(
+		SimpleCommandLineParser.BooleanOption tempResolveAllReferences = new SimpleCommandLineParser.BooleanOption(
 				null,
-				"noresolve",
-				"Disable pre-executional resolving of all references in the loaded scripts. May significantly speed up the starting phase, but you risk getting strange NullPointerExceptions during execution.",
-				"[{--noresolve}]");
+				"resolve",
+				"Enable pre-executional resolving of all references in the loaded scripts. This may slow down the startup phase, but you lower the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
+				"[{--resolve}]");
 		SimpleCommandLineParser.StringOption tempParameterizedConstantOption = new SimpleCommandLineParser.StringOption(
 				"p", "parameter", "Define a parameterized constants' value (can be used multiple times!)",
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
@@ -129,7 +129,7 @@ public class ConsoleTestExecutor {
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempNoResolveAllReferences, tempParameterizedConstantOption, tempSeedOption,
+				tempResolveAllReferences, tempParameterizedConstantOption, tempSeedOption,
 				tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
@@ -173,7 +173,7 @@ public class ConsoleTestExecutor {
 
 		TestRunner tempRunner;
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, !tempNoResolveAllReferences.isSet(),
+			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet(),
 					setupClass);
 			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
 			VariantDefinition tempVariant = null;
