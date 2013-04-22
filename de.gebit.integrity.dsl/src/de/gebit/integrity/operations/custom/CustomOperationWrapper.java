@@ -143,7 +143,7 @@ public class CustomOperationWrapper {
 	protected Method determineExecuteMethod() {
 		Method tempMethod = null;
 		for (Method tempPossibleMethod : operationClass.getMethods()) {
-			if ("execute".equals(tempPossibleMethod.getName())) {
+			if (!tempPossibleMethod.isBridge() && "execute".equals(tempPossibleMethod.getName())) {
 				tempMethod = tempPossibleMethod;
 				break;
 			}
