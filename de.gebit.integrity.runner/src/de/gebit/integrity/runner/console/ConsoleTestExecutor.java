@@ -198,6 +198,7 @@ public class ConsoleTestExecutor {
 					tempParameterizedConstants.put(tempParts[0], tempParts[1]);
 				}
 			}
+			addParameterizedConstants(tempParameterizedConstants);
 
 			if (tempRootSuite == null) {
 				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
@@ -243,6 +244,17 @@ public class ConsoleTestExecutor {
 		} catch (ModelLoadException exc) {
 			exc.printStackTrace();
 		}
+	}
+
+	/**
+	 * This method can be overriden to add some parameterized constants, which are defined in a test suite, if it is not
+	 * desired to define those constants via VM arguments. The default implementation does nothing.
+	 * 
+	 * @param someParameterizedConstants
+	 *            the map containing the constants and their values
+	 */
+	protected void addParameterizedConstants(Map<String, String> someParameterizedConstants) {
+		// do nothing
 	}
 
 	/**
