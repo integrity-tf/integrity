@@ -889,9 +889,11 @@
             <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
               result:
               <span class="testresultvalue testresultvaluefailure">
-                <xsl:call-template name="stripFormattedString">
-                  <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
-                </xsl:call-template>
+              	<span class="value">
+                  <xsl:call-template name="stripFormattedString">
+                    <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
+                  </xsl:call-template>
+                </span>
                 <xsl:text>, but</xsl:text>
                 expected:
                 <span class="value">
