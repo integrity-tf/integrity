@@ -150,8 +150,7 @@
 					.err { color: #FF3030; font-weight: bold; }
 					.row0c { background-color: #F6F6F6; }
 					.row1c { background-color: #FFFFFF; }
-					.masterconsole { font-style: italic; }
-					</style>
+					.masterconsole { font-style: italic; }</style>
           <script type="text/javascript">var lastSelection;
 		  
 		    function boxOrCellMouseDown() {
@@ -567,8 +566,8 @@
                   </td>
                   <td class="value">
                     <xsl:if test="@value">
-                    	<xsl:call-template name="processFormattedString">
-                      	<xsl:with-param name="text" select="@value" />
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
                       </xsl:call-template>
                     </xsl:if>
                   </td>
@@ -606,8 +605,8 @@
                   </td>
                   <td class="value">
                     <xsl:if test="@value">
-                    	<xsl:call-template name="processFormattedString">
-                      	<xsl:with-param name="text" select="@value" />
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
                       </xsl:call-template>
                     </xsl:if>
                   </td>
@@ -628,8 +627,8 @@
             <xsl:if test="result/@type = 'success' and result/variableUpdate/@value != '(null)'">
               result:
               <span class="testResultValue testResultValueSuccess value">
-              	<xsl:call-template name="stripFormattedString">
-                	<xsl:with-param name="text" select="result/variableUpdate/@value" />
+                <xsl:call-template name="stripFormattedString">
+                  <xsl:with-param name="text" select="result/variableUpdate/@value" />
                 </xsl:call-template>
               </span>
               <xsl:if test="result/variableUpdate/@name">
@@ -649,7 +648,7 @@
               </xsl:if>
               <span class="value">
                 <xsl:call-template name="stripFormattedString">
-                	<xsl:with-param name="text" select="result/variableUpdate/@value" />
+                  <xsl:with-param name="text" select="result/variableUpdate/@value" />
                 </xsl:call-template>
               </span>
               <xsl:if test="@name">
@@ -770,8 +769,8 @@
                   </td>
                   <td class="value">
                     <xsl:if test="@value">
-                    	<xsl:call-template name="processFormattedString">
-                      	<xsl:with-param name="text" select="@value" />
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
                       </xsl:call-template>
                     </xsl:if>
                   </td>
@@ -803,36 +802,33 @@
                     <xsl:value-of select="@name" />
                   </td>
                   <td>
-                    <xsl:choose>
-                      <xsl:when test="@type = 'success'">
-                        <span class="value">
-                          <xsl:if test="@value">
-			                    	<xsl:call-template name="processFormattedString">
-			                      	<xsl:with-param name="text" select="@value" />
-			                      </xsl:call-template>
-			                    </xsl:if>
-                        </span>
-                      </xsl:when>
-                      <xsl:when test="@type = 'failure'">
-                        <span class="value">
-                          <xsl:if test="@value">
-			                    	<xsl:call-template name="processFormattedString">
-			                      	<xsl:with-param name="text" select="@value" />
-			                      </xsl:call-template>
-			                    </xsl:if>
-                        </span>
-                        <span class="comparisondivider">
-                          <br /><hr /><em>expected:</em><br />
-                        </span>
-                        <span class="value">
-                          <xsl:if test="@expectedValue">
-			                    	<xsl:call-template name="processFormattedString">
-			                      	<xsl:with-param name="text" select="@expectedValue" />
-			                      </xsl:call-template>
-			                    </xsl:if>
-                        </span>
-                      </xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="formattedComparisonResult"/>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="count(results/result/comparisons/comparison) = 1">
+            <table class="comparisontable" width="100%">
+              <tr>
+                <th width="100%" align="left">Result</th>
+              </tr>
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1test</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2test</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:call-template name="formattedComparisonResult"/>
                   </td>
                 </tr>
               </xsl:for-each>
@@ -851,9 +847,9 @@
             <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
               result:
               <span class="testresultvalue testresultvaluesuccess value">
-              	<xsl:call-template name="stripFormattedString">
-              		<xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
-              	</xsl:call-template>
+                <xsl:call-template name="stripFormattedString">
+                  <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
+                </xsl:call-template>
               </span>
             </xsl:if>
             <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
@@ -866,23 +862,23 @@
                 <xsl:if test="@type = 'success'">
                   <span class="testresultvalue testresultvaluesuccess value">
                     <xsl:call-template name="stripFormattedString">
-                  		<xsl:with-param name="text" select="@value" />
-                  	</xsl:call-template>
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
                   </span>
                 </xsl:if>
                 <xsl:if test="@type = 'failure'">
                   <span class="testresultvalue testresultvaluefailure">
                     <span class="value">
-                    	<xsl:call-template name="stripFormattedString">
-                    		<xsl:with-param name="text" select="@value" />
-                    	</xsl:call-template>
+                      <xsl:call-template name="stripFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
                     </span>
                     <xsl:text>, but</xsl:text>
                     expected:
                     <span class="value">
                       <xsl:call-template name="stripFormattedString">
-                    		<xsl:with-param name="text" select="@expectedValue" />
-                    	</xsl:call-template>
+                        <xsl:with-param name="text" select="@expectedValue" />
+                      </xsl:call-template>
                     </span>
                   </span>
                 </xsl:if>
@@ -893,15 +889,17 @@
             <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
               result:
               <span class="testresultvalue testresultvaluefailure">
-                <xsl:call-template name="stripFormattedString">
-              		<xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
-              	</xsl:call-template>
+              	<span class="value">
+                  <xsl:call-template name="stripFormattedString">
+                    <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
+                  </xsl:call-template>
+                </span>
                 <xsl:text>, but</xsl:text>
                 expected:
                 <span class="value">
                   <xsl:call-template name="stripFormattedString">
-              			<xsl:with-param name="text" select="results/result/comparisons/comparison/@expectedValue" />
-       		       	</xsl:call-template>
+                    <xsl:with-param name="text" select="results/result/comparisons/comparison/@expectedValue" />
+                  </xsl:call-template>
                 </span>
               </span>
             </xsl:if>
@@ -915,23 +913,23 @@
                 <xsl:if test="@type = 'success'">
                   <span class="testresultvalue testresultvaluesuccess value">
                     <xsl:call-template name="stripFormattedString">
-                  		<xsl:with-param name="text" select="@value" />
-                  	</xsl:call-template>
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
                   </span>
                 </xsl:if>
                 <xsl:if test="@type = 'failure'">
                   <span class="testresultvalue testresultvaluefailure">
                     <span class="value">
                       <xsl:call-template name="stripFormattedString">
-	                  		<xsl:with-param name="text" select="@value" />
-	                  	</xsl:call-template>
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
                     </span>
                     <xsl:text>, but</xsl:text>
                     expected:
                     <span class="value">
                       <xsl:call-template name="stripFormattedString">
-	                  		<xsl:with-param name="text" select="@expectedValue" />
-	                  	</xsl:call-template>
+                        <xsl:with-param name="text" select="@expectedValue" />
+                      </xsl:call-template>
                     </span>
                   </span>
                 </xsl:if>
@@ -1029,8 +1027,8 @@
                 <xsl:for-each select="parameters/parameter">
                   <td align="left" class="value">
                     <xsl:call-template name="stripFormattedString">
-		                	<xsl:with-param name="text" select="@value" />
-		                </xsl:call-template>
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
                   </td>
                 </xsl:for-each>
                 <xsl:if test="@type = 'exception'">
@@ -1049,21 +1047,21 @@
                         <xsl:when test="@type = 'success'">
                           <span class="value">
                             <xsl:call-template name="stripFormattedString">
-						                	<xsl:with-param name="text" select="@value" />
-						                </xsl:call-template>
+                              <xsl:with-param name="text" select="@value" />
+                            </xsl:call-template>
                           </span>
                         </xsl:when>
                         <xsl:when test="@type = 'failure'">
                           <span class="value">
                             <xsl:call-template name="stripFormattedString">
-						                	<xsl:with-param name="text" select="@value" />
-						                </xsl:call-template>
+                              <xsl:with-param name="text" select="@value" />
+                            </xsl:call-template>
                           </span>
                           (expected:
                           <span class="value">
                             <xsl:call-template name="stripFormattedString">
-						                	<xsl:with-param name="text" select="@expectedValue" />
-						                </xsl:call-template>
+                              <xsl:with-param name="text" select="@expectedValue" />
+                            </xsl:call-template>
                           </span>
                           )
                         </xsl:when>
@@ -1219,7 +1217,7 @@
           <xsl:call-template name="fixSpaces">
             <xsl:with-param name="text" select="substring-before($text, '  ')" />
           </xsl:call-template>
-          <xsl:text>&#xA0;&#xA0;</xsl:text>
+          <xsl:text>  </xsl:text>
           <xsl:call-template name="fixSpaces">
             <xsl:with-param name="text" select="substring-after($text, '  ')" />
           </xsl:call-template>
@@ -1264,81 +1262,81 @@
         <xsl:when test="contains($text, '[')">
           <xsl:value-of select="substring-before($text, '[')" />
           <xsl:variable name="wholeTrailingText">
-          	<xsl:value-of select="substring-after($text, '[')" />
+            <xsl:value-of select="substring-after($text, '[')" />
           </xsl:variable>
           <xsl:choose>
-	          <xsl:when test="starts-with($wholeTrailingText, '[')">
-	          	<xsl:text>[</xsl:text>
-	          	<xsl:call-template name="processFormattedStringRecursive">
-	    			<xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
-	    		  </xsl:call-template>
-	    			</xsl:when>
-	    			<xsl:otherwise>
-		          <xsl:variable name="preToken">
-		            <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
-		          </xsl:variable>
-		          <xsl:variable name="trailingText">
-		          	<xsl:value-of select="substring-after($wholeTrailingText, ']')" />
-		          </xsl:variable>
-		          <xsl:variable name="token">
-		            <xsl:choose>
-		          	  <xsl:when test="contains($preToken, '|')">
-		          	    <xsl:value-of select="substring-before($preToken, '|')" />
-		          	  </xsl:when>
-		          	  <xsl:otherwise>
-		          	  	<xsl:value-of select="$preToken" />
-		          	  </xsl:otherwise>
-		          	</xsl:choose>
-		          </xsl:variable>
-		          <xsl:variable name="replacement">
-		          	<xsl:value-of select="substring-after($preToken, '|')" />
-		          </xsl:variable>
-		          <xsl:if test="$token = 'NL' or $token = 'T'">
-		          	<xsl:choose>
-		              <xsl:when test="$token = 'NL'">
-		    			  <br />
-		    		  </xsl:when>
-		    		  <xsl:when test="$token = 'T'">
-		    			  <xsl:text>&#xA0;&#xA0;&#xA0;&#xA0;</xsl:text>
-		    		  </xsl:when>
-		    		</xsl:choose>
-		    		<xsl:call-template name="processFormattedStringRecursive">
-	 					<xsl:with-param name="text" select="$trailingText" />
-	 				</xsl:call-template>
-		          </xsl:if>
-		          <xsl:if test="$token = 'UL' or $token = 'B' or $token = 'I'">
-		          	<xsl:variable name="innerText">
-			          	<xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
-			          </xsl:variable>
-			        	<xsl:choose>
-					    		<xsl:when test="$token = 'UL'">
-					    			<span class="underline">
-					    				<xsl:call-template name="processFormattedStringRecursive">
-					    					<xsl:with-param name="text" select="$innerText" />
-					    				</xsl:call-template>
-					    			</span>
-					    		</xsl:when>
-					    		<xsl:when test="$token = 'B'">
-					    			<span class="bold">
-					    				<xsl:call-template name="processFormattedStringRecursive">
-					    					<xsl:with-param name="text" select="$innerText" />
-					    				</xsl:call-template>
-					    			</span>
-					    		</xsl:when>
-					    		<xsl:when test="$token = 'I'">
-					    			<span class="italic">
-					    				<xsl:call-template name="processFormattedStringRecursive">
-					    					<xsl:with-param name="text" select="$innerText" />
-					    				</xsl:call-template>
-					    			</span>
-					    		</xsl:when>
-			          </xsl:choose>
-			          <xsl:call-template name="processFormattedStringRecursive">
-		    					<xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
-		    				</xsl:call-template>
-	          	</xsl:if>
-	          </xsl:otherwise>
-	        </xsl:choose>
+            <xsl:when test="starts-with($wholeTrailingText, '[')">
+              <xsl:text>[</xsl:text>
+              <xsl:call-template name="processFormattedStringRecursive">
+                <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="preToken">
+                <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="trailingText">
+                <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="token">
+                <xsl:choose>
+                  <xsl:when test="contains($preToken, '|')">
+                    <xsl:value-of select="substring-before($preToken, '|')" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$preToken" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <xsl:variable name="replacement">
+                <xsl:value-of select="substring-after($preToken, '|')" />
+              </xsl:variable>
+              <xsl:if test="$token = 'NL' or $token = 'T'">
+                <xsl:choose>
+                  <xsl:when test="$token = 'NL'">
+                    <br />
+                  </xsl:when>
+                  <xsl:when test="$token = 'T'">
+                    <xsl:text>    </xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:call-template name="processFormattedStringRecursive">
+                  <xsl:with-param name="text" select="$trailingText" />
+                </xsl:call-template>
+              </xsl:if>
+              <xsl:if test="$token = 'UL' or $token = 'B' or $token = 'I'">
+                <xsl:variable name="innerText">
+                  <xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$token = 'UL'">
+                    <span class="underline">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                  <xsl:when test="$token = 'B'">
+                    <span class="bold">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                  <xsl:when test="$token = 'I'">
+                    <span class="italic">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:call-template name="processFormattedStringRecursive">
+                  <xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
+                </xsl:call-template>
+              </xsl:if>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$text" />
@@ -1364,33 +1362,33 @@
         <xsl:when test="contains($text, '[')">
           <xsl:value-of select="substring-before($text, '[')" />
           <xsl:variable name="wholeTrailingText">
-          	<xsl:value-of select="substring-after($text, '[')" />
+            <xsl:value-of select="substring-after($text, '[')" />
           </xsl:variable>
           <xsl:choose>
-	          <xsl:when test="starts-with($wholeTrailingText, '[')">
-	          	<xsl:text>[</xsl:text>
-	          	<xsl:call-template name="stripFormattedStringRecursive">
-	    		  <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
-	    		</xsl:call-template>
-	    	  </xsl:when>
-	    	  <xsl:otherwise>
-		        <xsl:variable name="preToken">
-		          <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
-		        </xsl:variable>
-		        <xsl:variable name="trailingText">
-		          <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
-		        </xsl:variable>
-		        <xsl:variable name="replacement">
-		          <xsl:value-of select="substring-after($preToken, '|')" />
-		        </xsl:variable>
-		        <xsl:if test="$replacement != ''">
-		          <xsl:value-of select="$replacement" />
-		        </xsl:if>
-			    <xsl:call-template name="stripFormattedStringRecursive">
-		    	  <xsl:with-param name="text" select="$trailingText" />
-		    	</xsl:call-template>
-	          </xsl:otherwise>
-	        </xsl:choose>
+            <xsl:when test="starts-with($wholeTrailingText, '[')">
+              <xsl:text>[</xsl:text>
+              <xsl:call-template name="stripFormattedStringRecursive">
+                <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="preToken">
+                <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="trailingText">
+                <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="replacement">
+                <xsl:value-of select="substring-after($preToken, '|')" />
+              </xsl:variable>
+              <xsl:if test="$replacement != ''">
+                <xsl:value-of select="$replacement" />
+              </xsl:if>
+              <xsl:call-template name="stripFormattedStringRecursive">
+                <xsl:with-param name="text" select="$trailingText" />
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$text" />
@@ -1430,6 +1428,41 @@
           <xsl:with-param name="path" select="$path" />
         </xsl:call-template>
       </xsl:if>
+    </xsl:template>
+    <xsl:template name="formattedComparisonResult">
+    	<xsl:choose>
+        <xsl:when test="@type = 'success'">
+          <span class="value">
+            <xsl:if test="@value">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@value" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+        </xsl:when>
+        <xsl:when test="@type = 'failure'">
+          <span class="value">
+            <xsl:if test="@value">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@value" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+          <span class="comparisondivider">
+            <br />
+            <hr />
+            <em>expected:</em>
+            <br />
+          </span>
+          <span class="value">
+            <xsl:if test="@expectedValue">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@expectedValue" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+        </xsl:when>
+      </xsl:choose>
     </xsl:template>
     <xsl:template name="navigationSuite">
       <xsl:param name="depth" />
