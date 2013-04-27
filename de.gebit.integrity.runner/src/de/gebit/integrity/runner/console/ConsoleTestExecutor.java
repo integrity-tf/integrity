@@ -23,6 +23,7 @@ import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.console.ConsoleTestCallback;
 import de.gebit.integrity.runner.callbacks.xml.TransformHandling;
 import de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback;
@@ -197,6 +198,7 @@ public class ConsoleTestExecutor {
 					tempParameterizedConstants.put(tempParts[0], tempParts[1]);
 				}
 			}
+			addParameterizedConstants(tempParameterizedConstants);
 
 			if (tempRootSuite == null) {
 				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
@@ -224,9 +226,9 @@ public class ConsoleTestExecutor {
 				Long tempSeed = tempSeedOption.getValue();
 
 				try {
-					tempRunner = tempModel.initializeTestRunner(tempCallback, tempParameterizedConstants,
+					tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
 							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
-					tempRunner.run(tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
+					runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
@@ -245,6 +247,17 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
+	 * This method can be overriden to add some parameterized constants, which are defined in a test suite, if it is not
+	 * desired to define those constants via VM arguments. The default implementation does nothing.
+	 * 
+	 * @param someParameterizedConstants
+	 *            the map containing the constants and their values
+	 */
+	protected void addParameterizedConstants(Map<String, String> someParameterizedConstants) {
+		// do nothing
+	}
+
+	/**
 	 * Creates the {@link TestResourceProvider} instance.
 	 * 
 	 * @param aPathList
@@ -253,5 +266,49 @@ public class ConsoleTestExecutor {
 	 */
 	protected TestResourceProvider createResourceProvider(List<File> aPathList) {
 		return new FilesystemTestResourceProvider(aPathList, true);
+	}
+
+	/**
+	 * Initializes a {@link TestRunner} instance using the provided {@link TestModel}.
+	 * 
+	 * @param aModel
+	 *            the model
+	 * @param aCallback
+	 *            the callback to use
+	 * @param someParameterizedConstants
+	 *            all parameterized constants to provide to the test runner
+	 * @param aRemotingPort
+	 *            the remoting port to use by the test runner
+	 * @param aRemotingBindHost
+	 *            the host to bind the remoting port to
+	 * @param aRandomSeed
+	 *            the seed value for the RNG
+	 * @param someCommandLineArguments
+	 *            the command line arguments to use for forking
+	 * @return the initialized test runner
+	 * @throws IOException
+	 */
+	protected TestRunner initializeTestRunner(TestModel aModel, TestRunnerCallback aCallback,
+			Map<String, String> someParameterizedConstants, Integer aRemotingPort, String aRemotingBindHost,
+			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
+		return aModel.initializeTestRunner(aCallback, someParameterizedConstants, aRemotingPort, aRemotingBindHost,
+				aRandomSeed, someCommandLineArguments);
+	}
+
+	/**
+	 * Run the tests on the provided {@link TestRunner}.
+	 * 
+	 * @param aRunner
+	 *            the runner
+	 * @param aRootSuite
+	 *            the root suite to run
+	 * @param aVariant
+	 *            the variant to run
+	 * @param aBlockForRemotingFlag
+	 *            whether to wait for remoting to start the tests
+	 */
+	protected void runTests(TestRunner aRunner, SuiteDefinition aRootSuite, VariantDefinition aVariant,
+			boolean aBlockForRemotingFlag) {
+		aRunner.run(aRootSuite, aVariant, aBlockForRemotingFlag);
 	}
 }
