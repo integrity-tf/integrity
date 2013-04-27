@@ -208,43 +208,11 @@ public class DefaultResultComparator implements ResultComparator {
 					&& Array.getLength(aConvertedExpectedResult) == 1 && Array.get(aConvertedExpectedResult, 0) == null));
 		} else {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
-				if (aRawExpectedResult instanceof DateValue) {
-					// compare only the date part
-					return DateUtil.stripTimeFromDate((Date) aConvertedExpectedResult).equals(
-							DateUtil.stripTimeFromDate((Date) aConvertedResult));
-				} else if (aRawExpectedResult instanceof TimeValue) {
-					// compare only the time part
-					return DateUtil.stripDateFromTime((Date) aConvertedExpectedResult).equals(
-							DateUtil.stripDateFromTime((Date) aConvertedResult));
-				} else {
-					// compare both parts
-					return aConvertedExpectedResult.equals(aConvertedResult);
-				}
+				return performEqualityCheckForDates((Date) aConvertedResult, (Date) aConvertedExpectedResult,
+						aRawExpectedResult);
 			} else if (aConvertedResult instanceof Map && aConvertedExpectedResult instanceof Map) {
-				// maps are compared by exploring them
-				for (Entry<?, ?> tempEntry : ((Map<?, ?>) aConvertedResult).entrySet()) {
-					Object tempReferenceValue = ((Map<?, ?>) aConvertedExpectedResult).get(tempEntry.getKey());
-					Object tempActualValue = tempEntry.getValue();
-
-					// ...but we have to ensure both values are of equal type first, since even though both outer values
-					// are maps, their inner values have not been necessarily converted to the same types
-					Object tempConvertedReferenceValue = tempReferenceValue;
-					try {
-						tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
-								tempActualValue.getClass(), tempReferenceValue,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
-					} catch (UnresolvableVariableException exc) {
-						exc.printStackTrace();
-					} catch (UnexecutableException exc) {
-						exc.printStackTrace();
-					}
-
-					if (!performEqualityCheck(tempActualValue, tempConvertedReferenceValue, null)) {
-						return false;
-					}
-				}
-
-				return true;
+				return performEqualityCheckForMaps((Map<?, ?>) aConvertedResult, (Map<?, ?>) aConvertedExpectedResult,
+						aRawExpectedResult);
 			} else if (aConvertedResult.getClass().isArray()) {
 				if (aConvertedExpectedResult == null) {
 					// the fixture may still be returning an array that has to be unpacked
@@ -289,10 +257,97 @@ public class DefaultResultComparator implements ResultComparator {
 								aRawExpectedResult);
 					} else {
 						// If no special cases apply, perform standard equals comparison
-						return aConvertedExpectedResult.equals(aConvertedResult);
+						return performEqualityCheckForObjects(aConvertedResult, aConvertedExpectedResult,
+								aRawExpectedResult);
 					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Compare two {@link Map}s for equality. Maps are considered equal if all the values in the expected result are
+	 * found in the actual result (there may well be more keys in the actual result than expected!).
+	 * 
+	 * @param aResult
+	 *            the result returned by the fixture
+	 * @param anExpectedResult
+	 *            the expected result as in the script, converted for comparison
+	 * @param aRawExpectedResult
+	 *            the raw expected result as in the script, before conversion
+	 * @return true if equal, false otherwise
+	 */
+	protected boolean performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
+			Object aRawExpectedResult) {
+		// maps are compared by exploring them
+		for (Entry<?, ?> tempEntry : ((Map<?, ?>) anExpectedResult).entrySet()) {
+			Object tempActualValue = ((Map<?, ?>) aResult).get(tempEntry.getKey());
+			Object tempReferenceValue = tempEntry.getValue();
+
+			// ...but we have to ensure both values are of equal type first, since even though both outer values
+			// are maps, their inner values have not been necessarily converted to the same types
+			Object tempConvertedReferenceValue = tempReferenceValue;
+			try {
+				tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
+						tempActualValue.getClass(), tempReferenceValue,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
+			} catch (UnresolvableVariableException exc) {
+				exc.printStackTrace();
+			} catch (UnexecutableException exc) {
+				exc.printStackTrace();
+			}
+
+			if (!performEqualityCheck(
+					tempActualValue,
+					tempConvertedReferenceValue,
+					(tempReferenceValue instanceof ValueOrEnumValueOrOperation) ? (ValueOrEnumValueOrOperation) tempReferenceValue
+							: null)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Compare two {@link Date}s for equality.
+	 * 
+	 * @param aResult
+	 *            the result returned by the fixture
+	 * @param anExpectedResult
+	 *            the expected result as in the script, converted for comparison
+	 * @param aRawExpectedResult
+	 *            the raw expected result as in the script, before conversion
+	 * @return true if equal, false otherwise
+	 */
+	protected boolean performEqualityCheckForDates(Date aResult, Date anExpectedResult, Object aRawExpectedResult) {
+		if (aRawExpectedResult instanceof DateValue) {
+			// compare only the date part
+			return DateUtil.stripTimeFromDate((Date) anExpectedResult).equals(
+					DateUtil.stripTimeFromDate((Date) aResult));
+		} else if (aRawExpectedResult instanceof TimeValue) {
+			// compare only the time part
+			return DateUtil.stripDateFromTime((Date) anExpectedResult).equals(
+					DateUtil.stripDateFromTime((Date) aResult));
+		} else {
+			// compare both parts
+			return anExpectedResult.equals(aResult);
+		}
+	}
+
+	/**
+	 * Compare two objects. At this point it is expected that the previous stages have done all conversion work,
+	 * iteration through arrays etc.
+	 * 
+	 * @param aResult
+	 *            the result returned by the fixture
+	 * @param anExpectedResult
+	 *            the expected result as in the script, converted for comparison
+	 * @param aRawExpectedResult
+	 *            the raw expected result as in the script, before conversion
+	 * @return true if equal, false otherwise
+	 */
+	protected boolean performEqualityCheckForObjects(Object aResult, Object anExpectedResult, Object aRawExpectedResult) {
+		return anExpectedResult.equals(aResult);
 	}
 }
