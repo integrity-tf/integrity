@@ -628,7 +628,6 @@
             <xsl:if test="result/@type = 'success' and result/variableUpdate/@value != '(null)'">
               result:
               <span class="testResultValue testResultValueSuccess value">
-                <xsl:value-of select="result/variableUpdate/@value" />
               	<xsl:call-template name="stripFormattedString">
                 	<xsl:with-param name="text" select="result/variableUpdate/@value" />
                 </xsl:call-template>
