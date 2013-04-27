@@ -1060,20 +1060,9 @@ public class DefaultTestRunner implements TestRunner {
 		String tempFixtureMethodName = aTest.getDefinition().getFixtureMethod().getMethod().getSimpleName();
 
 		Map<String, TestComparisonResult> tempComparisonMap = new LinkedHashMap<String, TestComparisonResult>();
+		boolean tempUndeterminedComparisonResultsRequired = false;
 		if (!shouldExecuteFixtures()) {
-			if (aTest.getResults() != null && aTest.getResults().size() > 0) {
-				for (NamedResult tempNamedResult : aTest.getResults()) {
-					String tempParameter = IntegrityDSLUtil
-							.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
-					tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
-							tempNamedResult.getValue());
-					tempComparisonMap.put(tempParameter, tempComparisonResult);
-				}
-			} else {
-				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-						aTest.getResult());
-				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
-			}
+			tempUndeterminedComparisonResultsRequired = true;
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
@@ -1124,6 +1113,23 @@ public class DefaultTestRunner implements TestRunner {
 			} catch (Throwable exc) {
 				tempDuration = System.nanoTime() - tempStart;
 				tempException = exc;
+				tempUndeterminedComparisonResultsRequired = true;
+			}
+		}
+
+		if (tempUndeterminedComparisonResultsRequired) {
+			// We always need to provide the comparison results, even if no comparison was done due to dry mode or
+			// exception, in which case the "undetermined result" is used.
+			tempComparisonMap.clear();
+			if (aTest.getResults() != null && aTest.getResults().size() > 0) {
+				for (NamedResult tempNamedResult : aTest.getResults()) {
+					String tempParameter = IntegrityDSLUtil
+							.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
+					tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
+							tempNamedResult.getValue());
+					tempComparisonMap.put(tempParameter, tempComparisonResult);
+				}
+			} else {
 				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 						aTest.getResult());
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
@@ -1190,29 +1196,10 @@ public class DefaultTestRunner implements TestRunner {
 			Throwable tempException = null;
 			Long tempDuration = null;
 
-			if (!shouldExecuteFixtures()) {
-				if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
-					int tempColumn = aTest.getParameterHeaders().size();
-					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
-						String tempParameter = IntegrityDSLUtil
-								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-						ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
-								.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
-						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
-						tempComparisonMap.put(tempParameter, tempComparisonResult);
+			boolean tempUndeterminedComparisonResultsRequired = false;
 
-						tempColumn++;
-					}
-				} else {
-					ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
-					if (aTest.getDefaultResultColumn() != null) {
-						// the last column MUST be the result column
-						tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
-					}
-					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-							tempExpectedValue);
-					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
-				}
+			if (!shouldExecuteFixtures()) {
+				tempUndeterminedComparisonResultsRequired = true;
 			} else {
 				long tempStart = System.nanoTime();
 				try {
@@ -1276,29 +1263,33 @@ public class DefaultTestRunner implements TestRunner {
 				} catch (Throwable exc) {
 					tempDuration = System.nanoTime() - tempStart;
 					tempException = exc;
-					// add undetermined result entries for all comparisons
-					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
-						int tempColumn = aTest.getParameterHeaders().size();
-						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
-							String tempResultName = IntegrityDSLUtil
-									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
-									.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
-							tempComparisonResult = new TestComparisonUndeterminedResult(tempResultName,
-									tempExpectedValue);
-							tempComparisonMap.put(tempResultName, tempComparisonResult);
-							tempColumn++;
-						}
-					} else {
-						ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
-						if (aTest.getDefaultResultColumn() != null) {
-							// the last column MUST be the result column
-							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
-						}
-						tempComparisonResult = new TestComparisonUndeterminedResult(
-								ParameterUtil.DEFAULT_PARAMETER_NAME, tempExpectedValue);
-						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+					tempUndeterminedComparisonResultsRequired = true;
+				}
+			}
+
+			if (tempUndeterminedComparisonResultsRequired) {
+				tempComparisonMap.clear();
+				if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+					int tempColumn = aTest.getParameterHeaders().size();
+					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
+						String tempParameter = IntegrityDSLUtil
+								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
+						ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
+								.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
+						tempComparisonMap.put(tempParameter, tempComparisonResult);
+
+						tempColumn++;
 					}
+				} else {
+					ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
+					if (aTest.getDefaultResultColumn() != null) {
+						// the last column MUST be the result column
+						tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
+					}
+					tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempExpectedValue);
+					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
 			}
 
