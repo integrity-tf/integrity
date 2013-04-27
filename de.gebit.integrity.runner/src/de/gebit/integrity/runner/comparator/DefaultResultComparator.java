@@ -280,9 +280,9 @@ public class DefaultResultComparator implements ResultComparator {
 	protected boolean performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
 			Object aRawExpectedResult) {
 		// maps are compared by exploring them
-		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aResult).entrySet()) {
-			Object tempReferenceValue = ((Map<?, ?>) anExpectedResult).get(tempEntry.getKey());
-			Object tempActualValue = tempEntry.getValue();
+		for (Entry<?, ?> tempEntry : ((Map<?, ?>) anExpectedResult).entrySet()) {
+			Object tempActualValue = ((Map<?, ?>) aResult).get(tempEntry.getKey());
+			Object tempReferenceValue = tempEntry.getValue();
 
 			// ...but we have to ensure both values are of equal type first, since even though both outer values
 			// are maps, their inner values have not been necessarily converted to the same types
@@ -297,7 +297,11 @@ public class DefaultResultComparator implements ResultComparator {
 				exc.printStackTrace();
 			}
 
-			if (!performEqualityCheck(tempActualValue, tempConvertedReferenceValue, null)) {
+			if (!performEqualityCheck(
+					tempActualValue,
+					tempConvertedReferenceValue,
+					(tempReferenceValue instanceof ValueOrEnumValueOrOperation) ? (ValueOrEnumValueOrOperation) tempReferenceValue
+							: null)) {
 				return false;
 			}
 		}
