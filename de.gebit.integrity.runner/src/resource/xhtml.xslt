@@ -395,7 +395,9 @@
             </td>
             <td class="value">
               <xsl:if test="@value">
-                <xsl:value-of select="@value" />
+                <xsl:call-template name="processFormattedString">
+                  <xsl:with-param name="text" select="@value" />
+                </xsl:call-template>
               </xsl:if>
             </td>
           </tr>
@@ -405,7 +407,7 @@
     <xsl:template name="variablebox">
       <xsl:call-template name="box">
         <xsl:with-param name="color">#5966FF</xsl:with-param>
-        <xsl:with-param name="title">Global Variables</xsl:with-param>
+        <xsl:with-param name="title">Global Variables/Constants</xsl:with-param>
         <xsl:with-param name="content">
           <xsl:apply-templates select="variables" />
         </xsl:with-param>
@@ -488,7 +490,7 @@
         </xsl:with-param>
         <xsl:with-param name="content">
           <xsl:if test="count(variables/variable) &gt; 0">
-            <div class="sectionTitle">Variables</div>
+            <div class="sectionTitle">Variables/Constants</div>
             <xsl:apply-templates select="variables" />
           </xsl:if>
           <xsl:if test="count(setup/suite) &gt; 0">
