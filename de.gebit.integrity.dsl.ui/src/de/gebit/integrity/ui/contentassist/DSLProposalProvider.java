@@ -617,8 +617,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							if (tempParamName.equals(tempPossibleParam.getParamName())) {
 								if (tempPossibleParam != null && tempPossibleParam.getType() != null
 										&& tempPossibleParam.getType().getType() != null) {
-									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempPossibleParam.getType()
-											.getType().getQualifiedName());
+									String tempQualifiedName = tempPossibleParam.getType().getType().getQualifiedName();
+									// The qualified name can contain brackets here if it is an array. We don't care
+									// for arrays for the purpose of proposal providing, so we strip the array brackets.
+									if (tempQualifiedName.endsWith("[]")) {
+										tempQualifiedName = tempQualifiedName.substring(0,
+												tempQualifiedName.length() - 2);
+									}
+
+									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
 								}
 								break;
 							}
@@ -631,8 +638,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 							for (ResultFieldTuple tempPossibleResult : tempResultList) {
 								if (tempParamName.equals(tempPossibleResult.getResultName())) {
 									if (tempPossibleResult != null && tempPossibleResult.getField() != null) {
-										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempPossibleResult
-												.getField().getQualifiedName());
+										String tempQualifiedName = tempPossibleResult.getField().getQualifiedName();
+										// The qualified name can contain brackets here if it is an array. We don't care
+										// for arrays for the purpose of proposal providing, so we strip the array
+										// brackets.
+										if (tempQualifiedName.endsWith("[]")) {
+											tempQualifiedName = tempQualifiedName.substring(0,
+													tempQualifiedName.length() - 2);
+										}
+										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
 									}
 									break;
 								}
