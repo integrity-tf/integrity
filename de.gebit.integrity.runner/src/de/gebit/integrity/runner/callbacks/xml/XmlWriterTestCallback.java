@@ -1505,8 +1505,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE, valueConverter.convertValueToString(
-					anInitialValue, false, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+			tempVariableElement.setAttribute(
+					VARIABLE_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToFormattedString(anInitialValue, false,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
 		}
 
 		if (!isDryRun()) {

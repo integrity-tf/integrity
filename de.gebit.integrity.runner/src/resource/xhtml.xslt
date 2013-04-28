@@ -395,7 +395,9 @@
             </td>
             <td class="value">
               <xsl:if test="@value">
-                <xsl:value-of select="@value" />
+                <xsl:call-template name="processFormattedString">
+                  <xsl:with-param name="text" select="@value" />
+                </xsl:call-template>
               </xsl:if>
             </td>
           </tr>
