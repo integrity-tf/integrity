@@ -15,15 +15,21 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.booleans.Bo
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToBean;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToMap;
@@ -97,7 +103,9 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarTo
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToBean;
@@ -106,6 +114,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToStrin
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLDateToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToFormattedString;
@@ -182,6 +191,9 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(ObjectToMap.class);
 		addConversion(EnumToString.class);
 		addConversion(EnumToFormattedString.class);
+		addConversion(DateToSQLDate.class);
+		addConversion(DateToTimestamp.class);
+		addConversion(SQLDateToTimestamp.class);
 
 		// identity conversions, Java -> Java
 		addConversion(StringToString.class);
@@ -241,14 +253,20 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(DateAndTimeValueToDate.class);
 		addConversion(DateAndTimeValueToString.class);
 		addConversion(DateAndTimeValueToFormattedString.class);
+		addConversion(DateAndTimeValueToSQLDate.class);
+		addConversion(DateAndTimeValueToTimestamp.class);
 		addConversion(DateValueToCalendar.class);
 		addConversion(DateValueToDate.class);
 		addConversion(DateValueToString.class);
 		addConversion(DateValueToFormattedString.class);
+		addConversion(DateValueToSQLDate.class);
+		addConversion(DateValueToTimestamp.class);
 		addConversion(TimeValueToCalendar.class);
 		addConversion(TimeValueToDate.class);
 		addConversion(TimeValueToString.class);
 		addConversion(TimeValueToFormattedString.class);
+		addConversion(TimeValueToSQLDate.class);
+		addConversion(TimeValueToTimestamp.class);
 
 		// nested objects, Integrity -> Java
 		addConversion(NestedObjectToMap.class);

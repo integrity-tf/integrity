@@ -1,0 +1,9 @@
+packagedef integrity.fixtures.basic.conversions with
+
+	testdef checkDateType uses de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate
+	
+	testdef checkSQLDateType uses de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate
+	
+	testdef checkTimestampType uses de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp
+
+packageend

@@ -7,6 +7,19 @@ packagedef integrity.basic.conversions with
 		// See if calendar to string conversion works correctly
 		call integrity.fixtures.basic.noop.echoCalendar calendar: 1970-01-01T12:00+02:00 -> temp
 		test integrity.fixtures.basic.noop.echoStringTest string: temp = "January 1, 1970 11:00:00 AM CET"
+		
+		// See if conversions to the various date types in Java result in objects of the correct type
+		test integrity.fixtures.basic.conversions.checkDateType date: 2012-01-01T12:00+02:00
+		test integrity.fixtures.basic.conversions.checkDateType date: 2012-01-01
+		test integrity.fixtures.basic.conversions.checkDateType date: 12:00:30
+		
+		test integrity.fixtures.basic.conversions.checkSQLDateType date: 2012-01-01T12:00+02:00
+		test integrity.fixtures.basic.conversions.checkSQLDateType date: 2012-01-01
+		test integrity.fixtures.basic.conversions.checkSQLDateType date: 12:00:30
+		
+		test integrity.fixtures.basic.conversions.checkTimestampType date: 2012-01-01T12:00+02:00
+		test integrity.fixtures.basic.conversions.checkTimestampType date: 2012-01-01
+		test integrity.fixtures.basic.conversions.checkTimestampType date: 12:00:30
 	
 	suiteend
 
