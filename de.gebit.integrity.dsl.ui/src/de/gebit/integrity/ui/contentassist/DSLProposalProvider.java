@@ -236,6 +236,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				// We're inside the parameters group
 				completeTableTestParametersInternal(tempTest, aContext, anAcceptor);
 			}
+		} else if (aModel instanceof Parameter) {
+			completeParameterValueInternal((Parameter) aModel, aContext, anAcceptor);
 		}
 	}
 
@@ -864,36 +866,45 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		super.completeParameter_Value(aModel, anAssignment, aContext, anAcceptor);
 
 		if (aModel instanceof Parameter) {
-			Parameter tempParam = (Parameter) aModel;
+			completeParameterValueInternal((Parameter) aModel, aContext, anAcceptor);
+		}
+	}
 
-			MethodReference tempMethod = null;
-			List<Parameter> tempAllParameters = null;
-			if (tempParam.eContainer() instanceof Test) {
-				Test tempTest = (Test) tempParam.eContainer();
-				tempMethod = tempTest.getDefinition().getFixtureMethod();
-				tempAllParameters = tempTest.getParameters();
-			} else if (tempParam.eContainer() instanceof Call) {
-				Call tempCall = (Call) tempParam.eContainer();
-				tempMethod = tempCall.getDefinition().getFixtureMethod();
-				tempAllParameters = tempCall.getParameters();
-			}
+	private void completeParameterValueInternal(Parameter aParameter, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		Parameter tempParam = (Parameter) aParameter;
 
-			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
-				try {
-					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
-							UnresolvableVariableHandling.KEEP_UNRESOLVED);
-					completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, null, aContext,
-							anAcceptor);
-				} catch (InstantiationException exc) {
-					// cannot occur, since thrown by operation execution which is not performed here
-					exc.printStackTrace();
-				} catch (ClassNotFoundException exc) {
-					// cannot occur, since thrown by operation execution which is not performed here
-					exc.printStackTrace();
-				} catch (UnexecutableException exc) {
-					// cannot occur, since thrown by operation execution which is not performed here
-					exc.printStackTrace();
-				}
+		MethodReference tempMethod = null;
+		List<Parameter> tempAllParameters = null;
+		if (tempParam.eContainer() instanceof Test) {
+			Test tempTest = (Test) tempParam.eContainer();
+			tempMethod = tempTest.getDefinition().getFixtureMethod();
+			tempAllParameters = tempTest.getParameters();
+		} else if (tempParam.eContainer() instanceof Call) {
+			Call tempCall = (Call) tempParam.eContainer();
+			tempMethod = tempCall.getDefinition().getFixtureMethod();
+			tempAllParameters = tempCall.getParameters();
+		} else if (tempParam.eContainer() instanceof TableTest) {
+			TableTest tempTableTest = (TableTest) tempParam.eContainer();
+			tempMethod = tempTableTest.getDefinition().getFixtureMethod();
+			tempAllParameters = tempTableTest.getParameters();
+		}
+
+		if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
+			try {
+				Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
+						UnresolvableVariableHandling.KEEP_UNRESOLVED);
+				completeParameterValuesInternal(tempParam.getName(), tempMethod, tempParamMap, null, aContext,
+						anAcceptor);
+			} catch (InstantiationException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
+			} catch (ClassNotFoundException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
+			} catch (UnexecutableException exc) {
+				// cannot occur, since thrown by operation execution which is not performed here
+				exc.printStackTrace();
 			}
 		}
 	}
