@@ -5,7 +5,7 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.10.1-SNAPSHOT</version>
+    <version>0.10.2-SNAPSHOT</version>
     <relativePath>integrity-parent/pom.xml</relativePath>
   </parent>
     
@@ -33,4 +33,4 @@
     <module>de.gebit.integrity.bindings.swing.fixtures</module>    
   </modules>
   
-<version>0.10.1-SNAPSHOT</version></project>
+<version>0.10.2-SNAPSHOT</version></project>
