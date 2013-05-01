@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -67,6 +68,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator.ArbitraryParameterDefinition;
+import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.CustomProposalFixture;
 import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
@@ -146,8 +148,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	// SUPPRESS CHECKSTYLE MethodName
 	public void completeTest_Parameters(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
 			ICompletionProposalAcceptor anAcceptor) {
-		completeTestParametersInternal((Test) aModel, aContext, anAcceptor);
-		completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+		super.completeTest_Parameters(aModel, anAssignment, aContext, anAcceptor);
+
+		Test tempTest = (Test) aModel;
+
+		completeTestParametersInternal(tempTest, aContext, anAcceptor);
+		if (tempTest.getDefinition() != null
+				&& isArbitraryParameterFixture(tempTest.getDefinition().getFixtureMethod())) {
+			completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+		}
 	}
 
 	private void completeTestParametersInternal(Test aTest, ContentAssistContext aContext,
@@ -170,8 +179,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		super.completeCall_Parameters(aModel, anAssignment, aContext, anAcceptor);
 
-		completeCallParametersInternal((Call) aModel, aContext, anAcceptor);
-		completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+		Call tempCall = (Call) aModel;
+
+		completeCallParametersInternal(tempCall, aContext, anAcceptor);
+		if (tempCall.getDefinition() != null
+				&& isArbitraryParameterFixture(tempCall.getDefinition().getFixtureMethod())) {
+			completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+		}
 	}
 
 	private void completeCallParametersInternal(Call aCall, ContentAssistContext aContext,
@@ -201,8 +215,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_3_0()) {
 				// We're inside the parameters group
-				completeTestParametersInternal((Test) aModel, aContext, anAcceptor);
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+				completeTestParametersInternal(tempTest, aContext, anAcceptor);
+				if (tempTest.getDefinition() != null
+						&& isArbitraryParameterFixture(tempTest.getDefinition().getFixtureMethod())) {
+					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+				}
 			} else if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the named results group
 				TestDefinition tempDefinition = tempTest.getDefinition();
@@ -216,8 +233,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						}
 
 						completeNamedResultsInternal(tempAlreadyUsedResults, tempMethodRef, null, aContext, anAcceptor);
-						completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null,
-								null);
+						if (isArbitraryParameterFixture(tempMethodRef)) {
+							completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true,
+									null, null);
+						}
 					}
 				}
 			}
@@ -227,7 +246,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			if (aRuleCall == grammarAccess.getCallAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the parameters group
 				completeCallParametersInternal(tempCall, aContext, anAcceptor);
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+				if (tempCall.getDefinition() != null
+						&& isArbitraryParameterFixture(tempCall.getDefinition().getFixtureMethod())) {
+					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+				}
 			}
 		} else if (aModel instanceof TableTest) {
 			TableTest tempTest = (TableTest) aModel;
@@ -275,35 +297,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		super.completeTableTest_ParameterHeaders(aModel, anAssignment, aContext, anAcceptor);
 
-		TableTest tempTableTest = null;
-		if (aModel instanceof TableTest) {
-			tempTableTest = (TableTest) aModel;
-		} else {
-			tempTableTest = (TableTest) NodeModelUtils.findActualSemanticObjectFor(aContext.getCurrentNode());
-		}
-
-		TestDefinition tempTestDef = tempTableTest.getDefinition();
-		if (tempTestDef != null) {
-			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-			for (Parameter tempParameter : tempTableTest.getParameters()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
-						.getName()));
-			}
-			for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameterHeader
-						.getName()));
-			}
-			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
-					aContext, anAcceptor);
-
-			Set<String> tempAlreadyUsedResults = new HashSet<String>();
-			for (ResultTableHeader tempResultHeader : tempTableTest.getResultHeaders()) {
-				tempAlreadyUsedResults.add(IntegrityDSLUtil
-						.getExpectedResultNameStringFromTestResultName(tempResultHeader.getName()));
-			}
-			completeNamedResultsInternal(tempAlreadyUsedResults, tempTestDef.getFixtureMethod(), null, aContext,
-					anAcceptor);
-		}
+		completeParameterAndResultHeaderInternal(aModel, aContext, anAcceptor, true);
 	}
 
 	@Override
@@ -312,6 +306,29 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		super.completeParameterTableHeader_Name(aModel, anAssignment, aContext, anAcceptor);
 
+		completeParameterAndResultHeaderInternal(aModel, aContext, anAcceptor, true);
+	}
+
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeResultTableHeader_Name(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeResultTableHeader_Name(aModel, anAssignment, aContext, anAcceptor);
+
+		completeParameterAndResultHeaderInternal(aModel, aContext, anAcceptor, false);
+	}
+
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeTableTest_ResultHeaders(EObject aModel, Assignment anAssignment, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor) {
+		super.completeTableTest_ResultHeaders(aModel, anAssignment, aContext, anAcceptor);
+
+		completeParameterAndResultHeaderInternal(aModel, aContext, anAcceptor, false);
+	}
+
+	private void completeParameterAndResultHeaderInternal(Object aModel, ContentAssistContext aContext,
+			ICompletionProposalAcceptor anAcceptor, boolean anIncludeParametersFlag) {
 		TableTest tempTableTest = null;
 		if (aModel instanceof TableTest) {
 			tempTableTest = (TableTest) aModel;
@@ -320,15 +337,40 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 
 		if (tempTableTest != null) {
-			TestDefinition tempTestDef = (tempTableTest).getDefinition();
+			TestDefinition tempTestDef = tempTableTest.getDefinition();
 			if (tempTestDef != null) {
-				Set<String> tempAlreadyUsedParameters = new HashSet<String>();
-				for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
-					tempAlreadyUsedParameters.add(IntegrityDSLUtil
-							.getParamNameStringFromParameterName(tempParameterHeader.getName()));
+				MethodReference tempMethod = tempTestDef.getFixtureMethod();
+				if (tempMethod != null) {
+					if (anIncludeParametersFlag) {
+						Set<String> tempAlreadyUsedParameters = new HashSet<String>();
+						for (Parameter tempParameter : tempTableTest.getParameters()) {
+							tempAlreadyUsedParameters.add(IntegrityDSLUtil
+									.getParamNameStringFromParameterName(tempParameter.getName()));
+						}
+						for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
+							tempAlreadyUsedParameters.add(IntegrityDSLUtil
+									.getParamNameStringFromParameterName(tempParameterHeader.getName()));
+						}
+						completeParametersInternal(tempAlreadyUsedParameters, tempMethod, null, false, aContext,
+								anAcceptor);
+					}
+
+					Set<String> tempAlreadyUsedResults = new HashSet<String>();
+					for (ResultTableHeader tempResultHeader : tempTableTest.getResultHeaders()) {
+						tempAlreadyUsedResults.add(IntegrityDSLUtil
+								.getExpectedResultNameStringFromTestResultName(tempResultHeader.getName()));
+					}
+					completeNamedResultsInternal(tempAlreadyUsedResults, tempMethod, null, aContext, anAcceptor);
+
+					if (isArbitraryParameterFixture(tempMethod)) {
+						if (anIncludeParametersFlag) {
+							completeArbitraryParameterOrResultNameInternal(tempTableTest, aContext, anAcceptor, null,
+									false, null, null);
+						}
+						completeArbitraryParameterOrResultNameInternal(tempTableTest, aContext, anAcceptor, null, true,
+								null, null);
+					}
 				}
-				completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, false,
-						aContext, anAcceptor);
 			}
 		}
 	}
@@ -449,12 +491,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 
 		if (tempParameterMap != null && tempMethodReference != null && tempMethodReference.getType() != null) {
-			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(tempMethodReference.getType());
-
-			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
 			try {
-				FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempCompilationUnit.getTypes()[0],
-						valueConverter);
+				IType tempJDTType = resolveJDTTypeForJvmType(tempMethodReference.getType());
+				FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
 
 				ArbitraryParameterEnumerator tempEnumerator = tempFixtureClassWrapper
 						.instantiateArbitraryParameterEnumerator();
@@ -595,14 +634,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if ((tempOwner instanceof Test) || (tempOwner instanceof Call) || (tempOwner instanceof TableTest)) {
 			Boolean tempIsResult = IntegrityDSLUtil.isResult(aModel);
 
-			// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param method
-			// here as well
-			completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult, false,
-					tempParameterPath, tempAlreadyUsedKeys);
-
 			// The following code deals with Java Bean classes used for nested param storage
 			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
 			if (tempMethodReference != null && tempMethodReference.getMethod() != null) {
+				if (isArbitraryParameterFixture(tempMethodReference)) {
+					// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param
+					// method
+					// here as well
+					completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
+							false, tempParameterPath, tempAlreadyUsedKeys);
+				}
+
 				if (tempParameterPath.size() > 0) {
 					String tempParamName = tempParameterPath.get(0);
 					IType tempTypeInFocus = null;
@@ -786,11 +828,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 				if (isCustomProposalFixture(tempMethod)) {
 					try {
-						IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(tempMethod
-								.getType());
-						CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
-						FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
-								tempCompilationUnit.getTypes()[0], valueConverter);
+						IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
+						FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
 
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
 								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
@@ -811,7 +850,10 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					}
 				}
 
-				completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, false, null, null);
+				if (isArbitraryParameterFixture(tempMethod)) {
+					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, false, null,
+							null);
+				}
 			}
 		}
 	}
@@ -830,10 +872,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				try {
-					IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(tempMethod.getType());
-					CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
-					FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
-							tempCompilationUnit.getTypes()[0], valueConverter);
+					IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
+					FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
 
 					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
 							UnresolvableVariableHandling.KEEP_UNRESOLVED);
@@ -974,12 +1014,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								}
 								Object tempConvertedResultValue = null;
 								if (tempResultValue != null) {
-									IJavaElement tempSourceMethod = (IJavaElement) elementFinder
-											.findElementFor(tempMethod.getType());
-									CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod
-											.getParent();
-									FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(
-											tempCompilationUnit.getTypes()[0], valueConverter);
+									IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
+									FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType,
+											valueConverter);
 
 									tempConvertedResultValue = tempFixtureClassWrapper
 											.convertResultValueToFixtureDefinedType(tempMethod.getMethod()
@@ -1091,8 +1128,26 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	}
 
 	private boolean isCustomProposalFixture(MethodReference aMethod) {
+		if (aMethod == null) {
+			return false;
+		}
+
 		for (JvmTypeReference tempRef : aMethod.getMethod().getDeclaringType().getSuperTypes()) {
 			if (tempRef.getQualifiedName().equals(CustomProposalFixture.class.getName())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isArbitraryParameterFixture(MethodReference aMethod) {
+		if (aMethod == null) {
+			return false;
+		}
+
+		for (JvmTypeReference tempRef : aMethod.getMethod().getDeclaringType().getSuperTypes()) {
+			if (tempRef.getQualifiedName().equals(ArbitraryParameterFixture.class.getName())) {
 				return true;
 			}
 		}
@@ -1104,16 +1159,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			Map<String, Object> aParamMap, List<String> aParameterPath, ContentAssistContext aContext,
 			ICompletionProposalAcceptor anAcceptor) {
 		try {
-			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
-			Object tempParent = tempSourceMethod.getParent();
-			IType tempType = null;
-			if (tempParent instanceof CompilationUnit) {
-				tempType = ((CompilationUnit) tempParent).getTypes()[0];
-			} else if (tempParent instanceof ClassFile) {
-				((ClassFile) tempParent).open(null);
-				tempType = ((ClassFile) tempParent).getType();
-			}
-			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempType, valueConverter);
+			IType tempJDTType = resolveJDTTypeForJvmType(aMethod.getType());
+			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
 
 			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
 			if (tempProposalProvider == null) {
@@ -1209,6 +1256,21 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	private static boolean isBrowserInformationControlIsAvailable() {
 		return BrowserInformationControl.isAvailable(Display.getDefault().getActiveShell());
+	}
+
+	private IType resolveJDTTypeForJvmType(JvmType aType) throws JavaModelException {
+		IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aType);
+
+		if (tempSourceMethod.getParent() instanceof CompilationUnit) {
+			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
+			return tempCompilationUnit.getTypes()[0];
+		} else if (tempSourceMethod.getParent() instanceof ClassFile) {
+			ClassFile tempClassFile = (ClassFile) tempSourceMethod.getParent();
+			tempClassFile.open(null);
+			return tempClassFile.getType();
+		}
+
+		return null;
 	}
 
 }
