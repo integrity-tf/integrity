@@ -9,10 +9,7 @@ package de.gebit.integrity.fixtures;
 
 /**
  * Interface for fixtures that allow for arbitrary, non-predetermined parameters to be specified. Fixtures that want to
- * use the arbitrary parameter system must implement this interface class, and they must implement
- * {@link #defineArbitraryParameters(String, java.util.Map)} and {@link #defineArbitraryResults(String, java.util.Map)},
- * though they don't necessarily have to return any parameter definitions or results (for example they might choose to
- * only support parameters, not results).<br>
+ * use the arbitrary parameter system must implement this interface class.<br>
  * <br>
  * Fixture methods with arbitrary parameters generally look like normal fixture methods and may contain fixed parameters
  * as well, but they are required to add a single {@link java.util.Map}<String, Object> parameter, which will be used to
