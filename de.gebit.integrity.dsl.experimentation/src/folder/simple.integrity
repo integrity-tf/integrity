@@ -5,16 +5,7 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-		test beanTest bean: {
-			primitiveInt: 123
-			innerBeanArrayParam: {
-				innerParameter: 12.23
-			}, {
-				innerParameter: 12.24
-			}
-		} = {
-			primitiveInt: 124
-		}
+		test echoInteger echo: <de.gebit.integrity.experiments.fixtures.AdditionFixture#INT_CONST> = 123
 	suiteend
 	
 packageend

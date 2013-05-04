@@ -30,6 +30,8 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeV
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.javaconstants.JavaConstantToAnything;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.javaconstants.JavaConstantToMap;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToBean;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToMap;
@@ -279,6 +281,10 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(EnumValueToEnumConstant.class);
 		addConversion(EnumValueToString.class);
 		addConversion(EnumValueToFormattedString.class);
+
+		// java constants, Integrity -> Java
+		addConversion(JavaConstantToAnything.class);
+		addConversion(JavaConstantToMap.class);
 	}
 
 }

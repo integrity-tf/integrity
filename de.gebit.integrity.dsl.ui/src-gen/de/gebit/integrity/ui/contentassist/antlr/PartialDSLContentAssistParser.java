@@ -13,7 +13,7 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternal
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 /**
- * @author Rene Schneider - initial API and implementation
+ * @author Sebastian Zarnekow - Initial contribution and API
  */
 public class PartialDSLContentAssistParser extends DSLParser implements IPartialContentAssistParser {
 

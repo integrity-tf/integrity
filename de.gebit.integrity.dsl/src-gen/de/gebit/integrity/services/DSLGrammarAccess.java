@@ -2421,13 +2421,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cJavaConstantValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
 		//StaticValue:
 		//
-		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
+		//
+		//	JavaConstantValue;
 		public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue
+		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
+		//
+		//JavaConstantValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -2453,6 +2458,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NullValue
 		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
+
+		//JavaConstantValue
+		public RuleCall getJavaConstantValueParserRuleCall_8() { return cJavaConstantValueParserRuleCall_8; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -2840,6 +2848,35 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0() { return cTimeValueTWELVEHRSTIMETerminalRuleCall_2_0; }
 	}
 
+	public class JavaConstantValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JavaConstantValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLessThanSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cConstantAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cConstantJavaConstantReferenceParserRuleCall_1_0 = (RuleCall)cConstantAssignment_1.eContents().get(0);
+		private final Keyword cGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//JavaConstantValue:
+		//
+		//	"<" constant=JavaConstantReference ">";
+		public ParserRule getRule() { return rule; }
+
+		//"<" constant=JavaConstantReference ">"
+		public Group getGroup() { return cGroup; }
+
+		//"<"
+		public Keyword getLessThanSignKeyword_0() { return cLessThanSignKeyword_0; }
+
+		//constant=JavaConstantReference
+		public Assignment getConstantAssignment_1() { return cConstantAssignment_1; }
+
+		//JavaConstantReference
+		public RuleCall getConstantJavaConstantReferenceParserRuleCall_1_0() { return cConstantJavaConstantReferenceParserRuleCall_1_0; }
+
+		//">"
+		public Keyword getGreaterThanSignKeyword_2() { return cGreaterThanSignKeyword_2; }
+	}
+
 	public class VariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Variable");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
@@ -3089,6 +3126,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getMethodJvmOperationIDTerminalRuleCall_2_0_1() { return cMethodJvmOperationIDTerminalRuleCall_2_0_1; }
 	}
 
+	public class JavaConstantReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JavaConstantReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cTypeJvmTypeCrossReference_0_0 = (CrossReference)cTypeAssignment_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1 = (RuleCall)cTypeJvmTypeCrossReference_0_0.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cConstantAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cConstantJvmFieldCrossReference_2_0 = (CrossReference)cConstantAssignment_2.eContents().get(0);
+		private final RuleCall cConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1 = (RuleCall)cConstantJvmFieldCrossReference_2_0.eContents().get(1);
+		
+		//JavaConstantReference:
+		//
+		//	type=[jvmTypes::JvmType|QualifiedJavaClassName] "#" constant=[jvmTypes::JvmField|UPPERCASE_ID];
+		public ParserRule getRule() { return rule; }
+
+		//type=[jvmTypes::JvmType|QualifiedJavaClassName] "#" constant=[jvmTypes::JvmField|UPPERCASE_ID]
+		public Group getGroup() { return cGroup; }
+
+		//type=[jvmTypes::JvmType|QualifiedJavaClassName]
+		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
+
+		//[jvmTypes::JvmType|QualifiedJavaClassName]
+		public CrossReference getTypeJvmTypeCrossReference_0_0() { return cTypeJvmTypeCrossReference_0_0; }
+
+		//QualifiedJavaClassName
+		public RuleCall getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1() { return cTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1; }
+
+		//"#"
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
+
+		//constant=[jvmTypes::JvmField|UPPERCASE_ID]
+		public Assignment getConstantAssignment_2() { return cConstantAssignment_2; }
+
+		//[jvmTypes::JvmField|UPPERCASE_ID]
+		public CrossReference getConstantJvmFieldCrossReference_2_0() { return cConstantJvmFieldCrossReference_2_0; }
+
+		//UPPERCASE_ID
+		public RuleCall getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1() { return cConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1; }
+	}
+
 	public class ExecutionMultiplierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExecutionMultiplier");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -3306,6 +3384,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private EuropeanDateAnd24HrsTimeValueElements pEuropeanDateAnd24HrsTimeValue;
 	private EuropeanDateAnd12HrsTimeValueElements pEuropeanDateAnd12HrsTimeValue;
 	private USDateAnd12HrsTimeValueElements pUSDateAnd12HrsTimeValue;
+	private JavaConstantValueElements pJavaConstantValue;
 	private VariableElements pVariable;
 	private VariableVariableElements pVariableVariable;
 	private ConstantElements pConstant;
@@ -3315,6 +3394,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private KeyValuePairElements pKeyValuePair;
 	private JavaClassReferenceElements pJavaClassReference;
 	private MethodReferenceElements pMethodReference;
+	private JavaConstantReferenceElements pJavaConstantReference;
 	private ExecutionMultiplierElements pExecutionMultiplier;
 	private QualifiedNameElements pQualifiedName;
 	private QualifiedJavaClassNameElements pQualifiedJavaClassName;
@@ -3988,7 +4068,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//
-	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
+	//
+	//	JavaConstantValue;
 	public StaticValueElements getStaticValueAccess() {
 		return (pStaticValue != null) ? pStaticValue : (pStaticValue = new StaticValueElements());
 	}
@@ -4184,6 +4266,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		return getUSDateAnd12HrsTimeValueAccess().getRule();
 	}
 
+	//JavaConstantValue:
+	//
+	//	"<" constant=JavaConstantReference ">";
+	public JavaConstantValueElements getJavaConstantValueAccess() {
+		return (pJavaConstantValue != null) ? pJavaConstantValue : (pJavaConstantValue = new JavaConstantValueElements());
+	}
+	
+	public ParserRule getJavaConstantValueRule() {
+		return getJavaConstantValueAccess().getRule();
+	}
+
 	//Variable:
 	//
 	//	name=[VariableOrConstantEntity|QualifiedName];
@@ -4281,6 +4374,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getMethodReferenceRule() {
 		return getMethodReferenceAccess().getRule();
+	}
+
+	//JavaConstantReference:
+	//
+	//	type=[jvmTypes::JvmType|QualifiedJavaClassName] "#" constant=[jvmTypes::JvmField|UPPERCASE_ID];
+	public JavaConstantReferenceElements getJavaConstantReferenceAccess() {
+		return (pJavaConstantReference != null) ? pJavaConstantReference : (pJavaConstantReference = new JavaConstantReferenceElements());
+	}
+	
+	public ParserRule getJavaConstantReferenceRule() {
+		return getJavaConstantReferenceAccess().getRule();
 	}
 
 	//ExecutionMultiplier:

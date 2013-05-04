@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -429,6 +425,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createUSDateAnd12HrsTimeValueAdapter();
       }
       @Override
+      public Adapter caseJavaConstantValue(JavaConstantValue object)
+      {
+        return createJavaConstantValueAdapter();
+      }
+      @Override
       public Adapter caseVariable(Variable object)
       {
         return createVariableAdapter();
@@ -472,6 +473,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMethodReference(MethodReference object)
       {
         return createMethodReferenceAdapter();
+      }
+      @Override
+      public Adapter caseJavaConstantReference(JavaConstantReference object)
+      {
+        return createJavaConstantReferenceAdapter();
       }
       @Override
       public Adapter caseExecutionMultiplier(ExecutionMultiplier object)
@@ -1556,6 +1562,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.JavaConstantValue <em>Java Constant Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.JavaConstantValue
+   * @generated
+   */
+  public Adapter createJavaConstantValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1686,6 +1707,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMethodReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.JavaConstantReference <em>Java Constant Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.JavaConstantReference
+   * @generated
+   */
+  public Adapter createJavaConstantReferenceAdapter()
   {
     return null;
   }

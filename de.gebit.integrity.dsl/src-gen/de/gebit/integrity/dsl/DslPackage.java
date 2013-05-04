@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -2354,6 +2350,34 @@ public interface DslPackage extends EPackage
   int US_DATE_AND12_HRS_TIME_VALUE_FEATURE_COUNT = DATE_AND_TIME_VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.JavaConstantValueImpl <em>Java Constant Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.JavaConstantValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantValue()
+   * @generated
+   */
+  int JAVA_CONSTANT_VALUE = 70;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CONSTANT_VALUE__CONSTANT = STATIC_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Java Constant Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CONSTANT_VALUE_FEATURE_COUNT = STATIC_VALUE_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2361,7 +2385,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 70;
+  int VARIABLE = 71;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -2389,7 +2413,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getVariableVariable()
    * @generated
    */
-  int VARIABLE_VARIABLE = 71;
+  int VARIABLE_VARIABLE = 72;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -2417,7 +2441,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getConstant()
    * @generated
    */
-  int CONSTANT = 72;
+  int CONSTANT = 73;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -2445,7 +2469,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNullValue()
    * @generated
    */
-  int NULL_VALUE = 73;
+  int NULL_VALUE = 74;
 
   /**
    * The number of structural features of the '<em>Null Value</em>' class.
@@ -2464,7 +2488,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 74;
+  int ENUM_VALUE = 75;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -2492,7 +2516,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNestedObject()
    * @generated
    */
-  int NESTED_OBJECT = 75;
+  int NESTED_OBJECT = 76;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2520,7 +2544,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getKeyValuePair()
    * @generated
    */
-  int KEY_VALUE_PAIR = 76;
+  int KEY_VALUE_PAIR = 77;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -2557,7 +2581,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 77;
+  int JAVA_CLASS_REFERENCE = 78;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2585,7 +2609,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 78;
+  int METHOD_REFERENCE = 79;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2615,6 +2639,43 @@ public interface DslPackage extends EPackage
   int METHOD_REFERENCE_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.JavaConstantReferenceImpl <em>Java Constant Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.JavaConstantReferenceImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantReference()
+   * @generated
+   */
+  int JAVA_CONSTANT_REFERENCE = 80;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CONSTANT_REFERENCE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CONSTANT_REFERENCE__CONSTANT = 1;
+
+  /**
+   * The number of structural features of the '<em>Java Constant Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_CONSTANT_REFERENCE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl <em>Execution Multiplier</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2622,7 +2683,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 79;
+  int EXECUTION_MULTIPLIER = 81;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' containment reference.
@@ -2650,7 +2711,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 80;
+  int NULL = 82;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -4298,6 +4359,27 @@ public interface DslPackage extends EPackage
   EClass getUSDateAnd12HrsTimeValue();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.JavaConstantValue <em>Java Constant Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Java Constant Value</em>'.
+   * @see de.gebit.integrity.dsl.JavaConstantValue
+   * @generated
+   */
+  EClass getJavaConstantValue();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.JavaConstantValue#getConstant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Constant</em>'.
+   * @see de.gebit.integrity.dsl.JavaConstantValue#getConstant()
+   * @see #getJavaConstantValue()
+   * @generated
+   */
+  EReference getJavaConstantValue_Constant();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4496,6 +4578,38 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EReference getMethodReference_Method();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.JavaConstantReference <em>Java Constant Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Java Constant Reference</em>'.
+   * @see de.gebit.integrity.dsl.JavaConstantReference
+   * @generated
+   */
+  EClass getJavaConstantReference();
+
+  /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.JavaConstantReference#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see de.gebit.integrity.dsl.JavaConstantReference#getType()
+   * @see #getJavaConstantReference()
+   * @generated
+   */
+  EReference getJavaConstantReference_Type();
+
+  /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.JavaConstantReference#getConstant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Constant</em>'.
+   * @see de.gebit.integrity.dsl.JavaConstantReference#getConstant()
+   * @see #getJavaConstantReference()
+   * @generated
+   */
+  EReference getJavaConstantReference_Constant();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.ExecutionMultiplier <em>Execution Multiplier</em>}'.
@@ -5932,6 +6046,24 @@ public interface DslPackage extends EPackage
     EClass US_DATE_AND12_HRS_TIME_VALUE = eINSTANCE.getUSDateAnd12HrsTimeValue();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.JavaConstantValueImpl <em>Java Constant Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.JavaConstantValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantValue()
+     * @generated
+     */
+    EClass JAVA_CONSTANT_VALUE = eINSTANCE.getJavaConstantValue();
+
+    /**
+     * The meta object literal for the '<em><b>Constant</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference JAVA_CONSTANT_VALUE__CONSTANT = eINSTANCE.getJavaConstantValue_Constant();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableImpl <em>Variable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6100,6 +6232,32 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference METHOD_REFERENCE__METHOD = eINSTANCE.getMethodReference_Method();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.JavaConstantReferenceImpl <em>Java Constant Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.JavaConstantReferenceImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantReference()
+     * @generated
+     */
+    EClass JAVA_CONSTANT_REFERENCE = eINSTANCE.getJavaConstantReference();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference JAVA_CONSTANT_REFERENCE__TYPE = eINSTANCE.getJavaConstantReference_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Constant</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference JAVA_CONSTANT_REFERENCE__CONSTANT = eINSTANCE.getJavaConstantReference_Constant();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.ExecutionMultiplierImpl <em>Execution Multiplier</em>}' class.

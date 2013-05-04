@@ -4127,6 +4127,16 @@ ruleStaticValue returns [EObject current=null]
         $current = $this_NullValue_7.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_8()); 
+    }
+    this_JavaConstantValue_8=ruleJavaConstantValue
+    { 
+        $current = $this_JavaConstantValue_8.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -4954,6 +4964,53 @@ ruleNL
 
 
 
+// Entry rule entryRuleJavaConstantValue
+entryRuleJavaConstantValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getJavaConstantValueRule()); }
+	 iv_ruleJavaConstantValue=ruleJavaConstantValue 
+	 { $current=$iv_ruleJavaConstantValue.current; } 
+	 EOF 
+;
+
+// Rule JavaConstantValue
+ruleJavaConstantValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='<' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getJavaConstantValueAccess().getLessThanSignKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0()); 
+	    }
+		lv_constant_1_0=ruleJavaConstantReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getJavaConstantValueRule());
+	        }
+       		set(
+       			$current, 
+       			"constant",
+        		lv_constant_1_0, 
+        		"JavaConstantReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_2='>' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getJavaConstantValueAccess().getGreaterThanSignKeyword_2());
+    }
+)
+;
+
+
+
+
+
 // Entry rule entryRuleVariable
 entryRuleVariable returns [EObject current=null] 
 	:
@@ -5346,6 +5403,59 @@ ruleMethodReference returns [EObject current=null]
 	otherlv_2=RULE_ID
 	{
 		newLeafNode(otherlv_2, grammarAccess.getMethodReferenceAccess().getMethodJvmOperationCrossReference_2_0()); 
+	}
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleJavaConstantReference
+entryRuleJavaConstantReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getJavaConstantReferenceRule()); }
+	 iv_ruleJavaConstantReference=ruleJavaConstantReference 
+	 { $current=$iv_ruleJavaConstantReference.current; } 
+	 EOF 
+;
+
+// Rule JavaConstantReference
+ruleJavaConstantReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getJavaConstantReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
+	    }
+		ruleQualifiedJavaClassName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='#' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getJavaConstantReferenceRule());
+	        }
+        }
+	otherlv_2=RULE_UPPERCASE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldCrossReference_2_0()); 
 	}
 
 )

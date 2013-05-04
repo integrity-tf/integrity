@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
+import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
 import org.eclipse.xtext.common.types.JvmOperation;
@@ -36,6 +37,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
+import de.gebit.integrity.dsl.JavaConstantReference;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
@@ -166,6 +168,40 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 		return new SimpleScope(tempDescriptions);
+	}
+
+	/**
+	 * Limits Java constant references to "public static final" ones.
+	 * 
+	 * @param aConstantRef
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_JavaConstantReference_constant(JavaConstantReference aConstantRef, EReference aRef) {
+		JvmType tempType = aConstantRef.getType();
+		List<IEObjectDescription> tempDescriptions = new ArrayList<IEObjectDescription>();
+
+		if (tempType instanceof JvmGenericType) {
+			recursivelyFindJavaConstants((JvmGenericType) tempType, tempDescriptions);
+		}
+		return new SimpleScope(tempDescriptions);
+	}
+
+	private void recursivelyFindJavaConstants(JvmGenericType aType, List<IEObjectDescription> someDescriptions) {
+		for (JvmField tempField : aType.getDeclaredFields()) {
+			if (!(tempField instanceof JvmEnumerationLiteral) && tempField.isStatic() && tempField.isFinal()
+					&& tempField.getVisibility() == JvmVisibility.PUBLIC) {
+				someDescriptions.add(EObjectDescription.create(QualifiedName.create(tempField.getSimpleName()),
+						tempField));
+			}
+		}
+
+		for (JvmTypeReference tempSuperType : aType.getSuperTypes()) {
+			if (tempSuperType.getType() instanceof JvmGenericType) {
+				recursivelyFindJavaConstants((JvmGenericType) tempSuperType.getType(), someDescriptions);
+			}
+		}
 	}
 
 	/**

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -138,6 +134,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.EUROPEAN_DATE_AND24_HRS_TIME_VALUE: return createEuropeanDateAnd24HrsTimeValue();
       case DslPackage.EUROPEAN_DATE_AND12_HRS_TIME_VALUE: return createEuropeanDateAnd12HrsTimeValue();
       case DslPackage.US_DATE_AND12_HRS_TIME_VALUE: return createUSDateAnd12HrsTimeValue();
+      case DslPackage.JAVA_CONSTANT_VALUE: return createJavaConstantValue();
       case DslPackage.VARIABLE: return createVariable();
       case DslPackage.VARIABLE_VARIABLE: return createVariableVariable();
       case DslPackage.CONSTANT: return createConstant();
@@ -147,6 +144,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.KEY_VALUE_PAIR: return createKeyValuePair();
       case DslPackage.JAVA_CLASS_REFERENCE: return createJavaClassReference();
       case DslPackage.METHOD_REFERENCE: return createMethodReference();
+      case DslPackage.JAVA_CONSTANT_REFERENCE: return createJavaConstantReference();
       case DslPackage.EXECUTION_MULTIPLIER: return createExecutionMultiplier();
       case DslPackage.NULL: return createNull();
       default:
@@ -929,6 +927,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public JavaConstantValue createJavaConstantValue()
+  {
+    JavaConstantValueImpl javaConstantValue = new JavaConstantValueImpl();
+    return javaConstantValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Variable createVariable()
   {
     VariableImpl variable = new VariableImpl();
@@ -1021,6 +1030,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     MethodReferenceImpl methodReference = new MethodReferenceImpl();
     return methodReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JavaConstantReference createJavaConstantReference()
+  {
+    JavaConstantReferenceImpl javaConstantReference = new JavaConstantReferenceImpl();
+    return javaConstantReference;
   }
 
   /**

@@ -131,11 +131,13 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getGroup(), "rule__EuropeanDateAnd24HrsTimeValue__Group__0");
 					put(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getGroup(), "rule__EuropeanDateAnd12HrsTimeValue__Group__0");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getGroup(), "rule__USDateAnd12HrsTimeValue__Group__0");
+					put(grammarAccess.getJavaConstantValueAccess().getGroup(), "rule__JavaConstantValue__Group__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup(), "rule__NestedObject__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup_2(), "rule__NestedObject__Group_2__0");
 					put(grammarAccess.getKeyValuePairAccess().getGroup(), "rule__KeyValuePair__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
+					put(grammarAccess.getJavaConstantReferenceAccess().getGroup(), "rule__JavaConstantReference__Group__0");
 					put(grammarAccess.getExecutionMultiplierAccess().getGroup(), "rule__ExecutionMultiplier__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
@@ -242,6 +244,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2(), "rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueAssignment_0(), "rule__USDateAnd12HrsTimeValue__DateValueAssignment_0");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2(), "rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2");
+					put(grammarAccess.getJavaConstantValueAccess().getConstantAssignment_1(), "rule__JavaConstantValue__ConstantAssignment_1");
 					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
 					put(grammarAccess.getVariableVariableAccess().getNameAssignment(), "rule__VariableVariable__NameAssignment");
 					put(grammarAccess.getConstantAccess().getNameAssignment(), "rule__Constant__NameAssignment");
@@ -252,6 +255,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");
 					put(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0(), "rule__MethodReference__TypeAssignment_0");
 					put(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2(), "rule__MethodReference__MethodAssignment_2");
+					put(grammarAccess.getJavaConstantReferenceAccess().getTypeAssignment_0(), "rule__JavaConstantReference__TypeAssignment_0");
+					put(grammarAccess.getJavaConstantReferenceAccess().getConstantAssignment_2(), "rule__JavaConstantReference__ConstantAssignment_2");
 					put(grammarAccess.getExecutionMultiplierAccess().getCountAssignment_0(), "rule__ExecutionMultiplier__CountAssignment_0");
 				}
 			};

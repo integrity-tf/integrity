@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.util;
 
@@ -701,6 +697,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.JAVA_CONSTANT_VALUE:
+      {
+        JavaConstantValue javaConstantValue = (JavaConstantValue)theEObject;
+        T result = caseJavaConstantValue(javaConstantValue);
+        if (result == null) result = caseStaticValue(javaConstantValue);
+        if (result == null) result = caseValue(javaConstantValue);
+        if (result == null) result = caseConstantValue(javaConstantValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(javaConstantValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.VARIABLE:
       {
         Variable variable = (Variable)theEObject;
@@ -771,6 +778,13 @@ public class DslSwitch<T> extends Switch<T>
       {
         MethodReference methodReference = (MethodReference)theEObject;
         T result = caseMethodReference(methodReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.JAVA_CONSTANT_REFERENCE:
+      {
+        JavaConstantReference javaConstantReference = (JavaConstantReference)theEObject;
+        T result = caseJavaConstantReference(javaConstantReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1918,6 +1932,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Java Constant Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Java Constant Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJavaConstantValue(JavaConstantValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -2057,6 +2087,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMethodReference(MethodReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Java Constant Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Java Constant Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJavaConstantReference(JavaConstantReference object)
   {
     return null;
   }

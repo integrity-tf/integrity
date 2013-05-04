@@ -77,7 +77,10 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().before(tempGrammar.getVariantValueAccess().getColonKeyword_3());
 		aConfig.setNoSpace().after(tempGrammar.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
 		aConfig.setNoSpace().around(tempGrammar.getMethodReferenceAccess().getNumberSignKeyword_1());
+		aConfig.setNoSpace().around(tempGrammar.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
 		aConfig.setNoSpace().before(tempGrammar.getKeyValuePairAccess().getColonKeyword_2());
+		aConfig.setNoSpace().after(tempGrammar.getJavaConstantValueAccess().getLessThanSignKeyword_0());
+		aConfig.setNoSpace().before(tempGrammar.getJavaConstantValueAccess().getGreaterThanSignKeyword_2());
 
 		// No spaces at the end of table lines
 		aConfig.setNoSpace().after(tempGrammar.getTableTestAccess().getVerticalLineKeyword_8_1());

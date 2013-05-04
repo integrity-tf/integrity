@@ -1,0 +1,20 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.javaConstants with
+
+	suitedef javaConstants with
+		
+		//test echoStringTest string: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#STRING_CONSTANT> = "String"
+		//test echoIntegerTest integer: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#INTEGER_CONSTANT> = 123
+		//test echoIntegerTest integer: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#INT_CONSTANT> = 456
+		//test echoFloatTest float: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#FLOAT_CONSTANT> = 42.3
+		//test echoDoubleTest double: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#DOUBLE_CONSTANT> = 42.3
+		//test echoBigDecimalTest bigdecimal: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#BIGDECIMAL_CONSTANT> = 42.3
+		
+		test echoMapTest map: <de.gebit.integrity.tests.fixtures.basic.javaconstants.SubclassWithConstants#BEAN_CONSTANT> = {
+				stringValue: "String"
+			}
+	
+	suiteend
+	
+packageend

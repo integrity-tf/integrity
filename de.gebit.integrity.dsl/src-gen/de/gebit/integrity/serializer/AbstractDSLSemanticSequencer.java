@@ -27,6 +27,8 @@ import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.JavaConstantReference;
+import de.gebit.integrity.dsl.JavaConstantValue;
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
@@ -287,6 +289,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 			case DslPackage.JAVA_CLASS_REFERENCE:
 				if(context == grammarAccess.getJavaClassReferenceRule()) {
 					sequence_JavaClassReference(context, (JavaClassReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.JAVA_CONSTANT_REFERENCE:
+				if(context == grammarAccess.getJavaConstantReferenceRule()) {
+					sequence_JavaConstantReference(context, (JavaConstantReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.JAVA_CONSTANT_VALUE:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getJavaConstantValueRule() ||
+				   context == grammarAccess.getStaticValueRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_JavaConstantValue(context, (JavaConstantValue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -954,6 +972,41 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type=[JvmType|QualifiedJavaClassName] constant=[JvmField|UPPERCASE_ID])
+	 */
+	protected void sequence_JavaConstantReference(EObject context, JavaConstantReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.getType());
+		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1(), semanticObject.getConstant());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     constant=JavaConstantReference
+	 */
+	protected void sequence_JavaConstantValue(EObject context, JavaConstantValue semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_VALUE__CONSTANT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_VALUE__CONSTANT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0(), semanticObject.getConstant());
 		feeder.finish();
 	}
 	

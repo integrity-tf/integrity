@@ -56,6 +56,16 @@ public class NoOpFixture {
 		return aShortToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the float '$float$'")
+	public Float echoFloat(@FixtureParameter(name = "float") Float aFloatToEcho) {
+		return aFloatToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the double '$double$'")
+	public Double echoDouble(@FixtureParameter(name = "double") Double aDoubleToEcho) {
+		return aDoubleToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the byte '$byte$'")
 	public Byte echoByte(@FixtureParameter(name = "byte") Byte aByteToEcho) {
 		return aByteToEcho;

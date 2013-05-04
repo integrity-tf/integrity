@@ -182,7 +182,7 @@ ConstantValue:
 	StaticValue | Constant;
 	
 StaticValue:
-	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue;
+	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | JavaConstantValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -235,6 +235,9 @@ EuropeanDateAnd12HrsTimeValue:
 USDateAnd12HrsTimeValue:
 	dateValue=USDATE NL timeValue=TWELVEHRSTIME;
 	
+JavaConstantValue:
+	'<' constant=JavaConstantReference '>';
+	
 Variable:
 	name=[VariableOrConstantEntity|QualifiedName];
 	
@@ -261,6 +264,9 @@ JavaClassReference:
 	
 MethodReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' method=[jvmTypes::JvmOperation];
+	
+JavaConstantReference:
+	type=[jvmTypes::JvmType|QualifiedJavaClassName] '#' constant=[jvmTypes::JvmField|UPPERCASE_ID];
 	
 ExecutionMultiplier:
 	count=ConstantValue '*';

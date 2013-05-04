@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl;
 
@@ -657,6 +653,15 @@ public interface DslFactory extends EFactory
   USDateAnd12HrsTimeValue createUSDateAnd12HrsTimeValue();
 
   /**
+   * Returns a new object of class '<em>Java Constant Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Java Constant Value</em>'.
+   * @generated
+   */
+  JavaConstantValue createJavaConstantValue();
+
+  /**
    * Returns a new object of class '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -736,6 +741,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   MethodReference createMethodReference();
+
+  /**
+   * Returns a new object of class '<em>Java Constant Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Java Constant Reference</em>'.
+   * @generated
+   */
+  JavaConstantReference createJavaConstantReference();
 
   /**
    * Returns a new object of class '<em>Execution Multiplier</em>'.

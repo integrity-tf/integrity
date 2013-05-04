@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package de.gebit.integrity.dsl.impl;
 
@@ -35,6 +31,8 @@ import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.JavaClassReference;
+import de.gebit.integrity.dsl.JavaConstantReference;
+import de.gebit.integrity.dsl.JavaConstantValue;
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
@@ -602,6 +600,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass javaConstantValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass variableEClass = null;
 
   /**
@@ -659,6 +664,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass methodReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass javaConstantReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2295,6 +2307,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getJavaConstantValue()
+  {
+    return javaConstantValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getJavaConstantValue_Constant()
+  {
+    return (EReference)javaConstantValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVariable()
   {
     return variableEClass;
@@ -2478,6 +2510,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getMethodReference_Method()
   {
     return (EReference)methodReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getJavaConstantReference()
+  {
+    return javaConstantReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getJavaConstantReference_Type()
+  {
+    return (EReference)javaConstantReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getJavaConstantReference_Constant()
+  {
+    return (EReference)javaConstantReferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2765,6 +2827,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     usDateAnd12HrsTimeValueEClass = createEClass(US_DATE_AND12_HRS_TIME_VALUE);
 
+    javaConstantValueEClass = createEClass(JAVA_CONSTANT_VALUE);
+    createEReference(javaConstantValueEClass, JAVA_CONSTANT_VALUE__CONSTANT);
+
     variableEClass = createEClass(VARIABLE);
     createEReference(variableEClass, VARIABLE__NAME);
 
@@ -2792,6 +2857,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     methodReferenceEClass = createEClass(METHOD_REFERENCE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__TYPE);
     createEReference(methodReferenceEClass, METHOD_REFERENCE__METHOD);
+
+    javaConstantReferenceEClass = createEClass(JAVA_CONSTANT_REFERENCE);
+    createEReference(javaConstantReferenceEClass, JAVA_CONSTANT_REFERENCE__TYPE);
+    createEReference(javaConstantReferenceEClass, JAVA_CONSTANT_REFERENCE__CONSTANT);
 
     executionMultiplierEClass = createEClass(EXECUTION_MULTIPLIER);
     createEReference(executionMultiplierEClass, EXECUTION_MULTIPLIER__COUNT);
@@ -2888,6 +2957,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     europeanDateAnd24HrsTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
     europeanDateAnd12HrsTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
     usDateAnd12HrsTimeValueEClass.getESuperTypes().add(this.getDateAndTimeValue());
+    javaConstantValueEClass.getESuperTypes().add(this.getStaticValue());
     variableEClass.getESuperTypes().add(this.getValue());
     constantEClass.getESuperTypes().add(this.getConstantValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
@@ -3121,6 +3191,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(usDateAnd12HrsTimeValueEClass, USDateAnd12HrsTimeValue.class, "USDateAnd12HrsTimeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(javaConstantValueEClass, JavaConstantValue.class, "JavaConstantValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getJavaConstantValue_Constant(), this.getJavaConstantReference(), null, "constant", null, 0, 1, JavaConstantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariable_Name(), this.getVariableOrConstantEntity(), null, "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3148,6 +3221,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(methodReferenceEClass, MethodReference.class, "MethodReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMethodReference_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMethodReference_Method(), theTypesPackage.getJvmOperation(), null, "method", null, 0, 1, MethodReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(javaConstantReferenceEClass, JavaConstantReference.class, "JavaConstantReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getJavaConstantReference_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, JavaConstantReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getJavaConstantReference_Constant(), theTypesPackage.getJvmField(), null, "constant", null, 0, 1, JavaConstantReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(executionMultiplierEClass, ExecutionMultiplier.class, "ExecutionMultiplier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExecutionMultiplier_Count(), this.getConstantValue(), null, "count", null, 0, 1, ExecutionMultiplier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

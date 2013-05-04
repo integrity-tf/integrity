@@ -8,6 +8,12 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 
 public class AdditionFixture {
 
+	public static final String STRING_CONST = "Hello World!";
+
+	public static final Integer INT_CONST = 123;
+
+	public int integer = 123;
+
 	/**
 	 * Adds two integer numbers and returns the result.
 	 * 
@@ -45,6 +51,13 @@ public class AdditionFixture {
 
 	@FixtureMethod(description = "echoes $echo$")
 	public Integer returnInteger(@FixtureParameter(name = "echo") Integer anInput) {
+		pause();
+		// throw new RuntimeException("An exception!");
+		return anInput;
+	}
+
+	@FixtureMethod(description = "echoes $echo$")
+	public String returnString(@FixtureParameter(name = "echo") String anInput) {
 		pause();
 		// throw new RuntimeException("An exception!");
 		return anInput;

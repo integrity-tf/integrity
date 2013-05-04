@@ -248,6 +248,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateAnd24HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EuropeanDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="USDateAnd12HrsTimeValue" eSuperTypes="#//DateAndTimeValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaConstantValue" eSuperTypes="#//StaticValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constant" eType="#//JavaConstantReference"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
   </eClassifiers>
@@ -276,6 +280,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="MethodReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmOperation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaConstantReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constant" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmField"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExecutionMultiplier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="count" eType="#//ConstantValue"
