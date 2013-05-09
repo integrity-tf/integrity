@@ -1,0 +1,13 @@
+packagedef integrity.basic with
+
+	suitedef conditionalDescriptionText with
+		
+		// This prints the integer conditiona texts and omits the string ones
+		test integrity.fixtures.basic.noop.echoIntegerOrStringTest integer: 123  = "123"
+		
+		// This prints the string conditional texts and omits the integer ones
+		test integrity.fixtures.basic.noop.echoIntegerOrStringTest string: "abc"  = "abc"		
+	
+	suiteend
+
+packageend

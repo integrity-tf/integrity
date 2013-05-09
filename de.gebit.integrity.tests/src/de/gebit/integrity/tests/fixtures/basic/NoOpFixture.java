@@ -115,4 +115,10 @@ public class NoOpFixture {
 	public boolean specificDescriptionBoth() {
 		return true;
 	}
+
+	@FixtureMethod(description = "Echo the {integer?integer $integer$}{string?string '$string$'} and not {^integer?an integer}{^string?a string}!")
+	public String echoIntegerOrString(@FixtureParameter(name = "integer") Integer anIntToEcho,
+			@FixtureParameter(name = "string") String aStringToEcho) {
+		return anIntToEcho != null ? anIntToEcho.toString() : aStringToEcho;
+	}
 }
