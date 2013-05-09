@@ -1189,10 +1189,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			Object aResultValue, Map<String, Object> aParamMap, List<String> aParameterPath,
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		try {
-			IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aMethod.getType());
-			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
-			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempCompilationUnit.getTypes()[0],
-					valueConverter);
+			IType tempJDTType = resolveJDTTypeForJvmType(aMethod.getType());
+			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
 
 			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
 			if (tempProposalProvider == null) {
