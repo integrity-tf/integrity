@@ -1891,10 +1891,16 @@ public class DefaultTestRunner implements TestRunner {
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 
+	/**
+	 * Schedules a "wait for the master" before the next execution step.
+	 */
 	protected void scheduleWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = true;
 	}
 
+	/**
+	 * Resets a possibly scheduled "wait for the master" before the next execution step.
+	 */
 	protected void resetWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = false;
 	}
