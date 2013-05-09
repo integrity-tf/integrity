@@ -205,25 +205,7 @@ public class TestFormatter {
 
 		tempText = replaceConditionalTextBlocks(tempText, someParameters);
 
-		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempText);
-		while (tempMatcher.matches()) {
-			// classloader and variable maps are not supplied here because the parameters are already expected to be
-			// resolved
-			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
-			String tempValue = null;
-			if (tempValueBeforeConversion == null
-					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING) {
-				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
-				// that's required for unresolvable parameters as well; this is typically required for tabletests.
-				tempValue = "???";
-			} else {
-				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false,
-						anUnresolvableVariableHandlingPolicy);
-			}
-
-			tempText = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
-			tempMatcher = PARAMETER_PATTERN.matcher(tempText);
-		}
+		tempText = replaceParameters(tempText, someParameters, anUnresolvableVariableHandlingPolicy);
 
 		return tempText;
 	}
@@ -256,6 +238,44 @@ public class TestFormatter {
 			}
 
 			tempMatcher = CONDITIONAL_BLOCK_PATTERN.matcher(tempString);
+		}
+
+		return tempString;
+	}
+
+	/**
+	 * Replaces all parameters according to the {@link #PARAMETER_PATTERN} with their respective value.
+	 * 
+	 * @param anInput
+	 *            the text to start with
+	 * @param someParameters
+	 *            the parameters
+	 * @param anUnresolvableVariableHandlingPolicy
+	 *            the unresolvable variable handling policy
+	 * @return the resulting text
+	 */
+	protected String replaceParameters(String anInput, Map<String, Object> someParameters,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+		String tempString = anInput;
+
+		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempString);
+		while (tempMatcher.matches()) {
+			// classloader and variable maps are not supplied here because the parameters are already expected to be
+			// resolved
+			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
+			String tempValue = null;
+			if (tempValueBeforeConversion == null
+					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING) {
+				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
+				// that's required for unresolvable parameters as well; this is typically required for tabletests.
+				tempValue = "???";
+			} else {
+				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false,
+						anUnresolvableVariableHandlingPolicy);
+			}
+
+			tempString = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
+			tempMatcher = PARAMETER_PATTERN.matcher(tempString);
 		}
 
 		return tempString;
