@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -436,10 +437,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		if (aTargetType != null) {
 			if (aTargetType.isArray()) {
 				tempTargetType = aTargetType.getComponentType();
-			} else if (aTargetType.isAssignableFrom(ArrayList.class)) {
+			} else if (List.class.isAssignableFrom(aTargetType)) {
 				tempCollectionType = ArrayList.class;
-			} else if (aTargetType.isAssignableFrom(HashSet.class)) {
+			} else if (Set.class.isAssignableFrom(aTargetType)) {
 				tempCollectionType = HashSet.class;
+			} else if (Collection.class.isAssignableFrom(aTargetType)) {
+				tempCollectionType = ArrayList.class;
 			} else {
 				tempTargetType = aTargetType;
 			}
