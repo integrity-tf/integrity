@@ -44,6 +44,11 @@ public class TestFormatter {
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
 	/**
+	 * Escape pattern for conditional text blocks in descriptions.
+	 */
+	private static final Pattern CONDITIONAL_BLOCK_PATTERN = Pattern.compile("^(.*)\\{(\\^?)([^?]+)\\?([^}]*)\\}(.*)$");
+
+	/**
 	 * The classloader to use.
 	 */
 	@Inject
@@ -198,6 +203,8 @@ public class TestFormatter {
 			tempText = tempFixtureMethodName;
 		}
 
+		tempText = replaceConditionalTextBlocks(tempText, someParameters);
+
 		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempText);
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
@@ -219,5 +226,38 @@ public class TestFormatter {
 		}
 
 		return tempText;
+	}
+
+	/**
+	 * Replaces all blocks of conditional text, according to the {@link #CONDITIONAL_BLOCK_PATTERN}.
+	 * 
+	 * @param anInput
+	 *            the text to start with
+	 * @param someParameters
+	 *            the parameters
+	 * @return the resulting text
+	 */
+	protected String replaceConditionalTextBlocks(String anInput, Map<String, Object> someParameters) {
+		String tempString = anInput;
+
+		Matcher tempMatcher = CONDITIONAL_BLOCK_PATTERN.matcher(tempString);
+		while (tempMatcher.matches()) {
+			String tempPrefix = tempMatcher.group(1);
+			String tempInverter = tempMatcher.group(2);
+			String tempParameterName = tempMatcher.group(3);
+			String tempBlockText = tempMatcher.group(4);
+			String tempSuffix = tempMatcher.group(5);
+
+			if ((tempInverter.length() == 0 && someParameters.containsKey(tempParameterName) || (tempInverter.length() > 0 && !someParameters
+					.containsKey(tempParameterName)))) {
+				tempString = tempPrefix + tempBlockText + tempSuffix;
+			} else {
+				tempString = tempPrefix + tempSuffix;
+			}
+
+			tempMatcher = CONDITIONAL_BLOCK_PATTERN.matcher(tempString);
+		}
+
+		return tempString;
 	}
 }
