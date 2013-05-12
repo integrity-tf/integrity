@@ -143,8 +143,32 @@ public class DefaultResultComparator implements ResultComparator {
 						Object tempSingleFixtureResult = aFixtureResult;
 						// if the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course
-						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass().isArray() ? tempSingleFixtureResult
-								.getClass().getComponentType() : tempSingleFixtureResult.getClass();
+						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass();
+						if (tempSingleFixtureResult.getClass().isArray()) {
+							tempConversionTargetType = tempSingleFixtureResult.getClass().getComponentType();
+							if (tempConversionTargetType == Object.class) {
+								// Object arrays are bad target types; in this case we try to deduct a target type from
+								// the values within the array
+								tempConversionTargetType = null;
+								for (int i = 0; i < Array.getLength(tempSingleFixtureResult); i++) {
+									Object tempArrayValue = Array.get(tempSingleFixtureResult, i);
+									if (tempArrayValue != null) {
+										if (tempConversionTargetType == null) {
+											tempConversionTargetType = tempArrayValue.getClass();
+										} else {
+											if (tempConversionTargetType.isAssignableFrom(tempArrayValue.getClass())) {
+												// current value type is a subtype of the current target type -> good!
+											} else {
+												// the types in the array don't match at all -> bad! Use standard
+												// conversion.
+												tempConversionTargetType = null;
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 
