@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -64,6 +65,11 @@ public class Endpoint {
 	private Object closeSyncObject = new Object();
 
 	/**
+	 * The classloader to use when deserializing objects.
+	 */
+	private ClassLoader classLoader;
+
+	/**
 	 * The maximum time in seconds to wait for the disconnect message handshake to be performed before closing the
 	 * socket.
 	 */
@@ -88,9 +94,11 @@ public class Endpoint {
 	 *            the processors
 	 * @param aListener
 	 *            the listener
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 */
 	public Endpoint(Socket aSocket, Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap,
-			EndpointListener aListener) {
+			EndpointListener aListener, ClassLoader aClassLoader) {
 		listener = aListener;
 		socket = aSocket;
 		messageProcessors = aProcessorMap;
@@ -99,6 +107,7 @@ public class Endpoint {
 		inputProcessor.start();
 		outputProcessor = new EndpointOutputProcessor();
 		outputProcessor.start();
+		classLoader = aClassLoader;
 	}
 
 	/**
@@ -112,11 +121,13 @@ public class Endpoint {
 	 *            the map of processors
 	 * @param aListener
 	 *            the listener
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
 	public Endpoint(String aHost, int aPort, Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap,
-			EndpointListener aListener) throws UnknownHostException, IOException {
+			EndpointListener aListener, ClassLoader aClassLoader) throws UnknownHostException, IOException {
 		messageProcessors = aProcessorMap;
 		listener = aListener;
 		socket = new Socket(aHost, aPort);
@@ -125,6 +136,7 @@ public class Endpoint {
 		inputProcessor.start();
 		outputProcessor = new EndpointOutputProcessor();
 		outputProcessor.start();
+		classLoader = aClassLoader;
 	}
 
 	/**
@@ -217,6 +229,7 @@ public class Endpoint {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public void run() {
+			ObjectInputStream tempObjectStream = null;
 			try {
 				InputStream tempInStream = socket.getInputStream();
 
@@ -244,7 +257,8 @@ public class Endpoint {
 						}
 					}
 
-					ObjectInputStream tempObjectStream = new ObjectInputStream(new ByteArrayInputStream(tempMessage));
+					tempObjectStream = new ClassloaderAwareObjectInputStream(new ByteArrayInputStream(tempMessage),
+							classLoader);
 					try {
 						AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
 						if (tempMessageObject instanceof DisconnectMessage) {
@@ -276,6 +290,13 @@ public class Endpoint {
 				}
 			} finally {
 				closeInternal();
+				if (tempObjectStream != null) {
+					try {
+						tempObjectStream.close();
+					} catch (IOException exc) {
+						// ignore
+					}
+				}
 				if (listener != null) {
 					listener.onConnectionLost(Endpoint.this);
 				}
@@ -339,6 +360,50 @@ public class Endpoint {
 				exc.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * This object input stream allows to specify the classloader which is used to resolve the classes.
+	 * 
+	 * 
+	 * @author Rene Schneider - initial API and implementation
+	 * 
+	 */
+	protected class ClassloaderAwareObjectInputStream extends ObjectInputStream {
+
+		/**
+		 * The classloader to use.
+		 */
+		private ClassLoader classLoader;
+
+		/**
+		 * Creates an instance.
+		 * 
+		 * @param anInputStream
+		 *            the input stream to read from
+		 * @param aClassLoader
+		 *            the classloader to use for resolving
+		 * @throws IOException
+		 */
+		public ClassloaderAwareObjectInputStream(InputStream anInputStream, ClassLoader aClassLoader)
+				throws IOException {
+			super(anInputStream);
+			classLoader = aClassLoader;
+		}
+
+		@Override
+		protected Class<?> resolveClass(ObjectStreamClass aDescription) throws IOException, ClassNotFoundException {
+			if (classLoader != null) {
+				try {
+					return classLoader.loadClass(aDescription.getName());
+				} catch (ClassNotFoundException exc) {
+					return super.resolveClass(aDescription);
+				}
+			} else {
+				return super.resolveClass(aDescription);
+			}
+		}
+
 	}
 
 }

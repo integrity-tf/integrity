@@ -62,15 +62,17 @@ public class ServerEndpoint {
 	 *            the port to bind to
 	 * @param aProcessorMap
 	 *            the map of processors to use for processing incoming messages
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
 	public ServerEndpoint(String aHostIP, int aPort,
-			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap) throws UnknownHostException,
-			IOException {
+			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap, ClassLoader aClassLoader)
+			throws UnknownHostException, IOException {
 		messageProcessors = aProcessorMap;
 		serverSocket = new ServerSocket(aPort, 0, Inet4Address.getByName(aHostIP));
-		connectionWaiter = new ConnectionWaiter();
+		connectionWaiter = new ConnectionWaiter(aClassLoader);
 		connectionWaiter.start();
 	}
 
@@ -106,8 +108,20 @@ public class ServerEndpoint {
 
 	private class ConnectionWaiter extends Thread {
 
-		public ConnectionWaiter() {
+		/**
+		 * The classloader to use when deserializing objects.
+		 */
+		private ClassLoader classLoader;
+
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aClassLoader
+		 *            the classloader to use when deserializing objects
+		 */
+		public ConnectionWaiter(ClassLoader aClassLoader) {
 			super("Server Endpoint Connection Waiter");
+			classLoader = aClassLoader;
 		}
 
 		@Override
@@ -131,7 +145,7 @@ public class ServerEndpoint {
 								// we'll remove it in the outer class
 							}
 
-						}));
+						}, classLoader));
 					}
 				} catch (IOException exc) {
 					if (!closing) {

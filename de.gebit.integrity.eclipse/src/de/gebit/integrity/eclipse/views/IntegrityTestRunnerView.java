@@ -1795,7 +1795,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		updateStatus("Connecting...");
 		boolean tempSuccessful = false;
 		try {
-			client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener());
+			client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener(), null);
 			tempSuccessful = true;
 			updateStatus("Connected, downloading test data...");
 		} finally {

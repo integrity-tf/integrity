@@ -292,13 +292,15 @@ public class Fork {
 	 * 
 	 * @param aTimeout
 	 *            the timeout after which the method shall return in milliseconds
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 * @return true if successful, false if the timeout was hit
 	 * @throws IOException
 	 */
-	public boolean connect(long aTimeout) throws IOException {
+	public boolean connect(long aTimeout, ClassLoader aClassLoader) throws IOException {
 		synchronized (this) {
 			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(getProcess().getHost(), getProcess()
-					.getPort(), new ForkRemotingClientListener());
+					.getPort(), new ForkRemotingClientListener(), aClassLoader);
 
 			try {
 				wait(aTimeout);

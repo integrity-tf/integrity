@@ -374,7 +374,8 @@ public class DefaultTestRunner implements TestRunner {
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
-			remotingServer = new IntegrityRemotingServer(aRemotingBindHost, tempRemotingPort, remotingListener);
+			remotingServer = new IntegrityRemotingServer(aRemotingBindHost, tempRemotingPort, remotingListener,
+					getModelClassLoader());
 		}
 	}
 
@@ -1360,7 +1361,7 @@ public class DefaultTestRunner implements TestRunner {
 
 	/**
 	 * Returns the classloader defined in the model. This one should be used for instantiation of fixtures and
-	 * operations.
+	 * operations. It is also used for the deserialization of remoting message objects.
 	 * 
 	 * @return the classloader defined in the test model
 	 */
@@ -1833,7 +1834,7 @@ public class DefaultTestRunner implements TestRunner {
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
 			try {
-				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout())) {
+				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout(), getModelClassLoader())) {
 					break;
 				}
 			} catch (IOException exc) {

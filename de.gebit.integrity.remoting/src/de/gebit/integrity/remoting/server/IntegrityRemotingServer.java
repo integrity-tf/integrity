@@ -69,17 +69,19 @@ public class IntegrityRemotingServer {
 	 *            the port to listen on
 	 * @param aListener
 	 *            the listener
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	public IntegrityRemotingServer(String aHostIP, int aPort, IntegrityRemotingServerListener aListener)
-			throws UnknownHostException, IOException {
+	public IntegrityRemotingServer(String aHostIP, int aPort, IntegrityRemotingServerListener aListener,
+			ClassLoader aClassLoader) throws UnknownHostException, IOException {
 		if (aListener == null) {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
 		listener = aListener;
 		port = aPort;
-		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors());
+		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors(), aClassLoader);
 	}
 
 	/**

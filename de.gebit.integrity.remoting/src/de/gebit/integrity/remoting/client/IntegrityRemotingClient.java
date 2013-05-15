@@ -63,11 +63,13 @@ public class IntegrityRemotingClient {
 	 *            the port
 	 * @param aListener
 	 *            the listener
+	 * @param aClassLoader
+	 *            the classloader to use when deserializing objects
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	public IntegrityRemotingClient(String aHost, int aPort, IntegrityRemotingClientListener aListener)
-			throws UnknownHostException, IOException {
+	public IntegrityRemotingClient(String aHost, int aPort, IntegrityRemotingClientListener aListener,
+			ClassLoader aClassLoader) throws UnknownHostException, IOException {
 		if (aListener == null) {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
@@ -84,7 +86,7 @@ public class IntegrityRemotingClient {
 			public void onClosed(Endpoint anEndpoint) {
 				executionState = null;
 			}
-		});
+		}, aClassLoader);
 
 		endpoint.sendMessage(new IntegrityRemotingVersionMessage(IntegrityRemotingConstants.MAJOR_PROTOCOL_VERSION,
 				IntegrityRemotingConstants.MINOR_PROTOCOL_VERSION, IntegrityRemotingConstants.MAJOR_VERSION,
