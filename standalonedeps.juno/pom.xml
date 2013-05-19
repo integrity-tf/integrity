@@ -27,6 +27,7 @@
 	          <configuration>
 	            <descriptors>
 	              <descriptor>assemble/assemble-all.xml</descriptor>
+	              <descriptor>assemble/assemble-all-single-file.xml</descriptor>
 	            </descriptors>
 	            <finalName>integrity-standalone-dependencies-juno</finalName>
 	            <appendAssemblyId>false</appendAssemblyId>
@@ -35,6 +36,7 @@
 	        </execution>
 	      </executions>
 	    </plugin>
+	    
     </plugins>
   </build>
   
