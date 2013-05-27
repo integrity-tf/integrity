@@ -87,6 +87,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	private Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions = new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
 
 	/**
+	 * Reverse index of all known conversions.
+	 */
+	private Map<Class<? extends Conversion<?, ?>>, ConversionKey> conversionToKey = new HashMap<Class<? extends Conversion<?, ?>>, ConversionKey>();
+
+	/**
 	 * The default conversions for all known source types. These are the conversions with the highest priority from
 	 * their respective source types' conversion pool.
 	 */
@@ -217,6 +222,32 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return tempResultArray;
 		} else {
 			if (aValue.getClass().isArray()) {
+				if (aTargetType != null) {
+					if (Array.getLength(aValue) == 0) {
+						return null;
+					} else if (Array.getLength(aValue) == 1) {
+						return convertSingleValueToTargetType(aTargetType, aParameterizedType, Array.get(aValue, 0),
+								anUnresolvableVariableHandlingPolicy, someVisitedValues);
+					}
+				} else {
+					// The arrays' target type is determined by looking at the conversion being used
+					Class<?> tempArrayType = aValue.getClass().getComponentType();
+					Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(tempArrayType, aTargetType,
+							someVisitedValues);
+					ConversionKey tempKey = conversionToKey.get(tempConversionClass);
+					Object tempArray = Array.newInstance(tempKey.getTargetType(), Array.getLength(aValue));
+
+					for (int i = 0; i < Array.getLength(aValue); i++) {
+						Array.set(
+								tempArray,
+								i,
+								convertSingleValueToTargetType(aTargetType, aParameterizedType, Array.get(aValue, i),
+										anUnresolvableVariableHandlingPolicy, someVisitedValues));
+					}
+
+					return tempArray;
+				}
+
 				// this is not convertible, but since this method does not guarantee any conversion...
 				return aValue;
 			} else {
@@ -249,7 +280,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 		try {
 			@SuppressWarnings("rawtypes")
-			Conversion tempConversion = findConversion(tempSourceType, tempTargetType, someVisitedValues);
+			Conversion tempConversion = findAndInstantiateConversion(tempSourceType, tempTargetType, someVisitedValues);
 			if (tempConversion != null) {
 				return tempConversion.convert(aValue, tempTargetType, anUnresolvableVariableHandlingPolicy);
 			}
@@ -654,6 +685,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		conversions.put(tempConversionKey, tempConversion);
+		conversionToKey.put(tempConversion, tempConversionKey);
 	}
 
 	/**
@@ -766,17 +798,36 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 	/**
 	 * Searches all known conversions for a match which is able to convert a given source type into a given target type.
+	 * This instantiates a found conversion class.
 	 * 
 	 * @param aSourceType
 	 *            the source type
 	 * @param aTargetType
 	 *            the target type
+	 * @param someVisitedValues
 	 * @return a ready-to-use, instantiated conversion, or null if none was found
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	protected Conversion<?, ?> findConversion(Class<?> aSourceType, Class<?> aTargetType, Set<Object> someVisitedValues)
-			throws InstantiationException, IllegalAccessException {
+	protected Conversion<?, ?> findAndInstantiateConversion(Class<?> aSourceType, Class<?> aTargetType,
+			Set<Object> someVisitedValues) throws InstantiationException, IllegalAccessException {
+		Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(aSourceType, aTargetType,
+				someVisitedValues);
+		return createConversionInstance(tempConversionClass, someVisitedValues);
+	}
+
+	/**
+	 * Searches all known conversions for a match which is able to convert a given source type into a given target type.
+	 * Returns the conversion class (must be instantiated before actually converting something).
+	 * 
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @return a conversion class, or null if none was found
+	 */
+	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
+			Set<Object> someVisitedValues) {
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
@@ -794,8 +845,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					}
 
 					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-						Conversion<?, ?> tempConversion = findConversion(tempSourceTypeInFocus, tempTargetInterface,
-								someVisitedValues);
+						Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceTypeInFocus,
+								tempTargetInterface, someVisitedValues);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -806,12 +857,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 
 			if (tempConversionClass != null) {
-				return createConversionInstance(tempConversionClass, someVisitedValues);
+				return tempConversionClass;
 			} else {
 				for (Class<?> tempSourceInterface : tempSourceTypeInFocus.getInterfaces()) {
 					if (aTargetType == null) {
 						// This is the default target type case
-						Conversion<?, ?> tempConversion = findConversion(tempSourceInterface, null, someVisitedValues);
+						Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceInterface, null,
+								someVisitedValues);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -819,7 +871,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						// We actually have a target type
 						Class<?> tempTargetTypeInFocus = aTargetType;
 						while (tempTargetTypeInFocus != null) {
-							Conversion<?, ?> tempConversion = findConversion(tempSourceInterface,
+							Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceInterface,
 									tempTargetTypeInFocus, someVisitedValues);
 							if (tempConversion != null) {
 								return tempConversion;
@@ -857,6 +909,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected <C extends Conversion> C createConversionInstance(Class<C> aConversionClass, Set<Object> someVisitedValues)
 			throws InstantiationException, IllegalAccessException {
+		if (aConversionClass == null) {
+			return null;
+		}
+
 		C tempInstance = aConversionClass.newInstance();
 		injector.injectMembers(tempInstance);
 		tempInstance.setVisitedObjects(someVisitedValues);
