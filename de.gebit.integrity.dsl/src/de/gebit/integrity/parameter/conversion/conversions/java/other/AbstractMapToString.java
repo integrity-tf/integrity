@@ -58,43 +58,45 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 		}
 		nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
 
-		boolean tempFirst = true;
-		for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
-			FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(tempEntry.getValue(),
-					anUnresolvableVariableHandlingPolicy);
+		try {
+			boolean tempFirst = true;
+			for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
+				FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(
+						tempEntry.getValue(), anUnresolvableVariableHandlingPolicy);
 
-			if (!tempFirst) {
-				tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
-			}
-
-			FormattedString tempInnerBuffer = new FormattedString();
-			if (tempConvertedValues.length == 1) {
-				tempInnerBuffer.add(tempConvertedValues[0]);
-			} else {
-				for (int i = 0; i < tempConvertedValues.length; i++) {
-					if (i > 0) {
-						tempInnerBuffer.add(new FormattedStringElement(", "));
-					}
-					tempInnerBuffer.add(tempConvertedValues[i]);
+				if (!tempFirst) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
 				}
+
+				FormattedString tempInnerBuffer = new FormattedString();
+				if (tempConvertedValues.length == 1) {
+					tempInnerBuffer.add(tempConvertedValues[0]);
+				} else {
+					for (int i = 0; i < tempConvertedValues.length; i++) {
+						if (i > 0) {
+							tempInnerBuffer.add(new FormattedStringElement(", "));
+						}
+						tempInnerBuffer.add(tempConvertedValues[i]);
+					}
+				}
+
+				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
+				tempBuffer.add(tempEntry.getKey() + " = ");
+				tempBuffer.add(tempInnerBuffer);
+				tempFirst = false;
 			}
+		} finally {
+			tempDepth--;
 
+			tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 			tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-			tempBuffer.add(tempEntry.getKey() + " = ");
-			tempBuffer.add(tempInnerBuffer);
-			tempFirst = false;
-		}
+			tempBuffer.add("}");
 
-		tempDepth--;
-
-		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
-		tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-		tempBuffer.add("}");
-
-		if (tempDepth == 0) {
-			nestedObjectDepthMap.remove(Thread.currentThread());
-		} else {
-			nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+			if (tempDepth == 0) {
+				nestedObjectDepthMap.remove(Thread.currentThread());
+			} else {
+				nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+			}
 		}
 
 		return tempBuffer;
