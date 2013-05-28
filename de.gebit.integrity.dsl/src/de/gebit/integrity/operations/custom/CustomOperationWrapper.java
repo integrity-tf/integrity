@@ -11,7 +11,10 @@ import java.lang.reflect.Method;
 
 import org.eclipse.xtext.common.types.JvmType;
 
+import com.google.inject.Binder;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.OperationDefinition;
@@ -50,6 +53,12 @@ public class CustomOperationWrapper {
 	 */
 	@Inject
 	private VariableManager variableManager;
+
+	/**
+	 * The injector used to inject stuff into operation instances.
+	 */
+	@Inject
+	private Injector injector;
 
 	/**
 	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the injected
@@ -100,6 +109,14 @@ public class CustomOperationWrapper {
 		} catch (InstantiationException exc) {
 			throw new UnexecutableException(exc);
 		}
+
+		injector.createChildInjector(new Module() {
+
+			@Override
+			public void configure(Binder aBinder) {
+				aBinder.bind(CustomOperation.class).toInstance(operation);
+			}
+		}).injectMembers(tempOperationInstance);
 
 		Object tempConvertedPrefixParameter = null;
 		if (operation.getPrefixOperand() != null) {
