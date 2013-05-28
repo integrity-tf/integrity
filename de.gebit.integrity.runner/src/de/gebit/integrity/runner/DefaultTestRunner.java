@@ -526,7 +526,6 @@ public class DefaultTestRunner implements TestRunner {
 		// Soft reset doesn't clear constants
 		variableManager.clear(!aSoftResetFlag);
 		setupSuitesExecuted.clear();
-		RandomNumberOperation.reSeed();
 	}
 
 	/**

@@ -9,14 +9,20 @@ package de.gebit.integrity.runner.operations;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import com.google.inject.Inject;
+
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.operations.custom.Operation;
 
 /**
- * A random number generator. This one is special in two respects: it is automatically re-seeded before test execution
- * (that means: once before the dry AND real run), and its seed is forwarded to forks to ensure their randomness is in
- * sync with that of the master.
+ * A random number generator. This one is special in several respects: it is automatically seeded on execution start, it
+ * caches randoms determined for every custom operation instance, and its seed is forwarded to forks to ensure their
+ * randomness is in sync with that of the master. All of this is required to safely work with random elements in
+ * Integrity tests.
  * 
  * This operation doesn't have any input parameters, it just returns a random decimal number between 0 and 1.
  * 
@@ -36,10 +42,24 @@ public class RandomNumberOperation implements Operation<Object, Integer, BigDeci
 	private static Random random = new Random(seed);
 
 	/**
-	 * Reseeds the RNG with the stored seed.
+	 * Calculated randoms are cached here.
 	 */
-	public static void reSeed() {
-		random = new Random(seed);
+	private static Map<Thread, Map<CustomOperation, BigDecimal>> calculatedRandoms = new HashMap<Thread, Map<CustomOperation, BigDecimal>>();
+
+	/**
+	 * The operation which is processed will be injected here.
+	 */
+	@Inject
+	private CustomOperation operation;
+
+	private static Map<CustomOperation, BigDecimal> getCalculatedRandomsMap() {
+		Map<CustomOperation, BigDecimal> tempMap = calculatedRandoms.get(Thread.currentThread());
+		if (tempMap == null) {
+			tempMap = new HashMap<CustomOperation, BigDecimal>();
+			calculatedRandoms.put(Thread.currentThread(), tempMap);
+		}
+
+		return tempMap;
 	}
 
 	/**
@@ -53,7 +73,7 @@ public class RandomNumberOperation implements Operation<Object, Integer, BigDeci
 		} else {
 			seed = aSeed;
 		}
-		reSeed();
+		random = new Random(seed);
 	}
 
 	public static long getSeed() {
@@ -62,12 +82,17 @@ public class RandomNumberOperation implements Operation<Object, Integer, BigDeci
 
 	@Override
 	public BigDecimal execute(Object aPrefixParameter, Integer aPostfixParameter) {
-		BigDecimal tempRand = new BigDecimal(random.nextDouble());
-
-		if (aPostfixParameter != null) {
-			return tempRand.setScale(aPostfixParameter, RoundingMode.HALF_UP);
-		} else {
-			return tempRand;
+		BigDecimal tempResult = getCalculatedRandomsMap().get(operation);
+		if (tempResult == null) {
+			BigDecimal tempRand = new BigDecimal(random.nextDouble());
+			if (aPostfixParameter != null) {
+				tempResult = tempRand.setScale(aPostfixParameter, RoundingMode.HALF_UP);
+			} else {
+				tempResult = tempRand;
+			}
+			getCalculatedRandomsMap().put(operation, tempResult);
 		}
+
+		return tempResult;
 	}
 }
