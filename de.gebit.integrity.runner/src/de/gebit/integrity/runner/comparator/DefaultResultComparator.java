@@ -258,8 +258,8 @@ public class DefaultResultComparator implements ResultComparator {
 						}
 						// both are converted arrays -> compare all values!
 						for (int i = 0; i < Array.getLength(aConvertedResult); i++) {
-							if (!performEqualityCheck(Array.get(aConvertedExpectedResult, i),
-									Array.get(aConvertedResult, i), aRawExpectedResult)) {
+							if (!performEqualityCheck(Array.get(aConvertedResult, i),
+									Array.get(aConvertedExpectedResult, i), aRawExpectedResult)) {
 								return false;
 							}
 						}

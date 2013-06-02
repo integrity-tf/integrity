@@ -61,60 +61,65 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 		}
 		nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
 
-		boolean tempFirst = true;
-		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
-			Object tempConvertedValue;
-			try {
-				tempConvertedValue = convertValueRecursive(FormattedString[].class, null, tempAttribute.getValue(),
-						anUnresolvableVariableHandlingPolicy);
-			} catch (ClassNotFoundException exc) {
-				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
-			} catch (UnexecutableException exc) {
-				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
-			} catch (InstantiationException exc) {
-				throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
-			}
+		try {
+			boolean tempFirst = true;
+			for (KeyValuePair tempAttribute : aSource.getAttributes()) {
+				Object tempConvertedValue;
+				try {
+					tempConvertedValue = convertValueRecursive(FormattedString[].class, null, tempAttribute.getValue(),
+							anUnresolvableVariableHandlingPolicy);
+				} catch (ClassNotFoundException exc) {
+					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
+				} catch (UnexecutableException exc) {
+					// #5: NPE in dry run phase if operations are used in nested objects
+					// This exception is expected to happen during dry run if variable values are determined by calls
+					// and thus not yet known - but that's not really a problem, it just needs to be caught
+					tempConvertedValue = null;
+				} catch (InstantiationException exc) {
+					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
+				}
 
-			if (!tempFirst) {
-				tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
-			}
+				if (!tempFirst) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));
+				}
 
-			FormattedString tempConvertedValueStringBuffer = new FormattedString();
+				FormattedString tempConvertedValueStringBuffer = new FormattedString();
 
-			if (tempConvertedValue == null) {
-				tempConvertedValueStringBuffer.add("null");
-			} else {
-				int tempArrayLength = Array.getLength(tempConvertedValue);
-				for (int i = 0; i < tempArrayLength; i++) {
-					if (i > 0) {
-						tempConvertedValueStringBuffer.add(", ");
-					}
-					Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
-					if (tempSingleArrayValue instanceof FormattedString) {
-						tempConvertedValueStringBuffer.add((FormattedString) tempSingleArrayValue);
-					} else {
-						tempConvertedValueStringBuffer.add(tempSingleArrayValue != null ? tempSingleArrayValue
-								.toString() : "null");
+				if (tempConvertedValue == null) {
+					tempConvertedValueStringBuffer.add("null");
+				} else {
+					int tempArrayLength = Array.getLength(tempConvertedValue);
+					for (int i = 0; i < tempArrayLength; i++) {
+						if (i > 0) {
+							tempConvertedValueStringBuffer.add(", ");
+						}
+						Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
+						if (tempSingleArrayValue instanceof FormattedString) {
+							tempConvertedValueStringBuffer.add((FormattedString) tempSingleArrayValue);
+						} else {
+							tempConvertedValueStringBuffer.add(tempSingleArrayValue != null ? tempSingleArrayValue
+									.toString() : "null");
+						}
 					}
 				}
+
+				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
+				tempBuffer.add(tempAttribute.getIdentifier() + " = ");
+				tempBuffer.add(tempConvertedValueStringBuffer);
+				tempFirst = false;
 			}
+		} finally {
+			tempDepth--;
 
+			tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 			tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-			tempBuffer.add(tempAttribute.getIdentifier() + " = ");
-			tempBuffer.add(tempConvertedValueStringBuffer);
-			tempFirst = false;
-		}
+			tempBuffer.add("}");
 
-		tempDepth--;
-
-		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
-		tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-		tempBuffer.add("}");
-
-		if (tempDepth == 0) {
-			nestedObjectDepthMap.remove(Thread.currentThread());
-		} else {
-			nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+			if (tempDepth == 0) {
+				nestedObjectDepthMap.remove(Thread.currentThread());
+			} else {
+				nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
+			}
 		}
 
 		return tempBuffer;
