@@ -126,7 +126,7 @@ public class ConsoleTestExecutor {
 		SimpleCommandLineParser.LongOption tempSeedOption = new SimpleCommandLineParser.LongOption(null, "seed",
 				"Sets the seed number to use for the RNG custom operation", "[{--seed} number]");
 		SimpleCommandLineParser.BooleanOption tempExcludeConsoleStreamsOption = new SimpleCommandLineParser.BooleanOption(
-				"noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
+				null, "noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
