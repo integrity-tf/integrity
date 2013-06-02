@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="13.02.13 22:31" isotimestamp="2013-02-13T22:31:04" duration="22.214">
+<integrity name="Integrity JUnit Testing" timestamp="02.06.13 03:19" isotimestamp="2013-06-02T03:19:56" duration="38.987">
   <variables>
     <variable name="integrity.basic.operations.aVariable" />
   </variables>
@@ -13,9 +13,9 @@
           <variable name="integrity.basic.operations.theParameter" value="2" />
         </variables>
         <statements>
-          <test id="2" line="24" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-            <results duration="0.786" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.786" description="Echo the integer '3'" type="success">
+          <test id="2" line="29" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+            <results duration="1.158" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="1.158" description="Echo the integer '3'" type="success">
                 <parameters>
                   <parameter name="integer" value="3" />
                 </parameters>
@@ -27,13 +27,13 @@
           </test>
         </statements>
         <teardown />
-        <result duration="8.980" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="12.344" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
       <call id="3" line="17" name="echoInteger" description="Echo the integer '2'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
         <parameters>
           <parameter name="integer" value="2" />
         </parameters>
-        <result duration="0.458" type="success">
+        <result duration="0.790" type="success">
           <variableUpdate name="aVariable" value="2" />
         </result>
       </call>
@@ -43,9 +43,9 @@
           <variable name="integrity.basic.operations.theParameter" value="2" />
         </variables>
         <statements>
-          <test id="5" line="24" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-            <results duration="0.516" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.516" description="Echo the integer '3'" type="success">
+          <test id="5" line="29" name="echoIntegerTest" description="Echo the integer '3'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
+            <results duration="0.776" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.776" description="Echo the integer '3'" type="success">
                 <parameters>
                   <parameter name="integer" value="3" />
                 </parameters>
@@ -57,11 +57,17 @@
           </test>
         </statements>
         <teardown />
-        <result duration="5.407" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="7.515" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
+      <call id="6" line="21" name="echoMap" description="Echo the map '{key = 4}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap">
+        <parameters>
+          <parameter name="map" value="[FORMATTED]{[NL][T]key = 4[NL]}" />
+        </parameters>
+        <result duration="1.788" type="success" />
+      </call>
     </statements>
     <teardown />
-    <result duration="19.238" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="33.182" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

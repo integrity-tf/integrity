@@ -15,7 +15,12 @@ packagedef integrity.basic.operations with
 		
 		// INT-42: This did not work because in dry run, the variable was not filled
 		call echoInteger integer: 2 -> aVariable
-		suite suiteWithParameter theParameter: aVariable 
+		suite suiteWithParameter theParameter: aVariable
+		
+		// #5: This did not work, because the fix for INT-42 didn't work inside nested objects
+		call echoMap map: {
+			key: (aVariable + 2)
+		}
 	
 	suiteend
 	
