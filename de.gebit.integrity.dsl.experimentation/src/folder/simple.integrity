@@ -5,7 +5,7 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-		test echoInteger echo: <de.gebit.integrity.experiments.fixtures.AdditionFixture#INT_CONST> = 123
+		call extendedResult textCount: 1 imageCount: 1
 	suiteend
 	
 packageend

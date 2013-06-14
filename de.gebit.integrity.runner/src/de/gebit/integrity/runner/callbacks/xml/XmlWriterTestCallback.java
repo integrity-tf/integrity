@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.jdom.Attribute;
+import org.jdom.CDATA;
 import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -264,6 +265,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT. */
 	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT = "extResultImage";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE = "type";
 
 	/** The Constant EXTENDED_RESULT_COLLECTION_ELEMENT. */
 	protected static final String EXTENDED_RESULT_COLLECTION_ELEMENT = "extResults";
@@ -889,12 +893,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			for (ExtendedResult tempExtendedResult : someExtendedResults) {
 				if (tempExtendedResult instanceof ExtendedResultText) {
 					Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
-					tempResultElement.addContent(new Text(((ExtendedResultText) tempExtendedResult).getText()));
+					tempResultElement.addContent(new CDATA(((ExtendedResultText) tempExtendedResult).getText()));
 					tempExtendedResultCollection.addContent(tempResultElement);
 				} else if (tempExtendedResult instanceof ExtendedResultImage) {
 					Element tempResultElement = new Element(EXTENDED_RESULT_IMAGE_ELEMENT);
 					tempResultElement.addContent(new Text(Base64.encode(((ExtendedResultImage) tempExtendedResult)
 							.getEncodedImage())));
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE,
+							((ExtendedResultImage) tempExtendedResult).getType().getMimeType());
 					tempExtendedResultCollection.addContent(tempResultElement);
 				}
 			}

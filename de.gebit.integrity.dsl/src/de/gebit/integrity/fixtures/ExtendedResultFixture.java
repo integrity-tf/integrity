@@ -16,6 +16,8 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 /**
  * Fixtures can implement this optional interface to provide additional result information after the main fixture method
@@ -191,6 +193,7 @@ public interface ExtendedResultFixture {
 
 		private void compress(BufferedImage anImage) throws IOException {
 			ImageWriter tempWriter = ImageIO.getImageWritersByMIMEType(type.getMimeType()).next();
+			ImageOutputStream tempImageOut = null;
 			try {
 				ImageWriteParam tempParam = tempWriter.getDefaultWriteParam();
 
@@ -208,11 +211,16 @@ public interface ExtendedResultFixture {
 				}
 
 				ByteArrayOutputStream tempBuffer = new ByteArrayOutputStream();
-				tempWriter.setOutput(tempBuffer);
+				tempImageOut = new MemoryCacheImageOutputStream(tempBuffer);
+				tempWriter.setOutput(tempImageOut);
 				tempWriter.write(null, new IIOImage(anImage, null, null), tempParam);
+				tempImageOut.flush();
 				encodedImage = tempBuffer.toByteArray();
 			} finally {
 				tempWriter.dispose();
+				if (tempImageOut != null) {
+					tempImageOut.close();
+				}
 			}
 		}
 
