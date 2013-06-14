@@ -10,6 +10,7 @@ package de.gebit.integrity.runner.results.call;
 import java.util.List;
 
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
@@ -39,10 +40,12 @@ public abstract class CallResult extends FixtureExecutionResult {
 	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time taken to execute the call
+	 * @param someExtendedResults
+	 *            any extended results returned by the fixture
 	 */
 	public CallResult(List<UpdatedVariable> someUpdatedVariables, FixtureWrapper<?> aFixtureInstance,
-			String aFixtureMethod, Long anExecutionTime) {
-		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
+			String aFixtureMethod, Long anExecutionTime, List<ExtendedResult> someExtendedResults) {
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime, someExtendedResults);
 		updatedVariables = someUpdatedVariables;
 	}
 

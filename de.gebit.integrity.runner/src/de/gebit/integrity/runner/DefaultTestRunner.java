@@ -65,6 +65,7 @@ import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -1055,7 +1056,8 @@ public class DefaultTestRunner implements TestRunner {
 		TestResult tempReturn = null;
 		TestComparisonResult tempComparisonResult;
 		Throwable tempException = null;
-		Long tempDuration = null;
+		long tempDuration = 0;
+		List<ExtendedResult> tempExtendedResult = null;
 		FixtureWrapper<?> tempFixtureInstance = null;
 		String tempFixtureMethodName = aTest.getDefinition().getFixtureMethod().getMethod().getSimpleName();
 
@@ -1066,8 +1068,6 @@ public class DefaultTestRunner implements TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			long tempStart = System.nanoTime();
-
 			try {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
@@ -1075,10 +1075,15 @@ public class DefaultTestRunner implements TestRunner {
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
 						.getType());
 
-				tempStart = System.nanoTime();
-				Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
-						.getFixtureMethod(), tempParameters);
-				tempDuration = System.nanoTime() - tempStart;
+				Object tempFixtureResult;
+				tempDuration = System.nanoTime();
+				try {
+					tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
+							.getFixtureMethod(), tempParameters);
+				} finally {
+					tempDuration = System.nanoTime() - tempDuration;
+					tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+				}
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
 					Map<String, Object> tempFixtureResultMap = ParameterUtil
@@ -1109,9 +1114,7 @@ public class DefaultTestRunner implements TestRunner {
 					}
 					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
-				// SUPPRESS CHECKSTYLE IllegalCatch
 			} catch (Throwable exc) {
-				tempDuration = System.nanoTime() - tempStart;
 				tempException = exc;
 				tempUndeterminedComparisonResultsRequired = true;
 			}
@@ -1144,7 +1147,8 @@ public class DefaultTestRunner implements TestRunner {
 			tempSubResults.add(new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance, tempFixtureMethodName,
 					tempDuration));
 		}
-		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration);
+		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration,
+				tempExtendedResult);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1313,8 +1317,18 @@ public class DefaultTestRunner implements TestRunner {
 
 		Long tempOuterDuration = System.nanoTime() - tempOuterStart;
 
+		List<ExtendedResult> tempExtendedResult = null;
+		try {
+			tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+		} catch (Throwable exc) {
+			// Since in case of tabletests, the call to retrieve extended results is not covered by the fixture calls'
+			// own catch-all, we need an own catch-all for it, with the downside being that the exception cannot be
+			// forwarded into the test result page itself, but only onto the console.
+			exc.printStackTrace();
+		}
+
 		TestResult tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName,
-				currentPhase == Phase.DRY_RUN ? null : tempOuterDuration);
+				currentPhase == Phase.DRY_RUN ? null : tempOuterDuration, tempExtendedResult);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1436,7 +1450,8 @@ public class DefaultTestRunner implements TestRunner {
 		} else {
 			pauseIfRequiredByRemoteClient(false);
 
-			long tempStart = System.nanoTime();
+			long tempDuration = 0;
+			List<ExtendedResult> tempExtendedResults = null;
 			try {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
@@ -1444,10 +1459,15 @@ public class DefaultTestRunner implements TestRunner {
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod()
 						.getType());
 
-				tempStart = System.nanoTime();
-				Object tempResult = executeFixtureMethod(tempFixtureInstance, aCall.getDefinition().getFixtureMethod(),
-						tempParameters);
-				long tempDuration = System.nanoTime() - tempStart;
+				tempDuration = System.nanoTime();
+				Object tempResult;
+				try {
+					tempResult = executeFixtureMethod(tempFixtureInstance, aCall.getDefinition().getFixtureMethod(),
+							tempParameters);
+				} finally {
+					tempDuration = System.nanoTime() - tempDuration;
+					tempExtendedResults = tempFixtureInstance.retrieveExtendedResults();
+				}
 
 				if (aCall.getResults() != null && aCall.getResults().size() > 0) {
 					Map<String, Object> tempFixtureResultMap = ParameterUtil
@@ -1459,20 +1479,19 @@ public class DefaultTestRunner implements TestRunner {
 						setVariableValue(tempUpdatedVariable.getTargetVariable(), tempSingleFixtureResult, true);
 					}
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempFixtureInstance, tempFixtureMethodName, tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 				} else if (aCall.getResult() != null) {
 					tempUpdatedVariables.get(0).setValue(tempResult);
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempFixtureInstance, tempFixtureMethodName, tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 					setVariableValue(aCall.getResult().getName(), tempResult, true);
 				} else {
 					tempReturn = new de.gebit.integrity.runner.results.call.SuccessResult(tempUpdatedVariables,
-							tempFixtureInstance, tempFixtureMethodName, tempDuration);
+							tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 				}
-				// SUPPRESS CHECKSTYLE IllegalCatch
 			} catch (Throwable exc) {
 				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
-						tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
+						tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 			}
 		}
 

@@ -12,12 +12,14 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -348,6 +350,21 @@ public class FixtureWrapper<C extends Object> {
 						+ fixtureClass.getName() + "' is not an arbitrary parameter fixture. Left-over params: "
 						+ tempClonedParameterMap.keySet());
 			}
+		}
+	}
+
+	/**
+	 * Call {@link ExtendedResultFixture#provideExtendedResults()} on the fixture - if it is an extended result fixture
+	 * - and return the extended results.
+	 * 
+	 * @return the extended result list, or null if the fixture does not support the protocol or didn't return anything
+	 */
+	public List<ExtendedResult> retrieveExtendedResults() {
+		if (fixtureInstance instanceof ExtendedResultFixture) {
+			List<ExtendedResult> tempList = ((ExtendedResultFixture) fixtureInstance).provideExtendedResults();
+			return (tempList != null && tempList.size() > 0) ? tempList : null;
+		} else {
+			return null;
 		}
 	}
 

@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner.callbacks.console;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map.Entry;
 
 import com.google.inject.Inject;
@@ -24,6 +25,9 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -139,6 +143,30 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTestFinish(Test aTest, TestResult aResult) {
 		displayTestSubResult(aResult.getSubResults().get(0));
+		displayExtendedResults(aResult.getExtendedResults());
+	}
+
+	/**
+	 * Displays the provided extended results on the console.
+	 * 
+	 * @param someExtendedResults
+	 *            the extended result list to display
+	 */
+	protected void displayExtendedResults(List<ExtendedResult> someExtendedResults) {
+		int tempImageCount = 0;
+		if (someExtendedResults != null) {
+			for (ExtendedResult tempResult : someExtendedResults) {
+				if (tempResult instanceof ExtendedResultText) {
+					println("Ext. result: " + ((ExtendedResultText) tempResult).getText());
+				} else if (tempResult instanceof ExtendedResultImage) {
+					tempImageCount++;
+				}
+			}
+
+			if (tempImageCount > 0) {
+				println("Ext. result: " + tempImageCount + " images");
+			}
+		}
 	}
 
 	/**
@@ -257,6 +285,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 			println("EXCEPTION OCCURRED, SEE STDERR!");
 			System.err.println(aResult.toString());
 		}
+		displayExtendedResults(aResult.getExtendedResults());
 	}
 
 	@Override
@@ -313,6 +342,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	public void onTableTestFinish(TableTest aTableTest, TestResult someResults) {
 		println("\tTotal: " + someResults.getSubTestSuccessCount() + "x SUCCESS, " + someResults.getSubTestFailCount()
 				+ "x FAILURE, " + someResults.getSubTestExceptionCount() + "x EXCEPTION.");
+		displayExtendedResults(someResults.getExtendedResults());
 	}
 
 	@Override
