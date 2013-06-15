@@ -1082,7 +1082,9 @@ public class DefaultTestRunner implements TestRunner {
 							.getFixtureMethod(), tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
-					tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+					if (shouldExecuteFixtures()) {
+						tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+					}
 				}
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
@@ -1318,13 +1320,16 @@ public class DefaultTestRunner implements TestRunner {
 		Long tempOuterDuration = System.nanoTime() - tempOuterStart;
 
 		List<ExtendedResult> tempExtendedResult = null;
-		try {
-			tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
-		} catch (Throwable exc) {
-			// Since in case of tabletests, the call to retrieve extended results is not covered by the fixture calls'
-			// own catch-all, we need an own catch-all for it, with the downside being that the exception cannot be
-			// forwarded into the test result page itself, but only onto the console.
-			exc.printStackTrace();
+		if (shouldExecuteFixtures()) {
+			try {
+				tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+			} catch (Throwable exc) {
+				// Since in case of tabletests, the call to retrieve extended results is not covered by the fixture
+				// calls'
+				// own catch-all, we need an own catch-all for it, with the downside being that the exception cannot be
+				// forwarded into the test result page itself, but only onto the console.
+				exc.printStackTrace();
+			}
 		}
 
 		TestResult tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName,
@@ -1466,7 +1471,9 @@ public class DefaultTestRunner implements TestRunner {
 							tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
-					tempExtendedResults = tempFixtureInstance.retrieveExtendedResults();
+					if (shouldExecuteFixtures()) {
+						tempExtendedResults = tempFixtureInstance.retrieveExtendedResults();
+					}
 				}
 
 				if (aCall.getResults() != null && aCall.getResults().size() > 0) {
