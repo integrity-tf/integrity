@@ -31,10 +31,11 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 	int numberOfImages;
 
 	@FixtureMethod
-	public void returnExtendedStuff(@FixtureParameter(name = "textCount") Integer aNumberOfTexts,
+	public boolean returnExtendedStuff(@FixtureParameter(name = "textCount") Integer aNumberOfTexts,
 			@FixtureParameter(name = "imageCount") Integer aNumberOfImages) {
 		numberOfTexts = aNumberOfTexts != null ? aNumberOfTexts : 0;
 		numberOfImages = aNumberOfImages != null ? aNumberOfImages : 0;
+		return true;
 	}
 
 	@Override

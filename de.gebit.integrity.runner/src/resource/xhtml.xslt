@@ -876,6 +876,9 @@
               </xsl:call-template>
             </div>
           </xsl:if>
+          <xsl:if test="count(extResults/*) &gt; 0">
+          	<xsl:apply-templates select="extResults" />
+          </xsl:if>
         </div>
         <div class="testresults">
           <xsl:if test="results/result/@type = 'success'">
@@ -1116,6 +1119,9 @@
               </div>
             </xsl:if>
           </xsl:for-each>
+          <xsl:if test="count(extResults/*) &gt; 0">
+          	<xsl:apply-templates select="extResults" />
+          </xsl:if>
         </div>
         <div class="testresults">
           <xsl:value-of select="count(results/result)" />
