@@ -260,6 +260,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant RESULT_COLLECTION_ELEMENT. */
 	protected static final String RESULT_COLLECTION_ELEMENT = "results";
 
+	/** The Constant EXTENDED_RESULT_ELEMENT_TYPE_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE = "title";
+
 	/** The Constant EXTENDED_RESULT_TEXT_ELEMENT. */
 	protected static final String EXTENDED_RESULT_TEXT_ELEMENT = "extResultText";
 
@@ -897,12 +900,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (someExtendedResults != null && someExtendedResults.size() > 0) {
 			Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
 			for (ExtendedResult tempExtendedResult : someExtendedResults) {
+				Element tempResultElement = null;
+
 				if (tempExtendedResult instanceof ExtendedResultText) {
-					Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
+					tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
 					tempResultElement.addContent(new CDATA(((ExtendedResultText) tempExtendedResult).getText()));
-					tempExtendedResultCollection.addContent(tempResultElement);
 				} else if (tempExtendedResult instanceof ExtendedResultImage) {
-					Element tempResultElement = new Element(EXTENDED_RESULT_IMAGE_ELEMENT);
+					tempResultElement = new Element(EXTENDED_RESULT_IMAGE_ELEMENT);
 					tempResultElement.addContent(new Text(Base64.encode(((ExtendedResultImage) tempExtendedResult)
 							.getEncodedImage())));
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE,
@@ -911,6 +915,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 							Integer.toString(((ExtendedResultImage) tempExtendedResult).getWidth()));
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE,
 							Integer.toString(((ExtendedResultImage) tempExtendedResult).getHeight()));
+				}
+
+				if (tempResultElement != null) {
+					if (tempExtendedResult.getTitle() != null) {
+						tempResultElement.setAttribute(EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE,
+								tempExtendedResult.getTitle());
+					}
 					tempExtendedResultCollection.addContent(tempResultElement);
 				}
 			}

@@ -42,7 +42,7 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 		List<ExtendedResult> tempList = new ArrayList<ExtendedResult>();
 
 		for (int i = 0; i < numberOfTexts; i++) {
-			tempList.add(new ExtendedResultText(
+			tempList.add(new ExtendedResultText(i % 2 == 0 ? null : "Text number " + i,
 					"This is some stupid extended result text\nAnd it even has multiple lines!"));
 		}
 
@@ -61,7 +61,7 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 			tempGraphics.dispose();
 
 			try {
-				tempList.add(new ExtendedResultImage(tempImage));
+				tempList.add(new ExtendedResultImage(i % 2 == 0 ? null : "Image number " + i, tempImage));
 			} catch (IOException exc) {
 				exc.printStackTrace();
 			}

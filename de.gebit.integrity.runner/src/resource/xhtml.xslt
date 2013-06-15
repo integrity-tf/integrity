@@ -104,7 +104,8 @@
 					.comparisontable { margin-top: 10px; }
 					.exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
 					.extresults { padding-top: 14px; border-bottom: 1px solid #000; margin-bottom: 4px; }
-					.extresulttitle { border-bottom: 1px solid #000; font-size: 8pt; font-weight: bold; }
+					.extresultstitle { border-bottom: 1px solid #000; font-size: 8pt; font-weight: bold; }
+					.extresulttitle { font-size: 8pt; font-weight: bold; margin-top: 0px; margin-left: 10px; margin-right: 4px; position: relative; top: 4px; text-decoration: underline; }
 					.extresulttext { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
 					.extresults textarea { width: 100%; }
 					.extresultimage { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
@@ -690,8 +691,11 @@
     </xsl:template>
     <xsl:template match="extResults">
     	<div class="extresults">
-    		<div class="extresulttitle">Extended Result Details</div>
+    		<div class="extresultstitle">Extended Result Details</div>
     		<xsl:for-each select="*">
+    			<xsl:if test="@title">
+    				<div class="extresulttitle"><xsl:value-of select="@title"/></div>
+    			</xsl:if>
     			<xsl:if test="name() = 'extResultText'">
     				<div class="extresulttext">
     					<textarea><xsl:value-of select="text()"/></textarea>

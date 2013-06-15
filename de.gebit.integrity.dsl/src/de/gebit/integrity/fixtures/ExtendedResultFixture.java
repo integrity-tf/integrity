@@ -64,6 +64,25 @@ public interface ExtendedResultFixture {
 	 */
 	public static abstract class ExtendedResult {
 
+		/**
+		 * The title of this extended result.
+		 */
+		private String title;
+
+		/**
+		 * Not directly invokable, but from subclasses.
+		 * 
+		 * @param aTitle
+		 *            the title of this extended result.
+		 */
+		public ExtendedResult(String aTitle) {
+			title = aTitle;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
 	}
 
 	/**
@@ -83,11 +102,24 @@ public interface ExtendedResultFixture {
 		/**
 		 * Creates an instance.
 		 * 
+		 * @param aTitle
+		 *            the title of this extended result.
+		 * @param aText
+		 *            the text of the result
+		 */
+		public ExtendedResultText(String aTitle, String aText) {
+			super(aTitle);
+			text = aText;
+		}
+
+		/**
+		 * Creates an instance with no title.
+		 * 
 		 * @param aText
 		 *            the text of the result
 		 */
 		public ExtendedResultText(String aText) {
-			text = aText;
+			this(null, aText);
 		}
 
 		public String getText() {
@@ -127,7 +159,7 @@ public interface ExtendedResultFixture {
 		private int height;
 
 		/**
-		 * Creates a new instance, using the default compression type (PNG).
+		 * Creates a new instance, using the default compression type (PNG) and no title.
 		 * 
 		 * @param anImage
 		 *            the image to encapsulate
@@ -135,12 +167,28 @@ public interface ExtendedResultFixture {
 		 *             in case of compression/encoding errors
 		 */
 		public ExtendedResultImage(BufferedImage anImage) throws IOException {
-			this(anImage, ImageCompressionType.PNG);
+			this(null, anImage, ImageCompressionType.PNG);
+		}
+
+		/**
+		 * Creates a new instance, using the default compression type (PNG).
+		 * 
+		 * @param aTitle
+		 *            the title of this extended result (may be null)
+		 * @param anImage
+		 *            the image to encapsulate
+		 * @throws IOException
+		 *             in case of compression/encoding errors
+		 */
+		public ExtendedResultImage(String aTitle, BufferedImage anImage) throws IOException {
+			this(aTitle, anImage, ImageCompressionType.PNG);
 		}
 
 		/**
 		 * Creates a new instance, using the provided image and compression type.
 		 * 
+		 * @param aTitle
+		 *            the title of this extended result (may be null)
 		 * @param anImage
 		 *            the image to encapsulate
 		 * @param aCompressionType
@@ -148,7 +196,9 @@ public interface ExtendedResultFixture {
 		 * @throws IOException
 		 *             in case of compression/encoding errors
 		 */
-		public ExtendedResultImage(BufferedImage anImage, ImageCompressionType aCompressionType) throws IOException {
+		public ExtendedResultImage(String aTitle, BufferedImage anImage, ImageCompressionType aCompressionType)
+				throws IOException {
+			super(aTitle);
 			type = aCompressionType != null ? aCompressionType : ImageCompressionType.PNG;
 			width = anImage.getWidth();
 			height = anImage.getHeight();

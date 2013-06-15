@@ -5,7 +5,7 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-		call extendedResult textCount: 1 imageCount: 1
+		call extendedResult textCount: 3 imageCount: 3
 	suiteend
 	
 packageend
