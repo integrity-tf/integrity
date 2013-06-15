@@ -117,6 +117,16 @@ public interface ExtendedResultFixture {
 		private ImageCompressionType type;
 
 		/**
+		 * The width of the image, in pixels.
+		 */
+		private int width;
+
+		/**
+		 * The height of the image, in pixels.
+		 */
+		private int height;
+
+		/**
 		 * Creates a new instance, using the default compression type (PNG).
 		 * 
 		 * @param anImage
@@ -125,8 +135,7 @@ public interface ExtendedResultFixture {
 		 *             in case of compression/encoding errors
 		 */
 		public ExtendedResultImage(BufferedImage anImage) throws IOException {
-			type = ImageCompressionType.PNG;
-			compress(anImage);
+			this(anImage, ImageCompressionType.PNG);
 		}
 
 		/**
@@ -141,6 +150,8 @@ public interface ExtendedResultFixture {
 		 */
 		public ExtendedResultImage(BufferedImage anImage, ImageCompressionType aCompressionType) throws IOException {
 			type = aCompressionType != null ? aCompressionType : ImageCompressionType.PNG;
+			width = anImage.getWidth();
+			height = anImage.getHeight();
 			compress(anImage);
 		}
 
@@ -150,6 +161,14 @@ public interface ExtendedResultFixture {
 
 		public ImageCompressionType getType() {
 			return type;
+		}
+
+		public int getWidth() {
+			return width;
+		}
+
+		public int getHeight() {
+			return height;
 		}
 
 		/**

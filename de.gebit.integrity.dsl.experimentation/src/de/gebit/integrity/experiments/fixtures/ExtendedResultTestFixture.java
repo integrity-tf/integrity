@@ -53,7 +53,7 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 			Graphics tempGraphics = tempImage.getGraphics();
 			for (int x = 0; x < tempImage.getWidth(); x += 20) {
 				for (int y = 0; y < tempImage.getHeight(); y += 20) {
-					tempGraphics.setColor((x + y) % 2 == 0 ? Color.WHITE : Color.BLACK);
+					tempGraphics.setColor(((x / 20 + y / 20) % 2) == 0 ? Color.WHITE : Color.BLACK);
 					tempGraphics.fillRect(x, y, x + 20 > tempImage.getWidth() ? tempImage.getWidth() - x : 20,
 							y + 20 > tempImage.getHeight() ? tempImage.getHeight() - y : 20);
 				}

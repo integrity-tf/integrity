@@ -103,6 +103,11 @@
 					.resultstable th { font-size: 8pt; }
 					.comparisontable { margin-top: 10px; }
 					.exceptiontrace { padding-top: 10px; padding-bottom: 5px; }
+					.extresults { padding-top: 14px; border-bottom: 1px solid #000; margin-bottom: 4px; }
+					.extresulttitle { border-bottom: 1px solid #000; font-size: 8pt; font-weight: bold; }
+					.extresulttext { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
+					.extresults textarea { width: 100%; }
+					.extresultimage { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
 					.tab { padding-right: 20px; }
 					.fixturename { font-size: 8pt; padding: 4px; }
 					.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; }
@@ -623,6 +628,9 @@
               </xsl:call-template>
             </div>
           </xsl:if>
+          <xsl:if test="count(extResults/*) &gt; 0">
+          	<xsl:apply-templates select="extResults" />
+          </xsl:if>
         </div>
         <xsl:if test="count(result/variableUpdate) = 1 and result/variableUpdate/@value">
           <div class="testresults">
@@ -679,6 +687,27 @@
           </span>
         </span>
       </div>
+    </xsl:template>
+    <xsl:template match="extResults">
+    	<div class="extresults">
+    		<div class="extresulttitle">Extended Result Details</div>
+    		<xsl:for-each select="*">
+    			<xsl:if test="name() = 'extResultText'">
+    				<div class="extresulttext">
+    					<textarea><xsl:value-of select="text()"/></textarea>
+    				</div>
+    			</xsl:if>
+				<xsl:if test="name() = 'extResultImage'">
+    				<div class="extresultimage">
+    					<div>
+							<xsl:attribute name="style">
+								<xsl:value-of select="concat('width:', @width, 'px; height:', @height, 'px; background-image:url(', &quot;'&quot;, 'data:', @type, ';base64,', text(), &quot;'&quot;, ');')" />
+							</xsl:attribute>
+						</div>
+    				</div>
+    			</xsl:if>   			
+    		</xsl:for-each>    		
+    	</div>    	
     </xsl:template>
     <xsl:template match="console">
       <xsl:variable name="headerending">
@@ -804,7 +833,7 @@
                     <xsl:value-of select="@name" />
                   </td>
                   <td>
-                    <xsl:call-template name="formattedComparisonResult"/>
+                    <xsl:call-template name="formattedComparisonResult" />
                   </td>
                 </tr>
               </xsl:for-each>
@@ -830,7 +859,7 @@
                     <xsl:value-of select="$class" />
                   </xsl:attribute>
                   <td>
-                    <xsl:call-template name="formattedComparisonResult"/>
+                    <xsl:call-template name="formattedComparisonResult" />
                   </td>
                 </tr>
               </xsl:for-each>
@@ -891,7 +920,7 @@
             <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
               result:
               <span class="testresultvalue testresultvaluefailure">
-              	<span class="value">
+                <span class="value">
                   <xsl:call-template name="stripFormattedString">
                     <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
                   </xsl:call-template>
@@ -1432,7 +1461,7 @@
       </xsl:if>
     </xsl:template>
     <xsl:template name="formattedComparisonResult">
-    	<xsl:choose>
+      <xsl:choose>
         <xsl:when test="@type = 'success'">
           <span class="value">
             <xsl:if test="@value">

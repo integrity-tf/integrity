@@ -269,6 +269,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE. */
 	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE = "type";
 
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE = "width";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE = "height";
+
 	/** The Constant EXTENDED_RESULT_COLLECTION_ELEMENT. */
 	protected static final String EXTENDED_RESULT_COLLECTION_ELEMENT = "extResults";
 
@@ -901,6 +907,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 							.getEncodedImage())));
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE,
 							((ExtendedResultImage) tempExtendedResult).getType().getMimeType());
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE,
+							Integer.toString(((ExtendedResultImage) tempExtendedResult).getWidth()));
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE,
+							Integer.toString(((ExtendedResultImage) tempExtendedResult).getHeight()));
 					tempExtendedResultCollection.addContent(tempResultElement);
 				}
 			}
