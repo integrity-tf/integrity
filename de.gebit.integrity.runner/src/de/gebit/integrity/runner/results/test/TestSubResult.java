@@ -42,7 +42,7 @@ public abstract class TestSubResult extends FixtureExecutionResult {
 	 */
 	public TestSubResult(Map<String, TestComparisonResult> someComparisonResults, FixtureWrapper<?> aFixtureInstance,
 			String aFixtureMethod, Long anExecutionTime) {
-		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime, null);
 		this.comparisonResults = someComparisonResults;
 	}
 

@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 
 /**
@@ -41,10 +42,13 @@ public class ExceptionResult extends CallResult {
 	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            the time it took to execute the call
+	 * @param someExtendedResults
+	 *            any extended results returned by the fixture
 	 */
 	public ExceptionResult(Throwable anException, List<UpdatedVariable> someVariablesToUpdate,
-			FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime) {
-		super(someVariablesToUpdate, aFixtureInstance, aFixtureMethod, anExecutionTime);
+			FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime,
+			List<ExtendedResult> someExtendedResults) {
+		super(someVariablesToUpdate, aFixtureInstance, aFixtureMethod, anExecutionTime, someExtendedResults);
 		exception = anException;
 	}
 

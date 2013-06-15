@@ -41,9 +41,11 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.jdom.Attribute;
+import org.jdom.CDATA;
 import org.jdom.Content;
 import org.jdom.DocType;
 import org.jdom.Document;
@@ -78,6 +80,9 @@ import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -254,6 +259,27 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant RESULT_COLLECTION_ELEMENT. */
 	protected static final String RESULT_COLLECTION_ELEMENT = "results";
+
+	/** The Constant EXTENDED_RESULT_ELEMENT_TYPE_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE = "title";
+
+	/** The Constant EXTENDED_RESULT_TEXT_ELEMENT. */
+	protected static final String EXTENDED_RESULT_TEXT_ELEMENT = "extResultText";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT = "extResultImage";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE = "type";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE = "width";
+
+	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE. */
+	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE = "height";
+
+	/** The Constant EXTENDED_RESULT_COLLECTION_ELEMENT. */
+	protected static final String EXTENDED_RESULT_COLLECTION_ELEMENT = "extResults";
 
 	/** The Constant VARIABLE_UPDATE_ELEMENT. */
 	protected static final String VARIABLE_UPDATE_ELEMENT = "variableUpdate";
@@ -590,7 +616,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
 			}
 			internalOnSuiteStart(tempSuiteElement);
 		}
@@ -630,7 +656,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
 			}
 			internalOnSetupStart(tempSetupElement);
 		}
@@ -662,7 +688,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
 			}
 			internalOnSetupFinish(tempSuiteResultElement);
 		}
@@ -730,7 +756,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
 			}
 			internalOnTestStart(tempTestElement);
 		}
@@ -780,7 +806,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
 			}
 			internalOnTableTestStart(tempTestElement);
 		}
@@ -839,11 +865,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				.getSubResults().get(0), tempParameterMap);
 
 		if (!isDryRun()) {
+			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
-				sendElementToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement,
+						tempExtendedResultElement);
 			}
-			internalOnTestFinish(tempResultCollectionElement);
+			internalOnTestFinish(tempResultCollectionElement, tempExtendedResultElement);
 		}
 	}
 
@@ -853,9 +881,54 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param aResultCollectionElement
 	 *            the a result collection element
 	 */
-	protected void internalOnTestFinish(Element aResultCollectionElement) {
+	protected void internalOnTestFinish(Element aResultCollectionElement, Element anExtendedResultElement) {
 		addConsoleOutput(aResultCollectionElement);
-		stackPop().addContent(aResultCollectionElement);
+		Element tempTestElement = stackPop();
+		tempTestElement.addContent(aResultCollectionElement);
+		if (anExtendedResultElement != null) {
+			tempTestElement.addContent(anExtendedResultElement);
+		}
+	}
+
+	/**
+	 * Creates an extended result element.
+	 * 
+	 * @param someExtendedResults
+	 *            the results to add
+	 */
+	protected Element createExtendedResultElement(List<ExtendedResult> someExtendedResults) {
+		if (someExtendedResults != null && someExtendedResults.size() > 0) {
+			Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
+			for (ExtendedResult tempExtendedResult : someExtendedResults) {
+				Element tempResultElement = null;
+
+				if (tempExtendedResult instanceof ExtendedResultText) {
+					tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
+					tempResultElement.addContent(new CDATA(((ExtendedResultText) tempExtendedResult).getText()));
+				} else if (tempExtendedResult instanceof ExtendedResultImage) {
+					tempResultElement = new Element(EXTENDED_RESULT_IMAGE_ELEMENT);
+					tempResultElement.addContent(new Text(Base64.encode(((ExtendedResultImage) tempExtendedResult)
+							.getEncodedImage())));
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE,
+							((ExtendedResultImage) tempExtendedResult).getType().getMimeType());
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE,
+							Integer.toString(((ExtendedResultImage) tempExtendedResult).getWidth()));
+					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE,
+							Integer.toString(((ExtendedResultImage) tempExtendedResult).getHeight()));
+				}
+
+				if (tempResultElement != null) {
+					if (tempExtendedResult.getTitle() != null) {
+						tempResultElement.setAttribute(EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE,
+								tempExtendedResult.getTitle());
+					}
+					tempExtendedResultCollection.addContent(tempResultElement);
+				}
+			}
+			return tempExtendedResultCollection;
+		}
+
+		return null;
 	}
 
 	/**
@@ -924,11 +997,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
 		if (!isDryRun()) {
+			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
-				sendElementToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement,
+						tempExtendedResultElement);
 			}
-			internalOnTableTestFinish(tempResultCollectionElement);
+			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement);
 		}
 	}
 
@@ -937,11 +1012,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aResultCollectionElement
 	 *            the a result collection element
+	 * @param anExtendedResultElement
+	 *            the extended result element
 	 */
-	protected void internalOnTableTestFinish(Element aResultCollectionElement) {
+	protected void internalOnTableTestFinish(Element aResultCollectionElement, Element anExtendedResultElement) {
 		stackPop(); // remove result collection element from stack first
 		addConsoleOutput(aResultCollectionElement);
-		stackPop().addContent(aResultCollectionElement);
+		Element tempTestElement = stackPop();
+		if (anExtendedResultElement != null) {
+			tempTestElement.addContent(anExtendedResultElement);
+		}
+		tempTestElement.addContent(aResultCollectionElement);
 	}
 
 	/**
@@ -1090,7 +1171,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
 			}
 			internalOnCallStart(tempCallElement);
 		}
@@ -1156,11 +1237,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		if (!isDryRun()) {
+			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempCallResultElement);
-				sendElementToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement,
+						tempExtendedResultElement);
 			}
-			internalOnCallFinish(tempCallResultElement);
+			internalOnCallFinish(tempCallResultElement, tempExtendedResultElement);
 		}
 	}
 
@@ -1169,11 +1252,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aCallResultElement
 	 *            the a call result element
+	 * @param anExtendedResultElement
+	 *            the extended result element
 	 */
-	protected void internalOnCallFinish(Element aCallResultElement) {
+	protected void internalOnCallFinish(Element aCallResultElement, Element anExtendedResultElement) {
 		if (aCallResultElement != null) {
 			addConsoleOutput(aCallResultElement);
 			stackPeek().addContent(aCallResultElement);
+		}
+		if (anExtendedResultElement != null) {
+			stackPeek().addContent(anExtendedResultElement);
 		}
 
 		stackPop();
@@ -1196,7 +1284,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
 			}
 			internalOnTearDownStart(tempTearDownElement);
 		}
@@ -1228,7 +1316,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
 			}
 			internalOnTearDownFinish(tempSuiteResultElement);
 		}
@@ -1259,7 +1347,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
 			}
 			internalOnSuiteFinish(tempSuiteResultElement);
 		}
@@ -1513,7 +1601,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
 			}
 			internalOnVariableDefinition(tempVariableElement);
 		}
@@ -1681,7 +1769,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.VISIBLE_COMMENT, tempCommentElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.VISIBLE_COMMENT, tempCommentElement);
 			}
 			internalOnVisibleComment(tempCommentElement);
 		}
@@ -1704,7 +1792,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementToMaster(TestRunnerCallbackMethods.VISIBLE_DIVIDER, tempCommentElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.VISIBLE_DIVIDER, tempCommentElement);
 			}
 			internalOnVisibleDivider(tempCommentElement);
 		}
@@ -1785,12 +1873,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aMethod
 	 *            the method from which this is called
-	 * @param anElement
-	 *            the element to send
+	 * @param someElements
+	 *            the elements to send
 	 */
-	protected void sendElementToMaster(TestRunnerCallbackMethods aMethod, Element anElement) {
+	protected void sendElementsToMaster(TestRunnerCallbackMethods aMethod, Element... someElements) {
 		// System.out.println("FORK OUT: " + aMethod);
-		sendToMaster(aMethod, (Serializable) anElement.clone());
+		Serializable[] tempClones = new Serializable[someElements.length];
+		for (int i = 0; i < someElements.length; i++) {
+			tempClones[i] = (Serializable) someElements[i].clone();
+		}
+		sendToMaster(aMethod, tempClones);
 	}
 
 	/**
@@ -1803,55 +1895,55 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
-		Element tempElement = (Element) someObjects[0];
+		Element tempFirstElement = (Element) someObjects[0]; // one element will always be provided
 		// System.out.println("FORK IN: " + aMethod);
 
 		// dispatch message to matching internal... method
 		switch (aMethod) {
 		case SUITE_START:
-			internalOnSuiteStart(tempElement);
+			internalOnSuiteStart(tempFirstElement);
 			break;
 		case SETUP_START:
-			internalOnSetupStart(tempElement);
+			internalOnSetupStart(tempFirstElement);
 			break;
 		case SETUP_FINISH:
-			internalOnSetupFinish(tempElement);
+			internalOnSetupFinish(tempFirstElement);
 			break;
 		case TEST_START:
-			internalOnTestStart(tempElement);
+			internalOnTestStart(tempFirstElement);
 			break;
 		case TABLE_TEST_START:
-			internalOnTableTestStart(tempElement);
+			internalOnTableTestStart(tempFirstElement);
 			break;
 		case TEST_FINISH:
-			internalOnTestFinish(tempElement);
+			internalOnTestFinish(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case TABLE_TEST_FINISH:
-			internalOnTableTestFinish(tempElement);
+			internalOnTableTestFinish(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case CALL_START:
-			internalOnCallStart(tempElement);
+			internalOnCallStart(tempFirstElement);
 			break;
 		case CALL_FINISH:
-			internalOnCallFinish(tempElement);
+			internalOnCallFinish(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case TEAR_DOWN_START:
-			internalOnTearDownStart(tempElement);
+			internalOnTearDownStart(tempFirstElement);
 			break;
 		case TEAR_DOWN_FINISH:
-			internalOnTearDownFinish(tempElement);
+			internalOnTearDownFinish(tempFirstElement);
 			break;
 		case SUITE_FINISH:
-			internalOnSuiteFinish(tempElement);
+			internalOnSuiteFinish(tempFirstElement);
 			break;
 		case VARIABLE_DEFINITION:
-			internalOnVariableDefinition(tempElement);
+			internalOnVariableDefinition(tempFirstElement);
 			break;
 		case VISIBLE_COMMENT:
-			internalOnVisibleComment(tempElement);
+			internalOnVisibleComment(tempFirstElement);
 			break;
 		case VISIBLE_DIVIDER:
-			internalOnVisibleDivider(tempElement);
+			internalOnVisibleDivider(tempFirstElement);
 			break;
 		default:
 			return;

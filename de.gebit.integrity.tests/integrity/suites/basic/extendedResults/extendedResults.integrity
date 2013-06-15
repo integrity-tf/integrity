@@ -1,0 +1,20 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.extendedResults with
+
+	suitedef extendedResultsCall with	
+		call integrity.fixtures.basic.extendedResults.returnExtendedStuff imageCount: 2 textCount: 2	
+	suiteend
+	
+	suitedef extendedResultsTest with	
+		test integrity.fixtures.basic.extendedResults.returnExtendedStuffTest imageCount: 2 textCount: 2
+	suiteend
+	
+	suitedef extendedResultsTableTest with
+		tabletest integrity.fixtures.basic.extendedResults.returnExtendedStuffTest imageCount: 2 textCount: 2
+			| =    |
+			| true |	
+	suiteend
+
+packageend

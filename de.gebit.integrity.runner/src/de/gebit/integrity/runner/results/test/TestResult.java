@@ -9,6 +9,7 @@ package de.gebit.integrity.runner.results.test;
 
 import java.util.List;
 
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
@@ -53,10 +54,12 @@ public class TestResult extends FixtureExecutionResult {
 	 *            the method that was executed
 	 * @param anExecutionTime
 	 *            test method execution time
+	 * @param someExtendedResults
+	 *            any extended results returned from the fixture
 	 */
 	public TestResult(List<TestSubResult> someSubResults, FixtureWrapper<?> aFixtureInstance, String aFixtureMethod,
-			Long anExecutionTime) {
-		super(aFixtureInstance, aFixtureMethod, anExecutionTime);
+			Long anExecutionTime, List<ExtendedResult> someExtendedResults) {
+		super(aFixtureInstance, aFixtureMethod, anExecutionTime, someExtendedResults);
 		subResults = someSubResults;
 	}
 

@@ -7,6 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.results;
 
+import java.util.List;
+
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 
 /**
@@ -28,6 +31,12 @@ public abstract class FixtureExecutionResult extends Result {
 	private String fixtureMethod;
 
 	/**
+	 * Any extended results returned by the fixture after its fixture method has been executed. Is guaranteed to be
+	 * either null or a list with at least one element.
+	 */
+	private List<ExtendedResult> extendedResults;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aFixtureInstance
@@ -38,10 +47,12 @@ public abstract class FixtureExecutionResult extends Result {
 	 * @param anExecutionTime
 	 *            The time required for execution
 	 */
-	public FixtureExecutionResult(FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime) {
+	public FixtureExecutionResult(FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime,
+			List<ExtendedResult> anExtendedResultList) {
 		super(anExecutionTime);
 		fixtureInstance = aFixtureInstance;
 		fixtureMethod = aFixtureMethod;
+		extendedResults = anExtendedResultList;
 	}
 
 	public FixtureWrapper<?> getFixtureInstance() {
@@ -50,6 +61,10 @@ public abstract class FixtureExecutionResult extends Result {
 
 	public String getFixtureMethod() {
 		return fixtureMethod;
+	}
+
+	public List<ExtendedResult> getExtendedResults() {
+		return extendedResults;
 	}
 
 }

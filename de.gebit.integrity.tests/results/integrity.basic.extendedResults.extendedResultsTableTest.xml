@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="15.06.13 22:15" isotimestamp="2013-06-15T22:15:16" duration="8.944">
+  <variables />
+  <suite id="0" name="integrity.basic.extendedResults.extendedResultsTableTest">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="15" name="returnExtendedStuffTest" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff">
+        <extResults>
+          <extResultText><![CDATA[This is some stupid extended result text
+And it even has multiple lines!]]></extResultText>
+          <extResultText title="Text number 1"><![CDATA[This is some stupid extended result text
+And it even has multiple lines!]]></extResultText>
+          <extResultImage type="image/png" width="100" height="100">iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAA30lEQVR42u3asQkAMAwDMP//dPtAu2UwRIbsxlqTM5wko7euHxAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAKepnwKZ+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQKkB8SAvk6AAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBMivnwGb+gEBAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIkB4QA/o6AQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgz1zHd6HOM8M2UAAAAABJRU5ErkJggg==</extResultImage>
+          <extResultImage type="image/png" width="100" height="100" title="Image number 1">iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAA30lEQVR42u3asQkAMAwDMP//dPtAu2UwRIbsxlqTM5wko7euHxAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAKepnwKZ+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQKkB8SAvk6AAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBMivnwGb+gEBAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIkB4QA/o6AQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgz1zHd6HOM8M2UAAAAABJRU5ErkJggg==</extResultImage>
+        </extResults>
+        <results duration="2.068" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.767" description="returnExtendedStuff" type="success">
+            <parameters>
+              <parameter name="imageCount" value="2" />
+              <parameter name="textCount" value="2" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="7.352" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

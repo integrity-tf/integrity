@@ -27,6 +27,6 @@ public class UndeterminedResult extends CallResult {
 	 *            the method that was executed
 	 */
 	public UndeterminedResult(List<UpdatedVariable> someVariablesToUpdate, String aFixtureMethod) {
-		super(someVariablesToUpdate, null, aFixtureMethod, null);
+		super(someVariablesToUpdate, null, aFixtureMethod, null, null);
 	}
 }

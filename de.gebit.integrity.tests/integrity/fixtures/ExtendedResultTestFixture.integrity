@@ -1,0 +1,6 @@
+packagedef integrity.fixtures.basic.extendedResults with
+
+	calldef returnExtendedStuff uses de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff
+	testdef returnExtendedStuffTest uses de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff
+
+packageend
