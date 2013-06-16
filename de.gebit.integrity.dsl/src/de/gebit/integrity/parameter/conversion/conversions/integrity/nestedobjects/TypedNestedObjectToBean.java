@@ -25,6 +25,9 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 @de.gebit.integrity.parameter.conversion.Conversion.Priority(0)
 public class TypedNestedObjectToBean extends Conversion<TypedNestedObject, Object> {
 
+	/**
+	 * The classloader to use.
+	 */
 	@Inject
 	private ClassLoader classLoader;
 

@@ -14,6 +14,7 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -86,6 +87,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * All known conversions.
 	 */
 	private Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions = new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
+
+	/**
+	 * Conversions derived from the directly added conversions by searching superclasses of the target type.
+	 */
+	private Map<ConversionKey, List<Class<? extends Conversion<?, ?>>>> derivedConversions = new HashMap<ConversionKey, List<Class<? extends Conversion<?, ?>>>>();
 
 	/**
 	 * Reverse index of all known conversions.
@@ -268,13 +274,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 		Class<?> tempTargetType = transformPrimitiveTypes(aTargetType);
 		Class<?> tempSourceType = transformPrimitiveTypes(aValue.getClass());
+		String tempSourceTypeName = tempSourceType.getName();
 
+		// No conversion necessary if target type is a superclass or the same as the current type
 		if (tempTargetType != null && tempTargetType.isAssignableFrom(tempSourceType)) {
-			// No conversion necessary
-			return aValue;
+			// ...except if the source type is one of Integritys' internal types, which shouldn't generally been given
+			// to fixtures in an unconverted state.
+			if (!tempSourceTypeName.startsWith("de.gebit.integrity.dsl.")) {
+				return aValue;
+			}
 		}
 
-		if (tempTargetType == null && tempSourceType.getName().startsWith("java.")) {
+		if (tempTargetType == null && tempSourceTypeName.startsWith("java.")) {
 			// Java types generally have themselves as "default type" and don't need to be converted to anything
 			return aValue;
 		}
@@ -668,18 +679,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param aConversion
 	 *            the conversion to add
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void addConversion(Class<? extends Conversion> aConversion) {
+	protected void addConversion(Class<? extends Conversion<?, ?>> aConversion) {
 		Class<? extends Conversion<?, ?>> tempConversion = (Class<? extends Conversion<?, ?>>) aConversion;
 		ConversionKey tempConversionKey = new ConversionKey(tempConversion);
 
 		// See whether the new conversion has a higher priority than the current default conversion for the given
 		// source type
-		Priority tempPriorityAnnotation = aConversion.getAnnotation(Priority.class);
-		int tempNewPriority = Integer.MIN_VALUE;
-		if (tempPriorityAnnotation != null) {
-			tempNewPriority = tempPriorityAnnotation.value();
-		}
+		int tempNewPriority = determineConversionPriority(aConversion);
 
 		Integer tempCurrentPriority = conversionPriority.get(tempConversionKey.getSourceType());
 		if (tempCurrentPriority == null || (tempNewPriority > tempCurrentPriority)) {
@@ -687,8 +693,47 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			conversionPriority.put(tempConversionKey.getSourceType(), tempNewPriority);
 		}
 
+		// Now add the conversion itself to the existing conversions...
 		conversions.put(tempConversionKey, tempConversion);
 		conversionToKey.put(tempConversion, tempConversionKey);
+
+		// ...and then add all derived conversions. Note that duplicates can occur here!
+		for (ConversionKey tempDerivedConversionKey : tempConversionKey.generateDerivedKeys()) {
+			List<Class<? extends Conversion<?, ?>>> tempList = derivedConversions.get(tempDerivedConversionKey);
+			if (tempList == null) {
+				tempList = new ArrayList<Class<? extends Conversion<?, ?>>>();
+				derivedConversions.put(tempDerivedConversionKey, tempList);
+			}
+			tempList.add(tempConversion);
+			Collections.sort(tempList, new Comparator<Class<? extends Conversion<?, ?>>>() {
+
+				@Override
+				public int compare(Class<? extends Conversion<?, ?>> aFirstConversion,
+						Class<? extends Conversion<?, ?>> aSecondConversion) {
+					int tempFirstPriority = determineConversionPriority(aFirstConversion);
+					int tempSecondPriority = determineConversionPriority(aSecondConversion);
+
+					return (tempSecondPriority - tempFirstPriority);
+				}
+			});
+		}
+	}
+
+	/**
+	 * Determines the priority of the given conversion class.
+	 * 
+	 * @param aConversion
+	 *            the conversion to introspect
+	 * @return the numeric priority
+	 */
+	protected int determineConversionPriority(Class<? extends Conversion<?, ?>> aConversion) {
+		Priority tempPriorityAnnotation = aConversion.getAnnotation(Priority.class);
+		int tempPriority = Integer.MIN_VALUE;
+		if (tempPriorityAnnotation != null) {
+			tempPriority = tempPriorityAnnotation.value();
+		}
+
+		return tempPriority;
 	}
 
 	/**
@@ -779,6 +824,24 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 		}
 
+		/**
+		 * Generates the derived conversion keys from the current key. "Derived keys" means keys which cover the whole
+		 * target type superclass hierarchy.
+		 * 
+		 * @return the derived key list
+		 */
+		public List<ConversionKey> generateDerivedKeys() {
+			List<ConversionKey> tempResults = new ArrayList<ConversionKey>();
+
+			Class<?> tempTargetTypeInFocus = targetType.getSuperclass();
+			while (tempTargetTypeInFocus != null) {
+				tempResults.add(new ConversionKey(sourceType, tempTargetTypeInFocus));
+				tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
+			}
+
+			return tempResults;
+		}
+
 		@Override
 		public int hashCode() {
 			return internalKey.hashCode();
@@ -831,6 +894,81 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
 			Set<Object> someVisitedValues) {
+		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType,
+				someVisitedValues);
+
+		if (tempConversion != null) {
+			return tempConversion;
+		}
+
+		// If nothing found yet, continue search in the derived conversion lists
+		return findDerivedConversionRecursive(aSourceType, aTargetType);
+	}
+
+	/**
+	 * Searches all known derived conversions for a match which is able to convert a given source type into a subclass
+	 * of a given target type. If there are multiple matches (which is likely, if the target type is very generic), the
+	 * conversion with the highest priority wins.
+	 * 
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @return a conversion class, or null if none was found
+	 */
+	protected Class<? extends Conversion<?, ?>> findDerivedConversionRecursive(Class<?> aSourceType,
+			Class<?> aTargetType) {
+		if (aSourceType == null || aTargetType == null) {
+			return null;
+		}
+
+		Class<? extends Conversion<?, ?>> tempConversion = searchDerivedConversionMap(aSourceType, aTargetType);
+		if (tempConversion != null) {
+			return tempConversion;
+		}
+
+		for (Class<?> tempSourceInterface : aSourceType.getInterfaces()) {
+			tempConversion = findDerivedConversionRecursive(tempSourceInterface, aTargetType);
+			if (tempConversion != null) {
+				return tempConversion;
+			}
+		}
+
+		return findDerivedConversionRecursive(aSourceType.getSuperclass(), aTargetType);
+	}
+
+	/**
+	 * Searches the derived conversion map for a match. If one or multiple are found, the one with the highest priority
+	 * is returned (the lists in the map are pre-sorted that way).
+	 * 
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @return a conversion class, or null if none was found
+	 */
+	protected Class<? extends Conversion<?, ?>> searchDerivedConversionMap(Class<?> aSourceType, Class<?> aTargetType) {
+		List<Class<? extends Conversion<?, ?>>> tempList = derivedConversions.get(new ConversionKey(aSourceType,
+				aTargetType));
+		if (tempList != null && !tempList.isEmpty()) {
+			return tempList.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Searches all known conversions for a match which is able to convert a given source type into a given target type.
+	 * Returns the conversion class (must be instantiated before actually converting something).
+	 * 
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @return a conversion class, or null if none was found
+	 */
+	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType,
+			Set<Object> someVisitedValues) {
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
@@ -848,8 +986,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					}
 
 					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-						Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceTypeInFocus,
-								tempTargetInterface, someVisitedValues);
+						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
+								tempSourceTypeInFocus, tempTargetInterface, someVisitedValues);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -865,8 +1003,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				for (Class<?> tempSourceInterface : tempSourceTypeInFocus.getInterfaces()) {
 					if (aTargetType == null) {
 						// This is the default target type case
-						Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceInterface, null,
-								someVisitedValues);
+						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
+								null, someVisitedValues);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -874,14 +1012,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						// We actually have a target type
 						Class<?> tempTargetTypeInFocus = aTargetType;
 						while (tempTargetTypeInFocus != null) {
-							Class<? extends Conversion<?, ?>> tempConversion = findConversion(tempSourceInterface,
-									tempTargetTypeInFocus, someVisitedValues);
+							Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
+									tempSourceInterface, tempTargetTypeInFocus, someVisitedValues);
 							if (tempConversion != null) {
 								return tempConversion;
 							}
 
 							for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-								tempConversion = findConversion(tempSourceInterface, tempTargetInterface,
+								tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface,
 										someVisitedValues);
 								if (tempConversion != null) {
 									return tempConversion;
