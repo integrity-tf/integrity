@@ -36,6 +36,10 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjec
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.TypedNestedObjectToBean;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.TypedNestedObjectToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.TypedNestedObjectToMap;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.TypedNestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToFloat;
@@ -275,6 +279,10 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(NestedObjectToString.class);
 		addConversion(NestedObjectToFormattedString.class);
 		addConversion(NestedObjectToBean.class);
+		addConversion(TypedNestedObjectToMap.class);
+		addConversion(TypedNestedObjectToString.class);
+		addConversion(TypedNestedObjectToFormattedString.class);
+		addConversion(TypedNestedObjectToBean.class);
 
 		// other conversions, Integrity -> Java
 		addConversion(NullValueToNull.class);

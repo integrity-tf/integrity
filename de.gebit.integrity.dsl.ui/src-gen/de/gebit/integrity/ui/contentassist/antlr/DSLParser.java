@@ -135,6 +135,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup(), "rule__NestedObject__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup_2(), "rule__NestedObject__Group_2__0");
+					put(grammarAccess.getTypedNestedObjectAccess().getGroup(), "rule__TypedNestedObject__Group__0");
 					put(grammarAccess.getKeyValuePairAccess().getGroup(), "rule__KeyValuePair__Group__0");
 					put(grammarAccess.getMethodReferenceAccess().getGroup(), "rule__MethodReference__Group__0");
 					put(grammarAccess.getJavaConstantReferenceAccess().getGroup(), "rule__JavaConstantReference__Group__0");
@@ -250,6 +251,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantAccess().getNameAssignment(), "rule__Constant__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
 					put(grammarAccess.getNestedObjectAccess().getAttributesAssignment_2_0(), "rule__NestedObject__AttributesAssignment_2_0");
+					put(grammarAccess.getTypedNestedObjectAccess().getTypeAssignment_1(), "rule__TypedNestedObject__TypeAssignment_1");
+					put(grammarAccess.getTypedNestedObjectAccess().getNestedObjectAssignment_4(), "rule__TypedNestedObject__NestedObjectAssignment_4");
 					put(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0(), "rule__KeyValuePair__IdentifierAssignment_0");
 					put(grammarAccess.getKeyValuePairAccess().getValueAssignment_4(), "rule__KeyValuePair__ValueAssignment_4");
 					put(grammarAccess.getJavaClassReferenceAccess().getTypeAssignment(), "rule__JavaClassReference__TypeAssignment");

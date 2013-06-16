@@ -141,6 +141,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.NULL_VALUE: return createNullValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
       case DslPackage.NESTED_OBJECT: return createNestedObject();
+      case DslPackage.TYPED_NESTED_OBJECT: return createTypedNestedObject();
       case DslPackage.KEY_VALUE_PAIR: return createKeyValuePair();
       case DslPackage.JAVA_CLASS_REFERENCE: return createJavaClassReference();
       case DslPackage.METHOD_REFERENCE: return createMethodReference();
@@ -997,6 +998,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     NestedObjectImpl nestedObject = new NestedObjectImpl();
     return nestedObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypedNestedObject createTypedNestedObject()
+  {
+    TypedNestedObjectImpl typedNestedObject = new TypedNestedObjectImpl();
+    return typedNestedObject;
   }
 
   /**

@@ -460,6 +460,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createNestedObjectAdapter();
       }
       @Override
+      public Adapter caseTypedNestedObject(TypedNestedObject object)
+      {
+        return createTypedNestedObjectAdapter();
+      }
+      @Override
       public Adapter caseKeyValuePair(KeyValuePair object)
       {
         return createKeyValuePairAdapter();
@@ -1662,6 +1667,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createNestedObjectAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TypedNestedObject <em>Typed Nested Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.TypedNestedObject
+   * @generated
+   */
+  public Adapter createTypedNestedObjectAdapter()
   {
     return null;
   }

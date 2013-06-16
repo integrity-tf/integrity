@@ -53,6 +53,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
@@ -481,6 +482,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				if(context == grammarAccess.getPackageStatementRule() ||
 				   context == grammarAccess.getTestDefinitionRule()) {
 					sequence_TestDefinition(context, (TestDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case DslPackage.TYPED_NESTED_OBJECT:
+				if(context == grammarAccess.getTypedNestedObjectRule() ||
+				   context == grammarAccess.getValueRule() ||
+				   context == grammarAccess.getValueOrEnumValueOrOperationRule()) {
+					sequence_TypedNestedObject(context, (TypedNestedObject) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1378,6 +1387,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type=JavaClassReference nestedObject=NestedObject)
+	 */
+	protected void sequence_TypedNestedObject(EObject context, TypedNestedObject semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__TYPE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__NESTED_OBJECT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__NESTED_OBJECT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getTypedNestedObjectAccess().getNestedObjectNestedObjectParserRuleCall_4_0(), semanticObject.getNestedObject());
+		feeder.finish();
 	}
 	
 	

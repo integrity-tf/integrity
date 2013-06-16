@@ -45,6 +45,8 @@ packagedef mypackage with
 	calldef beanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
 	testdef beanTest uses de.gebit.integrity.experiments.fixtures.BeanFixture#beanInput
 	
+	calldef untypedBeanCall uses de.gebit.integrity.experiments.fixtures.BeanFixture#untypedBeanEcho
+	
 	calldef extendedResult uses de.gebit.integrity.experiments.fixtures.ExtendedResultTestFixture#returnExtendedStuff
 	testdef extendedResultTest uses de.gebit.integrity.experiments.fixtures.ExtendedResultTestFixture#returnExtendedStuff
 	

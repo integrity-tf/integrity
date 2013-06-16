@@ -67,6 +67,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
 import de.gebit.integrity.dsl.Value;
@@ -643,6 +644,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass nestedObjectEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typedNestedObjectEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2437,6 +2445,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getTypedNestedObject()
+  {
+    return typedNestedObjectEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedNestedObject_Type()
+  {
+    return (EReference)typedNestedObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypedNestedObject_NestedObject()
+  {
+    return (EReference)typedNestedObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getKeyValuePair()
   {
     return keyValuePairEClass;
@@ -2847,6 +2885,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     nestedObjectEClass = createEClass(NESTED_OBJECT);
     createEReference(nestedObjectEClass, NESTED_OBJECT__ATTRIBUTES);
 
+    typedNestedObjectEClass = createEClass(TYPED_NESTED_OBJECT);
+    createEReference(typedNestedObjectEClass, TYPED_NESTED_OBJECT__TYPE);
+    createEReference(typedNestedObjectEClass, TYPED_NESTED_OBJECT__NESTED_OBJECT);
+
     keyValuePairEClass = createEClass(KEY_VALUE_PAIR);
     createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__IDENTIFIER);
     createEReference(keyValuePairEClass, KEY_VALUE_PAIR__VALUE);
@@ -2963,6 +3005,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
     nestedObjectEClass.getESuperTypes().add(this.getValue());
+    typedNestedObjectEClass.getESuperTypes().add(this.getValue());
     nullEClass.getESuperTypes().add(this.getNullValue());
 
     // Initialize classes and features; add operations and parameters
@@ -3210,6 +3253,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(nestedObjectEClass, NestedObject.class, "NestedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNestedObject_Attributes(), this.getKeyValuePair(), null, "attributes", null, 0, -1, NestedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typedNestedObjectEClass, TypedNestedObject.class, "TypedNestedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypedNestedObject_Type(), this.getJavaClassReference(), null, "type", null, 0, 1, TypedNestedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypedNestedObject_NestedObject(), this.getNestedObject(), null, "nestedObject", null, 0, 1, TypedNestedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(keyValuePairEClass, KeyValuePair.class, "KeyValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getKeyValuePair_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -11,4 +11,9 @@ public class BeanFixture {
 		return null;
 	}
 
+	@FixtureMethod(description = "echoes $bean$")
+	public Object untypedBeanEcho(@FixtureParameter(name = "bean") Object aBean) {
+		return aBean;
+	}
+
 }

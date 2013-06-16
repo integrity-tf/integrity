@@ -64,6 +64,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
@@ -620,9 +621,21 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 	private void completeKeyValuePairInternal(EObject aModel, ContentAssistContext aContext,
 			ICompletionProposalAcceptor anAcceptor) {
+		if ((aModel instanceof NestedObject) && (aModel.eContainer() instanceof TypedNestedObject)) {
+			// Once we've begun entering data into a typed nested objects' inner nested object, Xtext seems to ignore
+			// the "typed" wrapper and request proposals for the inner nested object directly. This code deals with
+			// that situation.
+			completeKeyValuePairInternal(aModel.eContainer(), aContext, anAcceptor);
+			return;
+		}
+
 		Set<String> tempAlreadyUsedKeys = new HashSet<String>();
 		if (aModel instanceof NestedObject) {
 			for (KeyValuePair tempPair : ((NestedObject) aModel).getAttributes()) {
+				tempAlreadyUsedKeys.add(tempPair.getIdentifier());
+			}
+		} else if ((aModel instanceof TypedNestedObject) && ((TypedNestedObject) aModel).getNestedObject() != null) {
+			for (KeyValuePair tempPair : ((TypedNestedObject) aModel).getNestedObject().getAttributes()) {
 				tempAlreadyUsedKeys.add(tempPair.getIdentifier());
 			}
 		}
@@ -630,59 +643,52 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		List<String> tempParameterPath = new ArrayList<String>();
 		EObject tempOwner = determineNestedObjectOwner(aModel, tempParameterPath);
 		Collections.reverse(tempParameterPath);
+		TypedNestedObject tempRootTypedNestedObject = determineRootTypedNestedObject(aModel, null);
 
 		if ((tempOwner instanceof Test) || (tempOwner instanceof Call) || (tempOwner instanceof TableTest)) {
 			Boolean tempIsResult = IntegrityDSLUtil.isResult(aModel);
+			IType tempRootType = null;
+
+			if (tempRootTypedNestedObject != null && ((TypedNestedObject) tempRootTypedNestedObject).getType() != null) {
+				// In case of typed nested objects, the root type is already known
+				try {
+					tempRootType = resolveJDTTypeForJvmType(((TypedNestedObject) tempRootTypedNestedObject).getType()
+							.getType());
+				} catch (JavaModelException exc) {
+					throw new RuntimeException(exc);
+				}
+			}
 
 			// The following code deals with Java Bean classes used for nested param storage
 			MethodReference tempMethodReference = IntegrityDSLUtil.getMethodReferenceForAction(tempOwner);
 			if (tempMethodReference != null && tempMethodReference.getMethod() != null) {
 				if (isArbitraryParameterFixture(tempMethodReference)) {
 					// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param
-					// method
-					// here as well
+					// method here as well
 					completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
 							false, tempParameterPath, tempAlreadyUsedKeys);
 				}
 
 				if (tempParameterPath.size() > 0) {
-					String tempParamName = tempParameterPath.get(0);
-					IType tempTypeInFocus = null;
+					if (tempRootType == null) {
+						// If the root type is not yet known from this being a typed nested object, it must be
+						// determined by looking at the fixture methods' parameter types
+						String tempParamName = tempParameterPath.get(0);
 
-					if (tempParamName == null) {
-						// this must be the default result
-						tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempMethodReference.getMethod()
-								.getReturnType().getQualifiedName());
-					} else {
-						// First, search for parameters...
-						List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
-								.getAllParamNamesFromFixtureMethod(tempMethodReference);
-						for (ParamAnnotationTypeTriplet tempPossibleParam : tempParamList) {
-							if (tempParamName.equals(tempPossibleParam.getParamName())) {
-								if (tempPossibleParam != null && tempPossibleParam.getType() != null
-										&& tempPossibleParam.getType().getType() != null) {
-									String tempQualifiedName = tempPossibleParam.getType().getType().getQualifiedName();
-									// The qualified name can contain brackets here if it is an array. We don't care
-									// for arrays for the purpose of proposal providing, so we strip the array brackets.
-									if (tempQualifiedName.endsWith("[]")) {
-										tempQualifiedName = tempQualifiedName.substring(0,
-												tempQualifiedName.length() - 2);
-									}
-
-									tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
-								}
-								break;
-							}
-						}
-
-						if (tempTypeInFocus == null) {
-							// If nothing was found, look into named test results
-							List<ResultFieldTuple> tempResultList = IntegrityDSLUtil
-									.getAllResultNamesFromFixtureMethod(tempMethodReference);
-							for (ResultFieldTuple tempPossibleResult : tempResultList) {
-								if (tempParamName.equals(tempPossibleResult.getResultName())) {
-									if (tempPossibleResult != null && tempPossibleResult.getField() != null) {
-										String tempQualifiedName = tempPossibleResult.getField().getQualifiedName();
+						if (tempParamName == null) {
+							// this must be the default result
+							tempRootType = IntegrityDSLUIUtil.findTypeByName(tempMethodReference.getMethod()
+									.getReturnType().getQualifiedName());
+						} else {
+							// First, search for parameters...
+							List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
+									.getAllParamNamesFromFixtureMethod(tempMethodReference);
+							for (ParamAnnotationTypeTriplet tempPossibleParam : tempParamList) {
+								if (tempParamName.equals(tempPossibleParam.getParamName())) {
+									if (tempPossibleParam != null && tempPossibleParam.getType() != null
+											&& tempPossibleParam.getType().getType() != null) {
+										String tempQualifiedName = tempPossibleParam.getType().getType()
+												.getQualifiedName();
 										// The qualified name can contain brackets here if it is an array. We don't care
 										// for arrays for the purpose of proposal providing, so we strip the array
 										// brackets.
@@ -690,14 +696,39 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 											tempQualifiedName = tempQualifiedName.substring(0,
 													tempQualifiedName.length() - 2);
 										}
-										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
+
+										tempRootType = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
 									}
 									break;
+								}
+							}
+
+							if (tempRootType == null) {
+								// If nothing was found, look into named test results
+								List<ResultFieldTuple> tempResultList = IntegrityDSLUtil
+										.getAllResultNamesFromFixtureMethod(tempMethodReference);
+								for (ResultFieldTuple tempPossibleResult : tempResultList) {
+									if (tempParamName.equals(tempPossibleResult.getResultName())) {
+										if (tempPossibleResult != null && tempPossibleResult.getField() != null) {
+											String tempQualifiedName = tempPossibleResult.getField().getQualifiedName();
+											// The qualified name can contain brackets here if it is an array. We don't
+											// care
+											// for arrays for the purpose of proposal providing, so we strip the array
+											// brackets.
+											if (tempQualifiedName.endsWith("[]")) {
+												tempQualifiedName = tempQualifiedName.substring(0,
+														tempQualifiedName.length() - 2);
+											}
+											tempRootType = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
+										}
+										break;
+									}
 								}
 							}
 						}
 					}
 
+					IType tempTypeInFocus = tempRootType;
 					try {
 						if (tempTypeInFocus != null) {
 							int tempDepth = 1;
@@ -798,6 +829,20 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 
 		return determineNestedObjectOwner(tempParent, aParameterPath);
+	}
+
+	private TypedNestedObject determineRootTypedNestedObject(EObject aNestedObject, TypedNestedObject aLastFound) {
+		EObject tempParent = aNestedObject.eContainer();
+
+		if (tempParent == null) {
+			return aLastFound;
+		} else {
+			if (aNestedObject instanceof TypedNestedObject) {
+				return determineRootTypedNestedObject(tempParent, (TypedNestedObject) aNestedObject);
+			} else {
+				return determineRootTypedNestedObject(tempParent, aLastFound);
+			}
+		}
 	}
 
 	/**

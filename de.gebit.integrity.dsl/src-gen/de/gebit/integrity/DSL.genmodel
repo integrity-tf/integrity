@@ -222,6 +222,10 @@
     <genClasses ecoreClass="DSL.ecore#//NestedObject">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NestedObject/attributes"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TypedNestedObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TypedNestedObject/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TypedNestedObject/nestedObject"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//KeyValuePair">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//KeyValuePair/identifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//KeyValuePair/value"/>

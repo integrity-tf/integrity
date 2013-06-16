@@ -716,6 +716,15 @@ public interface DslFactory extends EFactory
   NestedObject createNestedObject();
 
   /**
+   * Returns a new object of class '<em>Typed Nested Object</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Typed Nested Object</em>'.
+   * @generated
+   */
+  TypedNestedObject createTypedNestedObject();
+
+  /**
    * Returns a new object of class '<em>Key Value Pair</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

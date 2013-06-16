@@ -2537,6 +2537,43 @@ public interface DslPackage extends EPackage
   int NESTED_OBJECT_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TypedNestedObjectImpl <em>Typed Nested Object</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.TypedNestedObjectImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTypedNestedObject()
+   * @generated
+   */
+  int TYPED_NESTED_OBJECT = 77;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPED_NESTED_OBJECT__TYPE = VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Nested Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPED_NESTED_OBJECT__NESTED_OBJECT = VALUE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Typed Nested Object</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPED_NESTED_OBJECT_FEATURE_COUNT = VALUE_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl <em>Key Value Pair</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2544,7 +2581,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getKeyValuePair()
    * @generated
    */
-  int KEY_VALUE_PAIR = 77;
+  int KEY_VALUE_PAIR = 78;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -2581,7 +2618,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 78;
+  int JAVA_CLASS_REFERENCE = 79;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2609,7 +2646,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 79;
+  int METHOD_REFERENCE = 80;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2646,7 +2683,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantReference()
    * @generated
    */
-  int JAVA_CONSTANT_REFERENCE = 80;
+  int JAVA_CONSTANT_REFERENCE = 81;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2683,7 +2720,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 81;
+  int EXECUTION_MULTIPLIER = 82;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' containment reference.
@@ -2711,7 +2748,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 82;
+  int NULL = 83;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -4495,6 +4532,38 @@ public interface DslPackage extends EPackage
   EReference getNestedObject_Attributes();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.TypedNestedObject <em>Typed Nested Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Typed Nested Object</em>'.
+   * @see de.gebit.integrity.dsl.TypedNestedObject
+   * @generated
+   */
+  EClass getTypedNestedObject();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.TypedNestedObject#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see de.gebit.integrity.dsl.TypedNestedObject#getType()
+   * @see #getTypedNestedObject()
+   * @generated
+   */
+  EReference getTypedNestedObject_Type();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.TypedNestedObject#getNestedObject <em>Nested Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Nested Object</em>'.
+   * @see de.gebit.integrity.dsl.TypedNestedObject#getNestedObject()
+   * @see #getTypedNestedObject()
+   * @generated
+   */
+  EReference getTypedNestedObject_NestedObject();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.KeyValuePair <em>Key Value Pair</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6162,6 +6231,32 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference NESTED_OBJECT__ATTRIBUTES = eINSTANCE.getNestedObject_Attributes();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.TypedNestedObjectImpl <em>Typed Nested Object</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.TypedNestedObjectImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTypedNestedObject()
+     * @generated
+     */
+    EClass TYPED_NESTED_OBJECT = eINSTANCE.getTypedNestedObject();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPED_NESTED_OBJECT__TYPE = eINSTANCE.getTypedNestedObject_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Nested Object</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPED_NESTED_OBJECT__NESTED_OBJECT = eINSTANCE.getTypedNestedObject_NestedObject();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl <em>Key Value Pair</em>}' class.

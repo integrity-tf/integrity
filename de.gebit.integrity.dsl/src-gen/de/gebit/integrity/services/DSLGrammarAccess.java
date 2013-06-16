@@ -2370,13 +2370,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cStaticValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cVariableParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cNestedObjectParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cTypedNestedObjectParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//Value:
 		//
-		//	StaticValue | Variable | NestedObject;
+		//	StaticValue | Variable | NestedObject | TypedNestedObject;
 		public ParserRule getRule() { return rule; }
 
-		//StaticValue | Variable | NestedObject
+		//StaticValue | Variable | NestedObject | TypedNestedObject
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StaticValue
@@ -2387,6 +2388,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NestedObject
 		public RuleCall getNestedObjectParserRuleCall_2() { return cNestedObjectParserRuleCall_2; }
+
+		//TypedNestedObject
+		public RuleCall getTypedNestedObjectParserRuleCall_3() { return cTypedNestedObjectParserRuleCall_3; }
 	}
 
 	public class ConstantValueElements extends AbstractParserRuleElementFinder {
@@ -3023,6 +3027,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 
+	public class TypedNestedObjectElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypedNestedObject");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLessThanSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeJavaClassReferenceParserRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
+		private final Keyword cGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cNestedObjectAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNestedObjectNestedObjectParserRuleCall_4_0 = (RuleCall)cNestedObjectAssignment_4.eContents().get(0);
+		
+		//TypedNestedObject:
+		//
+		//	"<" type=JavaClassReference ">" NL nestedObject=NestedObject;
+		public ParserRule getRule() { return rule; }
+
+		//"<" type=JavaClassReference ">" NL nestedObject=NestedObject
+		public Group getGroup() { return cGroup; }
+
+		//"<"
+		public Keyword getLessThanSignKeyword_0() { return cLessThanSignKeyword_0; }
+
+		//type=JavaClassReference
+		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
+
+		//JavaClassReference
+		public RuleCall getTypeJavaClassReferenceParserRuleCall_1_0() { return cTypeJavaClassReferenceParserRuleCall_1_0; }
+
+		//">"
+		public Keyword getGreaterThanSignKeyword_2() { return cGreaterThanSignKeyword_2; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//nestedObject=NestedObject
+		public Assignment getNestedObjectAssignment_4() { return cNestedObjectAssignment_4; }
+
+		//NestedObject
+		public RuleCall getNestedObjectNestedObjectParserRuleCall_4_0() { return cNestedObjectNestedObjectParserRuleCall_4_0; }
+	}
+
 	public class KeyValuePairElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "KeyValuePair");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -3391,6 +3436,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private NullValueElements pNullValue;
 	private EnumValueElements pEnumValue;
 	private NestedObjectElements pNestedObject;
+	private TypedNestedObjectElements pTypedNestedObject;
 	private KeyValuePairElements pKeyValuePair;
 	private JavaClassReferenceElements pJavaClassReference;
 	private MethodReferenceElements pMethodReference;
@@ -4046,7 +4092,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Value:
 	//
-	//	StaticValue | Variable | NestedObject;
+	//	StaticValue | Variable | NestedObject | TypedNestedObject;
 	public ValueElements getValueAccess() {
 		return (pValue != null) ? pValue : (pValue = new ValueElements());
 	}
@@ -4341,6 +4387,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNestedObjectRule() {
 		return getNestedObjectAccess().getRule();
+	}
+
+	//TypedNestedObject:
+	//
+	//	"<" type=JavaClassReference ">" NL nestedObject=NestedObject;
+	public TypedNestedObjectElements getTypedNestedObjectAccess() {
+		return (pTypedNestedObject != null) ? pTypedNestedObject : (pTypedNestedObject = new TypedNestedObjectElements());
+	}
+	
+	public ParserRule getTypedNestedObjectRule() {
+		return getTypedNestedObjectAccess().getRule();
 	}
 
 	//KeyValuePair:

@@ -176,7 +176,7 @@ ValueOrEnumValueOrOperation:
 	Value | EnumValue | Operation;
 	
 Value:
-	StaticValue | Variable | NestedObject;
+	StaticValue | Variable | NestedObject | TypedNestedObject;
 	
 ConstantValue:
 	StaticValue | Constant;
@@ -255,6 +255,9 @@ EnumValue:
 	
 NestedObject:
 	'{' NL (attributes+=KeyValuePair NL)+ '}';
+	
+TypedNestedObject:
+	'<' type=JavaClassReference '>' NL nestedObject=NestedObject;
 	
 KeyValuePair:
 	identifier=ID NL ':' NL value=ValueOrEnumValueOrOperationCollection;

@@ -760,6 +760,15 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.TYPED_NESTED_OBJECT:
+      {
+        TypedNestedObject typedNestedObject = (TypedNestedObject)theEObject;
+        T result = caseTypedNestedObject(typedNestedObject);
+        if (result == null) result = caseValue(typedNestedObject);
+        if (result == null) result = caseValueOrEnumValueOrOperation(typedNestedObject);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.KEY_VALUE_PAIR:
       {
         KeyValuePair keyValuePair = (KeyValuePair)theEObject;
@@ -2039,6 +2048,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseNestedObject(NestedObject object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Typed Nested Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Typed Nested Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypedNestedObject(TypedNestedObject object)
   {
     return null;
   }

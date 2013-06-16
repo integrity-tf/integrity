@@ -9,6 +9,8 @@ public class TestBean extends SuperTestBean {
 
 	private String nonaccessibleString;
 
+	private InnerBean innerBeanParam;
+
 	private InnerBean[] innerBeanArrayParam;
 
 	private List<InnerBean> innerBeanListParam;
@@ -39,6 +41,14 @@ public class TestBean extends SuperTestBean {
 
 	public void setPrimitiveInt(int primitiveInt) {
 		this.primitiveInt = primitiveInt;
+	}
+
+	public InnerBean getInnerBeanParam() {
+		return innerBeanParam;
+	}
+
+	public void setInnerBeanParam(InnerBean innerBeanParam) {
+		this.innerBeanParam = innerBeanParam;
 	}
 
 	public static class InnerBean {

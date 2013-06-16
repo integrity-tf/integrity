@@ -3987,6 +3987,16 @@ ruleValue returns [EObject current=null]
         $current = $this_NestedObject_2.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getValueAccess().getTypedNestedObjectParserRuleCall_3()); 
+    }
+    this_TypedNestedObject_3=ruleTypedNestedObject
+    { 
+        $current = $this_TypedNestedObject_3.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -5241,6 +5251,79 @@ ruleNL
     	newLeafNode(otherlv_4, grammarAccess.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
     }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleTypedNestedObject
+entryRuleTypedNestedObject returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTypedNestedObjectRule()); }
+	 iv_ruleTypedNestedObject=ruleTypedNestedObject 
+	 { $current=$iv_ruleTypedNestedObject.current; } 
+	 EOF 
+;
+
+// Rule TypedNestedObject
+ruleTypedNestedObject returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='<' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getTypedNestedObjectAccess().getLessThanSignKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0()); 
+	    }
+		lv_type_1_0=ruleJavaClassReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTypedNestedObjectRule());
+	        }
+       		set(
+       			$current, 
+       			"type",
+        		lv_type_1_0, 
+        		"JavaClassReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_2='>' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getTypedNestedObjectAccess().getGreaterThanSignKeyword_2());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getNLParserRuleCall_3()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getNestedObjectNestedObjectParserRuleCall_4_0()); 
+	    }
+		lv_nestedObject_4_0=ruleNestedObject		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTypedNestedObjectRule());
+	        }
+       		set(
+       			$current, 
+       			"nestedObject",
+        		lv_nestedObject_4_0, 
+        		"NestedObject");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 
