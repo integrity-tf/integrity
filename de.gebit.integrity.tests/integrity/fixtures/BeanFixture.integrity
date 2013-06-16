@@ -5,5 +5,9 @@ packagedef integrity.fixtures.basic.beans with
 	testdef checkCollectionBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkCollectionBean
 	
 	testdef alterPrimitiveBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean
+	
+	testdef checkSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped
+	
+	testdef createSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped
 
 packageend

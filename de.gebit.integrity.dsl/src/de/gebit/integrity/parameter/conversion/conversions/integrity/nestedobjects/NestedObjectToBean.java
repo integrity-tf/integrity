@@ -40,6 +40,11 @@ public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 		if (aTargetType == null) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType,
 					"Cannot convert nested object to non-Map object if the target type is not specified!");
+		} else if (aTargetType == Object.class) {
+			throw new ConversionFailedException(aSource.getClass(), aTargetType,
+					"Cannot convert untyped nested object to bean if no specific target class is given, either by "
+							+ "using typed nested objects or by providing the class as target type in the "
+							+ "corresponding fixture parameter!");
 		}
 
 		try {

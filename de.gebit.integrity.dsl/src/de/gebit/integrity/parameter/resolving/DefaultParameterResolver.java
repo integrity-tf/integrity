@@ -31,6 +31,7 @@ import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
@@ -285,6 +286,9 @@ public class DefaultParameterResolver implements ParameterResolver {
 					return false;
 				}
 			}
+		} else if (aValue instanceof TypedNestedObject) {
+			// The same as above, but for typed nested objects (we simply recurse into the inner nested object)
+			return isSafelyStaticallyResolvable(((TypedNestedObject) aValue).getNestedObject(), aVariant);
 		} else if (aValue instanceof EnumValue) {
 			// Enum values only make sense in the context of a fixture call. This method does not require such a
 			// context, thus it considers enum values to be nonresolvable.

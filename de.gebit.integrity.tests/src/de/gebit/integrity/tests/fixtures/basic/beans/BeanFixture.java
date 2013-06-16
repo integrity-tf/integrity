@@ -65,4 +65,24 @@ public class BeanFixture {
 		return aBean;
 	}
 
+	@FixtureMethod(description = "checks the bean $bean$")
+	public boolean checkSimpleBeanUntyped(@FixtureParameter(name = "bean") Object aBean) {
+		SimpleTestBean tempBean = (SimpleTestBean) aBean;
+
+		return "string".equals(tempBean.getFirstParameter()) && tempBean.getSecondParameter() == 100
+				&& tempBean.getThirdParameter().getInnerParameter().equals(new BigDecimal("1.99"));
+	}
+
+	@FixtureMethod(description = "creates a bean with predefined values and returns it")
+	public Object createSimpleBeanUntyped() {
+		SimpleTestBean tempBean = new SimpleTestBean();
+		tempBean.setFirstParameter("string");
+		tempBean.setSecondParameter(100);
+		SimpleTestBean.InnerBean tempInnerBean = new SimpleTestBean.InnerBean();
+		tempInnerBean.setInnerParameter(new BigDecimal("1.99"));
+		tempBean.setThirdParameter(tempInnerBean);
+
+		return tempBean;
+	}
+
 }

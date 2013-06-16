@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.FixtureWrapper;
@@ -108,30 +109,8 @@ public class DefaultResultComparator implements ResultComparator {
 									return false;
 								}
 							} else {
-								Object tempConvertedExpectedResult;
-								Object tempConvertedFixtureResult = tempSingleFixtureResult;
-
-								if ((tempSingleExpectedResult instanceof NestedObject)
-										&& !(tempSingleFixtureResult instanceof Map)) {
-									// if the expected result is a nested object, and the fixture has NOT returned a
-									// map, we assume
-									// the fixture result to be a bean class/instance. We'll convert both to maps for
-									// comparison!
-									tempConvertedFixtureResult = valueConverter
-											.convertValue(Map.class, tempSingleFixtureResult,
-													UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-									tempConvertedExpectedResult = valueConverter.convertValue(Map.class,
-											tempSingleExpectedResult,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-								} else {
-									// Convert the expected result to match the given fixture result
-									tempConvertedExpectedResult = valueConverter.convertValue(
-											tempSingleFixtureResult.getClass(), tempSingleExpectedResult,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-								}
-
-								if (!performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult,
-										tempSingleExpectedResult)) {
+								if (!convertAndPerformEqualityCheck(tempSingleFixtureResult, tempSingleExpectedResult,
+										tempSingleFixtureResult.getClass())) {
 									return false;
 								}
 							}
@@ -172,27 +151,8 @@ public class DefaultResultComparator implements ResultComparator {
 
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 
-						Object tempConvertedExpectedResult;
-						Object tempConvertedFixtureResult = tempSingleFixtureResult;
-
-						if ((tempSingleExpectedResult instanceof NestedObject)
-								&& !(tempSingleFixtureResult instanceof Map)) {
-							// if the expected result is a nested object, and the fixture has NOT returned a
-							// map, we assume
-							// the fixture result to be a bean class/instance. We'll convert both to maps for
-							// comparison!
-							tempConvertedFixtureResult = valueConverter.convertValue(Map.class,
-									tempSingleFixtureResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-							tempConvertedExpectedResult = valueConverter.convertValue(Map.class,
-									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						} else {
-							// Convert the expected result to match the given fixture result
-							tempConvertedExpectedResult = valueConverter.convertValue(tempConversionTargetType,
-									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-						}
-
-						return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult,
-								tempSingleExpectedResult);
+						return convertAndPerformEqualityCheck(tempSingleFixtureResult, tempSingleExpectedResult,
+								tempConversionTargetType);
 					}
 				}
 			}
@@ -210,6 +170,37 @@ public class DefaultResultComparator implements ResultComparator {
 				}
 			}
 		}
+	}
+
+	protected boolean convertAndPerformEqualityCheck(Object aSingleFixtureResult,
+			ValueOrEnumValueOrOperation aSingleExpectedResult, Class<?> aConversionTargetType)
+			throws UnresolvableVariableException, UnexecutableException {
+		Object tempConvertedExpectedResult;
+		Object tempConvertedFixtureResult = aSingleFixtureResult;
+
+		if (((aSingleExpectedResult instanceof NestedObject) || (aSingleExpectedResult instanceof TypedNestedObject))
+				&& !(aSingleFixtureResult instanceof Map)) {
+			// if the expected result is a (typed) nested object, and the fixture has NOT returned a
+			// map, we assume the fixture result to be a bean class/instance. We'll convert both to maps
+			// for comparison!
+			NestedObject tempNestedObject;
+			if (aSingleExpectedResult instanceof TypedNestedObject) {
+				tempNestedObject = ((TypedNestedObject) aSingleExpectedResult).getNestedObject();
+			} else {
+				tempNestedObject = (NestedObject) aSingleExpectedResult;
+			}
+
+			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+		} else {
+			// Convert the expected result to match the given fixture result
+			tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+		}
+
+		return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult, aSingleExpectedResult);
 	}
 
 	/**

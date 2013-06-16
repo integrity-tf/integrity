@@ -10,6 +10,7 @@ package de.gebit.integrity.runner.callbacks;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.NestedObject;
+import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -90,11 +91,11 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 			return false;
 		}
 
-		if (aCollection.getValue() instanceof NestedObject) {
+		if ((aCollection.getValue() instanceof NestedObject) || (aCollection.getValue() instanceof TypedNestedObject)) {
 			return true;
 		} else {
 			for (ValueOrEnumValueOrOperation tempSingleValue : aCollection.getMoreValues()) {
-				if (tempSingleValue instanceof NestedObject) {
+				if ((tempSingleValue instanceof NestedObject) || (tempSingleValue instanceof TypedNestedObject)) {
 					return true;
 				}
 			}
