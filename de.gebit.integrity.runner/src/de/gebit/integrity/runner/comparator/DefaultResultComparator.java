@@ -172,6 +172,21 @@ public class DefaultResultComparator implements ResultComparator {
 		}
 	}
 
+	/**
+	 * Converts a fixture result and an expected result value for comparison (usually by converting the expected result
+	 * to match the fixture result, but nested objects are handled differently and converted to maps for comparison).
+	 * The final results are then compared.
+	 * 
+	 * @param aSingleFixtureResult
+	 *            the fixture result
+	 * @param aSingleExpectedResult
+	 *            the expected result
+	 * @param aConversionTargetType
+	 *            the target type for conversion
+	 * @return true if both values are considered equal, false if not
+	 * @throws UnresolvableVariableException
+	 * @throws UnexecutableException
+	 */
 	protected boolean convertAndPerformEqualityCheck(Object aSingleFixtureResult,
 			ValueOrEnumValueOrOperation aSingleExpectedResult, Class<?> aConversionTargetType)
 			throws UnresolvableVariableException, UnexecutableException {

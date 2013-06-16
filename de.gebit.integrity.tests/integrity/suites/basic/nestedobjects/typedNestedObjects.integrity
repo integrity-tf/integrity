@@ -1,0 +1,72 @@
+import integrity.fixtures.basic.beans.*
+
+
+packagedef integrity.basic.nestedobjects with
+
+	suitedef typedNestedObjects with
+
+		-- This should succeed
+		test checkSimpleBeanUntyped bean:
+			<de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean> {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+				
+		-- This should fail	
+		test checkSimpleBeanUntyped bean:
+			<de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean> {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.98
+				}
+			}
+			
+		-- This should succeed
+		test createSimpleBeanUntyped =
+			<de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean> {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+		
+		-- This should fail	
+		test createSimpleBeanUntyped =
+			<de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean> {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.98
+				}
+			}
+			
+		// The following tests should succeed/fail as expected as well, since the typing is not necessary for result
+		// comparison, but may be optionally provided as shown above
+		-- This should succeed
+		test createSimpleBeanUntyped =
+			{
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+		
+		-- This should fail	
+		test createSimpleBeanUntyped =
+			{
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.98
+				}
+			}
+		
+	suiteend
+
+packageend
