@@ -894,8 +894,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
 			Set<Object> someVisitedValues) {
-		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType,
-				someVisitedValues);
+		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType);
 
 		if (tempConversion != null) {
 			return tempConversion;
@@ -967,8 +966,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            the target type
 	 * @return a conversion class, or null if none was found
 	 */
-	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues) {
+	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType) {
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
@@ -987,7 +985,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
-								tempSourceTypeInFocus, tempTargetInterface, someVisitedValues);
+								tempSourceTypeInFocus, tempTargetInterface);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -1004,7 +1002,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					if (aTargetType == null) {
 						// This is the default target type case
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								null, someVisitedValues);
+								null);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
@@ -1013,14 +1011,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						Class<?> tempTargetTypeInFocus = aTargetType;
 						while (tempTargetTypeInFocus != null) {
 							Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
-									tempSourceInterface, tempTargetTypeInFocus, someVisitedValues);
+									tempSourceInterface, tempTargetTypeInFocus);
 							if (tempConversion != null) {
 								return tempConversion;
 							}
 
 							for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-								tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface,
-										someVisitedValues);
+								tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface);
 								if (tempConversion != null) {
 									return tempConversion;
 								}
