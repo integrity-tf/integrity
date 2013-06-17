@@ -66,6 +66,7 @@ import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -1057,7 +1058,6 @@ public class DefaultTestRunner implements TestRunner {
 		TestComparisonResult tempComparisonResult;
 		Throwable tempException = null;
 		long tempDuration = 0;
-		List<ExtendedResult> tempExtendedResult = null;
 		FixtureWrapper<?> tempFixtureInstance = null;
 		String tempFixtureMethodName = aTest.getDefinition().getFixtureMethod().getMethod().getSimpleName();
 
@@ -1082,9 +1082,6 @@ public class DefaultTestRunner implements TestRunner {
 							.getFixtureMethod(), tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
-					if (shouldExecuteFixtures()) {
-						tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
-					}
 				}
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
@@ -1149,8 +1146,19 @@ public class DefaultTestRunner implements TestRunner {
 			tempSubResults.add(new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance, tempFixtureMethodName,
 					tempDuration));
 		}
+
+		List<ExtendedResult> tempExtendedResults = null;
+		if (shouldExecuteFixtures()) {
+			try {
+				tempExtendedResults = tempFixtureInstance
+						.retrieveExtendedResults(evaluateTestSubResultsToFixtureInvocationResult(tempSubResults));
+			} catch (Throwable exc) {
+				exc.printStackTrace();
+			}
+		}
+
 		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration,
-				tempExtendedResult);
+				tempExtendedResults);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1322,12 +1330,9 @@ public class DefaultTestRunner implements TestRunner {
 		List<ExtendedResult> tempExtendedResult = null;
 		if (shouldExecuteFixtures()) {
 			try {
-				tempExtendedResult = tempFixtureInstance.retrieveExtendedResults();
+				tempExtendedResult = tempFixtureInstance
+						.retrieveExtendedResults(evaluateTestSubResultsToFixtureInvocationResult(tempSubResults));
 			} catch (Throwable exc) {
-				// Since in case of tabletests, the call to retrieve extended results is not covered by the fixture
-				// calls'
-				// own catch-all, we need an own catch-all for it, with the downside being that the exception cannot be
-				// forwarded into the test result page itself, but only onto the console.
 				exc.printStackTrace();
 			}
 		}
@@ -1471,8 +1476,16 @@ public class DefaultTestRunner implements TestRunner {
 							tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
-					if (shouldExecuteFixtures()) {
-						tempExtendedResults = tempFixtureInstance.retrieveExtendedResults();
+				}
+
+				if (shouldExecuteFixtures()) {
+					// Perform the call to retrieve extended results from the fixture. If this crashes, log the stack
+					// trace to stdout, but ignore it otherwise - it's non-critical to the actual test result.
+					try {
+						tempExtendedResults = tempFixtureInstance
+								.retrieveExtendedResults(FixtureInvocationResult.SUCCESS);
+					} catch (Throwable exc) {
+						exc.printStackTrace();
 					}
 				}
 
@@ -1497,6 +1510,15 @@ public class DefaultTestRunner implements TestRunner {
 							tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 				}
 			} catch (Throwable exc) {
+				if (shouldExecuteFixtures()) {
+					try {
+						tempExtendedResults = tempFixtureInstance
+								.retrieveExtendedResults(FixtureInvocationResult.EXCEPTION);
+					} catch (Throwable exc2) {
+						exc2.printStackTrace();
+					}
+				}
+
 				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
 						tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
 			}
@@ -1535,6 +1557,21 @@ public class DefaultTestRunner implements TestRunner {
 		 */
 		TEST_RUN;
 
+	}
+
+	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(List<TestSubResult> someSubResults) {
+		boolean tempHasFailure = false;
+		for (TestSubResult tempSubResult : someSubResults) {
+			if (tempSubResult instanceof TestExceptionSubResult) {
+				return FixtureInvocationResult.EXCEPTION;
+			} else {
+				if (!tempSubResult.wereAllComparisonsSuccessful()) {
+					tempHasFailure = true;
+				}
+			}
+		}
+
+		return tempHasFailure ? FixtureInvocationResult.FAILURE : FixtureInvocationResult.SUCCESS;
 	}
 
 	/**

@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -359,9 +360,10 @@ public class FixtureWrapper<C extends Object> {
 	 * 
 	 * @return the extended result list, or null if the fixture does not support the protocol or didn't return anything
 	 */
-	public List<ExtendedResult> retrieveExtendedResults() {
+	public List<ExtendedResult> retrieveExtendedResults(FixtureInvocationResult anInvocationResult) {
 		if (fixtureInstance instanceof ExtendedResultFixture) {
-			List<ExtendedResult> tempList = ((ExtendedResultFixture) fixtureInstance).provideExtendedResults();
+			List<ExtendedResult> tempList = ((ExtendedResultFixture) fixtureInstance)
+					.provideExtendedResults(anInvocationResult);
 			return (tempList != null && tempList.size() > 0) ? tempList : null;
 		} else {
 			return null;

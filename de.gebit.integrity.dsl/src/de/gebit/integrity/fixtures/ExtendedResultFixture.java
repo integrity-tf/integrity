@@ -44,9 +44,38 @@ public interface ExtendedResultFixture {
 	 * {@link ExtendedResultImage} for images</li>
 	 * </ul>
 	 * 
+	 * @param anInvocationResult
+	 *            the result of the fixture invocation
+	 * 
 	 * @return the list of extended results, or null if no results are to be provided
 	 */
-	List<ExtendedResult> provideExtendedResults();
+	List<ExtendedResult> provideExtendedResults(FixtureInvocationResult anInvocationResult);
+
+	/**
+	 * The possible results of a fixture method invocation.
+	 * 
+	 * 
+	 * @author Rene Schneider - initial API and implementation
+	 * 
+	 */
+	public static enum FixtureInvocationResult {
+
+		/**
+		 * The method invocation was successful (in case of tests: the test comparison was successful).
+		 */
+		SUCCESS,
+
+		/**
+		 * The invocation was successful, but the test comparison did fail (result doesn't match the expected value).
+		 * This value is not valid for call fixtures.
+		 */
+		FAILURE,
+
+		/**
+		 * An exception was thrown during invocation.
+		 */
+		EXCEPTION;
+	}
 
 	/**
 	 * Abstract base class for extended result types. You should NOT implement subclasses of this class, but instead use

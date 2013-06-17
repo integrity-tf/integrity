@@ -39,7 +39,7 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 	}
 
 	@Override
-	public List<ExtendedResult> provideExtendedResults() {
+	public List<ExtendedResult> provideExtendedResults(FixtureInvocationResult aResult) {
 		List<ExtendedResult> tempList = new ArrayList<ExtendedResult>();
 
 		for (int i = 0; i < numberOfTexts; i++) {
