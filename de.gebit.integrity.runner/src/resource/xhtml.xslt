@@ -159,43 +159,64 @@
 					.masterconsole { font-style: italic; }</style>
           <script type="text/javascript">var lastSelection;
 		  
-		    function boxOrCellMouseDown() {
-			  lastSelection = window.getSelection().toString();
+		  function boxOrCellMouseDown() {
+			  if(clicks==0) {
+			  	lastSelection = window.getSelection().toString();
+			  }
 			}
 		  
-		    function jumpToAnchor() {
+		  function jumpToAnchor() {
 				var hash = self.document.location.hash;
 				if(hash) {
 					window.location.hash = hash;
 				}
 			}
 		  
-		    function boxMouseUp(aBox, e) {
-			  if(window.getSelection().toString() != lastSelection) return;
-			  var rightclick;
-				if (!e) var e = window.event;
-				if (e.which) rightclick = (e.which == 3);
-				else if (e.button) rightclick = (e.button == 2);
-				if(!rightclick) {
+		  function boxMouseUp(aBox, e) {
+			  doMouseUpValidation(e, function() {
 			  	var div=aBox.parentNode.getElementsByTagName('div')[1]; 
 			  	if(div.style.display!='none') 
 				    div.style.display='none';
 				  else
 				    div.style.display='block';
+				});
+			}
+			
+			function cellMouseUp(aCell, e) {
+				doMouseUpValidation(e, function() {
+					for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
+				  	var div=aCell.getElementsByTagName('div')[i];
+				  	if(div.className=='testparameters' || div.className=='tabletestresults' || div.className=='console') {
+				  		if(div.style.display!='block')
+				    		div.style.display='block';
+			      	else
+				    		div.style.display='none';
+				    }
+				  }
+				});
+			}
+			
+			clicks = 0;
+			
+			function doMouseUpValidation(event, aFunctionToCall) {
+				if(event.which) rightClick = (event.which == 3);
+				else if (event.button) rightClick = (event.button == 2);
+				if(rightClick) {
+					return;
+				}			
+				clicks++;
+			  if(clicks==1) {			  
+			  	setTimeout(function() {
+			  		clicks = 0;
+			  		if(window.getSelection().toString() != lastSelection) return;
+			  		aFunctionToCall();
+				  }, 150);
 				}
 			}
 			
-			function cellMouseUp(aCell) {
-			  if(window.getSelection().toString() != lastSelection) return;			  
-			  for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
-			  	var div=aCell.getElementsByTagName('div')[i];
-			  	if(div.className=='testparameters' || div.className=='tabletestresults' || div.className=='console') {
-			  		if(div.style.display!='block')
-			    		div.style.display='block';
-		      	else
-			    		div.style.display='none';
-			    }
-			  }
+			function swallowMouseUp(e) {
+				if (!e) var e = window.event;
+				e.stopPropagation();
 			}
 			
 			function resizeProgressBar() {
@@ -533,7 +554,7 @@
           <xsl:value-of select="concat('i', @id)" />
         </xsl:attribute>
       </a>
-      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
         <xsl:attribute name="class">
           <xsl:text>statement row1call</xsl:text>
           <xsl:value-of select="result/@type" />
@@ -630,7 +651,7 @@
             </div>
           </xsl:if>
           <xsl:if test="count(extResults/*) &gt; 0">
-          	<xsl:apply-templates select="extResults" />
+            <xsl:apply-templates select="extResults" />
           </xsl:if>
         </div>
         <xsl:if test="count(result/variableUpdate) = 1 and result/variableUpdate/@value">
@@ -690,28 +711,32 @@
       </div>
     </xsl:template>
     <xsl:template match="extResults">
-    	<div class="extresults">
-    		<div class="extresultstitle">Extended Result Details</div>
-    		<xsl:for-each select="*">
-    			<xsl:if test="@title">
-    				<div class="extresulttitle"><xsl:value-of select="@title"/></div>
-    			</xsl:if>
-    			<xsl:if test="name() = 'extResultText'">
-    				<div class="extresulttext">
-    					<textarea><xsl:value-of select="text()"/></textarea>
-    				</div>
-    			</xsl:if>
-				<xsl:if test="name() = 'extResultImage'">
-    				<div class="extresultimage">
-    					<div>
-							<xsl:attribute name="style">
-								<xsl:value-of select="concat('width:', @width, 'px; height:', @height, 'px; background-image:url(', &quot;'&quot;, 'data:', @type, ';base64,', text(), &quot;'&quot;, ');')" />
-							</xsl:attribute>
-						</div>
-    				</div>
-    			</xsl:if>   			
-    		</xsl:for-each>    		
-    	</div>    	
+      <div class="extresults">
+        <div class="extresultstitle">Extended Result Details</div>
+        <xsl:for-each select="*">
+          <xsl:if test="@title">
+            <div class="extresulttitle">
+              <xsl:value-of select="@title" />
+            </div>
+          </xsl:if>
+          <xsl:if test="name() = 'extResultText'">
+            <div class="extresulttext">
+              <textarea onMouseUp="swallowMouseUp(event)">
+                <xsl:value-of select="text()" />
+              </textarea>
+            </div>
+          </xsl:if>
+          <xsl:if test="name() = 'extResultImage'">
+            <div class="extresultimage">
+              <div>
+                <xsl:attribute name="style">
+                  <xsl:value-of select="concat('width:', @width, 'px; height:', @height, 'px; background-image:url(', &quot;'&quot;, 'data:', @type, ';base64,', text(), &quot;'&quot;, ');')" />
+                </xsl:attribute>
+              </div>
+            </div>
+          </xsl:if>
+        </xsl:for-each>
+      </div>
     </xsl:template>
     <xsl:template match="console">
       <xsl:variable name="headerending">
@@ -760,7 +785,7 @@
           <xsl:value-of select="concat('i', @id)" />
         </xsl:attribute>
       </a>
-      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
         <xsl:attribute name="class">
           <xsl:text>statement test row1test</xsl:text>
           <xsl:value-of select="results/result/@type" />
@@ -877,7 +902,7 @@
             </div>
           </xsl:if>
           <xsl:if test="count(extResults/*) &gt; 0">
-          	<xsl:apply-templates select="extResults" />
+            <xsl:apply-templates select="extResults" />
           </xsl:if>
         </div>
         <div class="testresults">
@@ -1001,7 +1026,7 @@
           <xsl:value-of select="concat('i', @id)" />
         </xsl:attribute>
       </a>
-      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this)">
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
         <xsl:variable name="testsuccess">
           <xsl:choose>
             <xsl:when test="results/@successCount &gt; 0 and results/@failureCount = 0 and results/@exceptionCount = 0">success</xsl:when>
@@ -1120,7 +1145,7 @@
             </xsl:if>
           </xsl:for-each>
           <xsl:if test="count(extResults/*) &gt; 0">
-          	<xsl:apply-templates select="extResults" />
+            <xsl:apply-templates select="extResults" />
           </xsl:if>
         </div>
         <div class="testresults">

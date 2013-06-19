@@ -5,13 +5,7 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-		call untypedBeanCall bean:
-			<de.gebit.integrity.experiments.fixtures.TestBean> {
-				primitiveInt: 3
-				innerBeanParam: {
-					innerParameter: 123
-				}
-			}
+		call extendedResult textCount: 1 imageCount: 1
 	suiteend
 	 
 packageend
