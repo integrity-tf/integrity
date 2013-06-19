@@ -1878,9 +1878,15 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void sendElementsToMaster(TestRunnerCallbackMethods aMethod, Element... someElements) {
 		// System.out.println("FORK OUT: " + aMethod);
-		Serializable[] tempClones = new Serializable[someElements.length];
-		for (int i = 0; i < someElements.length; i++) {
-			tempClones[i] = (Serializable) someElements[i].clone();
+		Serializable[] tempClones = null;
+
+		if (someElements != null) {
+			tempClones = new Serializable[someElements.length];
+			for (int i = 0; i < someElements.length; i++) {
+				if (someElements[i] != null) {
+					tempClones[i] = (Serializable) someElements[i].clone();
+				}
+			}
 		}
 		sendToMaster(aMethod, tempClones);
 	}
