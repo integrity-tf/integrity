@@ -370,10 +370,12 @@
             </div>
             <xsl:if test="@version">
               <div align="right" class="version">
-                Integrity Test Runner Version
-                <span class="versionnumber">
-                  <xsl:value-of select="@version" />
-                </span>
+              	<a href="http://www.integrity-tf.org" target="_blank">
+	              Integrity Test Runner Version
+	              <span class="versionnumber">
+	                <xsl:value-of select="@version" />
+	              </span>
+                </a>
               </div>
             </xsl:if>
             <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
