@@ -71,7 +71,10 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 				} catch (ClassNotFoundException exc) {
 					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 				} catch (UnexecutableException exc) {
-					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
+					// #5: NPE in dry run phase if operations are used in nested objects
+					// This exception is expected to happen during dry run if variable values are determined by calls
+					// and thus not yet known - but that's not really a problem, it just needs to be caught
+					tempConvertedValue = null;
 				} catch (InstantiationException exc) {
 					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 				}
