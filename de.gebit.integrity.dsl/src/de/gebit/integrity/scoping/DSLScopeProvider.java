@@ -33,10 +33,12 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -344,8 +346,6 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Call aCall, EReference aRef) {
-		// IScope tempScope = super.delegateGetScope(aCall, aRef);
-
 		// fetch the host suite of the call
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
 
@@ -362,8 +362,6 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Parameter aParam, EReference aRef) {
-		// IScope tempScope = super.delegateGetScope(aParam, aRef);
-
 		// fetch the host suite of the parameter (should be correct for calls, tabletests and tests)
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aParam.eContainer().eContainer();
 
@@ -379,7 +377,6 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(TableTest aTableTest, EReference aRef) {
-		// IScope tempScope = super.delegateGetScope(aTableTest, aRef);
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
 		return determineVariableScope(aTableTest, tempHostSuite);
@@ -402,7 +399,19 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 
-		// The global vars need to be added to this scope as well somehow.
+		// Now add global constants and variables. This is done by getting all constants/variables in scope and purging
+		// everything not in a package, for lack of a better way to do this.
+		IScope tempVariableScope = super.getScope(aStatement, DslPackage.Literals.VARIABLE_DEFINITION__NAME);
+		IScope tempConstantScope = super.getScope(aStatement, DslPackage.Literals.CONSTANT_DEFINITION__NAME);
+		for (IScope tempScope : new IScope[] { tempVariableScope, tempConstantScope }) {
+			for (IEObjectDescription tempVariableDefDescription : tempScope.getAllElements()) {
+				EObject tempVariableDef = tempVariableDefDescription.getEObjectOrProxy();
+				if (tempVariableDef.eContainer() != null
+						&& tempVariableDef.eContainer().eContainer() instanceof PackageDefinition) {
+					tempList.add(tempVariableDefDescription);
+				}
+			}
+		}
 
 		return new SimpleScope(tempList);
 	}
