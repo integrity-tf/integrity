@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmGenericType;
@@ -33,19 +32,24 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -342,12 +346,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Call aCall, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aCall, aRef);
-
 		// fetch the host suite of the call
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aCall);
+		return determineVariableScope(aCall, tempHostSuite);
 	}
 
 	/**
@@ -360,12 +362,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Parameter aParam, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aParam, aRef);
-
 		// fetch the host suite of the parameter (should be correct for calls, tabletests and tests)
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aParam.eContainer().eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aParam);
+		return determineVariableScope(aParam, tempHostSuite);
 	}
 
 	/**
@@ -377,44 +377,58 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(TableTest aTableTest, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aTableTest, aRef);
-
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aTableTest);
+		return determineVariableScope(aTableTest, tempHostSuite);
 	}
 
-	private IScope filterVariableScope(IScope aScope, SuiteDefinition aCurrentSuite, EObject aContext) {
+	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-		for (IEObjectDescription tempElement : aScope.getAllElements()) {
-			EObject tempEObject = tempElement.getEObjectOrProxy();
-			if (tempEObject.eIsProxy()) {
-				tempEObject = EcoreUtil.resolve(tempEObject, aContext);
-				if (tempEObject == null) {
-					continue;
+
+		EObject tempStop = findSuiteStatementFromSubObject(aStatement);
+
+		for (SuiteStatement tempStatement : aSuite.getStatements()) {
+			if (tempStatement instanceof VariableDefinition) {
+				VariableEntity tempEntity = ((VariableDefinition) tempStatement).getName();
+				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+			} else if (tempStatement instanceof ConstantDefinition) {
+				ConstantEntity tempEntity = ((ConstantDefinition) tempStatement).getName();
+				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+			} else if (tempStatement == tempStop) {
+				break;
+			}
+		}
+
+		// Now add global constants and variables. This is done by getting all constants/variables in scope and purging
+		// everything not in a package, for lack of a better way to do this.
+		IScope tempVariableScope = super.getScope(aStatement, DslPackage.Literals.VARIABLE_DEFINITION__NAME);
+		IScope tempConstantScope = super.getScope(aStatement, DslPackage.Literals.CONSTANT_DEFINITION__NAME);
+		for (IScope tempScope : new IScope[] { tempVariableScope, tempConstantScope }) {
+			for (IEObjectDescription tempVariableDefDescription : tempScope.getAllElements()) {
+				EObject tempVariableDef = tempVariableDefDescription.getEObjectOrProxy();
+				if (tempVariableDef.eContainer() != null
+						&& tempVariableDef.eContainer().eContainer() instanceof PackageDefinition) {
+					tempList.add(tempVariableDefDescription);
 				}
 			}
-
-			EObject tempDefContainer = tempEObject.eContainer();
-
-			if (tempDefContainer instanceof SuiteDefinition) {
-				// this is a suite param -> must be the current suite
-				if (tempDefContainer != aCurrentSuite) {
-					continue;
-				}
-			} else if (tempDefContainer instanceof VariableDefinition || tempDefContainer instanceof ConstantDefinition) {
-				EObject tempDefDefContainer = tempDefContainer.eContainer();
-				if (tempDefDefContainer instanceof SuiteDefinition) {
-					// variable / constant defined in a suite -> must be the current suite!
-					if (tempDefDefContainer != aCurrentSuite) {
-						continue;
-					}
-				}
-			}
-			tempList.add(tempElement);
 		}
 
 		return new SimpleScope(tempList);
 	}
 
+	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {
+		EObject tempObject = aSubObject.eContainer();
+		EObject tempParent = tempObject.eContainer();
+
+		while (tempParent != null) {
+			if (tempParent instanceof SuiteDefinition) {
+				return tempObject;
+			} else {
+				tempObject = tempParent;
+				tempParent = tempObject.eContainer();
+			}
+		}
+
+		return null;
+	}
 }
