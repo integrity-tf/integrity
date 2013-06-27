@@ -632,4 +632,24 @@ public final class IntegrityDSLUtil {
 		return (anEntity.eContainer().eContainer() instanceof PackageDefinition);
 	}
 
+	/**
+	 * Finds an upstream container matching a provided container class.
+	 * 
+	 * @param aContainerClass
+	 *            the class to find
+	 * @param aSource
+	 *            the starting point for the search
+	 * @return the upstream container, or null if nothing was found
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends EObject> T findUpstreamContainer(Class<T> aContainerClass, EObject aSource) {
+		EObject tempParent = aSource;
+
+		while (tempParent != null && !aContainerClass.isAssignableFrom(tempParent.getClass())) {
+			tempParent = tempParent.eContainer();
+		}
+
+		return (T) tempParent;
+	}
+
 }
