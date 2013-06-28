@@ -34,20 +34,28 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.JavaConstantReference;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.dsl.PackageDefinition;
+import de.gebit.integrity.dsl.PackageStatement;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -378,12 +386,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Call aCall, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aCall, aRef);
-
 		// fetch the host suite of the call
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aCall);
+		return determineVariableScope(aCall, tempHostSuite);
 	}
 
 	/**
@@ -396,12 +402,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(Parameter aParam, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aParam, aRef);
-
 		// fetch the host suite of the parameter (should be correct for calls, tabletests and tests)
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aParam.eContainer().eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aParam);
+		return determineVariableScope(aParam, tempHostSuite);
 	}
 
 	/**
@@ -413,44 +417,128 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_Variable_name(TableTest aTableTest, EReference aRef) {
-		IScope tempScope = super.delegateGetScope(aTableTest, aRef);
-
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
-		return filterVariableScope(tempScope, tempHostSuite, aTableTest);
+		return determineVariableScope(aTableTest, tempHostSuite);
 	}
 
-	private IScope filterVariableScope(IScope aScope, SuiteDefinition aCurrentSuite, EObject aContext) {
+	@Override
+	public IScope getScope(EObject aContext, EReference aReference) {
+		System.out.println("Scope Request: scope_" + aReference.getEContainingClass().getName() + "_"
+				+ aReference.getName() + "(" + aContext.getClass().getName() + ")");
+
+		return super.getScope(aContext, aReference);
+	}
+
+	/**
+	 * A small cache for visible global variables. Determining these is rather expensive, thus they're cached as long as
+	 * only one model (file) is being scoped.
+	 */
+	private ArrayList<IEObjectDescription> cachedVisibleGlobalVariables = new ArrayList<IEObjectDescription>();
+
+	/**
+	 * This is used to invalidate the {@link #cachedVisibleGlobalVariables}, as soon as scoping is done for a different
+	 * model.
+	 */
+	private Model cachedVisibleGlobalVariablesResource;
+
+	private ArrayList<IEObjectDescription> determineVisibleGlobalVariables(EObject aStatement) {
+		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
+
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-		for (IEObjectDescription tempElement : aScope.getAllElements()) {
-			EObject tempEObject = tempElement.getEObjectOrProxy();
-			if (tempEObject.eIsProxy()) {
-				tempEObject = EcoreUtil.resolve(tempEObject, aContext);
-				if (tempEObject == null) {
-					continue;
-				}
-			}
 
-			EObject tempDefContainer = tempEObject.eContainer();
+		if (cachedVisibleGlobalVariablesResource != tempRootModel) {
+			// Cache miss! Now we need to search all package vars/constants outside of the current model.
 
-			if (tempDefContainer instanceof SuiteDefinition) {
-				// this is a suite param -> must be the current suite
-				if (tempDefContainer != aCurrentSuite) {
-					continue;
-				}
-			} else if (tempDefContainer instanceof VariableDefinition || tempDefContainer instanceof ConstantDefinition) {
-				EObject tempDefDefContainer = tempDefContainer.eContainer();
-				if (tempDefDefContainer instanceof SuiteDefinition) {
-					// variable / constant defined in a suite -> must be the current suite!
-					if (tempDefDefContainer != aCurrentSuite) {
-						continue;
+			ArrayList<IEObjectDescription> tempCacheableList = new ArrayList<IEObjectDescription>();
+			IScope tempVariableScope = super.getScope(aStatement, DslPackage.Literals.VARIABLE_DEFINITION__NAME);
+			IScope tempConstantScope = super.getScope(aStatement, DslPackage.Literals.CONSTANT_DEFINITION__NAME);
+			for (IScope tempScope : new IScope[] { tempVariableScope, tempConstantScope }) {
+				for (IEObjectDescription tempVariableDefDescription : tempScope.getAllElements()) {
+					EObject tempVariableDef = tempVariableDefDescription.getEObjectOrProxy();
+					if (tempVariableDef.eIsProxy()) {
+						tempVariableDef = EcoreUtil.resolve(tempVariableDef, aStatement);
+					}
+					if (tempVariableDef.eContainer() != null) {
+						EObject tempPackageDef = tempVariableDef.eContainer().eContainer();
+						if (tempPackageDef instanceof PackageDefinition) {
+							Model tempPackageHostModel = IntegrityDSLUtil.findUpstreamContainer(Model.class,
+									tempPackageDef);
+
+							// Don't add definitions from current file here; they aren't cacheable and will get invalid
+							if (tempPackageHostModel != tempRootModel) {
+								tempCacheableList.add(tempVariableDefDescription);
+							}
+						}
 					}
 				}
 			}
-			tempList.add(tempElement);
+
+			cachedVisibleGlobalVariables = tempCacheableList;
+			cachedVisibleGlobalVariablesResource = tempRootModel;
+		}
+
+		tempList.addAll(cachedVisibleGlobalVariables);
+
+		// Add definitions from current file
+		for (Statement tempStatement : tempRootModel.getStatements()) {
+			if (tempStatement instanceof PackageDefinition) {
+				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
+					if (tempPackageStatement instanceof VariableDefinition) {
+						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
+						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+					} else if (tempPackageStatement instanceof ConstantDefinition) {
+						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
+						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+					}
+				}
+			}
+		}
+
+		return tempList;
+	}
+
+	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+
+		EObject tempStop = findSuiteStatementFromSubObject(aStatement);
+
+		for (SuiteStatement tempStatement : aSuite.getStatements()) {
+			if (tempStatement instanceof VariableDefinition) {
+				VariableEntity tempEntity = ((VariableDefinition) tempStatement).getName();
+				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+			} else if (tempStatement instanceof ConstantDefinition) {
+				ConstantEntity tempEntity = ((ConstantDefinition) tempStatement).getName();
+				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+			} else if (tempStatement == tempStop) {
+				break;
+			}
+		}
+
+		// Now add global constants and variables.
+		tempList.addAll(determineVisibleGlobalVariables(aStatement));
+
+		// And add suite parameters, which are handled like variables as well.
+		for (VariableEntity tempSuiteParam : aSuite.getParameters()) {
+			tempList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
 		}
 
 		return new SimpleScope(tempList);
 	}
 
+	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {
+		EObject tempObject = aSubObject.eContainer();
+		EObject tempParent = tempObject.eContainer();
+
+		while (tempParent != null) {
+			if (tempParent instanceof SuiteDefinition) {
+				return tempObject;
+			} else {
+				tempObject = tempParent;
+				tempParent = tempObject.eContainer();
+			}
+		}
+
+		return null;
+	}
 }
