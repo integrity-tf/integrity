@@ -661,35 +661,7 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		List<SuiteDefinition> tempSetupSuitesExecuted = new ArrayList<SuiteDefinition>();
-		Set<SuiteDefinition> tempSetupsAlreadyRun = setupSuitesExecuted.get(forkInExecution);
-		if (tempSetupsAlreadyRun == null) {
-			tempSetupsAlreadyRun = new HashSet<SuiteDefinition>();
-			setupSuitesExecuted.put(forkInExecution, tempSetupsAlreadyRun);
-		}
-		for (SuiteDefinition tempSetupSuite : aSuiteCall.getDefinition().getDependencies()) {
-			if (!tempSetupsAlreadyRun.contains(tempSetupSuite)) {
-				tempSetupsAlreadyRun.add(tempSetupSuite);
-				tempSetupSuitesExecuted.add(tempSetupSuite);
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onSetupStart(tempSetupSuite);
-					currentCallback.onCallbackProcessingEnd();
-				}
-
-				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempSetupSuite);
-				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
-						null, null, System.nanoTime() - tempStart);
-				tempSetupResults.put(tempSetupSuite, tempSetupResult);
-
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
-					currentCallback.onCallbackProcessingEnd();
-				}
-			}
-		}
+		List<SuiteDefinition> tempSetupSuitesExecuted = executeSetupSuites(aSuiteCall.getDefinition(), tempSetupResults);
 
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
 			if (tempParam.getValue() instanceof Variable) {
@@ -705,30 +677,7 @@ public class DefaultTestRunner implements TestRunner {
 		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
-		for (int i = tempSetupSuitesExecuted.size() - 1; i >= 0; i--) {
-			SuiteDefinition tempSetupSuite = tempSetupSuitesExecuted.get(i);
-			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onTearDownStart(tempTearDownSuite);
-					currentCallback.onCallbackProcessingEnd();
-				}
-
-				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
-				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
-						null, null, System.nanoTime() - tempStart);
-				tempTearDownResults.put(tempTearDownSuite, tempTearDownResult);
-
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
-					currentCallback.onCallbackProcessingEnd();
-				}
-			}
-
-			tempSetupsAlreadyRun.remove(tempSetupSuite);
-		}
+		executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
 
 		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults,
 				tempSetupResults, tempTearDownResults, tempSuiteDuration);
@@ -776,6 +725,98 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		return tempResult;
+	}
+
+	/**
+	 * Executes the provided suite as a setup suite. This includes executing further nested setup suites (but not
+	 * teardown suites, as those will intentionally be executed when the original suite which caused this setup suite to
+	 * be executed has finished).
+	 * 
+	 * @param aSuite
+	 *            the suite to be executed as setup suite
+	 * @param aSetupResultMap
+	 *            the map of setup results to add the result to
+	 * @return a list of executed setup suites
+	 */
+	protected List<SuiteDefinition> executeSetupSuites(SuiteDefinition aSuite,
+			Map<SuiteDefinition, Result> aSetupResultMap) {
+		List<SuiteDefinition> tempSetupSuitesExecuted = new ArrayList<SuiteDefinition>();
+		Set<SuiteDefinition> tempSetupsAlreadyRun = setupSuitesExecuted.get(forkInExecution);
+		if (tempSetupsAlreadyRun == null) {
+			tempSetupsAlreadyRun = new HashSet<SuiteDefinition>();
+			setupSuitesExecuted.put(forkInExecution, tempSetupsAlreadyRun);
+		}
+		for (SuiteDefinition tempSetupSuite : aSuite.getDependencies()) {
+			if (!tempSetupsAlreadyRun.contains(tempSetupSuite)) {
+				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
+					currentCallback.onSetupStart(tempSetupSuite);
+					currentCallback.onCallbackProcessingEnd();
+				}
+
+				// This setup suite might have setup suites itself (issue #11)
+				tempSetupSuitesExecuted.addAll(executeSetupSuites(tempSetupSuite, aSetupResultMap));
+				if (tempSetupsAlreadyRun.contains(tempSetupSuite)) {
+					// A circle has been created. This is a hard error -> abort before the stack inevitably explodes.
+					throw new IllegalStateException("A setup suite circle has been detected ("
+							+ tempSetupSuite.getName() + " called from " + aSuite.getName()
+							+ "). Please break the circle!");
+				}
+
+				long tempStart = System.nanoTime();
+				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempSetupSuite);
+				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
+						null, null, System.nanoTime() - tempStart);
+				aSetupResultMap.put(tempSetupSuite, tempSetupResult);
+
+				tempSetupsAlreadyRun.add(tempSetupSuite);
+				tempSetupSuitesExecuted.add(tempSetupSuite);
+
+				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
+					currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
+					currentCallback.onCallbackProcessingEnd();
+				}
+			}
+		}
+
+		return tempSetupSuitesExecuted;
+	}
+
+	/**
+	 * Executes the teardown suites required by the provided setup suites.
+	 * 
+	 * @param aSetupSuitesList
+	 *            the list of setup suites
+	 * @param aTearDownResultMap
+	 *            a map into which teardown suite execution results will be stored
+	 */
+	protected void executeTearDownSuites(List<SuiteDefinition> aSetupSuitesList,
+			Map<SuiteDefinition, Result> aTearDownResultMap) {
+		for (int i = aSetupSuitesList.size() - 1; i >= 0; i--) {
+			SuiteDefinition tempSetupSuite = aSetupSuitesList.get(i);
+			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
+				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
+					currentCallback.onTearDownStart(tempTearDownSuite);
+					currentCallback.onCallbackProcessingEnd();
+				}
+
+				long tempStart = System.nanoTime();
+				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
+				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
+						null, null, System.nanoTime() - tempStart);
+				aTearDownResultMap.put(tempTearDownSuite, tempTearDownResult);
+
+				if (currentCallback != null) {
+					currentCallback.onCallbackProcessingStart();
+					currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
+					currentCallback.onCallbackProcessingEnd();
+				}
+			}
+
+			aSetupSuitesList.remove(tempSetupSuite);
+		}
 	}
 
 	/**
@@ -1891,10 +1932,16 @@ public class DefaultTestRunner implements TestRunner {
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 
+	/**
+	 * Schedules an interruption before the next test script step is run.
+	 */
 	protected void scheduleWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = true;
 	}
 
+	/**
+	 * Resets a scheduled interruption (see {@link #scheduleWaitBeforeNextStep()}).
+	 */
 	protected void resetWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = false;
 	}

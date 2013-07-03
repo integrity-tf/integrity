@@ -1,0 +1,29 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.dependencies with
+	
+	suitedef multiLevelDependencies with
+		suite asuite
+	suiteend
+	
+	suitedef asuite requires bsuite with
+		call noOp
+	suiteend
+	
+	suitedef bsuite requires csuite concludedby ysuite with
+		call noOp
+	suiteend
+	
+	suitedef csuite concludedby zsuite with
+		call noOp
+	suiteend
+	
+	suitedef ysuite with
+		call noOp
+	suiteend
+	
+	suitedef zsuite with
+		call noOp
+	suiteend
+
+packageend

@@ -14,6 +14,7 @@ import org.eclipse.xtext.validation.Check;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.utils.DateUtil;
 
 /**
@@ -64,6 +65,24 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 			DateUtil.convertDateAndTimeValue(aValue);
 		} catch (ParseException exc) {
 			error("The date and/or time entered is not valid!", null);
+		}
+	}
+
+	/**
+	 * Checks whether a variable definition contains dots, which would be illegal (issue #10).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfVariableDefinitionsAreValid(VariableDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			String tempName = anEntity.getName().getName();
+			if (tempName != null) {
+				if (tempName.contains(".")) {
+					error("Variable definitions may not be fully or partly qualified. Please put the variable in the according packagedef to qualify it!",
+							null);
+				}
+			}
 		}
 	}
 
