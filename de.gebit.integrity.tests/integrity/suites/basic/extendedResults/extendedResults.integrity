@@ -16,5 +16,9 @@ packagedef integrity.basic.extendedResults with
 			| =    |
 			| true |	
 	suiteend
+	
+	suitedef extendedResultsHypertext with	
+		call integrity.fixtures.basic.extendedResults.returnExtendedStuff htmlCount: 2
+	suiteend
 
 packageend

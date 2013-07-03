@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 17:44" isotimestamp="2013-07-03T17:44:28" duration="16.995">
+  <variables />
+  <suite id="0" name="integrity.basic.extendedResults.extendedResultsHypertext">
+    <setup />
+    <variables />
+    <statements>
+      <call id="1" line="21" name="returnExtendedStuff" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff">
+        <parameters>
+          <parameter name="htmlCount" value="2" />
+        </parameters>
+        <result duration="2.477" type="success" />
+        <extResults>
+          <extResultHTML><![CDATA[<p style="color: #FF0000;">This is some stupid extended result text</p>]]></extResultHTML>
+          <extResultHTML title="Hypertext snippet number 1"><![CDATA[<p style="color: #FF0000;">This is some stupid extended result text</p>]]></extResultHTML>
+        </extResults>
+      </call>
+    </statements>
+    <teardown />
+    <result duration="6.595" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

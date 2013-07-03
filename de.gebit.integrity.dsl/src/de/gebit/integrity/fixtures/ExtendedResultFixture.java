@@ -158,6 +158,52 @@ public interface ExtendedResultFixture {
 	}
 
 	/**
+	 * Encapsulates a "plain HTML" extended result. This HTML will be directly included into the test result file. USE
+	 * AT YOUR OWN RISK - you can easily junk your result file by providing invalid HTML, and Integrity can and will NOT
+	 * prevent you from doing so! But if used wisely, this extended result type allows you to include pretty much
+	 * anything in the result document.
+	 * 
+	 * 
+	 * @author Rene Schneider - initial API and implementation
+	 * 
+	 */
+	public static final class ExtendedResultHTML extends ExtendedResult {
+
+		/**
+		 * The plain HTML to include.
+		 */
+		private String hypertext;
+
+		/**
+		 * Creates an instance.
+		 * 
+		 * @param aTitle
+		 *            the title of this extended result.
+		 * @param aText
+		 *            the HTML text of the result
+		 */
+		public ExtendedResultHTML(String aTitle, String aHypertext) {
+			super(aTitle);
+			hypertext = aHypertext;
+		}
+
+		/**
+		 * Creates an instance with no title.
+		 * 
+		 * @param aText
+		 *            the HTML text of the result
+		 */
+		public ExtendedResultHTML(String aHypertext) {
+			this(null, aHypertext);
+		}
+
+		public String getHypertext() {
+			return hypertext;
+		}
+
+	}
+
+	/**
 	 * Encapsulates an image which is to be provided as extended result. The creator can optionally specify the
 	 * preferred compression type to use when the image is encoded to integrate it into the results.
 	 * 

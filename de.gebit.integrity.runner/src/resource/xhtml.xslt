@@ -737,6 +737,11 @@
               </div>
             </div>
           </xsl:if>
+          <xsl:if test="name() = 'extResultHTML'">
+            <div class="extresulthtml">
+              <xsl:value-of select="text()" disable-output-escaping="yes" />
+            </div>
+          </xsl:if>
         </xsl:for-each>
       </div>
     </xsl:template>

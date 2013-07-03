@@ -30,11 +30,15 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 
 	int numberOfImages;
 
+	int numberOfHypertextSnippets;
+
 	@FixtureMethod
 	public boolean returnExtendedStuff(@FixtureParameter(name = "textCount") Integer aNumberOfTexts,
-			@FixtureParameter(name = "imageCount") Integer aNumberOfImages) {
+			@FixtureParameter(name = "imageCount") Integer aNumberOfImages,
+			@FixtureParameter(name = "htmlCount") Integer aNumberOfHypertextSnippets) {
 		numberOfTexts = aNumberOfTexts != null ? aNumberOfTexts : 0;
 		numberOfImages = aNumberOfImages != null ? aNumberOfImages : 0;
+		numberOfHypertextSnippets = aNumberOfHypertextSnippets != null ? aNumberOfHypertextSnippets : 0;
 		return true;
 	}
 
@@ -66,6 +70,11 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 			} catch (IOException exc) {
 				exc.printStackTrace();
 			}
+		}
+
+		for (int i = 0; i < numberOfHypertextSnippets; i++) {
+			tempList.add(new ExtendedResultHTML(i % 2 == 0 ? null : "Hypertext snippet number " + i,
+					"<p style=\"color: #FF0000;\">This is some stupid extended result text</p>"));
 		}
 
 		return tempList;

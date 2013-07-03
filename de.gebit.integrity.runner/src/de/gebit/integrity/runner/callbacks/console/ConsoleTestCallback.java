@@ -26,6 +26,7 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -154,17 +155,23 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void displayExtendedResults(List<ExtendedResult> someExtendedResults) {
 		int tempImageCount = 0;
+		int tempHtmlCount = 0;
 		if (someExtendedResults != null) {
 			for (ExtendedResult tempResult : someExtendedResults) {
 				if (tempResult instanceof ExtendedResultText) {
 					println("Ext. result: " + ((ExtendedResultText) tempResult).getText());
 				} else if (tempResult instanceof ExtendedResultImage) {
 					tempImageCount++;
+				} else if (tempResult instanceof ExtendedResultHTML) {
+					tempHtmlCount++;
 				}
 			}
 
 			if (tempImageCount > 0) {
 				println("Ext. result: " + tempImageCount + " images");
+			}
+			if (tempHtmlCount > 0) {
+				println("Ext. result: " + tempHtmlCount + " hypertext snippets");
 			}
 		}
 	}

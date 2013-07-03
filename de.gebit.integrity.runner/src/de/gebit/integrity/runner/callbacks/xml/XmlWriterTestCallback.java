@@ -81,6 +81,7 @@ import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -268,6 +269,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT. */
 	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT = "extResultImage";
+
+	/** The Constant EXTENDED_RESULT_HTML_ELEMENT. */
+	protected static final String EXTENDED_RESULT_HTML_ELEMENT = "extResultHTML";
 
 	/** The Constant EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE. */
 	protected static final String EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE = "type";
@@ -916,6 +920,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 							Integer.toString(((ExtendedResultImage) tempExtendedResult).getWidth()));
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_HEIGHT_ATTRIBUTE,
 							Integer.toString(((ExtendedResultImage) tempExtendedResult).getHeight()));
+				} else if (tempExtendedResult instanceof ExtendedResultHTML) {
+					tempResultElement = new Element(EXTENDED_RESULT_HTML_ELEMENT);
+					tempResultElement.addContent(new CDATA(((ExtendedResultHTML) tempExtendedResult).getHypertext()));
 				}
 
 				if (tempResultElement != null) {

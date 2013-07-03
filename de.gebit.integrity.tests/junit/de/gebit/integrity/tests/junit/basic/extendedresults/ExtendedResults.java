@@ -70,4 +70,19 @@ public class ExtendedResults extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testExtendedResultsHypertext() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/extendedResults/extendedResults.integrity" },
+				"integrity.basic.extendedResults.extendedResultsHypertext", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }
