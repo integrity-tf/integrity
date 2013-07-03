@@ -1932,10 +1932,16 @@ public class DefaultTestRunner implements TestRunner {
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 
+	/**
+	 * Schedules an interruption before the next test script step is run.
+	 */
 	protected void scheduleWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = true;
 	}
 
+	/**
+	 * Resets a scheduled interruption (see {@link #scheduleWaitBeforeNextStep()}).
+	 */
 	protected void resetWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = false;
 	}
