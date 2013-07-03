@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -457,9 +458,29 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
 
 	/**
-	 * The generally used date format.
+	 * The generally used date format (coarse-grained date/time).
 	 */
-	protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();
+	protected static final DateFormat DATE_FORMAT = new SimpleDateFormat();
+
+	/**
+	 * The generally used timestamp format (fine-grained date/time).
+	 */
+	protected static final DateFormat TIMESTAMP_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT,
+			DateFormat.MEDIUM);
+
+	static {
+		if (TIMESTAMP_FORMAT instanceof SimpleDateFormat) {
+			// This allows the use of the default, locale-specific date formats, but with integration of millisecond
+			// precision. This little hack wouldn't be necessary if Java would allow to specify that I want milliseconds
+			// to be added when retrieving the date format in the first place.
+			SimpleDateFormat tempTimestampFormat = (SimpleDateFormat) TIMESTAMP_FORMAT;
+			String tempPattern = tempTimestampFormat.toPattern();
+			if (!tempPattern.contains("SSSS")) {
+				tempPattern = tempPattern.replace("ss", "ss.SSSS");
+			}
+			tempTimestampFormat.applyPattern(tempPattern);
+		}
+	}
 
 	/**
 	 * The ISO-standardized date format (this is mostly added to the XML to allow for easy transformation into a
@@ -577,6 +598,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempSuiteElement, aSuite);
 		tempSuiteElement.setAttribute(SUITE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
+
+		addCurrentTime(tempSuiteElement);
+
 		tempSuiteElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -655,6 +679,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addId(tempSetupElement);
 		addLineNumber(tempSetupElement, aSetupSuite);
 		tempSetupElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+
+		addCurrentTime(tempSetupElement);
+
 		tempSetupElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
@@ -759,6 +786,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
 
+		addCurrentTime(tempTestElement);
+
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
@@ -808,6 +837,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
+
+		addCurrentTime(tempTestElement);
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1163,6 +1194,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempCallElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aCall.getDefinition().getFixtureMethod()));
 
+		addCurrentTime(tempCallElement);
+
 		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
 		for (Parameter tempParameter : aCall.getParameters()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
@@ -1287,6 +1320,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addId(tempTearDownElement);
 		addLineNumber(tempTearDownElement, aTearDownSuite);
 		tempTearDownElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+
+		addCurrentTime(tempTearDownElement);
+
 		tempTearDownElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempTearDownElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
@@ -2158,6 +2194,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			int tempLine = tempNode.getStartLine();
 			anElement.setAttribute(LINE_NUMBER_ATTRIBUTE, Integer.toString(tempLine));
 		}
+	}
+
+	/**
+	 * Adds a timestamp based on the current time to the provided element.
+	 * 
+	 * @param anElement
+	 *            the element to add the timestamp to
+	 */
+	protected void addCurrentTime(Element anElement) {
+		anElement.setAttribute(TEST_RUN_TIMESTAMP, TIMESTAMP_FORMAT.format(new Date()));
 	}
 
 	/**

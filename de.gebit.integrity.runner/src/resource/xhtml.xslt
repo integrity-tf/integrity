@@ -89,13 +89,15 @@
 					.row2testexception { background-color: #FFF7E8; }
 					.row1callexception { background-color: #FFE6B7; }
 					.row2callexception { background-color: #FFF7E8; }
-					.testresults { font-size: 8pt; font-weight: bold; padding: 4px; }
+					.testresults { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 					.testresultvalue { font-weight: bold; }
 					.testresultvaluesuccess { color: #063; }
 					.testresultvaluefailure { color: #C00; }
 					.exceptionmessage { padding: 4px; }
-					.durationandicons { font-size: 8pt; position: absolute; top: 2px; right: 4px; color:
-					#555; }
+					.durationandicons { font-size: 8pt; position: absolute; top: 2px; right: 4px; color: #555; }
+					.timestamp { font-size: 8pt; position: absolute; top: 4px; right: 0px; color: #555; }
+					.testparameters { position: relative; top: 0; }
+					.tabletestresults { position: relative; top: 0; }
 					.test { min-height: 46px; }
 					.callexception { min-height: 46px; }
 					.parametertable th { font-size: 8pt; }
@@ -499,11 +501,13 @@
         </xsl:with-param>
         <xsl:with-param name="titleRight">
           <xsl:call-template name="suiteResultSummary" />
-          <xsl:if test="result/@successCount &gt; 0 or result/@failureCount &gt; 0 or result/@exceptionCount &gt; 0">
-            <xsl:text />
-            in
-            <xsl:text />
-          </xsl:if>
+          <xsl:text />
+          at
+          <xsl:text />
+          <xsl:value-of select="@timestamp" />
+          <xsl:text />
+          in
+          <xsl:text />
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="result/@duration" />
           </xsl:call-template>
@@ -570,6 +574,9 @@
         <div class="testparameters" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+          	<xsl:value-of select="@timestamp" />
           </div>
           <xsl:if test="count(parameters/parameter) &gt; 0">
             <table class="parametertable" width="100%">
@@ -809,6 +816,9 @@
         <div class="testparameters" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+          	<xsl:value-of select="@timestamp" />
           </div>
           <xsl:if test="count(results/result/parameters/parameter) &gt; 0">
             <table class="parametertable" width="100%">
@@ -1057,6 +1067,9 @@
         <div class="tabletestresults" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+          	<xsl:value-of select="@timestamp" />
           </div>
           <table class="resultstable" width="100%">
             <tr>
