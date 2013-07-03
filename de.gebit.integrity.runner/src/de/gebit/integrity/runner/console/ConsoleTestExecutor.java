@@ -216,6 +216,13 @@ public class ConsoleTestExecutor {
 							!tempExcludeConsoleStreamsOption.isSet()));
 				}
 
+				List<TestRunnerCallback> tempAdditionalCallbacks = createAdditionalCallbacks();
+				if (tempAdditionalCallbacks != null) {
+					for (TestRunnerCallback tempCallbackToAdd : tempAdditionalCallbacks) {
+						tempCallback.addCallback(tempCallbackToAdd);
+					}
+				}
+
 				Integer tempRemotePort = null;
 				String tempRemoteHost = null;
 				if (!tempNoremoteOption.isSet()) {
@@ -247,8 +254,20 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
-	 * This method can be overriden to add some parameterized constants, which are defined in a test suite, if it is not
-	 * desired to define those constants via VM arguments. The default implementation does nothing.
+	 * This is a designated override point to allow for additional callbacks to be easily integrated into a test run.
+	 * Any callbacks returned here are added to the basic callbacks created for a test run (usually a console output
+	 * callback and an XML file output callback, but these can be customized by startup options).
+	 * 
+	 * @return
+	 */
+	protected List<TestRunnerCallback> createAdditionalCallbacks() {
+		// default implementation doesn't create anything to add
+		return null;
+	}
+
+	/**
+	 * This method can be overridden to add some parameterized constants, which are defined in a test suite, if it is
+	 * not desired to define those constants via VM arguments. The default implementation does nothing.
 	 * 
 	 * @param someParameterizedConstants
 	 *            the map containing the constants and their values
