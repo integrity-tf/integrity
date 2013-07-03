@@ -39,7 +39,10 @@ import de.gebit.integrity.runner.providers.TestResourceProvider;
  * it on your own from a different entry point, like your own main method or similar. If you instantiate it for
  * yourself, you can supply a setup class (subclass of {@link IntegrityDSLSetup}) which can be used to influence the
  * Guice initialization, for example in order to replace certain services provided via Guice injection with subclasses
- * of your own.
+ * of your own.<br>
+ * <br>
+ * There are various designated hooking points in this class which are designed to be overridden in subclasses, with the
+ * ultimate purpose of making it easy to implement common customizations with very little code (duplication).
  * 
  * 
  * @author Rene Schneider - initial API and implementation
