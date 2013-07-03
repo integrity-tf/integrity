@@ -651,6 +651,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addId(tempSetupElement);
 		addLineNumber(tempSetupElement, aSetupSuite);
 		tempSetupElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+		tempSetupElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSetupElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
 
