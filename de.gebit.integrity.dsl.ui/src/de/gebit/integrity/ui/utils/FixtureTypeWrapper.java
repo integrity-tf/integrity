@@ -21,6 +21,7 @@ import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMemberValuePair;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
@@ -98,10 +99,19 @@ public class FixtureTypeWrapper {
 	 * @throws JavaModelException
 	 */
 	protected IMethod findMethod(String aMethodName) throws JavaModelException {
-		for (IMethod tempPossibleMethod : fixtureType.getMethods()) {
-			if (aMethodName.equals(tempPossibleMethod.getElementName())) {
-				return tempPossibleMethod;
+		IType tempTypeInFocus = fixtureType;
+		ITypeHierarchy tempSupertypeHierarchy = null;
+		while (tempTypeInFocus != null) {
+			for (IMethod tempPossibleMethod : tempTypeInFocus.getMethods()) {
+				if (aMethodName.equals(tempPossibleMethod.getElementName())) {
+					return tempPossibleMethod;
+				}
 			}
+
+			if (tempSupertypeHierarchy == null) {
+				tempSupertypeHierarchy = tempTypeInFocus.newSupertypeHierarchy(null);
+			}
+			tempTypeInFocus = tempSupertypeHierarchy.getSuperclass(tempTypeInFocus);
 		}
 
 		return null;
