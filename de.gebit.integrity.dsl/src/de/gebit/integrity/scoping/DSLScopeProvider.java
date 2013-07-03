@@ -386,14 +386,6 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return determineVariableScope(aTableTest, tempHostSuite);
 	}
 
-	@Override
-	public IScope getScope(EObject aContext, EReference aReference) {
-		System.out.println("Scope Request: scope_" + aReference.getEContainingClass().getName() + "_"
-				+ aReference.getName() + "(" + aContext.getClass().getName() + ")");
-
-		return super.getScope(aContext, aReference);
-	}
-
 	/**
 	 * A small cache for visible global variables. Determining these is rather expensive, thus they're cached as long as
 	 * only one model (file) is being scoped.
@@ -505,4 +497,15 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		return null;
 	}
+
+	// This is very useful for debugging scoping problems - it dumps out which declarative methods are actually
+	// being tried during the resolve period of a scope. REMOVE COMMENTS WITH CARE! NOT FOR CHECK-INs!
+	//
+	// @Override
+	// public IScope getScope(EObject aContext, EReference aReference) {
+	// System.out.println("Scope Request: scope_" + aReference.getEContainingClass().getName() + "_"
+	// + aReference.getName() + "(" + aContext.getClass().getName() + ")");
+	//
+	// return super.getScope(aContext, aReference);
+	// }
 }
