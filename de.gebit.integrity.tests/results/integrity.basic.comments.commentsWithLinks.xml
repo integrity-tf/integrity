@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="20.02.13 13:16" isotimestamp="2013-02-20T13:16:12" duration="6.049">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:22" duration="4.992">
   <variables />
-  <suite id="0" name="integrity.basic.comments.commentsWithLinks">
+  <suite id="0" name="integrity.basic.comments.commentsWithLinks" timestamp="03.07.13 22:30:22.0989">
     <setup />
     <variables />
     <statements>
@@ -27,7 +27,7 @@
       </comment>
     </statements>
     <teardown />
-    <result duration="4.887" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="3.936" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

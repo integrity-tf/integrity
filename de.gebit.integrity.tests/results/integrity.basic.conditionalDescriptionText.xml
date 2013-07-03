@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="09.05.13 21:37" isotimestamp="2013-05-09T21:37:09" duration="23.102">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:27" duration="13.383">
   <variables />
-  <suite id="0" name="integrity.basic.conditionalDescriptionText">
+  <suite id="0" name="integrity.basic.conditionalDescriptionText" timestamp="03.07.13 22:30:27.0077">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="6" name="echoIntegerOrStringTest" description="Echo the integer 123 and not a string!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString">
-        <results duration="1.871" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.871" description="Echo the integer 123 and not a string!" type="success">
+      <test id="1" line="6" name="echoIntegerOrStringTest" description="Echo the integer 123 and not a string!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString" timestamp="03.07.13 22:30:27.0077">
+        <results duration="1.608" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.608" description="Echo the integer 123 and not a string!" type="success">
             <parameters>
               <parameter name="integer" value="123" />
             </parameters>
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="9" name="echoIntegerOrStringTest" description="Echo the string 'abc' and not an integer!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString">
-        <results duration="1.303" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.303" description="Echo the string 'abc' and not an integer!" type="success">
+      <test id="2" line="9" name="echoIntegerOrStringTest" description="Echo the string 'abc' and not an integer!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString" timestamp="03.07.13 22:30:27.0092">
+        <results duration="0.526" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.526" description="Echo the string 'abc' and not an integer!" type="success">
             <parameters>
               <parameter name="string" value="abc" />
             </parameters>
@@ -31,7 +31,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="19.328" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="12.398" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

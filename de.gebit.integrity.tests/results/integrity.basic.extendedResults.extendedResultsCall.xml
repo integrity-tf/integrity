@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="15.06.13 22:15" isotimestamp="2013-06-15T22:15:16" duration="165.645">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:17" duration="148.661">
   <variables />
-  <suite id="0" name="integrity.basic.extendedResults.extendedResultsCall">
+  <suite id="0" name="integrity.basic.extendedResults.extendedResultsCall" timestamp="03.07.13 22:30:17.0960">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="7" name="returnExtendedStuff" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff">
+      <call id="1" line="7" name="returnExtendedStuff" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff" timestamp="03.07.13 22:30:17.0960">
         <parameters>
           <parameter name="imageCount" value="2" />
           <parameter name="textCount" value="2" />
         </parameters>
-        <result duration="1.213" type="success" />
+        <result duration="4.599" type="success" />
         <extResults>
           <extResultText><![CDATA[This is some stupid extended result text
 And it even has multiple lines!]]></extResultText>
@@ -22,7 +22,7 @@ And it even has multiple lines!]]></extResultText>
       </call>
     </statements>
     <teardown />
-    <result duration="161.419" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="144.434" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

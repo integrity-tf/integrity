@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="13.03.13 22:34" isotimestamp="2013-03-13T22:34:19" duration="70.680">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:22" duration="55.270">
   <variables />
-  <suite id="0" name="integrity.basic.specificDescriptions">
+  <suite id="0" name="integrity.basic.specificDescriptions" timestamp="03.07.13 22:30:22.0269">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="5" name="specificDescriptionTest_call" description="I don't care how I was used!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest">
+      <call id="1" line="5" name="specificDescriptionTest_call" description="I don't care how I was used!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest" timestamp="03.07.13 22:30:22.0269">
         <parameters />
-        <result duration="4.220" type="success" />
+        <result duration="1.175" type="success" />
       </call>
-      <test id="2" line="6" name="specificDescriptionTest_test" description="I was used in a test!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest">
-        <results duration="1.597" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.597" description="I was used in a test!" type="success">
+      <test id="2" line="6" name="specificDescriptionTest_test" description="I was used in a test!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest" timestamp="03.07.13 22:30:22.0285">
+        <results duration="0.774" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.774" description="I was used in a test!" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="true" value="true" type="success" />
@@ -19,13 +19,13 @@
           </result>
         </results>
       </test>
-      <call id="3" line="8" name="specificDescriptionCall_call" description="I was used in a call!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall">
+      <call id="3" line="8" name="specificDescriptionCall_call" description="I was used in a call!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall" timestamp="03.07.13 22:30:22.0285">
         <parameters />
-        <result duration="0.852" type="success" />
+        <result duration="0.716" type="success" />
       </call>
-      <test id="4" line="9" name="specificDescriptionCall_test" description="I don't care how I was used!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall">
-        <results duration="1.376" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.376" description="I don't care how I was used!" type="success">
+      <test id="4" line="9" name="specificDescriptionCall_test" description="I don't care how I was used!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionCall" timestamp="03.07.13 22:30:22.0300">
+        <results duration="0.760" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.760" description="I don't care how I was used!" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="true" value="true" type="success" />
@@ -33,13 +33,13 @@
           </result>
         </results>
       </test>
-      <call id="5" line="11" name="specificDescriptionBoth_call" description="I was used in a call!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth">
+      <call id="5" line="11" name="specificDescriptionBoth_call" description="I was used in a call!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth" timestamp="03.07.13 22:30:22.0316">
         <parameters />
-        <result duration="0.955" type="success" />
+        <result duration="0.908" type="success" />
       </call>
-      <test id="6" line="12" name="specificDescriptionBoth_test" description="I was used in a test!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth">
-        <results duration="1.699" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.699" description="I was used in a test!" type="success">
+      <test id="6" line="12" name="specificDescriptionBoth_test" description="I was used in a test!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth" timestamp="03.07.13 22:30:22.0316">
+        <results duration="0.832" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.832" description="I was used in a test!" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="true" value="true" type="success" />
@@ -49,7 +49,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="62.963" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="53.739" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

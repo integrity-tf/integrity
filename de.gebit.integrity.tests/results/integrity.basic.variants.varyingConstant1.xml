@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.02.13 20:49" isotimestamp="2013-02-12T20:49:40" duration="14.928">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:24" duration="6.644">
   <variant name="var1" description="Variant 1" />
   <variables>
     <variable name="integrity.basic.variants.myConstant" value="200" />
   </variables>
-  <suite id="0" name="integrity.basic.variants.varyingConstant1">
+  <suite id="0" name="integrity.basic.variants.varyingConstant1" timestamp="03.07.13 22:30:24.0228">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="17" name="echoIntegerTest" description="Echo the integer '200'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger">
-        <results duration="1.296" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.296" description="Echo the integer '200'" type="success">
+      <test id="1" line="17" name="echoIntegerTest" description="Echo the integer '200'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="03.07.13 22:30:24.0228">
+        <results duration="0.355" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.355" description="Echo the integer '200'" type="success">
             <parameters>
               <parameter name="integer" value="200" />
             </parameters>
@@ -22,7 +22,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="12.100" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="4.468" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

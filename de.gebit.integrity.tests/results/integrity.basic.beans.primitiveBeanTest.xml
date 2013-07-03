@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="19.04.13 17:13" isotimestamp="2013-04-19T17:13:00" duration="86.912">
+<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:21" duration="100.648">
   <variables />
-  <suite id="0" name="integrity.basic.beans.primitiveBeanTest">
+  <suite id="0" name="integrity.basic.beans.primitiveBeanTest" timestamp="03.07.13 22:30:21.0361">
     <setup />
     <variables />
     <statements>
       <comment id="1" line="7">this should succeed</comment>
-      <test id="2" line="8" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean">
-        <results duration="9.319" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="9.319" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" type="success">
+      <test id="2" line="8" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean" timestamp="03.07.13 22:30:21.0376">
+        <results duration="10.966" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="10.966" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]primitiveBoolean = true[NL|, ][T]primitiveByte = 42[NL|, ][T]primitiveChar = A[NL|, ][T]primitiveDouble = 1.5[NL|, ][T]primitiveFloat = 4.5[NL|, ][T]primitiveInt = 100000000[NL|, ][T]primitiveLong = 999999999[NL|, ][T]primitiveShort = 2000[NL]}" />
             </parameters>
@@ -19,9 +19,9 @@
         </results>
       </test>
       <comment id="3" line="28">this should fail</comment>
-      <test id="4" line="29" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean">
-        <results duration="2.848" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="2.848" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" type="failure">
+      <test id="4" line="29" name="alterPrimitiveBean" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#alterPrimitiveBean" timestamp="03.07.13 22:30:21.0423">
+        <results duration="4.732" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="4.732" description="takes the bean {primitiveBoolean = true, primitiveByte = 42, primitiveChar = A, primitiveDouble = 1.5, primitiveFloat = 4.5, primitiveInt = 100000000, primitiveLong = 999999999, primitiveShort = 2000}, alters it a little bit and returns it" type="failure">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]primitiveBoolean = true[NL|, ][T]primitiveByte = 42[NL|, ][T]primitiveChar = A[NL|, ][T]primitiveDouble = 1.5[NL|, ][T]primitiveFloat = 4.5[NL|, ][T]primitiveInt = 100000000[NL|, ][T]primitiveLong = 999999999[NL|, ][T]primitiveShort = 2000[NL]}" />
             </parameters>
@@ -33,7 +33,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="85.512" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="94.203" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
