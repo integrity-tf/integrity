@@ -28,10 +28,7 @@
     <module>de.gebit.integrity.feature</module>
     <module>de.gebit.integrity.tests</module>
     <module>updatesite</module>
-    <module>distribution</module>
-    <module>distribution-swingbindings</module>
-    <module>de.gebit.integrity.bindings.swing.eclipse</module>
-    <module>de.gebit.integrity.bindings.swing.fixtures</module>    
+    <module>distribution</module> 
   </modules>
   
 </project>
