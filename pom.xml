@@ -11,6 +11,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-all</artifactId>
+  <version>0.10.3-SNAPSHOT</version>
   <name>All Integrity Modules</name>
   <!-- This exists mostly because of Tycho Version Plugin usage -->
   
@@ -33,4 +34,4 @@
     <module>de.gebit.integrity.bindings.swing.fixtures</module>    
   </modules>
   
-<version>0.10.3-SNAPSHOT</version></project>
+</project>

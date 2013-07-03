@@ -133,6 +133,7 @@
 	  	
 	  	<plugin>
   		  <!-- In Distribution projects, artifacts need to be purged so they're redownloaded. Otherwise, local versions with SNAPSHOT names might be used. -->
+  		  <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-dependency-plugin</artifactId>
 	      <version>2.7</version>
 	      <configuration>
