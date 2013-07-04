@@ -12,7 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -24,6 +27,11 @@ import java.util.Set;
  * 
  */
 public class FilesystemTestResourceProvider implements TestResourceProvider {
+	/**
+	 * Path which are specified but got ignored.
+	 * Key is the path, the value is the reason.
+	 */
+	private Map<String, String> ignoredReferences = new HashMap<String, String>();
 
 	/**
 	 * The paths to the resource files.
@@ -36,62 +44,77 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	private ClassLoader classLoader = getClass().getClassLoader();
 
 	/**
-	 * Creates an instance, naming a bunch of resource files.
-	 * 
-	 * @param someResourceFiles
-	 *            the resource files to load
+	 * Adds the given resource recursively, that is if it is a directory all
+	 * enclosed directories and files are recursively included as well.
+	 * @param aResourceFile Resource to be added.
 	 */
-	public FilesystemTestResourceProvider(Collection<? extends File> someResourceFiles) {
-		for (File tempFile : someResourceFiles) {
-			if (tempFile.exists() && tempFile.isFile()) {
-				resourceFiles.add(tempFile.getAbsolutePath());
-			}
-		}
-	}
-
-	/**
-	 * Creates an instance naming some directories to scan for resource files. This scanning will search for file names
-	 * ending with ".integrity".
-	 * 
-	 * @param someDirectoriesOrFiles
-	 *            the directories and files to scan
-	 * @param aSearchRecursivelyFlag
-	 *            whether the scan process shall search recursively inside subdirectories
-	 */
-	public FilesystemTestResourceProvider(Collection<? extends File> someDirectoriesOrFiles,
-			boolean aSearchRecursivelyFlag) {
-		for (File tempDirOrFile : someDirectoriesOrFiles) {
-			if (tempDirOrFile.isDirectory()) {
-				scanDirectory(tempDirOrFile, aSearchRecursivelyFlag);
-			} else {
-				if (tempDirOrFile.getAbsolutePath().endsWith(".integrity")) {
-					resourceFiles.add(tempDirOrFile.getAbsolutePath());
-				}
-			}
-		}
-	}
-
-	/**
-	 * Performs the actual scanning in one directory.
-	 * 
-	 * @param aDirectory
-	 *            the directory
-	 * @param aSearchRecursivelyFlag
-	 *            whether scanning shall recurse into subdirectories
-	 */
-	protected void scanDirectory(File aDirectory, boolean aSearchRecursivelyFlag) {
-		if (!aDirectory.isDirectory()) {
+	public void addRecursively(File aResourceFile) {
+		if (!aResourceFile.exists()) {
+			ignoredReferences.put(aResourceFile.getPath(), "does not exists");
 			return;
 		}
-		for (File tempFile : aDirectory.listFiles()) {
-			if (tempFile.isFile()) {
-				if (tempFile.getAbsolutePath().endsWith(".integrity")) {
-					resourceFiles.add(tempFile.getAbsolutePath());
-				}
-			} else if (aSearchRecursivelyFlag && tempFile.isDirectory()) {
-				scanDirectory(tempFile, aSearchRecursivelyFlag);
-			}
+		if (!aResourceFile.isDirectory()) {
+			addFile(aResourceFile);
+			return;
 		}
+		for (File tempFile : aResourceFile.listFiles()) {
+			addRecursively(tempFile);
+		}
+	}
+	
+	/**
+	 * Adds the given resources recursively, that is if one of them is a directory all
+	 * enclosed directories and files of it are recursively included as well.
+	 * @param someResourceFiles Resources to be added.
+	 */
+	public void addAllRecursively(Collection<? extends File> someResourceFiles) {
+		for (File resourceFile : someResourceFiles) {
+			addRecursively(resourceFile);
+		}
+	}
+	
+	/**
+	 * Adds the given resource if it is a file.
+	 * @param aResourceFile
+	 */
+	public void addFile(File aResourceFile) {
+		if (!aResourceFile.exists()) {
+			ignoredReferences.put(aResourceFile.getPath(), "does not exists");
+			return;
+		}
+		if (!aResourceFile.isFile()) {
+			ignoredReferences.put(aResourceFile.getPath(), "is no file");
+			return;
+		}
+		if (!aResourceFile.getAbsolutePath().endsWith(".integrity")) {
+			ignoredReferences.put(aResourceFile.getPath(), "is no integrity file (*.integrity)");
+			return;
+		}
+		resourceFiles.add(aResourceFile.getAbsolutePath());
+	}
+	
+	/**
+	 * Returns all references which got ignored and returns a reason along why they got ignored.
+	 * @return Ignored references with a reason.
+	 */
+	public Set<Entry<String, String>> getIgnoredReferencesWithReasons() {
+		return ignoredReferences.entrySet();
+	}
+	
+	/**
+	 * Returns all references which got ignored.
+	 * @return All references which got ignored.
+	 */
+	public Set<String> getIgnoredReferences() {
+		return ignoredReferences.keySet();
+	}
+	
+	/**
+	 * Checks if any reference got ignored.
+	 * @return <code>true</code> if any reference got ignored, <code>false</code> otherwise.
+	 */
+	public boolean hasIgnoredReferences() {
+		return !ignoredReferences.isEmpty();
 	}
 
 	@Override
