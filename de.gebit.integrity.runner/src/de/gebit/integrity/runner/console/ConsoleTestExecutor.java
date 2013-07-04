@@ -81,7 +81,7 @@ public class ConsoleTestExecutor {
 	/**
 	 * Main method.
 	 * 
-	 * @param getRootSuiteNameFrom(someArgs)
+	 * @param someArgs
 	 */
 	public static void main(String[] someArgs) {
 		ConsoleTestExecutor tempExecutor = new ConsoleTestExecutor();
@@ -91,7 +91,7 @@ public class ConsoleTestExecutor {
 	/**
 	 * This is basically the actual "main" method. It instantiates the test model, runner etc. and executes the test.
 	 * 
-	 * @param getRootSuiteNameFrom(someArgs)
+	 * @param someArgs
 	 *            the command-line arguments
 	 */
 	public void run(String[] someArgs) {
@@ -356,7 +356,7 @@ public class ConsoleTestExecutor {
 	 *            the host to bind the remoting port to
 	 * @param aRandomSeed
 	 *            the seed value for the RNG
-	 * @param getRootSuiteNameFrom(someCommandLineArguments)
+	 * @param someCommandLineArguments
 	 *            the command line arguments to use for forking
 	 * @return the initialized test runner
 	 * @throws IOException
