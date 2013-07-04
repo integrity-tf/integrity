@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
@@ -141,7 +142,7 @@ public class ConsoleTestExecutor {
 			System.exit(2);
 			return;
 		}
-
+		
 		String[] tempRemainingParameters;
 		try {
 			tempRemainingParameters = tempParser.parseAndReturnRemaining(someArgs);
@@ -151,31 +152,18 @@ public class ConsoleTestExecutor {
 			System.exit(2);
 			return;
 		}
-
+		if (tempRemainingParameters.length == 0) {
+			System.err.println("Missing mandatory 'root_suite' definition!");
+			System.out.println(tempParser.getHelp(REMAINING_ARGS_HELP));
+			System.exit(2);
+			return;
+		}
+		
+		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");
-		String tempRootSuiteName = tempRemainingParameters[0];
-		ArrayList<File> tempTestPaths = new ArrayList<File>();
-		for (int i = 1; i < tempRemainingParameters.length; i++) {
-			tempTestPaths.add(new File(tempRemainingParameters[i]));
-		}
+		String tempRootSuiteName = getRootSuiteNameFrom(tempRemainingParameters);
+		TestResourceProvider tempResourceProvider = getResourceProviderAndPrintsWarnings(tempRemainingParameters);
 
-		TransformHandling tempTransformHandling = TransformHandling.EXECUTE_TRANSFORM;
-		if (tempXsltOption.getValue() != null) {
-			if ("none".equals(tempXsltOption.getValue())) {
-				tempTransformHandling = TransformHandling.NO_TRANSFORM;
-			} else if ("embed".equals(tempXsltOption.getValue())) {
-				tempTransformHandling = TransformHandling.EMBED_TRANSFORM;
-			} else if ("execute".equals(tempXsltOption.getValue())) {
-				tempTransformHandling = TransformHandling.EXECUTE_TRANSFORM;
-			} else {
-				System.err.println("--xslt option value '" + tempXsltOption.getValue()
-						+ "' not understood; valid values are 'none', 'embed', 'execute'.");
-			}
-		}
-
-		TestResourceProvider tempResourceProvider = createResourceProvider(tempTestPaths);
-
-		TestRunner tempRunner;
 		try {
 			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet(),
 					setupClass);
@@ -236,7 +224,7 @@ public class ConsoleTestExecutor {
 				Long tempSeed = tempSeedOption.getValue();
 
 				try {
-					tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
+					TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
 							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
 					runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 				} catch (IOException exc) {
@@ -255,6 +243,67 @@ public class ConsoleTestExecutor {
 			exc.printStackTrace();
 		}
 	}
+
+	/**
+	 * Extracts the root suite name from the remaining parameters.
+	 * @param tempRemainingParameters Where to extract the root suite name from.
+	 * @return the root suite name
+	 */
+	protected String getRootSuiteNameFrom(String[] tempRemainingParameters) {
+		return tempRemainingParameters[0];	// Can't be null, this should have been previously checked
+	}
+
+	/**
+	 * Gets an resource provider for the listed resources in the remaining parameter and warns about ignored references.
+	 * @param tempRemainingParameters Remaining parameter where to extract the script lists from.
+	 * @return An resource provider
+	 */
+	protected TestResourceProvider getResourceProviderAndPrintsWarnings(String[] tempRemainingParameters) {
+		FilesystemTestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
+		if (tempResourceProvider.hasIgnoredReferences()) {
+			for (Entry<String, String> ignored : tempResourceProvider.getIgnoredReferencesWithReasons()) {
+				System.out.println("Warning: Reference to resource '" + ignored.getKey() + "' was ignored because it " + ignored.getValue());
+			}
+		}
+		return tempResourceProvider;
+	}
+
+	/**
+	 * Returns all script references from the remaining unparsed parameters.
+	 * @param tempRemainingParameters Unparsed parameters not matched by the options.
+	 * @return List of script file references.
+	 */
+	protected List<File> getScriptsList(String[] tempRemainingParameters) {
+		List<File> tempTestPaths = new ArrayList<File>();
+		// Skip the first one (0-based), scripts start at the second entry
+		for (int i = 1; i < tempRemainingParameters.length; i++) {
+			tempTestPaths.add(new File(tempRemainingParameters[i]));
+		}
+		return tempTestPaths;
+	}
+
+	/**
+	 * Evaluates the given option and chooses a transformation handling from it.
+	 * @param tempXsltOption Option to be evaluated.
+	 * @return The chosen transformation handling.
+	 */
+	protected TransformHandling evaluateTransformHandling(SimpleCommandLineParser.StringOption tempXsltOption) {
+		if (tempXsltOption.getValue() == null) {
+			return TransformHandling.EXECUTE_TRANSFORM;
+		}
+		if ("none".equals(tempXsltOption.getValue())) {
+			return TransformHandling.NO_TRANSFORM;
+		} else if ("embed".equals(tempXsltOption.getValue())) {
+			return TransformHandling.EMBED_TRANSFORM;
+		} else if ("execute".equals(tempXsltOption.getValue())) {
+			return TransformHandling.EXECUTE_TRANSFORM;
+		} else {
+			System.err.println("--xslt option value '" + tempXsltOption.getValue()
+					+ "' not understood; valid values are 'none', 'embed', 'execute'.");
+			return TransformHandling.EXECUTE_TRANSFORM;
+		}
+	}
+	
 
 	/**
 	 * This is a designated override point to allow for additional callbacks to be easily integrated into a test run.
@@ -286,8 +335,10 @@ public class ConsoleTestExecutor {
 	 *            the list with the test script paths
 	 * @return a resource provider instance
 	 */
-	protected TestResourceProvider createResourceProvider(List<File> aPathList) {
-		return new FilesystemTestResourceProvider(aPathList, true);
+	protected FilesystemTestResourceProvider createResourceProvider(List<File> aPathList) {
+		FilesystemTestResourceProvider resourceProvider = new FilesystemTestResourceProvider();
+		resourceProvider.addAllRecursively(aPathList);
+		return resourceProvider;
 	}
 
 	/**
