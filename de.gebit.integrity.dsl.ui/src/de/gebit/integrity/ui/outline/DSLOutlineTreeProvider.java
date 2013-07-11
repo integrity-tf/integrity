@@ -41,6 +41,7 @@ import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
  * 
  * @author Rene Schneider - initial API and implementation
  */
+// SUPPRESS CHECKSTYLE LONG MethodName
 public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	/*
 	 * Note that methods starting with an underscore '_' are called by reflection, based on their signature.
@@ -50,11 +51,11 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	 * 
 	 * See class PolymorphicDispatcher for details.
 	 */
-	
-	/** 
-	 * Differentiates between the different occurences of suites.
-	 * They may be either occur as plain suite definitions or as a declaration of an dependency or an conclusion.
-	 *
+
+	/**
+	 * Differentiates between the different occurences of suites. They may be either occur as plain suite definitions or
+	 * as a declaration of an dependency or an conclusion.
+	 * 
 	 * @author tilois
 	 */
 	protected enum SuiteType {
@@ -65,7 +66,6 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		/** Declaration of a suite as a conclusion. */
 		CONCLUSION;
 	}
-	
 
 	/** Factory to create styles. */
 	@Inject
@@ -108,16 +108,20 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	/**
-	 * Creates a Suite Node, which is a special case because there are multiple types of suite nodes and we need
-	 * to know this type before, as the node itself is unaware of it's type.
-	 * @param aParentNode Parent of this node
-	 * @param aSuiteDefinition Suitedefinition this node is linked to
-	 * @param aType Type of the suite
+	 * Creates a Suite Node, which is a special case because there are multiple types of suite nodes and we need to know
+	 * this type before, as the node itself is unaware of it's type.
+	 * 
+	 * @param aParentNode
+	 *            Parent of this node
+	 * @param aSuiteDefinition
+	 *            Suitedefinition this node is linked to
+	 * @param aType
+	 *            Type of the suite
 	 * @return An {@link EObjectNode} representing this suite declaration, but is unaware of it's suite type.
 	 */
 	protected EObjectNode createSuiteNode(IOutlineNode aParentNode, SuiteDefinition aSuiteDefinition, SuiteType aType) {
-		return createEObjectNode(aParentNode, aSuiteDefinition, suiteImage(aType), text(aSuiteDefinition,
-				aType), aType != SuiteType.NORMAL);
+		return createEObjectNode(aParentNode, aSuiteDefinition, suiteImage(aType), text(aSuiteDefinition, aType),
+				aType != SuiteType.NORMAL);
 	}
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
@@ -132,7 +136,8 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				format.variableDefinitionTextStyle());
 		String tempValue = getValueOf(aVariableDefinition.getInitialValue());
 		if (tempValue != null) {
-			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue, format.constantDefinitionTextStyle());
+			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue,
+					format.constantDefinitionTextStyle());
 			variableText.append(" := ").append(tempValueText);
 		}
 		return appendExplanationTo(variableText, "Variable");
@@ -145,17 +150,20 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				format.constantDefinitionTextStyle());
 		String tempValue = getValueOf(aConstantDefinition.getValue());
 		if (tempValue != null) {
-			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue, format.constantDefinitionTextStyle());
+			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue,
+					format.constantDefinitionTextStyle());
 			constantText.append(" := ").append(tempValueText);
 		}
 		return appendExplanationTo(constantText, "Constant");
 	}
 
 	/**
-	 * Gets the textual representation of an arbitrary value from the source.
-	 * Unless it's an {@link NestedObject}, where a placeholder is returned, as NestedObjects are expected to hold
-	 * a multiline value, which can't be displayed in the outline properly.
-	 * @param aValue Value to display
+	 * Gets the textual representation of an arbitrary value from the source. Unless it's an {@link NestedObject}, where
+	 * a placeholder is returned, as NestedObjects are expected to hold a multiline value, which can't be displayed in
+	 * the outline properly.
+	 * 
+	 * @param aValue
+	 *            Value to display
 	 * @return Textual representation of this value.
 	 */
 	protected String getValueOf(ValueOrEnumValueOrOperation aValue) {
@@ -188,8 +196,11 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	/**
 	 * Returns a styled textual representation of the given suite definition.
-	 * @param aSuiteDefinition Suite definition to get a textual representation.
-	 * @param aType Type of the suite definition
+	 * 
+	 * @param aSuiteDefinition
+	 *            Suite definition to get a textual representation.
+	 * @param aType
+	 *            Type of the suite definition
 	 * @return Textual representation of this suite definition.
 	 */
 	protected StyledString text(SuiteDefinition aSuiteDefinition, SuiteType aType) {
@@ -241,7 +252,9 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	/**
 	 * Gets an image for the given suite definition.
-	 * @param aType Type of the suite definition
+	 * 
+	 * @param aType
+	 *            Type of the suite definition
 	 * @return Image represention this suite declaration.
 	 */
 	protected Image suiteImage(SuiteType aType) {
@@ -286,8 +299,11 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	/**
 	 * Appends an explanation text to the given styled text.
-	 * @param aNormalText Normal text where the explanation should be appended to.
-	 * @param anExplanation Explanation text.
+	 * 
+	 * @param aNormalText
+	 *            Normal text where the explanation should be appended to.
+	 * @param anExplanation
+	 *            Explanation text.
 	 * @return Styled text with an explanation text.
 	 */
 	protected StyledString appendExplanationTo(StyledString aNormalText, String anExplanation) {

@@ -13,8 +13,8 @@ import org.eclipse.xtext.ui.editor.utils.TextStyle;
 
 /**
  * Constains all outline relevant formatting configuration, styles etc.
- *
- * @author tilois
+ * 
+ * @author tilois - initial API and implementation
  */
 public class OutlineFormatting {
 	/** Gray color. */
@@ -22,6 +22,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for parameters.
+	 * 
 	 * @return Style for parameters.
 	 */
 	public TextStyle suiteParameterTextStyle() {
@@ -30,6 +31,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for suites.
+	 * 
 	 * @return Style for suites.
 	 */
 	public TextStyle suiteTextStyle() {
@@ -38,6 +40,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for variables.
+	 * 
 	 * @return Style for variables.
 	 */
 	public TextStyle variableDefinitionTextStyle() {
@@ -46,6 +49,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for constants.
+	 * 
 	 * @return Style for constants.
 	 */
 	public TextStyle constantDefinitionTextStyle() {
@@ -54,6 +58,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for imports.
+	 * 
 	 * @return Style for imports.
 	 */
 	public TextStyle importTextStyle() {
@@ -62,6 +67,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Style for explanations.
+	 * 
 	 * @return Style for explanations.
 	 */
 	public TextStyle explanationTextStyle() {
@@ -72,6 +78,7 @@ public class OutlineFormatting {
 
 	/**
 	 * Default text style.
+	 * 
 	 * @return Default text style.
 	 */
 	public TextStyle defaultTextStyle() {
