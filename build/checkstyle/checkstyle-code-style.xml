@@ -25,11 +25,11 @@
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="JavadocType">
-      <metadata name="net.sf.eclipsecs.core.comment" value="Important note: the brackets surrounding the capital letters are a workaround in order to prevent the cvs-server to replace the keywords with real author and versioning information during the commit of the checkstyle-xml-file."/>
       <property name="severity" value="error"/>
       <property name="scope" value="package"/>
-      <property name="authorFormat" value="^((?!YOUR_NAME_HERE).)+$"/>
+      <property name="authorFormat" value="^((?!YOUR_NAME_HERE).)+ - .+$"/>
       <property name="allowUnknownTags" value="true"/>
+      <message key="type.tagFormat" value="Please provide a proper name and a description of what you authored, in the format &quot;[name] - [what you did]&quot;"/>
     </module>
     <module name="JavadocVariable">
       <property name="severity" value="warning"/>
@@ -194,7 +194,7 @@
   </module>
   <module name="RegexpHeader">
     <property name="severity" value="warning"/>
-    <property name="header" value="/\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\n \* Copyright \(c\) \d{4}(, \d{4})? Rene Schneider, GEBIT Solutions GmbH and others.\n \* All rights reserved. This program and the accompanying materials\n \* are made available under the terms of the Eclipse Public License v1.0\n \* which accompanies this distribution, and is available at\n \* http://www.eclipse.org/legal/epl-v10.html\n \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/"/>
+    <property name="header" value="/\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\n \* Copyright \(c\) \d{4}(, \d{4})? .*? and others.\n \* All rights reserved. This program and the accompanying materials\n \* are made available under the terms of the Eclipse Public License v1.0\n \* which accompanies this distribution, and is available at\n \* http://www.eclipse.org/legal/epl-v10.html\n \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/"/>
     <property name="fileExtensions" value="java,xtext"/>
   </module>
 </module>
