@@ -26,7 +26,6 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
-import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -65,12 +64,6 @@ public class TestFormatter {
 	 */
 	@Inject
 	private ParameterResolver parameterResolver;
-
-	/**
-	 * The variable manager to use.
-	 */
-	@Inject
-	private VariableManager variableManager;
 
 	/**
 	 * Creates a new instance.
