@@ -46,7 +46,6 @@ import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
-import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
@@ -94,22 +93,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	private Stack<SetListEntry> entryStack = new Stack<SetListEntry>();
 
 	/**
-	 * The classloader to use.
-	 */
-	@Inject
-	private ClassLoader classLoader;
-
-	/**
 	 * The parameter resolver to use.
 	 */
 	@Inject
 	private ParameterResolver parameterResolver;
-
-	/**
-	 * The variable manager to use.
-	 */
-	@Inject
-	private VariableManager variableManager;
 
 	/**
 	 * The test formatter to use.
