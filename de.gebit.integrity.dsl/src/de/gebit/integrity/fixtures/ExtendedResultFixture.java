@@ -179,7 +179,7 @@ public interface ExtendedResultFixture {
 		 * 
 		 * @param aTitle
 		 *            the title of this extended result.
-		 * @param aText
+		 * @param aHypertext
 		 *            the HTML text of the result
 		 */
 		public ExtendedResultHTML(String aTitle, String aHypertext) {
@@ -190,7 +190,7 @@ public interface ExtendedResultFixture {
 		/**
 		 * Creates an instance with no title.
 		 * 
-		 * @param aText
+		 * @param aHypertext
 		 *            the HTML text of the result
 		 */
 		public ExtendedResultHTML(String aHypertext) {
