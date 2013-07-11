@@ -40,6 +40,7 @@ import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
  * Customization of the default outline structure.
  * 
  * @author Rene Schneider - initial API and implementation
+ * @author tilois - actual first working implementation of a usable outline beyond the Xtext-generated default
  */
 // SUPPRESS CHECKSTYLE LONG MethodName
 public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
