@@ -142,7 +142,7 @@ public class ConsoleTestExecutor {
 			System.exit(2);
 			return;
 		}
-		
+
 		String[] tempRemainingParameters;
 		try {
 			tempRemainingParameters = tempParser.parseAndReturnRemaining(someArgs);
@@ -158,11 +158,11 @@ public class ConsoleTestExecutor {
 			System.exit(2);
 			return;
 		}
-		
+
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");
 		String tempRootSuiteName = getRootSuiteNameFrom(tempRemainingParameters);
-		TestResourceProvider tempResourceProvider = getResourceProviderAndPrintsWarnings(tempRemainingParameters);
+		TestResourceProvider tempResourceProvider = getResourceProviderAndPrintWarnings(tempRemainingParameters);
 
 		try {
 			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet(),
@@ -246,23 +246,28 @@ public class ConsoleTestExecutor {
 
 	/**
 	 * Extracts the root suite name from the remaining parameters.
-	 * @param tempRemainingParameters Where to extract the root suite name from.
+	 * 
+	 * @param tempRemainingParameters
+	 *            Where to extract the root suite name from.
 	 * @return the root suite name
 	 */
 	protected String getRootSuiteNameFrom(String[] tempRemainingParameters) {
-		return tempRemainingParameters[0];	// Can't be null, this should have been previously checked
+		return tempRemainingParameters[0]; // Can't be null, this should have been previously checked
 	}
 
 	/**
 	 * Gets an resource provider for the listed resources in the remaining parameter and warns about ignored references.
-	 * @param tempRemainingParameters Remaining parameter where to extract the script lists from.
+	 * 
+	 * @param tempRemainingParameters
+	 *            Remaining parameter where to extract the script lists from.
 	 * @return An resource provider
 	 */
-	protected TestResourceProvider getResourceProviderAndPrintsWarnings(String[] tempRemainingParameters) {
+	protected TestResourceProvider getResourceProviderAndPrintWarnings(String[] tempRemainingParameters) {
 		FilesystemTestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
 		if (tempResourceProvider.hasIgnoredReferences()) {
 			for (Entry<String, String> ignored : tempResourceProvider.getIgnoredReferencesWithReasons()) {
-				System.out.println("Warning: Reference to resource '" + ignored.getKey() + "' was ignored because it " + ignored.getValue());
+				System.out.println("WARNING: Reference to resource '" + ignored.getKey() + "' was ignored because it "
+						+ ignored.getValue());
 			}
 		}
 		return tempResourceProvider;
@@ -270,7 +275,9 @@ public class ConsoleTestExecutor {
 
 	/**
 	 * Returns all script references from the remaining unparsed parameters.
-	 * @param tempRemainingParameters Unparsed parameters not matched by the options.
+	 * 
+	 * @param tempRemainingParameters
+	 *            Unparsed parameters not matched by the options.
 	 * @return List of script file references.
 	 */
 	protected List<File> getScriptsList(String[] tempRemainingParameters) {
@@ -284,7 +291,9 @@ public class ConsoleTestExecutor {
 
 	/**
 	 * Evaluates the given option and chooses a transformation handling from it.
-	 * @param tempXsltOption Option to be evaluated.
+	 * 
+	 * @param tempXsltOption
+	 *            Option to be evaluated.
 	 * @return The chosen transformation handling.
 	 */
 	protected TransformHandling evaluateTransformHandling(SimpleCommandLineParser.StringOption tempXsltOption) {
@@ -303,7 +312,6 @@ public class ConsoleTestExecutor {
 			return TransformHandling.EXECUTE_TRANSFORM;
 		}
 	}
-	
 
 	/**
 	 * This is a designated override point to allow for additional callbacks to be easily integrated into a test run.
