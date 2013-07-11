@@ -28,8 +28,7 @@ import java.util.Set;
  */
 public class FilesystemTestResourceProvider implements TestResourceProvider {
 	/**
-	 * Path which are specified but got ignored.
-	 * Key is the path, the value is the reason.
+	 * Path which are specified but got ignored. Key is the path, the value is the reason.
 	 */
 	private Map<String, String> ignoredReferences = new HashMap<String, String>();
 
@@ -44,9 +43,11 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	private ClassLoader classLoader = getClass().getClassLoader();
 
 	/**
-	 * Adds the given resource recursively, that is if it is a directory all
-	 * enclosed directories and files are recursively included as well.
-	 * @param aResourceFile Resource to be added.
+	 * Adds the given resource recursively, that is if it is a directory all enclosed directories and files are
+	 * recursively included as well.
+	 * 
+	 * @param aResourceFile
+	 *            Resource to be added.
 	 */
 	public void addRecursively(File aResourceFile) {
 		if (!aResourceFile.exists()) {
@@ -61,20 +62,23 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 			addRecursively(tempFile);
 		}
 	}
-	
+
 	/**
-	 * Adds the given resources recursively, that is if one of them is a directory all
-	 * enclosed directories and files of it are recursively included as well.
-	 * @param someResourceFiles Resources to be added.
+	 * Adds the given resources recursively, that is if one of them is a directory all enclosed directories and files of
+	 * it are recursively included as well.
+	 * 
+	 * @param someResourceFiles
+	 *            Resources to be added.
 	 */
 	public void addAllRecursively(Collection<? extends File> someResourceFiles) {
-		for (File resourceFile : someResourceFiles) {
-			addRecursively(resourceFile);
+		for (File tempResourceFile : someResourceFiles) {
+			addRecursively(tempResourceFile);
 		}
 	}
-	
+
 	/**
 	 * Adds the given resource if it is a file.
+	 * 
 	 * @param aResourceFile
 	 */
 	public void addFile(File aResourceFile) {
@@ -92,25 +96,28 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 		}
 		resourceFiles.add(aResourceFile.getAbsolutePath());
 	}
-	
+
 	/**
 	 * Returns all references which got ignored and returns a reason along why they got ignored.
+	 * 
 	 * @return Ignored references with a reason.
 	 */
 	public Set<Entry<String, String>> getIgnoredReferencesWithReasons() {
 		return ignoredReferences.entrySet();
 	}
-	
+
 	/**
 	 * Returns all references which got ignored.
+	 * 
 	 * @return All references which got ignored.
 	 */
 	public Set<String> getIgnoredReferences() {
 		return ignoredReferences.keySet();
 	}
-	
+
 	/**
 	 * Checks if any reference got ignored.
+	 * 
 	 * @return <code>true</code> if any reference got ignored, <code>false</code> otherwise.
 	 */
 	public boolean hasIgnoredReferences() {
