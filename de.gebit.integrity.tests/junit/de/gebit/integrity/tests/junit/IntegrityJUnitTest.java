@@ -37,7 +37,6 @@ import de.gebit.integrity.runner.callbacks.xml.TransformHandling;
 import de.gebit.integrity.runner.callbacks.xml.XmlWriterTestCallback;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
-import de.gebit.integrity.runner.providers.TestResourceProvider;
 
 /**
  * Abstract base class for Integrity JUnit tests.
@@ -73,7 +72,8 @@ public abstract class IntegrityJUnitTest {
 			tempFileList.add(new File(tempFileName));
 		}
 
-		TestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider(tempFileList, true);
+		FilesystemTestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider();
+		tempResourceProvider.addAllRecursively(tempFileList);
 		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, false, null);
 
 		boolean tempKeepFiles = "true".equals(System.getProperty("keepFiles"));
