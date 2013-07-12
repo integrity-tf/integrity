@@ -68,8 +68,8 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	 * @param someResourceFiles Resources to be added.
 	 */
 	public void addAllRecursively(Collection<? extends File> someResourceFiles) {
-		for (File resourceFile : someResourceFiles) {
-			addRecursively(resourceFile);
+		for (File tempResourceFile : someResourceFiles) {
+			addRecursively(tempResourceFile);
 		}
 	}
 	

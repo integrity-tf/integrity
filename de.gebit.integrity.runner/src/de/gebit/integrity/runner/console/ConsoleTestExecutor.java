@@ -239,8 +239,7 @@ public class ConsoleTestExecutor {
 		} catch (ValidationException exc) {
 			// Print no stacktrace as the message should include a line number to the cause, which is more interesting
 			System.err.println(exc.getMessage());
-		}
-		catch (ModelLinkException exc) {
+		} catch (ModelLinkException exc) {
 			exc.printUnresolvableObjects();
 		} catch (ModelAmbiguousException exc) {
 			exc.printAmbiguousDefinitions();
@@ -252,27 +251,27 @@ public class ConsoleTestExecutor {
 	/**
 	 * Extracts the root suite name from the remaining parameters.
 	 * 
-	 * @param tempRemainingParameters
+	 * @param someRemainingParameter
 	 *            Where to extract the root suite name from.
 	 * @return the root suite name
 	 */
-	protected String getRootSuiteNameFrom(String[] tempRemainingParameters) {
-		return tempRemainingParameters[0]; // Can't be null, this should have been previously checked
+	protected String getRootSuiteNameFrom(String[] someRemainingParameter) {
+		return someRemainingParameter[0]; // Can't be null, this should have been previously checked
 	}
 
 	/**
 	 * Gets an resource provider for the listed resources in the remaining parameter and warns about ignored references.
 	 * 
-	 * @param tempRemainingParameters
+	 * @param someRemainingParameters
 	 *            Remaining parameter where to extract the script lists from.
 	 * @return An resource provider
 	 */
-	protected TestResourceProvider getResourceProviderAndPrintWarnings(String[] tempRemainingParameters) {
-		FilesystemTestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
+	protected TestResourceProvider getResourceProviderAndPrintWarnings(String[] someRemainingParameters) {
+		FilesystemTestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(someRemainingParameters));
 		if (tempResourceProvider.hasIgnoredReferences()) {
-			for (Entry<String, String> ignored : tempResourceProvider.getIgnoredReferencesWithReasons()) {
-				System.out.println("WARNING: Reference to resource '" + ignored.getKey() + "' was ignored because it "
-						+ ignored.getValue());
+			for (Entry<String, String> tempIgnored : tempResourceProvider.getIgnoredReferencesWithReasons()) {
+				System.out.println("WARNING: Reference to resource '" + tempIgnored.getKey() + "' was ignored because it "
+						+ tempIgnored.getValue());
 			}
 		}
 		return tempResourceProvider;
@@ -281,15 +280,15 @@ public class ConsoleTestExecutor {
 	/**
 	 * Returns all script references from the remaining unparsed parameters.
 	 * 
-	 * @param tempRemainingParameters
+	 * @param someRemainingParameters
 	 *            Unparsed parameters not matched by the options.
 	 * @return List of script file references.
 	 */
-	protected List<File> getScriptsList(String[] tempRemainingParameters) {
+	protected List<File> getScriptsList(String[] someRemainingParameters) {
 		List<File> tempTestPaths = new ArrayList<File>();
 		// Skip the first one (0-based), scripts start at the second entry
-		for (int i = 1; i < tempRemainingParameters.length; i++) {
-			tempTestPaths.add(new File(tempRemainingParameters[i]));
+		for (int i = 1; i < someRemainingParameters.length; i++) {
+			tempTestPaths.add(new File(someRemainingParameters[i]));
 		}
 		return tempTestPaths;
 	}
@@ -297,22 +296,22 @@ public class ConsoleTestExecutor {
 	/**
 	 * Evaluates the given option and chooses a transformation handling from it.
 	 * 
-	 * @param tempXsltOption
+	 * @param aXsltOption
 	 *            Option to be evaluated.
 	 * @return The chosen transformation handling.
 	 */
-	protected TransformHandling evaluateTransformHandling(SimpleCommandLineParser.StringOption tempXsltOption) {
-		if (tempXsltOption.getValue() == null) {
+	protected TransformHandling evaluateTransformHandling(SimpleCommandLineParser.StringOption aXsltOption) {
+		if (aXsltOption.getValue() == null) {
 			return TransformHandling.EXECUTE_TRANSFORM;
 		}
-		if ("none".equals(tempXsltOption.getValue())) {
+		if ("none".equals(aXsltOption.getValue())) {
 			return TransformHandling.NO_TRANSFORM;
-		} else if ("embed".equals(tempXsltOption.getValue())) {
+		} else if ("embed".equals(aXsltOption.getValue())) {
 			return TransformHandling.EMBED_TRANSFORM;
-		} else if ("execute".equals(tempXsltOption.getValue())) {
+		} else if ("execute".equals(aXsltOption.getValue())) {
 			return TransformHandling.EXECUTE_TRANSFORM;
 		} else {
-			System.err.println("--xslt option value '" + tempXsltOption.getValue()
+			System.err.println("--xslt option value '" + aXsltOption.getValue()
 					+ "' not understood; valid values are 'none', 'embed', 'execute'.");
 			return TransformHandling.EXECUTE_TRANSFORM;
 		}
@@ -349,9 +348,9 @@ public class ConsoleTestExecutor {
 	 * @return a resource provider instance
 	 */
 	protected FilesystemTestResourceProvider createResourceProvider(List<File> aPathList) {
-		FilesystemTestResourceProvider resourceProvider = new FilesystemTestResourceProvider();
-		resourceProvider.addAllRecursively(aPathList);
-		return resourceProvider;
+		FilesystemTestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider();
+		tempResourceProvider.addAllRecursively(aPathList);
+		return tempResourceProvider;
 	}
 
 	/**
