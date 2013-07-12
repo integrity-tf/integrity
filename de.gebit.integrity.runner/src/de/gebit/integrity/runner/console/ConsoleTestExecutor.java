@@ -162,7 +162,8 @@ public class ConsoleTestExecutor {
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");
 		String tempRootSuiteName = getRootSuiteNameFrom(tempRemainingParameters);
-		TestResourceProvider tempResourceProvider = getResourceProviderAndPrintWarnings(tempRemainingParameters);
+		TestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
+		validateResourceProvider(tempResourceProvider);
 
 		try {
 			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet(),
@@ -256,21 +257,23 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
-	 * Gets an resource provider for the listed resources in the remaining parameter and warns about ignored references.
+	 * Performs any validation steps on the provided resource provider, such as checking for ignored references in case
+	 * of a {@link FilesystemTestResourceProvider}. What this method does is highly dependent on the capabilities of the
+	 * method and the actual resource provider class.
 	 * 
-	 * @param someRemainingParameters
-	 *            Remaining parameter where to extract the script lists from.
-	 * @return An resource provider
+	 * @param aProvider
+	 *            The provider to validate
 	 */
-	protected TestResourceProvider getResourceProviderAndPrintWarnings(String[] someRemainingParameters) {
-		FilesystemTestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(someRemainingParameters));
-		if (tempResourceProvider.hasIgnoredReferences()) {
-			for (Entry<String, String> tempIgnored : tempResourceProvider.getIgnoredReferencesWithReasons()) {
-				System.out.println("WARNING: Reference to resource '" + tempIgnored.getKey()
-						+ "' was ignored because it " + tempIgnored.getValue());
+	protected void validateResourceProvider(TestResourceProvider aProvider) {
+		if (aProvider instanceof FilesystemTestResourceProvider) {
+			FilesystemTestResourceProvider tempProvider = (FilesystemTestResourceProvider) aProvider;
+			if (tempProvider.hasIgnoredReferences()) {
+				for (Entry<String, String> tempIgnored : tempProvider.getIgnoredReferencesWithReasons()) {
+					System.out.println("WARNING: Reference to resource '" + tempIgnored.getKey()
+							+ "' was ignored because it " + tempIgnored.getValue());
+				}
 			}
 		}
-		return tempResourceProvider;
 	}
 
 	/**
@@ -343,7 +346,7 @@ public class ConsoleTestExecutor {
 	 *            the list with the test script paths
 	 * @return a resource provider instance
 	 */
-	protected FilesystemTestResourceProvider createResourceProvider(List<File> aPathList) {
+	protected TestResourceProvider createResourceProvider(List<File> aPathList) {
 		FilesystemTestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider();
 		tempResourceProvider.addAllRecursively(aPathList);
 		return tempResourceProvider;
