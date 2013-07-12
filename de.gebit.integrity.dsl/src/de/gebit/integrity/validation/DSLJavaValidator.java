@@ -37,6 +37,7 @@ import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
+import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.VariableDefinition;
@@ -139,6 +140,16 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aTest.getParameters(), parameterName));
 		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
 	}
+	
+	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
+	protected void _checkParameter(TableTest aTableTest) {
+		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aTableTest.getDefinition().getFixtureMethod());
+		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aTableTest.getParameters(), parameterName));
+		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+	}
+	
+	/** Polymorphic Dispatch Default Case of {@link #checkParameter(Call)}. */
+	protected void _checkParameter(SuiteStatementWithResult aCall) { /* Does nothing. */ }
 	
 	/**
 	 * Extracts all mandatory parameter names from the given method reference.

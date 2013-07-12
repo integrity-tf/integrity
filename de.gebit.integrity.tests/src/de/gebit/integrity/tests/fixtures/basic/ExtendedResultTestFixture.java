@@ -28,9 +28,9 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 	int numberOfHypertextSnippets;
 
 	@FixtureMethod
-	public boolean returnExtendedStuff(@FixtureParameter(name = "textCount") Integer aNumberOfTexts,
-			@FixtureParameter(name = "imageCount") Integer aNumberOfImages,
-			@FixtureParameter(name = "htmlCount") Integer aNumberOfHypertextSnippets) {
+	public boolean returnExtendedStuff(@FixtureParameter(name = "textCount", optional = true) Integer aNumberOfTexts,
+			@FixtureParameter(name = "imageCount", optional = true) Integer aNumberOfImages,
+			@FixtureParameter(name = "htmlCount", optional = true) Integer aNumberOfHypertextSnippets) {
 		numberOfTexts = aNumberOfTexts != null ? aNumberOfTexts : 0;
 		numberOfImages = aNumberOfImages != null ? aNumberOfImages : 0;
 		numberOfHypertextSnippets = aNumberOfHypertextSnippets != null ? aNumberOfHypertextSnippets : 0;
