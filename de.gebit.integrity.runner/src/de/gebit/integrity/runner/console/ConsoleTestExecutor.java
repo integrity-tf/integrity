@@ -32,6 +32,7 @@ import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
+import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
@@ -235,7 +236,11 @@ public class ConsoleTestExecutor {
 			for (Diagnostic tempDiag : exc.getErrors()) {
 				System.err.println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
 			}
-		} catch (ModelLinkException exc) {
+		} catch (ValidationException exc) {
+			// Print no stacktrace as the message should include a line number to the cause, which is more interesting
+			System.err.println(exc.getMessage());
+		}
+		catch (ModelLinkException exc) {
 			exc.printUnresolvableObjects();
 		} catch (ModelAmbiguousException exc) {
 			exc.printAmbiguousDefinitions();

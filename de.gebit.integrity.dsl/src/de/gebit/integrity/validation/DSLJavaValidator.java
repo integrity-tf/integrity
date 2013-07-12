@@ -7,9 +7,13 @@
  *******************************************************************************/
 package de.gebit.integrity.validation;
 
+import static com.google.common.base.Predicates.not;
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Iterables.transform;
+import static java.util.Collections.emptySet;
+
 import java.text.ParseException;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -17,9 +21,10 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
-import org.eclipse.xtext.common.types.JvmAnnotationValue;
+import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
@@ -29,11 +34,13 @@ import de.gebit.integrity.annotation.JvmFixtureEvaluation;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
+import de.gebit.integrity.dsl.SuiteStatementWithResult;
+import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.utils.DateUtil;
-import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 
 /**
  * These validators perform some more extensive validation on parts of the syntax tree.
@@ -46,6 +53,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	/** Evaluates JvmFixtures and provides tooling for handling the abstract types. */
 	@Inject
 	private JvmFixtureEvaluation evaluator;
+	/** Polymorphical dispatches calls to _checkParameter" methods. */
+	private PolymorphicDispatcher<Void> checkParameterDispatcher = PolymorphicDispatcher.createForSingleTarget("_checkParameter", this);
 	
 	/**
 	 * Checks whether a given {@link DateValue} is actually correct (finds errors like days which don't exist in the
@@ -108,19 +117,61 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		}
 	}
 	
+	/**
+	 * Checks for missing parameters.
+	 * @param aCall Call to be verified.
+	 */
 	@Check
-	public void checkForMissingParameter(Call aCall) {
-		List<JvmAnnotationReference> tempAnnotatedParameter = evaluator.getAllAnnotatedParameter(aCall.getDefinition().getFixtureMethod(), FixtureParameterAssessment.ACCEPTED_ANNOTATION);
+	public void checkParameter(SuiteStatementWithResult aCall) {
+		checkParameterDispatcher.invoke(aCall);
+	}
+	
+	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
+	protected void _checkParameter(Call aCall) {
+		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aCall.getDefinition().getFixtureMethod());
+		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aCall.getParameters(), parameterName));
+		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+	}
+	
+	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
+	protected void _checkParameter(Test aTest) {
+		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aTest.getDefinition().getFixtureMethod());
+		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aTest.getParameters(), parameterName));
+		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+	}
+	
+	/**
+	 * Extracts all mandatory parameter names from the given method reference.
+	 * @param aMethod Method where to get the parameter names from.
+	 * @return All mandatory parameter names.
+	 */
+	protected Set<String> getMandatoryParameterNamesOf(MethodReference aMethod) {
+		if (aMethod == null) {
+			return emptySet();
+		}
+		List<JvmAnnotationReference> tempAnnotatedParameter = evaluator.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
 		List<FixtureParameterAssessment> tempParameter = wrap(tempAnnotatedParameter);
-		Set<String> tempMandatoryParameter = collectMandatoryParameter(tempParameter);
-		Set<String> tempSpecifiedParameter = collectParameterNames(aCall.getParameters());
-		SetView<String> tempDifference = Sets.difference(tempMandatoryParameter, tempSpecifiedParameter);
+		return collectMandatoryParameterNames(tempParameter);
+	}
+	
+	/**
+	 * Checks if some parameter is missing and reports this.
+	 * @param someMandatoryParameters Mandatory parameter names.
+	 * @param someSpecifiedParameter Specified parameter names.
+	 */
+	protected void checkForMissingParameter(Set<String> someMandatoryParameters, Set<String> someSpecifiedParameter) {
+		SetView<String> tempDifference = Sets.difference(someMandatoryParameters, someSpecifiedParameter);
 		if (!tempDifference.isEmpty()) {
 			String tempAllMissing = Joiner.on(", ").join(tempDifference);
 			error("Missing mandatory parameter(s): " + tempAllMissing, null);
 		}
 	}
 	
+	/**
+	 * Wraps the Jvm Annotation in assessment objects for easier access and caches the processing results.
+	 * @param anAnnotation Annotation references to wrap.
+	 * @return Assessment classes for easier access.
+	 */
 	public List<FixtureParameterAssessment> wrap(Iterable<JvmAnnotationReference> anAnnotation) {
 		List<FixtureParameterAssessment> tempResult = new LinkedList<FixtureParameterAssessment>();
 		for (JvmAnnotationReference tempAnnotation : anAnnotation) {
@@ -129,41 +180,21 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		return tempResult;
 	}
 	
-	protected Set<String> collectMandatoryParameter(Collection<FixtureParameterAssessment> aCollection) {
-		Set<String> tempResult = new HashSet<String>();
-		for (FixtureParameterAssessment tempParameter : aCollection) {
-			if (!tempParameter.isOptional()) {
-				tempResult.add(tempParameter.getName());
-			}
-		}
-		return tempResult;
+	/**
+	 * Collects all mandatory parameter names and returns them.
+	 * @param aCollection Some parameter to get the mandatory names from.
+	 * @return 
+	 */
+	protected Set<String> collectMandatoryParameterNames(Collection<FixtureParameterAssessment> aCollection) {
+		Iterable<FixtureParameterAssessment> tempMandatory = filter(aCollection, not(FixtureParameterAssessment.IS_OPTIONAL));
+		Iterable<String> tempMandatoryNames = transform(tempMandatory, FixtureParameterAssessment.NAME);
+		return Sets.newLinkedHashSet(tempMandatoryNames);
 	}
 	
-	protected Set<String> collectParameterNamesFromTriplet(Collection<ParamAnnotationTypeTriplet> aCollection) {
-		Set<String> tempResult = new HashSet<String>();
-		for (ParamAnnotationTypeTriplet tempParamTriplet : aCollection) {
-			tempResult.add(tempParamTriplet.getParamName());
-		}
-		return tempResult;
-	}
-	
-	protected Set<String> collectParameterNames(Collection<Parameter> aCollection) {
-		Set<String> tempResult = new HashSet<String>();
-		for (Parameter tempParameter : aCollection) {
-			tempResult.add(evaluator.getParameterNameOf(tempParameter.getName()));
-		}
-		return tempResult;
-	}
-	
-	protected List<ParamAnnotationTypeTriplet> collectsMandatory(Collection<ParamAnnotationTypeTriplet> aCollection) {
-		List<ParamAnnotationTypeTriplet> tempResult = new LinkedList<ParamAnnotationTypeTriplet>();
-		for (ParamAnnotationTypeTriplet tempParamTriplet : aCollection) {
-			JvmAnnotationValue tempOptional = evaluator.getValueByName(tempParamTriplet.getAnnotation(), "optional");
-			if (!evaluator.evaluateSingle(tempOptional, Boolean.class)) {
-				tempResult.add(tempParamTriplet);
-			}
-		}
-		return tempResult;
-	}
-
+	/** Maps parameters to their names. */
+	private Function<Parameter, String> parameterName = new Function<Parameter, String>() {
+		public String apply(Parameter aParameter) {
+			return evaluator.getParameterNameOf(aParameter.getName());
+		};
+	};
 }
