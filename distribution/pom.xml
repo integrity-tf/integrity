@@ -28,6 +28,16 @@
       <artifactId>de.gebit.integrity.remoting</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.dsl.ui</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gebit.integrity</groupId>
+      <artifactId>de.gebit.integrity.eclipse</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
   
   <build>
