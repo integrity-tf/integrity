@@ -24,6 +24,12 @@
 		<resource>
 			<directory>${basedir}/src-gen</directory>
 		</resource>
+		<resource>
+			<directory>${basedir}/</directory>			
+			<includes>
+				<include>icons/**/*</include>
+			</includes>
+		</resource>
   	</resources>
   </build>
 </project>
