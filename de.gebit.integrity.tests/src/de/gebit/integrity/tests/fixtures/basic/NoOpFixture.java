@@ -121,4 +121,10 @@ public class NoOpFixture {
 			@FixtureParameter(name = "string") String aStringToEcho) {
 		return anIntToEcho != null ? anIntToEcho.toString() : aStringToEcho;
 	}
+
+	@FixtureMethod(description = "Takes one mandatory and an optional string")
+	public boolean takeMandatoryString(@FixtureParameter(name = "optional") String anOptionalParameter,
+			@FixtureParameter(name = "mandatory", mandatory = true) String aMandatoryParameter) {
+		return true;
+	}
 }

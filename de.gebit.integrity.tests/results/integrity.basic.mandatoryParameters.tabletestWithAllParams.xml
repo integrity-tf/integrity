@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="31.07.13 18:20" isotimestamp="2013-07-31T18:20:43" duration="20.801">
+  <variables />
+  <suite id="0" name="integrity.basic.mandatoryParameters.tabletestWithAllParams" timestamp="31.07.13 18:20:43.0426">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="31" name="takeMandatoryStringTest" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="31.07.13 18:20:43.0426">
+        <results duration="10.429" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.949" description="Takes one mandatory and an optional string" type="success">
+            <parameters>
+              <parameter name="mandatory" value="foo" />
+              <parameter name="optional" value="bar" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="18.985" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

@@ -1,0 +1,48 @@
+import integrity.operations.default.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.mandatoryParameters with
+
+	suitedef callWithAllParams with	 
+		call takeMandatoryString mandatory: "foo" optional: "bar"		
+	suiteend
+	
+	suitedef callWithOptionalParam with	 
+		call takeMandatoryString optional: "bar"		
+	suiteend
+	
+	suitedef callWithMandatoryParam with	 
+		call takeMandatoryString mandatory: "foo"		
+	suiteend
+	
+	suitedef testWithAllParams with	 
+		test takeMandatoryStringTest mandatory: "foo" optional: "bar"		
+	suiteend
+	
+	suitedef testWithOptionalParam with	 
+		test takeMandatoryStringTest optional: "bar"		
+	suiteend
+	
+	suitedef testWithMandatoryParam with	 
+		test takeMandatoryStringTest mandatory: "foo"		
+	suiteend
+	
+	suitedef tabletestWithAllParams with	 
+		tabletest takeMandatoryStringTest 
+			| mandatory | optional |
+			| "foo"     | "bar"    |		
+	suiteend
+	
+	suitedef tabletestWithOptionalParam with	 
+		tabletest takeMandatoryStringTest 
+			| optional |
+			| "bar"    |		
+	suiteend
+	
+	suitedef tabletestWithMandatoryParam with	 
+		tabletest takeMandatoryStringTest 
+			| mandatory |
+			| "foo"     |
+	suiteend
+
+packageend

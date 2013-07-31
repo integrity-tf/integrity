@@ -53,5 +53,9 @@ packagedef integrity.fixtures.basic.noop with
 	testdef specificDescriptionBoth_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionBoth
 	
 	testdef echoIntegerOrStringTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString
+	
+	calldef takeMandatoryString uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString
+	testdef takeMandatoryStringTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString
+	
 
 packageend

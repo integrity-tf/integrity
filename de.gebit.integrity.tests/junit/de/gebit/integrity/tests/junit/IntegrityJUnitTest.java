@@ -7,8 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.tests.junit;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import junit.framework.AssertionFailedError;
 
@@ -149,6 +152,25 @@ public abstract class IntegrityJUnitTest {
 		}
 	}
 
+	protected void assertExceptionIsThrown(RunnableWithException aRunnable,
+			Class<? extends Exception> aReferenceExceptionClass, String aReferenceMessage,
+			Pattern aReferenceMessagePattern) {
+		try {
+			aRunnable.run();
+		} catch (Throwable exc) {
+			if (aReferenceExceptionClass != null) {
+				assertTrue(aReferenceExceptionClass.isAssignableFrom(exc.getClass()));
+			}
+			if (aReferenceMessage != null) {
+				assertEquals(aReferenceMessage, exc.getMessage());
+			}
+			if (aReferenceMessagePattern != null) {
+				Matcher tempMatcher = aReferenceMessagePattern.matcher(exc.getMessage());
+				assertTrue(tempMatcher.matches());
+			}
+		}
+	}
+
 	private void removeDurationsAndTimes(Element anElement) throws JDOMException {
 		clearAttribute(anElement, "duration");
 		clearAttribute(anElement, "timestamp");
@@ -180,6 +202,23 @@ public abstract class IntegrityJUnitTest {
 			tempFile.delete();
 		}
 		return temporaryFileDirectory;
+	}
+
+	/**
+	 * Special runnable which declares to throw {@link Exception}.
+	 * 
+	 * 
+	 * @author YOUR_NAME_HERE - initial API and implementation
+	 * 
+	 */
+	public interface RunnableWithException {
+
+		/**
+		 * The actual code.
+		 * 
+		 * @throws Exception
+		 */
+		void run() throws Exception;
 	}
 
 }
