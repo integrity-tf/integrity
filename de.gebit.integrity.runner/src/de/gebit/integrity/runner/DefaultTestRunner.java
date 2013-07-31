@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -24,7 +25,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -92,6 +99,7 @@ import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
 import de.gebit.integrity.runner.comparator.ResultComparator;
+import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.forking.DefaultForker;
 import de.gebit.integrity.runner.forking.Fork;
 import de.gebit.integrity.runner.forking.ForkCallback;
@@ -114,8 +122,10 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ModelSourceUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
+import de.gebit.integrity.validation.DSLJavaValidator;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
@@ -251,6 +261,10 @@ public class DefaultTestRunner implements TestRunner {
 	 * define the values for "parameterized" constants.
 	 */
 	protected Map<String, String> parameterizedConstantValues;
+
+	/** Validates calls. */
+	@javax.inject.Inject
+	protected DSLJavaValidator validator;
 
 	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
@@ -834,6 +848,7 @@ public class DefaultTestRunner implements TestRunner {
 		List<VariableOrConstantEntity> tempDefinedVariables = new ArrayList<VariableOrConstantEntity>();
 
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
+			checkForValidationError(tempStatement);
 			if (tempStatement instanceof Suite) {
 				Suite tempSuite = (Suite) tempStatement;
 				boolean tempExecute = false;
@@ -2007,5 +2022,35 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void resetWaitBeforeNextStep() {
 		shallWaitBeforeNextStep = false;
+	}
+
+	/**
+	 * Checks and ensures that the specified object has no validation errors.
+	 * 
+	 * @param anObject
+	 *            Object to be validated.
+	 */
+	protected void checkForValidationError(EObject anObject) {
+		Diagnostic tempDiagnostic = Diagnostician.INSTANCE.validate(anObject);
+		if (tempDiagnostic == null || (tempDiagnostic.getSeverity() & BasicDiagnostic.ERROR) == 0) {
+			return;
+		}
+		StringBuilder tempResult = new StringBuilder();
+		Deque<Diagnostic> tempStack = new LinkedList<Diagnostic>();
+		final ICompositeNode tempConflictOrigin = NodeModelUtils.getNode(anObject);
+		if (tempConflictOrigin != null) {
+			tempResult.append("Validation Error in: " + ModelSourceUtil.getSourceFilePathForINode(tempConflictOrigin)
+					+ " in line " + tempConflictOrigin.getTotalStartLine() + ":");
+		} else {
+			tempResult.append(tempDiagnostic.getMessage());
+		}
+		tempStack.addAll(tempDiagnostic.getChildren());
+		while (!tempStack.isEmpty()) {
+			tempResult.append("\n\t");
+			Diagnostic tempCurrent = tempStack.poll();
+			tempStack.addAll(tempCurrent.getChildren());
+			tempResult.append(tempCurrent.getMessage());
+		}
+		throw new ValidationException(tempResult.toString(), tempConflictOrigin);
 	}
 }

@@ -10,25 +10,21 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class ArrayFixture {
 
 	@FixtureMethod(description = "Counts an array of strings: $strings$")
-	public int receiveArrayAndReturnSize(
-			@FixtureParameter(name = "strings") String[] someStrings) {
+	public int receiveArrayAndReturnSize(@FixtureParameter(name = "strings") String[] someStrings) {
 		return someStrings.length;
 	}
 
 	@FixtureMethod(description = "Echoes an array of strings: $strings$")
-	public String[] echoStringArray(
-			@FixtureParameter(name = "strings") String[] someStrings) {
+	public String[] echoStringArray(@FixtureParameter(name = "strings", mandatory = true) String[] someStrings) {
 		return someStrings;
 	}
 
 	@FixtureMethod(description = "Counts an array of enums: $enum$")
-	public int receiveEnumArrayAndReturnSize(
-			@FixtureParameter(name = "enum") Enum[] someValues) {
+	public int receiveEnumArrayAndReturnSize(@FixtureParameter(name = "enum") Enum[] someValues) {
 		return someValues.length;
 	}
 
-	public static class ArrayFixtureFactory implements
-			FixtureInstanceFactory<ArrayFixture> {
+	public static class ArrayFixtureFactory implements FixtureInstanceFactory<ArrayFixture> {
 
 		@Override
 		public ArrayFixture retrieveInstance() {

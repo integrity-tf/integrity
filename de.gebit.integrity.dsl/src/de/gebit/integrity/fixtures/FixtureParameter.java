@@ -31,10 +31,10 @@ public @interface FixtureParameter {
 	String name();
 
 	/**
-	 * Whether the parameter must be provided or is optional.
+	 * Whether the parameter must be provided or is optional. By default parameters are optional.
 	 * 
 	 * @return
 	 */
-	boolean optional() default false;
+	boolean mandatory() default false;
 
 }
