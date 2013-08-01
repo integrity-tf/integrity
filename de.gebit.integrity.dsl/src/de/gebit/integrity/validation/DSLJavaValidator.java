@@ -20,6 +20,8 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
+import org.eclipse.xtext.common.types.JvmFormalParameter;
+import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.validation.Check;
 
@@ -172,8 +174,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		if (aMethod == null) {
 			return emptySet();
 		}
-		List<JvmAnnotationReference> tempAnnotatedParameter = evaluator.getAllAnnotatedParameter(aMethod,
-				FixtureParameterAssessment.ACCEPTED_ANNOTATION);
+		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter = evaluator
+				.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
 		List<FixtureParameterAssessment> tempParameter = wrap(tempAnnotatedParameter);
 		return collectMandatoryParameterNames(tempParameter);
 	}
@@ -195,16 +197,17 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	}
 
 	/**
-	 * Wraps the Jvm Annotation in assessment objects for easier access and caches the processing results.
+	 * Wraps the parameter/annotation tuples in assessment objects for easier access and caches the processing results.
 	 * 
-	 * @param anAnnotation
-	 *            Annotation references to wrap.
+	 * @param someParameters
+	 *            Parameters to wrap
 	 * @return Assessment classes for easier access.
 	 */
-	public List<FixtureParameterAssessment> wrap(Iterable<JvmAnnotationReference> anAnnotation) {
+	public List<FixtureParameterAssessment> wrap(
+			Iterable<Pair<JvmFormalParameter, JvmAnnotationReference>> someParameters) {
 		List<FixtureParameterAssessment> tempResult = new LinkedList<FixtureParameterAssessment>();
-		for (JvmAnnotationReference tempAnnotation : anAnnotation) {
-			tempResult.add(new FixtureParameterAssessment(evaluator, tempAnnotation));
+		for (Pair<JvmFormalParameter, JvmAnnotationReference> tempParameterPair : someParameters) {
+			tempResult.add(new FixtureParameterAssessment(evaluator, tempParameterPair));
 		}
 		return tempResult;
 	}

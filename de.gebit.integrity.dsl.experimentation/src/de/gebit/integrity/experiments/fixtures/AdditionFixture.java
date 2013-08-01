@@ -44,7 +44,7 @@ public class AdditionFixture {
 	 */
 	@FixtureMethod(description = "generates random number between $min$ and $max$")
 	public Integer randomNumber(@FixtureParameter(name = "min", mandatory = true) Integer aMin,
-			@FixtureParameter(name = "max", mandatory = true) Integer aMax) {
+			@FixtureParameter(name = "max") int aMax) {
 		pause();
 		return new Integer((int) (Math.random() * (aMax - aMin) + aMin));
 	}

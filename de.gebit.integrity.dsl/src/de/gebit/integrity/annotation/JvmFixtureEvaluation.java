@@ -13,6 +13,8 @@ import static java.util.Collections.emptyList;
 import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
@@ -20,6 +22,8 @@ import org.eclipse.xtext.common.types.JvmBooleanAnnotationValue;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
+import org.eclipse.xtext.util.Pair;
+import org.eclipse.xtext.util.Tuples;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -38,24 +42,32 @@ import de.gebit.integrity.dsl.ParameterName;
 public class JvmFixtureEvaluation {
 
 	/**
-	 * Processes the given method and returns a list of all annotated parameters.
+	 * Processes the given method and returns a list of all annotated parameters. Only supports one annotation per
+	 * parameter.
 	 * 
 	 * @param aMethod
 	 *            Method to be checked.
 	 * @param someAnnotationTypes
 	 *            Types that should be collected.
-	 * @return A list of all annotations of the given types for this method.
+	 * @return A list of all parameters linked to the annotation of the given types for this method.
 	 */
-	public List<JvmAnnotationReference> getAllAnnotatedParameter(MethodReference aMethod,
-			List<Class<? extends Annotation>> someAnnotationTypes) {
+	public List<Pair<JvmFormalParameter, JvmAnnotationReference>> getAllAnnotatedParameter(MethodReference aMethod,
+			Set<Class<? extends Annotation>> someAnnotationTypes) {
 		if (aMethod == null) {
 			return emptyList();
 		}
 		final JvmOperation tempOperation = aMethod.getMethod();
 		Preconditions.checkArgument(tempOperation != null, "Methodreference did not resolve to a JVM operation!");
-		List<JvmAnnotationReference> tempResult = new LinkedList<JvmAnnotationReference>();
+		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempResult = new LinkedList<Pair<JvmFormalParameter, JvmAnnotationReference>>();
 		for (JvmFormalParameter tempParameter : tempOperation.getParameters()) {
-			Iterables.addAll(tempResult, filter(tempParameter.getAnnotations(), isOneOf(someAnnotationTypes)));
+			try {
+				tempResult
+						.add(Tuples.create(tempParameter, Iterables.getOnlyElement(filter(
+								tempParameter.getAnnotations(), isOneOf(someAnnotationTypes)))));
+			} catch (NoSuchElementException exc) {
+				// Expected if there's no matching annotation
+				continue;
+			}
 		}
 		return tempResult;
 	}
@@ -67,7 +79,7 @@ public class JvmFixtureEvaluation {
 	 *            Annotations that should match.
 	 * @return <code>true</code> if the annotation represents one of the specified ones, <code>false</code> otherwise.
 	 */
-	protected Predicate<JvmAnnotationReference> isOneOf(final List<Class<? extends Annotation>> someAnnotationTypes) {
+	protected Predicate<JvmAnnotationReference> isOneOf(final Set<Class<? extends Annotation>> someAnnotationTypes) {
 		return new Predicate<JvmAnnotationReference>() {
 			public boolean apply(JvmAnnotationReference anAnnotation) {
 				if (anAnnotation == null) {

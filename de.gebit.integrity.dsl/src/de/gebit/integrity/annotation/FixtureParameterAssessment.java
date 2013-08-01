@@ -11,11 +11,13 @@ import java.lang.annotation.Annotation;
 
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
+import org.eclipse.xtext.common.types.JvmFormalParameter;
+import org.eclipse.xtext.util.Pair;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
@@ -27,24 +29,32 @@ import de.gebit.integrity.forker.ForkerParameter;
  * @author tilois - Initial API and Implementation
  */
 public class FixtureParameterAssessment {
+
 	/** Name of the parameter. */
 	private final String name;
+
 	/** Is the parameter optional? */
 	private final boolean mandatory;
 
 	/** List of acceptable annotation classes. */
-	public static final ImmutableList<Class<? extends Annotation>> ACCEPTED_ANNOTATION = ImmutableList.of(
+	public static final ImmutableSet<Class<? extends Annotation>> ACCEPTED_ANNOTATION = ImmutableSet.of(
 			FixtureParameter.class, ForkerParameter.class);
 
-	/** Private list of annotation names. */
-	private static final ImmutableList<String> ACCEPTED_ANNOTATION_NAMES;
+	/** List of annotation names. */
+	protected static final ImmutableSet<String> ACCEPTED_ANNOTATION_NAMES;
 	static {
-		ImmutableList.Builder<String> tempBuilder = new ImmutableList.Builder<String>();
+		ImmutableSet.Builder<String> tempBuilder = new ImmutableSet.Builder<String>();
 		for (Class<? extends Annotation> tempAnnotation : ACCEPTED_ANNOTATION) {
 			tempBuilder.add(tempAnnotation.getCanonicalName());
 		}
 		ACCEPTED_ANNOTATION_NAMES = tempBuilder.build();
 	}
+
+	/**
+	 * List of types known as primitive types.
+	 */
+	protected static final ImmutableSet<String> PRIMITIVE_TYPE_NAMES = ImmutableSet.of("byte", "short", "int", "long",
+			"boolean", "float", "double", "char");
 
 	/**
 	 * Checks if the given annotation is a valid annotation that can be wrapped.
@@ -72,21 +82,34 @@ public class FixtureParameterAssessment {
 	};
 
 	/**
-	 * Wrapps the given annotation with the help of the evalation object.
+	 * Wraps the given parameter/annotation tuple with the help of the evaluation object.
 	 * 
 	 * @param anEvaluation
-	 *            Evaluation which provides access to the annotation.
-	 * @param anAnnotation
-	 *            Annotation to wrap.
+	 *            Evaluation which provides access to the annotation
+	 * @param aParameterTuple
+	 *            Parameter/annotation to wrap
 	 */
-	public FixtureParameterAssessment(JvmFixtureEvaluation anEvaluation, JvmAnnotationReference anAnnotation) {
-		Preconditions.checkNotNull(anAnnotation);
+	public FixtureParameterAssessment(JvmFixtureEvaluation anEvaluation,
+			Pair<JvmFormalParameter, JvmAnnotationReference> aParameterTuple) {
+		Preconditions.checkNotNull(aParameterTuple);
 		Preconditions.checkNotNull(anEvaluation);
-		Preconditions.checkArgument(isAssignable(anAnnotation));
-		JvmAnnotationValue tempName = anEvaluation.getValueByName(anAnnotation, "name");
-		JvmAnnotationValue tempOptional = anEvaluation.getValueByName(anAnnotation, "mandatory");
+
+		JvmFormalParameter tempParameter = aParameterTuple.getFirst();
+		JvmAnnotationReference tempAnnotation = aParameterTuple.getSecond();
+
+		Preconditions.checkArgument(isAssignable(aParameterTuple.getSecond()));
+		JvmAnnotationValue tempName = anEvaluation.getValueByName(tempAnnotation, "name");
+		JvmAnnotationValue tempOptional = anEvaluation.getValueByName(tempAnnotation, "mandatory");
+
 		name = anEvaluation.evaluateSingle(tempName, String.class);
-		mandatory = anEvaluation.evaluateSingle(tempOptional, Boolean.class);
+		boolean tempMandatory = anEvaluation.evaluateSingle(tempOptional, Boolean.class);
+
+		if (!tempMandatory && tempParameter.getParameterType() != null) {
+			// Primitive types are automatically mandatory; they can technically not be made optional.
+			tempMandatory = PRIMITIVE_TYPE_NAMES.contains(tempParameter.getParameterType().getQualifiedName());
+		}
+
+		mandatory = tempMandatory;
 	}
 
 	public String getName() {
