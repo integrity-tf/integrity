@@ -970,7 +970,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
-			if (aTargetType == null) {
+			if (aTargetType == null || aTargetType == Object.class) {
 				// This is the default target type case
 				tempConversionClass = defaultConversions.get(tempSourceTypeInFocus);
 			} else {
@@ -999,7 +999,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return tempConversionClass;
 			} else {
 				for (Class<?> tempSourceInterface : tempSourceTypeInFocus.getInterfaces()) {
-					if (aTargetType == null) {
+					if (aTargetType == null || aTargetType == Object.class) {
 						// This is the default target type case
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
 								null);
