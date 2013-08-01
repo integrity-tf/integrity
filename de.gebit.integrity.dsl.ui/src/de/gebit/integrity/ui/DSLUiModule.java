@@ -12,6 +12,7 @@ package de.gebit.integrity.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.formatting.IWhitespaceInformationProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
@@ -23,6 +24,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculato
 import de.gebit.integrity.ui.contentassist.IntegrityPrefixMatcher;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
+import de.gebit.integrity.ui.formatting.DSLWhitespaceInformationProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
 import de.gebit.integrity.ui.highlighting.DSLSemanticHighlightingCalculator;
@@ -136,6 +138,11 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends PrefixMatcher> bindPrefixMatcher() {
 		return IntegrityPrefixMatcher.class;
+	}
+
+	@Override
+	public Class<? extends IWhitespaceInformationProvider> bindIWhitespaceInformationProvider() {
+		return DSLWhitespaceInformationProvider.class;
 	}
 
 }
