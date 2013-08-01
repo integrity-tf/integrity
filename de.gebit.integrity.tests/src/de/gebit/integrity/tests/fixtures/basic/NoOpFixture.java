@@ -127,4 +127,10 @@ public class NoOpFixture {
 			@FixtureParameter(name = "mandatory", mandatory = true) String aMandatoryParameter) {
 		return true;
 	}
+
+	@FixtureMethod(description = "Takes a primitive int which is mandatory by default")
+	public boolean takeMandatoryPrimitiveInt(@FixtureParameter(name = "optional") Integer anOptionalParameter,
+			@FixtureParameter(name = "mandatory") int aMandatoryParameter) {
+		return true;
+	}
 }

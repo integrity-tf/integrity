@@ -15,6 +15,10 @@ packagedef integrity.basic.mandatoryParameters with
 		call takeMandatoryString mandatory: "foo"		
 	suiteend
 	
+	suitedef callWithPrimitiveParam with	 
+		call takeMandatoryPrimitiveInt optional: 123
+	suiteend
+	
 	suitedef testWithAllParams with	 
 		test takeMandatoryStringTest mandatory: "foo" optional: "bar"		
 	suiteend
@@ -25,6 +29,10 @@ packagedef integrity.basic.mandatoryParameters with
 	
 	suitedef testWithMandatoryParam with	 
 		test takeMandatoryStringTest mandatory: "foo"		
+	suiteend
+	
+	suitedef testWithPrimitiveParam with	 
+		test takeMandatoryPrimitiveIntTest optional: 123
 	suiteend
 	
 	suitedef tabletestWithAllParams with	 
@@ -43,6 +51,12 @@ packagedef integrity.basic.mandatoryParameters with
 		tabletest takeMandatoryStringTest 
 			| mandatory |
 			| "foo"     |
+	suiteend
+	
+	suitedef tabletestWithPrimitiveParam with	 
+		tabletest takeMandatoryPrimitiveIntTest 
+			| optional |
+			| 123      |
 	suiteend
 
 packageend

@@ -86,6 +86,27 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
+	public void testCallWithPrimitiveParam() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(new RunnableWithException() {
+
+			@Override
+			public void run() throws Exception {
+				executeIntegritySuite(
+						new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
+						"integrity.basic.mandatoryParameters.callWithPrimitiveParam", null);
+			}
+		}, ValidationException.class, null, Pattern.compile(
+				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+	}
+
+	/**
+	 * Performs a suite which does the fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
 	public void testTestWithAllParams() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
@@ -137,6 +158,27 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
+	public void testTestWithPrimitiveParam() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(new RunnableWithException() {
+
+			@Override
+			public void run() throws Exception {
+				executeIntegritySuite(
+						new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
+						"integrity.basic.mandatoryParameters.testWithPrimitiveParam", null);
+			}
+		}, ValidationException.class, null, Pattern.compile(
+				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+	}
+
+	/**
+	 * Performs a suite which does the fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
 	public void testTabletestWithAllParams() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
@@ -178,5 +220,26 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 				new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
 				"integrity.basic.mandatoryParameters.tabletestWithMandatoryParam", null);
 		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does the fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testTabletestWithPrimitiveParam() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(new RunnableWithException() {
+
+			@Override
+			public void run() throws Exception {
+				executeIntegritySuite(
+						new String[] { "integrity/suites/basic/mandatoryParameters/mandatoryParameters.integrity" },
+						"integrity.basic.mandatoryParameters.tabletestWithPrimitiveParam", null);
+			}
+		}, ValidationException.class, null, Pattern.compile(
+				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 }
