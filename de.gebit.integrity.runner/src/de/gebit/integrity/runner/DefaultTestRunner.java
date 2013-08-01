@@ -809,6 +809,8 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void executeTearDownSuites(List<SuiteDefinition> aSetupSuitesList,
 			Map<SuiteDefinition, Result> aTearDownResultMap) {
+		Set<SuiteDefinition> tempSetupsAlreadyRun = setupSuitesExecuted.get(forkInExecution);
+
 		for (int i = aSetupSuitesList.size() - 1; i >= 0; i--) {
 			SuiteDefinition tempSetupSuite = aSetupSuitesList.get(i);
 			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
@@ -831,7 +833,7 @@ public class DefaultTestRunner implements TestRunner {
 				}
 			}
 
-			aSetupSuitesList.remove(tempSetupSuite);
+			tempSetupsAlreadyRun.remove(tempSetupSuite);
 		}
 	}
 
