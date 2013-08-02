@@ -69,12 +69,11 @@ Workflow {
                 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
             }
 
-            // scoping and exporting API
-            // fragment = scoping.ImportURIScopingFragment {}
+            // scoping and exporting API            
             // fragment = exporting.SimpleNamesFragment {}
 
             // scoping and exporting API
-            fragment = scoping.importer.DSLImportNamespacesScopingFragment {}
+            fragment = scoping.ImportNamespacesScopingFragment {}
             fragment = exporting.QualifiedNamesFragment {}
             fragment = builder.BuilderIntegrationFragment {}
 
