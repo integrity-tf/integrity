@@ -5344,11 +5344,11 @@ ruleKeyValuePair returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(((
 (
 		lv_identifier_0_0=RULE_ID
 		{
-			newLeafNode(lv_identifier_0_0, grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0()); 
+			newLeafNode(lv_identifier_0_0, grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5363,6 +5363,25 @@ ruleKeyValuePair returns [EObject current=null]
 
 )
 )
+    |(
+(
+		lv_stringIdentifier_1_0=RULE_STRING
+		{
+			newLeafNode(lv_stringIdentifier_1_0, grammarAccess.getKeyValuePairAccess().getStringIdentifierSTRINGTerminalRuleCall_0_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getKeyValuePairRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"stringIdentifier",
+        		lv_stringIdentifier_1_0, 
+        		"STRING");
+	    }
+
+)
+))
     { 
         newCompositeNode(grammarAccess.getKeyValuePairAccess().getNLParserRuleCall_1()); 
     }
@@ -5370,9 +5389,9 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-	otherlv_2=':' 
+	otherlv_3=':' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getKeyValuePairAccess().getColonKeyword_2());
+    	newLeafNode(otherlv_3, grammarAccess.getKeyValuePairAccess().getColonKeyword_2());
     }
 
     { 
@@ -5387,14 +5406,14 @@ ruleNL
 		{ 
 	        newCompositeNode(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
 	    }
-		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
+		lv_value_5_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getKeyValuePairRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_4_0, 
+        		lv_value_5_0, 
         		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }

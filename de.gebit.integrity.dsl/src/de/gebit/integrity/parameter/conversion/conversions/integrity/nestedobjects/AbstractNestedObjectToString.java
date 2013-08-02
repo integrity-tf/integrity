@@ -20,6 +20,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormatTokenElement;
 import de.gebit.integrity.string.FormatTokenElement.FormatTokenType;
 import de.gebit.integrity.string.FormattedString;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * A default Integrity conversion.
@@ -104,7 +105,7 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 				}
 
 				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-				tempBuffer.add(tempAttribute.getIdentifier() + " = ");
+				tempBuffer.add(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute) + " = ");
 				tempBuffer.add(tempConvertedValueStringBuffer);
 				tempFirst = false;
 			}

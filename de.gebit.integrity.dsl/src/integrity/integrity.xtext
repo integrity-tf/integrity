@@ -260,7 +260,7 @@ TypedNestedObject:
 	'<' type=JavaClassReference '>' NL nestedObject=NestedObject;
 	
 KeyValuePair:
-	identifier=ID NL ':' NL value=ValueOrEnumValueOrOperationCollection;
+	(identifier=ID | stringIdentifier=STRING) NL ':' NL value=ValueOrEnumValueOrOperationCollection;
 	
 JavaClassReference:
 	type=[jvmTypes::JvmType|QualifiedJavaClassName];

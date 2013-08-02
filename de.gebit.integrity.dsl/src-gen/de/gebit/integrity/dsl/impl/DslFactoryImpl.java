@@ -30,7 +30,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     try
     {
-      DslFactory theDslFactory = (DslFactory)EPackage.Registry.INSTANCE.getEFactory("http://integrity.dsl"); 
+      DslFactory theDslFactory = (DslFactory)EPackage.Registry.INSTANCE.getEFactory(DslPackage.eNS_URI);
       if (theDslFactory != null)
       {
         return theDslFactory;

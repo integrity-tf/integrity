@@ -632,11 +632,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		Set<String> tempAlreadyUsedKeys = new HashSet<String>();
 		if (aModel instanceof NestedObject) {
 			for (KeyValuePair tempPair : ((NestedObject) aModel).getAttributes()) {
-				tempAlreadyUsedKeys.add(tempPair.getIdentifier());
+				tempAlreadyUsedKeys.add(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempPair));
 			}
 		} else if ((aModel instanceof TypedNestedObject) && ((TypedNestedObject) aModel).getNestedObject() != null) {
 			for (KeyValuePair tempPair : ((TypedNestedObject) aModel).getNestedObject().getAttributes()) {
-				tempAlreadyUsedKeys.add(tempPair.getIdentifier());
+				tempAlreadyUsedKeys.add(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempPair));
 			}
 		}
 
@@ -788,7 +788,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private EObject determineNestedObjectOwner(EObject aNestedObject, List<String> aParameterPath) {
 		EObject tempParent = aNestedObject.eContainer();
 		if (tempParent instanceof KeyValuePair) {
-			String tempIdentifier = ((KeyValuePair) tempParent).getIdentifier();
+			String tempIdentifier = IntegrityDSLUtil.getIdentifierFromKeyValuePair((KeyValuePair) tempParent);
 			aParameterPath.add(tempIdentifier);
 			if (tempParent.eContainer() instanceof NestedObject) {
 				return determineNestedObjectOwner((NestedObject) tempParent.eContainer(), aParameterPath);

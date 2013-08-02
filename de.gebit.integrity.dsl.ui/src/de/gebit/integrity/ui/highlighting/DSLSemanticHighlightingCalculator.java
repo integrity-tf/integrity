@@ -102,7 +102,9 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 									: DSLHighlightingConfiguration.PARAMETER_OPERATION_IDENTIFIER_ID);
 				}
 			} else if (tempGrammarElement == grammarAccess.getKeyValuePairAccess()
-					.getIdentifierIDTerminalRuleCall_0_0()) {
+					.getIdentifierIDTerminalRuleCall_0_0_0()
+					|| tempGrammarElement == grammarAccess.getKeyValuePairAccess()
+							.getStringIdentifierSTRINGTerminalRuleCall_0_1_0()) {
 				Boolean tempIsResult = IntegrityDSLUtil.isResult(tempSemanticElement);
 				anAcceptor.addPosition(tempNode.getOffset(), tempNode.getLength(),
 						tempIsResult == null ? DSLHighlightingConfiguration.NESTED_OBJECT_KEY_ID
@@ -218,5 +220,4 @@ public class DSLSemanticHighlightingCalculator implements ISemanticHighlightingC
 			}
 		}
 	}
-
 }

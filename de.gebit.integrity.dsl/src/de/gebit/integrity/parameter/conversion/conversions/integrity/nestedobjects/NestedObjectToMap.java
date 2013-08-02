@@ -16,6 +16,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * A default Integrity conversion.
@@ -45,7 +46,7 @@ public class NestedObjectToMap extends Conversion<NestedObject, Map> {
 				throw new ConversionFailedException(aSource.getClass(), Map.class, null, exc);
 			}
 
-			tempKeyValueMap.put(tempAttribute.getIdentifier(), tempConvertedValue);
+			tempKeyValueMap.put(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute), tempConvertedValue);
 		}
 
 		return tempKeyValueMap;

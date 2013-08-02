@@ -22,6 +22,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -51,12 +52,12 @@ public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 			Object tempTargetInstance = aTargetType.newInstance();
 
 			for (KeyValuePair tempAttribute : aSource.getAttributes()) {
-				Method tempWriteMethod = new PropertyDescriptor(tempAttribute.getIdentifier(), aTargetType)
-						.getWriteMethod();
+				Method tempWriteMethod = new PropertyDescriptor(
+						IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute), aTargetType).getWriteMethod();
 				if (tempWriteMethod == null || tempWriteMethod.getParameterTypes().length != 1) {
 					throw new ConversionFailedException(aSource.getClass(), aTargetType,
-							"No accessible standards-compliant setter found for '" + tempAttribute.getIdentifier()
-									+ "'");
+							"No accessible standards-compliant setter found for '"
+									+ IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute) + "'");
 				}
 
 				Class<?> tempTargetType = tempWriteMethod.getParameterTypes()[0];
@@ -66,7 +67,8 @@ public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 				Class<?> tempClassInFocus = aTargetType;
 				while (tempClassInFocus != null) {
 					try {
-						Field tempField = tempClassInFocus.getDeclaredField(tempAttribute.getIdentifier());
+						Field tempField = tempClassInFocus.getDeclaredField(IntegrityDSLUtil
+								.getIdentifierFromKeyValuePair(tempAttribute));
 						Type tempGenericType = tempField.getGenericType();
 						if (tempGenericType instanceof ParameterizedType) {
 							Type tempInnerType = ((ParameterizedType) tempGenericType).getActualTypeArguments()[0];

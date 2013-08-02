@@ -3140,6 +3140,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__KeyValuePair__Alternatives_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0_0()); }
+(rule__KeyValuePair__IdentifierAssignment_0_0)
+{ after(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getKeyValuePairAccess().getStringIdentifierAssignment_0_1()); }
+(rule__KeyValuePair__StringIdentifierAssignment_0_1)
+{ after(grammarAccess.getKeyValuePairAccess().getStringIdentifierAssignment_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 rule__Model__Group__0
@@ -12333,9 +12355,9 @@ rule__KeyValuePair__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0()); }
-(rule__KeyValuePair__IdentifierAssignment_0)
-{ after(grammarAccess.getKeyValuePairAccess().getIdentifierAssignment_0()); }
+{ before(grammarAccess.getKeyValuePairAccess().getAlternatives_0()); }
+(rule__KeyValuePair__Alternatives_0)
+{ after(grammarAccess.getKeyValuePairAccess().getAlternatives_0()); }
 )
 
 ;
@@ -14852,14 +14874,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__KeyValuePair__IdentifierAssignment_0
+rule__KeyValuePair__IdentifierAssignment_0_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0()); }
-	RULE_ID{ after(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0()); }
+{ before(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0_0()); }
+	RULE_ID{ after(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__KeyValuePair__StringIdentifierAssignment_0_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getKeyValuePairAccess().getStringIdentifierSTRINGTerminalRuleCall_0_1_0()); }
+	RULE_STRING{ after(grammarAccess.getKeyValuePairAccess().getStringIdentifierSTRINGTerminalRuleCall_0_1_0()); }
 )
 
 ;

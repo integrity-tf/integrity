@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getStringIdentifier <em>String Identifier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -50,6 +51,26 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * @ordered
    */
   protected String identifier = IDENTIFIER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getStringIdentifier() <em>String Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStringIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected static final String STRING_IDENTIFIER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getStringIdentifier() <em>String Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStringIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected String stringIdentifier = STRING_IDENTIFIER_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -103,6 +124,29 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
     identifier = newIdentifier;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.KEY_VALUE_PAIR__IDENTIFIER, oldIdentifier, identifier));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getStringIdentifier()
+  {
+    return stringIdentifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setStringIdentifier(String newStringIdentifier)
+  {
+    String oldStringIdentifier = stringIdentifier;
+    stringIdentifier = newStringIdentifier;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.KEY_VALUE_PAIR__STRING_IDENTIFIER, oldStringIdentifier, stringIdentifier));
   }
 
   /**
@@ -181,6 +225,8 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
     {
       case DslPackage.KEY_VALUE_PAIR__IDENTIFIER:
         return getIdentifier();
+      case DslPackage.KEY_VALUE_PAIR__STRING_IDENTIFIER:
+        return getStringIdentifier();
       case DslPackage.KEY_VALUE_PAIR__VALUE:
         return getValue();
     }
@@ -199,6 +245,9 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
     {
       case DslPackage.KEY_VALUE_PAIR__IDENTIFIER:
         setIdentifier((String)newValue);
+        return;
+      case DslPackage.KEY_VALUE_PAIR__STRING_IDENTIFIER:
+        setStringIdentifier((String)newValue);
         return;
       case DslPackage.KEY_VALUE_PAIR__VALUE:
         setValue((ValueOrEnumValueOrOperationCollection)newValue);
@@ -220,6 +269,9 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
       case DslPackage.KEY_VALUE_PAIR__IDENTIFIER:
         setIdentifier(IDENTIFIER_EDEFAULT);
         return;
+      case DslPackage.KEY_VALUE_PAIR__STRING_IDENTIFIER:
+        setStringIdentifier(STRING_IDENTIFIER_EDEFAULT);
+        return;
       case DslPackage.KEY_VALUE_PAIR__VALUE:
         setValue((ValueOrEnumValueOrOperationCollection)null);
         return;
@@ -239,6 +291,8 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
     {
       case DslPackage.KEY_VALUE_PAIR__IDENTIFIER:
         return IDENTIFIER_EDEFAULT == null ? identifier != null : !IDENTIFIER_EDEFAULT.equals(identifier);
+      case DslPackage.KEY_VALUE_PAIR__STRING_IDENTIFIER:
+        return STRING_IDENTIFIER_EDEFAULT == null ? stringIdentifier != null : !STRING_IDENTIFIER_EDEFAULT.equals(stringIdentifier);
       case DslPackage.KEY_VALUE_PAIR__VALUE:
         return value != null;
     }
@@ -258,6 +312,8 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (identifier: ");
     result.append(identifier);
+    result.append(", stringIdentifier: ");
+    result.append(stringIdentifier);
     result.append(')');
     return result.toString();
   }

@@ -2593,13 +2593,22 @@ public interface DslPackage extends EPackage
   int KEY_VALUE_PAIR__IDENTIFIER = 0;
 
   /**
+   * The feature id for the '<em><b>String Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int KEY_VALUE_PAIR__STRING_IDENTIFIER = 1;
+
+  /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int KEY_VALUE_PAIR__VALUE = 1;
+  int KEY_VALUE_PAIR__VALUE = 2;
 
   /**
    * The number of structural features of the '<em>Key Value Pair</em>' class.
@@ -2608,7 +2617,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int KEY_VALUE_PAIR_FEATURE_COUNT = 2;
+  int KEY_VALUE_PAIR_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.JavaClassReferenceImpl <em>Java Class Reference</em>}' class.
@@ -4585,6 +4594,17 @@ public interface DslPackage extends EPackage
   EAttribute getKeyValuePair_Identifier();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.KeyValuePair#getStringIdentifier <em>String Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>String Identifier</em>'.
+   * @see de.gebit.integrity.dsl.KeyValuePair#getStringIdentifier()
+   * @see #getKeyValuePair()
+   * @generated
+   */
+  EAttribute getKeyValuePair_StringIdentifier();
+
+  /**
    * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.KeyValuePair#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6275,6 +6295,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute KEY_VALUE_PAIR__IDENTIFIER = eINSTANCE.getKeyValuePair_Identifier();
+
+    /**
+     * The meta object literal for the '<em><b>String Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute KEY_VALUE_PAIR__STRING_IDENTIFIER = eINSTANCE.getKeyValuePair_StringIdentifier();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.

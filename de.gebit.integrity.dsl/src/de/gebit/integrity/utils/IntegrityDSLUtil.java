@@ -33,6 +33,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
@@ -650,6 +651,18 @@ public final class IntegrityDSLUtil {
 		}
 
 		return (T) tempParent;
+	}
+
+	/**
+	 * {@link KeyValuePair}s can be identified either by a free-form String (enclosed in quotes) or by a more restricted
+	 * ID (without quotes). This method abstracts aways the decision where to get the final identifier from.
+	 * 
+	 * @param aPair
+	 *            the key-value pair
+	 * @return the identifier
+	 */
+	public static String getIdentifierFromKeyValuePair(KeyValuePair aPair) {
+		return aPair.getIdentifier() != null ? aPair.getIdentifier() : aPair.getStringIdentifier();
 	}
 
 }

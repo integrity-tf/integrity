@@ -2495,9 +2495,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getKeyValuePair_StringIdentifier()
+  {
+    return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getKeyValuePair_Value()
   {
-    return (EReference)keyValuePairEClass.getEStructuralFeatures().get(1);
+    return (EReference)keyValuePairEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2891,6 +2901,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     keyValuePairEClass = createEClass(KEY_VALUE_PAIR);
     createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__IDENTIFIER);
+    createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__STRING_IDENTIFIER);
     createEReference(keyValuePairEClass, KEY_VALUE_PAIR__VALUE);
 
     javaClassReferenceEClass = createEClass(JAVA_CLASS_REFERENCE);
@@ -3260,6 +3271,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(keyValuePairEClass, KeyValuePair.class, "KeyValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getKeyValuePair_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getKeyValuePair_StringIdentifier(), ecorePackage.getEString(), "stringIdentifier", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getKeyValuePair_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(javaClassReferenceEClass, JavaClassReference.class, "JavaClassReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -1022,20 +1022,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (identifier=ID value=ValueOrEnumValueOrOperationCollection)
+	 *     ((identifier=ID | stringIdentifier=STRING) value=ValueOrEnumValueOrOperationCollection)
 	 */
 	protected void sequence_KeyValuePair(EObject context, KeyValuePair semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__IDENTIFIER));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.KEY_VALUE_PAIR__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0(), semanticObject.getIdentifier());
-		feeder.accept(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

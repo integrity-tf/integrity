@@ -1,11 +1,18 @@
 import mypackage.*
+import mysecondpackage.*
 
 packagedef mypackage with
 
 	variable var
 
 	suitedef asuite with
-		call random min: 1 max: 2
+		test echo echo: {
+				abc: 123
+				"123": "abc"
+			} = {
+				abc: 123
+				"123": "abc"
+			}
 	suiteend
 	 
 packageend

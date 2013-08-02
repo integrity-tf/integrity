@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.KeyValuePair#getIdentifier <em>Identifier</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.KeyValuePair#getStringIdentifier <em>String Identifier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.KeyValuePair#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -48,6 +49,32 @@ public interface KeyValuePair extends EObject
    * @generated
    */
   void setIdentifier(String value);
+
+  /**
+   * Returns the value of the '<em><b>String Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>String Identifier</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>String Identifier</em>' attribute.
+   * @see #setStringIdentifier(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getKeyValuePair_StringIdentifier()
+   * @model
+   * @generated
+   */
+  String getStringIdentifier();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.KeyValuePair#getStringIdentifier <em>String Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>String Identifier</em>' attribute.
+   * @see #getStringIdentifier()
+   * @generated
+   */
+  void setStringIdentifier(String value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
