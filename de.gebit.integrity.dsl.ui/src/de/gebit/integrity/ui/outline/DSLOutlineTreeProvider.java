@@ -18,11 +18,13 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.IImageHelper;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.label.StylerFactory;
+import org.eclipse.xtext.util.TextRegion;
 
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.Import;
@@ -107,6 +109,32 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 			createNodeDispatcher.invoke(aParentNode, tempChild);
 		}
 	}
+	
+	/** Dynamic Dispatch of {@link #createNode(IOutlineNode, EObject)}. */
+	protected void _createNode(IntegrityDocumentRoot parentNode, Import anImport) {
+		super._createNode(parentNode.getImportContainer(), anImport);
+	}
+	
+	// Ensure that we get our own root node for outline container handling - otherwise the dynamic dispatch would fail
+	@Override
+	public IntegrityDocumentRoot createRoot(IXtextDocument document) {
+		IntegrityDocumentRoot documentNode = new IntegrityDocumentRoot(labelProvider.getImage(document),
+				labelProvider.getText(document), document, this);
+		documentNode.setTextRegion(new TextRegion(0, document.getLength()));
+		return documentNode;
+	}
+	
+	/**
+	 * Creates a container object for imports.
+	 * @param aRoot Root for which to create this container.
+	 * @return Container objects.
+	 */
+	public IOutlineNode createOutlineContainer(DocumentRootNode aRoot) {
+		// Do not call aRoot.getChildren() here, as this would call the tree provider (us) to
+		// recreate its children and a new outline container, which would then call aRoot.getChildren() again..
+		StyledString containerText = styleFactory.createFromXtextStyle("Imports", format.importTextStyle());
+		return new OutlineImportContainer(aRoot, image("import"), containerText, false);
+	}
 
 	/**
 	 * Creates a Suite Node, which is a special case because there are multiple types of suite nodes and we need to know
@@ -127,7 +155,8 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
 	protected Object _text(Import anImport) {
-		return styleFactory.createFromXtextStyle(anImport.getImportedNamespace(), format.importTextStyle());
+		final String importName = anImport.getImportedNamespace() != null ? anImport.getImportedNamespace() : "";
+		return styleFactory.createFromXtextStyle(importName, format.importTextStyle());
 	}
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
