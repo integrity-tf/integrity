@@ -127,35 +127,38 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
 	protected Object _text(Import anImport) {
-		return styleFactory.createFromXtextStyle(anImport.getImportedNamespace(), format.importTextStyle());
+		final String importNamespace = anImport.getImportedNamespace() != null ? anImport.getImportedNamespace() : "";
+		return styleFactory.createFromXtextStyle(importNamespace, format.importTextStyle());
 	}
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
 	protected Object _text(VariableDefinition aVariableDefinition) {
+		final StyledString result = new StyledString();
 		final String variableName = aVariableDefinition.getName().getName();
-		final StyledString variableText = styleFactory.createFromXtextStyle(variableName,
-				format.variableDefinitionTextStyle());
+		if (variableName != null) {
+			result.append(styleFactory.createFromXtextStyle(variableName, format.variableDefinitionTextStyle()));
+		}
 		String tempValue = getValueOf(aVariableDefinition.getInitialValue());
 		if (tempValue != null) {
-			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue,
-					format.constantDefinitionTextStyle());
-			variableText.append(" := ").append(tempValueText);
+			result.append(" := ");
+			result.append(styleFactory.createFromXtextStyle(tempValue, format.constantDefinitionTextStyle()));
 		}
-		return appendExplanationTo(variableText, "Variable");
+		return appendExplanationTo(result, "Variable");
 	}
 
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
 	protected Object _text(ConstantDefinition aConstantDefinition) {
-		final String variableName = aConstantDefinition.getName().getName();
-		final StyledString constantText = styleFactory.createFromXtextStyle(variableName,
-				format.constantDefinitionTextStyle());
+		final StyledString result = new StyledString();
+		final String constantName = aConstantDefinition.getName().getName();
+		if (constantName != null) {
+			result.append(styleFactory.createFromXtextStyle(constantName, format.constantDefinitionTextStyle()));
+		}
 		String tempValue = getValueOf(aConstantDefinition.getValue());
 		if (tempValue != null) {
-			StyledString tempValueText = styleFactory.createFromXtextStyle(tempValue,
-					format.constantDefinitionTextStyle());
-			constantText.append(" := ").append(tempValueText);
+			result.append(" := ");
+			result.append(styleFactory.createFromXtextStyle(tempValue, format.constantDefinitionTextStyle()));
 		}
-		return appendExplanationTo(constantText, "Constant");
+		return appendExplanationTo(result, "Constant");
 	}
 
 	/**
@@ -180,19 +183,16 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		if (!(aParameter.eContainer() instanceof SuiteDefinition)) {
 			return null; // Only handling suite parameters
 		}
-		final StyledString parameterText = styleFactory.createFromXtextStyle(aParameter.getName(),
+		final String parameterRawText = aParameter.getName() != null ? aParameter.getName() : "";
+		final StyledString parameterText = styleFactory.createFromXtextStyle(parameterRawText,
 				format.suiteParameterTextStyle());
 		return appendExplanationTo(parameterText, "Parameter");
 	}
 
-	@Override
-	protected Object _text(Object aModelElement) {
-		return super._text(aModelElement);
-	}
-
 	/** Dynamic Dispatch of {@link #_text(Object)}. */
 	protected StyledString _text(SuiteDefinition aSuiteDefinition) {
-		return styleFactory.createFromXtextStyle(aSuiteDefinition.getName(), format.suiteTextStyle());
+		final String suiteName = aSuiteDefinition.getName() != null ? aSuiteDefinition.getName() : "";
+		return styleFactory.createFromXtextStyle(suiteName, format.suiteTextStyle());
 	}
 
 	/**
