@@ -11,9 +11,9 @@ packagedef integrity.basic.nestedobjects with
 			key1: "The first value"
 			key2: 31337, 31338
 			key3: 123.456
-			key4: true
-			key5: null
-			key6: {
+			"key4": true
+			"key5": null
+			"key6": {
 				subkey1: stringVar
 				subkey2: {
 					subsubkey1: 10000
@@ -40,9 +40,9 @@ packagedef integrity.basic.nestedobjects with
 		test echoMapTest map: obj1 = obj2
 		
 		test echoMapTest map: obj2 = {
-				key1: "The first value"
-				key2: 31337, 31339
-				key3: 123.456
+				"key1": "The first value"
+				"key2": 31337, 31339
+				"key3": 123.456
 				key4: true
 				key5: null
 				key6: {
