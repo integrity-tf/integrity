@@ -152,6 +152,18 @@ public abstract class IntegrityJUnitTest {
 		}
 	}
 
+	/**
+	 * Checks whether an exception that is expected to be thrown is actually thrown.
+	 * 
+	 * @param aRunnable
+	 *            the runnable to execute
+	 * @param aReferenceExceptionClass
+	 *            the exception class to expect (optional)
+	 * @param aReferenceMessage
+	 *            the exception message to expect (optional)
+	 * @param aReferenceMessagePattern
+	 *            a pattern to match the message against (optional)
+	 */
 	protected void assertExceptionIsThrown(RunnableWithException aRunnable,
 			Class<? extends Exception> aReferenceExceptionClass, String aReferenceMessage,
 			Pattern aReferenceMessagePattern) {
@@ -168,7 +180,11 @@ public abstract class IntegrityJUnitTest {
 				Matcher tempMatcher = aReferenceMessagePattern.matcher(exc.getMessage());
 				assertTrue(tempMatcher.matches());
 			}
+			return;
 		}
+
+		// We expect an exception
+		assertTrue("There was no exception, although one was expected", false);
 	}
 
 	private void removeDurationsAndTimes(Element anElement) throws JDOMException {
