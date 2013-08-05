@@ -15,7 +15,6 @@ import com.google.inject.Inject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
-import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.JavaTypeUtil;
 
 /**
@@ -46,12 +45,6 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 	 */
 	@Inject
 	private ValueConverter valueConverter;
-
-	/**
-	 * The variable manager to use.
-	 */
-	@Inject
-	private VariableManager variableManager;
 
 	/**
 	 * Creates an instance.

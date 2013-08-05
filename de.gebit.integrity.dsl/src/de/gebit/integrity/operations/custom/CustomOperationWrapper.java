@@ -21,7 +21,6 @@ import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
-import de.gebit.integrity.parameter.variables.VariableManager;
 
 /**
  * The custom operation wrapper is used to wrap a custom operation class and instance for execution. The wrapper does
@@ -47,12 +46,6 @@ public class CustomOperationWrapper {
 	 */
 	@Inject
 	private ValueConverter valueConverter;
-
-	/**
-	 * The variable manager to use.
-	 */
-	@Inject
-	private VariableManager variableManager;
 
 	/**
 	 * The injector used to inject stuff into operation instances.
