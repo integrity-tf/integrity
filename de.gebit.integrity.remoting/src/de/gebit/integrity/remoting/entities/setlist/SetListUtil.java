@@ -38,16 +38,20 @@ public final class SetListUtil {
 		switch (anEntry.getType()) {
 		case EXECUTION:
 		case SUITE:
-			int tempStatements = ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS)).size();
+			List<Integer> tempStatements = ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.STATEMENTS));
 			List<Integer> tempSetups = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.SETUP);
 			List<Integer> tempTeardowns = (List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
+			int tempStatementCount = 0;
+			if (tempStatements != null) {
+				tempStatementCount += tempStatements.size();
+			}
 			if (tempSetups != null) {
-				tempStatements += tempSetups.size();
+				tempStatementCount += tempSetups.size();
 			}
 			if (tempTeardowns != null) {
-				tempStatements += tempTeardowns.size();
+				tempStatementCount += tempTeardowns.size();
 			}
-			return tempStatements;
+			return tempStatementCount;
 		case TABLETEST:
 			return ((List<Integer>) anEntry.getAttribute(SetListEntryAttributeKeys.RESULT)).size();
 		default:
