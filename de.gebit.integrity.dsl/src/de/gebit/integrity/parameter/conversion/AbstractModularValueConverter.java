@@ -237,19 +237,39 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 								anUnresolvableVariableHandlingPolicy, someVisitedValues);
 					}
 				} else {
-					// The arrays' target type is determined by looking at the conversion being used
-					Class<?> tempArrayType = aValue.getClass().getComponentType();
-					Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(tempArrayType, aTargetType,
-							someVisitedValues);
-					ConversionKey tempKey = conversionToKey.get(tempConversionClass);
-					Object tempArray = Array.newInstance(tempKey.getTargetType(), Array.getLength(aValue));
+					Class<?> tempCurrentArrayType = aValue.getClass().getComponentType();
+					Class<?> tempTargetArrayType;
+
+					if (tempCurrentArrayType == Object.class) {
+						// If it's an object array, guessing by querying the conversions wouldn't lead to meaningful
+						// results. So all that's left for us is to create an object array as target.
+						tempTargetArrayType = Object.class;
+					} else {
+						// The arrays' target type is determined by looking at the conversion being used
+						Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(tempCurrentArrayType,
+								aTargetType, someVisitedValues);
+						ConversionKey tempKey = conversionToKey.get(tempConversionClass);
+						tempTargetArrayType = tempKey.getTargetType();
+					}
+
+					Object tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(aValue));
 
 					for (int i = 0; i < Array.getLength(aValue); i++) {
-						Array.set(
-								tempArray,
-								i,
-								convertSingleValueToTargetType(aTargetType, aParameterizedType, Array.get(aValue, i),
-										anUnresolvableVariableHandlingPolicy, someVisitedValues));
+						Object tempConvertedValue = convertSingleValueToTargetType(aTargetType, aParameterizedType,
+								Array.get(aValue, i), anUnresolvableVariableHandlingPolicy, someVisitedValues);
+
+						if (!tempTargetArrayType.isAssignableFrom(tempConvertedValue.getClass())) {
+							// Oops - this case is pretty unlikely, but theoretically possible. In this case, the
+							// heuristic approach of guessing a proper target array type above hasn't worked out, since
+							// after conversion, one particular value doesn't fit in the new array. We'll fall back to
+							// an object array in that case.
+							tempTargetArrayType = Object.class;
+							Object tempOldArray = tempArray;
+							tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(aValue));
+							System.arraycopy(tempOldArray, 0, tempArray, 0, i);
+						}
+
+						Array.set(tempArray, i, tempConvertedValue);
 					}
 
 					return tempArray;
