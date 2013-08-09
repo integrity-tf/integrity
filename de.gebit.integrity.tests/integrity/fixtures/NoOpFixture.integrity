@@ -37,6 +37,9 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoDate uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate
 	testdef echoDateTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate
 	
+	calldef echoSQLDate uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoSQLDate
+	testdef echoSQLDateTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoSQLDate
+	
 	calldef echoCalendar uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar
 	testdef echoCalendarTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar
 	

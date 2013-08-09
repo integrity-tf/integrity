@@ -1,5 +1,6 @@
 packagedef integrity.fixtures.basic.arbitrary with
 
-	testdef echo uses de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo
+	testdef arbitraryParamEcho uses de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo
+	testdef arbitraryParamEchoTest uses de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo
 
 packageend

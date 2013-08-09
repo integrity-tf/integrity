@@ -91,6 +91,11 @@ public class NoOpFixture {
 		return aDateToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the SQL date '$date$'")
+	public java.sql.Date echoSQLDate(@FixtureParameter(name = "date") java.sql.Date aDateToEcho) {
+		return aDateToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the calendar '$calendar$'")
 	public Calendar echoCalendar(@FixtureParameter(name = "calendar") Calendar aCalendarToEcho) {
 		return aCalendarToEcho;
