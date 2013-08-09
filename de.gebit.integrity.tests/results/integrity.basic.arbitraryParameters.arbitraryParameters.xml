@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="09.08.13 13:23" isotimestamp="2013-08-09T13:23:06" duration="71.432">
+  <variables />
+  <suite id="0" name="integrity.basic.arbitraryParameters.arbitraryParameters" timestamp="09.08.13 13:23:06.0248">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="9" name="arbitraryParamEchoTest" description="echoes the values: 123, 400, foo" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo" timestamp="09.08.13 13:23:06.0248">
+        <results duration="4.262" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.262" description="echoes the values: 123, 400, foo" type="success">
+            <parameters>
+              <parameter name="fixparam" value="123" />
+              <parameter name="testparam1" value="400" />
+              <parameter name="testparam2" value="foo" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]fixedresult = 123[NL|, ][T]arbitraryResults = {[NL][T][T]testresult1 = 400[NL|, ][T][T]testresult2 = foo[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]arbitraryResults = {[NL][T][T]testresult1 = 400[NL|, ][T][T]testresult2 = foo[NL][T]}[NL|, ][T]fixedresult = 123[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="18" name="arbitraryParamEchoTest" description="echoes the values: 123, 1, 2, 3, 4, null" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo" timestamp="09.08.13 13:23:06.0279">
+        <results duration="1.267" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.267" description="echoes the values: 123, 1, 2, 3, 4, null" type="success">
+            <parameters>
+              <parameter name="fixparam" value="123" />
+              <parameter name="testparam1" value="1, 2, 3, 4" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]fixedresult = 123[NL|, ][T]arbitraryResults = {[NL][T][T]testresult1 = 1, 2, 3, 4[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]arbitraryResults = {[NL][T][T]testresult1 = 1, 2, 3, 4[NL|, ][T][T]testresult2 = null[NL][T]}[NL|, ][T]fixedresult = 123[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="57.629" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

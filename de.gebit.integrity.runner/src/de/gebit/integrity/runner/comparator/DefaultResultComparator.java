@@ -314,17 +314,20 @@ public class DefaultResultComparator implements ResultComparator {
 			Object tempActualValue = ((Map<?, ?>) aResult).get(tempEntry.getKey());
 			Object tempReferenceValue = tempEntry.getValue();
 
-			// ...but we have to ensure both values are of equal type first, since even though both outer values
-			// are maps, their inner values have not been necessarily converted to the same types
 			Object tempConvertedReferenceValue = tempReferenceValue;
-			try {
-				tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
-						tempActualValue.getClass(), tempReferenceValue,
-						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
-			} catch (UnresolvableVariableException exc) {
-				exc.printStackTrace();
-			} catch (UnexecutableException exc) {
-				exc.printStackTrace();
+			if (!(tempActualValue instanceof Map && tempReferenceValue instanceof Map)) {
+				// If the inner values aren't maps themselves, we have to ensure both values are of equal type first,
+				// since even though both outer values are maps, their inner values have not been necessarily converted
+				// to the same types
+				try {
+					tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
+							tempActualValue.getClass(), tempReferenceValue,
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
+				} catch (UnresolvableVariableException exc) {
+					exc.printStackTrace();
+				} catch (UnexecutableException exc) {
+					exc.printStackTrace();
+				}
 			}
 
 			if (!performEqualityCheck(
