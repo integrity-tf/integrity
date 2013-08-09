@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:26" duration="38.196">
+<integrity name="Integrity JUnit Testing" timestamp="8/9/13 12:56 PM" isotimestamp="2013-08-09T12:56:09" duration="165.455">
   <variables />
-  <suite id="0" name="integrity.basic.conversions.dateConversions" timestamp="03.07.13 22:30:26.0091">
+  <suite id="0" name="integrity.basic.conversions.dateConversions" timestamp="8/9/13 12:56:09.0333 PM">
     <setup />
     <variables>
       <variable name="temp" />
     </variables>
     <statements>
-      <call id="1" line="8" name="echoCalendar" description="Echo the calendar 'January 1, 1970 11:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar" timestamp="03.07.13 22:30:26.0091">
+      <call id="1" line="8" name="echoCalendar" description="Echo the calendar 'January 1, 1970 11:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar" timestamp="8/9/13 12:56:09.0365 PM">
         <parameters>
           <parameter name="calendar" value="January 1, 1970 11:00:00 AM CET" />
         </parameters>
-        <result duration="0.720" type="success">
+        <result duration="5.117" type="success">
           <variableUpdate name="temp" value="January 1, 1970 11:00:00 AM CET" />
         </result>
       </call>
-      <test id="2" line="9" name="echoStringTest" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.07.13 22:30:26.0091">
-        <results duration="0.524" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.524" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" type="success">
+      <test id="2" line="9" name="echoStringTest" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="8/9/13 12:56:09.0396 PM">
+        <results duration="3.456" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.456" description="Echo the string 'January 1, 1970 11:00:00 AM CET'" type="success">
             <parameters>
               <parameter name="string" value="January 1, 1970 11:00:00 AM CET" />
             </parameters>
@@ -27,9 +27,9 @@
           </result>
         </results>
       </test>
-      <test id="3" line="12" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="03.07.13 22:30:26.0091">
-        <results duration="0.459" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.459" description="isDate" type="success">
+      <test id="3" line="12" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="8/9/13 12:56:09.0412 PM">
+        <results duration="3.681" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.681" description="isDate" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012 11:00:00 AM CET" />
             </parameters>
@@ -39,9 +39,9 @@
           </result>
         </results>
       </test>
-      <test id="4" line="13" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="03.07.13 22:30:26.0091">
-        <results duration="0.385" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.385" description="isDate" type="success">
+      <test id="4" line="13" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="8/9/13 12:56:09.0427 PM">
+        <results duration="5.136" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="5.136" description="isDate" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012" />
             </parameters>
@@ -51,9 +51,9 @@
           </result>
         </results>
       </test>
-      <test id="5" line="14" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="03.07.13 22:30:26.0091">
-        <results duration="0.688" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.688" description="isDate" type="success">
+      <test id="5" line="14" name="checkDateType" description="isDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isDate" timestamp="8/9/13 12:56:09.0443 PM">
+        <results duration="2.601" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.601" description="isDate" type="success">
             <parameters>
               <parameter name="date" value="12:00:30 PM CET" />
             </parameters>
@@ -63,9 +63,9 @@
           </result>
         </results>
       </test>
-      <test id="6" line="16" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="03.07.13 22:30:26.0107">
-        <results duration="1.553" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.553" description="isSQLDate" type="success">
+      <test id="6" line="16" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="8/9/13 12:56:09.0443 PM">
+        <results duration="2.645" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.645" description="isSQLDate" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012 11:00:00 AM CET" />
             </parameters>
@@ -75,9 +75,9 @@
           </result>
         </results>
       </test>
-      <test id="7" line="17" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="03.07.13 22:30:26.0107">
-        <results duration="1.262" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.262" description="isSQLDate" type="success">
+      <test id="7" line="17" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="8/9/13 12:56:09.0458 PM">
+        <results duration="2.089" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.089" description="isSQLDate" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012" />
             </parameters>
@@ -87,9 +87,9 @@
           </result>
         </results>
       </test>
-      <test id="8" line="18" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="03.07.13 22:30:26.0107">
-        <results duration="0.748" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.748" description="isSQLDate" type="success">
+      <test id="8" line="18" name="checkSQLDateType" description="isSQLDate" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isSQLDate" timestamp="8/9/13 12:56:09.0458 PM">
+        <results duration="1.699" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.699" description="isSQLDate" type="success">
             <parameters>
               <parameter name="date" value="12:00:30 PM CET" />
             </parameters>
@@ -99,9 +99,9 @@
           </result>
         </results>
       </test>
-      <test id="9" line="20" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="03.07.13 22:30:26.0107">
-        <results duration="1.406" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.406" description="isTimestamp" type="success">
+      <test id="9" line="20" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="8/9/13 12:56:09.0474 PM">
+        <results duration="3.101" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.101" description="isTimestamp" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012 11:00:00 AM CET" />
             </parameters>
@@ -111,9 +111,9 @@
           </result>
         </results>
       </test>
-      <test id="10" line="21" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="03.07.13 22:30:26.0123">
-        <results duration="0.788" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.788" description="isTimestamp" type="success">
+      <test id="10" line="21" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="8/9/13 12:56:09.0474 PM">
+        <results duration="2.116" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.116" description="isTimestamp" type="success">
             <parameters>
               <parameter name="date" value="January 1, 2012" />
             </parameters>
@@ -123,9 +123,9 @@
           </result>
         </results>
       </test>
-      <test id="11" line="22" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="03.07.13 22:30:26.0123">
-        <results duration="0.617" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.617" description="isTimestamp" type="success">
+      <test id="11" line="22" name="checkTimestampType" description="isTimestamp" fixture="de.gebit.integrity.tests.fixtures.basic.DateTypeCheckFixture#isTimestamp" timestamp="8/9/13 12:56:09.0490 PM">
+        <results duration="2.536" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.536" description="isTimestamp" type="success">
             <parameters>
               <parameter name="date" value="12:00:30 PM CET" />
             </parameters>
@@ -137,7 +137,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="37.330" successCount="10" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="141.935" successCount="10" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
