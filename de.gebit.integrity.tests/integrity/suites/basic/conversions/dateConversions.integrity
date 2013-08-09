@@ -22,12 +22,12 @@ packagedef integrity.basic.conversions with
 		test integrity.fixtures.basic.conversions.checkTimestampType date: 12:00:30
 		
 		// Integrity to SQL date conversion
-		test echoSQLDateTest date: 01.01.1970 = 01.01.1970
+		test integrity.fixtures.basic.noop.echoSQLDateTest date: 01.01.1970 = 01.01.1970
 		
 		// Calendar to SQL date conversion
 		variable tempDate
-		call echoCalendar date: 30.12.2012 -> tempDate
-		test echoSQLDateTest date: tempDate = 30.12.2012
+		call integrity.fixtures.basic.noop.echoCalendar calendar: 30.12.2012 -> tempDate
+		test integrity.fixtures.basic.noop.echoSQLDateTest date: tempDate = 30.12.2012
 	
 	suiteend
 

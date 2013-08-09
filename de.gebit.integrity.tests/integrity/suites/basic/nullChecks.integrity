@@ -1,4 +1,4 @@
-import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.arbitrary.*
 import integrity.fixtures.basic.noop.*
 
 packagedef integrity.basic with
@@ -18,10 +18,10 @@ packagedef integrity.basic with
 		test echoStringArrayTest strings: null = null, null
 	
 		// Arbitrary parameters with null values and null checks; this must succeed
-		test echo fixparam: null +param1 = null fixedresult = null +result1 = null +result2 = null
+		test arbitraryParamEchoTest fixparam: null +param1 = null fixedresult = null +result1 = null +result2 = null
 		
 		// This must fail
-		test echo fixparam: 1 +param1 = 2 +param2 = "foo" fixedresult = null +result1 = null +result2 = null
+		test arbitraryParamEchoTest fixparam: 1 +param1 = 2 +param2 = "foo" fixedresult = null +result1 = null +result2 = null
 	
 	suiteend
 

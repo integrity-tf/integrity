@@ -1,0 +1,27 @@
+import integrity.fixtures.basic.arbitrary.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.arbitraryParameters with
+
+	suitedef arbitraryParameters with
+	
+		// Test a simple case
+		test arbitraryParamEchoTest fixparam: 123 +testparam1: 400 +testparam2: "foo" = {
+			fixedresult: 123
+			arbitraryResults: {
+				testresult1: 400
+				testresult2: "foo"
+			}
+		}
+		
+		// Test a case with multiple values (https://github.com/integrity-tf/integrity/issues/28)
+		test arbitraryParamEchoTest fixparam: 123 +testparam1: 1,2,3,4 = {
+			fixedresult: 123
+			arbitraryResults: {
+				testresult1: 1,2,3,4
+			}
+		}
+		
+	suiteend
+
+packageend
