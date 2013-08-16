@@ -1670,8 +1670,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 						} else {
 							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 								resultLine1Name.setText("Result returned by the test fixture: ");
-								resultLine1Text.setText((String) tempComparisonEntry
-										.getAttribute(SetListEntryAttributeKeys.VALUE));
+								String tempResult = (String) tempComparisonEntry
+										.getAttribute(SetListEntryAttributeKeys.VALUE);
+								resultLine1Text.setText(tempResult == null ? "null" : tempResult);
 								if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 									if (Boolean.TRUE.equals(tempComparisonEntry
 											.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
