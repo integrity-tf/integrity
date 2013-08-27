@@ -4688,14 +4688,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//terminal TWENTYFOURHRSTIME:
 	//
-	//	"0".."2" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")?;
+	//	"0".."2" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9" ("." ("0".."9" "0".."9" "0".."9"))?)?;
 	public TerminalRule getTWENTYFOURHRSTIMERule() {
 		return (tTWENTYFOURHRSTIME != null) ? tTWENTYFOURHRSTIME : (tTWENTYFOURHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TWENTYFOURHRSTIME"));
 	} 
 
 	//terminal TWELVEHRSTIME:
 	//
-	//	"0".."1" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9")? ("am" | "pm");
+	//	"0".."1" "0".."9" ":" "0".."5" "0".."9" (":" "0".."6" "0".."9" ("." ("0".."9" "0".."9" "0".."9"))?)? ("am" | "pm");
 	public TerminalRule getTWELVEHRSTIMERule() {
 		return (tTWELVEHRSTIME != null) ? tTWELVEHRSTIME : (tTWELVEHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TWELVEHRSTIME"));
 	} 

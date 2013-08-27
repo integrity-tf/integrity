@@ -180,12 +180,17 @@ public final class DateUtil {
 
 		if (aTimeString.length() < 6) {
 			// append seconds if they're not given; they're optional, but if not present :00 is assumed
-			tempStringToParse += aTimeString + ":00";
+			tempStringToParse += aTimeString + ":00.000";
 		} else {
-			tempStringToParse += aTimeString;
+			if (aTimeString.length() < 9) {
+				// append milliseconds if they're not given
+				tempStringToParse += aTimeString + ".000";
+			} else {
+				tempStringToParse += aTimeString;
+			}
 		}
 
-		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'HH:mm:ss");
+		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'HH:mm:ss.SSS");
 	}
 
 	private static Calendar parseEuropeanDateAnd12HrsTimeString(String aDateString, String aTimeString)
@@ -203,13 +208,19 @@ public final class DateUtil {
 
 		if (aTimeString.length() < 8) {
 			// inject seconds if they're not given; they're optional, but if not present :00 is assumed
-			tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ":00"
+			tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ":00.000"
 					+ aTimeString.substring(aTimeString.length() - 2);
 		} else {
-			tempStringToParse += aTimeString;
+			if (aTimeString.length() < 11) {
+				// inject just milliseconds
+				tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ".000"
+						+ aTimeString.substring(aTimeString.length() - 2);
+			} else {
+				tempStringToParse += aTimeString;
+			}
 		}
 
-		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'hh:mm:ssaa");
+		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'hh:mm:ss.SSSaa");
 	}
 
 	private static Calendar parseUSDateAnd12HrsTimeString(String aDateString, String aTimeString) throws ParseException {
@@ -226,13 +237,19 @@ public final class DateUtil {
 
 		if (aTimeString.length() < 8) {
 			// inject seconds if they're not given; they're optional, but if not present :00 is assumed
-			tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ":00"
+			tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ":00.000"
 					+ aTimeString.substring(aTimeString.length() - 2);
 		} else {
-			tempStringToParse += aTimeString;
+			if (aTimeString.length() < 11) {
+				// inject just milliseconds
+				tempStringToParse += aTimeString.substring(0, aTimeString.length() - 2) + ".000"
+						+ aTimeString.substring(aTimeString.length() - 2);
+			} else {
+				tempStringToParse += aTimeString;
+			}
 		}
 
-		return parseDateOrTimeString(tempStringToParse, "MM/dd/yyyy'T'hh:mm:ssaa");
+		return parseDateOrTimeString(tempStringToParse, "MM/dd/yyyy'T'hh:mm:ss.SSSaa");
 	}
 
 	private static Calendar parseIsoDateAndTimeString(String aDateString, String aTimeString) throws ParseException {
@@ -246,7 +263,7 @@ public final class DateUtil {
 
 		if (aTimeString == null) {
 			// in case no time is given, use the "zero" time
-			tempTimeValue = "T00:00:00";
+			tempTimeValue = "T00:00:00.000";
 		} else {
 			tempTimeValue = aTimeString;
 			if (!tempTimeValue.startsWith("T")) {
@@ -261,6 +278,26 @@ public final class DateUtil {
 		boolean tempHasSeconds = (!tempHasTimezone && tempTimeValue.length() > 6)
 				| (tempHasTimezone && tempTimeValue.length() > 12);
 
+		if (tempHasTimezone) {
+			if (tempTimeValue.charAt(tempTimeValue.length() - 3) == ':') {
+				// remove the optional colon in the timezone, if present
+				tempTimeValue = tempTimeValue.substring(0, tempTimeValue.length() - 3)
+						+ tempTimeValue.substring(tempTimeValue.length() - 2, tempTimeValue.length());
+			}
+		}
+
+		if (tempHasSeconds) {
+			if (!tempTimeValue.contains(".")) {
+				// inject milliseconds, if none are present but seconds are given
+				if (tempHasTimezone) {
+					tempTimeValue = tempTimeValue.substring(0, aTimeString.length() - 4) + ".000"
+							+ tempTimeValue.substring(aTimeString.length() - 4);
+				} else {
+					tempTimeValue += ".000";
+				}
+			}
+		}
+
 		Calendar tempCalendar;
 
 		if (tempHasTimezone) {
@@ -273,8 +310,8 @@ public final class DateUtil {
 					+ tempTimeValue.substring(tempHasSeconds ? 9 : 6)));
 
 			if (tempHasSeconds) {
-				tempCalendar
-						.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(tempDateValue + tempTimeValue));
+				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(
+						tempDateValue + tempTimeValue));
 			} else {
 				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").parse(tempDateValue + tempTimeValue));
 			}
@@ -282,7 +319,8 @@ public final class DateUtil {
 			tempCalendar = Calendar.getInstance();
 
 			if (tempHasSeconds) {
-				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(tempDateValue + tempTimeValue));
+				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(
+						tempDateValue + tempTimeValue));
 			} else {
 				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(tempDateValue + tempTimeValue));
 			}

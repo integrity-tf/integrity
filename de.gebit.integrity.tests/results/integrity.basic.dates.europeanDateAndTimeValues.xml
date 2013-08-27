@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:25" duration="131.052">
+<integrity name="Integrity JUnit Testing" timestamp="27.08.13 18:28" isotimestamp="2013-08-27T18:28:09" duration="499.762">
   <variables />
-  <suite id="0" name="integrity.basic.dates.europeanDateAndTimeValues" timestamp="03.07.13 22:30:25.0574">
+  <suite id="0" name="integrity.basic.dates.europeanDateAndTimeValues" timestamp="27.08.13 18:28:09.0617">
     <setup />
     <variables>
       <variable name="tempDate" />
     </variables>
     <statements>
-      <test id="1" line="10" name="echoDateTest" description="Echo the date '1. Januar 1970'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0574">
-        <results duration="1.340" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.340" description="Echo the date '1. Januar 1970'" type="success">
+      <test id="1" line="10" name="echoDateTest" description="Echo the date '1. Januar 1970'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0633">
+        <results duration="4.936" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.936" description="Echo the date '1. Januar 1970'" type="success">
             <parameters>
               <parameter name="date" value="1. Januar 1970" />
             </parameters>
@@ -19,9 +19,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="11" name="echoDateTest" description="Echo the date '1. Januar 0001'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0574">
-        <results duration="1.833" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.833" description="Echo the date '1. Januar 0001'" type="success">
+      <test id="2" line="11" name="echoDateTest" description="Echo the date '1. Januar 0001'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0658">
+        <results duration="2.639" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.639" description="Echo the date '1. Januar 0001'" type="success">
             <parameters>
               <parameter name="date" value="1. Januar 0001" />
             </parameters>
@@ -31,17 +31,17 @@
           </result>
         </results>
       </test>
-      <call id="3" line="14" name="echoDate" description="Echo the date '30. Dezember 2012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0594">
+      <call id="3" line="14" name="echoDate" description="Echo the date '30. Dezember 2012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0673">
         <parameters>
           <parameter name="date" value="30. Dezember 2012" />
         </parameters>
-        <result duration="0.519" type="success">
+        <result duration="3.090" type="success">
           <variableUpdate name="tempDate" value="30. Dezember 2012 00:00:00 MEZ" />
         </result>
       </call>
-      <test id="4" line="15" name="echoDateTest" description="Echo the date '30. Dezember 2012 00:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0598">
-        <results duration="0.434" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.434" description="Echo the date '30. Dezember 2012 00:00:00 MEZ'" type="success">
+      <test id="4" line="15" name="echoDateTest" description="Echo the date '30. Dezember 2012 00:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0689">
+        <results duration="2.164" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.164" description="Echo the date '30. Dezember 2012 00:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="30. Dezember 2012 00:00:00 MEZ" />
             </parameters>
@@ -51,9 +51,9 @@
           </result>
         </results>
       </test>
-      <test id="5" line="20" name="echoDateTest" description="Echo the date '15:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0605">
-        <results duration="0.983" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.983" description="Echo the date '15:30:10 MEZ'" type="failure">
+      <test id="5" line="20" name="echoDateTest" description="Echo the date '15:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0705">
+        <results duration="3.913" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="3.913" description="Echo the date '15:30:10 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="15:30:10 MEZ" />
             </parameters>
@@ -63,9 +63,9 @@
           </result>
         </results>
       </test>
-      <test id="6" line="21" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0607">
-        <results duration="0.633" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.633" description="Echo the date '02:00:00 MEZ'" type="success">
+      <test id="6" line="21" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0736">
+        <results duration="1.915" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.915" description="Echo the date '02:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="02:00:00 MEZ" />
             </parameters>
@@ -75,9 +75,21 @@
           </result>
         </results>
       </test>
-      <test id="7" line="26" name="echoDateTest" description="Echo the date '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0607">
-        <results duration="1.078" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.078" description="Echo the date '10:30:10 MEZ'" type="failure">
+      <test id="7" line="22" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0767">
+        <results duration="3.544" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.544" description="Echo the date '02:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00 MEZ" value="1. Januar 1970 02:00:00 MEZ" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="8" line="27" name="echoDateTest" description="Echo the date '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0783">
+        <results duration="2.024" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="2.024" description="Echo the date '10:30:10 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="10:30:10 MEZ" />
             </parameters>
@@ -87,9 +99,9 @@
           </result>
         </results>
       </test>
-      <test id="8" line="27" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0623">
-        <results duration="0.539" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.539" description="Echo the date '02:00:00 MEZ'" type="success">
+      <test id="9" line="28" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0798">
+        <results duration="3.409" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.409" description="Echo the date '02:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="02:00:00 MEZ" />
             </parameters>
@@ -99,9 +111,21 @@
           </result>
         </results>
       </test>
-      <test id="9" line="32" name="echoDateTest" description="Echo the date '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0623">
-        <results duration="0.495" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.495" description="Echo the date '10:30:10 MEZ'" type="success">
+      <test id="10" line="29" name="echoDateTest" description="Echo the date '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0830">
+        <results duration="1.954" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.954" description="Echo the date '02:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00 MEZ" value="1. Januar 1970 02:00:00 MEZ" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="11" line="34" name="echoDateTest" description="Echo the date '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0845">
+        <results duration="3.418" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.418" description="Echo the date '10:30:10 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="10:30:10 MEZ" />
             </parameters>
@@ -111,9 +135,9 @@
           </result>
         </results>
       </test>
-      <test id="10" line="33" name="echoDateTest" description="Echo the date '14:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0638">
-        <results duration="0.584" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.584" description="Echo the date '14:00:00 MEZ'" type="success">
+      <test id="12" line="35" name="echoDateTest" description="Echo the date '14:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0876">
+        <results duration="2.000" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.000" description="Echo the date '14:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="14:00:00 MEZ" />
             </parameters>
@@ -123,9 +147,21 @@
           </result>
         </results>
       </test>
-      <test id="11" line="39" name="echoDateTest" description="Echo the date '2. Oktober 2010 01:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0638">
-        <results duration="0.708" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.708" description="Echo the date '2. Oktober 2010 01:00:00 MESZ'" type="success">
+      <test id="13" line="36" name="echoDateTest" description="Echo the date '14:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0892">
+        <results duration="1.991" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.991" description="Echo the date '14:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="14:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="14:00:00 MEZ" value="1. Januar 1970 14:00:00 MEZ" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="14" line="42" name="echoDateTest" description="Echo the date '2. Oktober 2010 01:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0923">
+        <results duration="3.881" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.881" description="Echo the date '2. Oktober 2010 01:00:00 MESZ'" type="success">
             <parameters>
               <parameter name="date" value="2. Oktober 2010 01:00:00 MESZ" />
             </parameters>
@@ -135,9 +171,9 @@
           </result>
         </results>
       </test>
-      <test id="12" line="42" name="echoDateTest" description="Echo the date '2. Januar 2010 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0654">
-        <results duration="0.616" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.616" description="Echo the date '2. Januar 2010 01:00:00 MEZ'" type="success">
+      <test id="15" line="45" name="echoDateTest" description="Echo the date '2. Januar 2010 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0939">
+        <results duration="2.884" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.884" description="Echo the date '2. Januar 2010 01:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="2. Januar 2010 01:00:00 MEZ" />
             </parameters>
@@ -147,9 +183,9 @@
           </result>
         </results>
       </test>
-      <test id="13" line="45" name="echoDateTest" description="Echo the date '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0654">
-        <results duration="0.525" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.525" description="Echo the date '01:00:00 MEZ'" type="failure">
+      <test id="16" line="48" name="echoDateTest" description="Echo the date '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:09.0955">
+        <results duration="5.961" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="5.961" description="Echo the date '01:00:00 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="01:00:00 MEZ" />
             </parameters>
@@ -159,9 +195,9 @@
           </result>
         </results>
       </test>
-      <test id="14" line="48" name="echoDateTest" description="Echo the date '1. Januar 1980 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0669">
-        <results duration="0.644" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.644" description="Echo the date '1. Januar 1980 01:00:00 MEZ'" type="success">
+      <test id="17" line="51" name="echoDateTest" description="Echo the date '1. Januar 1980 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:10.0001">
+        <results duration="4.335" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.335" description="Echo the date '1. Januar 1980 01:00:00 MEZ'" type="success">
             <parameters>
               <parameter name="date" value="1. Januar 1980 01:00:00 MEZ" />
             </parameters>
@@ -171,9 +207,9 @@
           </result>
         </results>
       </test>
-      <test id="15" line="51" name="echoDateTest" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0669">
-        <results duration="1.345" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.345" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" type="failure">
+      <test id="18" line="54" name="echoDateTest" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:10.0033">
+        <results duration="3.708" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="3.708" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="1. Januar 1980 12:31:00 MEZ" />
             </parameters>
@@ -183,9 +219,9 @@
           </result>
         </results>
       </test>
-      <test id="16" line="57" name="echoDateTest" description="Echo the date '2. Oktober 2010 13:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0685">
-        <results duration="0.595" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.595" description="Echo the date '2. Oktober 2010 13:00:00 MESZ'" type="success">
+      <test id="19" line="60" name="echoDateTest" description="Echo the date '2. Oktober 2010 13:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:10.0064">
+        <results duration="1.709" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.709" description="Echo the date '2. Oktober 2010 13:00:00 MESZ'" type="success">
             <parameters>
               <parameter name="date" value="2. Oktober 2010 13:00:00 MESZ" />
             </parameters>
@@ -195,9 +231,9 @@
           </result>
         </results>
       </test>
-      <test id="17" line="60" name="echoDateTest" description="Echo the date '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0685">
-        <results duration="0.546" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.546" description="Echo the date '01:00:00 MEZ'" type="failure">
+      <test id="20" line="63" name="echoDateTest" description="Echo the date '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:10.0080">
+        <results duration="1.682" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="1.682" description="Echo the date '01:00:00 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="01:00:00 MEZ" />
             </parameters>
@@ -207,9 +243,9 @@
           </result>
         </results>
       </test>
-      <test id="18" line="63" name="echoDateTest" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="03.07.13 22:30:25.0701">
-        <results duration="0.570" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.570" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" type="failure">
+      <test id="21" line="66" name="echoDateTest" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoDate" timestamp="27.08.13 18:28:10.0095">
+        <results duration="1.776" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="1.776" description="Echo the date '1. Januar 1980 12:31:00 MEZ'" type="failure">
             <parameters>
               <parameter name="date" value="1. Januar 1980 12:31:00 MEZ" />
             </parameters>
@@ -221,7 +257,7 @@
       </test>
     </statements>
     <teardown />
-    <result duration="129.961" successCount="11" failureCount="6" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="484.616" successCount="14" failureCount="6" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
