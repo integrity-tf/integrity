@@ -41,7 +41,7 @@ public abstract class AbstractTimeValueToString<T> extends Conversion<TimeValue,
 	protected FormattedString convertToFormattedString(TimeValue aSource,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
-			return new FormattedString(DateFormat.getTimeInstance(DateFormat.LONG).format(
+			return new FormattedString(DateUtil.formatDateWithMilliseconds(DateFormat.getTimeInstance(DateFormat.LONG),
 					DateUtil.convertTimeValue(aSource).getTime()));
 		} catch (ParseException exc) {
 			throw new ConversionFailedException(TimeValue.class, FormattedString.class, null, exc);

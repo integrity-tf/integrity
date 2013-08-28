@@ -41,7 +41,8 @@ public abstract class AbstractDateAndTimeValueToString<T> extends Conversion<Dat
 	protected FormattedString convertToFormattedString(DateAndTimeValue aSource,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
-			return new FormattedString(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(
+			return new FormattedString(DateUtil.formatDateWithMilliseconds(
+					DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG),
 					DateUtil.convertDateAndTimeValue(aSource).getTime()));
 		} catch (ParseException exc) {
 			throw new ConversionFailedException(DateAndTimeValue.class, FormattedString.class, null, exc);

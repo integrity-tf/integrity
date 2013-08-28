@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.utils;
 
+import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -327,6 +329,48 @@ public final class DateUtil {
 		}
 
 		return tempCalendar;
+	}
+
+	/**
+	 * Performs date formatting using the provided format, but injects millisecond precision if the millisecond value is
+	 * not "000". This is intended to be used with the standard date/time formats returned by DateFormat factory
+	 * methods, which don't include milliseconds in most cases unfortunately. It employs a rather ugly hack to enhance
+	 * the pattern which only works with {@link SimpleDateFormat}, but as far as I know there's no better method to
+	 * achieve this result.
+	 * 
+	 * @param aFormat
+	 *            the base format
+	 * @param aDate
+	 *            the date to format
+	 * @return the formatted string
+	 */
+	public static String formatDateWithMilliseconds(DateFormat aFormat, Date aDate) {
+		DateFormat tempFormat = aFormat;
+
+		if (aDate.getTime() % 1000 != 0) {
+			if (aFormat instanceof SimpleDateFormat) {
+				Field tempField;
+				try {
+					tempField = SimpleDateFormat.class.getDeclaredField("pattern");
+					tempField.setAccessible(true);
+					String tempPattern = (String) tempField.get(aFormat);
+
+					tempPattern = tempPattern.replace(":ss", ":ss.SSS");
+
+					tempFormat = new SimpleDateFormat(tempPattern);
+				} catch (SecurityException exc) {
+					exc.printStackTrace();
+				} catch (NoSuchFieldException exc) {
+					exc.printStackTrace();
+				} catch (IllegalArgumentException exc) {
+					exc.printStackTrace();
+				} catch (IllegalAccessException exc) {
+					exc.printStackTrace();
+				}
+			}
+		}
+
+		return tempFormat.format(aDate);
 	}
 
 }
