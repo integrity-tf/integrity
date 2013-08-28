@@ -10,7 +10,11 @@
   
   	<dependencySets>
   		<dependencySet>
-  			<excludes><exclude>plugin.properties</exclude></excludes>
+  			<unpackOptions>
+	  			<excludes>
+	  				<exclude>plugin.properties</exclude>
+	  			</excludes>
+  			</unpackOptions>
     		<unpack>true</unpack>
   		</dependencySet>
 	</dependencySets>
