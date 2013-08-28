@@ -13,5 +13,13 @@
     		<unpack>true</unpack>
   		</dependencySet>
 	</dependencySets>
+	
+	<fileSets>
+		<fileSet>
+			<directory>target/pluginProperties</directory>
+			<includes><include>plugin.properties</include></includes>
+			<outputDirectory>/</outputDirectory>		
+		</fileSet>
+	</fileSets>
   
 </assembly>
