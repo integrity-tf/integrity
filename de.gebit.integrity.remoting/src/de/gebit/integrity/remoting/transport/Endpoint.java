@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.DisconnectMessage;
@@ -257,8 +259,8 @@ public class Endpoint {
 						}
 					}
 
-					tempObjectStream = new ClassloaderAwareObjectInputStream(new ByteArrayInputStream(tempMessage),
-							classLoader);
+					tempObjectStream = new ClassloaderAwareObjectInputStream(new InflaterInputStream(
+							new ByteArrayInputStream(tempMessage)), classLoader);
 					try {
 						AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
 						if (tempMessageObject instanceof DisconnectMessage) {
@@ -339,7 +341,8 @@ public class Endpoint {
 
 					if (tempMessageObject != null && socket.isConnected()) {
 						ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
-						ObjectOutputStream tempObjectStream = new ObjectOutputStream(tempStream);
+						DeflaterOutputStream tempDeflateStream = new DeflaterOutputStream(tempStream);
+						ObjectOutputStream tempObjectStream = new ObjectOutputStream(tempDeflateStream);
 						tempObjectStream.writeObject(tempMessageObject);
 						tempObjectStream.close();
 
