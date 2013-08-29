@@ -384,9 +384,6 @@ public class FixtureWrapper<C extends Object> {
 			FixtureMethod tempMethodAnnotation = tempMethod.getAnnotation(FixtureMethod.class);
 			if (tempMethodAnnotation != null) {
 				String tempMethodName = tempMethod.getName();
-				if (tempMethodAnnotation.name() != null && tempMethodAnnotation.name().length() > 0) {
-					tempMethodName = tempMethodAnnotation.name();
-				}
 
 				if (tempMethodName.equals(aName)) {
 					return tempMethod;

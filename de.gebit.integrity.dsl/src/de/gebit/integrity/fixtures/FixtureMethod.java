@@ -49,14 +49,6 @@ import java.lang.annotation.Target;
 public @interface FixtureMethod {
 
 	/**
-	 * The name of the method. This value is optional; if it is not provided, the name of the method itself will be used
-	 * as fixture method name.
-	 * 
-	 * @return
-	 */
-	String name() default "";
-
-	/**
 	 * The description for the method. This text is intended to be a human-readable description of
 	 * "what the fixture does". It is highly suggested to provide such a description, since it's one of the main
 	 * mechanisms used by Integrity to create human-readable test results.<br>
