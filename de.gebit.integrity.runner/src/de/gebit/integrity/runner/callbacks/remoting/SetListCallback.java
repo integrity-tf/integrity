@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +44,10 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
+import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -55,6 +60,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
+import de.gebit.integrity.runner.results.FixtureExecutionResult;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -240,6 +246,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		}
 		tempNewEntries.add(tempTestEntry);
 
+		addExtendedResultDataToEntry(tempTestEntry, aResult);
+
 		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
 	}
 
@@ -259,6 +267,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			exc.printStackTrace();
 		}
 
+		addExtendedResultDataToEntry(tempTestEntry, aResult);
 		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest,
 				tempTestEntry, aResult.getSubResults().get(0), tempParameterMap);
 		tempNewEntries.add(tempTestEntry);
@@ -416,8 +425,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			tempCount++;
 		}
 
-		setList.addReference(entryStack.pop(), SetListEntryAttributeKeys.RESULT, tempNewEntry);
-		sendUpdateToClients(null, tempNewEntry, tempEntries);
+		SetListEntry tempCallEntry = entryStack.pop();
+
+		addExtendedResultDataToEntry(tempCallEntry, aResult);
+		setList.addReference(tempCallEntry, SetListEntryAttributeKeys.RESULT, tempNewEntry);
+		sendUpdateToClients(null, tempEntries, tempCallEntry, tempNewEntry);
 	}
 
 	@Override
@@ -610,6 +622,25 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	/**
+	 * Sends a setlist entry update to all clients of the remoting server. This is a convenience method and behaves much
+	 * like {@link #sendUpdateToClients(Integer, SetListEntry...)}.
+	 * 
+	 * @param anEntryInExecution
+	 *            the entry that is currently in execution (may be null if that information shouldn't be included)
+	 * @param someEntries
+	 *            some updated entries as an array
+	 * @param someSingleEntries
+	 *            more updated entries
+	 */
+	protected void sendUpdateToClients(Integer anEntryInExecution, SetListEntry[] someEntries,
+			SetListEntry... someSingleEntries) {
+		SetListEntry[] tempCombined = new SetListEntry[someEntries.length + someSingleEntries.length];
+		System.arraycopy(someSingleEntries, 0, tempCombined, 0, someSingleEntries.length);
+		System.arraycopy(someEntries, 0, tempCombined, someSingleEntries.length, someEntries.length);
+		sendUpdateToClients(anEntryInExecution, tempCombined);
+	}
+
+	/**
 	 * Utility method to convert a stack trace to a string to be included in a setlist entry.
 	 * 
 	 * @param anException
@@ -685,6 +716,41 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				}
 			}
 			anEntry.setAttribute(SetListEntryAttributeKeys.LINK, tempLink);
+		}
+	}
+
+	/**
+	 * Adds the extended result data in the {@link FixtureExecutionResult} object to the provided {@link SetListEntry}.
+	 * If there's no extended results, this method does nothing.
+	 * 
+	 * @param anEntry
+	 *            the entry to attach results to
+	 * @param aResult
+	 *            the result to explore
+	 */
+	protected void addExtendedResultDataToEntry(SetListEntry anEntry, FixtureExecutionResult aResult) {
+		if (aResult.getExtendedResults() == null || aResult.getExtendedResults().size() == 0) {
+			return;
+		}
+
+		List<Object[]> tempTargetList = new ArrayList<Object[]>(aResult.getExtendedResults().size());
+
+		for (ExtendedResult tempExtResult : aResult.getExtendedResults()) {
+			if (tempExtResult instanceof ExtendedResultText) {
+				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
+						((ExtendedResultText) tempExtResult).getText() });
+			} else if (tempExtResult instanceof ExtendedResultHTML) {
+				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
+						((ExtendedResultHTML) tempExtResult).getHypertext() });
+			} else if (tempExtResult instanceof ExtendedResultImage) {
+				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
+						((ExtendedResultImage) tempExtResult).getEncodedImage() });
+			}
+		}
+
+		if (tempTargetList.size() > 0) {
+			anEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,
+					tempTargetList.toArray(new Object[tempTargetList.size()]));
 		}
 	}
 }
