@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.eclipse.views;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.UnknownHostException;
@@ -75,8 +76,11 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -137,6 +141,31 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * include the prefix to save some space.
 	 */
 	protected static final String INTEGRITY_URL_PREFIX = "integrity://";
+
+	/**
+	 * Height of the result text fields.
+	 */
+	private static final int RESULT_TEXTFIELD_HEIGHT = 60;
+
+	/**
+	 * Height of larger tables in the result (variables, tabletests).
+	 */
+	private static final int RESULT_TABLE_HEIGHT = 230;
+
+	/**
+	 * Height of each text field for extended results in text form.
+	 */
+	private static final int EXTENDED_RESULT_TEXTFIELD_HEIGHT = 60;
+
+	/**
+	 * Space around images in extended result fields.
+	 */
+	private static final int EXTENDED_RESULT_IMAGE_SPACING = 6;
+
+	/**
+	 * Space between each extended result field.
+	 */
+	private static final int EXTENDED_RESULT_SPACING = 5;
 
 	/**
 	 * The Integrity URL resolver.
@@ -294,6 +323,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The container for the second (expected) result text field, which adds a color border around it.
 	 */
 	private Composite resultLine2Border;
+
+	/**
+	 * The label for the third (extended result) result value.
+	 */
+	private Label resultLine3Name;
+
+	/**
+	 * The container for the third (extended result) result value field. This one will be dynamically filled with text
+	 * fields or whatever else for displaying the varying number of extended result data objects.
+	 */
+	private Composite resultLine3Border;
 
 	/**
 	 * The container for the result table.
@@ -696,7 +736,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		detailGroups = new Composite(details.getBody(), SWT.NONE);
 		detailGroups.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		detailGroups.setLayout(new FormLayout());
+		GridLayout tempGridLayout = new GridLayout(1, true);
+		tempGridLayout.verticalSpacing = 10;
+		detailGroups.setLayout(tempGridLayout);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
@@ -704,14 +746,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.bottom = new FormAttachment(100, 0);
 		detailGroups.setLayoutData(tempFormData);
 
-		resultSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		resultSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
 		resultSection.setText("Result");
-		tempFormData = new FormData();
-		tempFormData.left = new FormAttachment(0, 5);
-		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(0, 10);
-		tempFormData.bottom = new FormAttachment(0, 202);
-		resultSection.setLayoutData(tempFormData);
+		GridData tempGridData = new GridData();
+		tempGridData.minimumHeight = 10;
+		tempGridData.horizontalIndent = 5;
+		tempGridData.grabExcessHorizontalSpace = true;
+		tempGridData.horizontalAlignment = GridData.FILL;
+		resultSection.setLayoutData(tempGridData);
 		resultSection.setLayout(new FillLayout());
 
 		resultComposite = tempToolkit.createComposite(resultSection);
@@ -719,14 +761,15 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultSection.setClient(resultComposite);
 		resultComposite.setLayout(new FormLayout());
 
-		parameterSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		parameterSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
 		parameterSection.setText("Parameters");
-		tempFormData = new FormData();
-		tempFormData.left = new FormAttachment(0, 5);
-		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(resultSection, 10);
-		tempFormData.bottom = new FormAttachment(resultSection, 140, SWT.BOTTOM);
-		parameterSection.setLayoutData(tempFormData);
+		tempGridData = new GridData();
+		tempGridData.minimumHeight = SWT.DEFAULT;
+		tempGridData.heightHint = 130;
+		tempGridData.horizontalIndent = 5;
+		tempGridData.grabExcessHorizontalSpace = true;
+		tempGridData.horizontalAlignment = GridData.FILL;
+		parameterSection.setLayoutData(tempGridData);
 		parameterSection.setLayout(new FillLayout());
 
 		parameterComposite = tempToolkit.createComposite(parameterSection);
@@ -738,14 +781,15 @@ public class IntegrityTestRunnerView extends ViewPart {
 		parameterTable.setContentProvider(new ArrayContentProvider());
 		configureTable(parameterTable);
 
-		variableSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR);
+		variableSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
 		variableSection.setText("Variable definitions");
-		tempFormData = new FormData();
-		tempFormData.left = new FormAttachment(0, 5);
-		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(parameterSection, 10);
-		tempFormData.bottom = new FormAttachment(parameterSection, 160, SWT.BOTTOM);
-		variableSection.setLayoutData(tempFormData);
+		tempGridData = new GridData();
+		tempGridData.minimumHeight = SWT.DEFAULT;
+		tempGridData.heightHint = 150;
+		tempGridData.horizontalIndent = 5;
+		tempGridData.grabExcessHorizontalSpace = true;
+		tempGridData.horizontalAlignment = GridData.FILL;
+		variableSection.setLayoutData(tempGridData);
 		variableSection.setLayout(new FillLayout());
 
 		variableComposite = tempToolkit.createComposite(variableSection);
@@ -767,7 +811,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
 		tempFormData.top = new FormAttachment(resultComposite, 10);
-		tempFormData.bottom = new FormAttachment(resultComposite, 160, SWT.BOTTOM);
+		tempFormData.bottom = new FormAttachment(resultTableComposite, RESULT_TABLE_HEIGHT, SWT.TOP);
 		resultTableComposite.setLayoutData(tempFormData);
 		resultTableComposite.setLayout(new FillLayout());
 
@@ -780,7 +824,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
 		tempFormData.top = new FormAttachment(resultComposite, 10);
-		tempFormData.bottom = new FormAttachment(resultComposite, 160, SWT.BOTTOM);
+		tempFormData.bottom = new FormAttachment(varUpdateTableComposite, RESULT_TABLE_HEIGHT, SWT.TOP);
 		varUpdateTableComposite.setLayoutData(tempFormData);
 		varUpdateTableComposite.setLayout(new FillLayout());
 
@@ -800,8 +844,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(resultLine1Name, 2);
-		tempFormData.bottom = new FormAttachment(resultLine1Name, 80);
+		tempFormData.top = new FormAttachment(resultLine1Name, 2, SWT.BOTTOM);
+		tempFormData.bottom = new FormAttachment(resultLine1Border, RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
 		resultLine1Border.setLayoutData(tempFormData);
 		FillLayout tempFill = new FillLayout();
 		tempFill.marginHeight = 1;
@@ -809,7 +853,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultLine1Border.setLayout(tempFill);
 		configureTextFieldBorder(resultLine1Border);
 
-		resultLine1Text = new Text(resultLine1Border, SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
+		resultLine1Text = new Text(resultLine1Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		resultLine1Text.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultLine2Name = new Label(resultComposite, SWT.WRAP);
@@ -824,8 +868,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
-		tempFormData.top = new FormAttachment(resultLine2Name, 2);
-		tempFormData.bottom = new FormAttachment(resultLine2Name, 80);
+		tempFormData.top = new FormAttachment(resultLine2Name, 2, SWT.BOTTOM);
+		tempFormData.bottom = new FormAttachment(resultLine2Border, RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
 		resultLine2Border.setLayoutData(tempFormData);
 		tempFill = new FillLayout();
 		tempFill.marginHeight = 1;
@@ -833,8 +877,27 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultLine2Border.setLayout(tempFill);
 		configureTextFieldBorder(resultLine2Border);
 
-		resultLine2Text = new Text(resultLine2Border, SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL);
+		resultLine2Text = new Text(resultLine2Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		resultLine2Text.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+
+		resultLine3Name = new Label(resultComposite, SWT.WRAP);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultLine2Border, 6);
+		resultLine3Name.setLayoutData(tempFormData);
+		resultLine3Name.setText("Extended Result Data");
+
+		resultLine3Border = new Composite(resultComposite, SWT.NONE);
+		resultLine3Border.setForeground(resultNeutralColor);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(resultLine3Name, 2, SWT.BOTTOM);
+		tempFormData.bottom = new FormAttachment(resultLine3Border, 0, SWT.TOP);
+		resultLine3Border.setLayoutData(tempFormData);
+		resultLine3Border.setLayout(new FormLayout());
+		configureTextFieldBorder(resultLine3Border);
 
 		resultFailureIcon = new Label(resultComposite, SWT.NONE);
 		resultFailureIcon.setImage(resultFailureIconImage);
@@ -1538,17 +1601,32 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
+	private void hideResultComposite(Composite aComposite) {
+		aComposite.setVisible(false);
+		((FormData) aComposite.getLayoutData()).bottom.offset = 0;
+	}
+
+	private void showResultComposite(Composite aComposite, int aHeight) {
+		aComposite.setVisible(true);
+		((FormData) aComposite.getLayoutData()).bottom.offset = aHeight;
+	}
+
 	// SUPPRESS CHECKSTYLE MethodLength
 	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		fixtureLink.setVisible(false);
 		forkLabel.setVisible(false);
-		resultTableComposite.setVisible(false);
-		varUpdateTableComposite.setVisible(false);
+		hideResultComposite(resultTableComposite);
+		hideResultComposite(varUpdateTableComposite);
 		resultLine1Name.setVisible(false);
-		resultLine1Border.setVisible(false);
+		hideResultComposite(resultLine1Border);
 		resultLine1Text.setText("");
 		resultLine2Name.setVisible(false);
-		resultLine2Border.setVisible(false);
+		hideResultComposite(resultLine2Border);
+		resultLine3Name.setVisible(false);
+		resultLine3Border.setVisible(false);
+		for (Control tempChild : resultLine3Border.getChildren()) {
+			tempChild.dispose();
+		}
 
 		resultSuccessIcon.setVisible(false);
 		resultFailureIcon.setVisible(false);
@@ -1650,7 +1728,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 					if (tempComparisonEntries.size() > 1) {
 						resultTable.setInput(tempComparisonEntries);
-						resultTableComposite.setVisible(true);
+						showResultComposite(resultTableComposite, RESULT_TABLE_HEIGHT);
 					} else {
 						SetListEntry tempComparisonEntry = tempComparisonEntries.get(0);
 						resultLine2Name.setText("Expected value: ");
@@ -1658,7 +1736,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 								.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
 						resultLine2Border.setForeground(resultNeutralColor);
 						resultLine2Name.setVisible(true);
-						resultLine2Border.setVisible(true);
+						showResultComposite(resultLine2Border, RESULT_TEXTFIELD_HEIGHT);
 
 						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
 							resultLine1Name.setText("Exception occurred while running the test fixture:");
@@ -1666,7 +1744,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
 							resultLine1Border.setForeground(resultExceptionColor);
 							resultLine1Name.setVisible(true);
-							resultLine1Border.setVisible(true);
+							showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 						} else {
 							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 								resultLine1Name.setText("Result returned by the test fixture: ");
@@ -1681,7 +1759,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 										resultLine1Border.setForeground(resultFailureColor);
 									}
 								}
-								resultLine1Border.setVisible(true);
+								showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 							} else {
 								resultLine1Name.setText("No result available - please run the tests first.");
 							}
@@ -1696,7 +1774,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 							resultLine1Text.setText((String) tempResultEntry
 									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
 							resultLine1Border.setForeground(resultExceptionColor);
-							resultLine1Border.setVisible(true);
+							showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 						} else {
 							List<SetListEntry> tempVarUpdates = setList.resolveReferences(tempResultEntry,
 									SetListEntryAttributeKeys.VARIABLE_UPDATES);
@@ -1712,10 +1790,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 								resultLine1Name.setText("Result returned by the fixture:");
 								resultLine1Text.setText(tempResultValue);
 								resultLine1Border.setForeground(resultNeutralColor);
-								resultLine1Border.setVisible(true);
+								showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 							} else if (tempVarUpdates.size() > 1) {
 								varUpdateTable.setInput(tempVarUpdates);
-								varUpdateTableComposite.setVisible(true);
+								showResultComposite(varUpdateTableComposite, RESULT_TABLE_HEIGHT);
 							} else {
 								resultLine1Name.setText("No result returned by the fixture.");
 							}
@@ -1729,7 +1807,100 @@ public class IntegrityTestRunnerView extends ViewPart {
 					break;
 				}
 			}
+
+			Object[] tempExtendedResults = (Object[]) anEntry
+					.getAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA);
+			if (tempExtendedResults != null && tempExtendedResults.length > 0) {
+				int tempSize = 0;
+
+				for (Object tempExtendedResultArray : tempExtendedResults) {
+					if (tempSize > 0) {
+						tempSize += EXTENDED_RESULT_SPACING;
+					}
+
+					tempSize += createExtendedResultContainer(resultLine3Border, tempSize + 1,
+							(Object[]) tempExtendedResultArray);
+				}
+
+				resultLine3Name.setVisible(true);
+				resultLine3Border.setVisible(true);
+				showResultComposite(resultLine3Border, tempSize + 2);
+				resultComposite.layout(true, true);
+			} else {
+				hideResultComposite(resultLine3Border);
+			}
 		}
+
+		details.layout(true, true);
+		details.reflow(false);
+		details.redraw();
+	}
+
+	private int createExtendedResultContainer(Composite aTargetComposite, int aStartingPosition,
+			Object[] someExtendedResultData) {
+		String tempTitle = (String) someExtendedResultData[0];
+		Object tempData = someExtendedResultData[1];
+
+		int tempTitleSize = 0;
+		int tempContentSize = 0;
+		Control tempContentContainer = null;
+
+		// First, create the title.
+		if (tempTitle != null) {
+			tempTitleSize = 18;
+
+			Composite tempResultTitleContainer = new Composite(aTargetComposite, SWT.NONE);
+			tempResultTitleContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+
+			FormData tempFormData = new FormData();
+			tempFormData.left = new FormAttachment(0, 1);
+			tempFormData.right = new FormAttachment(100, 1);
+			tempFormData.top = new FormAttachment(aTargetComposite, aStartingPosition);
+			tempFormData.bottom = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize, SWT.BOTTOM);
+			tempResultTitleContainer.setLayoutData(tempFormData);
+			FillLayout tempFillLayout = new FillLayout();
+			tempFillLayout.marginWidth = 2;
+			tempFillLayout.marginHeight = 2;
+			tempResultTitleContainer.setLayout(tempFillLayout);
+			tempResultTitleContainer.setVisible(true);
+
+			Label tempResultTitleField = new Label(tempResultTitleContainer, SWT.BOLD);
+			tempResultTitleField.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+			tempResultTitleField.setText(tempTitle);
+			tempResultTitleField.setVisible(true);
+		}
+
+		// Now, see what we have to display, create the appropriate control and set everything up
+		if (tempData instanceof String) { // This covers strings and hypertext strings
+			Text tempResultTextField = new Text(aTargetComposite, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+			tempResultTextField.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+			tempResultTextField.setText((String) tempData);
+
+			tempContentSize = EXTENDED_RESULT_TEXTFIELD_HEIGHT;
+			tempContentContainer = tempResultTextField;
+		} else if (tempData instanceof byte[]) { // Covers images
+			Image tempImage = new Image(Display.getCurrent(), new ByteArrayInputStream((byte[]) tempData));
+			Label tempImageLabel = new Label(aTargetComposite, SWT.NONE);
+			tempImageLabel.setImage(tempImage);
+			tempImageLabel.setAlignment(SWT.CENTER);
+
+			tempContentSize = tempImage.getBounds().height + EXTENDED_RESULT_IMAGE_SPACING;
+			tempContentContainer = tempImageLabel;
+		}
+
+		// Finally, place the control onto its parent
+		if (tempContentContainer != null) {
+			FormData tempFormData = new FormData();
+			tempFormData.left = new FormAttachment(0, 1);
+			tempFormData.right = new FormAttachment(100, -1);
+			tempFormData.top = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize);
+			tempFormData.bottom = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize
+					+ tempContentSize, SWT.BOTTOM);
+			tempContentContainer.setLayoutData(tempFormData);
+			tempContentContainer.setVisible(true);
+		}
+
+		return tempTitleSize + tempContentSize;
 	}
 
 	private void showMessage(final String aMessage) {

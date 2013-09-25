@@ -111,6 +111,11 @@ public enum SetListEntryAttributeKeys {
 	EXPECTED_RESULT,
 
 	/**
+	 * Extended result data. This may be images (compressed byte arrays) or strings.
+	 */
+	EXTENDED_RESULT_DATA,
+
+	/**
 	 * Whether a test/call was successful.
 	 */
 	RESULT_SUCCESS_FLAG,
