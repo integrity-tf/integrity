@@ -47,12 +47,12 @@ public class ExtendedResultTestFixture implements ExtendedResultFixture {
 		List<ExtendedResult> tempList = new ArrayList<ExtendedResult>();
 
 		for (int i = 0; i < numberOfTexts; i++) {
-			tempList.add(new ExtendedResultText(i % 2 == 0 ? null : "Text number " + i,
+			tempList.add(new ExtendedResultText(i % 2 == 1 ? null : "Text number " + i,
 					"This is some stupid extended result text\nAnd it even has multiple lines!"));
 		}
 
 		for (int i = 0; i < numberOfImages; i++) {
-			BufferedImage tempImage = new BufferedImage((int) (Math.random() * 600), (int) (Math.random() * 200),
+			BufferedImage tempImage = new BufferedImage((int) (Math.random() * 1200), (int) (Math.random() * 200),
 					BufferedImage.TYPE_INT_ARGB);
 
 			Graphics tempGraphics = tempImage.getGraphics();

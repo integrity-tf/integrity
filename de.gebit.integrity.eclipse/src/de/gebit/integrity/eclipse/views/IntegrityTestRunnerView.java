@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.eclipse.views;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.UnknownHostException;
@@ -155,6 +156,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * Height of each text field for extended results in text form.
 	 */
 	private static final int EXTENDED_RESULT_TEXTFIELD_HEIGHT = 60;
+
+	/**
+	 * Space around images in extended result fields.
+	 */
+	private static final int EXTENDED_RESULT_IMAGE_SPACING = 6;
 
 	/**
 	 * Space between each extended result field.
@@ -1836,6 +1842,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 		Object tempData = someExtendedResultData[1];
 
 		int tempTitleSize = 0;
+		int tempContentSize = 0;
+		Control tempContentContainer = null;
+
+		// First, create the title.
 		if (tempTitle != null) {
 			tempTitleSize = 18;
 
@@ -1860,25 +1870,37 @@ public class IntegrityTestRunnerView extends ViewPart {
 			tempResultTitleField.setVisible(true);
 		}
 
-		if (tempData instanceof String) {
+		// Now, see what we have to display, create the appropriate control and set everything up
+		if (tempData instanceof String) { // This covers strings and hypertext strings
 			Text tempResultTextField = new Text(aTargetComposite, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 			tempResultTextField.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 			tempResultTextField.setText((String) tempData);
 
+			tempContentSize = EXTENDED_RESULT_TEXTFIELD_HEIGHT;
+			tempContentContainer = tempResultTextField;
+		} else if (tempData instanceof byte[]) { // Covers images
+			Image tempImage = new Image(Display.getCurrent(), new ByteArrayInputStream((byte[]) tempData));
+			Label tempImageLabel = new Label(aTargetComposite, SWT.NONE);
+			tempImageLabel.setImage(tempImage);
+			tempImageLabel.setAlignment(SWT.CENTER);
+
+			tempContentSize = tempImage.getBounds().height + EXTENDED_RESULT_IMAGE_SPACING;
+			tempContentContainer = tempImageLabel;
+		}
+
+		// Finally, place the control onto its parent
+		if (tempContentContainer != null) {
 			FormData tempFormData = new FormData();
 			tempFormData.left = new FormAttachment(0, 1);
 			tempFormData.right = new FormAttachment(100, -1);
 			tempFormData.top = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize);
 			tempFormData.bottom = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize
-					+ EXTENDED_RESULT_TEXTFIELD_HEIGHT, SWT.BOTTOM);
-			tempResultTextField.setLayoutData(tempFormData);
-
-			tempResultTextField.setVisible(true);
-
-			return EXTENDED_RESULT_TEXTFIELD_HEIGHT + tempTitleSize;
+					+ tempContentSize, SWT.BOTTOM);
+			tempContentContainer.setLayoutData(tempFormData);
+			tempContentContainer.setVisible(true);
 		}
 
-		return 0;
+		return tempTitleSize + tempContentSize;
 	}
 
 	private void showMessage(final String aMessage) {
