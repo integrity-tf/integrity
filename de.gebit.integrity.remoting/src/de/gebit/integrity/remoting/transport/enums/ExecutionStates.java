@@ -38,6 +38,11 @@ public enum ExecutionStates implements Serializable {
 	PAUSED_SYNC,
 
 	/**
+	 * Execution has finished, but stuff is being finalized (results written, transformed et cetera).
+	 */
+	FINALIZING,
+
+	/**
 	 * Execution has ended.
 	 */
 	ENDED;

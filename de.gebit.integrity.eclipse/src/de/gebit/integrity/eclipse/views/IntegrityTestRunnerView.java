@@ -1579,6 +1579,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 							stepOverAction.setEnabled(false);
 							updateStatus("Running tests...");
 							break;
+						case FINALIZING:
+							playAction.setEnabled(false);
+							pauseAction.setEnabled(false);
+							stepIntoAction.setEnabled(false);
+							stepOverAction.setEnabled(false);
+							updateStatus("Finalizing test results...");
+							break;
 						case ENDED:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);

@@ -552,6 +552,10 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
+		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
+			remotingServer.updateExecutionState(ExecutionStates.RUNNING);
+		}
+
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
 			currentCallback.onExecutionStart(model, variantInExecution);
@@ -564,10 +568,18 @@ public class DefaultTestRunner implements TestRunner {
 
 		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
+		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
+			remotingServer.updateExecutionState(ExecutionStates.FINALIZING);
+		}
+
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
 			currentCallback.onExecutionFinish(model, tempResult);
 			currentCallback.onCallbackProcessingEnd();
+		}
+
+		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
+			remotingServer.updateExecutionState(ExecutionStates.ENDED);
 		}
 
 		return tempResult;
