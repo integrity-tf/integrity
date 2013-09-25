@@ -2122,7 +2122,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
-			System.out.println(aState);
 			updateActionStatus(aState);
 		}
 
