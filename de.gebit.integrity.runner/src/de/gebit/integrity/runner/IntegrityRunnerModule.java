@@ -9,6 +9,8 @@ package de.gebit.integrity.runner;
 
 import de.gebit.integrity.DSLRuntimeModule;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.runner.classloading.DefaultIntegrityClassLoader;
+import de.gebit.integrity.runner.classloading.IntegrityClassLoader;
 import de.gebit.integrity.runner.comparator.DefaultResultComparator;
 import de.gebit.integrity.runner.comparator.ResultComparator;
 import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
@@ -17,6 +19,8 @@ import de.gebit.integrity.runner.console.intercept.DefaultConsoleInterceptionAgg
 import de.gebit.integrity.runner.console.intercept.DefaultConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.DefaultProcessTerminator;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.modelcheck.DefaultModelChecker;
+import de.gebit.integrity.runner.modelcheck.ModelChecker;
 import de.gebit.integrity.runner.variables.DefaultVariableManager;
 import de.gebit.integrity.runner.wrapper.DefaultWrapperFactory;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -100,6 +104,24 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends ConsoleOutputInterceptor> bindConsoleOutputInterceptor() {
 		return DefaultConsoleOutputInterceptor.class;
+	}
+
+	/**
+	 * Binding of the {@link IntegrityClassLoader}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IntegrityClassLoader> bindIntegrityClassLoader() {
+		return DefaultIntegrityClassLoader.class;
+	}
+
+	/**
+	 * Binding of the {@link ModelChecker}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ModelChecker> bindModelChecker() {
+		return DefaultModelChecker.class;
 	}
 
 }

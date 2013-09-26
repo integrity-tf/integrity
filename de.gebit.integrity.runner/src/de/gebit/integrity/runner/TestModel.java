@@ -31,9 +31,9 @@ import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
@@ -41,19 +41,17 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
-import de.gebit.integrity.dsl.TableTest;
-import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
-import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -109,27 +107,23 @@ public class TestModel {
 	/**
 	 * The Google Guice Injector.
 	 */
+	@Inject
 	protected Injector injector;
 
 	/**
-	 * The classloader to use.
+	 * The model source explorer.
 	 */
-	protected ClassLoader classLoader;
+	@Inject
+	protected ModelSourceExplorer modelSourceExplorer;
 
 	/**
 	 * Creates a new model from a bunch of single models (files).
 	 * 
 	 * @param someModels
 	 *            the models
-	 * @param anInjector
-	 *            the Google Guice Injector
-	 * @param aClassLoader
-	 *            the classloader to use
 	 */
-	protected TestModel(List<Model> someModels, Injector anInjector, ClassLoader aClassLoader) {
+	protected TestModel(List<Model> someModels) {
 		models = someModels;
-		injector = anInjector;
-		classLoader = aClassLoader;
 
 		Map<String, AmbiguousDefinition> tempDuplicateMap = new HashMap<String, AmbiguousDefinition>();
 
@@ -405,7 +399,8 @@ public class TestModel {
 			}
 		}
 
-		TestModel tempModel = new TestModel(tempModels, tempInjector, aResourceProvider.getClassLoader());
+		TestModel tempModel = new TestModel(tempModels);
+		tempInjector.injectMembers(tempModel);
 		if (tempModel.getDuplicateDefinitions().size() > 0) {
 			throw new ModelAmbiguousException("Encountered " + tempModel.getDuplicateDefinitions().size()
 					+ " ambiguous definitions in the test model.", tempModel.getDuplicateDefinitions());
@@ -452,71 +447,6 @@ public class TestModel {
 			}
 		}
 		return tempUnresolvedProxies;
-	}
-
-	public Injector getInjector() {
-		return injector;
-	}
-
-	public ClassLoader getClassLoader() {
-		return classLoader;
-	}
-
-	/**
-	 * Checks if key references of the given {@link Test} are available and properly linked.
-	 * 
-	 * @param aTest
-	 *            the test to check
-	 * @throws ModelRuntimeLinkException
-	 *             in case of an error. Nothing happens if everything is fine.
-	 */
-	public static void ensureModelPartConsistency(Test aTest) throws ModelRuntimeLinkException {
-		if (aTest.getDefinition() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test definition for test statement '"
-					+ aTest.toString() + "'", aTest);
-		} else if (aTest.getDefinition().getFixtureMethod() == null
-				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
-					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
-		}
-	}
-
-	/**
-	 * Checks if key references of the given {@link Call} are available and properly linked.
-	 * 
-	 * @param aCall
-	 *            the call to check
-	 * @throws ModelRuntimeLinkException
-	 *             in case of an error. Nothing happens if everything is fine.
-	 */
-	public static void ensureModelPartConsistency(Call aCall) throws ModelRuntimeLinkException {
-		if (aCall.getDefinition() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve call definition for call statement '"
-					+ aCall.toString() + "'", aCall);
-		} else if (aCall.getDefinition().getFixtureMethod() == null
-				|| aCall.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve call fixture for call definition '"
-					+ aCall.getDefinition().getName() + "' (" + aCall.getDefinition() + ")", aCall);
-		}
-	}
-
-	/**
-	 * Checks if key references of the given {@link TableTest} are available and properly linked.
-	 * 
-	 * @param aTest
-	 *            the test to check
-	 * @throws ModelRuntimeLinkException
-	 *             in case of an error. Nothing happens if everything is fine.
-	 */
-	public static void ensureModelPartConsistency(TableTest aTest) throws ModelRuntimeLinkException {
-		if (aTest.getDefinition() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test definition for tabletest statement '"
-					+ aTest.toString() + "'", aTest);
-		} else if (aTest.getDefinition().getFixtureMethod() == null
-				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition '"
-					+ aTest.getDefinition().getName() + "' (" + aTest.getDefinition() + ")", aTest);
-		}
 	}
 
 	/**

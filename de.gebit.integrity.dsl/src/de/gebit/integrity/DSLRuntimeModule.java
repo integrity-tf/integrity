@@ -13,6 +13,8 @@ package de.gebit.integrity;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 
+import de.gebit.integrity.modelsource.DefaultModelSourceExplorer;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.standard.DefaultModularStandardOperationProcessor;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.DefaultModularValueConverter;
@@ -89,6 +91,15 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	 */
 	public Class<? extends StandardOperationProcessor> bindStandardOperationProcessor() {
 		return DefaultModularStandardOperationProcessor.class;
+	}
+
+	/**
+	 * Binds the {@link ModelSourceExplorer}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ModelSourceExplorer> bindModelSourceExplorer() {
+		return DefaultModelSourceExplorer.class;
 	}
 
 	@Override

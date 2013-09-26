@@ -76,6 +76,8 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.forker.ForkerParameter;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
+import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -98,6 +100,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
+import de.gebit.integrity.runner.classloading.IntegrityClassLoader;
 import de.gebit.integrity.runner.comparator.ResultComparator;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.forking.DefaultForker;
@@ -107,6 +110,7 @@ import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.modelcheck.ModelChecker;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.runner.results.Result;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -122,10 +126,8 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
-import de.gebit.integrity.utils.ModelSourceUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
-import de.gebit.integrity.validation.DSLJavaValidator;
 import de.gebit.integrity.wrapper.WrapperFactory;
 
 /**
@@ -231,6 +233,11 @@ public class DefaultTestRunner implements TestRunner {
 	protected Injector injector;
 
 	/**
+	 * The model source explorer.
+	 */
+	protected ModelSourceExplorer modelSourceExplorer;
+
+	/**
 	 * The remoting server.
 	 */
 	protected IntegrityRemotingServer remotingServer;
@@ -262,9 +269,23 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected Map<String, String> parameterizedConstantValues;
 
-	/** Validates calls. */
-	@javax.inject.Inject
-	protected DSLJavaValidator validator;
+	/**
+	 * The model checker is used to validate the test model prior to execution.
+	 */
+	@Inject
+	protected ModelChecker modelChecker;
+
+	/**
+	 * The classloader.
+	 */
+	@Inject
+	protected IntegrityClassLoader classLoader;
+
+	/**
+	 * The classloader used to load model-related classes.
+	 */
+	@Inject
+	protected ClassLoader javaClassLoader;
 
 	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
@@ -391,7 +412,7 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
 			remotingServer = new IntegrityRemotingServer(aRemotingBindHost, tempRemotingPort, remotingListener,
-					getModelClassLoader());
+					javaClassLoader);
 		}
 	}
 
@@ -1116,7 +1137,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected TestResult executeTest(Test aTest) {
-		TestModel.ensureModelPartConsistency(aTest);
+		modelChecker.check(aTest);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1251,7 +1272,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected TestResult executeTableTest(TableTest aTest) {
-		TestModel.ensureModelPartConsistency(aTest);
+		modelChecker.check(aTest);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1449,17 +1470,8 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws ClassNotFoundException
 	 */
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
-		return getModelClassLoader().loadClass(aType.getQualifiedName());
-	}
-
-	/**
-	 * Returns the classloader defined in the model. This one should be used for instantiation of fixtures and
-	 * operations. It is also used for the deserialization of remoting message objects.
-	 * 
-	 * @return the classloader defined in the test model
-	 */
-	protected ClassLoader getModelClassLoader() {
-		return model.getInjector().getInstance(ClassLoader.class);
+		// TODO replace with call to our own classloader
+		return javaClassLoader.loadClass(aType.getQualifiedName());
 	}
 
 	/**
@@ -1500,7 +1512,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return the result
 	 */
 	protected CallResult executeCallSingle(Call aCall) {
-		TestModel.ensureModelPartConsistency(aCall);
+		modelChecker.check(aCall);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1966,7 +1978,7 @@ public class DefaultTestRunner implements TestRunner {
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
 			try {
-				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout(), getModelClassLoader())) {
+				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout(), javaClassLoader)) {
 					break;
 				}
 			} catch (IOException exc) {
@@ -2051,13 +2063,10 @@ public class DefaultTestRunner implements TestRunner {
 		}
 		StringBuilder tempResult = new StringBuilder();
 		Deque<Diagnostic> tempStack = new LinkedList<Diagnostic>();
+
+		ModelSourceInformationElement tempModelInfo = modelSourceExplorer.determineSourceInformation(anObject);
 		final ICompositeNode tempConflictOrigin = NodeModelUtils.getNode(anObject);
-		if (tempConflictOrigin != null) {
-			tempResult.append("Validation Error in: " + ModelSourceUtil.getSourceFilePathForINode(tempConflictOrigin)
-					+ " in line " + tempConflictOrigin.getTotalStartLine() + ":");
-		} else {
-			tempResult.append(tempDiagnostic.getMessage());
-		}
+		tempResult.append("Validation Error at " + tempModelInfo);
 		tempStack.addAll(tempDiagnostic.getChildren());
 		while (!tempStack.isEmpty()) {
 			tempResult.append("\n\t");

@@ -32,6 +32,7 @@ import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
+import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
@@ -229,6 +230,9 @@ public class ConsoleTestExecutor {
 					TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
 							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
 					runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
+				} catch (ModelRuntimeLinkException exc) {
+					System.err.println("Test execution was aborted due to a test script linking error!");
+					System.err.println(exc.getMessage());
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}

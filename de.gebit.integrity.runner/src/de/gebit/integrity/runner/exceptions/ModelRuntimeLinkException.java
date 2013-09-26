@@ -42,6 +42,21 @@ public class ModelRuntimeLinkException extends RuntimeException {
 		unresolvableObject = anUnresolvableObject;
 	}
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param aMessage
+	 *            the error message
+	 * @param anUnresolvableObject
+	 *            the unresolvable object
+	 * @param aCause
+	 *            the cause
+	 */
+	public ModelRuntimeLinkException(String aMessage, EObject anUnresolvableObject, Throwable aCause) {
+		super(aMessage, aCause);
+		unresolvableObject = anUnresolvableObject;
+	}
+
 	public EObject getUnresolvableObject() {
 		return unresolvableObject;
 	}
