@@ -49,10 +49,16 @@ public class CustomOperationWrapper {
 	private ValueConverter valueConverter;
 
 	/**
-	 * The injector used to inject stuff into operation instances.
+	 * The Guice injector
 	 */
 	@Inject
 	private Injector injector;
+
+	/**
+	 * The classloader.
+	 */
+	@Inject
+	private IntegrityClassLoader classLoader;
 
 	/**
 	 * The model source explorer.
@@ -66,15 +72,14 @@ public class CustomOperationWrapper {
 	 * 
 	 * @param anOperation
 	 *            the operation to wrap
-	 * @param aClassLoader
-	 *            the classloader to use (cannot be injected at the moment because it's required during object
-	 *            construction)
+	 * @param anInjector
+	 *            the Guice injector (can't wait to inject it because we require stuff injected during construction)
 	 * @throws ClassNotFoundException
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public CustomOperationWrapper(CustomOperation anOperation, IntegrityClassLoader aClassLoader)
-			throws ClassNotFoundException {
+	public CustomOperationWrapper(CustomOperation anOperation, Injector anInjector) throws ClassNotFoundException {
+		anInjector.injectMembers(this);
 		operation = anOperation;
 
 		OperationDefinition tempDefinition = operation.getDefinition();
@@ -83,7 +88,7 @@ public class CustomOperationWrapper {
 					modelSourceExplorer.determineSourceInformation(operation));
 		}
 
-		operationClass = (Class<? extends de.gebit.integrity.operations.custom.Operation<?, ?, ?>>) aClassLoader
+		operationClass = (Class<? extends de.gebit.integrity.operations.custom.Operation<?, ?, ?>>) classLoader
 				.loadClass(tempDefinition);
 	}
 

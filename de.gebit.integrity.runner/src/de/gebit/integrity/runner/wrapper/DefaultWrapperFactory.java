@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
-import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.fixtures.FixtureWrapper;
@@ -27,12 +26,6 @@ import de.gebit.integrity.wrapper.WrapperFactory;
  */
 @Singleton
 public class DefaultWrapperFactory implements WrapperFactory {
-
-	/**
-	 * The classloader to use.
-	 */
-	@Inject
-	protected IntegrityClassLoader classLoader;
 
 	/**
 	 * The {@link Injector} to use for injection of dependencies into the new wrapper.
@@ -60,8 +53,6 @@ public class DefaultWrapperFactory implements WrapperFactory {
 		// for each fixture type have already been done before in each possible call path.
 		modelChecker.check(anOperation);
 
-		CustomOperationWrapper tempWrapper = new CustomOperationWrapper(anOperation, classLoader);
-		injector.injectMembers(tempWrapper);
-		return tempWrapper;
+		return new CustomOperationWrapper(anOperation, injector);
 	}
 }
