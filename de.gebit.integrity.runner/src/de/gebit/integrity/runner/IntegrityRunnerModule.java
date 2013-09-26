@@ -8,9 +8,9 @@
 package de.gebit.integrity.runner;
 
 import de.gebit.integrity.DSLRuntimeModule;
+import de.gebit.integrity.classloading.DefaultIntegrityClassLoader;
+import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.parameter.variables.VariableManager;
-import de.gebit.integrity.runner.classloading.DefaultIntegrityClassLoader;
-import de.gebit.integrity.runner.classloading.IntegrityClassLoader;
 import de.gebit.integrity.runner.comparator.DefaultResultComparator;
 import de.gebit.integrity.runner.comparator.ResultComparator;
 import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;

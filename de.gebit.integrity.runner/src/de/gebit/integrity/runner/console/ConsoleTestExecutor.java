@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
@@ -32,7 +33,6 @@ import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
-import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;

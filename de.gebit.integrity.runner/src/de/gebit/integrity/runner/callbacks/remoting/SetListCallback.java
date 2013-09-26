@@ -44,6 +44,7 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
@@ -320,6 +321,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		} catch (ClassNotFoundException exc) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
+			exc.printStackTrace();
 		}
 
 		if (aSubResult instanceof TestExceptionSubResult) {
@@ -561,6 +565,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
+			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
+			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
 			exc.printStackTrace();
 		}

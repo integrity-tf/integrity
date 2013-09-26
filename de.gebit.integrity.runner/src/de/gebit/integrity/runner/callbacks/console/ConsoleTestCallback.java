@@ -25,6 +25,7 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
@@ -137,6 +138,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		} catch (UnexecutableException exc) {
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
 			exc.printStackTrace();
 		}
 	}
@@ -281,6 +284,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
+			exc.printStackTrace();
 		}
 	}
 
@@ -336,6 +341,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		} catch (UnexecutableException exc) {
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
 			exc.printStackTrace();
 		}
 	}

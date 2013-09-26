@@ -9,15 +9,16 @@ package de.gebit.integrity.operations.custom;
 
 import java.lang.reflect.Method;
 
-import org.eclipse.xtext.common.types.JvmType;
-
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -54,6 +55,12 @@ public class CustomOperationWrapper {
 	private Injector injector;
 
 	/**
+	 * The model source explorer.
+	 */
+	@Inject
+	private ModelSourceExplorer modelSourceExplorer;
+
+	/**
 	 * Creates a new wrapper instance. This also loads the actual operation implementation class using the injected
 	 * classloader.
 	 * 
@@ -66,22 +73,18 @@ public class CustomOperationWrapper {
 	 *             if the operations' class could not be found
 	 */
 	@SuppressWarnings("unchecked")
-	public CustomOperationWrapper(CustomOperation anOperation, ClassLoader aClassLoader) throws ClassNotFoundException {
+	public CustomOperationWrapper(CustomOperation anOperation, IntegrityClassLoader aClassLoader)
+			throws ClassNotFoundException {
 		operation = anOperation;
 
 		OperationDefinition tempDefinition = operation.getDefinition();
 		if (tempDefinition == null) {
-			throw new IllegalStateException("No definition found for operation " + operation);
-		}
-
-		JvmType tempType = tempDefinition.getOperationType();
-		if (tempType == null) {
-			throw new IllegalStateException("No method reference found for operation with name '"
-					+ tempDefinition.getName() + "'");
+			throw new ModelRuntimeLinkException("No definition found for operation.", operation,
+					modelSourceExplorer.determineSourceInformation(operation));
 		}
 
 		operationClass = (Class<? extends de.gebit.integrity.operations.custom.Operation<?, ?, ?>>) aClassLoader
-				.loadClass(tempType.getQualifiedName());
+				.loadClass(tempDefinition);
 	}
 
 	/**

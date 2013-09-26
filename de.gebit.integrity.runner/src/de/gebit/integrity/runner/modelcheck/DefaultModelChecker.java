@@ -15,6 +15,7 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.FixedParameterName;
@@ -27,11 +28,10 @@ import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
-import de.gebit.integrity.runner.classloading.IntegrityClassLoader;
-import de.gebit.integrity.runner.exceptions.MethodNotFoundException;
-import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 
 /**
  * Default implementation of a {@link ModelChecker}.

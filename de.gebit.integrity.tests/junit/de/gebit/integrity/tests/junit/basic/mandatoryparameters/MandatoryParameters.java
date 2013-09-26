@@ -60,7 +60,7 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.callWithOptionalParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.callWithPrimitiveParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.testWithOptionalParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.testWithPrimitiveParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.tabletestWithOptionalParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 
 	/**
@@ -240,6 +240,6 @@ public class MandatoryParameters extends IntegrityJUnitTest {
 						"integrity.basic.mandatoryParameters.tabletestWithPrimitiveParam", null);
 			}
 		}, ValidationException.class, null, Pattern.compile(
-				"Validation Error in: .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
+				"Validation Error at .*?Missing mandatory parameter\\(s\\): mandatory", Pattern.DOTALL));
 	}
 }

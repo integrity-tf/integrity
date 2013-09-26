@@ -7,15 +7,14 @@
  *******************************************************************************/
 package de.gebit.integrity.wrapper;
 
-import org.eclipse.xtext.common.types.JvmType;
-
 import de.gebit.integrity.dsl.CustomOperation;
+import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 
 /**
- * The wrapper factory is responsible for the actual creation of the {@link FixtureWrapper} and {@link CustomOperationWrapper}
- * instances. This also includes instantiation of the fixture/operation classes.
+ * The wrapper factory is responsible for the actual creation of the {@link FixtureWrapper} and
+ * {@link CustomOperationWrapper} instances. This also includes instantiation of the fixture/operation classes.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -23,17 +22,17 @@ import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 public interface WrapperFactory {
 
 	/**
-	 * Creates a new {@link FixtureWrapper} for the given {@link JvmType}.
+	 * Creates a new {@link FixtureWrapper} for the given {@link MethodReference}.
 	 * 
-	 * @param aFixtureType
-	 *            the fixture type to instantiate
+	 * @param aFixtureMethodRef
+	 *            the fixture method to instantiate
 	 * @return the {@link FixtureWrapper} instance
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	FixtureWrapper<?> newFixtureWrapper(JvmType aFixtureType) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException;
+	FixtureWrapper<?> newFixtureWrapper(MethodReference aFixtureMethodRef) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException;
 
 	/**
 	 * Creates a new {@link CustomOperationWrapper} for the given {@link CustomOperation}.

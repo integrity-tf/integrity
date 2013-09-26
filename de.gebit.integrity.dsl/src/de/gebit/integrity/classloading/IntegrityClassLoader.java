@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.classloading;
+package de.gebit.integrity.classloading;
 
 import java.lang.reflect.Method;
 
@@ -14,7 +14,8 @@ import org.eclipse.xtext.common.types.JvmType;
 import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.JavaConstantReference;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.runner.exceptions.MethodNotFoundException;
+import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 
 /**
  * This service is used by Integrity to internally load classes for test execution.
@@ -63,6 +64,16 @@ public interface IntegrityClassLoader {
 	 * @throws ClassNotFoundException
 	 */
 	Class<?> loadClass(JvmType aType) throws ClassNotFoundException;
+
+	/**
+	 * Load the class defined by the provided {@link OperationDefinition}.
+	 * 
+	 * @param anOperationDefinition
+	 *            the operation definition referring to the class
+	 * @return the loaded class
+	 * @throws ClassNotFoundException
+	 */
+	Class<?> loadClass(OperationDefinition anOperationDefinition) throws ClassNotFoundException;
 
 	/**
 	 * First loads the class defined by the provided {@link MethodReference}, then loads the method.

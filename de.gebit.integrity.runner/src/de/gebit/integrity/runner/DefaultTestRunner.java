@@ -37,6 +37,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
+import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -45,7 +46,6 @@ import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
-import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
@@ -100,7 +100,6 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
-import de.gebit.integrity.runner.classloading.IntegrityClassLoader;
 import de.gebit.integrity.runner.comparator.ResultComparator;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.forking.DefaultForker;
@@ -235,6 +234,7 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The model source explorer.
 	 */
+	@Inject
 	protected ModelSourceExplorer modelSourceExplorer;
 
 	/**
@@ -1163,14 +1163,12 @@ public class DefaultTestRunner implements TestRunner {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
-						.getType());
+				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 
 				Object tempFixtureResult;
 				tempDuration = System.nanoTime();
 				try {
-					tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
-							.getFixtureMethod(), tempParameters);
+					tempFixtureResult = tempFixtureInstance.execute(tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
 				}
@@ -1313,13 +1311,12 @@ public class DefaultTestRunner implements TestRunner {
 
 					if (tempFixtureInstance == null) {
 						// only instantiate on first pass
-						tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod()
-								.getType());
+						tempFixtureInstance = wrapperFactory
+								.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 					}
 
 					tempStart = System.nanoTime();
-					Object tempFixtureResult = executeFixtureMethod(tempFixtureInstance, aTest.getDefinition()
-							.getFixtureMethod(), tempParameters);
+					Object tempFixtureResult = tempFixtureInstance.execute(tempParameters);
 					tempDuration = System.nanoTime() - tempStart;
 
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
@@ -1445,23 +1442,6 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * Calls a given method on a fixture instance.
-	 * 
-	 * @param aFixtureInstance
-	 *            the fixture
-	 * @param aMethod
-	 *            the method reference to execute
-	 * @param someParameters
-	 *            the parameters to use for the call
-	 * @return the return value
-	 * @throws Exception
-	 */
-	protected Object executeFixtureMethod(FixtureWrapper<?> aFixtureInstance, MethodReference aMethod,
-			Map<String, Object> someParameters) throws Throwable {
-		return aFixtureInstance.execute(aMethod.getMethod().getSimpleName(), someParameters);
-	}
-
-	/**
 	 * Loads a class by resolving a given {@link JvmType}.
 	 * 
 	 * @param aType
@@ -1548,14 +1528,12 @@ public class DefaultTestRunner implements TestRunner {
 				Map<String, Object> tempParameters = parameterResolver.createParameterMap(aCall, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
-				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod()
-						.getType());
+				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod());
 
 				tempDuration = System.nanoTime();
 				Object tempResult;
 				try {
-					tempResult = executeFixtureMethod(tempFixtureInstance, aCall.getDefinition().getFixtureMethod(),
-							tempParameters);
+					tempResult = tempFixtureInstance.execute(tempParameters);
 				} finally {
 					tempDuration = System.nanoTime() - tempDuration;
 				}

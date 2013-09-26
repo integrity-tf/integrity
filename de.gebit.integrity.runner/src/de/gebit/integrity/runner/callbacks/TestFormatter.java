@@ -14,14 +14,15 @@ import java.util.regex.Pattern;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
-import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -51,7 +52,7 @@ public class TestFormatter {
 	 * The classloader to use.
 	 */
 	@Inject
-	private ClassLoader classLoader;
+	private IntegrityClassLoader classLoader;
 
 	/**
 	 * The value converter to use.
@@ -82,10 +83,11 @@ public class TestFormatter {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
+	 * @throws MethodNotFoundException
 	 */
 	public String testToHumanReadableString(Test aTest,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnexecutableException, InstantiationException, MethodNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
 				parameterResolver.createParameterMap(aTest, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
@@ -102,10 +104,11 @@ public class TestFormatter {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
+	 * @throws MethodNotFoundException
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnexecutableException, InstantiationException, MethodNotFoundException {
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
 				parameterResolver.createParameterMap(aTest, aRow, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
@@ -120,10 +123,11 @@ public class TestFormatter {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
+	 * @throws MethodNotFoundException
 	 */
 	public String tableTestToHumanReadableString(TableTest aTest,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnexecutableException, InstantiationException, MethodNotFoundException {
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
 				aTest,
@@ -140,10 +144,11 @@ public class TestFormatter {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
+	 * @throws MethodNotFoundException
 	 */
 	public String callToHumanReadableString(Call aCall,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnexecutableException, InstantiationException, MethodNotFoundException {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall,
 				parameterResolver.createParameterMap(aCall, true, anUnresolvableVariableHandlingPolicy),
 				anUnresolvableVariableHandlingPolicy);
@@ -163,17 +168,13 @@ public class TestFormatter {
 	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
+	 * @throws MethodNotFoundException
 	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
 			SuiteStatementWithResult aStatement, Map<String, Object> someParameters,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException {
-		String tempFixtureMethodName = aFixtureMethod.getMethod().getSimpleName();
-		String tempFixtureClassName = aFixtureMethod.getType().getQualifiedName();
-		Class<?> tempFixtureClass = classLoader.loadClass(tempFixtureClassName);
-		Method tempMethod = FixtureWrapper.findFixtureMethodByName(tempFixtureClass, tempFixtureMethodName);
-		if (tempMethod == null) {
-			return null;
-		}
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
+			MethodNotFoundException {
+		Method tempMethod = classLoader.loadMethod(aFixtureMethod);
 
 		FixtureMethod tempAnnotation = tempMethod.getAnnotation(FixtureMethod.class);
 		if (tempAnnotation == null) {
@@ -193,7 +194,7 @@ public class TestFormatter {
 			tempText = tempAnnotation.description();
 		}
 		if (tempText != null && tempText.length() == 0) {
-			tempText = tempFixtureMethodName;
+			tempText = aFixtureMethod.getMethod().getSimpleName();
 		}
 
 		tempText = replaceConditionalTextBlocks(tempText, someParameters);

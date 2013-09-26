@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.exceptions;
+package de.gebit.integrity.exceptions;
 
 import org.eclipse.emf.ecore.EObject;
 

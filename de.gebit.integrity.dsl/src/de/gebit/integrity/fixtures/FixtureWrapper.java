@@ -19,8 +19,12 @@ import java.util.Map.Entry;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import de.gebit.integrity.classloading.IntegrityClassLoader;
+import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
+import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -36,6 +40,11 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
  * 
  */
 public class FixtureWrapper<C extends Object> {
+
+	/**
+	 * The fixture method reference.
+	 */
+	private MethodReference methodReference;
 
 	/**
 	 * The fixture class.
@@ -59,6 +68,18 @@ public class FixtureWrapper<C extends Object> {
 	private ValueConverter valueConverter;
 
 	/**
+	 * The classloader to use.
+	 */
+	@Inject
+	private IntegrityClassLoader classLoader;
+
+	/**
+	 * The model source explorer.
+	 */
+	@Inject
+	private ModelSourceExplorer modelSourceExplorer;
+
+	/**
 	 * Fixture instance factories are cached in this map.
 	 */
 	private static Map<Class<?>, FixtureInstanceFactory<?>> factoryCache = new HashMap<Class<?>, FixtureInstanceFactory<?>>();
@@ -66,30 +87,33 @@ public class FixtureWrapper<C extends Object> {
 	/**
 	 * Creates a new instance. This also instantiates the given fixture class!
 	 * 
-	 * @param aFixtureClass
-	 *            the fixture class to be wrapped
+	 * @param aMethodReference
+	 *            the fixture method reference to be wrapped
 	 * @param anInjector
 	 *            The injector required to inject dependencies into fixture instances and factories. (I don't really
 	 *            like to provide this explicitly here, but cannot use injection, since that happens after the
 	 *            constructor. Maybe I'll refactor this some time later...)
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public FixtureWrapper(Class<C> aFixtureClass, Injector anInjector) throws InstantiationException,
-			IllegalAccessException {
-		fixtureClass = aFixtureClass;
+	public FixtureWrapper(MethodReference aMethodReference, Injector anInjector) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		anInjector.injectMembers(this);
+		methodReference = aMethodReference;
+		fixtureClass = (Class<C>) classLoader.loadClass(methodReference);
 
 		FixtureInstanceFactory<C> tempFactory = null;
-		if (factoryCache.containsKey(aFixtureClass)) {
-			tempFactory = (FixtureInstanceFactory<C>) factoryCache.get(aFixtureClass);
+		if (factoryCache.containsKey(fixtureClass)) {
+			tempFactory = (FixtureInstanceFactory<C>) factoryCache.get(fixtureClass);
 		} else {
 			FixtureFactory tempFactoryAnnotation = fixtureClass.getAnnotation(FixtureFactory.class);
 			if (tempFactoryAnnotation != null) {
 				tempFactory = (FixtureInstanceFactory<C>) tempFactoryAnnotation.value().newInstance();
 				anInjector.injectMembers(tempFactory);
 			}
-			factoryCache.put(aFixtureClass, tempFactory);
+			factoryCache.put(fixtureClass, tempFactory);
 		}
 
 		if (tempFactory != null) {
@@ -100,7 +124,6 @@ public class FixtureWrapper<C extends Object> {
 		}
 
 		anInjector.injectMembers(fixtureInstance);
-		anInjector.injectMembers(this);
 	}
 
 	/**
@@ -224,24 +247,16 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
-	 * Executes a fixture method with a specified name, using the given set of parameters.
+	 * Executes the fixture method, using the given set of parameters.
 	 * 
-	 * @param aName
-	 *            the name of the fixture method
 	 * @param someParameters
 	 *            a map of parameters
 	 * @return the resulting object
 	 * @throws Throwable
 	 */
-	public Object execute(String aName, Map<String, Object> someParameters) throws Throwable {
-		Method tempMethod = findFixtureMethodByName(fixtureClass, aName);
-		if (tempMethod == null) {
-			throw new IllegalArgumentException("Did not find a fixture method of name '" + aName + "' in class "
-					+ fixtureClass.getName() + " or its superclasses");
-		}
+	public Object execute(Map<String, Object> someParameters) throws Throwable {
+		Method tempMethod = classLoader.loadMethod(methodReference);
 
-		// this will never be called within Eclipse, so we null the
-		// resource provider
 		convertParameterValuesToFixtureDefinedTypes(tempMethod, someParameters, true);
 
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
@@ -261,7 +276,10 @@ public class FixtureWrapper<C extends Object> {
 		try {
 			return tempMethod.invoke(getFixtureInstance(), tempParams);
 		} catch (IllegalAccessException exc) {
-			throw new IllegalArgumentException("Caught exception when trying to invoke method '" + aName + "'", exc);
+			ModelSourceInformationElement tempModelSourceInfo = modelSourceExplorer
+					.determineSourceInformation(methodReference);
+			throw new IllegalArgumentException("Caught exception when trying to invoke fixture method '"
+					+ tempModelSourceInfo.getSnippet() + "' defined at " + tempModelSourceInfo, exc);
 		} catch (InvocationTargetException exc) {
 			throw (Throwable) exc.getCause();
 		}
@@ -365,34 +383,6 @@ public class FixtureWrapper<C extends Object> {
 			List<ExtendedResult> tempList = ((ExtendedResultFixture) fixtureInstance)
 					.provideExtendedResults(anInvocationResult);
 			return (tempList != null && tempList.size() > 0) ? tempList : null;
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Searches the class for a fixture method with the given name.
-	 * 
-	 * @param aClass
-	 *            the fixture class
-	 * @param aName
-	 *            the fixture method name
-	 * @return the method if found, or null
-	 */
-	public static Method findFixtureMethodByName(Class<?> aClass, String aName) {
-		for (Method tempMethod : aClass.getMethods()) {
-			FixtureMethod tempMethodAnnotation = tempMethod.getAnnotation(FixtureMethod.class);
-			if (tempMethodAnnotation != null) {
-				String tempMethodName = tempMethod.getName();
-
-				if (tempMethodName.equals(aName)) {
-					return tempMethod;
-				}
-			}
-		}
-
-		if (aClass.getSuperclass() != null) {
-			return findFixtureMethodByName(aClass.getSuperclass(), aName);
 		} else {
 			return null;
 		}

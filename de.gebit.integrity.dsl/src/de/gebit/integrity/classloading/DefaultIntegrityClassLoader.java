@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.classloading;
+package de.gebit.integrity.classloading;
 
 import java.lang.reflect.Method;
 
@@ -17,10 +17,11 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.JavaConstantReference;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.OperationDefinition;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
-import de.gebit.integrity.runner.exceptions.MethodNotFoundException;
-import de.gebit.integrity.runner.exceptions.ModelRuntimeLinkException;
 
 /**
  * Basic implementation of {@link IntegrityClassLoader}. Uses the injected Java classloader internally.
@@ -59,6 +60,15 @@ public class DefaultIntegrityClassLoader implements IntegrityClassLoader {
 		}
 
 		return loadClass(aType);
+	}
+
+	@Override
+	public Class<?> loadClass(OperationDefinition anOperationDefinition) throws ClassNotFoundException {
+		if (anOperationDefinition == null) {
+			return null;
+		}
+
+		return loadClassGuarded(anOperationDefinition.getOperationType(), anOperationDefinition);
 	}
 
 	@Override

@@ -81,6 +81,7 @@ import de.gebit.integrity.dsl.VisibleComment;
 import de.gebit.integrity.dsl.VisibleDivider;
 import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
@@ -782,6 +783,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		} catch (InstantiationException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 		tempTestElement.setAttribute(FIXTURE_METHOD_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedNameOfFixtureMethod(aTest.getDefinition().getFixtureMethod()));
@@ -832,6 +836,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
 		}
@@ -1106,6 +1113,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
 		}
 
 		if (aSubResult instanceof TestExceptionSubResult) {
@@ -1188,6 +1198,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
 		} catch (InstantiationException exc) {
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
+			exc.printStackTrace();
+		} catch (MethodNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
 		}
