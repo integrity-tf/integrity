@@ -10,9 +10,12 @@ package de.gebit.integrity.runner.modelcheck;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.xtext.common.types.JvmType;
+
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
@@ -88,13 +91,13 @@ public class DefaultModelChecker implements ModelChecker {
 	 * Used to keep track on which methods a class loading has already been attempted. Subsequent loadings are assumed
 	 * to deliver the same result and thus omittable.
 	 */
-	private Set<MethodReference> resolvedMethods = new HashSet<MethodReference>();
+	private Set<MethodReference> resolvedFixtureMethods = new HashSet<MethodReference>();
 
 	private void tryFixtureMethodResolve(MethodReference aMethodReference) {
-		if (resolvedMethods.contains(aMethodReference)) {
+		if (resolvedFixtureMethods.contains(aMethodReference)) {
 			return;
 		}
-		resolvedMethods.add(aMethodReference);
+		resolvedFixtureMethods.add(aMethodReference);
 
 		try {
 			classLoader.loadMethod(aMethodReference);
@@ -109,6 +112,41 @@ public class DefaultModelChecker implements ModelChecker {
 					.determineSourceInformation(aMethodReference);
 			throw new ModelRuntimeLinkException("Failed to resolve fixture method '" + exc.getMessage()
 					+ "' referenced at " + tempSourceInfo, aMethodReference, exc);
+		}
+	}
+
+	/**
+	 * Used to keep track on which operation classes a class loading has already been attempted. Subsequent loadings are
+	 * assumed to deliver the same result and thus omittable.
+	 */
+	private Set<JvmType> resolvedOperationClasses = new HashSet<JvmType>();
+
+	@Override
+	public void check(CustomOperation aCustomOperation) throws ModelRuntimeLinkException {
+		if (aCustomOperation.getDefinition() == null) {
+			throw new ModelRuntimeLinkException(
+					"Failed to resolve operation definition for custom operation statement '"
+							+ aCustomOperation.toString() + "'", aCustomOperation);
+		} else if (aCustomOperation.getDefinition().getOperationType() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve operation class for custom operation definition '"
+					+ aCustomOperation.getDefinition().getName() + "' (" + aCustomOperation.getDefinition() + ")",
+					aCustomOperation);
+		}
+
+		JvmType tempType = aCustomOperation.getDefinition().getOperationType();
+
+		if (resolvedOperationClasses.contains(tempType)) {
+			return;
+		}
+		resolvedOperationClasses.add(tempType);
+
+		try {
+			classLoader.loadClass(tempType);
+		} catch (ClassNotFoundException exc) {
+			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(tempType);
+			String tempClassName = tempSourceInfo.getSnippet().split("#")[0].trim();
+			throw new ModelRuntimeLinkException("Failed to resolve operation class '" + tempClassName
+					+ "' referenced at " + tempSourceInfo, tempType, exc);
 		}
 	}
 
