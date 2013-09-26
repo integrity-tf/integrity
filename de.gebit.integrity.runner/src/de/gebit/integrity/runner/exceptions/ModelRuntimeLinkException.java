@@ -9,6 +9,8 @@ package de.gebit.integrity.runner.exceptions;
 
 import org.eclipse.emf.ecore.EObject;
 
+import de.gebit.integrity.modelsource.ModelSourceInformationElement;
+
 /**
  * Thrown if any {@link EObject}s remain unresolvable during runtime resolving of EMF proxies. This may be caused by
  * missing .integrity files or unresolvable classes.
@@ -30,6 +32,11 @@ public class ModelRuntimeLinkException extends RuntimeException {
 	private EObject unresolvableObject;
 
 	/**
+	 * The model source information, if available.
+	 */
+	private ModelSourceInformationElement modelSourceInfo;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aMessage
@@ -37,9 +44,11 @@ public class ModelRuntimeLinkException extends RuntimeException {
 	 * @param anUnresolvableObject
 	 *            the unresolvable object
 	 */
-	public ModelRuntimeLinkException(String aMessage, EObject anUnresolvableObject) {
-		super(aMessage);
+	public ModelRuntimeLinkException(String aMessage, EObject anUnresolvableObject,
+			ModelSourceInformationElement aModelSourceInfo) {
+		super((aModelSourceInfo != null ? aModelSourceInfo + " - " : "") + aMessage);
 		unresolvableObject = anUnresolvableObject;
+		modelSourceInfo = aModelSourceInfo;
 	}
 
 	/**
@@ -52,13 +61,20 @@ public class ModelRuntimeLinkException extends RuntimeException {
 	 * @param aCause
 	 *            the cause
 	 */
-	public ModelRuntimeLinkException(String aMessage, EObject anUnresolvableObject, Throwable aCause) {
-		super(aMessage, aCause);
+	public ModelRuntimeLinkException(String aMessage, EObject anUnresolvableObject,
+			ModelSourceInformationElement aModelSourceInfo, Throwable aCause) {
+		super((aModelSourceInfo != null ? aModelSourceInfo + " - " : "") + aMessage, aCause);
 		unresolvableObject = anUnresolvableObject;
+		unresolvableObject = anUnresolvableObject;
+		modelSourceInfo = aModelSourceInfo;
 	}
 
 	public EObject getUnresolvableObject() {
 		return unresolvableObject;
+	}
+
+	public ModelSourceInformationElement getModelSourceInfo() {
+		return modelSourceInfo;
 	}
 
 }

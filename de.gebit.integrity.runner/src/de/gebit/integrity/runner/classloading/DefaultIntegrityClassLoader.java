@@ -54,7 +54,8 @@ public class DefaultIntegrityClassLoader implements IntegrityClassLoader {
 
 	private Class<?> loadClassGuarded(JvmType aType, EObject aSourceObject) throws ClassNotFoundException {
 		if (aType == null) {
-			throw new ModelRuntimeLinkException("Reference to JVM Type missing", aSourceObject);
+			throw new ModelRuntimeLinkException("Reference to JVM Type missing", aSourceObject,
+					modelSourceExplorer.determineSourceInformation(aSourceObject));
 		}
 
 		return loadClass(aType);
@@ -99,7 +100,8 @@ public class DefaultIntegrityClassLoader implements IntegrityClassLoader {
 		Class<?> tempClassInFocus = loadClass(aMethodReference);
 
 		if (aMethodReference.getMethod() == null) {
-			throw new ModelRuntimeLinkException("Method reference missing", aMethodReference);
+			throw new ModelRuntimeLinkException("Method reference missing", aMethodReference,
+					modelSourceExplorer.determineSourceInformation(aMethodReference));
 		}
 
 		String tempMethodName = aMethodReference.getMethod().getSimpleName();

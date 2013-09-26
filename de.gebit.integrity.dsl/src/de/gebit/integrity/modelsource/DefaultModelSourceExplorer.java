@@ -52,10 +52,10 @@ public class DefaultModelSourceExplorer implements ModelSourceExplorer {
 	 * 
 	 * @param aNode
 	 *            the node to investigate
-	 * @return the source snippet
+	 * @return the source snippet (trimmed)
 	 */
 	protected String determineSourceSnippet(ICompositeNode aNode) {
-		return aNode.getText();
+		return aNode.getText().trim();
 	}
 
 	@Override
