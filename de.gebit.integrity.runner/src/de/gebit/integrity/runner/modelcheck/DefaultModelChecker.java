@@ -7,6 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.modelcheck;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
@@ -81,7 +84,18 @@ public class DefaultModelChecker implements ModelChecker {
 		tryFixtureMethodResolve(aTableTest.getDefinition().getFixtureMethod());
 	}
 
+	/**
+	 * Used to keep track on which methods a class loading has already been attempted. Subsequent loadings are assumed
+	 * to deliver the same result and thus omittable.
+	 */
+	private Set<MethodReference> resolvedMethods = new HashSet<MethodReference>();
+
 	private void tryFixtureMethodResolve(MethodReference aMethodReference) {
+		if (resolvedMethods.contains(aMethodReference)) {
+			return;
+		}
+		resolvedMethods.add(aMethodReference);
+
 		try {
 			classLoader.loadMethod(aMethodReference);
 		} catch (ClassNotFoundException exc) {
