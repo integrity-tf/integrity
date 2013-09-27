@@ -7,8 +7,12 @@
  *******************************************************************************/
 package de.gebit.integrity.runner;
 
+import java.io.IOException;
+import java.util.Map;
+
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 
 /**
@@ -18,6 +22,33 @@ import de.gebit.integrity.runner.results.SuiteSummaryResult;
  * 
  */
 public interface TestRunner {
+
+	/**
+	 * Initializes a fresh test runner instance.
+	 * 
+	 * @param aModel
+	 *            the model to execute
+	 * @param someParameterizedConstants
+	 *            Maps fully qualified constant names (must be those with the "parameterized" keyword) to their desired
+	 *            value. This way, test execution can be parameterized from outside.
+	 * @param aCallback
+	 *            the callback to use to report test results
+	 * @param aRemotingPort
+	 *            the port on which the remoting server should listen, or null if remoting should be disabled
+	 * @param aRemotingBindHost
+	 *            the host name (or IP) to which the remoting server should bind
+	 * @param aRandomSeed
+	 *            the seed for the {@link de.gebit.integrity.runner.operations.RandomNumberOperation} (optional;
+	 *            randomly determined if not given).
+	 * @param someCommandLineArguments
+	 *            all command line arguments as given to the original Java programs' main routine (required for
+	 *            forking!)
+	 * @throws IOException
+	 *             if the remoting server startup fails
+	 */
+	void initialize(TestModel aModel, Map<String, String> someParameterizedConstants, TestRunnerCallback aCallback,
+			Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments)
+			throws IOException;
 
 	/**
 	 * Executes a specified suite. Designated starting point for test execution.

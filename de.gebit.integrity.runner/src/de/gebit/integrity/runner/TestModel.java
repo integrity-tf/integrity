@@ -476,8 +476,8 @@ public class TestModel {
 			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
 		TestRunner tempRunner = injector.getInstance(TestRunner.class);
 
-		((DefaultTestRunner) tempRunner).initialize(this, someParameterizedConstants, aCallback, aRemotingPort,
-				aRemotingBindHost, aRandomSeed, someCommandLineArguments);
+		tempRunner.initialize(this, someParameterizedConstants, aCallback, aRemotingPort, aRemotingBindHost,
+				aRandomSeed, someCommandLineArguments);
 
 		return tempRunner;
 	}
