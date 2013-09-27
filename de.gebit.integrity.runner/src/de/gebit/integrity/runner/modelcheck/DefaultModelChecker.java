@@ -26,6 +26,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
@@ -253,6 +254,20 @@ public class DefaultModelChecker implements ModelChecker {
 					.determineSourceInformation(aFixedResultName);
 			throw new ModelRuntimeLinkException("Failed to resolve named result field '" + tempSourceInfo.getSnippet()
 					+ "' in test '" + aTestName + "'.", aFixedResultName, tempSourceInfo);
+		}
+	}
+
+	@Override
+	public void check(Suite aSuite) throws ModelRuntimeLinkException {
+		if (aSuite.getDefinition() == null) {
+			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(aSuite);
+			throw new ModelRuntimeLinkException("Failed to resolve suite.", aSuite, tempSourceInfo);
+		}
+
+		if (aSuite.getDefinition().getName() == null) {
+			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(aSuite);
+			throw new ModelRuntimeLinkException("Failed to resolve suite referenced in suite call '"
+					+ tempSourceInfo.getSnippet() + "'.", aSuite.getDefinition(), tempSourceInfo);
 		}
 	}
 }

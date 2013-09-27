@@ -9,6 +9,7 @@ package de.gebit.integrity.runner.modelcheck;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CustomOperation;
+import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
@@ -59,5 +60,14 @@ public interface ModelChecker {
 	 * @throws ModelRuntimeLinkException
 	 */
 	void check(CustomOperation aCustomOperation) throws ModelRuntimeLinkException;
+
+	/**
+	 * Validates a suite call.
+	 * 
+	 * @param aSuite
+	 *            the suite call to check
+	 * @throws ModelRuntimeLinkException
+	 */
+	void check(Suite aSuite) throws ModelRuntimeLinkException;
 
 }
