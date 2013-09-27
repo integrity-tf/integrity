@@ -7,10 +7,15 @@
  *******************************************************************************/
 package de.gebit.integrity.runner;
 
+import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.util.Modules;
 
 import de.gebit.integrity.DSLStandaloneSetup;
+import de.gebit.integrity.runner.modelcheck.ModelChecker;
+import de.gebit.integrity.runner.modelcheck.NullModelChecker;
 
 /**
  * Initialization support for running Xtext languages without equinox extension registry.
@@ -27,9 +32,23 @@ public class IntegrityDSLSetup extends DSLStandaloneSetup {
 		super();
 	}
 
+	/**
+	 * Whether model checking shall be disabled by overriding the model checker.
+	 */
+	protected boolean disableModelChecks;
+
+	public void setDisableModelChecks(boolean aDisableModelChecksFlag) {
+		disableModelChecks = aDisableModelChecksFlag;
+	}
+
 	@Override
 	public Injector createInjector() {
-		return Guice.createInjector(createGuiceModule(getClassLoader()));
+		return Guice.createInjector(Modules.override(createGuiceModule(getClassLoader())).with(new Module() {
+			@Override
+			public void configure(Binder aBinder) {
+				overrideBindings(aBinder);
+			}
+		}));
 	}
 
 	/**
@@ -41,6 +60,19 @@ public class IntegrityDSLSetup extends DSLStandaloneSetup {
 	 */
 	protected IntegrityRunnerModule createGuiceModule(ClassLoader aClassLoader) {
 		return new IntegrityRunnerModule(aClassLoader);
+	}
+
+	/**
+	 * Overrides certain bindings with non-default classes. This can also be used in subclasses to override bindings, as
+	 * an alternative to creating a new module based on the default {@link IntegrityRunnerModule}, although the latter
+	 * is the suggested method.
+	 * 
+	 * @param aBinder
+	 */
+	protected void overrideBindings(Binder aBinder) {
+		if (disableModelChecks) {
+			aBinder.bind(ModelChecker.class).to(NullModelChecker.class);
+		}
 	}
 
 }

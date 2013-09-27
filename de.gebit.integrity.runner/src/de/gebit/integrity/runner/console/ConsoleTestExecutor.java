@@ -121,11 +121,11 @@ public class ConsoleTestExecutor {
 				"[{--remotehost} host]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
 				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
-		SimpleCommandLineParser.BooleanOption tempResolveAllReferences = new SimpleCommandLineParser.BooleanOption(
+		SimpleCommandLineParser.BooleanOption tempSkipModelCheck = new SimpleCommandLineParser.BooleanOption(
 				null,
-				"resolve",
-				"Enable pre-executional resolving of all references in the loaded scripts. This may slow down the startup phase, but you lower the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
-				"[{--resolve}]");
+				"nomodelcheck",
+				"Disables model checking. This can decrease startup time, especially with big script collections, but you greatly increase the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
+				"[{--nomodelcheck}]");
 		SimpleCommandLineParser.StringOption tempParameterizedConstantOption = new SimpleCommandLineParser.StringOption(
 				"p", "parameter", "Define a parameterized constants' value (can be used multiple times!)",
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
@@ -136,8 +136,7 @@ public class ConsoleTestExecutor {
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempResolveAllReferences, tempParameterizedConstantOption, tempSeedOption,
-				tempExcludeConsoleStreamsOption);
+				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
 			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -168,8 +167,7 @@ public class ConsoleTestExecutor {
 		validateResourceProvider(tempResourceProvider);
 
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempResolveAllReferences.isSet(),
-					setupClass);
+			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
 			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
 			VariantDefinition tempVariant = null;
 

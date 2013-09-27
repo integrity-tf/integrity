@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +21,7 @@ import java.util.TreeSet;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -49,7 +44,6 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
-import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
@@ -323,16 +317,16 @@ public class TestModel {
 	 * 
 	 * @param aResourceProvider
 	 *            the resource provider to use for loading the model
-	 * @param aResolveAllFlag
-	 *            whether the model should be resolved after loading (this helps finding linking errors immediately, but
-	 *            can take some time)
+	 * @param aSkipModelChecksFlag
+	 *            if true, the test runner will skip the model consistency checks it would otherwise perform during the
+	 *            dry run
 	 * @param aSetupClass
 	 *            the setup class to use for EMF setup and Guice initialization (if null, the default class is used)
 	 * @return the test model ready for execution
 	 * @throws ModelLoadException
 	 *             if any errors occur during loading (syntax errors or unresolvable references)
 	 */
-	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aResolveAllFlag,
+	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aSkipModelChecksFlag,
 			Class<? extends IntegrityDSLSetup> aSetupClass) throws ModelLoadException {
 		Class<? extends IntegrityDSLSetup> tempSetupClass = aSetupClass;
 		if (tempSetupClass == null) {
@@ -349,9 +343,13 @@ public class TestModel {
 			throw new IllegalArgumentException("Provided setup class '" + tempSetupClass
 					+ "' could not be instantiated.", exc);
 		}
+
 		if (aResourceProvider.getClassLoader() != null) {
 			tempSetup.setClassLoader(aResourceProvider.getClassLoader());
 		}
+		tempSetup.setDisableModelChecks(aSkipModelChecksFlag);
+
+		// Behold...the mighty Injector is born!
 		Injector tempInjector = tempSetup.createInjectorAndDoEMFRegistration();
 
 		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
@@ -385,20 +383,6 @@ public class TestModel {
 					tempErrors);
 		}
 
-		// Full resolving has been made optional because for some not-yet-known reason, resolveAll takes a huge amount
-		// of time since the change to XText 2.2.
-		if (aResolveAllFlag) {
-			System.out.print("Resolving the test model...");
-			EcoreUtil.resolveAll(tempResourceSet);
-			System.out.println("done!");
-
-			Set<EObject> tempUnresolvedProxies = findUnresolvedProxies(tempResourceSet);
-			if (tempUnresolvedProxies.size() > 0) {
-				throw new ModelLinkException("Encountered " + tempUnresolvedProxies.size()
-						+ " unresolvable references while linking test model.", tempUnresolvedProxies);
-			}
-		}
-
 		TestModel tempModel = new TestModel(tempModels);
 		tempInjector.injectMembers(tempModel);
 		if (tempModel.getDuplicateDefinitions().size() > 0) {
@@ -406,47 +390,6 @@ public class TestModel {
 					+ " ambiguous definitions in the test model.", tempModel.getDuplicateDefinitions());
 		}
 		return tempModel;
-	}
-
-	/**
-	 * Searches for all unresolved proxy objects in the given resource set.
-	 * 
-	 * @param aResourceSet
-	 * 
-	 * @return all proxy objects that are not resolvable
-	 */
-	protected static Set<EObject> findUnresolvedProxies(ResourceSet aResourceSet) {
-		Set<EObject> tempUnresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
-
-		for (Resource tempResource : aResourceSet.getResources()) {
-			tempUnresolvedProxies.addAll(findUnresolvedProxies(tempResource));
-		}
-		return tempUnresolvedProxies;
-	}
-
-	/**
-	 * Searches for all unresolved proxy objects in the given resource.
-	 * 
-	 * @param aResource
-	 * 
-	 * @return all proxy objects that are not resolvable
-	 */
-	protected static Set<EObject> findUnresolvedProxies(Resource aResource) {
-		Set<EObject> tempUnresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
-
-		for (Iterator<EObject> tempIterator = EcoreUtil.getAllContents(aResource, true); tempIterator.hasNext();) {
-			InternalEObject tempNextElement = (InternalEObject) tempIterator.next();
-			if (tempNextElement.eIsProxy()) {
-				tempUnresolvedProxies.add(tempNextElement);
-			}
-			for (EObject tempElement : tempNextElement.eCrossReferences()) {
-				tempElement = EcoreUtil.resolve(tempElement, aResource);
-				if (tempElement.eIsProxy()) {
-					tempUnresolvedProxies.add(tempElement);
-				}
-			}
-		}
-		return tempUnresolvedProxies;
 	}
 
 	/**
