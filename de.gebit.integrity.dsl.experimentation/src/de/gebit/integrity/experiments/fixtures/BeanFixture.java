@@ -7,8 +7,9 @@ public class BeanFixture {
 
 	@FixtureMethod(description = "inputs $bean$")
 	public TestBean beanInput(@FixtureParameter(name = "bean") TestBean aBean) {
-		System.out.println(aBean);
-		return null;
+		TestBean tempReturn = new TestBean();
+		tempReturn.setPrefixedString("123");
+		return tempReturn;
 	}
 
 	@FixtureMethod(description = "echoes $bean$")
