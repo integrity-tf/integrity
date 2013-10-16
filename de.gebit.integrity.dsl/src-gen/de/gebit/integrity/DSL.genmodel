@@ -62,7 +62,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//OperationDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//OperationDefinition/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//OperationDefinition/operationType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//OperationDefinition/operationType"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatement"/>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatementWithResult"/>

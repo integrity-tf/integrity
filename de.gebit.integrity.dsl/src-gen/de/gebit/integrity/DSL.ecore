@@ -68,7 +68,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operationType" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationType" eType="#//JavaClassReference"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteStatementWithResult" eSuperTypes="#//SuiteStatement"/>

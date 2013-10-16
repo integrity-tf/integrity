@@ -2,7 +2,6 @@
  */
 package de.gebit.integrity.dsl;
 
-import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,29 +49,29 @@ public interface OperationDefinition extends PackageStatement
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Operation Type</b></em>' reference.
+   * Returns the value of the '<em><b>Operation Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Operation Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Operation Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Operation Type</em>' reference.
-   * @see #setOperationType(JvmType)
+   * @return the value of the '<em>Operation Type</em>' containment reference.
+   * @see #setOperationType(JavaClassReference)
    * @see de.gebit.integrity.dsl.DslPackage#getOperationDefinition_OperationType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  JvmType getOperationType();
+  JavaClassReference getOperationType();
 
   /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.OperationDefinition#getOperationType <em>Operation Type</em>}' reference.
+   * Sets the value of the '{@link de.gebit.integrity.dsl.OperationDefinition#getOperationType <em>Operation Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Operation Type</em>' reference.
+   * @param value the new value of the '<em>Operation Type</em>' containment reference.
    * @see #getOperationType()
    * @generated
    */
-  void setOperationType(JvmType value);
+  void setOperationType(JavaClassReference value);
 
 } // OperationDefinition

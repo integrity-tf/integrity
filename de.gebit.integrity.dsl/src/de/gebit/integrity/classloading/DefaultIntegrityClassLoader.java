@@ -64,11 +64,11 @@ public class DefaultIntegrityClassLoader implements IntegrityClassLoader {
 
 	@Override
 	public Class<?> loadClass(OperationDefinition anOperationDefinition) throws ClassNotFoundException {
-		if (anOperationDefinition == null) {
+		if (anOperationDefinition == null || anOperationDefinition.getOperationType() == null) {
 			return null;
 		}
 
-		return loadClassGuarded(anOperationDefinition.getOperationType(), anOperationDefinition);
+		return loadClassGuarded(anOperationDefinition.getOperationType().getType(), anOperationDefinition);
 	}
 
 	@Override
