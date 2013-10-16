@@ -82,7 +82,7 @@ SuiteDefinition:
 	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 OperationDefinition:
-	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;
 
 SuiteStatement:
 	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider;

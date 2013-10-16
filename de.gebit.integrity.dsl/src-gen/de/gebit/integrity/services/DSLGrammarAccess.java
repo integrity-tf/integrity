@@ -879,16 +879,15 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cUsesKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Assignment cOperationTypeAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cOperationTypeJvmTypeCrossReference_6_0 = (CrossReference)cOperationTypeAssignment_6.eContents().get(0);
-		private final RuleCall cOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1 = (RuleCall)cOperationTypeJvmTypeCrossReference_6_0.eContents().get(1);
+		private final RuleCall cOperationTypeJavaClassReferenceParserRuleCall_6_0 = (RuleCall)cOperationTypeAssignment_6.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//OperationDefinition:
 		//
-		//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+		//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=JavaClassReference NL;
 		public ParserRule getRule() { return rule; }
 
-		//"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL
+		//"operationdef" NL name=QualifiedName NL "uses" NL operationType=JavaClassReference NL
 		public Group getGroup() { return cGroup; }
 
 		//"operationdef"
@@ -912,14 +911,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
-		//operationType=[jvmTypes::JvmType|QualifiedJavaClassName]
+		//operationType=JavaClassReference
 		public Assignment getOperationTypeAssignment_6() { return cOperationTypeAssignment_6; }
 
-		//[jvmTypes::JvmType|QualifiedJavaClassName]
-		public CrossReference getOperationTypeJvmTypeCrossReference_6_0() { return cOperationTypeJvmTypeCrossReference_6_0; }
-
-		//QualifiedJavaClassName
-		public RuleCall getOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1() { return cOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1; }
+		//JavaClassReference
+		public RuleCall getOperationTypeJavaClassReferenceParserRuleCall_6_0() { return cOperationTypeJavaClassReferenceParserRuleCall_6_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
@@ -3760,7 +3756,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//OperationDefinition:
 	//
-	//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=[jvmTypes::JvmType|QualifiedJavaClassName] NL;
+	//	"operationdef" NL name=QualifiedName NL "uses" NL operationType=JavaClassReference NL;
 	public OperationDefinitionElements getOperationDefinitionAccess() {
 		return (pOperationDefinition != null) ? pOperationDefinition : (pOperationDefinition = new OperationDefinitionElements());
 	}

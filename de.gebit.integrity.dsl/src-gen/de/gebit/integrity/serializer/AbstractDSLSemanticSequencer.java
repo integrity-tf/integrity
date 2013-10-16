@@ -1115,7 +1115,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName operationType=[JvmType|QualifiedJavaClassName])
+	 *     (name=QualifiedName operationType=JavaClassReference)
 	 */
 	protected void sequence_OperationDefinition(EObject context, OperationDefinition semanticObject) {
 		if(errorAcceptor != null) {
@@ -1127,7 +1127,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getOperationDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getOperationDefinitionAccess().getOperationTypeJvmTypeQualifiedJavaClassNameParserRuleCall_6_0_1(), semanticObject.getOperationType());
+		feeder.accept(grammarAccess.getOperationDefinitionAccess().getOperationTypeJavaClassReferenceParserRuleCall_6_0(), semanticObject.getOperationType());
 		feeder.finish();
 	}
 	
