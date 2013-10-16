@@ -8,7 +8,9 @@
 package de.gebit.integrity.ui.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.Flags;
@@ -203,17 +205,39 @@ public final class IntegrityDSLUIUtil {
 		ITypeHierarchy tempTypeHierarchy = aType.newSupertypeHierarchy(null);
 		IType tempTypeInFocus = aType;
 
+		// try to locate field by its original name
 		while (tempTypeInFocus != null) {
 			IField tempField = tempTypeInFocus.getField(aFieldName);
-			if (tempField != null) {
+			if (tempField != null && tempField.exists()) {
 				return tempField;
 			} else {
 				tempTypeInFocus = tempTypeHierarchy.getSuperclass(tempTypeInFocus);
 			}
 		}
 
+		// if not locatable - try find with custom prefix
+		tempTypeInFocus = aType;
+		for (String tempPrefix : CUSTOM_PREFIX_LIST) {
+			String tempNameWithPrefix = tempPrefix + aFieldName.substring(0, 1).toUpperCase() + aFieldName.substring(1);
+
+			while (tempTypeInFocus != null) {
+				IField tempField = tempTypeInFocus.getField(tempNameWithPrefix);
+				if (tempField != null && tempField.exists()) {
+					return tempField;
+				} else {
+					tempTypeInFocus = tempTypeHierarchy.getSuperclass(tempTypeInFocus);
+				}
+			}
+		}
+
 		return null;
 	}
+
+	/**
+	 * List of potential prefixes that may be placed before the "actual" field name (the one visible from the outside by
+	 * looking at the accessor names) in order to form the internally used field name.
+	 */
+	private static final String[] CUSTOM_PREFIX_LIST = new String[] { "Local" };
 
 	/**
 	 * Finds all {@link IField}s in a given {@link IType} (including fields defined in supertypes!).
@@ -225,14 +249,19 @@ public final class IntegrityDSLUIUtil {
 	 * @return all fields
 	 * @throws JavaModelException
 	 */
-	public static List<IField> getAllFields(IType aType, boolean aFilterSetterlessPrivateFields)
+	public static List<FieldDescription> getAllFields(IType aType, boolean aFilterSetterlessPrivateFields)
 			throws JavaModelException {
 		ITypeHierarchy tempTypeHierarchy = aType.newSupertypeHierarchy(null);
 		IType tempTypeInFocus = aType;
 
-		List<IField> tempResults = new ArrayList<IField>();
+		List<FieldDescription> tempResults = new ArrayList<FieldDescription>();
 		while (tempTypeInFocus != null) {
+			Set<String> tempSetterMethodNames = null;
+
 			for (IField tempField : tempTypeInFocus.getFields()) {
+				FieldDescription tempFieldDescription = new FieldDescription(tempField.getElementName(),
+						JavadocUtil.getFieldJavadoc(tempField));
+
 				if (aFilterSetterlessPrivateFields) {
 					boolean tempIsReachable = false;
 					if (Flags.isPublic(tempField.getFlags())) {
@@ -240,22 +269,54 @@ public final class IntegrityDSLUIUtil {
 					} else {
 						// We are doing the bean introspection by ourself because we don't want to load the class, which
 						// would be necessary for using the java.bean.* stuff.
-						String tempSetterMethodName = "set" + tempField.getElementName().substring(0, 1).toUpperCase();
-						if (tempField.getElementName().length() > 1) {
-							tempSetterMethodName += tempField.getElementName().substring(1);
+						if (tempSetterMethodNames == null) {
+							tempSetterMethodNames = new HashSet<String>();
+							for (IMethod tempMethod : tempTypeInFocus.getMethods()) {
+								String tempMethodName = tempMethod.getElementName();
+								if (tempMethodName.startsWith("set")) {
+									tempSetterMethodNames.add(tempMethodName);
+								}
+							}
 						}
-						for (IMethod tempMethod : tempTypeInFocus.getMethods()) {
-							if (tempSetterMethodName.equals(tempMethod.getElementName())) {
-								tempIsReachable = true;
-								break;
+
+						String tempSetterMethodNameSuffix = tempField.getElementName().substring(0, 1).toUpperCase()
+								+ tempField.getElementName().substring(1);
+
+						// first check for the default setter name
+						if (tempSetterMethodNames.contains("set" + tempSetterMethodNameSuffix)) {
+							tempIsReachable = true;
+						} else {
+							// The field may be prefixed (eg. "localText" as field name with "setText" and "getText" as
+							// accessors)
+							for (String tempCustomPrefix : CUSTOM_PREFIX_LIST) {
+								String tempCapitalizedCustomPrefix = tempCustomPrefix.substring(0, 1).toUpperCase()
+										+ tempCustomPrefix.substring(1);
+								if (tempSetterMethodNameSuffix.startsWith(tempCapitalizedCustomPrefix)
+										&& tempCustomPrefix.length() < tempSetterMethodNameSuffix.length()) {
+									// Okay, this prefix may be a match. But we still need to see if there's a matching
+									// setter WITHOUT the prefix.
+									String tempUnprefixedFieldName = tempSetterMethodNameSuffix
+											.substring(tempCustomPrefix.length());
+
+									if (tempSetterMethodNames.contains("set" + tempUnprefixedFieldName)) {
+										// Good, there is. We will use the field name without the prefix to refer to the
+										// field, as that's the name under which this field is visible to the outside
+										// world via the accessors.
+										tempIsReachable = true;
+										tempFieldDescription.setFieldName(tempUnprefixedFieldName.substring(0, 1)
+												.toLowerCase() + tempUnprefixedFieldName.substring(1));
+										break;
+									}
+								}
 							}
 						}
 					}
+
 					if (!tempIsReachable) {
 						continue;
 					}
 				}
-				tempResults.add(tempField);
+				tempResults.add(tempFieldDescription);
 			}
 
 			tempTypeInFocus = tempTypeHierarchy.getSuperclass(tempTypeInFocus);
@@ -303,6 +364,56 @@ public final class IntegrityDSLUIUtil {
 
 			return searchResult;
 		}
+	}
+
+	/**
+	 * Encapsulates data about a field in a Java Bean Type.
+	 * 
+	 * 
+	 * @author Rene Schneider - initial API and implementation
+	 * 
+	 */
+	public static class FieldDescription {
+
+		/**
+		 * The name of the field.
+		 */
+		private String fieldName;
+
+		/**
+		 * The JavaDoc comment for the field.
+		 */
+		private String javaDoc;
+
+		/**
+		 * Creates a new instance.
+		 * 
+		 * @param aFieldname
+		 *            the name of the field
+		 * @param aFieldJavadoc
+		 *            the javadoc comment of the field
+		 */
+		public FieldDescription(String aFieldname, String aFieldJavadoc) {
+			fieldName = aFieldname;
+			javaDoc = aFieldJavadoc;
+		}
+
+		public String getJavaDoc() {
+			return javaDoc;
+		}
+
+		public void setJavaDoc(String aJavaDoc) {
+			this.javaDoc = aJavaDoc;
+		}
+
+		public String getFieldName() {
+			return fieldName;
+		}
+
+		public void setFieldName(String aFieldName) {
+			this.fieldName = aFieldName;
+		}
+
 	}
 
 }
