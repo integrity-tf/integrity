@@ -80,6 +80,7 @@ import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil;
+import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.FieldDescription;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.ResolvedTypeName;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -757,13 +758,14 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 							if (tempTypeInFocus != null) {
 								// Okay, we have reached our goal - the fields of this type are our proposals
-								for (IField tempField : IntegrityDSLUIUtil.getAllFields(tempTypeInFocus, true)) {
-									String tempJavadocDescription = JavadocUtil.getFieldJavadoc(tempField);
-									String tempDisplayText = tempField.getElementName();
+								for (FieldDescription tempField : IntegrityDSLUIUtil
+										.getAllFields(tempTypeInFocus, true)) {
+									String tempJavadocDescription = tempField.getJavaDoc();
+									String tempDisplayText = tempField.getFieldName();
 
-									if (!tempAlreadyUsedKeys.contains(tempField.getElementName())) {
+									if (!tempAlreadyUsedKeys.contains(tempField.getFieldName())) {
 										ICompletionProposal tempCompletionProposal = createCompletionProposal(
-												tempField.getElementName() + ": ", tempDisplayText, null, aContext);
+												tempField.getFieldName() + ": ", tempDisplayText, null, aContext);
 
 										if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
 											if (tempJavadocDescription != null) {
