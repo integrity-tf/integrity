@@ -7,6 +7,8 @@ public class TestBean extends SuperTestBean {
 
 	private int primitiveInt;
 
+	private String localPrefixedString;
+
 	private String nonaccessibleString;
 
 	private InnerBean innerBeanParam;
@@ -14,6 +16,14 @@ public class TestBean extends SuperTestBean {
 	private InnerBean[] innerBeanArrayParam;
 
 	private List<InnerBean> innerBeanListParam;
+
+	public String getPrefixedString() {
+		return localPrefixedString;
+	}
+
+	public void setPrefixedString(String localPrefixedString) {
+		this.localPrefixedString = localPrefixedString;
+	}
 
 	public String getNonaccessibleString() {
 		return nonaccessibleString;
