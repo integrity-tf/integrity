@@ -177,12 +177,13 @@ public class DefaultModelChecker implements ModelChecker {
 		if (aCustomOperation.getDefinition() == null) {
 			throw new ModelRuntimeLinkException("Failed to resolve operation definition for custom operation.",
 					aCustomOperation, modelSourceExplorer.determineSourceInformation(aCustomOperation));
-		} else if (aCustomOperation.getDefinition().getOperationType() == null) {
+		} else if (aCustomOperation.getDefinition().getOperationType() == null
+				|| aCustomOperation.getDefinition().getOperationType().getType() == null) {
 			throw new ModelRuntimeLinkException("Failed to resolve operation class for custom operation definition.",
 					aCustomOperation, modelSourceExplorer.determineSourceInformation(aCustomOperation));
 		}
 
-		JvmType tempType = aCustomOperation.getDefinition().getOperationType();
+		JvmType tempType = aCustomOperation.getDefinition().getOperationType().getType();
 
 		if (resolvedOperationClasses.contains(tempType)) {
 			return;

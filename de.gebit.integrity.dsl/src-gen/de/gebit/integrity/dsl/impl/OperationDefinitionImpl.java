@@ -3,16 +3,16 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.JavaClassReference;
 import de.gebit.integrity.dsl.OperationDefinition;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +51,14 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getOperationType() <em>Operation Type</em>}' reference.
+   * The cached value of the '{@link #getOperationType() <em>Operation Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getOperationType()
    * @generated
    * @ordered
    */
-  protected JvmType operationType;
+  protected JavaClassReference operationType;
 
   /**
    * <!-- begin-user-doc -->
@@ -109,27 +109,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public JvmType getOperationType()
-  {
-    if (operationType != null && operationType.eIsProxy())
-    {
-      InternalEObject oldOperationType = (InternalEObject)operationType;
-      operationType = (JvmType)eResolveProxy(oldOperationType);
-      if (operationType != oldOperationType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, oldOperationType, operationType));
-      }
-    }
-    return operationType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public JvmType basicGetOperationType()
+  public JavaClassReference getOperationType()
   {
     return operationType;
   }
@@ -139,12 +119,53 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setOperationType(JvmType newOperationType)
+  public NotificationChain basicSetOperationType(JavaClassReference newOperationType, NotificationChain msgs)
   {
-    JvmType oldOperationType = operationType;
+    JavaClassReference oldOperationType = operationType;
     operationType = newOperationType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, oldOperationType, operationType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, oldOperationType, newOperationType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOperationType(JavaClassReference newOperationType)
+  {
+    if (newOperationType != operationType)
+    {
+      NotificationChain msgs = null;
+      if (operationType != null)
+        msgs = ((InternalEObject)operationType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, null, msgs);
+      if (newOperationType != null)
+        msgs = ((InternalEObject)newOperationType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, null, msgs);
+      msgs = basicSetOperationType(newOperationType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.OPERATION_DEFINITION__OPERATION_TYPE, newOperationType, newOperationType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DslPackage.OPERATION_DEFINITION__OPERATION_TYPE:
+        return basicSetOperationType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -160,8 +181,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
       case DslPackage.OPERATION_DEFINITION__NAME:
         return getName();
       case DslPackage.OPERATION_DEFINITION__OPERATION_TYPE:
-        if (resolve) return getOperationType();
-        return basicGetOperationType();
+        return getOperationType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -180,7 +200,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
         setName((String)newValue);
         return;
       case DslPackage.OPERATION_DEFINITION__OPERATION_TYPE:
-        setOperationType((JvmType)newValue);
+        setOperationType((JavaClassReference)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -200,7 +220,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
         setName(NAME_EDEFAULT);
         return;
       case DslPackage.OPERATION_DEFINITION__OPERATION_TYPE:
-        setOperationType((JvmType)null);
+        setOperationType((JavaClassReference)null);
         return;
     }
     super.eUnset(featureID);

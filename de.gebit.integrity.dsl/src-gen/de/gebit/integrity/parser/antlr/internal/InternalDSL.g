@@ -1573,15 +1573,18 @@ ruleNL
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOperationDefinitionRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getOperationDefinitionAccess().getOperationTypeJvmTypeCrossReference_6_0()); 
+	        newCompositeNode(grammarAccess.getOperationDefinitionAccess().getOperationTypeJavaClassReferenceParserRuleCall_6_0()); 
 	    }
-		ruleQualifiedJavaClassName		{ 
+		lv_operationType_6_0=ruleJavaClassReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getOperationDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"operationType",
+        		lv_operationType_6_0, 
+        		"JavaClassReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
