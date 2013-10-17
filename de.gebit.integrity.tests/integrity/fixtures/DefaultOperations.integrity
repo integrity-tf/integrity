@@ -1,5 +1,7 @@
 packagedef integrity.operations.default with
 	
 	operationdef formatted uses de.gebit.integrity.runner.operations.DecimalFormatOperation
+	
+	operationdef asMap uses de.gebit.integrity.runner.operations.ConvertBeanToMapOperation
 
 packageend
