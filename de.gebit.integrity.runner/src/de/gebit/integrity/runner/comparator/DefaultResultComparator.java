@@ -28,6 +28,7 @@ import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -44,6 +45,12 @@ public class DefaultResultComparator implements ResultComparator {
 	 */
 	@Inject
 	protected ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
 
 	@Override
 	public boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
@@ -216,8 +223,14 @@ public class DefaultResultComparator implements ResultComparator {
 			// operation which results in a map when resolving. We now check for those.
 			Object tempPossibleMapAsSingleExpectedResult = aSingleExpectedResult;
 			if ((aSingleExpectedResult instanceof Variable) || (aSingleExpectedResult instanceof CustomOperation)) {
-				tempPossibleMapAsSingleExpectedResult = valueConverter.convertValue(null, aSingleExpectedResult,
-						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+				try {
+					tempPossibleMapAsSingleExpectedResult = parameterResolver.resolveSingleParameterValue(
+							aSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+				} catch (InstantiationException exc) {
+					throw new UnexecutableException("Failed to resolve an operation", exc);
+				} catch (ClassNotFoundException exc) {
+					throw new UnexecutableException("Failed to resolve an operation", exc);
+				}
 			}
 
 			if (tempPossibleMapAsSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
