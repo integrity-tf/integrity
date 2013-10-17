@@ -11,17 +11,21 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
+import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 import de.gebit.integrity.string.FormattedString;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * Abstract base class for test runner callback implementation. Provides some generic functionality required by most
@@ -102,6 +106,10 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	 * @return true or false
 	 */
 	protected boolean containsNestedObject(ValueOrEnumValueOrOperationCollection aCollection) {
+		if (aCollection == null) {
+			return false;
+		}
+
 		if (containsNestedObject(aCollection.getValue())) {
 			return true;
 		} else {
@@ -130,6 +138,15 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 
 		if (aValue instanceof Variable) {
 			return containsNestedObject(variableManager.get(((Variable) aValue).getName()));
+		} else if (aValue instanceof CustomOperation) {
+			try {
+				return containsNestedObject(valueConverter.convertValue(null, aValue,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			} catch (UnresolvableVariableException exc) {
+				throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null");
+			} catch (UnexecutableException exc) {
+				// ignored here
+			}
 		} else if ((aValue instanceof NestedObject) || (aValue instanceof TypedNestedObject)) {
 			return true;
 		} else if (aValue instanceof Map<?, ?>) {
