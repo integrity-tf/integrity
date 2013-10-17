@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NestedObject;
@@ -22,10 +23,12 @@ import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -42,6 +45,12 @@ public class DefaultResultComparator implements ResultComparator {
 	 */
 	@Inject
 	protected ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
 
 	@Override
 	public boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
@@ -210,9 +219,31 @@ public class DefaultResultComparator implements ResultComparator {
 			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
 					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 		} else {
-			// Convert the expected result to match the given fixture result
-			tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			// Two special bean-related cases still may apply: expected result may be a map, or a variable or custom
+			// operation which results in a map when resolving. We now check for those.
+			Object tempPossibleMapAsSingleExpectedResult = aSingleExpectedResult;
+			if ((aSingleExpectedResult instanceof Variable) || (aSingleExpectedResult instanceof CustomOperation)) {
+				try {
+					tempPossibleMapAsSingleExpectedResult = parameterResolver.resolveSingleParameterValue(
+							aSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+				} catch (InstantiationException exc) {
+					throw new UnexecutableException("Failed to resolve an operation", exc);
+				} catch (ClassNotFoundException exc) {
+					throw new UnexecutableException("Failed to resolve an operation", exc);
+				}
+			}
+
+			if (tempPossibleMapAsSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
+				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
+				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
+				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+				tempConvertedExpectedResult = tempPossibleMapAsSingleExpectedResult;
+			} else {
+				// no special bean-related cases apply: convert the expected result to match the given fixture result
+				tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			}
 		}
 
 		return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult, aSingleExpectedResult);

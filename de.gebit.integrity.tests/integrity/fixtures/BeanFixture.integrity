@@ -8,6 +8,11 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef checkSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped
 	
-	testdef createSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped
+	testdef createSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped	
+	calldef createSimpleBeanUntypedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped
+	
+	testdef createMapForSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped
+	calldef createMapForSimpleBeanUntypedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped
+	
 
 packageend
