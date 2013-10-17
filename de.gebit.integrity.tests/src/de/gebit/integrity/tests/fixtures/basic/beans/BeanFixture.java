@@ -8,6 +8,8 @@
 package de.gebit.integrity.tests.fixtures.basic.beans;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -83,6 +85,18 @@ public class BeanFixture {
 		tempBean.setThirdParameter(tempInnerBean);
 
 		return tempBean;
+	}
+
+	@FixtureMethod(description = "creates a map with some key-value pairs in it and returns it")
+	public Map<String, Object> createMapForSimpleBeanUntyped() {
+		Map<String, Object> tempOuterMap = new HashMap<String, Object>();
+		tempOuterMap.put("firstParameter", "string");
+		tempOuterMap.put("secondParameter", 100);
+		Map<String, Object> tempInnerMap = new HashMap<String, Object>();
+		tempInnerMap.put("innerParameter", new BigDecimal("1.99"));
+		tempOuterMap.put("thirdParameter", tempInnerMap);
+
+		return tempOuterMap;
 	}
 
 }

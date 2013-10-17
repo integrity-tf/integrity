@@ -56,6 +56,11 @@ public abstract class IntegrityJUnitTest {
 	private static final String REFERENCE_RESULT_DIRECTORY = "results/";
 
 	/**
+	 * Pattern to replace object IDs.
+	 */
+	private static final Pattern OBJECT_ID_PATTERN = Pattern.compile("^(.*@)[0-9,a-f]+$");
+
+	/**
 	 * Runs a specified Integrity suite in a freshly started test runner. The result XML document is returned.
 	 * 
 	 * @param aSuiteName
@@ -131,7 +136,9 @@ public abstract class IntegrityJUnitTest {
 		Document tempRef = tempBuilder.build(new File(REFERENCE_RESULT_DIRECTORY + tempRootSuiteName + ".xml"));
 
 		removeDurationsAndTimes(aDoc.getRootElement());
+		removeObjectIDs(aDoc.getRootElement());
 		removeDurationsAndTimes(tempRef.getRootElement());
+		removeObjectIDs(tempRef.getRootElement());
 
 		ByteArrayOutputStream tempDocStream = new ByteArrayOutputStream();
 		ByteArrayOutputStream tempRefStream = new ByteArrayOutputStream();
@@ -203,6 +210,23 @@ public abstract class IntegrityJUnitTest {
 		Attribute tempAttr = anElement.getAttribute(anAttributeName);
 		if (tempAttr != null) {
 			tempAttr.setValue("");
+		}
+	}
+
+	private void removeObjectIDs(Element anElement) throws JDOMException {
+		for (Object tempAttributeObj : anElement.getAttributes()) {
+			Attribute tempAttribute = (Attribute) tempAttributeObj;
+
+			Matcher tempMatcher = OBJECT_ID_PATTERN.matcher(tempAttribute.getValue());
+			if (tempMatcher.matches()) {
+				tempAttribute.setValue(tempMatcher.group(1) + "00000000");
+			}
+		}
+
+		for (Object tempChild : anElement.getChildren()) {
+			if (tempChild instanceof Element) {
+				removeObjectIDs((Element) tempChild);
+			}
 		}
 	}
 

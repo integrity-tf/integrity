@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="17.10.13 17:09" isotimestamp="2013-10-17T17:09:23" duration="124.767">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.beanToMapTest" timestamp="17.10.13 17:09:23.0251">
+    <setup />
+    <variables>
+      <variable name="simpleBean" />
+      <variable name="simpleBeanAsMap" />
+    </variables>
+    <statements>
+      <call id="1" line="10" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="17.10.13 17:09:23.0259">
+        <parameters />
+        <result duration="4.165" type="success">
+          <variableUpdate name="simpleBean" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@30721965" />
+        </result>
+      </call>
+      <comment id="2" line="12">This should fail, because it results in an equals() call since the comparator doesn't have any clue that I want to compare these as beans</comment>
+      <test id="3" line="13" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="17.10.13 17:09:23.0277">
+        <results duration="0.481" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.481" description="creates a bean with predefined values and returns it" type="failure">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@30721965" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@5f82253" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="4" line="15">This should succeed, because the expected result is first converted to a map, so the comparator takes this as clue to do a map-to-map compare</comment>
+      <test id="5" line="16" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="17.10.13 17:09:23.0287">
+        <results duration="0.332" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.332" description="creates a bean with predefined values and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call id="6" line="19" name="createMapForSimpleBeanUntypedCall" description="creates a map with some key-value pairs in it and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped" timestamp="17.10.13 17:09:23.0345">
+        <parameters />
+        <result duration="0.579" type="success">
+          <variableUpdate name="simpleBeanAsMap" value="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" />
+        </result>
+      </call>
+      <comment id="7" line="21">This should succeed as well, because it's the same as the example before, but just using a map stored in a variable</comment>
+      <test id="8" line="22" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="17.10.13 17:09:23.0351">
+        <results duration="0.349" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.349" description="creates a bean with predefined values and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="115.283" successCount="2" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
