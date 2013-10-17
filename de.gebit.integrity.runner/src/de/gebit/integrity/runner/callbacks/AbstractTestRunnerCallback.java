@@ -7,14 +7,19 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.callbacks;
 
+import java.util.Map;
+
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 import de.gebit.integrity.string.FormattedString;
 
@@ -32,6 +37,15 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	 */
 	@Inject
 	protected ValueConverter valueConverter;
+
+	/**
+	 * The parameter resolver to use.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
+
+	@Inject
+	protected VariableManager variableManager;
 
 	/**
 	 * Converts a result value (that is, a value returned by a fixture during a test or call) to a formatted string.
@@ -80,22 +94,19 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	/**
-	 * Determines whether a given {@link ValueOrEnumValueOrOperationCollection} contains at least one nested object.
+	 * Determines whether a given {@link ValueOrEnumValueOrOperationCollection} contains at least one nested object (or
+	 * an equivalent map with key-value pairs).
 	 * 
 	 * @param aCollection
 	 *            the collection to check
 	 * @return true or false
 	 */
 	protected boolean containsNestedObject(ValueOrEnumValueOrOperationCollection aCollection) {
-		if (aCollection == null) {
-			return false;
-		}
-
-		if ((aCollection.getValue() instanceof NestedObject) || (aCollection.getValue() instanceof TypedNestedObject)) {
+		if (containsNestedObject(aCollection.getValue())) {
 			return true;
 		} else {
-			for (ValueOrEnumValueOrOperation tempSingleValue : aCollection.getMoreValues()) {
-				if ((tempSingleValue instanceof NestedObject) || (tempSingleValue instanceof TypedNestedObject)) {
+			for (ValueOrEnumValueOrOperation tempValue : aCollection.getMoreValues()) {
+				if (containsNestedObject(tempValue)) {
 					return true;
 				}
 			}
@@ -104,4 +115,27 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 		return false;
 	}
 
+	/**
+	 * Determines whether a given {@link ValueOrEnumValueOrOperation} contains at least one nested object (or an
+	 * equivalent map with key-value pairs).
+	 * 
+	 * @param aValue
+	 *            the value to check
+	 * @return true or false
+	 */
+	protected boolean containsNestedObject(Object aValue) {
+		if (aValue == null) {
+			return false;
+		}
+
+		if (aValue instanceof Variable) {
+			return containsNestedObject(variableManager.get(((Variable) aValue).getName()));
+		} else if ((aValue instanceof NestedObject) || (aValue instanceof TypedNestedObject)) {
+			return true;
+		} else if (aValue instanceof Map<?, ?>) {
+			return true;
+		}
+
+		return false;
+	}
 }
