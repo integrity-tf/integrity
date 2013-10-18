@@ -3,28 +3,38 @@ import integrity.operations.default.*
 import integrity.basic.beans.*
 
 packagedef integrity.basic.beans with
-	
-	suitedef beanToMapTest with
-	
+
+	suitedef beanToMapTestEquals with	
 		variable simpleBean
 		call createSimpleBeanUntypedCall -> simpleBean	
 		
 		-- This should fail, because it results in an equals() call since the comparator doesn't have any clue that I want to compare these as beans
 		test createSimpleBeanUntyped = simpleBean
-		
+	suiteend
+	
+	suitedef beanToMapTestResultConverted with	
+		variable simpleBean
+		call createSimpleBeanUntypedCall -> simpleBean
+				
 		-- This should succeed, because the expected result is first converted to a map, so the comparator takes this as clue to do a map-to-map compare 
 		test createSimpleBeanUntyped = [simpleBean asMap]
+	suiteend
 		
+	suitedef beanToMapTestMapInVariable with
 		variable simpleBeanAsMap
 		call createMapForSimpleBeanUntypedCall -> simpleBeanAsMap
 		
 		-- This should succeed as well, because it's the same as the example before, but just using a map stored in a variable
 		test createSimpleBeanUntyped = simpleBeanAsMap
+	suiteend
+		
+	suitedef beanToMapTestBeanInVariable with
+		variable simpleBean
+		call createSimpleBeanUntypedCall -> simpleBean
 		
 		// This test does fail right now! The expected value should be printed in nested object format in the result, but isn't!
-		//-- This should succeed as well, we are comparing a map to a bean here, just the other way round than before
-		//test createMapForSimpleBeanUntyped = simpleBean		
-		
+		-- This should succeed as well, we are comparing a map to a bean here, just the other way round than before
+		test createMapForSimpleBeanUntyped = simpleBean		
 	suiteend
 
 packageend

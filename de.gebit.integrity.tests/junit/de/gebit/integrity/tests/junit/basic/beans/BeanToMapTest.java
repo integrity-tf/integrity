@@ -33,11 +33,56 @@ public class BeanToMapTest extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void test() throws ModelLoadException, IOException, JDOMException {
+	public void testBeanToMapTestEquals() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/beans/beanToMapTest.integrity" },
-				"integrity.basic.beans.beanToMapTest", null);
+				"integrity.basic.beans.beanToMapTestEquals", null);
 		assertDocumentMatchesReference(tempResult);
 	}
+
+	/**
+	 * Performs a suite which does fixture calls with bean values and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testBeanToMapTestResultConverted() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/beans/beanToMapTest.integrity" },
+				"integrity.basic.beans.beanToMapTestResultConverted", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls with bean values and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testBeanToMapTestMapInVariable() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/beans/beanToMapTest.integrity" },
+				"integrity.basic.beans.beanToMapTestMapInVariable", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	// /**
+	// * Performs a suite which does fixture calls with bean values and checks the resulting XML document.
+	// *
+	// * @throws ModelLoadException
+	// * @throws IOException
+	// * @throws JDOMException
+	// */
+	// @Test
+	// public void testBeanToMapTestBeanInVariable() throws ModelLoadException, IOException, JDOMException {
+	// Document tempResult = executeIntegritySuite(
+	// new String[] { "integrity/suites/basic/beans/beanToMapTest.integrity" },
+	// "integrity.basic.beans.beanToMapTestBeanInVariable", null);
+	// assertDocumentMatchesReference(tempResult);
+	// }
 
 }

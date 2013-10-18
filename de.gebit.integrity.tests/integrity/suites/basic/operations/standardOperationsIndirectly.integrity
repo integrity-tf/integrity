@@ -1,0 +1,15 @@
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.operations with	
+	
+	suitedef standardOperationsIndirectly with
+		variable firstvar initially "a"
+		variable testvar initially (firstvar .. "b" .. "c")
+	
+		test echoStringTest string: testvar = "abc"
+		
+		// This failed in the past, not resolving the variable correctly in test results
+		call echoString string: testvar
+	suiteend
+
+packageend
