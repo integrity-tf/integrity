@@ -59,7 +59,7 @@ public class AdditionFixture {
 	@FixtureMethod(description = "echoes $echo$")
 	public String returnString(@FixtureParameter(name = "echo") String anInput) {
 		pause();
-		// throw new RuntimeException("An exception!");
+		// throw new RuntimeException(anInput);
 		return anInput;
 	}
 
