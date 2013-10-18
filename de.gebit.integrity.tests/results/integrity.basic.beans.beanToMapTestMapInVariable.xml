@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.10.13 14:32" isotimestamp="2013-10-18T14:32:45" duration="55.211">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.beanToMapTestMapInVariable" timestamp="18.10.13 14:32:45.0144">
+    <setup />
+    <variables>
+      <variable name="simpleBeanAsMap" />
+    </variables>
+    <statements>
+      <call id="1" line="25" name="createMapForSimpleBeanUntypedCall" description="creates a map with some key-value pairs in it and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped" timestamp="18.10.13 14:32:45.0149">
+        <parameters />
+        <result duration="1.014" type="success">
+          <variableUpdate name="simpleBeanAsMap" value="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" />
+        </result>
+      </call>
+      <comment id="2" line="27">This should succeed as well, because it's the same as the example before, but just using a map stored in a variable</comment>
+      <test id="3" line="28" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.10.13 14:32:45.0164">
+        <results duration="0.643" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.643" description="creates a bean with predefined values and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="49.860" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

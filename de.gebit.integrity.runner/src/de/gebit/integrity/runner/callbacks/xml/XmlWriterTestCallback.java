@@ -65,7 +65,6 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.MethodReference;
-import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
@@ -1209,17 +1208,30 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		addCurrentTime(tempCallElement);
 
-		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
-		for (Parameter tempParameter : aCall.getParameters()) {
-			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
-			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE,
-					IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
-			tempParameterElement.setAttribute(
-					PARAMETER_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToFormattedString(tempParameter.getValue(), false,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+		Map<String, Object> tempParameterMap = null;
+		try {
+			tempParameterMap = parameterResolver.createParameterMap(aCall, true,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		}
 
-			tempParameterCollectionElement.addContent(tempParameterElement);
+		Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
+		if (tempParameterMap != null) {
+			for (Entry<String, Object> tempParameter : tempParameterMap.entrySet()) {
+				Element tempParameterElement = new Element(PARAMETER_ELEMENT);
+				tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempParameter.getKey());
+				tempParameterElement.setAttribute(
+						PARAMETER_VALUE_ATTRIBUTE,
+						valueConverter.convertValueToFormattedString(tempParameter.getValue(), false,
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+
+				tempParameterCollectionElement.addContent(tempParameterElement);
+			}
 		}
 		tempCallElement.addContent(tempParameterCollectionElement);
 
