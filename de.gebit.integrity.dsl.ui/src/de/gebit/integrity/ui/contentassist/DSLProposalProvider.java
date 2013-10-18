@@ -1148,17 +1148,24 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						SuiteDefinition tempSuiteDef = ((IntegrityConfigurableCompletionProposal) aProposal)
 								.getSuiteDefiningProposedParameter();
 						if (tempSuiteDef == tempCurrentSuiteDef) {
+							ConfigurableCompletionProposal tempProposal = (ConfigurableCompletionProposal) aProposal;
 
 							// now filter out the ones that are already present in the call
 							boolean tempAlreadyUsed = false;
 							for (SuiteParameter tempAlreadyUsedParam : tempCurrentSuiteCall.getParameters()) {
-								if (((IntegrityConfigurableCompletionProposal) aProposal).getReplacementString()
+								if (tempProposal.getReplacementString()
 										.equals(tempAlreadyUsedParam.getName().getName())) {
 									tempAlreadyUsed = true;
 									break;
 								}
 							}
 							if (!tempAlreadyUsed) {
+								tempProposal.setReplacementString(tempProposal.getReplacementString() + ": ");
+
+								// For some reason, Xtext doesn't get the cursor positions quite right on these
+								// proposals, so we calculate them manually here
+								tempProposal.setCursorPosition(tempProposal.getReplacementString().length());
+
 								anAcceptor.accept(aProposal);
 							}
 						}
