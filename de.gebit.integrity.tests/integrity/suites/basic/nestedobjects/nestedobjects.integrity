@@ -54,5 +54,23 @@ packagedef integrity.basic.nestedobjects with
 			}
 		
 	suiteend
+	
+	suitedef nestedobjectsWithOperations with
+	
+		variable operationVar initially (1 + 1)
+	
+		variable obj1 initially {
+			key1: operationVar
+		}
+		
+		variable obj2
+		
+		call echoMap map: {
+				key1: operationVar
+			} -> obj2
+			
+		test echoMapTest map: obj1 = obj2
+		
+	suiteend
 
 packageend
