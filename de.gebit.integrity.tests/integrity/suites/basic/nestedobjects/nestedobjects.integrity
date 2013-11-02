@@ -55,10 +55,10 @@ packagedef integrity.basic.nestedobjects with
 		
 	suiteend
 	
+	// Operations may be used inside nested objects as well - see issue #36
 	suitedef nestedobjectsWithOperations with
 	
-		variable operationVar initially (1 + 1)
-	
+		variable operationVar initially (1 + 1)	
 		variable obj1 initially {
 			key1: operationVar
 		}
