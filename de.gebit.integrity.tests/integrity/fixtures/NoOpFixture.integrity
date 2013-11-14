@@ -25,6 +25,9 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoInteger uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger
 	testdef echoIntegerTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger
 	
+	calldef echoNumber uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber
+	testdef echoNumberTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber
+	
 	calldef echoLong uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLong
 	testdef echoLongTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLong
 	

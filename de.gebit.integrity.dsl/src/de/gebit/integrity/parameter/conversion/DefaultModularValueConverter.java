@@ -73,6 +73,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.Str
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToLong;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToNumber;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.BigDecimalToBigDecimal;
@@ -140,6 +141,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringTo
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToLong;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToNumber;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToShort;
 
 /**
@@ -183,6 +185,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringToShort.class);
 		addConversion(StringToByte.class);
 		addConversion(StringToCharacter.class);
+		addConversion(StringToNumber.class);
 		addConversion(CharacterToString.class);
 		addConversion(CharacterToFormattedString.class);
 		addConversion(CharacterToBigInteger.class);
@@ -259,6 +262,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringValueToString.class);
 		addConversion(StringValueToFormattedString.class);
 		addConversion(StringValueToCharacter.class);
+		addConversion(StringValueToNumber.class);
 
 		// boolean conversions, Integrity -> Java
 		addConversion(BooleanValueToBoolean.class);
