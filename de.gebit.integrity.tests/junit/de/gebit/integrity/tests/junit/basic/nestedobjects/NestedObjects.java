@@ -33,10 +33,25 @@ public class NestedObjects extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void test() throws ModelLoadException, IOException, JDOMException {
+	public void testNestedObject() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/nestedobjects/nestedobjects.integrity" },
 				"integrity.basic.nestedobjects.nestedobjects", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testNestedObjectWithOperation() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/nestedobjects.integrity" },
+				"integrity.basic.nestedobjects.nestedobjectsWithOperations", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

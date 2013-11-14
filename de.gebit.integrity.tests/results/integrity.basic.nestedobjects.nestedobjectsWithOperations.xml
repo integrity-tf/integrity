@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="02.11.13 18:43" isotimestamp="2013-11-02T18:43:10" duration="32.015">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsWithOperations" timestamp="02.11.13 18:43:10.0945">
+    <setup />
+    <variables>
+      <variable name="operationVar" value="2" />
+      <variable name="obj1" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
+      <variable name="obj2" />
+    </variables>
+    <statements>
+      <call id="1" line="68" name="echoMap" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="02.11.13 18:43:10.0956">
+        <parameters>
+          <parameter name="map" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
+        </parameters>
+        <result duration="1.744" type="success">
+          <variableUpdate name="obj2" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
+        </result>
+      </call>
+      <test id="2" line="72" name="echoMapTest" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="02.11.13 18:43:10.0967">
+        <results duration="1.082" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.082" description="Echo the map '{key1 = 2}'" type="success">
+            <parameters>
+              <parameter name="map" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = 2[NL]}" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="25.713" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
