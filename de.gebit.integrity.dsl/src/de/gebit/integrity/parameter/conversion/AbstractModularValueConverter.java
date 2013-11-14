@@ -416,8 +416,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			} else if (aValue instanceof Variable) {
 				Object tempResult = parameterResolver.resolveSingleParameterValue(aValue,
 						anUnresolvableVariableHandlingPolicy);
-				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				if (tempResult instanceof ValueOrEnumValueOrOperation) {
+					// In case of an operation inside a variable, we need to recurse (see issue #36)
+					return convertEncapsulatedValueToTargetType(aTargetType, aParameterizedType,
+							(ValueOrEnumValueOrOperation) tempResult, anUnresolvableVariableHandlingPolicy,
+							someVisitedValues);
+				} else {
+					return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
+							anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				}
 			} else {
 				return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
 						anUnresolvableVariableHandlingPolicy, someVisitedValues);
