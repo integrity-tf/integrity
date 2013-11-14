@@ -26,7 +26,7 @@ public class StringToLong extends Conversion<String, Long> {
 			return Long.parseLong(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

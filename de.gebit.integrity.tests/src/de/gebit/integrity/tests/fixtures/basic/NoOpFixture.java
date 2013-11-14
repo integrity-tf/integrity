@@ -51,6 +51,12 @@ public class NoOpFixture {
 		return anIntToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the number '$number$'")
+	public BigDecimal echoNumber(@FixtureParameter(name = "number") Number aNumberToEcho) {
+		// This must have been converted to a BigDecimal
+		return (BigDecimal) aNumberToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the short '$short$'")
 	public Short echoShort(@FixtureParameter(name = "short") Short aShortToEcho) {
 		return aShortToEcho;

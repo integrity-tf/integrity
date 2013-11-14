@@ -26,7 +26,7 @@ public class StringToByte extends Conversion<String, Byte> {
 			return Byte.parseByte(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

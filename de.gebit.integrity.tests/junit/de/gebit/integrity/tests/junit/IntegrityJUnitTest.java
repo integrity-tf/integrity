@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.AssertionFailedError;
-
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -147,16 +145,16 @@ public abstract class IntegrityJUnitTest {
 		tempSerializer.output(aDoc, tempDocStream);
 		tempSerializer.output(tempRef, tempRefStream);
 
-		try {
-			assertTrue(Arrays.equals(tempDocStream.toByteArray(), tempRefStream.toByteArray()));
-		} catch (AssertionFailedError exc) {
+		boolean tempArraysEqual = Arrays.equals(tempDocStream.toByteArray(), tempRefStream.toByteArray());
+		if (!tempArraysEqual) {
 			System.out.println("--- Suite " + tempRootSuiteName + " failed comparison to reference data!");
 			System.out.print("Reference: ");
 			System.out.println(new String(tempRefStream.toByteArray(), "UTF-8"));
 			System.out.print("Actual: ");
 			System.out.println(new String(tempDocStream.toByteArray(), "UTF-8"));
-			throw exc;
 		}
+
+		assertTrue(tempArraysEqual);
 	}
 
 	/**
