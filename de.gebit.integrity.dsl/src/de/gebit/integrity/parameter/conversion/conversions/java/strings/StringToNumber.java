@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 
+import java.math.BigDecimal;
+
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -17,13 +19,13 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class StringToInteger extends Conversion<String, Integer> {
+public class StringToNumber extends Conversion<String, Number> {
 
 	@Override
-	public Integer convert(String aSource, Class<? extends Integer> aTargetType,
+	public BigDecimal convert(String aSource, Class<? extends Number> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
-			return Integer.parseInt(aSource);
+			return new BigDecimal(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
 					+ aSource + "'", exc);

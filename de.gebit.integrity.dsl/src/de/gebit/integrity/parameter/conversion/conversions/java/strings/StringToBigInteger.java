@@ -28,7 +28,7 @@ public class StringToBigInteger extends Conversion<String, BigInteger> {
 			return new BigInteger(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

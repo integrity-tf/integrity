@@ -26,7 +26,7 @@ public class StringToFloat extends Conversion<String, Float> {
 			return Float.parseFloat(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

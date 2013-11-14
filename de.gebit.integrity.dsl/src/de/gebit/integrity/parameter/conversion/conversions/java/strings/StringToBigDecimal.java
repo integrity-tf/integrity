@@ -28,7 +28,7 @@ public class StringToBigDecimal extends Conversion<String, BigDecimal> {
 			return new BigDecimal(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

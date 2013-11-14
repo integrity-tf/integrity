@@ -5,8 +5,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.parameter.conversion.conversions.java.strings;
+package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
+import java.math.BigDecimal;
+
+import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -17,16 +20,15 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class StringToInteger extends Conversion<String, Integer> {
+public class StringValueToNumber extends Conversion<StringValue, Number> {
 
 	@Override
-	public Integer convert(String aSource, Class<? extends Integer> aTargetType,
+	public BigDecimal convert(StringValue aSource, Class<? extends Number> aTargetType,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
 		try {
-			return Integer.parseInt(aSource);
+			return new BigDecimal(aSource.getStringValue());
 		} catch (NumberFormatException exc) {
-			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'", exc);
+			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
 		}
 	}
 

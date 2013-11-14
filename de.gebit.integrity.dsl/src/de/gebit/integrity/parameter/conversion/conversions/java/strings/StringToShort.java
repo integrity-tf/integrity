@@ -26,7 +26,7 @@ public class StringToShort extends Conversion<String, Short> {
 			return Short.parseShort(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 

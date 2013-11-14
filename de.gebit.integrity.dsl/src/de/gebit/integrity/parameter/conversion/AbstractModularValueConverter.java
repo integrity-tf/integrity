@@ -86,28 +86,33 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	/**
 	 * All known conversions.
 	 */
-	private Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions = new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
+	private final Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions = new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
 
 	/**
 	 * Conversions derived from the directly added conversions by searching superclasses of the target type.
 	 */
-	private Map<ConversionKey, List<Class<? extends Conversion<?, ?>>>> derivedConversions = new HashMap<ConversionKey, List<Class<? extends Conversion<?, ?>>>>();
+	private final Map<ConversionKey, List<Class<? extends Conversion<?, ?>>>> derivedConversions = new HashMap<ConversionKey, List<Class<? extends Conversion<?, ?>>>>();
 
 	/**
 	 * Reverse index of all known conversions.
 	 */
-	private Map<Class<? extends Conversion<?, ?>>, ConversionKey> conversionToKey = new HashMap<Class<? extends Conversion<?, ?>>, ConversionKey>();
+	private final Map<Class<? extends Conversion<?, ?>>, ConversionKey> conversionToKey = new HashMap<Class<? extends Conversion<?, ?>>, ConversionKey>();
 
 	/**
 	 * The default conversions for all known source types. These are the conversions with the highest priority from
 	 * their respective source types' conversion pool.
 	 */
-	private Map<Class<?>, Class<? extends Conversion<?, ?>>> defaultConversions = new HashMap<Class<?>, Class<? extends Conversion<?, ?>>>();
+	private final Map<Class<?>, Class<? extends Conversion<?, ?>>> defaultConversions = new HashMap<Class<?>, Class<? extends Conversion<?, ?>>>();
 
 	/**
 	 * The current defaults' priority. Used to fill the {@link #defaultConversions} map.
 	 */
-	private Map<Class<?>, Integer> conversionPriority = new HashMap<Class<?>, Integer>();
+	private final Map<Class<?>, Integer> conversionPriority = new HashMap<Class<?>, Integer>();
+
+	/**
+	 * These classes mark endpoints after which further search for conversions isn't practical anymore.
+	 */
+	private final Set<Class<?>> conversionSearchBlockers = new HashSet<Class<?>>();
 
 	/**
 	 * Implement this method to initialize known conversions.
@@ -116,10 +121,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	protected abstract void initializeConversions();
 
 	/**
-	 * Default constructor. Initializes all conversions.
+	 * Initializes the contents of {@link #conversionSearchBlockers}.
+	 */
+	protected void initializeSearchBlockers() {
+		conversionSearchBlockers.add(java.io.Serializable.class);
+		// conversionSearchBlockers.add(java.lang.Object.class);
+	}
+
+	/**
+	 * Default constructor. Initializes all conversions and search blockers.
 	 */
 	public AbstractModularValueConverter() {
 		initializeConversions();
+		initializeSearchBlockers();
 	}
 
 	@Override
@@ -856,6 +870,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			Class<?> tempTargetTypeInFocus = targetType.getSuperclass();
 			while (tempTargetTypeInFocus != null) {
 				tempResults.add(new ConversionKey(sourceType, tempTargetTypeInFocus));
+
+				for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
+					tempResults.add(new ConversionKey(sourceType, tempTargetInterface));
+				}
+
 				tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
 			}
 
@@ -987,6 +1006,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType) {
+		if (conversionSearchBlockers.contains(aSourceType) || conversionSearchBlockers.contains(aTargetType)) {
+			return null;
+		}
+
 		Class<?> tempSourceTypeInFocus = aSourceType;
 		while (tempSourceTypeInFocus != null) {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
@@ -997,6 +1020,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// We actually have a target type
 				Class<?> tempTargetTypeInFocus = aTargetType;
 				while (tempTargetTypeInFocus != null) {
+					if (conversionSearchBlockers.contains(tempTargetTypeInFocus)) {
+						break;
+					}
 					tempConversionClass = conversions.get(new ConversionKey(tempSourceTypeInFocus,
 							tempTargetTypeInFocus));
 					if (tempConversionClass != null) {
@@ -1028,22 +1054,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						}
 					} else {
 						// We actually have a target type
-						Class<?> tempTargetTypeInFocus = aTargetType;
-						while (tempTargetTypeInFocus != null) {
-							Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
-									tempSourceInterface, tempTargetTypeInFocus);
+						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
+								aTargetType);
+						if (tempConversion != null) {
+							return tempConversion;
+						}
+
+						// Search the interfaces of the target type as well
+						for (Class<?> tempTargetInterface : aTargetType.getInterfaces()) {
+							tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface);
 							if (tempConversion != null) {
 								return tempConversion;
 							}
-
-							for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-								tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface);
-								if (tempConversion != null) {
-									return tempConversion;
-								}
-							}
-
-							tempTargetTypeInFocus = tempTargetTypeInFocus.getSuperclass();
 						}
 					}
 				}

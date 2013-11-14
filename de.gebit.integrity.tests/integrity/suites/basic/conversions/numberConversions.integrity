@@ -1,0 +1,15 @@
+packagedef integrity.basic.conversions with
+
+	suitedef numberConversions with
+		
+		// These test issue #38: Conversion to java.lang.Number error for numbers exceeding integer.max
+			
+		test integrity.fixtures.basic.noop.echoNumberTest number: "2147483648" = 2147483648
+		
+		variable temp
+		call integrity.fixtures.basic.noop.echoNumber number: "2147483648" -> temp
+		test integrity.fixtures.basic.noop.echoNumberTest number: temp = "2147483648"
+	
+	suiteend
+
+packageend
