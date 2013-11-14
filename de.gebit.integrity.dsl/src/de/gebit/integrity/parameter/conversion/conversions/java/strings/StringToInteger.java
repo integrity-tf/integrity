@@ -26,7 +26,7 @@ public class StringToInteger extends Conversion<String, Integer> {
 			return Integer.parseInt(aSource);
 		} catch (NumberFormatException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'");
+					+ aSource + "'", exc);
 		}
 	}
 
