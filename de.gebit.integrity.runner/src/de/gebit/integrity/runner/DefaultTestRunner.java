@@ -693,6 +693,7 @@ public class DefaultTestRunner implements TestRunner {
 
 		List<SuiteDefinition> tempSetupSuitesExecuted = executeSetupSuites(aSuiteCall.getDefinition(), tempSetupResults);
 
+		// Define variables for all the parameters provided to the suite call
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
 			if (tempParam.getValue() instanceof Variable) {
 				Variable tempVariable = (Variable) tempParam.getValue();
@@ -706,6 +707,11 @@ public class DefaultTestRunner implements TestRunner {
 		long tempSuiteDuration = System.nanoTime();
 		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
+
+		// Now unset all the parameter variables' values again (fixes issue #44)
+		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
+			variableManager.unset(tempParam.getName());
+		}
 
 		executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
 

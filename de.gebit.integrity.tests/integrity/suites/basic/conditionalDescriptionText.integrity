@@ -16,9 +16,9 @@ packagedef integrity.basic with
 		-- The integer is supplied, but NOT the string
 		suite conditionalDescriptionTextIndirectSub integer: 123
 		
-		// The following test can't be enabled yet because of issue #44
-		//-- The string is supplied, but NOT the integer
-		//suite conditionalDescriptionTextIndirectSub string: "123"
+		// This implicitly tests issue #44 as well!
+		-- The string is supplied, but NOT the integer
+		suite conditionalDescriptionTextIndirectSub string: "123"
 	
 	suiteend
 	
