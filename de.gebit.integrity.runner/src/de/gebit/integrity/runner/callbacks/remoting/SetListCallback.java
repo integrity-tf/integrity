@@ -532,9 +532,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 */
 	protected UnresolvableVariableHandling determineUnresolvableVariableHandlingPolicy() {
 		if (isDryRun()) {
-			return UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING;
+			return UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT;
 		} else {
-			return UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING;
+			return UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
 		}
 	}
 

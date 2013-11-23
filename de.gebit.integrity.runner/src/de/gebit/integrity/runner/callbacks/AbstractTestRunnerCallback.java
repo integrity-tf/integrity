@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -48,6 +49,9 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	@Inject
 	protected ParameterResolver parameterResolver;
 
+	/**
+	 * The variable manager to use.
+	 */
 	@Inject
 	protected VariableManager variableManager;
 
@@ -154,5 +158,21 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Convert a value to a string intended to be included in the textual output. This most importantly converts
+	 * {@link UnresolvableVariable} instances to a "null" string.
+	 * 
+	 * @param aValue
+	 *            the value to stringify
+	 * @return the string
+	 */
+	protected String valueToString(Object aValue) {
+		if (aValue == null || aValue == UnresolvableVariable.getInstance()) {
+			return "null";
+		} else {
+			return aValue.toString();
+		}
 	}
 }

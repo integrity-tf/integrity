@@ -40,4 +40,19 @@ public class ConditionalDescriptionText extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testIndirect() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/conditionalDescriptionText.integrity" },
+				"integrity.basic.conditionalDescriptionTextIndirect", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

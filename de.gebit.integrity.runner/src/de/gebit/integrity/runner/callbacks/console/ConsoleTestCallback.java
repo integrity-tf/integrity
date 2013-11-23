@@ -131,8 +131,9 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 			println("Now running test "
 					+ testCount
 					+ ": "
-					+ testFormatter.testToHumanReadableString(aTest,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
+					+ testFormatter
+							.testToHumanReadableString(aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
+					+ "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -204,15 +205,15 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 						boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
 						print("'"
-								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), false,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
+								+ valueConverter
+										.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
+												false, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-										tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
+										tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
 								+ "'!");
 						tempHasBegun = true;
 					}
@@ -255,7 +256,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
 						+ valueConverter.convertValueToString(anInitialValue, false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)));
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)));
 	}
 
 	@Override
@@ -265,7 +266,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (aValue == null ? "" : " with value: "
 						+ valueConverter.convertValueToString(aValue, false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING))
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
 				+ (aParameterizedFlag ? " (parameterized)" : ""));
 	}
 
@@ -276,8 +277,9 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 			println("Now executing call "
 					+ callCount
 					+ ": "
-					+ testFormatter.callToHumanReadableString(aCall,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + "...");
+					+ testFormatter
+							.callToHumanReadableString(aCall, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
+					+ "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
@@ -335,7 +337,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 					+ tableTestRowCount
 					+ " ("
 					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING) + ")...");
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {

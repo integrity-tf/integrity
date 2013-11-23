@@ -2,11 +2,30 @@ packagedef integrity.basic with
 
 	suitedef conditionalDescriptionText with
 		
-		// This prints the integer conditiona texts and omits the string ones
+		// This prints the integer conditional texts and omits the string ones
 		test integrity.fixtures.basic.noop.echoIntegerOrStringTest integer: 123  = "123"
 		
 		// This prints the string conditional texts and omits the integer ones
 		test integrity.fixtures.basic.noop.echoIntegerOrStringTest string: "abc"  = "abc"		
+	
+	suiteend
+	
+	
+	suitedef conditionalDescriptionTextIndirect with
+		
+		-- The integer is supplied, but NOT the string
+		suite conditionalDescriptionTextIndirectSub integer: 123
+		
+		// This implicitly tests issue #44 as well!
+		-- The string is supplied, but NOT the integer
+		suite conditionalDescriptionTextIndirectSub string: "123"
+	
+	suiteend
+	
+	
+	suitedef conditionalDescriptionTextIndirectSub gets integer string with
+	
+		test integrity.fixtures.basic.noop.echoIntegerOrStringTest integer: integer string: string = 123
 	
 	suiteend
 
