@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="23.11.13 21:19" isotimestamp="2013-11-23T21:19:16" duration="25.385">
+  <variables />
+  <suite id="0" name="integrity.basic.conditionalDescriptionTextIndirect" timestamp="23.11.13 21:19:16.0636">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="16">The integer is supplied, but NOT the string</comment>
+      <suite id="2" line="17" name="integrity.basic.conditionalDescriptionTextIndirectSub" timestamp="23.11.13 21:19:16.0636">
+        <setup />
+        <variables>
+          <variable name="integrity.basic.integer" value="123" />
+        </variables>
+        <statements>
+          <test id="3" line="27" name="echoIntegerOrStringTest" description="Echo the integer 123 and not a string!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString" timestamp="23.11.13 21:19:16.0636">
+            <results duration="2.377" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="2.377" description="Echo the integer 123 and not a string!" type="success">
+                <parameters>
+                  <parameter name="integer" value="123" />
+                  <parameter name="string" value="null" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="123" value="123" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <teardown />
+        <result duration="16.788" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <comment id="4" line="19">The string is supplied, but NOT the integer</comment>
+    </statements>
+    <teardown />
+    <result duration="19.846" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

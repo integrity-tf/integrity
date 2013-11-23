@@ -8,36 +8,30 @@
 package de.gebit.integrity.parameter.conversion;
 
 /**
- * This enum offers various ways in which unresolvable variables are to be handled during conversions.
+ * This instance is used for variable resolving in case of
+ * {@link UnresolvableVariableHandling#RESOLVE_TO_UNRESOLVABLE_OBJECT}.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public enum UnresolvableVariableHandling {
+public final class UnresolvableVariable {
 
 	/**
-	 * Throw an exception.
+	 * Singleton instance.
 	 */
-	EXCEPTION,
+	private static final UnresolvableVariable INSTANCE = new UnresolvableVariable();
 
-	/**
-	 * Resolve to null (the value, not the string 'null').
-	 */
-	RESOLVE_TO_NULL_VALUE,
+	private UnresolvableVariable() {
+		// private constructor
+	}
 
-	/**
-	 * Resolve to a string with the name of the variable.
-	 */
-	RESOLVE_TO_NAME_STRING,
+	public static UnresolvableVariable getInstance() {
+		return INSTANCE;
+	}
 
-	/**
-	 * Resolve to the string '???'.
-	 */
-	RESOLVE_TO_UNRESOLVABLE_OBJECT,
-
-	/**
-	 * Keep the variable reference as-is.
-	 */
-	KEEP_UNRESOLVED;
+	@Override
+	public String toString() {
+		return "???";
+	}
 
 }

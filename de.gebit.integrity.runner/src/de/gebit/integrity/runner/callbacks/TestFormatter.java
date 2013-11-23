@@ -24,6 +24,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -224,8 +225,17 @@ public class TestFormatter {
 			String tempBlockText = tempMatcher.group(4);
 			String tempSuffix = tempMatcher.group(5);
 
-			if ((tempInverter.length() == 0 && someParameters.containsKey(tempParameterName) || (tempInverter.length() > 0 && !someParameters
-					.containsKey(tempParameterName)))) {
+			// Fix for issue #41: Conditional fixture description parts are not correctly chosen in some situations
+			boolean tempParameterConsideredPresent = false;
+			if (someParameters.containsKey(tempParameterName)) {
+				Object tempParameterValue = someParameters.get(tempParameterName);
+				tempParameterConsideredPresent = tempParameterValue != null
+						&& tempParameterValue != UnresolvableVariable.getInstance();
+			}
+			boolean tempInversion = (tempInverter.length() > 0);
+
+			if ((!tempInversion && tempParameterConsideredPresent)
+					|| (tempInversion && !tempParameterConsideredPresent)) {
 				tempString = tempPrefix + tempBlockText + tempSuffix;
 			} else {
 				tempString = tempPrefix + tempSuffix;
@@ -259,10 +269,10 @@ public class TestFormatter {
 			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
 			String tempValue = null;
 			if (tempValueBeforeConversion == null
-					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING) {
+					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT) {
 				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
 				// that's required for unresolvable parameters as well; this is typically required for tabletests.
-				tempValue = "???";
+				tempValue = UnresolvableVariable.getInstance().toString();
 			} else {
 				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false,
 						anUnresolvableVariableHandlingPolicy);

@@ -770,9 +770,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempTestElement, aTest);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement
-					.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.testToHumanReadableString(aTest,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					testFormatter.testToHumanReadableString(aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -827,7 +826,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.tableTestToHumanReadableString(
-					aTest, UnresolvableVariableHandling.RESOLVE_TO_QUESTIONMARK_STRING));
+					aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1100,7 +1099,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempParameterElement.setAttribute(
 					PARAMETER_VALUE_ATTRIBUTE,
 					valueConverter.convertValueToFormattedString(tempEntry.getValue(), false,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
@@ -1108,7 +1107,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		try {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter
 					.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1149,12 +1148,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						RESULT_EXPECTED_VALUE_ATTRIBUTE,
 						valueConverter.convertValueToFormattedString(
 								(tempExpectedValue == null ? true : tempExpectedValue), false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
 				if (tempEntry.getValue().getResult() != null) {
 					tempComparisonResultElement.setAttribute(
 							RESULT_REAL_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-									tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING)
+									tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
 									.toFormattedString());
 				}
 
@@ -1187,9 +1186,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempCallElement, aCall);
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
-			tempCallElement
-					.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.callToHumanReadableString(aCall,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING));
+			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					testFormatter.callToHumanReadableString(aCall, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		} catch (ClassNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1228,7 +1226,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				tempParameterElement.setAttribute(
 						PARAMETER_VALUE_ATTRIBUTE,
 						valueConverter.convertValueToFormattedString(tempParameter.getValue(), false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
 
 				tempParameterCollectionElement.addContent(tempParameterElement);
 			}
@@ -1287,7 +1285,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					tempVariableUpdateElement.setAttribute(
 							VARIABLE_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -1665,7 +1663,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempVariableElement.setAttribute(
 					VARIABLE_VALUE_ATTRIBUTE,
 					valueConverter.convertValueToFormattedString(anInitialValue, false,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_STRING).toFormattedString());
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
 		}
 
 		if (!isDryRun()) {
