@@ -292,8 +292,8 @@ public final class DateUtil {
 			if (!tempTimeValue.contains(".")) {
 				// inject milliseconds, if none are present but seconds are given
 				if (tempHasTimezone) {
-					tempTimeValue = tempTimeValue.substring(0, aTimeString.length() - 4) + ".000"
-							+ tempTimeValue.substring(aTimeString.length() - 4);
+					tempTimeValue = tempTimeValue.substring(0, tempTimeValue.length() - 5) + ".000"
+							+ tempTimeValue.substring(tempTimeValue.length() - 5);
 				} else {
 					tempTimeValue += ".000";
 				}

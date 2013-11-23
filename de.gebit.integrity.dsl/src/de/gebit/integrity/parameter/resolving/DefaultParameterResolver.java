@@ -42,6 +42,7 @@ import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -184,10 +185,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 					return null;
 				case RESOLVE_TO_NAME_STRING:
 					return tempVariable.getName().getName();
-				case RESOLVE_TO_NULL_STRING:
-					return "null";
-				case RESOLVE_TO_QUESTIONMARK_STRING:
-					return "???";
+				case RESOLVE_TO_UNRESOLVABLE_OBJECT:
+					return UnresolvableVariable.getInstance();
 				case EXCEPTION:
 				default:
 					throw new UnresolvableVariableException("Unresolvable variable " + tempVariable.getName().getName()
