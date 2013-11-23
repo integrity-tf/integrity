@@ -6,13 +6,9 @@ packagedef mypackage with
 	variable var
 
 	suitedef asuite with
-		test echo echo: {
-				abc: 123
-				"123": "abc"
-			} = {
-				abc: 123
-				"123": "abc"
-			}
+		test echo echo: 01:00:00-0100
+		
+		test echo echo: 2013-06-24T10:00:00Z
 	suiteend
-	 
+				
 packageend
