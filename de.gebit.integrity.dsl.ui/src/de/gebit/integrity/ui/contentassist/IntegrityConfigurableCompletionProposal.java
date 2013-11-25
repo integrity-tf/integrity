@@ -85,33 +85,33 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	}
 
 	@Override
-	public void setAdditionalProposalInfo(Object anAdditionalProposalInfo) {
+	public void setAdditionalProposalInfo(final Object anAdditionalProposalInfo) {
+		Object tempAdditionalProposalInfo = anAdditionalProposalInfo;
+
 		if (anAdditionalProposalInfo instanceof EObject && ((EObject) anAdditionalProposalInfo).eIsProxy()
 				&& requiresResolvingForContentAssist((EObject) anAdditionalProposalInfo)) {
 
-			// set up provider to resolve object when necessary (-> called by documentation provider)
-			final EObject tempObject = (EObject) anAdditionalProposalInfo;
-			super.setAdditionalProposalInfo(new Provider<EObject>() {
+			// resolve the proxy before continuing
+			tempAdditionalProposalInfo = new Provider<EObject>() {
 
 				@Override
 				public EObject get() {
-					return EcoreUtil.resolve(tempObject, context.getResource());
+					return EcoreUtil.resolve((EObject) anAdditionalProposalInfo, context.getResource());
 				}
-			});
-		} else {
-			// no resolving necessary
-			if (anAdditionalProposalInfo instanceof VariableOrConstantEntity
-					&& ((VariableOrConstantEntity) anAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
-				suiteDefiningProposedParameter = (SuiteDefinition) ((VariableOrConstantEntity) anAdditionalProposalInfo)
-						.eContainer();
-
-				// suite parameter proposals are NEVER scoped, even though XText might think so...
-				String[] tempReplacementStringParts = getReplacementString().split("\\.");
-				setReplacementString(tempReplacementStringParts[tempReplacementStringParts.length - 1]);
-			}
-
-			super.setAdditionalProposalInfo(anAdditionalProposalInfo);
+			}.get();
 		}
+
+		if (tempAdditionalProposalInfo instanceof VariableOrConstantEntity
+				&& ((VariableOrConstantEntity) tempAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
+			suiteDefiningProposedParameter = (SuiteDefinition) ((VariableOrConstantEntity) tempAdditionalProposalInfo)
+					.eContainer();
+
+			// suite parameter proposals are NEVER scoped, even though XText might think so...
+			String[] tempReplacementStringParts = getReplacementString().split("\\.");
+			setReplacementString(tempReplacementStringParts[tempReplacementStringParts.length - 1]);
+		}
+
+		super.setAdditionalProposalInfo(tempAdditionalProposalInfo);
 	}
 
 	private boolean requiresResolvingForContentAssist(EObject anObject) {
