@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.providers;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -25,7 +26,7 @@ public interface TestResourceProvider {
 	 * 
 	 * @return
 	 */
-	String[] getResourceNames();
+	TestResource[] getResourceNames();
 
 	/**
 	 * Opens a specific named resource. This should return an {@link InputStream} at the start of the data of the
@@ -35,8 +36,20 @@ public interface TestResourceProvider {
 	 * @param aResourceName
 	 *            the resource to be opened
 	 * @return an {@link InputStream} to read the resource
+	 * @throws IOException
 	 */
-	InputStream openResource(String aResourceName);
+	InputStream openResource(TestResource aResourceName) throws IOException;
+
+	/**
+	 * Closes a specified resources' stream (and all the stuff opened for this stream in the background).
+	 * 
+	 * @param aResourceName
+	 *            the resource to be closed
+	 * @param aResourceStream
+	 *            the resource stream to close
+	 * @throws IOException
+	 */
+	void closeResource(TestResource aResourceName, InputStream aResourceStream) throws IOException;
 
 	/**
 	 * Returns the classloader to use for all dynamic class resolving needs.

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
@@ -34,7 +33,7 @@ import de.gebit.integrity.runner.exceptions.ModelLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.exceptions.ValidationException;
-import de.gebit.integrity.runner.providers.FilesystemTestResourceProvider;
+import de.gebit.integrity.runner.providers.FilesystemArchiveTestResourceProvider;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 
 /**
@@ -163,8 +162,14 @@ public class ConsoleTestExecutor {
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");
 		String tempRootSuiteName = getRootSuiteNameFrom(tempRemainingParameters);
-		TestResourceProvider tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
-		validateResourceProvider(tempResourceProvider);
+		TestResourceProvider tempResourceProvider;
+		try {
+			tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
+		} catch (IOException exc) {
+			System.err.println("Encountered an I/O error when preparing the test script resources.");
+			exc.printStackTrace();
+			return;
+		}
 
 		try {
 			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
@@ -263,26 +268,6 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
-	 * Performs any validation steps on the provided resource provider, such as checking for ignored references in case
-	 * of a {@link FilesystemTestResourceProvider}. What this method does is highly dependent on the capabilities of the
-	 * method and the actual resource provider class.
-	 * 
-	 * @param aProvider
-	 *            The provider to validate
-	 */
-	protected void validateResourceProvider(TestResourceProvider aProvider) {
-		if (aProvider instanceof FilesystemTestResourceProvider) {
-			FilesystemTestResourceProvider tempProvider = (FilesystemTestResourceProvider) aProvider;
-			if (tempProvider.hasIgnoredReferences()) {
-				for (Entry<String, String> tempIgnored : tempProvider.getIgnoredReferencesWithReasons()) {
-					System.out.println("WARNING: Reference to resource '" + tempIgnored.getKey()
-							+ "' was ignored because it " + tempIgnored.getValue());
-				}
-			}
-		}
-	}
-
-	/**
 	 * Returns all script references from the remaining unparsed parameters.
 	 * 
 	 * @param someRemainingParameters
@@ -351,9 +336,10 @@ public class ConsoleTestExecutor {
 	 * @param aPathList
 	 *            the list with the test script paths
 	 * @return a resource provider instance
+	 * @throws IOException
 	 */
-	protected TestResourceProvider createResourceProvider(List<File> aPathList) {
-		FilesystemTestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider();
+	protected TestResourceProvider createResourceProvider(List<File> aPathList) throws IOException {
+		FilesystemArchiveTestResourceProvider tempResourceProvider = new FilesystemArchiveTestResourceProvider();
 		tempResourceProvider.addAllRecursively(aPathList);
 		return tempResourceProvider;
 	}

@@ -10,13 +10,9 @@ package de.gebit.integrity.runner.providers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * A resource provider which reads test files from the filesystem, either from one or more flat directories or
@@ -26,16 +22,7 @@ import java.util.Set;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class FilesystemTestResourceProvider implements TestResourceProvider {
-	/**
-	 * Path which are specified but got ignored. Key is the path, the value is the reason.
-	 */
-	private Map<String, String> ignoredReferences = new HashMap<String, String>();
-
-	/**
-	 * The paths to the resource files.
-	 */
-	private Set<String> resourceFiles = new HashSet<String>();
+public class FilesystemTestResourceProvider extends AbstractTestResourceProvider {
 
 	/**
 	 * The classloader to use while linking the parsed resources.
@@ -51,7 +38,6 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	 */
 	public void addRecursively(File aResourceFile) {
 		if (!aResourceFile.exists()) {
-			ignoredReferences.put(aResourceFile.getPath(), "does not exists");
 			return;
 		}
 		if (!aResourceFile.isDirectory()) {
@@ -83,57 +69,22 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 	 */
 	public void addFile(File aResourceFile) {
 		if (!aResourceFile.exists()) {
-			ignoredReferences.put(aResourceFile.getPath(), "does not exists");
 			return;
 		}
 		if (!aResourceFile.isFile()) {
-			ignoredReferences.put(aResourceFile.getPath(), "is no file");
 			return;
 		}
-		if (!aResourceFile.getAbsolutePath().endsWith(".integrity")) {
-			ignoredReferences.put(aResourceFile.getPath(), "is no integrity file (*.integrity)");
+		if (!aResourceFile.getName().toLowerCase().endsWith(INTEGRITY_TEST_FILES_SUFFIX)) {
 			return;
 		}
-		resourceFiles.add(aResourceFile.getAbsolutePath());
-	}
-
-	/**
-	 * Returns all references which got ignored and returns a reason along why they got ignored.
-	 * 
-	 * @return Ignored references with a reason.
-	 */
-	public Set<Entry<String, String>> getIgnoredReferencesWithReasons() {
-		return ignoredReferences.entrySet();
-	}
-
-	/**
-	 * Returns all references which got ignored.
-	 * 
-	 * @return All references which got ignored.
-	 */
-	public Set<String> getIgnoredReferences() {
-		return ignoredReferences.keySet();
-	}
-
-	/**
-	 * Checks if any reference got ignored.
-	 * 
-	 * @return <code>true</code> if any reference got ignored, <code>false</code> otherwise.
-	 */
-	public boolean hasIgnoredReferences() {
-		return !ignoredReferences.isEmpty();
+		createAndAddResource(aResourceFile.getAbsolutePath());
 	}
 
 	@Override
-	public String[] getResourceNames() {
-		return resourceFiles.toArray(new String[0]);
-	}
-
-	@Override
-	public InputStream openResource(String aResourceName) {
+	public InputStream openResource(TestResource aResourceName) {
 		if (resourceFiles.contains(aResourceName)) {
 			try {
-				return new FileInputStream(new File(aResourceName));
+				return new FileInputStream(new File(aResourceName.getName()));
 			} catch (FileNotFoundException exc) {
 				exc.printStackTrace();
 				return null;
@@ -141,6 +92,11 @@ public class FilesystemTestResourceProvider implements TestResourceProvider {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void closeResource(TestResource aResourceName, InputStream aResourceStream) throws IOException {
+		aResourceStream.close();
 	}
 
 	public void setClassLoader(ClassLoader aClassLoader) {

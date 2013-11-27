@@ -3,12 +3,8 @@ import mysecondpackage.*
 
 packagedef mypackage with
 
-	variable var
-
 	suitedef asuite with
-		test echo echo: 01:00:00-0100
-		
-		test echo echo: 2013-06-24T10:00:00Z
+		 test echo echo: 123 = 123
 	suiteend
-				
+	
 packageend

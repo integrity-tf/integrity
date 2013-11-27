@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
+import de.gebit.integrity.runner.providers.TestResource;
 import de.gebit.integrity.runner.providers.TestResourceProvider;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -357,12 +359,17 @@ public class TestModel {
 		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
 		List<Model> tempModels = new LinkedList<Model>();
 
-		for (String tempResourceName : aResourceProvider.getResourceNames()) {
-			URI tempUri = URI.createPlatformResourceURI(tempResourceName, true);
+		for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
+			URI tempUri = tempResourceName.createPlatformResourceURI();
 			XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
 			tempResourceSet.getResources().add(tempResource);
 			try {
-				tempResource.load(aResourceProvider.openResource(tempResourceName), null);
+				InputStream tempStream = aResourceProvider.openResource(tempResourceName);
+				try {
+					tempResource.load(tempStream, null);
+				} finally {
+					aResourceProvider.closeResource(tempResourceName, tempStream);
+				}
 			} catch (IOException exc) {
 				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
 			}
