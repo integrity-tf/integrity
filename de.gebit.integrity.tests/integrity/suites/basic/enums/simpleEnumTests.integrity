@@ -1,0 +1,20 @@
+packagedef integrity.basic.enums with	
+	
+	suitedef simpleEnumTests with
+		
+		// This test should succeed
+		test integrity.fixtures.basic.noop.echoEnumTest enum: VALUE1 = VALUE1
+		
+		// This test should fail
+		test integrity.fixtures.basic.noop.echoEnumTest enum: VALUE1 = VALUE2
+		
+		// Put an enum into a variable, then perform a test
+		variable aVar		
+		call integrity.fixtures.basic.noop.echoEnum enum: VALUE1 -> aVar
+		
+		// This test should succeed
+		test integrity.fixtures.basic.noop.echoEnumTest enum: aVar = VALUE1
+	
+	suiteend
+
+packageend

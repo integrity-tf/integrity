@@ -144,4 +144,17 @@ public class NoOpFixture {
 			@FixtureParameter(name = "mandatory") int aMandatoryParameter) {
 		return true;
 	}
+
+	@FixtureMethod(description = "Returns an enum: $enum$")
+	public Enum echoEnum(@FixtureParameter(name = "enum") Enum aValue) {
+		return aValue;
+	}
+
+	public enum Enum {
+
+		VALUE1,
+
+		VALUE2;
+
+	}
 }
