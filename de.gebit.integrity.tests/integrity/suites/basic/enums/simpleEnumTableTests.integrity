@@ -1,0 +1,24 @@
+packagedef integrity.basic.enums with
+	
+	suitedef simpleEnumTableTests with
+	
+		// Put an enum into a variable in order to use it in tests
+		variable aVar		
+		call integrity.fixtures.basic.noop.echoEnum enum: VALUE1 -> aVar
+	
+		// Perform various combinations of tests. Some should succeed, some should fail
+		tabletest integrity.fixtures.basic.noop.echoEnumTest
+			| enum   | =      |
+			| VALUE1 | VALUE1 |
+			| VALUE1 | VALUE2 |
+			| VALUE2 | VALUE1 |
+			| VALUE2 | VALUE2 |
+			| aVar   | VALUE1 |
+			| aVar   | VALUE2 |
+			| aVar   | aVar   |
+			| VALUE1 | aVar   |
+			| VALUE2 | aVar   |			
+				
+	suiteend
+
+packageend

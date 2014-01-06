@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="06.01.14 17:23" isotimestamp="2014-01-06T17:23:17" duration="18.268">
+  <variables />
+  <suite id="0" name="integrity.basic.enums.simpleEnumCalls" timestamp="06.01.14 17:23:17.0528">
+    <setup />
+    <variables>
+      <variable name="aVar" />
+    </variables>
+    <statements>
+      <call id="1" line="6" name="echoEnum" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="06.01.14 17:23:17.0543">
+        <parameters>
+          <parameter name="enum" value="VALUE1" />
+        </parameters>
+        <result duration="1.510" type="success" />
+      </call>
+      <call id="2" line="10" name="echoEnum" description="Returns an enum: VALUE2" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="06.01.14 17:23:17.0543">
+        <parameters>
+          <parameter name="enum" value="VALUE2" />
+        </parameters>
+        <result duration="0.898" type="success">
+          <variableUpdate name="aVar" value="VALUE2" />
+        </result>
+      </call>
+    </statements>
+    <teardown />
+    <result duration="14.155" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
