@@ -47,6 +47,8 @@ import de.gebit.integrity.dsl.PackageStatement;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -236,30 +238,20 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
-	 * Limits enumeration values in parameters to actually existent enumeration literals.
+	 * Determine valid enumeration values for the provided parameter name of the provided fixture method reference.
 	 * 
-	 * @param aParameter
-	 * @param aRef
+	 * @param aMethodRef
+	 * @param aParameterName
 	 * @return
 	 */
-	// SUPPRESS CHECKSTYLE MethodName
-	public IScope scope_EnumValue_enumValue(Parameter aParameter, EReference aRef) {
-		MethodReference tempMethodRef = null;
-		if (aParameter.eContainer() instanceof Test) {
-			tempMethodRef = ((Test) aParameter.eContainer()).getDefinition().getFixtureMethod();
-		} else if (aParameter.eContainer() instanceof Call) {
-			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
-		}
+	protected IScope determineParameterEnumValueScope(MethodReference aMethodRef, ParameterName aParameterName) {
+		if (aParameterName instanceof FixedParameterName) {
+			JvmAnnotationReference tempAnnotationRef = ((FixedParameterName) aParameterName).getAnnotation();
 
-		ParameterName tempParamName = aParameter.getName();
-
-		if (tempParamName instanceof FixedParameterName) {
-			JvmAnnotationReference tempAnnotationRef = ((FixedParameterName) tempParamName).getAnnotation();
-
-			if (tempMethodRef != null && tempAnnotationRef != null) {
+			if (aMethodRef != null && tempAnnotationRef != null) {
 				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 				List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
-						.getAllEnumLiteralsFromFixtureMethodParam(tempMethodRef, tempAnnotationRef);
+						.getAllEnumLiteralsFromFixtureMethodParam(aMethodRef, tempAnnotationRef);
 				if (tempLiteralList != null) {
 					for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
 						tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
@@ -276,20 +268,16 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
-	 * Limit enum values in test results to actually existent enumeration literals.
+	 * Determine valid enumeration values for the default result type of the provided fixture method reference.
 	 * 
-	 * @param aTest
-	 * @param aRef
+	 * @param aMethodRef
 	 * @return
 	 */
-	// SUPPRESS CHECKSTYLE MethodName
-	public IScope scope_EnumValue_enumValue(Test aTest, EReference aRef) {
-		MethodReference tempMethodRef = aTest.getDefinition().getFixtureMethod();
-
-		if (tempMethodRef != null) {
+	protected IScope determineDefaultResultEnumValueScope(MethodReference aMethodRef) {
+		if (aMethodRef != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
-					.getAllEnumLiteralsFromJvmTypeReference(tempMethodRef.getMethod().getReturnType());
+					.getAllEnumLiteralsFromJvmTypeReference(aMethodRef.getMethod().getReturnType());
 			if (tempLiteralList != null) {
 				for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
 					tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
@@ -300,6 +288,65 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 
 		return IScope.NULLSCOPE;
+	}
+
+	/**
+	 * Limits enumeration values in parameters to actually existent enumeration literals.
+	 * 
+	 * @param aParameter
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_EnumValue_enumValue(Parameter aParameter, EReference aRef) {
+		MethodReference tempMethodRef = null;
+		if (aParameter.eContainer() instanceof Test) {
+			tempMethodRef = ((Test) aParameter.eContainer()).getDefinition().getFixtureMethod();
+		} else if (aParameter.eContainer() instanceof Call) {
+			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
+		}
+
+		return determineParameterEnumValueScope(tempMethodRef, aParameter.getName());
+	}
+
+	/**
+	 * Lists enumeration values in tabletest parameters (which can be actual parameters or results, depending on the
+	 * header of the column).
+	 * 
+	 * @param aParameter
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_EnumValue_enumValue(ParameterTableValue aParameter, EReference aRef) {
+		MethodReference tempMethodRef = ((TableTest) aParameter.eContainer().eContainer()).getDefinition()
+				.getFixtureMethod();
+
+		EObject tempTableHeader = IntegrityDSLUtil.getTableHeaderForTableCell(aParameter);
+
+		if (tempTableHeader instanceof ParameterTableHeader) {
+			// it's a specific parameter column
+			return determineParameterEnumValueScope(tempMethodRef, ((ParameterTableHeader) tempTableHeader).getName());
+		} else if (tempTableHeader instanceof ResultTableHeader) {
+			// TODO add named result path
+		} else if (tempTableHeader instanceof TableTest) {
+			// it is the default result column
+			return determineDefaultResultEnumValueScope(tempMethodRef);
+		}
+
+		return IScope.NULLSCOPE;
+	}
+
+	/**
+	 * Limit enum values in test results to actually existent enumeration literals.
+	 * 
+	 * @param aTest
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_EnumValue_enumValue(Test aTest, EReference aRef) {
+		return determineDefaultResultEnumValueScope(aTest.getDefinition().getFixtureMethod());
 	}
 
 	/**

@@ -1,0 +1,14 @@
+packagedef integrity.basic.enums with
+
+	suitedef simpleEnumCalls with
+		
+		// Just echo an enum into nowhere
+		call integrity.fixtures.basic.noop.echoEnum enum: VALUE1
+	
+		// Echo an enum into a variable
+		variable aVar		
+		call integrity.fixtures.basic.noop.echoEnum enum: VALUE2 -> aVar
+	
+	suiteend
+
+packageend
