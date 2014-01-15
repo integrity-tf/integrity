@@ -10,8 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 import java.math.BigDecimal;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -23,7 +23,7 @@ public class StringToNumber extends Conversion<String, Number> {
 
 	@Override
 	public BigDecimal convert(String aSource, Class<? extends Number> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return new BigDecimal(aSource);
 		} catch (NumberFormatException exc) {

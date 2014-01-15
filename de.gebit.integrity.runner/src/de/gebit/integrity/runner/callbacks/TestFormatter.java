@@ -24,6 +24,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -86,12 +87,15 @@ public class TestFormatter {
 	 * @throws UnexecutableException
 	 * @throws MethodNotFoundException
 	 */
-	public String testToHumanReadableString(Test aTest,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException, MethodNotFoundException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
-				parameterResolver.createParameterMap(aTest, true, anUnresolvableVariableHandlingPolicy),
-				anUnresolvableVariableHandlingPolicy);
+	public String testToHumanReadableString(Test aTest, ConversionContext aConversionContext)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
+		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				aTest,
+				parameterResolver.createParameterMap(aTest, true,
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
 	}
 
 	/**
@@ -108,11 +112,15 @@ public class TestFormatter {
 	 * @throws MethodNotFoundException
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException, MethodNotFoundException {
-		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
-				parameterResolver.createParameterMap(aTest, aRow, true, anUnresolvableVariableHandlingPolicy),
-				anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException, MethodNotFoundException {
+		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+
+		return fixtureMethodToHumanReadableString(
+				aTest.getDefinition().getFixtureMethod(),
+				aTest,
+				parameterResolver.createParameterMap(aTest, aRow, true,
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
 	}
 
 	/**
@@ -126,14 +134,15 @@ public class TestFormatter {
 	 * @throws UnexecutableException
 	 * @throws MethodNotFoundException
 	 */
-	public String tableTestToHumanReadableString(TableTest aTest,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException, MethodNotFoundException {
+	public String tableTestToHumanReadableString(TableTest aTest, ConversionContext aConversionContext)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
+		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
 				aTest,
-				parameterResolver.createParameterMap(aTest.getParameters(), true, anUnresolvableVariableHandlingPolicy),
-				anUnresolvableVariableHandlingPolicy);
+				parameterResolver.createParameterMap(aTest.getParameters(), true,
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
 	}
 
 	/**
@@ -147,12 +156,15 @@ public class TestFormatter {
 	 * @throws UnexecutableException
 	 * @throws MethodNotFoundException
 	 */
-	public String callToHumanReadableString(Call aCall,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException, MethodNotFoundException {
-		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall,
-				parameterResolver.createParameterMap(aCall, true, anUnresolvableVariableHandlingPolicy),
-				anUnresolvableVariableHandlingPolicy);
+	public String callToHumanReadableString(Call aCall, ConversionContext aConversionContext)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
+		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+
+		return fixtureMethodToHumanReadableString(
+				aCall.getDefinition().getFixtureMethod(),
+				aCall,
+				parameterResolver.createParameterMap(aCall, true,
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
 	}
 
 	/**
@@ -164,17 +176,17 @@ public class TestFormatter {
 	 *            the suite statement currently being executed, if known
 	 * @param someParameters
 	 *            a map of parameters used for the test
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            the conversion context to use for conversion of parameters, if necessary
 	 * @return the human-readable string
 	 * @throws ClassNotFoundException
 	 * @throws MethodNotFoundException
 	 */
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
 			SuiteStatementWithResult aStatement, Map<String, Object> someParameters,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			MethodNotFoundException {
+			ConversionContext aConversionContext) throws ClassNotFoundException, MethodNotFoundException {
+		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+
 		Method tempMethod = classLoader.loadMethod(aFixtureMethod);
 
 		FixtureMethod tempAnnotation = tempMethod.getAnnotation(FixtureMethod.class);
@@ -200,7 +212,7 @@ public class TestFormatter {
 
 		tempText = replaceConditionalTextBlocks(tempText, someParameters);
 
-		tempText = replaceParameters(tempText, someParameters, anUnresolvableVariableHandlingPolicy);
+		tempText = replaceParameters(tempText, someParameters, tempConversionContext);
 
 		return tempText;
 	}
@@ -254,12 +266,12 @@ public class TestFormatter {
 	 *            the text to start with
 	 * @param someParameters
 	 *            the parameters
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            the unresolvable variable handling policy
+	 * @param aConversionContext
+	 *            the conversion context to use for conversion of parameters, if necessary
 	 * @return the resulting text
 	 */
 	protected String replaceParameters(String anInput, Map<String, Object> someParameters,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			ConversionContext aConversionContext) {
 		String tempString = anInput;
 
 		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempString);
@@ -269,13 +281,12 @@ public class TestFormatter {
 			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
 			String tempValue = null;
 			if (tempValueBeforeConversion == null
-					&& anUnresolvableVariableHandlingPolicy == UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT) {
+					&& aConversionContext.getUnresolvableVariableHandlingPolicy() == UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT) {
 				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
 				// that's required for unresolvable parameters as well; this is typically required for tabletests.
 				tempValue = UnresolvableVariable.getInstance().toString();
 			} else {
-				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false,
-						anUnresolvableVariableHandlingPolicy);
+				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false, aConversionContext);
 			}
 
 			tempString = tempMatcher.group(1) + tempValue + tempMatcher.group(3);

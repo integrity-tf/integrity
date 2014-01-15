@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormatTokenElement;
 import de.gebit.integrity.string.FormatTokenElement.FormatTokenType;
 import de.gebit.integrity.string.FormattedString;
@@ -41,12 +41,12 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 */
-	protected FormattedString convertToFormattedString(Map aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected FormattedString convertToFormattedString(Map aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		FormattedString tempBuffer = new FormattedString("{");
 		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
@@ -62,7 +62,7 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 			boolean tempFirst = true;
 			for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
 				FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(
-						tempEntry.getValue(), anUnresolvableVariableHandlingPolicy);
+						tempEntry.getValue(), aConversionContext);
 
 				if (!tempFirst) {
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE, ", "));

@@ -21,8 +21,8 @@ import java.util.TreeMap;
 
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -36,8 +36,8 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 public class ObjectToMap extends Conversion<Object, Map> {
 
 	@Override
-	public Map convert(Object aSource, Class<? extends Map> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Map convert(Object aSource, Class<? extends Map> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		// Using a Tree Map here for values ordered by key
 		Map<String, Object> tempKeyValueMap = new TreeMap<String, Object>();
 
@@ -53,13 +53,12 @@ public class ObjectToMap extends Conversion<Object, Map> {
 						Iterator<?> tempIterator = tempCollectionValue.iterator();
 						while (tempIterator.hasNext()) {
 							Object tempConvertedValue = convertValueRecursive(null, null, tempIterator.next(),
-									anUnresolvableVariableHandlingPolicy);
+									aConversionContext);
 							tempList.add(tempConvertedValue);
 						}
 						tempKeyValueMap.put(tempDescriptor.getName(), tempList.toArray());
 					} else {
-						Object tempConvertedValue = convertValueRecursive(null, null, tempValue,
-								anUnresolvableVariableHandlingPolicy);
+						Object tempConvertedValue = convertValueRecursive(null, null, tempValue, aConversionContext);
 						tempKeyValueMap.put(tempDescriptor.getName(), tempConvertedValue);
 					}
 				}

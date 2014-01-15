@@ -27,14 +27,13 @@ public interface ValueConverter {
 	 *            the target type
 	 * @param aValue
 	 *            the value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the converted object
 	 */
-	Object convertValue(Class<?> aTargetType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			UnexecutableException;
+	Object convertValue(Class<?> aTargetType, Object aValue, ConversionContext aConversionContext)
+			throws UnresolvableVariableException, UnexecutableException;
 
 	/**
 	 * Convert a given single Integrity or Java type value to a given target type (which is always a Java type).
@@ -47,14 +46,13 @@ public interface ValueConverter {
 	 *            Integer
 	 * @param aValue
 	 *            the value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the converted object
 	 */
 	Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			UnexecutableException;
+			ConversionContext aConversionContext) throws UnresolvableVariableException, UnexecutableException;
 
 	/**
 	 * Converts a given value to a String. This method is intended to be used for the output of values (for example in
@@ -66,13 +64,12 @@ public interface ValueConverter {
 	 *            the value (can be an Integrity-internal type or a plain Java Object)
 	 * @param aForceIntermediateMapFlag
 	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the string
 	 */
-	String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+	String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag, ConversionContext aConversionContext);
 
 	/**
 	 * Converts a given value to a formattedString. This method is intended to be used for the output of values (for
@@ -84,13 +81,13 @@ public interface ValueConverter {
 	 *            the value (can be an Integrity-internal type or a plain Java Object)
 	 * @param aForceIntermediateMapFlag
 	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the string
 	 */
 	FormattedString convertValueToFormattedString(Object aValue, boolean aForceIntermediateMapFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext);
 
 	/**
 	 * Converts a given value to a String array. This method is intended to be used for the output of values (for
@@ -98,12 +95,12 @@ public interface ValueConverter {
 	 * 
 	 * @param aValue
 	 *            the value (can be an Integrity-internal type or a plain Java Object)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the string array
 	 */
-	String[] convertValueToStringArray(Object aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+	String[] convertValueToStringArray(Object aValue, ConversionContext aConversionContext);
 
 	/**
 	 * Converts a given value to a formatted String array. This method is intended to be used for the output of values
@@ -111,11 +108,10 @@ public interface ValueConverter {
 	 * 
 	 * @param aValue
 	 *            the value (can be an Integrity-internal type or a plain Java Object)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the string array
 	 */
-	FormattedString[] convertValueToFormattedStringArray(Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy);
+	FormattedString[] convertValueToFormattedStringArray(Object aValue, ConversionContext aConversionContext);
 }

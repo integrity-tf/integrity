@@ -7,8 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -21,8 +21,8 @@ public class BooleanToFormattedString extends AbstractBooleanToString<FormattedS
 
 	@Override
 	public FormattedString convert(Boolean aSource, Class<? extends FormattedString> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return convertToFormattedString(aSource, aConversionContext);
 	}
 
 }

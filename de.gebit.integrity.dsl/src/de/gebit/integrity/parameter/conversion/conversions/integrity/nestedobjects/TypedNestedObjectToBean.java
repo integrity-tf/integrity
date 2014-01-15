@@ -12,8 +12,8 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -33,7 +33,7 @@ public class TypedNestedObjectToBean extends Conversion<TypedNestedObject, Objec
 
 	@Override
 	public Object convert(TypedNestedObject aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 
 		Class<? extends Object> tempTargetType;
 		try {
@@ -50,8 +50,7 @@ public class TypedNestedObjectToBean extends Conversion<TypedNestedObject, Objec
 		}
 
 		try {
-			return convertValueRecursive(tempTargetType, null, aSource.getNestedObject(),
-					anUnresolvableVariableHandlingPolicy);
+			return convertValueRecursive(tempTargetType, null, aSource.getNestedObject(), aConversionContext);
 		} catch (UnresolvableVariableException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
 		} catch (ClassNotFoundException exc) {

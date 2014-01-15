@@ -15,8 +15,8 @@ import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormatTokenElement;
 import de.gebit.integrity.string.FormatTokenElement.FormatTokenType;
 import de.gebit.integrity.string.FormattedString;
@@ -44,13 +44,13 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 * @throws ConversionFailedException
 	 */
-	protected FormattedString convertToFormattedString(NestedObject aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected FormattedString convertToFormattedString(NestedObject aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		FormattedString tempBuffer = new FormattedString("{");
 		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
@@ -68,7 +68,7 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 				Object tempConvertedValue;
 				try {
 					tempConvertedValue = convertValueRecursive(FormattedString[].class, null, tempAttribute.getValue(),
-							anUnresolvableVariableHandlingPolicy);
+							aConversionContext);
 				} catch (ClassNotFoundException exc) {
 					throw new ConversionFailedException(NestedObject.class, Map.class, null, exc);
 				} catch (UnexecutableException exc) {

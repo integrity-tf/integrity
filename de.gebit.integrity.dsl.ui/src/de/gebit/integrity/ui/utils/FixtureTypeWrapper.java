@@ -48,6 +48,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -192,8 +193,7 @@ public class FixtureTypeWrapper {
 								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 									Object tempSingleValue = ((Object[]) tempValue)[k];
 									Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-											tempExpectedType.getComponentType(), tempSingleValue,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+											tempExpectedType.getComponentType(), tempSingleValue, null));
 								}
 								tempConvertedValue = tempConvertedValueArray;
 							} else {
@@ -203,7 +203,7 @@ public class FixtureTypeWrapper {
 								Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 										.getComponentType() : tempExpectedType;
 								tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+										null);
 								if (tempExpectedType.isArray()) {
 									// ...and if the expected type is an array, now we create one
 									Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -230,8 +230,7 @@ public class FixtureTypeWrapper {
 					Object tempValue = aParameterMap.remove(tempName);
 					if (tempValue != null) {
 						Object tempConvertedValue;
-						tempConvertedValue = valueConverter.convertValue(null, tempValue,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						tempConvertedValue = valueConverter.convertValue(null, tempValue, null);
 						aParameterMap.put(tempName, tempConvertedValue);
 					}
 				}
@@ -288,7 +287,8 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName.getRawType());
-				return valueConverter.convertValue(tempTargetType, aValue, UnresolvableVariableHandling.EXCEPTION);
+				return valueConverter.convertValue(tempTargetType, aValue, new ConversionContext()
+						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert
 			} catch (UnexecutableException exc) {

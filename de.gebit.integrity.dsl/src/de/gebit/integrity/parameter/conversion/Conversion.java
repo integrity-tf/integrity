@@ -49,15 +49,15 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 *            the source object to convert
 	 * @param aTargetType
 	 *            TODO
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            controls some conversion parameters and rules; may be null if the default {@link ConversionContext}
+	 *            values shall be used
 	 * @return the converted object
 	 * @throws ConversionFailedException
 	 *             in case of conversion errors
 	 */
-	public abstract TO convert(FROM aSource, Class<? extends TO> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException;
+	public abstract TO convert(FROM aSource, Class<? extends TO> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException;
 
 	/**
 	 * Add this annotation to a {@link Conversion} implementation to set the priority of this conversion. Priorities are
@@ -93,8 +93,8 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 *            the parameterized type in case of generics
 	 * @param aValue
 	 *            the value to convert
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            what to do with unresolvable variables
+	 * @param aConversionContext
+	 *            some parameters controlling the conversion (if null, a default context is used)
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
@@ -102,14 +102,13 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 * @throws InstantiationException
 	 */
 	protected Object convertValueRecursive(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			ClassNotFoundException, UnexecutableException, InstantiationException {
+			ConversionContext aConversionContext) throws UnresolvableVariableException, ClassNotFoundException,
+			UnexecutableException, InstantiationException {
 		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {
 			return ((AbstractModularValueConverter) valueConverter).convertValue(aTargetType, aParameterizedType,
-					aValue, anUnresolvableVariableHandlingPolicy, visitedObjects);
+					aValue, aConversionContext, visitedObjects);
 		} else {
-			return valueConverter.convertValue(aTargetType, aParameterizedType, aValue,
-					anUnresolvableVariableHandlingPolicy);
+			return valueConverter.convertValue(aTargetType, aParameterizedType, aValue, aConversionContext);
 		}
 	}
 
@@ -119,17 +118,17 @@ public abstract class Conversion<FROM extends Object, TO extends Object> {
 	 * 
 	 * @param aValue
 	 *            the value to convert
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how to deal with unresolvable variables
+	 * @param aConversionContext
+	 *            some parameters controlling the conversion (if null, a default context is used)
 	 * @return the converted string array
 	 */
 	protected FormattedString[] convertValueToFormattedStringArrayRecursive(Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			ConversionContext aConversionContext) {
 		if ((valueConverter instanceof AbstractModularValueConverter) && visitedObjects != null) {
 			return ((AbstractModularValueConverter) valueConverter).convertValueToStringArray(aValue,
-					anUnresolvableVariableHandlingPolicy, visitedObjects);
+					aConversionContext, visitedObjects);
 		} else {
-			return valueConverter.convertValueToFormattedStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+			return valueConverter.convertValueToFormattedStringArray(aValue, aConversionContext);
 		}
 	}
 

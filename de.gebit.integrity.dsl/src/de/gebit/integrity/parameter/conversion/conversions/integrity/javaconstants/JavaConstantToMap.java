@@ -10,8 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.javaconsta
 import java.util.Map;
 
 import de.gebit.integrity.dsl.JavaConstantValue;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * This conversion converts from {@link JavaConstantValue} to any target type. Basically it reads the constant value
@@ -24,8 +24,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class JavaConstantToMap extends AbstractJavaConstantConversion<Map> {
 
 	@Override
-	public Map convert(JavaConstantValue aSource, Class<? extends Map> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return (Map) performConversion(aSource, aTargetType, anUnresolvableVariableHandlingPolicy);
+	public Map convert(JavaConstantValue aSource, Class<? extends Map> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
+		return (Map) performConversion(aSource, aTargetType, aConversionContext);
 	}
 }

@@ -79,6 +79,7 @@ import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -597,7 +598,8 @@ public class DefaultTestRunner implements TestRunner {
 		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
 			try {
 				tempCount = (Integer) valueConverter.convertValue(Integer.class, aSuiteCall.getMultiplier().getCount(),
-						UnresolvableVariableHandling.EXCEPTION);
+						new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException();
@@ -1453,7 +1455,8 @@ public class DefaultTestRunner implements TestRunner {
 		if (aCall.getMultiplier() != null && aCall.getMultiplier().getCount() != null) {
 			try {
 				tempCount = (Integer) valueConverter.convertValue(Integer.class, aCall.getMultiplier().getCount(),
-						UnresolvableVariableHandling.EXCEPTION);
+						new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException();
@@ -1876,8 +1879,12 @@ public class DefaultTestRunner implements TestRunner {
 										.getParamNameStringFromParameterName(tempParameter.getName());
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-									tempParameters[i] = valueConverter.convertValue(tempTargetType,
-											tempParameter.getValue(), UnresolvableVariableHandling.EXCEPTION);
+									tempParameters[i] = valueConverter
+											.convertValue(
+													tempTargetType,
+													tempParameter.getValue(),
+													new ConversionContext()
+															.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 									break;
 								}
 							}

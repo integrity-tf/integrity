@@ -12,8 +12,8 @@ import java.text.ParseException;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -33,13 +33,13 @@ public abstract class AbstractDateAndTimeValueToString<T> extends Conversion<Dat
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 * @throws ConversionFailedException
 	 */
-	protected FormattedString convertToFormattedString(DateAndTimeValue aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected FormattedString convertToFormattedString(DateAndTimeValue aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		try {
 			return new FormattedString(DateUtil.formatDateWithMilliseconds(
 					DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG),

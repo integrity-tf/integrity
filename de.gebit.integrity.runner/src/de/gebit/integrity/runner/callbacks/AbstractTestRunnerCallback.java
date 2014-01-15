@@ -19,8 +19,8 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -65,19 +65,18 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	 *            the execution result which provides access to the fixture instance and method
 	 * @param aForceIntermediateMapFlag
 	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            what to do with unresolvable variables
+	 * @param aConversionContext
+	 *            the conversion context to use (null = default)
 	 * @return the converted string
 	 */
 	protected FormattedString convertResultValueToFormattedStringGuarded(Object aResultValue,
-			FixtureExecutionResult aResult, boolean aForceIntermediateMapFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			FixtureExecutionResult aResult, boolean aForceIntermediateMapFlag, ConversionContext aConversionContext) {
 		if (aResult.getFixtureInstance() != null) {
 			return aResult.getFixtureInstance().performValueToFormattedStringConversion(aResultValue,
-					aResult.getFixtureMethod(), aForceIntermediateMapFlag, anUnresolvableVariableHandlingPolicy);
+					aResult.getFixtureMethod(), aForceIntermediateMapFlag, aConversionContext);
 		} else {
 			return valueConverter.convertValueToFormattedString(aResultValue, aForceIntermediateMapFlag,
-					anUnresolvableVariableHandlingPolicy);
+					aConversionContext);
 		}
 	}
 
@@ -91,14 +90,14 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 	 *            the execution result which provides access to the fixture instance and method
 	 * @param aForceIntermediateMapFlag
 	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            what to do with unresolvable variables
+	 * @param aConversionContext
+	 *            the conversion context to use
 	 * @return the converted string
 	 */
 	protected String convertResultValueToStringGuarded(Object aResultValue, FixtureExecutionResult aResult,
-			boolean aForceIntermediateMapFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			boolean aForceIntermediateMapFlag, ConversionContext aConversionContext) {
 		return convertResultValueToFormattedStringGuarded(aResultValue, aResult, aForceIntermediateMapFlag,
-				anUnresolvableVariableHandlingPolicy).toUnformattedString();
+				aConversionContext).toUnformattedString();
 	}
 
 	/**
@@ -144,8 +143,7 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 			return containsNestedObject(variableManager.get(((Variable) aValue).getName()));
 		} else if (aValue instanceof CustomOperation) {
 			try {
-				return containsNestedObject(valueConverter.convertValue(null, aValue,
-						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+				return containsNestedObject(valueConverter.convertValue(null, aValue, null));
 			} catch (UnresolvableVariableException exc) {
 				throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null");
 			} catch (UnexecutableException exc) {

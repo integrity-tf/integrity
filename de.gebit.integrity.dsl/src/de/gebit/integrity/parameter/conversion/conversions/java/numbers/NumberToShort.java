@@ -7,9 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion.conversions.java.numbers;
 
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
  * A default Integrity conversion.
@@ -21,7 +21,7 @@ public class NumberToShort extends Conversion<Number, Short> {
 
 	@Override
 	public Short convert(Number aSource, Class<? extends Short> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		return aSource.shortValue();
 	}
 

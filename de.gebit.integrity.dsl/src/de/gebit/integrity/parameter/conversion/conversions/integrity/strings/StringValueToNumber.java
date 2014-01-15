@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -24,7 +24,7 @@ public class StringValueToNumber extends Conversion<StringValue, Number> {
 
 	@Override
 	public BigDecimal convert(StringValue aSource, Class<? extends Number> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return new BigDecimal(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

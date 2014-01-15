@@ -11,8 +11,8 @@ import java.sql.Time;
 import java.util.Calendar;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -24,8 +24,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class CalendarToSQLTime extends Conversion<Calendar, Time> {
 
 	@Override
-	public Time convert(Calendar aSource, Class<? extends Time> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Time convert(Calendar aSource, Class<? extends Time> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return new Time(aSource.getTime().getTime());
 	}
 
