@@ -36,6 +36,8 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.ObjectToObject;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.string.FormattedString;
@@ -257,7 +259,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					} else {
 						// The arrays' target type is determined by looking at the conversion being used
 						Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(tempCurrentArrayType,
-								aTargetType, someVisitedValues);
+								aTargetType, someVisitedValues, aConversionContext);
 						ConversionKey tempKey = conversionToKey.get(tempConversionClass);
 						tempTargetArrayType = tempKey.getTargetType();
 					}
@@ -322,7 +324,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 		try {
 			@SuppressWarnings("rawtypes")
-			Conversion tempConversion = findAndInstantiateConversion(tempSourceType, tempTargetType, someVisitedValues);
+			Conversion tempConversion = findAndInstantiateConversion(tempSourceType, tempTargetType, someVisitedValues,
+					aConversionContext);
 			if (tempConversion != null) {
 				return tempConversion.convert(aValue, tempTargetType, aConversionContext);
 			}
@@ -907,14 +910,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param aTargetType
 	 *            the target type
 	 * @param someVisitedValues
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a ready-to-use, instantiated conversion, or null if none was found
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	protected Conversion<?, ?> findAndInstantiateConversion(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues) throws InstantiationException, IllegalAccessException {
+			Set<Object> someVisitedValues, ConversionContext aConversionContext) throws InstantiationException,
+			IllegalAccessException {
 		Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(aSourceType, aTargetType,
-				someVisitedValues);
+				someVisitedValues, aConversionContext);
+
 		return createConversionInstance(tempConversionClass, someVisitedValues);
 	}
 
@@ -926,18 +933,21 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            the source type
 	 * @param aTargetType
 	 *            the target type
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues) {
-		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType);
+			Set<Object> someVisitedValues, ConversionContext aConversionContext) {
+		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType,
+				aConversionContext);
 
 		if (tempConversion != null) {
 			return tempConversion;
 		}
 
 		// If nothing found yet, continue search in the derived conversion lists
-		return findDerivedConversionRecursive(aSourceType, aTargetType);
+		return findDerivedConversionRecursive(aSourceType, aTargetType, aConversionContext);
 	}
 
 	/**
@@ -952,7 +962,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> findDerivedConversionRecursive(Class<?> aSourceType,
-			Class<?> aTargetType) {
+			Class<?> aTargetType, ConversionContext aConversionContext) {
 		if (aSourceType == null || aTargetType == null) {
 			return null;
 		}
@@ -963,13 +973,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		for (Class<?> tempSourceInterface : aSourceType.getInterfaces()) {
-			tempConversion = findDerivedConversionRecursive(tempSourceInterface, aTargetType);
+			tempConversion = findDerivedConversionRecursive(tempSourceInterface, aTargetType, aConversionContext);
 			if (tempConversion != null) {
 				return tempConversion;
 			}
 		}
 
-		return findDerivedConversionRecursive(aSourceType.getSuperclass(), aTargetType);
+		return findDerivedConversionRecursive(aSourceType.getSuperclass(), aTargetType, aConversionContext);
 	}
 
 	/**
@@ -1000,9 +1010,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            the source type
 	 * @param aTargetType
 	 *            the target type
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a conversion class, or null if none was found
 	 */
-	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType) {
+	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType,
+			ConversionContext aConversionContext) {
 		if (conversionSearchBlockers.contains(aSourceType) || conversionSearchBlockers.contains(aTargetType)) {
 			return null;
 		}
@@ -1012,25 +1025,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
 			if (aTargetType == null || aTargetType == Object.class) {
 				// This is the default target type case
-				tempConversionClass = defaultConversions.get(tempSourceTypeInFocus);
+				tempConversionClass = filterConversionClass(defaultConversions.get(tempSourceTypeInFocus), aSourceType,
+						aTargetType, aConversionContext, true);
 			} else {
 				// We actually have a target type
 				Class<?> tempTargetTypeInFocus = aTargetType;
-				while (tempTargetTypeInFocus != null) {
+				outerLoop: while (tempTargetTypeInFocus != null) {
 					if (conversionSearchBlockers.contains(tempTargetTypeInFocus)) {
 						break;
 					}
-					tempConversionClass = conversions.get(new ConversionKey(tempSourceTypeInFocus,
-							tempTargetTypeInFocus));
+					tempConversionClass = filterConversionClass(
+							conversions.get(new ConversionKey(tempSourceTypeInFocus, tempTargetTypeInFocus)),
+							aSourceType, aTargetType, aConversionContext, false);
+
 					if (tempConversionClass != null) {
-						break;
+						break outerLoop;
 					}
 
 					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
-								tempSourceTypeInFocus, tempTargetInterface);
-						if (tempConversion != null) {
-							return tempConversion;
+						tempConversionClass = findConversionRecursive(tempSourceTypeInFocus, tempTargetInterface,
+								aConversionContext);
+						if (tempConversionClass != null) {
+							break outerLoop;
 						}
 					}
 
@@ -1045,21 +1061,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					if (aTargetType == null || aTargetType == Object.class) {
 						// This is the default target type case
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								null);
+								null, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
 					} else {
 						// We actually have a target type
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								aTargetType);
+								aTargetType, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
 
 						// Search the interfaces of the target type as well
 						for (Class<?> tempTargetInterface : aTargetType.getInterfaces()) {
-							tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface);
+							tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface,
+									aConversionContext);
 							if (tempConversion != null) {
 								return tempConversion;
 							}
@@ -1072,6 +1089,37 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		return null;
+	}
+
+	/**
+	 * This filtering method has the ability to replace a conversion class found by the normal lookup before it's
+	 * actually used. This is the point at which special rules (for example dictated by the {@link ConversionContext})
+	 * may be enforced.
+	 * 
+	 * @param aConversionClass
+	 *            the conversion class in question
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @param aConversionContext
+	 *            the conversion context to use
+	 * @param aDefaultConversionFlag
+	 *            whether this is a default conversion or specifically requested to match the target type
+	 * @return the conversion class to use, which may be the input class or any other replacement
+	 */
+	protected Class<? extends Conversion<?, ?>> filterConversionClass(
+			Class<? extends Conversion<?, ?>> aConversionClass, Class<?> aSourceType, Class<?> aTargetType,
+			ConversionContext aConversionContext, boolean aDefaultConversionFlag) {
+		if (aConversionClass != null) {
+			if (aConversionContext.getSkipBeanToMapDefaultConversion()) {
+				if (aDefaultConversionFlag && ObjectToMap.class.isAssignableFrom(aConversionClass)) {
+					return ObjectToObject.class;
+				}
+			}
+		}
+
+		return aConversionClass;
 	}
 
 	/**

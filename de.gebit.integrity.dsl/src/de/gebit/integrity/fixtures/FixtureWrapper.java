@@ -353,7 +353,11 @@ public class FixtureWrapper<C extends Object> {
 				Object tempValue = aParameterMap.remove(tempName);
 				if (tempValue != null) {
 					Object tempConvertedValue;
-					tempConvertedValue = valueConverter.convertValue(null, tempValue, null);
+					// In case of arbitrary parameters, we don't want to perform the default bean-to-map conversion,
+					// because otherwise one couldn't put any objects into the fixture without having them converted to
+					// maps. See also issue #52: https://github.com/integrity-tf/integrity/issues/52
+					tempConvertedValue = valueConverter.convertValue(null, tempValue,
+							new ConversionContext().skipBeanToMapDefaultConversion());
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}
