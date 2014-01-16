@@ -42,6 +42,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
@@ -75,7 +76,6 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefinition;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
-import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
@@ -111,16 +111,16 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private DSLGrammarAccess grammarAccess;
 
 	/**
-	 * The value converter to use.
-	 */
-	@Inject
-	private ValueConverter valueConverter;
-
-	/**
 	 * The parameter resolver to use.
 	 */
 	@Inject
 	private ParameterResolver parameterResolver;
+
+	/**
+	 * The injector to use.
+	 */
+	@Inject
+	private Injector injector;
 
 	/**
 	 * This is added to the proposal priorities from fixture proposal providers to ensure they're listed top in the list
@@ -495,7 +495,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if (tempParameterMap != null && tempMethodReference != null && tempMethodReference.getType() != null) {
 			try {
 				IType tempJDTType = resolveJDTTypeForJvmType(tempMethodReference.getType());
-				FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
+				FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 				ArbitraryParameterEnumerator tempEnumerator = tempFixtureClassWrapper
 						.instantiateArbitraryParameterEnumerator();
@@ -876,7 +876,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (isCustomProposalFixture(tempMethod)) {
 					try {
 						IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
-						FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
+						FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
 								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
@@ -920,7 +920,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			if (tempMethod != null && isCustomProposalFixture(tempMethod)) {
 				try {
 					IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
-					FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
+					FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
 							UnresolvableVariableHandling.KEEP_UNRESOLVED);
@@ -1062,8 +1062,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								Object tempConvertedResultValue = null;
 								if (tempResultValue != null) {
 									IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
-									FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType,
-											valueConverter);
+									FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 									tempConvertedResultValue = tempFixtureClassWrapper
 											.convertResultValueToFixtureDefinedType(tempMethod.getMethod()
@@ -1214,7 +1213,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ICompletionProposalAcceptor anAcceptor) {
 		try {
 			IType tempJDTType = resolveJDTTypeForJvmType(aMethod.getType());
-			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
+			FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
 			if (tempProposalProvider == null) {
@@ -1244,7 +1243,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
 		try {
 			IType tempJDTType = resolveJDTTypeForJvmType(aMethod.getType());
-			FixtureTypeWrapper tempFixtureClassWrapper = new FixtureTypeWrapper(tempJDTType, valueConverter);
+			FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 			CustomProposalProvider tempProposalProvider = tempFixtureClassWrapper.instantiateCustomProposalProvider();
 			if (tempProposalProvider == null) {
@@ -1323,6 +1322,19 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Wraps an {@link IType} in a {@link FixtureTypeWrapper}.
+	 * 
+	 * @param aType
+	 *            the type to wrap
+	 * @return the resulting wrapper instance
+	 */
+	protected FixtureTypeWrapper wrapType(IType aType) {
+		FixtureTypeWrapper tempWrapper = new FixtureTypeWrapper(aType);
+		injector.injectMembers(tempWrapper);
+		return tempWrapper;
 	}
 
 }

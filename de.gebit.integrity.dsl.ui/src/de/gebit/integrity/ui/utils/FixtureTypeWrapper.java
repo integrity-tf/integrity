@@ -37,6 +37,9 @@ import org.eclipse.jdt.core.util.IClassFileAttribute;
 import org.eclipse.jdt.core.util.IClassFileReader;
 import org.eclipse.jdt.core.util.IRuntimeInvisibleAnnotationsAttribute;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
@@ -78,7 +81,14 @@ public class FixtureTypeWrapper {
 	/**
 	 * The value converter to use.
 	 */
+	@Inject
 	private ValueConverter valueConverter;
+
+	/**
+	 * The {@link ConversionContext} provider to use.
+	 */
+	@Inject
+	private Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * Creates a new instance.
@@ -86,9 +96,8 @@ public class FixtureTypeWrapper {
 	 * @param aFixtureType
 	 *            the type to encapsulate
 	 */
-	public FixtureTypeWrapper(IType aFixtureType, ValueConverter aValueConverter) {
+	public FixtureTypeWrapper(IType aFixtureType) {
 		fixtureType = aFixtureType;
-		valueConverter = aValueConverter;
 	}
 
 	/**
@@ -287,7 +296,7 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName.getRawType());
-				return valueConverter.convertValue(tempTargetType, aValue, new ConversionContext()
+				return valueConverter.convertValue(tempTargetType, aValue, conversionContextProvider.get()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert
@@ -403,9 +412,9 @@ public class FixtureTypeWrapper {
 	 * 
 	 * @author Rene Schneider - initial API and implementation
 	 * 
-	 * @param <Provider>
+	 * @param <P>
 	 */
-	private final class LinkedProviderFinder<Provider> {
+	private final class LinkedProviderFinder<P> {
 
 		/**
 		 * The link annotation class.
@@ -422,7 +431,7 @@ public class FixtureTypeWrapper {
 		private IType searchResult;
 
 		@SuppressWarnings("unchecked")
-		private Class<? extends Provider> findProviderForFixtureType(final String aFullyQualifiedName)
+		private Class<? extends P> findProviderForFixtureType(final String aFullyQualifiedName)
 				throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
 			SearchPattern tempInheritPattern = SearchPattern.createPattern(
@@ -552,8 +561,8 @@ public class FixtureTypeWrapper {
 				return null;
 			}
 
-			return (Class<? extends Provider>) classLoadingUtil.loadClassFromWorkspace(
-					searchResult.getFullyQualifiedName(), searchResult.getJavaProject());
+			return (Class<? extends P>) classLoadingUtil.loadClassFromWorkspace(searchResult.getFullyQualifiedName(),
+					searchResult.getJavaProject());
 		}
 	}
 

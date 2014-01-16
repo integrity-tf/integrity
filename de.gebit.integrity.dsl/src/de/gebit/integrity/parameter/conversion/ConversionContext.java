@@ -31,7 +31,8 @@ public class ConversionContext implements Cloneable {
 	protected UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
 
 	/**
-	 * Creates an instance with the default initial values.
+	 * Creates an instance with the default initial values. SHOULD NEVER BE CALLED DIRECTLY!!! Use a Guice-injected
+	 * Provider instead to create an instance!
 	 */
 	public ConversionContext() {
 		// defaults are used
