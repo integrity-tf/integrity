@@ -23,6 +23,7 @@ import java.util.Set;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -84,6 +85,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	@Inject
 	protected Injector injector;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * All known conversions.
@@ -167,7 +174,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
 			ConversionContext aConversionContext, Set<Object> someVisitedObjects) throws UnresolvableVariableException,
 			UnexecutableException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		if (someVisitedObjects.contains(aValue)) {
 			// endless loop protection
@@ -674,7 +681,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	public FormattedString[] convertValueToStringArray(Object aValue, ConversionContext aConversionContext,
 			Set<Object> someVisitedValues) {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		FormattedString[] tempResult;
 		try {
@@ -1145,4 +1152,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		return tempInstance;
 	}
 
+	/**
+	 * This method creates a default conversion context in case none is provided, and returns the provided context
+	 * otherwise.
+	 * 
+	 * @param aContext
+	 *            the context to safeguard
+	 * @return a context (guaranteed not to return null)
+	 */
+	public ConversionContext safeguardConversionContext(ConversionContext aContext) {
+		if (aContext == null) {
+			return conversionContextProvider.get();
+		} else {
+			return aContext;
+		}
+	}
 }

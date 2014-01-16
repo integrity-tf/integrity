@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.MethodReference;
@@ -78,6 +79,12 @@ public class FixtureWrapper<C extends Object> {
 	 */
 	@Inject
 	private ModelSourceExplorer modelSourceExplorer;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * Fixture instance factories are cached in this map.
@@ -356,8 +363,8 @@ public class FixtureWrapper<C extends Object> {
 					// In case of arbitrary parameters, we don't want to perform the default bean-to-map conversion,
 					// because otherwise one couldn't put any objects into the fixture without having them converted to
 					// maps. See also issue #52: https://github.com/integrity-tf/integrity/issues/52
-					tempConvertedValue = valueConverter.convertValue(null, tempValue,
-							new ConversionContext().skipBeanToMapDefaultConversion());
+					tempConvertedValue = valueConverter.convertValue(null, tempValue, conversionContextProvider.get()
+							.skipBeanToMapDefaultConversion());
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}

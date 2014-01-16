@@ -23,12 +23,12 @@ public class ConversionContext implements Cloneable {
 	 * {@link de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap}) shall be skipped in the
 	 * conversion search and no conversion at all shall be done instead.
 	 */
-	private boolean skipBeanToMapDefaultConversion;
+	protected boolean skipBeanToMapDefaultConversion;
 
 	/**
 	 * The way in which unresolvable variables shall be treated.
 	 */
-	private UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
+	protected UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
 
 	/**
 	 * Creates an instance with the default initial values.
@@ -65,22 +65,6 @@ public class ConversionContext implements Cloneable {
 
 	public UnresolvableVariableHandling getUnresolvableVariableHandlingPolicy() {
 		return unresolvableVariableHandlingPolicy;
-	}
-
-	/**
-	 * This method creates a default conversion context in case none is provided, and returns the provided context
-	 * otherwise.
-	 * 
-	 * @param aContext
-	 *            the context to safeguard
-	 * @return a context (guaranteed not to return null)
-	 */
-	public static ConversionContext safeguardConversionContext(ConversionContext aContext) {
-		if (aContext == null) {
-			return new ConversionContext();
-		} else {
-			return aContext;
-		}
 	}
 
 }

@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
@@ -69,6 +70,12 @@ public class TestFormatter {
 	private ParameterResolver parameterResolver;
 
 	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 */
@@ -89,7 +96,7 @@ public class TestFormatter {
 	 */
 	public String testToHumanReadableString(Test aTest, ConversionContext aConversionContext)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
@@ -114,7 +121,7 @@ public class TestFormatter {
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			ConversionContext aConversionContext) throws ClassNotFoundException, UnexecutableException,
 			InstantiationException, MethodNotFoundException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
@@ -136,7 +143,7 @@ public class TestFormatter {
 	 */
 	public String tableTestToHumanReadableString(TableTest aTest, ConversionContext aConversionContext)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		return fixtureMethodToHumanReadableString(
 				aTest.getDefinition().getFixtureMethod(),
@@ -158,7 +165,7 @@ public class TestFormatter {
 	 */
 	public String callToHumanReadableString(Call aCall, ConversionContext aConversionContext)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		return fixtureMethodToHumanReadableString(
 				aCall.getDefinition().getFixtureMethod(),
@@ -185,7 +192,7 @@ public class TestFormatter {
 	public String fixtureMethodToHumanReadableString(MethodReference aFixtureMethod,
 			SuiteStatementWithResult aStatement, Map<String, Object> someParameters,
 			ConversionContext aConversionContext) throws ClassNotFoundException, MethodNotFoundException {
-		ConversionContext tempConversionContext = ConversionContext.safeguardConversionContext(aConversionContext);
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		Method tempMethod = classLoader.loadMethod(aFixtureMethod);
 
@@ -294,5 +301,21 @@ public class TestFormatter {
 		}
 
 		return tempString;
+	}
+
+	/**
+	 * This method creates a default conversion context in case none is provided, and returns the provided context
+	 * otherwise.
+	 * 
+	 * @param aContext
+	 *            the context to safeguard
+	 * @return a context (guaranteed not to return null)
+	 */
+	public ConversionContext safeguardConversionContext(ConversionContext aContext) {
+		if (aContext == null) {
+			return conversionContextProvider.get();
+		} else {
+			return aContext;
+		}
 	}
 }

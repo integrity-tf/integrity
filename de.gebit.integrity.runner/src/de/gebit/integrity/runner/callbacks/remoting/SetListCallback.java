@@ -26,6 +26,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
@@ -111,6 +112,12 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 */
 	@Inject
 	private TestFormatter testFormatter;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * Format used for execution time.
@@ -533,10 +540,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 */
 	protected ConversionContext createConversionContext() {
 		if (isDryRun()) {
-			return new ConversionContext()
-					.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT);
+			return conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
+					UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT);
 		} else {
-			return new ConversionContext();
+			return conversionContextProvider.get();
 		}
 	}
 
