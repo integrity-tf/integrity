@@ -8,6 +8,9 @@
 package de.gebit.integrity.parameter.conversion;
 
 /**
+ * A conversion context is a container for contextual information required to perform a value conversion.<br>
+ * <br>
+ * This class is intended to be used in a Builder-style pattern.
  * 
  * 
  * @author Rene Schneider - initial API and implementation
@@ -15,19 +18,42 @@ package de.gebit.integrity.parameter.conversion;
  */
 public class ConversionContext implements Cloneable {
 
+	/**
+	 * Whether the default conversion applied to Java Bean classes (
+	 * {@link de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap}) shall be skipped in the
+	 * conversion search and no conversion at all shall be done instead.
+	 */
 	private boolean skipBeanToMapDefaultConversion;
 
+	/**
+	 * The way in which unresolvable variables shall be treated.
+	 */
 	private UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
 
+	/**
+	 * Creates an instance with the default initial values.
+	 */
 	public ConversionContext() {
 		// defaults are used
 	}
 
+	/**
+	 * Enable skipping of the bean-to-map default conversion (
+	 * {@link de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap}).
+	 * 
+	 * @see #skipBeanToMapDefaultConversion
+	 */
 	public ConversionContext skipBeanToMapDefaultConversion() {
 		skipBeanToMapDefaultConversion = true;
 		return this;
 	}
 
+	/**
+	 * Enables a certain {@link UnresolvableVariableHandling} policy instead of the default.
+	 * 
+	 * @param aPolicy
+	 *            the policy to use
+	 */
 	public ConversionContext withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling aPolicy) {
 		unresolvableVariableHandlingPolicy = aPolicy;
 		return this;
