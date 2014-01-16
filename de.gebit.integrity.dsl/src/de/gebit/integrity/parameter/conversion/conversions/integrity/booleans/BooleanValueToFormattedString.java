@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.booleans;
 
 import de.gebit.integrity.dsl.BooleanValue;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -22,8 +22,8 @@ public class BooleanValueToFormattedString extends AbstractBooleanValueToString<
 
 	@Override
 	public FormattedString convert(BooleanValue aSource, Class<? extends FormattedString> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return new FormattedString(convertToString(aSource, anUnresolvableVariableHandlingPolicy));
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return new FormattedString(convertToString(aSource, aConversionContext));
 	}
 
 }

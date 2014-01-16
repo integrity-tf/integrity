@@ -9,8 +9,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
 import java.util.Map;
 
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -24,7 +24,7 @@ public class MapToFormattedString extends AbstractMapToString<FormattedString> {
 
 	@Override
 	public FormattedString convert(Map aSource, Class<? extends FormattedString> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return convertToFormattedString(aSource, aConversionContext);
 	}
 }

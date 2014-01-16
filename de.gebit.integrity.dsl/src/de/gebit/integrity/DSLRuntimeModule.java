@@ -17,6 +17,7 @@ import de.gebit.integrity.modelsource.DefaultModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.standard.DefaultModularStandardOperationProcessor;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.DefaultModularValueConverter;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.DefaultParameterResolver;
@@ -117,6 +118,15 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 						com.google.inject.name.Names
 								.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(DSLImportedNamespaceAwareLocalScopeProvider.class);
+	}
+
+	/**
+	 * Binds the {@link ConversionContext}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends ConversionContext> bindConversionContext() {
+		return ConversionContext.class;
 	}
 
 }

@@ -20,7 +20,6 @@ import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 
 /**
@@ -122,12 +121,12 @@ public class CustomOperationWrapper {
 		Object tempConvertedPrefixParameter = null;
 		if (operation.getPrefixOperand() != null) {
 			tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
-					operation.getPrefixOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					operation.getPrefixOperand(), null);
 		}
 		Object tempConvertedPostfixParameter = null;
 		if (operation.getPostfixOperand() != null) {
 			tempConvertedPostfixParameter = valueConverter.convertValue(determinePostfixParameterTargetType(),
-					operation.getPostfixOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					operation.getPostfixOperand(), null);
 		}
 
 		return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);

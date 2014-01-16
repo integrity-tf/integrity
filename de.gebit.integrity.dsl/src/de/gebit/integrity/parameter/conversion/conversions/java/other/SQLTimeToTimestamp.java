@@ -11,8 +11,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -24,7 +24,7 @@ public class SQLTimeToTimestamp extends Conversion<Time, Timestamp> {
 
 	@Override
 	public Timestamp convert(Time aSource, Class<? extends Timestamp> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		return new Timestamp(aSource.getTime());
 	}
 

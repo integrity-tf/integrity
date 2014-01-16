@@ -37,6 +37,9 @@ import org.eclipse.jdt.core.util.IClassFileAttribute;
 import org.eclipse.jdt.core.util.IClassFileReader;
 import org.eclipse.jdt.core.util.IRuntimeInvisibleAnnotationsAttribute;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.ArbitraryParameterEnumerator;
@@ -48,6 +51,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider;
 import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalFixtureLink;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -77,7 +81,14 @@ public class FixtureTypeWrapper {
 	/**
 	 * The value converter to use.
 	 */
+	@Inject
 	private ValueConverter valueConverter;
+
+	/**
+	 * The {@link ConversionContext} provider to use.
+	 */
+	@Inject
+	private Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * Creates a new instance.
@@ -85,9 +96,8 @@ public class FixtureTypeWrapper {
 	 * @param aFixtureType
 	 *            the type to encapsulate
 	 */
-	public FixtureTypeWrapper(IType aFixtureType, ValueConverter aValueConverter) {
+	public FixtureTypeWrapper(IType aFixtureType) {
 		fixtureType = aFixtureType;
-		valueConverter = aValueConverter;
 	}
 
 	/**
@@ -192,8 +202,7 @@ public class FixtureTypeWrapper {
 								for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 									Object tempSingleValue = ((Object[]) tempValue)[k];
 									Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-											tempExpectedType.getComponentType(), tempSingleValue,
-											UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+											tempExpectedType.getComponentType(), tempSingleValue, null));
 								}
 								tempConvertedValue = tempConvertedValueArray;
 							} else {
@@ -203,7 +212,7 @@ public class FixtureTypeWrapper {
 								Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 										.getComponentType() : tempExpectedType;
 								tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
-										UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+										null);
 								if (tempExpectedType.isArray()) {
 									// ...and if the expected type is an array, now we create one
 									Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -230,8 +239,7 @@ public class FixtureTypeWrapper {
 					Object tempValue = aParameterMap.remove(tempName);
 					if (tempValue != null) {
 						Object tempConvertedValue;
-						tempConvertedValue = valueConverter.convertValue(null, tempValue,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						tempConvertedValue = valueConverter.convertValue(null, tempValue, null);
 						aParameterMap.put(tempName, tempConvertedValue);
 					}
 				}
@@ -288,7 +296,8 @@ public class FixtureTypeWrapper {
 		if (tempTargetTypeName != null) {
 			try {
 				Class<?> tempTargetType = getClass().getClassLoader().loadClass(tempTargetTypeName.getRawType());
-				return valueConverter.convertValue(tempTargetType, aValue, UnresolvableVariableHandling.EXCEPTION);
+				return valueConverter.convertValue(tempTargetType, aValue, conversionContextProvider.get()
+						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (ClassNotFoundException exc) {
 				// skip this one; cannot convert
 			} catch (UnexecutableException exc) {
@@ -403,9 +412,9 @@ public class FixtureTypeWrapper {
 	 * 
 	 * @author Rene Schneider - initial API and implementation
 	 * 
-	 * @param <Provider>
+	 * @param <P>
 	 */
-	private final class LinkedProviderFinder<Provider> {
+	private final class LinkedProviderFinder<P> {
 
 		/**
 		 * The link annotation class.
@@ -422,7 +431,7 @@ public class FixtureTypeWrapper {
 		private IType searchResult;
 
 		@SuppressWarnings("unchecked")
-		private Class<? extends Provider> findProviderForFixtureType(final String aFullyQualifiedName)
+		private Class<? extends P> findProviderForFixtureType(final String aFullyQualifiedName)
 				throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
 			SearchPattern tempInheritPattern = SearchPattern.createPattern(
@@ -552,8 +561,8 @@ public class FixtureTypeWrapper {
 				return null;
 			}
 
-			return (Class<? extends Provider>) classLoadingUtil.loadClassFromWorkspace(
-					searchResult.getFullyQualifiedName(), searchResult.getJavaProject());
+			return (Class<? extends P>) classLoadingUtil.loadClassFromWorkspace(searchResult.getFullyQualifiedName(),
+					searchResult.getJavaProject());
 		}
 	}
 

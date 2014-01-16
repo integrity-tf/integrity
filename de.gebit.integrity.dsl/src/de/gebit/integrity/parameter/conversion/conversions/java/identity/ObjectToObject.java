@@ -5,29 +5,26 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.parameter.conversion.conversions.java.strings;
+package de.gebit.integrity.parameter.conversion.conversions.java.identity;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
- * A default Integrity conversion.
+ * A default Integrity conversion. This conversion actually doesn't convert anything - it just returns the input. This
+ * special conversion is not part of the normal bunch of conversions which is scanned to find a matching one, but only
+ * used to handle special cases.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class StringToByte extends Conversion<String, Byte> {
+public class ObjectToObject extends Conversion<Object, Object> {
 
 	@Override
-	public Byte convert(String aSource, Class<? extends Byte> aTargetType,
-			ConversionContext aConversionContext) throws ConversionFailedException {
-		try {
-			return Byte.parseByte(aSource);
-		} catch (NumberFormatException exc) {
-			throw new ConversionFailedException(aSource.getClass(), aTargetType, "Failed to convert string value '"
-					+ aSource + "'", exc);
-		}
+	public Object convert(Object aSource, Class<? extends Object> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
+		return aSource;
 	}
 
 }

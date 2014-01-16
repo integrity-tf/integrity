@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects;
 
 import de.gebit.integrity.dsl.NestedObject;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -21,8 +21,8 @@ public class NestedObjectToString extends AbstractNestedObjectToString<String> {
 
 	@Override
 	public String convert(NestedObject aSource, Class<? extends String> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return convertToFormattedString(aSource, aConversionContext).toUnformattedString();
 	}
 
 }

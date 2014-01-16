@@ -9,7 +9,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 
 /**
  * A default Integrity conversion.
@@ -21,8 +21,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class NullValueToNull extends Conversion<NullValue, Object> {
 
 	@Override
-	public Object convert(NullValue aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+	public Object convert(NullValue aSource, Class<? extends Object> aTargetType, ConversionContext aConversionContext) {
 		return null;
 	}
 

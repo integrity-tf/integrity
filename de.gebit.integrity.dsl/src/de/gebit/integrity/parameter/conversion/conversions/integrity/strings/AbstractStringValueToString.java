@@ -9,7 +9,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -27,12 +27,11 @@ public abstract class AbstractStringValueToString<T> extends Conversion<StringVa
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 */
-	protected FormattedString convertToFormattedString(StringValue aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+	protected FormattedString convertToFormattedString(StringValue aSource, ConversionContext aConversionContext) {
 		return new FormattedString(aSource.getStringValue());
 	}
 

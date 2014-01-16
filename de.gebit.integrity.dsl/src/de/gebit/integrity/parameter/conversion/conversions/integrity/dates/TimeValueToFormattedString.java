@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.dates;
 
 import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -22,8 +22,8 @@ public class TimeValueToFormattedString extends AbstractTimeValueToString<Format
 
 	@Override
 	public FormattedString convert(TimeValue aSource, Class<? extends FormattedString> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return convertToFormattedString(aSource, aConversionContext);
 	}
 
 }

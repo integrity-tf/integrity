@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.javaconstants;
 
 import de.gebit.integrity.dsl.JavaConstantValue;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * This conversion converts from {@link JavaConstantValue} to any target type. Basically it reads the constant value
@@ -23,7 +23,7 @@ public class JavaConstantToAnything extends AbstractJavaConstantConversion<Objec
 
 	@Override
 	public Object convert(JavaConstantValue aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return performConversion(aSource, aTargetType, anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) throws ConversionFailedException {
+		return performConversion(aSource, aTargetType, aConversionContext);
 	}
 }

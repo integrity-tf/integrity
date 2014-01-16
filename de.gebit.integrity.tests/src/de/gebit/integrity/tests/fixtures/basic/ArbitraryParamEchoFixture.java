@@ -9,6 +9,7 @@ package de.gebit.integrity.tests.fixtures.basic;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.gebit.integrity.fixtures.ArbitraryParameterFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -29,6 +30,19 @@ public class ArbitraryParamEchoFixture implements ArbitraryParameterFixture {
 		tempResultObject.setArbitraryResults(tempMap);
 
 		return tempResultObject;
+	}
+
+	@FixtureMethod(description = "echoes all arbitrary parameter names and their types")
+	public String[] echoTypes(Map<String, Object> someParams) {
+		String[] tempResult = new String[someParams.size()];
+
+		int i = 0;
+		for (Entry<String, Object> tempEntry : someParams.entrySet()) {
+			tempResult[i] = tempEntry.getKey() + "|" + tempEntry.getValue().getClass().getName();
+			i++;
+		}
+
+		return tempResult;
 	}
 
 	public class ResultClass {

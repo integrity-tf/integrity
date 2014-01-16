@@ -10,8 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobje
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -24,11 +24,10 @@ public class TypedNestedObjectToString extends Conversion<TypedNestedObject, Str
 
 	@Override
 	public String convert(TypedNestedObject aSource, Class<? extends String> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		// For string conversions, the defined target type in a typed nested object is ignored, since it's not relevant
 		try {
-			return (String) convertValueRecursive(aTargetType, null, aSource.getNestedObject(),
-					anUnresolvableVariableHandlingPolicy);
+			return (String) convertValueRecursive(aTargetType, null, aSource.getNestedObject(), aConversionContext);
 		} catch (UnresolvableVariableException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
 		} catch (ClassNotFoundException exc) {

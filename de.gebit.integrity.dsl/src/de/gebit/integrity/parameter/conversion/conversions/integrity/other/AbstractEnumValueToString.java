@@ -9,7 +9,7 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -28,12 +28,11 @@ public abstract class AbstractEnumValueToString<T> extends Conversion<EnumValue,
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 */
-	protected FormattedString convertToFormattedString(EnumValue aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+	protected FormattedString convertToFormattedString(EnumValue aSource, ConversionContext aConversionContext) {
 		return new FormattedString(aSource.getEnumValue().getSimpleName());
 	}
 

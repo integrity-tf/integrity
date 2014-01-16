@@ -12,8 +12,8 @@ import java.util.Map;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -27,12 +27,11 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 public class TypedNestedObjectToMap extends Conversion<TypedNestedObject, Map> {
 
 	@Override
-	public Map convert(TypedNestedObject aSource, Class<? extends Map> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Map convert(TypedNestedObject aSource, Class<? extends Map> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		// For map conversions, the defined target type in a typed nested object is ignored, since it's not relevant
 		try {
-			return (Map) convertValueRecursive(aTargetType, null, aSource.getNestedObject(),
-					anUnresolvableVariableHandlingPolicy);
+			return (Map) convertValueRecursive(aTargetType, null, aSource.getNestedObject(), aConversionContext);
 		} catch (UnresolvableVariableException exc) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType, null, exc);
 		} catch (ClassNotFoundException exc) {

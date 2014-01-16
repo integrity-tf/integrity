@@ -14,7 +14,6 @@ import com.google.inject.Inject;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.Operation;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -47,8 +46,7 @@ public class ConvertBeanToMapOperation implements Operation<Object, Object, Map<
 		}
 
 		try {
-			return (Map<String, Object>) valueConverter.convertValue(Map.class, aParameter,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			return (Map<String, Object>) valueConverter.convertValue(Map.class, aParameter, null);
 		} catch (UnresolvableVariableException exc) {
 			throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null");
 		} catch (UnexecutableException exc) {

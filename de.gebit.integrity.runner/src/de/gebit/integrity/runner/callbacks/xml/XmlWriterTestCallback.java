@@ -771,7 +771,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					testFormatter.testToHumanReadableString(aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+					testFormatter.testToHumanReadableString(aTest, null));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -825,8 +825,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempTestElement, aTest);
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
-			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter.tableTestToHumanReadableString(
-					aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					testFormatter.tableTestToHumanReadableString(aTest, null));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1096,18 +1096,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			tempParameterElement.setAttribute(
-					PARAMETER_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToFormattedString(tempEntry.getValue(), false,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
+			tempParameterElement
+					.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
+							valueConverter.convertValueToFormattedString(tempEntry.getValue(), false, null)
+									.toFormattedString());
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
 
 		try {
-			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, testFormatter
-					.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+					testFormatter.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap, null));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1147,14 +1146,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				tempComparisonResultElement.setAttribute(
 						RESULT_EXPECTED_VALUE_ATTRIBUTE,
 						valueConverter.convertValueToFormattedString(
-								(tempExpectedValue == null ? true : tempExpectedValue), false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
+								(tempExpectedValue == null ? true : tempExpectedValue), false, null)
+								.toFormattedString());
 				if (tempEntry.getValue().getResult() != null) {
 					tempComparisonResultElement.setAttribute(
 							RESULT_REAL_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-									tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
-									.toFormattedString());
+									tempExpectedIsNestedObject, null).toFormattedString());
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -1187,7 +1185,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempCallElement.setAttribute(CALL_NAME_ELEMENT, aCall.getDefinition().getName());
 		try {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					testFormatter.callToHumanReadableString(aCall, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+					testFormatter.callToHumanReadableString(aCall, null));
 		} catch (ClassNotFoundException exc) {
 			tempCallElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1223,10 +1221,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			for (Entry<String, Object> tempParameter : tempParameterMap.entrySet()) {
 				Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 				tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempParameter.getKey());
-				tempParameterElement.setAttribute(
-						PARAMETER_VALUE_ATTRIBUTE,
-						valueConverter.convertValueToFormattedString(tempParameter.getValue(), false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
+				tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter
+						.convertValueToFormattedString(tempParameter.getValue(), false, null).toFormattedString());
 
 				tempParameterCollectionElement.addContent(tempParameterElement);
 			}
@@ -1285,7 +1281,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					tempVariableUpdateElement.setAttribute(
 							VARIABLE_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
+									null).toFormattedString());
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -1660,10 +1656,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
-			tempVariableElement.setAttribute(
-					VARIABLE_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToFormattedString(anInitialValue, false,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE).toFormattedString());
+			tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToFormattedString(anInitialValue, false, null).toFormattedString());
 		}
 
 		if (!isDryRun()) {

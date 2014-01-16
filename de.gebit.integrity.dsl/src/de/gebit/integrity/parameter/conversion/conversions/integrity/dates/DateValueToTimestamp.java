@@ -12,8 +12,8 @@ import java.text.ParseException;
 
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
 /**
@@ -26,7 +26,7 @@ public class DateValueToTimestamp extends Conversion<DateValue, Timestamp> {
 
 	@Override
 	public Timestamp convert(DateValue aSource, Class<? extends Timestamp> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return new Timestamp(DateUtil.convertDateValue(aSource).getTime().getTime());
 		} catch (ParseException exc) {

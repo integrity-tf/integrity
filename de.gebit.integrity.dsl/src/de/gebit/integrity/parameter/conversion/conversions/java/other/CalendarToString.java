@@ -9,8 +9,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
 import java.util.Calendar;
 
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -21,9 +21,9 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class CalendarToString extends AbstractCalendarToString<String> {
 
 	@Override
-	public String convert(Calendar aSource, Class<? extends String> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+	public String convert(Calendar aSource, Class<? extends String> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
+		return convertToFormattedString(aSource, aConversionContext).toUnformattedString();
 	}
 
 }

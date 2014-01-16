@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.java.other;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -28,12 +28,12 @@ public abstract class AbstractEnumToString<T> extends Conversion<Enum, T> {
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 */
-	protected FormattedString convertToFormattedString(Enum aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected FormattedString convertToFormattedString(Enum aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return new FormattedString(aSource.toString());
 	}
 

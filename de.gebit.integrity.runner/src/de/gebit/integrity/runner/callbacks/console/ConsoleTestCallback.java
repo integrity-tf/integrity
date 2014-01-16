@@ -31,7 +31,6 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
@@ -128,11 +127,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	public void onTestStart(Test aTest) {
 		testCount++;
 		try {
-			println("Now running test "
-					+ testCount
-					+ ": "
-					+ testFormatter
-							.testToHumanReadableString(aTest, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
+			println("Now running test " + testCount + ": " + testFormatter.testToHumanReadableString(aTest, null)
 					+ "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
@@ -205,16 +200,14 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 						boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
 						print("'"
-								+ valueConverter
-										.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue),
-												false, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
+								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
+										: tempExpectedValue), false, null)
 								+ "' expected"
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
-										tempExpectedIsNestedObject, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
-								+ "'!");
+										tempExpectedIsNestedObject, null) + "'!");
 						tempHasBegun = true;
 					}
 				}
@@ -255,18 +248,14 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		println("Defined variable "
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (anInitialValue == null ? "" : " with initial value: "
-						+ valueConverter.convertValueToString(anInitialValue, false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)));
+						+ valueConverter.convertValueToString(anInitialValue, false, null)));
 	}
 
 	@Override
 	public void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
 			boolean aParameterizedFlag) {
-		println("Defined constant "
-				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
-				+ (aValue == null ? "" : " with value: "
-						+ valueConverter.convertValueToString(aValue, false,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
+		println("Defined constant " + IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
+				+ (aValue == null ? "" : " with value: " + valueConverter.convertValueToString(aValue, false, null))
 				+ (aParameterizedFlag ? " (parameterized)" : ""));
 	}
 
@@ -274,11 +263,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	public void onCallStart(Call aCall) {
 		callCount++;
 		try {
-			println("Now executing call "
-					+ callCount
-					+ ": "
-					+ testFormatter
-							.callToHumanReadableString(aCall, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE)
+			println("Now executing call " + callCount + ": " + testFormatter.callToHumanReadableString(aCall, null)
 					+ "...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
@@ -333,11 +318,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
 		tableTestRowCount++;
 		try {
-			print("\tRow "
-					+ tableTestRowCount
-					+ " ("
-					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) + ")...");
+			print("\tRow " + tableTestRowCount + " ("
+					+ testFormatter.tableTestRowToHumanReadableString(aTableTest, aRow, null) + ")...");
 		} catch (ClassNotFoundException exc) {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {

@@ -10,9 +10,9 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 import java.math.BigDecimal;
 
 import de.gebit.integrity.dsl.DecimalValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
  * A default Integrity conversion.
@@ -24,7 +24,7 @@ public class DecimalValueToBigDecimal extends Conversion<DecimalValue, BigDecima
 
 	@Override
 	public BigDecimal convert(DecimalValue aSource, Class<? extends BigDecimal> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		return aSource.getDecimalValue();
 	}
 

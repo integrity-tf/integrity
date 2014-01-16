@@ -11,8 +11,8 @@ import java.sql.Time;
 import java.util.Date;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -23,8 +23,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class DateToSQLTime extends Conversion<Date, Time> {
 
 	@Override
-	public Time convert(Date aSource, Class<? extends Time> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Time convert(Date aSource, Class<? extends Time> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return new Time(aSource.getTime());
 	}
 

@@ -8,9 +8,9 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
  * A default Integrity conversion.
@@ -22,7 +22,7 @@ public class StringValueToByte extends Conversion<StringValue, Byte> {
 
 	@Override
 	public Byte convert(StringValue aSource, Class<? extends Byte> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return Byte.parseByte(aSource.getStringValue());
 		} catch (NumberFormatException exc) {

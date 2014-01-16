@@ -8,9 +8,9 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.strings;
 
 import de.gebit.integrity.dsl.StringValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
  * A default Integrity conversion.
@@ -22,7 +22,7 @@ public class StringValueToLong extends Conversion<StringValue, Long> {
 
 	@Override
 	public Long convert(StringValue aSource, Class<? extends Long> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return Long.parseLong(aSource.getStringValue());
 		} catch (NumberFormatException exc) {
