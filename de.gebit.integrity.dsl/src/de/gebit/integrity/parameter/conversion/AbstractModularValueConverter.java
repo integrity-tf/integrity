@@ -23,6 +23,7 @@ import java.util.Set;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -36,6 +37,8 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.ObjectToObject;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.string.FormattedString;
@@ -82,6 +85,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	@Inject
 	protected Injector injector;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * All known conversions.
@@ -137,18 +146,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public Object convertValue(Class<?> aTargetType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			UnexecutableException {
-		return convertValue(aTargetType, null, aValue, anUnresolvableVariableHandlingPolicy);
+	public Object convertValue(Class<?> aTargetType, Object aValue, ConversionContext aConversionContext)
+			throws UnresolvableVariableException, UnexecutableException {
+		return convertValue(aTargetType, null, aValue, aConversionContext);
 	}
 
 	@Override
 	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnresolvableVariableException,
-			UnexecutableException {
-		return convertValue(aTargetType, aParameterizedType, aValue, anUnresolvableVariableHandlingPolicy,
-				new HashSet<Object>());
+			ConversionContext aConversionContext) throws UnresolvableVariableException, UnexecutableException {
+		return convertValue(aTargetType, aParameterizedType, aValue, aConversionContext, new HashSet<Object>());
 	}
 
 	/**
@@ -157,7 +163,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param aTargetType
 	 * @param aParameterizedType
 	 * @param aValue
-	 * @param anUnresolvableVariableHandlingPolicy
+	 * @param aConversionContext
 	 * @param someVisitedObjects
 	 * @return
 	 * @throws UnresolvableVariableException
@@ -166,8 +172,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 */
 	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedObjects)
-			throws UnresolvableVariableException, UnexecutableException {
+			ConversionContext aConversionContext, Set<Object> someVisitedObjects) throws UnresolvableVariableException,
+			UnexecutableException {
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
+
 		if (someVisitedObjects.contains(aValue)) {
 			// endless loop protection
 			return null;
@@ -176,18 +184,16 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				someVisitedObjects.add(aValue);
 				if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
 					return convertEncapsulatedValueCollectionToTargetType(aTargetType, aParameterizedType,
-							(ValueOrEnumValueOrOperationCollection) aValue, anUnresolvableVariableHandlingPolicy,
-							someVisitedObjects);
+							(ValueOrEnumValueOrOperationCollection) aValue, tempConversionContext, someVisitedObjects);
 				} else if (aValue instanceof ValueOrEnumValueOrOperation) {
 					return convertEncapsulatedValueToTargetType(aTargetType, aParameterizedType,
-							(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy,
-							someVisitedObjects);
+							(ValueOrEnumValueOrOperation) aValue, tempConversionContext, someVisitedObjects);
 				} else if (aValue instanceof ConstantValue) {
 					return convertEncapsulatedConstantValueToTargetType(aTargetType, aParameterizedType,
-							(ConstantValue) aValue, anUnresolvableVariableHandlingPolicy, someVisitedObjects);
+							(ConstantValue) aValue, tempConversionContext, someVisitedObjects);
 				} else {
 					return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
-							anUnresolvableVariableHandlingPolicy, someVisitedObjects);
+							tempConversionContext, someVisitedObjects);
 				}
 			} finally {
 				someVisitedObjects.remove(aValue);
@@ -207,13 +213,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            Integer
 	 * @param aValue
 	 *            the value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            defines some parameters controlling how the conversion is done in detail
 	 * @return the converted value
 	 */
 	protected Object convertPlainValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
+			ConversionContext aConversionContext, Set<Object> someVisitedValues) {
 		if (aValue == null) {
 			return null;
 		}
@@ -229,7 +234,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 							tempResultArray,
 							i,
 							convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
-									Array.get(aValue, i), anUnresolvableVariableHandlingPolicy, someVisitedValues));
+									Array.get(aValue, i), aConversionContext, someVisitedValues));
 				}
 			} else {
 				// target is an array, but value is a single value
@@ -238,7 +243,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						tempResultArray,
 						0,
 						convertPlainValueToTargetType(tempActualParamType, aParameterizedType, aValue,
-								anUnresolvableVariableHandlingPolicy, someVisitedValues));
+								aConversionContext, someVisitedValues));
 			}
 			return tempResultArray;
 		} else {
@@ -248,7 +253,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						return null;
 					} else if (Array.getLength(aValue) == 1) {
 						return convertSingleValueToTargetType(aTargetType, aParameterizedType, Array.get(aValue, 0),
-								anUnresolvableVariableHandlingPolicy, someVisitedValues);
+								aConversionContext, someVisitedValues);
 					}
 				} else {
 					Class<?> tempCurrentArrayType = aValue.getClass().getComponentType();
@@ -261,7 +266,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					} else {
 						// The arrays' target type is determined by looking at the conversion being used
 						Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(tempCurrentArrayType,
-								aTargetType, someVisitedValues);
+								aTargetType, someVisitedValues, aConversionContext);
 						ConversionKey tempKey = conversionToKey.get(tempConversionClass);
 						tempTargetArrayType = tempKey.getTargetType();
 					}
@@ -270,7 +275,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 					for (int i = 0; i < Array.getLength(aValue); i++) {
 						Object tempConvertedValue = convertSingleValueToTargetType(aTargetType, aParameterizedType,
-								Array.get(aValue, i), anUnresolvableVariableHandlingPolicy, someVisitedValues);
+								Array.get(aValue, i), aConversionContext, someVisitedValues);
 
 						if (!tempTargetArrayType.isAssignableFrom(tempConvertedValue.getClass())) {
 							// Oops - this case is pretty unlikely, but theoretically possible. In this case, the
@@ -293,15 +298,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				return aValue;
 			} else {
 				// unresolvable variables can't happen here, since variable values should have gone down the other path
-				return convertSingleValueToTargetType(aTargetType, aParameterizedType, aValue,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				return convertSingleValueToTargetType(aTargetType, aParameterizedType, aValue, aConversionContext,
+						someVisitedValues);
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	private Object convertSingleValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
+			ConversionContext aConversionContext, Set<Object> someVisitedValues) {
 		if (aValue == null) {
 			return null;
 		}
@@ -326,9 +331,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 		try {
 			@SuppressWarnings("rawtypes")
-			Conversion tempConversion = findAndInstantiateConversion(tempSourceType, tempTargetType, someVisitedValues);
+			Conversion tempConversion = findAndInstantiateConversion(tempSourceType, tempTargetType, someVisitedValues,
+					aConversionContext);
 			if (tempConversion != null) {
-				return tempConversion.convert(aValue, tempTargetType, anUnresolvableVariableHandlingPolicy);
+				return tempConversion.convert(aValue, tempTargetType, aConversionContext);
 			}
 
 			throw new ConversionUnsupportedException(aValue.getClass(), aTargetType,
@@ -381,9 +387,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            Integer
 	 * @param aValue
 	 *            the value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            defines some parameters controlling how the conversion is done in detail
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
@@ -391,8 +396,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws UnexecutableException
 	 */
 	protected Object convertEncapsulatedValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
-			ValueOrEnumValueOrOperation aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy,
-			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
+			ValueOrEnumValueOrOperation aValue, ConversionContext aConversionContext, Set<Object> someVisitedValues)
+			throws UnresolvableVariableException, UnexecutableException {
 		if (aValue == null) {
 			return null;
 		}
@@ -400,8 +405,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		try {
 			if (aValue instanceof StandardOperation) {
 				Object tempResult = standardOperationProcessor.executeOperation((StandardOperation) aValue);
-				return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult, aConversionContext,
+						someVisitedValues);
 			} else if (aValue instanceof CustomOperation) {
 				if (wrapperFactory == null) {
 					// cannot execute operations without the ability to load them
@@ -411,23 +416,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 							.newCustomOperationWrapper((CustomOperation) aValue);
 					Object tempResult = tempWrapper.executeOperation();
 					return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult,
-							anUnresolvableVariableHandlingPolicy, someVisitedValues);
+							aConversionContext, someVisitedValues);
 				}
 			} else if (aValue instanceof Variable) {
 				Object tempResult = parameterResolver.resolveSingleParameterValue(aValue,
-						anUnresolvableVariableHandlingPolicy);
+						aConversionContext.getUnresolvableVariableHandlingPolicy());
 				if (tempResult instanceof ValueOrEnumValueOrOperation) {
 					// In case of an operation inside a variable, we need to recurse (see issue #36)
 					return convertEncapsulatedValueToTargetType(aTargetType, aParameterizedType,
-							(ValueOrEnumValueOrOperation) tempResult, anUnresolvableVariableHandlingPolicy,
-							someVisitedValues);
+							(ValueOrEnumValueOrOperation) tempResult, aConversionContext, someVisitedValues);
 				} else {
 					return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
-							anUnresolvableVariableHandlingPolicy, someVisitedValues);
+							aConversionContext, someVisitedValues);
 				}
 			} else {
-				return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue, aConversionContext,
+						someVisitedValues);
 			}
 		} catch (ClassNotFoundException exc) {
 			throw new ConversionFailedException(null, aTargetType, exc.getMessage(), exc);
@@ -447,9 +451,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            Integer
 	 * @param aValue
 	 *            the value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            defines some parameters controlling how the conversion is done in detail
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
@@ -457,8 +460,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws UnexecutableException
 	 */
 	protected Object convertEncapsulatedConstantValueToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
-			ConstantValue aValue, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy,
-			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
+			ConstantValue aValue, ConversionContext aConversionContext, Set<Object> someVisitedValues)
+			throws UnresolvableVariableException, UnexecutableException {
 		if (aValue == null) {
 			return null;
 		}
@@ -468,8 +471,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// Constants need to be "constantly" defined in the variable manager at runtime, so we can ask it
 				// directly.
 				Object tempResult = variableManager.get(((Constant) aValue).getName());
-				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult, aConversionContext,
+						someVisitedValues);
 			} else if (((Constant) aValue).getName().eContainer() instanceof ConstantDefinition) {
 				// Without the variable manager, we can still attempt to resolve statically.
 				try {
@@ -483,8 +486,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 			return null;
 		} else {
-			return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
-					anUnresolvableVariableHandlingPolicy, someVisitedValues);
+			return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue, aConversionContext,
+					someVisitedValues);
 		}
 	}
 
@@ -500,9 +503,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            Integer
 	 * @param aCollection
 	 *            the value collection
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            Defines the policy how unresolvable variable references (no variable given or no
-	 *            {@link de.gebit.integrity.parameter.variables.VariableManager} available) shall be treated
+	 * @param aConversionContext
+	 *            defines some parameters controlling how the conversion is done in detail
 	 * @return the converted value
 	 * @throws UnresolvableVariableException
 	 * @throws ClassNotFoundException
@@ -511,9 +513,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	@SuppressWarnings({ "rawtypes" })
 	protected Object convertEncapsulatedValueCollectionToTargetType(Class<?> aTargetType, Class<?> aParameterizedType,
-			ValueOrEnumValueOrOperationCollection aCollection,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues)
-			throws UnresolvableVariableException, UnexecutableException {
+			ValueOrEnumValueOrOperationCollection aCollection, ConversionContext aConversionContext,
+			Set<Object> someVisitedValues) throws UnresolvableVariableException, UnexecutableException {
 
 		Class<?> tempTargetType = null;
 		Class<? extends Collection> tempCollectionType = null;
@@ -548,7 +549,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
 						.get(i - 1));
 				Object tempResultValue = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
-						tempValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
+						tempValue, aConversionContext, someVisitedValues);
 				Array.set(tempResultArray, i, tempResultValue);
 			}
 
@@ -566,7 +567,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		} else {
 			// this is just a single value
 			Object tempResult = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
-					aCollection.getValue(), anUnresolvableVariableHandlingPolicy, someVisitedValues);
+					aCollection.getValue(), aConversionContext, someVisitedValues);
 
 			// but we might need to return this as an array with one element
 			if (aTargetType == null) {
@@ -614,19 +615,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 	@Override
 	public String convertValueToString(Object aValue, boolean aForceIntermediateMapFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		return convertValueToFormattedString(aValue, aForceIntermediateMapFlag, anUnresolvableVariableHandlingPolicy)
+			ConversionContext aConversionContext) {
+		return convertValueToFormattedString(aValue, aForceIntermediateMapFlag, aConversionContext)
 				.toUnformattedString();
 	}
 
 	@Override
 	public FormattedString convertValueToFormattedString(Object aValue, boolean aForceIntermediateMapFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+			ConversionContext aConversionContext) {
 		if (aForceIntermediateMapFlag) {
 			try {
-				Map<?, ?>[] tempIntermediateMap = (Map[]) convertValue(Map[].class, aValue,
-						anUnresolvableVariableHandlingPolicy);
-				return convertValueToFormattedString(tempIntermediateMap, false, anUnresolvableVariableHandlingPolicy);
+				Map<?, ?>[] tempIntermediateMap = (Map[]) convertValue(Map[].class, aValue, aConversionContext);
+				return convertValueToFormattedString(tempIntermediateMap, false, aConversionContext);
 			} catch (UnresolvableVariableException exc) {
 				exc.printStackTrace();
 				return new FormattedString("FAILURE");
@@ -640,7 +640,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		// always convert to an array, so array values will convert fine
-		FormattedString[] tempResult = convertValueToFormattedStringArray(aValue, anUnresolvableVariableHandlingPolicy);
+		FormattedString[] tempResult = convertValueToFormattedStringArray(aValue, aConversionContext);
 
 		FormattedString tempBuffer = new FormattedString();
 		for (FormattedString tempSingleResult : tempResult) {
@@ -654,10 +654,9 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public String[] convertValueToStringArray(Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		FormattedString[] tempFormattedStrings = convertValueToStringArray(aValue,
-				anUnresolvableVariableHandlingPolicy, new HashSet<Object>());
+	public String[] convertValueToStringArray(Object aValue, ConversionContext aConversionContext) {
+		FormattedString[] tempFormattedStrings = convertValueToStringArray(aValue, aConversionContext,
+				new HashSet<Object>());
 
 		String[] tempStrings = new String[tempFormattedStrings.length];
 		for (int i = 0; i < tempFormattedStrings.length; i++) {
@@ -668,33 +667,34 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	}
 
 	@Override
-	public FormattedString[] convertValueToFormattedStringArray(Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		return convertValueToStringArray(aValue, anUnresolvableVariableHandlingPolicy, new HashSet<Object>());
+	public FormattedString[] convertValueToFormattedStringArray(Object aValue, ConversionContext aConversionContext) {
+		return convertValueToStringArray(aValue, aConversionContext, new HashSet<Object>());
 	}
 
 	/**
 	 * Extended version of {@link #convertValueToStringArray(Object, UnresolvableVariableHandling)}.
 	 * 
 	 * @param aValue
-	 * @param anUnresolvableVariableHandlingPolicy
+	 * @param aConversionContext
 	 * @param someVisitedValues
 	 * @return
 	 */
-	public FormattedString[] convertValueToStringArray(Object aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy, Set<Object> someVisitedValues) {
+	public FormattedString[] convertValueToStringArray(Object aValue, ConversionContext aConversionContext,
+			Set<Object> someVisitedValues) {
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
+
 		FormattedString[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
 				tempResult = (FormattedString[]) convertEncapsulatedValueCollectionToTargetType(
 						FormattedString[].class, null, (ValueOrEnumValueOrOperationCollection) aValue,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+						tempConversionContext, someVisitedValues);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
 				tempResult = (FormattedString[]) convertEncapsulatedValueToTargetType(FormattedString[].class, null,
-						(ValueOrEnumValueOrOperation) aValue, anUnresolvableVariableHandlingPolicy, someVisitedValues);
+						(ValueOrEnumValueOrOperation) aValue, tempConversionContext, someVisitedValues);
 			} else {
 				tempResult = (FormattedString[]) convertPlainValueToTargetType(FormattedString[].class, null, aValue,
-						anUnresolvableVariableHandlingPolicy, someVisitedValues);
+						tempConversionContext, someVisitedValues);
 			}
 		} catch (UnexecutableException exc) {
 			// this is expected to happen in some cases during dry run - but not a problem
@@ -917,14 +917,18 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @param aTargetType
 	 *            the target type
 	 * @param someVisitedValues
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a ready-to-use, instantiated conversion, or null if none was found
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	protected Conversion<?, ?> findAndInstantiateConversion(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues) throws InstantiationException, IllegalAccessException {
+			Set<Object> someVisitedValues, ConversionContext aConversionContext) throws InstantiationException,
+			IllegalAccessException {
 		Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(aSourceType, aTargetType,
-				someVisitedValues);
+				someVisitedValues, aConversionContext);
+
 		return createConversionInstance(tempConversionClass, someVisitedValues);
 	}
 
@@ -936,18 +940,21 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            the source type
 	 * @param aTargetType
 	 *            the target type
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues) {
-		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType);
+			Set<Object> someVisitedValues, ConversionContext aConversionContext) {
+		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType,
+				aConversionContext);
 
 		if (tempConversion != null) {
 			return tempConversion;
 		}
 
 		// If nothing found yet, continue search in the derived conversion lists
-		return findDerivedConversionRecursive(aSourceType, aTargetType);
+		return findDerivedConversionRecursive(aSourceType, aTargetType, aConversionContext);
 	}
 
 	/**
@@ -962,7 +969,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> findDerivedConversionRecursive(Class<?> aSourceType,
-			Class<?> aTargetType) {
+			Class<?> aTargetType, ConversionContext aConversionContext) {
 		if (aSourceType == null || aTargetType == null) {
 			return null;
 		}
@@ -973,13 +980,13 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		for (Class<?> tempSourceInterface : aSourceType.getInterfaces()) {
-			tempConversion = findDerivedConversionRecursive(tempSourceInterface, aTargetType);
+			tempConversion = findDerivedConversionRecursive(tempSourceInterface, aTargetType, aConversionContext);
 			if (tempConversion != null) {
 				return tempConversion;
 			}
 		}
 
-		return findDerivedConversionRecursive(aSourceType.getSuperclass(), aTargetType);
+		return findDerivedConversionRecursive(aSourceType.getSuperclass(), aTargetType, aConversionContext);
 	}
 
 	/**
@@ -1010,9 +1017,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 *            the source type
 	 * @param aTargetType
 	 *            the target type
+	 * @param aConversionContext
+	 *            The conversion context
 	 * @return a conversion class, or null if none was found
 	 */
-	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType) {
+	protected Class<? extends Conversion<?, ?>> findConversionRecursive(Class<?> aSourceType, Class<?> aTargetType,
+			ConversionContext aConversionContext) {
 		if (conversionSearchBlockers.contains(aSourceType) || conversionSearchBlockers.contains(aTargetType)) {
 			return null;
 		}
@@ -1022,25 +1032,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			Class<? extends Conversion<?, ?>> tempConversionClass = null;
 			if (aTargetType == null || aTargetType == Object.class) {
 				// This is the default target type case
-				tempConversionClass = defaultConversions.get(tempSourceTypeInFocus);
+				tempConversionClass = filterConversionClass(defaultConversions.get(tempSourceTypeInFocus), aSourceType,
+						aTargetType, aConversionContext, true);
 			} else {
 				// We actually have a target type
 				Class<?> tempTargetTypeInFocus = aTargetType;
-				while (tempTargetTypeInFocus != null) {
+				outerLoop: while (tempTargetTypeInFocus != null) {
 					if (conversionSearchBlockers.contains(tempTargetTypeInFocus)) {
 						break;
 					}
-					tempConversionClass = conversions.get(new ConversionKey(tempSourceTypeInFocus,
-							tempTargetTypeInFocus));
+					tempConversionClass = filterConversionClass(
+							conversions.get(new ConversionKey(tempSourceTypeInFocus, tempTargetTypeInFocus)),
+							aSourceType, aTargetType, aConversionContext, false);
+
 					if (tempConversionClass != null) {
-						break;
+						break outerLoop;
 					}
 
 					for (Class<?> tempTargetInterface : tempTargetTypeInFocus.getInterfaces()) {
-						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(
-								tempSourceTypeInFocus, tempTargetInterface);
-						if (tempConversion != null) {
-							return tempConversion;
+						tempConversionClass = findConversionRecursive(tempSourceTypeInFocus, tempTargetInterface,
+								aConversionContext);
+						if (tempConversionClass != null) {
+							break outerLoop;
 						}
 					}
 
@@ -1055,21 +1068,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					if (aTargetType == null || aTargetType == Object.class) {
 						// This is the default target type case
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								null);
+								null, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
 					} else {
 						// We actually have a target type
 						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								aTargetType);
+								aTargetType, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
 
 						// Search the interfaces of the target type as well
 						for (Class<?> tempTargetInterface : aTargetType.getInterfaces()) {
-							tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface);
+							tempConversion = findConversionRecursive(tempSourceInterface, tempTargetInterface,
+									aConversionContext);
 							if (tempConversion != null) {
 								return tempConversion;
 							}
@@ -1082,6 +1096,37 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		return null;
+	}
+
+	/**
+	 * This filtering method has the ability to replace a conversion class found by the normal lookup before it's
+	 * actually used. This is the point at which special rules (for example dictated by the {@link ConversionContext})
+	 * may be enforced.
+	 * 
+	 * @param aConversionClass
+	 *            the conversion class in question
+	 * @param aSourceType
+	 *            the source type
+	 * @param aTargetType
+	 *            the target type
+	 * @param aConversionContext
+	 *            the conversion context to use
+	 * @param aDefaultConversionFlag
+	 *            whether this is a default conversion or specifically requested to match the target type
+	 * @return the conversion class to use, which may be the input class or any other replacement
+	 */
+	protected Class<? extends Conversion<?, ?>> filterConversionClass(
+			Class<? extends Conversion<?, ?>> aConversionClass, Class<?> aSourceType, Class<?> aTargetType,
+			ConversionContext aConversionContext, boolean aDefaultConversionFlag) {
+		if (aConversionClass != null) {
+			if (aConversionContext.getSkipBeanToMapDefaultConversion()) {
+				if (aDefaultConversionFlag && ObjectToMap.class.isAssignableFrom(aConversionClass)) {
+					return ObjectToObject.class;
+				}
+			}
+		}
+
+		return aConversionClass;
 	}
 
 	/**
@@ -1107,4 +1152,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		return tempInstance;
 	}
 
+	/**
+	 * This method creates a default conversion context in case none is provided, and returns the provided context
+	 * otherwise.
+	 * 
+	 * @param aContext
+	 *            the context to safeguard
+	 * @return a context (guaranteed not to return null)
+	 */
+	public ConversionContext safeguardConversionContext(ConversionContext aContext) {
+		if (aContext == null) {
+			return conversionContextProvider.get();
+		} else {
+			return aContext;
+		}
+	}
 }

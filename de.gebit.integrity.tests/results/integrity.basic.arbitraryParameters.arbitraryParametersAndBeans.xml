@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="16.01.14 13:59" isotimestamp="2014-01-16T13:59:50" duration="18.298">
+  <variables />
+  <suite id="0" name="integrity.basic.arbitraryParameters.arbitraryParametersAndBeans" timestamp="16.01.14 13:59:50.0176">
+    <setup />
+    <variables>
+      <variable name="var" />
+    </variables>
+    <statements>
+      <call id="1" line="32" name="arbitraryParamEcho" description="echoes the values: 123, 400, foo" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo" timestamp="16.01.14 13:59:50.0176">
+        <parameters>
+          <parameter name="fixparam" value="123" />
+          <parameter name="testparam1" value="400" />
+          <parameter name="testparam2" value="foo" />
+        </parameters>
+        <result duration="1.348" type="success">
+          <variableUpdate name="var" value="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass@ba3bc8c" />
+        </result>
+      </call>
+      <test id="2" line="35" name="arbitraryParamEchoTypesTest" description="echoes all arbitrary parameter names and their types" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echoTypes" timestamp="16.01.14 13:59:50.0192">
+        <results duration="0.615" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.615" description="echoes all arbitrary parameter names and their types" type="success">
+            <parameters>
+              <parameter name="myParam" value="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass@ba3bc8c" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="myParam|de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass" value="myParam|de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="13.180" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

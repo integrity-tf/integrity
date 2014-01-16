@@ -8,9 +8,9 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.EnumValue;
-import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 import de.gebit.integrity.parameter.conversion.Conversion;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.ConversionFailedException;
 
 /**
  * A default Integrity conversion.
@@ -22,8 +22,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class EnumValueToEnumConstant extends Conversion<EnumValue, Enum> {
 
 	@Override
-	public Enum convert(EnumValue aSource, Class<? extends Enum> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
+	public Enum convert(EnumValue aSource, Class<? extends Enum> aTargetType, ConversionContext aConversionContext) {
 		if (Enum.class.isAssignableFrom(aTargetType)) {
 			for (Enum tempConstant : aTargetType.getEnumConstants()) {
 				if (tempConstant.toString().equals(aSource.getEnumValue().getSimpleName())) {

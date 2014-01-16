@@ -90,11 +90,11 @@ public class DefaultResultComparator implements ResultComparator {
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
 									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
 							Array.set(tempConvertedResult, i, valueConverter.convertValue(tempConversionTargetType,
-									tempSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+									tempSingleExpectedResult, null));
 						}
 					} else {
 						tempConvertedResult = valueConverter.convertValue(tempConversionTargetType,
-								anExpectedResult.getValue(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+								anExpectedResult.getValue(), null);
 					}
 
 					return aFixtureInstance.performCustomComparation(tempConvertedResult, aFixtureResult,
@@ -214,10 +214,8 @@ public class DefaultResultComparator implements ResultComparator {
 				tempNestedObject = (NestedObject) aSingleExpectedResult;
 			}
 
-			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
+			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject, null);
 		} else {
 			// Two special bean-related cases still may apply: expected result may be a map, or a variable or custom
 			// operation which results in a map when resolving. We now check for those.
@@ -236,13 +234,12 @@ public class DefaultResultComparator implements ResultComparator {
 			if (tempPossibleMapAsSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
 				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
-				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult,
-						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
 				tempConvertedExpectedResult = tempPossibleMapAsSingleExpectedResult;
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result
 				tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
-						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						null);
 			}
 		}
 
@@ -352,8 +349,7 @@ public class DefaultResultComparator implements ResultComparator {
 				// to the same types
 				try {
 					tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
-							tempActualValue.getClass(), tempReferenceValue,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE) : tempReferenceValue;
+							tempActualValue.getClass(), tempReferenceValue, null) : tempReferenceValue;
 				} catch (UnresolvableVariableException exc) {
 					exc.printStackTrace();
 				} catch (UnexecutableException exc) {

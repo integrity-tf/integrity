@@ -10,8 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.strings;
 import java.math.BigInteger;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -23,7 +23,7 @@ public class CharacterToBigInteger extends Conversion<Character, BigInteger> {
 
 	@Override
 	public BigInteger convert(Character aSource, Class<? extends BigInteger> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return new BigInteger(aSource.toString());
 		} catch (NumberFormatException exc) {

@@ -9,8 +9,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.booleans;
 
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -28,13 +28,13 @@ public abstract class AbstractBooleanValueToString<T> extends Conversion<Boolean
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 * @throws ConversionFailedException
 	 */
-	protected String convertToString(BooleanValue aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected String convertToString(BooleanValue aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return aSource.getBooleanValue();
 	}
 

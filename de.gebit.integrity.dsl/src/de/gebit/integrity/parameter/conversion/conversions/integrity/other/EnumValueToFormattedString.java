@@ -8,7 +8,7 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.EnumValue;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -21,8 +21,8 @@ public class EnumValueToFormattedString extends AbstractEnumValueToString<Format
 
 	@Override
 	public FormattedString convert(EnumValue aSource, Class<? extends FormattedString> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy);
+			ConversionContext aConversionContext) {
+		return convertToFormattedString(aSource, aConversionContext);
 	}
 
 }

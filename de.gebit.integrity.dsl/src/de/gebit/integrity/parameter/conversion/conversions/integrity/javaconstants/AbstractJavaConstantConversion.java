@@ -17,8 +17,8 @@ import com.google.inject.Inject;
 import de.gebit.integrity.dsl.JavaConstantValue;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -45,13 +45,13 @@ public abstract class AbstractJavaConstantConversion<T> extends Conversion<JavaC
 	 *            the value to convert
 	 * @param aTargetType
 	 *            the target type
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how to deal with unresolvable variables
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the conversion result
 	 * @throws ConversionFailedException
 	 */
 	protected Object performConversion(JavaConstantValue aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		JvmType tempConstantOwner = aSource.getConstant().getType();
 		if (tempConstantOwner == null) {
 			throw new ConversionFailedException(JavaConstantValue.class, aTargetType,
@@ -84,7 +84,7 @@ public abstract class AbstractJavaConstantConversion<T> extends Conversion<JavaC
 
 			if (aTargetType != null) {
 				// Specific target type requested: perform another conversion
-				return convertValueRecursive(aTargetType, null, tempStaticValue, anUnresolvableVariableHandlingPolicy);
+				return convertValueRecursive(aTargetType, null, tempStaticValue, aConversionContext);
 			} else {
 				// Default conversion: just return the object as-is
 				return tempStaticValue;

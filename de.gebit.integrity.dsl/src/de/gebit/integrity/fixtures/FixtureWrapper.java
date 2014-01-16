@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.MethodReference;
@@ -26,7 +27,7 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 import de.gebit.integrity.operations.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -78,6 +79,12 @@ public class FixtureWrapper<C extends Object> {
 	 */
 	@Inject
 	private ModelSourceExplorer modelSourceExplorer;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * Fixture instance factories are cached in this map.
@@ -222,9 +229,8 @@ public class FixtureWrapper<C extends Object> {
 
 	/**
 	 * Converts the given value to a string. This method either calls the
-	 * {@link ValueConverter#convertValueToString(Object, UnresolvableVariableHandling)} method or delegates the
-	 * conversion to the contained fixture instance, if it does implement the {@link CustomStringConversionFixture}
-	 * interface.
+	 * {@link ValueConverter#convertValueToString(Object, ConversionContext)} method or delegates the conversion to the
+	 * contained fixture instance, if it does implement the {@link CustomStringConversionFixture} interface.
 	 * 
 	 * @param aValue
 	 *            the value to convert
@@ -232,17 +238,16 @@ public class FixtureWrapper<C extends Object> {
 	 *            the fixture method that was called to return the given value
 	 * @param aForceIntermediateMapFlag
 	 *            whether the conversion should force the usage of an intermediate map (useful for bean types)
-	 * @param anUnresolvedVariableHandlingPolicy
-	 *            how to handle unresolvable variables
+	 * @param aConversionContext
+	 *            the conversion context to use (may be null if the default shall be used)
 	 * @return the converted string
 	 */
 	public FormattedString performValueToFormattedStringConversion(Object aValue, String aFixtureMethod,
-			boolean aForceIntermediateMapFlag, UnresolvableVariableHandling anUnresolvedVariableHandlingPolicy) {
+			boolean aForceIntermediateMapFlag, ConversionContext aConversionContext) {
 		if (isCustomStringConversionFixture()) {
 			return ((CustomStringConversionFixture) fixtureInstance).convertValueToString(aValue, aFixtureMethod);
 		} else {
-			return valueConverter.convertValueToFormattedString(aValue, aForceIntermediateMapFlag,
-					anUnresolvedVariableHandlingPolicy);
+			return valueConverter.convertValueToFormattedString(aValue, aForceIntermediateMapFlag, aConversionContext);
 		}
 	}
 
@@ -326,8 +331,7 @@ public class FixtureWrapper<C extends Object> {
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
 							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-									tempExpectedType.getComponentType(), tempSingleValue,
-									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+									tempExpectedType.getComponentType(), tempSingleValue, null));
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
@@ -335,8 +339,7 @@ public class FixtureWrapper<C extends Object> {
 						// component type, of course
 						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 								.getComponentType() : tempExpectedType;
-						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue,
-								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue, null);
 						if (tempExpectedType.isArray()) {
 							// ...and if the expected type is an array, now we create one
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
@@ -357,8 +360,11 @@ public class FixtureWrapper<C extends Object> {
 				Object tempValue = aParameterMap.remove(tempName);
 				if (tempValue != null) {
 					Object tempConvertedValue;
-					tempConvertedValue = valueConverter.convertValue(null, tempValue,
-							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					// In case of arbitrary parameters, we don't want to perform the default bean-to-map conversion,
+					// because otherwise one couldn't put any objects into the fixture without having them converted to
+					// maps. See also issue #52: https://github.com/integrity-tf/integrity/issues/52
+					tempConvertedValue = valueConverter.convertValue(null, tempValue, conversionContextProvider.get()
+							.skipBeanToMapDefaultConversion());
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}

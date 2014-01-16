@@ -35,6 +35,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
@@ -79,6 +80,7 @@ import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
@@ -236,6 +238,12 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected ModelSourceExplorer modelSourceExplorer;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * The remoting server.
@@ -596,8 +604,11 @@ public class DefaultTestRunner implements TestRunner {
 		int tempCount = 1;
 		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
 			try {
-				tempCount = (Integer) valueConverter.convertValue(Integer.class, aSuiteCall.getMultiplier().getCount(),
-						UnresolvableVariableHandling.EXCEPTION);
+				tempCount = (Integer) valueConverter.convertValue(
+						Integer.class,
+						aSuiteCall.getMultiplier().getCount(),
+						conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
+								UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException();
@@ -1452,8 +1463,11 @@ public class DefaultTestRunner implements TestRunner {
 		int tempCount = 1;
 		if (aCall.getMultiplier() != null && aCall.getMultiplier().getCount() != null) {
 			try {
-				tempCount = (Integer) valueConverter.convertValue(Integer.class, aCall.getMultiplier().getCount(),
-						UnresolvableVariableHandling.EXCEPTION);
+				tempCount = (Integer) valueConverter.convertValue(
+						Integer.class,
+						aCall.getMultiplier().getCount(),
+						conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
+								UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException();
@@ -1876,8 +1890,11 @@ public class DefaultTestRunner implements TestRunner {
 										.getParamNameStringFromParameterName(tempParameter.getName());
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-									tempParameters[i] = valueConverter.convertValue(tempTargetType,
-											tempParameter.getValue(), UnresolvableVariableHandling.EXCEPTION);
+									tempParameters[i] = valueConverter.convertValue(
+											tempTargetType,
+											tempParameter.getValue(),
+											conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
+													UnresolvableVariableHandling.EXCEPTION));
 									break;
 								}
 							}

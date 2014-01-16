@@ -10,8 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 import java.util.Date;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -23,7 +23,7 @@ public class DateToSQLDate extends Conversion<Date, java.sql.Date> {
 
 	@Override
 	public java.sql.Date convert(Date aSource, Class<? extends java.sql.Date> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		return new java.sql.Date(aSource.getTime());
 	}
 

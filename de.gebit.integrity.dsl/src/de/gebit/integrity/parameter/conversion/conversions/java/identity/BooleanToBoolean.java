@@ -8,8 +8,8 @@
 package de.gebit.integrity.parameter.conversion.conversions.java.identity;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion. This conversion actually doesn't convert anything - it exists solely to keep booleans
@@ -23,7 +23,7 @@ public class BooleanToBoolean extends Conversion<Boolean, Boolean> {
 
 	@Override
 	public Boolean convert(Boolean aSource, Class<? extends Boolean> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		return aSource;
 	}
 

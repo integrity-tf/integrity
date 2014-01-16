@@ -21,8 +21,8 @@ import java.util.Map.Entry;
 
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -38,8 +38,8 @@ public class MapToBean extends Conversion<Map, Object> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object convert(Map aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Object convert(Map aSource, Class<? extends Object> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 
 		try {
 			Object tempTargetInstance = aTargetType.newInstance();
@@ -103,8 +103,7 @@ public class MapToBean extends Conversion<Map, Object> {
 						tempClass = tempClass.getComponentType();
 					}
 
-					tempConvertedValue = convert(((Map) tempEntry.getValue()), tempClass,
-							anUnresolvableVariableHandlingPolicy);
+					tempConvertedValue = convert(((Map) tempEntry.getValue()), tempClass, aConversionContext);
 
 					if (tempOriginalClass.isArray()) {
 						Object tempCopy = tempConvertedValue;
@@ -113,7 +112,7 @@ public class MapToBean extends Conversion<Map, Object> {
 					}
 				} else { // value
 					tempConvertedValue = convertValueRecursive(tempTargetType, tempParameterizedType,
-							tempEntry.getValue(), anUnresolvableVariableHandlingPolicy);
+							tempEntry.getValue(), aConversionContext);
 				}
 				tempWriteMethod.invoke(tempTargetInstance, new Object[] { tempConvertedValue });
 			}

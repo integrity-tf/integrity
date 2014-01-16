@@ -20,8 +20,8 @@ import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -36,7 +36,7 @@ public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 
 	@Override
 	public Object convert(NestedObject aSource, Class<? extends Object> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 
 		if (aTargetType == null) {
 			throw new ConversionFailedException(aSource.getClass(), aTargetType,
@@ -104,7 +104,7 @@ public class NestedObjectToBean extends Conversion<NestedObject, Object> {
 				}
 
 				Object tempConvertedValue = convertValueRecursive(tempTargetType, tempParameterizedType,
-						tempAttribute.getValue(), anUnresolvableVariableHandlingPolicy);
+						tempAttribute.getValue(), aConversionContext);
 				tempWriteMethod.invoke(tempTargetInstance, new Object[] { tempConvertedValue });
 			}
 

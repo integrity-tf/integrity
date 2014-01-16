@@ -12,8 +12,8 @@ import java.text.ParseException;
 
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.DateUtil;
 
 /**
@@ -26,7 +26,7 @@ public class TimeValueToSQLDate extends Conversion<TimeValue, Date> {
 
 	@Override
 	public Date convert(TimeValue aSource, Class<? extends Date> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+			ConversionContext aConversionContext) throws ConversionFailedException {
 		try {
 			return new Date(DateUtil.convertTimeValue(aSource).getTime().getTime());
 		} catch (ParseException exc) {

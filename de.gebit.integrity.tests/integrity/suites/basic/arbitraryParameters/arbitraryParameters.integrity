@@ -23,5 +23,17 @@ packagedef integrity.basic.arbitraryParameters with
 		}
 		
 	suiteend
+	
+	suitedef arbitraryParametersAndBeans with
+		// This suite tests the problematic case fixed in issue #52: https://github.com/integrity-tf/integrity/issues/52
+	
+		// Put a bean object into a variable
+		variable var
+		call arbitraryParamEcho fixparam: 123 +testparam1: 400 +testparam2: "foo" -> var
+		
+		// Now use the variable in an arbitrary parameter; the object inside must NOT be converted to a map!
+		test arbitraryParamEchoTypesTest +myParam: var = "myParam|de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass"
+	
+	suiteend
 
 packageend

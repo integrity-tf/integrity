@@ -8,7 +8,7 @@
 package de.gebit.integrity.parameter.conversion.conversions.integrity.other;
 
 import de.gebit.integrity.dsl.EnumValue;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 
 /**
  * A default Integrity conversion.
@@ -20,9 +20,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class EnumValueToString extends AbstractEnumValueToString<String> {
 
 	@Override
-	public String convert(EnumValue aSource, Class<? extends String> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) {
-		return convertToFormattedString(aSource, anUnresolvableVariableHandlingPolicy).toUnformattedString();
+	public String convert(EnumValue aSource, Class<? extends String> aTargetType, ConversionContext aConversionContext) {
+		return convertToFormattedString(aSource, aConversionContext).toUnformattedString();
 	}
 
 }

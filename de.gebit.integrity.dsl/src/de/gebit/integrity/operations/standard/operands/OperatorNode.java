@@ -13,7 +13,6 @@ import java.lang.reflect.Type;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.operations.UnexecutableException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.JavaTypeUtil;
 
@@ -101,9 +100,9 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 			Class<?> tempRightOperandType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[1];
 
 			LEFT tempConvertedLeftOperand = (LEFT) valueConverter.convertValue(tempLeftOperandType,
-					getEvaluatedLeftOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					getEvaluatedLeftOperand(), null);
 			RIGHT tempConvertedRightOperand = (RIGHT) valueConverter.convertValue(tempRightOperandType,
-					getEvaluatedRightOperand(), UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+					getEvaluatedRightOperand(), null);
 
 			return evaluateInternal(tempConvertedLeftOperand, tempConvertedRightOperand);
 		} else {

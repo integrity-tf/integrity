@@ -9,8 +9,8 @@ package de.gebit.integrity.parameter.conversion.conversions.integrity.numbers;
 
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.string.FormattedString;
 
 /**
@@ -29,13 +29,13 @@ public abstract class AbstractIntegerValueToString<T> extends Conversion<Integer
 	 * 
 	 * @param aSource
 	 *            the source value
-	 * @param anUnresolvableVariableHandlingPolicy
-	 *            how unresolvable variables shall be treated
+	 * @param aConversionContext
+	 *            the conversion context
 	 * @return the resulting string
 	 * @throws ConversionFailedException
 	 */
-	protected FormattedString convertToFormattedString(IntegerValue aSource,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	protected FormattedString convertToFormattedString(IntegerValue aSource, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return new FormattedString(aSource.getIntegerValue().toString());
 	}
 

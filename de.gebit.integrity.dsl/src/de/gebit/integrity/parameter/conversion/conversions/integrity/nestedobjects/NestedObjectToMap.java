@@ -14,8 +14,8 @@ import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -29,15 +29,14 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
 public class NestedObjectToMap extends Conversion<NestedObject, Map> {
 
 	@Override
-	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Map convert(NestedObject aSource, Class<? extends Map> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		// Using a Tree Map here for values ordered by key
 		Map<String, Object> tempKeyValueMap = new TreeMap<String, Object>();
 		for (KeyValuePair tempAttribute : aSource.getAttributes()) {
 			Object tempConvertedValue;
 			try {
-				tempConvertedValue = convertValueRecursive(null, null, tempAttribute.getValue(),
-						anUnresolvableVariableHandlingPolicy);
+				tempConvertedValue = convertValueRecursive(null, null, tempAttribute.getValue(), aConversionContext);
 			} catch (ClassNotFoundException exc) {
 				throw new ConversionFailedException(aSource.getClass(), Map.class, null, exc);
 			} catch (UnexecutableException exc) {

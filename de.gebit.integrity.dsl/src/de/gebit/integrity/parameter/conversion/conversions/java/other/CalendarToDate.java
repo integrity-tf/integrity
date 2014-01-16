@@ -11,8 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.gebit.integrity.parameter.conversion.Conversion;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
-import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 
 /**
  * A default Integrity conversion.
@@ -24,8 +24,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 public class CalendarToDate extends Conversion<Calendar, Date> {
 
 	@Override
-	public Date convert(Calendar aSource, Class<? extends Date> aTargetType,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ConversionFailedException {
+	public Date convert(Calendar aSource, Class<? extends Date> aTargetType, ConversionContext aConversionContext)
+			throws ConversionFailedException {
 		return aSource.getTime();
 	}
 
