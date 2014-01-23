@@ -52,6 +52,12 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoEnum uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum
 	testdef echoEnumTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum
 	
+	calldef echoEnumNamedResult uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnumNamedResult
+	testdef echoEnumNamedResultTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnumNamedResult
+	
+	calldef createEnumNamedResult uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
+	testdef createEnumNamedResultTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
+	
 	calldef specificDescriptionTest_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
 	testdef specificDescriptionTest_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
 	
