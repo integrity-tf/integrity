@@ -37,6 +37,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.FixedParameterName;
+import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.JavaConstantReference;
@@ -48,6 +49,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.Suite;
@@ -291,6 +293,30 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
+	 * Determine valid enumeration values for the default result type of the provided fixture method reference.
+	 * 
+	 * @param aMethodRef
+	 * @return
+	 */
+	protected IScope determineNamedResultEnumValueScope(MethodReference aMethodRef, JvmField aField) {
+		if (aMethodRef != null && aField != null) {
+			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+
+			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
+					.getAllEnumLiteralsFromJvmTypeReference(aField.getType());
+			if (tempLiteralList != null) {
+				for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
+					tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
+				}
+
+				return new SimpleScope(tempList);
+			}
+		}
+
+		return IScope.NULLSCOPE;
+	}
+
+	/**
 	 * Limits enumeration values in parameters to actually existent enumeration literals.
 	 * 
 	 * @param aParameter
@@ -328,7 +354,11 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			// it's a specific parameter column
 			return determineParameterEnumValueScope(tempMethodRef, ((ParameterTableHeader) tempTableHeader).getName());
 		} else if (tempTableHeader instanceof ResultTableHeader) {
-			// TODO add named result path
+			// it's a named result
+			ResultName tempResultName = ((ResultTableHeader) tempTableHeader).getName();
+			if (tempResultName instanceof FixedResultName) {
+				return determineNamedResultEnumValueScope(tempMethodRef, ((FixedResultName) tempResultName).getField());
+			}
 		} else if (tempTableHeader instanceof TableTest) {
 			// it is the default result column
 			return determineDefaultResultEnumValueScope(tempMethodRef);
