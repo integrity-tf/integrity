@@ -150,11 +150,60 @@ public class NoOpFixture {
 		return aValue;
 	}
 
+	@FixtureMethod(description = "Returns a named result bean: $result$")
+	public EnumNamedResult echoEnumNamedResult(@FixtureParameter(name = "result") EnumNamedResult aValue) {
+		return aValue;
+	}
+
+	@FixtureMethod(description = "Creates a named result bean with an enum inside")
+	public EnumNamedResult createEnumNamedResult() {
+		EnumNamedResult tempResult = new EnumNamedResult();
+		tempResult.setFirstParameter("foobar");
+		tempResult.setSecondParameter(100);
+		tempResult.setThirdParameter(Enum.VALUE1);
+
+		return tempResult;
+	}
+
 	public enum Enum {
 
 		VALUE1,
 
 		VALUE2;
+
+	}
+
+	public class EnumNamedResult {
+
+		private String firstParameter;
+
+		private Integer secondParameter;
+
+		private Enum thirdParameter;
+
+		public String getFirstParameter() {
+			return firstParameter;
+		}
+
+		public void setFirstParameter(String firstParameter) {
+			this.firstParameter = firstParameter;
+		}
+
+		public Integer getSecondParameter() {
+			return secondParameter;
+		}
+
+		public void setSecondParameter(Integer secondParameter) {
+			this.secondParameter = secondParameter;
+		}
+
+		public Enum getThirdParameter() {
+			return thirdParameter;
+		}
+
+		public void setThirdParameter(Enum thirdParameter) {
+			this.thirdParameter = thirdParameter;
+		}
 
 	}
 }

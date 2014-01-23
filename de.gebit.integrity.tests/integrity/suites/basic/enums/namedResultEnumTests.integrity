@@ -1,0 +1,23 @@
+packagedef integrity.basic.enums with
+	
+	suitedef namedResultEnumTest with
+	
+		test integrity.fixtures.basic.noop.createEnumNamedResultTest firstParameter = "foobar" secondParameter = 100 thirdParameter = VALUE1
+		
+		test integrity.fixtures.basic.noop.createEnumNamedResultTest firstParameter = "foobar" secondParameter = 100 thirdParameter = VALUE2
+				
+	suiteend
+	
+	
+	suitedef namedResultEnumTableTest with
+	
+		tabletest integrity.fixtures.basic.noop.createEnumNamedResultTest
+			| firstParameter = | secondParameter = | thirdParameter = |
+			| "foobar"         | 100               | VALUE1           |
+			| "foobar"         | 100               | VALUE2           |
+			| "foobar"         | 101               | VALUE1           |
+			| "footbar"        | 100               | VALUE1           |
+				
+	suiteend
+
+packageend
