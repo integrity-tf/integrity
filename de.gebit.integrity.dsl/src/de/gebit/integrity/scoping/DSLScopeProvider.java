@@ -43,6 +43,7 @@ import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.JavaConstantReference;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.PackageStatement;
 import de.gebit.integrity.dsl.Parameter;
@@ -377,6 +378,26 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_EnumValue_enumValue(Test aTest, EReference aRef) {
 		return determineDefaultResultEnumValueScope(aTest.getDefinition().getFixtureMethod());
+	}
+
+	/**
+	 * Limit enum values in named test results to actually existent enumeration literals.
+	 * 
+	 * @param aNamedResult
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_EnumValue_enumValue(NamedResult aNamedResult, EReference aRef) {
+		ResultName tempResultName = aNamedResult.getName();
+		if (tempResultName instanceof FixedResultName) {
+			if (aNamedResult.eContainer() instanceof Test) {
+				return determineNamedResultEnumValueScope(((Test) aNamedResult.eContainer()).getDefinition()
+						.getFixtureMethod(), ((FixedResultName) tempResultName).getField());
+			}
+		}
+
+		return IScope.NULLSCOPE;
 	}
 
 	/**
