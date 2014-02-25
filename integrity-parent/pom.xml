@@ -157,7 +157,7 @@
 			<goal>install-file</goal>
 			</goals>
 			<configuration>
-			<file>target/pom.xml</file>
+			<file>target/${project.artifactId}-${project.version}.jar</file>
 			<pomFile>target/pom.xml</pomFile>
 			</configuration>
 			</execution>
