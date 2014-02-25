@@ -4,7 +4,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-parent</artifactId>
-  <version>0.9.2-SNAPSHOT</version>
+  <version>${versionNumber}</version>
   <name>Integrity Parent POM</name>
   <description>Integrity is a highly extensible test automation framework based on XText and tightly integrated into Eclipse.</description>
   
@@ -16,6 +16,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho-version>0.16.0</tycho-version>
     <validateManifestVersions>true</validateManifestVersions>
+    
+    <versionNumber>0.9.2-SNAPSHOT</versionNumber>
   </properties>
   
   <build>
