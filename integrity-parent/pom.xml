@@ -146,21 +146,6 @@
 		<plugin>
 	        <artifactId>maven-install-plugin</artifactId>
 	        <version>2.5.1</version>
-	        <executions>
-	          <execution>
-	            <id>overwrite-pom</id>
-	            <phase>install</phase>
-	            <goals>
-	              <goal>install-file</goal>
-	            </goals>
-	            <configuration>
-	              <packaging>pom</packaging>
-	              <file>target/pom-install-deploy-fix/pom.xml</file>
-	              <pomFile>target/pom-install-deploy-fix/pom.xml</pomFile>
-	              <version>${project.version}</version>
-	            </configuration>
-	          </execution>
-	        </executions>
         </plugin>
 		
 		<plugin>
