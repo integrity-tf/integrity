@@ -123,7 +123,7 @@
 			<executions>
 	          	<execution>
 		            <id>replace-pom-placeholder</id>
-		            <phase>package</phase>
+		            <phase>compile</phase>
 		            <goals>
 		              <goal>copy-resources</goal>
 		            </goals>
