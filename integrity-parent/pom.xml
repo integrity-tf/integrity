@@ -97,10 +97,17 @@
 	        <version>2.7</version>
 	        <executions>
 	          <execution>
-	            <id>overwrite-pom</id>
+	            <id>deploy</id>
 	            <phase>deploy</phase>
 	            <goals>
 	              <goal>deploy</goal>
+	            </goals>
+	          </execution>
+	          <execution>
+	            <id>overwrite-pom</id>
+	            <phase>deploy</phase>
+	            <goals>
+	              <goal>deploy-file</goal>
 	            </goals>
 	            <configuration>
 	              <packaging>pom</packaging>
