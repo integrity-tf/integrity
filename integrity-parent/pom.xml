@@ -234,11 +234,13 @@
   		<id>integrity.nexus.releases</id>
   		<name>Integrity Releases</name>
   		<url>${releaseRepoUrl}</url>
+  		<uniqueVersion>false</uniqueVersion>
   	</repository>
   	<snapshotRepository>
   		<id>integrity.nexus.snapshots</id>
   		<name>Integrity Snapshots</name>
   		<url>${snapshotRepoUrl}</url>
+  		<uniqueVersion>false</uniqueVersion>
   	</snapshotRepository>
   </distributionManagement>
   
