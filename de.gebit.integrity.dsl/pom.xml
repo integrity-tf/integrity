@@ -12,7 +12,8 @@
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - Core</name>
   
-  <properties>
+  <properties>    
+    <versionNumber>0.9.2-SNAPSHOT</versionNumber>    
   	<sonar.exclusions>de/gebit/integrity/AbstractDSLRuntimeModule.java,de/gebit/integrity/DSLStandaloneSetupGenerated.java,de/gebit/integrity/dsl/**/*.java,de/gebit/integrity/parser/**/*.java,de/gebit/integrity/serializer/**/*.java,de/gebit/integrity/services/**/*.java,de/gebit/integrity/validation/**/*.java,de/gebit/integrity/generator/**/*.java</sonar.exclusions>
   </properties>
   

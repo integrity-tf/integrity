@@ -7,6 +7,11 @@
     <version>${versionNumber}</version>
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
+  
+  <properties>
+  	<versionNumber>0.9.2-SNAPSHOT</versionNumber>
+  </properties>
+  
   <artifactId>de.gebit.integrity.remoting</artifactId>
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - Remoting</name>
