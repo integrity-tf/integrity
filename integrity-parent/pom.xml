@@ -100,7 +100,7 @@
 	            <id>overwrite-pom</id>
 	            <phase>deploy</phase>
 	            <goals>
-	              <goal>deploy-file</goal>
+	              <goal>deploy</goal>
 	            </goals>
 	            <configuration>
 	              <packaging>pom</packaging>
