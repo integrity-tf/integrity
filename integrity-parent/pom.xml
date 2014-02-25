@@ -105,6 +105,7 @@
 	            <configuration>
 	              <packaging>pom</packaging>
 	              <file>target/pom-install-deploy-fix/pom.xml</file>
+	              <pomFile>target/pom-install-deploy-fix/pom.xml</pomFile>
 	              <url>${deployRepoUrl}</url>
 	              <version>${project.version}</version>
 	              <updateReleaseInfo>${isRelease}</updateReleaseInfo>
