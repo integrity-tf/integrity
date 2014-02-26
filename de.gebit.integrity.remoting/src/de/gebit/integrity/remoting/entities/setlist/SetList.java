@@ -92,9 +92,10 @@ public class SetList implements Serializable {
 
 			if (tempResultState != null) {
 				resultBearingEntryResultMap.put(tempEntry, tempResultState);
-				// if the entry is a result itself, it's not executable;
-				// otherwise it is
-				if (tempEntry.getType() != SetListEntryTypes.RESULT) {
+
+				if (SetListEntryTypes.SUITE != tempEntry.getType() && SetListEntryTypes.RESULT != tempEntry.getType()) {
+					// Skip suites here - we don't consider those "executable". Only the sub-elements are considered
+					// executable. And skip results themselves - these aren't executable at all.
 					executableEntryResultIndex.put(tempEntry, tempPosition);
 					executableEntryResultStates.add(tempResultState);
 					tempPosition++;
