@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.util.Pair;
@@ -45,6 +46,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.utils.DateUtil;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * These validators perform some more extensive validation on parts of the syntax tree.
@@ -161,6 +163,41 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 
 	/** Polymorphic Dispatch Default Case of {@link #checkParameter(Call)}. */
 	protected void _checkParameter(SuiteStatementWithResult aCall) { /* Does nothing. */
+	}
+
+	/**
+	 * Checks for duplicate parameters.
+	 * 
+	 * @param aParameter
+	 *            the parameter to be checked
+	 */
+	@Check
+	protected void checkParameterName(Parameter aParameter) {
+		EObject tempContainer = aParameter.eContainer();
+
+		List<Parameter> tempParameters = null;
+
+		if (tempContainer instanceof Test) {
+			tempParameters = ((Test) tempContainer).getParameters();
+		} else if (tempContainer instanceof Call) {
+			tempParameters = ((Call) tempContainer).getParameters();
+		} else if (tempContainer instanceof TableTest) {
+			tempParameters = ((TableTest) tempContainer).getParameters();
+		}
+
+		if (tempParameters != null) {
+			for (Parameter tempOtherParameter : tempParameters) {
+				if (tempOtherParameter != aParameter && tempOtherParameter.getName() != null
+						&& aParameter.getName() != null
+						&& tempOtherParameter.getName().getClass() == aParameter.getName().getClass()) {
+					if (IntegrityDSLUtil.getParamNameStringFromParameterName(tempOtherParameter.getName()).equals(
+							IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter.getName()))) {
+						error("Duplicate parameter", null);
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	/**
