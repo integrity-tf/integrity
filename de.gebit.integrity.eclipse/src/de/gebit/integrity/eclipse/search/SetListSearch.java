@@ -112,6 +112,11 @@ public class SetListSearch {
 		return tempResults;
 	}
 
+	/**
+	 * Finds entries which are considered "unsuccessful" (failed tests, tests with exceptions etc.).
+	 * 
+	 * @return matching entries (returns an empty list if no matches were found)
+	 */
 	public List<SetListEntry> findUnsuccessfulEntries() {
 		List<SetListEntry> tempResults = new ArrayList<SetListEntry>();
 
