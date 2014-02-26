@@ -4,14 +4,9 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>${versionNumber}</version>
+    <version>0.9.2-SNAPSHOT</version>
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
-  
-  <properties>
-  	<versionNumber>0.9.2-SNAPSHOT</versionNumber>
-  </properties>
-  
   <artifactId>de.gebit.integrity.runner</artifactId>
   <packaging>eclipse-plugin</packaging>
   
