@@ -35,4 +35,13 @@ public enum SetListEntryResultStates {
 	 */
 	EXCEPTION;
 
+	/**
+	 * Returns true if the result state is considered "unsuccessful".
+	 * 
+	 * @return
+	 */
+	public boolean isUnsuccessful() {
+		return this == FAILED || this == EXCEPTION;
+	}
+
 }

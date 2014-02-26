@@ -65,7 +65,6 @@ public class AdditionFixture {
 
 	@FixtureMethod(description = "echoes $echo$")
 	public Map<String, Object> returnValue(@FixtureParameter(name = "echo") Map<String, Object> anInput) {
-		pause();
 		// throw new RuntimeException("An exception!");
 		return anInput;
 	}

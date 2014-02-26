@@ -13,6 +13,7 @@ import java.util.List;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.entities.setlist.SetListUtil;
 
@@ -32,12 +33,18 @@ public class SetListSearch {
 	private List<SearchResult> entries = new ArrayList<SearchResult>();
 
 	/**
+	 * This contains the setlist the index was built upon.
+	 */
+	private SetList setList;
+
+	/**
 	 * Creates a new instance. This causes an indexing process over the {@link SetListEntry} tree.
 	 * 
 	 * @param aSetList
 	 *            the setlist to index
 	 */
 	public SetListSearch(SetList aSetList) {
+		setList = aSetList;
 		createIndex(aSetList.getRootEntry(), aSetList);
 	}
 
@@ -55,16 +62,28 @@ public class SetListSearch {
 		if (anEntry.getType() == SetListEntryTypes.SUITE) {
 			String tempSuiteName = anEntry.getAttribute(String.class, SetListEntryAttributeKeys.NAME);
 			if (tempSuiteName != null) {
-				entries.add(new SearchResult(tempSuiteName, anEntry));
+				// Suites are always considered "successful", even if they contain failed tests. We don't want to find
+				// failed suites when trying to find the next failed entry.
+				entries.add(new SearchResult(tempSuiteName, true, anEntry));
 			}
 			tempRecurse = true;
 		} else if (anEntry.getType() == SetListEntryTypes.COMMENT) {
 			String tempCommentText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 			if (tempCommentText != null) {
-				entries.add(new SearchResult(tempCommentText, anEntry));
+				// Comments can't "fail" either
+				entries.add(new SearchResult(tempCommentText, true, anEntry));
 			}
 		} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
+			// Always recurse into the root entry
 			tempRecurse = true;
+		} else if (anEntry.getType() == SetListEntryTypes.TEST) {
+			String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+			if (tempTestText != null) {
+				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+				if (tempResultState != null) {
+					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), anEntry));
+				}
+			}
 		}
 
 		if (tempRecurse) {
@@ -93,6 +112,18 @@ public class SetListSearch {
 		return tempResults;
 	}
 
+	public List<SetListEntry> findUnsuccessfulEntries() {
+		List<SetListEntry> tempResults = new ArrayList<SetListEntry>();
+
+		for (SearchResult tempPossibleResult : entries) {
+			if (!tempPossibleResult.isSuccessful()) {
+				tempResults.add(tempPossibleResult.getEntry());
+			}
+		}
+
+		return tempResults;
+	}
+
 	private class SearchResult {
 
 		/**
@@ -101,12 +132,18 @@ public class SetListSearch {
 		private String text;
 
 		/**
+		 * Whether the element is considered "successful" (ex.: passed test).
+		 */
+		private boolean successful;
+
+		/**
 		 * The entry.
 		 */
 		private SetListEntry entry;
 
-		public SearchResult(String aText, SetListEntry anEntry) {
+		public SearchResult(String aText, boolean aSuccessfulFlag, SetListEntry anEntry) {
 			text = aText;
+			successful = aSuccessfulFlag;
 			entry = anEntry;
 		}
 
@@ -116,6 +153,10 @@ public class SetListSearch {
 
 		public boolean matches(String aQuery) {
 			return text.contains(aQuery);
+		}
+
+		public boolean isSuccessful() {
+			return successful;
 		}
 
 	}

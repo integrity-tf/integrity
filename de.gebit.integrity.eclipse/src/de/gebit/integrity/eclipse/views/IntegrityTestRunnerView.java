@@ -60,8 +60,12 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -168,6 +172,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private static final int EXTENDED_RESULT_SPACING = 5;
 
 	/**
+	 * The "magic search term" for failed test/calls.
+	 */
+	private static final String MAGIC_SEARCH_TERM_FAILURES = "Tests/Calls with failures or exceptions";
+
+	/**
 	 * The Integrity URL resolver.
 	 */
 	@Inject
@@ -194,14 +203,39 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Text searchTextField;
 
 	/**
+	 * A flag used to determine whether the text field just gained the focus.
+	 */
+	private boolean searchTextFieldJustGainedFocus;
+
+	/**
+	 * The "search for error/exception" button for the tree search.
+	 */
+	private Button searchErrorButton;
+
+	/**
+	 * The image for the {@link #searchErrorButton}.
+	 */
+	private Image searchErrorButtonEnabledImage;
+
+	/**
 	 * The "previous result" button for the tree search.
 	 */
 	private Button searchLeftButton;
 
 	/**
+	 * The image for the {@link #searchLeftButton}.
+	 */
+	private Image searchLeftButtonEnabledImage;
+
+	/**
 	 * The "next result" button for the tree search.
 	 */
 	private Button searchRightButton;
+
+	/**
+	 * The image for the {@link #searchRightButton}.
+	 */
+	private Image searchRightButtonEnabledImage;
 
 	/**
 	 * The label denoting the current position and number of results during searching in the tree.
@@ -625,9 +659,30 @@ public class IntegrityTestRunnerView extends ViewPart {
 		searchContainer.setLayoutData(tempFormData);
 		searchContainer.setBackground(searchContainerColor);
 
-		searchTextField = new Text(searchContainer, SWT.SINGLE);
+		searchErrorButtonEnabledImage = Activator.getImageDescriptor("icons/search_failed_enabled.gif").createImage();
+
+		searchErrorButton = new Button(searchContainer, SWT.FLAT);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 0);
+		tempFormData.width = 16;
+		tempFormData.top = new FormAttachment(0, 2);
+		tempFormData.height = 16;
+		searchErrorButton.setImage(searchErrorButtonEnabledImage);
+		searchErrorButton.setLayoutData(tempFormData);
+		searchErrorButton.addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event anEvent) {
+				// repeated clicks shall just jump to the next result
+				if (!performTreeSearchForFailures()) {
+					jumpToNextSearchResult();
+				}
+			}
+		});
+
+		searchTextField = new Text(searchContainer, SWT.SINGLE);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 16);
 		tempFormData.right = new FormAttachment(100, -100);
 		tempFormData.top = new FormAttachment(0, 2);
 		tempFormData.height = 16;
@@ -637,50 +692,77 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 			@Override
 			public void modifyText(ModifyEvent anEvent) {
-				String tempQuery = searchTextField.getText();
-				if (tempQuery.length() < 3) {
-					clearTreeSearchResult();
-				} else {
-					performTreeSearch(tempQuery);
+				performTreeSearch();
+			}
+		});
+		searchTextField.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent anEvent) {
+				searchTextFieldJustGainedFocus = false;
+			}
+
+			@Override
+			public void focusGained(FocusEvent anEvent) {
+				searchTextFieldJustGainedFocus = true;
+			}
+		});
+		searchTextField.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseUp(MouseEvent anEvent) {
+				// Perform a full selection of all entered text if there is text AND the text field just gained the
+				// focus.
+				if (searchTextFieldJustGainedFocus && searchTextField.getText().length() > 0) {
+					searchTextField.selectAll();
 				}
+				searchTextFieldJustGainedFocus = false;
+			}
+
+			@Override
+			public void mouseDown(MouseEvent anEvent) {
+				// ignored
+			}
+
+			@Override
+			public void mouseDoubleClick(MouseEvent anEvent) {
+				// ignored
 			}
 		});
 
-		searchLeftButton = new Button(searchContainer, SWT.ARROW | SWT.LEFT | SWT.FLAT);
+		searchLeftButtonEnabledImage = Activator.getImageDescriptor("icons/search_prev_enabled.gif").createImage();
+
+		searchLeftButton = new Button(searchContainer, SWT.FLAT);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(searchTextField, 0);
 		tempFormData.width = 16;
 		tempFormData.top = new FormAttachment(0, 2);
 		tempFormData.height = 16;
+		searchLeftButton.setImage(searchLeftButtonEnabledImage);
 		searchLeftButton.setLayoutData(tempFormData);
 		searchLeftButton.addListener(SWT.Selection, new Listener() {
 
 			@Override
 			public void handleEvent(Event anEvent) {
-				if (currentSearchResult != null && currentSearchResultPosition != null
-						&& currentSearchResultPosition - 1 >= 0) {
-					currentSearchResultPosition--;
-					jumpToCurrentSearchResult();
-				}
+				jumpToPreviousSearchResult();
 			}
 		});
 
-		searchRightButton = new Button(searchContainer, SWT.ARROW | SWT.RIGHT | SWT.FLAT);
+		searchRightButtonEnabledImage = Activator.getImageDescriptor("icons/search_next_enabled.gif").createImage();
+
+		searchRightButton = new Button(searchContainer, SWT.FLAT);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(searchLeftButton, 0);
 		tempFormData.width = 16;
 		tempFormData.top = new FormAttachment(0, 2);
 		tempFormData.height = 16;
+		searchRightButton.setImage(searchRightButtonEnabledImage);
 		searchRightButton.setLayoutData(tempFormData);
 		searchRightButton.addListener(SWT.Selection, new Listener() {
 
 			@Override
 			public void handleEvent(Event anEvent) {
-				if (currentSearchResult != null && currentSearchResultPosition != null
-						&& currentSearchResultPosition + 1 < currentSearchResult.size()) {
-					currentSearchResultPosition++;
-					jumpToCurrentSearchResult();
-				}
+				jumpToNextSearchResult();
 			}
 		});
 
@@ -2028,18 +2110,45 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 	}
 
-	private void performTreeSearch(String aSearchQuery) {
+	private void performTreeSearch() {
+		String tempSearchQuery = searchTextField.getText();
+
+		if (tempSearchQuery.length() < 3) {
+			clearTreeSearchResult();
+		} else {
+			prepareTreeSearch();
+
+			currentSearchResultPosition = null;
+
+			if (MAGIC_SEARCH_TERM_FAILURES.equals(tempSearchQuery)) {
+				currentSearchResult = setListSearch.findUnsuccessfulEntries();
+			} else {
+				currentSearchResult = setListSearch.findEntries(tempSearchQuery);
+			}
+
+			if (currentSearchResult.size() > 0) {
+				currentSearchResultPosition = 0;
+				jumpToCurrentSearchResult();
+			}
+			updateTreeSearchLabel();
+		}
+	}
+
+	private boolean performTreeSearchForFailures() {
+		if (MAGIC_SEARCH_TERM_FAILURES.equals(searchTextField.getText())) {
+			return false;
+		}
+
+		searchTextField.setText(MAGIC_SEARCH_TERM_FAILURES);
+		performTreeSearch();
+
+		return true;
+	}
+
+	private void prepareTreeSearch() {
 		if (setListSearch == null) {
 			setListSearch = new SetListSearch(setList);
 		}
-
-		currentSearchResultPosition = null;
-		currentSearchResult = setListSearch.findEntries(aSearchQuery);
-		if (currentSearchResult.size() > 0) {
-			currentSearchResultPosition = 0;
-			jumpToCurrentSearchResult();
-		}
-		updateTreeSearchLabel();
 	}
 
 	private void clearTreeSearchResult() {
@@ -2059,6 +2168,26 @@ public class IntegrityTestRunnerView extends ViewPart {
 						.toString(currentSearchResultPosition + 1));
 				searchPositionLabel.setText(tempCurrentPosition + " / " + currentSearchResult.size());
 			}
+		}
+	}
+
+	private void jumpToPreviousSearchResult() {
+		if (currentSearchResult != null && currentSearchResultPosition != null) {
+			currentSearchResultPosition--;
+			if (currentSearchResultPosition <= 0) {
+				currentSearchResultPosition = 0;
+			}
+			jumpToCurrentSearchResult();
+		}
+	}
+
+	private void jumpToNextSearchResult() {
+		if (currentSearchResult != null && currentSearchResultPosition != null) {
+			currentSearchResultPosition++;
+			if (currentSearchResultPosition >= currentSearchResult.size()) {
+				currentSearchResultPosition = 0;
+			}
+			jumpToCurrentSearchResult();
 		}
 	}
 
