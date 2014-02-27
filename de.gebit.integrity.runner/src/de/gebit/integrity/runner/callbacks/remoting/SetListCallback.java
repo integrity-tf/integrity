@@ -211,12 +211,36 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
-		// nothing to do here
+		SetListEntry tempTestEntry = entryStack.peek();
+
+		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
+		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
+
+		try {
+			// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated twice
+			tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true, createConversionContext()
+					.getUnresolvableVariableHandlingPolicy());
+		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		}
+
+		List<SetListEntry> tempResultEntries = onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(),
+				aTableTest, tempTestEntry, aSubResult, tempParameterMap);
+
+		// Add a link to the first entry from the list, which is the actual result entry
+		addLinkToEntry(tempResultEntries.get(0), aRow);
+
+		tempNewEntries.addAll(tempResultEntries);
+
+		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
 	}
 
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		int tempCount = 0;
 		SetListEntry tempTestEntry = entryStack.pop();
 
 		if (aResult != null) {
@@ -232,33 +256,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			}
 		}
 
-		List<SetListEntry> tempNewEntries = new LinkedList<SetListEntry>();
-		for (TestSubResult tempSubResult : aResult.getSubResults()) {
-			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
-
-			try {
-				// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated
-				// twice
-				tempParameterMap = parameterResolver.createParameterMap(aTableTest,
-						aTableTest.getRows().get(tempCount), true, createConversionContext()
-								.getUnresolvableVariableHandlingPolicy());
-			} catch (InstantiationException exc) {
-				exc.printStackTrace();
-			} catch (ClassNotFoundException exc) {
-				exc.printStackTrace();
-			} catch (UnexecutableException exc) {
-				exc.printStackTrace();
-			}
-
-			tempNewEntries.addAll(onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest,
-					tempTestEntry, tempSubResult, tempParameterMap));
-			tempCount++;
-		}
-		tempNewEntries.add(tempTestEntry);
-
 		addExtendedResultDataToEntry(tempTestEntry, aResult);
 
-		sendUpdateToClients(null, tempNewEntries.toArray(new SetListEntry[0]));
+		sendUpdateToClients(null, tempTestEntry);
 	}
 
 	@Override
@@ -299,7 +299,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 *            the sub-result to analyze
 	 * @param aParameterMap
 	 *            the parameters given to the test method
-	 * @return a list of newly generated setlist entries
+	 * @return a list of newly generated setlist entries (with the first being the result entry itself)
 	 */
 	protected List<SetListEntry> onAnyKindOfSubTestFinish(MethodReference aMethod, SuiteStatementWithResult aStatement,
 			SetListEntry aTestEntry, TestSubResult aSubResult, Map<String, Object> aParameterMap) {
