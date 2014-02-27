@@ -2121,7 +2121,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 			currentSearchResultPosition = null;
 
 			if (MAGIC_SEARCH_TERM_FAILURES.equals(tempSearchQuery)) {
-				currentSearchResult = setListSearch.findUnsuccessfulEntries();
+				currentSearchResult = setListSearch.findUnsuccessfulEntries(false);
 			} else {
 				currentSearchResult = setListSearch.findEntries(tempSearchQuery);
 			}

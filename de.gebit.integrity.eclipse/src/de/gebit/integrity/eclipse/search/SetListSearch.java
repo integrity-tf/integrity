@@ -62,16 +62,17 @@ public class SetListSearch {
 		if (anEntry.getType() == SetListEntryTypes.SUITE) {
 			String tempSuiteName = anEntry.getAttribute(String.class, SetListEntryAttributeKeys.NAME);
 			if (tempSuiteName != null) {
-				// Suites are always considered "successful", even if they contain failed tests. We don't want to find
-				// failed suites when trying to find the next failed entry.
-				entries.add(new SearchResult(tempSuiteName, true, anEntry));
+				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+				if (tempResultState != null) {
+					entries.add(new SearchResult(tempSuiteName, !tempResultState.isUnsuccessful(), true, anEntry));
+				}
 			}
 			tempRecurse = true;
 		} else if (anEntry.getType() == SetListEntryTypes.COMMENT) {
 			String tempCommentText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 			if (tempCommentText != null) {
-				// Comments can't "fail" either
-				entries.add(new SearchResult(tempCommentText, true, anEntry));
+				// Comments can't "fail"
+				entries.add(new SearchResult(tempCommentText, true, false, anEntry));
 			}
 		} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
 			// Always recurse into the root entry
@@ -81,7 +82,31 @@ public class SetListSearch {
 			if (tempTestText != null) {
 				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
 				if (tempResultState != null) {
-					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), anEntry));
+					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), false, anEntry));
+				}
+			}
+		} else if (anEntry.getType() == SetListEntryTypes.TABLETEST) {
+			String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+			if (tempTestText != null) {
+				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+				if (tempResultState != null) {
+					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), true, anEntry));
+				}
+			}
+
+			// For tabletests, we fetch all sub-entries with the results for each line here and index them instead of
+			// triggering on "result" elements and finding out whether they belong to a tabletest.
+			List<SetListEntry> tempResultEntries = SetListUtil.getSetListEntryChilds((SetListEntry) anEntry, aSetList);
+			for (SetListEntry tempResultEntry : tempResultEntries) {
+				if (tempResultEntry.getType() == SetListEntryTypes.RESULT) {
+					String tempLineText = (String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+					if (tempLineText != null) {
+						SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempResultEntry);
+						if (tempResultState != null) {
+							entries.add(new SearchResult(tempLineText, !tempResultState.isUnsuccessful(), false,
+									tempResultEntry));
+						}
+					}
 				}
 			}
 		}
@@ -117,12 +142,14 @@ public class SetListSearch {
 	 * 
 	 * @return matching entries (returns an empty list if no matches were found)
 	 */
-	public List<SetListEntry> findUnsuccessfulEntries() {
+	public List<SetListEntry> findUnsuccessfulEntries(boolean anIncludeSubResultDependentEntries) {
 		List<SetListEntry> tempResults = new ArrayList<SetListEntry>();
 
 		for (SearchResult tempPossibleResult : entries) {
 			if (!tempPossibleResult.isSuccessful()) {
-				tempResults.add(tempPossibleResult.getEntry());
+				if (!tempPossibleResult.isSubResultDependent() || anIncludeSubResultDependentEntries) {
+					tempResults.add(tempPossibleResult.getEntry());
+				}
 			}
 		}
 
@@ -142,13 +169,19 @@ public class SetListSearch {
 		private boolean successful;
 
 		/**
+		 * Whether this is an element whose success status depends on the success of sub-elements (ex.: suites).
+		 */
+		private boolean subResultDependent;
+
+		/**
 		 * The entry.
 		 */
 		private SetListEntry entry;
 
-		public SearchResult(String aText, boolean aSuccessfulFlag, SetListEntry anEntry) {
+		public SearchResult(String aText, boolean aSuccessfulFlag, boolean aSubResultDependentFlag, SetListEntry anEntry) {
 			text = aText;
 			successful = aSuccessfulFlag;
+			subResultDependent = aSubResultDependentFlag;
 			entry = anEntry;
 		}
 
@@ -162,6 +195,10 @@ public class SetListSearch {
 
 		public boolean isSuccessful() {
 			return successful;
+		}
+
+		public boolean isSubResultDependent() {
+			return subResultDependent;
 		}
 
 	}
