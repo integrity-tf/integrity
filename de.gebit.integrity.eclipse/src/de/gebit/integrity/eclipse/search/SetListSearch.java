@@ -76,7 +76,7 @@ public class SetListSearch {
 		} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
 			// Always recurse into the root entry
 			tempRecurse = true;
-		} else if (anEntry.getType() == SetListEntryTypes.TEST) {
+		} else if (anEntry.getType() == SetListEntryTypes.TEST || anEntry.getType() == SetListEntryTypes.CALL) {
 			String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
 			if (tempTestText != null) {
 				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
