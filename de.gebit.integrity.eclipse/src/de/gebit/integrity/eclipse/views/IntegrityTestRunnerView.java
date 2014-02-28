@@ -118,6 +118,7 @@ import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
@@ -1652,28 +1653,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(true);
 							stepOverAction.setEnabled(true);
-							updateStatus("Paused test execution");
+							updateStatusWithIntermediateTestResults("Paused test execution (", ")");
 							break;
 						case RUNNING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(true);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatus("Running tests...");
+							updateStatusWithIntermediateTestResults("Running tests: ", "");
 							break;
 						case FINALIZING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatus("Finalizing test results...");
+							updateStatusWithIntermediateTestResults("Finalizing test results (", ")");
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatus("Test execution finished");
+							updateStatusWithIntermediateTestResults("Test execution finished (", ")");
 							break;
 						default:
 							break;
@@ -1688,6 +1689,22 @@ public class IntegrityTestRunnerView extends ViewPart {
 		} else {
 			Display.getDefault().asyncExec(tempRunnable);
 		}
+	}
+
+	private void updateStatusWithIntermediateTestResults(String aPrefix, String aSuffix) {
+		StringBuilder tempBuilder = new StringBuilder(aPrefix);
+
+		if (setList != null) {
+			tempBuilder.append(setList.getNumberOfEntriesInResultState(SetListEntryResultStates.SUCCESSFUL));
+			tempBuilder.append(" successful, ");
+			tempBuilder.append(setList.getNumberOfEntriesInResultState(SetListEntryResultStates.FAILED));
+			tempBuilder.append(" failures, ");
+			tempBuilder.append(setList.getNumberOfEntriesInResultState(SetListEntryResultStates.EXCEPTION));
+			tempBuilder.append(" exceptions");
+		}
+
+		tempBuilder.append(aSuffix);
+		updateStatus(tempBuilder.toString());
 	}
 
 	private void hideResultComposite(Composite aComposite) {
@@ -2265,7 +2282,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		public void onConnectionLost(Endpoint anEndpoint) {
 			client = null;
 			updateActionStatus(null);
-			updateStatus("Not connected");
+			updateStatusWithIntermediateTestResults("Test Runner disconnected (", ")");
 		}
 
 		@Override
@@ -2301,6 +2318,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 
 					executionProgress.redraw();
+					updateStatusWithIntermediateTestResults("Running tests: ", "");
 				}
 			});
 		}

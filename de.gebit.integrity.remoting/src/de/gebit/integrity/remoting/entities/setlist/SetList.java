@@ -77,6 +77,11 @@ public class SetList implements Serializable {
 	private transient Map<SetListEntryTypes, Integer> lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
 	/**
+	 * A counter counting the results.
+	 */
+	private transient Map<SetListEntryResultStates, Integer> executableEntryResultStateCounts = new HashMap<SetListEntryResultStates, Integer>();
+
+	/**
 	 * Recreates transient data from the list of entries. Used after deserialization of the whole structure in order to
 	 * prepare it for being actually used. Transient entries are redundant and not transmitted for size reasons.
 	 */
@@ -84,6 +89,7 @@ public class SetList implements Serializable {
 		resultBearingEntryResultMap = new HashMap<SetListEntry, SetListEntryResultStates>();
 		executableEntryResultIndex = new HashMap<SetListEntry, Integer>();
 		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
+		executableEntryResultStateCounts = new HashMap<SetListEntryResultStates, Integer>();
 		lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
 
 		int tempPosition = 0;
@@ -98,6 +104,8 @@ public class SetList implements Serializable {
 					// executable. And skip results themselves - these aren't executable at all.
 					executableEntryResultIndex.put(tempEntry, tempPosition);
 					executableEntryResultStates.add(tempResultState);
+					executableEntryResultStateCounts.put(tempResultState,
+							getNumberOfEntriesInResultState(tempResultState) + 1);
 					tempPosition++;
 				}
 			}
@@ -204,6 +212,18 @@ public class SetList implements Serializable {
 
 	public int getNumberOfExecutableEntries() {
 		return executableEntryResultStates.size();
+	}
+
+	/**
+	 * Returns the number of entries in the given result state.
+	 * 
+	 * @param aState
+	 *            the state to query
+	 * @return the number
+	 */
+	public int getNumberOfEntriesInResultState(SetListEntryResultStates aState) {
+		Integer tempResult = executableEntryResultStateCounts.get(aState);
+		return tempResult != null ? tempResult : 0;
 	}
 
 	/**
@@ -344,37 +364,82 @@ public class SetList implements Serializable {
 			entries.set(tempEntry.getId(), tempEntry);
 		}
 		for (SetListEntry tempEntry : someUpdatedEntries) {
-			switch (tempEntry.getType()) {
-			case RESULT:
+			SetListEntry tempEntryToUse = null;
+
+			if (tempEntry.getType() == SetListEntryTypes.RESULT) {
 				SetListEntry tempParent = getParent(tempEntry);
-				switch (tempParent.getType()) {
-				case TEST:
-				case CALL:
-				case SUITE:
-					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempParent)) {
-						SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
-						resultBearingEntryResultMap.put(tempParent, tempResultState);
-						executableEntryResultStates.set(executableEntryResultIndex.get(tempParent), tempResultState);
-					}
-					// SUPPRESS CHECKSTYLE FallThrough
-				case TABLETEST:
-					if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
-						resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
-					}
-					break;
-				default:
-					break;
+
+				if (tempParent.getType() == SetListEntryTypes.TEST || tempParent.getType() == SetListEntryTypes.CALL
+						|| tempParent.getType() == SetListEntryTypes.TABLETEST) {
+					tempEntryToUse = tempParent;
 				}
-				break;
-			default:
-				if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
-					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
-					resultBearingEntryResultMap.put(tempEntry, tempResultState);
-					if (executableEntryResultIndex.containsKey(tempEntry)) {
-						executableEntryResultStates.set(executableEntryResultIndex.get(tempEntry), tempResultState);
+			} else {
+				tempEntryToUse = tempEntry;
+			}
+
+			if (tempEntryToUse != null) {
+				if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntryToUse)) {
+					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntryToUse);
+					resultBearingEntryResultMap.put(tempEntryToUse, tempResultState);
+					Integer tempResultIndex = executableEntryResultIndex.get(tempEntryToUse);
+					if (tempResultIndex != null) {
+						SetListEntryResultStates tempPreviousState = executableEntryResultStates.set(tempResultIndex,
+								tempResultState);
+
+						// Decrement previous state counter, increment new state counter
+						executableEntryResultStateCounts.put(tempPreviousState,
+								getNumberOfEntriesInResultState(tempPreviousState) - 1);
+						executableEntryResultStateCounts.put(tempResultState,
+								getNumberOfEntriesInResultState(tempResultState) + 1);
 					}
 				}
 			}
+
+			// switch (tempEntry.getType()) {
+			// case RESULT:
+			// SetListEntry tempParent = getParent(tempEntry);
+			// switch (tempParent.getType()) {
+			// case TEST:
+			// case CALL:
+			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempParent)) {
+			// SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
+			// resultBearingEntryResultMap.put(tempParent, tempResultState);
+			// SetListEntryResultStates tempPreviousState = executableEntryResultStates.set(
+			// executableEntryResultIndex.get(tempParent), tempResultState);
+			//
+			// // Decrement previous state counter, increment new state counter
+			// executableEntryResultStateCounts.put(tempPreviousState,
+			// getNumberOfEntriesInResultState(tempPreviousState) - 1);
+			// executableEntryResultStateCounts.put(tempResultState,
+			// getNumberOfEntriesInResultState(tempResultState) + 1);
+			// }
+			// // SUPPRESS CHECKSTYLE FallThrough
+			// case TABLETEST:
+			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
+			// resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
+			// }
+			// break;
+			// default:
+			// break;
+			// }
+			// break;
+			// default:
+			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
+			// SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
+			// resultBearingEntryResultMap.put(tempEntry, tempResultState);
+			// Integer tempResultIndex = executableEntryResultIndex.get(tempEntry);
+			// if (tempResultIndex != null) {
+			// SetListEntryResultStates tempPreviousState = executableEntryResultStates.set(tempResultIndex,
+			// tempResultState);
+			//
+			// // Decrement previous state counter, increment new state counter
+			// executableEntryResultStateCounts.put(tempPreviousState,
+			// getNumberOfEntriesInResultState(tempPreviousState) - 1);
+			// executableEntryResultStateCounts.put(tempResultState,
+			// getNumberOfEntriesInResultState(tempResultState) + 1);
+			// }
+			// }
+			// }
 		}
 	}
 
