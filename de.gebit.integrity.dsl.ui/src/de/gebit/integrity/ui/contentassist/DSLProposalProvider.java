@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
@@ -40,6 +41,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipse.xtext.ui.shared.internal.Activator;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -607,6 +609,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			} catch (UnexecutableException exc) {
 				// cannot occur, since thrown by operation execution which is not performed here
 				exc.printStackTrace();
+			} catch (Throwable exc) {
+				// This should catch anything else, especially errors in the enumerators' code
+				Activator
+						.getDefault()
+						.getLog()
+						.log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
+								"An exception was caught during arbitrary parameter/result enumeration", exc));
 			}
 		}
 	}
@@ -1266,6 +1275,13 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			exc.printStackTrace();
 		} catch (UnexecutableException exc) {
 			exc.printStackTrace();
+		} catch (Throwable exc) {
+			// This should catch anything else, especially errors in the enumerators' code
+			Activator
+					.getDefault()
+					.getLog()
+					.log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
+							"An exception was caught during custom proposal enumeration", exc));
 		}
 	}
 
