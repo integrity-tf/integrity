@@ -203,14 +203,13 @@ public class ConsoleTestExecutor {
 			} else {
 				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
 				if (!tempConsoleOption.isSet()) {
-					tempCallback.addCallback(new ConsoleTestCallback());
+					tempCallback.addCallback(createConsoleTestCallback());
 				}
 				String tempXmlFileName = tempXmlOption.getValue();
 
 				if (tempXmlFileName != null) {
-					tempCallback.addCallback(new XmlWriterTestCallback(tempResourceProvider.getClassLoader(), new File(
-							tempXmlFileName), tempExecutionName, tempTransformHandling,
-							!tempExcludeConsoleStreamsOption.isSet()));
+					tempCallback.addCallback(createXmlWriterTestCallback(tempResourceProvider, tempXmlFileName,
+							tempExecutionName, tempTransformHandling, !tempExcludeConsoleStreamsOption.isSet()));
 				}
 
 				List<TestRunnerCallback> tempAdditionalCallbacks = createAdditionalCallbacks();
@@ -254,6 +253,38 @@ public class ConsoleTestExecutor {
 		} catch (ModelLoadException exc) {
 			exc.printStackTrace();
 		}
+	}
+
+	/**
+	 * Creates the console printout test runner callback. This is an override spot for subclasses.
+	 * 
+	 * @return the console test callback to use
+	 */
+	protected TestRunnerCallback createConsoleTestCallback() {
+		return new ConsoleTestCallback();
+	}
+
+	/**
+	 * Instantiates the XML Test Writer Callback which is used to write the XML test results. This is an override spot
+	 * for subclasses.
+	 * 
+	 * @param aResourceProvider
+	 *            the resource provider to use (classloader is taken from there)
+	 * @param anXmlFileName
+	 *            the file to write the result into
+	 * @param anExecutionName
+	 *            the title of the result
+	 * @param aTransformHandling
+	 *            how the XML -> XHTML transform shall be handled
+	 * @param aCaptureConsoleFlag
+	 *            whether stdout and stderr shall be captured
+	 * @return the XML test writer callback to use
+	 */
+	protected TestRunnerCallback createXmlWriterTestCallback(TestResourceProvider aResourceProvider,
+			String anXmlFileName, String anExecutionName, TransformHandling aTransformHandling,
+			boolean aCaptureConsoleFlag) {
+		return new XmlWriterTestCallback(aResourceProvider.getClassLoader(), new File(anXmlFileName), anExecutionName,
+				aTransformHandling, aCaptureConsoleFlag);
 	}
 
 	/**
