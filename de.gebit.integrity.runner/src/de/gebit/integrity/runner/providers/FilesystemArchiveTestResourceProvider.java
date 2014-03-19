@@ -41,17 +41,17 @@ public class FilesystemArchiveTestResourceProvider extends AbstractCompoundTestR
 		if (!aResourceFile.exists()) {
 			return;
 		}
-		for (File tempFile : aResourceFile.listFiles()) {
-			if (tempFile.isDirectory()) {
+		if (aResourceFile.isDirectory()) {
+			for (File tempFile : aResourceFile.listFiles()) {
 				addRecursively(tempFile);
+			}
+		} else if (aResourceFile.isFile()) {
+			String tempLowerCaseName = aResourceFile.getName().toLowerCase();
+			if (tempLowerCaseName.endsWith(ArchiveTestResourceProvider.ARCHIVE_ENDING_ZIP)
+					|| tempLowerCaseName.endsWith(ArchiveTestResourceProvider.ARCHIVE_ENDING_JAR)) {
+				addArchiveFile(aResourceFile, true);
 			} else {
-				String tempLowerCaseName = tempFile.getName().toLowerCase();
-				if (tempLowerCaseName.endsWith(ArchiveTestResourceProvider.ARCHIVE_ENDING_ZIP)
-						|| tempLowerCaseName.endsWith(ArchiveTestResourceProvider.ARCHIVE_ENDING_JAR)) {
-					addArchiveFile(tempFile, true);
-				} else {
-					addScriptFile(tempFile);
-				}
+				addScriptFile(aResourceFile);
 			}
 		}
 	}
