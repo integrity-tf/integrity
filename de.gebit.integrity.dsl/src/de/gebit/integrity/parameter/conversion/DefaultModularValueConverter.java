@@ -69,6 +69,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.Str
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToByte;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToDouble;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToEnumConstant;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToInteger;
@@ -263,6 +264,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringValueToFormattedString.class);
 		addConversion(StringValueToCharacter.class);
 		addConversion(StringValueToNumber.class);
+		addConversion(StringValueToEnumConstant.class);
 
 		// boolean conversions, Integrity -> Java
 		addConversion(BooleanValueToBoolean.class);
