@@ -14,5 +14,10 @@ packagedef integrity.fixtures.basic.beans with
 	testdef createMapForSimpleBeanUntyped uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped
 	calldef createMapForSimpleBeanUntypedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped
 	
+	testdef echoEnumTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumTestBean
+	calldef echoEnumTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumTestBean
+	
+	testdef echoEnumValueFromTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean
+	calldef echoEnumValueFromTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean
 
 packageend

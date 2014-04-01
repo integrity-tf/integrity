@@ -1,0 +1,29 @@
+packagedef integrity.basic.enums with
+
+	suitedef enumsInObjects with
+		
+		// Provide the enum value as string (enum value cannot be used here)
+		test integrity.fixtures.basic.beans.echoEnumTestBean bean: {
+			enumValue: "VALUE1"	
+		} = {
+			enumValue: "VALUE1"
+		}
+		
+		// Here we can provide the enum value directly in the result, but we provide the wrong one
+		test integrity.fixtures.basic.beans.echoEnumValueFromTestBean bean: {
+			enumValue: "VALUE1"	
+		} = VALUE2
+		
+		// Now the correct one
+		test integrity.fixtures.basic.beans.echoEnumValueFromTestBean bean: {
+			enumValue: "VALUE1"	
+		} = VALUE1
+		
+		// This must also work if the second value is provided as string
+		test integrity.fixtures.basic.beans.echoEnumValueFromTestBean bean: {
+			enumValue: "VALUE1"	
+		} = "VALUE1"
+	
+	suiteend
+
+packageend

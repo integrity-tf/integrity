@@ -14,6 +14,7 @@ import java.util.Map;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.tests.fixtures.basic.beans.CollectionTestBean.InnerBean;
+import de.gebit.integrity.tests.fixtures.basic.beans.EnumTestBean.InnerEnum;
 
 //SUPPRESS CHECKSTYLE LONG Javadoc
 public class BeanFixture {
@@ -97,6 +98,16 @@ public class BeanFixture {
 		tempOuterMap.put("thirdParameter", tempInnerMap);
 
 		return tempOuterMap;
+	}
+
+	@FixtureMethod(description = "echoes the provided enum test bean")
+	public EnumTestBean echoEnumTestBean(@FixtureParameter(name = "bean") EnumTestBean aTestBean) {
+		return aTestBean;
+	}
+
+	@FixtureMethod(description = "echoes the enum value from the provided enum test bean")
+	public InnerEnum echoEnumValueFromTestBean(@FixtureParameter(name = "bean") EnumTestBean aTestBean) {
+		return aTestBean.getEnumValue();
 	}
 
 }
