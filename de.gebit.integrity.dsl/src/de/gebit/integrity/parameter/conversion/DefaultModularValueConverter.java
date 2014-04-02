@@ -139,6 +139,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringTo
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToByte;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToCharacter;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToDouble;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToEnumConstant;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToLong;
@@ -187,6 +188,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringToByte.class);
 		addConversion(StringToCharacter.class);
 		addConversion(StringToNumber.class);
+		addConversion(StringToEnumConstant.class);
 		addConversion(CharacterToString.class);
 		addConversion(CharacterToFormattedString.class);
 		addConversion(CharacterToBigInteger.class);
