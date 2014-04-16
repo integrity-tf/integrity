@@ -561,7 +561,9 @@ public class Fork {
 				} catch (InterruptedException exc) {
 					// ignore
 				}
-				if (!process.isAlive()) {
+				if (process == null) {
+					kill();
+				} else if (!process.isAlive()) {
 					synchronized (Fork.this) {
 						if (!forkDeathConfirmed) {
 							forkDeathConfirmed = true;
@@ -570,7 +572,7 @@ public class Fork {
 							process = null;
 							forkCallback.onForkExit(Fork.this);
 							Fork.this.notifyAll();
-							return;
+							kill();
 						}
 					}
 				}
