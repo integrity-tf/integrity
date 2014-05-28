@@ -336,11 +336,20 @@ public class FixtureWrapper<C extends Object> {
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
 						// if the expected type is an array, we don't want to convert to that array, but to the
-						// component type, of course
+						// component type, of course...
 						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
 								.getComponentType() : tempExpectedType;
+
+						// ...except for byte arrays (issue #66), those must be treated specially!
+						boolean tempSpecialByteArrayMode = false;
+						if (tempExpectedType == byte[].class || tempExpectedType == Byte[].class) {
+							tempConversionTargetType = tempExpectedType;
+							tempSpecialByteArrayMode = true;
+						}
+
 						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue, null);
-						if (tempExpectedType.isArray()) {
+
+						if (!tempSpecialByteArrayMode && tempExpectedType.isArray()) {
 							// ...and if the expected type is an array, now we create one
 							Object tempNewArray = Array.newInstance(tempExpectedType.getComponentType(), 1);
 							Array.set(tempNewArray, 0, tempConvertedValue);

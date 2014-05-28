@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +31,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.StandardOperation;
+import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
@@ -224,6 +226,27 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		if (aTargetType != null && aTargetType.isArray()) {
+			if (String.class.isAssignableFrom(aValue.getClass())
+					|| StringValue.class.isAssignableFrom(aValue.getClass())) {
+				// Could be special case of issue #66: single string to byte array
+				// I admit that this stuff is not beautiful, but it works, and byte arrays should be the only special
+				// case of this kind so a more decoupled solution like with the normal conversions seems like a bit of
+				// overkill here.
+				if (aTargetType.getComponentType() == Byte.class) {
+					if (String.class.isAssignableFrom(aValue.getClass())) {
+						return handleConversionOfStringToByteWrapperArray((String) aValue);
+					} else if (StringValue.class.isAssignableFrom(aValue.getClass())) {
+						return handleConversionOfStringValueToByteWrapperArray((StringValue) aValue);
+					}
+				} else if (aTargetType.getComponentType() == byte.class) {
+					if (String.class.isAssignableFrom(aValue.getClass())) {
+						return handleConversionOfStringToByteArray((String) aValue);
+					} else if (StringValue.class.isAssignableFrom(aValue.getClass())) {
+						return handleConversionOfStringValueToByteArray((StringValue) aValue);
+					}
+				}
+			}
+
 			Class<?> tempActualParamType = aTargetType.getComponentType();
 			Object tempResultArray;
 			if (aValue.getClass().isArray()) {
@@ -518,9 +541,17 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 		Class<?> tempTargetType = null;
 		Class<? extends Collection> tempCollectionType = null;
+		boolean tempWrapResultIntoArray = false;
 		if (aTargetType != null) {
 			if (aTargetType.isArray()) {
-				tempTargetType = aTargetType.getComponentType();
+				if ((aTargetType == Byte[].class || aTargetType == byte[].class)) {
+					// This is a special case (issue #66): byte arrays are to be treated as "non-array" targets.
+					tempTargetType = aTargetType;
+					tempWrapResultIntoArray = false;
+				} else {
+					tempTargetType = aTargetType.getComponentType();
+					tempWrapResultIntoArray = true;
+				}
 			} else if (List.class.isAssignableFrom(aTargetType)) {
 				tempCollectionType = ArrayList.class;
 			} else if (Set.class.isAssignableFrom(aTargetType)) {
@@ -572,7 +603,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// but we might need to return this as an array with one element
 			if (aTargetType == null) {
 				return tempResult;
-			} else if (aTargetType.isArray()) {
+			} else if (tempWrapResultIntoArray) {
 				Object tempResultArray = Array.newInstance(tempTargetArrayType, 1);
 				Array.set(tempResultArray, 0, tempResult);
 				return tempResultArray;
@@ -1166,5 +1197,56 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		} else {
 			return aContext;
 		}
+	}
+
+	/**
+	 * Handles the special case of issue #66: single string to byte array.
+	 * 
+	 * @param aSource
+	 *            the string to convert
+	 * @return the byte array
+	 */
+	protected byte[] handleConversionOfStringToByteArray(String aSource) {
+		return aSource.getBytes(Charset.defaultCharset());
+	}
+
+	/**
+	 * Handles the special case of issue #66: single string to byte array.
+	 * 
+	 * @param aSource
+	 *            the string to convert
+	 * @return the byte array (using the wrapper type)
+	 */
+	protected Byte[] handleConversionOfStringToByteWrapperArray(String aSource) {
+		byte[] tempArray = handleConversionOfStringToByteArray(aSource);
+		Byte[] tempWrapperArray = new Byte[tempArray.length];
+
+		for (int i = 0; i < tempArray.length; i++) {
+			tempWrapperArray[i] = tempArray[i];
+		}
+
+		return tempWrapperArray;
+	}
+
+	/**
+	 * Handles the special case of issue #66: single string to byte array.
+	 * 
+	 * @param aSource
+	 *            the string to convert (wrapper type)
+	 * @return the byte array
+	 */
+	protected byte[] handleConversionOfStringValueToByteArray(StringValue aSource) {
+		return handleConversionOfStringToByteArray(aSource.getStringValue());
+	}
+
+	/**
+	 * Handles the special case of issue #66: single string to byte array.
+	 * 
+	 * @param aSource
+	 *            the string to convert (wrapper type)
+	 * @return the byte array (using the wrapper type)
+	 */
+	protected Byte[] handleConversionOfStringValueToByteWrapperArray(StringValue aSource) {
+		return handleConversionOfStringToByteWrapperArray(aSource.getStringValue());
 	}
 }
