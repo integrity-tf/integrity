@@ -1,0 +1,15 @@
+packagedef integrity.fixtures.basic.bytearray with
+
+	calldef createByteArrayFromStringCall uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteArrayFromString
+	testdef createByteArrayFromStringTest uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteArrayFromString
+	
+	calldef createByteWrapperArrayFromStringCall uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteWrapperArrayFromString
+	testdef createByteWrapperArrayFromStringTest uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteWrapperArrayFromString
+	
+	testdef testByteArray uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testByteArray
+	testdef testByteWrapperArray uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testByteWrapperArray
+	
+	testdef testContainer uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testContainer
+	testdef testWrapperContainer uses de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testWrapperContainer
+
+packageend

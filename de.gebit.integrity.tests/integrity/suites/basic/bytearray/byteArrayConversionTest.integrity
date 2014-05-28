@@ -1,0 +1,55 @@
+import integrity.fixtures.basic.bytearray.*
+
+packagedef integrity.basic.bytearray with
+
+	suitedef simpleConversionTests with
+		
+		-- This should succeed
+		test testByteArray array: "Test"
+		-- This should fail
+		test testByteArray array: "Fail"
+		
+		-- This should succeed
+		test testByteWrapperArray array: "Test"
+		-- This should fail
+		test testByteWrapperArray array: "Fail"
+		
+	suiteend
+	
+	suitedef simpleComparationTests with
+		
+		-- This should succeed
+		test createByteArrayFromStringTest string: "Test" = "Test"
+		-- This should fail
+		test createByteArrayFromStringTest string: "Test" = "Fail"
+		
+		-- This should succeed
+		test createByteWrapperArrayFromStringTest string: "Test" = "Test"		
+		-- This should fail
+		test createByteWrapperArrayFromStringTest string: "Fail" = "Test"
+		
+	suiteend
+	
+	suitedef containerConversionTests with
+		
+		-- This should succeed
+		test testContainer container: {
+			array: "Test"
+		}			
+		-- This should fail
+		test testContainer container: {
+			array: "Fail"
+		}
+		
+		-- This should succeed
+		test testWrapperContainer container: {
+			array: "Test"
+		}			
+		-- This should fail
+		test testWrapperContainer container: {
+			array: "Fail"
+		}
+		
+	suiteend
+
+packageend

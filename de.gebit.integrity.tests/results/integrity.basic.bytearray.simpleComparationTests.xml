@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.05.14 11:44" isotimestamp="2014-05-28T11:44:34" duration="23.568">
+  <variables />
+  <suite id="0" name="integrity.basic.bytearray.simpleComparationTests" timestamp="28.05.14 11:44:34.0203">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="21">This should succeed</comment>
+      <test id="2" line="22" name="createByteArrayFromStringTest" description="Create a byte array from a string" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteArrayFromString" timestamp="28.05.14 11:44:34.0203">
+        <results duration="1.512" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.512" description="Create a byte array from a string" type="success">
+            <parameters>
+              <parameter name="string" value="Test" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="Test" value="84, 101, 115, 116" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="3" line="23">This should fail</comment>
+      <test id="4" line="24" name="createByteArrayFromStringTest" description="Create a byte array from a string" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteArrayFromString" timestamp="28.05.14 11:44:34.0218">
+        <results duration="0.350" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.350" description="Create a byte array from a string" type="failure">
+            <parameters>
+              <parameter name="string" value="Test" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="Fail" value="84, 101, 115, 116" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="5" line="26">This should succeed</comment>
+      <test id="6" line="27" name="createByteWrapperArrayFromStringTest" description="Create a Byte array from a string" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteWrapperArrayFromString" timestamp="28.05.14 11:44:34.0218">
+        <results duration="0.637" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.637" description="Create a Byte array from a string" type="success">
+            <parameters>
+              <parameter name="string" value="Test" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="Test" value="84, 101, 115, 116" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="7" line="28">This should fail</comment>
+      <test id="8" line="29" name="createByteWrapperArrayFromStringTest" description="Create a Byte array from a string" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#createByteWrapperArrayFromString" timestamp="28.05.14 11:44:34.0218">
+        <results duration="0.413" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.413" description="Create a Byte array from a string" type="failure">
+            <parameters>
+              <parameter name="string" value="Fail" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="Test" value="70, 97, 105, 108" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="18.683" successCount="2" failureCount="2" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
