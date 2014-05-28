@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.05.14 11:54" isotimestamp="2014-05-28T11:54:24" duration="24.000">
+  <variables />
+  <suite id="0" name="integrity.basic.bytearray.containerConversionTests" timestamp="28.05.14 11:54:24.0708">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="35">This should succeed</comment>
+      <test id="2" line="36" name="testContainer" description="Checks whether the byte array in the container contains the byte representation of 'Test'" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testContainer" timestamp="28.05.14 11:54:24.0708">
+        <results duration="1.094" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.094" description="Checks whether the byte array in the container contains the byte representation of 'Test'" type="success">
+            <parameters>
+              <parameter name="container" value="[FORMATTED]{[NL][T]array = Test[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="3" line="39">This should fail</comment>
+      <test id="4" line="40" name="testContainer" description="Checks whether the byte array in the container contains the byte representation of 'Test'" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testContainer" timestamp="28.05.14 11:54:24.0708">
+        <results duration="0.334" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.334" description="Checks whether the byte array in the container contains the byte representation of 'Test'" type="failure">
+            <parameters>
+              <parameter name="container" value="[FORMATTED]{[NL][T]array = Fail[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="false" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="5" line="44">This should succeed</comment>
+      <test id="6" line="45" name="testWrapperContainer" description="Checks whether the Byte array in the container contains the Byte representation of 'Test'" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testWrapperContainer" timestamp="28.05.14 11:54:24.0724">
+        <results duration="0.705" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.705" description="Checks whether the Byte array in the container contains the Byte representation of 'Test'" type="success">
+            <parameters>
+              <parameter name="container" value="[FORMATTED]{[NL][T]array = Test[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="7" line="48">This should fail</comment>
+      <test id="8" line="49" name="testWrapperContainer" description="Checks whether the Byte array in the container contains the Byte representation of 'Test'" fixture="de.gebit.integrity.tests.fixtures.basic.ByteArrayConversionTestFixture#testWrapperContainer" timestamp="28.05.14 11:54:24.0724">
+        <results duration="0.379" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.379" description="Checks whether the Byte array in the container contains the Byte representation of 'Test'" type="failure">
+            <parameters>
+              <parameter name="container" value="[FORMATTED]{[NL][T]array = Fail[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="false" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="19.489" successCount="2" failureCount="2" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

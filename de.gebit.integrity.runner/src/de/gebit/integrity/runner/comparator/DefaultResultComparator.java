@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner.comparator;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -126,10 +127,24 @@ public class DefaultResultComparator implements ResultComparator {
 						}
 						return true;
 					} else {
-						// If we arrive here, the expected result is a simple, single value. But the fixture might still
-						// return an array
+						// If we arrive here, the expected result is a simple, single value.
+						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 						Object tempSingleFixtureResult = aFixtureResult;
-						// if the expected type is an array, we don't want to convert to that array, but to the
+
+						// First see if we have the special case of byte arrays (issue #66). Those must be handled
+						// separately.
+						if (tempSingleFixtureResult instanceof byte[]) {
+							byte[] tempConvertedExpectedResult = (byte[]) valueConverter.convertValue(byte[].class,
+									tempSingleExpectedResult, null);
+							return Arrays.equals((byte[]) tempSingleFixtureResult, tempConvertedExpectedResult);
+						} else if (tempSingleFixtureResult instanceof Byte[]) {
+							Byte[] tempConvertedExpectedResult = (Byte[]) valueConverter.convertValue(Byte[].class,
+									tempSingleExpectedResult, null);
+							return Arrays.equals((Byte[]) tempSingleFixtureResult, tempConvertedExpectedResult);
+						}
+
+						// The fixture might still have returned an array.
+						// If the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course
 						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass();
 						if (tempSingleFixtureResult.getClass().isArray()) {
@@ -157,8 +172,6 @@ public class DefaultResultComparator implements ResultComparator {
 								}
 							}
 						}
-
-						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
 
 						return convertAndPerformEqualityCheck(tempSingleFixtureResult, tempSingleExpectedResult,
 								tempConversionTargetType);
