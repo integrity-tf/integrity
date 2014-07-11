@@ -521,7 +521,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @return the xslt stream
 	 */
-	private InputStream getXsltStream() {
+	protected InputStream getXsltStream() {
 		return getClass().getClassLoader().getResourceAsStream("resource/xhtml.xslt");
 	}
 
