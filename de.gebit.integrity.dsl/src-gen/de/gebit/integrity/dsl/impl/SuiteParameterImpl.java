@@ -4,7 +4,7 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.SuiteParameter;
-import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -50,7 +50,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    * @ordered
    */
-  protected Value value;
+  protected ValueOrEnumValueOrOperationCollection value;
 
   /**
    * <!-- begin-user-doc -->
@@ -121,7 +121,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public Value getValue()
+  public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
   }
@@ -131,9 +131,9 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(Value newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperationCollection newValue, NotificationChain msgs)
   {
-    Value oldValue = value;
+    ValueOrEnumValueOrOperationCollection oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -148,7 +148,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(Value newValue)
+  public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)
     {
@@ -213,7 +213,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
         setName((VariableOrConstantEntity)newValue);
         return;
       case DslPackage.SUITE_PARAMETER__VALUE:
-        setValue((Value)newValue);
+        setValue((ValueOrEnumValueOrOperationCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -233,7 +233,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
         setName((VariableOrConstantEntity)null);
         return;
       case DslPackage.SUITE_PARAMETER__VALUE:
-        setValue((Value)null);
+        setValue((ValueOrEnumValueOrOperationCollection)null);
         return;
     }
     super.eUnset(featureID);

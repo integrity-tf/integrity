@@ -1959,14 +1959,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cValueValueParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
 		
 		//SuiteParameter:
 		//
-		//	name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=Value;
+		//	name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=ValueOrEnumValueOrOperationCollection;
 		public ParserRule getRule() { return rule; }
 
-		//name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=Value
+		//name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=ValueOrEnumValueOrOperationCollection
 		public Group getGroup() { return cGroup; }
 
 		//name=[VariableOrConstantEntity|QualifiedName]
@@ -1987,11 +1987,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
-		//value=Value
+		//value=ValueOrEnumValueOrOperationCollection
 		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
 
-		//Value
-		public RuleCall getValueValueParserRuleCall_4_0() { return cValueValueParserRuleCall_4_0; }
+		//ValueOrEnumValueOrOperationCollection
+		public RuleCall getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0() { return cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0; }
 	}
 
 	public class ParameterElements extends AbstractParserRuleElementFinder {
@@ -4001,7 +4001,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SuiteParameter:
 	//
-	//	name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=Value;
+	//	name=[VariableOrConstantEntity|QualifiedName] NL ":" NL value=ValueOrEnumValueOrOperationCollection;
 	public SuiteParameterElements getSuiteParameterAccess() {
 		return (pSuiteParameter != null) ? pSuiteParameter : (pSuiteParameter = new SuiteParameterElements());
 	}

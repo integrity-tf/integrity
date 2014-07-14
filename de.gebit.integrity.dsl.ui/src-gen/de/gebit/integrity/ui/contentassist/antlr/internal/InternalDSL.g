@@ -14265,8 +14265,8 @@ rule__SuiteParameter__ValueAssignment_4
     }
 :
 (
-{ before(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); }
-	ruleValue{ after(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); }
+{ before(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); }
+	ruleValueOrEnumValueOrOperationCollection{ after(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); }
 )
 
 ;

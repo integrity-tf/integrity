@@ -3273,9 +3273,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
 	    }
-		lv_value_4_0=ruleValue		{
+		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteParameterRule());
 	        }
@@ -3283,7 +3283,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"Value");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 

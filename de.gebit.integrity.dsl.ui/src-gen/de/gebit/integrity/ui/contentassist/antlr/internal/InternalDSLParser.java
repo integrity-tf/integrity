@@ -38263,25 +38263,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__ValueAssignment_4"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14262:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValue ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14262:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__SuiteParameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14266:1: ( ( ruleValue ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14267:1: ( ruleValue )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14266:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14267:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14267:1: ( ruleValue )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14268:1: ruleValue
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14267:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:14268:1: ruleValueOrEnumValueOrOperationCollection
             {
-             before(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_428864);
-            ruleValue();
+             before(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__SuiteParameter__ValueAssignment_428864);
+            ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0()); 
+             after(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
 
             }
 
@@ -41158,17 +41158,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         "\7\uffff}>";
     static final String[] DFA64_transitionS = {
             "\1\1\1\uffff\1\2\1\uffff\6\1\14\uffff\1\1\20\uffff\1\1\4\uffff"+
-            "\1\1\1\uffff\1\1\1\uffff\7\1\4\uffff\1\1\1\3\4\uffff\1\1",
+            "\1\1\1\uffff\12\1\3\uffff\1\1\1\3\4\uffff\1\1",
             "",
             "\1\1\1\uffff\1\5\1\4\6\1\14\uffff\1\1\20\uffff\1\1\4\uffff"+
-            "\1\1\1\uffff\1\1\1\uffff\7\1\4\uffff\1\1\1\3\4\uffff\1\1",
+            "\1\1\1\uffff\12\1\3\uffff\1\1\1\3\4\uffff\1\1",
             "",
             "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\20\uffff\1\1\4\uffff"+
-            "\1\1\1\uffff\1\1\1\uffff\7\1\4\uffff\1\1\1\3\4\uffff\1\1",
+            "\1\1\1\uffff\12\1\3\uffff\1\1\1\3\4\uffff\1\1",
             "\1\1\1\uffff\1\5\1\6\6\1\14\uffff\1\1\20\uffff\1\1\4\uffff"+
-            "\1\1\1\uffff\1\1\1\uffff\7\1\4\uffff\1\1\1\3\4\uffff\1\1",
+            "\1\1\1\uffff\12\1\3\uffff\1\1\1\3\4\uffff\1\1",
             "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\20\uffff\1\1\4\uffff"+
-            "\1\1\1\uffff\1\1\1\uffff\7\1\4\uffff\1\1\1\3\4\uffff\1\1"
+            "\1\1\1\uffff\12\1\3\uffff\1\1\1\3\4\uffff\1\1"
     };
 
     static final short[] DFA64_eot = DFA.unpackEncodedString(DFA64_eotS);
@@ -42171,7 +42171,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__SuiteParameter__Group__2__Impl_in_rule__SuiteParameter__Group__220953 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_rule__SuiteParameter__Group__3_in_rule__SuiteParameter__Group__220956 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_40_in_rule__SuiteParameter__Group__2__Impl20984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__321015 = new BitSet(new long[]{0x0000000000FF8070L,0x0000000000000068L});
+    public static final BitSet FOLLOW_rule__SuiteParameter__Group__3__Impl_in_rule__SuiteParameter__Group__321015 = new BitSet(new long[]{0x4000000000FF80F0L,0x0000000000000069L});
     public static final BitSet FOLLOW_rule__SuiteParameter__Group__4_in_rule__SuiteParameter__Group__321018 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNL_in_rule__SuiteParameter__Group__3__Impl21045 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SuiteParameter__Group__4__Impl_in_rule__SuiteParameter__Group__421074 = new BitSet(new long[]{0x0000000000000002L});
@@ -42484,7 +42484,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__ForkAssignment_6_228751 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Suite__VariantsAssignment_7_2_028790 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__SuiteParameter__NameAssignment_028829 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__SuiteParameter__ValueAssignment_428864 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__SuiteParameter__ValueAssignment_428864 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleParameterName_in_rule__Parameter__NameAssignment_028895 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_rule__Parameter__ValueAssignment_428926 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__FixedParameterName__AnnotationAssignment28961 = new BitSet(new long[]{0x0000000000000002L});

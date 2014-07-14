@@ -58,12 +58,12 @@ public interface SuiteParameter extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(Value)
+   * @see #setValue(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteParameter_Value()
    * @model containment="true"
    * @generated
    */
-  Value getValue();
+  ValueOrEnumValueOrOperationCollection getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.SuiteParameter#getValue <em>Value</em>}' containment reference.
@@ -73,6 +73,6 @@ public interface SuiteParameter extends EObject
    * @see #getValue()
    * @generated
    */
-  void setValue(Value value);
+  void setValue(ValueOrEnumValueOrOperationCollection value);
 
 } // SuiteParameter

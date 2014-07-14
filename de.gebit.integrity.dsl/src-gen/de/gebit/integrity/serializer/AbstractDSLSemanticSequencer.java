@@ -1295,7 +1295,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=[VariableOrConstantEntity|QualifiedName] value=Value)
+	 *     (name=[VariableOrConstantEntity|QualifiedName] value=ValueOrEnumValueOrOperationCollection)
 	 */
 	protected void sequence_SuiteParameter(EObject context, SuiteParameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -1307,7 +1307,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
-		feeder.accept(grammarAccess.getSuiteParameterAccess().getValueValueParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

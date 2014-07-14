@@ -146,7 +146,7 @@ Suite:
 	'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
 
 SuiteParameter:
-	name=[VariableOrConstantEntity|QualifiedName] NL ':' NL value=Value;
+	name=[VariableOrConstantEntity|QualifiedName] NL ':' NL value=ValueOrEnumValueOrOperationCollection;
 
 Parameter:
 	name=ParameterName NL ':' NL value=ValueOrEnumValueOrOperationCollection;

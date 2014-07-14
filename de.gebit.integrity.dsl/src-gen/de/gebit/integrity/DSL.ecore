@@ -175,7 +175,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuiteParameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperationCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter">
