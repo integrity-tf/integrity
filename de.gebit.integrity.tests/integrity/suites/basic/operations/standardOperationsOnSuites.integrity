@@ -1,0 +1,20 @@
+import integrity.operations.default.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.operations with
+
+	suitedef standardOperationsOnSuites with
+	
+		suite subSuite param1: (1 + 1) param2: 1		
+		suite subSuite param1: (4 * (2 + 2)) param2: (16 - 1)			
+			
+	suiteend
+	
+	
+	suitedef subSuite gets param1 param2 with
+	
+		test echoIntegerTest integer: param1 = (param2 + 1)
+		
+	suiteend
+
+packageend
