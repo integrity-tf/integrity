@@ -448,6 +448,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					// In case of an operation inside a variable, we need to recurse (see issue #36)
 					return convertEncapsulatedValueToTargetType(aTargetType, aParameterizedType,
 							(ValueOrEnumValueOrOperation) tempResult, aConversionContext, someVisitedValues);
+				} else if (tempResult instanceof ValueOrEnumValueOrOperationCollection) {
+					// The same is true in case of collections
+					return convertEncapsulatedValueCollectionToTargetType(aTargetType, aParameterizedType,
+							(ValueOrEnumValueOrOperationCollection) tempResult, aConversionContext, someVisitedValues);
 				} else {
 					return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
 							aConversionContext, someVisitedValues);
