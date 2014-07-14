@@ -9,6 +9,7 @@ package de.gebit.integrity.runner.console;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,21 @@ public class ConsoleTestExecutor {
 	private static final String REMAINING_ARGS_HELP = " suite_name scripts...";
 
 	/**
+	 * Exit code returned if everything went well.
+	 */
+	public static final int EXIT_CODE_SUCCESS = 0;
+
+	/**
+	 * Exit code returned on a parameter error (necessary parameter missing, unknown parameter given etc.).
+	 */
+	public static final int EXIT_CODE_PARAMETER_ERROR = 1;
+
+	/**
+	 * Exit code returned on a runtime error during test execution.
+	 */
+	public static final int EXIT_CODE_RUNTIME_ERROR = 2;
+
+	/**
 	 * The setup class to use.
 	 */
 	private Class<? extends IntegrityDSLSetup> setupClass = IntegrityDSLSetup.class;
@@ -86,7 +102,7 @@ public class ConsoleTestExecutor {
 	 */
 	public static void main(String[] someArgs) {
 		ConsoleTestExecutor tempExecutor = new ConsoleTestExecutor();
-		tempExecutor.run(someArgs);
+		System.exit(tempExecutor.run(someArgs));
 	}
 
 	/**
@@ -94,8 +110,9 @@ public class ConsoleTestExecutor {
 	 * 
 	 * @param someArgs
 	 *            the command-line arguments
+	 * @return the exit code
 	 */
-	public void run(String[] someArgs) {
+	public int run(String[] someArgs) {
 		SimpleCommandLineParser tempParser = new SimpleCommandLineParser();
 		SimpleCommandLineParser.BooleanOption tempConsoleOption = new SimpleCommandLineParser.BooleanOption("s",
 				"silent", "Disable console logging during test execution", "[{-s,--silent}]");
@@ -138,25 +155,22 @@ public class ConsoleTestExecutor {
 				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
-			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
-			System.exit(2);
-			return;
+			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
+			return EXIT_CODE_PARAMETER_ERROR;
 		}
 
 		String[] tempRemainingParameters;
 		try {
 			tempRemainingParameters = tempParser.parseAndReturnRemaining(someArgs);
 		} catch (IllegalArgumentException exc) {
-			System.err.println(exc.getMessage());
-			System.out.print(tempParser.getHelp(REMAINING_ARGS_HELP));
-			System.exit(2);
-			return;
+			getStdErr().println(exc.getMessage());
+			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
+			return EXIT_CODE_PARAMETER_ERROR;
 		}
 		if (tempRemainingParameters.length == 0) {
-			System.err.println("Missing mandatory 'root_suite' definition!");
-			System.out.println(tempParser.getHelp(REMAINING_ARGS_HELP));
-			System.exit(2);
-			return;
+			getStdErr().println("Missing mandatory 'root_suite' definition!");
+			getStdOut().println(tempParser.getHelp(REMAINING_ARGS_HELP));
+			return EXIT_CODE_PARAMETER_ERROR;
 		}
 
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
@@ -166,9 +180,9 @@ public class ConsoleTestExecutor {
 		try {
 			tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
 		} catch (IOException exc) {
-			System.err.println("Encountered an I/O error when preparing the test script resources.");
-			exc.printStackTrace();
-			return;
+			getStdErr().println("Encountered an I/O error when preparing the test script resources.");
+			exc.printStackTrace(getStdErr());
+			return EXIT_CODE_RUNTIME_ERROR;
 		}
 
 		try {
@@ -179,8 +193,8 @@ public class ConsoleTestExecutor {
 			if (tempVariantOption.getValue() != null) {
 				tempVariant = tempModel.getVariantByName(tempVariantOption.getValue());
 				if (tempVariant == null) {
-					System.err.println("Could not find variant '" + tempVariantOption.getValue() + "' - exiting!");
-					return;
+					getStdErr().println("Could not find variant '" + tempVariantOption.getValue() + "' - exiting!");
+					return EXIT_CODE_PARAMETER_ERROR;
 				}
 			}
 
@@ -188,9 +202,10 @@ public class ConsoleTestExecutor {
 			for (String tempOptionValue : tempParameterizedConstantOption.getValues()) {
 				String[] tempParts = tempOptionValue.split("=", 2);
 				if (tempParts.length < 2) {
-					System.err.println("Could not parse parameterized constant definition '" + tempOptionValue
-							+ "' - definitions must follow the pattern 'fully.qualified.constant.name=value'!");
-					return;
+					getStdErr().println(
+							"Could not parse parameterized constant definition '" + tempOptionValue
+									+ "' - definitions must follow the pattern 'fully.qualified.constant.name=value'!");
+					return EXIT_CODE_PARAMETER_ERROR;
 				} else {
 					tempParameterizedConstants.put(tempParts[0], tempParts[1]);
 				}
@@ -198,8 +213,8 @@ public class ConsoleTestExecutor {
 			addParameterizedConstants(tempParameterizedConstants);
 
 			if (tempRootSuite == null) {
-				System.err.println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
-				return;
+				getStdErr().println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
+				return EXIT_CODE_PARAMETER_ERROR;
 			} else {
 				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
 				if (!tempConsoleOption.isSet()) {
@@ -232,27 +247,49 @@ public class ConsoleTestExecutor {
 					TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
 							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
 					runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
+
+					return EXIT_CODE_SUCCESS;
 				} catch (ModelRuntimeLinkException exc) {
-					System.err.println("Test execution was aborted due to a test script linking error!");
-					System.err.println(exc.getMessage());
-				} catch (IOException exc) {
-					exc.printStackTrace();
+					getStdErr().println("Test execution was aborted due to a test script linking error!");
+					getStdErr().println(exc.getMessage());
 				}
 			}
 		} catch (ModelParseException exc) {
 			for (Diagnostic tempDiag : exc.getErrors()) {
-				System.err.println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
+				getStdErr().println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
 			}
 		} catch (ValidationException exc) {
 			// Print no stacktrace as the message should include a line number to the cause, which is more interesting
-			System.err.println(exc.getMessage());
+			getStdErr().println(exc.getMessage());
 		} catch (ModelLinkException exc) {
 			exc.printUnresolvableObjects();
 		} catch (ModelAmbiguousException exc) {
 			exc.printAmbiguousDefinitions();
 		} catch (ModelLoadException exc) {
-			exc.printStackTrace();
+			exc.printStackTrace(getStdErr());
+		} catch (Exception exc) {
+			exc.printStackTrace(getStdErr());
 		}
+
+		return EXIT_CODE_RUNTIME_ERROR;
+	}
+
+	/**
+	 * Return the standard error stream to use.
+	 * 
+	 * @return the standard error stream
+	 */
+	protected PrintStream getStdErr() {
+		return System.err;
+	}
+
+	/**
+	 * Return the standard output stream to use.
+	 * 
+	 * @return the standard output stream
+	 */
+	protected PrintStream getStdOut() {
+		return System.out;
 	}
 
 	/**
