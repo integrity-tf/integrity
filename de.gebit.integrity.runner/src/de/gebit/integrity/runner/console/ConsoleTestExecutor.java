@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
@@ -76,7 +78,12 @@ public class ConsoleTestExecutor {
 	/**
 	 * The setup class to use.
 	 */
-	private Class<? extends IntegrityDSLSetup> setupClass = IntegrityDSLSetup.class;
+	protected Class<? extends IntegrityDSLSetup> setupClass = IntegrityDSLSetup.class;
+
+	/**
+	 * Stores a list of (weakly referenced) threads which were already running before the test run is started.
+	 */
+	protected WeakHashMap<Thread, Boolean> threadsRunningBeforeTestExecution = new WeakHashMap<Thread, Boolean>();
 
 	/**
 	 * Creates a new instance using the default setup class.
@@ -102,7 +109,72 @@ public class ConsoleTestExecutor {
 	 */
 	public static void main(String[] someArgs) {
 		ConsoleTestExecutor tempExecutor = new ConsoleTestExecutor();
-		System.exit(tempExecutor.run(someArgs));
+
+		int tempReturnCode = tempExecutor.runWithZombieThreadDetection(someArgs);
+
+		System.exit(tempReturnCode);
+	}
+
+	/**
+	 * Takes note of all threads which are currently running by using the {@link #threadsRunningBeforeTestExecution}
+	 * map. This is used in conjunction with {@link #checkForZombieThreads()}.
+	 */
+	public void prepareZombieThreadCheck() {
+		Thread[] tempArray = new Thread[Thread.activeCount()];
+		Thread.enumerate(tempArray);
+
+		threadsRunningBeforeTestExecution.clear();
+		for (Thread tempThread : tempArray) {
+			if (tempThread.isAlive() && !tempThread.isDaemon()) {
+				threadsRunningBeforeTestExecution.put(tempThread, true);
+			}
+		}
+	}
+
+	/**
+	 * Searches for any threads still running which were not running when {@link #prepareZombieThreadCheck()} was
+	 * executed and prints them on the console. This mechanism is designed to find
+	 */
+	public void checkForZombieThreads() {
+		Thread[] tempArray = new Thread[Thread.activeCount()];
+		Thread.enumerate(tempArray);
+
+		List<Thread> tempZombieThreads = new LinkedList<Thread>();
+		for (Thread tempThread : tempArray) {
+			if (!threadsRunningBeforeTestExecution.containsKey(tempThread) && tempThread.isAlive()
+					&& !tempThread.isDaemon()) {
+				tempZombieThreads.add(tempThread);
+			}
+		}
+
+		if (tempZombieThreads.size() > 0) {
+			getStdOut().println(
+					"WARNING: Found " + tempZombieThreads.size()
+							+ " zombie thread(s) still alive after test run has ended. "
+							+ "These should not exist - you are responsible to terminate "
+							+ "all threads being started during test execution!");
+			for (Thread tempThread : tempZombieThreads) {
+				getStdOut().println("  Thread #" + tempThread.getId() + ": " + tempThread.getName());
+			}
+		}
+	}
+
+	/**
+	 * Works like {@link #run(String[])}, but performs zombie thread detection as well. See
+	 * {@link #checkForZombieThreads()} for details.
+	 * 
+	 * @param someArgs
+	 *            the command-line arguments
+	 * @return the exit code
+	 */
+	public int runWithZombieThreadDetection(String[] someArgs) {
+		try {
+			prepareZombieThreadCheck();
+			return run(someArgs);
+		} finally {
+			// At this point, all threads started by the test run should have finished.
+			checkForZombieThreads();
+		}
 	}
 
 	/**
