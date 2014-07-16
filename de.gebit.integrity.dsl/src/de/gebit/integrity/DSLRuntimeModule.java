@@ -11,7 +11,11 @@
 package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.service.DispatchingProvider;
+
+import com.google.inject.Binder;
 
 import de.gebit.integrity.modelsource.DefaultModelSourceExplorer;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
@@ -118,6 +122,15 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 						com.google.inject.name.Names
 								.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(DSLImportedNamespaceAwareLocalScopeProvider.class);
+	}
+
+	/**
+	 * Bind the encoding provider.
+	 */
+	@Override
+	public void configureRuntimeEncodingProvider(Binder aBinder) {
+		aBinder.bind(IEncodingProvider.class).annotatedWith(DispatchingProvider.Runtime.class)
+				.to(IntegrityRuntimeEncodingProvider.class);
 	}
 
 	/**
