@@ -76,13 +76,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//ValueOrEnumValueOrOperation"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="#//ValueOrEnumValueOrOperationCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstantDefinition" eSuperTypes="#//PackageStatement #//SuiteStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ConstantEntity"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperation"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperationCollection"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variantValues" upperBound="-1"
         eType="#//VariantValue" containment="true"/>
@@ -91,7 +91,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="VariantValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="names" unique="false" upperBound="-1"
         eType="#//VariantDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperation"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ValueOrEnumValueOrOperationCollection"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableEntity" eSuperTypes="#//VariableOrConstantEntity"/>

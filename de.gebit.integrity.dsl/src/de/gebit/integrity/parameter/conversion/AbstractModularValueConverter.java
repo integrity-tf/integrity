@@ -498,8 +498,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// Constants need to be "constantly" defined in the variable manager at runtime, so we can ask it
 				// directly.
 				Object tempResult = variableManager.get(((Constant) aValue).getName());
-				return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult, aConversionContext,
-						someVisitedValues);
+				return convertValue(aTargetType, aParameterizedType, tempResult, aConversionContext, someVisitedValues);
 			} else if (((Constant) aValue).getName().eContainer() instanceof ConstantDefinition) {
 				// Without the variable manager, we can still attempt to resolve statically.
 				try {
@@ -728,7 +727,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				tempResult = (FormattedString[]) convertEncapsulatedValueToTargetType(FormattedString[].class, null,
 						(ValueOrEnumValueOrOperation) aValue, tempConversionContext, someVisitedValues);
 			} else {
-				tempResult = (FormattedString[]) convertPlainValueToTargetType(FormattedString[].class, null, aValue,
+				tempResult = (FormattedString[]) convertValue(FormattedString[].class, null, aValue,
 						tempConversionContext, someVisitedValues);
 			}
 		} catch (UnexecutableException exc) {

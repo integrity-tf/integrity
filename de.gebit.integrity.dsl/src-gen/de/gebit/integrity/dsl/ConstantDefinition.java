@@ -60,12 +60,12 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(ValueOrEnumValueOrOperation)
+   * @see #setValue(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Value()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValueOrOperation getValue();
+  ValueOrEnumValueOrOperationCollection getValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}' containment reference.
@@ -75,7 +75,7 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * @see #getValue()
    * @generated
    */
-  void setValue(ValueOrEnumValueOrOperation value);
+  void setValue(ValueOrEnumValueOrOperationCollection value);
 
   /**
    * Returns the value of the '<em><b>Variant Values</b></em>' containment reference list.

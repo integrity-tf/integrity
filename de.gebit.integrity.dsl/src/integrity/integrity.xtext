@@ -91,13 +91,13 @@ SuiteStatementWithResult:
 	Suite | Test | TableTest | Call;
 	
 VariableDefinition:
-	'variable' NL name=VariableEntity NL ('initially' NL initialValue=ValueOrEnumValueOrOperation NL)?;
+	'variable' NL name=VariableEntity NL ('initially' NL initialValue=ValueOrEnumValueOrOperationCollection NL)?;
 	
 ConstantDefinition:
-	'constant' NL name=ConstantEntity NL (((value=ValueOrEnumValueOrOperation NL)? (variantValues+=VariantValue NL)*) | parameterized='parameterized' NL);
+	'constant' NL name=ConstantEntity NL (((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) | parameterized='parameterized' NL);
 	
 VariantValue:
-	'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=ValueOrEnumValueOrOperation;
+	'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=ValueOrEnumValueOrOperationCollection;
 	
 VariableEntity:
 	name=QualifiedName;

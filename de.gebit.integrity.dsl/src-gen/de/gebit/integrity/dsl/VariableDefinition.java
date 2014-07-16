@@ -57,12 +57,12 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Initial Value</em>' containment reference.
-   * @see #setInitialValue(ValueOrEnumValueOrOperation)
+   * @see #setInitialValue(ValueOrEnumValueOrOperationCollection)
    * @see de.gebit.integrity.dsl.DslPackage#getVariableDefinition_InitialValue()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValueOrOperation getInitialValue();
+  ValueOrEnumValueOrOperationCollection getInitialValue();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.VariableDefinition#getInitialValue <em>Initial Value</em>}' containment reference.
@@ -72,6 +72,6 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
    * @see #getInitialValue()
    * @generated
    */
-  void setInitialValue(ValueOrEnumValueOrOperation value);
+  void setInitialValue(ValueOrEnumValueOrOperationCollection value);
 
 } // VariableDefinition

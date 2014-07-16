@@ -107,6 +107,11 @@ public class NoOpFixture {
 		return aCalendarToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the map array '$map$'")
+	public Map<String, Object>[] echoMapArray(@FixtureParameter(name = "map") Map<String, Object>[] aMapToEcho) {
+		return aMapToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the map '$map$'")
 	public Map<String, Object> echoMap(@FixtureParameter(name = "map") Map<String, Object> aMapToEcho) {
 		return aMapToEcho;

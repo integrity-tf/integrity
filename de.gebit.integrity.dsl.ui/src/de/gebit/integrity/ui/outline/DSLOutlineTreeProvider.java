@@ -33,7 +33,7 @@ import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
@@ -200,7 +200,7 @@ public class DSLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	 *            Value to display
 	 * @return Textual representation of this value.
 	 */
-	protected String getValueOf(ValueOrEnumValueOrOperation aValue) {
+	protected String getValueOf(ValueOrEnumValueOrOperationCollection aValue) {
 		if (aValue instanceof NestedObject) {
 			return "{...}";
 		}

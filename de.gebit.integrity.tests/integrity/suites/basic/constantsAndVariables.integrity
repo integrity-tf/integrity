@@ -1,0 +1,34 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic with
+
+	suitedef multiValueStringConstant with
+		
+		constant stringConst "1", "2"
+		
+		test echoStringArrayTest strings: stringConst = "1", "2"
+	
+	suiteend
+	
+
+	suitedef multiValueMapConstant with
+			
+		constant mapConst {
+			key1: "The first map"
+		}, {
+			key1: "The second map"
+		}
+		
+		test echoMapArrayTest map: mapConst =  {
+			key1: "The first map"
+		}, {
+			key1: "The second map"
+		}
+	
+	suiteend
+	
+	
+
+
+packageend

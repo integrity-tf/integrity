@@ -3,7 +3,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 
@@ -49,7 +49,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValueOrOperation initialValue;
+  protected ValueOrEnumValueOrOperationCollection initialValue;
 
   /**
    * <!-- begin-user-doc -->
@@ -125,7 +125,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueOrOperation getInitialValue()
+  public ValueOrEnumValueOrOperationCollection getInitialValue()
   {
     return initialValue;
   }
@@ -135,9 +135,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetInitialValue(ValueOrEnumValueOrOperation newInitialValue, NotificationChain msgs)
+  public NotificationChain basicSetInitialValue(ValueOrEnumValueOrOperationCollection newInitialValue, NotificationChain msgs)
   {
-    ValueOrEnumValueOrOperation oldInitialValue = initialValue;
+    ValueOrEnumValueOrOperationCollection oldInitialValue = initialValue;
     initialValue = newInitialValue;
     if (eNotificationRequired())
     {
@@ -152,7 +152,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInitialValue(ValueOrEnumValueOrOperation newInitialValue)
+  public void setInitialValue(ValueOrEnumValueOrOperationCollection newInitialValue)
   {
     if (newInitialValue != initialValue)
     {
@@ -218,7 +218,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
         setName((VariableEntity)newValue);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
-        setInitialValue((ValueOrEnumValueOrOperation)newValue);
+        setInitialValue((ValueOrEnumValueOrOperationCollection)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -238,7 +238,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
         setName((VariableEntity)null);
         return;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
-        setInitialValue((ValueOrEnumValueOrOperation)null);
+        setInitialValue((ValueOrEnumValueOrOperationCollection)null);
         return;
     }
     super.eUnset(featureID);

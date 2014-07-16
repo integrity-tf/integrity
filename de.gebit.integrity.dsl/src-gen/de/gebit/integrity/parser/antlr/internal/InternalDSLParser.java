@@ -4203,7 +4203,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariableDefinition"
-    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1747:1: ruleVariableDefinition returns [EObject current=null] : (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ) ;
+    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1747:1: ruleVariableDefinition returns [EObject current=null] : (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ) ;
     public final EObject ruleVariableDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -4217,11 +4217,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1750:28: ( (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:1: (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1750:28: ( (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:1: (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? )
             {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:1: (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:3: otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )?
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:1: (otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1751:3: otherlv_0= 'variable' ruleNL ( (lv_name_2_0= ruleVariableEntity ) ) ruleNL (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )?
             {
             otherlv_0=(Token)match(input,44,FOLLOW_44_in_ruleVariableDefinition3939); 
 
@@ -4280,7 +4280,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1789:1: (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )?
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1789:1: (otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -4289,7 +4289,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt21) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1789:3: otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) ) ruleNL
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1789:3: otherlv_4= 'initially' ruleNL ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL
                     {
                     otherlv_4=(Token)match(input,45,FOLLOW_45_in_ruleVariableDefinition4003); 
 
@@ -4306,17 +4306,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                             afterParserOrEnumRuleCall();
                         
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1801:1: ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation ) )
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1802:1: (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation )
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1801:1: ( (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection ) )
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1802:1: (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection )
                     {
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1802:1: (lv_initialValue_6_0= ruleValueOrEnumValueOrOperation )
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1803:3: lv_initialValue_6_0= ruleValueOrEnumValueOrOperation
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1802:1: (lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection )
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1803:3: lv_initialValue_6_0= ruleValueOrEnumValueOrOperationCollection
                     {
                      
-                    	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationParserRuleCall_4_2_0()); 
+                    	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleVariableDefinition4039);
-                    lv_initialValue_6_0=ruleValueOrEnumValueOrOperation();
+                    pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleVariableDefinition4039);
+                    lv_initialValue_6_0=ruleValueOrEnumValueOrOperationCollection();
 
                     state._fsp--;
 
@@ -4328,7 +4328,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                            			current, 
                            			"initialValue",
                             		lv_initialValue_6_0, 
-                            		"ValueOrEnumValueOrOperation");
+                            		"ValueOrEnumValueOrOperationCollection");
                     	        afterParserOrEnumRuleCall();
                     	    
 
@@ -4411,7 +4411,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConstantDefinition"
-    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1844:1: ruleConstantDefinition returns [EObject current=null] : (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) ) ;
+    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1844:1: ruleConstantDefinition returns [EObject current=null] : (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) ) ;
     public final EObject ruleConstantDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -4427,11 +4427,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1847:28: ( (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:1: (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1847:28: ( (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:1: (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) )
             {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:1: (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:3: otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:1: (otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1848:3: otherlv_0= 'constant' ruleNL ( (lv_name_2_0= ruleConstantEntity ) ) ruleNL ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) )
             {
             otherlv_0=(Token)match(input,46,FOLLOW_46_in_ruleConstantDefinition4139); 
 
@@ -4490,7 +4490,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:1: ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:1: ( ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* ) | ( ( (lv_parameterized_8_0= 'parameterized' ) ) ruleNL ) )
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -4508,12 +4508,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt24) {
                 case 1 :
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:2: ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* )
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:2: ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* )
                     {
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:2: ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* )
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:3: ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )*
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:2: ( ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )* )
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:3: ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )? ( ( (lv_variantValues_6_0= ruleVariantValue ) ) ruleNL )*
                     {
-                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:3: ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL )?
+                    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:3: ( ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -4522,19 +4522,19 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:4: ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL
+                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:4: ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) ) ruleNL
                             {
-                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:4: ( (lv_value_4_0= ruleValueOrEnumValueOrOperation ) )
-                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1887:1: (lv_value_4_0= ruleValueOrEnumValueOrOperation )
+                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1886:4: ( (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection ) )
+                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1887:1: (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection )
                             {
-                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1887:1: (lv_value_4_0= ruleValueOrEnumValueOrOperation )
-                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1888:3: lv_value_4_0= ruleValueOrEnumValueOrOperation
+                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1887:1: (lv_value_4_0= ruleValueOrEnumValueOrOperationCollection )
+                            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1888:3: lv_value_4_0= ruleValueOrEnumValueOrOperationCollection
                             {
                              
-                            	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0_0_0_0()); 
+                            	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleConstantDefinition4214);
-                            lv_value_4_0=ruleValueOrEnumValueOrOperation();
+                            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleConstantDefinition4214);
+                            lv_value_4_0=ruleValueOrEnumValueOrOperationCollection();
 
                             state._fsp--;
 
@@ -4546,7 +4546,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                                    			current, 
                                    			"value",
                                     		lv_value_4_0, 
-                                    		"ValueOrEnumValueOrOperation");
+                                    		"ValueOrEnumValueOrOperationCollection");
                             	        afterParserOrEnumRuleCall();
                             	    
 
@@ -4749,7 +4749,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariantValue"
-    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1979:1: ruleVariantValue returns [EObject current=null] : (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) ) ) ;
+    // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1979:1: ruleVariantValue returns [EObject current=null] : (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ) ;
     public final EObject ruleVariantValue() throws RecognitionException {
         EObject current = null;
 
@@ -4761,11 +4761,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1982:28: ( (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) ) ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:1: (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1982:28: ( (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:1: (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) ) )
             {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:1: (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:3: otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:1: (otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:1983:3: otherlv_0= 'in' ruleNL ( ( ( ruleQualifiedName ) ) ruleNL )+ otherlv_4= ':' ruleNL ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) )
             {
             otherlv_0=(Token)match(input,48,FOLLOW_48_in_ruleVariantValue4409); 
 
@@ -4865,17 +4865,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2030:1: ( (lv_value_6_0= ruleValueOrEnumValueOrOperation ) )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2031:1: (lv_value_6_0= ruleValueOrEnumValueOrOperation )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2030:1: ( (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection ) )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2031:1: (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection )
             {
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2031:1: (lv_value_6_0= ruleValueOrEnumValueOrOperation )
-            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2032:3: lv_value_6_0= ruleValueOrEnumValueOrOperation
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2031:1: (lv_value_6_0= ruleValueOrEnumValueOrOperationCollection )
+            // ../de.gebit.integrity.dsl/src-gen/de/gebit/integrity/parser/antlr/internal/InternalDSL.g:2032:3: lv_value_6_0= ruleValueOrEnumValueOrOperationCollection
             {
              
-            	        newCompositeNode(grammarAccess.getVariantValueAccess().getValueValueOrEnumValueOrOperationParserRuleCall_5_0()); 
+            	        newCompositeNode(grammarAccess.getVariantValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0()); 
             	    
-            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleVariantValue4513);
-            lv_value_6_0=ruleValueOrEnumValueOrOperation();
+            pushFollow(FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleVariantValue4513);
+            lv_value_6_0=ruleValueOrEnumValueOrOperationCollection();
 
             state._fsp--;
 
@@ -4887,7 +4887,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                    			current, 
                    			"value",
                     		lv_value_6_0, 
-                    		"ValueOrEnumValueOrOperation");
+                    		"ValueOrEnumValueOrOperationCollection");
             	        afterParserOrEnumRuleCall();
             	    
 
@@ -14859,18 +14859,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String DFA54_specialS =
         "\7\uffff}>";
     static final String[] DFA54_transitionS = {
-            "\7\2\13\uffff\1\1\23\uffff\1\2\1\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
-            "\7\2\13\uffff\1\5\1\4\22\uffff\1\2\1\uffff\1\2\1\uffff\1\2"+
-            "\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
+            "\7\2\13\uffff\1\1\7\uffff\3\2\2\uffff\4\2\3\uffff\3\2\1\uffff"+
+            "\1\2\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
+            "\7\2\13\uffff\1\5\1\4\6\uffff\3\2\2\uffff\4\2\3\uffff\3\2"+
+            "\1\uffff\1\2\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
             "",
             "",
-            "\7\2\13\uffff\1\5\23\uffff\1\2\1\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
-            "\7\2\13\uffff\1\5\1\6\22\uffff\1\2\1\uffff\1\2\1\uffff\1\2"+
-            "\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
-            "\7\2\13\uffff\1\5\23\uffff\1\2\1\uffff\1\2\1\uffff\1\2\1\uffff"+
-            "\12\2\10\uffff\1\2\1\3\4\uffff\1\2"
+            "\7\2\13\uffff\1\5\7\uffff\3\2\2\uffff\4\2\3\uffff\3\2\1\uffff"+
+            "\1\2\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
+            "\7\2\13\uffff\1\5\1\6\6\uffff\3\2\2\uffff\4\2\3\uffff\3\2"+
+            "\1\uffff\1\2\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2",
+            "\7\2\13\uffff\1\5\7\uffff\3\2\2\uffff\4\2\3\uffff\3\2\1\uffff"+
+            "\1\2\1\uffff\12\2\10\uffff\1\2\1\3\4\uffff\1\2"
     };
 
     static final short[] DFA54_eot = DFA.unpackEncodedString(DFA54_eotS);
@@ -15286,7 +15286,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleNL_in_ruleVariableDefinition3991 = new BitSet(new long[]{0x0000200000000002L});
     public static final BitSet FOLLOW_45_in_ruleVariableDefinition4003 = new BitSet(new long[]{0x04000000007FFE00L,0x00000000000000D2L});
     public static final BitSet FOLLOW_ruleNL_in_ruleVariableDefinition4019 = new BitSet(new long[]{0x04000000007FFE00L,0x00000000000000D2L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleVariableDefinition4039 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleVariableDefinition4039 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_ruleNL_in_ruleVariableDefinition4055 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleConstantDefinition_in_entryRuleConstantDefinition4092 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleConstantDefinition4102 = new BitSet(new long[]{0x0000000000000002L});
@@ -15294,7 +15294,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleNL_in_ruleConstantDefinition4155 = new BitSet(new long[]{0x0000000000400400L});
     public static final BitSet FOLLOW_ruleConstantEntity_in_ruleConstantDefinition4175 = new BitSet(new long[]{0x04018000007FFE00L,0x00000000000000D2L});
     public static final BitSet FOLLOW_ruleNL_in_ruleConstantDefinition4191 = new BitSet(new long[]{0x04018000007FFE02L,0x00000000000000D2L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleConstantDefinition4214 = new BitSet(new long[]{0x0001000000400000L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleConstantDefinition4214 = new BitSet(new long[]{0x0001000000400000L});
     public static final BitSet FOLLOW_ruleNL_in_ruleConstantDefinition4230 = new BitSet(new long[]{0x0001000000000002L});
     public static final BitSet FOLLOW_ruleVariantValue_in_ruleConstantDefinition4253 = new BitSet(new long[]{0x0001000000400000L});
     public static final BitSet FOLLOW_ruleNL_in_ruleConstantDefinition4269 = new BitSet(new long[]{0x0001000000000002L});
@@ -15308,7 +15308,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleNL_in_ruleVariantValue4464 = new BitSet(new long[]{0x0000000400400400L});
     public static final BitSet FOLLOW_34_in_ruleVariantValue4477 = new BitSet(new long[]{0x04000000007FFE00L,0x00000000000000D2L});
     public static final BitSet FOLLOW_ruleNL_in_ruleVariantValue4493 = new BitSet(new long[]{0x04000000007FFE00L,0x00000000000000D2L});
-    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperation_in_ruleVariantValue4513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueOrEnumValueOrOperationCollection_in_ruleVariantValue4513 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVariableEntity_in_entryRuleVariableEntity4549 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleVariableEntity4559 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVariableEntity4604 = new BitSet(new long[]{0x0000000000000002L});

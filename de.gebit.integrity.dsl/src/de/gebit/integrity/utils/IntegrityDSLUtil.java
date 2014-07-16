@@ -49,7 +49,6 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
@@ -584,7 +583,7 @@ public final class IntegrityDSLUtil {
 	 *            the current variant being executed (null if no variant is used)
 	 * @return the initial value, or null if none was given
 	 */
-	public static ValueOrEnumValueOrOperation getInitialValueForVariableOrConstantEntity(
+	public static ValueOrEnumValueOrOperationCollection getInitialValueForVariableOrConstantEntity(
 			VariableOrConstantEntity anEntity, VariantDefinition aVariant) {
 		EObject tempDefiningStatement = anEntity.eContainer();
 		if (tempDefiningStatement instanceof VariableDefinition) {
@@ -605,9 +604,9 @@ public final class IntegrityDSLUtil {
 	 *            the current variant being executed (null if no variant is used)
 	 * @return the initial value, or null if none was given
 	 */
-	public static ValueOrEnumValueOrOperation getInitialValueForConstant(ConstantDefinition aConstant,
+	public static ValueOrEnumValueOrOperationCollection getInitialValueForConstant(ConstantDefinition aConstant,
 			VariantDefinition aVariant) {
-		ValueOrEnumValueOrOperation tempValue = aConstant.getValue();
+		ValueOrEnumValueOrOperationCollection tempValue = aConstant.getValue();
 		if (aVariant != null) {
 			outer: for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
 				for (VariantDefinition tempDefinition : tempVariantValue.getNames()) {

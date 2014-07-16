@@ -5,7 +5,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.DslPackage;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariantValue;
 
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValueOrOperation value;
+  protected ValueOrEnumValueOrOperationCollection value;
 
   /**
    * The cached value of the '{@link #getVariantValues() <em>Variant Values</em>}' containment reference list.
@@ -165,7 +165,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueOrOperation getValue()
+  public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
   }
@@ -175,9 +175,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ValueOrEnumValueOrOperation newValue, NotificationChain msgs)
+  public NotificationChain basicSetValue(ValueOrEnumValueOrOperationCollection newValue, NotificationChain msgs)
   {
-    ValueOrEnumValueOrOperation oldValue = value;
+    ValueOrEnumValueOrOperationCollection oldValue = value;
     value = newValue;
     if (eNotificationRequired())
     {
@@ -192,7 +192,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ValueOrEnumValueOrOperation newValue)
+  public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)
     {
@@ -302,7 +302,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         setName((ConstantEntity)newValue);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((ValueOrEnumValueOrOperation)newValue);
+        setValue((ValueOrEnumValueOrOperationCollection)newValue);
         return;
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         getVariantValues().clear();
@@ -329,7 +329,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
         setName((ConstantEntity)null);
         return;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
-        setValue((ValueOrEnumValueOrOperation)null);
+        setValue((ValueOrEnumValueOrOperationCollection)null);
         return;
       case DslPackage.CONSTANT_DEFINITION__VARIANT_VALUES:
         getVariantValues().clear();

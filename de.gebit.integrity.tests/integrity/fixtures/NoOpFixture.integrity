@@ -49,6 +49,9 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoMap uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
 	testdef echoMapTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
 	
+	calldef echoMapArray uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMapArray
+	testdef echoMapArrayTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMapArray
+	
 	calldef echoEnum uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum
 	testdef echoEnumTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum
 	

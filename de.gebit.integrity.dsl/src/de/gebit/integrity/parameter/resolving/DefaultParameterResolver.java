@@ -176,7 +176,17 @@ public class DefaultParameterResolver implements ParameterResolver {
 			Variable tempVariable = (Variable) aValue;
 			Object tempResolvedValue = (variableManager != null ? variableManager.get(tempVariable.getName()) : null);
 			if (tempResolvedValue != null) {
-				return tempResolvedValue;
+				// We may need to recurse here, as it is possible to have containers being returned by the variable
+				// manager
+				if (tempResolvedValue instanceof ValueOrEnumValueOrOperationCollection) {
+					return resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempResolvedValue,
+							anUnresolvableVariableHandlingPolicy);
+				} else if (tempResolvedValue instanceof ValueOrEnumValueOrOperation) {
+					return resolveSingleParameterValue((ValueOrEnumValueOrOperation) tempResolvedValue,
+							anUnresolvableVariableHandlingPolicy);
+				} else {
+					return tempResolvedValue;
+				}
 			} else {
 				switch (anUnresolvableVariableHandlingPolicy) {
 				case KEEP_UNRESOLVED:
@@ -221,7 +231,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 	}
 
 	@Override
-	public Object resolveStatically(ValueOrEnumValueOrOperation aValue, VariantDefinition aVariant)
+	public Object resolveStatically(ValueOrEnumValueOrOperationCollection aValue, VariantDefinition aVariant)
 			throws UnexecutableException, ClassNotFoundException, InstantiationException {
 		if (aValue instanceof Variable) {
 			VariableOrConstantEntity tempEntity = ((Variable) aValue).getName();
@@ -318,7 +328,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 	@Override
 	public Object resolveStatically(ConstantDefinition aConstant, VariantDefinition aVariant)
 			throws UnexecutableException, ClassNotFoundException, InstantiationException {
-		ValueOrEnumValueOrOperation tempValue = IntegrityDSLUtil.getInitialValueForConstant(aConstant, aVariant);
+		ValueOrEnumValueOrOperationCollection tempValue = IntegrityDSLUtil.getInitialValueForConstant(aConstant,
+				aVariant);
 
 		return resolveStatically(tempValue, aVariant);
 	}

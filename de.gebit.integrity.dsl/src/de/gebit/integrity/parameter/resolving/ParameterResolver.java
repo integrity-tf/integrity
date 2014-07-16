@@ -182,7 +182,7 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 */
-	Object resolveStatically(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant)
+	Object resolveStatically(ValueOrEnumValueOrOperationCollection anEntity, VariantDefinition aVariant)
 			throws UnexecutableException, ClassNotFoundException, InstantiationException;
 
 	/**

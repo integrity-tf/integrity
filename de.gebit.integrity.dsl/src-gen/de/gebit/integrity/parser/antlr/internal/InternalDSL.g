@@ -1801,9 +1801,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationParserRuleCall_4_2_0()); 
+	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
 	    }
-		lv_initialValue_6_0=ruleValueOrEnumValueOrOperation		{
+		lv_initialValue_6_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 	        }
@@ -1811,7 +1811,7 @@ ruleNL
        			$current, 
        			"initialValue",
         		lv_initialValue_6_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1886,9 +1886,9 @@ ruleNL
 ((((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0()); 
 	    }
-		lv_value_4_0=ruleValueOrEnumValueOrOperation		{
+		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
@@ -1896,7 +1896,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2030,9 +2030,9 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariantValueAccess().getValueValueOrEnumValueOrOperationParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getVariantValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0()); 
 	    }
-		lv_value_6_0=ruleValueOrEnumValueOrOperation		{
+		lv_value_6_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariantValueRule());
 	        }
@@ -2040,7 +2040,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_6_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
