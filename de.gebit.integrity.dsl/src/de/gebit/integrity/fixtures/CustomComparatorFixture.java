@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.fixtures;
 
+import de.gebit.integrity.comparator.ComparisonResult;
+
 /**
  * A custom comparator fixture overrides the default "equals" comparator that is used to compare actual and expected
  * results.
@@ -30,6 +32,7 @@ public interface CustomComparatorFixture {
 	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if both results are considered to match, false otherwise
 	 */
-	boolean compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName, String aPropertyName);
+	ComparisonResult compareResults(Object anExpectedResult, Object aFixtureResult, String aMethodName,
+			String aPropertyName);
 
 }

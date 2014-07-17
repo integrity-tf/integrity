@@ -28,6 +28,6 @@ public class TestComparisonUndeterminedResult extends TestComparisonResult {
 	 *            The expected result value
 	 */
 	public TestComparisonUndeterminedResult(String aParameter, ValueOrEnumValueOrOperationCollection anExpectedValue) {
-		super(aParameter, null, anExpectedValue);
+		super(null, aParameter, null, anExpectedValue);
 	}
 }

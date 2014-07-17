@@ -1148,10 +1148,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						valueConverter.convertValueToFormattedString(
 								(tempExpectedValue == null ? true : tempExpectedValue), false, null)
 								.toFormattedString());
-				if (tempEntry.getValue().getResult() != null) {
+				if (tempEntry.getValue().getActualValue() != null) {
 					tempComparisonResultElement.setAttribute(
 							RESULT_REAL_VALUE_ATTRIBUTE,
-							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 									tempExpectedIsNestedObject, null).toFormattedString());
 				}
 

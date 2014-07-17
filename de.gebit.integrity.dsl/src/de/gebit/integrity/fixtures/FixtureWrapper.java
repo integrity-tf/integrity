@@ -21,6 +21,7 @@ import com.google.inject.Injector;
 import com.google.inject.Provider;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
@@ -201,8 +202,8 @@ public class FixtureWrapper<C extends Object> {
 	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if comparation was successful, false otherwise
 	 */
-	public boolean performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName,
-			String aPropertyName) {
+	public ComparisonResult performCustomComparation(Object anExpectedResult, Object aFixtureResult,
+			String aMethodName, String aPropertyName) {
 		return ((CustomComparatorFixture) fixtureInstance).compareResults(anExpectedResult, aFixtureResult,
 				aMethodName, aPropertyName);
 	}

@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.comparator;
 
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.fixtures.FixtureWrapper;
@@ -39,7 +40,7 @@ public interface ResultComparator {
 	 * @throws InstantiationException
 	 * @throws UnexecutableException
 	 */
-	boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
+	ComparisonResult compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
 			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod, String aPropertyName)
 			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 

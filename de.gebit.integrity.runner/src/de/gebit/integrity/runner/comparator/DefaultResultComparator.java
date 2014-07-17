@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
@@ -54,16 +55,17 @@ public class DefaultResultComparator implements ResultComparator {
 	protected ParameterResolver parameterResolver;
 
 	@Override
-	public boolean compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
-			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod, String aPropertyName)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+	public ComparisonResult compareResult(Object aFixtureResult,
+			ValueOrEnumValueOrOperationCollection anExpectedResult, FixtureWrapper<?> aFixtureInstance,
+			MethodReference aFixtureMethod, String aPropertyName) throws ClassNotFoundException, UnexecutableException,
+			InstantiationException {
 		if (anExpectedResult != null) {
 			if (aFixtureResult == null) {
 				if (anExpectedResult.getMoreValues().size() > 0) {
 					// if there's more than one value expected, this can never equal a single null value
-					return false;
+					return SimpleComparisonResult.NOT_EQUAL;
 				} else {
-					return (anExpectedResult.getValue() instanceof NullValue);
+					return SimpleComparisonResult.valueOf(anExpectedResult.getValue() instanceof NullValue);
 				}
 			} else {
 				if (aFixtureInstance.isCustomComparatorFixture()) {
@@ -106,7 +108,7 @@ public class DefaultResultComparator implements ResultComparator {
 						// multiple result values were given -> fixture result must be an array of same size
 						if (!(aFixtureResult.getClass().isArray() && Array.getLength(aFixtureResult) == anExpectedResult
 								.getMoreValues().size() + 1)) {
-							return false;
+							return SimpleComparisonResult.NOT_EQUAL;
 						}
 						// now compare all values
 						for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
@@ -116,16 +118,16 @@ public class DefaultResultComparator implements ResultComparator {
 							if (tempSingleFixtureResult == null) {
 								// The fixture returned a null, we need to expect a null
 								if (!(tempSingleExpectedResult instanceof NullValue)) {
-									return false;
+									return SimpleComparisonResult.NOT_EQUAL;
 								}
 							} else {
 								if (!convertAndPerformEqualityCheck(tempSingleFixtureResult, tempSingleExpectedResult,
-										tempSingleFixtureResult.getClass())) {
-									return false;
+										tempSingleFixtureResult.getClass()).isSuccessful()) {
+									return SimpleComparisonResult.NOT_EQUAL;
 								}
 							}
 						}
-						return true;
+						return SimpleComparisonResult.EQUAL;
 					} else {
 						// If we arrive here, the expected result is a simple, single value.
 						ValueOrEnumValueOrOperation tempSingleExpectedResult = anExpectedResult.getValue();
@@ -136,11 +138,13 @@ public class DefaultResultComparator implements ResultComparator {
 						if (tempSingleFixtureResult instanceof byte[]) {
 							byte[] tempConvertedExpectedResult = (byte[]) valueConverter.convertValue(byte[].class,
 									tempSingleExpectedResult, null);
-							return Arrays.equals((byte[]) tempSingleFixtureResult, tempConvertedExpectedResult);
+							return SimpleComparisonResult.valueOf(Arrays.equals((byte[]) tempSingleFixtureResult,
+									tempConvertedExpectedResult));
 						} else if (tempSingleFixtureResult instanceof Byte[]) {
 							Byte[] tempConvertedExpectedResult = (Byte[]) valueConverter.convertValue(Byte[].class,
 									tempSingleExpectedResult, null);
-							return Arrays.equals((Byte[]) tempSingleFixtureResult, tempConvertedExpectedResult);
+							return SimpleComparisonResult.valueOf(Arrays.equals((Byte[]) tempSingleFixtureResult,
+									tempConvertedExpectedResult));
 						}
 
 						// The fixture might still have returned an array.
@@ -184,7 +188,7 @@ public class DefaultResultComparator implements ResultComparator {
 						.getSimpleName(), aPropertyName);
 			} else {
 				if (aFixtureResult instanceof Boolean) {
-					return (Boolean) aFixtureResult;
+					return SimpleComparisonResult.valueOf((Boolean) aFixtureResult);
 				} else {
 					throw new IllegalArgumentException(
 							"If no expected test result is given and the fixture is not a CustomComparatorFixture, "
@@ -209,7 +213,7 @@ public class DefaultResultComparator implements ResultComparator {
 	 * @throws UnresolvableVariableException
 	 * @throws UnexecutableException
 	 */
-	protected boolean convertAndPerformEqualityCheck(Object aSingleFixtureResult,
+	protected ComparisonResult convertAndPerformEqualityCheck(Object aSingleFixtureResult,
 			ValueOrEnumValueOrOperation aSingleExpectedResult, Class<?> aConversionTargetType)
 			throws UnresolvableVariableException, UnexecutableException {
 		Object tempConvertedExpectedResult;
@@ -272,11 +276,14 @@ public class DefaultResultComparator implements ResultComparator {
 	 *            the raw expected result object from the scripts
 	 * @return true if equal, false otherwise
 	 */
-	protected boolean performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
+	protected ComparisonResult performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
 			ValueOrEnumValueOrOperation aRawExpectedResult) {
 		if (aConvertedResult == null) {
-			return (aConvertedExpectedResult == null || (aConvertedExpectedResult.getClass().isArray()
-					&& Array.getLength(aConvertedExpectedResult) == 1 && Array.get(aConvertedExpectedResult, 0) == null));
+			return SimpleComparisonResult
+					.valueOf(aConvertedExpectedResult == null
+							|| (aConvertedExpectedResult.getClass().isArray()
+									&& Array.getLength(aConvertedExpectedResult) == 1 && Array.get(
+									aConvertedExpectedResult, 0) == null));
 		} else {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
 				return performEqualityCheckForDates((Date) aConvertedResult, (Date) aConvertedExpectedResult,
@@ -288,41 +295,42 @@ public class DefaultResultComparator implements ResultComparator {
 				if (aConvertedExpectedResult == null) {
 					// the fixture may still be returning an array that has to be unpacked
 					if (Array.getLength(aConvertedResult) != 1) {
-						return false;
+						return SimpleComparisonResult.NOT_EQUAL;
 					}
-					return (Array.get(aConvertedResult, 0) == null);
+					return SimpleComparisonResult.valueOf(Array.get(aConvertedResult, 0) == null);
 				} else {
 					if (!aConvertedExpectedResult.getClass().isArray()) {
 						// the fixture may be returning an array that has to be unpacked
 						if (Array.getLength(aConvertedResult) != 1) {
-							return false;
+							return SimpleComparisonResult.NOT_EQUAL;
 						}
 						return performEqualityCheck(Array.get(aConvertedResult, 0), aConvertedExpectedResult,
 								aRawExpectedResult);
 					} else {
 						if (Array.getLength(aConvertedResult) != Array.getLength(aConvertedExpectedResult)) {
-							return false;
+							return SimpleComparisonResult.NOT_EQUAL;
 						}
 						// both are converted arrays -> compare all values!
 						for (int i = 0; i < Array.getLength(aConvertedResult); i++) {
-							if (!performEqualityCheck(Array.get(aConvertedResult, i),
-									Array.get(aConvertedExpectedResult, i), aRawExpectedResult)) {
-								return false;
+							ComparisonResult tempResult = performEqualityCheck(Array.get(aConvertedResult, i),
+									Array.get(aConvertedExpectedResult, i), aRawExpectedResult);
+							if (!tempResult.isSuccessful()) {
+								return SimpleComparisonResult.NOT_EQUAL;
 							}
 						}
-						return true;
+						return SimpleComparisonResult.EQUAL;
 					}
 				}
 			} else {
 				// This is the super-simple case where we basically have only one value to compare
 				if (aConvertedExpectedResult == null) {
 					// we have validated convertedResult to be non-null before
-					return false;
+					return SimpleComparisonResult.NOT_EQUAL;
 				} else {
 					if (aConvertedExpectedResult.getClass().isArray()) {
 						// the converted result may still be an array
 						if (Array.getLength(aConvertedExpectedResult) != 1) {
-							return false;
+							return SimpleComparisonResult.EQUAL;
 						}
 						return performEqualityCheck(aConvertedResult, Array.get(aConvertedExpectedResult, 0),
 								aRawExpectedResult);
@@ -348,7 +356,7 @@ public class DefaultResultComparator implements ResultComparator {
 	 *            the raw expected result as in the script, before conversion
 	 * @return true if equal, false otherwise
 	 */
-	protected boolean performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
+	protected ComparisonResult performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
 			Object aRawExpectedResult) {
 		// maps are compared by exploring them
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) anExpectedResult).entrySet()) {
@@ -374,12 +382,12 @@ public class DefaultResultComparator implements ResultComparator {
 					tempActualValue,
 					tempConvertedReferenceValue,
 					(tempReferenceValue instanceof ValueOrEnumValueOrOperation) ? (ValueOrEnumValueOrOperation) tempReferenceValue
-							: null)) {
-				return false;
+							: null).isSuccessful()) {
+				return SimpleComparisonResult.NOT_EQUAL;
 			}
 		}
 
-		return true;
+		return SimpleComparisonResult.EQUAL;
 	}
 
 	/**
@@ -393,18 +401,19 @@ public class DefaultResultComparator implements ResultComparator {
 	 *            the raw expected result as in the script, before conversion
 	 * @return true if equal, false otherwise
 	 */
-	protected boolean performEqualityCheckForDates(Date aResult, Date anExpectedResult, Object aRawExpectedResult) {
+	protected ComparisonResult performEqualityCheckForDates(Date aResult, Date anExpectedResult,
+			Object aRawExpectedResult) {
 		if (aRawExpectedResult instanceof DateValue) {
 			// compare only the date part
-			return DateUtil.stripTimeFromDate((Date) anExpectedResult).equals(
-					DateUtil.stripTimeFromDate((Date) aResult));
+			return SimpleComparisonResult.valueOf(DateUtil.stripTimeFromDate((Date) anExpectedResult).equals(
+					DateUtil.stripTimeFromDate((Date) aResult)));
 		} else if (aRawExpectedResult instanceof TimeValue) {
 			// compare only the time part
-			return DateUtil.stripDateFromTime((Date) anExpectedResult).equals(
-					DateUtil.stripDateFromTime((Date) aResult));
+			return SimpleComparisonResult.valueOf(DateUtil.stripDateFromTime((Date) anExpectedResult).equals(
+					DateUtil.stripDateFromTime((Date) aResult)));
 		} else {
 			// compare both parts
-			return anExpectedResult.equals(aResult);
+			return SimpleComparisonResult.valueOf(anExpectedResult.equals(aResult));
 		}
 	}
 
@@ -420,7 +429,8 @@ public class DefaultResultComparator implements ResultComparator {
 	 *            the raw expected result as in the script, before conversion
 	 * @return true if equal, false otherwise
 	 */
-	protected boolean performEqualityCheckForObjects(Object aResult, Object anExpectedResult, Object aRawExpectedResult) {
-		return anExpectedResult.equals(aResult);
+	protected ComparisonResult performEqualityCheckForObjects(Object aResult, Object anExpectedResult,
+			Object aRawExpectedResult) {
+		return SimpleComparisonResult.valueOf(anExpectedResult.equals(aResult));
 	}
 }

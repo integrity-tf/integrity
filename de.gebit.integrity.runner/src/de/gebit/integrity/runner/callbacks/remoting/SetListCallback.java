@@ -362,10 +362,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, valueConverter
 					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false,
 							createConversionContext()));
-			if (tempEntry.getValue().getResult() != null) {
+			if (tempEntry.getValue().getActualValue() != null) {
 				tempComparisonEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
-						convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+						convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 								tempExpectedIsNestedObject, createConversionContext()));
 			}
 

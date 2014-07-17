@@ -39,6 +39,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -118,9 +119,7 @@ import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
-import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
-import de.gebit.integrity.runner.results.test.TestComparisonSuccessResult;
 import de.gebit.integrity.runner.results.test.TestComparisonUndeterminedResult;
 import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
@@ -1179,25 +1178,18 @@ public class DefaultTestRunner implements TestRunner {
 						String tempResultName = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
-						if (resultComparator.compareResult(tempSingleFixtureResult, tempNamedResult.getValue(),
-								tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
-							tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
-									tempSingleFixtureResult, tempNamedResult.getValue());
-						} else {
-							tempComparisonResult = new TestComparisonFailureResult(tempResultName,
-									tempSingleFixtureResult, tempNamedResult.getValue());
-						}
+						ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
+								tempNamedResult.getValue(), tempFixtureInstance, aTest.getDefinition()
+										.getFixtureMethod(), tempResultName);
+						tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
+								tempSingleFixtureResult, tempNamedResult.getValue());
 						tempComparisonMap.put(tempResultName, tempComparisonResult);
 					}
 				} else {
-					if (resultComparator.compareResult(tempFixtureResult, aTest.getResult(), tempFixtureInstance, aTest
-							.getDefinition().getFixtureMethod(), null)) {
-						tempComparisonResult = new TestComparisonSuccessResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-								tempFixtureResult, aTest.getResult());
-					} else {
-						tempComparisonResult = new TestComparisonFailureResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-								tempFixtureResult, aTest.getResult());
-					}
+					ComparisonResult tempResult = resultComparator.compareResult(tempFixtureResult, aTest.getResult(),
+							tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null);
+					tempComparisonResult = TestComparisonResult.wrap(tempResult, ParameterUtil.DEFAULT_PARAMETER_NAME,
+							tempFixtureResult, aTest.getResult());
 					tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 				}
 			} catch (Throwable exc) {
@@ -1330,14 +1322,11 @@ public class DefaultTestRunner implements TestRunner {
 
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
-							if (resultComparator.compareResult(tempSingleFixtureResult, tempExpectedValue,
-									tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName)) {
-								tempComparisonResult = new TestComparisonSuccessResult(tempResultName,
-										tempSingleFixtureResult, tempExpectedValue);
-							} else {
-								tempComparisonResult = new TestComparisonFailureResult(tempResultName,
-										tempSingleFixtureResult, tempExpectedValue);
-							}
+							ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
+									tempExpectedValue, tempFixtureInstance, aTest.getDefinition().getFixtureMethod(),
+									tempResultName);
+							tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
+									tempSingleFixtureResult, tempExpectedValue);
 							tempComparisonMap.put(tempResultName, tempComparisonResult);
 
 							tempColumn++;
@@ -1349,14 +1338,10 @@ public class DefaultTestRunner implements TestRunner {
 							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
 						}
 
-						if (resultComparator.compareResult(tempFixtureResult, tempExpectedValue, tempFixtureInstance,
-								aTest.getDefinition().getFixtureMethod(), null)) {
-							tempComparisonResult = new TestComparisonSuccessResult(
-									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
-						} else {
-							tempComparisonResult = new TestComparisonFailureResult(
-									ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
-						}
+						ComparisonResult tempResult = resultComparator.compareResult(tempFixtureResult,
+								tempExpectedValue, tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null);
+						tempComparisonResult = TestComparisonResult.wrap(tempResult,
+								ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 					// SUPPRESS CHECKSTYLE IllegalCatch

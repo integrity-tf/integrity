@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.results.test;
 
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 /**
@@ -20,6 +21,11 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 public abstract class TestComparisonResult {
 
 	/**
+	 * The comparison result as determined by the {@link de.gebit.integrity.runner.comparator.ResultComparator}.
+	 */
+	private ComparisonResult result;
+
+	/**
 	 * The name of the parameter in which the comparison expected result was given. May be null if this was the default
 	 * test result.
 	 */
@@ -28,7 +34,7 @@ public abstract class TestComparisonResult {
 	/**
 	 * The actual result as returned by the fixture.
 	 */
-	private Object result;
+	private Object actualValue;
 
 	/**
 	 * The expected result value.
@@ -38,26 +44,35 @@ public abstract class TestComparisonResult {
 	/**
 	 * Creates an instance.
 	 * 
+	 * @param aResult
+	 *            The {@link ComparisonResult} as determined by the
+	 *            {@link de.gebit.integrity.runner.comparator.ResultComparator}
 	 * @param aParameter
 	 *            The name of the parameter in which the comparison expected result was given. May be null if this was
 	 *            the default test result.
-	 * @param aResult
+	 * @param anActualValue
 	 *            The actual result as returned by the fixture
 	 * @param anExpectedValue
 	 *            the expected result value
 	 */
-	public TestComparisonResult(String aParameter, Object aResult, ValueOrEnumValueOrOperationCollection anExpectedValue) {
-		parameter = aParameter;
+	public TestComparisonResult(ComparisonResult aResult, String aParameter, Object anActualValue,
+			ValueOrEnumValueOrOperationCollection anExpectedValue) {
 		result = aResult;
+		parameter = aParameter;
+		actualValue = anActualValue;
 		expectedValue = anExpectedValue;
+	}
+
+	public ComparisonResult getResult() {
+		return result;
 	}
 
 	public String getParameter() {
 		return parameter;
 	}
 
-	public Object getResult() {
-		return result;
+	public Object getActualValue() {
+		return actualValue;
 	}
 
 	public ValueOrEnumValueOrOperationCollection getExpectedValue() {
@@ -66,10 +81,34 @@ public abstract class TestComparisonResult {
 
 	@Override
 	public String toString() {
-		if (result != null) {
-			return result.toString();
+		if (actualValue != null) {
+			return actualValue.toString();
 		} else {
 			return "(null)";
+		}
+	}
+
+	/**
+	 * Convenience method to wrap a {@link ComparisonResult}.
+	 * 
+	 * @param aResult
+	 *            The {@link ComparisonResult} as determined by the
+	 *            {@link de.gebit.integrity.runner.comparator.ResultComparator}
+	 * @param aParameter
+	 *            The name of the parameter in which the comparison expected result was given. May be null if this was
+	 *            the default test result.
+	 * @param anActualValue
+	 *            The actual result as returned by the fixture
+	 * @param anExpectedValue
+	 *            the expected result value
+	 * @return a matching instance either of {@link TestComparisonSuccessResult} or {@link TestComparisonFailureResult}
+	 */
+	public static TestComparisonResult wrap(ComparisonResult aResult, String aParameter, Object anActualValue,
+			ValueOrEnumValueOrOperationCollection anExpectedValue) {
+		if (aResult.isSuccessful()) {
+			return new TestComparisonSuccessResult(aResult, aParameter, anActualValue, anExpectedValue);
+		} else {
+			return new TestComparisonFailureResult(aResult, aParameter, anActualValue, anExpectedValue);
 		}
 	}
 

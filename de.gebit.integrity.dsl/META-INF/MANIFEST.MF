@@ -17,6 +17,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: de.gebit.integrity,
  de.gebit.integrity.annotation,
  de.gebit.integrity.classloading,
+ de.gebit.integrity.comparator,
  de.gebit.integrity.dsl,
  de.gebit.integrity.dsl.impl,
  de.gebit.integrity.dsl.util,

@@ -206,7 +206,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
-								+ convertResultValueToStringGuarded(tempEntry.getValue().getResult(), aSubResult,
+								+ convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 										tempExpectedIsNestedObject, null) + "'!");
 						tempHasBegun = true;
 					}

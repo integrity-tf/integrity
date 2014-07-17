@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.results.test;
 
+import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 
 /**
@@ -21,17 +22,24 @@ public class TestComparisonFailureResult extends TestComparisonResult {
 	/**
 	 * Creates a new instance.
 	 * 
+	 * @param aResult
+	 *            The {@link ComparisonResult} as determined by the
+	 *            {@link de.gebit.integrity.runner.comparator.ResultComparator}
 	 * @param aParameter
 	 *            The name of the parameter in which the comparison expected result was given. May be null if this was
 	 *            the default test result.
-	 * @param aResult
-	 *            the actual result object
+	 * @param anActualValue
+	 *            The actual result as returned by the fixture
 	 * @param anExpectedValue
-	 *            the expected value
+	 *            the expected result value
 	 */
-	public TestComparisonFailureResult(String aParameter, Object aResult,
+	public TestComparisonFailureResult(ComparisonResult aResult, String aParameter, Object anActualValue,
 			ValueOrEnumValueOrOperationCollection anExpectedValue) {
-		super(aParameter, aResult, anExpectedValue);
+		super(aResult, aParameter, anActualValue, anExpectedValue);
+
+		if (aResult == null || aResult.isSuccessful()) {
+			throw new IllegalArgumentException("Provided result must be considered 'unsuccessful'!");
+		}
 	}
 
 }
