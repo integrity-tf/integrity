@@ -7,6 +7,11 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.conversion;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import de.gebit.integrity.comparator.ComparisonResult;
+
 /**
  * A conversion context is a container for contextual information required to perform a value conversion.<br>
  * <br>
@@ -29,6 +34,17 @@ public class ConversionContext implements Cloneable {
 	 * The way in which unresolvable variables shall be treated.
 	 */
 	protected UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
+
+	/**
+	 * In case of a value being converted which belongs to a comparison that has been executed, the result of said
+	 * comparison can be provided.
+	 */
+	protected ComparisonResult comparisonResult;
+
+	/**
+	 * Map to contain arbitrary information.
+	 */
+	protected Map<String, Object> properties = new HashMap<String, Object>();
 
 	/**
 	 * Creates an instance with the default initial values. SHOULD NEVER BE CALLED DIRECTLY!!! Use a Guice-injected
@@ -60,12 +76,51 @@ public class ConversionContext implements Cloneable {
 		return this;
 	}
 
+	/**
+	 * Adds the provided comparison result.
+	 * 
+	 * @param aComparisonResult
+	 *            the comparison result to add
+	 */
+	public ConversionContext withComparisonResult(ComparisonResult aComparisonResult) {
+		comparisonResult = aComparisonResult;
+		return this;
+	}
+
+	/**
+	 * Adds the provided property.
+	 * 
+	 * @param aKey
+	 *            the key
+	 * @param anObject
+	 *            the object
+	 */
+	public ConversionContext withProperty(String aKey, Object anObject) {
+		properties.put(aKey, anObject);
+		return this;
+	}
+
 	public boolean getSkipBeanToMapDefaultConversion() {
 		return skipBeanToMapDefaultConversion;
 	}
 
 	public UnresolvableVariableHandling getUnresolvableVariableHandlingPolicy() {
 		return unresolvableVariableHandlingPolicy;
+	}
+
+	public ComparisonResult getComparisonResult() {
+		return comparisonResult;
+	}
+
+	/**
+	 * Returns the property matching the key, or null if none was set.
+	 * 
+	 * @param aKey
+	 *            the key
+	 * @return the property or null
+	 */
+	public Object getProperty(String aKey) {
+		return properties.get(aKey);
 	}
 
 }
