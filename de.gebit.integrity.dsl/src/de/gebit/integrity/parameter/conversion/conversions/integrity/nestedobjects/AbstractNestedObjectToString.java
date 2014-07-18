@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 import java.util.Hashtable;
 import java.util.Map;
 
+import de.gebit.integrity.comparator.MapComparisonResult;
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -40,6 +41,11 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 	private static Map<Thread, Integer> nestedObjectDepthMap = new Hashtable<Thread, Integer>();
 
 	/**
+	 * The property in the {@link ConversionContext} used to transport the path in the map.
+	 */
+	protected static final String NESTEDOBJECT_PATH_PROPERTY = "path";
+
+	/**
 	 * Converts the provided {@link NestedObject} to a {@link FormattedString}.
 	 * 
 	 * @param aSource
@@ -51,6 +57,8 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 	 */
 	protected FormattedString convertToFormattedString(NestedObject aSource, ConversionContext aConversionContext)
 			throws ConversionFailedException {
+		String tempParentObjectPath = (String) aConversionContext.getProperty(NESTEDOBJECT_PATH_PROPERTY);
+
 		FormattedString tempBuffer = new FormattedString("{");
 		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
@@ -65,6 +73,14 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 		try {
 			boolean tempFirst = true;
 			for (KeyValuePair tempAttribute : aSource.getAttributes()) {
+				String tempCurrentObjectPath = (tempParentObjectPath != null ? tempParentObjectPath + "." : "")
+						+ IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute);
+				aConversionContext.withProperty(NESTEDOBJECT_PATH_PROPERTY, tempCurrentObjectPath);
+
+				boolean tempCurrentPathFailed = (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
+						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths().contains(
+								tempCurrentObjectPath);
+
 				Object tempConvertedValue;
 				try {
 					tempConvertedValue = convertValueRecursive(FormattedString[].class, null, tempAttribute.getValue(),
@@ -105,8 +121,16 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 				}
 
 				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
+				if (tempCurrentPathFailed) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
+				}
 				tempBuffer.add(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute) + " = ");
 				tempBuffer.add(tempConvertedValueStringBuffer);
+				if (tempCurrentPathFailed) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
+				}
 				tempFirst = false;
 			}
 		} finally {

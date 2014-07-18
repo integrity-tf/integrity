@@ -1147,7 +1147,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				tempComparisonResultElement.setAttribute(
 						RESULT_EXPECTED_VALUE_ATTRIBUTE,
 						valueConverter.convertValueToFormattedString(
-								(tempExpectedValue == null ? true : tempExpectedValue), false, null)
+								(tempExpectedValue == null ? true : tempExpectedValue), false,
+								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
 								.toFormattedString());
 				if (tempEntry.getValue().getActualValue() != null) {
 					tempComparisonResultElement.setAttribute(
