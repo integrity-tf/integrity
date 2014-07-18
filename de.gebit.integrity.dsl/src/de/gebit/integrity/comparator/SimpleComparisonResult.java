@@ -5,9 +5,8 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.comparator;
+package de.gebit.integrity.comparator;
 
-import de.gebit.integrity.comparator.ComparisonResult;
 
 /**
  * The most basic comparison result. This is just a boolean yes/no, without any additional information.
