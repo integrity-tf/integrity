@@ -86,6 +86,7 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
@@ -1151,8 +1152,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				if (tempEntry.getValue().getActualValue() != null) {
 					tempComparisonResultElement.setAttribute(
 							RESULT_REAL_VALUE_ATTRIBUTE,
-							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
-									tempExpectedIsNestedObject, null).toFormattedString());
+							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
+									aSubResult, tempExpectedIsNestedObject,
+									new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+									.toFormattedString());
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {

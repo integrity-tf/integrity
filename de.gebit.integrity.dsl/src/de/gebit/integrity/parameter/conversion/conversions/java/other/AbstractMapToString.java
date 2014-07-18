@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.comparator.MapComparisonResult;
 import de.gebit.integrity.parameter.conversion.Conversion;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ConversionFailedException;
@@ -37,6 +38,11 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 	private static Map<Thread, Integer> nestedObjectDepthMap = new Hashtable<Thread, Integer>();
 
 	/**
+	 * The property in the {@link ConversionContext} used to transport the path in the map.
+	 */
+	protected static final String MAP_PATH_PROPERTY = "path";
+
+	/**
 	 * Converts the provided {@link Map} to a {@link FormattedString}.
 	 * 
 	 * @param aSource
@@ -47,6 +53,8 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 	 */
 	protected FormattedString convertToFormattedString(Map aSource, ConversionContext aConversionContext)
 			throws ConversionFailedException {
+		String tempParentMapPath = (String) aConversionContext.getProperty(MAP_PATH_PROPERTY);
+
 		FormattedString tempBuffer = new FormattedString("{");
 		tempBuffer.add(new FormatTokenElement(FormatTokenType.NEWLINE));
 
@@ -61,6 +69,14 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 		try {
 			boolean tempFirst = true;
 			for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
+				String tempCurrentMapPath = (tempParentMapPath != null ? tempParentMapPath + "." : "")
+						+ tempEntry.getKey();
+				aConversionContext.withProperty(MAP_PATH_PROPERTY, tempCurrentMapPath);
+
+				boolean tempCurrentPathFailed = (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
+						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths().contains(
+								tempCurrentMapPath);
+
 				FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(
 						tempEntry.getValue(), aConversionContext);
 
@@ -81,8 +97,16 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 				}
 
 				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
+				if (tempCurrentPathFailed) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
+				}
 				tempBuffer.add(tempEntry.getKey() + " = ");
 				tempBuffer.add(tempInnerBuffer);
+				if (tempCurrentPathFailed) {
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
+					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
+				}
 				tempFirst = false;
 			}
 		} finally {

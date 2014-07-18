@@ -10,12 +10,16 @@ package de.gebit.integrity.runner.comparator;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.inject.Inject;
 
 import de.gebit.integrity.comparator.ComparisonResult;
+import de.gebit.integrity.comparator.MapComparisonResult;
+import de.gebit.integrity.comparator.SimpleComparisonResult;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
@@ -356,9 +360,11 @@ public class DefaultResultComparator implements ResultComparator {
 	 *            the raw expected result as in the script, before conversion
 	 * @return true if equal, false otherwise
 	 */
-	protected ComparisonResult performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
+	protected MapComparisonResult performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
 			Object aRawExpectedResult) {
-		// maps are compared by exploring them
+		boolean tempSuccess = true;
+		Set<String> tempCombinedFailedPaths = new HashSet<String>();
+
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) anExpectedResult).entrySet()) {
 			Object tempActualValue = ((Map<?, ?>) aResult).get(tempEntry.getKey());
 			Object tempReferenceValue = tempEntry.getValue();
@@ -378,16 +384,28 @@ public class DefaultResultComparator implements ResultComparator {
 				}
 			}
 
-			if (!performEqualityCheck(
+			ComparisonResult tempInnerResult = performEqualityCheck(
 					tempActualValue,
 					tempConvertedReferenceValue,
 					(tempReferenceValue instanceof ValueOrEnumValueOrOperation) ? (ValueOrEnumValueOrOperation) tempReferenceValue
-							: null).isSuccessful()) {
-				return SimpleComparisonResult.NOT_EQUAL;
+							: null);
+
+			if (!tempInnerResult.isSuccessful()) {
+				tempSuccess = false;
+
+				// In case the sub-result is of a map comparison, we just add the failed paths to ours, prepending them
+				// with the necessary prefix in the process
+				if (tempInnerResult instanceof MapComparisonResult) {
+					for (String tempSubPath : ((MapComparisonResult) tempInnerResult).getFailedPaths()) {
+						tempCombinedFailedPaths.add(tempEntry.getKey() + "." + tempSubPath);
+					}
+				} else {
+					tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+				}
 			}
 		}
 
-		return SimpleComparisonResult.EQUAL;
+		return new MapComparisonResult(tempSuccess, tempCombinedFailedPaths);
 	}
 
 	/**

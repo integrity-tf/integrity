@@ -366,7 +366,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				tempComparisonEntry.setAttribute(
 						SetListEntryAttributeKeys.VALUE,
 						convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
-								tempExpectedIsNestedObject, createConversionContext()));
+								tempExpectedIsNestedObject,
+								createConversionContext().withComparisonResult(tempEntry.getValue().getResult())));
 			}
 
 			if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {

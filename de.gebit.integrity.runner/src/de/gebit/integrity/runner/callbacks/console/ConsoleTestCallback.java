@@ -31,6 +31,7 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultHTML;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
@@ -207,7 +208,9 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 										+ tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
-										tempExpectedIsNestedObject, null) + "'!");
+										tempExpectedIsNestedObject,
+										new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+								+ "'!");
 						tempHasBegun = true;
 					}
 				}

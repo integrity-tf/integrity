@@ -85,7 +85,37 @@ public class FormatTokenElement extends AbstractFormattedStringElement {
 		/**
 		 * Represents a tabulator for indenting following text.
 		 */
-		TAB("T");
+		TAB("T"),
+
+		/**
+		 * Represents underlining of the following text (until UNDERLINE_END).
+		 */
+		UNDERLINE_START("UL"),
+
+		/**
+		 * Stops the underlining.
+		 */
+		UNDERLINE_END("/UL"),
+
+		/**
+		 * Represents bolding of the following text (until BOLD_END).
+		 */
+		BOLD_START("B"),
+
+		/**
+		 * Stops the bolding.
+		 */
+		BOLD_END("/B"),
+
+		/**
+		 * Represents italicization of the following text (until ITALIC_END).
+		 */
+		ITALIC_START("I"),
+
+		/**
+		 * Stops the italicization.
+		 */
+		ITALIC_END("/I");
 
 		/**
 		 * The tag name.
