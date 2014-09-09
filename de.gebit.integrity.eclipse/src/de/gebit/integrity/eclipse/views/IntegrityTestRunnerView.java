@@ -2237,12 +2237,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 						treeViewer));
 
 				// the drawer must be manually disposed
-				TestTreeContentDrawer tempOldContentDrawer = viewerContentDrawer;
+				if (viewerContentDrawer != null) {
+					viewerContentDrawer.dispose(treeViewer.getTree());
+				}
 				viewerContentDrawer = new TestTreeContentDrawer(setList, breakpointSet, Display.getCurrent());
 				viewerContentDrawer.attachToTree(treeViewer.getTree());
-				if (tempOldContentDrawer != null) {
-					tempOldContentDrawer.dispose(treeViewer.getTree());
-				}
+
 				treeViewer.setInput(setList);
 
 				((TestTreeContentProvider) treeViewer.getContentProvider()).expandToLevel(lastExpansionLevel + 1);
