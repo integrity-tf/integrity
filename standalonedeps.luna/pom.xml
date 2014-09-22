@@ -1,9 +1,85 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.gebit.integrity.dsl.runner.experimentation</groupId>
-  <artifactId>de.gebit.integrity.dsl.runner.experimentation</artifactId>
-  <version>0.12.0-SNAPSHOT</version>
+  
+  <parent>
+    <artifactId>integrity-parent</artifactId>
+    <groupId>de.gebit.integrity</groupId>
+    <version>0.14.0-SNAPSHOT</version>
+    <relativePath>../integrity-parent/pom.xml</relativePath>
+  </parent>
+  
+  <artifactId>integrity-standalone-dependencies-luna</artifactId>
+  <packaging>pom</packaging>
+  <name>Integrity Standalone Dependencies - Luna</name>
+  
   <build>
+    <plugins>
+    	<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-dependency-plugin</artifactId>
+		  <version>2.8</version>
+		  <executions>
+		    <execution>
+		      <id>unpack-dependencies</id>
+		      <phase>package</phase>
+		      <goals>
+		        <goal>unpack-dependencies</goal>
+		      </goals>
+		      <configuration>
+		        <includes>plugin.properties</includes>
+		        <outputDirectory>${project.build.directory}/pluginProperties</outputDirectory>
+		        <overWriteReleases>false</overWriteReleases>
+		        <overWriteSnapshots>true</overWriteSnapshots>
+		        <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+		      </configuration>
+		    </execution>
+		  </executions>
+		</plugin>
+		
+		<plugin>
+		  <artifactId>maven-antrun-plugin</artifactId>
+		  <version>1.7</version>
+		  <executions>
+		    <execution>
+		      <phase>package</phase>
+		      <configuration>
+		        <tasks>
+					<concat destfile="target/pluginProperties/plugin.properties" fixlastline="yes">
+    					<fileset dir="target/pluginProperties/" includes="*/plugin.properties"/>
+  					</concat>
+		        </tasks>
+		      </configuration>
+		      <goals>
+		        <goal>run</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+    
+	    <plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <version>2.3</version>
+	      <executions>
+	        <execution>
+	          <id>plugin-assembly</id>
+	          <phase>package</phase>
+	          <goals>
+	            <goal>single</goal>
+	          </goals>
+	          <configuration>
+	            <descriptors>
+	              <descriptor>assemble/assemble-all.xml</descriptor>
+	              <descriptor>assemble/assemble-all-single-file.xml</descriptor>
+	            </descriptors>
+	            <finalName>integrity-standalone-dependencies-kepler</finalName>
+	            <appendAssemblyId>false</appendAssemblyId>
+	            <outputDirectory>target/assembly/</outputDirectory>
+	          </configuration>
+	        </execution>
+	      </executions>
+	    </plugin>
+	    
+    </plugins>
   </build>
   
   <dependencies>

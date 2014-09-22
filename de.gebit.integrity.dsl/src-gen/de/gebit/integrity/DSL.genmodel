@@ -4,7 +4,7 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.9" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
@@ -151,6 +151,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ArbitraryParameterOrResultName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterOrResultName/identifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ArbitraryParameterOrResultName/stringIdentifier"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Operation"/>
     <genClasses ecoreClass="DSL.ecore#//StandardOperation">

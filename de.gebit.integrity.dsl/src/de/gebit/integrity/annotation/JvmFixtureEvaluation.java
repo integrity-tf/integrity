@@ -33,6 +33,7 @@ import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * Evaluates JvmFixtures reflectively without loading them in the classpath.
@@ -126,7 +127,8 @@ public class JvmFixtureEvaluation {
 			JvmAnnotationValue tempName = getValueByName(((FixedParameterName) aParameterName).getAnnotation(), "name");
 			return evaluateSingle(tempName, String.class);
 		} else if (aParameterName instanceof ArbitraryParameterOrResultName) {
-			return ((ArbitraryParameterOrResultName) aParameterName).getIdentifier();
+			return IntegrityDSLUtil
+					.getIdentifierFromArbitraryParameterOrResultName((ArbitraryParameterOrResultName) aParameterName);
 		} else {
 			throw new UnsupportedOperationException("This subtype of ParameterName ("
 					+ aParameterName.getClass().toString() + ") is not supported yet!");

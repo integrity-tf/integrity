@@ -2800,6 +2800,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__ArbitraryParameterOrResultName__Alternatives_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1_0()); }
+(rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0)
+{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1_0()); }
+)
+
+    |(
+{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierAssignment_1_1()); }
+(rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1)
+{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierAssignment_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Operation__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -10591,9 +10613,9 @@ rule__ArbitraryParameterOrResultName__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1()); }
-(rule__ArbitraryParameterOrResultName__IdentifierAssignment_1)
-{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1()); }
+{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1()); }
+(rule__ArbitraryParameterOrResultName__Alternatives_1)
+{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1()); }
 )
 
 ;
@@ -14323,14 +14345,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ArbitraryParameterOrResultName__IdentifierAssignment_1
+rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); }
-	RULE_ID{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0_0()); }
+	RULE_ID{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierSTRINGTerminalRuleCall_1_1_0()); }
+	RULE_STRING{ after(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierSTRINGTerminalRuleCall_1_1_0()); }
 )
 
 ;

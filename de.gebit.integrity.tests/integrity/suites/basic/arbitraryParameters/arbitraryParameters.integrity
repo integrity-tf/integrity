@@ -35,5 +35,19 @@ packagedef integrity.basic.arbitraryParameters with
 		test arbitraryParamEchoTypesTest +myParam: var = "myParam|de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture$ResultClass"
 	
 	suiteend
+	
+	suitedef arbitraryParametersWithStringIdentifiers with
+	
+		// Test the same simple case as before, but now add a string-type arbitrary param
+		test arbitraryParamEchoTest fixparam: 123 +testparam1: 400 +testparam2: "foo" +"testparam 3": "bar" = {
+			fixedresult: 123
+			arbitraryResults: {
+				testresult1: 400
+				testresult2: "foo"
+				"testresult 3": "bar"
+			}
+		}
+	
+	suiteend
 
 packageend

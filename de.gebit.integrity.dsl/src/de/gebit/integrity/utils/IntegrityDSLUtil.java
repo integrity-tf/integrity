@@ -161,7 +161,8 @@ public final class IntegrityDSLUtil {
 		if (aParameterName instanceof FixedParameterName) {
 			return getParamNameFromAnnotation(((FixedParameterName) aParameterName).getAnnotation());
 		} else if (aParameterName instanceof ArbitraryParameterOrResultName) {
-			return ((ArbitraryParameterOrResultName) aParameterName).getIdentifier();
+			return IntegrityDSLUtil
+					.getIdentifierFromArbitraryParameterOrResultName((ArbitraryParameterOrResultName) aParameterName);
 		} else {
 			throw new UnsupportedOperationException("This subtype of ParameterName ("
 					+ aParameterName.getClass().toString() + ") is not supported yet!");
@@ -385,7 +386,8 @@ public final class IntegrityDSLUtil {
 		if (aName instanceof FixedResultName) {
 			return ((FixedResultName) aName).getField().getSimpleName();
 		} else if (aName instanceof ArbitraryParameterOrResultName) {
-			return ((ArbitraryParameterOrResultName) aName).getIdentifier();
+			return IntegrityDSLUtil
+					.getIdentifierFromArbitraryParameterOrResultName((ArbitraryParameterOrResultName) aName);
 		} else {
 			throw new UnsupportedOperationException("This subtype of TestResultName (" + aName.getClass().getName()
 					+ ") is not supported yet!");
@@ -662,6 +664,19 @@ public final class IntegrityDSLUtil {
 	 */
 	public static String getIdentifierFromKeyValuePair(KeyValuePair aPair) {
 		return aPair.getIdentifier() != null ? aPair.getIdentifier() : aPair.getStringIdentifier();
+	}
+
+	/**
+	 * {@link ArbitraryParameterOrResultName}s can be identified either by a free-form String (enclosed in quotes) or by
+	 * a more restricted ID (without quotes). This method abstracts aways the decision where to get the final identifier
+	 * from.
+	 * 
+	 * @param aName
+	 *            the name
+	 * @return the identifier
+	 */
+	public static String getIdentifierFromArbitraryParameterOrResultName(ArbitraryParameterOrResultName aName) {
+		return aName.getIdentifier() != null ? aName.getIdentifier() : aName.getStringIdentifier();
 	}
 
 }

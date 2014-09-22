@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="22.09.14 11:25" isotimestamp="2014-09-22T11:25:22" duration="22.310">
+  <variables />
+  <suite id="0" name="integrity.basic.arbitraryParameters.arbitraryParametersWithStringIdentifiers" timestamp="22.09.14 11:25:22.0518">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="42" name="arbitraryParamEchoTest" description="echoes the values: 123, 400, foo, bar" fixture="de.gebit.integrity.tests.fixtures.basic.ArbitraryParamEchoFixture#echo" timestamp="22.09.14 11:25:22.0518">
+        <results duration="1.971" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.971" description="echoes the values: 123, 400, foo, bar" type="success">
+            <parameters>
+              <parameter name="fixparam" value="123" />
+              <parameter name="testparam1" value="400" />
+              <parameter name="testparam2" value="foo" />
+              <parameter name="testparam 3" value="bar" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]fixedresult = 123[NL|, ][T]arbitraryResults = {[NL][T][T]testresult1 = 400[NL|, ][T][T]testresult2 = foo[NL|, ][T][T]testresult 3 = bar[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]arbitraryResults = {[NL][T][T]testresult1 = 400[NL|, ][T][T]testresult2 = foo[NL|, ][T][T]testresult 3 = bar[NL][T]}[NL|, ][T]fixedresult = 123[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="16.545" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

@@ -1596,13 +1596,22 @@ public interface DslPackage extends EPackage
   int ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER = RESULT_NAME_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>String Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME__STRING_IDENTIFIER = RESULT_NAME_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Arbitrary Parameter Or Result Name</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARBITRARY_PARAMETER_OR_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 1;
+  int ARBITRARY_PARAMETER_OR_RESULT_NAME_FEATURE_COUNT = RESULT_NAME_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationImpl <em>Value Or Enum Value Or Operation</em>}' class.
@@ -3979,6 +3988,17 @@ public interface DslPackage extends EPackage
   EAttribute getArbitraryParameterOrResultName_Identifier();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getStringIdentifier <em>String Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>String Identifier</em>'.
+   * @see de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getStringIdentifier()
+   * @see #getArbitraryParameterOrResultName()
+   * @generated
+   */
+  EAttribute getArbitraryParameterOrResultName_StringIdentifier();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Operation <em>Operation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5755,6 +5775,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER = eINSTANCE.getArbitraryParameterOrResultName_Identifier();
+
+    /**
+     * The meta object literal for the '<em><b>String Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ARBITRARY_PARAMETER_OR_RESULT_NAME__STRING_IDENTIFIER = eINSTANCE.getArbitraryParameterOrResultName_StringIdentifier();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.OperationImpl <em>Operation</em>}' class.

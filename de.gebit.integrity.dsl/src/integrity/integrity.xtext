@@ -158,7 +158,7 @@ FixedParameterName:
 	annotation=[jvmTypes::JvmAnnotationReference|ID];
 
 ArbitraryParameterOrResultName:
-	'+' identifier=ID;
+	'+' (identifier=ID | stringIdentifier=STRING);
 	
 Operation:
 	StandardOperation | CustomOperation;

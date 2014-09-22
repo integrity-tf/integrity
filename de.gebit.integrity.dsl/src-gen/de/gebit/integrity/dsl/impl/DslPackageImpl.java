@@ -1905,6 +1905,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getArbitraryParameterOrResultName_StringIdentifier()
+  {
+    return (EAttribute)arbitraryParameterOrResultNameEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOperation()
   {
     return operationEClass;
@@ -2808,6 +2818,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     arbitraryParameterOrResultNameEClass = createEClass(ARBITRARY_PARAMETER_OR_RESULT_NAME);
     createEAttribute(arbitraryParameterOrResultNameEClass, ARBITRARY_PARAMETER_OR_RESULT_NAME__IDENTIFIER);
+    createEAttribute(arbitraryParameterOrResultNameEClass, ARBITRARY_PARAMETER_OR_RESULT_NAME__STRING_IDENTIFIER);
 
     operationEClass = createEClass(OPERATION);
 
@@ -3178,6 +3189,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(arbitraryParameterOrResultNameEClass, ArbitraryParameterOrResultName.class, "ArbitraryParameterOrResultName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getArbitraryParameterOrResultName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, ArbitraryParameterOrResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getArbitraryParameterOrResultName_StringIdentifier(), ecorePackage.getEString(), "stringIdentifier", null, 0, 1, ArbitraryParameterOrResultName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(operationEClass, Operation.class, "Operation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

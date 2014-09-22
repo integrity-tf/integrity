@@ -3464,11 +3464,11 @@ ruleArbitraryParameterOrResultName returns [EObject current=null]
     {
     	newLeafNode(otherlv_0, grammarAccess.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
     }
-(
+((
 (
 		lv_identifier_1_0=RULE_ID
 		{
-			newLeafNode(lv_identifier_1_0, grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_identifier_1_0, grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3482,7 +3482,26 @@ ruleArbitraryParameterOrResultName returns [EObject current=null]
 	    }
 
 )
-))
+)
+    |(
+(
+		lv_stringIdentifier_2_0=RULE_STRING
+		{
+			newLeafNode(lv_stringIdentifier_2_0, grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierSTRINGTerminalRuleCall_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getArbitraryParameterOrResultNameRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"stringIdentifier",
+        		lv_stringIdentifier_2_0, 
+        		"STRING");
+	    }
+
+)
+)))
 ;
 
 

@@ -55,4 +55,19 @@ public class ArbitraryParameters extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does fixture calls with arbitrary parameters and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testStringIdentifiers() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/arbitraryParameters/arbitraryParameters.integrity" },
+				"integrity.basic.arbitraryParameters.arbitraryParametersWithStringIdentifiers", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

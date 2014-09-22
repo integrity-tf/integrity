@@ -14,7 +14,7 @@
   	<isRelease>false</isRelease>
   	  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>0.16.0</tycho-version>
+    <tycho-version>0.21.0</tycho-version>
     <validateManifestVersions>true</validateManifestVersions>
   </properties>
   
@@ -39,7 +39,7 @@
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
 			      <version>${project.version}</version>
-			      <classifier>kepler</classifier>
+			      <classifier>luna</classifier>
 			    </artifact>
 			  </target>
 			  <ignoreTychoRepositories>true</ignoreTychoRepositories>

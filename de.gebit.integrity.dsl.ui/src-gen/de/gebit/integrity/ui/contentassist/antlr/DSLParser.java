@@ -48,6 +48,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableOrConstantEntityAccess().getAlternatives(), "rule__VariableOrConstantEntity__Alternatives");
 					put(grammarAccess.getResultNameAccess().getAlternatives(), "rule__ResultName__Alternatives");
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
+					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1(), "rule__ArbitraryParameterOrResultName__Alternatives_1");
 					put(grammarAccess.getOperationAccess().getAlternatives(), "rule__Operation__Alternatives");
 					put(grammarAccess.getStandardOperationAccess().getOperatorsAlternatives_4_0_0(), "rule__StandardOperation__OperatorsAlternatives_4_0_0");
 					put(grammarAccess.getValueOrEnumValueOrOperationAccess().getAlternatives(), "rule__ValueOrEnumValueOrOperation__Alternatives");
@@ -219,7 +220,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterAccess().getNameAssignment_0(), "rule__Parameter__NameAssignment_0");
 					put(grammarAccess.getParameterAccess().getValueAssignment_4(), "rule__Parameter__ValueAssignment_4");
 					put(grammarAccess.getFixedParameterNameAccess().getAnnotationAssignment(), "rule__FixedParameterName__AnnotationAssignment");
-					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1(), "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1");
+					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierAssignment_1_0(), "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0");
+					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierAssignment_1_1(), "rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1");
 					put(grammarAccess.getStandardOperationAccess().getFirstOperandAssignment_2(), "rule__StandardOperation__FirstOperandAssignment_2");
 					put(grammarAccess.getStandardOperationAccess().getOperatorsAssignment_4_0(), "rule__StandardOperation__OperatorsAssignment_4_0");
 					put(grammarAccess.getStandardOperationAccess().getMoreOperandsAssignment_4_2(), "rule__StandardOperation__MoreOperandsAssignment_4_2");
