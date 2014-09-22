@@ -71,7 +71,7 @@
 	              <descriptor>assemble/assemble-all.xml</descriptor>
 	              <descriptor>assemble/assemble-all-single-file.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-standalone-dependencies-kepler</finalName>
+	            <finalName>integrity-standalone-dependencies-luna</finalName>
 	            <appendAssemblyId>false</appendAssemblyId>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
