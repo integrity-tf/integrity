@@ -19,6 +19,8 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -36,6 +38,7 @@ import de.gebit.integrity.runner.console.intercept.ConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * A fork is the result of the test runner forking during test execution.
@@ -148,6 +151,12 @@ public class Fork {
 	 */
 	@Inject
 	protected ConsoleOutputInterceptor consoleInterceptor;
+
+	/**
+	 * The value converter, which is used to resolve and convert values before sending them to forks.
+	 */
+	@Inject
+	protected ValueConverter valueConverter;
 
 	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
@@ -377,7 +386,16 @@ public class Fork {
 	 */
 	public void updateVariableValue(VariableOrConstantEntity aVariable, Object aValue) {
 		if (!ignoreVariableUpdates) {
-			variableUpdates.put(IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true), aValue);
+			String tempKey = IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true);
+			try {
+				variableUpdates.put(tempKey, valueConverter.convertValue(null, aValue, null));
+			} catch (UnresolvableVariableException exc) {
+				System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempKey + "' TO FORK - EXCEPTION OCCURRED");
+				exc.printStackTrace();
+			} catch (UnexecutableException exc) {
+				System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempKey + "' TO FORK - EXCEPTION OCCURRED");
+				exc.printStackTrace();
+			}
 		}
 	}
 

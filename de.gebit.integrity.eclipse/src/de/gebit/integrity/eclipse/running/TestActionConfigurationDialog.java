@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -149,6 +151,26 @@ public class TestActionConfigurationDialog extends Dialog {
 		return tempLayout;
 	}
 
+	/**
+	 * Determines all launch configuration types to be displayed in the list.
+	 * 
+	 * @param aLaunchManager
+	 * @return a set of launch config types
+	 */
+	protected Set<ILaunchConfigurationType> getValidLaunchConfigTypes(ILaunchManager aLaunchManager) {
+		Set<ILaunchConfigurationType> tempSet = new HashSet<ILaunchConfigurationType>();
+		ILaunchConfigurationType tempJavaLaunchConfigType = aLaunchManager
+				.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
+		tempSet.add(tempJavaLaunchConfigType);
+
+		ILaunchConfigurationType tempBNDLaunchConfigType = aLaunchManager.getLaunchConfigurationType("bndtools.launch");
+		if (tempBNDLaunchConfigType != null) {
+			tempSet.add(tempBNDLaunchConfigType);
+		}
+
+		return tempSet;
+	}
+
 	@Override
 	protected Control createDialogArea(Composite aParent) {
 		launchConfigList = new List(aParent, SWT.BORDER | SWT.V_SCROLL);
@@ -161,8 +183,6 @@ public class TestActionConfigurationDialog extends Dialog {
 
 		DebugPlugin tempDebugPlugin = DebugPlugin.getDefault();
 		ILaunchManager tempLaunchManager = tempDebugPlugin.getLaunchManager();
-		ILaunchConfigurationType tempJavaLaunchConfigType = tempLaunchManager
-				.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
 
 		launchConfigurations.clear();
 		try {
@@ -196,8 +216,10 @@ public class TestActionConfigurationDialog extends Dialog {
 				}
 			});
 
+			Set<ILaunchConfigurationType> tempValidTypes = getValidLaunchConfigTypes(tempLaunchManager);
+
 			for (ILaunchConfiguration tempLaunchConfig : tempLaunchConfigList) {
-				if (tempLaunchConfig.getType() == tempJavaLaunchConfigType) {
+				if (tempValidTypes.contains(tempLaunchConfig.getType())) {
 					launchConfigList.add(tempLaunchConfig.getName());
 					launchConfigurations.add(tempLaunchConfig);
 				}

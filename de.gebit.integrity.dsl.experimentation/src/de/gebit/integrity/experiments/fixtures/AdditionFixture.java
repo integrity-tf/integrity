@@ -1,7 +1,6 @@
 package de.gebit.integrity.experiments.fixtures;
 
 import java.util.Date;
-import java.util.Map;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
@@ -64,7 +63,7 @@ public class AdditionFixture {
 	}
 
 	@FixtureMethod(description = "echoes $echo$")
-	public Map<String, Object> returnValue(@FixtureParameter(name = "echo") Map<String, Object> anInput) {
+	public Object returnValue(@FixtureParameter(name = "echo") Object anInput) {
 		// throw new RuntimeException("An exception!");
 		return anInput;
 	}
