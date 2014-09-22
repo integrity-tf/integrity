@@ -8,7 +8,9 @@
 package de.gebit.integrity.runner.callbacks.console;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.inject.Inject;
@@ -83,6 +85,11 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	 * The number of suites executed.
 	 */
 	protected int suiteCount;
+
+	/**
+	 * Map remembering suite numbers.
+	 */
+	protected Map<Suite, Integer> suiteNumbers = new HashMap<Suite, Integer>();
 
 	/**
 	 * The classloader to use.
@@ -236,13 +243,14 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onSuiteStart(Suite aSuite) {
 		suiteCount++;
+		suiteNumbers.put(aSuite, suiteCount);
 		println("Now entering suite " + suiteCount + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 	}
 
 	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
-		println("Now leaving suite " + suiteCount + ": "
+		println("Now leaving suite " + suiteNumbers.remove(aSuite) + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
 	}
 
