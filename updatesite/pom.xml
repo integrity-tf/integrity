@@ -39,7 +39,7 @@
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
-        <version>0.16.0</version>
+        <version>${tycho-version}</version>
         <configuration>
           <pomDependencies>consider</pomDependencies>
         </configuration>
