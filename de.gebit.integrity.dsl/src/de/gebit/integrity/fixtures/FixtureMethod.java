@@ -55,6 +55,10 @@ public @interface FixtureMethod {
 	 * <br>
 	 * You may use placeholder values in the description string enclosed in dollar signs, like this: $parameter$. These
 	 * will be replaced by the matching parameter values at runtime.<br>
+	 * Placeholders can also be conditional (printed only when a parameter is provided or not) like this:<br>
+	 * {parameter?...and $parameter$} - this whole block would not appear if "parameter" is not provided, but if it is,
+	 * it would be replaced by the text "...and [value of parameter]". By specifying a ^ in front of the parameter name
+	 * the meaning is reversed: the block will appear if the parameter is NOT specified ({^parameter?not specified}).<br>
 	 * <br>
 	 * For fixture methods which are suitable in both 'call' and 'test' scenarios, you can define separate description
 	 * texts via {@link #descriptionCall()} and {@link #descriptionTest()}. If such a specific text is defined, it does
