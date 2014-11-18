@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getVariantValues <em>Variant Values</em>}</li>
@@ -25,6 +26,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ConstantDefinition extends PackageStatement, SuiteStatement
 {
+  /**
+   * Returns the value of the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Private</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Private</em>' attribute.
+   * @see #setPrivate(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Private()
+   * @model
+   * @generated
+   */
+  String getPrivate();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getPrivate <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Private</em>' attribute.
+   * @see #getPrivate()
+   * @generated
+   */
+  void setPrivate(String value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->

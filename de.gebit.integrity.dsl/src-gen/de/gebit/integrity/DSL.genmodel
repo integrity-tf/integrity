@@ -67,10 +67,12 @@
     <genClasses ecoreClass="DSL.ecore#//SuiteStatement"/>
     <genClasses ecoreClass="DSL.ecore#//SuiteStatementWithResult"/>
     <genClasses ecoreClass="DSL.ecore#//VariableDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariableDefinition/private"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableDefinition/initialValue"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ConstantDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ConstantDefinition/private"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/variantValues"/>

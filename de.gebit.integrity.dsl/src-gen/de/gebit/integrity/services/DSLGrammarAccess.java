@@ -946,147 +946,165 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class VariableDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cVariableKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameVariableEntityParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cInitiallyKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
-		private final Assignment cInitialValueAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
-		private final RuleCall cInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0 = (RuleCall)cInitialValueAssignment_4_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_3 = (RuleCall)cGroup_4.eContents().get(3);
+		private final Assignment cPrivateAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cPrivatePrivateKeyword_0_0 = (Keyword)cPrivateAssignment_0.eContents().get(0);
+		private final Keyword cVariableKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameVariableEntityParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cInitiallyKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
+		private final Assignment cInitialValueAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_2_0 = (RuleCall)cInitialValueAssignment_5_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_3 = (RuleCall)cGroup_5.eContents().get(3);
 		
 		//VariableDefinition:
-		//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperationCollection NL)?;
+		//	private="private"? "variable" NL name=VariableEntity NL ("initially" NL
+		//	initialValue=ValueOrEnumValueOrOperationCollection NL)?;
 		public ParserRule getRule() { return rule; }
 
-		//"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperationCollection NL)?
+		//private="private"? "variable" NL name=VariableEntity NL ("initially" NL
+		//initialValue=ValueOrEnumValueOrOperationCollection NL)?
 		public Group getGroup() { return cGroup; }
 
+		//private="private"?
+		public Assignment getPrivateAssignment_0() { return cPrivateAssignment_0; }
+
+		//"private"
+		public Keyword getPrivatePrivateKeyword_0_0() { return cPrivatePrivateKeyword_0_0; }
+
 		//"variable"
-		public Keyword getVariableKeyword_0() { return cVariableKeyword_0; }
+		public Keyword getVariableKeyword_1() { return cVariableKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=VariableEntity
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//VariableEntity
-		public RuleCall getNameVariableEntityParserRuleCall_2_0() { return cNameVariableEntityParserRuleCall_2_0; }
+		public RuleCall getNameVariableEntityParserRuleCall_3_0() { return cNameVariableEntityParserRuleCall_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//("initially" NL initialValue=ValueOrEnumValueOrOperationCollection NL)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//"initially"
-		public Keyword getInitiallyKeyword_4_0() { return cInitiallyKeyword_4_0; }
+		public Keyword getInitiallyKeyword_5_0() { return cInitiallyKeyword_5_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
+		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 
 		//initialValue=ValueOrEnumValueOrOperationCollection
-		public Assignment getInitialValueAssignment_4_2() { return cInitialValueAssignment_4_2; }
+		public Assignment getInitialValueAssignment_5_2() { return cInitialValueAssignment_5_2; }
 
 		//ValueOrEnumValueOrOperationCollection
-		public RuleCall getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0() { return cInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0; }
+		public RuleCall getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_2_0() { return cInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_2_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_3() { return cNLParserRuleCall_4_3; }
+		public RuleCall getNLParserRuleCall_5_3() { return cNLParserRuleCall_5_3; }
 	}
 
 	public class ConstantDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cConstantKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameConstantEntityParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Group cGroup_4_0 = (Group)cAlternatives_4.eContents().get(0);
-		private final Group cGroup_4_0_0 = (Group)cGroup_4_0.eContents().get(0);
-		private final Assignment cValueAssignment_4_0_0_0 = (Assignment)cGroup_4_0_0.eContents().get(0);
-		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0 = (RuleCall)cValueAssignment_4_0_0_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_0_0_1 = (RuleCall)cGroup_4_0_0.eContents().get(1);
-		private final Group cGroup_4_0_1 = (Group)cGroup_4_0.eContents().get(1);
-		private final Assignment cVariantValuesAssignment_4_0_1_0 = (Assignment)cGroup_4_0_1.eContents().get(0);
-		private final RuleCall cVariantValuesVariantValueParserRuleCall_4_0_1_0_0 = (RuleCall)cVariantValuesAssignment_4_0_1_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_0_1_1 = (RuleCall)cGroup_4_0_1.eContents().get(1);
-		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
-		private final Assignment cParameterizedAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
-		private final Keyword cParameterizedParameterizedKeyword_4_1_0_0 = (Keyword)cParameterizedAssignment_4_1_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_1_1 = (RuleCall)cGroup_4_1.eContents().get(1);
+		private final Assignment cPrivateAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cPrivatePrivateKeyword_0_0 = (Keyword)cPrivateAssignment_0.eContents().get(0);
+		private final Keyword cConstantKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameConstantEntityParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
+		private final Group cGroup_5_0_0 = (Group)cGroup_5_0.eContents().get(0);
+		private final Assignment cValueAssignment_5_0_0_0 = (Assignment)cGroup_5_0_0.eContents().get(0);
+		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0_0 = (RuleCall)cValueAssignment_5_0_0_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_0_0_1 = (RuleCall)cGroup_5_0_0.eContents().get(1);
+		private final Group cGroup_5_0_1 = (Group)cGroup_5_0.eContents().get(1);
+		private final Assignment cVariantValuesAssignment_5_0_1_0 = (Assignment)cGroup_5_0_1.eContents().get(0);
+		private final RuleCall cVariantValuesVariantValueParserRuleCall_5_0_1_0_0 = (RuleCall)cVariantValuesAssignment_5_0_1_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_0_1_1 = (RuleCall)cGroup_5_0_1.eContents().get(1);
+		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
+		private final Assignment cParameterizedAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
+		private final Keyword cParameterizedParameterizedKeyword_5_1_0_0 = (Keyword)cParameterizedAssignment_5_1_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1_1 = (RuleCall)cGroup_5_1.eContents().get(1);
 		
 		//ConstantDefinition:
-		//	"constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue
-		//	NL)* | parameterized="parameterized" NL);
+		//	private="private"? "constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)?
+		//	(variantValues+=VariantValue NL)* | parameterized="parameterized" NL);
 		public ParserRule getRule() { return rule; }
 
-		//"constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue
-		//NL)* | parameterized="parameterized" NL)
+		//private="private"? "constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)?
+		//(variantValues+=VariantValue NL)* | parameterized="parameterized" NL)
 		public Group getGroup() { return cGroup; }
 
+		//private="private"?
+		public Assignment getPrivateAssignment_0() { return cPrivateAssignment_0; }
+
+		//"private"
+		public Keyword getPrivatePrivateKeyword_0_0() { return cPrivatePrivateKeyword_0_0; }
+
 		//"constant"
-		public Keyword getConstantKeyword_0() { return cConstantKeyword_0; }
+		public Keyword getConstantKeyword_1() { return cConstantKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=ConstantEntity
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//ConstantEntity
-		public RuleCall getNameConstantEntityParserRuleCall_2_0() { return cNameConstantEntityParserRuleCall_2_0; }
+		public RuleCall getNameConstantEntityParserRuleCall_3_0() { return cNameConstantEntityParserRuleCall_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)* | parameterized="parameterized" NL
-		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*
-		public Group getGroup_4_0() { return cGroup_4_0; }
+		public Group getGroup_5_0() { return cGroup_5_0; }
 
 		//(value=ValueOrEnumValueOrOperationCollection NL)?
-		public Group getGroup_4_0_0() { return cGroup_4_0_0; }
+		public Group getGroup_5_0_0() { return cGroup_5_0_0; }
 
 		//value=ValueOrEnumValueOrOperationCollection
-		public Assignment getValueAssignment_4_0_0_0() { return cValueAssignment_4_0_0_0; }
+		public Assignment getValueAssignment_5_0_0_0() { return cValueAssignment_5_0_0_0; }
 
 		//ValueOrEnumValueOrOperationCollection
-		public RuleCall getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0() { return cValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0; }
+		public RuleCall getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0_0() { return cValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_0_0_1() { return cNLParserRuleCall_4_0_0_1; }
+		public RuleCall getNLParserRuleCall_5_0_0_1() { return cNLParserRuleCall_5_0_0_1; }
 
 		//(variantValues+=VariantValue NL)*
-		public Group getGroup_4_0_1() { return cGroup_4_0_1; }
+		public Group getGroup_5_0_1() { return cGroup_5_0_1; }
 
 		//variantValues+=VariantValue
-		public Assignment getVariantValuesAssignment_4_0_1_0() { return cVariantValuesAssignment_4_0_1_0; }
+		public Assignment getVariantValuesAssignment_5_0_1_0() { return cVariantValuesAssignment_5_0_1_0; }
 
 		//VariantValue
-		public RuleCall getVariantValuesVariantValueParserRuleCall_4_0_1_0_0() { return cVariantValuesVariantValueParserRuleCall_4_0_1_0_0; }
+		public RuleCall getVariantValuesVariantValueParserRuleCall_5_0_1_0_0() { return cVariantValuesVariantValueParserRuleCall_5_0_1_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_0_1_1() { return cNLParserRuleCall_4_0_1_1; }
+		public RuleCall getNLParserRuleCall_5_0_1_1() { return cNLParserRuleCall_5_0_1_1; }
 
 		//parameterized="parameterized" NL
-		public Group getGroup_4_1() { return cGroup_4_1; }
+		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//parameterized="parameterized"
-		public Assignment getParameterizedAssignment_4_1_0() { return cParameterizedAssignment_4_1_0; }
+		public Assignment getParameterizedAssignment_5_1_0() { return cParameterizedAssignment_5_1_0; }
 
 		//"parameterized"
-		public Keyword getParameterizedParameterizedKeyword_4_1_0_0() { return cParameterizedParameterizedKeyword_4_1_0_0; }
+		public Keyword getParameterizedParameterizedKeyword_5_1_0_0() { return cParameterizedParameterizedKeyword_5_1_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_1_1() { return cNLParserRuleCall_4_1_1; }
+		public RuleCall getNLParserRuleCall_5_1_1() { return cNLParserRuleCall_5_1_1; }
 	}
 
 	public class VariantValueElements extends AbstractParserRuleElementFinder {
@@ -3638,7 +3656,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VariableDefinition:
-	//	"variable" NL name=VariableEntity NL ("initially" NL initialValue=ValueOrEnumValueOrOperationCollection NL)?;
+	//	private="private"? "variable" NL name=VariableEntity NL ("initially" NL
+	//	initialValue=ValueOrEnumValueOrOperationCollection NL)?;
 	public VariableDefinitionElements getVariableDefinitionAccess() {
 		return (pVariableDefinition != null) ? pVariableDefinition : (pVariableDefinition = new VariableDefinitionElements());
 	}
@@ -3648,8 +3667,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDefinition:
-	//	"constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue
-	//	NL)* | parameterized="parameterized" NL);
+	//	private="private"? "constant" NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)?
+	//	(variantValues+=VariantValue NL)* | parameterized="parameterized" NL);
 	public ConstantDefinitionElements getConstantDefinitionAccess() {
 		return (pConstantDefinition != null) ? pConstantDefinition : (pConstantDefinition = new ConstantDefinitionElements());
 	}

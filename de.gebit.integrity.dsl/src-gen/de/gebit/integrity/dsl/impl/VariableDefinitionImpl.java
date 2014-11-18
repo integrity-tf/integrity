@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.VariableDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariableDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariableDefinitionImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
@@ -31,6 +32,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class VariableDefinitionImpl extends PackageStatementImpl implements VariableDefinition
 {
+  /**
+   * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected static final String PRIVATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected String private_ = PRIVATE_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -70,6 +91,29 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.VARIABLE_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getPrivate()
+  {
+    return private_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrivate(String newPrivate)
+  {
+    String oldPrivate = private_;
+    private_ = newPrivate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIABLE_DEFINITION__PRIVATE, oldPrivate, private_));
   }
 
   /**
@@ -196,6 +240,8 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
   {
     switch (featureID)
     {
+      case DslPackage.VARIABLE_DEFINITION__PRIVATE:
+        return getPrivate();
       case DslPackage.VARIABLE_DEFINITION__NAME:
         return getName();
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
@@ -214,6 +260,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
   {
     switch (featureID)
     {
+      case DslPackage.VARIABLE_DEFINITION__PRIVATE:
+        setPrivate((String)newValue);
+        return;
       case DslPackage.VARIABLE_DEFINITION__NAME:
         setName((VariableEntity)newValue);
         return;
@@ -234,6 +283,9 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
   {
     switch (featureID)
     {
+      case DslPackage.VARIABLE_DEFINITION__PRIVATE:
+        setPrivate(PRIVATE_EDEFAULT);
+        return;
       case DslPackage.VARIABLE_DEFINITION__NAME:
         setName((VariableEntity)null);
         return;
@@ -254,12 +306,31 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
   {
     switch (featureID)
     {
+      case DslPackage.VARIABLE_DEFINITION__PRIVATE:
+        return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.VARIABLE_DEFINITION__NAME:
         return name != null;
       case DslPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         return initialValue != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (private: ");
+    result.append(private_);
+    result.append(')');
+    return result.toString();
   }
 
 } //VariableDefinitionImpl

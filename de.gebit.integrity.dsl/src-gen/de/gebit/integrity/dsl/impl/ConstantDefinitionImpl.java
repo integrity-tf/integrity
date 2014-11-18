@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getValue <em>Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getVariantValues <em>Variant Values</em>}</li>
@@ -41,6 +42,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ConstantDefinitionImpl extends PackageStatementImpl implements ConstantDefinition
 {
+  /**
+   * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected static final String PRIVATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected String private_ = PRIVATE_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -110,6 +131,29 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.CONSTANT_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getPrivate()
+  {
+    return private_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrivate(String newPrivate)
+  {
+    String oldPrivate = private_;
+    private_ = newPrivate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.CONSTANT_DEFINITION__PRIVATE, oldPrivate, private_));
   }
 
   /**
@@ -275,6 +319,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__PRIVATE:
+        return getPrivate();
       case DslPackage.CONSTANT_DEFINITION__NAME:
         return getName();
       case DslPackage.CONSTANT_DEFINITION__VALUE:
@@ -298,6 +344,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__PRIVATE:
+        setPrivate((String)newValue);
+        return;
       case DslPackage.CONSTANT_DEFINITION__NAME:
         setName((ConstantEntity)newValue);
         return;
@@ -325,6 +374,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__PRIVATE:
+        setPrivate(PRIVATE_EDEFAULT);
+        return;
       case DslPackage.CONSTANT_DEFINITION__NAME:
         setName((ConstantEntity)null);
         return;
@@ -351,6 +403,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__PRIVATE:
+        return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.CONSTANT_DEFINITION__NAME:
         return name != null;
       case DslPackage.CONSTANT_DEFINITION__VALUE:
@@ -374,7 +428,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (parameterized: ");
+    result.append(" (private: ");
+    result.append(private_);
+    result.append(", parameterized: ");
     result.append(parameterized);
     result.append(')');
     return result.toString();

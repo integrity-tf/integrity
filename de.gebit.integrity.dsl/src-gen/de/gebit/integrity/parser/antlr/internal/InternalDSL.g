@@ -1748,13 +1748,28 @@ ruleVariableDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='variable' 
+((
+(
+		lv_private_0_0=	'private' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getVariableDefinitionAccess().getVariableKeyword_0());
+        newLeafNode(lv_private_0_0, grammarAccess.getVariableDefinitionAccess().getPrivatePrivateKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVariableDefinitionRule());
+	        }
+       		setWithLastConsumed($current, "private", lv_private_0_0, "private");
+	    }
+
+)
+)?	otherlv_1='variable' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getVariableDefinitionAccess().getVariableKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -1763,16 +1778,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_3_0()); 
 	    }
-		lv_name_2_0=ruleVariableEntity		{
+		lv_name_3_0=ruleVariableEntity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1780,19 +1795,19 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_4()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-(	otherlv_4='initially' 
+(	otherlv_5='initially' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getVariableDefinitionAccess().getInitiallyKeyword_4_0());
+    	newLeafNode(otherlv_5, grammarAccess.getVariableDefinitionAccess().getInitiallyKeyword_5_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_4_1()); 
+        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_5_1()); 
     }
 ruleNL
     { 
@@ -1801,16 +1816,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
+	        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_2_0()); 
 	    }
-		lv_initialValue_6_0=ruleValueOrEnumValueOrOperationCollection		{
+		lv_initialValue_7_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 	        }
        		set(
        			$current, 
        			"initialValue",
-        		lv_initialValue_6_0, 
+        		lv_initialValue_7_0, 
         		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1818,7 +1833,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_4_3()); 
+        newCompositeNode(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_5_3()); 
     }
 ruleNL
     { 
@@ -1845,13 +1860,28 @@ ruleConstantDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='constant' 
+((
+(
+		lv_private_0_0=	'private' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getConstantDefinitionAccess().getConstantKeyword_0());
+        newLeafNode(lv_private_0_0, grammarAccess.getConstantDefinitionAccess().getPrivatePrivateKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstantDefinitionRule());
+	        }
+       		setWithLastConsumed($current, "private", lv_private_0_0, "private");
+	    }
+
+)
+)?	otherlv_1='constant' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getConstantDefinitionAccess().getConstantKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -1860,16 +1890,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNameConstantEntityParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNameConstantEntityParserRuleCall_3_0()); 
 	    }
-		lv_name_2_0=ruleConstantEntity		{
+		lv_name_3_0=ruleConstantEntity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"ConstantEntity");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1877,7 +1907,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4()); 
     }
 ruleNL
     { 
@@ -1886,16 +1916,16 @@ ruleNL
 ((((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0_0()); 
 	    }
-		lv_value_4_0=ruleValueOrEnumValueOrOperationCollection		{
+		lv_value_5_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_4_0, 
+        		lv_value_5_0, 
         		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1903,7 +1933,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4_0_0_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_0_1()); 
     }
 ruleNL
     { 
@@ -1912,16 +1942,16 @@ ruleNL
 )?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_4_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_0_1_0_0()); 
 	    }
-		lv_variantValues_6_0=ruleVariantValue		{
+		lv_variantValues_7_0=ruleVariantValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		add(
        			$current, 
        			"variantValues",
-        		lv_variantValues_6_0, 
+        		lv_variantValues_7_0, 
         		"VariantValue");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1929,7 +1959,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4_0_1_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_1_1()); 
     }
 ruleNL
     { 
@@ -1938,22 +1968,22 @@ ruleNL
 )*)
     |((
 (
-		lv_parameterized_8_0=	'parameterized' 
+		lv_parameterized_9_0=	'parameterized' 
     {
-        newLeafNode(lv_parameterized_8_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_4_1_0_0());
+        newLeafNode(lv_parameterized_9_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_5_1_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getConstantDefinitionRule());
 	        }
-       		setWithLastConsumed($current, "parameterized", lv_parameterized_8_0, "parameterized");
+       		setWithLastConsumed($current, "parameterized", lv_parameterized_9_0, "parameterized");
 	    }
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4_1_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_1_1()); 
     }
 ruleNL
     { 

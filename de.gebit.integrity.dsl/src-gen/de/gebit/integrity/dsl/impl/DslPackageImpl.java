@@ -1245,9 +1245,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getVariableDefinition_Private()
+  {
+    return (EAttribute)variableDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getVariableDefinition_Name()
   {
-    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1257,7 +1267,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getVariableDefinition_InitialValue()
   {
-    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1275,9 +1285,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstantDefinition_Name()
+  public EAttribute getConstantDefinition_Private()
   {
-    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1285,7 +1295,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstantDefinition_Value()
+  public EReference getConstantDefinition_Name()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(1);
   }
@@ -1295,7 +1305,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstantDefinition_VariantValues()
+  public EReference getConstantDefinition_Value()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(2);
   }
@@ -1305,9 +1315,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getConstantDefinition_VariantValues()
+  {
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getConstantDefinition_Parameterized()
   {
-    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2730,10 +2750,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     suiteStatementWithResultEClass = createEClass(SUITE_STATEMENT_WITH_RESULT);
 
     variableDefinitionEClass = createEClass(VARIABLE_DEFINITION);
+    createEAttribute(variableDefinitionEClass, VARIABLE_DEFINITION__PRIVATE);
     createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__NAME);
     createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__INITIAL_VALUE);
 
     constantDefinitionEClass = createEClass(CONSTANT_DEFINITION);
+    createEAttribute(constantDefinitionEClass, CONSTANT_DEFINITION__PRIVATE);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__NAME);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VALUE);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VARIANT_VALUES);
@@ -3101,10 +3123,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(suiteStatementWithResultEClass, SuiteStatementWithResult.class, "SuiteStatementWithResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(variableDefinitionEClass, VariableDefinition.class, "VariableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariableDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDefinition_InitialValue(), this.getValueOrEnumValueOrOperationCollection(), null, "initialValue", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantDefinitionEClass, ConstantDefinition.class, "ConstantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getConstantDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_Name(), this.getConstantEntity(), null, "name", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_VariantValues(), this.getVariantValue(), null, "variantValues", null, 0, -1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

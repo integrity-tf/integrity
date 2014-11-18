@@ -764,13 +764,22 @@ public interface DslPackage extends EPackage
   int VARIABLE_DEFINITION = 22;
 
   /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__PRIVATE = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int VARIABLE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
@@ -779,7 +788,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION__INITIAL_VALUE = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int VARIABLE_DEFINITION__INITIAL_VALUE = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Variable Definition</em>' class.
@@ -788,7 +797,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int VARIABLE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl <em>Constant Definition</em>}' class.
@@ -801,13 +810,22 @@ public interface DslPackage extends EPackage
   int CONSTANT_DEFINITION = 23;
 
   /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_DEFINITION__PRIVATE = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int CONSTANT_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -816,7 +834,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION__VALUE = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int CONSTANT_DEFINITION__VALUE = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Variant Values</b></em>' containment reference list.
@@ -825,7 +843,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION__VARIANT_VALUES = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int CONSTANT_DEFINITION__VARIANT_VALUES = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Parameterized</b></em>' attribute.
@@ -834,7 +852,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION__PARAMETERIZED = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+  int CONSTANT_DEFINITION__PARAMETERIZED = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Constant Definition</em>' class.
@@ -843,7 +861,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
+  int CONSTANT_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariantValueImpl <em>Variant Value</em>}' class.
@@ -3284,6 +3302,17 @@ public interface DslPackage extends EPackage
   EClass getVariableDefinition();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.VariableDefinition#getPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see de.gebit.integrity.dsl.VariableDefinition#getPrivate()
+   * @see #getVariableDefinition()
+   * @generated
+   */
+  EAttribute getVariableDefinition_Private();
+
+  /**
    * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.VariableDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3314,6 +3343,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getConstantDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ConstantDefinition#getPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see de.gebit.integrity.dsl.ConstantDefinition#getPrivate()
+   * @see #getConstantDefinition()
+   * @generated
+   */
+  EAttribute getConstantDefinition_Private();
 
   /**
    * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}'.
@@ -5205,6 +5245,14 @@ public interface DslPackage extends EPackage
     EClass VARIABLE_DEFINITION = eINSTANCE.getVariableDefinition();
 
     /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DEFINITION__PRIVATE = eINSTANCE.getVariableDefinition_Private();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5229,6 +5277,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass CONSTANT_DEFINITION = eINSTANCE.getConstantDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONSTANT_DEFINITION__PRIVATE = eINSTANCE.getConstantDefinition_Private();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.

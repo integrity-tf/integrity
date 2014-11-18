@@ -665,7 +665,11 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ConstantEntity ((value=ValueOrEnumValueOrOperationCollection? variantValues+=VariantValue*) | parameterized='parameterized'))
+	 *     (
+	 *         private='private'? 
+	 *         name=ConstantEntity 
+	 *         ((value=ValueOrEnumValueOrOperationCollection? variantValues+=VariantValue*) | parameterized='parameterized')
+	 *     )
 	 */
 	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1438,7 +1442,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=VariableEntity initialValue=ValueOrEnumValueOrOperationCollection?)
+	 *     (private='private'? name=VariableEntity initialValue=ValueOrEnumValueOrOperationCollection?)
 	 */
 	protected void sequence_VariableDefinition(EObject context, VariableDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

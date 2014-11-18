@@ -11,6 +11,7 @@
 package de.gebit.integrity.scoping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -483,7 +484,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 * @return
 	 */
 	// SUPPRESS CHECKSTYLE MethodName
-	public IScope scope_Variable_name(Call aCall, EReference aRef) {
+	public IScope scope_VariableVariable_name(Call aCall, EReference aRef) {
 		// fetch the host suite of the call
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aCall.eContainer();
 
@@ -518,6 +519,35 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
 		return determineVariableScope(aTableTest, tempHostSuite);
+	}
+
+	/**
+	 * This basically performs a default import on everything in the local file by adding another scope entry for all
+	 * suite definitions in the current file.
+	 * 
+	 * @param aSuite
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Suite_definition(Suite aSuite, EReference aRef) {
+		IScope tempScope = super.delegateGetScope(aSuite, aRef);
+
+		List<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aSuite);
+		// Add definitions from current file (fully qualified and in short form, both are allowed)
+		for (Statement tempStatement : tempRootModel.getStatements()) {
+			if (tempStatement instanceof PackageDefinition) {
+				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
+					if (tempPackageStatement instanceof SuiteDefinition) {
+						tempList.add(EObjectDescription.create(((SuiteDefinition) tempPackageStatement).getName(),
+								tempPackageStatement));
+					}
+				}
+			}
+		}
+
+		return new SimpleScope(tempScope, tempList);
 	}
 
 	/**
@@ -570,22 +600,60 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		tempList.addAll(cachedVisibleGlobalVariables);
 
-		// Add definitions from current file
+		// Add definitions from current file (fully qualified and in short form, both are allowed)
 		for (Statement tempStatement : tempRootModel.getStatements()) {
 			if (tempStatement instanceof PackageDefinition) {
 				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
 					if (tempPackageStatement instanceof VariableDefinition) {
 						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+						tempList.add(EObjectDescription.create(
+								IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false), tempEntity));
 					} else if (tempPackageStatement instanceof ConstantDefinition) {
 						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+						tempList.add(EObjectDescription.create(
+								IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false), tempEntity));
 					}
 				}
 			}
 		}
 
+		// Filter out private variables not in the current package
+		PackageDefinition tempCurrentPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+				aStatement);
+		if (tempCurrentPackage != null) {
+			filterPrivateVariables(tempList, tempCurrentPackage.getName(), aStatement);
+		}
+
 		return tempList;
+	}
+
+	private void filterPrivateVariables(List<IEObjectDescription> aList, String aPackageName, EObject aStatement) {
+		Iterator<IEObjectDescription> tempIter = aList.iterator();
+		while (tempIter.hasNext()) {
+			IEObjectDescription tempDescription = tempIter.next();
+			EObject tempObjectOrProxy = tempDescription.getEObjectOrProxy();
+			EObject tempObject;
+			if (tempObjectOrProxy.eIsProxy()) {
+				tempObject = EcoreUtil.resolve(tempObjectOrProxy, aStatement);
+			} else {
+				tempObject = tempObjectOrProxy;
+			}
+			if (tempObject.eContainer() != null) {
+				EObject tempContainer = tempObject.eContainer();
+				if (tempContainer instanceof VariableDefinition) {
+					VariableDefinition tempDefinition = (VariableDefinition) tempContainer;
+					if (tempDefinition.getPrivate() != null) {
+						PackageDefinition tempPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+								tempDefinition);
+						if (!aPackageName.equals(tempPackage.getName())) {
+							tempIter.remove();
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
