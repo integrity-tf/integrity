@@ -965,7 +965,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getForkDefinition_Name()
+  public EAttribute getForkDefinition_Private()
   {
     return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(0);
   }
@@ -975,7 +975,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getForkDefinition_Description()
+  public EAttribute getForkDefinition_Name()
   {
     return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(1);
   }
@@ -985,9 +985,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getForkDefinition_Description()
+  {
+    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getForkDefinition_ForkerClass()
   {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -997,7 +1007,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getForkDefinition_Parameters()
   {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1135,7 +1145,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSuiteDefinition_Name()
+  public EAttribute getSuiteDefinition_Private()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(0);
   }
@@ -1145,9 +1155,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Parameters()
+  public EAttribute getSuiteDefinition_Name()
   {
-    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1155,7 +1165,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Dependencies()
+  public EReference getSuiteDefinition_Parameters()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(2);
   }
@@ -1165,7 +1175,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Finalizers()
+  public EReference getSuiteDefinition_Dependencies()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(3);
   }
@@ -1175,9 +1185,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Statements()
+  public EReference getSuiteDefinition_Finalizers()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuiteDefinition_Statements()
+  {
+    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2713,6 +2733,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
     forkDefinitionEClass = createEClass(FORK_DEFINITION);
+    createEAttribute(forkDefinitionEClass, FORK_DEFINITION__PRIVATE);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
@@ -2735,6 +2756,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(callDefinitionEClass, CALL_DEFINITION__FIXTURE_METHOD);
 
     suiteDefinitionEClass = createEClass(SUITE_DEFINITION);
+    createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__PRIVATE);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__NAME);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__PARAMETERS);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__DEPENDENCIES);
@@ -3086,6 +3108,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(forkDefinitionEClass, ForkDefinition.class, "ForkDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getForkDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_ForkerClass(), this.getJavaClassReference(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3108,6 +3131,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getCallDefinition_FixtureMethod(), this.getMethodReference(), null, "fixtureMethod", null, 0, 1, CallDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteDefinitionEClass, SuiteDefinition.class, "SuiteDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSuiteDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Parameters(), this.getVariableEntity(), null, "parameters", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Dependencies(), this.getSuiteDefinition(), null, "dependencies", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

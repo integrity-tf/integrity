@@ -11,7 +11,6 @@
 package de.gebit.integrity.scoping;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -26,12 +25,17 @@ import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.JvmVisibility;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
+
+import com.google.common.base.Predicate;
+import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -77,6 +81,12 @@ import de.gebit.integrity.utils.ResultFieldTuple;
  * 
  */
 public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
+
+	/**
+	 * The qualified name converter.
+	 */
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	/**
 	 * Limits the fixed parameter names to those defined in a fixture method signature.
@@ -508,7 +518,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
-	 * Filters out variables defined as suite parameters or local variables in other suites.
+	 * Determines variables/constants in scope for table test parameters or results.
 	 * 
 	 * @param aTableTestRow
 	 * @param aRef
@@ -519,6 +529,20 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		SuiteDefinition tempHostSuite = (SuiteDefinition) aTableTest.eContainer();
 
 		return determineVariableScope(aTableTest, tempHostSuite);
+	}
+
+	/**
+	 * Determines variables/constants in scope for test parameters or results.
+	 * 
+	 * @param aTest
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(Test aTest, EReference aRef) {
+		SuiteDefinition tempHostSuite = (SuiteDefinition) aTest.eContainer();
+
+		return determineVariableScope(aTest, tempHostSuite);
 	}
 
 	/**
@@ -535,7 +559,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		List<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aSuite);
-		// Add definitions from current file (fully qualified and in short form, both are allowed)
+		// Add definitions from current file (fully qualified and in short form, both are allowed - fully qualified was
+		// already added by super method, short form is now added here)
 		for (Statement tempStatement : tempRootModel.getStatements()) {
 			if (tempStatement instanceof PackageDefinition) {
 				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
@@ -547,7 +572,36 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 
-		return new SimpleScope(tempScope, tempList);
+		return filterPrivateElements(new SimpleScope(tempScope, tempList), aSuite);
+	}
+
+	/**
+	 * Filters out private forks.
+	 * 
+	 * @param aSuite
+	 * @param aRef
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Suite_fork(Suite aSuite, EReference aRef) {
+		IScope tempScope = super.delegateGetScope(aSuite, aRef);
+
+		List<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aSuite);
+		// Add definitions from current file (fully qualified and in short form, both are allowed - fully qualified was
+		// already added by super method, short form is now added here)
+		for (Statement tempStatement : tempRootModel.getStatements()) {
+			if (tempStatement instanceof PackageDefinition) {
+				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
+					if (tempPackageStatement instanceof ForkDefinition) {
+						tempList.add(EObjectDescription.create(((ForkDefinition) tempPackageStatement).getName(),
+								tempPackageStatement));
+					}
+				}
+			}
+		}
+
+		return filterPrivateElements(new SimpleScope(tempScope, tempList), aSuite);
 	}
 
 	/**
@@ -562,7 +616,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	private Model cachedVisibleGlobalVariablesResource;
 
-	private ArrayList<IEObjectDescription> determineVisibleGlobalVariables(EObject aStatement) {
+	private IScope addVisibleGlobalConstantsAndVariables(IScope aParentScope, EObject aStatement) {
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
 
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
@@ -607,53 +661,56 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					if (tempPackageStatement instanceof VariableDefinition) {
 						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(
-								IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false), tempEntity));
+						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
+								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
 					} else if (tempPackageStatement instanceof ConstantDefinition) {
 						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(
-								IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false), tempEntity));
+						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
+								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
 					}
 				}
 			}
 		}
 
-		// Filter out private variables not in the current package
-		PackageDefinition tempCurrentPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
-				aStatement);
-		if (tempCurrentPackage != null) {
-			filterPrivateVariables(tempList, tempCurrentPackage.getName(), aStatement);
-		}
-
-		return tempList;
+		// Finally, filter out private variables not in the current package
+		return filterPrivateElements(new SimpleScope(aParentScope, tempList), aStatement);
 	}
 
-	private void filterPrivateVariables(List<IEObjectDescription> aList, String aPackageName, EObject aStatement) {
-		Iterator<IEObjectDescription> tempIter = aList.iterator();
-		while (tempIter.hasNext()) {
-			IEObjectDescription tempDescription = tempIter.next();
-			EObject tempObjectOrProxy = tempDescription.getEObjectOrProxy();
-			EObject tempObject;
-			if (tempObjectOrProxy.eIsProxy()) {
-				tempObject = EcoreUtil.resolve(tempObjectOrProxy, aStatement);
-			} else {
-				tempObject = tempObjectOrProxy;
-			}
-			if (tempObject.eContainer() != null) {
-				EObject tempContainer = tempObject.eContainer();
-				if (tempContainer instanceof VariableDefinition) {
-					VariableDefinition tempDefinition = (VariableDefinition) tempContainer;
-					if (tempDefinition.getPrivate() != null) {
-						PackageDefinition tempPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
-								tempDefinition);
-						if (!aPackageName.equals(tempPackage.getName())) {
-							tempIter.remove();
-						}
+	private IScope filterPrivateElements(IScope aScope, final EObject aStatement) {
+		PackageDefinition tempCurrentPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+				aStatement);
+		final String tempCurrentPackageName = tempCurrentPackage == null ? "" : tempCurrentPackage.getName();
+
+		return new FilteringScope(aScope, new Predicate<IEObjectDescription>() {
+
+			@Override
+			public boolean apply(IEObjectDescription anInput) {
+				EObject tempObjectOrProxy = anInput.getEObjectOrProxy();
+				EObject tempObject;
+				if (tempObjectOrProxy.eIsProxy()) {
+					tempObject = EcoreUtil.resolve(tempObjectOrProxy, aStatement);
+				} else {
+					tempObject = tempObjectOrProxy;
+				}
+				if ((tempObject instanceof VariableEntity) || (tempObject instanceof ConstantEntity)) {
+					tempObject = tempObject.eContainer();
+				}
+
+				if (IntegrityDSLUtil.isPrivate(tempObject)) {
+					PackageDefinition tempPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+							tempObject);
+					if (tempPackage != null) {
+						return tempCurrentPackageName.equals(tempPackage.getName());
+					} else {
+						return true;
 					}
 				}
+
+				return true;
 			}
-		}
+
+		});
 	}
 
 	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
@@ -672,16 +729,18 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				break;
 			}
 		}
+		IScope tempScope = new SimpleScope(tempList);
 
 		// Now add global constants and variables.
-		tempList.addAll(determineVisibleGlobalVariables(aStatement));
+		tempScope = addVisibleGlobalConstantsAndVariables(tempScope, aStatement);
 
 		// And add suite parameters, which are handled like variables as well.
+		ArrayList<IEObjectDescription> tempSuiteParameterList = new ArrayList<IEObjectDescription>();
 		for (VariableEntity tempSuiteParam : aSuite.getParameters()) {
-			tempList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
+			tempSuiteParameterList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
 		}
 
-		return new SimpleScope(tempList);
+		return new SimpleScope(tempScope, tempSuiteParameterList);
 	}
 
 	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {

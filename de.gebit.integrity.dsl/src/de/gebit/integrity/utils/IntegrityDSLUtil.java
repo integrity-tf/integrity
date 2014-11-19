@@ -679,4 +679,25 @@ public final class IntegrityDSLUtil {
 		return aName.getIdentifier() != null ? aName.getIdentifier() : aName.getStringIdentifier();
 	}
 
+	/**
+	 * Checks whether the given {@link EObject} is of private visibility.
+	 * 
+	 * @param anObject
+	 *            the object to check
+	 * @return true or false (will return false on objects which don't support a visibility modifier)
+	 */
+	public static boolean isPrivate(EObject anObject) {
+		if (anObject instanceof VariableDefinition) {
+			return ((VariableDefinition) anObject).getPrivate() != null;
+		} else if (anObject instanceof ConstantDefinition) {
+			return ((ConstantDefinition) anObject).getPrivate() != null;
+		} else if (anObject instanceof SuiteDefinition) {
+			return ((SuiteDefinition) anObject).getPrivate() != null;
+		} else if (anObject instanceof ForkDefinition) {
+			return ((ForkDefinition) anObject).getPrivate() != null;
+		}
+
+		return false;
+	}
+
 }

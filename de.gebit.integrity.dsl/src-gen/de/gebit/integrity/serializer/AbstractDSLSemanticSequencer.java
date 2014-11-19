@@ -857,7 +857,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName description=STRING? forkerClass=JavaClassReference? parameters+=ForkParameter*)
+	 *     (private='private'? name=QualifiedName description=STRING? forkerClass=JavaClassReference? parameters+=ForkParameter*)
 	 */
 	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1278,6 +1278,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
+	 *         private='private'? 
 	 *         name=QualifiedName 
 	 *         parameters+=VariableEntity* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 

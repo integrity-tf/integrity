@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getDependencies <em>Dependencies</em>}</li>
@@ -42,6 +43,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDefinition
 {
+  /**
+   * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected static final String PRIVATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected String private_ = PRIVATE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -121,6 +142,29 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.SUITE_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getPrivate()
+  {
+    return private_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrivate(String newPrivate)
+  {
+    String oldPrivate = private_;
+    private_ = newPrivate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE_DEFINITION__PRIVATE, oldPrivate, private_));
   }
 
   /**
@@ -230,6 +274,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__PRIVATE:
+        return getPrivate();
       case DslPackage.SUITE_DEFINITION__NAME:
         return getName();
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
@@ -255,6 +301,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__PRIVATE:
+        setPrivate((String)newValue);
+        return;
       case DslPackage.SUITE_DEFINITION__NAME:
         setName((String)newValue);
         return;
@@ -288,6 +337,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__PRIVATE:
+        setPrivate(PRIVATE_EDEFAULT);
+        return;
       case DslPackage.SUITE_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -317,6 +369,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__PRIVATE:
+        return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.SUITE_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
@@ -342,7 +396,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (private: ");
+    result.append(private_);
+    result.append(", name: ");
     result.append(name);
     result.append(')');
     return result.toString();

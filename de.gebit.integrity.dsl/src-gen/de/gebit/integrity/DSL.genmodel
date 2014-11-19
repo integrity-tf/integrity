@@ -32,6 +32,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Import/importedNamespace"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ForkDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/private"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/forkerClass"/>
@@ -54,6 +55,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CallDefinition/fixtureMethod"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/private"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/dependencies"/>

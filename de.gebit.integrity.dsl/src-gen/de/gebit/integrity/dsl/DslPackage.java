@@ -441,13 +441,22 @@ public interface DslPackage extends EPackage
   int FORK_DEFINITION = 13;
 
   /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__PRIVATE = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__NAME = STATEMENT_FEATURE_COUNT + 0;
+  int FORK_DEFINITION__NAME = STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -456,7 +465,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 1;
+  int FORK_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Forker Class</b></em>' containment reference.
@@ -465,7 +474,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__FORKER_CLASS = STATEMENT_FEATURE_COUNT + 2;
+  int FORK_DEFINITION__FORKER_CLASS = STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -474,7 +483,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 3;
+  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Fork Definition</em>' class.
@@ -483,7 +492,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
+  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ForkParameterImpl <em>Fork Parameter</em>}' class.
@@ -644,13 +653,22 @@ public interface DslPackage extends EPackage
   int SUITE_DEFINITION = 18;
 
   /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE_DEFINITION__PRIVATE = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -659,7 +677,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Dependencies</b></em>' reference list.
@@ -668,7 +686,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Finalizers</b></em>' reference list.
@@ -677,7 +695,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -686,7 +704,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
+  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Suite Definition</em>' class.
@@ -695,7 +713,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
+  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.OperationDefinitionImpl <em>Operation Definition</em>}' class.
@@ -3003,6 +3021,17 @@ public interface DslPackage extends EPackage
   EClass getForkDefinition();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition#getPrivate()
+   * @see #getForkDefinition()
+   * @generated
+   */
+  EAttribute getForkDefinition_Private();
+
+  /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3183,6 +3212,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getSuiteDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Private</em>'.
+   * @see de.gebit.integrity.dsl.SuiteDefinition#getPrivate()
+   * @see #getSuiteDefinition()
+   * @generated
+   */
+  EAttribute getSuiteDefinition_Private();
 
   /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}'.
@@ -5003,6 +5043,14 @@ public interface DslPackage extends EPackage
     EClass FORK_DEFINITION = eINSTANCE.getForkDefinition();
 
     /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORK_DEFINITION__PRIVATE = eINSTANCE.getForkDefinition_Private();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5147,6 +5195,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass SUITE_DEFINITION = eINSTANCE.getSuiteDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUITE_DEFINITION__PRIVATE = eINSTANCE.getSuiteDefinition_Private();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

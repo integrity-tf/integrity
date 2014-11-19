@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getForkerClass <em>Forker Class</em>}</li>
@@ -40,6 +41,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
 {
+  /**
+   * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected static final String PRIVATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPrivate() <em>Private</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrivate()
+   * @generated
+   * @ordered
+   */
+  protected String private_ = PRIVATE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -119,6 +140,29 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.FORK_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getPrivate()
+  {
+    return private_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrivate(String newPrivate)
+  {
+    String oldPrivate = private_;
+    private_ = newPrivate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__PRIVATE, oldPrivate, private_));
   }
 
   /**
@@ -257,6 +301,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__PRIVATE:
+        return getPrivate();
       case DslPackage.FORK_DEFINITION__NAME:
         return getName();
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
@@ -280,6 +326,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__PRIVATE:
+        setPrivate((String)newValue);
+        return;
       case DslPackage.FORK_DEFINITION__NAME:
         setName((String)newValue);
         return;
@@ -307,6 +356,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__PRIVATE:
+        setPrivate(PRIVATE_EDEFAULT);
+        return;
       case DslPackage.FORK_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -333,6 +385,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__PRIVATE:
+        return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.FORK_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.FORK_DEFINITION__DESCRIPTION:
@@ -356,7 +410,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (private: ");
+    result.append(private_);
+    result.append(", name: ");
     result.append(name);
     result.append(", description: ");
     result.append(description);

@@ -64,7 +64,7 @@ Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
 	
 ForkParameter:
 	name=FixedParameterName NL ':' NL value=ValueOrEnumValueOrOperation;
@@ -79,7 +79,7 @@ CallDefinition:
 	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
-	'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
+	private='private'? 'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
 
 OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;
