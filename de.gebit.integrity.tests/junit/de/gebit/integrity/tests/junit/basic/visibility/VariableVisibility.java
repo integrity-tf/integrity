@@ -8,11 +8,13 @@
 package de.gebit.integrity.tests.junit.basic.visibility;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.junit.Test;
 
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
 
@@ -49,10 +51,61 @@ public class VariableVisibility extends IntegrityJUnitTest {
 	 */
 	@Test
 	public void testFail1() throws ModelLoadException, IOException, JDOMException {
-		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/visibility/variableVisibilityFail1.integrity" },
-				"integrity.basic.visibility.variables.fail1", null);
-		assertDocumentMatchesReference(tempResult);
+		assertExceptionIsThrown(
+				new RunnableWithException() {
+
+					@Override
+					public void run() throws Exception {
+						executeIntegritySuite(
+								new String[] { "integrity/suites/basic/visibility/variableVisibilityFail1.integrity" },
+								"integrity.basic.visibility.variables.fail1", null);
+					}
+				}, ModelRuntimeLinkException.class, null,
+				Pattern.compile(".*?/variableVisibilityFail1.integrity:13 - Failed to resolve variable name"));
+	}
+
+	/**
+	 * Tests failing references.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testFail2() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(
+				new RunnableWithException() {
+
+					@Override
+					public void run() throws Exception {
+						executeIntegritySuite(
+								new String[] { "integrity/suites/basic/visibility/variableVisibilityFail2.integrity" },
+								"integrity.basic.visibility.variables.fail2", null);
+					}
+				}, ModelRuntimeLinkException.class, null,
+				Pattern.compile(".*?/variableVisibilityFail2.integrity:13 - Failed to resolve variable name"));
+	}
+
+	/**
+	 * Tests failing references.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testFail3() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(
+				new RunnableWithException() {
+
+					@Override
+					public void run() throws Exception {
+						executeIntegritySuite(
+								new String[] { "integrity/suites/basic/visibility/variableVisibilityFail3.integrity" },
+								"integrity.basic.visibility.variables.fail3", null);
+					}
+				}, ModelRuntimeLinkException.class, null,
+				Pattern.compile(".*?/variableVisibilityFail3.integrity:15 - Failed to resolve variable name"));
 	}
 
 }

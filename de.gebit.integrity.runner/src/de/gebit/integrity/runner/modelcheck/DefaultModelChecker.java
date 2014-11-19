@@ -18,17 +18,33 @@ import com.google.inject.Inject;
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CustomOperation;
+import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
+import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.NestedObject;
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.StandardOperation;
+import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
+import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.TableTest;
+import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TypedNestedObject;
+import de.gebit.integrity.dsl.Value;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableVariable;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
@@ -79,6 +95,8 @@ public class DefaultModelChecker implements ModelChecker {
 			if (tempNamedResult.getName() instanceof FixedResultName) {
 				checkSingleFixedNamedResult((FixedResultName) tempNamedResult.getName(), tempFixtureName);
 			}
+
+			checkValueContainer(tempNamedResult.getValue());
 		}
 	}
 
@@ -99,10 +117,11 @@ public class DefaultModelChecker implements ModelChecker {
 		String tempFixtureName = aCall.getDefinition().getName();
 		checkParameters(aCall.getParameters(), tempFixtureName);
 		if (aCall.getResult() != null) {
-			if (aCall.getResult().getName() == null || aCall.getResult().getName().getName() == null) {
-				throw new ModelRuntimeLinkException("Failed to resolve call result name", aCall.getResult(),
-						modelSourceExplorer.determineSourceInformation(aCall.getResult()));
-			}
+			checkVariableVariable(aCall.getResult());
+		}
+
+		for (NamedCallResult tempResult : aCall.getResults()) {
+			checkVariableVariable(tempResult.getTarget());
 		}
 	}
 
@@ -130,7 +149,6 @@ public class DefaultModelChecker implements ModelChecker {
 				throw new ModelRuntimeLinkException("Failed to resolve parameter name", tempTableHeader,
 						modelSourceExplorer.determineSourceInformation(tempTableHeader));
 			}
-
 			checkSingleParameterName(tempTableHeader.getName(), tempFixtureName);
 		}
 
@@ -140,6 +158,13 @@ public class DefaultModelChecker implements ModelChecker {
 				if (tempTableHeader.getName() instanceof FixedResultName) {
 					checkSingleFixedNamedResult((FixedResultName) tempTableHeader.getName(), tempFixtureName);
 				}
+			}
+		}
+
+		// Now finally look at all the cells
+		for (TableTestRow tempRow : aTableTest.getRows()) {
+			for (ParameterTableValue tempValue : tempRow.getValues()) {
+				checkValueContainer(tempValue.getValue());
 			}
 		}
 	}
@@ -204,6 +229,13 @@ public class DefaultModelChecker implements ModelChecker {
 			throw new ModelRuntimeLinkException("Failed to resolve operation class '" + tempClassName + "'.", tempType,
 					tempSourceInfo, exc);
 		}
+
+		if (aCustomOperation.getPrefixOperand() != null) {
+			checkValueContainer(aCustomOperation.getPrefixOperand());
+		}
+		if (aCustomOperation.getPostfixOperand() != null) {
+			checkValueContainer(aCustomOperation.getPostfixOperand());
+		}
 	}
 
 	/**
@@ -220,8 +252,11 @@ public class DefaultModelChecker implements ModelChecker {
 				throw new ModelRuntimeLinkException("Failed to resolve parameter name", tempParameter,
 						modelSourceExplorer.determineSourceInformation(tempParameter));
 			}
-
 			checkSingleParameterName(tempParameter.getName(), aFixtureName);
+
+			if (tempParameter.getValue() != null) {
+				checkValueContainer(tempParameter.getValue());
+			}
 		}
 	}
 
@@ -276,5 +311,137 @@ public class DefaultModelChecker implements ModelChecker {
 			throw new ModelRuntimeLinkException("Failed to resolve suite referenced in suite call '"
 					+ tempSourceInfo.getSnippet() + "'.", aSuite.getDefinition(), tempSourceInfo);
 		}
+
+		for (SuiteParameter tempParameter : aSuite.getParameters()) {
+			if (tempParameter.getName() == null || tempParameter.getName().getName() == null) {
+				throw new ModelRuntimeLinkException("Failed to resolve suite parameter name", tempParameter,
+						modelSourceExplorer.determineSourceInformation(tempParameter));
+			}
+		}
+	}
+
+	/**
+	 * Check a {@link ValueOrEnumValueOrOperationCollection}.
+	 * 
+	 * @param aValue
+	 */
+	protected void checkValueContainer(ValueOrEnumValueOrOperationCollection aValue) {
+		if (aValue.getValue() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve value", aValue,
+					modelSourceExplorer.determineSourceInformation(aValue));
+		} else {
+			checkValueContainer(aValue.getValue());
+		}
+
+		for (ValueOrEnumValueOrOperation tempMoreValue : aValue.getMoreValues()) {
+			checkValueContainer(tempMoreValue);
+		}
+	}
+
+	/**
+	 * Check a {@link ValueOrEnumValueOrOperation}.
+	 * 
+	 * @param aValue
+	 */
+	protected void checkValueContainer(ValueOrEnumValueOrOperation aValue) {
+		if (aValue instanceof Value) {
+			checkValueContainer((Value) aValue);
+		} else if (aValue instanceof EnumValue) {
+			checkEnumValue((EnumValue) aValue);
+		} else if (aValue instanceof Operation) {
+			checkOperation((Operation) aValue);
+		}
+	}
+
+	/**
+	 * Check a {@link Value}.
+	 * 
+	 * @param aValue
+	 */
+	protected void checkValueContainer(Value aValue) {
+		if (aValue instanceof StaticValue) {
+			// no further checks supported
+		} else if (aValue instanceof Variable) {
+			checkVariable((Variable) aValue);
+		} else if (aValue instanceof NestedObject) {
+			checkNestedObject((NestedObject) aValue);
+		} else if (aValue instanceof TypedNestedObject) {
+			checkTypedNestedObject((TypedNestedObject) aValue);
+		}
+	}
+
+	/**
+	 * Checks an {@link EnumValue}.
+	 * 
+	 * @param aValue
+	 */
+	protected void checkEnumValue(EnumValue aValue) {
+		if (aValue.getEnumValue() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve enum value", aValue.getEnumValue(),
+					modelSourceExplorer.determineSourceInformation(aValue.getEnumValue()));
+		}
+	}
+
+	/**
+	 * Checks an {@link Operation}.
+	 * 
+	 * @param anOperation
+	 */
+	protected void checkOperation(Operation anOperation) {
+		if (anOperation instanceof CustomOperation) {
+			check((CustomOperation) anOperation);
+		} else if (anOperation instanceof StandardOperation) {
+			StandardOperation tempOperation = (StandardOperation) anOperation;
+			if (tempOperation.getFirstOperand() != null) {
+				checkValueContainer(tempOperation.getFirstOperand());
+			}
+			for (ValueOrEnumValueOrOperation tempOperand : tempOperation.getMoreOperands()) {
+				checkValueContainer(tempOperand);
+			}
+		}
+	}
+
+	/**
+	 * Checks a {@link Variable}.
+	 * 
+	 * @param aVariable
+	 */
+	protected void checkVariable(Variable aVariable) {
+		if (aVariable.getName() == null || aVariable.getName().getName() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve variable name", aVariable,
+					modelSourceExplorer.determineSourceInformation(aVariable));
+		}
+	}
+
+	/**
+	 * Checks a {@link VariableVariable}.
+	 * 
+	 * @param aVariable
+	 */
+	protected void checkVariableVariable(VariableVariable aVariable) {
+		if (aVariable.getName() == null || aVariable.getName().getName() == null) {
+			throw new ModelRuntimeLinkException("Failed to resolve variable name", aVariable,
+					modelSourceExplorer.determineSourceInformation(aVariable));
+		}
+	}
+
+	/**
+	 * Checks a {@link NestedObject}.
+	 * 
+	 * @param anObject
+	 */
+	protected void checkNestedObject(NestedObject anObject) {
+		for (KeyValuePair tempPair : anObject.getAttributes()) {
+			checkValueContainer(tempPair.getValue());
+		}
+	}
+
+	/**
+	 * Checks a {@link TypedNestedObject}.
+	 * 
+	 * @param anObject
+	 */
+	protected void checkTypedNestedObject(TypedNestedObject anObject) {
+		checkNestedObject(anObject.getNestedObject());
 	}
 }
