@@ -1,0 +1,45 @@
+import integrity.fixtures.basic.noop.*
+
+
+packagedef integrity.basic.visibility.variables with
+
+	variable publicSamePackage
+	private variable privateSamePackage
+	
+	suitedef success with
+		call echoInteger integer: 1 -> publicSamePackage
+		call echoInteger integer: 2 -> privateSamePackage
+		call echoInteger integer: 3 -> publicOtherPackage
+		call echoInteger integer: 1 -> integrity.basic.visibility.variables.publicSamePackage
+		call echoInteger integer: 2 -> integrity.basic.visibility.variables.privateSamePackage
+		call echoInteger integer: 3 -> integrity.basic.visibility.variables.other.publicOtherPackage
+		
+		test echoIntegerTest integer: publicSamePackage = 1
+		test echoIntegerTest integer: privateSamePackage = 2
+		test echoIntegerTest integer: publicOtherPackage = 3
+		test echoIntegerTest integer: 1 = publicSamePackage
+		test echoIntegerTest integer: 2 = privateSamePackage
+		test echoIntegerTest integer: 3 = publicOtherPackage
+		
+		test echoIntegerTest integer: integrity.basic.visibility.variables.publicSamePackage = 1
+		test echoIntegerTest integer: integrity.basic.visibility.variables.privateSamePackage = 2
+		test echoIntegerTest integer: integrity.basic.visibility.variables.other.publicOtherPackage = 3
+		test echoIntegerTest integer: 1 = integrity.basic.visibility.variables.publicSamePackage
+		test echoIntegerTest integer: 2 = integrity.basic.visibility.variables.privateSamePackage
+		test echoIntegerTest integer: 3 = integrity.basic.visibility.variables.other.publicOtherPackage
+		
+		tabletest echoIntegerTest
+			| integer            | =                  |
+			| publicSamePackage  | publicSamePackage  |
+			| privateSamePackage | privateSamePackage |
+			| publicOtherPackage | publicOtherPackage |
+	suiteend
+
+packageend
+
+packagedef integrity.basic.visibility.variables.other with
+
+	variable publicOtherPackage
+	private variable privateOtherPackage initially 4
+
+packageend
