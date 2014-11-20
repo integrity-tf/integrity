@@ -546,6 +546,18 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
+	 * Determines variables/constants in scope for suite parameters.
+	 * 
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(Suite aSuite, EReference aRef) {
+		SuiteDefinition tempHostSuite = (SuiteDefinition) aSuite.eContainer();
+
+		return determineVariableScope(aSuite, tempHostSuite);
+	}
+
+	/**
 	 * This basically performs a default import on everything in the local file by adding another scope entry for all
 	 * suite definitions in the current file.
 	 * 

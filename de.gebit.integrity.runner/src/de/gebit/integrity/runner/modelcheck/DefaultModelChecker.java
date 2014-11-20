@@ -317,6 +317,7 @@ public class DefaultModelChecker implements ModelChecker {
 				throw new ModelRuntimeLinkException("Failed to resolve suite parameter name", tempParameter,
 						modelSourceExplorer.determineSourceInformation(tempParameter));
 			}
+			checkValueContainer(tempParameter.getValue());
 		}
 	}
 
