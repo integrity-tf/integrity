@@ -1,0 +1,34 @@
+import integrity.fixtures.basic.noop.*
+
+
+packagedef integrity.basic.visibility.suites with
+
+	suitedef publicSamePackage with
+		test echoIntegerTest integer: 1 = 1
+	suiteend
+	
+	private suitedef privateSamePackage with
+		test echoIntegerTest integer: 1 = 1
+	suiteend
+	
+
+	suitedef fail with
+		suite publicSamePackage
+		suite privateSamePackage
+		suite publicOtherPackage
+		suite privateOtherPackage
+	suiteend
+
+packageend
+
+packagedef integrity.basic.visibility.suites.other with
+
+	suitedef publicOtherPackage with
+		test echoIntegerTest integer: 1 = 1
+	suiteend
+	
+	private suitedef privateOtherPackage with
+		test echoIntegerTest integer: 1 = 1
+	suiteend
+
+packageend

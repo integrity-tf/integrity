@@ -33,6 +33,14 @@ packagedef integrity.basic.visibility.variables with
 			| publicSamePackage  | publicSamePackage  |
 			| privateSamePackage | privateSamePackage |
 			| publicOtherPackage | publicOtherPackage |
+			
+		suite subSuite suiteParameter: publicSamePackage
+		suite subSuite suiteParameter: privateSamePackage
+		suite subSuite suiteParameter: publicOtherPackage
+	suiteend
+	
+	suitedef subSuite gets suiteParameter with
+		test echoIntegerTest integer: suiteParameter = 1
 	suiteend
 
 packageend
