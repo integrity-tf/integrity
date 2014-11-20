@@ -37,6 +37,10 @@ packagedef integrity.basic.visibility.variables with
 		suite subSuite suiteParameter: publicSamePackage
 		suite subSuite suiteParameter: privateSamePackage
 		suite subSuite suiteParameter: publicOtherPackage
+		
+		call echoInteger integer: publicSamePackage -> integrity.basic.visibility.variables.publicSamePackage
+		call echoInteger integer: privateSamePackage -> integrity.basic.visibility.variables.privateSamePackage
+		call echoInteger integer: publicOtherPackage -> integrity.basic.visibility.variables.other.publicOtherPackage
 	suiteend
 	
 	suitedef subSuite gets suiteParameter with

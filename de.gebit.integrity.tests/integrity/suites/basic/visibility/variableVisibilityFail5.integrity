@@ -1,0 +1,23 @@
+import integrity.fixtures.basic.noop.*
+
+
+packagedef integrity.basic.visibility.variables with
+
+	variable publicSamePackage
+	private variable privateSamePackage
+	
+	suitedef fail5 with
+		call echoInteger integer: publicSamePackage -> integrity.basic.visibility.variables.publicSamePackage
+		call echoInteger integer: privateSamePackage -> integrity.basic.visibility.variables.privateSamePackage
+		call echoInteger integer: publicOtherPackage -> integrity.basic.visibility.variables.other.publicOtherPackage
+		call echoInteger integer: privateOtherPackage -> integrity.basic.visibility.variables.other.privateOtherPackage
+	suiteend
+
+packageend
+
+packagedef integrity.basic.visibility.variables.other with
+
+	variable publicOtherPackage
+	private variable privateOtherPackage initially 4
+
+packageend

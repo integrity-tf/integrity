@@ -130,4 +130,26 @@ public class VariableVisibility extends IntegrityJUnitTest {
 				Pattern.compile(".*?/variableVisibilityFail4.integrity:13 - Failed to resolve variable name"));
 	}
 
+	/**
+	 * Tests failing references.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testFail5() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(
+				new RunnableWithException() {
+
+					@Override
+					public void run() throws Exception {
+						executeIntegritySuite(
+								new String[] { "integrity/suites/basic/visibility/variableVisibilityFail5.integrity" },
+								"integrity.basic.visibility.variables.fail5", null);
+					}
+				}, ModelRuntimeLinkException.class, null,
+				Pattern.compile(".*?/variableVisibilityFail5.integrity:13 - Failed to resolve variable name"));
+	}
+
 }
