@@ -98,6 +98,12 @@ public class DefaultModelChecker implements ModelChecker {
 
 		String tempFixtureName = aCall.getDefinition().getName();
 		checkParameters(aCall.getParameters(), tempFixtureName);
+		if (aCall.getResult() != null) {
+			if (aCall.getResult().getName() == null || aCall.getResult().getName().getName() == null) {
+				throw new ModelRuntimeLinkException("Failed to resolve call result name", aCall.getResult(),
+						modelSourceExplorer.determineSourceInformation(aCall.getResult()));
+			}
+		}
 	}
 
 	@Override
