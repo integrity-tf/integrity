@@ -28,6 +28,7 @@
 <unit id="org.eclipse.emf.common.feature.group" version="2.10.0.v20140514-1158"/>
 <unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.10.0.v20140606-1445"/>
 <unit id="org.eclipse.emf.mwe.sdk.feature.group" version="1.3.2.v201405200714"/>
+<unit id="org.eclipse.objectteams.otredyn" version="1.0.0.201406101339"/>
 <repository location="http://build.integrity-tf.org/job/integrity_p2mirror_luna/lastSuccessfulBuild/artifact/"/>
 </location>
 </locations>
