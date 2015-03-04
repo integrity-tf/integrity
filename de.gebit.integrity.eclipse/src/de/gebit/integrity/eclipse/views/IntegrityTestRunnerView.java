@@ -132,6 +132,7 @@ import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.ui.linking.IntegrityURLResolver;
+import de.gebit.integrity.utils.DateUtil;
 
 /**
  * The Integrity Test Runner Eclipse Plugin main view.
@@ -2330,12 +2331,18 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private class RemotingListener implements IntegrityRemotingClientListener {
 
+		/**
+		 * Used to measure the connected time.
+		 */
+		private long connectionTimestamp;
+
 		@Override
 		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
 			// request set list baseline and execution state
 			anEndpoint.sendMessage(new SetListBaselineMessage(null));
 			anEndpoint.sendMessage(new ExecutionStateMessage(null));
 			updateActionStatus(client.getExecutionState());
+			connectionTimestamp = System.nanoTime();
 		}
 
 		@Override
@@ -2358,7 +2365,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 		public void onConnectionLost(Endpoint anEndpoint) {
 			client = null;
 			updateActionStatus(null);
-			updateStatusWithIntermediateTestResults("Test Runner disconnected (", ")");
+			updateStatusWithIntermediateTestResults(
+					"Test Runner disconnected (",
+					") after "
+							+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - connectionTimestamp,
+									true, false));
 		}
 
 		@Override

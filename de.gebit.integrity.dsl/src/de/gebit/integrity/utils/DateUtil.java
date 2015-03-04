@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
@@ -373,4 +374,65 @@ public final class DateUtil {
 		return tempFormat.format(aDate);
 	}
 
+	/**
+	 * Converts a duration in nanoseconds to a human-readable, nicely formatted string.
+	 * 
+	 * @param aTimespan
+	 *            the timespan in nanoseconds
+	 * @param aShortFormat
+	 *            if true, a short format for the units is chosen
+	 * @param aLongFormat
+	 *            if true, a long format for the units is chosen
+	 * @return the formatted string
+	 */
+	public static String convertNanosecondTimespanToHumanReadableFormat(long aTimespan, boolean aShortFormat,
+			boolean aLongFormat) {
+		if (aTimespan < TimeUnit.SECONDS.toMillis(1)) {
+			return aTimespan + (aShortFormat ? "ms" : aLongFormat ? " milliseconds" : "ms");
+		} else {
+			StringBuilder tempBuilder = new StringBuilder();
+
+			if (aTimespan >= TimeUnit.DAYS.toNanos(1)) {
+				tempBuilder.append(TimeUnit.NANOSECONDS.toDays(aTimespan)
+						+ (aShortFormat ? "d" : aLongFormat ? " days" : " days"));
+			}
+			if (aTimespan >= TimeUnit.HOURS.toNanos(1)) {
+				if (tempBuilder.length() > 0) {
+					tempBuilder.append(" ");
+				}
+				tempBuilder.append(TimeUnit.NANOSECONDS.toHours(aTimespan % TimeUnit.DAYS.toNanos(1))
+						+ (aShortFormat ? "h" : aLongFormat ? " hours" : "hrs"));
+			}
+			if (aTimespan >= TimeUnit.MINUTES.toNanos(1)) {
+				if (tempBuilder.length() > 0) {
+					tempBuilder.append(" ");
+				}
+				tempBuilder.append(TimeUnit.NANOSECONDS.toMinutes(aTimespan % TimeUnit.HOURS.toNanos(1))
+						+ (aShortFormat ? "m" : aLongFormat ? " minutes" : "min"));
+			}
+			if (aTimespan >= TimeUnit.SECONDS.toNanos(1)) {
+				if (tempBuilder.length() > 0) {
+					tempBuilder.append(" ");
+				}
+				tempBuilder.append(TimeUnit.NANOSECONDS.toSeconds(aTimespan % TimeUnit.MINUTES.toNanos(1))
+						+ (aShortFormat ? "s" : aLongFormat ? " seconds" : "sec"));
+			}
+			if (aTimespan >= TimeUnit.MILLISECONDS.toNanos(1) && aTimespan < TimeUnit.MINUTES.toNanos(1)) {
+				if (tempBuilder.length() > 0) {
+					tempBuilder.append(" ");
+				}
+				tempBuilder.append(TimeUnit.NANOSECONDS.toMillis(aTimespan % TimeUnit.SECONDS.toNanos(1))
+						+ (aShortFormat ? "ms" : aLongFormat ? " milliseconds" : "msecs"));
+			}
+			if (aTimespan >= 1 && aTimespan < TimeUnit.SECONDS.toNanos(1)) {
+				if (tempBuilder.length() > 0) {
+					tempBuilder.append(" ");
+				}
+				tempBuilder.append((aTimespan % TimeUnit.MILLISECONDS.toNanos(1))
+						+ (aShortFormat ? "ns" : aLongFormat ? " nanoseconds" : "ns"));
+			}
+
+			return tempBuilder.toString();
+		}
+	}
 }
