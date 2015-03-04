@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1691,7 +1694,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void updateActionStatus(final ExecutionStates anExecutionState) {
-		Runnable tempRunnable = new Runnable() {
+		Runnable tempRunnable = updateActionStatusRunnable(anExecutionState);
+		if (Display.getCurrent() != null) {
+			Display.getCurrent().syncExec(tempRunnable);
+		} else {
+			Display.getDefault().asyncExec(tempRunnable);
+		}
+	}
+
+	private Runnable updateActionStatusRunnable(final ExecutionStates anExecutionState) {
+		return new Runnable() {
 
 			@Override
 			public void run() {
@@ -1723,35 +1735,41 @@ public class IntegrityTestRunnerView extends ViewPart {
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(true);
 							stepOverAction.setEnabled(true);
-							updateStatus("Waiting for execution start");
+							updateStatusRunnable("Waiting for execution start").run();
 							break;
 						case PAUSED:
 							playAction.setEnabled(true);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(true);
 							stepOverAction.setEnabled(true);
-							updateStatusWithIntermediateTestResults("Paused test execution (", ")");
+							updateStatusRunnable(
+									determineIntermediateTestResultStatusString("Paused test execution (", ")")).run();
 							break;
 						case RUNNING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(true);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatusWithIntermediateTestResults("Running tests: ", "");
+							updateStatusRunnable(determineIntermediateTestResultStatusString("Running tests: ", ""))
+									.run();
 							break;
 						case FINALIZING:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatusWithIntermediateTestResults("Finalizing test results (", ")");
+							updateStatusRunnable(
+									determineIntermediateTestResultStatusString("Finalizing test results (", ")"))
+									.run();
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatusWithIntermediateTestResults("Test execution finished (", ")");
+							updateStatusRunnable(
+									determineIntermediateTestResultStatusString("Test execution finished (", ")"))
+									.run();
 							break;
 						default:
 							break;
@@ -1760,15 +1778,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		};
-
-		if (Display.getCurrent() != null) {
-			Display.getCurrent().syncExec(tempRunnable);
-		} else {
-			Display.getDefault().asyncExec(tempRunnable);
-		}
 	}
 
-	private void updateStatusWithIntermediateTestResults(String aPrefix, String aSuffix) {
+	private String determineIntermediateTestResultStatusString(String aPrefix, String aSuffix) {
 		StringBuilder tempBuilder = new StringBuilder(aPrefix);
 
 		if (setList != null) {
@@ -1781,7 +1793,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		tempBuilder.append(aSuffix);
-		updateStatus(tempBuilder.toString());
+		return tempBuilder.toString();
 	}
 
 	private void hideResultComposite(Composite aComposite) {
@@ -2110,15 +2122,17 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private void updateStatus(final String aStatus) {
-		Runnable tempRunnable = new Runnable() {
+		Display.getDefault().asyncExec(updateStatusRunnable(aStatus));
+	}
+
+	private Runnable updateStatusRunnable(final String aStatus) {
+		return new Runnable() {
 
 			@Override
 			public void run() {
 				treeContainer.setText(aStatus);
 			}
 		};
-
-		Display.getDefault().asyncExec(tempRunnable);
 	}
 
 	/**
@@ -2329,6 +2343,23 @@ public class IntegrityTestRunnerView extends ViewPart {
 		});
 	}
 
+	private abstract class StatusUpdateRunnable implements Runnable {
+
+		/**
+		 * Whether this update may be skipped to improve performance.
+		 */
+		private boolean skippable;
+
+		public StatusUpdateRunnable(boolean aSkippable) {
+			skippable = aSkippable;
+		}
+
+		public boolean isSkippable() {
+			return skippable;
+		}
+
+	}
+
 	private class RemotingListener implements IntegrityRemotingClientListener {
 
 		/**
@@ -2343,6 +2374,37 @@ public class IntegrityTestRunnerView extends ViewPart {
 			anEndpoint.sendMessage(new ExecutionStateMessage(null));
 			updateActionStatus(client.getExecutionState());
 			connectionTimestamp = System.nanoTime();
+
+			// Initiate the status update timer. See issue #80 and timer javadoc documentation.
+			statusUpdateTimer = new Timer("Integrity Test Runner Status Update Timer");
+			statusUpdateTimerTask = new TimerTask() {
+
+				private Timer associatedTimer = statusUpdateTimer;
+
+				@Override
+				public void run() {
+					StatusUpdateRunnable tempRunnable = statusUpdateQueue.poll();
+					if (tempRunnable == null) {
+						if (statusUpdateTimerTask != this) {
+							associatedTimer.cancel();
+						}
+						return;
+					}
+
+					StatusUpdateRunnable tempLastRunnable;
+					do {
+						tempLastRunnable = tempRunnable;
+						if (!tempLastRunnable.isSkippable()) {
+							break;
+						}
+
+						tempRunnable = statusUpdateQueue.poll();
+					} while (tempRunnable != null);
+
+					Display.getDefault().syncExec(tempLastRunnable);
+				}
+			};
+			statusUpdateTimer.scheduleAtFixedRate(statusUpdateTimerTask, 0, STATUS_UPDATE_INTERVAL);
 		}
 
 		@Override
@@ -2357,20 +2419,60 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
-		public void onExecutionStateUpdate(ExecutionStates aState, Endpoint anEndpoint) {
-			updateActionStatus(aState);
+		public void onExecutionStateUpdate(final ExecutionStates aState, Endpoint anEndpoint) {
+			statusUpdateQueue.add(new StatusUpdateRunnable(false) {
+
+				@Override
+				public void run() {
+					updateActionStatusRunnable(aState).run();
+				}
+			});
 		}
 
 		@Override
 		public void onConnectionLost(Endpoint anEndpoint) {
 			client = null;
-			updateActionStatus(null);
-			updateStatusWithIntermediateTestResults(
-					"Test Runner disconnected (",
-					") after "
-							+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - connectionTimestamp,
-									true, false));
+			statusUpdateQueue.add(new StatusUpdateRunnable(false) {
+
+				@Override
+				public void run() {
+					executionProgress.redraw();
+					updateActionStatusRunnable(null).run();
+					updateStatusRunnable(
+							determineIntermediateTestResultStatusString(
+									"Test Runner disconnected (",
+									") after "
+											+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime()
+													- connectionTimestamp, true, false))).run();
+				}
+			});
+
+			statusUpdateTimer = null;
+			statusUpdateTimerTask = null;
 		}
+
+		/**
+		 * This queue is used to queue asynchronous status display update requests (status text and execution progress
+		 * bar). Certain updates can be skipped for better performance. See issue #80.
+		 */
+		private LinkedBlockingQueue<StatusUpdateRunnable> statusUpdateQueue = new LinkedBlockingQueue<StatusUpdateRunnable>();
+
+		/**
+		 * The timer used to process status update queue entries. Gets started and stopped with Integrity test
+		 * executions.
+		 */
+		private Timer statusUpdateTimer;
+
+		/**
+		 * The task used by the {@link #statusUpdateTimer}.
+		 */
+		private TimerTask statusUpdateTimerTask;
+
+		/**
+		 * The interval in milliseconds with which the status shall be updated. Maximum number of updates per second can
+		 * directly be calculated from this.
+		 */
+		private static final int STATUS_UPDATE_INTERVAL = 200;
 
 		@Override
 		public void onSetListUpdate(final SetListEntry[] someUpdatedEntries, final Integer anEntryInExecutionReference,
@@ -2403,9 +2505,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 							treeViewer.reveal(tempExecutionPath.get(0));
 						}
 					}
+				}
+			});
 
+			final String tempStatusUpdate = determineIntermediateTestResultStatusString("Running tests: ", "");
+			statusUpdateQueue.add(new StatusUpdateRunnable(true) {
+
+				@Override
+				public void run() {
 					executionProgress.redraw();
-					updateStatusWithIntermediateTestResults("Running tests: ", "");
+					updateStatusRunnable(tempStatusUpdate).run();
 				}
 			});
 		}
