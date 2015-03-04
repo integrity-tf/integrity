@@ -46,8 +46,10 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -56,8 +58,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
@@ -860,7 +864,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		parameterSection.setClient(parameterComposite);
 		parameterComposite.setLayout(new FillLayout());
 
-		parameterTable = new TableViewer(parameterComposite);
+		parameterTable = new TableViewer(parameterComposite, SWT.FULL_SELECTION);
 		parameterTable.setContentProvider(new ArrayContentProvider());
 		configureTable(parameterTable);
 
@@ -880,7 +884,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		variableSection.setClient(variableComposite);
 		variableComposite.setLayout(new FillLayout());
 
-		variableTable = new TableViewer(variableComposite);
+		variableTable = new TableViewer(variableComposite, SWT.FULL_SELECTION);
 		variableTable.setContentProvider(new ArrayContentProvider());
 		configureTable(variableTable);
 
@@ -898,7 +902,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultTableComposite.setLayoutData(tempFormData);
 		resultTableComposite.setLayout(new FillLayout());
 
-		resultTable = new TableViewer(resultTableComposite);
+		resultTable = new TableViewer(resultTableComposite, SWT.FULL_SELECTION);
 		resultTable.setContentProvider(new ArrayContentProvider());
 		configureResultTable(resultTable);
 
@@ -911,7 +915,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		varUpdateTableComposite.setLayoutData(tempFormData);
 		varUpdateTableComposite.setLayout(new FillLayout());
 
-		varUpdateTable = new TableViewer(varUpdateTableComposite);
+		varUpdateTable = new TableViewer(varUpdateTableComposite, SWT.FULL_SELECTION);
 		varUpdateTable.setContentProvider(new ArrayContentProvider());
 		configureVarUpdateTable(varUpdateTable);
 
@@ -1084,9 +1088,33 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object anElement) {
+			public void update(ViewerCell aCell) {
+				SetListEntry tempEntry = (SetListEntry) aCell.getElement();
+				aCell.setText((String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE));
+			}
+		});
+		// Make the value column editable, mostly to be able to copy out results. See issue #77
+		tempColumn.setEditingSupport(new EditingSupport(aTable) {
+
+			@Override
+			protected void setValue(Object anElement, Object aValue) {
+				// not supported, we don't really want to support editing of result values
+			}
+
+			@Override
+			protected Object getValue(Object anElement) {
 				SetListEntry tempEntry = (SetListEntry) anElement;
 				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object anElement) {
+				return new TextCellEditor(aTable.getTable());
+			}
+
+			@Override
+			protected boolean canEdit(Object anElement) {
+				return true;
 			}
 		});
 	}
@@ -1129,9 +1157,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object anElement) {
-				SetListEntry tempEntry = (SetListEntry) anElement;
-				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+			public void update(ViewerCell aCell) {
+				SetListEntry tempEntry = (SetListEntry) aCell.getElement();
+				aCell.setText((String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE));
 			}
 
 			@Override
@@ -1147,6 +1175,30 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 		});
+		// Make the value column editable, mostly to be able to copy out results. See issue #77
+		tempColumn.setEditingSupport(new EditingSupport(aTable) {
+
+			@Override
+			protected void setValue(Object anElement, Object aValue) {
+				// not supported, we don't really want to support editing of result values
+			}
+
+			@Override
+			protected Object getValue(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object anElement) {
+				return new TextCellEditor(aTable.getTable());
+			}
+
+			@Override
+			protected boolean canEdit(Object anElement) {
+				return true;
+			}
+		});
 
 		tempColumn = new TableViewerColumn(aTable, SWT.NONE);
 		tempColumn.getColumn().setText("Expected");
@@ -1155,9 +1207,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempColumn.getColumn().setMoveable(false);
 		tempColumn.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object anElement) {
-				SetListEntry tempEntry = (SetListEntry) anElement;
-				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT);
+			public void update(ViewerCell aCell) {
+				SetListEntry tempEntry = (SetListEntry) aCell.getElement();
+				aCell.setText((String) tempEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
 			}
 
 			@Override
@@ -1171,6 +1223,30 @@ public class IntegrityTestRunnerView extends ViewPart {
 				} else {
 					return resultTableFailureColor;
 				}
+			}
+		});
+		// Make the value column editable, mostly to be able to copy out results. See issue #77
+		tempColumn.setEditingSupport(new EditingSupport(aTable) {
+
+			@Override
+			protected void setValue(Object anElement, Object aValue) {
+				// not supported, we don't really want to support editing of result values
+			}
+
+			@Override
+			protected Object getValue(Object anElement) {
+				SetListEntry tempEntry = (SetListEntry) anElement;
+				return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT);
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object anElement) {
+				return new TextCellEditor(aTable.getTable());
+			}
+
+			@Override
+			protected boolean canEdit(Object anElement) {
+				return true;
 			}
 		});
 	}
