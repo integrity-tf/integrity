@@ -424,13 +424,6 @@ public final class DateUtil {
 				tempBuilder.append(TimeUnit.NANOSECONDS.toMillis(aTimespan % TimeUnit.SECONDS.toNanos(1))
 						+ (aShortFormat ? "ms" : aLongFormat ? " milliseconds" : "msecs"));
 			}
-			if (aTimespan >= 1 && aTimespan < TimeUnit.SECONDS.toNanos(1)) {
-				if (tempBuilder.length() > 0) {
-					tempBuilder.append(" ");
-				}
-				tempBuilder.append((aTimespan % TimeUnit.MILLISECONDS.toNanos(1))
-						+ (aShortFormat ? "ns" : aLongFormat ? " nanoseconds" : "ns"));
-			}
 
 			return tempBuilder.toString();
 		}
