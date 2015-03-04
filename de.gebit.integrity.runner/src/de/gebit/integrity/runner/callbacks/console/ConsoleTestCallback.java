@@ -49,6 +49,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 
@@ -128,7 +129,7 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		tempLine += "...";
 
 		println(tempLine);
-		startTime = System.currentTimeMillis();
+		startTime = System.nanoTime();
 	}
 
 	@Override
@@ -232,8 +233,15 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		if (aResult != null) {
-			println("Finished executing " + suiteCount + " suites with " + testCount + " tests and " + callCount
-					+ " calls in " + (System.currentTimeMillis() - startTime) + " msecs!");
+			println("Finished executing "
+					+ suiteCount
+					+ " suites with "
+					+ testCount
+					+ " tests and "
+					+ callCount
+					+ " calls in "
+					+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - startTime, false,
+							false) + "!");
 
 			println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
 					+ aResult.getTestFailCount() + " failures and " + aResult.getExceptionCount() + " exceptions.");
