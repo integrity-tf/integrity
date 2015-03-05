@@ -25,6 +25,6 @@ package de.gebit.integrity.fixtures;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public abstract interface ArbitraryParameterFixture {
+public interface ArbitraryParameterFixture {
 
 }
