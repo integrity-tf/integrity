@@ -37,13 +37,6 @@
     <module name="JavadocStyle">
       <property name="severity" value="warning"/>
       <property name="checkEmptyJavadoc" value="true"/>
-      <property name="tokens" value="INTERFACE_DEF,CLASS_DEF,METHOD_DEF,CTOR_DEF"/>
-    </module>
-    <module name="JavadocStyle">
-      <property name="severity" value="warning"/>
-      <property name="checkEmptyJavadoc" value="true"/>
-      <property name="checkFirstSentence" value="false"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
     </module>
     <module name="ConstantName">
       <property name="severity" value="error"/>
@@ -52,7 +45,7 @@
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName">
       <property name="severity" value="error"/>
-      <property name="format" value="^(temp[A-Z][a-zA-Z0-9]*|it[0-9]*|i|j|k)$"/>
+      <property name="format" value="^(temp[A-Z][a-zA-Z0-9]*|it[0-9]*|i|j|k)|(exc?[0-9]*)$"/>
       <property name="tokens" value="VARIABLE_DEF"/>
     </module>
     <module name="MemberName"/>
@@ -67,7 +60,6 @@
     <module name="StaticVariableName"/>
     <module name="AvoidStarImport">
       <property name="severity" value="error"/>
-      <property name="excludes" value="de.gebit.trend.model.annotations"/>
     </module>
     <module name="LineLength">
       <property name="severity" value="ignore"/>
@@ -138,12 +130,6 @@
     <module name="TodoComment"/>
     <module name="UpperEll"/>
     <module name="MissingDeprecated"/>
-    <module name="LocalVariableName">
-      <metadata name="net.sf.eclipsecs.core.comment" value="For catch-blocks"/>
-      <property name="severity" value="error"/>
-      <property name="format" value="^(exc?[0-9]*)$"/>
-      <property name="tokens" value="PARAMETER_DEF"/>
-    </module>
     <module name="UnusedImports"/>
     <module name="OuterTypeNumber"/>
     <module name="RedundantModifier">
@@ -162,12 +148,6 @@
     <module name="FallThrough"/>
     <module name="OneStatementPerLine"/>
     <module name="ParameterAssignment"/>
-    <module name="RegexpSinglelineJava">
-      <property name="severity" value="warning"/>
-      <property name="format" value="Class\.forName\(.*\)"/>
-      <property name="message" value="Usage of Class#forName(...) discouraged, use de.gebit.trend.util.Factory#classForName(...) instead."/>
-      <property name="ignoreComments" value="true"/>
-    </module>
     <module name="IllegalImport"/>
   </module>
   <module name="SuppressionCommentFilter">
