@@ -378,6 +378,18 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
+	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+		if (!isDryRun()) {
+			System.out.print("TEST EXECUTION WAS ABORTED");
+			if (anAbortExecutionMessage != null) {
+				System.out.println(": " + anAbortExecutionMessage);
+			} else {
+				System.out.println("!");
+			}
+		}
+	}
+
+	@Override
 	public void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects) {
 		// nothing to do; this callback is not fork-aware
 	}

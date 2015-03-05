@@ -73,13 +73,19 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	/**
-	 * Removes a callback from the compound.
+	 * Removes a callback from the compound. Will cascade down to nested {@link CompoundTestRunnerCallback}s.
 	 * 
 	 * @param aCallback
 	 *            the callback to be removed
 	 */
 	public void removeCallback(TestRunnerCallback aCallback) {
-		callbacks.remove(aCallback);
+		if (!callbacks.remove(aCallback)) {
+			for (TestRunnerCallback tempCallback : callbacks) {
+				if (tempCallback instanceof CompoundTestRunnerCallback) {
+					((CompoundTestRunnerCallback) tempCallback).removeCallback(aCallback);
+				}
+			}
+		}
 	}
 
 	/**
@@ -278,6 +284,13 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	public void onVisibleDivider(String aDividerText, VisibleDivider aDividerElement) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onVisibleDivider(aDividerText, aDividerElement);
+		}
+	}
+
+	@Override
+	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onAbortExecution(anAbortExecutionMessage, anAbortExecutionStackTrace);
 		}
 	}
 

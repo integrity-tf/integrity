@@ -2,6 +2,7 @@ package de.gebit.integrity.experiments.fixtures;
 
 import java.util.Date;
 
+import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
@@ -113,6 +114,12 @@ public class AdditionFixture {
 	public boolean throwException() {
 		System.out.println("Wow!");
 		throw new RuntimeException("Holy shit!");
+	}
+
+	@FixtureMethod(description = "This always throws an abort exception. We're slightly less doomed.")
+	public boolean throwAbortException() {
+		System.out.println("Foo!");
+		throw new AbortExecutionException("Holy shit!");
 	}
 
 	@FixtureMethod(description = "returns some named results")

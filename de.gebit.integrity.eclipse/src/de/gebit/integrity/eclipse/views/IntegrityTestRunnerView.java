@@ -2559,6 +2559,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
 			// not used in this context
 		}
+
+		@Override
+		public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+			// not used in this context
+		}
 	}
 
 	private class AutoConnectThread extends Thread {

@@ -267,6 +267,8 @@ public abstract class TestRunnerCallback {
 	 */
 	public abstract void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects);
 
+	public abstract void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace);
+
 	/**
 	 * The remoting server, required for callback-to-callback communication in master-fork situations.
 	 */

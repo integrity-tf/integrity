@@ -128,4 +128,6 @@ public interface IntegrityRemotingClientListener {
 	 */
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
+	void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace);
+
 }

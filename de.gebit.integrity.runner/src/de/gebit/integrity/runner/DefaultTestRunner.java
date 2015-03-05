@@ -73,6 +73,7 @@ import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
+import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
@@ -125,6 +126,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.wrapper.AbortExecutionCauseWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -365,6 +367,13 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
 
+	/**
+	 * In case of an {@link AbortExecutionException} aborting the test execution, this exception is stored here
+	 * (actually, only the message and stack trace string are stored - this is because the data could just as well come
+	 * from a fork, in which case an exception can not be transported over the remoting connection).
+	 */
+	protected AbortExecutionCauseWrapper abortExecutionCause;
+
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
 			TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed,
@@ -495,6 +504,29 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	protected void handlePossibleAbortException(Throwable anException) {
+		if (anException instanceof AbortExecutionException && abortExecutionCause == null) {
+			abortExecutionCause = new AbortExecutionCauseWrapper((AbortExecutionException) anException);
+
+			currentCallback.onAbortExecution(abortExecutionCause.getMessage(), abortExecutionCause.getStackTrace());
+		}
+	}
+
+	protected boolean checkForAbortion() {
+		if (abortExecutionCause != null) {
+			// Remove the setlist callback from the callback chain to prevent inconsistencies due to the expected change
+			// in the execution path
+			if (setListCallback != null && (currentCallback instanceof CompoundTestRunnerCallback)) {
+				((CompoundTestRunnerCallback) currentCallback).removeCallback(setListCallback);
+				setListCallback = null;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Initializes the parameterized constants from the {@link #parameterizedConstantValues} map.
 	 */
@@ -576,6 +608,9 @@ public class DefaultTestRunner implements TestRunner {
 		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
 		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
+			if (abortExecutionCause != null) {
+				remotingServer.sendAbortMessage(abortExecutionCause.getMessage(), abortExecutionCause.getStackTrace());
+			}
 			remotingServer.updateExecutionState(ExecutionStates.FINALIZING);
 		}
 
@@ -620,6 +655,10 @@ public class DefaultTestRunner implements TestRunner {
 		List<SuiteSummaryResult> tempResults = new ArrayList<SuiteSummaryResult>();
 		for (int i = 0; i < tempCount; i++) {
 			tempResults.add(callSuiteSingle(aSuiteCall));
+
+			if (checkForAbortion()) {
+				break;
+			}
 		}
 
 		return tempResults;
@@ -723,7 +762,9 @@ public class DefaultTestRunner implements TestRunner {
 			variableManager.unset(tempParam.getName());
 		}
 
-		executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
+		if (!checkForAbortion()) {
+			executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
+		}
 
 		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults,
 				tempSetupResults, tempTearDownResults, tempSuiteDuration);
@@ -749,14 +790,23 @@ public class DefaultTestRunner implements TestRunner {
 						tempFork.getClient().createBreakpoint(null);
 					}
 
+					ForkResultSummary tempForkResultSummary = null;
 					tempSuiteDuration = System.nanoTime();
-					ForkResultSummary tempForkResultSummary = tempFork.executeNextSegment();
+					if (tempFork != null) {
+						tempForkResultSummary = tempFork.executeNextSegment();
+					}
 					tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
 					if (tempForkResultSummary != null) {
 						tempResult = new SuiteSummaryResult(tempForkResultSummary.getSuccessCount(),
 								tempForkResultSummary.getFailureCount(), tempForkResultSummary.getTestExceptionCount(),
 								tempForkResultSummary.getCallExceptionCount(), tempSuiteDuration);
+					} else {
+						if (tempFork != null && tempFork.hasAborted()) {
+							// If this happens, an abortion has happened on the fork due to an AbortExecutionException.
+							// We don't get that exception from the fork, but must create our own.
+							handlePossibleAbortException(new AbortExecutionException());
+						}
 					}
 
 					// and afterwards we'll switch back to real test mode
@@ -941,6 +991,10 @@ public class DefaultTestRunner implements TestRunner {
 							(VisibleDivider) tempStatement);
 					currentCallback.onCallbackProcessingEnd();
 				}
+			}
+
+			if (checkForAbortion()) {
+				break;
 			}
 		}
 
@@ -1221,6 +1275,7 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempException != null) {
 			tempSubResults.add(new TestExceptionSubResult(tempException, tempComparisonMap, tempFixtureInstance,
 					tempFixtureMethodName, tempDuration));
+			handlePossibleAbortException(tempException);
 		} else {
 			tempSubResults.add(new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance, tempFixtureMethodName,
 					tempDuration));
@@ -1383,6 +1438,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (tempException != null) {
 				tempSubResult = new TestExceptionSubResult(tempException, tempComparisonMap, tempFixtureInstance,
 						tempFixtureMethodName, tempDuration);
+				handlePossibleAbortException(tempException);
 			} else {
 				tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance,
 						tempFixtureMethodName, tempDuration);
@@ -1393,6 +1449,10 @@ public class DefaultTestRunner implements TestRunner {
 				currentCallback.onCallbackProcessingStart();
 				currentCallback.onTableTestRowFinish(aTest, tempRow, tempSubResult);
 				currentCallback.onCallbackProcessingEnd();
+			}
+
+			if (checkForAbortion()) {
+				break;
 			}
 		}
 
@@ -1567,6 +1627,8 @@ public class DefaultTestRunner implements TestRunner {
 
 				tempReturn = new de.gebit.integrity.runner.results.call.ExceptionResult(exc, tempUpdatedVariables,
 						tempFixtureInstance, tempFixtureMethodName, tempDuration, tempExtendedResults);
+
+				handlePossibleAbortException(exc);
 			}
 		}
 

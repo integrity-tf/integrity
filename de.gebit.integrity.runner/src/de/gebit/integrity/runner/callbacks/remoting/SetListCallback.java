@@ -520,6 +520,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		onVariableDefinitionInternal(aDefinition, aSuite, aValue);
 	}
 
+	@Override
+	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+		// not used in this context
+	}
+
 	private void onVariableDefinitionInternal(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite,
 			Object anInitialValue) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE);

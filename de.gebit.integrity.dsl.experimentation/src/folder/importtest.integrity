@@ -24,6 +24,9 @@ packagedef mypackage with
 	calldef exceptioncall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException
 	testdef exceptiontest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwException
 	
+	calldef abortexceptioncall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwAbortException
+	testdef abortexceptiontest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#throwAbortException
+	
 	testdef arbitrary uses de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture#addition
 	calldef arbitraryCall uses de.gebit.integrity.experiments.fixtures.ArbitraryParamFixture#addition
 	

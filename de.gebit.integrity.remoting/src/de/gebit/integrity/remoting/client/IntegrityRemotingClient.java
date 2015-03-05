@@ -20,6 +20,7 @@ import de.gebit.integrity.remoting.transport.MessageProcessor;
 import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
+import de.gebit.integrity.remoting.transport.messages.AbortExecutionMessage;
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
@@ -256,6 +257,14 @@ public class IntegrityRemotingClient {
 			@Override
 			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
 				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
+			}
+		});
+
+		tempMap.put(AbortExecutionMessage.class, new MessageProcessor<AbortExecutionMessage>() {
+
+			@Override
+			public void processMessage(AbortExecutionMessage aMessage, Endpoint anEndpoint) {
+				listener.onAbortExecution(aMessage.getExceptionMessage(), aMessage.getExceptionStackTrace());
 			}
 		});
 

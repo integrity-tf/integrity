@@ -1644,6 +1644,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		onVariableDefinitionInternal(aDefinition, aSuite, aValue);
 	}
 
+	@Override
+	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+		// not used in this context
+	}
+
 	/**
 	 * On variable definition internal.
 	 * 

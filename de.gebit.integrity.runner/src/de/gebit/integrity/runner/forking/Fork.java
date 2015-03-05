@@ -130,6 +130,11 @@ public class Fork {
 	private boolean ignoreVariableUpdates;
 
 	/**
+	 * Whether this fork has aborted normal test execution abnormally.
+	 */
+	private boolean hasAborted;
+
+	/**
 	 * Thread used to check the liveliness of the fork process until a connection was made.
 	 */
 	private ForkMonitor forkMonitor;
@@ -281,6 +286,10 @@ public class Fork {
 
 	public ExecutionStates getExecutionState() {
 		return executionState;
+	}
+
+	public boolean hasAborted() {
+		return hasAborted;
 	}
 
 	/**
@@ -503,6 +512,14 @@ public class Fork {
 			ignoreVariableUpdates = true;
 			forkCallback.onSetVariableValue(aVariableName, aValue, true);
 			ignoreVariableUpdates = false;
+		}
+
+		@Override
+		public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
+			hasAborted = true;
+			if (testRunnerCallback != null) {
+				testRunnerCallback.onAbortExecution(anAbortExecutionMessage, anAbortExecutionStackTrace);
+			}
 		}
 	}
 

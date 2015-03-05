@@ -21,6 +21,7 @@ import de.gebit.integrity.remoting.transport.ServerEndpoint;
 import de.gebit.integrity.remoting.transport.enums.BreakpointActions;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
+import de.gebit.integrity.remoting.transport.messages.AbortExecutionMessage;
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
@@ -176,6 +177,12 @@ public class IntegrityRemotingServer {
 	public void sendVariableUpdate(String aVariableName, Serializable aValue) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new VariableUpdateMessage(aVariableName, aValue));
+		}
+	}
+
+	public void sendAbortMessage(String anExceptionMessage, String anExceptionStackTrace) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new AbortExecutionMessage(anExceptionMessage, anExceptionStackTrace));
 		}
 	}
 
