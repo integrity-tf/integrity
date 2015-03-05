@@ -804,8 +804,8 @@ public class DefaultTestRunner implements TestRunner {
 					} else {
 						if (tempFork != null && tempFork.hasAborted()) {
 							// If this happens, an abortion has happened on the fork due to an AbortExecutionException.
-							// We don't get that exception from the fork, but must create our own.
-							handlePossibleAbortException(new AbortExecutionException());
+							// TODO make this nicer, it's kind of ugly to create a fake object with null values
+							abortExecutionCause = new AbortExecutionCauseWrapper(null, null);
 						}
 					}
 

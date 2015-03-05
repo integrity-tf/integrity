@@ -198,6 +198,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected Stack<Element> currentElement = new Stack<Element>();
 
 	/**
+	 * In case of an abortion, the message is stored here to be used later.
+	 */
+	protected String abortMessage;
+
+	/**
 	 * This prefix is used to mark temporary attributes (these are to be stripped before elements are serialized for the
 	 * final result).
 	 */
@@ -217,6 +222,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant TEST_RUN_DURATION. */
 	protected static final String TEST_RUN_DURATION = "duration";
+
+	/** The Constant TEST_RUN_ABORT_MESSAGE_ATTRIBUTE. */
+	protected static final String TEST_RUN_ABORT_MESSAGE_ATTRIBUTE = "abortMessage";
 
 	/** The Constant VARIANT_ELEMENT. */
 	protected static final String VARIANT_ELEMENT = "variant";
@@ -1444,7 +1452,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			consoleInterceptor.stopIntercept();
 		}
 
-		stackPop().setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
+		Element tempElement = stackPop();
+		tempElement.setAttribute(TEST_RUN_DURATION, nanoTimeToString(System.nanoTime() - executionStartTime));
+		if (abortMessage != null) {
+			tempElement.setAttribute(TEST_RUN_ABORT_MESSAGE_ATTRIBUTE, abortMessage);
+		}
 
 		if (!isFork()) {
 			long tempStart = System.nanoTime();
@@ -1646,7 +1658,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
-		// not used in this context
+		abortMessage = anAbortExecutionMessage;
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class AbortExecutionCauseWrapper {
 		return stackTrace;
 	}
 
-	private static String generateExceptionStackTrace(Throwable anException) {
+	public static String generateExceptionStackTrace(Throwable anException) {
 		StringWriter tempStringWriter = null;
 		PrintWriter tempPrintWriter = null;
 		try {
