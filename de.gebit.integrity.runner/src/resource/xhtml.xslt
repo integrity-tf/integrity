@@ -158,7 +158,10 @@
 					.err { color: #FF3030; font-weight: bold; }
 					.row0c { background-color: #F6F6F6; }
 					.row1c { background-color: #FFFFFF; }
-					.masterconsole { font-style: italic; }</style>
+					.masterconsole { font-style: italic; }
+					.abortmessageintro { color: #FF3030; }
+					.abortmessage { color: #FF3030; font-weight: bold; }
+					#abortmessagebig { color: #FF3030; font-weight: bold; font-size: 14pt; text-align: center; }</style>
           <script type="text/javascript">var lastSelection;
 		  
 		  function boxOrCellMouseDown() {
@@ -368,7 +371,19 @@
                   <xsl:with-param name="value" select="@duration" />
                 </xsl:call-template>
               </span>
-              to complete
+              <xsl:choose>
+              	<xsl:when test="@abortMessage">
+              		<span class="abortmessageintro">
+              			until aborted:
+              		</span>
+              		<span class="abortmessage">
+              			<xsl:value-of select="@abortMessage"/>
+              		</span>
+              	</xsl:when>
+              	<xsl:otherwise>
+              		to complete
+              	</xsl:otherwise>
+              </xsl:choose>
             </div>
             <xsl:if test="@version">
               <div align="right" class="version">
@@ -397,6 +412,11 @@
                 <xsl:call-template name="variablebox" />
               </xsl:if>
               <xsl:apply-templates select="suite" />
+              <xsl:if test="@abortMessage">
+              	<div id="abortmessagebig">
+              		<xsl:value-of select="concat('Execution was aborted prematurely: ', @abortMessage)" />
+              	</div>
+              </xsl:if>
             </div>
           </div>
         </body>
