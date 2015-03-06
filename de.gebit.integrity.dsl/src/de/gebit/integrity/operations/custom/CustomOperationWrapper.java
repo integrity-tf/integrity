@@ -48,7 +48,7 @@ public class CustomOperationWrapper {
 	private ValueConverter valueConverter;
 
 	/**
-	 * The Guice injector
+	 * The Guice injector.
 	 */
 	@Inject
 	private Injector injector;

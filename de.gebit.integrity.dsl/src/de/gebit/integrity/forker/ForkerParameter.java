@@ -13,7 +13,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 
+ * This annotation is used similar like {@link de.gebit.integrity.fixtures.FixtureParameter}, just for forkers. Forkers
+ * can designate parameters in their constructor with this annotation. These will then be offered when that forker class
+ * is referenced in a forkdef structure.
  * 
  * @author Rene Schneider - initial API and implementation
  * 

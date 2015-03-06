@@ -78,7 +78,7 @@ public class FormattedStringElement extends AbstractFormattedStringElement {
 	}
 
 	/**
-	 * 
+	 * Several formatting choices for text.
 	 * 
 	 * 
 	 * @author Rene Schneider - initial API and implementation
