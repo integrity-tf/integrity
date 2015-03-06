@@ -267,6 +267,17 @@ public abstract class TestRunnerCallback {
 	 */
 	public abstract void onMessageFromFork(TestRunnerCallbackMethods aMethod, Serializable... someObjects);
 
+	/**
+	 * Called when test execution is aborted prematurely due to an
+	 * {@link de.gebit.integrity.exceptions.AbortExecutionException} - either thrown locally or by a fork. The original
+	 * exception can't be provided since it cannot be received from a fork by remoting. Instead, the data from the
+	 * exception is provided in both cases.
+	 * 
+	 * @param anAbortExecutionMessage
+	 *            the message from the exception
+	 * @param anAbortExecutionStackTrace
+	 *            the stack trace of the exception
+	 */
 	public abstract void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace);
 
 	/**

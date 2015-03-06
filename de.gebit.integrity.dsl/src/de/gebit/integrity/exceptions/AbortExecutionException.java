@@ -8,7 +8,12 @@
 package de.gebit.integrity.exceptions;
 
 /**
- *
+ * This special runtime exception can be thrown from fixture methods in order to trigger an immediate abortion of
+ * Integrity test execution. Generally, test execution is deterministic and all tests/calls must run through. Simply
+ * killing the process by calling System.exit() or similar isn't such a good idea, because in that case, no test result
+ * will be written, as the test runner does never reach that part of test execution. This exception is the solution for
+ * this problem: just throw it from a fixture method if you want to have Integrity cancel further test execution. It
+ * will also work fine if this is thrown in a fork - test execution on the master is killed as well in this case.
  *
  * @author Rene Schneider - initial API and implementation
  *

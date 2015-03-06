@@ -14,22 +14,44 @@ import java.io.StringWriter;
 import de.gebit.integrity.exceptions.AbortExecutionException;
 
 /**
- *
+ * This wrapper is used to store the information from an {@link AbortExecutionException}. The exception cannot be
+ * transmitted over the remoting, since it cannot be guaranteed to match between versions for serialization purposes.
+ * Instead, the important information is extracted out of it and wrapped inside this object.
  *
  * @author Rene Schneider - initial API and implementation
  *
  */
 public class AbortExecutionCauseWrapper {
 
+	/**
+	 * The message.
+	 */
 	private String message;
 
+	/**
+	 * The stack trace (as a string).
+	 */
 	private String stackTrace;
 
+	/**
+	 * Creates an instance from the raw data.
+	 * 
+	 * @param aMessage
+	 *            the message
+	 * @param aStackTrace
+	 *            the stack trace string
+	 */
 	public AbortExecutionCauseWrapper(String aMessage, String aStackTrace) {
 		message = aMessage;
 		stackTrace = aStackTrace;
 	}
 
+	/**
+	 * Creates an instance from the exception itself.
+	 * 
+	 * @param anException
+	 *            the exception to use as a base
+	 */
 	public AbortExecutionCauseWrapper(AbortExecutionException anException) {
 		message = anException.getMessage();
 		stackTrace = generateExceptionStackTrace(anException);
@@ -43,7 +65,7 @@ public class AbortExecutionCauseWrapper {
 		return stackTrace;
 	}
 
-	public static String generateExceptionStackTrace(Throwable anException) {
+	private static String generateExceptionStackTrace(Throwable anException) {
 		StringWriter tempStringWriter = null;
 		PrintWriter tempPrintWriter = null;
 		try {

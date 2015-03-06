@@ -288,6 +288,11 @@ public class Fork {
 		return executionState;
 	}
 
+	/**
+	 * Returns true if the fork was aborted due to an {@link de.gebit.integrity.exceptions.AbortExecutionException}.
+	 * 
+	 * @return true if test execution was aborted on the fork
+	 */
 	public boolean hasAborted() {
 		return hasAborted;
 	}

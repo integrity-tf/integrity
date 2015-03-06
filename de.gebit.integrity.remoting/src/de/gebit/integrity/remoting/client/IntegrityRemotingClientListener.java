@@ -128,6 +128,14 @@ public interface IntegrityRemotingClientListener {
 	 */
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
+	/**
+	 * Called when the server has hit an AbortExecutionException aborting further test execution.
+	 * 
+	 * @param anAbortExecutionMessage
+	 *            The message of the AbortExecutionException
+	 * @param anAbortExecutionStackTrace
+	 *            The stacktrace of the AbortExecutionException
+	 */
 	void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace);
 
 }

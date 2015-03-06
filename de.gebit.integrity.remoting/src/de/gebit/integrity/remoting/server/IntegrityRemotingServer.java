@@ -180,6 +180,12 @@ public class IntegrityRemotingServer {
 		}
 	}
 
+	/**
+	 * Transmits an abortion message.
+	 * 
+	 * @param anExceptionMessage
+	 * @param anExceptionStackTrace
+	 */
 	public void sendAbortMessage(String anExceptionMessage, String anExceptionStackTrace) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new AbortExecutionMessage(anExceptionMessage, anExceptionStackTrace));

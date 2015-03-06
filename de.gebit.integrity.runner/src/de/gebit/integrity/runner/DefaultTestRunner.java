@@ -504,6 +504,12 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * If the exception provided is an {@link AbortExecutionException}, this method performs the necessary steps to
+	 * enter "abort" mode locally.
+	 * 
+	 * @param anException
+	 */
 	protected void handlePossibleAbortException(Throwable anException) {
 		if (anException instanceof AbortExecutionException && abortExecutionCause == null) {
 			abortExecutionCause = new AbortExecutionCauseWrapper((AbortExecutionException) anException);
@@ -512,6 +518,15 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * Checks whether an {@link AbortExecutionException} has been thrown (either locally or by a fork). This is
+	 * determined by looking at {@link #abortExecutionCause}. This method does NOT only check something, but also
+	 * ensures that the {@link #setListCallback} is also removed from the current callback hierarchy - a very important
+	 * step, since after this method has returned true for the first time, a different execution path than normally is
+	 * expected, which would cause the set list callback to throw an inconsistency exception.
+	 * 
+	 * @return
+	 */
 	protected boolean checkForAbortion() {
 		if (abortExecutionCause != null) {
 			// Remove the setlist callback from the callback chain to prevent inconsistencies due to the expected change
