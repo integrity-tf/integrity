@@ -8,7 +8,8 @@
 package de.gebit.integrity.remoting.transport.enums;
 
 /**
- * 
+ * An enum list of all TestRunnerCallback methods. Being used by certain callbacks to communicate between fork and
+ * master.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -53,5 +54,7 @@ public enum TestRunnerCallbackMethods {
 	VISIBLE_COMMENT,
 
 	VISIBLE_DIVIDER,
+
+	ABORT_EXECUTION
 
 }
