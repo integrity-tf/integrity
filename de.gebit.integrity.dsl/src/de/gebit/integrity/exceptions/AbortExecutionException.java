@@ -24,7 +24,7 @@ public class AbortExecutionException extends RuntimeException {
 	 * Creates a new instance.
 	 */
 	public AbortExecutionException() {
-		super();
+		super("Aborted due to unknown reason"); // null message not allowed
 	}
 
 	/**
