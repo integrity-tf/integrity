@@ -135,8 +135,11 @@ public abstract class IntegrityJUnitTest {
 
 		removeDurationsAndTimes(aDoc.getRootElement());
 		removeObjectIDs(aDoc.getRootElement());
+		rempveStackTraces(aDoc.getRootElement());
+
 		removeDurationsAndTimes(tempRef.getRootElement());
 		removeObjectIDs(tempRef.getRootElement());
+		rempveStackTraces(tempRef.getRootElement());
 
 		ByteArrayOutputStream tempDocStream = new ByteArrayOutputStream();
 		ByteArrayOutputStream tempRefStream = new ByteArrayOutputStream();
@@ -200,6 +203,19 @@ public abstract class IntegrityJUnitTest {
 		for (Object tempChild : anElement.getChildren()) {
 			if (tempChild instanceof Element) {
 				removeDurationsAndTimes((Element) tempChild);
+			}
+		}
+	}
+
+	private void rempveStackTraces(Element anElement) throws JDOMException {
+		Attribute tempTrace = anElement.getAttribute("exceptionTrace");
+		if (tempTrace != null) {
+			tempTrace.setValue("STACKTRACE");
+		}
+
+		for (Object tempChild : anElement.getChildren()) {
+			if (tempChild instanceof Element) {
+				rempveStackTraces((Element) tempChild);
 			}
 		}
 	}

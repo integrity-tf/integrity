@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
@@ -168,6 +169,16 @@ public class NoOpFixture {
 		tempResult.setThirdParameter(Enum.VALUE1);
 
 		return tempResult;
+	}
+
+	@FixtureMethod(description = "Throws a runtime exception")
+	public boolean throwRuntimeException(@FixtureParameter(name = "message") String aMessage) {
+		throw new RuntimeException(aMessage);
+	}
+
+	@FixtureMethod(description = "Throws an abortion exception")
+	public boolean throwAbortException(@FixtureParameter(name = "message") String aMessage) {
+		throw new AbortExecutionException(aMessage);
 	}
 
 	public enum Enum {

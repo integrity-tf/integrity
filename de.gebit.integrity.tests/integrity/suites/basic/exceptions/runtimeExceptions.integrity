@@ -1,0 +1,17 @@
+packagedef integrity.basic.exceptions.runtimeExceptions with
+
+	suitedef runtimeExceptionInTest with		
+		test integrity.fixtures.basic.noop.throwRuntimeExceptionTest message: "This is a runtime exception in a test"	
+	suiteend
+	
+	suitedef runtimeExceptionInTableTest with		
+		tabletest integrity.fixtures.basic.noop.throwRuntimeExceptionTest 
+			| message                                      |
+			| "This is a runtime exception in a tabletest" |	
+	suiteend
+	
+	suitedef runtimeExceptionInCall with		
+		call integrity.fixtures.basic.noop.throwRuntimeException message: "This is a runtime exception in a call"	
+	suiteend
+
+packageend

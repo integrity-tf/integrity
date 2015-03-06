@@ -77,5 +77,10 @@ packagedef integrity.fixtures.basic.noop with
 	calldef takeMandatoryPrimitiveInt uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryPrimitiveInt
 	testdef takeMandatoryPrimitiveIntTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryPrimitiveInt
 	
+	calldef throwRuntimeException uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwRuntimeException
+	testdef throwRuntimeExceptionTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwRuntimeException
+	calldef throwAbortException uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwAbortException
+	testdef throwAbortExceptionTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwAbortException
+	
 
 packageend
