@@ -660,10 +660,10 @@ public class DefaultTestRunner implements TestRunner {
 								UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
-				throw new ThisShouldNeverHappenException();
+				throw new ThisShouldNeverHappenException(exc);
 			} catch (UnexecutableException exc) {
 				// should never happen, since constant values are not allowed to be unexecuted operations
-				throw new ThisShouldNeverHappenException();
+				throw new ThisShouldNeverHappenException(exc);
 			}
 		}
 
@@ -1530,10 +1530,10 @@ public class DefaultTestRunner implements TestRunner {
 								UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
-				throw new ThisShouldNeverHappenException();
+				throw new ThisShouldNeverHappenException(exc);
 			} catch (UnexecutableException exc) {
 				// should never happen, since constant values are not allowed to be unexecuted operations
-				throw new ThisShouldNeverHappenException();
+				throw new ThisShouldNeverHappenException(exc);
 			}
 		}
 

@@ -145,7 +145,7 @@ public abstract class AbstractTestRunnerCallback extends TestRunnerCallback {
 			try {
 				return containsNestedObject(valueConverter.convertValue(null, aValue, null));
 			} catch (UnresolvableVariableException exc) {
-				throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null");
+				throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null", exc);
 			} catch (UnexecutableException exc) {
 				// ignored here
 			}

@@ -26,10 +26,22 @@ public class ThisShouldNeverHappenException extends IllegalStateException {
 
 	/**
 	 * The standard constructor. If you don't really need to customize the message, just use this one.
+	 * 
 	 */
 	public ThisShouldNeverHappenException() {
+		this((Throwable) null);
+	}
+
+	/**
+	 * The standard constructor. If you don't really need to customize the message, just use this one.
+	 * 
+	 * @param aTriggerException
+	 *            the exception causing this exception
+	 */
+	public ThisShouldNeverHappenException(Throwable aTriggerException) {
 		super("Congratulations - you have reached a state that should have been impossible to reach! "
-				+ "This is most likely a serious bug in Integrity, please report it so it can be fixed.");
+				+ "This is most likely a serious bug in Integrity, please report it so it can be fixed.",
+				aTriggerException);
 	}
 
 	/**
@@ -39,7 +51,19 @@ public class ThisShouldNeverHappenException extends IllegalStateException {
 	 *            the message
 	 */
 	public ThisShouldNeverHappenException(String aMessage) {
-		super(aMessage);
+		this(aMessage, null);
+	}
+
+	/**
+	 * A constructor for a custom message.
+	 * 
+	 * @param aMessage
+	 *            the message
+	 * @param aTriggerException
+	 *            the exception causing this exception
+	 */
+	public ThisShouldNeverHappenException(String aMessage, Throwable aTriggerException) {
+		super(aMessage, aTriggerException);
 	}
 
 }

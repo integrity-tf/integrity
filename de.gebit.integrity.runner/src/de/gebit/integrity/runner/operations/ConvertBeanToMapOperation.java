@@ -48,7 +48,7 @@ public class ConvertBeanToMapOperation implements Operation<Object, Object, Map<
 		try {
 			return (Map<String, Object>) valueConverter.convertValue(Map.class, aParameter, null);
 		} catch (UnresolvableVariableException exc) {
-			throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null");
+			throw new ThisShouldNeverHappenException("Unresolvable variables should be resolved to null", exc);
 		} catch (UnexecutableException exc) {
 			throw new RuntimeException(exc);
 		}
