@@ -1,0 +1,95 @@
+packagedef integrity.basic.exceptions.abortExceptions with
+
+	suitedef abortExceptionInTest with		
+		call integrity.fixtures.basic.noop.noOp
+		test integrity.fixtures.basic.noop.throwAbortExceptionTest message: "This is an abort exception in a test"	
+	suiteend
+	
+	
+	suitedef abortExceptionInTestNested with		
+		suite innerAbortExceptionInTestNested
+	suiteend
+	
+	suitedef innerAbortExceptionInTestNested with
+		call integrity.fixtures.basic.noop.noOp
+		test integrity.fixtures.basic.noop.throwAbortExceptionTest message: "This is an abort exception in a test"
+	suiteend
+	
+	
+	suitedef abortExceptionInTestNestedWithMoreStuffBehind with		
+		suite innerAbortExceptionInTestNestedWithMoreStuffBehind
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore
+	suiteend
+	
+	suitedef innerAbortExceptionInTestNestedWithMoreStuffBehind with		
+		call integrity.fixtures.basic.noop.noOp
+		test integrity.fixtures.basic.noop.throwAbortExceptionTest message: "This is an abort exception in a test"
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore		
+	suiteend
+	
+	
+	
+	suitedef abortExceptionInTableTest with		
+		call integrity.fixtures.basic.noop.noOp
+		tabletest integrity.fixtures.basic.noop.throwAbortExceptionTest 
+		| message                                     |
+		| "This is an abort exception in a tabletest" |	
+	suiteend
+	
+	
+	suitedef abortExceptionInTableTestNested with		
+		suite innerAbortExceptionInTableTestNested
+	suiteend
+	
+	suitedef innerAbortExceptionInTableTestNested with
+		call integrity.fixtures.basic.noop.noOp
+		tabletest integrity.fixtures.basic.noop.throwAbortExceptionTest 
+		| message                                     |
+		| "This is an abort exception in a tabletest" |	
+	suiteend
+	
+	
+	suitedef abortExceptionInTableTestNestedWithMoreStuffBehind with		
+		suite innerAbortExceptionInTableTestNestedWithMoreStuffBehind
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore
+	suiteend
+	
+	suitedef innerAbortExceptionInTableTestNestedWithMoreStuffBehind with		
+		call integrity.fixtures.basic.noop.noOp
+		tabletest integrity.fixtures.basic.noop.throwAbortExceptionTest 
+		| message                                     |
+		| "This is an abort exception in a tabletest" |	
+		
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore		
+	suiteend
+	
+	
+	
+	suitedef abortExceptionInCall with		
+		call integrity.fixtures.basic.noop.noOp
+		call integrity.fixtures.basic.noop.throwAbortException message: "This is an abort exception in a call"
+	suiteend
+	
+	
+	suitedef abortExceptionInCallNested with		
+		suite innerAbortExceptionInCallNested
+	suiteend
+	
+	suitedef innerAbortExceptionInCallNested with
+		call integrity.fixtures.basic.noop.noOp
+		call integrity.fixtures.basic.noop.throwAbortException message: "This is an abort exception in a call"
+	suiteend
+	
+	
+	suitedef abortExceptionInCallNestedWithMoreStuffBehind with		
+		suite innerAbortExceptionInCallNestedWithMoreStuffBehind
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore
+	suiteend
+	
+	suitedef innerAbortExceptionInCallNestedWithMoreStuffBehind with		
+		call integrity.fixtures.basic.noop.noOp
+		call integrity.fixtures.basic.noop.throwAbortException message: "This is an abort exception in a call"
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore		
+	suiteend
+
+packageend
