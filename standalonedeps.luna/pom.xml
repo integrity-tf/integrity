@@ -9,7 +9,7 @@
   </parent>
   
   <artifactId>integrity-standalone-dependencies-luna</artifactId>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>Integrity Standalone Dependencies - Luna</name>
   
   <build>
