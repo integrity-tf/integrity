@@ -127,6 +127,16 @@ public class AdditionFixture {
 		return new NamedResultContainer(aParam, 100);
 	}
 
+	@FixtureMethod()
+	public TestEnum returnFixedEnum() {
+		return TestEnum.VALUE_ONE;
+	}
+
+	@FixtureMethod()
+	public TestEnum returnEnum(@FixtureParameter(name = "enum") TestEnum anEnum) {
+		return anEnum;
+	}
+
 	private void pause() {
 		try {
 			Thread.sleep(1000);
