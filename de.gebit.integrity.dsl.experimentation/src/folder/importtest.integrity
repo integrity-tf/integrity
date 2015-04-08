@@ -55,6 +55,13 @@ packagedef mypackage with
 	calldef extendedResult uses de.gebit.integrity.experiments.fixtures.ExtendedResultTestFixture#returnExtendedStuff
 	testdef extendedResultTest uses de.gebit.integrity.experiments.fixtures.ExtendedResultTestFixture#returnExtendedStuff
 	
+	calldef returnEnumCall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnEnum
+	testdef returnEnumTest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnEnum
+	
+	calldef returnFixedEnumCall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnFixedEnum
+	testdef returnFixedEnumTest uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnFixedEnum
+	
+	
 	variable dummy initially 2
 
 packageend

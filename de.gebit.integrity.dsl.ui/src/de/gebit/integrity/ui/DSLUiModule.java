@@ -14,6 +14,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.formatting.IWhitespaceInformationProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities;
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
@@ -21,6 +22,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeI
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 
+import de.gebit.integrity.ui.contentassist.DSLContentProposalPriorities;
 import de.gebit.integrity.ui.contentassist.IntegrityPrefixMatcher;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectDocumentationProvider;
 import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
@@ -145,4 +147,12 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 		return DSLWhitespaceInformationProvider.class;
 	}
 
+	/**
+	 * Defines the {@link IContentProposalPriorities} implementation.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IContentProposalPriorities> bindContentProposalPriorities() {
+		return DSLContentProposalPriorities.class;
+	}
 }
