@@ -8,6 +8,7 @@
 package de.gebit.integrity.ui.contentassist;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.internal.text.html.BrowserInformationControl;
 import org.eclipse.jface.resource.JFaceResources;
@@ -25,9 +26,11 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * A context-aware configurable completion proposal. This proposal knows its content assist context and uses this in
@@ -58,6 +61,21 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 	 * Whether to use a HTML browser window to display the proposal info, if possible.
 	 */
 	private boolean useHtmlAdditionalProposalInfo;
+
+	/**
+	 * The additional proposal info object. Stored here because the superclass one is private.
+	 */
+	private Object additionalProposalInfoObject;
+
+	/**
+	 * The resolved {@link #additionalProposalInfoObject} is cached here.
+	 */
+	private EObject resolvedAdditionalProposalInfoObject;
+
+	/**
+	 * The context resource. Stored here because the superclass one is private.
+	 */
+	private Resource proposalContextResource;
 
 	public void setUseHtmlAdditionalProposalInfo(boolean aUseHtmlAdditionalProposalInfoFlag) {
 		this.useHtmlAdditionalProposalInfo = aUseHtmlAdditionalProposalInfoFlag;
@@ -111,7 +129,43 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 			setReplacementString(tempReplacementStringParts[tempReplacementStringParts.length - 1]);
 		}
 
+		additionalProposalInfoObject = tempAdditionalProposalInfo;
 		super.setAdditionalProposalInfo(tempAdditionalProposalInfo);
+	}
+
+	@Override
+	public void setProposalContextResource(Resource aContextResource) {
+		proposalContextResource = aContextResource;
+		super.setProposalContextResource(aContextResource);
+	}
+
+	/**
+	 * Returns the additional proposal info object, if possible. This only returns the plain object (but attempts to
+	 * resolve it, if necessary).
+	 * 
+	 * @return the object or null
+	 */
+	public EObject getAdditionalProposalInfoObject() {
+		if (resolvedAdditionalProposalInfoObject == null) {
+			EObject tempResult = null;
+			if (additionalProposalInfoObject instanceof EObject) {
+				tempResult = (EObject) additionalProposalInfoObject;
+			} else {
+				if (additionalProposalInfoObject instanceof Provider) {
+					Object tempObject = ((Provider<?>) additionalProposalInfoObject).get();
+					if (tempObject instanceof EObject) {
+						tempResult = (EObject) tempObject;
+					}
+				}
+			}
+			if (tempResult != null && tempResult.eIsProxy()) {
+				tempResult = EcoreUtil.resolve(tempResult, proposalContextResource);
+			}
+
+			resolvedAdditionalProposalInfoObject = tempResult;
+		}
+
+		return resolvedAdditionalProposalInfoObject;
 	}
 
 	private boolean requiresResolvingForContentAssist(EObject anObject) {
@@ -140,5 +194,43 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 			// just use the default
 			return super.getInformationControlCreator();
 		}
+	}
+
+	/**
+	 * Checks whether the proposed element is in the "local" suite.
+	 * 
+	 * @return
+	 */
+	public boolean isReferencingObjectInLocalSuite() {
+		if (getAdditionalProposalInfoObject() != null) {
+			SuiteDefinition tempContainingSuite = IntegrityDSLUtil.findUpstreamContainer(SuiteDefinition.class,
+					(EObject) getAdditionalProposalInfoObject());
+			if (tempContainingSuite != null) {
+				SuiteDefinition tempCurrentSuite = IntegrityDSLUtil.findUpstreamContainer(SuiteDefinition.class,
+						context.getCurrentModel());
+				return tempCurrentSuite == tempContainingSuite;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks whether the proposed element is in the "local" package.
+	 * 
+	 * @return
+	 */
+	public boolean isReferencingObjectInLocalPackage() {
+		if (getAdditionalProposalInfoObject() != null) {
+			PackageDefinition tempContainingPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+					(EObject) getAdditionalProposalInfoObject());
+			if (tempContainingPackage != null) {
+				PackageDefinition tempCurrentPackage = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class,
+						context.getCurrentModel());
+				return tempCurrentPackage == tempContainingPackage;
+			}
+		}
+
+		return false;
 	}
 }
