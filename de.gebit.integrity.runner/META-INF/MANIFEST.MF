@@ -29,7 +29,7 @@ Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.variables,
  de.gebit.integrity.runner.wrapper,
  de.gebit.integrity.utils
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0",
  org.jdom;version="1.0.0",

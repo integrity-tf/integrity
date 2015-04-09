@@ -35,7 +35,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.ui,
  org.eclipse.ui.plugin,
  org.osgi.framework;version="1.6.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: de.gebit.integrity.ui,
  de.gebit.integrity.ui.contentassist,
  de.gebit.integrity.ui.contentassist.antlr,
