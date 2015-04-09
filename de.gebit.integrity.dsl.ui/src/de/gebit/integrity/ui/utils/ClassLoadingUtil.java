@@ -7,7 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.ui.utils;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -86,14 +86,13 @@ public final class ClassLoadingUtil {
 				}
 				ClassLoader tempParentClassLoader = ClassLoadingUtil.class.getClassLoader();
 				URL[] tempUrls = (URL[]) tempUrlList.toArray(new URL[tempUrlList.size()]);
-				URLClassLoader tempClassLoader = new URLClassLoader(tempUrls, tempParentClassLoader);
-				tempClass = tempClassLoader.loadClass(aClassName);
-				if (tempClass != null) {
-					classCache.put(aClassName, tempClass);
+				try (URLClassLoader tempClassLoader = new URLClassLoader(tempUrls, tempParentClassLoader)) {
+					tempClass = tempClassLoader.loadClass(aClassName);
+					if (tempClass != null) {
+						classCache.put(aClassName, tempClass);
+					}
 				}
-			} catch (CoreException exc) {
-				exc.printStackTrace();
-			} catch (MalformedURLException exc) {
+			} catch (CoreException | IOException exc) {
 				exc.printStackTrace();
 			}
 		}
