@@ -34,8 +34,10 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
+import org.eclipse.xtext.common.types.JvmVoid;
 import org.eclipse.xtext.common.types.util.jdt.IJavaElementFinder;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
@@ -1186,6 +1188,41 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				return anAcceptor.canAcceptMoreProposals();
 			}
 
+		});
+	}
+
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
+	public void completeMethodReference_Method(EObject aModel, Assignment anAssignment,
+			final ContentAssistContext aContext, final ICompletionProposalAcceptor anAcceptor) {
+		super.completeMethodReference_Method(aModel, anAssignment, aContext, new ICompletionProposalAcceptor() {
+
+			@Override
+			public boolean canAcceptMoreProposals() {
+				return anAcceptor.canAcceptMoreProposals();
+			}
+
+			@Override
+			public void accept(ICompletionProposal aProposal) {
+				if (aContext.getCurrentModel() instanceof MethodReference) {
+					MethodReference tempRef = (MethodReference) aContext.getCurrentModel();
+
+					if (tempRef.eContainer() instanceof TestDefinition) {
+						if (aProposal instanceof IntegrityConfigurableCompletionProposal) {
+							JvmOperation tempOperation = (JvmOperation) ((IntegrityConfigurableCompletionProposal) aProposal)
+									.getAdditionalProposalInfoObject();
+							JvmTypeReference tempReturnType = tempOperation.getReturnType();
+							if (tempReturnType != null && tempReturnType.getType() instanceof JvmVoid) {
+								// This is a reference to a method which returns nothing. Filter these out!
+								return;
+							}
+						}
+					}
+				}
+
+				// Not filtered: add this proposal
+				anAcceptor.accept(aProposal);
+			}
 		});
 	}
 
