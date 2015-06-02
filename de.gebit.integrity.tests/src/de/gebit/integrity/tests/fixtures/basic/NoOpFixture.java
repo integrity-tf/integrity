@@ -139,6 +139,19 @@ public class NoOpFixture {
 		return anIntToEcho != null ? anIntToEcho.toString() : aStringToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the {integer?integer $integer$ {^string?and no string}{string?and string '$string$'}!}{^integer?{string?string '$string$' and no integer}.} Cool, huh?")
+	public String echoIntegerAndOrString(@FixtureParameter(name = "integer") Integer anIntToEcho,
+			@FixtureParameter(name = "string") String aStringToEcho) {
+		String tempToEcho = "";
+		if (anIntToEcho != null) {
+			tempToEcho += anIntToEcho.toString();
+		}
+		if (aStringToEcho != null) {
+			tempToEcho += aStringToEcho;
+		}
+		return tempToEcho;
+	}
+
 	@FixtureMethod(description = "Takes one mandatory and an optional string")
 	public boolean takeMandatoryString(@FixtureParameter(name = "optional") String anOptionalParameter,
 			@FixtureParameter(name = "mandatory", mandatory = true) String aMandatoryParameter) {

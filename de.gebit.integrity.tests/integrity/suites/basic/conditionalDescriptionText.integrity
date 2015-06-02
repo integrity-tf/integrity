@@ -28,5 +28,16 @@ packagedef integrity.basic with
 		test integrity.fixtures.basic.noop.echoIntegerOrStringTest integer: integer string: string = 123
 	
 	suiteend
+	
+	
+	suitedef conditionalDescriptionTextNested with
+	
+		test integrity.fixtures.basic.noop.echoIntegerAndOrStringTest string: "abc" = "abc"
+		
+		test integrity.fixtures.basic.noop.echoIntegerAndOrStringTest integer: 123 = "123"
+		
+		test integrity.fixtures.basic.noop.echoIntegerAndOrStringTest string: "abc" integer: 123 = "123abc"
+	
+	suiteend
 
 packageend
