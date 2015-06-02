@@ -47,11 +47,6 @@ public class TestFormatter {
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
 
 	/**
-	 * Escape pattern for conditional text blocks in descriptions.
-	 */
-	private static final Pattern CONDITIONAL_BLOCK_PATTERN = Pattern.compile("^(.*)\\{(\\^?)([^?]+)\\?([^}]*)\\}(.*)$");
-
-	/**
 	 * The classloader to use.
 	 */
 	@Inject
@@ -225,7 +220,15 @@ public class TestFormatter {
 	}
 
 	/**
-	 * Replaces all blocks of conditional text, according to the {@link #CONDITIONAL_BLOCK_PATTERN}.
+	 * Replaces all blocks of conditional text. The syntax for these looks like this:<<br>
+	 * <br>
+	 * {someParameterName?some conditional text} or {^someParameterName?some conditional text}<br>
+	 * <br>
+	 * The first statement prints 'some conditional text' if the parameter 'someParameterName' is set to a value. The
+	 * latter prints the text if the parameter is NOT set to a value (negation of the first example).<br>
+	 * <br>
+	 * Parameters may be used in the text itself according to the {@link #PARAMETER_PATTERN}. Conditional statements may
+	 * be nested.
 	 * 
 	 * @param anInput
 	 *            the text to start with
@@ -234,36 +237,66 @@ public class TestFormatter {
 	 * @return the resulting text
 	 */
 	protected String replaceConditionalTextBlocks(String anInput, Map<String, Object> someParameters) {
-		String tempString = anInput;
+		int tempStart = -1;
+		int tempEnd = -1;
+		int tempNestingCount = 0;
+		for (int i = 0; i < anInput.length(); i++) {
+			char tempChar = anInput.charAt(i);
 
-		Matcher tempMatcher = CONDITIONAL_BLOCK_PATTERN.matcher(tempString);
-		while (tempMatcher.matches()) {
-			String tempPrefix = tempMatcher.group(1);
-			String tempInverter = tempMatcher.group(2);
-			String tempParameterName = tempMatcher.group(3);
-			String tempBlockText = tempMatcher.group(4);
-			String tempSuffix = tempMatcher.group(5);
-
-			// Fix for issue #41: Conditional fixture description parts are not correctly chosen in some situations
-			boolean tempParameterConsideredPresent = false;
-			if (someParameters.containsKey(tempParameterName)) {
-				Object tempParameterValue = someParameters.get(tempParameterName);
-				tempParameterConsideredPresent = tempParameterValue != null
-						&& tempParameterValue != UnresolvableVariable.getInstance();
+			if (tempChar == '{') {
+				if (tempStart == -1) {
+					tempStart = i;
+				} else {
+					tempNestingCount++;
+				}
+			} else if (tempChar == '}') {
+				if (tempNestingCount == 0) {
+					tempEnd = i;
+					break;
+				} else {
+					tempNestingCount--;
+				}
 			}
-			boolean tempInversion = (tempInverter.length() > 0);
-
-			if ((!tempInversion && tempParameterConsideredPresent)
-					|| (tempInversion && !tempParameterConsideredPresent)) {
-				tempString = tempPrefix + tempBlockText + tempSuffix;
-			} else {
-				tempString = tempPrefix + tempSuffix;
-			}
-
-			tempMatcher = CONDITIONAL_BLOCK_PATTERN.matcher(tempString);
 		}
 
-		return tempString;
+		if (tempStart >= 0) {
+			if (tempEnd >= 0) {
+				String tempBlock = anInput.substring(tempStart + 1, tempEnd);
+				int tempDivider = tempBlock.indexOf('?');
+
+				if (tempDivider >= 0) {
+					String tempParameterName = tempBlock.substring(0, tempDivider);
+					String tempBlockText = tempBlock.substring(tempDivider + 1);
+
+					boolean tempInversion = false;
+					if (tempParameterName.startsWith("^")) {
+						tempParameterName = tempParameterName.substring(1);
+						tempInversion = true;
+					}
+
+					String tempPrefix = anInput.substring(0, tempStart);
+					String tempSuffix = anInput.substring(tempEnd + 1);
+
+					// Fix for issue #41: Conditional fixture description parts are not correctly chosen in some
+					// situations
+					boolean tempParameterConsideredPresent = false;
+					if (someParameters.containsKey(tempParameterName)) {
+						Object tempParameterValue = someParameters.get(tempParameterName);
+						tempParameterConsideredPresent = tempParameterValue != null
+								&& tempParameterValue != UnresolvableVariable.getInstance();
+					}
+
+					if ((!tempInversion && tempParameterConsideredPresent)
+							|| (tempInversion && !tempParameterConsideredPresent)) {
+						return replaceConditionalTextBlocks(tempPrefix + tempBlockText + tempSuffix, someParameters);
+					} else {
+						return replaceConditionalTextBlocks(tempPrefix + tempSuffix, someParameters);
+					}
+				}
+			}
+		}
+
+		return anInput;
 	}
 
 	/**
