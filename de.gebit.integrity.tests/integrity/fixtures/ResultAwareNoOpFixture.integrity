@@ -1,0 +1,6 @@
+packagedef integrity.fixtures.basic.resultawarenoop with
+	
+	calldef echoString uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString
+	testdef echoStringTest uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString	
+
+packageend

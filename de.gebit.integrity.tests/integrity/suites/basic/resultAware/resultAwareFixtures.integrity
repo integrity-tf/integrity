@@ -1,0 +1,13 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.resultAware with
+
+	suitedef resultAwareCalls with
+	
+		// Simple default result call 
+		call integrity.fixtures.basic.resultawarenoop.echoString string: "Echo this!"
+		
+	suiteend
+
+packageend

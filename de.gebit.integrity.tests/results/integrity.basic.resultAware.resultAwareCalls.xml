@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="17.06.15 15:52" isotimestamp="2015-06-17T15:52:50" duration="12.529">
+  <variables />
+  <suite id="0" name="integrity.basic.resultAware.resultAwareCalls" timestamp="17.06.15 15:52:50.0737">
+    <setup />
+    <variables />
+    <statements>
+      <call id="1" line="9" name="echoString" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString" timestamp="17.06.15 15:52:50.0737">
+        <parameters>
+          <parameter name="string" value="Echo this!" />
+        </parameters>
+        <result duration="1.665" type="success" />
+      </call>
+    </statements>
+    <teardown />
+    <result duration="5.998" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
