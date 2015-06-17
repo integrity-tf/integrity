@@ -1231,6 +1231,8 @@ public class DefaultTestRunner implements TestRunner {
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 
+				tempFixtureInstance.announceTestResults(aTest.getResult(), aTest.getResults());
+
 				Object tempFixtureResult;
 				tempDuration = System.nanoTime();
 				try {
@@ -1590,6 +1592,8 @@ public class DefaultTestRunner implements TestRunner {
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod());
+
+				tempFixtureInstance.announceCallResults();
 
 				tempDuration = System.nanoTime();
 				Object tempResult;
