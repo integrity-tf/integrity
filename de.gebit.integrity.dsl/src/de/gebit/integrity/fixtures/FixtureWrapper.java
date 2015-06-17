@@ -27,6 +27,7 @@ import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
@@ -433,8 +434,8 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
-	 * Invoke {@link ResultAwareFixture#announceCheckedResults(String, boolean, Set)} for the case of a 'call' type
-	 * fixture invocation, if the fixture is a {@link ResultAwareFixture}.
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'call' type fixture invocation, if the fixture is
+	 * a {@link ResultAwareFixture}.
 	 */
 	@SuppressWarnings("unchecked")
 	public void announceCallResults() {
@@ -444,8 +445,8 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
-	 * Invoke {@link ResultAwareFixture#announceCheckedResults(String, boolean, Set)} for the case of a 'test' type
-	 * fixture invocation, if the fixture is a {@link ResultAwareFixture}.
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'test' type fixture invocation, if the fixture is
+	 * a {@link ResultAwareFixture}.
 	 * 
 	 * @param aDefaultResult
 	 *            The default result as given in the test script
@@ -463,11 +464,47 @@ public class FixtureWrapper<C extends Object> {
 				}
 			}
 
-			// no named result and no explicit default result = implicit default result!
-			boolean tempHasDefaultResult = aDefaultResult != null || someNamedResults.size() == 0;
-			((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, tempHasDefaultResult,
-					tempNamedResultSet);
+			announceTestResultsInternal(aDefaultResult, tempNamedResultSet);
 		}
+	}
+
+	/**
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'tabletest' type fixture invocation.
+	 * 
+	 * @param aDefaultResult
+	 *            The default result as given in the test script
+	 * @param someResultHeaders
+	 *            A list of named results used by the test
+	 */
+	public void announceTableTestResults(ValueOrEnumValueOrOperationCollection aDefaultResult,
+			List<ResultTableHeader> someResultHeaders) {
+		if (fixtureInstance instanceof ResultAwareFixture) {
+			Set<String> tempNamedResultSet = new HashSet<>();
+			if (someResultHeaders != null) {
+				for (ResultTableHeader tempHeader : someResultHeaders) {
+					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader
+							.getName()));
+				}
+			}
+
+			announceTestResultsInternal(aDefaultResult, tempNamedResultSet);
+		}
+	}
+
+	/**
+	 * Actually performs the test result announcement call.
+	 * 
+	 * @param aDefaultResult
+	 *            The default result as given in the test script
+	 * @param aNamedResultSet
+	 *            A list of named results used by the test
+	 */
+	protected void announceTestResultsInternal(ValueOrEnumValueOrOperationCollection aDefaultResult,
+			Set<String> aNamedResultSet) {
+		// no named result and no explicit default result = implicit default result!
+		boolean tempHasDefaultResult = aDefaultResult != null || aNamedResultSet.size() == 0;
+		((ResultAwareFixture) fixtureInstance)
+				.announceCheckedResults(methodName, tempHasDefaultResult, aNamedResultSet);
 	}
 
 	@SuppressWarnings("unchecked")
