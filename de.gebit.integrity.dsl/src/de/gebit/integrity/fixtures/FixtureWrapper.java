@@ -11,7 +11,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,9 +25,11 @@ import com.google.inject.Provider;
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.VariableVariable;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
@@ -437,10 +438,19 @@ public class FixtureWrapper<C extends Object> {
 	 * Invoke the {@link ResultAwareFixture} method for the case of a 'call' type fixture invocation, if the fixture is
 	 * a {@link ResultAwareFixture}.
 	 */
-	@SuppressWarnings("unchecked")
-	public void announceCallResults() {
+	public void announceCallResults(VariableVariable aDefaultTargetVariable,
+			List<NamedCallResult> someNamedTargetVariables) {
 		if (fixtureInstance instanceof ResultAwareFixture) {
-			((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, false, Collections.EMPTY_SET);
+			Set<String> tempNamedResultSet = new HashSet<>();
+			if (someNamedTargetVariables != null) {
+				for (NamedCallResult tempResult : someNamedTargetVariables) {
+					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult
+							.getName()));
+				}
+			}
+
+			((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, aDefaultTargetVariable != null,
+					tempNamedResultSet);
 		}
 	}
 

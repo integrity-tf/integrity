@@ -1603,7 +1603,7 @@ public class DefaultTestRunner implements TestRunner {
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod());
 
-				tempFixtureInstance.announceCallResults();
+				tempFixtureInstance.announceCallResults(aCall.getResult(), aCall.getResults());
 
 				tempDuration = System.nanoTime();
 				Object tempResult;
