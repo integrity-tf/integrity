@@ -26,6 +26,11 @@ import de.gebit.integrity.fixtures.ResultAwareFixture;
 // SUPPRESS CHECKSTYLE LONG Javadoc
 public class ResultAwareNoOpFixture implements ResultAwareFixture {
 
+	@FixtureMethod(description = "Echo the boolean")
+	public Boolean echoBool(@FixtureParameter(name = "boolean") Boolean aBoolToEcho) {
+		return aBoolToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the string '$string$'")
 	public String echoString(@FixtureParameter(name = "string") String aStringToEcho) {
 		return aStringToEcho;

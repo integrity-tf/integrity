@@ -25,7 +25,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class ResultAwareFixtures extends IntegrityJUnitTest {
+public class ResultAwareTestFixtures extends IntegrityJUnitTest {
 
 	/**
 	 * Performs the test.
@@ -35,13 +35,13 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testCallNothing() throws ModelLoadException, IOException, JDOMException {
+	public void testTestNothing() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
-				"integrity.basic.resultAware.resultAwareCallNothing", null);
+				new String[] { "integrity/suites/basic/resultAware/resultAwareTestFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareTestNothing", null);
 		assertDocumentMatchesReference(tempResult);
 
-		Assert.assertArrayEquals(new String[0], ResultAwareNoOpFixture.getAnnouncedResults("echoString"));
+		Assert.assertArrayEquals(new String[] { "DEFAULT" }, ResultAwareNoOpFixture.getAnnouncedResults("echoBool"));
 	}
 
 	/**
@@ -52,13 +52,13 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testCallDefault() throws ModelLoadException, IOException, JDOMException {
+	public void testTestDefault() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
-				"integrity.basic.resultAware.resultAwareCallDefault", null);
+				new String[] { "integrity/suites/basic/resultAware/resultAwareTestFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareTestDefault", null);
 		assertDocumentMatchesReference(tempResult);
 
-		Assert.assertArrayEquals(new String[] { "DEFAULT" }, ResultAwareNoOpFixture.getAnnouncedResults("echoString"));
+		Assert.assertArrayEquals(new String[] { "DEFAULT" }, ResultAwareNoOpFixture.getAnnouncedResults("echoBool"));
 	}
 
 	/**
@@ -69,10 +69,10 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testCallArbitrary() throws ModelLoadException, IOException, JDOMException {
+	public void testTestArbitrary() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
-				"integrity.basic.resultAware.resultAwareCallArbitrary", null);
+				new String[] { "integrity/suites/basic/resultAware/resultAwareTestFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareTestArbitrary", null);
 		assertDocumentMatchesReference(tempResult);
 
 		Assert.assertArrayEquals(new String[] { "string1", "string2" },
@@ -87,10 +87,10 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testCallFixed() throws ModelLoadException, IOException, JDOMException {
+	public void testTestFixed() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
-				"integrity.basic.resultAware.resultAwareCallFixed", null);
+				new String[] { "integrity/suites/basic/resultAware/resultAwareTestFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareTestFixed", null);
 		assertDocumentMatchesReference(tempResult);
 
 		Assert.assertArrayEquals(new String[] { "string1", "string2" },
