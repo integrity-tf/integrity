@@ -31,6 +31,38 @@ public class ResultAwareNoOpFixture implements ResultAwareFixture {
 		return aStringToEcho;
 	}
 
+	@FixtureMethod(description = "Echo some strings")
+	public Map<String, String> echoStringsArbitrary(@FixtureParameter(name = "string1") String aStringToEcho1,
+			@FixtureParameter(name = "string2") String aStringToEcho2,
+			@FixtureParameter(name = "string3") String aStringToEcho3) {
+		Map<String, String> tempMap = new HashMap<>();
+		tempMap.put("string1", aStringToEcho1);
+		tempMap.put("string2", aStringToEcho2);
+		tempMap.put("string3", aStringToEcho3);
+		return tempMap;
+	}
+
+	@FixtureMethod(description = "Echo some strings")
+	public ResultContainer echoStringsFixed(@FixtureParameter(name = "string1") String aStringToEcho1,
+			@FixtureParameter(name = "string2") String aStringToEcho2,
+			@FixtureParameter(name = "string3") String aStringToEcho3) {
+		ResultContainer tempResult = new ResultContainer();
+		tempResult.string1 = aStringToEcho1;
+		tempResult.string2 = aStringToEcho2;
+		tempResult.string3 = aStringToEcho3;
+		return tempResult;
+	}
+
+	public static final class ResultContainer {
+
+		public String string1;
+
+		public String string2;
+
+		public String string3;
+
+	}
+
 	@Override
 	public void announceCheckedResults(String aMethodName, boolean aDefaultResultFlag, Set<String> aNamedResultSet) {
 		if (aDefaultResultFlag) {

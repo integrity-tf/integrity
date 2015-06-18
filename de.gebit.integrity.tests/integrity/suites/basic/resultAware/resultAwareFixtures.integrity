@@ -3,11 +3,45 @@ import integrity.fixtures.basic.noop.*
 
 packagedef integrity.basic.resultAware with
 
-	suitedef resultAwareCalls with
+	suitedef resultAwareCallNothing with
 	
-		// Simple default result call 
+		// Simple call. Does not use the result in any way. 
 		call integrity.fixtures.basic.resultawarenoop.echoString string: "Echo this!"
 		
 	suiteend
+	
+	
+	suitedef resultAwareCallDefault with
+	
+		variable target
+		
+		// This stores the default result
+		call integrity.fixtures.basic.resultawarenoop.echoString string: "Echo this!" -> target
+		
+	suiteend
+	
+	
+	suitedef resultAwareCallArbitrary with
+	
+		variable target1
+		variable target2
+		
+		// This stores some named results (String 3 is intentionally omitted)
+		call integrity.fixtures.basic.resultawarenoop.echoStringsArbitrary string1: "Echo this!" string2: "Echo this as well!" string3: "And this!" +string1 -> target1 +string2 -> target2 
+		
+	suiteend
+	
+	
+	suitedef resultAwareCallFixed with
+	
+		variable target1
+		variable target2
+		
+		// This stores some named results (String 3 is intentionally omitted)
+		call integrity.fixtures.basic.resultawarenoop.echoStringsFixed string1: "Echo this!" string2: "Echo this as well!" string3: "And this!" string1 -> target1 string2 -> target2 
+		
+	suiteend
+	
+	
 
 packageend

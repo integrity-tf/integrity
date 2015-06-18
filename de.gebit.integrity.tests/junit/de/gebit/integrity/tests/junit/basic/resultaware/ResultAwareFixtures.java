@@ -35,13 +35,66 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testCall() throws ModelLoadException, IOException, JDOMException {
+	public void testCallNothing() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
-				"integrity.basic.resultAware.resultAwareCalls", null);
+				"integrity.basic.resultAware.resultAwareCallNothing", null);
 		assertDocumentMatchesReference(tempResult);
 
 		Assert.assertArrayEquals(new String[0], ResultAwareNoOpFixture.getAnnouncedResults("echoString"));
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCallDefault() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareCallDefault", null);
+		assertDocumentMatchesReference(tempResult);
+
+		Assert.assertArrayEquals(new String[] { "DEFAULT" }, ResultAwareNoOpFixture.getAnnouncedResults("echoString"));
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCallArbitrary() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareCallArbitrary", null);
+		assertDocumentMatchesReference(tempResult);
+
+		Assert.assertArrayEquals(new String[] { "string1", "string2" },
+				ResultAwareNoOpFixture.getAnnouncedResults("echoStringsArbitrary"));
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCallFixed() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				"integrity.basic.resultAware.resultAwareCallFixed", null);
+		assertDocumentMatchesReference(tempResult);
+
+		Assert.assertArrayEquals(new String[] { "string1", "string2" },
+				ResultAwareNoOpFixture.getAnnouncedResults("echoStringsFixed"));
 	}
 
 }
