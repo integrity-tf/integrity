@@ -1231,6 +1231,8 @@ public class DefaultTestRunner implements TestRunner {
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 
+				tempFixtureInstance.announceTestResults(aTest.getResult(), aTest.getResults());
+
 				Object tempFixtureResult;
 				tempDuration = System.nanoTime();
 				try {
@@ -1375,11 +1377,24 @@ public class DefaultTestRunner implements TestRunner {
 								.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 					}
 
+					// We need the default result value before the actual result comparison takes place
+					ValueOrEnumValueOrOperationCollection tempExpectedDefaultResultValue = null;
+					if ((aTest.getResultHeaders() == null || aTest.getResultHeaders().isEmpty())
+							&& aTest.getDefaultResultColumn() != null) {
+						// the last column MUST be the result column
+						tempExpectedDefaultResultValue = tempRow.getValues().get(tempRow.getValues().size() - 1)
+								.getValue();
+					}
+
+					tempFixtureInstance.announceTableTestResults(tempExpectedDefaultResultValue,
+							aTest.getResultHeaders());
+
 					tempStart = System.nanoTime();
 					Object tempFixtureResult = tempFixtureInstance.execute(tempParameters);
 					tempDuration = System.nanoTime() - tempStart;
 
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
+						// Use named results
 						Map<String, Object> tempFixtureResultMap = ParameterUtil
 								.getValuesFromNamedResultContainer(tempFixtureResult);
 
@@ -1387,31 +1402,28 @@ public class DefaultTestRunner implements TestRunner {
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 							String tempResultName = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
-									.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+							ValueOrEnumValueOrOperationCollection tempExpectedNamedResultValue = (tempColumn < tempRow
+									.getValues().size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
 
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
 							ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
-									tempExpectedValue, tempFixtureInstance, aTest.getDefinition().getFixtureMethod(),
-									tempResultName);
+									tempExpectedNamedResultValue, tempFixtureInstance, aTest.getDefinition()
+											.getFixtureMethod(), tempResultName);
 							tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
-									tempSingleFixtureResult, tempExpectedValue);
+									tempSingleFixtureResult, tempExpectedNamedResultValue);
 							tempComparisonMap.put(tempResultName, tempComparisonResult);
 
 							tempColumn++;
 						}
 					} else {
-						ValueOrEnumValueOrOperationCollection tempExpectedValue = null;
-						if (aTest.getDefaultResultColumn() != null) {
-							// the last column MUST be the result column
-							tempExpectedValue = tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
-						}
-
+						// Use the default result
 						ComparisonResult tempResult = resultComparator.compareResult(tempFixtureResult,
-								tempExpectedValue, tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null);
-						tempComparisonResult = TestComparisonResult.wrap(tempResult,
-								ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult, tempExpectedValue);
+								tempExpectedDefaultResultValue, tempFixtureInstance, aTest.getDefinition()
+										.getFixtureMethod(), null);
+						tempComparisonResult = TestComparisonResult
+								.wrap(tempResult, ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult,
+										tempExpectedDefaultResultValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 					// SUPPRESS CHECKSTYLE IllegalCatch
@@ -1590,6 +1602,8 @@ public class DefaultTestRunner implements TestRunner {
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 				tempFixtureInstance = wrapperFactory.newFixtureWrapper(aCall.getDefinition().getFixtureMethod());
+
+				tempFixtureInstance.announceCallResults(aCall.getResult(), aCall.getResults());
 
 				tempDuration = System.nanoTime();
 				Object tempResult;

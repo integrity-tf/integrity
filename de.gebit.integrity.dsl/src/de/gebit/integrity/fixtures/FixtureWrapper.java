@@ -12,9 +12,11 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -23,6 +25,12 @@ import com.google.inject.Provider;
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.comparator.ComparisonResult;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NamedCallResult;
+import de.gebit.integrity.dsl.NamedResult;
+import de.gebit.integrity.dsl.ResultTableHeader;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.VariableVariable;
+import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
@@ -31,6 +39,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.string.FormattedString;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -47,6 +56,11 @@ public class FixtureWrapper<C extends Object> {
 	 * The fixture method reference.
 	 */
 	private MethodReference methodReference;
+
+	/**
+	 * The fixture method name.
+	 */
+	private String methodName;
 
 	/**
 	 * The fixture class.
@@ -110,6 +124,13 @@ public class FixtureWrapper<C extends Object> {
 			IllegalAccessException, ClassNotFoundException {
 		anInjector.injectMembers(this);
 		methodReference = aMethodReference;
+
+		if (methodReference.getMethod() == null) {
+			throw new ModelRuntimeLinkException("Method reference missing", aMethodReference,
+					modelSourceExplorer.determineSourceInformation(aMethodReference));
+		}
+		methodName = methodReference.getMethod().getSimpleName();
+
 		fixtureClass = (Class<C>) classLoader.loadClass(methodReference);
 
 		FixtureInstanceFactory<C> tempFactory = null;
@@ -186,6 +207,15 @@ public class FixtureWrapper<C extends Object> {
 	 */
 	public boolean isCustomStringConversionFixture() {
 		return (CustomStringConversionFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
+	 * Checks whether the wrapped fixture is a {@link ResultAwareFixture}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isResultAwareFixture() {
+		return (ResultAwareFixture.class.isAssignableFrom(fixtureClass));
 	}
 
 	/**
@@ -402,6 +432,89 @@ public class FixtureWrapper<C extends Object> {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'call' type fixture invocation, if the fixture is
+	 * a {@link ResultAwareFixture}.
+	 */
+	public void announceCallResults(VariableVariable aDefaultTargetVariable,
+			List<NamedCallResult> someNamedTargetVariables) {
+		if (fixtureInstance instanceof ResultAwareFixture) {
+			Set<String> tempNamedResultSet = new HashSet<>();
+			if (someNamedTargetVariables != null) {
+				for (NamedCallResult tempResult : someNamedTargetVariables) {
+					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult
+							.getName()));
+				}
+			}
+
+			((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, aDefaultTargetVariable != null,
+					tempNamedResultSet);
+		}
+	}
+
+	/**
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'test' type fixture invocation, if the fixture is
+	 * a {@link ResultAwareFixture}.
+	 * 
+	 * @param aDefaultResult
+	 *            The default result as given in the test script
+	 * @param someNamedResults
+	 *            A list of named results used by the test
+	 */
+	public void announceTestResults(ValueOrEnumValueOrOperationCollection aDefaultResult,
+			List<NamedResult> someNamedResults) {
+		if (fixtureInstance instanceof ResultAwareFixture) {
+			Set<String> tempNamedResultSet = new HashSet<>();
+			if (someNamedResults != null) {
+				for (NamedResult tempResult : someNamedResults) {
+					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult
+							.getName()));
+				}
+			}
+
+			announceTestResultsInternal(aDefaultResult, tempNamedResultSet);
+		}
+	}
+
+	/**
+	 * Invoke the {@link ResultAwareFixture} method for the case of a 'tabletest' type fixture invocation.
+	 * 
+	 * @param aDefaultResult
+	 *            The default result as given in the test script
+	 * @param someResultHeaders
+	 *            A list of named results used by the test
+	 */
+	public void announceTableTestResults(ValueOrEnumValueOrOperationCollection aDefaultResult,
+			List<ResultTableHeader> someResultHeaders) {
+		if (fixtureInstance instanceof ResultAwareFixture) {
+			Set<String> tempNamedResultSet = new HashSet<>();
+			if (someResultHeaders != null) {
+				for (ResultTableHeader tempHeader : someResultHeaders) {
+					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader
+							.getName()));
+				}
+			}
+
+			announceTestResultsInternal(aDefaultResult, tempNamedResultSet);
+		}
+	}
+
+	/**
+	 * Actually performs the test result announcement call.
+	 * 
+	 * @param aDefaultResult
+	 *            The default result as given in the test script
+	 * @param aNamedResultSet
+	 *            A list of named results used by the test
+	 */
+	protected void announceTestResultsInternal(ValueOrEnumValueOrOperationCollection aDefaultResult,
+			Set<String> aNamedResultSet) {
+		// no named result and no explicit default result = implicit default result!
+		boolean tempHasDefaultResult = aDefaultResult != null || aNamedResultSet.size() == 0;
+		((ResultAwareFixture) fixtureInstance)
+				.announceCheckedResults(methodName, tempHasDefaultResult, aNamedResultSet);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -1,0 +1,15 @@
+packagedef integrity.fixtures.basic.resultawarenoop with
+	
+	calldef echoString uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString
+	testdef echoStringTest uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString
+	
+	calldef echoStringsArbitrary uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary
+	testdef echoStringsArbitraryTest uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary
+	
+	calldef echoStringsFixed uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsFixed
+	testdef echoStringsFixedTest uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsFixed
+	
+	calldef echoBool uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoBool
+	testdef echoBoolTest uses de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoBool
+
+packageend
