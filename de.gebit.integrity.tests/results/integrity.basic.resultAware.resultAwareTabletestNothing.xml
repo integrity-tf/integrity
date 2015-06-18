@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:05" isotimestamp="2015-06-18T16:05:46" duration="17.428">
+  <variables />
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestNothing" timestamp="18.06.15 16:05:46.0234">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="9" name="echoBoolTest" description="Echo the boolean" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoBool" timestamp="18.06.15 16:05:46.0234">
+        <results duration="7.219" successCount="1" failureCount="1" exceptionCount="0">
+          <result duration="1.615" description="Echo the boolean" type="success">
+            <parameters>
+              <parameter name="boolean" value="true" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.518" description="Echo the boolean" type="failure">
+            <parameters>
+              <parameter name="boolean" value="false" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="false" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="9.904" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

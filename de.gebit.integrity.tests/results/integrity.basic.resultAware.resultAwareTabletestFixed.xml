@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:05" isotimestamp="2015-06-18T16:05:46" duration="8.574">
+  <variables />
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestFixed" timestamp="18.06.15 16:05:46.0593">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="41" name="echoStringsFixedTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsFixed" timestamp="18.06.15 16:05:46.0593">
+        <results duration="5.404" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.659" description="Echo some strings" type="success">
+            <parameters>
+              <parameter name="string1" value="Echo this!" />
+              <parameter name="string2" value="Echo this as well!" />
+              <parameter name="string3" value="And this!" />
+            </parameters>
+            <comparisons>
+              <comparison name="string1" expectedValue="Echo this!" value="Echo this!" type="success" />
+              <comparison name="string2" expectedValue="Echo this as well!" value="Echo this as well!" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="7.387" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

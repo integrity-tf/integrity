@@ -1,0 +1,49 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.resultAware with
+
+	suitedef resultAwareTabletestNothing with
+	
+		// Simple call. Use implicit default result.
+		tabletest integrity.fixtures.basic.resultawarenoop.echoBoolTest
+		| boolean |
+		| true    |
+		| false   |
+		
+	suiteend
+	
+	
+	suitedef resultAwareTabletestDefault with
+		
+		// Simple call. Use explicit default result.
+		tabletest integrity.fixtures.basic.resultawarenoop.echoBoolTest
+		| boolean | =     |
+		| true    | true  |
+		| false   | false |
+		
+	suiteend
+	
+	
+	suitedef resultAwareTabletestArbitrary with
+		
+		// This tests some named results (String 3 is intentionally omitted)
+		tabletest integrity.fixtures.basic.resultawarenoop.echoStringsArbitraryTest
+		| string1      | string2              | string3     | +string1 =   | +string2 =           |
+		| "Echo this!" | "Echo this as well!" | "And this!" | "Echo this!" | "Echo this as well!" | 
+		
+	suiteend
+	
+	
+	suitedef resultAwareTabletestFixed with
+		
+		// This tests some named results (String 3 is intentionally omitted)
+		tabletest integrity.fixtures.basic.resultawarenoop.echoStringsFixedTest
+		| string1      | string2              | string3     | string1 =    | string2 =            |
+		| "Echo this!" | "Echo this as well!" | "And this!" | "Echo this!" | "Echo this as well!" |
+		
+	suiteend
+	
+	
+
+packageend

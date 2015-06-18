@@ -66,6 +66,18 @@ public class ResultAwareNoOpFixture implements ResultAwareFixture {
 
 		public String string3;
 
+		public String getString1() {
+			return string1;
+		}
+
+		public String getString2() {
+			return string2;
+		}
+
+		public String getString3() {
+			return string3;
+		}
+
 	}
 
 	@Override
