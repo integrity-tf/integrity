@@ -37,7 +37,7 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	@Test
 	public void testCallNothing() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
 				"integrity.basic.resultAware.resultAwareCallNothing", null);
 		assertDocumentMatchesReference(tempResult);
 
@@ -54,7 +54,7 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	@Test
 	public void testCallDefault() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
 				"integrity.basic.resultAware.resultAwareCallDefault", null);
 		assertDocumentMatchesReference(tempResult);
 
@@ -71,7 +71,7 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	@Test
 	public void testCallArbitrary() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
 				"integrity.basic.resultAware.resultAwareCallArbitrary", null);
 		assertDocumentMatchesReference(tempResult);
 
@@ -89,7 +89,7 @@ public class ResultAwareFixtures extends IntegrityJUnitTest {
 	@Test
 	public void testCallFixed() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/resultAware/resultAwareFixtures.integrity" },
+				new String[] { "integrity/suites/basic/resultAware/resultAwareCallFixtures.integrity" },
 				"integrity.basic.resultAware.resultAwareCallFixed", null);
 		assertDocumentMatchesReference(tempResult);
 
