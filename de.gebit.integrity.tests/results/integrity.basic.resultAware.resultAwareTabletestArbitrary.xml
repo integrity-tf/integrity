@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:06" isotimestamp="2015-06-18T16:06:13" duration="28.675">
+<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:44" isotimestamp="2015-06-18T16:44:59" duration="8.640">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestArbitrary" timestamp="18.06.15 16:06:13.0458">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestArbitrary" timestamp="18.06.15 16:44:59.0946">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="31" name="echoStringsArbitraryTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="18.06.15 16:06:13.0458">
-        <results duration="17.490" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="3.055" description="Echo some strings" type="failure">
+      <tabletest id="1" line="31" name="echoStringsArbitraryTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="18.06.15 16:44:59.0946">
+        <results duration="5.139" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.786" description="Echo some strings" type="success">
             <parameters>
               <parameter name="string1" value="Echo this!" />
               <parameter name="string2" value="Echo this as well!" />
               <parameter name="string3" value="And this!" />
             </parameters>
             <comparisons>
-              <comparison name="string1" expectedValue="Echo this!" type="failure" />
-              <comparison name="string2" expectedValue="Echo this as well!" type="failure" />
+              <comparison name="string1" expectedValue="Echo this!" value="Echo this!" type="success" />
+              <comparison name="string2" expectedValue="Echo this as well!" value="Echo this as well!" type="success" />
             </comparisons>
           </result>
         </results>
       </tabletest>
     </statements>
     <teardown />
-    <result duration="20.723" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="7.174" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
