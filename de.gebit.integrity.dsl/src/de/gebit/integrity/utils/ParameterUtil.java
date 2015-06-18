@@ -59,19 +59,30 @@ public final class ParameterUtil {
 		Map<String, Object> tempResultMap = new HashMap<String, Object>();
 
 		if (aContainer != null) {
-			for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
-					.getPropertyDescriptors()) {
-				Method tempReadMethod = tempDescriptor.getReadMethod();
-				if (tempReadMethod != null) {
-					if (Map.class.isAssignableFrom(tempDescriptor.getPropertyType())) {
-						// this is a map for arbitrary result names
-						@SuppressWarnings("unchecked")
-						Map<String, Object> tempMap = (Map<String, Object>) tempReadMethod.invoke(aContainer);
-						for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
-							tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+			if (aContainer instanceof Map) {
+				// This is a map - maps are assumed to directly contain arbitrary result values
+				@SuppressWarnings("unchecked")
+				Map<String, Object> tempMap = (Map<String, Object>) aContainer;
+				for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
+					tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+				}
+			} else {
+				// This is not a map - treat it as a Java Bean object and get all the attributes
+				for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aContainer.getClass())
+						.getPropertyDescriptors()) {
+					Method tempReadMethod = tempDescriptor.getReadMethod();
+					if (tempReadMethod != null) {
+						if (Map.class.isAssignableFrom(tempDescriptor.getPropertyType())) {
+							// This is an internal map - these are assumed to be used to supply arbitrary result values
+							// in addition to the normal fixed named result values
+							@SuppressWarnings("unchecked")
+							Map<String, Object> tempMap = (Map<String, Object>) tempReadMethod.invoke(aContainer);
+							for (Entry<String, Object> tempEntry : tempMap.entrySet()) {
+								tempResultMap.put(tempEntry.getKey(), tempEntry.getValue());
+							}
+						} else {
+							tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
 						}
-					} else {
-						tempResultMap.put(tempDescriptor.getName(), tempReadMethod.invoke(aContainer));
 					}
 				}
 			}
