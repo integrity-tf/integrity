@@ -73,6 +73,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore.xmi" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.mwe.utils" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.equinox.common" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.equinox.preferences" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.text" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext" } });
