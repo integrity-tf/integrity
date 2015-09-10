@@ -28,9 +28,9 @@
 		            <configuration>
 		                <artifacts>
 		                    <artifact>
-		                        <file>luna.target</file>
+		                        <file>mars.target</file>
 		                        <type>target</type>
-		                        <classifier>luna</classifier>
+		                        <classifier>mars</classifier>
 		                    </artifact>
 		                </artifacts>
 		            </configuration>
