@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.Call#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getDefinition <em>Definition</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.Call#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Call#getResult <em>Result</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getCall()
  * @model

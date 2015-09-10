@@ -11,10 +11,10 @@ import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.EnumValue#getEnumValue <em>Enum Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getEnumValue()
  * @model

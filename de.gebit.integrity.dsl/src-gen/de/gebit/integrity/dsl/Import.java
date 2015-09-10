@@ -10,10 +10,10 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.Import#getImportedNamespace <em>Imported Namespace</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getImport()
  * @model

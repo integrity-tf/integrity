@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getDefinition <em>Definition</em>}</li>
@@ -38,7 +39,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallImpl#getResult <em>Result</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

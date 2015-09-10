@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeValueImpl#getTimeValue <em>Time Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

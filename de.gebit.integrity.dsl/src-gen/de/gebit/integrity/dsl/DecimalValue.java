@@ -11,10 +11,10 @@ import java.math.BigDecimal;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.DecimalValue#getDecimalValue <em>Decimal Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getDecimalValue()
  * @model

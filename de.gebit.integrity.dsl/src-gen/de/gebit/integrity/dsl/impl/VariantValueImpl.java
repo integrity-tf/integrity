@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariantValueImpl#getNames <em>Names</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariantValueImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

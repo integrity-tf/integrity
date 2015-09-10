@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getVariantValues <em>Variant Values</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getParameterized <em>Parameterized</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition()
  * @model

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
@@ -37,7 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getFinalizers <em>Finalizers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

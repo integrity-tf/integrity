@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getParameters <em>Parameters</em>}</li>
@@ -19,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getDefaultResultColumn <em>Default Result Column</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TableTest#getRows <em>Rows</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getTableTest()
  * @model

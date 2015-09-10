@@ -10,10 +10,10 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.BooleanValue#getBooleanValue <em>Boolean Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getBooleanValue()
  * @model

@@ -15,8 +15,8 @@ public class InternalDSLLexer extends Lexer {
     public static final int T__68=68;
     public static final int T__69=69;
     public static final int T__66=66;
-    public static final int RULE_ID=10;
     public static final int RULE_SL_VISIBLE_TITLE_COMMENT=5;
+    public static final int RULE_ID=10;
     public static final int T__67=67;
     public static final int T__64=64;
     public static final int T__29=29;
@@ -52,8 +52,8 @@ public class InternalDSLLexer extends Lexer {
     public static final int T__46=46;
     public static final int T__47=47;
     public static final int T__44=44;
-    public static final int RULE_ISOTIMEZONE=26;
     public static final int RULE_ISOTIME=18;
+    public static final int RULE_ISOTIMEZONE=26;
     public static final int T__45=45;
     public static final int RULE_ML_VISIBLE_COMMENT=6;
     public static final int RULE_ML_VISIBLE_TITLE_COMMENT=7;

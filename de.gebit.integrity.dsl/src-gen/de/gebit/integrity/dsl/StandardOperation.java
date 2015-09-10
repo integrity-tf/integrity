@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.StandardOperation#getFirstOperand <em>First Operand</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.StandardOperation#getOperators <em>Operators</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.StandardOperation#getMoreOperands <em>More Operands</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getStandardOperation()
  * @model

@@ -20,10 +20,10 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.FixedParameterNameImpl#getAnnotation <em>Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

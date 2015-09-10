@@ -10,11 +10,11 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.VariantDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.VariantDefinition#getDescription <em>Description</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getVariantDefinition()
  * @model

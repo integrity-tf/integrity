@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TypedNestedObjectImpl#getType <em>Type</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TypedNestedObjectImpl#getNestedObject <em>Nested Object</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

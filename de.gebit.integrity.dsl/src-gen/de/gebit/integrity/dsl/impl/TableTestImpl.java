@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getParameters <em>Parameters</em>}</li>
@@ -39,7 +40,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getDefaultResultColumn <em>Default Result Column</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TableTestImpl#getRows <em>Rows</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

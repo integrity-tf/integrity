@@ -20,10 +20,10 @@ import org.eclipse.xtext.common.types.JvmField;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.FixedResultNameImpl#getField <em>Field</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

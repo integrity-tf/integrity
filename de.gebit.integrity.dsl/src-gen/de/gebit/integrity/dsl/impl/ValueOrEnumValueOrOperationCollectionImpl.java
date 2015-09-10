@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl#getValue <em>Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ValueOrEnumValueOrOperationCollectionImpl#getMoreValues <em>More Values</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

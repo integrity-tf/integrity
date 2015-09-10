@@ -13,10 +13,10 @@ import org.eclipse.xtext.common.types.JvmType;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.JavaClassReference#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getJavaClassReference()
  * @model

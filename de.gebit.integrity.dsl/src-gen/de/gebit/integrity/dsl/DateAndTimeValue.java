@@ -10,11 +10,11 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.DateAndTimeValue#getDateValue <em>Date Value</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.DateAndTimeValue#getTimeValue <em>Time Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getDateAndTimeValue()
  * @model

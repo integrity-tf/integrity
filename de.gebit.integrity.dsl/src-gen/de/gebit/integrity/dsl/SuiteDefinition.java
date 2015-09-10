@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}</li>
@@ -19,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getFinalizers <em>Finalizers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition()
  * @model

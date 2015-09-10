@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.JavaConstantValueImpl#getConstant <em>Constant</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

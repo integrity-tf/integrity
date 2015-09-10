@@ -10,11 +10,11 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getIdentifier <em>Identifier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ArbitraryParameterOrResultName#getStringIdentifier <em>String Identifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getArbitraryParameterOrResultName()
  * @model

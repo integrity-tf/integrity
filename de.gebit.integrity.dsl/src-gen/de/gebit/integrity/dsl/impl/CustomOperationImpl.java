@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.CustomOperationImpl#getPrefixOperand <em>Prefix Operand</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CustomOperationImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CustomOperationImpl#getPostfixOperand <em>Postfix Operand</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

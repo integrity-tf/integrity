@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.VariantValue#getNames <em>Names</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.VariantValue#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getVariantValue()
  * @model

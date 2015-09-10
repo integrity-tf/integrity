@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getName <em>Name</em>}</li>
@@ -36,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getVariantValues <em>Variant Values</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getParameterized <em>Parameterized</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

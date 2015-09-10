@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.StandardOperationImpl#getFirstOperand <em>First Operand</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.StandardOperationImpl#getOperators <em>Operators</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.StandardOperationImpl#getMoreOperands <em>More Operands</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -20,10 +20,10 @@ import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.EnumValueImpl#getEnumValue <em>Enum Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

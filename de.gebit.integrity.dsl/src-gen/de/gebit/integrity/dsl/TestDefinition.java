@@ -10,11 +10,11 @@ package de.gebit.integrity.dsl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.TestDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TestDefinition#getFixtureMethod <em>Fixture Method</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getTestDefinition()
  * @model

@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getResult <em>Result</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

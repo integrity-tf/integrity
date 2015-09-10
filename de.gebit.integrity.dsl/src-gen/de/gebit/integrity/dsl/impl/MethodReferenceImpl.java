@@ -22,11 +22,11 @@ import org.eclipse.xtext.common.types.JvmType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.MethodReferenceImpl#getType <em>Type</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.MethodReferenceImpl#getMethod <em>Method</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

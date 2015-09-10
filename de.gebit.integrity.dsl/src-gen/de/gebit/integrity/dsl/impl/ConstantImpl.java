@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

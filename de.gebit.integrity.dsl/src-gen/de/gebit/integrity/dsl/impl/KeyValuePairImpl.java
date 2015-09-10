@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getIdentifier <em>Identifier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getStringIdentifier <em>String Identifier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.KeyValuePairImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

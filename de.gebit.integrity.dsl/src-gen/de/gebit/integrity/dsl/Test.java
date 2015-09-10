@@ -11,13 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.Test#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getResults <em>Results</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getResult <em>Result</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getTest()
  * @model

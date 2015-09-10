@@ -11,10 +11,10 @@ import org.eclipse.xtext.common.types.JvmAnnotationReference;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.FixedParameterName#getAnnotation <em>Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getFixedParameterName()
  * @model
