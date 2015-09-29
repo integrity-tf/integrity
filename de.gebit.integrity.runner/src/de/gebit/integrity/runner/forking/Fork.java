@@ -468,7 +468,9 @@ public class Fork {
 				}
 			} else if (aState == ExecutionStates.PAUSED || aState == ExecutionStates.RUNNING) {
 				// now waiting or continuing at a user-defined breakpoint
-				server.updateExecutionState(aState);
+				if (server != null) {
+					server.updateExecutionState(aState);
+				}
 			}
 		}
 
