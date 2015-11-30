@@ -16,10 +16,12 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
@@ -162,6 +164,12 @@ public class Fork {
 	 */
 	@Inject
 	protected ValueConverter valueConverter;
+
+	/**
+	 * The conversion context provider.
+	 */
+	@Inject
+	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
@@ -402,7 +410,14 @@ public class Fork {
 		if (!ignoreVariableUpdates) {
 			String tempKey = IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true);
 			try {
-				variableUpdates.put(tempKey, valueConverter.convertValue(null, aValue, null));
+				// When we're sending stuff to the fork, we want to convert all Integrity-internal value types to Java
+				// types that we can transfer, but not arbitrary bean-type objects - those are already considered
+				// "Java types". Of course this opens up the possibility of a type being non-serializable, but that case
+				// is already handled gracefully enough a step or two above in the call stack - an error is logged and
+				// the variable in question is skipped for syncing.
+				// See also issue #100: https://github.com/integrity-tf/integrity/issues/100
+				variableUpdates.put(tempKey, valueConverter.convertValue(null, aValue, conversionContextProvider.get()
+						.skipBeanToMapDefaultConversion()));
 			} catch (UnresolvableVariableException exc) {
 				System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempKey + "' TO FORK - EXCEPTION OCCURRED");
 				exc.printStackTrace();
