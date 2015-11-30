@@ -110,4 +110,23 @@ public class BeanFixture {
 		return aTestBean.getEnumValue();
 	}
 
+	@FixtureMethod(description = "echoes the input as a map converted by Integrity")
+	public Map<String, Object> echoMap(@FixtureParameter(name = "bean") Map<String, Object> aBean) {
+		return aBean;
+	}
+
+	@FixtureMethod(description = "creates an instance of PrimitiveTypeArrayTestBean")
+	public PrimitiveTypeArrayTestBean createPrimitiveTypeArrayTestBean() {
+		PrimitiveTypeArrayTestBean tempBean = new PrimitiveTypeArrayTestBean();
+		tempBean.setPrimitiveBoolean(new boolean[] { true, false });
+		tempBean.setPrimitiveByte(new byte[] { 1, 2, 3 });
+		tempBean.setPrimitiveChar(new char[] { 'a', 'b', 'c' });
+		tempBean.setPrimitiveDouble(new double[] { 1.0, 1.1, 1.2 });
+		tempBean.setPrimitiveFloat(new float[] { 1.0f, 1.1f, 1.2f });
+		tempBean.setPrimitiveInt(new int[] { 1, 2, 3 });
+		tempBean.setPrimitiveLong(new long[] { 1, 2, 3 });
+		tempBean.setPrimitiveShort(new short[] { 1, 2, 3 });
+
+		return tempBean;
+	}
 }
