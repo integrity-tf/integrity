@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="30.11.15 09:55" isotimestamp="2015-11-30T09:55:56" duration="25.182">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.primitiveArrayBeanTest" timestamp="30.11.15 09:55:56.0458">
+    <setup />
+    <variables>
+      <variable name="testvar" />
+    </variables>
+    <statements>
+      <call id="1" line="9" name="createPrimitiveTypeArrayTestBean" description="creates an instance of PrimitiveTypeArrayTestBean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createPrimitiveTypeArrayTestBean" timestamp="30.11.15 09:55:56.0474">
+        <parameters />
+        <result duration="0.816" type="success">
+          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.PrimitiveTypeArrayTestBean@78f6e005" />
+        </result>
+      </call>
+      <call id="2" line="12" name="echoMapCall" description="echoes the input as a map converted by Integrity" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoMap" timestamp="30.11.15 09:55:56.0474">
+        <parameters>
+          <parameter name="bean" value="de.gebit.integrity.tests.fixtures.basic.beans.PrimitiveTypeArrayTestBean@78f6e005" />
+        </parameters>
+        <result duration="3.052" type="success">
+          <variableUpdate name="testvar" value="[FORMATTED]{[NL][T]primitiveBoolean = true, false[NL|, ][T]primitiveByte = 1, 2, 3[NL|, ][T]primitiveChar = a, b, c[NL|, ][T]primitiveDouble = 1.0, 1.1, 1.2[NL|, ][T]primitiveFloat = 1.0, 1.1, 1.2[NL|, ][T]primitiveInt = 1, 2, 3[NL|, ][T]primitiveLong = 1, 2, 3[NL|, ][T]primitiveShort = 1, 2, 3[NL]}" />
+        </result>
+      </call>
+    </statements>
+    <teardown />
+    <result duration="18.766" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
