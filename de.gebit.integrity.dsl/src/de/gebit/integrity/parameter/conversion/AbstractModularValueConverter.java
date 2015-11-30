@@ -279,7 +279,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 								aConversionContext, someVisitedValues);
 					}
 				} else {
-					Class<?> tempCurrentArrayType = aValue.getClass().getComponentType();
+					Class<?> tempCurrentArrayType = transformPrimitiveTypes(aValue.getClass().getComponentType());
 					Class<?> tempTargetArrayType;
 
 					if (tempCurrentArrayType == Object.class) {
