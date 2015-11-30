@@ -1,0 +1,16 @@
+import integrity.fixtures.basic.beans.*
+
+packagedef integrity.basic.beans with
+	
+	suitedef primitiveArrayBeanTest with
+		
+		variable testvar
+		
+		call createPrimitiveTypeArrayTestBean -> testvar
+		
+		// This converts the resulting map to a string for inclusion into the results, therefore the map is tested
+		call echoMapCall bean: testvar -> testvar
+		
+	suiteend
+
+packageend

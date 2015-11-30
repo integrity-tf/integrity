@@ -19,5 +19,10 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef echoEnumValueFromTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean
 	calldef echoEnumValueFromTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean
+	
+	testdef echoMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoMap
+	calldef echoMapCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoMap
+	
+	calldef createPrimitiveTypeArrayTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createPrimitiveTypeArrayTestBean 
 
 packageend
