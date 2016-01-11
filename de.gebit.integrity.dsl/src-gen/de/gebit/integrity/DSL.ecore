@@ -60,13 +60,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="private" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//VariableEntity" containment="true"/>
+        eType="#//SuiteParameterDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" unique="false"
         upperBound="-1" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="finalizers" unique="false"
         upperBound="-1" eType="#//SuiteDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//SuiteStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SuiteParameterDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="#//ValueOrEnumValueOrOperationCollection"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//PackageStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

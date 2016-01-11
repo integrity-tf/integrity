@@ -70,6 +70,7 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
+import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ResultFieldTuple;
 
 /**
@@ -168,7 +169,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 							&& ((JvmOperation) tempMember).getVisibility() == JvmVisibility.PUBLIC) {
 						boolean tempIsFixtureMethod = false;
 						for (JvmAnnotationReference tempAnnotation : tempMember.getAnnotations()) {
-							if (FixtureMethod.class.getName().equals(tempAnnotation.getAnnotation().getQualifiedName())) {
+							if (FixtureMethod.class.getName()
+									.equals(tempAnnotation.getAnnotation().getQualifiedName())) {
 								tempIsFixtureMethod = true;
 								break;
 							}
@@ -216,8 +218,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		for (JvmField tempField : aType.getDeclaredFields()) {
 			if (!(tempField instanceof JvmEnumerationLiteral) && tempField.isStatic() && tempField.isFinal()
 					&& tempField.getVisibility() == JvmVisibility.PUBLIC) {
-				someDescriptions.add(EObjectDescription.create(QualifiedName.create(tempField.getSimpleName()),
-						tempField));
+				someDescriptions
+						.add(EObjectDescription.create(QualifiedName.create(tempField.getSimpleName()), tempField));
 			}
 		}
 
@@ -241,7 +243,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		if (tempSuiteDef != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-			for (VariableOrConstantEntity tempParam : tempSuiteDef.getParameters()) {
+			for (VariableOrConstantEntity tempParam : ParameterUtil
+					.getVariableEntitiesForSuiteParameters(tempSuiteDef)) {
 				tempList.add(EObjectDescription.create(tempParam.getName(), tempParam));
 			}
 
@@ -403,8 +406,9 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		ResultName tempResultName = aNamedResult.getName();
 		if (tempResultName instanceof FixedResultName) {
 			if (aNamedResult.eContainer() instanceof Test) {
-				return determineNamedResultEnumValueScope(((Test) aNamedResult.eContainer()).getDefinition()
-						.getFixtureMethod(), ((FixedResultName) tempResultName).getField());
+				return determineNamedResultEnumValueScope(
+						((Test) aNamedResult.eContainer()).getDefinition().getFixtureMethod(),
+						((FixedResultName) tempResultName).getField());
 			}
 		}
 
@@ -673,13 +677,17 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					if (tempPackageStatement instanceof VariableDefinition) {
 						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
-								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
+						tempList.add(EObjectDescription.create(
+								qualifiedNameConverter.toQualifiedName(
+										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+								tempEntity));
 					} else if (tempPackageStatement instanceof ConstantDefinition) {
 						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
-								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
+						tempList.add(EObjectDescription.create(
+								qualifiedNameConverter.toQualifiedName(
+										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+								tempEntity));
 					}
 				}
 			}
@@ -748,7 +756,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		// And add suite parameters, which are handled like variables as well.
 		ArrayList<IEObjectDescription> tempSuiteParameterList = new ArrayList<IEObjectDescription>();
-		for (VariableEntity tempSuiteParam : aSuite.getParameters()) {
+		for (VariableEntity tempSuiteParam : ParameterUtil.getVariableEntitiesForSuiteParameters(aSuite)) {
 			tempSuiteParameterList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
 		}
 

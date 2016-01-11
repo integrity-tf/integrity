@@ -4,8 +4,8 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
-import de.gebit.integrity.dsl.VariableEntity;
 
 import java.util.Collection;
 
@@ -91,7 +91,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * @generated
    * @ordered
    */
-  protected EList<VariableEntity> parameters;
+  protected EList<SuiteParameterDefinition> parameters;
 
   /**
    * The cached value of the '{@link #getDependencies() <em>Dependencies</em>}' reference list.
@@ -195,11 +195,11 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VariableEntity> getParameters()
+  public EList<SuiteParameterDefinition> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<VariableEntity>(VariableEntity.class, this, DslPackage.SUITE_DEFINITION__PARAMETERS);
+      parameters = new EObjectContainmentEList<SuiteParameterDefinition>(SuiteParameterDefinition.class, this, DslPackage.SUITE_DEFINITION__PARAMETERS);
     }
     return parameters;
   }
@@ -309,7 +309,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return;
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends VariableEntity>)newValue);
+        getParameters().addAll((Collection<? extends SuiteParameterDefinition>)newValue);
         return;
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         getDependencies().clear();

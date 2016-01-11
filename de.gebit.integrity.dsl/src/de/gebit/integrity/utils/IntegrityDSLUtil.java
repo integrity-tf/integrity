@@ -108,7 +108,8 @@ public final class IntegrityDSLUtil {
 	public static String getParamNameFromAnnotation(JvmAnnotationReference anAnnotation) {
 		if (anAnnotation.getAnnotation() != null) {
 			if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())
-					|| anAnnotation.getAnnotation().getQualifiedName().equals(ForkerParameter.class.getCanonicalName())) {
+					|| anAnnotation.getAnnotation().getQualifiedName()
+							.equals(ForkerParameter.class.getCanonicalName())) {
 				for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
 					if (tempValue instanceof JvmStringAnnotationValue && "name".equals(tempValue.getValueName())) {
 						return ((JvmStringAnnotationValue) tempValue).getValues().get(0);
@@ -269,8 +270,8 @@ public final class IntegrityDSLUtil {
 	 */
 	public static String getQualifiedNameOfFixtureMethod(MethodReference aReference) {
 		String tempName = aReference.getMethod().getQualifiedName();
-		return tempName.replace("." + aReference.getMethod().getSimpleName(), "#"
-				+ aReference.getMethod().getSimpleName());
+		return tempName.replace("." + aReference.getMethod().getSimpleName(),
+				"#" + aReference.getMethod().getSimpleName());
 	}
 
 	/**
@@ -367,6 +368,7 @@ public final class IntegrityDSLUtil {
 			return tempPackageDef.getName() + "." + aVariable.getName();
 		} else {
 			if (aQualifyLocalVariables && aVariable.eContainer().eContainer() instanceof SuiteDefinition) {
+				// This covers both: variables defined in suites and suite parameters (which are also variables)
 				SuiteDefinition tempSuiteDef = (SuiteDefinition) aVariable.eContainer().eContainer();
 				return getQualifiedSuiteName(tempSuiteDef) + "$" + aVariable.getName();
 			} else {
@@ -389,8 +391,8 @@ public final class IntegrityDSLUtil {
 			return IntegrityDSLUtil
 					.getIdentifierFromArbitraryParameterOrResultName((ArbitraryParameterOrResultName) aName);
 		} else {
-			throw new UnsupportedOperationException("This subtype of TestResultName (" + aName.getClass().getName()
-					+ ") is not supported yet!");
+			throw new UnsupportedOperationException(
+					"This subtype of TestResultName (" + aName.getClass().getName() + ") is not supported yet!");
 		}
 	}
 

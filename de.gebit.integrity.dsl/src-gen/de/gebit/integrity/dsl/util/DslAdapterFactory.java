@@ -170,6 +170,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createSuiteDefinitionAdapter();
       }
       @Override
+      public Adapter caseSuiteParameterDefinition(SuiteParameterDefinition object)
+      {
+        return createSuiteParameterDefinitionAdapter();
+      }
+      @Override
       public Adapter caseOperationDefinition(OperationDefinition object)
       {
         return createOperationDefinitionAdapter();
@@ -797,6 +802,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSuiteDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.SuiteParameterDefinition <em>Suite Parameter Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.SuiteParameterDefinition
+   * @generated
+   */
+  public Adapter createSuiteParameterDefinitionAdapter()
   {
     return null;
   }

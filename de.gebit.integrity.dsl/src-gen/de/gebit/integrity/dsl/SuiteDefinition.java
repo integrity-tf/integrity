@@ -81,7 +81,7 @@ public interface SuiteDefinition extends PackageStatement
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link de.gebit.integrity.dsl.VariableEntity}.
+   * The list contents are of type {@link de.gebit.integrity.dsl.SuiteParameterDefinition}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
@@ -93,7 +93,7 @@ public interface SuiteDefinition extends PackageStatement
    * @model containment="true"
    * @generated
    */
-  EList<VariableEntity> getParameters();
+  EList<SuiteParameterDefinition> getParameters();
 
   /**
    * Returns the value of the '<em><b>Dependencies</b></em>' reference list.

@@ -83,6 +83,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.TEST_DEFINITION: return createTestDefinition();
       case DslPackage.CALL_DEFINITION: return createCallDefinition();
       case DslPackage.SUITE_DEFINITION: return createSuiteDefinition();
+      case DslPackage.SUITE_PARAMETER_DEFINITION: return createSuiteParameterDefinition();
       case DslPackage.OPERATION_DEFINITION: return createOperationDefinition();
       case DslPackage.SUITE_STATEMENT: return createSuiteStatement();
       case DslPackage.SUITE_STATEMENT_WITH_RESULT: return createSuiteStatementWithResult();
@@ -360,6 +361,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     SuiteDefinitionImpl suiteDefinition = new SuiteDefinitionImpl();
     return suiteDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SuiteParameterDefinition createSuiteParameterDefinition()
+  {
+    SuiteParameterDefinitionImpl suiteParameterDefinition = new SuiteParameterDefinitionImpl();
+    return suiteParameterDefinition;
   }
 
   /**

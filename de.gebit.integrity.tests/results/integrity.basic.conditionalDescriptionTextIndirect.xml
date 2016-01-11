@@ -9,7 +9,7 @@
       <suite id="2" line="17" name="integrity.basic.conditionalDescriptionTextIndirectSub" timestamp="23.11.13 21:55:33.0286">
         <setup />
         <variables>
-          <variable name="integrity.basic.integer" value="123" />
+          <variable name="integer" value="123" />
         </variables>
         <statements>
           <test id="3" line="28" name="echoIntegerOrStringTest" description="Echo the integer 123 and not a string!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString" timestamp="23.11.13 21:55:33.0286">
@@ -33,7 +33,7 @@
       <suite id="5" line="21" name="integrity.basic.conditionalDescriptionTextIndirectSub" timestamp="23.11.13 21:55:33.0301">
         <setup />
         <variables>
-          <variable name="integrity.basic.string" value="123" />
+          <variable name="string" value="123" />
         </variables>
         <statements>
           <test id="6" line="28" name="echoIntegerOrStringTest" description="Echo the string '123' and not an integer!" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerOrString" timestamp="23.11.13 21:55:33.0301">

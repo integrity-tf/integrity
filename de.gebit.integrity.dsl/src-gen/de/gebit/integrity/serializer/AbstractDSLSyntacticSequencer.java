@@ -25,7 +25,6 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_ParameterTableValue_VerticalLineKeyword_2_q;
 	protected AbstractElementAlias match_ResultTableHeader_VerticalLineKeyword_3_q;
 	protected AbstractElementAlias match_SuiteDefinition___ConcludedbyKeyword_7_0_NLParserRuleCall_7_1__q;
-	protected AbstractElementAlias match_SuiteDefinition___GetsKeyword_5_0_NLParserRuleCall_5_1__q;
 	protected AbstractElementAlias match_SuiteDefinition___RequiresKeyword_6_0_NLParserRuleCall_6_1__q;
 	
 	@Inject
@@ -35,7 +34,6 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 		match_ParameterTableValue_VerticalLineKeyword_2_q = new TokenAlias(false, true, grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_2());
 		match_ResultTableHeader_VerticalLineKeyword_3_q = new TokenAlias(false, true, grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3());
 		match_SuiteDefinition___ConcludedbyKeyword_7_0_NLParserRuleCall_7_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1()));
-		match_SuiteDefinition___GetsKeyword_5_0_NLParserRuleCall_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5_1()));
 		match_SuiteDefinition___RequiresKeyword_6_0_NLParserRuleCall_6_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_1()));
 	}
 	
@@ -82,8 +80,6 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 				emit_ResultTableHeader_VerticalLineKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition___ConcludedbyKeyword_7_0_NLParserRuleCall_7_1__q.equals(syntax))
 				emit_SuiteDefinition___ConcludedbyKeyword_7_0_NLParserRuleCall_7_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SuiteDefinition___GetsKeyword_5_0_NLParserRuleCall_5_1__q.equals(syntax))
-				emit_SuiteDefinition___GetsKeyword_5_0_NLParserRuleCall_5_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SuiteDefinition___RequiresKeyword_6_0_NLParserRuleCall_6_1__q.equals(syntax))
 				emit_SuiteDefinition___RequiresKeyword_6_0_NLParserRuleCall_6_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -130,26 +126,12 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 * This ambiguous syntax occurs at:
 	 *     dependencies+=[SuiteDefinition|QualifiedName] NL (ambiguity) 'with' NL 'suiteend' NL (rule end)
 	 *     dependencies+=[SuiteDefinition|QualifiedName] NL (ambiguity) 'with' NL statements+=SuiteStatement
-	 *     name=QualifiedName NL ('gets' NL)? ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
-	 *     name=QualifiedName NL ('gets' NL)? ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
-	 *     parameters+=VariableEntity NL ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
-	 *     parameters+=VariableEntity NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
+	 *     name=QualifiedName NL ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
+	 *     name=QualifiedName NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
+	 *     parameters+=SuiteParameterDefinition NL ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
+	 *     parameters+=SuiteParameterDefinition NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
 	 */
 	protected void emit_SuiteDefinition___ConcludedbyKeyword_7_0_NLParserRuleCall_7_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('gets' NL)?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     name=QualifiedName NL (ambiguity) 'requires' NL dependencies+=[SuiteDefinition|QualifiedName]
-	 *     name=QualifiedName NL (ambiguity) ('requires' NL)? 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
-	 *     name=QualifiedName NL (ambiguity) ('requires' NL)? ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
-	 *     name=QualifiedName NL (ambiguity) ('requires' NL)? ('concludedby' NL)? 'with' NL statements+=SuiteStatement
-	 */
-	protected void emit_SuiteDefinition___GetsKeyword_5_0_NLParserRuleCall_5_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -158,12 +140,12 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     ('requires' NL)?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=QualifiedName NL ('gets' NL)? (ambiguity) 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
-	 *     name=QualifiedName NL ('gets' NL)? (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
-	 *     name=QualifiedName NL ('gets' NL)? (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
-	 *     parameters+=VariableEntity NL (ambiguity) 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
-	 *     parameters+=VariableEntity NL (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
-	 *     parameters+=VariableEntity NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
+	 *     name=QualifiedName NL (ambiguity) 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
+	 *     name=QualifiedName NL (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
+	 *     name=QualifiedName NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
+	 *     parameters+=SuiteParameterDefinition NL (ambiguity) 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
+	 *     parameters+=SuiteParameterDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
+	 *     parameters+=SuiteParameterDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
 	 */
 	protected void emit_SuiteDefinition___RequiresKeyword_6_0_NLParserRuleCall_6_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

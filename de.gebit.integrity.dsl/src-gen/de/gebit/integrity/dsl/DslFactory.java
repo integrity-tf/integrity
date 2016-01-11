@@ -194,6 +194,15 @@ public interface DslFactory extends EFactory
   SuiteDefinition createSuiteDefinition();
 
   /**
+   * Returns a new object of class '<em>Suite Parameter Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Suite Parameter Definition</em>'.
+   * @generated
+   */
+  SuiteParameterDefinition createSuiteParameterDefinition();
+
+  /**
    * Returns a new object of class '<em>Operation Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

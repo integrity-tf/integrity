@@ -52,6 +52,7 @@ import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -230,6 +231,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.SUITE_PARAMETER:
 				sequence_SuiteParameter(context, (SuiteParameter) semanticObject); 
+				return; 
+			case DslPackage.SUITE_PARAMETER_DEFINITION:
+				sequence_SuiteParameterDefinition(context, (SuiteParameterDefinition) semanticObject); 
 				return; 
 			case DslPackage.TABLE_TEST:
 				sequence_TableTest(context, (TableTest) semanticObject); 
@@ -961,13 +965,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     (
 	 *         private='private'? 
 	 *         name=QualifiedName 
-	 *         parameters+=VariableEntity* 
+	 *         parameters+=SuiteParameterDefinition* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 
 	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
 	 *         statements+=SuiteStatement*
 	 *     )
 	 */
 	protected void sequence_SuiteDefinition(EObject context, SuiteDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=VariableEntity default=ValueOrEnumValueOrOperationCollection?)
+	 */
+	protected void sequence_SuiteParameterDefinition(EObject context, SuiteParameterDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

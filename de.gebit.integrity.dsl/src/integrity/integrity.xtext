@@ -79,7 +79,10 @@ CallDefinition:
 	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
-	private='private'? 'suitedef' NL name=QualifiedName NL ('gets' NL (parameters+=VariableEntity NL)*)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
+	private='private'? 'suitedef' NL name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;
+	
+SuiteParameterDefinition:
+	name=VariableEntity (NL 'by default' default=ValueOrEnumValueOrOperationCollection)?;
 
 OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;

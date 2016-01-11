@@ -699,11 +699,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cGetsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
-		private final Group cGroup_5_2 = (Group)cGroup_5.eContents().get(2);
-		private final Assignment cParametersAssignment_5_2_0 = (Assignment)cGroup_5_2.eContents().get(0);
-		private final RuleCall cParametersVariableEntityParserRuleCall_5_2_0_0 = (RuleCall)cParametersAssignment_5_2_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5_2_1 = (RuleCall)cGroup_5_2.eContents().get(1);
+		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
+		private final Assignment cParametersAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
+		private final RuleCall cParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0 = (RuleCall)cParametersAssignment_5_1_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1_1 = (RuleCall)cGroup_5_1.eContents().get(1);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cRequiresKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
@@ -728,14 +727,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_12 = (RuleCall)cGroup.eContents().get(12);
 		
 		//SuiteDefinition:
-		//	private="private"? "suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
-		//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
-		//	NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL;
+		//	private="private"? "suitedef" NL name=QualifiedName NL ("gets" (parameters+=SuiteParameterDefinition NL)+)?
+		//	("requires" NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL
+		//	(finalizers+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//private="private"? "suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
-		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
-		//NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL
+		//private="private"? "suitedef" NL name=QualifiedName NL ("gets" (parameters+=SuiteParameterDefinition NL)+)? ("requires"
+		//NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL
+		//(finalizers+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL
 		public Group getGroup() { return cGroup; }
 
 		//private="private"?
@@ -759,26 +758,23 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
-		//("gets" NL (parameters+=VariableEntity NL)*)?
+		//("gets" (parameters+=SuiteParameterDefinition NL)+)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"gets"
 		public Keyword getGetsKeyword_5_0() { return cGetsKeyword_5_0; }
 
-		//NL
-		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
+		//(parameters+=SuiteParameterDefinition NL)+
+		public Group getGroup_5_1() { return cGroup_5_1; }
 
-		//(parameters+=VariableEntity NL)*
-		public Group getGroup_5_2() { return cGroup_5_2; }
+		//parameters+=SuiteParameterDefinition
+		public Assignment getParametersAssignment_5_1_0() { return cParametersAssignment_5_1_0; }
 
-		//parameters+=VariableEntity
-		public Assignment getParametersAssignment_5_2_0() { return cParametersAssignment_5_2_0; }
-
-		//VariableEntity
-		public RuleCall getParametersVariableEntityParserRuleCall_5_2_0_0() { return cParametersVariableEntityParserRuleCall_5_2_0_0; }
+		//SuiteParameterDefinition
+		public RuleCall getParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0() { return cParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5_2_1() { return cNLParserRuleCall_5_2_1; }
+		public RuleCall getNLParserRuleCall_5_1_1() { return cNLParserRuleCall_5_1_1; }
 
 		//("requires" NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
 		public Group getGroup_6() { return cGroup_6; }
@@ -845,6 +841,46 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NL
 		public RuleCall getNLParserRuleCall_12() { return cNLParserRuleCall_12; }
+	}
+
+	public class SuiteParameterDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SuiteParameterDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameVariableEntityParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Keyword cByDefaultKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cDefaultAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cDefaultValueOrEnumValueOrOperationCollectionParserRuleCall_1_2_0 = (RuleCall)cDefaultAssignment_1_2.eContents().get(0);
+		
+		//SuiteParameterDefinition:
+		//	name=VariableEntity (NL "by default" default=ValueOrEnumValueOrOperationCollection)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//name=VariableEntity (NL "by default" default=ValueOrEnumValueOrOperationCollection)?
+		public Group getGroup() { return cGroup; }
+
+		//name=VariableEntity
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//VariableEntity
+		public RuleCall getNameVariableEntityParserRuleCall_0_0() { return cNameVariableEntityParserRuleCall_0_0; }
+
+		//(NL "by default" default=ValueOrEnumValueOrOperationCollection)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1_0() { return cNLParserRuleCall_1_0; }
+
+		//"by default"
+		public Keyword getByDefaultKeyword_1_1() { return cByDefaultKeyword_1_1; }
+
+		//default=ValueOrEnumValueOrOperationCollection
+		public Assignment getDefaultAssignment_1_2() { return cDefaultAssignment_1_2; }
+
+		//ValueOrEnumValueOrOperationCollection
+		public RuleCall getDefaultValueOrEnumValueOrOperationCollectionParserRuleCall_1_2_0() { return cDefaultValueOrEnumValueOrOperationCollectionParserRuleCall_1_2_0; }
 	}
 
 	public class OperationDefinitionElements extends AbstractParserRuleElementFinder {
@@ -3313,6 +3349,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final TestDefinitionElements pTestDefinition;
 	private final CallDefinitionElements pCallDefinition;
 	private final SuiteDefinitionElements pSuiteDefinition;
+	private final SuiteParameterDefinitionElements pSuiteParameterDefinition;
 	private final OperationDefinitionElements pOperationDefinition;
 	private final SuiteStatementElements pSuiteStatement;
 	private final SuiteStatementWithResultElements pSuiteStatementWithResult;
@@ -3431,6 +3468,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pTestDefinition = new TestDefinitionElements();
 		this.pCallDefinition = new CallDefinitionElements();
 		this.pSuiteDefinition = new SuiteDefinitionElements();
+		this.pSuiteParameterDefinition = new SuiteParameterDefinitionElements();
 		this.pOperationDefinition = new OperationDefinitionElements();
 		this.pSuiteStatement = new SuiteStatementElements();
 		this.pSuiteStatementWithResult = new SuiteStatementWithResultElements();
@@ -3742,15 +3780,25 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteDefinition:
-	//	private="private"? "suitedef" NL name=QualifiedName NL ("gets" NL (parameters+=VariableEntity NL)*)? ("requires" NL
-	//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL (finalizers+=[SuiteDefinition|QualifiedName]
-	//	NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL;
+	//	private="private"? "suitedef" NL name=QualifiedName NL ("gets" (parameters+=SuiteParameterDefinition NL)+)?
+	//	("requires" NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ("concludedby" NL
+	//	(finalizers+=[SuiteDefinition|QualifiedName] NL)*)? "with" NL statements+=SuiteStatement* "suiteend" NL;
 	public SuiteDefinitionElements getSuiteDefinitionAccess() {
 		return pSuiteDefinition;
 	}
 	
 	public ParserRule getSuiteDefinitionRule() {
 		return getSuiteDefinitionAccess().getRule();
+	}
+
+	//SuiteParameterDefinition:
+	//	name=VariableEntity (NL "by default" default=ValueOrEnumValueOrOperationCollection)?;
+	public SuiteParameterDefinitionElements getSuiteParameterDefinitionAccess() {
+		return pSuiteParameterDefinition;
+	}
+	
+	public ParserRule getSuiteParameterDefinitionRule() {
+		return getSuiteParameterDefinitionAccess().getRule();
 	}
 
 	//OperationDefinition:

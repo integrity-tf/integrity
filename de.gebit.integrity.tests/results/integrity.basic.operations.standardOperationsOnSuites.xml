@@ -8,8 +8,8 @@
       <suite id="1" line="8" name="integrity.basic.operations.subSuite" timestamp="14.07.14 16:38:22.0120">
         <setup />
         <variables>
-          <variable name="integrity.basic.operations.param1" value="2" />
-          <variable name="integrity.basic.operations.param2" value="1" />
+          <variable name="param1" value="2" />
+          <variable name="param2" value="1" />
         </variables>
         <statements>
           <test id="2" line="16" name="echoIntegerTest" description="Echo the integer '2'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.07.14 16:38:22.0120">
@@ -31,8 +31,8 @@
       <suite id="3" line="9" name="integrity.basic.operations.subSuite" timestamp="14.07.14 16:38:22.0135">
         <setup />
         <variables>
-          <variable name="integrity.basic.operations.param1" value="16" />
-          <variable name="integrity.basic.operations.param2" value="15" />
+          <variable name="param1" value="16" />
+          <variable name="param2" value="15" />
         </variables>
         <statements>
           <test id="4" line="16" name="echoIntegerTest" description="Echo the integer '16'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.07.14 16:38:22.0135">

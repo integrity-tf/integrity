@@ -1,0 +1,67 @@
+packagedef integrity.basic.suitecalls with
+
+	suitedef simpleSuiteCallsWithParameters with	
+		// Call with no parameters at all
+		suite testSuiteSingleParam
+		suite testSuiteMultiParam
+		
+		// Call with one parameter
+		suite testSuiteSingleParam param1: "Foobar"
+		suite testSuiteMultiParam param1: "Foobar"
+		
+		// Call with two parameters
+		suite testSuiteMultiParam param1: "Foo" param2: "Bar"
+		
+		// Call with constant
+		constant testConstant "Foobar"
+		suite testSuiteSingleParam param1: testConstant
+		
+		// Call with variable
+		variable testVariable initially "Foobar"
+		suite testSuiteSingleParam param1: testVariable
+	suiteend
+	
+	// This test is similar to the above one, but it uses sub-suites that have defaults given for their parameters
+	suitedef defaultUsingSuiteCallsWithParameters with
+		// Call with no parameters at all
+		suite testSuiteSingleParamWithDefault
+		suite testSuiteMultiParamWithDefault
+		
+		// Call with one parameter
+		suite testSuiteSingleParamWithDefault param1: "Foobar"
+		suite testSuiteMultiParamWithDefault param1: "Foobar"
+		
+		// Call with two parameters
+		suite testSuiteMultiParamWithDefault param1: "Foo" param2: "Bar"
+		
+		// Call with constant
+		constant testConstant "Foobar"
+		suite testSuiteSingleParamWithDefault param1: testConstant
+		
+		// Call with variable
+		variable testVariable initially "Foobar"
+		suite testSuiteSingleParamWithDefault param1: testVariable
+	suiteend
+	
+	
+	suitedef testSuiteSingleParam gets param1 with
+		call integrity.fixtures.basic.noop.echoString string: param1
+	suiteend
+	
+	suitedef testSuiteMultiParam gets param1 param2 with
+		call integrity.fixtures.basic.noop.echoString string: param1
+		call integrity.fixtures.basic.noop.echoString string: param2
+	suiteend
+	
+	suitedef testSuiteSingleParamWithDefault gets param1 by default "FOOBAR!" with
+		call integrity.fixtures.basic.noop.echoString string: param1
+	suiteend
+	
+	constant testPackageConstant "BAR!"
+	
+	suitedef testSuiteMultiParamWithDefault gets param1 by default "FOO!" param2 by default testPackageConstant with
+		call integrity.fixtures.basic.noop.echoString string: param1
+		call integrity.fixtures.basic.noop.echoString string: param2
+	suiteend
+
+packageend

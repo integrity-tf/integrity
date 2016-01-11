@@ -12,12 +12,18 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
+
 /**
- * A utility class for handling of test/call parameters.
+ * A utility class for handling of test/call/suite parameters.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -110,6 +116,22 @@ public final class ParameterUtil {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Determines a list of all {@link VariableEntity}s referenced in a suites' parameter list.
+	 * 
+	 * @param aSuite
+	 * @return
+	 */
+	public static List<VariableEntity> getVariableEntitiesForSuiteParameters(SuiteDefinition aSuite) {
+		List<VariableEntity> tempResults = new ArrayList<>(aSuite.getParameters().size());
+
+		for (SuiteParameterDefinition tempParameter : aSuite.getParameters()) {
+			tempResults.add(tempParameter.getName());
+		}
+
+		return tempResults;
 	}
 
 	/**

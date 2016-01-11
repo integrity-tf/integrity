@@ -55,6 +55,7 @@ import de.gebit.integrity.dsl.StaticValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
@@ -426,7 +427,8 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	@Override
-	public SuiteSummaryResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+	public SuiteSummaryResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant,
+			boolean aBlockForRemotingFlag) {
 		Suite tempRootSuiteCall = DslFactory.eINSTANCE.createSuite();
 		tempRootSuiteCall.setDefinition(aRootSuite);
 
@@ -550,11 +552,8 @@ public class DefaultTestRunner implements TestRunner {
 			String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempConstant.getName(), false);
 			String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName) : null;
 			if (tempConstant.getParameterized() != null) {
-				defineConstant(
-						tempConstant,
-						tempValue,
-						(tempConstant.eContainer() instanceof SuiteDefinition) ? ((SuiteDefinition) tempConstant
-								.eContainer()) : null);
+				defineConstant(tempConstant, tempValue, (tempConstant.eContainer() instanceof SuiteDefinition)
+						? ((SuiteDefinition) tempConstant.eContainer()) : null);
 			} else {
 				if (tempValue != null) {
 					throw new IllegalArgumentException("Constant '" + tempName
@@ -653,11 +652,9 @@ public class DefaultTestRunner implements TestRunner {
 		int tempCount = 1;
 		if (aSuiteCall.getMultiplier() != null && aSuiteCall.getMultiplier().getCount() != null) {
 			try {
-				tempCount = (Integer) valueConverter.convertValue(
-						Integer.class,
-						aSuiteCall.getMultiplier().getCount(),
-						conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
-								UnresolvableVariableHandling.EXCEPTION));
+				tempCount = (Integer) valueConverter.convertValue(Integer.class, aSuiteCall.getMultiplier().getCount(),
+						conversionContextProvider.get()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException(exc);
@@ -716,8 +713,8 @@ public class DefaultTestRunner implements TestRunner {
 						// but first see if this fork has already died once. if true, then the fork has died
 						// prematurely, which means we cannot continue execution at all
 						if (diedForks.contains(aSuiteCall.getFork())) {
-							throw new RuntimeException("Fork " + aSuiteCall.getFork().getName()
-									+ " has died prematurely!");
+							throw new RuntimeException(
+									"Fork " + aSuiteCall.getFork().getName() + " has died prematurely!");
 						}
 						try {
 							forkMap.put(aSuiteCall.getFork(), createFork(aSuiteCall));
@@ -755,9 +752,11 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		List<SuiteDefinition> tempSetupSuitesExecuted = executeSetupSuites(aSuiteCall.getDefinition(), tempSetupResults);
+		List<SuiteDefinition> tempSetupSuitesExecuted = executeSetupSuites(aSuiteCall.getDefinition(),
+				tempSetupResults);
 
 		// Define variables for all the parameters provided to the suite call
+		List<VariableOrConstantEntity> tempVariablesSet = new ArrayList<>();
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
 			if (tempParam.getValue() instanceof Variable) {
 				Variable tempVariable = (Variable) tempParam.getValue();
@@ -766,6 +765,22 @@ public class DefaultTestRunner implements TestRunner {
 			} else {
 				defineVariable(tempParam.getName(), tempParam.getValue(), aSuiteCall.getDefinition());
 			}
+			tempVariablesSet.add(tempParam.getName());
+		}
+
+		// And for all variables supported by the suite that were missing in the call, their respective default is set
+		for (SuiteParameterDefinition tempParamDefinition : aSuiteCall.getDefinition().getParameters()) {
+			if (tempParamDefinition.getDefault() != null && !tempVariablesSet.contains(tempParamDefinition.getName())) {
+				if (tempParamDefinition.getDefault().getValue() instanceof Variable) {
+					Variable tempVariable = (Variable) tempParamDefinition.getDefault().getValue();
+					defineVariable(tempParamDefinition.getName(), variableManager.get(tempVariable.getName()),
+							aSuiteCall.getDefinition());
+				} else {
+					defineVariable(tempParamDefinition.getName(), tempParamDefinition.getDefault(),
+							aSuiteCall.getDefinition());
+				}
+				tempVariablesSet.add(tempParamDefinition.getName());
+			}
 		}
 
 		long tempSuiteDuration = System.nanoTime();
@@ -773,16 +788,16 @@ public class DefaultTestRunner implements TestRunner {
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
 		// Now unset all the parameter variables' values again (fixes issue #44)
-		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
-			variableManager.unset(tempParam.getName());
+		for (VariableOrConstantEntity tempVariableSet : tempVariablesSet) {
+			variableManager.unset(tempVariableSet);
 		}
 
 		if (!checkForAbortion()) {
 			executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
 		}
 
-		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempResults,
-				tempSetupResults, tempTearDownResults, tempSuiteDuration);
+		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null
+				: new SuiteResult(tempResults, tempSetupResults, tempTearDownResults, tempSuiteDuration);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -869,15 +884,15 @@ public class DefaultTestRunner implements TestRunner {
 				tempSetupSuitesExecuted.addAll(executeSetupSuites(tempSetupSuite, aSetupResultMap));
 				if (tempSetupsAlreadyRun.contains(tempSetupSuite)) {
 					// A circle has been created. This is a hard error -> abort before the stack inevitably explodes.
-					throw new IllegalStateException("A setup suite circle has been detected ("
-							+ tempSetupSuite.getName() + " called from " + aSuite.getName()
-							+ "). Please break the circle!");
+					throw new IllegalStateException(
+							"A setup suite circle has been detected (" + tempSetupSuite.getName() + " called from "
+									+ aSuite.getName() + "). Please break the circle!");
 				}
 
 				long tempStart = System.nanoTime();
 				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempSetupSuite);
-				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
-						null, null, System.nanoTime() - tempStart);
+				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null
+						: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
 				aSetupResultMap.put(tempSetupSuite, tempSetupResult);
 
 				tempSetupsAlreadyRun.add(tempSetupSuite);
@@ -916,9 +931,10 @@ public class DefaultTestRunner implements TestRunner {
 				}
 
 				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempTearDownSuite);
-				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null : new SuiteResult(tempSuiteResults,
-						null, null, System.nanoTime() - tempStart);
+				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
+						tempTearDownSuite);
+				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null
+						: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
 				aTearDownResultMap.put(tempTearDownSuite, tempTearDownResult);
 
 				if (currentCallback != null) {
@@ -1148,8 +1164,8 @@ public class DefaultTestRunner implements TestRunner {
 					if (aValue == null || (aValue instanceof Serializable)) {
 						remotingServer.sendVariableUpdate(tempName, (Serializable) aValue);
 					} else {
-						System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempName + "' TO MASTER - VALUE '"
-								+ aValue + "' OF TYPE '" + aValue.getClass().getName() + "' IS NOT SERIALIZABLE!");
+						System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempName + "' TO MASTER - VALUE '" + aValue
+								+ "' OF TYPE '" + aValue.getClass().getName() + "' IS NOT SERIALIZABLE!");
 					}
 				}
 			} else {
@@ -1250,8 +1266,8 @@ public class DefaultTestRunner implements TestRunner {
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 						ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
-								tempNamedResult.getValue(), tempFixtureInstance, aTest.getDefinition()
-										.getFixtureMethod(), tempResultName);
+								tempNamedResult.getValue(), tempFixtureInstance,
+								aTest.getDefinition().getFixtureMethod(), tempResultName);
 						tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
 								tempSingleFixtureResult, tempNamedResult.getValue());
 						tempComparisonMap.put(tempResultName, tempComparisonResult);
@@ -1408,8 +1424,8 @@ public class DefaultTestRunner implements TestRunner {
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
 							ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
-									tempExpectedNamedResultValue, tempFixtureInstance, aTest.getDefinition()
-											.getFixtureMethod(), tempResultName);
+									tempExpectedNamedResultValue, tempFixtureInstance,
+									aTest.getDefinition().getFixtureMethod(), tempResultName);
 							tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
 									tempSingleFixtureResult, tempExpectedNamedResultValue);
 							tempComparisonMap.put(tempResultName, tempComparisonResult);
@@ -1419,11 +1435,11 @@ public class DefaultTestRunner implements TestRunner {
 					} else {
 						// Use the default result
 						ComparisonResult tempResult = resultComparator.compareResult(tempFixtureResult,
-								tempExpectedDefaultResultValue, tempFixtureInstance, aTest.getDefinition()
-										.getFixtureMethod(), null);
-						tempComparisonResult = TestComparisonResult
-								.wrap(tempResult, ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult,
-										tempExpectedDefaultResultValue);
+								tempExpectedDefaultResultValue, tempFixtureInstance,
+								aTest.getDefinition().getFixtureMethod(), null);
+						tempComparisonResult = TestComparisonResult.wrap(tempResult,
+								ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult,
+								tempExpectedDefaultResultValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 					// SUPPRESS CHECKSTYLE IllegalCatch
@@ -1467,8 +1483,8 @@ public class DefaultTestRunner implements TestRunner {
 						tempFixtureMethodName, tempDuration);
 				handlePossibleAbortException(tempException);
 			} else {
-				tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance,
-						tempFixtureMethodName, tempDuration);
+				tempSubResult = new TestExecutedSubResult(tempComparisonMap, tempFixtureInstance, tempFixtureMethodName,
+						tempDuration);
 			}
 			tempSubResults.add(tempSubResult);
 
@@ -1535,11 +1551,9 @@ public class DefaultTestRunner implements TestRunner {
 		int tempCount = 1;
 		if (aCall.getMultiplier() != null && aCall.getMultiplier().getCount() != null) {
 			try {
-				tempCount = (Integer) valueConverter.convertValue(
-						Integer.class,
-						aCall.getMultiplier().getCount(),
-						conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
-								UnresolvableVariableHandling.EXCEPTION));
+				tempCount = (Integer) valueConverter.convertValue(Integer.class, aCall.getMultiplier().getCount(),
+						conversionContextProvider.get()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
 			} catch (UnresolvableVariableException exc) {
 				// should never happen, since constant values are not allowed to be variables which still need resolving
 				throw new ThisShouldNeverHappenException(exc);
@@ -1576,10 +1590,10 @@ public class DefaultTestRunner implements TestRunner {
 		List<UpdatedVariable> tempUpdatedVariables = new ArrayList<UpdatedVariable>();
 		if (aCall.getResults() != null && aCall.getResults().size() > 0) {
 			for (NamedCallResult tempNamedResult : aCall.getResults()) {
-				String tempResultName = IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempNamedResult
-						.getName());
-				tempUpdatedVariables.add(new UpdatedVariable(tempNamedResult.getTarget().getName(), tempResultName,
-						null));
+				String tempResultName = IntegrityDSLUtil
+						.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
+				tempUpdatedVariables
+						.add(new UpdatedVariable(tempNamedResult.getTarget().getName(), tempResultName, null));
 			}
 		} else if (aCall.getResult() != null) {
 			tempUpdatedVariables.add(new UpdatedVariable(aCall.getResult().getName(), null, null));
@@ -1628,8 +1642,8 @@ public class DefaultTestRunner implements TestRunner {
 					Map<String, Object> tempFixtureResultMap = ParameterUtil
 							.getValuesFromNamedResultContainer(tempResult);
 					for (UpdatedVariable tempUpdatedVariable : tempUpdatedVariables) {
-						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempUpdatedVariable
-								.getParameterName());
+						Object tempSingleFixtureResult = tempFixtureResultMap
+								.get(tempUpdatedVariable.getParameterName());
 						tempUpdatedVariable.setValue(tempSingleFixtureResult);
 						setVariableValue(tempUpdatedVariable.getTargetVariable(), tempSingleFixtureResult, true);
 					}
@@ -1696,7 +1710,8 @@ public class DefaultTestRunner implements TestRunner {
 
 	}
 
-	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(List<TestSubResult> someSubResults) {
+	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(
+			List<TestSubResult> someSubResults) {
 		boolean tempHasFailure = false;
 		for (TestSubResult tempSubResult : someSubResults) {
 			if (tempSubResult instanceof TestExceptionSubResult) {
@@ -1721,8 +1736,8 @@ public class DefaultTestRunner implements TestRunner {
 			return false;
 		} else {
 			if (MY_FORK_NAME != null) {
-				return (forkInExecution != null && IntegrityDSLUtil.getQualifiedForkName(forkInExecution).equals(
-						MY_FORK_NAME));
+				return (forkInExecution != null
+						&& IntegrityDSLUtil.getQualifiedForkName(forkInExecution).equals(MY_FORK_NAME));
 			} else {
 				return (forkInExecution == null);
 			}
@@ -1939,11 +1954,11 @@ public class DefaultTestRunner implements TestRunner {
 			try {
 				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(tempForkDef.getForkerClass().getType());
 			} catch (ClassCastException exc) {
-				throw new ForkException("Could not create fork '" + tempForkDef.getName()
-						+ "': forker class not usable.", exc);
+				throw new ForkException(
+						"Could not create fork '" + tempForkDef.getName() + "': forker class not usable.", exc);
 			} catch (ClassNotFoundException exc) {
-				throw new ForkException("Could not create fork '" + tempForkDef.getName()
-						+ "': forker class not found.", exc);
+				throw new ForkException(
+						"Could not create fork '" + tempForkDef.getName() + "': forker class not found.", exc);
 			}
 		}
 
@@ -1966,8 +1981,7 @@ public class DefaultTestRunner implements TestRunner {
 										.getParamNameStringFromParameterName(tempParameter.getName());
 								if (tempName.equals(tempParamName)) {
 									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-									tempParameters[i] = valueConverter.convertValue(
-											tempTargetType,
+									tempParameters[i] = valueConverter.convertValue(tempTargetType,
 											tempParameter.getValue(),
 											conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
 													UnresolvableVariableHandling.EXCEPTION));
@@ -1979,31 +1993,31 @@ public class DefaultTestRunner implements TestRunner {
 				}
 			}
 		} catch (ConversionException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': failed to resolve forker parameters.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': failed to resolve forker parameters.", exc);
 		} catch (UnresolvableVariableException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': failed to resolve forker parameters.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': failed to resolve forker parameters.", exc);
 		} catch (UnexecutableException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': failed to resolve forker parameters.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': failed to resolve forker parameters.", exc);
 		}
 
 		Forker tempForker = null;
 		try {
 			tempForker = tempConstructor.newInstance(tempParameters);
 		} catch (InstantiationException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': forker class not instantiable.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': forker class not instantiable.", exc);
 		} catch (IllegalAccessException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': forker class not instantiable.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': forker class not instantiable.", exc);
 		} catch (IllegalArgumentException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': forker class not instantiable.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': forker class not instantiable.", exc);
 		} catch (InvocationTargetException exc) {
-			throw new ForkException("Could not create fork '" + tempForkDef.getName()
-					+ "': forker class not instantiable.", exc);
+			throw new ForkException(
+					"Could not create fork '" + tempForkDef.getName() + "': forker class not instantiable.", exc);
 		}
 
 		Fork tempFork = new Fork(aSuiteCall.getFork(), tempForker, commandLineArguments,
@@ -2030,8 +2044,9 @@ public class DefaultTestRunner implements TestRunner {
 		injector.injectMembers(tempFork);
 		tempFork.start();
 
-		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null ? Integer.parseInt(System
-				.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY)) : getForkConnectionTimeoutDefault();
+		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY))
+				: getForkConnectionTimeoutDefault();
 
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {

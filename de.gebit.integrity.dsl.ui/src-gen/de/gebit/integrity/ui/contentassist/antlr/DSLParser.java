@@ -79,11 +79,13 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallDefinitionAccess().getGroup(), "rule__CallDefinition__Group__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup(), "rule__SuiteDefinition__Group__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_5(), "rule__SuiteDefinition__Group_5__0");
-					put(grammarAccess.getSuiteDefinitionAccess().getGroup_5_2(), "rule__SuiteDefinition__Group_5_2__0");
+					put(grammarAccess.getSuiteDefinitionAccess().getGroup_5_1(), "rule__SuiteDefinition__Group_5_1__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_6(), "rule__SuiteDefinition__Group_6__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_6_2(), "rule__SuiteDefinition__Group_6_2__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_7(), "rule__SuiteDefinition__Group_7__0");
 					put(grammarAccess.getSuiteDefinitionAccess().getGroup_7_2(), "rule__SuiteDefinition__Group_7_2__0");
+					put(grammarAccess.getSuiteParameterDefinitionAccess().getGroup(), "rule__SuiteParameterDefinition__Group__0");
+					put(grammarAccess.getSuiteParameterDefinitionAccess().getGroup_1(), "rule__SuiteParameterDefinition__Group_1__0");
 					put(grammarAccess.getOperationDefinitionAccess().getGroup(), "rule__OperationDefinition__Group__0");
 					put(grammarAccess.getVariableDefinitionAccess().getGroup(), "rule__VariableDefinition__Group__0");
 					put(grammarAccess.getVariableDefinitionAccess().getGroup_5(), "rule__VariableDefinition__Group_5__0");
@@ -172,10 +174,12 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallDefinitionAccess().getFixtureMethodAssignment_6(), "rule__CallDefinition__FixtureMethodAssignment_6");
 					put(grammarAccess.getSuiteDefinitionAccess().getPrivateAssignment_0(), "rule__SuiteDefinition__PrivateAssignment_0");
 					put(grammarAccess.getSuiteDefinitionAccess().getNameAssignment_3(), "rule__SuiteDefinition__NameAssignment_3");
-					put(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_5_2_0(), "rule__SuiteDefinition__ParametersAssignment_5_2_0");
+					put(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_5_1_0(), "rule__SuiteDefinition__ParametersAssignment_5_1_0");
 					put(grammarAccess.getSuiteDefinitionAccess().getDependenciesAssignment_6_2_0(), "rule__SuiteDefinition__DependenciesAssignment_6_2_0");
 					put(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_7_2_0(), "rule__SuiteDefinition__FinalizersAssignment_7_2_0");
 					put(grammarAccess.getSuiteDefinitionAccess().getStatementsAssignment_10(), "rule__SuiteDefinition__StatementsAssignment_10");
+					put(grammarAccess.getSuiteParameterDefinitionAccess().getNameAssignment_0(), "rule__SuiteParameterDefinition__NameAssignment_0");
+					put(grammarAccess.getSuiteParameterDefinitionAccess().getDefaultAssignment_1_2(), "rule__SuiteParameterDefinition__DefaultAssignment_1_2");
 					put(grammarAccess.getOperationDefinitionAccess().getNameAssignment_2(), "rule__OperationDefinition__NameAssignment_2");
 					put(grammarAccess.getOperationDefinitionAccess().getOperationTypeAssignment_6(), "rule__OperationDefinition__OperationTypeAssignment_6");
 					put(grammarAccess.getVariableDefinitionAccess().getPrivateAssignment_0(), "rule__VariableDefinition__PrivateAssignment_0");

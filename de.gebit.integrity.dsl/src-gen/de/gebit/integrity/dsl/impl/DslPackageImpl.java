@@ -60,6 +60,7 @@ import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
@@ -238,6 +239,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass suiteDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass suiteParameterDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1198,6 +1206,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EReference getSuiteDefinition_Statements()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSuiteParameterDefinition()
+  {
+    return suiteParameterDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuiteParameterDefinition_Name()
+  {
+    return (EReference)suiteParameterDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuiteParameterDefinition_Default()
+  {
+    return (EReference)suiteParameterDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2763,6 +2801,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__FINALIZERS);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__STATEMENTS);
 
+    suiteParameterDefinitionEClass = createEClass(SUITE_PARAMETER_DEFINITION);
+    createEReference(suiteParameterDefinitionEClass, SUITE_PARAMETER_DEFINITION__NAME);
+    createEReference(suiteParameterDefinitionEClass, SUITE_PARAMETER_DEFINITION__DEFAULT);
+
     operationDefinitionEClass = createEClass(OPERATION_DEFINITION);
     createEAttribute(operationDefinitionEClass, OPERATION_DEFINITION__NAME);
     createEReference(operationDefinitionEClass, OPERATION_DEFINITION__OPERATION_TYPE);
@@ -3133,10 +3175,14 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(suiteDefinitionEClass, SuiteDefinition.class, "SuiteDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSuiteDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSuiteDefinition_Parameters(), this.getVariableEntity(), null, "parameters", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSuiteDefinition_Parameters(), this.getSuiteParameterDefinition(), null, "parameters", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Dependencies(), this.getSuiteDefinition(), null, "dependencies", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Finalizers(), this.getSuiteDefinition(), null, "finalizers", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Statements(), this.getSuiteStatement(), null, "statements", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(suiteParameterDefinitionEClass, SuiteParameterDefinition.class, "SuiteParameterDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSuiteParameterDefinition_Name(), this.getVariableEntity(), null, "name", null, 0, 1, SuiteParameterDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSuiteParameterDefinition_Default(), this.getValueOrEnumValueOrOperationCollection(), null, "default", null, 0, 1, SuiteParameterDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(operationDefinitionEClass, OperationDefinition.class, "OperationDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOperationDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
