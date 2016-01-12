@@ -204,7 +204,8 @@ public class Fork {
 	 */
 	// SUPPRESS CHECKSTYLE ParameterNum
 	public Fork(ForkDefinition aDefinition, Forker aForker, String[] someCommandLineArguments, int aMainPortNumber,
-			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer, ForkCallback aForkCallback) {
+			TestRunnerCallback aCallback, SetList aSetList, IntegrityRemotingServer aServer,
+			ForkCallback aForkCallback) {
 		super();
 
 		definition = aDefinition;
@@ -330,8 +331,8 @@ public class Fork {
 	 */
 	public boolean connect(long aTimeout, ClassLoader aClassLoader) throws IOException {
 		synchronized (this) {
-			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(getProcess().getHost(), getProcess()
-					.getPort(), new ForkRemotingClientListener(), aClassLoader);
+			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(getProcess().getHost(),
+					getProcess().getPort(), new ForkRemotingClientListener(), aClassLoader);
 
 			try {
 				wait(aTimeout);
@@ -416,8 +417,8 @@ public class Fork {
 				// is already handled gracefully enough a step or two above in the call stack - an error is logged and
 				// the variable in question is skipped for syncing.
 				// See also issue #100: https://github.com/integrity-tf/integrity/issues/100
-				variableUpdates.put(tempKey, valueConverter.convertValue(null, aValue, conversionContextProvider.get()
-						.skipBeanToMapDefaultConversion()));
+				variableUpdates.put(tempKey, valueConverter.convertValue(null, aValue,
+						conversionContextProvider.get().skipBeanToMapDefaultConversion()));
 			} catch (UnresolvableVariableException exc) {
 				System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempKey + "' TO FORK - EXCEPTION OCCURRED");
 				exc.printStackTrace();
@@ -446,7 +447,8 @@ public class Fork {
 		}
 
 		@Override
-		public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution, Endpoint anEndpoint) {
+		public void onSetListUpdate(SetListEntry[] someUpdatedEntries, Integer anEntryInExecution,
+				Endpoint anEndpoint) {
 			setList.integrateUpdates(someUpdatedEntries);
 			if (server != null) {
 				server.updateSetList(anEntryInExecution, someUpdatedEntries);
@@ -602,6 +604,10 @@ public class Fork {
 
 	private class ForkMonitor extends Thread {
 
+		public ForkMonitor() {
+			super("Fork Monitor Thread");
+		}
+
 		/**
 		 * Set if the fork monitor thread should kill itself.
 		 */
@@ -609,6 +615,13 @@ public class Fork {
 
 		public void kill() {
 			killSwitch = true;
+			if (Thread.currentThread() != this) {
+				try {
+					join(FORK_CHECK_INTERVAL * 2);
+				} catch (InterruptedException exc) {
+					// ignored
+				}
+			}
 		}
 
 		public void run() {
