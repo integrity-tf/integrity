@@ -94,6 +94,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariableOrConstantEntity/name"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Test">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Test/checkpoint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Test/results"/>

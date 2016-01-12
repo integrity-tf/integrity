@@ -75,6 +75,7 @@ import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.exceptions.AbortExecutionException;
+import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
@@ -104,6 +105,7 @@ import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
 import de.gebit.integrity.runner.comparator.ResultComparator;
@@ -122,6 +124,7 @@ import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
+import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
 import de.gebit.integrity.runner.results.test.TestComparisonUndeterminedResult;
 import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
@@ -247,6 +250,12 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected Provider<ConversionContext> conversionContextProvider;
+
+	/**
+	 * The test formatter.
+	 */
+	@Inject
+	protected TestFormatter testFormatter;
 
 	/**
 	 * The remoting server.
@@ -449,7 +458,7 @@ public class DefaultTestRunner implements TestRunner {
 		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
+		Runtime.getRuntime().addShutdownHook(new Thread("Process Terminator Shutdown Hook") {
 
 			@Override
 			public void run() {
@@ -1302,6 +1311,26 @@ public class DefaultTestRunner implements TestRunner {
 				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
 						aTest.getResult());
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
+			}
+		}
+
+		if (tempException == null && aTest.getCheckpoint() != null) {
+			// In case of checkpoint tests, execution has to be aborted if they fail. This is done by "throwing" an
+			// abort exception if there is any failed test result.
+			for (TestComparisonResult tempResult : tempComparisonMap.values()) {
+				if (tempResult instanceof TestComparisonFailureResult) {
+					String tempTestDescription = "<unknown>";
+					try {
+						tempTestDescription = testFormatter.testToHumanReadableString(aTest, null);
+					} catch (ClassNotFoundException | InstantiationException | UnexecutableException
+							| MethodNotFoundException exc) {
+						// ignored
+					}
+
+					tempException = new AbortExecutionException(
+							"Checkpoint Test '" + tempTestDescription + "' has failed!");
+					break;
+				}
 			}
 		}
 

@@ -220,7 +220,7 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if (aModel instanceof Test) {
 			Test tempTest = (Test) aModel;
 
-			if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_3_0()) {
+			if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the parameters group
 				completeTestParametersInternal(tempTest, aContext, anAcceptor);
 				if (tempTest.getDefinition() != null

@@ -1065,7 +1065,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (definition=[TestDefinition|QualifiedName] parameters+=Parameter* results+=NamedResult* result=ValueOrEnumValueOrOperationCollection?)
+	 *     (
+	 *         checkpoint='checkpoint'? 
+	 *         definition=[TestDefinition|QualifiedName] 
+	 *         parameters+=Parameter* 
+	 *         results+=NamedResult* 
+	 *         result=ValueOrEnumValueOrOperationCollection?
+	 *     )
 	 */
 	protected void sequence_Test(EObject context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

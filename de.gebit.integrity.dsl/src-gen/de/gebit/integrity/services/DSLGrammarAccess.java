@@ -1270,95 +1270,103 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class TestElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Test");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cTestKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cDefinitionTestDefinitionCrossReference_2_0 = (CrossReference)cDefinitionAssignment_2.eContents().get(0);
-		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_2_0.eContents().get(1);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final RuleCall cNLParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final Assignment cParametersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cParametersParameterParserRuleCall_3_1_0 = (RuleCall)cParametersAssignment_3_1.eContents().get(0);
+		private final Assignment cCheckpointAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cCheckpointCheckpointKeyword_0_0 = (Keyword)cCheckpointAssignment_0.eContents().get(0);
+		private final Keyword cTestKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cDefinitionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cDefinitionTestDefinitionCrossReference_3_0 = (CrossReference)cDefinitionAssignment_3.eContents().get(0);
+		private final RuleCall cDefinitionTestDefinitionQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cDefinitionTestDefinitionCrossReference_3_0.eContents().get(1);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final RuleCall cNLParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
-		private final Assignment cResultsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cResultsNamedResultParserRuleCall_4_1_0 = (RuleCall)cResultsAssignment_4_1.eContents().get(0);
+		private final Assignment cParametersAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_4_1_0 = (RuleCall)cParametersAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final RuleCall cNLParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_5_2 = (RuleCall)cGroup_5.eContents().get(2);
-		private final Assignment cResultAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
-		private final RuleCall cResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0 = (RuleCall)cResultAssignment_5_3.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cResultsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cResultsNamedResultParserRuleCall_5_1_0 = (RuleCall)cResultsAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final RuleCall cNLParserRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_6_2 = (RuleCall)cGroup_6.eContents().get(2);
+		private final Assignment cResultAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final RuleCall cResultValueOrEnumValueOrOperationCollectionParserRuleCall_6_3_0 = (RuleCall)cResultAssignment_6_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//Test:
-		//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
-		//	result=ValueOrEnumValueOrOperationCollection)? NL;
+		//	checkpoint="checkpoint"? "test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL
+		//	results+=NamedResult)* (NL "=" NL result=ValueOrEnumValueOrOperationCollection)? NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
-		//result=ValueOrEnumValueOrOperationCollection)? NL
+		//checkpoint="checkpoint"? "test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL
+		//results+=NamedResult)* (NL "=" NL result=ValueOrEnumValueOrOperationCollection)? NL
 		public Group getGroup() { return cGroup; }
 
+		//checkpoint="checkpoint"?
+		public Assignment getCheckpointAssignment_0() { return cCheckpointAssignment_0; }
+
+		//"checkpoint"
+		public Keyword getCheckpointCheckpointKeyword_0_0() { return cCheckpointCheckpointKeyword_0_0; }
+
 		//"test"
-		public Keyword getTestKeyword_0() { return cTestKeyword_0; }
+		public Keyword getTestKeyword_1() { return cTestKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//definition=[TestDefinition|QualifiedName]
-		public Assignment getDefinitionAssignment_2() { return cDefinitionAssignment_2; }
+		public Assignment getDefinitionAssignment_3() { return cDefinitionAssignment_3; }
 
 		//[TestDefinition|QualifiedName]
-		public CrossReference getDefinitionTestDefinitionCrossReference_2_0() { return cDefinitionTestDefinitionCrossReference_2_0; }
+		public CrossReference getDefinitionTestDefinitionCrossReference_3_0() { return cDefinitionTestDefinitionCrossReference_3_0; }
 
 		//QualifiedName
-		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1; }
+		public RuleCall getDefinitionTestDefinitionQualifiedNameParserRuleCall_3_0_1() { return cDefinitionTestDefinitionQualifiedNameParserRuleCall_3_0_1; }
 
 		//(NL parameters+=Parameter)*
-		public Group getGroup_3() { return cGroup_3; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_3_0() { return cNLParserRuleCall_3_0; }
-
-		//parameters+=Parameter
-		public Assignment getParametersAssignment_3_1() { return cParametersAssignment_3_1; }
-
-		//Parameter
-		public RuleCall getParametersParameterParserRuleCall_3_1_0() { return cParametersParameterParserRuleCall_3_1_0; }
-
-		//(NL results+=NamedResult)*
 		public Group getGroup_4() { return cGroup_4; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_4_0() { return cNLParserRuleCall_4_0; }
 
-		//results+=NamedResult
-		public Assignment getResultsAssignment_4_1() { return cResultsAssignment_4_1; }
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_4_1() { return cParametersAssignment_4_1; }
 
-		//NamedResult
-		public RuleCall getResultsNamedResultParserRuleCall_4_1_0() { return cResultsNamedResultParserRuleCall_4_1_0; }
+		//Parameter
+		public RuleCall getParametersParameterParserRuleCall_4_1_0() { return cParametersParameterParserRuleCall_4_1_0; }
 
-		//(NL "=" NL result=ValueOrEnumValueOrOperationCollection)?
+		//(NL results+=NamedResult)*
 		public Group getGroup_5() { return cGroup_5; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_5_0() { return cNLParserRuleCall_5_0; }
 
-		//"="
-		public Keyword getEqualsSignKeyword_5_1() { return cEqualsSignKeyword_5_1; }
+		//results+=NamedResult
+		public Assignment getResultsAssignment_5_1() { return cResultsAssignment_5_1; }
+
+		//NamedResult
+		public RuleCall getResultsNamedResultParserRuleCall_5_1_0() { return cResultsNamedResultParserRuleCall_5_1_0; }
+
+		//(NL "=" NL result=ValueOrEnumValueOrOperationCollection)?
+		public Group getGroup_6() { return cGroup_6; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5_2() { return cNLParserRuleCall_5_2; }
+		public RuleCall getNLParserRuleCall_6_0() { return cNLParserRuleCall_6_0; }
+
+		//"="
+		public Keyword getEqualsSignKeyword_6_1() { return cEqualsSignKeyword_6_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_6_2() { return cNLParserRuleCall_6_2; }
 
 		//result=ValueOrEnumValueOrOperationCollection
-		public Assignment getResultAssignment_5_3() { return cResultAssignment_5_3; }
+		public Assignment getResultAssignment_6_3() { return cResultAssignment_6_3; }
 
 		//ValueOrEnumValueOrOperationCollection
-		public RuleCall getResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0() { return cResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0; }
+		public RuleCall getResultValueOrEnumValueOrOperationCollectionParserRuleCall_6_3_0() { return cResultValueOrEnumValueOrOperationCollectionParserRuleCall_6_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_6() { return cNLParserRuleCall_6; }
+		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
 	}
 
 	public class TableTestElements extends AbstractParserRuleElementFinder {
@@ -3894,8 +3902,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Test:
-	//	"test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL "=" NL
-	//	result=ValueOrEnumValueOrOperationCollection)? NL;
+	//	checkpoint="checkpoint"? "test" NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL
+	//	results+=NamedResult)* (NL "=" NL result=ValueOrEnumValueOrOperationCollection)? NL;
 	public TestElements getTestAccess() {
 		return pTest;
 	}

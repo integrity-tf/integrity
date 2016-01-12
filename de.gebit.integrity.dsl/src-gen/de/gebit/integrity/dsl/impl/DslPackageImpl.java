@@ -1473,9 +1473,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTest_Definition()
+  public EAttribute getTest_Checkpoint()
   {
-    return (EReference)testEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)testEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1483,7 +1483,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTest_Parameters()
+  public EReference getTest_Definition()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(1);
   }
@@ -1493,7 +1493,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTest_Results()
+  public EReference getTest_Parameters()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(2);
   }
@@ -1503,9 +1503,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTest_Result()
+  public EReference getTest_Results()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTest_Result()
+  {
+    return (EReference)testEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2837,6 +2847,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(variableOrConstantEntityEClass, VARIABLE_OR_CONSTANT_ENTITY__NAME);
 
     testEClass = createEClass(TEST);
+    createEAttribute(testEClass, TEST__CHECKPOINT);
     createEReference(testEClass, TEST__DEFINITION);
     createEReference(testEClass, TEST__PARAMETERS);
     createEReference(testEClass, TEST__RESULTS);
@@ -3216,6 +3227,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getVariableOrConstantEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableOrConstantEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testEClass, Test.class, "Test", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTest_Checkpoint(), ecorePackage.getEString(), "checkpoint", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Definition(), this.getTestDefinition(), null, "definition", null, 0, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTest_Results(), this.getNamedResult(), null, "results", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

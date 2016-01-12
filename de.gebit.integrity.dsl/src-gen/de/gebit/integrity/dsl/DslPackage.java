@@ -1050,13 +1050,22 @@ public interface DslPackage extends EPackage
   int TEST = 29;
 
   /**
+   * The feature id for the '<em><b>Checkpoint</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEST__CHECKPOINT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST__DEFINITION = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
+  int TEST__DEFINITION = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1065,7 +1074,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
+  int TEST__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Results</b></em>' containment reference list.
@@ -1074,7 +1083,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST__RESULTS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+  int TEST__RESULTS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -1083,7 +1092,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST__RESULT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
+  int TEST__RESULT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Test</em>' class.
@@ -1092,7 +1101,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+  int TEST_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TableTestImpl <em>Table Test</em>}' class.
@@ -3592,6 +3601,17 @@ public interface DslPackage extends EPackage
   EClass getTest();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.Test#getCheckpoint <em>Checkpoint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Checkpoint</em>'.
+   * @see de.gebit.integrity.dsl.Test#getCheckpoint()
+   * @see #getTest()
+   * @generated
+   */
+  EAttribute getTest_Checkpoint();
+
+  /**
    * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.Test#getDefinition <em>Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5542,6 +5562,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass TEST = eINSTANCE.getTest();
+
+    /**
+     * The meta object literal for the '<em><b>Checkpoint</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TEST__CHECKPOINT = eINSTANCE.getTest_Checkpoint();
 
     /**
      * The meta object literal for the '<em><b>Definition</b></em>' reference feature.

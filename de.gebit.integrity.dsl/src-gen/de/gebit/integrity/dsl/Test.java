@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.Test#getCheckpoint <em>Checkpoint</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Test#getResults <em>Results</em>}</li>
@@ -25,6 +26,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Test extends SuiteStatementWithResult
 {
+  /**
+   * Returns the value of the '<em><b>Checkpoint</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Checkpoint</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Checkpoint</em>' attribute.
+   * @see #setCheckpoint(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getTest_Checkpoint()
+   * @model
+   * @generated
+   */
+  String getCheckpoint();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.Test#getCheckpoint <em>Checkpoint</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Checkpoint</em>' attribute.
+   * @see #getCheckpoint()
+   * @generated
+   */
+  void setCheckpoint(String value);
+
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->

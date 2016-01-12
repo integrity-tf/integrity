@@ -45,22 +45,18 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 
 		// No spaces after opening bracket or before closing bracket of custom operations...
 		aConfig.setNoSpace().after(tempGrammar.getCustomOperationAccess().getLeftSquareBracketKeyword_0());
-		aConfig.setNoSpace().before(
-				tempGrammar.getCustomOperationAccess()
-						.getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0());
-		aConfig.setNoSpace().after(
-				tempGrammar.getCustomOperationAccess()
-						.getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0());
+		aConfig.setNoSpace().before(tempGrammar.getCustomOperationAccess()
+				.getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0());
+		aConfig.setNoSpace().after(tempGrammar.getCustomOperationAccess()
+				.getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0());
 		aConfig.setNoSpace().before(tempGrammar.getCustomOperationAccess().getRightSquareBracketKeyword_6());
 
 		// ...and the same with standard operations
 		aConfig.setNoSpace().after(tempGrammar.getStandardOperationAccess().getLeftParenthesisKeyword_0());
-		aConfig.setNoSpace()
-				.before(tempGrammar.getStandardOperationAccess()
-						.getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0());
-		aConfig.setNoSpace().after(
-				tempGrammar.getStandardOperationAccess()
-						.getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0());
+		aConfig.setNoSpace().before(tempGrammar.getStandardOperationAccess()
+				.getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0());
+		aConfig.setNoSpace().after(tempGrammar.getStandardOperationAccess()
+				.getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0());
 		aConfig.setNoSpace().before(tempGrammar.getStandardOperationAccess().getRightParenthesisKeyword_5());
 
 		// No spaces at the end of lines and before whitespace between tokens
@@ -98,26 +94,26 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 
 		// Indentations
 		// Suites and Packages
-		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(), tempGrammar
-				.getPackageDefinitionAccess().getPackageendKeyword_6());
-		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_1(), tempGrammar
-				.getSuiteDefinitionAccess().getSuiteendKeyword_11());
+		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(),
+				tempGrammar.getPackageDefinitionAccess().getPackageendKeyword_6());
+		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_1(),
+				tempGrammar.getSuiteDefinitionAccess().getSuiteendKeyword_11());
 
 		// Objects
-		aConfig.setIndentation(tempGrammar.getNestedObjectAccess().getLeftCurlyBracketKeyword_0(), tempGrammar
-				.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
+		aConfig.setIndentation(tempGrammar.getNestedObjectAccess().getLeftCurlyBracketKeyword_0(),
+				tempGrammar.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
 
 		// Constant Variants
-		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_1(), tempGrammar
-				.getVariantValueAccess().getValueAssignment_5());
+		aConfig.setIndentation(tempGrammar.getVariantValueAccess().getNLParserRuleCall_1(),
+				tempGrammar.getVariantValueAccess().getValueAssignment_5());
 
 		// Tests and Calls
-		aConfig.setIndentation(tempGrammar.getTestAccess().getNLParserRuleCall_1(), tempGrammar.getTestAccess()
-				.getNLParserRuleCall_6());
-		aConfig.setIndentation(tempGrammar.getCallAccess().getNLParserRuleCall_1(), tempGrammar.getCallAccess()
-				.getNLParserRuleCall_7());
-		aConfig.setIndentation(tempGrammar.getTableTestAccess().getNLParserRuleCall_1(), tempGrammar
-				.getTableTestAccess().getNLFORCEDParserRuleCall_10());
+		aConfig.setIndentation(tempGrammar.getTestAccess().getNLParserRuleCall_2(),
+				tempGrammar.getTestAccess().getNLParserRuleCall_7());
+		aConfig.setIndentation(tempGrammar.getCallAccess().getNLParserRuleCall_1(),
+				tempGrammar.getCallAccess().getNLParserRuleCall_7());
+		aConfig.setIndentation(tempGrammar.getTableTestAccess().getNLParserRuleCall_1(),
+				tempGrammar.getTableTestAccess().getNLFORCEDParserRuleCall_10());
 	}
 
 	@Override

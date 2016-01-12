@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getCheckpoint <em>Checkpoint</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TestImpl#getResults <em>Results</em>}</li>
@@ -42,6 +43,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class TestImpl extends SuiteStatementWithResultImpl implements Test
 {
+  /**
+   * The default value of the '{@link #getCheckpoint() <em>Checkpoint</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCheckpoint()
+   * @generated
+   * @ordered
+   */
+  protected static final String CHECKPOINT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCheckpoint() <em>Checkpoint</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCheckpoint()
+   * @generated
+   * @ordered
+   */
+  protected String checkpoint = CHECKPOINT_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getDefinition() <em>Definition</em>}' reference.
    * <!-- begin-user-doc -->
@@ -101,6 +122,29 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.TEST;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getCheckpoint()
+  {
+    return checkpoint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCheckpoint(String newCheckpoint)
+  {
+    String oldCheckpoint = checkpoint;
+    checkpoint = newCheckpoint;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.TEST__CHECKPOINT, oldCheckpoint, checkpoint));
   }
 
   /**
@@ -252,6 +296,8 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   {
     switch (featureID)
     {
+      case DslPackage.TEST__CHECKPOINT:
+        return getCheckpoint();
       case DslPackage.TEST__DEFINITION:
         if (resolve) return getDefinition();
         return basicGetDefinition();
@@ -276,6 +322,9 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   {
     switch (featureID)
     {
+      case DslPackage.TEST__CHECKPOINT:
+        setCheckpoint((String)newValue);
+        return;
       case DslPackage.TEST__DEFINITION:
         setDefinition((TestDefinition)newValue);
         return;
@@ -304,6 +353,9 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   {
     switch (featureID)
     {
+      case DslPackage.TEST__CHECKPOINT:
+        setCheckpoint(CHECKPOINT_EDEFAULT);
+        return;
       case DslPackage.TEST__DEFINITION:
         setDefinition((TestDefinition)null);
         return;
@@ -330,6 +382,8 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   {
     switch (featureID)
     {
+      case DslPackage.TEST__CHECKPOINT:
+        return CHECKPOINT_EDEFAULT == null ? checkpoint != null : !CHECKPOINT_EDEFAULT.equals(checkpoint);
       case DslPackage.TEST__DEFINITION:
         return definition != null;
       case DslPackage.TEST__PARAMETERS:
@@ -340,6 +394,23 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
         return result != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (checkpoint: ");
+    result.append(checkpoint);
+    result.append(')');
+    return result.toString();
   }
 
 } //TestImpl

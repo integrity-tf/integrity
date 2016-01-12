@@ -20,6 +20,7 @@
 'by default'=49
 'call'=59
 'calldef'=43
+'checkpoint'=78
 'concludedby'=48
 'constant'=53
 'forkdef'=38
@@ -122,3 +123,4 @@ T__74=74
 T__75=75
 T__76=76
 T__77=77
+T__78=78

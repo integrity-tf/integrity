@@ -2267,13 +2267,28 @@ ruleTest returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='test' 
+((
+(
+		lv_checkpoint_0_0=	'checkpoint' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getTestAccess().getTestKeyword_0());
+        newLeafNode(lv_checkpoint_0_0, grammarAccess.getTestAccess().getCheckpointCheckpointKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTestRule());
+	        }
+       		setWithLastConsumed($current, "checkpoint", lv_checkpoint_0_0, "checkpoint");
+	    }
+
+)
+)?	otherlv_1='test' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getTestAccess().getTestKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -2287,7 +2302,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getDefinitionTestDefinitionCrossReference_2_0()); 
+	        newCompositeNode(grammarAccess.getTestAccess().getDefinitionTestDefinitionCrossReference_3_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -2295,32 +2310,6 @@ ruleNL
 
 )
 )(
-    { 
-        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_3_0()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getParametersParameterParserRuleCall_3_1_0()); 
-	    }
-		lv_parameters_4_0=ruleParameter		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getTestRule());
-	        }
-       		add(
-       			$current, 
-       			"parameters",
-        		lv_parameters_4_0, 
-        		"Parameter");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*(
     { 
         newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_4_0()); 
     }
@@ -2331,17 +2320,17 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getResultsNamedResultParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getTestAccess().getParametersParameterParserRuleCall_4_1_0()); 
 	    }
-		lv_results_6_0=ruleNamedResult		{
+		lv_parameters_5_0=ruleParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestRule());
 	        }
        		add(
        			$current, 
-       			"results",
-        		lv_results_6_0, 
-        		"NamedResult");
+       			"parameters",
+        		lv_parameters_5_0, 
+        		"Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2354,13 +2343,39 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-	otherlv_8='=' 
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTestAccess().getResultsNamedResultParserRuleCall_5_1_0()); 
+	    }
+		lv_results_7_0=ruleNamedResult		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTestRule());
+	        }
+       		add(
+       			$current, 
+       			"results",
+        		lv_results_7_0, 
+        		"NamedResult");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*(
+    { 
+        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_6_0()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+	otherlv_9='=' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getTestAccess().getEqualsSignKeyword_5_1());
+    	newLeafNode(otherlv_9, grammarAccess.getTestAccess().getEqualsSignKeyword_6_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_5_2()); 
+        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_6_2()); 
     }
 ruleNL
     { 
@@ -2369,16 +2384,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueOrOperationCollectionParserRuleCall_5_3_0()); 
+	        newCompositeNode(grammarAccess.getTestAccess().getResultValueOrEnumValueOrOperationCollectionParserRuleCall_6_3_0()); 
 	    }
-		lv_result_10_0=ruleValueOrEnumValueOrOperationCollection		{
+		lv_result_11_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestRule());
 	        }
        		set(
        			$current, 
        			"result",
-        		lv_result_10_0, 
+        		lv_result_11_0, 
         		"ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2386,7 +2401,7 @@ ruleNL
 )
 ))?
     { 
-        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_6()); 
+        newCompositeNode(grammarAccess.getTestAccess().getNLParserRuleCall_7()); 
     }
 ruleNL
     { 

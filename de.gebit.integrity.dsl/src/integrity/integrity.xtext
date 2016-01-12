@@ -112,7 +112,7 @@ VariableOrConstantEntity:
 	VariableEntity | ConstantEntity;
 		
 Test:
-	'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueOrOperationCollection)? NL;
+	checkpoint='checkpoint'? 'test' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* (NL results+=NamedResult)* (NL '=' NL result=ValueOrEnumValueOrOperationCollection)? NL;
 	
 TableTest:
 	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
