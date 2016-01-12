@@ -1,0 +1,34 @@
+packagedef integrity.basic.exceptions.checkpointTests with
+
+	suitedef simpleCheckpointTest with		
+		call integrity.fixtures.basic.noop.noOp
+		
+		// This test will still run and be successful 
+		checkpoint test integrity.fixtures.basic.noop.echoStringTest string: "foo" = "foo"
+		
+		// This test will fail and cause an abortion
+		checkpoint test integrity.fixtures.basic.noop.echoStringTest string: "foo" = "bar"
+		
+		// This call will not run anymore
+		call integrity.fixtures.basic.noop.noOp	
+	suiteend
+	
+	suitedef checkpointTestNested with		
+		suite innerCheckpointTestNested
+	suiteend
+	
+		
+	suitedef innerCheckpointTestNested with		
+		call integrity.fixtures.basic.noop.noOp
+		
+		// This test will still run and be successful 
+		checkpoint test integrity.fixtures.basic.noop.echoStringTest string: "foo" = "foo"
+		
+		// This test will fail and cause an abortion
+		checkpoint test integrity.fixtures.basic.noop.echoStringTest string: "foo" = "bar"
+		
+		// This call will not run anymore
+		call integrity.fixtures.basic.noop.noOp	
+	suiteend
+	
+packageend
