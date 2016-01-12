@@ -218,6 +218,7 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Variable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Variable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Variable/attribute"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariableVariable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableVariable/name"/>

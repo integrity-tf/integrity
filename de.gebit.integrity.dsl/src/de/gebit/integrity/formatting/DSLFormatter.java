@@ -75,6 +75,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().around(tempGrammar.getMethodReferenceAccess().getNumberSignKeyword_1());
 		aConfig.setNoSpace().around(tempGrammar.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
 		aConfig.setNoSpace().before(tempGrammar.getKeyValuePairAccess().getColonKeyword_2());
+		aConfig.setNoSpace().around(tempGrammar.getVariableAccess().getNumberSignKeyword_1_0());
 
 		// No spaces before/after encapsulating <>
 		aConfig.setNoSpace().after(tempGrammar.getJavaConstantValueAccess().getLessThanSignKeyword_0());

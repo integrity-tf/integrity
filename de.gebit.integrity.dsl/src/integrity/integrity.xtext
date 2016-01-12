@@ -242,7 +242,7 @@ JavaConstantValue:
 	'<' constant=JavaConstantReference '>';
 	
 Variable:
-	name=[VariableOrConstantEntity|QualifiedName];
+	name=[VariableOrConstantEntity|QualifiedName] ('#' attribute=ID)?;
 	
 VariableVariable:
 	name=[VariableEntity|QualifiedName];

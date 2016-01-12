@@ -2453,6 +2453,16 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getVariable_Attribute()
+  {
+    return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVariableVariable()
   {
     return variableVariableEClass;
@@ -2988,6 +2998,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     variableEClass = createEClass(VARIABLE);
     createEReference(variableEClass, VARIABLE__NAME);
+    createEAttribute(variableEClass, VARIABLE__ATTRIBUTE);
 
     variableVariableEClass = createEClass(VARIABLE_VARIABLE);
     createEReference(variableVariableEClass, VARIABLE_VARIABLE__NAME);
@@ -3368,6 +3379,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariable_Name(), this.getVariableOrConstantEntity(), null, "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVariable_Attribute(), ecorePackage.getEString(), "attribute", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableVariableEClass, VariableVariable.class, "VariableVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariableVariable_Name(), this.getVariableEntity(), null, "name", null, 0, 1, VariableVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

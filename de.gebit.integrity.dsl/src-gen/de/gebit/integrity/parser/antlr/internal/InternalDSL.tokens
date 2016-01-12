@@ -1,4 +1,4 @@
-'#'=76
+'#'=73
 '%'=65
 '('=61
 ')'=67
@@ -28,7 +28,7 @@
 'import'=31
 'in'=50
 'initially'=47
-'null'=73
+'null'=74
 'on'=59
 'operationdef'=45
 'packagedef'=28
@@ -46,9 +46,9 @@
 'variable'=46
 'variantdef'=36
 'with'=29
-'{'=74
+'{'=75
 '|'=55
-'}'=75
+'}'=76
 RULE_ANY_OTHER=27
 RULE_BOOLEAN_FALSE=14
 RULE_BOOLEAN_TRUE=13

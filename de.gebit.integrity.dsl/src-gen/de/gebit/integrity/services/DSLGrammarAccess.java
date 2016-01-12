@@ -2867,22 +2867,42 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class VariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Variable");
-		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cNameVariableOrConstantEntityCrossReference_0 = (CrossReference)cNameAssignment.eContents().get(0);
-		private final RuleCall cNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_1 = (RuleCall)cNameVariableOrConstantEntityCrossReference_0.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cNameVariableOrConstantEntityCrossReference_0_0 = (CrossReference)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cNameVariableOrConstantEntityCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cAttributeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cAttributeIDTerminalRuleCall_1_1_0 = (RuleCall)cAttributeAssignment_1_1.eContents().get(0);
 		
 		//Variable:
-		//	name=[VariableOrConstantEntity|QualifiedName];
+		//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?;
 		@Override public ParserRule getRule() { return rule; }
 
+		//name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?
+		public Group getGroup() { return cGroup; }
+
 		//name=[VariableOrConstantEntity|QualifiedName]
-		public Assignment getNameAssignment() { return cNameAssignment; }
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
 		//[VariableOrConstantEntity|QualifiedName]
-		public CrossReference getNameVariableOrConstantEntityCrossReference_0() { return cNameVariableOrConstantEntityCrossReference_0; }
+		public CrossReference getNameVariableOrConstantEntityCrossReference_0_0() { return cNameVariableOrConstantEntityCrossReference_0_0; }
 
 		//QualifiedName
-		public RuleCall getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_1() { return cNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_1; }
+		public RuleCall getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1() { return cNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1; }
+
+		//("#" attribute=ID)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"#"
+		public Keyword getNumberSignKeyword_1_0() { return cNumberSignKeyword_1_0; }
+
+		//attribute=ID
+		public Assignment getAttributeAssignment_1_1() { return cAttributeAssignment_1_1; }
+
+		//ID
+		public RuleCall getAttributeIDTerminalRuleCall_1_1_0() { return cAttributeIDTerminalRuleCall_1_1_0; }
 	}
 
 	public class VariableVariableElements extends AbstractParserRuleElementFinder {
@@ -4341,7 +4361,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Variable:
-	//	name=[VariableOrConstantEntity|QualifiedName];
+	//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?;
 	public VariableElements getVariableAccess() {
 		return pVariable;
 	}

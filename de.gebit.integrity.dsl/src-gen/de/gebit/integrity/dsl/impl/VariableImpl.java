@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariableImpl#getName <em>Name</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.VariableImpl#getAttribute <em>Attribute</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,6 +38,26 @@ public class VariableImpl extends ValueImpl implements Variable
    * @ordered
    */
   protected VariableOrConstantEntity name;
+
+  /**
+   * The default value of the '{@link #getAttribute() <em>Attribute</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAttribute()
+   * @generated
+   * @ordered
+   */
+  protected static final String ATTRIBUTE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getAttribute() <em>Attribute</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAttribute()
+   * @generated
+   * @ordered
+   */
+  protected String attribute = ATTRIBUTE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -107,6 +128,29 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getAttribute()
+  {
+    return attribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAttribute(String newAttribute)
+  {
+    String oldAttribute = attribute;
+    attribute = newAttribute;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIABLE__ATTRIBUTE, oldAttribute, attribute));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -115,6 +159,8 @@ public class VariableImpl extends ValueImpl implements Variable
       case DslPackage.VARIABLE__NAME:
         if (resolve) return getName();
         return basicGetName();
+      case DslPackage.VARIABLE__ATTRIBUTE:
+        return getAttribute();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -131,6 +177,9 @@ public class VariableImpl extends ValueImpl implements Variable
     {
       case DslPackage.VARIABLE__NAME:
         setName((VariableOrConstantEntity)newValue);
+        return;
+      case DslPackage.VARIABLE__ATTRIBUTE:
+        setAttribute((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -149,6 +198,9 @@ public class VariableImpl extends ValueImpl implements Variable
       case DslPackage.VARIABLE__NAME:
         setName((VariableOrConstantEntity)null);
         return;
+      case DslPackage.VARIABLE__ATTRIBUTE:
+        setAttribute(ATTRIBUTE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -165,8 +217,27 @@ public class VariableImpl extends ValueImpl implements Variable
     {
       case DslPackage.VARIABLE__NAME:
         return name != null;
+      case DslPackage.VARIABLE__ATTRIBUTE:
+        return ATTRIBUTE_EDEFAULT == null ? attribute != null : !ATTRIBUTE_EDEFAULT.equals(attribute);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (attribute: ");
+    result.append(attribute);
+    result.append(')');
+    return result.toString();
   }
 
 } //VariableImpl

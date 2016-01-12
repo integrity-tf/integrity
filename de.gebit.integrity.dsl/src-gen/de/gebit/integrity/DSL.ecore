@@ -267,6 +267,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableOrConstantEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableVariable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//VariableEntity"/>

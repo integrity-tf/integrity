@@ -2488,13 +2488,22 @@ public interface DslPackage extends EPackage
   int VARIABLE__NAME = VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Attribute</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__ATTRIBUTE = VALUE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+  int VARIABLE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.VariableVariableImpl <em>Variable Variable</em>}' class.
@@ -4636,6 +4645,17 @@ public interface DslPackage extends EPackage
   EReference getVariable_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.Variable#getAttribute <em>Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Attribute</em>'.
+   * @see de.gebit.integrity.dsl.Variable#getAttribute()
+   * @see #getVariable()
+   * @generated
+   */
+  EAttribute getVariable_Attribute();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.VariableVariable <em>Variable Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6432,6 +6452,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference VARIABLE__NAME = eINSTANCE.getVariable_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Attribute</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE__ATTRIBUTE = eINSTANCE.getVariable_Attribute();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VariableVariableImpl <em>Variable Variable</em>}' class.

@@ -5193,7 +5193,7 @@ ruleVariable returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
+((
 (
 		{
 			if ($current==null) {
@@ -5201,14 +5201,36 @@ ruleVariable returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityCrossReference_0()); 
+	        newCompositeNode(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityCrossReference_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
+)(	otherlv_1='#' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getVariableAccess().getNumberSignKeyword_1_0());
+    }
+(
+(
+		lv_attribute_2_0=RULE_ID
+		{
+			newLeafNode(lv_attribute_2_0, grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVariableRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"attribute",
+        		lv_attribute_2_0, 
+        		"ID");
+	    }
+
 )
+))?)
 ;
 
 

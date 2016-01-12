@@ -136,6 +136,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getGroup(), "rule__EuropeanDateAnd12HrsTimeValue__Group__0");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getGroup(), "rule__USDateAnd12HrsTimeValue__Group__0");
 					put(grammarAccess.getJavaConstantValueAccess().getGroup(), "rule__JavaConstantValue__Group__0");
+					put(grammarAccess.getVariableAccess().getGroup(), "rule__Variable__Group__0");
+					put(grammarAccess.getVariableAccess().getGroup_1(), "rule__Variable__Group_1__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup(), "rule__NestedObject__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup_2(), "rule__NestedObject__Group_2__0");
@@ -258,7 +260,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueAssignment_0(), "rule__USDateAnd12HrsTimeValue__DateValueAssignment_0");
 					put(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2(), "rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2");
 					put(grammarAccess.getJavaConstantValueAccess().getConstantAssignment_1(), "rule__JavaConstantValue__ConstantAssignment_1");
-					put(grammarAccess.getVariableAccess().getNameAssignment(), "rule__Variable__NameAssignment");
+					put(grammarAccess.getVariableAccess().getNameAssignment_0(), "rule__Variable__NameAssignment_0");
+					put(grammarAccess.getVariableAccess().getAttributeAssignment_1_1(), "rule__Variable__AttributeAssignment_1_1");
 					put(grammarAccess.getVariableVariableAccess().getNameAssignment(), "rule__VariableVariable__NameAssignment");
 					put(grammarAccess.getConstantAccess().getNameAssignment(), "rule__Constant__NameAssignment");
 					put(grammarAccess.getEnumValueAccess().getEnumValueAssignment(), "rule__EnumValue__EnumValueAssignment");
