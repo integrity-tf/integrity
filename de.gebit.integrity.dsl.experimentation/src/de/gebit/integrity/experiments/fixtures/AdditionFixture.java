@@ -69,6 +69,15 @@ public class AdditionFixture {
 		return anInput;
 	}
 
+	@FixtureMethod(description = "echoes $echo$ and ignores $param1$, $param2$ and $param3$")
+	public Object returnValues(@FixtureParameter(name = "echo") Object anInput,
+			@FixtureParameter(name = "param1") Object anIgnoredInput1,
+			@FixtureParameter(name = "param2") Object anIgnoredInput2,
+			@FixtureParameter(name = "param3") Object anIgnoredInput3) {
+		// throw new RuntimeException("An exception!");
+		return anInput;
+	}
+
 	@FixtureMethod(description = "echoes $echo$")
 	public Date returnDate(@FixtureParameter(name = "echo") Date anInput) {
 		pause();

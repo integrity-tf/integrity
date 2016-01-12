@@ -7,7 +7,9 @@ packagedef mypackage with
 	calldef wait uses de.gebit.integrity.experiments.fixtures.AdditionFixture#wait
 	
 	testdef echo uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValue
+	testdef echos uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValues
 	calldef echoCall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValue
+	calldef echosCall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnValues
 	testdef echoInteger uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnInteger
 	testdef echoString uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnString
 	

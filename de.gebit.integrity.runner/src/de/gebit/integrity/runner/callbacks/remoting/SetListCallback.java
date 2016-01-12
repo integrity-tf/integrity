@@ -54,6 +54,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
@@ -152,8 +153,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		if (getForkInExecution() != null) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.FORK_NAME, getForkInExecution().getName());
 			if (getForkInExecution().getDescription() != null) {
-				tempNewEntry.setAttribute(SetListEntryAttributeKeys.FORK_DESCRIPTION, getForkInExecution()
-						.getDescription());
+				tempNewEntry.setAttribute(SetListEntryAttributeKeys.FORK_DESCRIPTION,
+						getForkInExecution().getDescription());
 			}
 		}
 
@@ -218,8 +219,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		try {
 			// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated twice
-			tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true, createConversionContext()
-					.getUnresolvableVariableHandlingPolicy());
+			tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow,
+					TableTestParameterResolveMethod.COMBINED, true,
+					createConversionContext().getUnresolvableVariableHandlingPolicy());
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -267,8 +269,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 		try {
-			tempParameterMap = parameterResolver.createParameterMap(aTest, true, createConversionContext()
-					.getUnresolvableVariableHandlingPolicy());
+			tempParameterMap = parameterResolver.createParameterMap(aTest, true,
+					createConversionContext().getUnresolvableVariableHandlingPolicy());
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -359,12 +361,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 			boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
-			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT, valueConverter
-					.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false,
+			tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT,
+					valueConverter.convertValueToString((tempExpectedValue == null ? true : tempExpectedValue), false,
 							createConversionContext()));
 			if (tempEntry.getValue().getActualValue() != null) {
-				tempComparisonEntry.setAttribute(
-						SetListEntryAttributeKeys.VALUE,
+				tempComparisonEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
 						convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 								tempExpectedIsNestedObject,
 								createConversionContext().withComparisonResult(tempEntry.getValue().getResult())));
@@ -410,9 +411,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
 		} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
 			tempNewEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.FALSE);
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
-					stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
-							.getException()));
+			tempNewEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, stackTraceToString(
+					((de.gebit.integrity.runner.results.call.ExceptionResult) aResult).getException()));
 		}
 
 		SetListEntry[] tempEntries = new SetListEntry[aResult.getUpdatedVariables().size()];
@@ -420,14 +420,12 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		for (UpdatedVariable tempUpdatedVariable : aResult.getUpdatedVariables()) {
 			SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.VARIABLE_UPDATE);
 			if (tempUpdatedVariable.getTargetVariable() != null) {
-				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, tempUpdatedVariable
-						.getTargetVariable().getName());
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME,
+						tempUpdatedVariable.getTargetVariable().getName());
 			}
 			if (tempUpdatedVariable.getValue() != null) {
-				tempResultEntry.setAttribute(
-						SetListEntryAttributeKeys.VALUE,
-						convertResultValueToStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
-								createConversionContext()));
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.VALUE, convertResultValueToStringGuarded(
+						tempUpdatedVariable.getValue(), aResult, false, createConversionContext()));
 			}
 			if (tempUpdatedVariable.getParameterName() != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.PARAMETER_NAME,
@@ -569,9 +567,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	protected SetListEntry[] addMethodAndParamsToTestOrCall(MethodReference aMethod, EList<Parameter> aParamList,
 			SetListEntry anEntry, SuiteStatementWithResult aStatement) {
 		try {
-			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, testFormatter
-					.fixtureMethodToHumanReadableString(aMethod, aStatement, parameterResolver.createParameterMap(
-							aParamList, true, createConversionContext().getUnresolvableVariableHandlingPolicy()),
+			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
+					testFormatter.fixtureMethodToHumanReadableString(aMethod, aStatement,
+							parameterResolver.createParameterMap(aParamList, true,
+									createConversionContext().getUnresolvableVariableHandlingPolicy()),
 							createConversionContext()));
 		} catch (ClassNotFoundException exc) {
 			anEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION, exc.getMessage());
@@ -759,11 +758,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		for (ExtendedResult tempExtResult : aResult.getExtendedResults()) {
 			if (tempExtResult instanceof ExtendedResultText) {
-				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
-						((ExtendedResultText) tempExtResult).getText() });
+				tempTargetList
+						.add(new Object[] { tempExtResult.getTitle(), ((ExtendedResultText) tempExtResult).getText() });
 			} else if (tempExtResult instanceof ExtendedResultHTML) {
-				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
-						((ExtendedResultHTML) tempExtResult).getHypertext() });
+				tempTargetList.add(
+						new Object[] { tempExtResult.getTitle(), ((ExtendedResultHTML) tempExtResult).getHypertext() });
 			} else if (tempExtResult instanceof ExtendedResultImage) {
 				tempTargetList.add(new Object[] { tempExtResult.getTitle(),
 						((ExtendedResultImage) tempExtResult).getEncodedImage() });

@@ -50,8 +50,8 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
@@ -71,8 +71,8 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
@@ -83,6 +83,8 @@ public interface ParameterResolver {
 	 *            the table test
 	 * @param aTableTestRow
 	 *            the row of the test
+	 * @param aResolveMethod
+	 *            specifies the kind of params to be resolved (null = {@link TableTestParameterResolveMethod#COMBINED})
 	 * @param anIncludeArbitraryParametersFlag
 	 *            whether arbitrary parameters should be determined and included as well
 	 * @param anUnresolvableVariableHandlingPolicy
@@ -94,8 +96,9 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException;
+			TableTestParameterResolveMethod aResolveMethod, boolean anIncludeArbitraryParametersFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
@@ -115,8 +118,8 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Map<String, Object> createParameterMap(List<Parameter> someParameters, boolean anIncludeArbitraryParametersFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperationCollection}, using the variable map given. Resolving only
@@ -134,8 +137,8 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
-			InstantiationException, ClassNotFoundException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws UnexecutableException, InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperation}, using the variable map given. Resolving only attempts to
@@ -153,8 +156,8 @@ public interface ParameterResolver {
 	 * @throws ClassNotFoundException
 	 */
 	Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
-			InstantiationException, ClassNotFoundException;
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws UnexecutableException, InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
@@ -220,8 +223,8 @@ public interface ParameterResolver {
 	 *            the active variant
 	 * @return the result, or null if none is defined for the constant
 	 */
-	Object resolveStatically(ConstantDefinition aConstant, VariantDefinition aVariant) throws UnexecutableException,
-			ClassNotFoundException, InstantiationException;
+	Object resolveStatically(ConstantDefinition aConstant, VariantDefinition aVariant)
+			throws UnexecutableException, ClassNotFoundException, InstantiationException;
 
 	/**
 	 * Returns a map of named results as expected by the given {@link Test}. The Map will connect result names to actual

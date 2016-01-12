@@ -30,6 +30,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -93,11 +94,9 @@ public class TestFormatter {
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				aTest,
-				parameterResolver.createParameterMap(aTest, true,
-						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest, parameterResolver
+				.createParameterMap(aTest, true, tempConversionContext.getUnresolvableVariableHandlingPolicy()),
+				tempConversionContext);
 	}
 
 	/**
@@ -115,14 +114,13 @@ public class TestFormatter {
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
 			ConversionContext aConversionContext) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException, MethodNotFoundException {
+					InstantiationException, MethodNotFoundException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				aTest,
-				parameterResolver.createParameterMap(aTest, aRow, true,
-						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
+				parameterResolver.createParameterMap(aTest, aRow, TableTestParameterResolveMethod.COMBINED, true,
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()),
+				tempConversionContext);
 	}
 
 	/**
@@ -140,11 +138,10 @@ public class TestFormatter {
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
-		return fixtureMethodToHumanReadableString(
-				aTest.getDefinition().getFixtureMethod(),
-				aTest,
+		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
 				parameterResolver.createParameterMap(aTest.getParameters(), true,
-						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
+						tempConversionContext.getUnresolvableVariableHandlingPolicy()),
+				tempConversionContext);
 	}
 
 	/**
@@ -162,11 +159,9 @@ public class TestFormatter {
 			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
-		return fixtureMethodToHumanReadableString(
-				aCall.getDefinition().getFixtureMethod(),
-				aCall,
-				parameterResolver.createParameterMap(aCall, true,
-						tempConversionContext.getUnresolvableVariableHandlingPolicy()), tempConversionContext);
+		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall, parameterResolver
+				.createParameterMap(aCall, true, tempConversionContext.getUnresolvableVariableHandlingPolicy()),
+				tempConversionContext);
 	}
 
 	/**
@@ -320,8 +315,8 @@ public class TestFormatter {
 			// resolved
 			Object tempValueBeforeConversion = someParameters.get(tempMatcher.group(2));
 			String tempValue = null;
-			if (tempValueBeforeConversion == null
-					&& aConversionContext.getUnresolvableVariableHandlingPolicy() == UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT) {
+			if (tempValueBeforeConversion == null && aConversionContext
+					.getUnresolvableVariableHandlingPolicy() == UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT) {
 				// If the unresolvable variable handling policy requires question marks as a replacement, we'll assume
 				// that's required for unresolvable parameters as well; this is typically required for tabletests.
 				tempValue = UnresolvableVariable.getInstance().toString();

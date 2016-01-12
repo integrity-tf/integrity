@@ -78,34 +78,42 @@ public class DefaultParameterResolver implements ParameterResolver {
 
 	@Override
 	public Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return createParameterMap(aTest.getParameters(), anIncludeArbitraryParametersFlag,
 				anUnresolvableVariableHandlingPolicy);
 	}
 
 	@Override
 	public Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws ClassNotFoundException,
-			UnexecutableException, InstantiationException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		return createParameterMap(aCall.getParameters(), anIncludeArbitraryParametersFlag,
 				anUnresolvableVariableHandlingPolicy);
 	}
 
 	@Override
 	public Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
-			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+			TableTestParameterResolveMethod aResolveMethod, boolean anIncludeArbitraryParametersFlag,
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameterMap = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
-		for (Parameter tempParameter : aTableTest.getParameters()) {
-			tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
+		if (aResolveMethod == null || aResolveMethod == TableTestParameterResolveMethod.COMBINED
+				|| aResolveMethod == TableTestParameterResolveMethod.ONLY_COMMON) {
+			for (Parameter tempParameter : aTableTest.getParameters()) {
+				tempParameterMap.put(tempParameter.getName(), tempParameter.getValue());
+			}
 		}
 
-		int tempCount = 0;
-		for (ParameterTableHeader tempParameterHeader : aTableTest.getParameterHeaders()) {
-			tempParameterMap.put(tempParameterHeader.getName(), (aTableTestRow == null || tempCount >= aTableTestRow
-					.getValues().size()) ? null : aTableTestRow.getValues().get(tempCount).getValue());
-			tempCount++;
+		if (aResolveMethod == null || aResolveMethod == TableTestParameterResolveMethod.COMBINED
+				|| aResolveMethod == TableTestParameterResolveMethod.ONLY_INDIVIDUAL) {
+			int tempCount = 0;
+			for (ParameterTableHeader tempParameterHeader : aTableTest.getParameterHeaders()) {
+				tempParameterMap.put(tempParameterHeader.getName(),
+						(aTableTestRow == null || tempCount >= aTableTestRow.getValues().size()) ? null
+								: aTableTestRow.getValues().get(tempCount).getValue());
+				tempCount++;
+			}
 		}
 
 		return createParameterMap(tempParameterMap, anIncludeArbitraryParametersFlag,
@@ -115,7 +123,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 	@Override
 	public Map<String, Object> createParameterMap(List<Parameter> someParameters,
 			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+					throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<ParameterName, ValueOrEnumValueOrOperationCollection> tempParameters = new LinkedHashMap<ParameterName, ValueOrEnumValueOrOperationCollection>();
 		for (Parameter tempParameter : someParameters) {
 			tempParameters.put(tempParameter.getName(), tempParameter.getValue());
@@ -128,14 +136,15 @@ public class DefaultParameterResolver implements ParameterResolver {
 	private Map<String, Object> createParameterMap(
 			Map<ParameterName, ValueOrEnumValueOrOperationCollection> someParameters,
 			boolean anIncludeArbitraryParametersFlag, UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-			throws ClassNotFoundException, UnexecutableException, InstantiationException {
+					throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		Map<String, Object> tempResult = new LinkedHashMap<String, Object>();
 		for (Entry<ParameterName, ValueOrEnumValueOrOperationCollection> tempEntry : someParameters.entrySet()) {
 			if (tempEntry.getKey() != null && tempEntry.getValue() != null) {
 				Object tempValue = resolveParameterValue((ValueOrEnumValueOrOperationCollection) tempEntry.getValue(),
 						anUnresolvableVariableHandlingPolicy);
 
-				if (anIncludeArbitraryParametersFlag || !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
+				if (anIncludeArbitraryParametersFlag
+						|| !(tempEntry.getKey() instanceof ArbitraryParameterOrResultName)) {
 					String tempKey = IntegrityDSLUtil.getParamNameStringFromParameterName(tempEntry.getKey());
 					if (tempKey != null) {
 						tempResult.put(tempKey, tempValue);
@@ -149,15 +158,15 @@ public class DefaultParameterResolver implements ParameterResolver {
 
 	@Override
 	public Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
-			InstantiationException, ClassNotFoundException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws UnexecutableException, InstantiationException, ClassNotFoundException {
 		if (aValueCollection.getMoreValues().size() > 0) {
 			// if multiple values have been provided
 			Object[] tempValueArray = new Object[aValueCollection.getMoreValues().size() + 1];
 			tempValueArray[0] = aValueCollection.getValue();
 			for (int i = 0; i <= aValueCollection.getMoreValues().size(); i++) {
-				ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? aValueCollection.getValue() : aValueCollection
-						.getMoreValues().get(i - 1));
+				ValueOrEnumValueOrOperation tempSingleValue = (i == 0 ? aValueCollection.getValue()
+						: aValueCollection.getMoreValues().get(i - 1));
 
 				tempValueArray[i] = resolveSingleParameterValue(tempSingleValue, anUnresolvableVariableHandlingPolicy);
 			}
@@ -170,8 +179,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 
 	@Override
 	public Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
-			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy) throws UnexecutableException,
-			InstantiationException, ClassNotFoundException {
+			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
+					throws UnexecutableException, InstantiationException, ClassNotFoundException {
 		if (aValue instanceof Variable) {
 			Variable tempVariable = (Variable) aValue;
 			Object tempResolvedValue = (variableManager != null ? variableManager.get(tempVariable.getName()) : null);
@@ -199,8 +208,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 					return UnresolvableVariable.getInstance();
 				case EXCEPTION:
 				default:
-					throw new UnresolvableVariableException("Unresolvable variable " + tempVariable.getName().getName()
-							+ " encountered!");
+					throw new UnresolvableVariableException(
+							"Unresolvable variable " + tempVariable.getName().getName() + " encountered!");
 				}
 			}
 		} else if (aValue instanceof StandardOperation) {
@@ -252,7 +261,8 @@ public class DefaultParameterResolver implements ParameterResolver {
 	}
 
 	@Override
-	public boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperationCollection aValue, VariantDefinition aVariant) {
+	public boolean isSafelyStaticallyResolvable(ValueOrEnumValueOrOperationCollection aValue,
+			VariantDefinition aVariant) {
 		if (aValue == null) {
 			return true;
 		}

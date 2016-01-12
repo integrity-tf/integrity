@@ -89,6 +89,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.IntegrityRunnerModule;
@@ -854,6 +855,28 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 		addCurrentTime(tempTestElement);
 
+		try {
+			Map<String, Object> tempParameterMap = parameterResolver.createParameterMap(aTest, null,
+					TableTestParameterResolveMethod.ONLY_COMMON, true,
+					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+
+			Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
+			for (Entry<String, Object> tempEntry : tempParameterMap.entrySet()) {
+				Element tempParameterElement = new Element(PARAMETER_ELEMENT);
+				tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
+				tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter
+						.convertValueToFormattedString(tempEntry.getValue(), false, null).toFormattedString());
+				tempParameterCollectionElement.addContent(tempParameterElement);
+			}
+			tempTestElement.addContent(tempParameterCollectionElement);
+		} catch (InstantiationException exc) {
+			exc.printStackTrace();
+		} catch (ClassNotFoundException exc) {
+			exc.printStackTrace();
+		} catch (UnexecutableException exc) {
+			exc.printStackTrace();
+		}
+
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
@@ -911,8 +934,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			exc.printStackTrace();
 		}
 
-		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest, tempResultCollectionElement, aResult
-				.getSubResults().get(0), tempParameterMap);
+		onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest, tempResultCollectionElement,
+				aResult.getSubResults().get(0), tempParameterMap, tempParameterMap);
 
 		if (!isDryRun()) {
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
@@ -957,8 +980,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					tempResultElement.addContent(new CDATA(((ExtendedResultText) tempExtendedResult).getText()));
 				} else if (tempExtendedResult instanceof ExtendedResultImage) {
 					tempResultElement = new Element(EXTENDED_RESULT_IMAGE_ELEMENT);
-					tempResultElement.addContent(new Text(Base64.encode(((ExtendedResultImage) tempExtendedResult)
-							.getEncodedImage())));
+					tempResultElement.addContent(
+							new Text(Base64.encode(((ExtendedResultImage) tempExtendedResult).getEncodedImage())));
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_TYPE_ATTRIBUTE,
 							((ExtendedResultImage) tempExtendedResult).getType().getMimeType());
 					tempResultElement.setAttribute(EXTENDED_RESULT_IMAGE_ELEMENT_WIDTH_ATTRIBUTE,
@@ -1010,9 +1033,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTableTestRowFinish(TableTest aTableTest, TableTestRow aRow, TestSubResult aSubResult) {
 		if (!isDryRun()) {
+			Map<String, Object> tempParameterMapForText = new HashMap<String, Object>();
 			Map<String, Object> tempParameterMap = new HashMap<String, Object>();
 			try {
-				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow, true,
+				// The parameters to be displayed in the result table shall only include the line-individual ones
+				tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow,
+						TableTestParameterResolveMethod.ONLY_INDIVIDUAL, true,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+
+				// For the textual test result description, we need all values, including the common ones
+				tempParameterMapForText = parameterResolver.createParameterMap(aTableTest, aRow,
+						TableTestParameterResolveMethod.COMBINED, true,
 						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 			} catch (InstantiationException exc) {
 				exc.printStackTrace();
@@ -1022,8 +1053,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				exc.printStackTrace();
 			}
 
-			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest, stackPeek(),
-					aSubResult, tempParameterMap);
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest, stackPeek(), aSubResult,
+					tempParameterMapForText, tempParameterMap);
 		}
 	}
 
@@ -1089,11 +1120,14 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the result element
 	 * @param aSubResult
 	 *            the sub-result to write
+	 * @param aParameterMapForText
+	 *            the parameters to be used for text string generation
 	 * @param aParameterMap
 	 *            the parameters
 	 */
 	protected void onAnyKindOfSubTestFinish(MethodReference aMethod, SuiteStatementWithResult aStatement,
-			Element aResultCollectionElement, TestSubResult aSubResult, Map<String, Object> aParameterMap) {
+			Element aResultCollectionElement, TestSubResult aSubResult, Map<String, Object> aParameterMapForText,
+			Map<String, Object> aParameterMap) {
 		Element tempTestResultElement = new Element(RESULT_ELEMENT);
 
 		if (aSubResult.getExecutionTime() != null) {
@@ -1105,17 +1139,15 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			tempParameterElement.setAttribute(PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			tempParameterElement
-					.setAttribute(PARAMETER_VALUE_ATTRIBUTE,
-							valueConverter.convertValueToFormattedString(tempEntry.getValue(), false, null)
-									.toFormattedString());
+			tempParameterElement.setAttribute(PARAMETER_VALUE_ATTRIBUTE, valueConverter
+					.convertValueToFormattedString(tempEntry.getValue(), false, null).toFormattedString());
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
 
 		try {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					testFormatter.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMap, null));
+					testFormatter.fixtureMethodToHumanReadableString(aMethod, aStatement, aParameterMapForText, null));
 		} catch (ClassNotFoundException exc) {
 			tempTestResultElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
@@ -1152,19 +1184,22 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 				boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
-				tempComparisonResultElement.setAttribute(
-						RESULT_EXPECTED_VALUE_ATTRIBUTE,
-						valueConverter.convertValueToFormattedString(
-								(tempExpectedValue == null ? true : tempExpectedValue), false,
-								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+				tempComparisonResultElement
+						.setAttribute(RESULT_EXPECTED_VALUE_ATTRIBUTE,
+								valueConverter
+										.convertValueToFormattedString(
+												(tempExpectedValue == null ? true : tempExpectedValue), false,
+												new ConversionContext()
+														.withComparisonResult(tempEntry.getValue().getResult()))
 								.toFormattedString());
 				if (tempEntry.getValue().getActualValue() != null) {
-					tempComparisonResultElement.setAttribute(
-							RESULT_REAL_VALUE_ATTRIBUTE,
-							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
-									aSubResult, tempExpectedIsNestedObject,
-									new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
-									.toFormattedString());
+					tempComparisonResultElement
+							.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
+									convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
+											aSubResult, tempExpectedIsNestedObject,
+											new ConversionContext()
+													.withComparisonResult(tempEntry.getValue().getResult()))
+															.toFormattedString());
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -1284,14 +1319,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
 				for (UpdatedVariable tempUpdatedVariable : tempResult.getUpdatedVariables()) {
 					Element tempVariableUpdateElement = new Element(VARIABLE_UPDATE_ELEMENT);
-					tempVariableUpdateElement.setAttribute(VARIABLE_NAME_ATTRIBUTE, tempUpdatedVariable
-							.getTargetVariable().getName());
+					tempVariableUpdateElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
+							tempUpdatedVariable.getTargetVariable().getName());
 					if (tempUpdatedVariable.getParameterName() != null) {
 						tempVariableUpdateElement.setAttribute(VARIABLE_UPDATE_PARAMETER_NAME_ATTRIBUTE,
 								tempUpdatedVariable.getParameterName());
 					}
-					tempVariableUpdateElement.setAttribute(
-							VARIABLE_VALUE_ATTRIBUTE,
+					tempVariableUpdateElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
 									null).toFormattedString());
 					tempCallResultElement.addContent(tempVariableUpdateElement);
@@ -1302,9 +1336,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						.getException().getMessage();
 				tempCallResultElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
 						tempExceptionMessage != null ? tempExceptionMessage : "null");
-				tempCallResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE,
-						stackTraceToString(((de.gebit.integrity.runner.results.call.ExceptionResult) aResult)
-								.getException()));
+				tempCallResultElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE, stackTraceToString(
+						((de.gebit.integrity.runner.results.call.ExceptionResult) aResult).getException()));
 			}
 		}
 
@@ -1484,8 +1517,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						}
 						TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
 
-						Transformer tempTransformer = tempTransformerFactory.newTransformer(new StreamSource(
-								getXsltStream()));
+						Transformer tempTransformer = tempTransformerFactory
+								.newTransformer(new StreamSource(getXsltStream()));
 						tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
 						tempTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
@@ -2098,12 +2131,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				} else {
 					tempMerged = true;
 					tempLineCount = Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_LINECOUNT_ATTRIBUTE));
-					tempTruncatedCount = Integer.parseInt(tempLineElements
-							.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
-					tempLowerTimeBound = Long.parseLong(tempLineElements
-							.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
-					tempUpperTimeBound = Long.parseLong(tempLineElements
-							.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
+					tempTruncatedCount = Integer
+							.parseInt(tempLineElements.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
+					tempLowerTimeBound = Long
+							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
+					tempUpperTimeBound = Long
+							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
 				}
 
 				int tempEarliestPossiblePosition = 0;
@@ -2127,8 +2160,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 
 					// Okay, the line needs to be added
-					Element tempLineElement = new Element(tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT
-							: CONSOLE_LINE_STDOUT_ELEMENT);
+					Element tempLineElement = new Element(
+							tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT : CONSOLE_LINE_STDOUT_ELEMENT);
 
 					String tempText = tempLine.getText();
 					tempText.replace("\t", "    ");
@@ -2161,8 +2194,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						// data is already well-ordered, and any new data is also well-ordered, so they just need to
 						// be merged.
 						while (tempEarliestPossiblePosition < tempLineElements.getChildren().size()) {
-							Element tempChild = (Element) tempLineElements.getChildren().get(
-									tempEarliestPossiblePosition);
+							Element tempChild = (Element) tempLineElements.getChildren()
+									.get(tempEarliestPossiblePosition);
 							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TEMP_TIME_ATTRIBUTE)) > tempLine
 									.getTimestamp()) {
 								// The new line is to be added right before the current earliest possible position

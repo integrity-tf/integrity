@@ -88,6 +88,7 @@ import de.gebit.integrity.parameter.conversion.ConversionException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -1384,7 +1385,8 @@ public class DefaultTestRunner implements TestRunner {
 			} else {
 				long tempStart = System.nanoTime();
 				try {
-					Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow, true,
+					Map<String, Object> tempParameters = parameterResolver.createParameterMap(aTest, tempRow,
+							TableTestParameterResolveMethod.COMBINED, true,
 							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 					if (tempFixtureInstance == null) {

@@ -4,88 +4,12 @@ import mysecondpackage.*
 packagedef mypackage with
 
 	suitedef asuite with
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 124
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 126
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
-		test echo echo: 123 = 123
+		
+		tabletest echos param1: "abc" param2: 1234
+		| echo  | param3 | =     |
+		| 100   | "test" | 100   |
+		| "foo" | 100    | "foo" |
+		
 	suiteend
 	
 packageend

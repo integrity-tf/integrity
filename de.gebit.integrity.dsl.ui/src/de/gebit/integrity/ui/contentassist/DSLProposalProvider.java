@@ -81,6 +81,7 @@ import de.gebit.integrity.fixtures.CustomProposalProvider.CustomProposalDefiniti
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.services.DSLGrammarAccess;
 import de.gebit.integrity.ui.utils.FixtureTypeWrapper;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil;
@@ -171,8 +172,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
 			for (Parameter tempParameter : aTest.getParameters()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
-						.getName()));
+				tempAlreadyUsedParameters
+						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			}
 			completeParametersInternal(tempAlreadyUsedParameters, tempTestDef.getFixtureMethod(), null, true, aContext,
 					anAcceptor);
@@ -200,8 +201,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if (tempCallDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
 			for (Parameter tempParameter : aCall.getParameters()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
-						.getName()));
+				tempAlreadyUsedParameters
+						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			}
 			completeParametersInternal(tempAlreadyUsedParameters, tempCallDef.getFixtureMethod(), null, true, aContext,
 					anAcceptor);
@@ -224,7 +225,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				completeTestParametersInternal(tempTest, aContext, anAcceptor);
 				if (tempTest.getDefinition() != null
 						&& isArbitraryParameterFixture(tempTest.getDefinition().getFixtureMethod())) {
-					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null,
+							null);
 				}
 			} else if (aRuleCall == grammarAccess.getTestAccess().getNLParserRuleCall_4_0()) {
 				// We're inside the named results group
@@ -254,7 +256,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				completeCallParametersInternal(tempCall, aContext, anAcceptor);
 				if (tempCall.getDefinition() != null
 						&& isArbitraryParameterFixture(tempCall.getDefinition().getFixtureMethod())) {
-					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null, null);
+					completeArbitraryParameterOrResultNameInternal(aModel, aContext, anAcceptor, null, true, null,
+							null);
 				}
 			}
 		} else if (aModel instanceof TableTest) {
@@ -284,8 +287,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		if (tempTestDef != null) {
 			Set<String> tempAlreadyUsedParameters = new HashSet<String>();
 			for (Parameter tempParameter : aTest.getParameters()) {
-				tempAlreadyUsedParameters.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter
-						.getName()));
+				tempAlreadyUsedParameters
+						.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 			}
 			for (ParameterTableHeader tempHeader : aTest.getParameterHeaders()) {
 				tempAlreadyUsedParameters
@@ -350,8 +353,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (anIncludeParametersFlag) {
 						Set<String> tempAlreadyUsedParameters = new HashSet<String>();
 						for (Parameter tempParameter : tempTableTest.getParameters()) {
-							tempAlreadyUsedParameters.add(IntegrityDSLUtil
-									.getParamNameStringFromParameterName(tempParameter.getName()));
+							tempAlreadyUsedParameters
+									.add(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName()));
 						}
 						for (ParameterTableHeader tempParameterHeader : tempTableTest.getParameterHeaders()) {
 							tempAlreadyUsedParameters.add(IntegrityDSLUtil
@@ -394,16 +397,17 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aMethod);
 		for (ParamAnnotationTypeTriplet tempParam : tempParamList) {
 			if (!someAlreadyUsedParameters.contains(tempParam.getParamName())) {
-				String tempJavadocDescription = tempJavadocMap != null ? tempJavadocMap.get(tempParam
-						.getJavaParamName()) : null;
+				String tempJavadocDescription = tempJavadocMap != null
+						? tempJavadocMap.get(tempParam.getJavaParamName()) : null;
 				String tempDisplayText = null;
 				if (tempJavadocDescription != null) {
 					tempDisplayText = tempParam.getParamName() + ": " + tempJavadocDescription;
 				} else {
 					tempDisplayText = tempParam.getParamName();
 				}
-				anAcceptor.accept(createCompletionProposal((aPrefix != null ? aPrefix : "") + tempParam.getParamName()
-						+ (anAddColonFlag ? ":" : ""), tempDisplayText, null, aContext));
+				anAcceptor.accept(createCompletionProposal(
+						(aPrefix != null ? aPrefix : "") + tempParam.getParamName() + (anAddColonFlag ? ":" : ""),
+						tempDisplayText, null, aContext));
 			}
 		}
 	}
@@ -421,8 +425,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				String tempJavadocDescription = JavadocUtil.getJvmFieldJavadoc(tempResult.getField(), elementFinder);
 				String tempDisplayText = tempResult.getResultName();
 
-				ICompletionProposal tempCompletionProposal = createCompletionProposal((aPrefix != null ? aPrefix : "")
-						+ tempResult.getResultName() + " = ", tempDisplayText, null, aContext);
+				ICompletionProposal tempCompletionProposal = createCompletionProposal(
+						(aPrefix != null ? aPrefix : "") + tempResult.getResultName() + " = ", tempDisplayText, null,
+						aContext);
 				if (tempCompletionProposal instanceof ConfigurableCompletionProposal) {
 					if (tempJavadocDescription != null) {
 						((ConfigurableCompletionProposal) tempCompletionProposal)
@@ -471,8 +476,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				tempMethodReference = tempTest.getDefinition().getFixtureMethod();
 			} else if (aModel instanceof TableTest) {
 				TableTest tempTest = (TableTest) aModel;
-				tempParameterMap = parameterResolver.createParameterMap(tempTest, null, true,
-						UnresolvableVariableHandling.KEEP_UNRESOLVED);
+				tempParameterMap = parameterResolver.createParameterMap(tempTest, null,
+						TableTestParameterResolveMethod.COMBINED, true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
 				tempExpectedResultMap = new LinkedHashMap<String, Object>();
 				for (ResultTableHeader tempHeader : tempTest.getResultHeaders()) {
 					tempExpectedResultMap.put(
@@ -506,8 +511,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (tempEnumerator != null) {
 					resolveVariables(tempParameterMap);
 
-					tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(tempMethodReference.getMethod()
-							.getSimpleName(), tempParameterMap, aParameterPath, false);
+					tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(
+							tempMethodReference.getMethod().getSimpleName(), tempParameterMap, aParameterPath, false);
 
 					if (aParameterPath == null) {
 						// This is the "classic" path, if we're directly creating a parameter. We dont need the already
@@ -526,9 +531,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 										tempDescription += " (" + tempParameterDescription.getDescription() + ")";
 									}
 									String tempPrefix = aPrefixPlusSignFlag ? "+" : "";
-									String tempSuffix = (aModel instanceof TableTest) ? "" : (tempParameterDescription
-											.getSuffix() != null ? tempParameterDescription.getSuffix().getText()
-											: ": ");
+									String tempSuffix = (aModel instanceof TableTest) ? ""
+											: (tempParameterDescription.getSuffix() != null
+													? tempParameterDescription.getSuffix().getText() : ": ");
 									if (!(aModel instanceof TableTest)
 											&& tempParameterDescription.isNestedObjectParam()) {
 										tempSuffix += "{}";
@@ -554,8 +559,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 											tempDescription += " (" + tempResultDescription.getDescription() + ")";
 										}
 										String tempPrefix = aPrefixPlusSignFlag ? "+" : "";
-										String tempSuffix = tempResultDescription.getSuffix() != null ? tempResultDescription
-												.getSuffix().getText() : " = ";
+										String tempSuffix = tempResultDescription.getSuffix() != null
+												? tempResultDescription.getSuffix().getText() : " = ";
 										if (tempResultDescription.isNestedObjectParam()) {
 											tempSuffix += "{}";
 										}
@@ -571,11 +576,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 						List<ArbitraryParameterDefinition> tempParameterDescriptions = null;
 						if (Boolean.FALSE.equals(anIsResultFlag)) {
-							tempParameterDescriptions = tempEnumerator.defineArbitraryParameters(tempMethodReference
-									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
+							tempParameterDescriptions = tempEnumerator.defineArbitraryParameters(
+									tempMethodReference.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
 						} else if (Boolean.TRUE.equals(anIsResultFlag)) {
-							tempParameterDescriptions = tempEnumerator.defineArbitraryResults(tempMethodReference
-									.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
+							tempParameterDescriptions = tempEnumerator.defineArbitraryResults(
+									tempMethodReference.getMethod().getSimpleName(), tempParameterMap, aParameterPath);
 						}
 
 						if (tempParameterDescriptions != null) {
@@ -595,8 +600,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 												if (tempSubdefinition.isNestedObjectParam()) {
 													tempSuffix += "{}";
 												}
-												anAcceptor.accept(createCompletionProposal(tempSubdefinition.getName()
-														+ tempSuffix, tempDescription, null, aContext));
+												anAcceptor.accept(createCompletionProposal(
+														tempSubdefinition.getName() + tempSuffix, tempDescription, null,
+														aContext));
 											}
 										}
 									}
@@ -613,11 +619,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				exc.printStackTrace();
 			} catch (Throwable exc) {
 				// This should catch anything else, especially errors in the enumerators' code
-				Activator
-						.getDefault()
-						.getLog()
-						.log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
-								"An exception was caught during arbitrary parameter/result enumeration", exc));
+				Activator.getDefault().getLog().log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
+						"An exception was caught during arbitrary parameter/result enumeration", exc));
 			}
 		}
 	}
@@ -661,11 +664,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			Boolean tempIsResult = IntegrityDSLUtil.isResult(aModel);
 			IType tempRootType = null;
 
-			if (tempRootTypedNestedObject != null && ((TypedNestedObject) tempRootTypedNestedObject).getType() != null) {
+			if (tempRootTypedNestedObject != null
+					&& ((TypedNestedObject) tempRootTypedNestedObject).getType() != null) {
 				// In case of typed nested objects, the root type is already known
 				try {
-					tempRootType = resolveJDTTypeForJvmType(((TypedNestedObject) tempRootTypedNestedObject).getType()
-							.getType());
+					tempRootType = resolveJDTTypeForJvmType(
+							((TypedNestedObject) tempRootTypedNestedObject).getType().getType());
 				} catch (JavaModelException exc) {
 					throw new RuntimeException(exc);
 				}
@@ -677,8 +681,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (isArbitraryParameterFixture(tempMethodReference)) {
 					// The arbitrary stuff requires a lot of boilerplate functionality, thus we use the arbitrary param
 					// method here as well
-					completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult,
-							false, tempParameterPath, tempAlreadyUsedKeys);
+					completeArbitraryParameterOrResultNameInternal(tempOwner, aContext, anAcceptor, tempIsResult, false,
+							tempParameterPath, tempAlreadyUsedKeys);
 				}
 
 				if (tempParameterPath.size() > 0) {
@@ -689,8 +693,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 						if (tempParamName == null) {
 							// this must be the default result
-							tempRootType = IntegrityDSLUIUtil.findTypeByName(tempMethodReference.getMethod()
-									.getReturnType().getQualifiedName());
+							tempRootType = IntegrityDSLUIUtil
+									.findTypeByName(tempMethodReference.getMethod().getReturnType().getQualifiedName());
 						} else {
 							// First, search for parameters...
 							List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
@@ -752,16 +756,16 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									// we should have found another field, but couldn't!
 									tempTypeInFocus = null;
 								} else {
-									ResolvedTypeName tempResolvedTypeName = IntegrityDSLUIUtil.getResolvedTypeName(
-											tempField.getTypeSignature(), tempTypeInFocus);
+									ResolvedTypeName tempResolvedTypeName = IntegrityDSLUIUtil
+											.getResolvedTypeName(tempField.getTypeSignature(), tempTypeInFocus);
 									if (tempResolvedTypeName.getGenericParameterTypes() == null) {
-										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempResolvedTypeName
-												.getRawType());
+										tempTypeInFocus = IntegrityDSLUIUtil
+												.findTypeByName(tempResolvedTypeName.getRawType());
 									} else {
 										// We support 1 single generic parameter only here, since that's enough to deal
 										// with the also-supported collections like List<Integer> or Set<Boolean>
-										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(tempResolvedTypeName
-												.getGenericParameterTypes()[0].getRawType());
+										tempTypeInFocus = IntegrityDSLUIUtil.findTypeByName(
+												tempResolvedTypeName.getGenericParameterTypes()[0].getRawType());
 									}
 								}
 								tempDepth++;
@@ -769,8 +773,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 							if (tempTypeInFocus != null) {
 								// Okay, we have reached our goal - the fields of this type are our proposals
-								for (FieldDescription tempField : IntegrityDSLUIUtil
-										.getAllFields(tempTypeInFocus, true)) {
+								for (FieldDescription tempField : IntegrityDSLUIUtil.getAllFields(tempTypeInFocus,
+										true)) {
 									String tempJavadocDescription = tempField.getJavaDoc();
 									String tempDisplayText = tempField.getFieldName();
 
@@ -889,8 +893,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						IType tempJDTType = resolveJDTTypeForJvmType(tempMethod.getType());
 						FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
-						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters,
-								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
+						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
+								UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 						Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(
 								tempMethod.getMethod().getSimpleName(), null, tempTest.getResult());
@@ -936,8 +940,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempAllParameters, true,
 							UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
-					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(tempMethod
-							.getMethod().getSimpleName(), tempResult.getName(), tempResult.getValue());
+					Object tempResultValue = tempFixtureClassWrapper.convertResultValueToFixtureDefinedType(
+							tempMethod.getMethod().getSimpleName(), tempResult.getName(), tempResult.getValue());
 
 					completeCustomProposalResultValuesInternal(tempResult.getName(), tempMethod, tempResultValue,
 							tempParamMap, null, aContext, anAcceptor);
@@ -1039,7 +1043,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 					if (tempColumn < tempTest.getParameterHeaders().size()) {
 						try {
 							Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-									true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
+									TableTestParameterResolveMethod.COMBINED, true,
+									UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 							completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 									tempMethod, tempParamMap, null, aContext, anAcceptor);
@@ -1057,9 +1062,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						// we might be in the range of the result columns
 						int tempResultColumn = tempColumn - tempTest.getParameterHeaders().size();
 						boolean tempDefaultResultExists = tempTest.getDefaultResultColumn() != null;
-						if (tempResultColumn >= 0
-								&& tempResultColumn < tempTest.getResultHeaders().size()
-										+ (tempDefaultResultExists ? 1 : 0)) {
+						if (tempResultColumn >= 0 && tempResultColumn < tempTest.getResultHeaders().size()
+								+ (tempDefaultResultExists ? 1 : 0)) {
 							try {
 								ResultName tempResultName = null;
 								if (tempResultColumn < tempTest.getResultHeaders().size()) {
@@ -1076,13 +1080,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 									FixtureTypeWrapper tempFixtureClassWrapper = wrapType(tempJDTType);
 
 									tempConvertedResultValue = tempFixtureClassWrapper
-											.convertResultValueToFixtureDefinedType(tempMethod.getMethod()
-													.getSimpleName(), tempResultName, tempResultValue);
+											.convertResultValueToFixtureDefinedType(
+													tempMethod.getMethod().getSimpleName(), tempResultName,
+													tempResultValue);
 
 								}
 
 								Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest,
-										tempRow, true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
+										tempRow, TableTestParameterResolveMethod.COMBINED, true,
+										UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 								completeCustomProposalResultValuesInternal(tempResultName, tempMethod,
 										tempConvertedResultValue, tempParamMap, null, aContext, anAcceptor);
@@ -1123,7 +1129,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 				if (tempColumn >= 0 && tempColumn < tempTest.getParameterHeaders().size()) {
 					try {
 						Map<String, Object> tempParamMap = parameterResolver.createParameterMap(tempTest, tempRow,
-								true, UnresolvableVariableHandling.KEEP_UNRESOLVED);
+								TableTestParameterResolveMethod.COMBINED, true,
+								UnresolvableVariableHandling.KEEP_UNRESOLVED);
 
 						completeParameterValuesInternal(tempTest.getParameterHeaders().get(tempColumn).getName(),
 								tempMethod, tempParamMap, null, aContext, anAcceptor);
@@ -1270,9 +1277,9 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(aMethod.getMethod().getSimpleName(),
 					aParamMap, aParameterPath, true);
 
-			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineParameterProposals(aMethod
-					.getMethod().getSimpleName(), IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter),
-					aParamMap);
+			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineParameterProposals(
+					aMethod.getMethod().getSimpleName(),
+					IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter), aParamMap);
 
 			acceptCustomProposals(tempProposals, aContext, anAcceptor);
 		} catch (JavaModelException exc) {
@@ -1300,8 +1307,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			tempFixtureClassWrapper.convertParameterValuesToFixtureDefinedTypes(aMethod.getMethod().getSimpleName(),
 					aParamMap, aParameterPath, true);
 
-			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineResultProposals(aMethod
-					.getMethod().getSimpleName(),
+			List<CustomProposalDefinition> tempProposals = tempProposalProvider.defineResultProposals(
+					aMethod.getMethod().getSimpleName(),
 					aResult != null ? IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(aResult) : null,
 					aResultValue, aParamMap);
 
@@ -1314,11 +1321,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			exc.printStackTrace();
 		} catch (Throwable exc) {
 			// This should catch anything else, especially errors in the enumerators' code
-			Activator
-					.getDefault()
-					.getLog()
-					.log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
-							"An exception was caught during custom proposal enumeration", exc));
+			Activator.getDefault().getLog().log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
+					"An exception was caught during custom proposal enumeration", exc));
 		}
 	}
 
@@ -1340,8 +1344,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 
 			ICompletionProposal tempCompletionProposal = createCompletionProposal(tempProposal.getValue(),
 					new StyledString(tempProposal.getDisplayValue() != null ? tempProposal.getDisplayValue()
-							: tempProposal.getValue()), null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE,
-					tempPrefix, aContext);
+							: tempProposal.getValue()),
+					null, tempProposal.getPriority() + DEFAULT_PROPOSAL_BASE, tempPrefix, aContext);
 			if (tempCompletionProposal instanceof IntegrityConfigurableCompletionProposal) {
 				if (tempProposal.getHtmlDescription() != null && isBrowserInformationControlIsAvailable()) {
 					((IntegrityConfigurableCompletionProposal) tempCompletionProposal)
