@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="06.01.14 17:25" isotimestamp="2014-01-06T17:25:20" duration="55.614">
+<integrity name="Integrity JUnit Testing" timestamp="12.01.16 10:39" isotimestamp="2016-01-12T10:39:35" duration="14.638">
   <variables />
-  <suite id="0" name="integrity.basic.enums.simpleEnumTableTests" timestamp="06.01.14 17:25:20.0666">
+  <suite id="0" name="integrity.basic.enums.simpleEnumTableTests" timestamp="12.01.16 10:39:35.0114">
     <setup />
     <variables>
       <variable name="aVar" />
     </variables>
     <statements>
-      <call id="1" line="7" name="echoEnum" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="06.01.14 17:25:20.0666">
+      <call id="1" line="7" name="echoEnum" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="12.01.16 10:39:35.0114">
         <parameters>
           <parameter name="enum" value="VALUE1" />
         </parameters>
-        <result duration="1.374" type="success">
+        <result duration="0.200" type="success">
           <variableUpdate name="aVar" value="VALUE1" />
         </result>
       </call>
-      <tabletest id="2" line="10" name="echoEnumTest" description="Returns an enum: null" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="06.01.14 17:25:20.0681">
-        <results duration="28.058" successCount="5" failureCount="4" exceptionCount="0">
-          <result duration="0.972" description="Returns an enum: VALUE1" type="success">
+      <tabletest id="2" line="10" name="echoEnumTest" description="Returns an enum: ???" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="12.01.16 10:39:35.0114">
+        <parameters />
+        <results duration="10.232" successCount="5" failureCount="4" exceptionCount="0">
+          <result duration="0.162" description="Returns an enum: VALUE1" type="success">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -25,7 +26,7 @@
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.864" description="Returns an enum: VALUE1" type="failure">
+          <result duration="0.166" description="Returns an enum: VALUE1" type="failure">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -33,7 +34,7 @@
               <comparison expectedValue="VALUE2" value="VALUE1" type="failure" />
             </comparisons>
           </result>
-          <result duration="0.927" description="Returns an enum: VALUE2" type="failure">
+          <result duration="0.157" description="Returns an enum: VALUE2" type="failure">
             <parameters>
               <parameter name="enum" value="VALUE2" />
             </parameters>
@@ -41,7 +42,7 @@
               <comparison expectedValue="VALUE1" value="VALUE2" type="failure" />
             </comparisons>
           </result>
-          <result duration="0.934" description="Returns an enum: VALUE2" type="success">
+          <result duration="0.362" description="Returns an enum: VALUE2" type="success">
             <parameters>
               <parameter name="enum" value="VALUE2" />
             </parameters>
@@ -49,7 +50,7 @@
               <comparison expectedValue="VALUE2" value="VALUE2" type="success" />
             </comparisons>
           </result>
-          <result duration="0.849" description="Returns an enum: VALUE1" type="success">
+          <result duration="0.137" description="Returns an enum: VALUE1" type="success">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -57,7 +58,7 @@
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.779" description="Returns an enum: VALUE1" type="failure">
+          <result duration="0.162" description="Returns an enum: VALUE1" type="failure">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -65,7 +66,7 @@
               <comparison expectedValue="VALUE2" value="VALUE1" type="failure" />
             </comparisons>
           </result>
-          <result duration="0.733" description="Returns an enum: VALUE1" type="success">
+          <result duration="0.129" description="Returns an enum: VALUE1" type="success">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -73,7 +74,7 @@
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.870" description="Returns an enum: VALUE1" type="success">
+          <result duration="0.208" description="Returns an enum: VALUE1" type="success">
             <parameters>
               <parameter name="enum" value="VALUE1" />
             </parameters>
@@ -81,7 +82,7 @@
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.882" description="Returns an enum: VALUE2" type="failure">
+          <result duration="0.422" description="Returns an enum: VALUE2" type="failure">
             <parameters>
               <parameter name="enum" value="VALUE2" />
             </parameters>
@@ -93,7 +94,7 @@
       </tabletest>
     </statements>
     <teardown />
-    <result duration="50.791" successCount="5" failureCount="4" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="14.087" successCount="5" failureCount="4" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

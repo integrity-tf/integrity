@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="12.01.16 10:38" isotimestamp="2016-01-12T10:38:34" duration="27.441">
+  <variables />
+  <suite id="0" name="integrity.basic.simpleTableTest" timestamp="12.01.16 10:38:34.0329">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="42" name="echoObjectsTest" description="Echoes ??? and ignores ???, ??? and ???" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects" timestamp="12.01.16 10:38:34.0329">
+        <parameters />
+        <results duration="17.199" successCount="2" failureCount="0" exceptionCount="0">
+          <result duration="3.383" description="Echoes 123 and ignores 456, 1234 and foo" type="success">
+            <parameters>
+              <parameter name="echo" value="123" />
+              <parameter name="param1" value="456" />
+              <parameter name="param2" value="1234" />
+              <parameter name="param3" value="foo" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+          <result duration="1.584" description="Echoes bar and ignores 123456, yeah and null" type="success">
+            <parameters>
+              <parameter name="echo" value="bar" />
+              <parameter name="param1" value="123456" />
+              <parameter name="param2" value="yeah" />
+              <parameter name="param3" value="null" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="bar" value="bar" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="21.495" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

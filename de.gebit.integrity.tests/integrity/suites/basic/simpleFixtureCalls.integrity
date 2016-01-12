@@ -37,6 +37,26 @@ packagedef integrity.basic with
 	suiteend
 	
 	
+	suitedef simpleTableTest with
+	
+		tabletest integrity.fixtures.basic.noop.echoObjectsTest
+		| echo   | param1 | param2 | param3    | =      |
+		| 123    | 456    | 1234   | "foo"     | 123    |
+		| "bar"  | 123456 | "yeah" | null      | "bar"  | 
+	
+	suiteend
+	
+	
+	suitedef simpleTableTestWithCommonParameters with
+	
+		tabletest integrity.fixtures.basic.noop.echoObjectsTest param1: "abc" param2: null
+		| echo   | param3    | =      |
+		| 123    | "foo"     | 123    |
+		| "bar"  | 1234567   | "bar"  |
+		| "bar"  | null      | "bar"  |
+	
+	suiteend
+	
 
 
 packageend

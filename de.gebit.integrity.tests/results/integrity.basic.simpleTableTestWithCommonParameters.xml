@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="12.01.16 10:38" isotimestamp="2016-01-12T10:38:34" duration="22.021">
+  <variables />
+  <suite id="0" name="integrity.basic.simpleTableTestWithCommonParameters" timestamp="12.01.16 10:38:34.0563">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="52" name="echoObjectsTest" description="Echoes ??? and ignores abc, null and ???" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects" timestamp="12.01.16 10:38:34.0579">
+        <parameters>
+          <parameter name="param1" value="abc" />
+          <parameter name="param2" value="null" />
+        </parameters>
+        <results duration="16.279" successCount="3" failureCount="0" exceptionCount="0">
+          <result duration="1.593" description="Echoes 123 and ignores abc, null and foo" type="success">
+            <parameters>
+              <parameter name="echo" value="123" />
+              <parameter name="param3" value="foo" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+          <result duration="1.343" description="Echoes bar and ignores abc, null and 1234567" type="success">
+            <parameters>
+              <parameter name="echo" value="bar" />
+              <parameter name="param3" value="1234567" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="bar" value="bar" type="success" />
+            </comparisons>
+          </result>
+          <result duration="1.234" description="Echoes bar and ignores abc, null and null" type="success">
+            <parameters>
+              <parameter name="echo" value="bar" />
+              <parameter name="param3" value="null" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="bar" value="bar" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <teardown />
+    <result duration="20.887" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

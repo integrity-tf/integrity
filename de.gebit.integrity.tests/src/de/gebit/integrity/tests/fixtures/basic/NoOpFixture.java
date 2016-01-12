@@ -37,6 +37,14 @@ public class NoOpFixture {
 		return true;
 	}
 
+	@FixtureMethod(description = "Echoes $echo$ and ignores $param1$, $param2$ and $param3$")
+	public Object echoObjects(@FixtureParameter(name = "echo") Object anInput,
+			@FixtureParameter(name = "param1") Object anIgnoredInput1,
+			@FixtureParameter(name = "param2") Object anIgnoredInput2,
+			@FixtureParameter(name = "param3") Object anIgnoredInput3) {
+		return anInput;
+	}
+
 	@FixtureMethod(description = "Echo the string '$string$'")
 	public String echoString(@FixtureParameter(name = "string") String aStringToEcho) {
 		return aStringToEcho;

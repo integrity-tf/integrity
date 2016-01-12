@@ -33,10 +33,40 @@ public class SimpleFixtureCalls extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void test() throws ModelLoadException, IOException, JDOMException {
+	public void testFixtureCalls() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/simpleFixtureCalls.integrity" },
 				"integrity.basic.simpleFixtureCalls", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does simple table tests and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testTableTest() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/simpleFixtureCalls.integrity" },
+				"integrity.basic.simpleTableTest", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does simple table tests and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testTableTestWithCommonParameters() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/simpleFixtureCalls.integrity" },
+				"integrity.basic.simpleTableTestWithCommonParameters", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

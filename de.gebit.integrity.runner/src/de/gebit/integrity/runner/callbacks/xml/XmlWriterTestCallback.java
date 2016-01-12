@@ -836,7 +836,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempTestElement.setAttribute(TEST_NAME_ELEMENT, aTest.getDefinition().getName());
 		try {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
-					testFormatter.tableTestToHumanReadableString(aTest, null));
+					testFormatter.tableTestToHumanReadableString(aTest,
+							new ConversionContext().withUnresolvableVariableHandlingPolicy(
+									UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT)));
 		} catch (ClassNotFoundException exc) {
 			tempTestElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE, exc.getMessage());
 			exc.printStackTrace();
