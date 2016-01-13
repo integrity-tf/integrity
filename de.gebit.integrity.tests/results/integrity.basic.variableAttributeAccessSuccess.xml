@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="13.01.16 09:47" isotimestamp="2016-01-13T09:47:59" duration="45.663">
+  <variables />
+  <suite id="0" name="integrity.basic.variableAttributeAccessSuccess" timestamp="13.01.16 09:47:59.0114">
+    <setup />
+    <variables>
+      <variable name="testvar" />
+    </variables>
+    <statements>
+      <call id="1" line="35" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="13.01.16 09:47:59.0130">
+        <parameters />
+        <result duration="1.230" type="success">
+          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@1e36e1e4" />
+        </result>
+      </call>
+      <test id="2" line="37" name="echoStringTest" description="Echo the string 'string'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 09:47:59.0145">
+        <results duration="1.702" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.702" description="Echo the string 'string'" type="success">
+            <parameters>
+              <parameter name="string" value="string" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="string" value="string" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="3" line="38" name="echoIntegerTest" description="Echo the integer '100'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="13.01.16 09:47:59.0161">
+        <results duration="0.611" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.611" description="Echo the integer '100'" type="success">
+            <parameters>
+              <parameter name="integer" value="100" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="100" value="100" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="40.110" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

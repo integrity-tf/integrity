@@ -55,4 +55,40 @@ public class ConstantsAndVariables extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testVariableAttributeAccessSuccess() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.variableAttributeAccessSuccess", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls and checks the exception thrown.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testVariableAttributeAccessAttributeNotFound() throws ModelLoadException, IOException, JDOMException {
+		assertExceptionIsThrown(new RunnableWithException() {
+
+			@Override
+			public void run() throws Exception {
+				executeIntegritySuite(new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+						"integrity.basic.variableAttributeAccessAttributeNotFound", null);
+			}
+		}, RuntimeException.class,
+				"Did not find readable attribute 'nonexistentParameter' in bean class de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean",
+				null);
+	}
+
 }

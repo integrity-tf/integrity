@@ -29,6 +29,26 @@ packagedef integrity.basic with
 	suiteend
 	
 	
+	suitedef variableAttributeAccessSuccess with
+	
+		variable testvar
+		call integrity.fixtures.basic.beans.createSimpleBeanUntypedCall -> testvar
+		
+		test echoStringTest string: testvar#firstParameter = "string"		
+		test echoIntegerTest integer: testvar#secondParameter = 100
+	
+	suiteend
+	
+	
+	suitedef variableAttributeAccessAttributeNotFound with
+	
+		variable testvar
+		call integrity.fixtures.basic.beans.createSimpleBeanUntypedCall -> testvar
+		
+		test echoStringTest string: testvar#nonexistentParameter = "string"
+	
+	suiteend
+	
 
 
 packageend
