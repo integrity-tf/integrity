@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="13.01.16 10:39" isotimestamp="2016-01-13T10:39:48" duration="15.680">
+<integrity name="Integrity JUnit Testing" timestamp="13.01.16 11:13" isotimestamp="2016-01-13T11:13:22" duration="26.411">
   <variables />
-  <suite id="0" name="integrity.basic.enums.enumTableTestWithNonTableParam" timestamp="13.01.16 10:39:48.0490">
+  <suite id="0" name="integrity.basic.enums.enumTableTestWithNonTableParam" timestamp="13.01.16 11:13:22.0364">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="29" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 10:39:48.0490">
-        <results duration="5.584" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.088" description="Returns an enum: VALUE1" type="success">
-            <parameters>
-              <parameter name="enum" value="VALUE1" />
-            </parameters>
+      <tabletest id="1" line="29" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 11:13:22.0364">
+        <parameters>
+          <parameter name="enum" value="VALUE1" />
+        </parameters>
+        <results duration="9.682" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.624" description="Returns an enum: VALUE1" type="success">
+            <parameters />
             <comparisons>
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
         </results>
       </tabletest>
-      <tabletest id="2" line="34" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 10:39:48.0505">
-        <results duration="3.218" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.766" description="Returns an enum: VALUE1" type="success">
-            <parameters>
-              <parameter name="enum" value="VALUE1" />
-            </parameters>
+      <tabletest id="2" line="34" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 11:13:22.0379">
+        <parameters>
+          <parameter name="enum" value="VALUE1" />
+        </parameters>
+        <results duration="4.078" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.688" description="Returns an enum: VALUE1" type="success">
+            <parameters />
             <comparisons>
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
@@ -31,7 +33,7 @@
       </tabletest>
     </statements>
     <teardown />
-    <result duration="14.777" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="20.226" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
