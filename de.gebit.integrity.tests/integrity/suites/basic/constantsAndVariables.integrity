@@ -49,6 +49,21 @@ packagedef integrity.basic with
 	
 	suiteend
 	
+	
+	suitedef variableAttributeAccessNested with
+	
+		variable testvar
+		call integrity.fixtures.basic.beans.createSimpleBeanUntypedCall -> testvar
+		
+		test echoStringTest string: testvar#thirdParameter.innerParameter = "1.99"
+		
+		call integrity.fixtures.basic.beans.createSimpleBeanUntypedEmptyCall -> testvar
+		
+		// thirdParameter is now null. That should not result in an exception, but simply return null for all nested attributes.
+		test echoStringTest string: testvar#thirdParameter.innerParameter = null
+	
+	suiteend
+	
 
 
 packageend

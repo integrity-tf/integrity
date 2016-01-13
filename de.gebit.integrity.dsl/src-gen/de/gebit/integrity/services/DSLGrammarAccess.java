@@ -2874,13 +2874,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cNumberSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cAttributeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cAttributeIDTerminalRuleCall_1_1_0 = (RuleCall)cAttributeAssignment_1_1.eContents().get(0);
+		private final RuleCall cAttributeQualifiedNameParserRuleCall_1_1_0 = (RuleCall)cAttributeAssignment_1_1.eContents().get(0);
 		
 		//Variable:
-		//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?;
+		//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=QualifiedName)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?
+		//name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=QualifiedName)?
 		public Group getGroup() { return cGroup; }
 
 		//name=[VariableOrConstantEntity|QualifiedName]
@@ -2892,17 +2892,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1() { return cNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1; }
 
-		//("#" attribute=ID)?
+		//("#" attribute=QualifiedName)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"#"
 		public Keyword getNumberSignKeyword_1_0() { return cNumberSignKeyword_1_0; }
 
-		//attribute=ID
+		//attribute=QualifiedName
 		public Assignment getAttributeAssignment_1_1() { return cAttributeAssignment_1_1; }
 
-		//ID
-		public RuleCall getAttributeIDTerminalRuleCall_1_1_0() { return cAttributeIDTerminalRuleCall_1_1_0; }
+		//QualifiedName
+		public RuleCall getAttributeQualifiedNameParserRuleCall_1_1_0() { return cAttributeQualifiedNameParserRuleCall_1_1_0; }
 	}
 
 	public class VariableVariableElements extends AbstractParserRuleElementFinder {
@@ -4361,7 +4361,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Variable:
-	//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=ID)?;
+	//	name=[VariableOrConstantEntity|QualifiedName] ("#" attribute=QualifiedName)?;
 	public VariableElements getVariableAccess() {
 		return pVariable;
 	}

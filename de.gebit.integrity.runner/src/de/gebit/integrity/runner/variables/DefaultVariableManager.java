@@ -12,6 +12,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -49,32 +50,44 @@ public class DefaultVariableManager implements VariableManager {
 		Object tempObject = get(aVariable.getName());
 
 		if (aVariable.getAttribute() != null && tempObject != null) {
-			try {
-				for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(tempObject.getClass(), Object.class)
-						.getPropertyDescriptors()) {
-					if (tempDescriptor.getName().equals(aVariable.getAttribute())) {
-						Method tempReadMethod = tempDescriptor.getReadMethod();
-						if (tempReadMethod != null) {
-							try {
-								return tempReadMethod.invoke(tempObject);
-							} catch (IllegalAccessException | IllegalArgumentException
-									| InvocationTargetException exc) {
-								throw new RuntimeException("Failed to read attribute '" + aVariable.getAttribute()
-										+ "' in bean class " + tempObject.getClass().getName(), exc);
+			// The attribute value may be a path to nested objects
+			String[] tempAttributeParts = aVariable.getAttribute().split("\\.");
+
+			outer: for (String tempAttributePart : tempAttributeParts) {
+				try {
+					for (PropertyDescriptor tempDescriptor : Introspector
+							.getBeanInfo(tempObject.getClass(), Object.class).getPropertyDescriptors()) {
+						if (tempDescriptor.getName().equals(tempAttributePart)) {
+							Method tempReadMethod = tempDescriptor.getReadMethod();
+							if (tempReadMethod != null && Modifier.isPublic(tempReadMethod.getModifiers())) {
+								try {
+									tempObject = tempReadMethod.invoke(tempObject);
+
+									if (tempObject == null) {
+										return null;
+									}
+
+									continue outer;
+								} catch (IllegalAccessException | IllegalArgumentException
+										| InvocationTargetException exc) {
+									throw new RuntimeException("Failed to read attribute '" + aVariable.getAttribute()
+											+ "' in bean class " + tempObject.getClass().getName(), exc);
+								}
 							}
-						} else {
-							throw new RuntimeException("Found no read method for attribute '" + aVariable.getAttribute()
-									+ "' in bean class " + tempObject.getClass().getName());
 						}
 					}
-				}
 
-				// No matching property was found
-				throw new RuntimeException("Did not find readable attribute '" + aVariable.getAttribute()
-						+ "' in bean class " + tempObject.getClass().getName());
-			} catch (IntrospectionException exc) {
-				throw new RuntimeException("Failed to introspect bean class " + tempObject.getClass().getName(), exc);
+					// No matching property was found
+					throw new RuntimeException("Did not find readable attribute '" + aVariable.getAttribute()
+							+ "' in bean class " + tempObject.getClass().getName());
+				} catch (IntrospectionException exc) {
+					throw new RuntimeException("Failed to introspect bean class " + tempObject.getClass().getName(),
+							exc);
+				}
 			}
+
+			// Now, the target value is found
+			return tempObject;
 		} else {
 			return tempObject;
 		}

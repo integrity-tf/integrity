@@ -41232,21 +41232,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__AttributeAssignment_1_1"
-    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15391:1: rule__Variable__AttributeAssignment_1_1 : ( RULE_ID ) ;
+    // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15391:1: rule__Variable__AttributeAssignment_1_1 : ( ruleQualifiedName ) ;
     public final void rule__Variable__AttributeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15395:1: ( ( RULE_ID ) )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15396:1: ( RULE_ID )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15395:1: ( ( ruleQualifiedName ) )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15396:1: ( ruleQualifiedName )
             {
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15396:1: ( RULE_ID )
-            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15397:1: RULE_ID
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15396:1: ( ruleQualifiedName )
+            // ../de.gebit.integrity.dsl.ui/src-gen/de/gebit/integrity/ui/contentassist/antlr/internal/InternalDSL.g:15397:1: ruleQualifiedName
             {
-             before(grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Variable__AttributeAssignment_1_131160); 
-             after(grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); 
+             before(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); 
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Variable__AttributeAssignment_1_131160);
+            ruleQualifiedName();
+
+            state._fsp--;
+
+             after(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); 
 
             }
 
@@ -42012,9 +42016,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final String DFA16_eofS =
         "\12\uffff";
     static final String DFA16_minS =
-        "\1\4\1\uffff\1\6\2\uffff\1\112\1\6\1\112\1\105\1\uffff";
+        "\1\4\1\uffff\1\6\2\uffff\1\112\1\6\1\105\1\112\1\uffff";
     static final String DFA16_maxS =
-        "\1\110\1\uffff\1\6\2\uffff\1\112\1\7\1\112\1\106\1\uffff";
+        "\1\110\1\uffff\1\6\2\uffff\1\112\1\7\1\106\1\112\1\uffff";
     static final String DFA16_acceptS =
         "\1\uffff\1\1\1\uffff\1\2\1\3\4\uffff\1\4";
     static final String DFA16_specialS =
@@ -42026,9 +42030,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             "",
             "",
             "\1\6",
-            "\1\7\1\10",
-            "\1\6",
+            "\1\10\1\7",
             "\1\11\1\1",
+            "\1\6",
             ""
     };
 
@@ -44405,7 +44409,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_RULE_TWELVEHRSTIME_in_rule__USDateAnd12HrsTimeValue__TimeValueAssignment_231059 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleJavaConstantReference_in_rule__JavaConstantValue__ConstantAssignment_131090 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Variable__NameAssignment_031125 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Variable__AttributeAssignment_1_131160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Variable__AttributeAssignment_1_131160 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VariableVariable__NameAssignment31195 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Constant__NameAssignment31234 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_UPPERCASE_ID_in_rule__EnumValue__EnumValueAssignment31273 = new BitSet(new long[]{0x0000000000000002L});

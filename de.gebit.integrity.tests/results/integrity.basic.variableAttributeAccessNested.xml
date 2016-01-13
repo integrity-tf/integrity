@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="13.01.16 10:11" isotimestamp="2016-01-13T10:11:53" duration="55.695">
+  <variables />
+  <suite id="0" name="integrity.basic.variableAttributeAccessNested" timestamp="13.01.16 10:11:53.0364">
+    <setup />
+    <variables>
+      <variable name="testvar" />
+    </variables>
+    <statements>
+      <call id="1" line="56" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="13.01.16 10:11:53.0364">
+        <parameters />
+        <result duration="0.172" type="success">
+          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@7f81cc8" />
+        </result>
+      </call>
+      <test id="2" line="58" name="echoStringTest" description="Echo the string '1.99'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 10:11:53.0380">
+        <results duration="1.218" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.218" description="Echo the string '1.99'" type="success">
+            <parameters>
+              <parameter name="string" value="1.99" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1.99" value="1.99" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call id="3" line="60" name="createSimpleBeanUntypedEmptyCall" description="creates an empty bean and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntypedEmpty" timestamp="13.01.16 10:11:53.0395">
+        <parameters />
+        <result duration="0.187" type="success">
+          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@784c5656" />
+        </result>
+      </call>
+      <test id="4" line="63" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 10:11:53.0411">
+        <results duration="0.640" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.640" description="Echo the string 'null'" type="success">
+            <parameters>
+              <parameter name="string" value="null" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="null" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <teardown />
+    <result duration="54.571" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

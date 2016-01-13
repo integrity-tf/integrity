@@ -129,4 +129,11 @@ public class BeanFixture {
 
 		return tempBean;
 	}
+
+	@FixtureMethod(description = "creates an empty bean and returns it")
+	public Object createSimpleBeanUntypedEmpty() {
+		SimpleTestBean tempBean = new SimpleTestBean();
+
+		return tempBean;
+	}
 }

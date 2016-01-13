@@ -15394,8 +15394,8 @@ rule__Variable__AttributeAssignment_1_1
     }
 :
 (
-{ before(grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); }
-	RULE_ID{ after(grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); }
+{ before(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); }
+	ruleQualifiedName{ after(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); }
 )
 
 ;

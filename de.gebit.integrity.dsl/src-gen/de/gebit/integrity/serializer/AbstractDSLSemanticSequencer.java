@@ -1184,7 +1184,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=[VariableOrConstantEntity|QualifiedName] attribute=ID?)
+	 *     (name=[VariableOrConstantEntity|QualifiedName] attribute=QualifiedName?)
 	 */
 	protected void sequence_Variable(EObject context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

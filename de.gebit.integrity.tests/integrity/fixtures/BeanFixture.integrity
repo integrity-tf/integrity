@@ -23,6 +23,9 @@ packagedef integrity.fixtures.basic.beans with
 	testdef echoMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoMap
 	calldef echoMapCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoMap
 	
-	calldef createPrimitiveTypeArrayTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createPrimitiveTypeArrayTestBean 
+	calldef createPrimitiveTypeArrayTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createPrimitiveTypeArrayTestBean
+	
+	testdef createSimpleBeanUntypedEmpty uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntypedEmpty
+	calldef createSimpleBeanUntypedEmptyCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntypedEmpty
 
 packageend

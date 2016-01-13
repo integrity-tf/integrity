@@ -5214,19 +5214,19 @@ ruleVariable returns [EObject current=null]
     }
 (
 (
-		lv_attribute_2_0=RULE_ID
-		{
-			newLeafNode(lv_attribute_2_0, grammarAccess.getVariableAccess().getAttributeIDTerminalRuleCall_1_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); 
+	    }
+		lv_attribute_2_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVariableRule());
+	            $current = createModelElementForParent(grammarAccess.getVariableRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"attribute",
         		lv_attribute_2_0, 
-        		"ID");
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

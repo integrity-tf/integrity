@@ -91,4 +91,19 @@ public class ConstantsAndVariables extends IntegrityJUnitTest {
 				null);
 	}
 
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testVariableAttributeAccessNested() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.variableAttributeAccessNested", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }
