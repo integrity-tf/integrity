@@ -240,6 +240,13 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.SUITE_RETURN_DEFINITION:
+      {
+        SuiteReturnDefinition suiteReturnDefinition = (SuiteReturnDefinition)theEObject;
+        T result = caseSuiteReturnDefinition(suiteReturnDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.OPERATION_DEFINITION:
       {
         OperationDefinition operationDefinition = (OperationDefinition)theEObject;
@@ -416,6 +423,13 @@ public class DslSwitch<T> extends Switch<T>
       {
         SuiteParameter suiteParameter = (SuiteParameter)theEObject;
         T result = caseSuiteParameter(suiteParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.SUITE_RETURN:
+      {
+        SuiteReturn suiteReturn = (SuiteReturn)theEObject;
+        T result = caseSuiteReturn(suiteReturn);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1156,6 +1170,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Suite Return Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Suite Return Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSuiteReturnDefinition(SuiteReturnDefinition object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Operation Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1519,6 +1549,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSuiteParameter(SuiteParameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Suite Return</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Suite Return</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSuiteReturn(SuiteReturn object)
   {
     return null;
   }

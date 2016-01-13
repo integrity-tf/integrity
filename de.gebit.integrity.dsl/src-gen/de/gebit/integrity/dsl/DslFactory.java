@@ -203,6 +203,15 @@ public interface DslFactory extends EFactory
   SuiteParameterDefinition createSuiteParameterDefinition();
 
   /**
+   * Returns a new object of class '<em>Suite Return Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Suite Return Definition</em>'.
+   * @generated
+   */
+  SuiteReturnDefinition createSuiteReturnDefinition();
+
+  /**
    * Returns a new object of class '<em>Operation Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -408,6 +417,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   SuiteParameter createSuiteParameter();
+
+  /**
+   * Returns a new object of class '<em>Suite Return</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Suite Return</em>'.
+   * @generated
+   */
+  SuiteReturn createSuiteReturn();
 
   /**
    * Returns a new object of class '<em>Parameter</em>'.

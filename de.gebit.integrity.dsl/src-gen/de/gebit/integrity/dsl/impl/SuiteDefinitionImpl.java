@@ -5,6 +5,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
 
 import java.util.Collection;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getReturn <em>Return</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getDependencies <em>Dependencies</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getFinalizers <em>Finalizers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getStatements <em>Statements</em>}</li>
@@ -92,6 +94,16 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * @ordered
    */
   protected EList<SuiteParameterDefinition> parameters;
+
+  /**
+   * The cached value of the '{@link #getReturn() <em>Return</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReturn()
+   * @generated
+   * @ordered
+   */
+  protected EList<SuiteReturnDefinition> return_;
 
   /**
    * The cached value of the '{@link #getDependencies() <em>Dependencies</em>}' reference list.
@@ -209,6 +221,20 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<SuiteReturnDefinition> getReturn()
+  {
+    if (return_ == null)
+    {
+      return_ = new EObjectContainmentEList<SuiteReturnDefinition>(SuiteReturnDefinition.class, this, DslPackage.SUITE_DEFINITION__RETURN);
+    }
+    return return_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<SuiteDefinition> getDependencies()
   {
     if (dependencies == null)
@@ -258,6 +284,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
     {
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case DslPackage.SUITE_DEFINITION__RETURN:
+        return ((InternalEList<?>)getReturn()).basicRemove(otherEnd, msgs);
       case DslPackage.SUITE_DEFINITION__STATEMENTS:
         return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
     }
@@ -280,6 +308,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return getName();
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         return getParameters();
+      case DslPackage.SUITE_DEFINITION__RETURN:
+        return getReturn();
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         return getDependencies();
       case DslPackage.SUITE_DEFINITION__FINALIZERS:
@@ -310,6 +340,10 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends SuiteParameterDefinition>)newValue);
+        return;
+      case DslPackage.SUITE_DEFINITION__RETURN:
+        getReturn().clear();
+        getReturn().addAll((Collection<? extends SuiteReturnDefinition>)newValue);
         return;
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         getDependencies().clear();
@@ -346,6 +380,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         getParameters().clear();
         return;
+      case DslPackage.SUITE_DEFINITION__RETURN:
+        getReturn().clear();
+        return;
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         getDependencies().clear();
         return;
@@ -375,6 +412,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case DslPackage.SUITE_DEFINITION__RETURN:
+        return return_ != null && !return_.isEmpty();
       case DslPackage.SUITE_DEFINITION__DEPENDENCIES:
         return dependencies != null && !dependencies.isEmpty();
       case DslPackage.SUITE_DEFINITION__FINALIZERS:

@@ -1233,6 +1233,23 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		});
 	}
 
+	public void completeSuiteReturn_Name(EObject aModel, Assignment anAssignment, final ContentAssistContext aContext,
+			final ICompletionProposalAcceptor anAcceptor) {
+		super.completeSuiteReturn_Name(aModel, anAssignment, aContext, new ICompletionProposalAcceptor() {
+
+			@Override
+			public void accept(ICompletionProposal proposal) {
+				anAcceptor.accept(proposal);
+			}
+
+			@Override
+			public boolean canAcceptMoreProposals() {
+				return anAcceptor.canAcceptMoreProposals();
+			}
+
+		});
+	}
+
 	private boolean isCustomProposalFixture(MethodReference aMethod) {
 		if (aMethod == null) {
 			return false;

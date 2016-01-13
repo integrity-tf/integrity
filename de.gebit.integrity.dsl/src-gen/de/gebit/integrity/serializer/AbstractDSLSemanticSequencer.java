@@ -53,6 +53,8 @@ import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -235,6 +237,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.SUITE_PARAMETER_DEFINITION:
 				sequence_SuiteParameterDefinition(context, (SuiteParameterDefinition) semanticObject); 
+				return; 
+			case DslPackage.SUITE_RETURN:
+				sequence_SuiteReturn(context, (SuiteReturn) semanticObject); 
+				return; 
+			case DslPackage.SUITE_RETURN_DEFINITION:
+				sequence_SuiteReturnDefinition(context, (SuiteReturnDefinition) semanticObject); 
 				return; 
 			case DslPackage.TABLE_TEST:
 				sequence_TableTest(context, (TableTest) semanticObject); 
@@ -970,6 +978,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         private='private'? 
 	 *         name=QualifiedName 
 	 *         parameters+=SuiteParameterDefinition* 
+	 *         return+=SuiteReturnDefinition* 
 	 *         dependencies+=[SuiteDefinition|QualifiedName]* 
 	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
 	 *         statements+=SuiteStatement*
@@ -1010,10 +1019,46 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     name=VariableEntity
+	 */
+	protected void sequence_SuiteReturnDefinition(EObject context, SuiteReturnDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN_DEFINITION__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getSuiteReturnDefinitionAccess().getNameVariableEntityParserRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=[SuiteReturnDefinition|QualifiedName] target=VariableVariable)
+	 */
+	protected void sequence_SuiteReturn(EObject context, SuiteReturn semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN__NAME));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getSuiteReturnAccess().getTargetVariableVariableParserRuleCall_4_0(), semanticObject.getTarget());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         multiplier=ExecutionMultiplier? 
 	 *         definition=[SuiteDefinition|QualifiedName] 
 	 *         parameters+=SuiteParameter* 
+	 *         return+=SuiteReturn* 
 	 *         fork=[ForkDefinition|QualifiedName]? 
 	 *         variants+=[VariantDefinition|QualifiedName]*
 	 *     )

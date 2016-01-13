@@ -368,9 +368,11 @@ public final class IntegrityDSLUtil {
 			return tempPackageDef.getName() + "." + aVariable.getName();
 		} else {
 			if (aQualifyLocalVariables && aVariable.eContainer().eContainer() instanceof SuiteDefinition) {
-				// This covers both: variables defined in suites and suite parameters (which are also variables)
+				// This covers both: variables defined in suites and suite parameters/returns (which are also variables)
+				// We use the container of the variable to discern between these.
+				String tempType = aVariable.eContainer().eClass().getName();
 				SuiteDefinition tempSuiteDef = (SuiteDefinition) aVariable.eContainer().eContainer();
-				return getQualifiedSuiteName(tempSuiteDef) + "$" + aVariable.getName();
+				return getQualifiedSuiteName(tempSuiteDef) + "$" + tempType + "$" + aVariable.getName();
 			} else {
 				return aVariable.getName();
 			}

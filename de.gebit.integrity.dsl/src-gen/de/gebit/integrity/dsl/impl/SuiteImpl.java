@@ -8,6 +8,7 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.VariantDefinition;
 
 import java.util.Collection;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getReturn <em>Return</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getFork <em>Fork</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getVariants <em>Variants</em>}</li>
  * </ul>
@@ -74,6 +76,16 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * @ordered
    */
   protected EList<SuiteParameter> parameters;
+
+  /**
+   * The cached value of the '{@link #getReturn() <em>Return</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReturn()
+   * @generated
+   * @ordered
+   */
+  protected EList<SuiteReturn> return_;
 
   /**
    * The cached value of the '{@link #getFork() <em>Fork</em>}' reference.
@@ -226,6 +238,20 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<SuiteReturn> getReturn()
+  {
+    if (return_ == null)
+    {
+      return_ = new EObjectContainmentEList<SuiteReturn>(SuiteReturn.class, this, DslPackage.SUITE__RETURN);
+    }
+    return return_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ForkDefinition getFork()
   {
     if (fork != null && fork.eIsProxy())
@@ -292,6 +318,8 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
         return basicSetMultiplier(null, msgs);
       case DslPackage.SUITE__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case DslPackage.SUITE__RETURN:
+        return ((InternalEList<?>)getReturn()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -313,6 +341,8 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
         return basicGetDefinition();
       case DslPackage.SUITE__PARAMETERS:
         return getParameters();
+      case DslPackage.SUITE__RETURN:
+        return getReturn();
       case DslPackage.SUITE__FORK:
         if (resolve) return getFork();
         return basicGetFork();
@@ -342,6 +372,10 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
       case DslPackage.SUITE__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends SuiteParameter>)newValue);
+        return;
+      case DslPackage.SUITE__RETURN:
+        getReturn().clear();
+        getReturn().addAll((Collection<? extends SuiteReturn>)newValue);
         return;
       case DslPackage.SUITE__FORK:
         setFork((ForkDefinition)newValue);
@@ -373,6 +407,9 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
       case DslPackage.SUITE__PARAMETERS:
         getParameters().clear();
         return;
+      case DslPackage.SUITE__RETURN:
+        getReturn().clear();
+        return;
       case DslPackage.SUITE__FORK:
         setFork((ForkDefinition)null);
         return;
@@ -399,6 +436,8 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
         return definition != null;
       case DslPackage.SUITE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case DslPackage.SUITE__RETURN:
+        return return_ != null && !return_.isEmpty();
       case DslPackage.SUITE__FORK:
         return fork != null;
       case DslPackage.SUITE__VARIANTS:

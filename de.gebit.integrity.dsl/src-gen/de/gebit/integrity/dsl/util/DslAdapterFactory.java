@@ -175,6 +175,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createSuiteParameterDefinitionAdapter();
       }
       @Override
+      public Adapter caseSuiteReturnDefinition(SuiteReturnDefinition object)
+      {
+        return createSuiteReturnDefinitionAdapter();
+      }
+      @Override
       public Adapter caseOperationDefinition(OperationDefinition object)
       {
         return createOperationDefinitionAdapter();
@@ -288,6 +293,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseSuiteParameter(SuiteParameter object)
       {
         return createSuiteParameterAdapter();
+      }
+      @Override
+      public Adapter caseSuiteReturn(SuiteReturn object)
+      {
+        return createSuiteReturnAdapter();
       }
       @Override
       public Adapter caseParameter(Parameter object)
@@ -827,6 +837,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.SuiteReturnDefinition <em>Suite Return Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.SuiteReturnDefinition
+   * @generated
+   */
+  public Adapter createSuiteReturnDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.OperationDefinition <em>Operation Definition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1167,6 +1192,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSuiteParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.SuiteReturn <em>Suite Return</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.SuiteReturn
+   * @generated
+   */
+  public Adapter createSuiteReturnAdapter()
   {
     return null;
   }

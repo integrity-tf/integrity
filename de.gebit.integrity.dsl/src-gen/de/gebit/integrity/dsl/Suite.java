@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.Suite#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.Suite#getReturn <em>Return</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getFork <em>Fork</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getVariants <em>Variants</em>}</li>
  * </ul>
@@ -93,6 +94,22 @@ public interface Suite extends SuiteStatementWithResult
    * @generated
    */
   EList<SuiteParameter> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Return</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.SuiteReturn}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Return</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Return</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getSuite_Return()
+   * @model containment="true"
+   * @generated
+   */
+  EList<SuiteReturn> getReturn();
 
   /**
    * Returns the value of the '<em><b>Fork</b></em>' reference.

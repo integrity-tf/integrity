@@ -61,6 +61,7 @@ import de.gebit.integrity.dsl.Statement;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
@@ -622,6 +623,19 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return filterPrivateElements(new SimpleScope(tempScope, tempList), aSuite);
 	}
 
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_SuiteReturn_name(Suite aSuite, EReference aRef) {
+		SuiteDefinition tempSuiteDefinition = aSuite.getDefinition();
+
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		if (tempSuiteDefinition != null) {
+			for (SuiteReturnDefinition tempDefinition : tempSuiteDefinition.getReturn()) {
+				tempList.add(EObjectDescription.create(tempDefinition.getName().getName(), tempDefinition));
+			}
+		}
+		return new SimpleScope(tempList);
+	}
+
 	/**
 	 * A small cache for visible global variables. Determining these is rather expensive, thus they're cached as long as
 	 * only one model (file) is being scoped.
@@ -757,12 +771,18 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		tempScope = addVisibleGlobalConstantsAndVariables(tempScope, aStatement);
 
 		// And add suite parameters, which are handled like variables as well.
-		ArrayList<IEObjectDescription> tempSuiteParameterList = new ArrayList<IEObjectDescription>();
+		ArrayList<IEObjectDescription> tempSuiteParameterAndReturnList = new ArrayList<IEObjectDescription>();
 		for (VariableEntity tempSuiteParam : ParameterUtil.getVariableEntitiesForSuiteParameters(aSuite)) {
-			tempSuiteParameterList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
+			tempSuiteParameterAndReturnList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
 		}
 
-		return new SimpleScope(tempScope, tempSuiteParameterList);
+		// Just like suite return variables
+		for (SuiteReturnDefinition tempSuiteReturn : aSuite.getReturn()) {
+			tempSuiteParameterAndReturnList
+					.add(EObjectDescription.create(tempSuiteReturn.getName().getName(), tempSuiteReturn.getName()));
+		}
+
+		return new SimpleScope(tempScope, tempSuiteParameterAndReturnList);
 	}
 
 	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {

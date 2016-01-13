@@ -84,6 +84,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.CALL_DEFINITION: return createCallDefinition();
       case DslPackage.SUITE_DEFINITION: return createSuiteDefinition();
       case DslPackage.SUITE_PARAMETER_DEFINITION: return createSuiteParameterDefinition();
+      case DslPackage.SUITE_RETURN_DEFINITION: return createSuiteReturnDefinition();
       case DslPackage.OPERATION_DEFINITION: return createOperationDefinition();
       case DslPackage.SUITE_STATEMENT: return createSuiteStatement();
       case DslPackage.SUITE_STATEMENT_WITH_RESULT: return createSuiteStatementWithResult();
@@ -107,6 +108,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.NAMED_CALL_RESULT: return createNamedCallResult();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
+      case DslPackage.SUITE_RETURN: return createSuiteReturn();
       case DslPackage.PARAMETER: return createParameter();
       case DslPackage.PARAMETER_NAME: return createParameterName();
       case DslPackage.FIXED_PARAMETER_NAME: return createFixedParameterName();
@@ -380,6 +382,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public SuiteReturnDefinition createSuiteReturnDefinition()
+  {
+    SuiteReturnDefinitionImpl suiteReturnDefinition = new SuiteReturnDefinitionImpl();
+    return suiteReturnDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public OperationDefinition createOperationDefinition()
   {
     OperationDefinitionImpl operationDefinition = new OperationDefinitionImpl();
@@ -626,6 +639,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     SuiteParameterImpl suiteParameter = new SuiteParameterImpl();
     return suiteParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SuiteReturn createSuiteReturn()
+  {
+    SuiteReturnImpl suiteReturn = new SuiteReturnImpl();
+    return suiteReturn;
   }
 
   /**

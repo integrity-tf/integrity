@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getReturn <em>Return</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getDependencies <em>Dependencies</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getFinalizers <em>Finalizers</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getStatements <em>Statements</em>}</li>
@@ -94,6 +95,22 @@ public interface SuiteDefinition extends PackageStatement
    * @generated
    */
   EList<SuiteParameterDefinition> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Return</b></em>' containment reference list.
+   * The list contents are of type {@link de.gebit.integrity.dsl.SuiteReturnDefinition}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Return</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Return</em>' containment reference list.
+   * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Return()
+   * @model containment="true"
+   * @generated
+   */
+  EList<SuiteReturnDefinition> getReturn();
 
   /**
    * Returns the value of the '<em><b>Dependencies</b></em>' reference list.
