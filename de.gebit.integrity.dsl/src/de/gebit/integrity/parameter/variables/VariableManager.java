@@ -10,6 +10,7 @@ package de.gebit.integrity.parameter.variables;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 
 /**
@@ -28,6 +29,16 @@ public interface VariableManager {
 	 * @return the value or null if none was defined
 	 */
 	Object get(VariableOrConstantEntity anEntity);
+
+	/**
+	 * Gets a value for a specific variable. This is able to retrieve attribute values out of bean variable values, if
+	 * necessary.
+	 * 
+	 * @param aVariable
+	 *            the variable entity
+	 * @return the value or null if none was defined
+	 */
+	Object get(Variable aVariable);
 
 	/**
 	 * Sets a value for a specific variable. This is also used to define constants, as constants are technically also

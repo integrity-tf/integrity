@@ -183,7 +183,7 @@ public class DefaultParameterResolver implements ParameterResolver {
 					throws UnexecutableException, InstantiationException, ClassNotFoundException {
 		if (aValue instanceof Variable) {
 			Variable tempVariable = (Variable) aValue;
-			Object tempResolvedValue = (variableManager != null ? variableManager.get(tempVariable.getName()) : null);
+			Object tempResolvedValue = (variableManager != null ? variableManager.get(tempVariable) : null);
 			if (tempResolvedValue != null) {
 				// We may need to recurse here, as it is possible to have containers being returned by the variable
 				// manager

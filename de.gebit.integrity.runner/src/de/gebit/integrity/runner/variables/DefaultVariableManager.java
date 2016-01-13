@@ -7,6 +7,11 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.variables;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +21,7 @@ import java.util.Set;
 import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.parameter.variables.VariableManager;
 
@@ -36,6 +42,42 @@ public class DefaultVariableManager implements VariableManager {
 	@Override
 	public Object get(VariableOrConstantEntity anEntity) {
 		return variableMap.get(anEntity);
+	}
+
+	@Override
+	public Object get(Variable aVariable) {
+		Object tempObject = get(aVariable.getName());
+
+		if (aVariable.getAttribute() != null && tempObject != null) {
+			try {
+				for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(tempObject.getClass(), Object.class)
+						.getPropertyDescriptors()) {
+					if (tempDescriptor.getName().equals(aVariable.getAttribute())) {
+						Method tempReadMethod = tempDescriptor.getReadMethod();
+						if (tempReadMethod != null) {
+							try {
+								return tempReadMethod.invoke(tempObject);
+							} catch (IllegalAccessException | IllegalArgumentException
+									| InvocationTargetException exc) {
+								throw new RuntimeException("Failed to read attribute '" + aVariable.getAttribute()
+										+ "' in bean class " + tempObject.getClass().getName(), exc);
+							}
+						} else {
+							throw new RuntimeException("Found no read method for attribute '" + aVariable.getAttribute()
+									+ "' in bean class " + tempObject.getClass().getName());
+						}
+					}
+				}
+
+				// No matching property was found
+				throw new RuntimeException("Did not find readable attribute '" + aVariable.getAttribute()
+						+ "' in bean class " + tempObject.getClass().getName());
+			} catch (IntrospectionException exc) {
+				throw new RuntimeException("Failed to introspect bean class " + tempObject.getClass().getName(), exc);
+			}
+		} else {
+			return tempObject;
+		}
 	}
 
 	@Override

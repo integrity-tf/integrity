@@ -770,8 +770,7 @@ public class DefaultTestRunner implements TestRunner {
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
 			if (tempParam.getValue() instanceof Variable) {
 				Variable tempVariable = (Variable) tempParam.getValue();
-				defineVariable(tempParam.getName(), variableManager.get(tempVariable.getName()),
-						aSuiteCall.getDefinition());
+				defineVariable(tempParam.getName(), variableManager.get(tempVariable), aSuiteCall.getDefinition());
 			} else {
 				defineVariable(tempParam.getName(), tempParam.getValue(), aSuiteCall.getDefinition());
 			}
@@ -783,7 +782,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (tempParamDefinition.getDefault() != null && !tempVariablesSet.contains(tempParamDefinition.getName())) {
 				if (tempParamDefinition.getDefault().getValue() instanceof Variable) {
 					Variable tempVariable = (Variable) tempParamDefinition.getDefault().getValue();
-					defineVariable(tempParamDefinition.getName(), variableManager.get(tempVariable.getName()),
+					defineVariable(tempParamDefinition.getName(), variableManager.get(tempVariable),
 							aSuiteCall.getDefinition());
 				} else {
 					defineVariable(tempParamDefinition.getName(), tempParamDefinition.getDefault(),
