@@ -1156,6 +1156,19 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * Sets the value of a variable.
+	 * 
+	 * @param anEntity
+	 *            the variable entity to update
+	 * @param aValue
+	 *            the new value (which will be converted to its default type before assigning it!)
+	 * @param aDoSendUpdateFlag
+	 *            whether this update should be sent to connected master/slaves
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws UnexecutableException
+	 */
 	protected void setVariableValueConverted(VariableOrConstantEntity anEntity,
 			ValueOrEnumValueOrOperationCollection aValue, boolean aDoSendUpdateFlag)
 					throws InstantiationException, ClassNotFoundException, UnexecutableException {
@@ -1231,6 +1244,14 @@ public class DefaultTestRunner implements TestRunner {
 		throw new ThisShouldNeverHappenException();
 	}
 
+	/**
+	 * Executes variable assignments.
+	 * 
+	 * @param anAssignment
+	 *            the assignment to execute
+	 * @param aSuite
+	 *            the suite that the assignment is in
+	 */
 	protected void executeVariableAssignment(VariableAssignment anAssignment, SuiteDefinition aSuite) {
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
