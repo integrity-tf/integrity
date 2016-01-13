@@ -70,4 +70,19 @@ public class simpleEnumStuff extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does simple fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testEnumTableTestWithNonTableParam() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/enums/simpleEnumTableTests.integrity" },
+				"integrity.basic.enums.enumTableTestWithNonTableParam", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

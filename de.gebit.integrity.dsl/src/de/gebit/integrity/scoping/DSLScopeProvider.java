@@ -345,6 +345,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			tempMethodRef = ((Test) aParameter.eContainer()).getDefinition().getFixtureMethod();
 		} else if (aParameter.eContainer() instanceof Call) {
 			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
+		} else if (aParameter.eContainer() instanceof TableTest) {
+			tempMethodRef = ((TableTest) aParameter.eContainer()).getDefinition().getFixtureMethod();
 		}
 
 		return determineParameterEnumValueScope(tempMethodRef, aParameter.getName());
