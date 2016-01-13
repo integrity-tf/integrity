@@ -20,5 +20,21 @@ packagedef integrity.basic.enums with
 			| VALUE2 | aVar   |			
 				
 	suiteend
+	
+	
+	// This tests the fix for issue #97: Enum literals used within tabletest non-table parameters don't work
+	suitedef enumTableTestWithNonTableParam with
+	
+		// This one has always worked. The string is converted to an enum. 
+		tabletest integrity.fixtures.basic.noop.echoEnumTest enum: "VALUE1"
+			| =      |
+			| VALUE1 |
+			
+		// This one was broken because the enum value could not be resolved
+		tabletest integrity.fixtures.basic.noop.echoEnumTest enum: VALUE1
+			| =      |
+			| VALUE1 |
+	
+	suiteend
 
 packageend
