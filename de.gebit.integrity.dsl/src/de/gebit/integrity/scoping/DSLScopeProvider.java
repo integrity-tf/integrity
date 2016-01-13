@@ -168,7 +168,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 							&& ((JvmOperation) tempMember).getVisibility() == JvmVisibility.PUBLIC) {
 						boolean tempIsFixtureMethod = false;
 						for (JvmAnnotationReference tempAnnotation : tempMember.getAnnotations()) {
-							if (FixtureMethod.class.getName().equals(tempAnnotation.getAnnotation().getQualifiedName())) {
+							if (FixtureMethod.class.getName()
+									.equals(tempAnnotation.getAnnotation().getQualifiedName())) {
 								tempIsFixtureMethod = true;
 								break;
 							}
@@ -216,8 +217,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		for (JvmField tempField : aType.getDeclaredFields()) {
 			if (!(tempField instanceof JvmEnumerationLiteral) && tempField.isStatic() && tempField.isFinal()
 					&& tempField.getVisibility() == JvmVisibility.PUBLIC) {
-				someDescriptions.add(EObjectDescription.create(QualifiedName.create(tempField.getSimpleName()),
-						tempField));
+				someDescriptions
+						.add(EObjectDescription.create(QualifiedName.create(tempField.getSimpleName()), tempField));
 			}
 		}
 
@@ -342,6 +343,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			tempMethodRef = ((Test) aParameter.eContainer()).getDefinition().getFixtureMethod();
 		} else if (aParameter.eContainer() instanceof Call) {
 			tempMethodRef = ((Call) aParameter.eContainer()).getDefinition().getFixtureMethod();
+		} else if (aParameter.eContainer() instanceof TableTest) {
+			tempMethodRef = ((TableTest) aParameter.eContainer()).getDefinition().getFixtureMethod();
 		}
 
 		return determineParameterEnumValueScope(tempMethodRef, aParameter.getName());
@@ -403,8 +406,9 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		ResultName tempResultName = aNamedResult.getName();
 		if (tempResultName instanceof FixedResultName) {
 			if (aNamedResult.eContainer() instanceof Test) {
-				return determineNamedResultEnumValueScope(((Test) aNamedResult.eContainer()).getDefinition()
-						.getFixtureMethod(), ((FixedResultName) tempResultName).getField());
+				return determineNamedResultEnumValueScope(
+						((Test) aNamedResult.eContainer()).getDefinition().getFixtureMethod(),
+						((FixedResultName) tempResultName).getField());
 			}
 		}
 
@@ -673,13 +677,17 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					if (tempPackageStatement instanceof VariableDefinition) {
 						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
-								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
+						tempList.add(EObjectDescription.create(
+								qualifiedNameConverter.toQualifiedName(
+										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+								tempEntity));
 					} else if (tempPackageStatement instanceof ConstantDefinition) {
 						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
 						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(qualifiedNameConverter.toQualifiedName(IntegrityDSLUtil
-								.getQualifiedVariableEntityName(tempEntity, false)), tempEntity));
+						tempList.add(EObjectDescription.create(
+								qualifiedNameConverter.toQualifiedName(
+										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+								tempEntity));
 					}
 				}
 			}
