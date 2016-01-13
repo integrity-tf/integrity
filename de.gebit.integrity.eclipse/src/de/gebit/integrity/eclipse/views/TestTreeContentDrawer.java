@@ -86,6 +86,11 @@ public class TestTreeContentDrawer {
 	private Color callSuccessColor;
 
 	/**
+	 * Background color for successfully executed assigns.
+	 */
+	private Color assignSuccessColor;
+
+	/**
 	 * Color for suites that are currently being executed.
 	 */
 	private Color suiteInExecutionColor;
@@ -165,6 +170,7 @@ public class TestTreeContentDrawer {
 		callOrTestInExecutionColor = new Color(aDisplay, 198, 203, 255);
 		suiteInExecutionColor = new Color(aDisplay, 229, 231, 255);
 		breakpointColor = new Color(aDisplay, 0, 0, 0);
+		assignSuccessColor = new Color(aDisplay, 203, 255, 216);
 
 		forkColors[0] = new Color(aDisplay, 255, 0, 0);
 		forkColors[1] = new Color(aDisplay, 255, 255, 0);
@@ -196,6 +202,7 @@ public class TestTreeContentDrawer {
 		callOrTestInExecutionColor.dispose();
 		suiteInExecutionColor.dispose();
 		breakpointColor.dispose();
+		assignSuccessColor.dispose();
 
 		for (int i = 0; i < forkColors.length; i++) {
 			forkColors[i].dispose();
@@ -265,6 +272,15 @@ public class TestTreeContentDrawer {
 							break;
 						}
 						break;
+					case VARIABLE_ASSIGNMENT:
+						switch (tempResultState) {
+						case SUCCESSFUL:
+							tempBackground = assignSuccessColor;
+							break;
+						default:
+							break;
+						}
+						break;
 					case TEST:
 					case TABLETEST:
 					case RESULT:
@@ -289,8 +305,8 @@ public class TestTreeContentDrawer {
 
 					anEvent.gc.setBackground(tempBackground);
 
-					anEvent.gc.fillGradientRectangle(anEvent.x + tempInset + GRADIENT_OFFSET, anEvent.y,
-							GRADIENT_WIDTH, anEvent.height, false);
+					anEvent.gc.fillGradientRectangle(anEvent.x + tempInset + GRADIENT_OFFSET, anEvent.y, GRADIENT_WIDTH,
+							anEvent.height, false);
 					anEvent.gc.fillRectangle(anEvent.x + tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET, anEvent.y,
 							anEvent.width - (tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET), anEvent.height);
 
@@ -306,6 +322,7 @@ public class TestTreeContentDrawer {
 					case CALL:
 					case TEST:
 					case TABLETEST:
+					case VARIABLE_ASSIGNMENT:
 						anEvent.gc.setBackground(callOrTestInExecutionColor);
 						break;
 					case SUITE:

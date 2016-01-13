@@ -64,6 +64,34 @@ packagedef integrity.basic with
 	
 	suiteend
 	
+	
+	suitedef variableAssignment with
+	
+		 variable testvar		 		 
+		 assign "abc" -> testvar
+		 
+		 test echoStringTest string: testvar = "abc"
+		 
+		 assign 123 -> testvar
+		 		 
+		 test echoIntegerTest integer: testvar = 123
+		 
+		 variable secondvar initially "foo"
+		 
+		 assign (secondvar .. "bar") -> testvar
+		 
+		 test echoStringTest string: testvar = "foobar"		
+		 
+		 assign {
+			blah: 123
+			blub: "This is a nice long string"
+			inner: {
+				deepStuff: "Yeah, we have more stuff in here!"
+			}
+		} -> testvar 
+	
+	suiteend
+	
 
 
 packageend

@@ -51,6 +51,8 @@ public enum TestRunnerCallbackMethods {
 
 	VARIABLE_DEFINITION,
 
+	VARIABLE_ASSIGNMENT,
+
 	VISIBLE_COMMENT,
 
 	VISIBLE_DIVIDER,

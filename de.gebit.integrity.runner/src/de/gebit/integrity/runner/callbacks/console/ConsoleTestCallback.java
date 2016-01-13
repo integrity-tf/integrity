@@ -23,6 +23,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
@@ -209,11 +210,11 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 						boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
 						print("'"
-								+ valueConverter.convertValueToString((tempExpectedValue == null ? true
-										: tempExpectedValue), false, null)
+								+ valueConverter.convertValueToString(
+										(tempExpectedValue == null ? true : tempExpectedValue), false, null)
 								+ "' expected"
-								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? "" : " for '"
-										+ tempEntry.getKey() + "'")
+								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? ""
+										: " for '" + tempEntry.getKey() + "'")
 								+ ", but got '"
 								+ convertResultValueToStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 										tempExpectedIsNestedObject,
@@ -233,15 +234,10 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		if (aResult != null) {
-			println("Finished executing "
-					+ suiteCount
-					+ " suites with "
-					+ testCount
-					+ " tests and "
-					+ callCount
-					+ " calls in "
-					+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - startTime, false,
-							false) + "!");
+			println("Finished executing " + suiteCount + " suites with " + testCount
+					+ " tests and " + callCount + " calls in " + DateUtil
+							.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - startTime, false, false)
+					+ "!");
 
 			println(aResult.getTestSuccessCount() + " tests finished sucessfully, accompanied by "
 					+ aResult.getTestFailCount() + " failures and " + aResult.getExceptionCount() + " exceptions.");
@@ -264,10 +260,9 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue) {
-		println("Defined variable "
-				+ IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
-				+ (anInitialValue == null ? "" : " with initial value: "
-						+ valueConverter.convertValueToString(anInitialValue, false, null)));
+		println("Defined variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
+				+ (anInitialValue == null ? ""
+						: " with initial value: " + valueConverter.convertValueToString(anInitialValue, false, null)));
 	}
 
 	@Override
@@ -276,6 +271,12 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		println("Defined constant " + IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
 				+ (aValue == null ? "" : " with value: " + valueConverter.convertValueToString(aValue, false, null))
 				+ (aParameterizedFlag ? " (parameterized)" : ""));
+	}
+
+	@Override
+	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition, SuiteDefinition aSuite, Object aValue) {
+		println("Assigned variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
+				+ " - new value is " + valueConverter.convertValueToString(aValue, false, null));
 	}
 
 	@Override

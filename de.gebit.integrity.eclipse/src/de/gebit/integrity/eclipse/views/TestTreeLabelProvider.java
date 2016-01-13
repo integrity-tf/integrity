@@ -26,6 +26,7 @@ import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryResultStates;
+import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 
 /**
  * The label provider for the main test execution tree.
@@ -164,51 +165,49 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		SetListEntry tempEntry = (SetListEntry) anElement;
 		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
-		if (tempResultState != null) {
-			switch (tempEntry.getType()) {
-			case SUITE:
-				switch (tempResultState) {
-				case SUCCESSFUL:
-					return suiteSuccessImage;
-				case FAILED:
-					return suiteFailureImage;
-				case EXCEPTION:
-					return suiteExceptionImage;
-				case UNKNOWN:
-				default:
-					return suiteImage;
-				}
-			case CALL:
-				switch (tempResultState) {
-				case SUCCESSFUL:
-					return callSuccessImage;
-				case EXCEPTION:
-					return callExceptionImage;
-				case UNKNOWN:
-				default:
-					return callImage;
-				}
-			case TEST:
-			case TABLETEST:
-			case RESULT:
-				switch (tempResultState) {
-				case SUCCESSFUL:
-					return testSuccessImage;
-				case FAILED:
-					return testFailureImage;
-				case EXCEPTION:
-					return testExceptionImage;
-				case UNKNOWN:
-				default:
-					return testImage;
-				}
-			case COMMENT:
+		switch (tempEntry.getType()) {
+		case SUITE:
+			switch (tempResultState) {
+			case SUCCESSFUL:
+				return suiteSuccessImage;
+			case FAILED:
+				return suiteFailureImage;
+			case EXCEPTION:
+				return suiteExceptionImage;
+			case UNKNOWN:
 			default:
-				return null;
+				return suiteImage;
 			}
+		case CALL:
+			switch (tempResultState) {
+			case SUCCESSFUL:
+				return callSuccessImage;
+			case EXCEPTION:
+				return callExceptionImage;
+			case UNKNOWN:
+			default:
+				return callImage;
+			}
+		case VARIABLE_ASSIGNMENT:
+			return callImage;
+		case TEST:
+		case TABLETEST:
+		case RESULT:
+			switch (tempResultState) {
+			case SUCCESSFUL:
+				return testSuccessImage;
+			case FAILED:
+				return testFailureImage;
+			case EXCEPTION:
+				return testExceptionImage;
+			case UNKNOWN:
+			default:
+				return testImage;
+			}
+		case COMMENT:
+		default:
+			return null;
 		}
-
-		return null;
 	}
 
 	/**
@@ -219,11 +218,20 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		SetListEntry tempEntry = (SetListEntry) anElement;
 		SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
+		// The "space suffixes" below serve a very important purpose. The TreeViewer performs sophisticated optimization
+		// when determining whether to update an already-rendered element. If the text and icon don't change, it will
+		// not render the item at all! That is bad, since we also change the background color depending on the result
+		// state, and there are cases in which neither the text nor the icon change, but the background color, which
+		// is not checked by the TreeViewer and which thus does not trigger a redraw. To overcome this, we arbitrarily
+		// change the text by appending stuff like invisible spaces.
 		String tempSuffix = "";
 		if ((tempResultState == null || tempResultState == SetListEntryResultStates.UNKNOWN)
 				&& setList.isEntryInExecution(tempEntry)) {
 			tempSuffix = "...";
 		} else if (breakpointSet.contains(tempEntry.getId())) {
+			tempSuffix = " ";
+		} else if (tempEntry.getType() == SetListEntryTypes.VARIABLE_ASSIGNMENT
+				&& tempResultState == SetListEntryResultStates.SUCCESSFUL) {
 			tempSuffix = " ";
 		}
 
@@ -233,6 +241,7 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		case TEST:
 		case TABLETEST:
 		case CALL:
+		case VARIABLE_ASSIGNMENT:
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
 		case RESULT:
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;

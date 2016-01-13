@@ -40,6 +40,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -516,6 +517,30 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			boolean aParameterizedFlag) {
 		// constants are handled like variables here (for now...)
 		onVariableDefinitionInternal(aDefinition, aSuite, aValue);
+	}
+
+	@Override
+	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aVariableEntity,
+			SuiteDefinition aSuite, Object aValue) {
+		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE_ASSIGNMENT);
+
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
+				testFormatter.variableAssignmentToHumanReadableString(anAssignment, createConversionContext()));
+
+		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
+		if (!isDryRun()) {
+			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
+		}
+
+		SetListEntry tempUpdateEntry = setList.createEntry(SetListEntryTypes.VARIABLE_UPDATE);
+		tempUpdateEntry.setAttribute(SetListEntryAttributeKeys.VARIABLE_NAME, aVariableEntity.getName());
+		tempUpdateEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
+				valueConverter.convertValueToString(aValue, false, createConversionContext()));
+		setList.addReference(tempResultEntry, SetListEntryAttributeKeys.VARIABLE_UPDATES, tempUpdateEntry);
+
+		setList.addReference(tempNewEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);
+		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
+		sendUpdateToClients(null, tempUpdateEntry, tempResultEntry, tempNewEntry);
 	}
 
 	@Override

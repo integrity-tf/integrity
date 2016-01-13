@@ -1071,8 +1071,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Name");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1127,8 +1127,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Name");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1259,8 +1259,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Result");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1760,7 +1760,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 							stepOverAction.setEnabled(false);
 							updateStatusRunnable(
 									determineIntermediateTestResultStatusString("Finalizing test results (", ")"))
-									.run();
+											.run();
 							break;
 						case ENDED:
 							playAction.setEnabled(false);
@@ -1769,7 +1769,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 							stepOverAction.setEnabled(false);
 							updateStatusRunnable(
 									determineIntermediateTestResultStatusString("Test execution finished (", ")"))
-									.run();
+											.run();
 							break;
 						default:
 							break;
@@ -1839,8 +1839,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			} else {
 				details.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION));
 				if (anEntry.getType() == SetListEntryTypes.RESULT) {
-					fixtureLink.setText((String) setList.getParent(anEntry).getAttribute(
-							SetListEntryAttributeKeys.FIXTURE));
+					fixtureLink.setText(
+							(String) setList.getParent(anEntry).getAttribute(SetListEntryAttributeKeys.FIXTURE));
 				} else {
 					fixtureLink.setText((String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE));
 				}
@@ -1865,8 +1865,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 				variableTable.setInput(null);
 			}
 
-			List<SetListEntry> tempParameters = setList
-					.resolveReferences(anEntry, SetListEntryAttributeKeys.PARAMETERS);
+			List<SetListEntry> tempParameters = setList.resolveReferences(anEntry,
+					SetListEntryAttributeKeys.PARAMETERS);
 			if (tempParameters.size() > 0) {
 				parameterTable.setInput(tempParameters);
 			} else {
@@ -1917,9 +1917,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 				case TEST:
 				case RESULT:
 					@SuppressWarnings("unchecked")
-					List<SetListEntry> tempComparisonEntries = setList
-							.resolveReferences(((List<Integer>) tempResultEntry
-									.getAttribute(SetListEntryAttributeKeys.COMPARISONS)));
+					List<SetListEntry> tempComparisonEntries = setList.resolveReferences(
+							((List<Integer>) tempResultEntry.getAttribute(SetListEntryAttributeKeys.COMPARISONS)));
 
 					if (tempComparisonEntries.size() > 1) {
 						resultTable.setInput(tempComparisonEntries);
@@ -1927,26 +1926,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 					} else {
 						SetListEntry tempComparisonEntry = tempComparisonEntries.get(0);
 						resultLine2Name.setText("Expected value: ");
-						resultLine2Text.setText((String) tempComparisonEntry
-								.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
+						resultLine2Text.setText(
+								(String) tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.EXPECTED_RESULT));
 						resultLine2Border.setForeground(resultNeutralColor);
 						resultLine2Name.setVisible(true);
 						showResultComposite(resultLine2Border, RESULT_TEXTFIELD_HEIGHT);
 
 						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
 							resultLine1Name.setText("Exception occurred while running the test fixture:");
-							resultLine1Text.setText((String) tempResultEntry
-									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
+							resultLine1Text.setText(
+									(String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
 							resultLine1Border.setForeground(resultExceptionColor);
 							resultLine1Name.setVisible(true);
 							showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 						} else {
-							if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+							if (tempComparisonEntry
+									.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 								resultLine1Name.setText("Result returned by the test fixture: ");
 								String tempResult = (String) tempComparisonEntry
 										.getAttribute(SetListEntryAttributeKeys.VALUE);
 								resultLine1Text.setText(tempResult == null ? "null" : tempResult);
-								if (tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+								if (tempComparisonEntry
+										.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 									if (Boolean.TRUE.equals(tempComparisonEntry
 											.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
 										resultLine1Border.setForeground(resultSuccessColor);
@@ -1966,8 +1967,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
 							resultLine1Name.setText("Exception occurred while running the test fixture:");
-							resultLine1Text.setText((String) tempResultEntry
-									.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
+							resultLine1Text.setText(
+									(String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
 							resultLine1Border.setForeground(resultExceptionColor);
 							showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
 						} else {
@@ -1975,10 +1976,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 									SetListEntryAttributeKeys.VARIABLE_UPDATES);
 
 							if (tempVarUpdates.size() == 1) {
-								String tempResultValue = (String) tempVarUpdates.get(0).getAttribute(
-										SetListEntryAttributeKeys.VALUE);
-								String tempTargetVariable = (String) tempVarUpdates.get(0).getAttribute(
-										SetListEntryAttributeKeys.VARIABLE_NAME);
+								String tempResultValue = (String) tempVarUpdates.get(0)
+										.getAttribute(SetListEntryAttributeKeys.VALUE);
+								String tempTargetVariable = (String) tempVarUpdates.get(0)
+										.getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
 								if (tempTargetVariable != null) {
 									tempResultValue += " ➔ " + tempTargetVariable;
 								}
@@ -1995,6 +1996,30 @@ public class IntegrityTestRunnerView extends ViewPart {
 						}
 					} else {
 						resultLine1Name.setText("No result available - please run the tests first.");
+					}
+					resultLine1Name.setVisible(true);
+					break;
+				case VARIABLE_ASSIGNMENT:
+					List<SetListEntry> tempVarUpdates = setList.resolveReferences(tempResultEntry,
+							SetListEntryAttributeKeys.VARIABLE_UPDATES);
+
+					if (tempVarUpdates.size() == 1) {
+						String tempResultValue = (String) tempVarUpdates.get(0)
+								.getAttribute(SetListEntryAttributeKeys.VALUE);
+						String tempTargetVariable = (String) tempVarUpdates.get(0)
+								.getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
+						if (tempTargetVariable != null) {
+							tempResultValue += " ➔ " + tempTargetVariable;
+						}
+						resultLine1Name.setText("Assigned variable value:");
+						resultLine1Text.setText(tempResultValue);
+						resultLine1Border.setForeground(resultNeutralColor);
+						showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
+					} else if (tempVarUpdates.size() > 1) {
+						varUpdateTable.setInput(tempVarUpdates);
+						showResultComposite(varUpdateTableComposite, RESULT_TABLE_HEIGHT);
+					} else {
+						resultLine1Name.setText("No variables assigned.");
 					}
 					resultLine1Name.setVisible(true);
 					break;
@@ -2089,8 +2114,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			tempFormData.left = new FormAttachment(0, 1);
 			tempFormData.right = new FormAttachment(100, -1);
 			tempFormData.top = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize);
-			tempFormData.bottom = new FormAttachment(aTargetComposite, aStartingPosition + tempTitleSize
-					+ tempContentSize, SWT.BOTTOM);
+			tempFormData.bottom = new FormAttachment(aTargetComposite,
+					aStartingPosition + tempTitleSize + tempContentSize, SWT.BOTTOM);
 			tempContentContainer.setLayoutData(tempFormData);
 			tempContentContainer.setVisible(true);
 		}
@@ -2272,8 +2297,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			if (currentSearchResult.size() == 0) {
 				searchPositionLabel.setText("no matches");
 			} else {
-				String tempCurrentPosition = (currentSearchResultPosition == null ? "?" : Integer
-						.toString(currentSearchResultPosition + 1));
+				String tempCurrentPosition = (currentSearchResultPosition == null ? "?"
+						: Integer.toString(currentSearchResultPosition + 1));
 				searchPositionLabel.setText(tempCurrentPosition + " / " + currentSearchResult.size());
 			}
 		}
@@ -2324,8 +2349,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 				executionProgress.redraw();
 
 				// the following will automatically dispose the old provider!
-				treeViewer.setLabelProvider(new TestTreeLabelProvider(setList, breakpointSet, Display.getCurrent(),
-						treeViewer));
+				treeViewer.setLabelProvider(
+						new TestTreeLabelProvider(setList, breakpointSet, Display.getCurrent(), treeViewer));
 
 				// the drawer must be manually disposed
 				if (viewerContentDrawer != null) {
@@ -2438,12 +2463,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 				public void run() {
 					executionProgress.redraw();
 					updateActionStatusRunnable(null).run();
-					updateStatusRunnable(
-							determineIntermediateTestResultStatusString(
-									"Test Runner disconnected (",
-									") after "
-											+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime()
-													- connectionTimestamp, true, false))).run();
+					updateStatusRunnable(determineIntermediateTestResultStatusString("Test Runner disconnected (",
+							") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+									System.nanoTime() - connectionTimestamp, true, false))).run();
 				}
 			});
 

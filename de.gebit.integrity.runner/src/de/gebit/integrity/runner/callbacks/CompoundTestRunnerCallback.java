@@ -21,6 +21,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
@@ -214,6 +215,14 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 			boolean aParameterizedFlag) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onConstantDefinition(aDefinition, aSuite, aValue, aParameterizedFlag);
+		}
+	}
+
+	@Override
+	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition,
+			SuiteDefinition aSuite, Object aValue) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onVariableAssignment(anAssignment, aDefinition, aSuite, aValue);
 		}
 	}
 

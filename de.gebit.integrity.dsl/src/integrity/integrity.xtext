@@ -88,7 +88,7 @@ OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider;
+	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment | VisibleDivider;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest | Call;
@@ -98,6 +98,9 @@ VariableDefinition:
 	
 ConstantDefinition:
 	private='private'? 'constant' NL name=ConstantEntity NL (((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) | parameterized='parameterized' NL);
+	
+VariableAssignment:
+	'assign' NL value=ValueOrEnumValueOrOperationCollection NL '->' NL target=VariableVariable NL;
 	
 VariantValue:
 	'in' NL (names+=[VariantDefinition|QualifiedName] NL)+ ':' NL value=ValueOrEnumValueOrOperationCollection;

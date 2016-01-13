@@ -73,6 +73,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -316,6 +317,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant VARIABLE_ELEMENT. */
 	protected static final String VARIABLE_ELEMENT = "variable";
+
+	/** The Constant VARIABLE_ASSIGNMENT_ELEMENT. */
+	protected static final String VARIABLE_ASSIGNMENT_ELEMENT = "variableAssign";
 
 	/** The Constant COMMENT_ELEMENT. */
 	protected static final String COMMENT_ELEMENT = "comment";
@@ -1692,6 +1696,44 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
+	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition,
+			SuiteDefinition aSuite, Object aValue) {
+		Element tempVariableAssignmentElement = new Element(VARIABLE_ASSIGNMENT_ELEMENT);
+
+		addId(tempVariableAssignmentElement);
+		addLineNumber(tempVariableAssignmentElement, anAssignment);
+		addCurrentTime(tempVariableAssignmentElement);
+
+		tempVariableAssignmentElement.setAttribute(FIXTURE_DESCRIPTION_ATTRIBUTE,
+				testFormatter.variableAssignmentToHumanReadableString(anAssignment, null));
+		tempVariableAssignmentElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
+		tempVariableAssignmentElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+				valueConverter
+						.convertValueToFormattedString(aValue, false,
+								new ConversionContext().withUnresolvableVariableHandlingPolicy(
+										UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
+				.toFormattedString());
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_ASSIGNMENT, tempVariableAssignmentElement);
+			}
+			internalOnVariableAssignment(tempVariableAssignmentElement);
+		}
+	}
+
+	/**
+	 * Internal version of {@link #onVariableAssignment(VariableEntity, SuiteDefinition, Object)}.
+	 * 
+	 * @param aVariableElement
+	 */
+	protected void internalOnVariableAssignment(Element aVariableAssignmentElement) {
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aVariableAssignmentElement);
+	}
+
+	@Override
 	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
 		abortMessage = anAbortExecutionMessage;
 	}
@@ -2061,6 +2103,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			break;
 		case VARIABLE_DEFINITION:
 			internalOnVariableDefinition(tempFirstElement);
+			break;
+		case VARIABLE_ASSIGNMENT:
+			internalOnVariableAssignment(tempFirstElement);
 			break;
 		case VISIBLE_COMMENT:
 			internalOnVisibleComment(tempFirstElement);

@@ -64,6 +64,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
@@ -1006,6 +1007,8 @@ public class DefaultTestRunner implements TestRunner {
 			} else if (tempStatement instanceof ConstantDefinition) {
 				tempDefinedVariables.add(((ConstantDefinition) tempStatement).getName());
 				defineConstant((ConstantDefinition) tempStatement, aSuite);
+			} else if (tempStatement instanceof VariableAssignment) {
+				executeVariableAssignment((VariableAssignment) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
 				if (currentCallback != null) {
 					boolean tempIsTitle = (tempStatement instanceof VisibleSingleLineTitleComment);
@@ -1153,6 +1156,14 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	protected void setVariableValueConverted(VariableOrConstantEntity anEntity,
+			ValueOrEnumValueOrOperationCollection aValue, boolean aDoSendUpdateFlag)
+					throws InstantiationException, ClassNotFoundException, UnexecutableException {
+		Object tempConvertedValue = valueConverter.convertValue(null, aValue, null);
+
+		setVariableValue(anEntity, tempConvertedValue, aDoSendUpdateFlag);
+	}
+
 	/**
 	 * Sets the value of a variable.
 	 * 
@@ -1218,6 +1229,24 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		throw new ThisShouldNeverHappenException();
+	}
+
+	protected void executeVariableAssignment(VariableAssignment anAssignment, SuiteDefinition aSuite) {
+		if (currentCallback != null) {
+			currentCallback.onCallbackProcessingStart();
+			currentCallback.onVariableAssignment(anAssignment, anAssignment.getTarget().getName(), aSuite,
+					anAssignment.getValue());
+			currentCallback.onCallbackProcessingEnd();
+		}
+
+		if (shouldExecuteFixtures()) {
+			// Only perform variable assignments if we are not in dry run mode
+			try {
+				setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
+			} catch (InstantiationException | ClassNotFoundException | UnexecutableException exc) {
+				exc.printStackTrace();
+			}
+		}
 	}
 
 	/**

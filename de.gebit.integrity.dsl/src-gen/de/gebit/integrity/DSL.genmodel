@@ -84,6 +84,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ConstantDefinition/variantValues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ConstantDefinition/parameterized"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//VariableAssignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableAssignment/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariableAssignment/target"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariantValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//VariantValue/names"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariantValue/value"/>

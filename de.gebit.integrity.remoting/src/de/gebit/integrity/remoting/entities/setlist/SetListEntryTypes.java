@@ -26,6 +26,11 @@ public enum SetListEntryTypes {
 	VARIABLE,
 
 	/**
+	 * Assignment of new value to variable.
+	 */
+	VARIABLE_ASSIGNMENT,
+
+	/**
 	 * Suite call.
 	 */
 	SUITE,
