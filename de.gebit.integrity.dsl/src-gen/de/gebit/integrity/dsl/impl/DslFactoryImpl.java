@@ -89,6 +89,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.SUITE_STATEMENT_WITH_RESULT: return createSuiteStatementWithResult();
       case DslPackage.VARIABLE_DEFINITION: return createVariableDefinition();
       case DslPackage.CONSTANT_DEFINITION: return createConstantDefinition();
+      case DslPackage.VARIABLE_ASSIGNMENT: return createVariableAssignment();
       case DslPackage.VARIANT_VALUE: return createVariantValue();
       case DslPackage.VARIABLE_ENTITY: return createVariableEntity();
       case DslPackage.CONSTANT_ENTITY: return createConstantEntity();
@@ -427,6 +428,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     ConstantDefinitionImpl constantDefinition = new ConstantDefinitionImpl();
     return constantDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableAssignment createVariableAssignment()
+  {
+    VariableAssignmentImpl variableAssignment = new VariableAssignmentImpl();
+    return variableAssignment;
   }
 
   /**

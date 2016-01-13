@@ -941,14 +941,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSuiteStatementWithResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cVariableDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cVisibleCommentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cVisibleDividerParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVariableAssignmentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cVisibleCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVisibleDividerParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//SuiteStatement:
-		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider;
+		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+		//	VisibleDivider;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider
+		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+		//VisibleDivider
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//SuiteStatementWithResult
@@ -960,11 +963,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//ConstantDefinition
 		public RuleCall getConstantDefinitionParserRuleCall_2() { return cConstantDefinitionParserRuleCall_2; }
 
+		//VariableAssignment
+		public RuleCall getVariableAssignmentParserRuleCall_3() { return cVariableAssignmentParserRuleCall_3; }
+
 		//VisibleComment
-		public RuleCall getVisibleCommentParserRuleCall_3() { return cVisibleCommentParserRuleCall_3; }
+		public RuleCall getVisibleCommentParserRuleCall_4() { return cVisibleCommentParserRuleCall_4; }
 
 		//VisibleDivider
-		public RuleCall getVisibleDividerParserRuleCall_4() { return cVisibleDividerParserRuleCall_4; }
+		public RuleCall getVisibleDividerParserRuleCall_5() { return cVisibleDividerParserRuleCall_5; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -1157,6 +1163,50 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NL
 		public RuleCall getNLParserRuleCall_5_1_1() { return cNLParserRuleCall_5_1_1; }
+	}
+
+	public class VariableAssignmentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VariableAssignment");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAssignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cTargetAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cTargetVariableVariableParserRuleCall_5_0 = (RuleCall)cTargetAssignment_5.eContents().get(0);
+		
+		//VariableAssignment:
+		//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable
+		public Group getGroup() { return cGroup; }
+
+		//"assign"
+		public Keyword getAssignKeyword_0() { return cAssignKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//value=ValueOrEnumValueOrOperationCollection
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+
+		//ValueOrEnumValueOrOperationCollection
+		public RuleCall getValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0() { return cValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
+
+		//target=VariableVariable
+		public Assignment getTargetAssignment_5() { return cTargetAssignment_5; }
+
+		//VariableVariable
+		public RuleCall getTargetVariableVariableParserRuleCall_5_0() { return cTargetVariableVariableParserRuleCall_5_0; }
 	}
 
 	public class VariantValueElements extends AbstractParserRuleElementFinder {
@@ -3383,6 +3433,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final SuiteStatementWithResultElements pSuiteStatementWithResult;
 	private final VariableDefinitionElements pVariableDefinition;
 	private final ConstantDefinitionElements pConstantDefinition;
+	private final VariableAssignmentElements pVariableAssignment;
 	private final VariantValueElements pVariantValue;
 	private final VariableEntityElements pVariableEntity;
 	private final ConstantEntityElements pConstantEntity;
@@ -3502,6 +3553,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSuiteStatementWithResult = new SuiteStatementWithResultElements();
 		this.pVariableDefinition = new VariableDefinitionElements();
 		this.pConstantDefinition = new ConstantDefinitionElements();
+		this.pVariableAssignment = new VariableAssignmentElements();
 		this.pVariantValue = new VariantValueElements();
 		this.pVariableEntity = new VariableEntityElements();
 		this.pConstantEntity = new ConstantEntityElements();
@@ -3840,7 +3892,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
-	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VisibleComment | VisibleDivider;
+	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+	//	VisibleDivider;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return pSuiteStatement;
 	}
@@ -3879,6 +3932,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getConstantDefinitionRule() {
 		return getConstantDefinitionAccess().getRule();
+	}
+
+	//VariableAssignment:
+	//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable;
+	public VariableAssignmentElements getVariableAssignmentAccess() {
+		return pVariableAssignment;
+	}
+	
+	public ParserRule getVariableAssignmentRule() {
+		return getVariableAssignmentAccess().getRule();
 	}
 
 	//VariantValue:

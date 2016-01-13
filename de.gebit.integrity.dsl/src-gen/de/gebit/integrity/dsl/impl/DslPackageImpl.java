@@ -75,6 +75,7 @@ import de.gebit.integrity.dsl.Value;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
@@ -281,6 +282,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass constantDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableAssignmentEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1386,6 +1394,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EAttribute getConstantDefinition_Parameterized()
   {
     return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariableAssignment()
+  {
+    return variableAssignmentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariableAssignment_Value()
+  {
+    return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariableAssignment_Target()
+  {
+    return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2845,6 +2883,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VARIANT_VALUES);
     createEAttribute(constantDefinitionEClass, CONSTANT_DEFINITION__PARAMETERIZED);
 
+    variableAssignmentEClass = createEClass(VARIABLE_ASSIGNMENT);
+    createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__VALUE);
+    createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__TARGET);
+
     variantValueEClass = createEClass(VARIANT_VALUE);
     createEReference(variantValueEClass, VARIANT_VALUE__NAMES);
     createEReference(variantValueEClass, VARIANT_VALUE__VALUE);
@@ -3096,6 +3138,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     variableDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
     constantDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     constantDefinitionEClass.getESuperTypes().add(this.getSuiteStatement());
+    variableAssignmentEClass.getESuperTypes().add(this.getSuiteStatement());
     variableEntityEClass.getESuperTypes().add(this.getVariableOrConstantEntity());
     constantEntityEClass.getESuperTypes().add(this.getVariableOrConstantEntity());
     testEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
@@ -3225,6 +3268,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getConstantDefinition_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_VariantValues(), this.getVariantValue(), null, "variantValues", null, 0, -1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConstantDefinition_Parameterized(), ecorePackage.getEString(), "parameterized", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variableAssignmentEClass, VariableAssignment.class, "VariableAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getVariableAssignment_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariableAssignment_Target(), this.getVariableVariable(), null, "target", null, 0, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variantValueEClass, VariantValue.class, "VariantValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVariantValue_Names(), this.getVariantDefinition(), null, "names", null, 0, -1, VariantValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

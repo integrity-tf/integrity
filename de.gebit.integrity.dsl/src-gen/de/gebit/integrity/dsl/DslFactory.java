@@ -248,6 +248,15 @@ public interface DslFactory extends EFactory
   ConstantDefinition createConstantDefinition();
 
   /**
+   * Returns a new object of class '<em>Variable Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable Assignment</em>'.
+   * @generated
+   */
+  VariableAssignment createVariableAssignment();
+
+  /**
    * Returns a new object of class '<em>Variant Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

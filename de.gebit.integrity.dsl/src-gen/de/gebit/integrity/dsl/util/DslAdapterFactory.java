@@ -200,6 +200,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createConstantDefinitionAdapter();
       }
       @Override
+      public Adapter caseVariableAssignment(VariableAssignment object)
+      {
+        return createVariableAssignmentAdapter();
+      }
+      @Override
       public Adapter caseVariantValue(VariantValue object)
       {
         return createVariantValueAdapter();
@@ -892,6 +897,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createConstantDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.VariableAssignment <em>Variable Assignment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.VariableAssignment
+   * @generated
+   */
+  public Adapter createVariableAssignmentAdapter()
   {
     return null;
   }

@@ -62,6 +62,7 @@ import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableVariable;
@@ -261,6 +262,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.VARIABLE:
 				sequence_Variable(context, (Variable) semanticObject); 
+				return; 
+			case DslPackage.VARIABLE_ASSIGNMENT:
+				sequence_VariableAssignment(context, (VariableAssignment) semanticObject); 
 				return; 
 			case DslPackage.VARIABLE_DEFINITION:
 				sequence_VariableDefinition(context, (VariableDefinition) semanticObject); 
@@ -1138,6 +1142,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 */
 	protected void sequence_ValueOrEnumValueOrOperationCollection(EObject context, ValueOrEnumValueOrOperationCollection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=ValueOrEnumValueOrOperationCollection target=VariableVariable)
+	 */
+	protected void sequence_VariableAssignment(EObject context, VariableAssignment semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__VALUE));
+			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__TARGET));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVariableAssignmentAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_5_0(), semanticObject.getTarget());
+		feeder.finish();
 	}
 	
 	
