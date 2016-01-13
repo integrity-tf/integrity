@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="13.01.16 15:11" isotimestamp="2016-01-13T15:11:00" duration="53.764">
+  <variables />
+  <suite id="0" name="integrity.basic.variableAssignment" timestamp="13.01.16 15:11:00.0983">
+    <setup />
+    <variables>
+      <variable name="testvar" />
+      <variable name="secondvar" value="foo" />
+    </variables>
+    <statements>
+      <variableAssign id="1" line="71" timestamp="13.01.16 15:11:00.0999" description="Assign new value 'abc' to variable 'testvar'" name="testvar" value="abc" />
+      <test id="2" line="73" name="echoStringTest" description="Echo the string 'abc'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 15:11:00.0999">
+        <results duration="2.442" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.442" description="Echo the string 'abc'" type="success">
+            <parameters>
+              <parameter name="string" value="abc" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="abc" value="abc" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <variableAssign id="3" line="75" timestamp="13.01.16 15:11:01.0014" description="Assign new value '123' to variable 'testvar'" name="testvar" value="123" />
+      <test id="4" line="77" name="echoIntegerTest" description="Echo the integer '123'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="13.01.16 15:11:01.0014">
+        <results duration="1.252" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.252" description="Echo the integer '123'" type="success">
+            <parameters>
+              <parameter name="integer" value="123" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <variableAssign id="5" line="81" timestamp="13.01.16 15:11:01.0014" description="Assign new value 'foobar' to variable 'testvar'" name="testvar" value="foobar" />
+      <test id="6" line="83" name="echoStringTest" description="Echo the string 'foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 15:11:01.0030">
+        <results duration="0.969" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.969" description="Echo the string 'foobar'" type="success">
+            <parameters>
+              <parameter name="string" value="foobar" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="foobar" value="foobar" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <variableAssign id="7" line="85" timestamp="13.01.16 15:11:01.0030" description="Assign new value '{blah = 123, blub = This is a nice long string, inner = {deepStuff = Yeah, we have more stuff in here!}}' to variable 'testvar'" name="testvar" value="[FORMATTED]{[NL][T]blah = 123[NL|, ][T]blub = This is a nice long string[NL|, ][T]inner = {[NL][T][T]deepStuff = Yeah, we have more stuff in here![NL][T]}[NL]}" />
+    </statements>
+    <teardown />
+    <result duration="46.491" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

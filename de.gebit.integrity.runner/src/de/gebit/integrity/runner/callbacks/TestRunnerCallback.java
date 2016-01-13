@@ -17,6 +17,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VisibleComment;
@@ -215,7 +216,8 @@ public abstract class TestRunnerCallback {
 	 * @param anInitialValue
 	 *            the initial value (may be null if no initial value is given)
 	 */
-	public abstract void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite, Object anInitialValue);
+	public abstract void onVariableDefinition(VariableEntity aDefinition, SuiteDefinition aSuite,
+			Object anInitialValue);
 
 	/**
 	 * Called when a constant is being defined.
@@ -232,6 +234,21 @@ public abstract class TestRunnerCallback {
 	 */
 	public abstract void onConstantDefinition(ConstantEntity aDefinition, SuiteDefinition aSuite, Object aValue,
 			boolean aParameterizedFlag);
+
+	/**
+	 * Called when a variable is being assigned.
+	 * 
+	 * @param anAssignment
+	 *            the assignment
+	 * @param aDefinition
+	 *            the variable that the value is to be assigned
+	 * @param aSuite
+	 *            the suite in which the variable is scoped (may be null if the variable is global)
+	 * @param aValue
+	 *            the value
+	 */
+	public abstract void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition,
+			SuiteDefinition aSuite, Object aValue);
 
 	/**
 	 * Called when a visible comment is encountered during execution.

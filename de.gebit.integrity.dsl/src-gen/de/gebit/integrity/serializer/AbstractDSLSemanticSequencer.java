@@ -1159,7 +1159,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getVariableAssignmentAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0(), semanticObject.getValue());
-		feeder.accept(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_5_0(), semanticObject.getTarget());
+		feeder.accept(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_6_0(), semanticObject.getTarget());
 		feeder.finish();
 	}
 	

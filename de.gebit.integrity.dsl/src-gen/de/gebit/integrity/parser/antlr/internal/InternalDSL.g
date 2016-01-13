@@ -2153,25 +2153,41 @@ ruleNL
     {
     	newLeafNode(otherlv_4, grammarAccess.getVariableAssignmentAccess().getHyphenMinusGreaterThanSignKeyword_4());
     }
+
+    { 
+        newCompositeNode(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_5()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_6_0()); 
 	    }
-		lv_target_5_0=ruleVariableVariable		{
+		lv_target_6_0=ruleVariableVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVariableAssignmentRule());
 	        }
        		set(
        			$current, 
        			"target",
-        		lv_target_5_0, 
+        		lv_target_6_0, 
         		"VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))
+)
+    { 
+        newCompositeNode(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_7()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
 ;
 
 

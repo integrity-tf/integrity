@@ -1174,14 +1174,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cTargetAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cTargetVariableVariableParserRuleCall_5_0 = (RuleCall)cTargetAssignment_5.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cTargetAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cTargetVariableVariableParserRuleCall_6_0 = (RuleCall)cTargetAssignment_6.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//VariableAssignment:
-		//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable;
+		//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" NL target=VariableVariable NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable
+		//"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" NL target=VariableVariable NL
 		public Group getGroup() { return cGroup; }
 
 		//"assign"
@@ -1202,11 +1204,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//"->"
 		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
 
+		//NL
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+
 		//target=VariableVariable
-		public Assignment getTargetAssignment_5() { return cTargetAssignment_5; }
+		public Assignment getTargetAssignment_6() { return cTargetAssignment_6; }
 
 		//VariableVariable
-		public RuleCall getTargetVariableVariableParserRuleCall_5_0() { return cTargetVariableVariableParserRuleCall_5_0; }
+		public RuleCall getTargetVariableVariableParserRuleCall_6_0() { return cTargetVariableVariableParserRuleCall_6_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
 	}
 
 	public class VariantValueElements extends AbstractParserRuleElementFinder {
@@ -3935,7 +3943,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VariableAssignment:
-	//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" target=VariableVariable;
+	//	"assign" NL value=ValueOrEnumValueOrOperationCollection NL "->" NL target=VariableVariable NL;
 	public VariableAssignmentElements getVariableAssignmentAccess() {
 		return pVariableAssignment;
 	}

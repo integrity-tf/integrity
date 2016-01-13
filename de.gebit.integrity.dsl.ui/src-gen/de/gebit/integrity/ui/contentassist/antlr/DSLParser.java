@@ -194,7 +194,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantDefinitionAccess().getVariantValuesAssignment_5_0_1_0(), "rule__ConstantDefinition__VariantValuesAssignment_5_0_1_0");
 					put(grammarAccess.getConstantDefinitionAccess().getParameterizedAssignment_5_1_0(), "rule__ConstantDefinition__ParameterizedAssignment_5_1_0");
 					put(grammarAccess.getVariableAssignmentAccess().getValueAssignment_2(), "rule__VariableAssignment__ValueAssignment_2");
-					put(grammarAccess.getVariableAssignmentAccess().getTargetAssignment_5(), "rule__VariableAssignment__TargetAssignment_5");
+					put(grammarAccess.getVariableAssignmentAccess().getTargetAssignment_6(), "rule__VariableAssignment__TargetAssignment_6");
 					put(grammarAccess.getVariantValueAccess().getNamesAssignment_2_0(), "rule__VariantValue__NamesAssignment_2_0");
 					put(grammarAccess.getVariantValueAccess().getValueAssignment_5(), "rule__VariantValue__ValueAssignment_5");
 					put(grammarAccess.getVariableEntityAccess().getNameAssignment(), "rule__VariableEntity__NameAssignment");

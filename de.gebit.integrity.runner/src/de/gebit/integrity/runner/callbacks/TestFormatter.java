@@ -22,6 +22,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -31,6 +32,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
  * The {@link TestFormatter} is responsible for creating human-readable strings out of various test-related entities.
@@ -162,6 +164,25 @@ public class TestFormatter {
 		return fixtureMethodToHumanReadableString(aCall.getDefinition().getFixtureMethod(), aCall, parameterResolver
 				.createParameterMap(aCall, true, tempConversionContext.getUnresolvableVariableHandlingPolicy()),
 				tempConversionContext);
+	}
+
+	/**
+	 * Creates a human-readable string for a variable assignment.
+	 * 
+	 * @param anAssignment
+	 *            the assignment
+	 * @param aConversionContext
+	 * @return the human-readable string
+	 */
+	public String variableAssignmentToHumanReadableString(VariableAssignment anAssignment,
+			ConversionContext aConversionContext) {
+		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
+
+		String tempValueString = valueConverter.convertValueToString(anAssignment.getValue(), false,
+				tempConversionContext);
+
+		return "Assign new value '" + tempValueString + "' to variable '"
+				+ IntegrityDSLUtil.getQualifiedVariableEntityName(anAssignment.getTarget().getName(), false) + "'";
 	}
 
 	/**

@@ -123,10 +123,10 @@ public class SetList implements Serializable {
 	 * @return the result state or null in case the entry doesn't have a result
 	 */
 	protected SetListEntryResultStates determineEntryResultState(SetListEntry anEntry) {
-		boolean tempEntryIsResultOfTableTestRow = (anEntry.getType() == SetListEntryTypes.RESULT && getParent(anEntry)
-				.getType() == SetListEntryTypes.TABLETEST);
-		List<SetListEntry> tempResultEntries = tempEntryIsResultOfTableTestRow ? null : resolveReferences(anEntry,
-				SetListEntryAttributeKeys.RESULT);
+		boolean tempEntryIsResultOfTableTestRow = (anEntry.getType() == SetListEntryTypes.RESULT
+				&& getParent(anEntry).getType() == SetListEntryTypes.TABLETEST);
+		List<SetListEntry> tempResultEntries = tempEntryIsResultOfTableTestRow ? null
+				: resolveReferences(anEntry, SetListEntryAttributeKeys.RESULT);
 		if (tempEntryIsResultOfTableTestRow || tempResultEntries.size() > 0) {
 			SetListEntry tempResultEntry = tempEntryIsResultOfTableTestRow ? anEntry : tempResultEntries.get(0);
 
@@ -165,8 +165,8 @@ public class SetList implements Serializable {
 					if (Boolean.TRUE
 							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
 						return SetListEntryResultStates.SUCCESSFUL;
-					} else if (Boolean.FALSE.equals(tempResultEntry
-							.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+					} else if (Boolean.FALSE
+							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
 						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
 							return SetListEntryResultStates.EXCEPTION;
 						} else {
@@ -183,8 +183,8 @@ public class SetList implements Serializable {
 					tempResultEntry = tempResultEntries.get(i);
 					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 						tempHasAnyResult = true;
-						if (Boolean.FALSE.equals(tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+						if (Boolean.FALSE
+								.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
 							if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
 								tempHasException = true;
 								break;
@@ -203,6 +203,11 @@ public class SetList implements Serializable {
 				} else {
 					return SetListEntryResultStates.UNKNOWN;
 				}
+			case VARIABLE_ASSIGNMENT:
+				if (Boolean.TRUE.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
+					return SetListEntryResultStates.SUCCESSFUL;
+				}
+				return SetListEntryResultStates.UNKNOWN;
 			default:
 				return null;
 			}
@@ -568,6 +573,7 @@ public class SetList implements Serializable {
 			case TEST:
 			case CALL:
 			case TABLETEST:
+			case VARIABLE_ASSIGNMENT:
 				return anEntry.getId() == entryInExecutionReference;
 			case SETUP:
 			case SUITE:
