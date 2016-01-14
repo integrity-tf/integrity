@@ -1587,7 +1587,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		return TRANSFORM_THREAD_STACK_SIZE_DEFAULT;
 	}
 
-	protected void transformResult(FileOutputStream tempTargetStream) {
+	/**
+	 * Performs the XSLT transformation and writes the result HTML file into the provided target stream.
+	 * 
+	 * @param aTargetStream
+	 */
+	protected void transformResult(FileOutputStream aTargetStream) {
 		try {
 			if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
 				// Explicitly specify the JRE-bundled XSLT transformer if nothing else was specified via the
@@ -1617,7 +1622,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			 * apart from being disgusting and everything, but well, this can still be replaced by a more elegant
 			 * solution if someone comes up with one.
 			 */
-			StreamResult tempResult = new StreamResult(new FilterOutputStream(tempTargetStream) {
+			StreamResult tempResult = new StreamResult(new FilterOutputStream(aTargetStream) {
 
 				private final char[] triggerOpenTagName = new char[] { 'x', 'm', 'l', 'd', 'a', 't', 'a' };
 

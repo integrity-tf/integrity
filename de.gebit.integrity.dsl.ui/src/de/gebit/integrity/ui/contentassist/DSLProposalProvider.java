@@ -1233,13 +1233,15 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		});
 	}
 
+	@Override
+	// SUPPRESS CHECKSTYLE MethodName
 	public void completeSuiteReturn_Name(EObject aModel, Assignment anAssignment, final ContentAssistContext aContext,
 			final ICompletionProposalAcceptor anAcceptor) {
 		super.completeSuiteReturn_Name(aModel, anAssignment, aContext, new ICompletionProposalAcceptor() {
 
 			@Override
-			public void accept(ICompletionProposal proposal) {
-				anAcceptor.accept(proposal);
+			public void accept(ICompletionProposal aProposal) {
+				anAcceptor.accept(aProposal);
 			}
 
 			@Override

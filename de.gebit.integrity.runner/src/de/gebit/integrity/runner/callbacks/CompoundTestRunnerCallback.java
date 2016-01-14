@@ -227,6 +227,7 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 		}
 	}
 
+	@Override
 	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
 			Suite aSuite, Object aValue) {
 		for (TestRunnerCallback tempCallback : callbacks) {

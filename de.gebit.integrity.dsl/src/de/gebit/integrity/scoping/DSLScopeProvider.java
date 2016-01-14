@@ -623,6 +623,13 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		return filterPrivateElements(new SimpleScope(tempScope, tempList), aSuite);
 	}
 
+	/**
+	 * Determines the scope of SuiteReturns.
+	 * 
+	 * @param aSuite
+	 * @param aRef
+	 * @return
+	 */
 	// SUPPRESS CHECKSTYLE MethodName
 	public IScope scope_SuiteReturn_name(Suite aSuite, EReference aRef) {
 		SuiteDefinition tempSuiteDefinition = aSuite.getDefinition();
