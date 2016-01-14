@@ -23,13 +23,6 @@
   	</dependency>
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>com.ibm.icu</artifactId>
-  		<version>54.1.1.v201501272100</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.apache.log4j</artifactId>
   		<version>1.2.15.v201012070815</version>
   		<scope>runtime</scope>
@@ -41,91 +34,28 @@
   		<version>3.2.0.v201101311130</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.apache.commons.cli</artifactId>
-  		<version>1.2.0.v201404270220</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.core.commands</artifactId>
-  		<version>3.7.0.v20150422-0725</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
+  	</dependency>  	
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.core.contenttype</artifactId>
   		<version>3.5.0.v20150421-2214</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.core.expressions</artifactId>
-  		<version>3.5.0.v20150421-2214</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.core.filesystem</artifactId>
-  		<version>1.5.0.v20150421-0713</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
+  	</dependency>  	
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.core.jobs</artifactId>
   		<version>3.7.0.v20150330-2103</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.core.resources</artifactId>
-  		<version>3.10.0.v20150423-0755</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
+  	</dependency>  	
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.core.runtime</artifactId>
   		<version>3.11.0.v20150405-1723</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.core.variables</artifactId>
-  		<version>3.2.800.v20130819-1716</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.debug.core</artifactId>
-  		<version>3.10.0.v20150303-1130</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
-  		<version>2.11.0.v20150601-0402</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.emf.codegen</artifactId>
-  		<version>2.11.0.v20150601-0402</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
+  	</dependency>  	
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.emf.common</artifactId>
@@ -144,27 +74,6 @@
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.emf.ecore</artifactId>
   		<version>2.11.0.v20150512-0501</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.emf.mwe.core</artifactId>
-  		<version>1.3.10.v201505260335</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.emf.mwe.utils</artifactId>
-  		<version>1.3.10.v201505260335</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.emf.mwe2.runtime</artifactId>
-  		<version>2.8.0.v201505260335</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
@@ -193,48 +102,6 @@
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.equinox.registry</artifactId>
   		<version>3.6.0.v20150318-1503</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.jdt.core</artifactId>
-  		<version>3.11.0.v20150602-1242</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.jdt.debug</artifactId>
-  		<version>3.9.0.v20150528-1838</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.jdt.launching</artifactId>
-  		<version>3.8.0.v20150527-0946</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.text</artifactId>
-  		<version>3.5.400.v20150505-1044</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.xtend.typesystem.emf</artifactId>
-  		<version>2.0.0.v201406030414</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.xtend</artifactId>
-  		<version>2.0.0.v201406030414</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
