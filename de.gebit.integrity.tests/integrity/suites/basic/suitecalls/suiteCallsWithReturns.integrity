@@ -1,0 +1,30 @@
+packagedef integrity.basic.suitecalls with
+
+	suitedef simpleSuiteCallWithReturn with	
+		variable testVariable
+		
+		suite subSuite1 outputValue -> testVariable
+		
+		test integrity.fixtures.basic.noop.echoStringTest string: testVariable = "foobar"
+	suiteend
+	
+	suitedef suiteCallWithComplexMultiReturn with
+		variable outputValue1
+		variable outputValue2
+		
+		suite subSuite2 inputValue: 10 outputValue1 -> outputValue2 outputValue2 -> outputValue1
+		
+		test integrity.fixtures.basic.noop.echoIntegerTest integer: outputValue1 = 40
+		test integrity.fixtures.basic.noop.echoIntegerTest integer: outputValue2 = 20
+	suiteend
+	
+	suitedef subSuite1 returns outputValue with	
+		assign "foobar" -> outputValue
+	suiteend
+	
+	suitedef subSuite2 gets inputValue returns outputValue1 outputValue2 with		
+		assign (inputValue * 2) -> outputValue1		
+		call integrity.fixtures.basic.noop.echoInteger integer: (inputValue * 4) -> outputValue2		
+	suiteend
+	
+packageend

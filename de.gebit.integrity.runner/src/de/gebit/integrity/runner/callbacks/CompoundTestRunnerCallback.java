@@ -18,6 +18,7 @@ import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -225,6 +226,13 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 			tempCallback.onVariableAssignment(anAssignment, aDefinition, aSuite, aValue);
 		}
 	}
+
+	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
+			Suite aSuite, Object aValue) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onReturnVariableAssignment(aReturn, aSource, aTarget, aSuite, aValue);
+		}
+	};
 
 	@Override
 	public void onTableTestStart(TableTest aTableTest) {

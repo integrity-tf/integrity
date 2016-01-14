@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="23.01.14 17:20" isotimestamp="2014-01-23T17:20:19" duration="27.017">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:52" duration="3.464">
   <variables />
-  <suite id="0" name="integrity.basic.enums.namedResultEnumTest" timestamp="23.01.14 17:20:19.0822">
+  <suite id="0" name="integrity.basic.enums.namedResultEnumTest" timestamp="14.01.16 10:58:52.0900">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="5" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="23.01.14 17:20:19.0837">
-        <results duration="1.046" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.046" description="Creates a named result bean with an enum inside" type="success">
+      <test id="1" line="5" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="14.01.16 10:58:52.0900">
+        <results duration="0.104" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.104" description="Creates a named result bean with an enum inside" type="success">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="foobar" value="foobar" type="success" />
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="7" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="23.01.14 17:20:19.0837">
-        <results duration="0.883" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.883" description="Creates a named result bean with an enum inside" type="failure">
+      <test id="2" line="7" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="14.01.16 10:58:52.0900">
+        <results duration="0.102" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.102" description="Creates a named result bean with an enum inside" type="failure">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="foobar" value="foobar" type="success" />
@@ -30,8 +30,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="22.189" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.994" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

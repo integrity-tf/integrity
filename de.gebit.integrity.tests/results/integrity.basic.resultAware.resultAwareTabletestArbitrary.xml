@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 09:44" isotimestamp="2016-01-12T09:44:41" duration="2.420">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="3.389">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestArbitrary" timestamp="12.01.16 09:44:41.0591">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestArbitrary" timestamp="14.01.16 10:58:48.0167">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="31" name="echoStringsArbitraryTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="12.01.16 09:44:41.0592">
+      <tabletest id="1" line="31" name="echoStringsArbitraryTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="14.01.16 10:58:48.0167">
         <parameters />
-        <results duration="1.195" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.314" description="Echo some strings" type="success">
+        <results duration="1.608" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.359" description="Echo some strings" type="success">
             <parameters>
               <parameter name="string1" value="Echo this!" />
               <parameter name="string2" value="Echo this as well!" />
@@ -22,8 +22,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="1.943" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.838" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:26" duration="3.762">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="2.329">
   <variables />
-  <suite id="0" name="integrity.basic.xmlresult.urls" timestamp="03.07.13 22:30:26.0232">
+  <suite id="0" name="integrity.basic.xmlresult.urls" timestamp="14.01.16 10:58:51.0975">
     <setup />
     <variables />
     <statements>
@@ -22,13 +22,14 @@
         A comment with a relative Markdown-style URL:
         <a href="./blah/blub/foobar.html">foobar</a>
       </comment>
-      <call id="5" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0248">
+      <call id="5" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:51.0975">
         <parameters />
-        <result duration="0.055" type="success" />
+        <result duration="0.094" type="success" />
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="2.848" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.903" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

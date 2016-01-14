@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.06.15 13:20" isotimestamp="2015-06-18T13:20:47" duration="3.977">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="1.452">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareCallNothing" timestamp="18.06.15 13:20:47.0734">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareCallNothing" timestamp="14.01.16 10:58:51.0897">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="9" name="echoString" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString" timestamp="18.06.15 13:20:47.0734">
+      <call id="1" line="9" name="echoString" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoString" timestamp="14.01.16 10:58:51.0897">
         <parameters>
           <parameter name="string" value="Echo this!" />
         </parameters>
-        <result duration="0.511" type="success" />
+        <result duration="0.158" type="success" />
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="2.801" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.007" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

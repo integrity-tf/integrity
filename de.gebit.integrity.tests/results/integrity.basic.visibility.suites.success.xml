@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 10:39" isotimestamp="2016-01-12T10:39:34" duration="9.155">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:46" duration="9.046">
   <variables />
-  <suite id="0" name="integrity.basic.visibility.suites.success" timestamp="12.01.16 10:39:34.0468">
+  <suite id="0" name="integrity.basic.visibility.suites.success" timestamp="14.01.16 10:58:46.0280">
     <setup />
     <variables />
     <statements>
-      <suite id="1" line="16" name="integrity.basic.visibility.suites.publicSamePackage" timestamp="12.01.16 10:39:34.0468">
+      <suite id="1" line="16" name="integrity.basic.visibility.suites.publicSamePackage" timestamp="14.01.16 10:58:46.0280">
         <setup />
         <variables />
         <statements>
-          <test id="2" line="7" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="12.01.16 10:39:34.0468">
-            <results duration="0.162" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.162" description="Echo the integer '1'" type="success">
+          <test id="2" line="7" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.01.16 10:58:46.0280">
+            <results duration="0.193" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.193" description="Echo the integer '1'" type="success">
                 <parameters>
                   <parameter name="integer" value="1" />
                 </parameters>
@@ -22,16 +22,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="2.353" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="2.178" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="3" line="17" name="integrity.basic.visibility.suites.privateSamePackage" timestamp="12.01.16 10:39:34.0468">
+      <suite id="3" line="17" name="integrity.basic.visibility.suites.privateSamePackage" timestamp="14.01.16 10:58:46.0280">
         <setup />
         <variables />
         <statements>
-          <test id="4" line="11" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="12.01.16 10:39:34.0468">
-            <results duration="0.132" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.132" description="Echo the integer '1'" type="success">
+          <test id="4" line="11" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.01.16 10:58:46.0280">
+            <results duration="0.128" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.128" description="Echo the integer '1'" type="success">
                 <parameters>
                   <parameter name="integer" value="1" />
                 </parameters>
@@ -42,16 +43,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="1.899" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="1.879" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="5" line="18" name="integrity.basic.visibility.suites.other.publicOtherPackage" timestamp="12.01.16 10:39:34.0468">
+      <suite id="5" line="18" name="integrity.basic.visibility.suites.other.publicOtherPackage" timestamp="14.01.16 10:58:46.0296">
         <setup />
         <variables />
         <statements>
-          <test id="6" line="26" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="12.01.16 10:39:34.0468">
-            <results duration="0.235" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.235" description="Echo the integer '1'" type="success">
+          <test id="6" line="26" name="echoIntegerTest" description="Echo the integer '1'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.01.16 10:58:46.0296">
+            <results duration="0.153" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.153" description="Echo the integer '1'" type="success">
                 <parameters>
                   <parameter name="integer" value="1" />
                 </parameters>
@@ -62,12 +64,14 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="2.708" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="2.595" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
+    <returns />
     <teardown />
-    <result duration="8.454" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="8.475" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

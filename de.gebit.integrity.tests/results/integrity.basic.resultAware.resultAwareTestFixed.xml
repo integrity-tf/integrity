@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:11" isotimestamp="2015-06-18T16:11:13" duration="22.195">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:50" duration="2.297">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareTestFixed" timestamp="18.06.15 16:11:13.0583">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTestFixed" timestamp="14.01.16 10:58:50.0445">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="33" name="echoStringsFixedTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsFixed" timestamp="18.06.15 16:11:13.0583">
-        <results duration="3.207" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="3.207" description="Echo some strings" type="success">
+      <test id="1" line="33" name="echoStringsFixedTest" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsFixed" timestamp="14.01.16 10:58:50.0445">
+        <results duration="0.306" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.306" description="Echo some strings" type="success">
             <parameters>
               <parameter name="string1" value="Echo this!" />
               <parameter name="string2" value="Echo this as well!" />
@@ -21,8 +21,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="15.383" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.863" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

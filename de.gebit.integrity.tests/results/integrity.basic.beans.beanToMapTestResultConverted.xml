@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.10.13 14:32" isotimestamp="2013-10-18T14:32:44" duration="91.528">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="25.155">
   <variables />
-  <suite id="0" name="integrity.basic.beans.beanToMapTestResultConverted" timestamp="18.10.13 14:32:44.0556">
+  <suite id="0" name="integrity.basic.beans.beanToMapTestResultConverted" timestamp="14.01.16 10:58:48.0324">
     <setup />
     <variables>
       <variable name="simpleBean" />
     </variables>
     <statements>
-      <call id="1" line="17" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.10.13 14:32:44.0570">
+      <call id="1" line="17" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:48.0324">
         <parameters />
-        <result duration="2.332" type="success">
-          <variableUpdate name="simpleBean" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@215200be" />
+        <result duration="0.055" type="success">
+          <variableUpdate name="simpleBean" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@3f974f36" />
         </result>
       </call>
       <comment id="2" line="19">This should succeed, because the expected result is first converted to a map, so the comparator takes this as clue to do a map-to-map compare</comment>
-      <test id="3" line="20" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.10.13 14:32:44.0586">
-        <results duration="0.392" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.392" description="creates a bean with predefined values and returns it" type="success">
+      <test id="3" line="20" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:48.0339">
+        <results duration="0.059" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.059" description="creates a bean with predefined values and returns it" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
@@ -25,8 +25,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="80.236" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="24.509" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

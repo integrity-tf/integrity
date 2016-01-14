@@ -1,26 +1,26 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="xhtmltransform" version="1.0">
-   <xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" />
-   <xsl:variable name="suiteLinkKey" select="0" />
-   <xsl:template match="integrity">
-     <html>
-       <head>
-         <xmldata style="display: none;">
-           <integrity>
-             <xsl:copy-of select="attribute::*" />
-             <xsl:copy-of select="variables" />
-             <xsl:copy-of select="suite" />
-           </integrity>
-         </xmldata>
-         <title>
-           <xsl:text>Integration Test '</xsl:text>
-           <xsl:if test="@name">
-             <xsl:value-of select="@name" />
-           </xsl:if>
-           <xsl:text>' Results (</xsl:text>
-           <xsl:value-of select="@timestamp" />
-           <xsl:text>) - Integrity Test Framework</xsl:text>
-         </title>
-         <style type="text/css">body { color: #000; background-color: #FFF;
+    <xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" />
+    <xsl:variable name="suiteLinkKey" select="0" />
+    <xsl:template match="integrity">
+      <html>
+        <head>
+          <xmldata style="display: none;">
+            <integrity>
+              <xsl:copy-of select="attribute::*" />
+              <xsl:copy-of select="variables" />
+              <xsl:copy-of select="suite" />
+            </integrity>
+          </xmldata>
+          <title>
+            <xsl:text>Integration Test '</xsl:text>
+            <xsl:if test="@name">
+              <xsl:value-of select="@name" />
+            </xsl:if>
+            <xsl:text>' Results (</xsl:text>
+            <xsl:value-of select="@timestamp" />
+            <xsl:text>) - Integrity Test Framework</xsl:text>
+          </title>
+          <style type="text/css">body { color: #000; background-color: #FFF;
 		font-family: Calibri, Arial, sans-serif; font-size:10pt; }
 		.value { font-family: Courier, Courier New, Lucida Console, monospace; }
 		.comparisondivider hr { border: 0; border-top: 1px dashed #000; height: 0px; }
@@ -164,7 +164,7 @@
 		.abortmessageintro { color: #FF3030; }
 		.abortmessage { color: #FF3030; font-weight: bold; }
 		#abortmessagebig { color: #FF3030; font-weight: bold; font-size: 14pt; text-align: center; }</style>
-         <script type="text/javascript">var lastSelection;
+          <script type="text/javascript">var lastSelection;
  
  function boxOrCellMouseDown() {
   if(clicks==0) {
@@ -342,1457 +342,1502 @@ function getChildByName(node, childName) {
 	}
 	return null;
 }</script>
-       </head>
-       <body onLoad="resizeProgressBar()" onResize="resizeProgressBar()">
-         <div id="header">
-           <xsl:if test="@name">
-             <div align="left" class="pagesubtitle">
-               Test:
-               <span class="pagesubtitlebold">
-                 <xsl:value-of select="@name" />
-               </span>
-               <xsl:if test="count(variant) &gt; 0">
-                 in variant
-                 <span class="pagesubtitlebold">
-                   <xsl:value-of select="variant/@name" />
-                   <xsl:if test="variant/@description">
-                     <xsl:value-of select="concat(' - ', variant/@description)" />
-                   </xsl:if>
-                 </span>
-               </xsl:if>
-             </div>
-           </xsl:if>
-           <div align="left" class="pagesubtitle">
-             Started
-             <span class="pagesubtitlebold">
-               <xsl:value-of select="@timestamp" />
-             </span>
-             and took
-             <span class="pagesubtitlebold">
-               <xsl:call-template name="duration">
-                 <xsl:with-param name="value" select="@duration" />
-               </xsl:call-template>
-             </span>
-             <xsl:choose>
-               <xsl:when test="@abortMessage">
-                 <span class="abortmessageintro">until aborted:</span>
-                 <span class="abortmessage">
-                   <xsl:value-of select="@abortMessage" />
-                 </span>
-               </xsl:when>
-               <xsl:otherwise>to complete</xsl:otherwise>
-             </xsl:choose>
-           </div>
-           <xsl:if test="@version">
-             <div align="right" class="version">
-               <a href="http://www.integrity-tf.org" target="_blank">
-                 Integrity Test Runner Version
-                 <span class="versionnumber">
-                   <xsl:value-of select="@version" />
-                 </span>
-               </a>
-             </div>
-           </xsl:if>
-           <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
-           <div id="headershadow" />
-         </div>
-         <div id="viewport">
-           <div id="navigation">
-             <div id="navigation-header" />
-             <xsl:for-each select="suite">
-               <xsl:call-template name="navigationSuite">
-                 <xsl:with-param name="depth" select="0" />
-               </xsl:call-template>
-             </xsl:for-each>
-           </div>
-           <div id="innercontent">
-             <xsl:if test="count(variables/variable) &gt; 0">
-               <xsl:call-template name="variablebox" />
-             </xsl:if>
-             <xsl:apply-templates select="suite" />
-             <xsl:if test="@abortMessage">
-               <div id="abortmessagebig">
-                 <xsl:value-of select="concat('Execution was aborted prematurely: ', @abortMessage)" />
-               </div>
-             </xsl:if>
-           </div>
-         </div>
-       </body>
-     </html>
-   </xsl:template>
-   <xsl:template match="variables">
-     <table class="variabletable" width="100%">
-       <tr>
-         <th width="300px" align="left">Name</th>
-         <th align="left">Initial Value</th>
-       </tr>
-       <xsl:for-each select="variable">
-         <xsl:variable name="class">
-           <xsl:choose>
-             <xsl:when test="position() mod 2 = 1">
-               <xsl:text>row1</xsl:text>
-             </xsl:when>
-             <xsl:otherwise>row2</xsl:otherwise>
-           </xsl:choose>
-         </xsl:variable>
-         <tr>
-           <xsl:attribute name="class">
-             <xsl:value-of select="$class" />
-           </xsl:attribute>
-           <td>
-             <xsl:value-of select="@name" />
-           </td>
-           <td class="value">
-             <xsl:if test="@value">
-               <xsl:call-template name="processFormattedString">
-                 <xsl:with-param name="text" select="@value" />
-               </xsl:call-template>
-             </xsl:if>
-           </td>
-         </tr>
-       </xsl:for-each>
-     </table>
-   </xsl:template>
-   <xsl:template name="variablebox">
-     <xsl:call-template name="box">
-       <xsl:with-param name="color">#5966FF</xsl:with-param>
-       <xsl:with-param name="title">Global Variables/Constants</xsl:with-param>
-       <xsl:with-param name="content">
-         <xsl:apply-templates select="variables" />
-       </xsl:with-param>
-     </xsl:call-template>
-   </xsl:template>
-   <xsl:template match="suite">
-     <xsl:variable name="permalink">
-       <xsl:call-template name="suitePath" />
-     </xsl:variable>
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="concat('i', @id)" />
-       </xsl:attribute>
-     </a>
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="$permalink" />
-       </xsl:attribute>
-     </a>
-     <xsl:variable name="result">
-       <xsl:choose>
-         <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
-         <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
-         <xsl:otherwise>success</xsl:otherwise>
-       </xsl:choose>
-     </xsl:variable>
-     <xsl:call-template name="box">
-       <xsl:with-param name="color">
-         <xsl:choose>
-           <xsl:when test="$result = 'success'">#009933</xsl:when>
-           <xsl:when test="$result = 'exception'">#F99500</xsl:when>
-           <xsl:when test="$result = 'failure'">#CA0005</xsl:when>
-         </xsl:choose>
-       </xsl:with-param>
-       <xsl:with-param name="title">
-         <a>
-           <xsl:attribute name="href">
-             <xsl:value-of select="concat('#', $permalink)" />
-           </xsl:attribute>
-           <xsl:choose>
-             <xsl:when test="@title">
-               <xsl:value-of select="@title" />
-               <span class="nonbold">
-                 <xsl:value-of select="concat(' (',@name,')')" />
-               </span>
-             </xsl:when>
-             <xsl:otherwise>
-               <xsl:value-of select="@name" />
-             </xsl:otherwise>
-           </xsl:choose>
-         </a>
-         <xsl:if test="@forkName">
-           @
-           <xsl:value-of select="@forkName" />
-           <xsl:if test=" @forkDescription">
-             -
-             <xsl:value-of select="@forkDescription" />
-           </xsl:if>
-         </xsl:if>
-       </xsl:with-param>
-       <xsl:with-param name="titleRight">
-         <xsl:call-template name="suiteResultSummary" />
-         <xsl:text />
-         at
-         <xsl:text />
-         <xsl:value-of select="@timestamp" />
-         <xsl:text />
-         in
-         <xsl:text />
-         <xsl:call-template name="duration">
-           <xsl:with-param name="value" select="result/@duration" />
-         </xsl:call-template>
-         <span class="suiteicons">
-           <xsl:if test="ancestor::suite[1]/@name">
-             <xsl:call-template name="scriptlink">
-               <xsl:with-param name="line" select="@line" />
-               <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-               <xsl:with-param name="class" select="'suitescriptlink'" />
-             </xsl:call-template>
-           </xsl:if>
-         </span>
-       </xsl:with-param>
-       <xsl:with-param name="content">
-         <xsl:if test="count(variables/variable) &gt; 0">
-           <div class="sectionTitle">Variables/Constants</div>
-           <xsl:apply-templates select="variables" />
-         </xsl:if>
-         <xsl:if test="count(setup/suite) &gt; 0">
-           <div class="sectionTitle">Setup</div>
-           <xsl:apply-templates select="setup/suite" />
-         </xsl:if>
-         <xsl:if test="count(variables/variable) &gt; 0 or count(setup/suite) &gt; 0 or count(teardown/suite) &gt; 0">
-           <div class="sectionTitle">Suite</div>
-         </xsl:if>
-         <xsl:apply-templates select="statements/*" />
-         <xsl:if test="count(teardown/suite) &gt; 0">
-           <div class="sectionTitle">Teardown</div>
-           <xsl:apply-templates select="teardown/suite" />
-         </xsl:if>
-       </xsl:with-param>
-     </xsl:call-template>
-   </xsl:template>
-   <xsl:template match="comment">
-     <div>
-       <xsl:attribute name="class">
-         comment
-         <xsl:if test="@type = 'suitetitle'">comment_suitetitle</xsl:if>
-         <xsl:if test="@type = 'title'">comment_title</xsl:if>
-       </xsl:attribute>
-       <xsl:copy-of select="child::node()" />
-     </div>
-   </xsl:template>
-   <xsl:template match="divider">
-     <hr />
-   </xsl:template>
-   <xsl:template match="call">
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="concat('i', @id)" />
-       </xsl:attribute>
-     </a>
-     <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
-       <xsl:attribute name="class">
-         <xsl:text>statement row1call</xsl:text>
-         <xsl:value-of select="result/@type" />
-       </xsl:attribute>
-       <xsl:if test="result/@type = 'exception'">
-         <div class="testicon testiconexception" />
-       </xsl:if>
-       <div class="testdescription">
-         <xsl:value-of select="@description" />
-       </div>
-       <div class="testparameters" style="display: none;">
-         <div class="fixturename">
-           <xsl:value-of select="@fixture" />
-         </div>
-         <div class="timestamp">
-           <xsl:value-of select="@timestamp" />
-         </div>
-         <xsl:if test="count(parameters/parameter) &gt; 0">
-           <table class="parametertable" width="100%">
-             <tr>
-               <th width="200px" align="left">Parameter</th>
-               <th align="left">Value</th>
-             </tr>
-             <xsl:for-each select="parameters/parameter">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="name(../parent::*)" />
-                 <xsl:value-of select="../../result/@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:value-of select="@name" />
-                 </td>
-                 <td class="value">
-                   <xsl:if test="@value">
-                     <xsl:call-template name="processFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </xsl:if>
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <xsl:if test="count(result/variableUpdate) &gt; 1">
-           <table class="varupdatetable" width="100%">
-             <tr>
-               <th width="200px" align="left">Result</th>
-               <th width="200px" align="left">Variable</th>
-               <th align="left">Value</th>
-             </tr>
-             <xsl:for-each select="result/variableUpdate">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="name(../parent::*)" />
-                 <xsl:value-of select="../../result/@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:value-of select="@parameter" />
-                 </td>
-                 <td>
-                   <xsl:value-of select="@name" />
-                 </td>
-                 <td class="value">
-                   <xsl:if test="@value">
-                     <xsl:call-template name="processFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </xsl:if>
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <xsl:if test="result/@exceptionTrace">
-           <div class="exceptiontrace">
-             <xsl:call-template name="formatExceptionTrace">
-               <xsl:with-param name="text" select="result/@exceptionTrace" />
-             </xsl:call-template>
-           </div>
-         </xsl:if>
-         <xsl:if test="count(extResults/*) &gt; 0">
-           <xsl:apply-templates select="extResults" />
-         </xsl:if>
-       </div>
-       <xsl:if test="count(result/variableUpdate) = 1 and result/variableUpdate/@value">
-         <div class="testresults">
-           <xsl:if test="result/@type = 'success' and result/variableUpdate/@value != '(null)'">
-             result:
-             <span class="testResultValue testResultValueSuccess value">
-               <xsl:call-template name="stripFormattedString">
-                 <xsl:with-param name="text" select="result/variableUpdate/@value" />
-               </xsl:call-template>
-             </span>
-             <xsl:if test="result/variableUpdate/@name">
-               ➔
-               <xsl:value-of select="result/variableUpdate/@name" />
-             </xsl:if>
-           </xsl:if>
-         </div>
-       </xsl:if>
-       <xsl:if test="count(result/variableUpdate) &gt; 1 and result/variableUpdate/@value">
-         <div class="testresults">
-           results:
-           <xsl:for-each select="result/variableUpdate">
-             <xsl:if test="position() &gt; 1">
-               |
-               <xsl:text />
-             </xsl:if>
-             <span class="value">
-               <xsl:call-template name="stripFormattedString">
-                 <xsl:with-param name="text" select="result/variableUpdate/@value" />
-               </xsl:call-template>
-             </span>
-             <xsl:if test="@name">
-               ➔
-               <xsl:value-of select="@name" />
-             </xsl:if>
-           </xsl:for-each>
-         </div>
-       </xsl:if>
-       <xsl:if test="result/@type = 'exception'">
-         <div class="value exceptionmessage">
-           <xsl:value-of select="result/@exceptionMessage" />
-         </div>
-       </xsl:if>
-       <xsl:apply-templates select="result/console" />
-       <span class="durationandicons">
-         <xsl:call-template name="duration">
-           <xsl:with-param name="value" select="result/@duration" />
-         </xsl:call-template>
-         <span class="testicons">
-           <xsl:call-template name="scriptlink">
-             <xsl:with-param name="line" select="@line" />
-             <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-             <xsl:with-param name="class" select="'scriptlink'" />
-           </xsl:call-template>
-         </span>
-       </span>
-     </div>
-   </xsl:template>
-   <xsl:template match="variableAssign">
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="concat('i', @id)" />
-       </xsl:attribute>
-     </a>
-     <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)" class="statement row1assign">
-       <div class="testdescription">
-         <xsl:value-of select="@description" />
-       </div>
-       <div class="testparameters" style="display: none;">          
-         <div class="timestamp">
-           <xsl:value-of select="@timestamp" />
-         </div>
-         <table class="varupdatetable" width="100%">
-           <tr>
-             <th width="200px" align="left">Variable</th>
-             <th align="left">Value</th>
-           </tr>
-           <tr class="row1">
-             <td>
-               <xsl:value-of select="@name" />
-             </td>
-             <td class="value">
-               <xsl:if test="@value">
-                 <xsl:call-template name="processFormattedString">
-                   <xsl:with-param name="text" select="@value" />
-                 </xsl:call-template>
-               </xsl:if>
-             </td>
-           </tr>
-         </table>
-       </div>
-     </div>
-   </xsl:template>
-   <xsl:template match="extResults">
-     <div class="extresults">
-       <div class="extresultstitle">Extended Result Details</div>
-       <xsl:for-each select="*">
-         <xsl:if test="@title">
-           <div class="extresulttitle">
-             <xsl:value-of select="@title" />
-           </div>
-         </xsl:if>
-         <xsl:if test="name() = 'extResultText'">
-           <div class="extresulttext">
-             <textarea onMouseUp="swallowMouseUp(event)">
-               <xsl:value-of select="text()" />
-             </textarea>
-           </div>
-         </xsl:if>
-         <xsl:if test="name() = 'extResultImage'">
-           <div class="extresultimage">
-             <div>
-               <xsl:attribute name="style">
-                 <xsl:value-of select="concat('width:', @width, 'px; height:', @height, 'px; background-image:url(', &quot;'&quot;, 'data:', @type, ';base64,', text(), &quot;'&quot;, ');')" />
-               </xsl:attribute>
-             </div>
-           </div>
-         </xsl:if>
-         <xsl:if test="name() = 'extResultHTML'">
-           <div class="extresulthtml">
-             <xsl:value-of select="text()" disable-output-escaping="yes" />
-           </div>
-         </xsl:if>
-       </xsl:for-each>
-     </div>
-   </xsl:template>
-   <xsl:template match="console">
-     <xsl:variable name="headerending">
-       <xsl:choose>
-         <xsl:when test="@lines = 1">
-           <xsl:text>line</xsl:text>
-         </xsl:when>
-         <xsl:otherwise>lines</xsl:otherwise>
-       </xsl:choose>
-     </xsl:variable>
-     <div class="console">
-       <div class="consoleheader">
-         <xsl:value-of select="concat('Console output: ', @lines, ' ', $headerending)" />
-         <xsl:if test="@truncated &gt; 0">
-           <xsl:value-of select="concat(' (', @truncated, ' additional lines were truncated)')" />
-         </xsl:if>
-       </div>
-       <ol>
-         <xsl:apply-templates select="out | err" />
-         <xsl:if test="@truncated &gt; 0">
-           <li class="err row1c">
-             <xsl:value-of select="concat('LINE COUNT LIMIT WAS HIT - ', @truncated, ' ADDITIONAL LINES WERE TRUNCATED FROM CAPTURE')" />
-           </li>
-         </xsl:if>
-       </ol>
-     </div>
-   </xsl:template>
-   <xsl:template match="out | err">
-     <li>
-       <xsl:variable name="source">
-         <xsl:if test="ancestor-or-self::suite[1]/@forkName and not(@source = 'fork')">
-           <xsl:value-of select="concat(' ', 'masterconsole')" />
-         </xsl:if>
-       </xsl:variable>
-       <xsl:attribute name="class">
-         <xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c', $source)" />
-       </xsl:attribute>
-       <xsl:call-template name="fixSpaces">
-         <xsl:with-param name="text" select="@text" />
-       </xsl:call-template>
-     </li>
-   </xsl:template>
-   <xsl:template match="test">
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="concat('i', @id)" />
-       </xsl:attribute>
-     </a>
-     <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
-       <xsl:attribute name="class">
-         <xsl:text>statement test row1test</xsl:text>
-         <xsl:value-of select="results/result/@type" />
-       </xsl:attribute>
-       <div>
-         <xsl:attribute name="class">
-           <xsl:text>testicon testicon</xsl:text>
-           <xsl:value-of select="results/result/@type" />
-         </xsl:attribute>
-       </div>
-       <div class="testdescription">
-         <xsl:value-of select="@description" />
-       </div>
-       <div class="testparameters" style="display: none;">
-         <div class="fixturename">
-           <xsl:value-of select="@fixture" />
-         </div>
-         <div class="timestamp">
-           <xsl:value-of select="@timestamp" />
-         </div>
-         <xsl:if test="count(results/result/parameters/parameter) &gt; 0">
-           <table class="parametertable" width="100%">
-             <tr>
-               <th width="200px" align="left">Parameter</th>
-               <th align="left">Value</th>
-             </tr>
-             <xsl:for-each select="results/result/parameters/parameter">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="name(../parent::*)" />
-                 <xsl:value-of select="../../result/@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:value-of select="@name" />
-                 </td>
-                 <td class="value">
-                   <xsl:if test="@value">
-                     <xsl:call-template name="processFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </xsl:if>
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
-           <table class="comparisontable" width="100%">
-             <tr>
-               <th width="200px" align="left">Result</th>
-               <th align="left">Value</th>
-             </tr>
-             <xsl:for-each select="results/result/comparisons/comparison">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1test</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2test</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:value-of select="@name" />
-                 </td>
-                 <td>
-                   <xsl:call-template name="formattedComparisonResult" />
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <xsl:if test="count(results/result/comparisons/comparison) = 1">
-           <table class="comparisontable" width="100%">
-             <tr>
-               <th width="100%" align="left">Result</th>
-             </tr>
-             <xsl:for-each select="results/result/comparisons/comparison">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1test</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2test</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:call-template name="formattedComparisonResult" />
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <xsl:if test="results/result/@exceptionTrace">
-           <div class="exceptiontrace value">
-             <xsl:call-template name="formatExceptionTrace">
-               <xsl:with-param name="text" select="results/result/@exceptionTrace" />
-             </xsl:call-template>
-           </div>
-         </xsl:if>
-         <xsl:if test="count(extResults/*) &gt; 0">
-           <xsl:apply-templates select="extResults" />
-         </xsl:if>
-       </div>
-       <div class="testresults">
-         <xsl:if test="results/result/@type = 'success'">
-           <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
-             result:
-             <span class="testresultvalue testresultvaluesuccess value">
-               <xsl:call-template name="stripFormattedString">
-                 <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
-               </xsl:call-template>
-             </span>
-           </xsl:if>
-           <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
-             results:
-             <xsl:for-each select="results/result/comparisons/comparison">
-               <xsl:if test="position() &gt; 1">
-                 |
-                 <xsl:text />
-               </xsl:if>
-               <xsl:if test="@type = 'success'">
-                 <span class="testresultvalue testresultvaluesuccess value">
-                   <xsl:call-template name="stripFormattedString">
-                     <xsl:with-param name="text" select="@value" />
-                   </xsl:call-template>
-                 </span>
-               </xsl:if>
-               <xsl:if test="@type = 'failure'">
-                 <span class="testresultvalue testresultvaluefailure">
-                   <span class="value">
-                     <xsl:call-template name="stripFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </span>
-                   <xsl:text>, but</xsl:text>
-                   expected:
-                   <span class="value">
-                     <xsl:call-template name="stripFormattedString">
-                       <xsl:with-param name="text" select="@expectedValue" />
-                     </xsl:call-template>
-                   </span>
-                 </span>
-               </xsl:if>
-             </xsl:for-each>
-           </xsl:if>
-         </xsl:if>
-         <xsl:if test="results/result/@type = 'failure'">
-           <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
-             result:
-             <span class="testresultvalue testresultvaluefailure">
-               <span class="value">
-                 <xsl:call-template name="stripFormattedString">
-                   <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
-                 </xsl:call-template>
-               </span>
-               <xsl:text>, but</xsl:text>
-               expected:
-               <span class="value">
-                 <xsl:call-template name="stripFormattedString">
-                   <xsl:with-param name="text" select="results/result/comparisons/comparison/@expectedValue" />
-                 </xsl:call-template>
-               </span>
-             </span>
-           </xsl:if>
-           <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
-             results:
-             <xsl:for-each select="results/result/comparisons/comparison">
-               <xsl:if test="position() &gt; 1">
-                 |
-                 <xsl:text />
-               </xsl:if>
-               <xsl:if test="@type = 'success'">
-                 <span class="testresultvalue testresultvaluesuccess value">
-                   <xsl:call-template name="stripFormattedString">
-                     <xsl:with-param name="text" select="@value" />
-                   </xsl:call-template>
-                 </span>
-               </xsl:if>
-               <xsl:if test="@type = 'failure'">
-                 <span class="testresultvalue testresultvaluefailure">
-                   <span class="value">
-                     <xsl:call-template name="stripFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </span>
-                   <xsl:text>, but</xsl:text>
-                   expected:
-                   <span class="value">
-                     <xsl:call-template name="stripFormattedString">
-                       <xsl:with-param name="text" select="@expectedValue" />
-                     </xsl:call-template>
-                   </span>
-                 </span>
-               </xsl:if>
-             </xsl:for-each>
-           </xsl:if>
-         </xsl:if>
-         <xsl:if test="results/result/@type = 'exception'">
-           <div class="value exceptionmessage">
-             <xsl:value-of select="results/result/@exceptionMessage" />
-           </div>
-         </xsl:if>
-       </div>
-       <xsl:apply-templates select="results/console" />
-       <span class="durationandicons">
-         <xsl:call-template name="duration">
-           <xsl:with-param name="value" select="results/@duration" />
-         </xsl:call-template>
-         <span class="testicons">
-           <xsl:call-template name="scriptlink">
-             <xsl:with-param name="line" select="@line" />
-             <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-             <xsl:with-param name="class" select="'scriptlink'" />
-           </xsl:call-template>
-         </span>
-       </span>
-     </div>
-   </xsl:template>
-   <xsl:template match="tabletest">
-     <a>
-       <xsl:attribute name="name">
-         <xsl:value-of select="concat('i', @id)" />
-       </xsl:attribute>
-     </a>
-     <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
-       <xsl:variable name="testsuccess">
-         <xsl:choose>
-           <xsl:when test="results/@successCount &gt; 0 and results/@failureCount = 0 and results/@exceptionCount = 0">success</xsl:when>
-           <xsl:when test="results/@failureCount &gt; 0 and results/@exceptionCount = 0">failure</xsl:when>
-           <xsl:when test="results/@exceptionCount &gt; 0">exception</xsl:when>
-         </xsl:choose>
-       </xsl:variable>
-       <xsl:attribute name="class">
-         <xsl:text>statement test row1test</xsl:text>
-         <xsl:value-of select="$testsuccess" />
-       </xsl:attribute>
-       <div>
-         <xsl:attribute name="class">
-           <xsl:text>testicon testicon</xsl:text>
-           <xsl:value-of select="$testsuccess" />
-         </xsl:attribute>
-       </div>
-       <div class="testdescription">
-         <xsl:value-of select="@description" />
-       </div>
-       <div class="tabletestresults" style="display: none;">
-         <div class="fixturename">
-           <xsl:value-of select="@fixture" />
-         </div>
-         <div class="timestamp">
-           <xsl:value-of select="@timestamp" />
-         </div>
-         <xsl:if test="count(parameters/parameter) &gt; 0">
-           <table class="parametertable" width="100%">
-             <tr>
-               <th width="200px" align="left">Parameter</th>
-               <th align="left">Value</th>
-             </tr>
-             <xsl:for-each select="parameters/parameter">
-               <xsl:variable name="class">
-                 <xsl:choose>
-                   <xsl:when test="position() mod 2 = 1">
-                     <xsl:text>row1</xsl:text>
-                   </xsl:when>
-                   <xsl:otherwise>row2</xsl:otherwise>
-                 </xsl:choose>
-                 <xsl:value-of select="name(../parent::*)" />
-                 <xsl:value-of select="../../result/@type" />
-               </xsl:variable>
-               <tr>
-                 <xsl:attribute name="class">
-                   <xsl:value-of select="$class" />
-                 </xsl:attribute>
-                 <td>
-                   <xsl:value-of select="@name" />
-                 </td>
-                 <td class="value">
-                   <xsl:if test="@value">
-                     <xsl:call-template name="processFormattedString">
-                       <xsl:with-param name="text" select="@value" />
-                     </xsl:call-template>
-                   </xsl:if>
-                 </td>
-               </tr>
-             </xsl:for-each>
-           </table>
-         </xsl:if>
-         <table class="resultstable" width="100%">
-           <tr>
-             <th align="left">Result Description</th>
-             <xsl:for-each select="results/result[1]/parameters/parameter">
-               <th align="left">
-                 <xsl:value-of select="@name" />
-               </th>
-             </xsl:for-each>
-             <xsl:for-each select="results/result[1]/comparisons/comparison">
-               <th align="left">
-                 <xsl:choose>
-                   <xsl:when test="@name">
-                     <xsl:value-of select="@name" />
-                   </xsl:when>
-                   <xsl:otherwise>result</xsl:otherwise>
-                 </xsl:choose>
-               </th>
-             </xsl:for-each>
-           </tr>
-           <xsl:for-each select="results/result">
-             <xsl:variable name="row">
-               <xsl:choose>
-                 <xsl:when test="position() mod 2 = 1">
-                   <xsl:text>row1test</xsl:text>
-                 </xsl:when>
-                 <xsl:otherwise>row2test</xsl:otherwise>
-               </xsl:choose>
-             </xsl:variable>
-             <tr>
-               <xsl:attribute name="class">
-                 <xsl:value-of select="$row" />
-                 <xsl:value-of select="@type" />
-               </xsl:attribute>
-               <td align="left">
-                 <xsl:value-of select="@description" />
-               </td>
-               <xsl:for-each select="parameters/parameter">
-                 <td align="left" class="value">
-                   <xsl:call-template name="stripFormattedString">
-                     <xsl:with-param name="text" select="@value" />
-                   </xsl:call-template>
-                 </td>
-               </xsl:for-each>
-               <xsl:if test="@type = 'exception'">
-                 <td align="left" class="value">
-                   <xsl:value-of select="@exceptionMessage" />
-                 </td>
-               </xsl:if>
-               <xsl:if test="@type != 'exception'">
-                 <xsl:for-each select="comparisons/comparison">
-                   <td align="left">
-                     <xsl:attribute name="class">
-                       <xsl:value-of select="$row" />
-                       <xsl:value-of select="@type" />
-                     </xsl:attribute>
-                     <xsl:choose>
-                       <xsl:when test="@type = 'success'">
-                         <span class="value">
-                           <xsl:call-template name="stripFormattedString">
-                             <xsl:with-param name="text" select="@value" />
-                           </xsl:call-template>
-                         </span>
-                       </xsl:when>
-                       <xsl:when test="@type = 'failure'">
-                         <span class="value">
-                           <xsl:call-template name="stripFormattedString">
-                             <xsl:with-param name="text" select="@value" />
-                           </xsl:call-template>
-                         </span>
-                         (expected:
-                         <span class="value">
-                           <xsl:call-template name="stripFormattedString">
-                             <xsl:with-param name="text" select="@expectedValue" />
-                           </xsl:call-template>
-                         </span>
-                         )
-                       </xsl:when>
-                     </xsl:choose>
-                   </td>
-                 </xsl:for-each>
-               </xsl:if>
-             </tr>
-           </xsl:for-each>
-         </table>
-         <xsl:for-each select="results/result">
-           <xsl:if test="@exceptionTrace">
-             <div class="exceptiontrace value">
-               <xsl:call-template name="formatExceptionTrace">
-                 <xsl:with-param name="text" select="@exceptionTrace" />
-               </xsl:call-template>
-             </div>
-           </xsl:if>
-         </xsl:for-each>
-         <xsl:if test="count(extResults/*) &gt; 0">
-           <xsl:apply-templates select="extResults" />
-         </xsl:if>
-       </div>
-       <div class="testresults">
-         <xsl:value-of select="count(results/result)" />
-         results
-       </div>
-       <xsl:apply-templates select="results/console" />
-       <span class="durationandicons">
-         <xsl:call-template name="duration">
-           <xsl:with-param name="value" select="results/@duration" />
-         </xsl:call-template>
-         <span class="testicons">
-           <xsl:call-template name="scriptlink">
-             <xsl:with-param name="line" select="@line" />
-             <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-             <xsl:with-param name="class" select="'scriptlink'" />
-           </xsl:call-template>
-         </span>
-       </span>
-     </div>
-   </xsl:template>
-   <xsl:template name="box">
-     <xsl:param name="class" />
-     <xsl:param name="color" />
-     <xsl:param name="title" />
-     <xsl:param name="titleRight" />
-     <xsl:param name="content" />
-     <div>
-       <xsl:attribute name="class">
-         box
-         <xsl:if test="$class">
-           <xsl:value-of select="$class" />
-         </xsl:if>
-       </xsl:attribute>
-       <xsl:attribute name="style">
-         border-color:
-         <xsl:value-of select="$color" />
-         ;
-       </xsl:attribute>
-       <div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';">
-         <xsl:attribute name="onMouseOut">
-           <xsl:text>this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='</xsl:text>
-           <xsl:value-of select="normalize-space($color)" />
-           <xsl:text>';</xsl:text>
-         </xsl:attribute>
-         <xsl:attribute name="style">
-           background-color:
-           <xsl:value-of select="normalize-space($color)" />
-           ;
-         </xsl:attribute>
-         <span class="boxtitleleft">
-           <xsl:copy-of select="$title" />
-         </span>
-         <xsl:if test="$titleRight">
-           <span class="boxtitleright">
-             <xsl:copy-of select="$titleRight" />
-           </span>
-         </xsl:if>
-       </div>
-       <div class="boxcontent">
-         <xsl:copy-of select="$content" />
-       </div>
-     </div>
-   </xsl:template>
-   <xsl:template name="scriptlink">
-     <xsl:param name="line" />
-     <xsl:param name="suite" />
-     <xsl:param name="class" />
-     <a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();">
-       <xsl:attribute name="class">
-         <xsl:value-of select="$class" />
-       </xsl:attribute>
-       <xsl:choose>
-         <xsl:when test="$line">
-           <xsl:attribute name="href">
-             <xsl:value-of select="concat('integrity://', $suite, '#', $line)" />
-           </xsl:attribute>
-         </xsl:when>
-         <xsl:otherwise>
-           <xsl:attribute name="href">
-             <xsl:value-of select="concat('integrity://', $suite)" />
-           </xsl:attribute>
-         </xsl:otherwise>
-       </xsl:choose>
-     </a>
-   </xsl:template>
-   <xsl:template name="duration">
-     <xsl:param name="value" />
-     <xsl:variable name="hours">
-       <xsl:value-of select="floor($value div 3600000)" />
-     </xsl:variable>
-     <xsl:variable name="minutes">
-       <xsl:value-of select="floor(($value mod 3600000) div 60000)" />
-     </xsl:variable>
-     <xsl:variable name="seconds">
-       <xsl:value-of select="floor(($value mod 60000) div 1000)" />
-     </xsl:variable>
-     <xsl:variable name="msecs">
-       <xsl:value-of select="round(($value mod 1000) * 1000) div 1000" />
-     </xsl:variable>
-     <xsl:if test="$hours &gt; 0">
-       <xsl:value-of select="concat($hours, 'h')" />
-     </xsl:if>
-     <xsl:text />
-     <xsl:if test="$minutes &gt; 0">
-       <xsl:if test="$hours &gt; 0">
-         <xsl:text />
-       </xsl:if>
-       <xsl:value-of select="concat($minutes, 'm')" />
-     </xsl:if>
-     <xsl:text />
-     <xsl:if test="$seconds &gt; 0">
-       <xsl:if test="$hours &gt; 0 or $minutes &gt; 0">
-         <xsl:text />
-       </xsl:if>
-       <xsl:value-of select="concat($seconds, 's')" />
-     </xsl:if>
-     <xsl:text />
-     <xsl:if test="$msecs &gt; 0">
-       <xsl:choose>
-         <xsl:when test="$hours &gt; 0 or $minutes &gt; 0 or $seconds &gt; 0">
-           <xsl:text />
-           <xsl:value-of select="concat(round($msecs), 'ms')" />
-         </xsl:when>
-         <xsl:otherwise>
-           <xsl:value-of select="concat(round($value), 'ms')" />
-         </xsl:otherwise>
-       </xsl:choose>
-     </xsl:if>
-   </xsl:template>
-   <xsl:template name="fixSpaces">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="contains($text, '  ')">
-         <xsl:call-template name="fixSpaces">
-           <xsl:with-param name="text" select="substring-before($text, '  ')" />
-         </xsl:call-template>
-         <xsl:text>  </xsl:text>
-         <xsl:call-template name="fixSpaces">
-           <xsl:with-param name="text" select="substring-after($text, '  ')" />
-         </xsl:call-template>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$text" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="formatExceptionTrace">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="not(contains($text, '&#xA;'))">
-         <xsl:copy-of select="$text" />
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="substring-before($text, '&#xA;')" />
-         <br />
-         <span class="tab" />
-         <xsl:call-template name="formatExceptionTrace">
-           <xsl:with-param name="text" select="substring-after($text, '&#xA;')" />
-         </xsl:call-template>
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="processFormattedString">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="starts-with($text, '[FORMATTED]')">
-         <xsl:call-template name="processFormattedStringRecursive">
-           <xsl:with-param name="text" select="substring-after($text, '[FORMATTED]')" />
-         </xsl:call-template>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$text" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="processFormattedStringRecursive">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="contains($text, '[')">
-         <xsl:value-of select="substring-before($text, '[')" />
-         <xsl:variable name="wholeTrailingText">
-           <xsl:value-of select="substring-after($text, '[')" />
-         </xsl:variable>
-         <xsl:choose>
-           <xsl:when test="starts-with($wholeTrailingText, '[')">
-             <xsl:text>[</xsl:text>
-             <xsl:call-template name="processFormattedStringRecursive">
-               <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
-             </xsl:call-template>
-           </xsl:when>
-           <xsl:otherwise>
-             <xsl:variable name="preToken">
-               <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
-             </xsl:variable>
-             <xsl:variable name="trailingText">
-               <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
-             </xsl:variable>
-             <xsl:variable name="token">
-               <xsl:choose>
-                 <xsl:when test="contains($preToken, '|')">
-                   <xsl:value-of select="substring-before($preToken, '|')" />
-                 </xsl:when>
-                 <xsl:otherwise>
-                   <xsl:value-of select="$preToken" />
-                 </xsl:otherwise>
-               </xsl:choose>
-             </xsl:variable>
-             <xsl:variable name="replacement">
-               <xsl:value-of select="substring-after($preToken, '|')" />
-             </xsl:variable>
-             <xsl:if test="$token = 'NL' or $token = 'T'">
-               <xsl:choose>
-                 <xsl:when test="$token = 'NL'">
-                   <br />
-                 </xsl:when>
-                 <xsl:when test="$token = 'T'">
-                   <xsl:text>    </xsl:text>
-                 </xsl:when>
-               </xsl:choose>
-               <xsl:call-template name="processFormattedStringRecursive">
-                 <xsl:with-param name="text" select="$trailingText" />
-               </xsl:call-template>
-             </xsl:if>
-             <xsl:if test="$token = 'UL' or $token = 'B' or $token = 'I'">
-               <xsl:variable name="innerText">
-                 <xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
-               </xsl:variable>
-               <xsl:choose>
-                 <xsl:when test="$token = 'UL'">
-                   <span class="underline">
-                     <xsl:call-template name="processFormattedStringRecursive">
-                       <xsl:with-param name="text" select="$innerText" />
-                     </xsl:call-template>
-                   </span>
-                 </xsl:when>
-                 <xsl:when test="$token = 'B'">
-                   <span class="bold">
-                     <xsl:call-template name="processFormattedStringRecursive">
-                       <xsl:with-param name="text" select="$innerText" />
-                     </xsl:call-template>
-                   </span>
-                 </xsl:when>
-                 <xsl:when test="$token = 'I'">
-                   <span class="italic">
-                     <xsl:call-template name="processFormattedStringRecursive">
-                       <xsl:with-param name="text" select="$innerText" />
-                     </xsl:call-template>
-                   </span>
-                 </xsl:when>
-               </xsl:choose>
-               <xsl:call-template name="processFormattedStringRecursive">
-                 <xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
-               </xsl:call-template>
-             </xsl:if>
-           </xsl:otherwise>
-         </xsl:choose>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$text" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="stripFormattedString">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="starts-with($text, '[FORMATTED]')">
-         <xsl:call-template name="stripFormattedStringRecursive">
-           <xsl:with-param name="text" select="substring-after($text, '[FORMATTED]')" />
-         </xsl:call-template>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$text" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="stripFormattedStringRecursive">
-     <xsl:param name="text" />
-     <xsl:choose>
-       <xsl:when test="contains($text, '[')">
-         <xsl:value-of select="substring-before($text, '[')" />
-         <xsl:variable name="wholeTrailingText">
-           <xsl:value-of select="substring-after($text, '[')" />
-         </xsl:variable>
-         <xsl:choose>
-           <xsl:when test="starts-with($wholeTrailingText, '[')">
-             <xsl:text>[</xsl:text>
-             <xsl:call-template name="stripFormattedStringRecursive">
-               <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
-             </xsl:call-template>
-           </xsl:when>
-           <xsl:otherwise>
-             <xsl:variable name="preToken">
-               <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
-             </xsl:variable>
-             <xsl:variable name="trailingText">
-               <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
-             </xsl:variable>
-             <xsl:variable name="replacement">
-               <xsl:value-of select="substring-after($preToken, '|')" />
-             </xsl:variable>
-             <xsl:if test="$replacement != ''">
-               <xsl:value-of select="$replacement" />
-             </xsl:if>
-             <xsl:call-template name="stripFormattedStringRecursive">
-               <xsl:with-param name="text" select="$trailingText" />
-             </xsl:call-template>
-           </xsl:otherwise>
-         </xsl:choose>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$text" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="navigationLine">
-     <xsl:param name="depth" />
-     <xsl:param name="isLast" />
-     <xsl:param name="path" />
-     <xsl:if test="$depth &gt; 0">
-       <xsl:choose>
-         <xsl:when test="$depth &gt; 1">
-           <xsl:choose>
-             <xsl:when test="substring($path, 2 + string-length($path) - $depth, 1) = '0'">
-               <div class="nav_line nav_linedown" />
-             </xsl:when>
-             <xsl:otherwise>
-               <div class="nav_line" />
-             </xsl:otherwise>
-           </xsl:choose>
-         </xsl:when>
-         <xsl:otherwise>
-           <xsl:choose>
-             <xsl:when test="$isLast">
-               <div class="nav_line nav_lineright" />
-             </xsl:when>
-             <xsl:otherwise>
-               <div class="nav_line nav_linedownright" />
-             </xsl:otherwise>
-           </xsl:choose>
-         </xsl:otherwise>
-       </xsl:choose>
-       <xsl:call-template name="navigationLine">
-         <xsl:with-param name="depth" select="$depth - 1" />
-         <xsl:with-param name="isLast" select="$isLast" />
-         <xsl:with-param name="path" select="$path" />
-       </xsl:call-template>
-     </xsl:if>
-   </xsl:template>
-   <xsl:template name="formattedComparisonResult">
-     <xsl:choose>
-       <xsl:when test="@type = 'success'">
-         <span class="value">
-           <xsl:if test="@value">
-             <xsl:call-template name="processFormattedString">
-               <xsl:with-param name="text" select="@value" />
-             </xsl:call-template>
-           </xsl:if>
-         </span>
-       </xsl:when>
-       <xsl:when test="@type = 'failure'">
-         <span class="value">
-           <xsl:if test="@value">
-             <xsl:call-template name="processFormattedString">
-               <xsl:with-param name="text" select="@value" />
-             </xsl:call-template>
-           </xsl:if>
-         </span>
-         <span class="comparisondivider">
-           <br />
-           <hr />
-           <em>expected:</em>
-           <br />
-         </span>
-         <span class="value">
-           <xsl:if test="@expectedValue">
-             <xsl:call-template name="processFormattedString">
-               <xsl:with-param name="text" select="@expectedValue" />
-             </xsl:call-template>
-           </xsl:if>
-         </span>
-       </xsl:when>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="navigationSuite">
-     <xsl:param name="depth" />
-     <xsl:param name="path" />
-     <xsl:param name="isLast" />
-     <xsl:variable name="result">
-       <xsl:choose>
-         <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
-         <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
-         <xsl:otherwise>success</xsl:otherwise>
-       </xsl:choose>
-     </xsl:variable>
-     <div>
-       <xsl:attribute name="class">
-         <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
-       </xsl:attribute>
-       <xsl:attribute name="style">
-         <xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
-       </xsl:attribute>
-       <xsl:call-template name="navigationLine">
-         <xsl:with-param name="depth" select="$depth" />
-         <xsl:with-param name="path" select="$path" />
-         <xsl:with-param name="isLast" select="$isLast" />
-       </xsl:call-template>
-       <div class="nav_suitetitle">
-         <xsl:variable name="linktitle">
-           <xsl:choose>
-             <xsl:when test="@title">
-               <xsl:value-of select="concat(@title, ' (', @name, ')')" />
-             </xsl:when>
-             <xsl:otherwise>
-               <xsl:value-of select="@name" />
-             </xsl:otherwise>
-           </xsl:choose>
-         </xsl:variable>
-         <a>
-           <xsl:attribute name="href">
-             <xsl:value-of select="concat('#i', @id)" />
-           </xsl:attribute>
-           <xsl:attribute name="title">
-             <xsl:value-of select="$linktitle" />
-           </xsl:attribute>
-           <xsl:choose>
-             <xsl:when test="@title">
-               <xsl:value-of select="@title" />
-             </xsl:when>
-             <xsl:otherwise>
-               <xsl:call-template name="simpleSuiteName">
-                 <xsl:with-param name="fullSuiteName" select="@name" />
-               </xsl:call-template>
-             </xsl:otherwise>
-           </xsl:choose>
-         </a>
-       </div>
-       <div>
-         <xsl:attribute name="class">
-           <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)" />
-         </xsl:attribute>
-         <xsl:call-template name="suiteResultSummary" />
-       </div>
-       <xsl:variable name="nextPath">
-         <xsl:choose>
-           <xsl:when test="$isLast">
-             <xsl:value-of select="concat($path, '1')" />
-           </xsl:when>
-           <xsl:otherwise>
-             <xsl:value-of select="concat($path, '0')" />
-           </xsl:otherwise>
-         </xsl:choose>
-       </xsl:variable>
-       <xsl:for-each select="setup/suite">
-         <xsl:call-template name="navigationSuite">
-           <xsl:with-param name="depth" select="$depth + 1" />
-           <xsl:with-param name="path" select="$nextPath" />
-           <xsl:with-param name="isLast" select="position() = last() and count(../../statements/suite) = 0 and count(../../teardown/suite) = 0" />
-         </xsl:call-template>
-       </xsl:for-each>
-       <xsl:for-each select="statements/suite">
-         <xsl:call-template name="navigationSuite">
-           <xsl:with-param name="depth" select="$depth + 1" />
-           <xsl:with-param name="path" select="$nextPath" />
-           <xsl:with-param name="isLast" select="position() = last() and count(../../teardown/suite) = 0" />
-         </xsl:call-template>
-       </xsl:for-each>
-       <xsl:for-each select="teardown/suite">
-         <xsl:call-template name="navigationSuite">
-           <xsl:with-param name="depth" select="$depth + 1" />
-           <xsl:with-param name="path" select="$nextPath" />
-           <xsl:with-param name="isLast" select="position() = last()" />
-         </xsl:call-template>
-       </xsl:for-each>
-     </div>
-   </xsl:template>
-   <xsl:template name="simpleSuiteName">
-     <xsl:param name="fullSuiteName" />
-     <xsl:variable name="simpleSuiteName" select="substring-after($fullSuiteName, '.')" />
-     <xsl:choose>
-       <xsl:when test="$simpleSuiteName">
-         <xsl:call-template name="simpleSuiteName">
-           <xsl:with-param name="fullSuiteName" select="$simpleSuiteName" />
-         </xsl:call-template>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$fullSuiteName" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="suitePackageName">
-     <xsl:param name="fullSuiteName" />
-     <xsl:param name="packageName" />
-     <xsl:variable name="firstPart" select="substring-before($fullSuiteName, '.')" />
-     <xsl:variable name="lastPart" select="substring-after($fullSuiteName, '.')" />
-     <xsl:choose>
-       <xsl:when test="$lastPart">
-         <xsl:call-template name="suitePackageName">
-           <xsl:with-param name="fullSuiteName" select="$lastPart" />
-           <xsl:with-param name="packageName" select="concat($packageName, '.', $firstPart)" />
-         </xsl:call-template>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="$packageName" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
-   <xsl:template name="suiteResultSummary">
-     <xsl:if test="result/@successCount &gt; 0">
-       <xsl:value-of select="result/@successCount" />
-       ✔
-     </xsl:if>
-     <xsl:if test="result/@failureCount &gt; 0">
-       <xsl:if test="result/@successCount &gt; 0" />
-       <xsl:value-of select="result/@failureCount" />
-       ✘
-     </xsl:if>
-     <xsl:if test="result/@exceptionCount &gt; 0">
-       <xsl:if test="result/@successCount &gt; 0 or result/@failureCount &gt; 0" />
-       <xsl:value-of select="result/@exceptionCount" />
-       !
-     </xsl:if>
-   </xsl:template>
-   <xsl:template name="suitePath">
-     <xsl:param name="path" />
-     <xsl:param name="prefix" />
-     <xsl:choose>
-       <xsl:when test="name() = 'suite'">
-         <xsl:variable name="currentSuiteName" select="@name" />
-         <xsl:for-each select="../../.">
-           <xsl:call-template name="suitePath">
-             <xsl:with-param name="path" select="concat($currentSuiteName, ':', $path)" />
-             <xsl:with-param name="prefix" select="$prefix" />
-           </xsl:call-template>
-         </xsl:for-each>
-       </xsl:when>
-       <xsl:otherwise>
-         <xsl:value-of select="concat($prefix, $path)" />
-       </xsl:otherwise>
-     </xsl:choose>
-   </xsl:template>
- </xsl:stylesheet>
+        </head>
+        <body onLoad="resizeProgressBar()" onResize="resizeProgressBar()">
+          <div id="header">
+            <xsl:if test="@name">
+              <div align="left" class="pagesubtitle">
+                Test:
+                <span class="pagesubtitlebold">
+                  <xsl:value-of select="@name" />
+                </span>
+                <xsl:if test="count(variant) &gt; 0">
+                  in variant
+                  <span class="pagesubtitlebold">
+                    <xsl:value-of select="variant/@name" />
+                    <xsl:if test="variant/@description">
+                      <xsl:value-of select="concat(' - ', variant/@description)" />
+                    </xsl:if>
+                  </span>
+                </xsl:if>
+              </div>
+            </xsl:if>
+            <div align="left" class="pagesubtitle">
+              Started
+              <span class="pagesubtitlebold">
+                <xsl:value-of select="@timestamp" />
+              </span>
+              and took
+              <span class="pagesubtitlebold">
+                <xsl:call-template name="duration">
+                  <xsl:with-param name="value" select="@duration" />
+                </xsl:call-template>
+              </span>
+              <xsl:choose>
+                <xsl:when test="@abortMessage">
+                  <span class="abortmessageintro">
+                  until aborted:
+                  </span>
+                  <span class="abortmessage">
+                    <xsl:value-of select="@abortMessage" />
+                  </span>
+                </xsl:when>
+                <xsl:otherwise>
+                	<xsl:value-of select="concat(' ', 'to complete')" /> 
+                </xsl:otherwise>
+              </xsl:choose>
+            </div>
+            <xsl:if test="@version">
+              <div align="right" class="version">
+                <a href="http://www.integrity-tf.org" target="_blank">
+                  Integrity Test Runner Version
+                  <span class="versionnumber">
+                    <xsl:value-of select="@version" />
+                  </span>
+                </a>
+              </div>
+            </xsl:if>
+            <canvas id="progressbar" width="0" height="16" onClick="handleProgressBarClick(event)" onMouseOver="this.style.cursor='pointer';" onMouseOut="this.style.cursor='default';" />
+            <div id="headershadow" />
+          </div>
+          <div id="viewport">
+            <div id="navigation">
+              <div id="navigation-header" />
+              <xsl:for-each select="suite">
+                <xsl:call-template name="navigationSuite">
+                  <xsl:with-param name="depth" select="0" />
+                </xsl:call-template>
+              </xsl:for-each>
+            </div>
+            <div id="innercontent">
+              <xsl:if test="count(variables/variable) &gt; 0">
+                <xsl:call-template name="variablebox" />
+              </xsl:if>
+              <xsl:apply-templates select="suite" />
+              <xsl:if test="@abortMessage">
+                <div id="abortmessagebig">
+                  <xsl:value-of select="concat('Execution was aborted prematurely: ', @abortMessage)" />
+                </div>
+              </xsl:if>
+            </div>
+          </div>
+        </body>
+      </html>
+    </xsl:template>
+    <xsl:template match="variables">
+      <table class="variabletable" width="100%">
+        <tr>
+          <th width="300px" align="left">Name</th>
+          <th align="left">Initial Value</th>
+        </tr>
+        <xsl:for-each select="variable">
+          <xsl:variable name="class">
+            <xsl:choose>
+              <xsl:when test="position() mod 2 = 1">
+                <xsl:text>row1</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>row2</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <tr>
+            <xsl:attribute name="class">
+              <xsl:value-of select="$class" />
+            </xsl:attribute>
+            <td>
+              <xsl:value-of select="@name" />
+            </td>
+            <td class="value">
+              <xsl:if test="@value">
+                <xsl:call-template name="processFormattedString">
+                  <xsl:with-param name="text" select="@value" />
+                </xsl:call-template>
+              </xsl:if>
+            </td>
+          </tr>
+        </xsl:for-each>
+      </table>
+    </xsl:template>
+    <xsl:template match="returns">
+      <table class="variabletable" width="100%">
+        <tr>
+          <th width="200px" align="left">Source Variable</th>
+          <th width="200px" align="left">Target Variable</th>
+          <th align="left">Value</th>
+        </tr>
+        <xsl:for-each select="variable">
+          <xsl:variable name="class">
+            <xsl:choose>
+              <xsl:when test="position() mod 2 = 1">
+                <xsl:text>row1</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>row2</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <tr>
+            <xsl:attribute name="class">
+              <xsl:value-of select="$class" />
+            </xsl:attribute>
+            <td>
+              <xsl:value-of select="@name" />
+            </td>
+            <td>
+              <xsl:value-of select="@target" />
+            </td>
+            <td class="value">
+              <xsl:if test="@value">
+                <xsl:call-template name="processFormattedString">
+                  <xsl:with-param name="text" select="@value" />
+                </xsl:call-template>
+              </xsl:if>
+            </td>
+          </tr>
+        </xsl:for-each>
+      </table>
+    </xsl:template>
+    <xsl:template name="variablebox">
+      <xsl:call-template name="box">
+        <xsl:with-param name="color">#5966FF</xsl:with-param>
+        <xsl:with-param name="title">Global Variables/Constants</xsl:with-param>
+        <xsl:with-param name="content">
+          <xsl:apply-templates select="variables" />
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="suite">
+      <xsl:variable name="permalink">
+        <xsl:call-template name="suitePath" />
+      </xsl:variable>
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="$permalink" />
+        </xsl:attribute>
+      </a>
+      <xsl:variable name="result">
+        <xsl:choose>
+          <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
+          <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
+          <xsl:otherwise>success</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:call-template name="box">
+        <xsl:with-param name="color">
+          <xsl:choose>
+            <xsl:when test="$result = 'success'">#009933</xsl:when>
+            <xsl:when test="$result = 'exception'">#F99500</xsl:when>
+            <xsl:when test="$result = 'failure'">#CA0005</xsl:when>
+          </xsl:choose>
+        </xsl:with-param>
+        <xsl:with-param name="title">
+          <a>
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('#', $permalink)" />
+            </xsl:attribute>
+            <xsl:choose>
+              <xsl:when test="@title">
+                <xsl:value-of select="@title" />
+                <span class="nonbold">
+                  <xsl:value-of select="concat(' (',@name,')')" />
+                </span>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@name" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+          <xsl:if test="@forkName">
+            @
+            <xsl:value-of select="@forkName" />
+            <xsl:if test=" @forkDescription">
+              -
+              <xsl:value-of select="@forkDescription" />
+            </xsl:if>
+          </xsl:if>
+        </xsl:with-param>
+        <xsl:with-param name="titleRight">
+          <xsl:call-template name="suiteResultSummary" />
+          <xsl:text />
+          at
+          <xsl:text />
+          <xsl:value-of select="@timestamp" />
+          <xsl:text />
+          in
+          <xsl:text />
+          <xsl:call-template name="duration">
+            <xsl:with-param name="value" select="result/@duration" />
+          </xsl:call-template>
+          <span class="suiteicons">
+            <xsl:if test="ancestor::suite[1]/@name">
+              <xsl:call-template name="scriptlink">
+                <xsl:with-param name="line" select="@line" />
+                <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+                <xsl:with-param name="class" select="'suitescriptlink'" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+        </xsl:with-param>
+        <xsl:with-param name="content">
+          <xsl:if test="count(variables/variable) &gt; 0">
+            <div class="sectionTitle">Variables/Constants</div>
+            <xsl:apply-templates select="variables" />
+          </xsl:if>
+          <xsl:if test="count(setup/suite) &gt; 0">
+            <div class="sectionTitle">Setup</div>
+            <xsl:apply-templates select="setup/suite" />
+          </xsl:if>
+          <xsl:if test="count(variables/variable) &gt; 0 or count(setup/suite) &gt; 0 or count(teardown/suite) &gt; 0">
+            <div class="sectionTitle">Suite</div>
+          </xsl:if>
+          <xsl:apply-templates select="statements/*" />
+          <xsl:if test="count(teardown/suite) &gt; 0">
+            <div class="sectionTitle">Teardown</div>
+            <xsl:apply-templates select="teardown/suite" />
+          </xsl:if>
+          <xsl:if test="count(returns/variable) &gt; 0">
+            <div class="sectionTitle">Returned Values</div>
+            <xsl:apply-templates select="returns" />
+          </xsl:if>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="comment">
+      <div>
+        <xsl:attribute name="class">
+          comment
+          <xsl:if test="@type = 'suitetitle'">comment_suitetitle</xsl:if>
+          <xsl:if test="@type = 'title'">comment_title</xsl:if>
+        </xsl:attribute>
+        <xsl:copy-of select="child::node()" />
+      </div>
+    </xsl:template>
+    <xsl:template match="divider">
+      <hr />
+    </xsl:template>
+    <xsl:template match="call">
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
+        <xsl:attribute name="class">
+          <xsl:text>statement row1call</xsl:text>
+          <xsl:value-of select="result/@type" />
+        </xsl:attribute>
+        <xsl:if test="result/@type = 'exception'">
+          <div class="testicon testiconexception" />
+        </xsl:if>
+        <div class="testdescription">
+          <xsl:value-of select="@description" />
+        </div>
+        <div class="testparameters" style="display: none;">
+          <div class="fixturename">
+            <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+            <xsl:value-of select="@timestamp" />
+          </div>
+          <xsl:if test="count(parameters/parameter) &gt; 0">
+            <table class="parametertable" width="100%">
+              <tr>
+                <th width="200px" align="left">Parameter</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="parameters/parameter">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="name(../parent::*)" />
+                  <xsl:value-of select="../../result/@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td class="value">
+                    <xsl:if test="@value">
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="count(result/variableUpdate) &gt; 1">
+            <table class="varupdatetable" width="100%">
+              <tr>
+                <th width="200px" align="left">Result</th>
+                <th width="200px" align="left">Variable</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="result/variableUpdate">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="name(../parent::*)" />
+                  <xsl:value-of select="../../result/@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@parameter" />
+                  </td>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td class="value">
+                    <xsl:if test="@value">
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="result/@exceptionTrace">
+            <div class="exceptiontrace">
+              <xsl:call-template name="formatExceptionTrace">
+                <xsl:with-param name="text" select="result/@exceptionTrace" />
+              </xsl:call-template>
+            </div>
+          </xsl:if>
+          <xsl:if test="count(extResults/*) &gt; 0">
+            <xsl:apply-templates select="extResults" />
+          </xsl:if>
+        </div>
+        <xsl:if test="count(result/variableUpdate) = 1 and result/variableUpdate/@value">
+          <div class="testresults">
+            <xsl:if test="result/@type = 'success' and result/variableUpdate/@value != '(null)'">
+              result:
+              <span class="testResultValue testResultValueSuccess value">
+                <xsl:call-template name="stripFormattedString">
+                  <xsl:with-param name="text" select="result/variableUpdate/@value" />
+                </xsl:call-template>
+              </span>
+              <xsl:if test="result/variableUpdate/@name">
+                ➔
+                <xsl:value-of select="result/variableUpdate/@name" />
+              </xsl:if>
+            </xsl:if>
+          </div>
+        </xsl:if>
+        <xsl:if test="count(result/variableUpdate) &gt; 1 and result/variableUpdate/@value">
+          <div class="testresults">
+            results:
+            <xsl:for-each select="result/variableUpdate">
+              <xsl:if test="position() &gt; 1">
+                |
+                <xsl:text />
+              </xsl:if>
+              <span class="value">
+                <xsl:call-template name="stripFormattedString">
+                  <xsl:with-param name="text" select="result/variableUpdate/@value" />
+                </xsl:call-template>
+              </span>
+              <xsl:if test="@name">
+                ➔
+                <xsl:value-of select="@name" />
+              </xsl:if>
+            </xsl:for-each>
+          </div>
+        </xsl:if>
+        <xsl:if test="result/@type = 'exception'">
+          <div class="value exceptionmessage">
+            <xsl:value-of select="result/@exceptionMessage" />
+          </div>
+        </xsl:if>
+        <xsl:apply-templates select="result/console" />
+        <span class="durationandicons">
+          <xsl:call-template name="duration">
+            <xsl:with-param name="value" select="result/@duration" />
+          </xsl:call-template>
+          <span class="testicons">
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
+          </span>
+        </span>
+      </div>
+    </xsl:template>
+    <xsl:template match="variableAssign">
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)" class="statement row1assign">
+        <div class="testdescription">
+          <xsl:value-of select="@description" />
+        </div>
+        <div class="testparameters" style="display: none;">
+          <div class="timestamp">
+            <xsl:value-of select="@timestamp" />
+          </div>
+          <table class="varupdatetable" width="100%">
+            <tr>
+              <th width="200px" align="left">Variable</th>
+              <th align="left">Value</th>
+            </tr>
+            <tr class="row1">
+              <td>
+                <xsl:value-of select="@name" />
+              </td>
+              <td class="value">
+                <xsl:if test="@value">
+                  <xsl:call-template name="processFormattedString">
+                    <xsl:with-param name="text" select="@value" />
+                  </xsl:call-template>
+                </xsl:if>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </xsl:template>
+    <xsl:template match="extResults">
+      <div class="extresults">
+        <div class="extresultstitle">Extended Result Details</div>
+        <xsl:for-each select="*">
+          <xsl:if test="@title">
+            <div class="extresulttitle">
+              <xsl:value-of select="@title" />
+            </div>
+          </xsl:if>
+          <xsl:if test="name() = 'extResultText'">
+            <div class="extresulttext">
+              <textarea onMouseUp="swallowMouseUp(event)">
+                <xsl:value-of select="text()" />
+              </textarea>
+            </div>
+          </xsl:if>
+          <xsl:if test="name() = 'extResultImage'">
+            <div class="extresultimage">
+              <div>
+                <xsl:attribute name="style">
+                  <xsl:value-of select="concat('width:', @width, 'px; height:', @height, 'px; background-image:url(', &quot;'&quot;, 'data:', @type, ';base64,', text(), &quot;'&quot;, ');')" />
+                </xsl:attribute>
+              </div>
+            </div>
+          </xsl:if>
+          <xsl:if test="name() = 'extResultHTML'">
+            <div class="extresulthtml">
+              <xsl:value-of select="text()" disable-output-escaping="yes" />
+            </div>
+          </xsl:if>
+        </xsl:for-each>
+      </div>
+    </xsl:template>
+    <xsl:template match="console">
+      <xsl:variable name="headerending">
+        <xsl:choose>
+          <xsl:when test="@lines = 1">
+            <xsl:text>line</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>lines</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <div class="console">
+        <div class="consoleheader">
+          <xsl:value-of select="concat('Console output: ', @lines, ' ', $headerending)" />
+          <xsl:if test="@truncated &gt; 0">
+            <xsl:value-of select="concat(' (', @truncated, ' additional lines were truncated)')" />
+          </xsl:if>
+        </div>
+        <ol>
+          <xsl:apply-templates select="out | err" />
+          <xsl:if test="@truncated &gt; 0">
+            <li class="err row1c">
+              <xsl:value-of select="concat('LINE COUNT LIMIT WAS HIT - ', @truncated, ' ADDITIONAL LINES WERE TRUNCATED FROM CAPTURE')" />
+            </li>
+          </xsl:if>
+        </ol>
+      </div>
+    </xsl:template>
+    <xsl:template match="out | err">
+      <li>
+        <xsl:variable name="source">
+          <xsl:if test="ancestor-or-self::suite[1]/@forkName and not(@source = 'fork')">
+            <xsl:value-of select="concat(' ', 'masterconsole')" />
+          </xsl:if>
+        </xsl:variable>
+        <xsl:attribute name="class">
+          <xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c', $source)" />
+        </xsl:attribute>
+        <xsl:call-template name="fixSpaces">
+          <xsl:with-param name="text" select="@text" />
+        </xsl:call-template>
+      </li>
+    </xsl:template>
+    <xsl:template match="test">
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
+        <xsl:attribute name="class">
+          <xsl:text>statement test row1test</xsl:text>
+          <xsl:value-of select="results/result/@type" />
+        </xsl:attribute>
+        <div>
+          <xsl:attribute name="class">
+            <xsl:text>testicon testicon</xsl:text>
+            <xsl:value-of select="results/result/@type" />
+          </xsl:attribute>
+        </div>
+        <div class="testdescription">
+          <xsl:value-of select="@description" />
+        </div>
+        <div class="testparameters" style="display: none;">
+          <div class="fixturename">
+            <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+            <xsl:value-of select="@timestamp" />
+          </div>
+          <xsl:if test="count(results/result/parameters/parameter) &gt; 0">
+            <table class="parametertable" width="100%">
+              <tr>
+                <th width="200px" align="left">Parameter</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="results/result/parameters/parameter">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="name(../parent::*)" />
+                  <xsl:value-of select="../../result/@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td class="value">
+                    <xsl:if test="@value">
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+            <table class="comparisontable" width="100%">
+              <tr>
+                <th width="200px" align="left">Result</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1test</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2test</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td>
+                    <xsl:call-template name="formattedComparisonResult" />
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="count(results/result/comparisons/comparison) = 1">
+            <table class="comparisontable" width="100%">
+              <tr>
+                <th width="100%" align="left">Result</th>
+              </tr>
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1test</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2test</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:call-template name="formattedComparisonResult" />
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <xsl:if test="results/result/@exceptionTrace">
+            <div class="exceptiontrace value">
+              <xsl:call-template name="formatExceptionTrace">
+                <xsl:with-param name="text" select="results/result/@exceptionTrace" />
+              </xsl:call-template>
+            </div>
+          </xsl:if>
+          <xsl:if test="count(extResults/*) &gt; 0">
+            <xsl:apply-templates select="extResults" />
+          </xsl:if>
+        </div>
+        <div class="testresults">
+          <xsl:if test="results/result/@type = 'success'">
+            <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
+              result:
+              <span class="testresultvalue testresultvaluesuccess value">
+                <xsl:call-template name="stripFormattedString">
+                  <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
+                </xsl:call-template>
+              </span>
+            </xsl:if>
+            <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+              results:
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:if test="position() &gt; 1">
+                  |
+                  <xsl:text />
+                </xsl:if>
+                <xsl:if test="@type = 'success'">
+                  <span class="testresultvalue testresultvaluesuccess value">
+                    <xsl:call-template name="stripFormattedString">
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
+                  </span>
+                </xsl:if>
+                <xsl:if test="@type = 'failure'">
+                  <span class="testresultvalue testresultvaluefailure">
+                    <span class="value">
+                      <xsl:call-template name="stripFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </span>
+                    <xsl:text>, but</xsl:text>
+                    expected:
+                    <span class="value">
+                      <xsl:call-template name="stripFormattedString">
+                        <xsl:with-param name="text" select="@expectedValue" />
+                      </xsl:call-template>
+                    </span>
+                  </span>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:if>
+          </xsl:if>
+          <xsl:if test="results/result/@type = 'failure'">
+            <xsl:if test="count(results/result/comparisons/comparison) &lt; 2">
+              result:
+              <span class="testresultvalue testresultvaluefailure">
+                <span class="value">
+                  <xsl:call-template name="stripFormattedString">
+                    <xsl:with-param name="text" select="results/result/comparisons/comparison/@value" />
+                  </xsl:call-template>
+                </span>
+                <xsl:text>, but</xsl:text>
+                expected:
+                <span class="value">
+                  <xsl:call-template name="stripFormattedString">
+                    <xsl:with-param name="text" select="results/result/comparisons/comparison/@expectedValue" />
+                  </xsl:call-template>
+                </span>
+              </span>
+            </xsl:if>
+            <xsl:if test="count(results/result/comparisons/comparison) &gt; 1">
+              results:
+              <xsl:for-each select="results/result/comparisons/comparison">
+                <xsl:if test="position() &gt; 1">
+                  |
+                  <xsl:text />
+                </xsl:if>
+                <xsl:if test="@type = 'success'">
+                  <span class="testresultvalue testresultvaluesuccess value">
+                    <xsl:call-template name="stripFormattedString">
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
+                  </span>
+                </xsl:if>
+                <xsl:if test="@type = 'failure'">
+                  <span class="testresultvalue testresultvaluefailure">
+                    <span class="value">
+                      <xsl:call-template name="stripFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </span>
+                    <xsl:text>, but</xsl:text>
+                    expected:
+                    <span class="value">
+                      <xsl:call-template name="stripFormattedString">
+                        <xsl:with-param name="text" select="@expectedValue" />
+                      </xsl:call-template>
+                    </span>
+                  </span>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:if>
+          </xsl:if>
+          <xsl:if test="results/result/@type = 'exception'">
+            <div class="value exceptionmessage">
+              <xsl:value-of select="results/result/@exceptionMessage" />
+            </div>
+          </xsl:if>
+        </div>
+        <xsl:apply-templates select="results/console" />
+        <span class="durationandicons">
+          <xsl:call-template name="duration">
+            <xsl:with-param name="value" select="results/@duration" />
+          </xsl:call-template>
+          <span class="testicons">
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
+          </span>
+        </span>
+      </div>
+    </xsl:template>
+    <xsl:template match="tabletest">
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
+        <xsl:variable name="testsuccess">
+          <xsl:choose>
+            <xsl:when test="results/@successCount &gt; 0 and results/@failureCount = 0 and results/@exceptionCount = 0">success</xsl:when>
+            <xsl:when test="results/@failureCount &gt; 0 and results/@exceptionCount = 0">failure</xsl:when>
+            <xsl:when test="results/@exceptionCount &gt; 0">exception</xsl:when>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:attribute name="class">
+          <xsl:text>statement test row1test</xsl:text>
+          <xsl:value-of select="$testsuccess" />
+        </xsl:attribute>
+        <div>
+          <xsl:attribute name="class">
+            <xsl:text>testicon testicon</xsl:text>
+            <xsl:value-of select="$testsuccess" />
+          </xsl:attribute>
+        </div>
+        <div class="testdescription">
+          <xsl:value-of select="@description" />
+        </div>
+        <div class="tabletestresults" style="display: none;">
+          <div class="fixturename">
+            <xsl:value-of select="@fixture" />
+          </div>
+          <div class="timestamp">
+            <xsl:value-of select="@timestamp" />
+          </div>
+          <xsl:if test="count(parameters/parameter) &gt; 0">
+            <table class="parametertable" width="100%">
+              <tr>
+                <th width="200px" align="left">Parameter</th>
+                <th align="left">Value</th>
+              </tr>
+              <xsl:for-each select="parameters/parameter">
+                <xsl:variable name="class">
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2 = 1">
+                      <xsl:text>row1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>row2</xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:value-of select="name(../parent::*)" />
+                  <xsl:value-of select="../../result/@type" />
+                </xsl:variable>
+                <tr>
+                  <xsl:attribute name="class">
+                    <xsl:value-of select="$class" />
+                  </xsl:attribute>
+                  <td>
+                    <xsl:value-of select="@name" />
+                  </td>
+                  <td class="value">
+                    <xsl:if test="@value">
+                      <xsl:call-template name="processFormattedString">
+                        <xsl:with-param name="text" select="@value" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:if>
+          <table class="resultstable" width="100%">
+            <tr>
+              <th align="left">Result Description</th>
+              <xsl:for-each select="results/result[1]/parameters/parameter">
+                <th align="left">
+                  <xsl:value-of select="@name" />
+                </th>
+              </xsl:for-each>
+              <xsl:for-each select="results/result[1]/comparisons/comparison">
+                <th align="left">
+                  <xsl:choose>
+                    <xsl:when test="@name">
+                      <xsl:value-of select="@name" />
+                    </xsl:when>
+                    <xsl:otherwise>result</xsl:otherwise>
+                  </xsl:choose>
+                </th>
+              </xsl:for-each>
+            </tr>
+            <xsl:for-each select="results/result">
+              <xsl:variable name="row">
+                <xsl:choose>
+                  <xsl:when test="position() mod 2 = 1">
+                    <xsl:text>row1test</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>row2test</xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <tr>
+                <xsl:attribute name="class">
+                  <xsl:value-of select="$row" />
+                  <xsl:value-of select="@type" />
+                </xsl:attribute>
+                <td align="left">
+                  <xsl:value-of select="@description" />
+                </td>
+                <xsl:for-each select="parameters/parameter">
+                  <td align="left" class="value">
+                    <xsl:call-template name="stripFormattedString">
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
+                  </td>
+                </xsl:for-each>
+                <xsl:if test="@type = 'exception'">
+                  <td align="left" class="value">
+                    <xsl:value-of select="@exceptionMessage" />
+                  </td>
+                </xsl:if>
+                <xsl:if test="@type != 'exception'">
+                  <xsl:for-each select="comparisons/comparison">
+                    <td align="left">
+                      <xsl:attribute name="class">
+                        <xsl:value-of select="$row" />
+                        <xsl:value-of select="@type" />
+                      </xsl:attribute>
+                      <xsl:choose>
+                        <xsl:when test="@type = 'success'">
+                          <span class="value">
+                            <xsl:call-template name="stripFormattedString">
+                              <xsl:with-param name="text" select="@value" />
+                            </xsl:call-template>
+                          </span>
+                        </xsl:when>
+                        <xsl:when test="@type = 'failure'">
+                          <span class="value">
+                            <xsl:call-template name="stripFormattedString">
+                              <xsl:with-param name="text" select="@value" />
+                            </xsl:call-template>
+                          </span>
+                          (expected:
+                          <span class="value">
+                            <xsl:call-template name="stripFormattedString">
+                              <xsl:with-param name="text" select="@expectedValue" />
+                            </xsl:call-template>
+                          </span>
+                          )
+                        </xsl:when>
+                      </xsl:choose>
+                    </td>
+                  </xsl:for-each>
+                </xsl:if>
+              </tr>
+            </xsl:for-each>
+          </table>
+          <xsl:for-each select="results/result">
+            <xsl:if test="@exceptionTrace">
+              <div class="exceptiontrace value">
+                <xsl:call-template name="formatExceptionTrace">
+                  <xsl:with-param name="text" select="@exceptionTrace" />
+                </xsl:call-template>
+              </div>
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:if test="count(extResults/*) &gt; 0">
+            <xsl:apply-templates select="extResults" />
+          </xsl:if>
+        </div>
+        <div class="testresults">
+          <xsl:value-of select="count(results/result)" />
+          results
+        </div>
+        <xsl:apply-templates select="results/console" />
+        <span class="durationandicons">
+          <xsl:call-template name="duration">
+            <xsl:with-param name="value" select="results/@duration" />
+          </xsl:call-template>
+          <span class="testicons">
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
+          </span>
+        </span>
+      </div>
+    </xsl:template>
+    <xsl:template name="box">
+      <xsl:param name="class" />
+      <xsl:param name="color" />
+      <xsl:param name="title" />
+      <xsl:param name="titleRight" />
+      <xsl:param name="content" />
+      <div>
+        <xsl:attribute name="class">
+          box
+          <xsl:if test="$class">
+            <xsl:value-of select="$class" />
+          </xsl:if>
+        </xsl:attribute>
+        <xsl:attribute name="style">
+          border-color:
+          <xsl:value-of select="$color" />
+          ;
+        </xsl:attribute>
+        <div class="boxtitle" onMouseDown="boxOrCellMouseDown()" onMouseUp="boxMouseUp(this, event)" onMouseOver="this.parentNode.style.borderStyle='dashed'; this.parentNode.style.borderColor='#000';">
+          <xsl:attribute name="onMouseOut">
+            <xsl:text>this.parentNode.style.borderStyle='solid'; this.parentNode.style.borderColor='</xsl:text>
+            <xsl:value-of select="normalize-space($color)" />
+            <xsl:text>';</xsl:text>
+          </xsl:attribute>
+          <xsl:attribute name="style">
+            background-color:
+            <xsl:value-of select="normalize-space($color)" />
+            ;
+          </xsl:attribute>
+          <span class="boxtitleleft">
+            <xsl:copy-of select="$title" />
+          </span>
+          <xsl:if test="$titleRight">
+            <span class="boxtitleright">
+              <xsl:copy-of select="$titleRight" />
+            </span>
+          </xsl:if>
+        </div>
+        <div class="boxcontent">
+          <xsl:copy-of select="$content" />
+        </div>
+      </div>
+    </xsl:template>
+    <xsl:template name="scriptlink">
+      <xsl:param name="line" />
+      <xsl:param name="suite" />
+      <xsl:param name="class" />
+      <a title="Jump to this command in the test script (works only in the Eclipse-internal browser!)" onMouseUp="event.stopPropagation();">
+        <xsl:attribute name="class">
+          <xsl:value-of select="$class" />
+        </xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="$line">
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('integrity://', $suite, '#', $line)" />
+            </xsl:attribute>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('integrity://', $suite)" />
+            </xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
+    </xsl:template>
+    <xsl:template name="duration">
+      <xsl:param name="value" />
+      <xsl:variable name="hours">
+        <xsl:value-of select="floor($value div 3600000)" />
+      </xsl:variable>
+      <xsl:variable name="minutes">
+        <xsl:value-of select="floor(($value mod 3600000) div 60000)" />
+      </xsl:variable>
+      <xsl:variable name="seconds">
+        <xsl:value-of select="floor(($value mod 60000) div 1000)" />
+      </xsl:variable>
+      <xsl:variable name="msecs">
+        <xsl:value-of select="round(($value mod 1000) * 1000) div 1000" />
+      </xsl:variable>
+      <xsl:if test="$hours &gt; 0">
+        <xsl:value-of select="concat($hours, 'h')" />
+      </xsl:if>
+      <xsl:text />
+      <xsl:if test="$minutes &gt; 0">
+        <xsl:if test="$hours &gt; 0">
+          <xsl:text />
+        </xsl:if>
+        <xsl:value-of select="concat($minutes, 'm')" />
+      </xsl:if>
+      <xsl:text />
+      <xsl:if test="$seconds &gt; 0">
+        <xsl:if test="$hours &gt; 0 or $minutes &gt; 0">
+          <xsl:text />
+        </xsl:if>
+        <xsl:value-of select="concat($seconds, 's')" />
+      </xsl:if>
+      <xsl:text />
+      <xsl:if test="$msecs &gt; 0">
+        <xsl:choose>
+          <xsl:when test="$hours &gt; 0 or $minutes &gt; 0 or $seconds &gt; 0">
+            <xsl:text />
+            <xsl:value-of select="concat(round($msecs), 'ms')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="concat(round($value), 'ms')" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </xsl:template>
+    <xsl:template name="fixSpaces">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="contains($text, '  ')">
+          <xsl:call-template name="fixSpaces">
+            <xsl:with-param name="text" select="substring-before($text, '  ')" />
+          </xsl:call-template>
+          <xsl:text>  </xsl:text>
+          <xsl:call-template name="fixSpaces">
+            <xsl:with-param name="text" select="substring-after($text, '  ')" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="formatExceptionTrace">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="not(contains($text, '&#xA;'))">
+          <xsl:copy-of select="$text" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="substring-before($text, '&#xA;')" />
+          <br />
+          <span class="tab" />
+          <xsl:call-template name="formatExceptionTrace">
+            <xsl:with-param name="text" select="substring-after($text, '&#xA;')" />
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="processFormattedString">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="starts-with($text, '[FORMATTED]')">
+          <xsl:call-template name="processFormattedStringRecursive">
+            <xsl:with-param name="text" select="substring-after($text, '[FORMATTED]')" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="processFormattedStringRecursive">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="contains($text, '[')">
+          <xsl:value-of select="substring-before($text, '[')" />
+          <xsl:variable name="wholeTrailingText">
+            <xsl:value-of select="substring-after($text, '[')" />
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="starts-with($wholeTrailingText, '[')">
+              <xsl:text>[</xsl:text>
+              <xsl:call-template name="processFormattedStringRecursive">
+                <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="preToken">
+                <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="trailingText">
+                <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="token">
+                <xsl:choose>
+                  <xsl:when test="contains($preToken, '|')">
+                    <xsl:value-of select="substring-before($preToken, '|')" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$preToken" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <xsl:variable name="replacement">
+                <xsl:value-of select="substring-after($preToken, '|')" />
+              </xsl:variable>
+              <xsl:if test="$token = 'NL' or $token = 'T'">
+                <xsl:choose>
+                  <xsl:when test="$token = 'NL'">
+                    <br />
+                  </xsl:when>
+                  <xsl:when test="$token = 'T'">
+                    <xsl:text>    </xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:call-template name="processFormattedStringRecursive">
+                  <xsl:with-param name="text" select="$trailingText" />
+                </xsl:call-template>
+              </xsl:if>
+              <xsl:if test="$token = 'UL' or $token = 'B' or $token = 'I'">
+                <xsl:variable name="innerText">
+                  <xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$token = 'UL'">
+                    <span class="underline">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                  <xsl:when test="$token = 'B'">
+                    <span class="bold">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                  <xsl:when test="$token = 'I'">
+                    <span class="italic">
+                      <xsl:call-template name="processFormattedStringRecursive">
+                        <xsl:with-param name="text" select="$innerText" />
+                      </xsl:call-template>
+                    </span>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:call-template name="processFormattedStringRecursive">
+                  <xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
+                </xsl:call-template>
+              </xsl:if>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="stripFormattedString">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="starts-with($text, '[FORMATTED]')">
+          <xsl:call-template name="stripFormattedStringRecursive">
+            <xsl:with-param name="text" select="substring-after($text, '[FORMATTED]')" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="stripFormattedStringRecursive">
+      <xsl:param name="text" />
+      <xsl:choose>
+        <xsl:when test="contains($text, '[')">
+          <xsl:value-of select="substring-before($text, '[')" />
+          <xsl:variable name="wholeTrailingText">
+            <xsl:value-of select="substring-after($text, '[')" />
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="starts-with($wholeTrailingText, '[')">
+              <xsl:text>[</xsl:text>
+              <xsl:call-template name="stripFormattedStringRecursive">
+                <xsl:with-param name="text" select="substring-after($wholeTrailingText, '[')" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="preToken">
+                <xsl:value-of select="substring-before($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="trailingText">
+                <xsl:value-of select="substring-after($wholeTrailingText, ']')" />
+              </xsl:variable>
+              <xsl:variable name="replacement">
+                <xsl:value-of select="substring-after($preToken, '|')" />
+              </xsl:variable>
+              <xsl:if test="$replacement != ''">
+                <xsl:value-of select="$replacement" />
+              </xsl:if>
+              <xsl:call-template name="stripFormattedStringRecursive">
+                <xsl:with-param name="text" select="$trailingText" />
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="navigationLine">
+      <xsl:param name="depth" />
+      <xsl:param name="isLast" />
+      <xsl:param name="path" />
+      <xsl:if test="$depth &gt; 0">
+        <xsl:choose>
+          <xsl:when test="$depth &gt; 1">
+            <xsl:choose>
+              <xsl:when test="substring($path, 2 + string-length($path) - $depth, 1) = '0'">
+                <div class="nav_line nav_linedown" />
+              </xsl:when>
+              <xsl:otherwise>
+                <div class="nav_line" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="$isLast">
+                <div class="nav_line nav_lineright" />
+              </xsl:when>
+              <xsl:otherwise>
+                <div class="nav_line nav_linedownright" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="navigationLine">
+          <xsl:with-param name="depth" select="$depth - 1" />
+          <xsl:with-param name="isLast" select="$isLast" />
+          <xsl:with-param name="path" select="$path" />
+        </xsl:call-template>
+      </xsl:if>
+    </xsl:template>
+    <xsl:template name="formattedComparisonResult">
+      <xsl:choose>
+        <xsl:when test="@type = 'success'">
+          <span class="value">
+            <xsl:if test="@value">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@value" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+        </xsl:when>
+        <xsl:when test="@type = 'failure'">
+          <span class="value">
+            <xsl:if test="@value">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@value" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+          <span class="comparisondivider">
+            <br />
+            <hr />
+            <em>expected:</em>
+            <br />
+          </span>
+          <span class="value">
+            <xsl:if test="@expectedValue">
+              <xsl:call-template name="processFormattedString">
+                <xsl:with-param name="text" select="@expectedValue" />
+              </xsl:call-template>
+            </xsl:if>
+          </span>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="navigationSuite">
+      <xsl:param name="depth" />
+      <xsl:param name="path" />
+      <xsl:param name="isLast" />
+      <xsl:variable name="result">
+        <xsl:choose>
+          <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
+          <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
+          <xsl:otherwise>success</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <div>
+        <xsl:attribute name="class">
+          <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
+        </xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
+        </xsl:attribute>
+        <xsl:call-template name="navigationLine">
+          <xsl:with-param name="depth" select="$depth" />
+          <xsl:with-param name="path" select="$path" />
+          <xsl:with-param name="isLast" select="$isLast" />
+        </xsl:call-template>
+        <div class="nav_suitetitle">
+          <xsl:variable name="linktitle">
+            <xsl:choose>
+              <xsl:when test="@title">
+                <xsl:value-of select="concat(@title, ' (', @name, ')')" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@name" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <a>
+            <xsl:attribute name="href">
+              <xsl:value-of select="concat('#i', @id)" />
+            </xsl:attribute>
+            <xsl:attribute name="title">
+              <xsl:value-of select="$linktitle" />
+            </xsl:attribute>
+            <xsl:choose>
+              <xsl:when test="@title">
+                <xsl:value-of select="@title" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:call-template name="simpleSuiteName">
+                  <xsl:with-param name="fullSuiteName" select="@name" />
+                </xsl:call-template>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </div>
+        <div>
+          <xsl:attribute name="class">
+            <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)" />
+          </xsl:attribute>
+          <xsl:call-template name="suiteResultSummary" />
+        </div>
+        <xsl:variable name="nextPath">
+          <xsl:choose>
+            <xsl:when test="$isLast">
+              <xsl:value-of select="concat($path, '1')" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="concat($path, '0')" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:for-each select="setup/suite">
+          <xsl:call-template name="navigationSuite">
+            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="isLast" select="position() = last() and count(../../statements/suite) = 0 and count(../../teardown/suite) = 0" />
+          </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="statements/suite">
+          <xsl:call-template name="navigationSuite">
+            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="isLast" select="position() = last() and count(../../teardown/suite) = 0" />
+          </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="teardown/suite">
+          <xsl:call-template name="navigationSuite">
+            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="path" select="$nextPath" />
+            <xsl:with-param name="isLast" select="position() = last()" />
+          </xsl:call-template>
+        </xsl:for-each>
+      </div>
+    </xsl:template>
+    <xsl:template name="simpleSuiteName">
+      <xsl:param name="fullSuiteName" />
+      <xsl:variable name="simpleSuiteName" select="substring-after($fullSuiteName, '.')" />
+      <xsl:choose>
+        <xsl:when test="$simpleSuiteName">
+          <xsl:call-template name="simpleSuiteName">
+            <xsl:with-param name="fullSuiteName" select="$simpleSuiteName" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$fullSuiteName" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="suitePackageName">
+      <xsl:param name="fullSuiteName" />
+      <xsl:param name="packageName" />
+      <xsl:variable name="firstPart" select="substring-before($fullSuiteName, '.')" />
+      <xsl:variable name="lastPart" select="substring-after($fullSuiteName, '.')" />
+      <xsl:choose>
+        <xsl:when test="$lastPart">
+          <xsl:call-template name="suitePackageName">
+            <xsl:with-param name="fullSuiteName" select="$lastPart" />
+            <xsl:with-param name="packageName" select="concat($packageName, '.', $firstPart)" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$packageName" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+    <xsl:template name="suiteResultSummary">
+      <xsl:if test="result/@successCount &gt; 0">
+        <xsl:value-of select="result/@successCount" />
+        ✔
+      </xsl:if>
+      <xsl:if test="result/@failureCount &gt; 0">
+        <xsl:if test="result/@successCount &gt; 0" />
+        <xsl:value-of select="result/@failureCount" />
+        ✘
+      </xsl:if>
+      <xsl:if test="result/@exceptionCount &gt; 0">
+        <xsl:if test="result/@successCount &gt; 0 or result/@failureCount &gt; 0" />
+        <xsl:value-of select="result/@exceptionCount" />
+        !
+      </xsl:if>
+    </xsl:template>
+    <xsl:template name="suitePath">
+      <xsl:param name="path" />
+      <xsl:param name="prefix" />
+      <xsl:choose>
+        <xsl:when test="name() = 'suite'">
+          <xsl:variable name="currentSuiteName" select="@name" />
+          <xsl:for-each select="../../.">
+            <xsl:call-template name="suitePath">
+              <xsl:with-param name="path" select="concat($currentSuiteName, ':', $path)" />
+              <xsl:with-param name="prefix" select="$prefix" />
+            </xsl:call-template>
+          </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat($prefix, $path)" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+  </xsl:stylesheet>

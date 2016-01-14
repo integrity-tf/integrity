@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -274,9 +275,18 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition, SuiteDefinition aSuite, Object aValue) {
+	public void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition,
+			SuiteDefinition aSuite, Object aValue) {
 		println("Assigned variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false)
-				+ " - new value is " + valueConverter.convertValueToString(aValue, false, null));
+				+ " - new value: " + valueConverter.convertValueToString(aValue, false, null));
+	}
+
+	@Override
+	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
+			Suite aSuite, Object aValue) {
+		println("Assigned return variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aSource, false)
+				+ " to calling suites' variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aTarget, false)
+				+ " - returned value: " + valueConverter.convertValueToString(aValue, false, null));
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="02.06.15 12:43" isotimestamp="2015-06-02T12:43:50" duration="40.551">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="10.231">
   <variables />
-  <suite id="0" name="integrity.basic.conditionalDescriptionTextNested" timestamp="02.06.15 12:43:50.0292">
+  <suite id="0" name="integrity.basic.conditionalDescriptionTextNested" timestamp="14.01.16 10:58:48.0799">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="35" name="echoIntegerAndOrStringTest" description="Echo the string 'abc' and no integer. Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="02.06.15 12:43:50.0292">
-        <results duration="2.715" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="2.715" description="Echo the string 'abc' and no integer. Cool, huh?" type="success">
+      <test id="1" line="35" name="echoIntegerAndOrStringTest" description="Echo the string 'abc' and no integer. Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="14.01.16 10:58:48.0799">
+        <results duration="0.346" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.346" description="Echo the string 'abc' and no integer. Cool, huh?" type="success">
             <parameters>
               <parameter name="string" value="abc" />
             </parameters>
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="37" name="echoIntegerAndOrStringTest" description="Echo the integer 123 and no string! Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="02.06.15 12:43:50.0307">
-        <results duration="1.535" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.535" description="Echo the integer 123 and no string! Cool, huh?" type="success">
+      <test id="2" line="37" name="echoIntegerAndOrStringTest" description="Echo the integer 123 and no string! Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="14.01.16 10:58:48.0799">
+        <results duration="0.262" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.262" description="Echo the integer 123 and no string! Cool, huh?" type="success">
             <parameters>
               <parameter name="integer" value="123" />
             </parameters>
@@ -29,9 +29,9 @@
           </result>
         </results>
       </test>
-      <test id="3" line="39" name="echoIntegerAndOrStringTest" description="Echo the integer 123 and string 'abc'! Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="02.06.15 12:43:50.0323">
-        <results duration="1.440" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.440" description="Echo the integer 123 and string 'abc'! Cool, huh?" type="success">
+      <test id="3" line="39" name="echoIntegerAndOrStringTest" description="Echo the integer 123 and string 'abc'! Cool, huh?" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoIntegerAndOrString" timestamp="14.01.16 10:58:48.0814">
+        <results duration="0.608" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.608" description="Echo the integer 123 and string 'abc'! Cool, huh?" type="success">
             <parameters>
               <parameter name="string" value="abc" />
               <parameter name="integer" value="123" />
@@ -43,8 +43,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="32.628" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="9.435" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

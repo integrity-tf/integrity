@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.07.14 10:15" isotimestamp="2014-07-18T10:15:06" duration="39.111">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:47" duration="49.421">
   <variables />
-  <suite id="0" name="integrity.basic.nestedobjects.typedNestedObjects" timestamp="18.07.14 10:15:06.0861">
+  <suite id="0" name="integrity.basic.nestedobjects.typedNestedObjects" timestamp="14.01.16 10:58:47.0742">
     <setup />
     <variables />
     <statements>
       <comment id="1" line="8">This should succeed</comment>
-      <test id="2" line="9" name="checkSimpleBeanUntyped" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0861">
-        <results duration="1.236" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.236" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
+      <test id="2" line="9" name="checkSimpleBeanUntyped" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0742">
+        <results duration="1.402" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.402" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" />
             </parameters>
@@ -19,9 +19,9 @@
         </results>
       </test>
       <comment id="3" line="18">This should fail</comment>
-      <test id="4" line="19" name="checkSimpleBeanUntyped" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0876">
-        <results duration="0.399" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.399" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
+      <test id="4" line="19" name="checkSimpleBeanUntyped" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0759">
+        <results duration="0.466" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.466" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.98[NL][T]}[NL]}" />
             </parameters>
@@ -32,9 +32,9 @@
         </results>
       </test>
       <comment id="5" line="28">This should succeed</comment>
-      <test id="6" line="29" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0876">
-        <results duration="0.055" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.055" description="creates a bean with predefined values and returns it" type="success">
+      <test id="6" line="29" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0761">
+        <results duration="0.063" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.063" description="creates a bean with predefined values and returns it" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
@@ -43,9 +43,9 @@
         </results>
       </test>
       <comment id="7" line="38">This should fail</comment>
-      <test id="8" line="39" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0876">
-        <results duration="0.045" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.045" description="creates a bean with predefined values and returns it" type="failure">
+      <test id="8" line="39" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0761">
+        <results duration="0.042" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.042" description="creates a bean with predefined values and returns it" type="failure">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T][UL][B]innerParameter = 1.98[/B][/UL][NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T][UL][B]innerParameter = 1.99[/B][/UL][NL][T]}[NL]}" type="failure" />
@@ -54,9 +54,9 @@
         </results>
       </test>
       <comment id="9" line="50">This should succeed</comment>
-      <test id="10" line="51" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0892">
-        <results duration="0.041" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.041" description="creates a bean with predefined values and returns it" type="success">
+      <test id="10" line="51" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0776">
+        <results duration="0.046" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.046" description="creates a bean with predefined values and returns it" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
@@ -65,9 +65,9 @@
         </results>
       </test>
       <comment id="11" line="60">This should fail</comment>
-      <test id="12" line="61" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="18.07.14 10:15:06.0892">
-        <results duration="0.062" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.062" description="creates a bean with predefined values and returns it" type="failure">
+      <test id="12" line="61" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:47.0776">
+        <results duration="0.042" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.042" description="creates a bean with predefined values and returns it" type="failure">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T][UL][B]innerParameter = 1.98[/B][/UL][NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T][UL][B]innerParameter = 1.99[/B][/UL][NL][T]}[NL]}" type="failure" />
@@ -76,8 +76,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="38.295" successCount="3" failureCount="3" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="48.769" successCount="3" failureCount="3" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

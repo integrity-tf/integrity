@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="01.08.13 13:22" isotimestamp="2013-08-01T13:22:22" duration="23.315">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:45" duration="5.072">
   <variables />
-  <suite id="0" name="integrity.basic.mandatoryParameters.testWithAllParams" timestamp="01.08.13 13:22:22.0128">
+  <suite id="0" name="integrity.basic.mandatoryParameters.testWithAllParams" timestamp="14.01.16 10:58:45.0399">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="23" name="takeMandatoryStringTest" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="01.08.13 13:22:22.0144">
-        <results duration="5.096" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="5.096" description="Takes one mandatory and an optional string" type="success">
+      <test id="1" line="23" name="takeMandatoryStringTest" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="14.01.16 10:58:45.0399">
+        <results duration="0.577" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.577" description="Takes one mandatory and an optional string" type="success">
             <parameters>
               <parameter name="mandatory" value="foo" />
               <parameter name="optional" value="bar" />
@@ -19,8 +19,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="18.740" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="4.417" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

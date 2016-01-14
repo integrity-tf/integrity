@@ -14,6 +14,7 @@ import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -249,6 +250,24 @@ public abstract class TestRunnerCallback {
 	 */
 	public abstract void onVariableAssignment(VariableAssignment anAssignment, VariableEntity aDefinition,
 			SuiteDefinition aSuite, Object aValue);
+
+	/**
+	 * Called when a return variable value from a suite is assigned to the respective local variable in the calling
+	 * suite.
+	 * 
+	 * @param aReturn
+	 *            the return variable object
+	 * @param aSource
+	 *            the source variable entity
+	 * @param aTarget
+	 *            the target variable entity
+	 * @param aSuite
+	 *            the suite invocation for which the assignment is done
+	 * @param aValue
+	 *            the value to be assigned
+	 */
+	public abstract void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
+			Suite aSuite, Object aValue);
 
 	/**
 	 * Called when a visible comment is encountered during execution.

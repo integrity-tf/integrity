@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:17" duration="10.738">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:47" duration="1.494">
   <variables />
-  <suite id="0" name="integrity.basic.comments.comments" timestamp="03.07.13 22:30:17.0367">
+  <suite id="0" name="integrity.basic.comments.comments" timestamp="14.01.16 10:58:47.0839">
     <setup />
     <variables />
     <statements>
@@ -10,8 +10,9 @@
       <comment id="3" line="14">A simple multiline visible comment. Again, this second line also belongs to it</comment>
       <comment id="4" line="17" type="title">A multiline title comment.</comment>
     </statements>
+    <returns />
     <teardown />
-    <result duration="2.367" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.010" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

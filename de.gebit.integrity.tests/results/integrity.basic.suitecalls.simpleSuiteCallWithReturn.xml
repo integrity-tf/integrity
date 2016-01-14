@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:50" duration="3.052">
+  <variables />
+  <suite id="0" name="integrity.basic.suitecalls.simpleSuiteCallWithReturn" timestamp="14.01.16 10:58:50.0664">
+    <setup />
+    <variables>
+      <variable name="testVariable" />
+    </variables>
+    <statements>
+      <suite id="1" line="6" name="integrity.basic.suitecalls.subSuite1" timestamp="14.01.16 10:58:50.0664">
+        <setup />
+        <variables>
+          <variable name="outputValue" />
+        </variables>
+        <statements>
+          <variableAssign id="2" line="22" timestamp="14.01.16 10:58:50.0664" description="Assign new value 'foobar' to variable 'outputValue'" name="outputValue" value="foobar" />
+        </statements>
+        <returns>
+          <variable name="outputValue" target="testVariable" value="foobar" />
+        </returns>
+        <teardown />
+        <result duration="0.404" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <test id="3" line="8" name="echoStringTest" description="Echo the string 'foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:50.0664">
+        <results duration="0.251" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.251" description="Echo the string 'foobar'" type="success">
+            <parameters>
+              <parameter name="string" value="foobar" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="foobar" value="foobar" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="2.582" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

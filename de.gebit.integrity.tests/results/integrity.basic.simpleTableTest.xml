@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 10:38" isotimestamp="2016-01-12T10:38:34" duration="27.441">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:52" duration="3.421">
   <variables />
-  <suite id="0" name="integrity.basic.simpleTableTest" timestamp="12.01.16 10:38:34.0329">
+  <suite id="0" name="integrity.basic.simpleTableTest" timestamp="14.01.16 10:58:52.0694">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="42" name="echoObjectsTest" description="Echoes ??? and ignores ???, ??? and ???" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects" timestamp="12.01.16 10:38:34.0329">
+      <tabletest id="1" line="42" name="echoObjectsTest" description="Echoes ??? and ignores ???, ??? and ???" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects" timestamp="14.01.16 10:58:52.0694">
         <parameters />
-        <results duration="17.199" successCount="2" failureCount="0" exceptionCount="0">
-          <result duration="3.383" description="Echoes 123 and ignores 456, 1234 and foo" type="success">
+        <results duration="2.188" successCount="2" failureCount="0" exceptionCount="0">
+          <result duration="0.273" description="Echoes 123 and ignores 456, 1234 and foo" type="success">
             <parameters>
               <parameter name="echo" value="123" />
               <parameter name="param1" value="456" />
@@ -19,7 +19,7 @@
               <comparison expectedValue="123" value="123" type="success" />
             </comparisons>
           </result>
-          <result duration="1.584" description="Echoes bar and ignores 123456, yeah and null" type="success">
+          <result duration="0.198" description="Echoes bar and ignores 123456, yeah and null" type="success">
             <parameters>
               <parameter name="echo" value="bar" />
               <parameter name="param1" value="123456" />
@@ -33,8 +33,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="21.495" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.950" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

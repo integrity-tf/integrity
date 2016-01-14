@@ -1,145 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="11.01.16 17:01" isotimestamp="2016-01-11T17:01:54" duration="43.797">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="10.569">
   <variables>
     <variable name="integrity.basic.suitecalls.testPackageConstant" value="BAR!" />
   </variables>
-  <suite id="0" name="integrity.basic.suitecalls.simpleSuiteCallsWithParameters" timestamp="11.01.16 17:01:54.0274">
+  <suite id="0" name="integrity.basic.suitecalls.simpleSuiteCallsWithParameters" timestamp="14.01.16 10:58:51.0573">
     <setup />
     <variables>
       <variable name="testConstant" value="Foobar" />
       <variable name="testVariable" value="Foobar" />
     </variables>
     <statements>
-      <suite id="1" line="5" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="11.01.16 17:01:54.0275">
+      <suite id="1" line="5" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables />
         <statements>
-          <call id="2" line="48" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0277">
+          <call id="2" line="48" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
-            <result duration="0.473" type="success" />
+            <result duration="0.048" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="4.687" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.949" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="3" line="6" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="11.01.16 17:01:54.0280">
+      <suite id="3" line="6" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables />
         <statements>
-          <call id="4" line="52" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0282">
+          <call id="4" line="52" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
-            <result duration="0.455" type="success" />
+            <result duration="0.038" type="success" />
           </call>
-          <call id="5" line="53" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0285">
+          <call id="5" line="53" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
-            <result duration="0.356" type="success" />
+            <result duration="0.036" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="5.180" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="1.165" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="6" line="9" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="11.01.16 17:01:54.0286">
+      <suite id="6" line="9" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables>
           <variable name="param1" value="Foobar" />
         </variables>
         <statements>
-          <call id="7" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0289">
+          <call id="7" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Foobar" />
             </parameters>
-            <result duration="0.779" type="success" />
+            <result duration="0.158" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="3.682" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.733" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="8" line="10" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="11.01.16 17:01:54.0291">
+      <suite id="8" line="10" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables>
           <variable name="param1" value="Foobar" />
         </variables>
         <statements>
-          <call id="9" line="52" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0293">
+          <call id="9" line="52" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Foobar" />
             </parameters>
-            <result duration="0.617" type="success" />
+            <result duration="0.099" type="success" />
           </call>
-          <call id="10" line="53" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0296">
+          <call id="10" line="53" name="echoString" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
-            <result duration="0.558" type="success" />
+            <result duration="0.036" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="6.237" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="1.268" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="11" line="13" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="11.01.16 17:01:54.0298">
+      <suite id="11" line="13" name="integrity.basic.suitecalls.testSuiteMultiParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables>
           <variable name="param1" value="Foo" />
           <variable name="param2" value="Bar" />
         </variables>
         <statements>
-          <call id="12" line="52" name="echoString" description="Echo the string 'Foo'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0301">
+          <call id="12" line="52" name="echoString" description="Echo the string 'Foo'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Foo" />
             </parameters>
-            <result duration="0.627" type="success" />
+            <result duration="0.100" type="success" />
           </call>
-          <call id="13" line="53" name="echoString" description="Echo the string 'Bar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0305">
+          <call id="13" line="53" name="echoString" description="Echo the string 'Bar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Bar" />
             </parameters>
-            <result duration="0.677" type="success" />
+            <result duration="0.099" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="7.299" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="1.350" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="14" line="17" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="11.01.16 17:01:54.0307">
+      <suite id="14" line="17" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables>
           <variable name="param1" value="Foobar" />
         </variables>
         <statements>
-          <call id="15" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0310">
+          <call id="15" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Foobar" />
             </parameters>
-            <result duration="0.716" type="success" />
+            <result duration="0.102" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="3.221" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.685" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="16" line="21" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="11.01.16 17:01:54.0312">
+      <suite id="16" line="21" name="integrity.basic.suitecalls.testSuiteSingleParam" timestamp="14.01.16 10:58:51.0573">
         <setup />
         <variables>
           <variable name="param1" value="Foobar" />
         </variables>
         <statements>
-          <call id="17" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="11.01.16 17:01:54.0315">
+          <call id="17" line="48" name="echoString" description="Echo the string 'Foobar'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:51.0573">
             <parameters>
               <parameter name="string" value="Foobar" />
             </parameters>
-            <result duration="1.006" type="success" />
+            <result duration="0.097" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="3.732" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.678" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
+    <returns />
     <teardown />
-    <result duration="42.160" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="9.920" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

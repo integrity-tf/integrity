@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 09:44" isotimestamp="2016-01-12T09:44:39" duration="6.610">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:46" duration="7.530">
   <variables />
-  <suite id="0" name="integrity.basic.extendedResults.extendedResultsTableTest" timestamp="12.01.16 09:44:39.0356">
+  <suite id="0" name="integrity.basic.extendedResults.extendedResultsTableTest" timestamp="14.01.16 10:58:46.0593">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="15" name="returnExtendedStuffTest" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff" timestamp="12.01.16 09:44:39.0357">
+      <tabletest id="1" line="15" name="returnExtendedStuffTest" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff" timestamp="14.01.16 10:58:46.0593">
         <parameters>
           <parameter name="imageCount" value="2" />
           <parameter name="textCount" value="2" />
@@ -18,8 +18,8 @@ And it even has multiple lines!]]></extResultText>
           <extResultImage type="image/png" width="100" height="100">iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAA30lEQVR42u3asQkAMAwDMP//dPtAu2UwRIbsxlqTM5wko7euHxAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAKepnwKZ+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQKkB8SAvk6AAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBMivnwGb+gEBAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIkB4QA/o6AQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgz1zHd6HOM8M2UAAAAABJRU5ErkJggg==</extResultImage>
           <extResultImage type="image/png" width="100" height="100" title="Image number 1">iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAA30lEQVR42u3asQkAMAwDMP//dPtAu2UwRIbsxlqTM5wko7euHxAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAKepnwKZ+QIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQKkB8SAvk6AAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBMivnwGb+gEBAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIkB4QA/o6AQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgz1zHd6HOM8M2UAAAAABJRU5ErkJggg==</extResultImage>
         </extResults>
-        <results duration="1.299" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.224" description="returnExtendedStuff" type="success">
+        <results duration="1.534" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.486" description="returnExtendedStuff" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="true" value="true" type="success" />
@@ -28,8 +28,9 @@ And it even has multiple lines!]]></extResultText>
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="6.094" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="6.982" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

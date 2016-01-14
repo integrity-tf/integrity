@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.06.15 16:46" isotimestamp="2015-06-18T16:46:05" duration="17.628">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="2.466">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareCallArbitrary" timestamp="18.06.15 16:46:05.0123">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareCallArbitrary" timestamp="14.01.16 10:58:51.0944">
     <setup />
     <variables>
       <variable name="target1" />
       <variable name="target2" />
     </variables>
     <statements>
-      <call id="1" line="30" name="echoStringsArbitrary" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="18.06.15 16:46:05.0123">
+      <call id="1" line="30" name="echoStringsArbitrary" description="Echo some strings" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoStringsArbitrary" timestamp="14.01.16 10:58:51.0944">
         <parameters>
           <parameter name="string1" value="Echo this!" />
           <parameter name="string2" value="Echo this as well!" />
           <parameter name="string3" value="And this!" />
         </parameters>
-        <result duration="3.261" type="success">
+        <result duration="0.371" type="success">
           <variableUpdate name="target1" parameter="string1" value="Echo this!" />
           <variableUpdate name="target2" parameter="string2" value="Echo this as well!" />
         </result>
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="10.826" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.005" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

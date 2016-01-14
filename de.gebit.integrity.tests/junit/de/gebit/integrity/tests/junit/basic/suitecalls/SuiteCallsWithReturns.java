@@ -5,62 +5,54 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.tests.junit.basic.visibility;
+package de.gebit.integrity.tests.junit.basic.suitecalls;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.junit.Test;
 
-import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
 
 /**
- * JUnit test which performs some variable visibility tests.
+ * JUnit test which performs some suite call tests.
  * 
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SuiteVisibility extends IntegrityJUnitTest {
+public class SuiteCallsWithReturns extends IntegrityJUnitTest {
 
 	/**
-	 * Tests successful references.
+	 * Tests suite calls with parameters.
 	 * 
 	 * @throws ModelLoadException
 	 * @throws IOException
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testSuccess() throws ModelLoadException, IOException, JDOMException {
+	public void testSimpleSuiteCallWithReturn() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/visibility/suiteVisibility.integrity" },
-				"integrity.basic.visibility.suites.success", null);
+				new String[] { "integrity/suites/basic/suitecalls/suiteCallsWithReturns.integrity" },
+				"integrity.basic.suitecalls.simpleSuiteCallWithReturn", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 
 	/**
-	 * Tests failing references.
+	 * Tests suite calls with parameters which have defaults.
 	 * 
 	 * @throws ModelLoadException
 	 * @throws IOException
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testFail() throws ModelLoadException, IOException, JDOMException {
-		assertExceptionIsThrown(new RunnableWithException() {
-
-			@Override
-			public void run() throws Exception {
-				executeIntegritySuite(
-						new String[] { "integrity/suites/basic/visibility/suiteVisibilityFail.integrity" },
-						"integrity.basic.visibility.suites.fail", null);
-			}
-		}, ModelRuntimeLinkException.class, null, Pattern.compile(
-				".*?/suiteVisibilityFail.integrity:19 - Failed to resolve suite referenced in suite call 'suite privateOtherPackage'"));
+	public void testSuiteCallWithComplexMultiReturn() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/suitecalls/suiteCallsWithReturns.integrity" },
+				"integrity.basic.suitecalls.suiteCallWithComplexMultiReturn", null);
+		assertDocumentMatchesReference(tempResult);
 	}
 
 }

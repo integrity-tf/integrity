@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 09:44" isotimestamp="2016-01-12T09:44:37" duration="4.464">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:45" duration="3.344">
   <variables />
-  <suite id="0" name="integrity.basic.mandatoryParameters.tabletestWithAllParams" timestamp="12.01.16 09:44:37.0924">
+  <suite id="0" name="integrity.basic.mandatoryParameters.tabletestWithAllParams" timestamp="14.01.16 10:58:45.0664">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="39" name="takeMandatoryStringTest" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="12.01.16 09:44:37.0925">
+      <tabletest id="1" line="39" name="takeMandatoryStringTest" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="14.01.16 10:58:45.0664">
         <parameters />
-        <results duration="2.178" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.454" description="Takes one mandatory and an optional string" type="success">
+        <results duration="1.643" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.392" description="Takes one mandatory and an optional string" type="success">
             <parameters>
               <parameter name="mandatory" value="foo" />
               <parameter name="optional" value="bar" />
@@ -20,8 +20,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="3.695" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.718" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

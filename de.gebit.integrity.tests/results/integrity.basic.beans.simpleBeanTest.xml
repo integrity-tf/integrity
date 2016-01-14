@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:22" duration="22.853">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="4.680">
   <variables />
-  <suite id="0" name="integrity.basic.beans.simpleBeanTest" timestamp="03.07.13 22:30:22.0801">
+  <suite id="0" name="integrity.basic.beans.simpleBeanTest" timestamp="14.01.16 10:58:51.0774">
     <setup />
     <variables />
     <statements>
       <comment id="1" line="7">This should succeed</comment>
-      <test id="2" line="8" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean" timestamp="03.07.13 22:30:22.0817">
-        <results duration="3.201" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="3.201" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
+      <test id="2" line="8" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean" timestamp="14.01.16 10:58:51.0774">
+        <results duration="0.488" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.488" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.99}}" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" />
             </parameters>
@@ -19,9 +19,9 @@
         </results>
       </test>
       <comment id="3" line="16">This should fail</comment>
-      <test id="4" line="17" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean" timestamp="03.07.13 22:30:22.0817">
-        <results duration="3.816" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="3.816" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
+      <test id="4" line="17" name="checkSimpleBean" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#checkSimpleBean" timestamp="14.01.16 10:58:51.0774">
+        <results duration="0.311" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.311" description="checks the bean {firstParameter = string, secondParameter = 100, thirdParameter = {innerParameter = 1.98}}" type="failure">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.98[NL][T]}[NL]}" />
             </parameters>
@@ -32,8 +32,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="21.530" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="4.074" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

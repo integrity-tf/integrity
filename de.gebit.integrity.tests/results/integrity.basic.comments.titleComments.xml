@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:22" duration="10.977">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:47" duration="6.716">
   <variables />
-  <suite id="0" name="integrity.basic.comments.titleComments" timestamp="03.07.13 22:30:22.0597">
+  <suite id="0" name="integrity.basic.comments.titleComments" timestamp="14.01.16 10:58:47.0586">
     <setup />
     <variables />
     <statements>
-      <suite id="1" line="6" name="integrity.basic.comments.titleComments1" timestamp="03.07.13 22:30:22.0597" title="This is a title comment used as suite title">
+      <suite id="1" line="6" name="integrity.basic.comments.titleComments1" timestamp="14.01.16 10:58:47.0586" title="This is a title comment used as suite title">
         <setup />
         <variables />
         <statements>
           <comment id="2" line="15" type="suitetitle">This is a title comment used as suite title</comment>
           <comment id="3" line="17" type="title">This title comment is not used as suite title</comment>
-          <call id="4" line="19" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:22.0597">
+          <call id="4" line="19" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:47.0586">
             <parameters />
-            <result duration="0.082" type="success" />
+            <result duration="0.030" type="success" />
           </call>
           <comment id="5" line="21" type="title">This is also a title comment, but not used as suite title as well</comment>
-          <call id="6" line="23" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:22.0597">
+          <call id="6" line="23" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:47.0586">
             <parameters />
-            <result duration="0.073" type="success" />
+            <result duration="0.030" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="4.400" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="2.503" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="7" line="7" name="integrity.basic.comments.titleComments2" timestamp="03.07.13 22:30:22.0597" title="This is a title comment used as suite title">
+      <suite id="7" line="7" name="integrity.basic.comments.titleComments2" timestamp="14.01.16 10:58:47.0586" title="This is a title comment used as suite title">
         <setup />
         <variables />
         <statements>
           <comment id="8" line="29" type="suitetitle">This is a title comment used as suite title</comment>
-          <call id="9" line="31" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:22.0597">
+          <call id="9" line="31" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:47.0586">
             <parameters />
-            <result duration="0.105" type="success" />
+            <result duration="0.026" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="1.556" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.817" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="10" line="8" name="integrity.basic.comments.titleComments3" timestamp="03.07.13 22:30:22.0597">
+      <suite id="10" line="8" name="integrity.basic.comments.titleComments3" timestamp="14.01.16 10:58:47.0586">
         <setup />
         <variables />
         <statements>
           <comment id="11" line="38" type="title">This title comment is the first one</comment>
-          <call id="12" line="40" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:22.0597">
+          <call id="12" line="40" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:47.0586">
             <parameters />
-            <result duration="0.058" type="success" />
+            <result duration="0.027" type="success" />
           </call>
           <comment id="13" line="42" type="title">This is the second title comment</comment>
-          <call id="14" line="44" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:22.0597">
+          <call id="14" line="44" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:47.0586">
             <parameters />
-            <result duration="0.051" type="success" />
+            <result duration="0.025" type="success" />
           </call>
         </statements>
+        <returns />
         <teardown />
-        <result duration="2.071" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="1.728" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
+    <returns />
     <teardown />
-    <result duration="9.362" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="6.249" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

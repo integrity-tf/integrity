@@ -73,12 +73,12 @@ public class DefaultModelChecker implements ModelChecker {
 	@Override
 	public void check(Test aTest) throws ModelRuntimeLinkException {
 		if (aTest.getDefinition() == null || aTest.getDefinition().getName() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test definition for test statement.", aTest,
+			throw new ModelRuntimeLinkException("Failed to resolve test definition for test statement", aTest,
 					modelSourceExplorer.determineSourceInformation(aTest));
 		}
 		if (aTest.getDefinition().getFixtureMethod() == null
 				|| aTest.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition.", aTest,
+			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition", aTest,
 					modelSourceExplorer.determineSourceInformation(aTest));
 		}
 
@@ -103,12 +103,12 @@ public class DefaultModelChecker implements ModelChecker {
 	@Override
 	public void check(Call aCall) throws ModelRuntimeLinkException {
 		if (aCall.getDefinition() == null || aCall.getDefinition().getName() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve call definition for call statement.", aCall,
+			throw new ModelRuntimeLinkException("Failed to resolve call definition for call statement", aCall,
 					modelSourceExplorer.determineSourceInformation(aCall));
 		}
 		if (aCall.getDefinition().getFixtureMethod() == null
 				|| aCall.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve call fixture for call definition.", aCall,
+			throw new ModelRuntimeLinkException("Failed to resolve call fixture for call definition", aCall,
 					modelSourceExplorer.determineSourceInformation(aCall));
 		}
 
@@ -128,12 +128,12 @@ public class DefaultModelChecker implements ModelChecker {
 	@Override
 	public void check(TableTest aTableTest) throws ModelRuntimeLinkException {
 		if (aTableTest.getDefinition() == null || aTableTest.getDefinition().getName() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test definition for tabletest statement.",
-					aTableTest, modelSourceExplorer.determineSourceInformation(aTableTest));
+			throw new ModelRuntimeLinkException("Failed to resolve test definition for tabletest statement", aTableTest,
+					modelSourceExplorer.determineSourceInformation(aTableTest));
 		}
 		if (aTableTest.getDefinition().getFixtureMethod() == null
 				|| aTableTest.getDefinition().getFixtureMethod().getMethod() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition.", aTableTest,
+			throw new ModelRuntimeLinkException("Failed to resolve test fixture for test definition", aTableTest,
 					modelSourceExplorer.determineSourceInformation(aTableTest));
 		}
 
@@ -187,12 +187,12 @@ public class DefaultModelChecker implements ModelChecker {
 			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer
 					.determineSourceInformation(aMethodReference);
 			String tempClassName = tempSourceInfo.getSnippet().split("#")[0].trim();
-			throw new ModelRuntimeLinkException("Failed to resolve fixture class '" + tempClassName + "'.",
+			throw new ModelRuntimeLinkException("Failed to resolve fixture class '" + tempClassName + "'",
 					aMethodReference, tempSourceInfo, exc);
 		} catch (MethodNotFoundException exc) {
 			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer
 					.determineSourceInformation(aMethodReference);
-			throw new ModelRuntimeLinkException("Failed to resolve fixture method '" + exc.getMessage() + "'.",
+			throw new ModelRuntimeLinkException("Failed to resolve fixture method '" + exc.getMessage() + "'",
 					aMethodReference, tempSourceInfo, exc);
 		}
 	}
@@ -206,11 +206,11 @@ public class DefaultModelChecker implements ModelChecker {
 	@Override
 	public void check(CustomOperation aCustomOperation) throws ModelRuntimeLinkException {
 		if (aCustomOperation.getDefinition() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve operation definition for custom operation.",
+			throw new ModelRuntimeLinkException("Failed to resolve operation definition for custom operation",
 					aCustomOperation, modelSourceExplorer.determineSourceInformation(aCustomOperation));
 		} else if (aCustomOperation.getDefinition().getOperationType() == null
 				|| aCustomOperation.getDefinition().getOperationType().getType() == null) {
-			throw new ModelRuntimeLinkException("Failed to resolve operation class for custom operation definition.",
+			throw new ModelRuntimeLinkException("Failed to resolve operation class for custom operation definition",
 					aCustomOperation, modelSourceExplorer.determineSourceInformation(aCustomOperation));
 		}
 
@@ -226,7 +226,7 @@ public class DefaultModelChecker implements ModelChecker {
 		} catch (ClassNotFoundException exc) {
 			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(tempType);
 			String tempClassName = tempSourceInfo.getSnippet().split("#")[0].trim();
-			throw new ModelRuntimeLinkException("Failed to resolve operation class '" + tempClassName + "'.", tempType,
+			throw new ModelRuntimeLinkException("Failed to resolve operation class '" + tempClassName + "'", tempType,
 					tempSourceInfo, exc);
 		}
 
@@ -303,13 +303,14 @@ public class DefaultModelChecker implements ModelChecker {
 	public void check(Suite aSuite) throws ModelRuntimeLinkException {
 		if (aSuite.getDefinition() == null) {
 			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(aSuite);
-			throw new ModelRuntimeLinkException("Failed to resolve suite.", aSuite, tempSourceInfo);
+			throw new ModelRuntimeLinkException("Failed to resolve suite", aSuite, tempSourceInfo);
 		}
 
 		if (aSuite.getDefinition().getName() == null) {
 			ModelSourceInformationElement tempSourceInfo = modelSourceExplorer.determineSourceInformation(aSuite);
-			throw new ModelRuntimeLinkException("Failed to resolve suite referenced in suite call '"
-					+ tempSourceInfo.getSnippet() + "'.", aSuite.getDefinition(), tempSourceInfo);
+			throw new ModelRuntimeLinkException(
+					"Failed to resolve suite referenced in suite call '" + tempSourceInfo.getSnippet() + "'",
+					aSuite.getDefinition(), tempSourceInfo);
 		}
 
 		for (SuiteParameter tempParameter : aSuite.getParameters()) {

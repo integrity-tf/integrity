@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="01.08.13 13:22" isotimestamp="2013-08-01T13:22:21" duration="17.481">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:45" duration="3.918">
   <variables />
-  <suite id="0" name="integrity.basic.mandatoryParameters.callWithMandatoryParam" timestamp="01.08.13 13:22:21.0140">
+  <suite id="0" name="integrity.basic.mandatoryParameters.callWithMandatoryParam" timestamp="14.01.16 10:58:45.0195">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="15" name="takeMandatoryString" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="01.08.13 13:22:21.0156">
+      <call id="1" line="15" name="takeMandatoryString" description="Takes one mandatory and an optional string" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#takeMandatoryString" timestamp="14.01.16 10:58:45.0195">
         <parameters>
           <parameter name="mandatory" value="foo" />
         </parameters>
-        <result duration="3.650" type="success" />
+        <result duration="0.664" type="success" />
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="14.639" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="3.071" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

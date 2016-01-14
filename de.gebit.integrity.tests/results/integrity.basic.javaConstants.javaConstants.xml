@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:20" duration="23.990">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:46" duration="6.731">
   <variables />
-  <suite id="0" name="integrity.basic.javaConstants.javaConstants" timestamp="03.07.13 22:30:20.0564">
+  <suite id="0" name="integrity.basic.javaConstants.javaConstants" timestamp="14.01.16 10:58:46.0734">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="14" name="echoMapTest" description="Echo the map 'InnerBeanClass: String'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="03.07.13 22:30:20.0564">
-        <results duration="6.372" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="6.372" description="Echo the map 'InnerBeanClass: String'" type="success">
+      <test id="1" line="14" name="echoMapTest" description="Echo the map 'InnerBeanClass: String'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="14.01.16 10:58:46.0734">
+        <results duration="2.212" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.212" description="Echo the map 'InnerBeanClass: String'" type="success">
             <parameters>
               <parameter name="map" value="InnerBeanClass: String" />
             </parameters>
@@ -18,8 +18,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="21.876" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="6.106" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

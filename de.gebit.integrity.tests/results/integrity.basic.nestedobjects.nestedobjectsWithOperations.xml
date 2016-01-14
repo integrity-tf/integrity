@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="02.11.13 18:43" isotimestamp="2013-11-02T18:43:10" duration="32.015">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:49" duration="7.833">
   <variables />
-  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsWithOperations" timestamp="02.11.13 18:43:10.0945">
+  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsWithOperations" timestamp="14.01.16 10:58:49.0189">
     <setup />
     <variables>
       <variable name="operationVar" value="2" />
@@ -9,17 +9,17 @@
       <variable name="obj2" />
     </variables>
     <statements>
-      <call id="1" line="68" name="echoMap" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="02.11.13 18:43:10.0956">
+      <call id="1" line="68" name="echoMap" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="14.01.16 10:58:49.0189">
         <parameters>
           <parameter name="map" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
         </parameters>
-        <result duration="1.744" type="success">
+        <result duration="0.219" type="success">
           <variableUpdate name="obj2" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
         </result>
       </call>
-      <test id="2" line="72" name="echoMapTest" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="02.11.13 18:43:10.0967">
-        <results duration="1.082" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.082" description="Echo the map '{key1 = 2}'" type="success">
+      <test id="2" line="72" name="echoMapTest" description="Echo the map '{key1 = 2}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="14.01.16 10:58:49.0189">
+        <results duration="0.190" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.190" description="Echo the map '{key1 = 2}'" type="success">
             <parameters>
               <parameter name="map" value="[FORMATTED]{[NL][T]key1 = 2[NL]}" />
             </parameters>
@@ -30,8 +30,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="25.713" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="7.055" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

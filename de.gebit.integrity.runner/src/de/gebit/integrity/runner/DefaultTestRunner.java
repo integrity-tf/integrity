@@ -56,6 +56,8 @@ import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
@@ -793,11 +795,30 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
+		// Also define the output variables
+		for (SuiteReturnDefinition tempReturnDefinition : aSuiteCall.getDefinition().getReturn()) {
+			defineVariable(tempReturnDefinition.getName(), null, aSuiteCall.getDefinition());
+			tempVariablesSet.add(tempReturnDefinition.getName());
+		}
+
 		long tempSuiteDuration = System.nanoTime();
 		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
-		// Now unset all the parameter variables' values again (fixes issue #44)
+		// Fetch all output values into their respective local target variables
+		for (SuiteReturn tempReturn : aSuiteCall.getReturn()) {
+			VariableEntity tempSource = tempReturn.getName().getName();
+			VariableEntity tempTarget = tempReturn.getTarget().getName();
+			Object tempValue = variableManager.get(tempSource);
+			setVariableValue(tempTarget, tempValue, true);
+			if (currentCallback != null) {
+				currentCallback.onCallbackProcessingStart();
+				currentCallback.onReturnVariableAssignment(tempReturn, tempSource, tempTarget, aSuiteCall, tempValue);
+				currentCallback.onCallbackProcessingEnd();
+			}
+		}
+
+		// Now unset all the suite-scoped variables again (fixes issue #44)
 		for (VariableOrConstantEntity tempVariableSet : tempVariablesSet) {
 			variableManager.unset(tempVariableSet);
 		}

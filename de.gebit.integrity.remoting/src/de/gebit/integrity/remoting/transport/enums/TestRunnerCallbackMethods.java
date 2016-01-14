@@ -53,6 +53,8 @@ public enum TestRunnerCallbackMethods {
 
 	VARIABLE_ASSIGNMENT,
 
+	RETURN_ASSIGNMENT,
+
 	VISIBLE_COMMENT,
 
 	VISIBLE_DIVIDER,

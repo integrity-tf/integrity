@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:25" duration="82.101">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:44" duration="43.146">
   <variables />
-  <suite id="0" name="integrity.basic.operations.decimalformat" timestamp="03.07.13 22:30:25.0261">
+  <suite id="0" name="integrity.basic.operations.decimalformat" timestamp="14.01.16 10:58:44.0362">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="8" name="echoStringTest" description="Echo the string '123.50'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.07.13 22:30:25.0277">
-        <results duration="0.229" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.229" description="Echo the string '123.50'" type="success">
+      <test id="1" line="8" name="echoStringTest" description="Echo the string '123.50'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:44.0362">
+        <results duration="0.169" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.169" description="Echo the string '123.50'" type="success">
             <parameters>
               <parameter name="string" value="123.50" />
             </parameters>
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="9" name="echoStringTest" description="Echo the string '0012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.07.13 22:30:25.0292">
-        <results duration="0.242" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.242" description="Echo the string '0012'" type="success">
+      <test id="2" line="9" name="echoStringTest" description="Echo the string '0012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:44.0377">
+        <results duration="0.170" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.170" description="Echo the string '0012'" type="success">
             <parameters>
               <parameter name="string" value="0012" />
             </parameters>
@@ -29,9 +29,9 @@
           </result>
         </results>
       </test>
-      <test id="3" line="10" name="echoStringTest" description="Echo the string '12.35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.07.13 22:30:25.0308">
-        <results duration="0.443" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.443" description="Echo the string '12.35'" type="success">
+      <test id="3" line="10" name="echoStringTest" description="Echo the string '12.35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:44.0377">
+        <results duration="0.248" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.248" description="Echo the string '12.35'" type="success">
             <parameters>
               <parameter name="string" value="12.35" />
             </parameters>
@@ -41,9 +41,9 @@
           </result>
         </results>
       </test>
-      <test id="4" line="11" name="echoStringTest" description="Echo the string '12,35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.07.13 22:30:25.0339">
-        <results duration="0.280" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.280" description="Echo the string '12,35'" type="success">
+      <test id="4" line="11" name="echoStringTest" description="Echo the string '12,35'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:44.0393">
+        <results duration="0.153" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.153" description="Echo the string '12,35'" type="success">
             <parameters>
               <parameter name="string" value="12,35" />
             </parameters>
@@ -54,8 +54,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="77.477" successCount="4" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="41.777" successCount="4" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

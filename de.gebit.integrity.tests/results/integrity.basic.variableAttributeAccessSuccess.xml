@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="13.01.16 09:47" isotimestamp="2016-01-13T09:47:59" duration="45.663">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:49" duration="22.375">
   <variables />
-  <suite id="0" name="integrity.basic.variableAttributeAccessSuccess" timestamp="13.01.16 09:47:59.0114">
+  <suite id="0" name="integrity.basic.variableAttributeAccessSuccess" timestamp="14.01.16 10:58:49.0851">
     <setup />
     <variables>
       <variable name="testvar" />
     </variables>
     <statements>
-      <call id="1" line="35" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="13.01.16 09:47:59.0130">
+      <call id="1" line="35" name="createSimpleBeanUntypedCall" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:49.0851">
         <parameters />
-        <result duration="1.230" type="success">
-          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@1e36e1e4" />
+        <result duration="0.049" type="success">
+          <variableUpdate name="testvar" value="de.gebit.integrity.tests.fixtures.basic.beans.SimpleTestBean@5be1b3fb" />
         </result>
       </call>
-      <test id="2" line="37" name="echoStringTest" description="Echo the string 'string'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="13.01.16 09:47:59.0145">
-        <results duration="1.702" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.702" description="Echo the string 'string'" type="success">
+      <test id="2" line="37" name="echoStringTest" description="Echo the string 'string'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:49.0851">
+        <results duration="0.069" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.069" description="Echo the string 'string'" type="success">
             <parameters>
               <parameter name="string" value="string" />
             </parameters>
@@ -25,9 +25,9 @@
           </result>
         </results>
       </test>
-      <test id="3" line="38" name="echoIntegerTest" description="Echo the integer '100'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="13.01.16 09:47:59.0161">
-        <results duration="0.611" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.611" description="Echo the integer '100'" type="success">
+      <test id="3" line="38" name="echoIntegerTest" description="Echo the integer '100'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoInteger" timestamp="14.01.16 10:58:49.0867">
+        <results duration="0.126" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.126" description="Echo the integer '100'" type="success">
             <parameters>
               <parameter name="integer" value="100" />
             </parameters>
@@ -38,8 +38,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="40.110" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="21.482" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="18.10.13 14:22" isotimestamp="2013-10-18T14:22:23" duration="85.511">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="8.490">
   <variables />
-  <suite id="0" name="integrity.basic.operations.standardOperationsIndirectly" timestamp="18.10.13 14:22:23.0720">
+  <suite id="0" name="integrity.basic.operations.standardOperationsIndirectly" timestamp="14.01.16 10:58:48.0970">
     <setup />
     <variables>
       <variable name="firstvar" value="a" />
       <variable name="testvar" value="abc" />
     </variables>
     <statements>
-      <test id="1" line="9" name="echoStringTest" description="Echo the string 'abc'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="18.10.13 14:22:23.0748">
-        <results duration="4.376" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="4.376" description="Echo the string 'abc'" type="success">
+      <test id="1" line="9" name="echoStringTest" description="Echo the string 'abc'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:48.0986">
+        <results duration="0.060" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.060" description="Echo the string 'abc'" type="success">
             <parameters>
               <parameter name="string" value="abc" />
             </parameters>
@@ -20,15 +20,16 @@
           </result>
         </results>
       </test>
-      <call id="2" line="12" name="echoString" description="Echo the string 'abc'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="18.10.13 14:22:23.0790">
+      <call id="2" line="12" name="echoString" description="Echo the string 'abc'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="14.01.16 10:58:48.0986">
         <parameters>
           <parameter name="string" value="abc" />
         </parameters>
-        <result duration="4.924" type="success" />
+        <result duration="0.055" type="success" />
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="75.908" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="7.841" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

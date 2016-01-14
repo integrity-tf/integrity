@@ -67,6 +67,7 @@ import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
@@ -249,6 +250,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/** The Constant VARIABLE_DEFINITION_COLLECTION_ELEMENT. */
 	protected static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
 
+	/** The Constant RETURN_VARIABLE_ASSIGNMENT_COLLECTION_ELEMENT. */
+	protected static final String RETURN_VARIABLE_ASSIGNMENT_COLLECTION_ELEMENT = "returns";
+
 	/** The Constant STATEMENT_COLLECTION_ELEMENT. */
 	protected static final String STATEMENT_COLLECTION_ELEMENT = "statements";
 
@@ -314,6 +318,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant VARIABLE_NAME_ATTRIBUTE. */
 	protected static final String VARIABLE_NAME_ATTRIBUTE = "name";
+
+	/** The Constant VARIABLE_NAME_ATTRIBUTE. */
+	protected static final String VARIABLE_TARGET_ATTRIBUTE = "target";
 
 	/** The Constant VARIABLE_ELEMENT. */
 	protected static final String VARIABLE_ELEMENT = "variable";
@@ -618,6 +625,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		tempSuiteElement.addContent(new Element(SETUP_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(VARIABLE_DEFINITION_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(STATEMENT_COLLECTION_ELEMENT));
+		tempSuiteElement.addContent(new Element(RETURN_VARIABLE_ASSIGNMENT_COLLECTION_ELEMENT));
 		tempSuiteElement.addContent(new Element(TEARDOWN_COLLECTION_ELEMENT));
 
 		if (getForkInExecution() != null) {
@@ -1734,6 +1742,35 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
+	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
+			Suite aSuite, Object aValue) {
+		Element tempVariableElement = new Element(VARIABLE_ELEMENT);
+		tempVariableElement.setAttribute(VARIABLE_NAME_ATTRIBUTE,
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aSource, false));
+		tempVariableElement.setAttribute(VARIABLE_TARGET_ATTRIBUTE,
+				IntegrityDSLUtil.getQualifiedVariableEntityName(aTarget, false));
+		tempVariableElement.setAttribute(VARIABLE_VALUE_ATTRIBUTE,
+				valueConverter.convertValueToFormattedString(aValue, false, null).toFormattedString());
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementsToMaster(TestRunnerCallbackMethods.RETURN_ASSIGNMENT, tempVariableElement);
+			}
+			internalOnReturnVariableAssignment(tempVariableElement);
+		}
+	}
+
+	/**
+	 * Internal version of {@link #onReturnVariableAssignment(SuiteReturn, Suite, Object)}.
+	 * 
+	 * @param aReturnAssignmentElement
+	 */
+	protected void internalOnReturnVariableAssignment(Element aReturnAssignmentElement) {
+		Element tempCollectionElement = stackPeek().getChild(RETURN_VARIABLE_ASSIGNMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aReturnAssignmentElement);
+	}
+
+	@Override
 	public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
 		abortMessage = anAbortExecutionMessage;
 	}
@@ -2106,6 +2143,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			break;
 		case VARIABLE_ASSIGNMENT:
 			internalOnVariableAssignment(tempFirstElement);
+			break;
+		case RETURN_ASSIGNMENT:
+			internalOnReturnVariableAssignment(tempFirstElement);
 			break;
 		case VISIBLE_COMMENT:
 			internalOnVisibleComment(tempFirstElement);

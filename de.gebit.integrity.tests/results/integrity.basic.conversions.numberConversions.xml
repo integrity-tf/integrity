@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="14.11.13 18:22" isotimestamp="2013-11-14T18:22:03" duration="67.578">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:50" duration="4.113">
   <variables />
-  <suite id="0" name="integrity.basic.conversions.numberConversions" timestamp="14.11.13 18:22:03.0065">
+  <suite id="0" name="integrity.basic.conversions.numberConversions" timestamp="14.01.16 10:58:50.0414">
     <setup />
     <variables>
       <variable name="temp" />
     </variables>
     <statements>
-      <test id="1" line="7" name="echoNumberTest" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.11.13 18:22:03.0081">
-        <results duration="5.158" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="5.158" description="Echo the number '2147483648'" type="success">
+      <test id="1" line="7" name="echoNumberTest" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.01.16 10:58:50.0414">
+        <results duration="0.196" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.196" description="Echo the number '2147483648'" type="success">
             <parameters>
               <parameter name="number" value="2147483648" />
             </parameters>
@@ -19,17 +19,17 @@
           </result>
         </results>
       </test>
-      <call id="2" line="10" name="echoNumber" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.11.13 18:22:03.0112">
+      <call id="2" line="10" name="echoNumber" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.01.16 10:58:50.0414">
         <parameters>
           <parameter name="number" value="2147483648" />
         </parameters>
-        <result duration="0.876" type="success">
+        <result duration="0.056" type="success">
           <variableUpdate name="temp" value="2147483648" />
         </result>
       </call>
-      <test id="3" line="11" name="echoNumberTest" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.11.13 18:22:03.0127">
-        <results duration="0.875" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.875" description="Echo the number '2147483648'" type="success">
+      <test id="3" line="11" name="echoNumberTest" description="Echo the number '2147483648'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNumber" timestamp="14.01.16 10:58:50.0414">
+        <results duration="0.043" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.043" description="Echo the number '2147483648'" type="success">
             <parameters>
               <parameter name="number" value="2147483648" />
             </parameters>
@@ -40,8 +40,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="54.715" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="3.652" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

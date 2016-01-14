@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 09:44" isotimestamp="2016-01-12T09:44:42" duration="6.589">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:52" duration="7.310">
   <variables />
-  <suite id="0" name="integrity.basic.enums.namedResultEnumTableTest" timestamp="12.01.16 09:44:42.0527">
+  <suite id="0" name="integrity.basic.enums.namedResultEnumTableTest" timestamp="14.01.16 10:58:52.0853">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="14" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="12.01.16 09:44:42.0528">
+      <tabletest id="1" line="14" name="createEnumNamedResultTest" description="Creates a named result bean with an enum inside" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult" timestamp="14.01.16 10:58:52.0853">
         <parameters />
-        <results duration="5.384" successCount="1" failureCount="3" exceptionCount="0">
-          <result duration="0.137" description="Creates a named result bean with an enum inside" type="success">
+        <results duration="5.930" successCount="1" failureCount="3" exceptionCount="0">
+          <result duration="0.214" description="Creates a named result bean with an enum inside" type="success">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="foobar" value="foobar" type="success" />
@@ -16,7 +16,7 @@
               <comparison name="thirdParameter" expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.083" description="Creates a named result bean with an enum inside" type="failure">
+          <result duration="0.107" description="Creates a named result bean with an enum inside" type="failure">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="foobar" value="foobar" type="success" />
@@ -24,7 +24,7 @@
               <comparison name="thirdParameter" expectedValue="VALUE2" value="VALUE1" type="failure" />
             </comparisons>
           </result>
-          <result duration="0.073" description="Creates a named result bean with an enum inside" type="failure">
+          <result duration="0.108" description="Creates a named result bean with an enum inside" type="failure">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="foobar" value="foobar" type="success" />
@@ -32,7 +32,7 @@
               <comparison name="thirdParameter" expectedValue="VALUE1" value="VALUE1" type="success" />
             </comparisons>
           </result>
-          <result duration="0.072" description="Creates a named result bean with an enum inside" type="failure">
+          <result duration="0.120" description="Creates a named result bean with an enum inside" type="failure">
             <parameters />
             <comparisons>
               <comparison name="firstParameter" expectedValue="footbar" value="foobar" type="failure" />
@@ -43,8 +43,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="6.184" successCount="1" failureCount="3" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="6.816" successCount="1" failureCount="3" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

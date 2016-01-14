@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="13.01.16 11:13" isotimestamp="2016-01-13T11:13:22" duration="26.411">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="5.774">
   <variables />
-  <suite id="0" name="integrity.basic.enums.enumTableTestWithNonTableParam" timestamp="13.01.16 11:13:22.0364">
+  <suite id="0" name="integrity.basic.enums.enumTableTestWithNonTableParam" timestamp="14.01.16 10:58:51.0104">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="29" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 11:13:22.0364">
+      <tabletest id="1" line="29" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="14.01.16 10:58:51.0104">
         <parameters>
           <parameter name="enum" value="VALUE1" />
         </parameters>
-        <results duration="9.682" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="2.624" description="Returns an enum: VALUE1" type="success">
+        <results duration="1.969" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.355" description="Returns an enum: VALUE1" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
@@ -18,12 +18,12 @@
           </result>
         </results>
       </tabletest>
-      <tabletest id="2" line="34" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="13.01.16 11:13:22.0379">
+      <tabletest id="2" line="34" name="echoEnumTest" description="Returns an enum: VALUE1" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoEnum" timestamp="14.01.16 10:58:51.0104">
         <parameters>
           <parameter name="enum" value="VALUE1" />
         </parameters>
-        <results duration="4.078" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.688" description="Returns an enum: VALUE1" type="success">
+        <results duration="1.042" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.183" description="Returns an enum: VALUE1" type="success">
             <parameters />
             <comparisons>
               <comparison expectedValue="VALUE1" value="VALUE1" type="success" />
@@ -32,8 +32,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="20.226" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="5.143" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

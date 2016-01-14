@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:26" duration="79.866">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:52" duration="36.172">
   <variables>
     <variable name="integrity.basic.executionMultipliers.aFirstGlobalConstant" value="3" />
     <variable name="integrity.basic.executionMultipliers.aSecondGlobalConstant" value="4" />
   </variables>
-  <suite id="0" name="integrity.basic.executionMultipliers.executionMultipliers" timestamp="03.07.13 22:30:26.0608">
+  <suite id="0" name="integrity.basic.executionMultipliers.executionMultipliers" timestamp="14.01.16 10:58:52.0616">
     <setup />
     <variables>
       <variable name="testconst" value="2" />
@@ -12,13 +12,13 @@
       <variable name="anotherCalculatedConstant" value="5" />
     </variables>
     <statements>
-      <suite id="1" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="1" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0616">
         <setup />
         <variables />
         <statements>
-          <test id="2" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-            <results duration="0.068" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.068" description="Always return true." type="success">
+          <test id="2" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0616">
+            <results duration="0.047" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.047" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -27,16 +27,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="1.316" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.933" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="3" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="3" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0616">
         <setup />
         <variables />
         <statements>
-          <test id="4" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-            <results duration="0.039" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.039" description="Always return true." type="success">
+          <test id="4" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0616">
+            <results duration="0.045" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.045" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -45,16 +46,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="0.915" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.661" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="5" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="5" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0616">
         <setup />
         <variables />
         <statements>
-          <test id="6" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-            <results duration="0.039" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.039" description="Always return true." type="success">
+          <test id="6" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0616">
+            <results duration="0.044" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.044" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -63,16 +65,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="0.920" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.655" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="7" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="7" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0616">
         <setup />
         <variables />
         <statements>
-          <test id="8" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-            <results duration="0.039" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.039" description="Always return true." type="success">
+          <test id="8" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0616">
+            <results duration="0.041" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -81,14 +84,253 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="0.937" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.631" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="9" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="9" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0616">
         <setup />
         <variables />
         <statements>
-          <test id="10" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
+          <test id="10" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.043" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.043" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.867" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="11" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="12" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.042" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.042" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.643" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="13" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.046" type="success" />
+      </call>
+      <call id="14" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.043" type="success" />
+      </call>
+      <call id="15" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.042" type="success" />
+      </call>
+      <call id="16" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.042" type="success" />
+      </call>
+      <call id="17" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <call id="18" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <suite id="19" line="14" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="20" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.041" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.816" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="21" line="14" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="22" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.040" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.040" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.704" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="23" line="15" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.300" type="success" />
+      </call>
+      <call id="24" line="15" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.047" type="success" />
+      </call>
+      <suite id="25" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="26" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.041" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.735" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="27" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="28" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.042" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.042" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.731" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="29" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="30" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.041" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.731" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="31" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="32" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.038" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.038" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.688" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="33" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.037" type="success" />
+      </call>
+      <call id="34" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.037" type="success" />
+      </call>
+      <call id="35" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.038" type="success" />
+      </call>
+      <call id="36" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+        <parameters />
+        <result duration="0.037" type="success" />
+      </call>
+      <suite id="37" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="38" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.037" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.037" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.635" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="39" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="40" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
+            <results duration="0.037" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.037" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.724" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="41" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0631">
+        <setup />
+        <variables />
+        <statements>
+          <test id="42" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0631">
             <results duration="0.040" successCount="1" failureCount="0" exceptionCount="0">
               <result duration="0.040" description="Always return true." type="success">
                 <parameters />
@@ -99,16 +341,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="0.894" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.691" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="11" line="12" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0608">
+      <suite id="43" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
         <setup />
         <variables />
         <statements>
-          <test id="12" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-            <results duration="0.046" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.046" description="Always return true." type="success">
+          <test id="44" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.041" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -117,172 +360,17 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="1.234" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.660" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <call id="13" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0608">
-        <parameters />
-        <result duration="0.099" type="success" />
-      </call>
-      <call id="14" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.080" type="success" />
-      </call>
-      <call id="15" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.075" type="success" />
-      </call>
-      <call id="16" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.053" type="success" />
-      </call>
-      <call id="17" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.069" type="success" />
-      </call>
-      <call id="18" line="13" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.048" type="success" />
-      </call>
-      <suite id="19" line="14" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0624">
+      <suite id="45" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
         <setup />
         <variables />
         <statements>
-          <test id="20" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-            <results duration="0.428" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.428" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.940" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="21" line="14" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0624">
-        <setup />
-        <variables />
-        <statements>
-          <test id="22" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-            <results duration="0.079" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.079" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.540" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <call id="23" line="15" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.046" type="success" />
-      </call>
-      <call id="24" line="15" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-        <parameters />
-        <result duration="0.042" type="success" />
-      </call>
-      <suite id="25" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0624">
-        <setup />
-        <variables />
-        <statements>
-          <test id="26" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-            <results duration="0.046" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.046" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.750" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="27" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0624">
-        <setup />
-        <variables />
-        <statements>
-          <test id="28" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0624">
-            <results duration="0.067" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.067" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.745" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="29" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="30" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.044" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.044" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.422" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="31" line="16" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="32" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.046" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.046" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.360" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <call id="33" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-        <parameters />
-        <result duration="0.045" type="success" />
-      </call>
-      <call id="34" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-        <parameters />
-        <result duration="0.041" type="success" />
-      </call>
-      <call id="35" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-        <parameters />
-        <result duration="0.040" type="success" />
-      </call>
-      <call id="36" line="17" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-        <parameters />
-        <result duration="0.066" type="success" />
-      </call>
-      <suite id="37" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="38" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.104" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.104" description="Always return true." type="success">
+          <test id="46" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.038" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.038" description="Always return true." type="success">
                 <parameters />
                 <comparisons>
                   <comparison expectedValue="true" value="true" type="success" />
@@ -291,258 +379,195 @@
             </results>
           </test>
         </statements>
+        <returns />
         <teardown />
-        <result duration="2.486" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.813" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="39" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="40" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.083" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.083" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.874" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="41" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="42" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.048" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.048" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.299" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="43" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0639">
-        <setup />
-        <variables />
-        <statements>
-          <test id="44" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0639">
-            <results duration="0.059" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.059" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.688" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="45" line="18" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0655">
-        <setup />
-        <variables />
-        <statements>
-          <test id="46" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-            <results duration="0.070" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.070" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.735" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <call id="47" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-        <parameters />
-        <result duration="0.068" type="success" />
-      </call>
-      <call id="48" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-        <parameters />
-        <result duration="0.071" type="success" />
-      </call>
-      <call id="49" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-        <parameters />
-        <result duration="0.071" type="success" />
-      </call>
-      <call id="50" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-        <parameters />
-        <result duration="0.060" type="success" />
-      </call>
-      <call id="51" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-        <parameters />
-        <result duration="0.068" type="success" />
-      </call>
-      <suite id="52" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0655">
-        <setup />
-        <variables />
-        <statements>
-          <test id="53" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-            <results duration="0.077" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.077" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="2.279" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="54" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0655">
-        <setup />
-        <variables />
-        <statements>
-          <test id="55" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0655">
-            <results duration="0.116" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.116" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="3.345" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="56" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="03.07.13 22:30:26.0670">
-        <setup />
-        <variables />
-        <statements>
-          <test id="57" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-            <results duration="0.071" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="0.071" description="Always return true." type="failure">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="false" value="true" type="failure" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.795" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <call id="58" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-        <parameters />
-        <result duration="0.072" type="success" />
-      </call>
-      <call id="59" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-        <parameters />
-        <result duration="0.070" type="success" />
-      </call>
-      <call id="60" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-        <parameters />
-        <result duration="0.076" type="success" />
-      </call>
-      <suite id="61" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0670">
-        <setup />
-        <variables />
-        <statements>
-          <test id="62" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-            <results duration="0.072" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.072" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.401" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="63" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0670">
-        <setup />
-        <variables />
-        <statements>
-          <test id="64" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-            <results duration="0.068" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.068" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.288" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="65" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0670">
-        <setup />
-        <variables />
-        <statements>
-          <test id="66" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-            <results duration="0.073" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.073" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="1.426" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <suite id="67" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="03.07.13 22:30:26.0670">
-        <setup />
-        <variables />
-        <statements>
-          <test id="68" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-            <results duration="0.092" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.092" description="Always return true." type="success">
-                <parameters />
-                <comparisons>
-                  <comparison expectedValue="true" value="true" type="success" />
-                </comparisons>
-              </result>
-            </results>
-          </test>
-        </statements>
-        <teardown />
-        <result duration="2.101" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
-      </suite>
-      <call id="69" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0670">
-        <parameters />
-        <result duration="0.126" type="success" />
-      </call>
-      <call id="70" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0686">
-        <parameters />
-        <result duration="0.090" type="success" />
-      </call>
-      <call id="71" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0686">
-        <parameters />
-        <result duration="0.060" type="success" />
-      </call>
-      <call id="72" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="03.07.13 22:30:26.0686">
+      <call id="47" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
         <parameters />
         <result duration="0.061" type="success" />
       </call>
+      <call id="48" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.042" type="success" />
+      </call>
+      <call id="49" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <call id="50" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <call id="51" line="19" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.043" type="success" />
+      </call>
+      <suite id="52" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="53" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.052" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.052" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.827" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="54" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="55" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.040" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.040" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.701" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="56" line="20" name="integrity.basic.executionMultipliers.secondSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="57" line="32" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.040" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.040" description="Always return true." type="failure">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="false" value="true" type="failure" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.705" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="58" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.041" type="success" />
+      </call>
+      <call id="59" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <call id="60" line="21" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <suite id="61" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="62" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.041" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.627" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="63" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="64" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.040" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.040" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.663" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="65" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="66" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.041" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.041" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.629" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="67" line="22" name="integrity.basic.executionMultipliers.firstSuite" timestamp="14.01.16 10:58:52.0647">
+        <setup />
+        <variables />
+        <statements>
+          <test id="68" line="28" name="returnTrueTest" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+            <results duration="0.040" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.040" description="Always return true." type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="true" value="true" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="0.639" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <call id="69" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.041" type="success" />
+      </call>
+      <call id="70" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.041" type="success" />
+      </call>
+      <call id="71" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.040" type="success" />
+      </call>
+      <call id="72" line="23" name="returnTrueCall" description="Always return true." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue" timestamp="14.01.16 10:58:52.0647">
+        <parameters />
+        <result duration="0.042" type="success" />
+      </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="78.337" successCount="15" failureCount="9" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="34.952" successCount="15" failureCount="9" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

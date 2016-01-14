@@ -34,6 +34,7 @@ import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
@@ -560,6 +561,12 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
 		sendUpdateToClients(null, tempNewEntry);
+	}
+
+	@Override
+	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
+			Suite aSuite, Object aValue) {
+		// not used in this context
 	}
 
 	/**

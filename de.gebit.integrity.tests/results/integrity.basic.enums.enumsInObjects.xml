@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="01.04.14 13:30" isotimestamp="2014-04-01T13:30:12" duration="31.472">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:49" duration="13.663">
   <variables />
-  <suite id="0" name="integrity.basic.enums.enumsInObjects" timestamp="01.04.14 13:30:12.0277">
+  <suite id="0" name="integrity.basic.enums.enumsInObjects" timestamp="14.01.16 10:58:49.0111">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="6" name="echoEnumTestBean" description="echoes the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumTestBean" timestamp="01.04.14 13:30:12.0277">
-        <results duration="1.459" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="1.459" description="echoes the provided enum test bean" type="success">
+      <test id="1" line="6" name="echoEnumTestBean" description="echoes the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumTestBean" timestamp="14.01.16 10:58:49.0111">
+        <results duration="0.463" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.463" description="echoes the provided enum test bean" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]enumValue = VALUE1[NL]}" />
             </parameters>
@@ -17,9 +17,9 @@
           </result>
         </results>
       </test>
-      <test id="2" line="13" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="01.04.14 13:30:12.0292">
-        <results duration="0.564" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="0.564" description="echoes the enum value from the provided enum test bean" type="failure">
+      <test id="2" line="13" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="14.01.16 10:58:49.0127">
+        <results duration="0.234" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.234" description="echoes the enum value from the provided enum test bean" type="failure">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]enumValue = VALUE1[NL]}" />
             </parameters>
@@ -29,9 +29,9 @@
           </result>
         </results>
       </test>
-      <test id="3" line="18" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="01.04.14 13:30:12.0292">
-        <results duration="0.655" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.655" description="echoes the enum value from the provided enum test bean" type="success">
+      <test id="3" line="18" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="14.01.16 10:58:49.0127">
+        <results duration="0.291" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.291" description="echoes the enum value from the provided enum test bean" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]enumValue = VALUE1[NL]}" />
             </parameters>
@@ -41,9 +41,9 @@
           </result>
         </results>
       </test>
-      <test id="4" line="23" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="01.04.14 13:30:12.0292">
-        <results duration="0.532" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.532" description="echoes the enum value from the provided enum test bean" type="success">
+      <test id="4" line="23" name="echoEnumValueFromTestBean" description="echoes the enum value from the provided enum test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#echoEnumValueFromTestBean" timestamp="14.01.16 10:58:49.0127">
+        <results duration="0.394" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.394" description="echoes the enum value from the provided enum test bean" type="success">
             <parameters>
               <parameter name="bean" value="[FORMATTED]{[NL][T]enumValue = VALUE1[NL]}" />
             </parameters>
@@ -54,8 +54,9 @@
         </results>
       </test>
     </statements>
+    <returns />
     <teardown />
-    <result duration="26.951" successCount="3" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="13.108" successCount="3" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

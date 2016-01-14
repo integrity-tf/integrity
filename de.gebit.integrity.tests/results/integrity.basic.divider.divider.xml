@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:19" duration="11.480">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="5.043">
   <variables />
-  <suite id="0" name="integrity.basic.divider.divider" timestamp="03.07.13 22:30:19.0719">
+  <suite id="0" name="integrity.basic.divider.divider" timestamp="14.01.16 10:58:48.0924">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="6" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:19.0719">
+      <call id="1" line="6" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:48.0924">
         <parameters />
-        <result duration="0.136" type="success" />
+        <result duration="0.027" type="success" />
       </call>
       <divider id="2" line="8" text="----" />
-      <call id="3" line="10" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:19.0719">
+      <call id="3" line="10" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:48.0924">
         <parameters />
-        <result duration="0.118" type="success" />
+        <result duration="0.024" type="success" />
       </call>
       <comment id="4" line="12">This is a visible comment, not a divider!</comment>
       <comment id="5" line="13" type="title">This too!</comment>
-      <call id="6" line="15" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:19.0719">
+      <call id="6" line="15" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:48.0924">
         <parameters />
-        <result duration="0.078" type="success" />
+        <result duration="0.024" type="success" />
       </call>
-      <call id="7" line="16" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:19.0719">
+      <call id="7" line="16" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:48.0924">
         <parameters />
-        <result duration="0.076" type="success" />
+        <result duration="0.023" type="success" />
       </call>
       <divider id="8" line="19" text="-----------------------------------------------------------" />
-      <call id="9" line="21" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="03.07.13 22:30:19.0719">
+      <call id="9" line="21" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:48.0924">
         <parameters />
-        <result duration="0.079" type="success" />
+        <result duration="0.031" type="success" />
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="9.825" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="4.379" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

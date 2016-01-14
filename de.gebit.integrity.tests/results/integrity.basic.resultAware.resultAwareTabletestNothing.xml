@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="12.01.16 09:44" isotimestamp="2016-01-12T09:44:41" duration="2.586">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="2.976">
   <variables />
-  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestNothing" timestamp="12.01.16 09:44:41.0551">
+  <suite id="0" name="integrity.basic.resultAware.resultAwareTabletestNothing" timestamp="14.01.16 10:58:48.0105">
     <setup />
     <variables />
     <statements>
-      <tabletest id="1" line="9" name="echoBoolTest" description="Echo the boolean" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoBool" timestamp="12.01.16 09:44:41.0551">
+      <tabletest id="1" line="9" name="echoBoolTest" description="Echo the boolean" fixture="de.gebit.integrity.tests.fixtures.basic.ResultAwareNoOpFixture#echoBool" timestamp="14.01.16 10:58:48.0105">
         <parameters />
-        <results duration="1.248" successCount="1" failureCount="1" exceptionCount="0">
-          <result duration="0.133" description="Echo the boolean" type="success">
+        <results duration="1.501" successCount="1" failureCount="1" exceptionCount="0">
+          <result duration="0.127" description="Echo the boolean" type="success">
             <parameters>
               <parameter name="boolean" value="true" />
             </parameters>
@@ -16,7 +16,7 @@
               <comparison expectedValue="true" value="true" type="success" />
             </comparisons>
           </result>
-          <result duration="0.079" description="Echo the boolean" type="failure">
+          <result duration="0.090" description="Echo the boolean" type="failure">
             <parameters>
               <parameter name="boolean" value="false" />
             </parameters>
@@ -27,8 +27,9 @@
         </results>
       </tabletest>
     </statements>
+    <returns />
     <teardown />
-    <result duration="1.968" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="2.412" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

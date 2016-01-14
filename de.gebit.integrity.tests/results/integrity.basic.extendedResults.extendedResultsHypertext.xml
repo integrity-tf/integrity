@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.07.13 22:30" isotimestamp="2013-07-03T22:30:19" duration="9.262">
+<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:46" duration="2.311">
   <variables />
-  <suite id="0" name="integrity.basic.extendedResults.extendedResultsHypertext" timestamp="03.07.13 22:30:19.0391">
+  <suite id="0" name="integrity.basic.extendedResults.extendedResultsHypertext" timestamp="14.01.16 10:58:46.0655">
     <setup />
     <variables />
     <statements>
-      <call id="1" line="21" name="returnExtendedStuff" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff" timestamp="03.07.13 22:30:19.0391">
+      <call id="1" line="21" name="returnExtendedStuff" description="returnExtendedStuff" fixture="de.gebit.integrity.tests.fixtures.basic.ExtendedResultTestFixture#returnExtendedStuff" timestamp="14.01.16 10:58:46.0655">
         <parameters>
           <parameter name="htmlCount" value="2" />
         </parameters>
-        <result duration="2.945" type="success" />
+        <result duration="0.224" type="success" />
         <extResults>
           <extResultHTML><![CDATA[<p style="color: #FF0000;">This is some stupid extended result text</p>]]></extResultHTML>
           <extResultHTML title="Hypertext snippet number 1"><![CDATA[<p style="color: #FF0000;">This is some stupid extended result text</p>]]></extResultHTML>
         </extResults>
       </call>
     </statements>
+    <returns />
     <teardown />
-    <result duration="6.512" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.821" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
