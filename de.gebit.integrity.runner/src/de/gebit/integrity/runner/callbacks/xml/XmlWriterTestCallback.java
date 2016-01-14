@@ -474,6 +474,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final int MAX_CONSOLE_LINE_SIZE = 1000;
 
 	/**
+	 * Default stack size for the XSLT transform thread.
+	 */
+	protected static final int TRANSFORM_THREAD_STACK_SIZE_DEFAULT = 10 * 1024 * 1024;
+
+	/**
+	 * System property name for overriding transform thread stack size.
+	 */
+	protected static final String SYSPARAM_TRANSFORM_THREAD_STACK_SIZE = "integrity.transform.stacksize";
+
+	/**
 	 * The time format used to format execution times.
 	 */
 	protected static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
@@ -1509,7 +1519,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			long tempStart = System.nanoTime();
 			stripTemporaryAttributes(document.getRootElement());
 
-			FileOutputStream tempOutputStream;
+			final FileOutputStream tempOutputStream;
 			try {
 				tempOutputStream = new FileOutputStream(outputFile);
 			} catch (FileNotFoundException exc) {
@@ -1522,131 +1532,20 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					System.out.print("Transforming Integrity Result XML to HTML...");
 					// Transform the XML to XHTML and output that (this actually contains a copy of the original XML
 					// result tree in an invisible element!)
-					try {
-						if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
-							// Explicitly specify the JRE-bundled XSLT transformer if nothing else was specified via the
-							// system property, so we at least know for sure what to expect
-							System.setProperty("javax.xml.transform.TransformerFactory",
-									"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+					Thread tempThread = new Thread(Thread.currentThread().getThreadGroup(), new Runnable() {
+
+						@Override
+						public void run() {
+							transformResult(tempOutputStream);
 						}
-						TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
-
-						Transformer tempTransformer = tempTransformerFactory
-								.newTransformer(new StreamSource(getXsltStream()));
-						tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
-						tempTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
-						Source tempSource = new JDOMSource(document);
-
-						/*
-						 * There is a problem with the XML source data that is copied to the transformed HTML result
-						 * (into the "xmldata" element): since the output method for the serializer is set to HTML, it
-						 * seems to inevitably output '<' and '>' in attributes as characters, which is no problem for
-						 * HTML, but strict XML requires those to be replaced by their corresponding entities. I could
-						 * solve this by outputting strict XML, but that renders the output unrenderable by browsers :-(
-						 * well, for some reason I don't fully understand at least, I'm no browser developer. To solve
-						 * this, the following very ugly hack replaces the characters by their entities in all attribute
-						 * values inside the xmldata section on a character stream level. That makes the xmldata content
-						 * valid XML and thus conveniently parseable for example by a SAX parser (just be sure to stop
-						 * the parsing when reaching the end of that section, because the HTML afterwards definitely
-						 * doesn't parse as XML!), while keeping viewability on all browsers. It should not have any
-						 * negative side-effects, apart from being disgusting and everything, but well, this can still
-						 * be replaced by a more elegant solution if someone comes up with one.
-						 */
-						StreamResult tempResult = new StreamResult(new FilterOutputStream(tempOutputStream) {
-
-							private final char[] triggerOpenTagName = new char[] { 'x', 'm', 'l', 'd', 'a', 't', 'a' };
-
-							private final char[] triggerCloseTagName = new char[] { '/', 'x', 'm', 'l', 'd', 'a', 't',
-									'a' };
-
-							private static final char TRIGGER_TAG_START = '<';
-
-							private static final char TRIGGER_TAG_END = '<';
-
-							private static final char TRIGGER_ATTRIBUTE = '"';
-
-							private boolean insideXmlPart;
-
-							private boolean insideAttribute;
-
-							private boolean pastXmlPart;
-
-							private int tagPosition;
-
-							@Override
-							public void write(int aByte) throws IOException {
-								char tempChar = (char) aByte;
-
-								if (!pastXmlPart) {
-									if (!insideAttribute) {
-										if (tempChar == TRIGGER_TAG_START) {
-											tagPosition = 0;
-										} else if (tempChar == TRIGGER_TAG_END) {
-											tagPosition = -1;
-										} else if (tagPosition >= 0) {
-											if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
-												insideAttribute = true;
-											} else {
-												tagPosition++;
-												if (insideXmlPart) {
-													if (tagPosition < triggerCloseTagName.length - 1) {
-														if (tempChar != triggerCloseTagName[tagPosition]) {
-															tagPosition = 0;
-														}
-													} else if (tagPosition == triggerCloseTagName.length - 1) {
-														insideXmlPart = false;
-														pastXmlPart = true;
-														tagPosition = 0;
-													}
-												} else {
-													if (tagPosition < triggerOpenTagName.length - 1) {
-														if (tempChar != triggerOpenTagName[tagPosition]) {
-															tagPosition = 0;
-														}
-													} else if (tagPosition == triggerOpenTagName.length - 1) {
-														insideXmlPart = true;
-														pastXmlPart = false;
-														tagPosition = 0;
-													}
-												}
-											}
-										}
-									} else {
-										if (insideXmlPart) {
-											if (tempChar == TRIGGER_ATTRIBUTE) {
-												insideAttribute = false;
-											} else {
-												if (tempChar == '<') {
-													super.write("&lt;".getBytes("UTF-8"));
-													return;
-												} else if (tempChar == '>') {
-													super.write("&gt;".getBytes("UTF-8"));
-													return;
-												}
-											}
-										}
-									}
-								}
-
-								super.write(aByte);
-							}
-
-							@Override
-							public void write(byte[] someBytes, int anOffset, int aLength) throws IOException {
-								if (!pastXmlPart) {
-									super.write(someBytes, anOffset, aLength);
-								} else {
-									out.write(someBytes, anOffset, aLength);
-								}
-							}
-						});
-
-						tempTransformer.transform(tempSource, tempResult);
-					} catch (TransformerConfigurationException exc) {
-						exc.printStackTrace();
-					} catch (TransformerException exc) {
-						exc.printStackTrace();
+					}, "Integrity XSLT Transform Thread", determineTransformThreadStackSize());
+					tempThread.start();
+					while (tempThread.isAlive()) {
+						try {
+							tempThread.join();
+						} catch (InterruptedException exc) {
+							// ignored
+						}
 					}
 				} else {
 					// Output the XML (with XSLT inlined or not)
@@ -1666,6 +1565,151 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					// ignore
 				}
 			}
+		}
+	}
+
+	/**
+	 * Determines the stack size used for the XSLT transform thread. XSLT transformation can require large stack sizes,
+	 * since XSLT is a functional language and relies heavily on recursion.
+	 * 
+	 * @return
+	 */
+	protected int determineTransformThreadStackSize() {
+		String tempStackSize = System.getProperty(SYSPARAM_TRANSFORM_THREAD_STACK_SIZE);
+		if (tempStackSize != null) {
+			try {
+				return Integer.parseInt(tempStackSize);
+			} catch (NumberFormatException exc) {
+				exc.printStackTrace();
+			}
+		}
+
+		return TRANSFORM_THREAD_STACK_SIZE_DEFAULT;
+	}
+
+	protected void transformResult(FileOutputStream tempTargetStream) {
+		try {
+			if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
+				// Explicitly specify the JRE-bundled XSLT transformer if nothing else was specified via the
+				// system property, so we at least know for sure what to expect
+				System.setProperty("javax.xml.transform.TransformerFactory",
+						"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+			}
+			TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
+
+			Transformer tempTransformer = tempTransformerFactory.newTransformer(new StreamSource(getXsltStream()));
+			tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
+			tempTransformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+			Source tempSource = new JDOMSource(document);
+
+			/*
+			 * There is a problem with the XML source data that is copied to the transformed HTML result (into the
+			 * "xmldata" element): since the output method for the serializer is set to HTML, it seems to inevitably
+			 * output '<' and '>' in attributes as characters, which is no problem for HTML, but strict XML requires
+			 * those to be replaced by their corresponding entities. I could solve this by outputting strict XML, but
+			 * that renders the output unrenderable by browsers :-( well, for some reason I don't fully understand at
+			 * least, I'm no browser developer. To solve this, the following very ugly hack replaces the characters by
+			 * their entities in all attribute values inside the xmldata section on a character stream level. That makes
+			 * the xmldata content valid XML and thus conveniently parseable for example by a SAX parser (just be sure
+			 * to stop the parsing when reaching the end of that section, because the HTML afterwards definitely doesn't
+			 * parse as XML!), while keeping viewability on all browsers. It should not have any negative side-effects,
+			 * apart from being disgusting and everything, but well, this can still be replaced by a more elegant
+			 * solution if someone comes up with one.
+			 */
+			StreamResult tempResult = new StreamResult(new FilterOutputStream(tempTargetStream) {
+
+				private final char[] triggerOpenTagName = new char[] { 'x', 'm', 'l', 'd', 'a', 't', 'a' };
+
+				private final char[] triggerCloseTagName = new char[] { '/', 'x', 'm', 'l', 'd', 'a', 't', 'a' };
+
+				private static final char TRIGGER_TAG_START = '<';
+
+				private static final char TRIGGER_TAG_END = '<';
+
+				private static final char TRIGGER_ATTRIBUTE = '"';
+
+				private boolean insideXmlPart;
+
+				private boolean insideAttribute;
+
+				private boolean pastXmlPart;
+
+				private int tagPosition;
+
+				@Override
+				public void write(int aByte) throws IOException {
+					char tempChar = (char) aByte;
+
+					if (!pastXmlPart) {
+						if (!insideAttribute) {
+							if (tempChar == TRIGGER_TAG_START) {
+								tagPosition = 0;
+							} else if (tempChar == TRIGGER_TAG_END) {
+								tagPosition = -1;
+							} else if (tagPosition >= 0) {
+								if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
+									insideAttribute = true;
+								} else {
+									tagPosition++;
+									if (insideXmlPart) {
+										if (tagPosition < triggerCloseTagName.length - 1) {
+											if (tempChar != triggerCloseTagName[tagPosition]) {
+												tagPosition = 0;
+											}
+										} else if (tagPosition == triggerCloseTagName.length - 1) {
+											insideXmlPart = false;
+											pastXmlPart = true;
+											tagPosition = 0;
+										}
+									} else {
+										if (tagPosition < triggerOpenTagName.length - 1) {
+											if (tempChar != triggerOpenTagName[tagPosition]) {
+												tagPosition = 0;
+											}
+										} else if (tagPosition == triggerOpenTagName.length - 1) {
+											insideXmlPart = true;
+											pastXmlPart = false;
+											tagPosition = 0;
+										}
+									}
+								}
+							}
+						} else {
+							if (insideXmlPart) {
+								if (tempChar == TRIGGER_ATTRIBUTE) {
+									insideAttribute = false;
+								} else {
+									if (tempChar == '<') {
+										super.write("&lt;".getBytes("UTF-8"));
+										return;
+									} else if (tempChar == '>') {
+										super.write("&gt;".getBytes("UTF-8"));
+										return;
+									}
+								}
+							}
+						}
+					}
+
+					super.write(aByte);
+				}
+
+				@Override
+				public void write(byte[] someBytes, int anOffset, int aLength) throws IOException {
+					if (!pastXmlPart) {
+						super.write(someBytes, anOffset, aLength);
+					} else {
+						out.write(someBytes, anOffset, aLength);
+					}
+				}
+			});
+
+			tempTransformer.transform(tempSource, tempResult);
+		} catch (TransformerConfigurationException exc) {
+			exc.printStackTrace();
+		} catch (TransformerException exc) {
+			exc.printStackTrace();
 		}
 	}
 
