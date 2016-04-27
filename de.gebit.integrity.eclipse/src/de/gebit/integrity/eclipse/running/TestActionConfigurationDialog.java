@@ -94,6 +94,7 @@ public class TestActionConfigurationDialog extends Dialog {
 	public TestActionConfigurationDialog(Shell aParentShell, ILaunchConfiguration aPreselectedConfiguration) {
 		super(aParentShell);
 		preselectedConfiguration = aPreselectedConfiguration;
+		selectedConfiguration = aPreselectedConfiguration;
 	}
 
 	@Override
@@ -295,7 +296,7 @@ public class TestActionConfigurationDialog extends Dialog {
 
 					@Override
 					public int compare(ILaunchConfigurationType aFirst, ILaunchConfigurationType aSecond) {
-						return aSecond.getName().compareTo(aFirst.getName());
+						return aFirst.getName().toLowerCase().compareTo(aSecond.getName().toLowerCase());
 					}
 				});
 
