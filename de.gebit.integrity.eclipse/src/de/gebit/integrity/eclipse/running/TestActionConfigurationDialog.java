@@ -11,28 +11,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
@@ -49,17 +60,22 @@ public class TestActionConfigurationDialog extends Dialog {
 	/**
 	 * The launch configurations found in the workspace.
 	 */
-	private java.util.List<ILaunchConfiguration> launchConfigurations = new ArrayList<ILaunchConfiguration>();
+	private Map<ILaunchConfigurationType, List<ILaunchConfiguration>> launchConfigurations = new HashMap<>();
 
 	/**
 	 * The list that displays all launch configurations.
 	 */
-	private List launchConfigList;
+	private TreeViewer launchConfigList;
 
 	/**
 	 * The selected launch config.
 	 */
 	private ILaunchConfiguration selectedConfiguration;
+
+	/**
+	 * The pre-selected configuration on open.
+	 */
+	private ILaunchConfiguration preselectedConfiguration;
 
 	/**
 	 * Creates a new instance.
@@ -75,8 +91,9 @@ public class TestActionConfigurationDialog extends Dialog {
 	 * 
 	 * @param aParentShell
 	 */
-	public TestActionConfigurationDialog(Shell aParentShell) {
+	public TestActionConfigurationDialog(Shell aParentShell, ILaunchConfiguration aPreselectedConfiguration) {
 		super(aParentShell);
+		preselectedConfiguration = aPreselectedConfiguration;
 	}
 
 	@Override
@@ -151,35 +168,15 @@ public class TestActionConfigurationDialog extends Dialog {
 		return tempLayout;
 	}
 
-	/**
-	 * Determines all launch configuration types to be displayed in the list.
-	 * 
-	 * @param aLaunchManager
-	 * @return a set of launch config types
-	 */
-	protected Set<ILaunchConfigurationType> getValidLaunchConfigTypes(ILaunchManager aLaunchManager) {
-		Set<ILaunchConfigurationType> tempSet = new HashSet<ILaunchConfigurationType>();
-		ILaunchConfigurationType tempJavaLaunchConfigType = aLaunchManager
-				.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
-		tempSet.add(tempJavaLaunchConfigType);
-
-		ILaunchConfigurationType tempBNDLaunchConfigType = aLaunchManager.getLaunchConfigurationType("bndtools.launch");
-		if (tempBNDLaunchConfigType != null) {
-			tempSet.add(tempBNDLaunchConfigType);
-		}
-
-		return tempSet;
-	}
-
 	@Override
 	protected Control createDialogArea(Composite aParent) {
-		launchConfigList = new List(aParent, SWT.BORDER | SWT.V_SCROLL);
+		launchConfigList = new TreeViewer(aParent, SWT.BORDER | SWT.V_SCROLL);
 		GridData tempGrid = new GridData();
 		tempGrid.grabExcessHorizontalSpace = true;
 		tempGrid.horizontalAlignment = GridData.FILL;
 		tempGrid.grabExcessVerticalSpace = true;
 		tempGrid.verticalAlignment = GridData.FILL;
-		launchConfigList.setLayoutData(tempGrid);
+		launchConfigList.getTree().setLayoutData(tempGrid);
 
 		DebugPlugin tempDebugPlugin = DebugPlugin.getDefault();
 		ILaunchManager tempLaunchManager = tempDebugPlugin.getLaunchManager();
@@ -216,13 +213,23 @@ public class TestActionConfigurationDialog extends Dialog {
 				}
 			});
 
-			Set<ILaunchConfigurationType> tempValidTypes = getValidLaunchConfigTypes(tempLaunchManager);
-
 			for (ILaunchConfiguration tempLaunchConfig : tempLaunchConfigList) {
-				if (tempValidTypes.contains(tempLaunchConfig.getType())) {
-					launchConfigList.add(tempLaunchConfig.getName());
-					launchConfigurations.add(tempLaunchConfig);
+				List<ILaunchConfiguration> tempList = launchConfigurations.get(tempLaunchConfig.getType());
+
+				if (tempList == null) {
+					tempList = new ArrayList<>();
+					launchConfigurations.put(tempLaunchConfig.getType(), tempList);
 				}
+
+				tempList.add(tempLaunchConfig);
+			}
+
+			launchConfigList.setContentProvider(new LaunchConfigContentProvider());
+			launchConfigList.setLabelProvider(new LaunchConfigLabelProvider());
+			launchConfigList.addSelectionChangedListener(new LaunchConfigSelectionChangedListener());
+			launchConfigList.setInput(this);
+			if (preselectedConfiguration != null) {
+				launchConfigList.setSelection(new StructuredSelection(preselectedConfiguration), true);
 			}
 		} catch (CoreException exc) {
 			throw new RuntimeException(exc);
@@ -233,17 +240,132 @@ public class TestActionConfigurationDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
-		if (launchConfigList.getSelectionIndex() >= 0) {
-			selectedConfiguration = launchConfigurations.get(launchConfigList.getSelectionIndex());
-		} else {
-			selectedConfiguration = null;
-		}
 		setReturnCode(OK);
 		close();
 	}
 
 	public ILaunchConfiguration getSelectedConfiguration() {
 		return selectedConfiguration;
+	}
+
+	private class LaunchConfigSelectionChangedListener implements ISelectionChangedListener {
+
+		@Override
+		public void selectionChanged(SelectionChangedEvent anEvent) {
+			// During init, the OK button might not yet be available
+			if (getButton(IDialogConstants.OK_ID) != null) {
+				if (anEvent.getSelection().isEmpty()) {
+					getButton(IDialogConstants.OK_ID).setEnabled(false);
+				} else {
+					IStructuredSelection tempSelection = (IStructuredSelection) anEvent.getSelection();
+					if (tempSelection.getFirstElement() instanceof ILaunchConfiguration) {
+						getButton(IDialogConstants.OK_ID).setEnabled(true);
+						selectedConfiguration = (ILaunchConfiguration) tempSelection.getFirstElement();
+					} else {
+						getButton(IDialogConstants.OK_ID).setEnabled(false);
+						selectedConfiguration = null;
+					}
+				}
+			}
+		}
+
+	}
+
+	private class LaunchConfigContentProvider implements ITreeContentProvider {
+
+		private final Object[] emptyArray = new Object[0];
+
+		@Override
+		public void dispose() {
+			// nothing to do
+		}
+
+		@Override
+		public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
+			// nothing to do
+		}
+
+		@Override
+		public Object[] getChildren(Object aCurrentElement) {
+			if (aCurrentElement instanceof ILaunchConfigurationType) {
+				return launchConfigurations.get(aCurrentElement).toArray(emptyArray);
+			} else if (aCurrentElement == TestActionConfigurationDialog.this) {
+				List<ILaunchConfigurationType> tempSortedList = new ArrayList<>(launchConfigurations.keySet());
+				Collections.sort(tempSortedList, new Comparator<ILaunchConfigurationType>() {
+
+					@Override
+					public int compare(ILaunchConfigurationType aFirst, ILaunchConfigurationType aSecond) {
+						return aSecond.getName().compareTo(aFirst.getName());
+					}
+				});
+
+				return tempSortedList.toArray(emptyArray);
+			}
+
+			return emptyArray;
+		}
+
+		@Override
+		public Object[] getElements(Object aCurrentElement) {
+			return getChildren(aCurrentElement);
+		}
+
+		@Override
+		public Object getParent(Object aCurrentElement) {
+			if (aCurrentElement instanceof ILaunchConfiguration) {
+				try {
+					return ((ILaunchConfiguration) aCurrentElement).getType();
+				} catch (CoreException exc) {
+					throw new RuntimeException(exc);
+				}
+			} else if (aCurrentElement instanceof ILaunchConfigurationType) {
+				return TestActionConfigurationDialog.this;
+			}
+
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren(Object aCurrentElement) {
+			if (aCurrentElement instanceof ILaunchConfigurationType) {
+				return !launchConfigurations.get(aCurrentElement).isEmpty();
+			} else if (aCurrentElement == TestActionConfigurationDialog.this) {
+				return !launchConfigurations.isEmpty();
+			}
+
+			return false;
+		}
+
+	}
+
+	private class LaunchConfigLabelProvider extends LabelProvider implements ILabelProvider {
+
+		@Override
+		public Image getImage(Object anElement) {
+			if (anElement instanceof ILaunchConfigurationType) {
+				return DebugUITools.getImage(((ILaunchConfigurationType) anElement).getIdentifier());
+			} else if (anElement instanceof ILaunchConfiguration) {
+				try {
+					return DebugUITools.getImage(((ILaunchConfiguration) anElement).getType().getIdentifier());
+				} catch (CoreException exc) {
+					throw new RuntimeException(exc);
+				}
+			}
+
+			return null;
+		}
+
+		@Override
+		public String getText(Object anElement) {
+			if (anElement instanceof ILaunchConfigurationType) {
+				return ((ILaunchConfigurationType) anElement).getName();
+			} else if (anElement instanceof ILaunchConfiguration) {
+				return ((ILaunchConfiguration) anElement).getName();
+			}
+
+			return null;
+		}
+
 	}
 
 }

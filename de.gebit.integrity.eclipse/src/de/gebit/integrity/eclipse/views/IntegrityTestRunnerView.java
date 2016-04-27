@@ -598,6 +598,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
 	// SUPPRESS CHECKSTYLE MethodLength
+	@Override
 	public void createPartControl(final Composite aParent) {
 		aParent.setLayout(new FillLayout());
 
@@ -645,10 +646,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.bottom = new FormAttachment(100, -18);
 		treeViewer.getTree().setLayoutData(tempFormData);
 		treeViewer.getTree().getVerticalBar().addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent anEvent) {
 				// nothing to do
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent anEvent) {
 				if (anEvent.detail == SWT.NONE) {
 					treeViewerIsScrolledManually = false;
@@ -809,6 +812,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.height = 10;
 		fixtureLink.setLayoutData(tempFormData);
 		fixtureLink.addHyperlinkListener(new HyperlinkAdapter() {
+			@Override
 			public void linkActivated(HyperlinkEvent anEvent) {
 				jumpToJavaMethod(anEvent.getLabel());
 			}
@@ -1302,6 +1306,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void configureTextFieldBorder(final Composite aBorder) {
 		aBorder.addPaintListener(new PaintListener() {
+			@Override
 			public void paintControl(PaintEvent anEvent) {
 				GC tempGC = anEvent.gc;
 				tempGC.setForeground(aBorder.getForeground());
@@ -1358,6 +1363,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		MenuManager tempMenuMgr = new MenuManager("#PopupMenu");
 		tempMenuMgr.setRemoveAllWhenShown(true);
 		tempMenuMgr.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager aManager) {
 				IntegrityTestRunnerView.this.fillContextMenu(aManager);
 			}
@@ -1400,6 +1406,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					if (breakpointSet.contains(tempEntry.getId())) {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Remove Breakpoint",
 								"Removes the breakpoint from the selected step.") {
+							@Override
 							public void run() {
 								if (client == null || !client.isActive()) {
 									showMessage("Sorry, but breakpoints can only be added or removed while connected "
@@ -1412,6 +1419,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 					} else {
 						aManager.add(new BreakpointAction(tempEntry.getId(), "Add Breakpoint",
 								"Adds a breakpoint to the selected step.") {
+							@Override
 							public void run() {
 								if (client == null || !client.isActive()) {
 									showMessage("Sorry, but breakpoints can only be added or removed while connected "
@@ -1428,6 +1436,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 				if (tempLink != null) {
 					aManager.add(new JumpToLinkAction(INTEGRITY_URL_PREFIX + tempLink, "Jump to Script",
 							"Jumps to the position of this element in the test scripts.") {
+						@Override
 						public void run() {
 							urlResolver.parseURL(getURL());
 						}
@@ -1460,6 +1469,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		connectToTestRunnerAction = new Action() {
 			private String lastHostname = "localhost";
 
+			@Override
 			public void run() {
 				if (client == null || !client.isActive()) {
 					InputDialog tempDialog = new InputDialog(getSite().getShell(), "Connect to test runner",
@@ -1490,6 +1500,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		};
 
 		playAction = new Action() {
+			@Override
 			public void run() {
 				client.controlExecution(ExecutionCommands.RUN);
 				updateStatus("Continuing test execution...");
@@ -1501,6 +1512,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		playAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/play_disabled.gif"));
 
 		pauseAction = new Action() {
+			@Override
 			public void run() {
 				client.controlExecution(ExecutionCommands.PAUSE);
 				updateStatus("Pausing test execution...");
@@ -1512,6 +1524,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		pauseAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/pause_disabled.gif"));
 
 		stepIntoAction = new Action() {
+			@Override
 			public void run() {
 				client.controlExecution(ExecutionCommands.STEP_INTO);
 				updateStatus("Executing single step...");
@@ -1523,6 +1536,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepIntoAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepinto_disabled.gif"));
 
 		stepOverAction = new Action() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public void run() {
 				SetListEntry tempTarget = null;
@@ -1579,6 +1593,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepOverAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepover_disabled.gif"));
 
 		executeTestAction = new Action() {
+			@Override
 			public void run() {
 				if (launchConfiguration != null) {
 					try {
@@ -1596,6 +1611,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		executeTestAction.setImageDescriptor(Activator.getImageDescriptor("icons/exec_enabled.gif"));
 
 		executeDebugTestAction = new Action() {
+			@Override
 			public void run() {
 				if (launchConfiguration != null) {
 					try {
@@ -1614,6 +1630,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		updateLaunchButtonState();
 
 		shutdownAction = new Action() {
+			@Override
 			public void run() {
 				client.requestShutdown();
 				updateStatus("Requested immediate shutdown...");
@@ -1627,7 +1644,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		configureTestAction = new Action() {
 			@Override
 			public void run() {
-				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell());
+				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell(),
+						launchConfiguration);
 				if (tempDialog.open() == Dialog.OK) {
 					launchConfiguration = tempDialog.getSelectedConfiguration();
 					updateLaunchButtonState();
@@ -2163,6 +2181,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
+	@Override
 	public void setFocus() {
 		treeViewer.getControl().setFocus();
 	}
