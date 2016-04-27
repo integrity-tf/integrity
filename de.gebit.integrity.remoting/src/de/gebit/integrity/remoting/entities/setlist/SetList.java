@@ -407,52 +407,6 @@ public class SetList implements Serializable {
 				SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
 				resultBearingEntryResultMap.put(tempEntry, tempResultState);
 			}
-
-			// switch (tempEntry.getType()) {
-			// case RESULT:
-			// SetListEntry tempParent = getParent(tempEntry);
-			// switch (tempParent.getType()) {
-			// case TEST:
-			// case CALL:
-			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempParent)) {
-			// SetListEntryResultStates tempResultState = determineEntryResultState(tempParent);
-			// resultBearingEntryResultMap.put(tempParent, tempResultState);
-			// SetListEntryResultStates tempPreviousState = executableEntryResultStates.set(
-			// executableEntryResultIndex.get(tempParent), tempResultState);
-			//
-			// // Decrement previous state counter, increment new state counter
-			// executableEntryResultStateCounts.put(tempPreviousState,
-			// getNumberOfEntriesInResultState(tempPreviousState) - 1);
-			// executableEntryResultStateCounts.put(tempResultState,
-			// getNumberOfEntriesInResultState(tempResultState) + 1);
-			// }
-			// // SUPPRESS CHECKSTYLE FallThrough
-			// case TABLETEST:
-			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
-			// resultBearingEntryResultMap.put(tempEntry, determineEntryResultState(tempEntry));
-			// }
-			// break;
-			// default:
-			// break;
-			// }
-			// break;
-			// default:
-			// if (resultBearingEntryResultMap != null && resultBearingEntryResultMap.containsKey(tempEntry)) {
-			// SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
-			// resultBearingEntryResultMap.put(tempEntry, tempResultState);
-			// Integer tempResultIndex = executableEntryResultIndex.get(tempEntry);
-			// if (tempResultIndex != null) {
-			// SetListEntryResultStates tempPreviousState = executableEntryResultStates.set(tempResultIndex,
-			// tempResultState);
-			//
-			// // Decrement previous state counter, increment new state counter
-			// executableEntryResultStateCounts.put(tempPreviousState,
-			// getNumberOfEntriesInResultState(tempPreviousState) - 1);
-			// executableEntryResultStateCounts.put(tempResultState,
-			// getNumberOfEntriesInResultState(tempResultState) + 1);
-			// }
-			// }
-			// }
 		}
 	}
 
