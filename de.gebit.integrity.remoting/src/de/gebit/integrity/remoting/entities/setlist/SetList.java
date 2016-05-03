@@ -404,7 +404,9 @@ public class SetList implements Serializable {
 				if (tempEntryToUse.getType() == SetListEntryTypes.TABLETEST
 						&& tempEntry.getType() == SetListEntryTypes.RESULT) {
 					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
-					resultBearingEntryResultMap.put(tempEntry, tempResultState);
+					if (tempResultState != null) {
+						resultBearingEntryResultMap.put(tempEntry, tempResultState);
+					}
 				}
 			}
 
