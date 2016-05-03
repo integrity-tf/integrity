@@ -401,7 +401,7 @@ public class SetList implements Serializable {
 
 				// In case of tabletest results, also store their result in the result map, since we display those
 				// results directly in the tree. See also issue #78, which was fixed by this.
-				if (tempEntryToUse.getType() == SetListEntryTypes.TABLETEST
+				if (resultBearingEntryResultMap != null && tempEntryToUse.getType() == SetListEntryTypes.TABLETEST
 						&& tempEntry.getType() == SetListEntryTypes.RESULT) {
 					SetListEntryResultStates tempResultState = determineEntryResultState(tempEntry);
 					if (tempResultState != null) {
