@@ -34,8 +34,10 @@ public interface IntegritySearch {
 	 * 
 	 * @param aSuiteName
 	 *            the suite name to open (or part of)
+	 * @param aSelectFlag
+	 *            whether the suite name shall be jumped to and selected
 	 * @return the opened editor or null
 	 */
-	IEditorPart openSuiteDefinitionByName(String aSuiteName);
+	IEditorPart openSuiteDefinitionByName(String aSuiteName, boolean aSelectFlag);
 
 }

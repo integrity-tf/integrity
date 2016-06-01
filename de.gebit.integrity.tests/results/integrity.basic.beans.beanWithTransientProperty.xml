@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="01.06.16 13:21" isotimestamp="2016-06-01T13:21:49" duration="27.521">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.beanWithTransientProperty" timestamp="01.06.16 13:21:49.0238">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="6" name="createTransientTestBean" description="creates a transient test bean and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean" timestamp="01.06.16 13:21:49.0238">
+        <results duration="0.830" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.830" description="creates a transient test bean and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]normalString = foo[NL]}" value="[FORMATTED]{[NL][T]normalString = foo[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="11" name="createTransientTestBean" description="creates a transient test bean and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean" timestamp="01.06.16 13:21:49.0253">
+        <results duration="0.155" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.155" description="creates a transient test bean and returns it" type="failure">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]normalString = foo[NL|, ][T][UL][B]transientString = bar[/B][/UL][NL]}" value="[FORMATTED]{[NL][T]normalString = foo[NL]}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="23.145" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
