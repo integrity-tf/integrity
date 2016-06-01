@@ -136,4 +136,9 @@ public class BeanFixture {
 
 		return tempBean;
 	}
+
+	@FixtureMethod(description = "creates a transient test bean and returns it")
+	public Object createTransientTestBean() {
+		return new TransientTestBean();
+	}
 }

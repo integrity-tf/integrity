@@ -1,0 +1,18 @@
+packagedef integrity.basic.beans with
+
+	suitedef beanWithTransientProperty with
+	
+		// This should succeed, since we don't check the transient property
+		test integrity.fixtures.basic.beans.createTransientTestBean = {
+			normalString: "foo"
+		}
+	
+		// This should fail as we cannot see the transient property here since it's not converted to the map internally
+		test integrity.fixtures.basic.beans.createTransientTestBean = {
+			normalString: "foo"
+			transientString: "bar"
+		}
+	
+	suiteend
+	
+packageend

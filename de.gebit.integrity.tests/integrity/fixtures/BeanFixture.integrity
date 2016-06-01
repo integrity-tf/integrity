@@ -27,5 +27,8 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef createSimpleBeanUntypedEmpty uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntypedEmpty
 	calldef createSimpleBeanUntypedEmptyCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntypedEmpty
+	
+	testdef createTransientTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean
+	calldef createTransientTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean
 
 packageend

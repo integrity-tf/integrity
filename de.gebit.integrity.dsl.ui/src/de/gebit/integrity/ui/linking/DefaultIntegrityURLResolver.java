@@ -10,6 +10,10 @@ package de.gebit.integrity.ui.linking;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -46,11 +50,12 @@ public class DefaultIntegrityURLResolver implements IntegrityURLResolver {
 		Matcher tempMatcher = INTEGRITY_URL_PATTERN.matcher(anURL);
 		if (tempMatcher.matches()) {
 			String tempSuiteName = tempMatcher.group(1);
-			IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempSuiteName);
+			boolean tempHasLineNumber = tempMatcher.groupCount() > 1 && tempMatcher.group(2) != null;
+			IEditorPart tempEditor = integritySearch.openSuiteDefinitionByName(tempSuiteName, !tempHasLineNumber);
 			if (tempEditor == null) {
 				showError("Could not find a suite named '" + tempSuiteName + "' in your workspace.");
 			} else {
-				if (tempMatcher.groupCount() > 1) {
+				if (tempHasLineNumber) {
 					int tempLineNumber = Integer.parseInt(tempMatcher.group(2));
 					if (!jumpToLine(tempEditor, tempLineNumber)) {
 						showError("Could not find line number " + tempLineNumber + " in suite '" + tempSuiteName + "'");
@@ -78,19 +83,40 @@ public class DefaultIntegrityURLResolver implements IntegrityURLResolver {
 		if (!(anEditor instanceof ITextEditor) || aLineNumber <= 0) {
 			return false;
 		}
-		ITextEditor tempEditor = (ITextEditor) anEditor;
+		final ITextEditor tempEditor = (ITextEditor) anEditor;
 		IDocument tempDocument = tempEditor.getDocumentProvider().getDocument(tempEditor.getEditorInput());
 		if (tempDocument != null) {
-			IRegion tempLineInfo = null;
 			try {
-				tempLineInfo = tempDocument.getLineInformation(aLineNumber - 1);
+				final IRegion tempLineInfo = tempDocument.getLineInformation(aLineNumber - 1);
+
+				if (tempLineInfo != null) {
+					// This is performed asynchronously because Xtext does it in the same way since 2.8 or so.
+					// The Xtext change originally caused issue #110: Jumping to test/call/suite invocations via
+					// integrity:// URLs jumps to suitedef instead
+					Job selectAndRevealJob = new Job("Select and reveal line " + aLineNumber) {
+						@Override
+						protected IStatus run(IProgressMonitor monitor) {
+							tempEditor.getSite().getWorkbenchWindow().getWorkbench().getDisplay()
+									.asyncExec(new Runnable() {
+										@Override
+										public void run() {
+											tempEditor.selectAndReveal(tempLineInfo.getOffset(),
+													tempLineInfo.getLength());
+
+										}
+									});
+							return Status.OK_STATUS;
+						}
+					};
+					selectAndRevealJob.setSystem(true);
+					selectAndRevealJob.setPriority(Job.SHORT);
+					selectAndRevealJob.schedule();
+
+					return true;
+				} else {
+					return false;
+				}
 			} catch (BadLocationException exc) {
-				// ignored
-			}
-			if (tempLineInfo != null) {
-				tempEditor.selectAndReveal(tempLineInfo.getOffset(), tempLineInfo.getLength());
-				return true;
-			} else {
 				return false;
 			}
 		}

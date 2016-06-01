@@ -44,6 +44,15 @@ public class ObjectToMap extends Conversion<Object, Map> {
 		try {
 			for (PropertyDescriptor tempDescriptor : Introspector.getBeanInfo(aSource.getClass(), Object.class)
 					.getPropertyDescriptors()) {
+
+				if (Boolean.TRUE.equals(tempDescriptor.getValue("transient"))) {
+					// Skip transient properties, as those are often used as "fake" properties in order to implement a
+					// getter for them which does some sort of magic. Calling unknown magical stuff in a generic fashion
+					// when running over Java Beans is not such a good idea and quickly leads to problems, which is the
+					// reason why transient properties are skipped here. See also issue #109.
+					continue;
+				}
+
 				Method tempReadMethod = tempDescriptor.getReadMethod();
 				if (tempReadMethod != null) {
 					Object tempValue = tempReadMethod.invoke(aSource);
@@ -83,4 +92,19 @@ public class ObjectToMap extends Conversion<Object, Map> {
 
 		return tempKeyValueMap;
 	}
+
+	// protected boolean isTransient(String aFieldName, Class<?> aClass) {
+	// Class<?> tempClassInFocus = aClass;
+	// while(tempClassInFocus != null) {
+	// try {
+	// Field tempField = tempClassInFocus.getDeclaredField(aFieldName);
+	//
+	// if(tempField != null) {
+	// return tempField.getModifiers() & Modifier
+	// }
+	// } catch (NoSuchFieldException | SecurityException exc) {
+	// // ignore
+	// }
+	// }
+	// }
 }

@@ -45,7 +45,8 @@ public class DefaultIntegritySearch implements IntegritySearch {
 	public SuiteDefinition[] findSuiteDefinitionByName(String aSuiteName) {
 		List<SuiteDefinition> tempResult = new ArrayList<SuiteDefinition>();
 
-		for (IEObjectDescription tempDesc : searchEngine.findMatches(aSuiteName, SuiteDefinition.class.getSimpleName())) {
+		for (IEObjectDescription tempDesc : searchEngine.findMatches(aSuiteName,
+				SuiteDefinition.class.getSimpleName())) {
 			EObject tempObject = tempDesc.getEObjectOrProxy();
 			if (tempObject instanceof SuiteDefinition) {
 				SuiteDefinition tempDefinition = (SuiteDefinition) tempObject;
@@ -61,10 +62,10 @@ public class DefaultIntegritySearch implements IntegritySearch {
 	}
 
 	@Override
-	public IEditorPart openSuiteDefinitionByName(String aSuiteName) {
+	public IEditorPart openSuiteDefinitionByName(String aSuiteName, boolean aSelectFlag) {
 		SuiteDefinition[] tempSuiteDef = findSuiteDefinitionByName(aSuiteName);
 		if (tempSuiteDef != null) {
-			return uriEditorOpener.open(EcoreUtil.getURI(tempSuiteDef[0]), true);
+			return uriEditorOpener.open(EcoreUtil.getURI(tempSuiteDef[0]), aSelectFlag);
 		} else {
 			return null;
 		}
