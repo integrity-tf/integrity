@@ -810,7 +810,11 @@ public class DefaultTestRunner implements TestRunner {
 			VariableEntity tempSource = tempReturn.getName().getName();
 			VariableEntity tempTarget = tempReturn.getTarget().getName();
 			Object tempValue = variableManager.get(tempSource);
-			setVariableValue(tempTarget, tempValue, true);
+			// If we are in the dry run phase on a fork, do not send anything to the clients (which in this case is the
+			// master process)! This would otherwise possibly cause ConcurrentModificationExceptions on the master.
+			// See issue #111, which is fixed by this.
+			boolean tempSendToClients = (!isFork() || currentPhase != Phase.DRY_RUN);
+			setVariableValue(tempTarget, tempValue, tempSendToClients);
 			if (currentCallback != null) {
 				currentCallback.onCallbackProcessingStart();
 				currentCallback.onReturnVariableAssignment(tempReturn, tempSource, tempTarget, aSuiteCall, tempValue);
@@ -1192,7 +1196,7 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void setVariableValueConverted(VariableOrConstantEntity anEntity,
 			ValueOrEnumValueOrOperationCollection aValue, boolean aDoSendUpdateFlag)
-					throws InstantiationException, ClassNotFoundException, UnexecutableException {
+			throws InstantiationException, ClassNotFoundException, UnexecutableException {
 		Object tempConvertedValue = valueConverter.convertValue(null, aValue, null);
 
 		setVariableValue(anEntity, tempConvertedValue, aDoSendUpdateFlag);
