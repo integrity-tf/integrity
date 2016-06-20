@@ -63,5 +63,18 @@ packagedef integrity.basic.suitecalls with
 		call integrity.fixtures.basic.noop.echoString string: param1
 		call integrity.fixtures.basic.noop.echoString string: param2
 	suiteend
+	
+	
+	suitedef suiteCallWithNullParameter with
+		// Tests the problem described in issue #113: Pushing 'null' as an entity into suites via suite params converts it to the string 'null'
+		
+		suite suiteCallWithNullParameterTestSuite param: "foo" // this is expected to fail
+		suite suiteCallWithNullParameterTestSuite param: null  // this test should succeed
+	suiteend
+	
+	suitedef suiteCallWithNullParameterTestSuite gets param with
+		test integrity.fixtures.basic.noop.echoStringTest string: null = param
+	suiteend
+	
 
 packageend
