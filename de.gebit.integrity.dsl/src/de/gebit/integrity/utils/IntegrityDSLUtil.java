@@ -29,6 +29,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.FixedParameterName;
 import de.gebit.integrity.dsl.FixedResultName;
@@ -49,7 +50,9 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -702,6 +705,25 @@ public final class IntegrityDSLUtil {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Attempts to extract a {@link VariableOrConstantEntity} from the provided {@link ValueOrEnumValueOrOperation}.
+	 * 
+	 * @param anInput
+	 *            the input value
+	 * @return the entity if one is found, null if the input value was something else
+	 */
+	public static VariableOrConstantEntity extractVariableOrConstantEntity(ValueOrEnumValueOrOperation anInput) {
+		if (anInput instanceof VariableOrConstantEntity) {
+			return (VariableOrConstantEntity) anInput;
+		} else if (anInput instanceof Variable) {
+			return ((Variable) anInput).getName();
+		} else if (anInput instanceof Constant) {
+			return ((Constant) anInput).getName();
+		}
+
+		return null;
 	}
 
 }

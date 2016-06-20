@@ -55,4 +55,19 @@ public class SuiteCallsWithParameters extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Tests suite calls with parameter of null value. See issue #113.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSuiteCallWithNullParameter() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/suitecalls/suiteCallsWithParameters.integrity" },
+				"integrity.basic.suitecalls.suiteCallWithNullParameter", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

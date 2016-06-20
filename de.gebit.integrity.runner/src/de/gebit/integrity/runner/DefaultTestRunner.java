@@ -802,7 +802,14 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		long tempSuiteDuration = System.nanoTime();
-		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = executeSuite(aSuiteCall.getDefinition());
+		Map<SuiteStatementWithResult, List<? extends Result>> tempResults;
+		// It is possible that a setup suite caused an abortion. If that's the case, use an empty suite result.
+		// Fixes issue #112.
+		if (!checkForAbortion()) {
+			tempResults = executeSuite(aSuiteCall.getDefinition());
+		} else {
+			tempResults = new HashMap<>();
+		}
 		tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
 		// Fetch all output values into their respective local target variables
@@ -866,12 +873,12 @@ public class DefaultTestRunner implements TestRunner {
 						tempResult = new SuiteSummaryResult(tempForkResultSummary.getSuccessCount(),
 								tempForkResultSummary.getFailureCount(), tempForkResultSummary.getTestExceptionCount(),
 								tempForkResultSummary.getCallExceptionCount(), tempSuiteDuration);
-					} else {
-						if (tempFork != null && tempFork.hasAborted()) {
-							// If this happens, an abortion has happened on the fork due to an AbortExecutionException.
-							// TODO make this nicer, it's kind of ugly to create a fake object with null values
-							abortExecutionCause = new AbortExecutionCauseWrapper(null, null);
-						}
+					}
+
+					if (tempFork != null && tempFork.hasAborted()) {
+						// If this happens, an abortion has happened on the fork due to an AbortExecutionException.
+						// TODO make this nicer, it's kind of ugly to create a fake object with null values
+						abortExecutionCause = new AbortExecutionCauseWrapper(null, null);
 					}
 
 					// and afterwards we'll switch back to real test mode
@@ -930,14 +937,20 @@ public class DefaultTestRunner implements TestRunner {
 						: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
 				aSetupResultMap.put(tempSetupSuite, tempSetupResult);
 
-				tempSetupsAlreadyRun.add(tempSetupSuite);
-				tempSetupSuitesExecuted.add(tempSetupSuite);
+				if (!checkForAbortion()) {
+					tempSetupsAlreadyRun.add(tempSetupSuite);
+					tempSetupSuitesExecuted.add(tempSetupSuite);
+				}
 
 				if (currentCallback != null) {
 					currentCallback.onCallbackProcessingStart();
 					currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
 					currentCallback.onCallbackProcessingEnd();
 				}
+			}
+
+			if (checkForAbortion()) {
+				break;
 			}
 		}
 
