@@ -107,8 +107,8 @@ public class AbortExceptions extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void abortExceptionInTableTestNestedWithMoreStuffBehind() throws ModelLoadException, IOException,
-			JDOMException {
+	public void abortExceptionInTableTestNestedWithMoreStuffBehind()
+			throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/exceptions/abortExceptions.integrity" },
 				"integrity.basic.exceptions.abortExceptions.abortExceptionInTableTestNestedWithMoreStuffBehind", null);
@@ -157,6 +157,21 @@ public class AbortExceptions extends IntegrityJUnitTest {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/exceptions/abortExceptions.integrity" },
 				"integrity.basic.exceptions.abortExceptions.abortExceptionInCallNestedWithMoreStuffBehind", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void abortDependentSuite() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/exceptions/abortExceptions.integrity" },
+				"integrity.basic.exceptions.abortExceptions.abortDependentSuite", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 
