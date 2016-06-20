@@ -41,6 +41,26 @@ public interface VariableManager {
 	Object get(Variable aVariable);
 
 	/**
+	 * Checks whether a specific variable has a defined value. Variables with 'null' as their defined value will return
+	 * true here, even though calling get() on them will yield the same result as if they were not defined.
+	 * 
+	 * @param aVariable
+	 *            the variable entity
+	 * @return true if the variable is defined, false if not
+	 */
+	boolean isDefined(VariableOrConstantEntity aVariable);
+
+	/**
+	 * Checks whether a specific variable has a defined value. Variables with 'null' as their defined value will return
+	 * true here, even though calling get() on them will yield the same result as if they were not defined.
+	 * 
+	 * @param aVariable
+	 *            the variable entity
+	 * @return true if the variable is defined, false if not
+	 */
+	boolean isDefined(Variable aVariable);
+
+	/**
 	 * Sets a value for a specific variable. This is also used to define constants, as constants are technically also
 	 * {@link de.gebit.integrity.dsl.VariableEntity} instances (
 	 * 

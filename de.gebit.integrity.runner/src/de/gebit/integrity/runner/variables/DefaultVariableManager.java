@@ -46,6 +46,11 @@ public class DefaultVariableManager implements VariableManager {
 	}
 
 	@Override
+	public boolean isDefined(VariableOrConstantEntity anEntity) {
+		return variableMap.containsKey(anEntity);
+	}
+
+	@Override
 	public Object get(Variable aVariable) {
 		Object tempObject = get(aVariable.getName());
 
@@ -91,6 +96,23 @@ public class DefaultVariableManager implements VariableManager {
 		} else {
 			return tempObject;
 		}
+	}
+
+	@Override
+	public boolean isDefined(Variable aVariable) {
+		Object tempObject = get(aVariable.getName());
+
+		if (aVariable.getAttribute() != null && tempObject != null) {
+			// Probe for a runtime exception during resolving of a potentially embedded nested object path
+			try {
+				get(aVariable);
+			} catch (RuntimeException exc) {
+				return false;
+			}
+			return true;
+		}
+
+		return tempObject != null || variableMap.containsKey(aVariable.getName());
 	}
 
 	@Override
