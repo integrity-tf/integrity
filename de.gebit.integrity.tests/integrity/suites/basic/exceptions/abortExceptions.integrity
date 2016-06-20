@@ -91,5 +91,36 @@ packagedef integrity.basic.exceptions.abortExceptions with
 		call integrity.fixtures.basic.noop.throwAbortException message: "This is an abort exception in a call"
 		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore		
 	suiteend
+	
+	
+	suitedef abortDependentSuite with
+		suite abortDependentSuiteDependingSuite
+	suiteend
+	
+	suitedef abortDependentSuiteDependingSuite requires abortDependentSuiteRequiredSuite1 abortDependentSuiteRequiredSuite1 with
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore	
+	suiteend
+	
+	suitedef abortDependentSuiteRequiredSuite1 concludedby abortDependentSuiteConcludedBySuite2 with
+		call integrity.fixtures.basic.noop.noOp
+		call integrity.fixtures.basic.noop.throwAbortException message: "This is an abort exception in a call"
+		call integrity.fixtures.basic.noop.noOp // this should not be executed anymore
+	suiteend
+	
+	suitedef abortDependentSuiteRequiredSuite2 concludedby abortDependentSuiteConcludedBySuite2 with
+		call integrity.fixtures.basic.noop.noOp // this should not be executed at all, since suite1 aborted everything
+	suiteend
+	
+	suitedef abortDependentSuiteConcludedBySuite1 with
+		call integrity.fixtures.basic.noop.noOp // this should not be executed at all, since conclusion suites are currently not executed when aborts happened
+	suiteend
+	
+	suitedef abortDependentSuiteConcludedBySuite2 with
+		call integrity.fixtures.basic.noop.noOp // this should not be executed at all, since conclusion suites are currently not executed when aborts happened
+	suiteend
+	
+	
+	
+	
 
 packageend

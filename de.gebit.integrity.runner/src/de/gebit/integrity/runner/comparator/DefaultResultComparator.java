@@ -30,12 +30,14 @@ import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -59,17 +61,31 @@ public class DefaultResultComparator implements ResultComparator {
 	protected ParameterResolver parameterResolver;
 
 	@Override
-	public ComparisonResult compareResult(Object aFixtureResult,
-			ValueOrEnumValueOrOperationCollection anExpectedResult, FixtureWrapper<?> aFixtureInstance,
-			MethodReference aFixtureMethod, String aPropertyName) throws ClassNotFoundException, UnexecutableException,
-			InstantiationException {
+	public ComparisonResult compareResult(Object aFixtureResult, ValueOrEnumValueOrOperationCollection anExpectedResult,
+			FixtureWrapper<?> aFixtureInstance, MethodReference aFixtureMethod, String aPropertyName)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException {
 		if (anExpectedResult != null) {
 			if (aFixtureResult == null) {
 				if (anExpectedResult.getMoreValues().size() > 0) {
 					// if there's more than one value expected, this can never equal a single null value
 					return SimpleComparisonResult.NOT_EQUAL;
 				} else {
-					return SimpleComparisonResult.valueOf(anExpectedResult.getValue() instanceof NullValue);
+					boolean tempIsNull = false;
+					// This is only true if the expected result is also null. That could be directly...
+					if (anExpectedResult.getValue() instanceof NullValue) {
+						tempIsNull = true;
+					} else {
+						// ...or indirectly by the value being a variable/constant that resolves to a null value
+						VariableOrConstantEntity tempEntity = IntegrityDSLUtil
+								.extractVariableOrConstantEntity(anExpectedResult.getValue());
+						if (tempEntity != null) {
+							Object tempResult = parameterResolver.resolveParameterValue(anExpectedResult,
+									UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+							tempIsNull = (tempResult == null || (tempResult instanceof NullValue));
+						}
+					}
+
+					return SimpleComparisonResult.valueOf(tempIsNull);
 				}
 			} else {
 				if (aFixtureInstance.isCustomComparatorFixture()) {
@@ -82,8 +98,8 @@ public class DefaultResultComparator implements ResultComparator {
 						tempConversionTargetType = aFixtureInstance.determineCustomConversionTargetType(aFixtureResult,
 								tempMethodName, aPropertyName);
 					} else {
-						tempConversionTargetType = aFixtureResult.getClass().isArray() ? aFixtureResult.getClass()
-								.getComponentType() : aFixtureResult.getClass();
+						tempConversionTargetType = aFixtureResult.getClass().isArray()
+								? aFixtureResult.getClass().getComponentType() : aFixtureResult.getClass();
 					}
 
 					if (anExpectedResult.getMoreValues().size() > 0) {
@@ -94,8 +110,8 @@ public class DefaultResultComparator implements ResultComparator {
 						tempConvertedResult = Array.newInstance(tempArrayType,
 								anExpectedResult.getMoreValues().size() + 1);
 						for (int i = 0; i < Array.getLength(tempConvertedResult); i++) {
-							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
-									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
+							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
+									: anExpectedResult.getMoreValues().get(i - 1));
 							Array.set(tempConvertedResult, i, valueConverter.convertValue(tempConversionTargetType,
 									tempSingleExpectedResult, null));
 						}
@@ -110,15 +126,15 @@ public class DefaultResultComparator implements ResultComparator {
 					// Standard comparation compares each value for itself in case of arrays
 					if (anExpectedResult.getMoreValues().size() > 0) {
 						// multiple result values were given -> fixture result must be an array of same size
-						if (!(aFixtureResult.getClass().isArray() && Array.getLength(aFixtureResult) == anExpectedResult
-								.getMoreValues().size() + 1)) {
+						if (!(aFixtureResult.getClass().isArray()
+								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1)) {
 							return SimpleComparisonResult.NOT_EQUAL;
 						}
 						// now compare all values
 						for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
 							Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
-							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult
-									.getValue() : anExpectedResult.getMoreValues().get(i - 1));
+							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
+									: anExpectedResult.getMoreValues().get(i - 1));
 							if (tempSingleFixtureResult == null) {
 								// The fixture returned a null, we need to expect a null
 								if (!(tempSingleExpectedResult instanceof NullValue)) {
@@ -142,13 +158,13 @@ public class DefaultResultComparator implements ResultComparator {
 						if (tempSingleFixtureResult instanceof byte[]) {
 							byte[] tempConvertedExpectedResult = (byte[]) valueConverter.convertValue(byte[].class,
 									tempSingleExpectedResult, null);
-							return SimpleComparisonResult.valueOf(Arrays.equals((byte[]) tempSingleFixtureResult,
-									tempConvertedExpectedResult));
+							return SimpleComparisonResult.valueOf(
+									Arrays.equals((byte[]) tempSingleFixtureResult, tempConvertedExpectedResult));
 						} else if (tempSingleFixtureResult instanceof Byte[]) {
 							Byte[] tempConvertedExpectedResult = (Byte[]) valueConverter.convertValue(Byte[].class,
 									tempSingleExpectedResult, null);
-							return SimpleComparisonResult.valueOf(Arrays.equals((Byte[]) tempSingleFixtureResult,
-									tempConvertedExpectedResult));
+							return SimpleComparisonResult.valueOf(
+									Arrays.equals((Byte[]) tempSingleFixtureResult, tempConvertedExpectedResult));
 						}
 
 						// The fixture might still have returned an array.
@@ -188,8 +204,8 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 		} else {
 			if (aFixtureInstance.isCustomComparatorFixture()) {
-				return aFixtureInstance.performCustomComparation(null, aFixtureResult, aFixtureMethod.getMethod()
-						.getSimpleName(), aPropertyName);
+				return aFixtureInstance.performCustomComparation(null, aFixtureResult,
+						aFixtureMethod.getMethod().getSimpleName(), aPropertyName);
 			} else {
 				if (aFixtureResult instanceof Boolean) {
 					return SimpleComparisonResult.valueOf((Boolean) aFixtureResult);
@@ -283,11 +299,9 @@ public class DefaultResultComparator implements ResultComparator {
 	protected ComparisonResult performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
 			ValueOrEnumValueOrOperation aRawExpectedResult) {
 		if (aConvertedResult == null) {
-			return SimpleComparisonResult
-					.valueOf(aConvertedExpectedResult == null
-							|| (aConvertedExpectedResult.getClass().isArray()
-									&& Array.getLength(aConvertedExpectedResult) == 1 && Array.get(
-									aConvertedExpectedResult, 0) == null));
+			return SimpleComparisonResult.valueOf(aConvertedExpectedResult == null
+					|| (aConvertedExpectedResult.getClass().isArray() && Array.getLength(aConvertedExpectedResult) == 1
+							&& Array.get(aConvertedExpectedResult, 0) == null));
 		} else {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
 				return performEqualityCheckForDates((Date) aConvertedResult, (Date) aConvertedExpectedResult,
@@ -375,8 +389,9 @@ public class DefaultResultComparator implements ResultComparator {
 				// since even though both outer values are maps, their inner values have not been necessarily converted
 				// to the same types
 				try {
-					tempConvertedReferenceValue = (tempActualValue != null) ? valueConverter.convertValue(
-							tempActualValue.getClass(), tempReferenceValue, null) : tempReferenceValue;
+					tempConvertedReferenceValue = (tempActualValue != null)
+							? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue, null)
+							: tempReferenceValue;
 				} catch (UnresolvableVariableException exc) {
 					exc.printStackTrace();
 				} catch (UnexecutableException exc) {
@@ -384,11 +399,9 @@ public class DefaultResultComparator implements ResultComparator {
 				}
 			}
 
-			ComparisonResult tempInnerResult = performEqualityCheck(
-					tempActualValue,
-					tempConvertedReferenceValue,
-					(tempReferenceValue instanceof ValueOrEnumValueOrOperation) ? (ValueOrEnumValueOrOperation) tempReferenceValue
-							: null);
+			ComparisonResult tempInnerResult = performEqualityCheck(tempActualValue, tempConvertedReferenceValue,
+					(tempReferenceValue instanceof ValueOrEnumValueOrOperation)
+							? (ValueOrEnumValueOrOperation) tempReferenceValue : null);
 
 			if (!tempInnerResult.isSuccessful()) {
 				tempSuccess = false;
@@ -423,12 +436,12 @@ public class DefaultResultComparator implements ResultComparator {
 			Object aRawExpectedResult) {
 		if (aRawExpectedResult instanceof DateValue) {
 			// compare only the date part
-			return SimpleComparisonResult.valueOf(DateUtil.stripTimeFromDate((Date) anExpectedResult).equals(
-					DateUtil.stripTimeFromDate((Date) aResult)));
+			return SimpleComparisonResult.valueOf(DateUtil.stripTimeFromDate((Date) anExpectedResult)
+					.equals(DateUtil.stripTimeFromDate((Date) aResult)));
 		} else if (aRawExpectedResult instanceof TimeValue) {
 			// compare only the time part
-			return SimpleComparisonResult.valueOf(DateUtil.stripDateFromTime((Date) anExpectedResult).equals(
-					DateUtil.stripDateFromTime((Date) aResult)));
+			return SimpleComparisonResult.valueOf(DateUtil.stripDateFromTime((Date) anExpectedResult)
+					.equals(DateUtil.stripDateFromTime((Date) aResult)));
 		} else {
 			// compare both parts
 			return SimpleComparisonResult.valueOf(anExpectedResult.equals(aResult));
