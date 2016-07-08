@@ -1,0 +1,57 @@
+import integrity.fixtures.basic.beans.*
+import integrity.operations.default.*
+import integrity.basic.beans.*
+
+packagedef integrity.basic.beans with
+
+	suitedef mapInsideBeanSimple with	
+		test createMapTestBean = {
+			mapParameter: {
+				key1: {
+					innerParameter: "foo"
+				}
+				key2: {
+					innerParameter: "bar"
+				}
+			}
+		}
+	suiteend
+	
+	suitedef mapInsideBeanWithMapInMap with	
+		test createMapTestBeanWithMapInMap = {
+			mapInMapParameter: {
+				outerKey1: {
+					innerKey1: {
+						innerParameter: "foo"
+					}
+					innerKey2: {
+						innerParameter: "bar"
+					}
+				}
+				outerKey2: {
+					innerKey1: {
+						innerParameter: "bar"
+					}
+					innerKey2: {
+						innerParameter: "foo"
+					}
+				}
+			}
+		}
+	suiteend
+	
+	suitedef mapInsideBeanWithTreeMap with	
+		test createMapTestBean = {
+			mapParameter: {
+				key1: {
+					innerParameter: "foo"
+				}
+				key2: {
+					innerParameter: "bar"
+				}
+			}
+		}
+	suiteend
+	
+
+packageend

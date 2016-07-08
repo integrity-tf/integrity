@@ -141,4 +141,19 @@ public class BeanFixture {
 	public Object createTransientTestBean() {
 		return new TransientTestBean();
 	}
+
+	@FixtureMethod(description = "creates a map test bean and returns it")
+	public MapTestBean createMapTestBean() {
+		return new MapTestBean();
+	}
+
+	@FixtureMethod(description = "creates a map test bean and returns it")
+	public MapTestBeanWithMapInMap createMapTestBeanWithMapInMap() {
+		return new MapTestBeanWithMapInMap();
+	}
+
+	@FixtureMethod(description = "creates a map test bean and returns it")
+	public MapTestBeanWithTreeMap createMapTestBeanWithTreeMap() {
+		return new MapTestBeanWithTreeMap();
+	}
 }

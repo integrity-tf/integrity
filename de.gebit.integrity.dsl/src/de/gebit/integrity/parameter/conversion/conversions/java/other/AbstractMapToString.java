@@ -10,6 +10,8 @@ package de.gebit.integrity.parameter.conversion.conversions.java.other;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import de.gebit.integrity.comparator.MapComparisonResult;
 import de.gebit.integrity.parameter.conversion.Conversion;
@@ -51,7 +53,7 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 	 *            the conversion context
 	 * @return the resulting string
 	 */
-	protected FormattedString convertToFormattedString(Map aSource, ConversionContext aConversionContext)
+	protected FormattedString convertToFormattedString(Map<?, ?> aSource, ConversionContext aConversionContext)
 			throws ConversionFailedException {
 		String tempParentMapPath = (String) aConversionContext.getProperty(MAP_PATH_PROPERTY);
 
@@ -66,16 +68,28 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 		}
 		nestedObjectDepthMap.put(Thread.currentThread(), tempDepth);
 
+		// In order to provide a consistent ordering of map entries in the string, we want to sort the map by natural
+		// key ordering
+		SortedMap<?, ?> tempSortedSource = null;
+		if (aSource instanceof SortedMap) {
+			// Either our source map is already sorted...
+			tempSortedSource = (SortedMap) aSource;
+		} else {
+			// ...or we need to sort it by creating a TreeMap and filling it
+			tempSortedSource = new TreeMap<>(aSource);
+		}
+
 		try {
 			boolean tempFirst = true;
-			for (Entry<?, ?> tempEntry : ((Map<?, ?>) aSource).entrySet()) {
+			for (Entry<?, ?> tempEntry : ((Map<?, ?>) tempSortedSource).entrySet()) {
 				String tempCurrentMapPath = (tempParentMapPath != null ? tempParentMapPath + "." : "")
 						+ tempEntry.getKey();
 				aConversionContext.withProperty(MAP_PATH_PROPERTY, tempCurrentMapPath);
 
-				boolean tempCurrentPathFailed = (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
-						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths().contains(
-								tempCurrentMapPath);
+				boolean tempCurrentPathFailed = (aConversionContext
+						.getComparisonResult() instanceof MapComparisonResult)
+						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths()
+								.contains(tempCurrentMapPath);
 
 				FormattedString[] tempConvertedValues = convertValueToFormattedStringArrayRecursive(
 						tempEntry.getValue(), aConversionContext);

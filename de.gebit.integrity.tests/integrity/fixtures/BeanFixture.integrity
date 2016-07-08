@@ -30,5 +30,14 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef createTransientTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean
 	calldef createTransientTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createTransientTestBean
+	
+	testdef createMapTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBean
+	calldef createMapTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBean
+	
+	testdef createMapTestBeanWithMapInMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithMapInMap
+	calldef createMapTestBeanWithMapInMapCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithMapInMap
+	
+	testdef createMapTestBeanWithTreeMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithTreeMap
+	calldef createMapTestBeanWithTreeMapCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithTreeMap
 
 packageend

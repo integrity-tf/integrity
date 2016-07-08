@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:48" duration="23.910">
+<integrity name="Integrity JUnit Testing" timestamp="08.07.16 15:24" isotimestamp="2016-07-08T15:24:46" duration="31.035">
   <variables />
-  <suite id="0" name="integrity.basic.beans.beanToMapTestMapInVariable" timestamp="14.01.16 10:58:48.0402">
+  <suite id="0" name="integrity.basic.beans.beanToMapTestMapInVariable" timestamp="08.07.16 15:24:46.0062">
     <setup />
     <variables>
       <variable name="simpleBeanAsMap" />
     </variables>
     <statements>
-      <call id="1" line="25" name="createMapForSimpleBeanUntypedCall" description="creates a map with some key-value pairs in it and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped" timestamp="14.01.16 10:58:48.0417">
+      <call id="1" line="25" name="createMapForSimpleBeanUntypedCall" description="creates a map with some key-value pairs in it and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapForSimpleBeanUntyped" timestamp="08.07.16 15:24:46.0066">
         <parameters />
-        <result duration="0.127" type="success">
-          <variableUpdate name="simpleBeanAsMap" value="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" />
+        <result duration="0.924" type="success">
+          <variableUpdate name="simpleBeanAsMap" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" />
         </result>
       </call>
       <comment id="2" line="27">This should succeed as well, because it's the same as the example before, but just using a map stored in a variable</comment>
-      <test id="3" line="28" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="14.01.16 10:58:48.0417">
-        <results duration="0.121" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.121" description="creates a bean with predefined values and returns it" type="success">
+      <test id="3" line="28" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="08.07.16 15:24:46.0076">
+        <results duration="0.789" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.789" description="creates a bean with predefined values and returns it" type="success">
             <parameters />
             <comparisons>
-              <comparison expectedValue="[FORMATTED]{[NL][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL|, ][T]secondParameter = 100[NL|, ][T]firstParameter = string[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
+              <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
             </comparisons>
           </result>
         </results>
@@ -27,7 +27,7 @@
     </statements>
     <returns />
     <teardown />
-    <result duration="23.124" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="26.628" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="08.07.16 16:17" isotimestamp="2016-07-08T16:17:21" duration="41.807">
+  <variables />
+  <suite id="0" name="integrity.basic.beans.mapInsideBeanWithMapInMap" timestamp="08.07.16 16:17:21.0802">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="21" name="createMapTestBeanWithMapInMap" description="creates a map test bean and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithMapInMap" timestamp="08.07.16 16:17:21.0807">
+        <results duration="1.006" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.006" description="creates a map test bean and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]mapInMapParameter = {[NL][T][T]outerKey1 = {[NL][T][T][T]innerKey1 = {[NL][T][T][T][T]innerParameter = foo[NL][T][T][T]}[NL|, ][T][T][T]innerKey2 = {[NL][T][T][T][T]innerParameter = bar[NL][T][T][T]}[NL][T][T]}[NL|, ][T][T]outerKey2 = {[NL][T][T][T]innerKey1 = {[NL][T][T][T][T]innerParameter = bar[NL][T][T][T]}[NL|, ][T][T][T]innerKey2 = {[NL][T][T][T][T]innerParameter = foo[NL][T][T][T]}[NL][T][T]}[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]mapInMapParameter = {[NL][T][T]outerKey1 = {[NL][T][T][T]innerKey1 = {[NL][T][T][T][T]innerParameter = foo[NL][T][T][T]}[NL|, ][T][T][T]innerKey2 = {[NL][T][T][T][T]innerParameter = bar[NL][T][T][T]}[NL][T][T]}[NL|, ][T][T]outerKey2 = {[NL][T][T][T]innerKey1 = {[NL][T][T][T][T]innerParameter = bar[NL][T][T][T]}[NL|, ][T][T][T]innerKey2 = {[NL][T][T][T][T]innerParameter = foo[NL][T][T][T]}[NL][T][T]}[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="36.951" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
