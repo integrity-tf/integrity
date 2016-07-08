@@ -124,6 +124,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToForm
 import de.gebit.integrity.parameter.conversion.conversions.java.other.EnumToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToBean;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
@@ -209,6 +210,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(MapToBean.class);
 		addConversion(MapToString.class);
 		addConversion(MapToFormattedString.class);
+		addConversion(MapToMap.class);
 		addConversion(ObjectToMap.class);
 		addConversion(EnumToString.class);
 		addConversion(EnumToFormattedString.class);

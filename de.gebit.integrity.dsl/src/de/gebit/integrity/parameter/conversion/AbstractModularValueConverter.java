@@ -8,6 +8,7 @@
 package de.gebit.integrity.parameter.conversion;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -174,8 +175,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws InstantiationException
 	 */
 	public Object convertValue(Class<?> aTargetType, Class<?> aParameterizedType, Object aValue,
-			ConversionContext aConversionContext, Set<Object> someVisitedObjects) throws UnresolvableVariableException,
-			UnexecutableException {
+			ConversionContext aConversionContext, Set<Object> someVisitedObjects)
+			throws UnresolvableVariableException, UnexecutableException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		if (someVisitedObjects.contains(aValue)) {
@@ -194,8 +195,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					return convertEncapsulatedConstantValueToTargetType(aTargetType, aParameterizedType,
 							(ConstantValue) aValue, tempConversionContext, someVisitedObjects);
 				} else {
-					return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue,
-							tempConversionContext, someVisitedObjects);
+					return convertPlainValueToTargetType(aTargetType, aParameterizedType, aValue, tempConversionContext,
+							someVisitedObjects);
 				}
 			} finally {
 				someVisitedObjects.remove(aValue);
@@ -253,20 +254,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				// both are arrays
 				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
 				for (int i = 0; i < Array.getLength(aValue); i++) {
-					Array.set(
-							tempResultArray,
-							i,
-							convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
-									Array.get(aValue, i), aConversionContext, someVisitedValues));
+					Array.set(tempResultArray, i, convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
+							Array.get(aValue, i), aConversionContext, someVisitedValues));
 				}
 			} else {
 				// target is an array, but value is a single value
 				tempResultArray = Array.newInstance(tempActualParamType, 1);
-				Array.set(
-						tempResultArray,
-						0,
-						convertPlainValueToTargetType(tempActualParamType, aParameterizedType, aValue,
-								aConversionContext, someVisitedValues));
+				Array.set(tempResultArray, 0, convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
+						aValue, aConversionContext, someVisitedValues));
 			}
 			return tempResultArray;
 		} else {
@@ -338,18 +333,37 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		Class<?> tempSourceType = transformPrimitiveTypes(aValue.getClass());
 		String tempSourceTypeName = tempSourceType.getName();
 
-		// No conversion necessary if target type is a superclass or the same as the current type
-		if (tempTargetType != null && tempTargetType.isAssignableFrom(tempSourceType)) {
-			// ...except if the source type is one of Integritys' internal types, which shouldn't generally been given
-			// to fixtures in an unconverted state.
-			if (!tempSourceTypeName.startsWith("de.gebit.integrity.dsl.")) {
+		if (Map.class.isAssignableFrom(tempSourceType)) {
+			// Maps need special attention: we may have to convert their contents. Therefore we perform a Map-to-Map
+			// conversion in this case, which iterates over inner value and ensures those are also converted, if
+			// necessary.
+			// In order to do this, we need to specify a concrete map target type.
+			if (tempTargetType == null) {
+				tempTargetType = HashMap.class; // HashMap is a good default
+			} else if (Map.class.isAssignableFrom(tempTargetType)) {
+				// If the target type is also a map, see whether the target is an abstract type
+				if ((tempTargetType.getModifiers() & Modifier.ABSTRACT) != 0) {
+					// If it is, just use the source value type as target. This basically performs no conversion of the
+					// map object itself, but it nevertheless results in an execution of the Map-to-Map conversion,
+					// which triggers conversion of inner values
+					tempTargetType = tempSourceType;
+				}
+			}
+		} else {
+			// No conversion necessary if target type is a superclass or the same as the current type
+			if (tempTargetType != null && tempTargetType.isAssignableFrom(tempSourceType)) {
+				// ...except if the source type is one of Integritys' internal types, which shouldn't generally been
+				// given
+				// to fixtures in an unconverted state.
+				if (!tempSourceTypeName.startsWith("de.gebit.integrity.dsl.")) {
+					return aValue;
+				}
+			}
+
+			if (tempTargetType == null && tempSourceTypeName.startsWith("java.")) {
+				// Java types generally have themselves as "default type" and don't need to be converted to anything
 				return aValue;
 			}
-		}
-
-		if (tempTargetType == null && tempSourceTypeName.startsWith("java.")) {
-			// Java types generally have themselves as "default type" and don't need to be converted to anything
-			return aValue;
 		}
 
 		try {
@@ -372,8 +386,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			throw exc;
 			// SUPPRESS CHECKSTYLE IllegalCatch
 		} catch (Throwable exc) {
-			throw new ConversionFailedException(aValue.getClass(), tempTargetType,
-					"Unexpected error during conversion", exc);
+			throw new ConversionFailedException(aValue.getClass(), tempTargetType, "Unexpected error during conversion",
+					exc);
 		}
 	}
 
@@ -502,8 +516,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			} else if (((Constant) aValue).getName().eContainer() instanceof ConstantDefinition) {
 				// Without the variable manager, we can still attempt to resolve statically.
 				try {
-					return parameterResolver.resolveStatically((ConstantDefinition) ((Constant) aValue).getName()
-							.eContainer(), null);
+					return parameterResolver
+							.resolveStatically((ConstantDefinition) ((Constant) aValue).getName().eContainer(), null);
 				} catch (ClassNotFoundException exc) {
 					exc.printStackTrace();
 				} catch (InstantiationException exc) {
@@ -580,8 +594,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// this is actually an array
 			Object tempResultArray = Array.newInstance(tempTargetArrayType, aCollection.getMoreValues().size() + 1);
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
-				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue() : aCollection.getMoreValues()
-						.get(i - 1));
+				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue()
+						: aCollection.getMoreValues().get(i - 1));
 				Object tempResultValue = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
 						tempValue, aConversionContext, someVisitedValues);
 				Array.set(tempResultArray, i, tempResultValue);
@@ -720,9 +734,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		FormattedString[] tempResult;
 		try {
 			if (aValue instanceof ValueOrEnumValueOrOperationCollection) {
-				tempResult = (FormattedString[]) convertEncapsulatedValueCollectionToTargetType(
-						FormattedString[].class, null, (ValueOrEnumValueOrOperationCollection) aValue,
-						tempConversionContext, someVisitedValues);
+				tempResult = (FormattedString[]) convertEncapsulatedValueCollectionToTargetType(FormattedString[].class,
+						null, (ValueOrEnumValueOrOperationCollection) aValue, tempConversionContext, someVisitedValues);
 			} else if (aValue instanceof ValueOrEnumValueOrOperation) {
 				tempResult = (FormattedString[]) convertEncapsulatedValueToTargetType(FormattedString[].class, null,
 						(ValueOrEnumValueOrOperation) aValue, tempConversionContext, someVisitedValues);
@@ -958,8 +971,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws IllegalAccessException
 	 */
 	protected Conversion<?, ?> findAndInstantiateConversion(Class<?> aSourceType, Class<?> aTargetType,
-			Set<Object> someVisitedValues, ConversionContext aConversionContext) throws InstantiationException,
-			IllegalAccessException {
+			Set<Object> someVisitedValues, ConversionContext aConversionContext)
+			throws InstantiationException, IllegalAccessException {
 		Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(aSourceType, aTargetType,
 				someVisitedValues, aConversionContext);
 
@@ -1034,8 +1047,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> searchDerivedConversionMap(Class<?> aSourceType, Class<?> aTargetType) {
-		List<Class<? extends Conversion<?, ?>>> tempList = derivedConversions.get(new ConversionKey(aSourceType,
-				aTargetType));
+		List<Class<? extends Conversion<?, ?>>> tempList = derivedConversions
+				.get(new ConversionKey(aSourceType, aTargetType));
 		if (tempList != null && !tempList.isEmpty()) {
 			return tempList.get(0);
 		}
@@ -1173,8 +1186,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected <C extends Conversion> C createConversionInstance(Class<C> aConversionClass, Set<Object> someVisitedValues)
-			throws InstantiationException, IllegalAccessException {
+	protected <C extends Conversion> C createConversionInstance(Class<C> aConversionClass,
+			Set<Object> someVisitedValues) throws InstantiationException, IllegalAccessException {
 		if (aConversionClass == null) {
 			return null;
 		}
