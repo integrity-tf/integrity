@@ -28,9 +28,9 @@
 		            <configuration>
 		                <artifacts>
 		                    <artifact>
-		                        <file>mars.target</file>
+		                        <file>neon.target</file>
 		                        <type>target</type>
-		                        <classifier>mars</classifier>
+		                        <classifier>neon</classifier>
 		                    </artifact>
 		                </artifacts>
 		            </configuration>

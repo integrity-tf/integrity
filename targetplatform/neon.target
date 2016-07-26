@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="integrity" sequenceNumber="63">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.codegen.ui.feature.group" version="2.8.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.xtext.ui.feature.group" version="2.10.0.v201605250459"/>
+<unit id="org.eclipse.jst.ws.jaxws.feature.feature.group" version="1.2.203.v201602092125"/>
+<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.emf.codegen.ecore.ui.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.codegen.ecore.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.mwe.core.feature.feature.group" version="1.3.20.v201605261103"/>
+<unit id="org.eclipse.xtend.feature.group" version="2.2.0.v201605260315"/>
+<unit id="org.eclipse.emf.ecore.edit.feature.group" version="2.9.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.codegen.feature.group" version="2.11.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.ecore.feature.group" version="2.12.0.v20160420-0247"/>
+<unit id="org.eclipse.emf.edit.ui.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.jdt.feature.group" version="3.12.0.v20160606-1100"/>
+<unit id="org.eclipse.objectteams.otequinox.feature.group" version="2.5.0.201606070956"/>
+<unit id="org.eclipse.platform.feature.group" version="4.6.0.v20160606-1342"/>
+<unit id="org.eclipse.xtext.xbase.feature.group" version="2.10.0.v201605250459"/>
+<unit id="org.eclipse.emf.edit.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.equinox.core.feature.feature.group" version="1.3.0.v20160603-1336"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.10.0.v201605250459"/>
+<unit id="org.eclipse.core.runtime.feature.feature.group" version="1.1.200.v20160606-1342"/>
+<unit id="org.eclipse.xtext.runtime.feature.group" version="2.10.0.v201605250459"/>
+<unit id="org.eclipse.emf.common.ui.feature.group" version="2.11.0.v20160526-0356"/>
+<unit id="org.eclipse.emf.common.feature.group" version="2.12.0.v20160420-0247"/>
+<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.12.0.v20160603-1336"/>
+<unit id="org.eclipse.emf.mwe.sdk.feature.group" version="1.3.20.v201605261103"/>
+<unit id="org.eclipse.objectteams.otequinox" version="2.5.0.201606070956"/>
+<repository location="http://build.integrity-tf.org/job/integrity_p2mirror_neon/lastSuccessfulBuild/artifact/"/>
+</location>
+</locations>
+<environment>
+<os>win32</os>
+<ws>win32</ws>
+<arch>x86</arch>
+</environment>
+<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+</target>
