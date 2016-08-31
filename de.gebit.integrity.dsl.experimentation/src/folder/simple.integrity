@@ -3,13 +3,30 @@ import mysecondpackage.*
 
 packagedef mypackage with
 
+	private variable privatepackagevar
+	
+	variable packagevar
+
 	suitedef asuite with
+	
+		variable suitevar
 		
 		tabletest echos param1: "abc" param2: 1234
-		| echo  | param3 | =     |
-		| 100   | "test" | 100   |
-		| "foo" | 100    | "foo" |
+			| echo  | param3 | =     |
+			| 100   | "test" | 100   |
+			| "foo" | 100    | "foo" |
 		
 	suiteend
 	
+packageend
+
+packagedef otherpackage with
+
+	suitedef testsuite with
+	
+		variable blahvar1 initially mypackage.packagevar
+		variable blahvar2 initially mypackage.privatepackagevar
+	
+	suiteend
+
 packageend
