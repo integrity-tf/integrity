@@ -25,7 +25,7 @@ public class DSLResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 
 	@Override
 	public boolean createEObjectDescriptions(EObject anObject, IAcceptor<IEObjectDescription> anAcceptor) {
-		if (IntegrityDSLUtil.isPrivate(anObject)) {
+		if (IntegrityDSLUtil.isPrivateInsideSuite(anObject)) {
 			return false;
 		}
 

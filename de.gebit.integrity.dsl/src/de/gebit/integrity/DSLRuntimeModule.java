@@ -13,6 +13,8 @@ package de.gebit.integrity;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
+import org.eclipse.xtext.resource.clustering.DynamicResourceClusteringPolicy;
+import org.eclipse.xtext.resource.clustering.IResourceClusteringPolicy;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.service.DispatchingProvider;
 
@@ -151,6 +153,17 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	 */
 	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
 		return DSLResourceDescriptionStrategy.class;
+	}
+
+	/**
+	 * Binds the {@link IResourceClusteringPolicy}. This dynamic policy improves memory behavior when dealing with large
+	 * script sets.
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("restriction")
+	public Class<? extends IResourceClusteringPolicy> bindIResourceClusteringPolicy() {
+		return DynamicResourceClusteringPolicy.class;
 	}
 
 }

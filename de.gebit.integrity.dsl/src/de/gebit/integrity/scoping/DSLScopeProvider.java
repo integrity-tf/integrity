@@ -565,6 +565,42 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	/**
+	 * Determines variables/constants in scope for variable definitions.
+	 * 
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(VariableDefinition aVariableDefinition, EReference aRef) {
+		EObject tempParent = aVariableDefinition.eContainer();
+
+		if (tempParent instanceof SuiteDefinition) {
+			return determineVariableScope(aVariableDefinition, (SuiteDefinition) tempParent);
+		} else if (tempParent instanceof PackageDefinition) {
+			return determineVariableScope((PackageDefinition) aVariableDefinition);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Determines variables/constants in scope for constant definitions.
+	 * 
+	 * @return
+	 */
+	// SUPPRESS CHECKSTYLE MethodName
+	public IScope scope_Variable_name(ConstantDefinition aConstantDefinition, EReference aRef) {
+		EObject tempParent = aConstantDefinition.eContainer();
+
+		if (tempParent instanceof SuiteDefinition) {
+			return determineVariableScope(aConstantDefinition, (SuiteDefinition) tempParent);
+		} else if (tempParent instanceof PackageDefinition) {
+			return determineVariableScope((PackageDefinition) aConstantDefinition);
+		}
+
+		return null;
+	}
+
+	/**
 	 * This basically performs a default import on everything in the local file by adding another scope entry for all
 	 * suite definitions in the current file.
 	 * 
@@ -764,10 +800,14 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof VariableDefinition) {
 				VariableEntity tempEntity = ((VariableDefinition) tempStatement).getName();
-				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				if (tempEntity != null) {
+					tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				}
 			} else if (tempStatement instanceof ConstantDefinition) {
 				ConstantEntity tempEntity = ((ConstantDefinition) tempStatement).getName();
-				tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				if (tempEntity != null) {
+					tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				}
 			} else if (tempStatement == tempStop) {
 				break;
 			}
@@ -790,6 +830,31 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 
 		return new SimpleScope(tempScope, tempSuiteParameterAndReturnList);
+	}
+
+	private IScope determineVariableScope(PackageDefinition aPackageDef) {
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		IScope tempScope = new SimpleScope(tempList);
+
+		// Add constants/variables defined in current package
+		for (PackageStatement tempStatement : aPackageDef.getStatements()) {
+			if (tempStatement instanceof VariableDefinition) {
+				VariableEntity tempEntity = ((VariableDefinition) tempStatement).getName();
+				if (tempEntity != null) {
+					tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				}
+			} else if (tempStatement instanceof ConstantDefinition) {
+				ConstantEntity tempEntity = ((ConstantDefinition) tempStatement).getName();
+				if (tempEntity != null) {
+					tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+				}
+			}
+		}
+
+		// Add global constants and variables.
+		tempScope = addVisibleGlobalConstantsAndVariables(tempScope, aPackageDef);
+
+		return tempScope;
 	}
 
 	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {
