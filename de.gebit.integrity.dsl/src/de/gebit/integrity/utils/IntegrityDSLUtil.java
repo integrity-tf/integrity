@@ -708,6 +708,22 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
+	 * Checks whether the given {@link EObject} is located inside a suite and is thus of private visibility by default.
+	 * 
+	 * @param anObject
+	 * @return
+	 */
+	public static boolean isPrivateInsideSuite(EObject anObject) {
+		if (anObject instanceof VariableDefinition) {
+			return (anObject.eContainer() instanceof SuiteDefinition);
+		} else if (anObject instanceof ConstantDefinition) {
+			return (anObject.eContainer() instanceof SuiteDefinition);
+		}
+
+		return false;
+	}
+
+	/**
 	 * Attempts to extract a {@link VariableOrConstantEntity} from the provided {@link ValueOrEnumValueOrOperation}.
 	 * 
 	 * @param anInput
