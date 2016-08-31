@@ -12,6 +12,7 @@ package de.gebit.integrity;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.parser.IEncodingProvider;
+import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.service.DispatchingProvider;
 
@@ -26,6 +27,7 @@ import de.gebit.integrity.parameter.conversion.DefaultModularValueConverter;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.DefaultParameterResolver;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
+import de.gebit.integrity.scoping.DSLResourceDescriptionStrategy;
 import de.gebit.integrity.scoping.importer.DSLImportedNamespaceAwareLocalScopeProvider;
 import de.gebit.integrity.values.DSLValueConverters;
 
@@ -116,11 +118,11 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	/**
 	 * Bind the custom local scope provider.
 	 */
+	@Override
 	public void configureIScopeProviderDelegate(com.google.inject.Binder aBinder) {
 		aBinder.bind(org.eclipse.xtext.scoping.IScopeProvider.class)
-				.annotatedWith(
-						com.google.inject.name.Names
-								.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
+				.annotatedWith(com.google.inject.name.Names
+						.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(DSLImportedNamespaceAwareLocalScopeProvider.class);
 	}
 
@@ -140,6 +142,15 @@ public class DSLRuntimeModule extends de.gebit.integrity.AbstractDSLRuntimeModul
 	 */
 	public Class<? extends ConversionContext> bindConversionContext() {
 		return ConversionContext.class;
+	}
+
+	/**
+	 * Binds the {@link IDefaultResourceDescriptionStrategy}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return DSLResourceDescriptionStrategy.class;
 	}
 
 }
