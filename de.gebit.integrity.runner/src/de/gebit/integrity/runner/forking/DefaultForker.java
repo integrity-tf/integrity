@@ -38,7 +38,7 @@ public class DefaultForker implements Forker {
 	@Override
 	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed)
 			throws ForkException {
-		int tempPortNumber = getFreePort();
+		int tempPortNumber = getPortToUse();
 
 		List<String> tempArgs = createArgumentList(someCommandLineArguments, tempPortNumber, aForkName, aRandomSeed);
 		return createProcess(tempArgs, tempPortNumber);
@@ -114,7 +114,12 @@ public class DefaultForker implements Forker {
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
 	 */
-	protected void addForkInformation(List<String> anArgumentList, int aPortNumber, String aForkName, long aRandomSeed) {
+	protected void addForkInformation(List<String> anArgumentList, int aPortNumber, String aForkName,
+			long aRandomSeed) {
+		String tempHostInterface = getHostInterfaceToUse();
+		if (tempHostInterface != null) {
+			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_HOST + "=" + tempHostInterface);
+		}
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_PORT + "=" + aPortNumber);
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_NAME + "=" + aForkName);
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_SEED + "=" + aRandomSeed);
@@ -208,11 +213,13 @@ public class DefaultForker implements Forker {
 	private static final int MIN_PORT_NUMBER = 1024;
 
 	/**
-	 * Finds a free port on the machine by randomly checking ports above {@link #MIN_PORT_NUMBER}.
+	 * This determines the port to use by the fork to communicate with the master. The fork must be able to bind to this
+	 * port. The default implementation finds a free port on the machine by randomly checking ports above
+	 * {@link #MIN_PORT_NUMBER}.
 	 * 
-	 * @return
+	 * @return the port to use
 	 */
-	private static int getFreePort() {
+	protected int getPortToUse() {
 		int tempPort = 0;
 		do {
 			tempPort = (int) Math.floor(Math.random() * (double) (MAX_PORT_NUMBER - MIN_PORT_NUMBER)) + MIN_PORT_NUMBER;
@@ -220,10 +227,26 @@ public class DefaultForker implements Forker {
 		return tempPort;
 	}
 
-	private static boolean isPortAvailable(int aPort) {
-		InetAddress tempLocalhost;
+	/**
+	 * Determines the host interface to bind the fork to.
+	 * 
+	 * @return the host interface name (IP or hostname)
+	 */
+	protected String getHostInterfaceToUse() {
+		return "localhost";
+	}
+
+	/**
+	 * Checks whether a given port is available on the local machine.
+	 * 
+	 * @param aPort
+	 *            the port to check
+	 * @return true if the port is available, false if not
+	 */
+	protected boolean isPortAvailable(int aPort) {
+		InetAddress tempInterface;
 		try {
-			tempLocalhost = Inet4Address.getByName("localhost");
+			tempInterface = Inet4Address.getByName("localhost");
 		} catch (UnknownHostException exc1) {
 			// This is almost impossible to occur!
 			throw new RuntimeException(exc1);
@@ -231,9 +254,9 @@ public class DefaultForker implements Forker {
 		ServerSocket tempServerSocket = null;
 		DatagramSocket tempDatagramSocket = null;
 		try {
-			tempServerSocket = new ServerSocket(aPort, 1, tempLocalhost);
+			tempServerSocket = new ServerSocket(aPort, 1, tempInterface);
 			tempServerSocket.setReuseAddress(true);
-			tempDatagramSocket = new DatagramSocket(aPort, tempLocalhost);
+			tempDatagramSocket = new DatagramSocket(aPort, tempInterface);
 			tempDatagramSocket.setReuseAddress(true);
 			return true;
 		} catch (IOException exc) {
