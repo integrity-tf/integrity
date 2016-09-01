@@ -415,12 +415,15 @@ public class DefaultTestRunner implements TestRunner {
 		parameterizedConstantValues = someParameterizedConstants;
 		commandLineArguments = someCommandLineArguments;
 		Integer tempRemotingPort = aRemotingPort;
+		String tempRemotingBindHost = aRemotingBindHost;
 		if (isFork()) {
 			tempRemotingPort = Integer.parseInt(System.getProperty(Forker.SYSPARAM_FORK_REMOTING_PORT));
+			tempRemotingBindHost = System.getProperty(Forker.SYSPARAM_FORK_REMOTING_HOST, aRemotingBindHost);
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
-			remotingServer = new IntegrityRemotingServer(aRemotingBindHost, tempRemotingPort, remotingListener,
+			System.out.println("binding to " + tempRemotingBindHost);
+			remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
 					javaClassLoader);
 		}
 	}
