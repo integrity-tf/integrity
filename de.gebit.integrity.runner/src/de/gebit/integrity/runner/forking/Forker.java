@@ -18,6 +18,12 @@ package de.gebit.integrity.runner.forking;
 public interface Forker {
 
 	/**
+	 * System parameter name for the host interface that the remoting should bind to on the fork. If this is set, it
+	 * overrides the setting that is provided to the test runner for general remoting.
+	 */
+	String SYSPARAM_FORK_REMOTING_HOST = "integrity.fork.host";
+
+	/**
 	 * System parameter name for the remoting port to use to communicate with the fork.
 	 */
 	String SYSPARAM_FORK_REMOTING_PORT = "integrity.fork.port";
