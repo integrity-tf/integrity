@@ -422,7 +422,6 @@ public class DefaultTestRunner implements TestRunner {
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
-			System.out.println("binding to " + tempRemotingBindHost);
 			remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
 					javaClassLoader);
 		}
