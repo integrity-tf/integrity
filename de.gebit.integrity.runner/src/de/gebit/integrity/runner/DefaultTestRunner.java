@@ -387,6 +387,11 @@ public class DefaultTestRunner implements TestRunner {
 	 * from a fork, in which case an exception can not be transported over the remoting connection).
 	 */
 	protected AbortExecutionCauseWrapper abortExecutionCause;
+	
+	/**
+	 * Maps each {@link ForkDefinition} to the suite call that is the last one to be executed on that fork. The fork should die afterwards.
+	 */
+	protected Map<ForkDefinition, Suite> lastSuiteForFork = new HashMap<ForkDefinition, Suite>();
 
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
@@ -423,7 +428,7 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
 			remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
-					javaClassLoader);
+					javaClassLoader, isFork());
 		}
 	}
 
@@ -463,7 +468,7 @@ public class DefaultTestRunner implements TestRunner {
 		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
-		Runtime.getRuntime().addShutdownHook(new Thread("Process Terminator Shutdown Hook") {
+		Runtime.getRuntime().addShutdownHook(new Thread("Integrity - Process Terminator Shutdown Hook") {
 
 			@Override
 			public void run() {
@@ -867,7 +872,8 @@ public class DefaultTestRunner implements TestRunner {
 					ForkResultSummary tempForkResultSummary = null;
 					tempSuiteDuration = System.nanoTime();
 					if (tempFork != null) {
-						tempForkResultSummary = tempFork.executeNextSegment();
+						tempForkResultSummary = tempFork
+								.executeNextSegment(lastSuiteForFork.get(forkInExecution) == aSuiteCall);
 					}
 					tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
@@ -892,6 +898,13 @@ public class DefaultTestRunner implements TestRunner {
 			}
 			forkInExecution = null;
 			currentCallback.setForkInExecution(null);
+		}
+		
+		if (currentPhase == Phase.DRY_RUN && aSuiteCall.getFork() != null) {
+			// Determining the last suite for all forks is simple: just store each fork in the map during dry run,
+			// overriding earlier invocations if the fork was already added. At the end of dry run, we know the last
+			// suite per fork.
+			lastSuiteForFork.put(aSuiteCall.getFork(), aSuiteCall);
 		}
 
 		return tempResult;
