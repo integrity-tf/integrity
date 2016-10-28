@@ -93,9 +93,9 @@ public class DefaultIntegrityURLResolver implements IntegrityURLResolver {
 					// This is performed asynchronously because Xtext does it in the same way since 2.8 or so.
 					// The Xtext change originally caused issue #110: Jumping to test/call/suite invocations via
 					// integrity:// URLs jumps to suitedef instead
-					Job selectAndRevealJob = new Job("Select and reveal line " + aLineNumber) {
+					Job tempSelectAndRevealJob = new Job("Select and reveal line " + aLineNumber) {
 						@Override
-						protected IStatus run(IProgressMonitor monitor) {
+						protected IStatus run(IProgressMonitor aMonitor) {
 							tempEditor.getSite().getWorkbenchWindow().getWorkbench().getDisplay()
 									.asyncExec(new Runnable() {
 										@Override
@@ -108,9 +108,9 @@ public class DefaultIntegrityURLResolver implements IntegrityURLResolver {
 							return Status.OK_STATUS;
 						}
 					};
-					selectAndRevealJob.setSystem(true);
-					selectAndRevealJob.setPriority(Job.SHORT);
-					selectAndRevealJob.schedule();
+					tempSelectAndRevealJob.setSystem(true);
+					tempSelectAndRevealJob.setPriority(Job.SHORT);
+					tempSelectAndRevealJob.schedule();
 
 					return true;
 				} else {
