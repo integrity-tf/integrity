@@ -81,7 +81,7 @@ public class DefaultProcessTerminator implements ProcessTerminator {
 
 	@Override
 	public boolean killAndWait(int aTimeout) {
-		Thread tempKillThread = new Thread("Process Terminator Thread") {
+		Thread tempKillThread = new Thread("Integrity - Process Terminator Thread") {
 
 			public void run() {
 				try {

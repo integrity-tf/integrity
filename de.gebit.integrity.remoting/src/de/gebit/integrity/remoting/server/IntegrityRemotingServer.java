@@ -62,6 +62,11 @@ public class IntegrityRemotingServer {
 	private int port;
 
 	/**
+	 * Whether this remoting server has been initialized as a fork.
+	 */
+	private boolean isFork;
+
+	/**
 	 * Creates a new server, listening on a specified port and a specified host IP.
 	 * 
 	 * @param aHostIP
@@ -72,17 +77,20 @@ public class IntegrityRemotingServer {
 	 *            the listener
 	 * @param aClassLoader
 	 *            the classloader to use when deserializing objects
+	 * @param anIsForkFlag
+	 *            whether this remoting server is serving inside an Integrity fork process
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
 	public IntegrityRemotingServer(String aHostIP, int aPort, IntegrityRemotingServerListener aListener,
-			ClassLoader aClassLoader) throws UnknownHostException, IOException {
+			ClassLoader aClassLoader, boolean anIsForkFlag) throws UnknownHostException, IOException {
 		if (aListener == null) {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
 		listener = aListener;
 		port = aPort;
-		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors(), aClassLoader);
+		isFork = anIsForkFlag;
+		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors(), aClassLoader, anIsForkFlag);
 	}
 
 	/**
@@ -92,6 +100,12 @@ public class IntegrityRemotingServer {
 	 *            whether the output message queue shall be emptied before closing the connection
 	 */
 	public void closeAll(boolean anEmptyOutputQueueFlag) {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException exc) {
+			// TODO Auto-generated catch block
+			exc.printStackTrace();
+		}
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.closeAll(anEmptyOutputQueueFlag);
 		}
@@ -289,5 +303,9 @@ public class IntegrityRemotingServer {
 
 	public int getPort() {
 		return port;
+	}
+
+	public boolean isFork() {
+		return isFork;
 	}
 }

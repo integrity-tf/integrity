@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -173,14 +174,20 @@ public class Fork {
 
 	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
-	 * established.
+	 * established, in milliseconds.
 	 */
 	private static final int FORK_CHECK_INTERVAL = 1000;
 
 	/**
-	 * The time available for the fork to shutdown in case of a kill request, before it is killed forcefully.
+	 * The msecs available for the fork to shutdown in case of a kill request, before it is killed forcefully.
 	 */
 	private static final int FORK_SHUTDOWN_GRACE_TIME = 5000;
+
+	/**
+	 * The maximum time to wait for a fork to disconnect after its last statement has executed. If it did not disconnect
+	 * until then, test execution continues. This is in milliseconds.
+	 */
+	private static final int FORK_DISCONNECT_WAIT_TIME = 60000;
 
 	/**
 	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
@@ -244,12 +251,14 @@ public class Fork {
 
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
-			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stdout copy: " + definition.getName(),
+			new StreamCopier("\tFORK '" + definition.getName() + "': ",
+					"Integrity - stdout copy: " + definition.getName(),
 					tempStdOut, false).start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
-			new StreamCopier("\tFORK '" + definition.getName() + "': ", "stderr copy: " + definition.getName(),
+			new StreamCopier("\tFORK '" + definition.getName() + "': ",
+					"Integrity - stderr copy: " + definition.getName(),
 					tempStdErr, true).start();
 		}
 	}
@@ -354,7 +363,7 @@ public class Fork {
 	/**
 	 * Triggers execution of the next segment on the fork. Will block until the fork has finished executing the segment.
 	 */
-	public ForkResultSummary executeNextSegment() {
+	public ForkResultSummary executeNextSegment(boolean aWaitForForkDisconnect) {
 		if (client != null) {
 			transmitVariableUpdates();
 
@@ -373,6 +382,23 @@ public class Fork {
 				if (lastResultSummary == null) {
 					System.err.println("FAILED TO RECEIVE SUITE RESULT SUMMARY FROM FORK! "
 							+ "TEST RESULT TOTAL NUMBERS MAY BE INACCURATE!");
+				}
+
+				if (aWaitForForkDisconnect) {
+					long tempStart = System.nanoTime();
+					while (!forkDeathConfirmed && TimeUnit.NANOSECONDS
+							.toMillis(System.nanoTime() - tempStart) < FORK_DISCONNECT_WAIT_TIME) {
+						try {
+							wait(1000);
+						} catch (InterruptedException exc) {
+							// ignored
+						}
+					}
+					if (!forkDeathConfirmed) {
+						System.err.println(
+								"FAILED TO CONFIRM FORK DEATH! EXECUTION WILL CONTINUE, BUT THERE MAY BE PROBLEMS DOWN "
+										+ "THE ROAD...OR ZOMBIE PROCESSES!");
+					}
 				}
 				return lastResultSummary;
 			}
@@ -502,6 +528,12 @@ public class Fork {
 
 		@Override
 		public void onConnectionLost(Endpoint anEndpoint) {
+			if (!anEndpoint.isDisconnectRequested()) {
+				System.err.println("THE FORK '" + definition.getName()
+						+ "' HAS TERMINATED BEFORE THE CONTROL CONNECTION COULD BE SHUT DOWN PROPERLY! "
+						+ "THIS MAY RESULT IN FURTHER PROBLEMS DOWN THE ROAD!");
+			}
+
 			client = null;
 			segmentExecuted = true;
 			synchronized (Fork.this) {
@@ -564,7 +596,7 @@ public class Fork {
 		 */
 		private boolean stdErr;
 
-		public StreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag) {
+		StreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag) {
 			super(aThreadName);
 			prefix = aPrefix;
 			source = new BufferedReader(new InputStreamReader(aSource));
@@ -604,8 +636,8 @@ public class Fork {
 
 	private class ForkMonitor extends Thread {
 
-		public ForkMonitor() {
-			super("Fork Monitor Thread");
+		ForkMonitor() {
+			super("Integrity - Fork Monitor Thread");
 		}
 
 		/**
