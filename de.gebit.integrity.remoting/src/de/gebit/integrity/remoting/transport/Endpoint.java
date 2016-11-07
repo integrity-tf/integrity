@@ -59,12 +59,17 @@ public class Endpoint {
 	/**
 	 * Whether the endpoint is active.
 	 */
-	private boolean isActive;
+	private volatile boolean isActive;
 
 	/**
 	 * An object used to wait on for the disconnect message handshake when closing the socket.
 	 */
 	private Object closeSyncObject = new Object();
+
+	/**
+	 * Whether this endpoint has received a disconnect request from the other side or sent such a packet.
+	 */
+	private volatile boolean disconnectRequested;
 
 	/**
 	 * The classloader to use when deserializing objects.
@@ -161,6 +166,10 @@ public class Endpoint {
 	public boolean isActive() {
 		return isActive && socket.isConnected();
 	}
+	
+	public boolean isDisconnectRequested() {
+		return disconnectRequested;
+	}
 
 	/**
 	 * Close the connection.
@@ -191,6 +200,8 @@ public class Endpoint {
 				} catch (InterruptedException exc) {
 					// can't happen here, so don't care
 				}
+
+				disconnectRequested = true;
 
 				try {
 					closeSyncObject.wait(DISCONNECT_WAIT_TIME);
@@ -224,8 +235,8 @@ public class Endpoint {
 
 	private class EndpointInputProcessor extends Thread {
 
-		public EndpointInputProcessor() {
-			super("Endpoint Input Processor");
+		EndpointInputProcessor() {
+			super("Integrity - Endpoint Input Processor");
 		}
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -272,6 +283,7 @@ public class Endpoint {
 							} else {
 								// this is a disconnect request message and should be answered by a confirmation when
 								// received
+								disconnectRequested = true;
 								sendMessage(new DisconnectMessage(true));
 							}
 						} else {
@@ -313,8 +325,8 @@ public class Endpoint {
 		 */
 		private boolean killSwitch;
 
-		public EndpointOutputProcessor() {
-			super("Endpoint Output Processor");
+		EndpointOutputProcessor() {
+			super("Integrity - Endpoint Output Processor");
 		}
 
 		public void kill() {
