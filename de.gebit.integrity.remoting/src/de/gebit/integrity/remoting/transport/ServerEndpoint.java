@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 
@@ -54,6 +55,11 @@ public class ServerEndpoint {
 	private boolean closing;
 
 	/**
+	 * The shutdown hook thread that was registered (if any).
+	 */
+	private ShutdownHookThread shutdownHookThread;
+
+	/**
 	 * Creates a new server endpoint that listens on a specified port/IP.
 	 * 
 	 * @param aHostIP
@@ -64,16 +70,25 @@ public class ServerEndpoint {
 	 *            the map of processors to use for processing incoming messages
 	 * @param aClassLoader
 	 *            the classloader to use when deserializing objects
+	 * @param anIsForkFlag
+	 *            whether this server endpoint is serving inside an Integrity fork process
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
 	public ServerEndpoint(String aHostIP, int aPort,
-			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap, ClassLoader aClassLoader)
+			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap, ClassLoader aClassLoader,
+			boolean anIsForkFlag)
 			throws UnknownHostException, IOException {
 		messageProcessors = aProcessorMap;
 		serverSocket = new ServerSocket(aPort, 0, Inet4Address.getByName(aHostIP));
 		connectionWaiter = new ConnectionWaiter(aClassLoader);
 		connectionWaiter.start();
+
+		if (anIsForkFlag) {
+			// Try to detect problematic force-shutdown situations within forks
+			shutdownHookThread = new ShutdownHookThread();
+			Runtime.getRuntime().addShutdownHook(shutdownHookThread);
+		}
 	}
 
 	public boolean isActive() {
@@ -104,6 +119,14 @@ public class ServerEndpoint {
 				endpoints.clear();
 			}
 		}
+
+		if (shutdownHookThread != null) {
+			try {
+			Runtime.getRuntime().removeShutdownHook(shutdownHookThread);
+			} catch (IllegalStateException exc) {
+				// ignored - may be thrown if this code is run during VM shutdown, but we don't care about that
+			}
+		}
 	}
 
 	private class ConnectionWaiter extends Thread {
@@ -119,8 +142,8 @@ public class ServerEndpoint {
 		 * @param aClassLoader
 		 *            the classloader to use when deserializing objects
 		 */
-		public ConnectionWaiter(ClassLoader aClassLoader) {
-			super("Server Endpoint Connection Waiter");
+		ConnectionWaiter(ClassLoader aClassLoader) {
+			super("Integrity - Server Endpoint Connection Waiter");
 			classLoader = aClassLoader;
 		}
 
@@ -167,6 +190,52 @@ public class ServerEndpoint {
 			for (Endpoint tempEndpoint : endpoints) {
 				if (tempEndpoint.isActive()) {
 					tempEndpoint.sendMessage(aMessage);
+				}
+			}
+		}
+	}
+
+	private class ShutdownHookThread extends Thread {
+
+		ShutdownHookThread() {
+			super("Integrity - Server Endpoint Shutdown Hook");
+		}
+
+		@Override
+		public void run() {
+			synchronized (endpoints) {
+				for (Endpoint tempEndpoint : endpoints) {
+					if (!tempEndpoint.isDisconnectRequested()) {
+						System.err
+								.println("ENCOUNTERED A NON-FINALIZED INTEGRITY CONTROL CONNECTION DURING VM SHUTDOWN! "
+										+ "THIS IS NOT GOOD - IT INDICATES THAT THIS FORK HAS BEEN FORCEFULLY KILLED. "
+										+ "KILLING A FORK BEFORE IT HAD A CHANCE TO SHUT DOWN ALL INCOMING CONTROL "
+										+ "CONNECTIONS MAY RESULT IN VARIOUS SEVERE INTEGRITY TEST EXECUTION FAILURES!");
+
+						boolean tempFoundCulprit = false;
+						for (Entry<Thread, StackTraceElement[]> tempEntry : Thread.getAllStackTraces().entrySet()) {
+							for (StackTraceElement tempElement : tempEntry.getValue()) {
+								if (!tempFoundCulprit && "java.lang.Shutdown".equals(tempElement.getClassName())
+										&& "exit".equals(tempElement.getMethodName())) {
+									System.err.println(
+											"FOUND AN EXECUTION PATH THAT IS MOST LIKELY RESPONSIBLE FOR THIS VM "
+													+ "SHUTDOWN - HERE COMES THE STACK TRACE OF THREAD '"
+													+ tempEntry.getKey() + "':");
+									tempFoundCulprit = true;
+								}
+
+								if (tempFoundCulprit) {
+									System.err.println("\t" + tempElement.toString());
+								}
+							}
+
+							if (tempFoundCulprit) {
+								break;
+							}
+						}
+
+						return;
+					}
 				}
 			}
 		}
