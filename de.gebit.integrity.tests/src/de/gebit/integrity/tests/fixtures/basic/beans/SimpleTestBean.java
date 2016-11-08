@@ -18,6 +18,17 @@ public class SimpleTestBean {
 
 	private InnerBean thirdParameter;
 
+	public SimpleTestBean() {
+		super();
+	}
+
+	public SimpleTestBean(String firstParameter, Integer secondParameter, InnerBean thirdParameter) {
+		super();
+		this.firstParameter = firstParameter;
+		this.secondParameter = secondParameter;
+		this.thirdParameter = thirdParameter;
+	}
+
 	public String getFirstParameter() {
 		return firstParameter;
 	}
