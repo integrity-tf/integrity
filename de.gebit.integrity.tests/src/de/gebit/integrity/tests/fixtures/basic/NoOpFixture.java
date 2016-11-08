@@ -16,6 +16,7 @@ import java.util.Map;
 import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.tests.fixtures.basic.beans.NestedListTestBean;
 
 /**
  * A simple test fixture which does nothing (except echoing some input).
@@ -35,6 +36,11 @@ public class NoOpFixture {
 	@FixtureMethod(description = "Always return true.")
 	public boolean returnTrue() {
 		return true;
+	}
+
+	@FixtureMethod(description = "Echoes an object")
+	public Object echoObject(@FixtureParameter(name = "echo") Object anInput) {
+		return anInput;
 	}
 
 	@FixtureMethod(description = "Echoes $echo$ and ignores $param1$, $param2$ and $param3$")
@@ -190,6 +196,11 @@ public class NoOpFixture {
 		tempResult.setThirdParameter(Enum.VALUE1);
 
 		return tempResult;
+	}
+
+	@FixtureMethod(description = "Creates a nested list test bean object")
+	public NestedListTestBean createNestedListTestBean() {
+		return new NestedListTestBean();
 	}
 
 	@FixtureMethod(description = "Throws a runtime exception")

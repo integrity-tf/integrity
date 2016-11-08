@@ -1,0 +1,49 @@
+import integrity.fixtures.basic.arbitrary.echo
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.nestedobjects with
+
+	// These test the fix for issue #124: Arrays/Lists of nested objects inside nested objects can cause check errors
+
+	suitedef collectionsOfNestedObjectsSuccess with
+		
+		test createNestedListTestBeanTest = {
+			inner: {
+				firstParameter: "first"
+				secondParameter: 2
+				thirdParameter: null			
+			}, {
+				firstParameter: "second"
+				secondParameter: 3
+				thirdParameter: null	
+			}, {
+				firstParameter: "third"
+				secondParameter: 4
+				thirdParameter: null		
+			}
+		}
+	
+	suiteend
+	
+	
+	suitedef collectionsOfNestedObjectsFailure with
+		
+		test createNestedListTestBeanTest = {
+			inner: {
+				firstParameter: "first"
+				secondParameter: 2
+				thirdParameter: null			
+			}, {
+				firstParameter: "second"
+				secondParameter: 99
+				thirdParameter: null	
+			}, {
+				firstParameter: "third"
+				secondParameter: 4
+				thirdParameter: null		
+			}
+		}
+	
+	suiteend
+	
+packageend

@@ -375,7 +375,7 @@ public class DefaultResultComparator implements ResultComparator {
 	 * @return true if equal, false otherwise
 	 */
 	protected MapComparisonResult performEqualityCheckForMaps(Map<?, ?> aResult, Map<?, ?> anExpectedResult,
-			Object aRawExpectedResult) {
+			ValueOrEnumValueOrOperation aRawExpectedResult) {
 		boolean tempSuccess = true;
 		Set<String> tempCombinedFailedPaths = new HashSet<String>();
 
@@ -385,9 +385,51 @@ public class DefaultResultComparator implements ResultComparator {
 
 			Object tempConvertedReferenceValue = tempReferenceValue;
 			if (!(tempActualValue instanceof Map && tempReferenceValue instanceof Map)) {
-				// If the inner values aren't maps themselves, we have to ensure both values are of equal type first,
+				// If the inner values aren't maps themselves, special handling is required.
+
+				// First see if they are arrays (maybe of maps, even). This stuff fixes issue #124!
+				if ((tempActualValue != null && tempActualValue.getClass().isArray())
+						|| (tempReferenceValue != null && tempReferenceValue.getClass().isArray())) {
+					// If one or both values is an array, things get more complicated...
+					if (!(tempActualValue != null && tempActualValue.getClass().isArray())
+							|| !(tempReferenceValue != null && tempReferenceValue.getClass().isArray())) {
+						// If just one is an array, we automatically fail, since we have a different number of elements
+						tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+						tempSuccess = false;
+					} else {
+						// Both are arrays -> check if length is equal, then check each entry
+						if (Array.getLength(tempActualValue) != Array.getLength(tempReferenceValue)) {
+							tempSuccess = false;
+							tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+						} else {
+							for (int i = 0; i < Array.getLength(tempActualValue); i++) {
+								ComparisonResult tempInnerResult = performEqualityCheck(Array.get(tempActualValue, i),
+										Array.get(tempReferenceValue, i), aRawExpectedResult);
+								if (!tempInnerResult.isSuccessful()) {
+									tempSuccess = false;
+
+									// In case the sub-result is of a map comparison, we just add the failed paths to
+									// ours, prepending them with the necessary prefix in the process
+									if (tempInnerResult instanceof MapComparisonResult) {
+										for (String tempSubPath : ((MapComparisonResult) tempInnerResult)
+												.getFailedPaths()) {
+											tempCombinedFailedPaths.add(tempEntry.getKey() + "." + tempSubPath);
+										}
+									} else {
+										tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+									}
+									break;
+								}
+							}
+
+							continue;
+						}
+					}
+				}
+
+				// Okay, not arrays. In this case we still have to ensure both values are of equal type first,
 				// since even though both outer values are maps, their inner values have not been necessarily converted
-				// to the same types
+				// to the same types.
 				try {
 					tempConvertedReferenceValue = (tempActualValue != null)
 							? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue, null)
