@@ -10,6 +10,9 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoStringArray uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray
 	testdef echoStringArrayTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoStringArray
 	
+	calldef echoObject uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObject
+	testdef echoObjectTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObject
+	
 	calldef echoObjects uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects
 	testdef echoObjectsTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObjects
 	
@@ -63,6 +66,9 @@ packagedef integrity.fixtures.basic.noop with
 	
 	calldef createEnumNamedResult uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
 	testdef createEnumNamedResultTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
+	
+	calldef createNestedListTestBean uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
+	testdef createNestedListTestBeanTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
 	
 	calldef specificDescriptionTest_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
 	testdef specificDescriptionTest_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
