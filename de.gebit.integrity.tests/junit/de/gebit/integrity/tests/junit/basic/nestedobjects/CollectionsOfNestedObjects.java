@@ -55,4 +55,50 @@ public class CollectionsOfNestedObjects extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCollectionsOfNestedObjectsIncomplete() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.collectionsOfNestedObjectsIncomplete", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCollectionsOfNestedObjectsSingleEntry() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.collectionsOfNestedObjectsSingleEntry", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testCollectionsOfNestedObjectsSingleEntryFailure()
+			throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.collectionsOfNestedObjectsSingleEntryFailure", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

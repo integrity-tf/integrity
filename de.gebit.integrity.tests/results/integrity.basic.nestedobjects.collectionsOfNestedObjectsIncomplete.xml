@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="09.11.16 14:05" isotimestamp="2016-11-09T14:05:52" duration="37.025">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.collectionsOfNestedObjectsIncomplete" timestamp="09.11.16 14:05:52.0768">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="53" name="createNestedListTestBean" description="Creates a nested list test bean object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean" timestamp="09.11.16 14:05:52.0771">
+        <results duration="0.161" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.161" description="Creates a nested list test bean object" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = second[NL|, ][T][T]secondParameter = 3[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = third[NL|, ][T][T]secondParameter = 4[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T]secondParameter = 2[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = second[NL|, ][T][T]secondParameter = 3[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = third[NL|, ][T][T]secondParameter = 4[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="35.711" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

@@ -156,4 +156,10 @@ public class BeanFixture {
 	public MapTestBeanWithTreeMap createMapTestBeanWithTreeMap() {
 		return new MapTestBeanWithTreeMap();
 	}
+
+	@FixtureMethod(description = "Creates a nested list test bean object with $innerObjects$ inner objects")
+	public NestedListTestBean createNestedListTestBeanParameterized(
+			@FixtureParameter(name = "innerObjects") Integer anInnerObjectCount) {
+		return new NestedListTestBean(anInnerObjectCount != null ? anInnerObjectCount : 3);
+	}
 }

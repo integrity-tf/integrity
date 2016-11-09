@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="08.11.16 14:50" isotimestamp="2016-11-08T14:50:59" duration="51.998">
+<integrity name="Integrity JUnit Testing" timestamp="09.11.16 14:05" isotimestamp="2016-11-09T14:05:53" duration="26.240">
   <variables />
-  <suite id="0" name="integrity.basic.nestedobjects.collectionsOfNestedObjectsFailure" timestamp="08.11.16 14:50:59.0658">
+  <suite id="0" name="integrity.basic.nestedobjects.collectionsOfNestedObjectsFailure" timestamp="09.11.16 14:05:53.0322">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="31" name="createNestedListTestBeanTest" description="Creates a nested list test bean object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean" timestamp="08.11.16 14:50:59.0664">
-        <results duration="1.036" successCount="0" failureCount="1" exceptionCount="0">
-          <result duration="1.036" description="Creates a nested list test bean object" type="failure">
+      <test id="1" line="31" name="createNestedListTestBean" description="Creates a nested list test bean object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean" timestamp="09.11.16 14:05:53.0324">
+        <results duration="0.094" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.094" description="Creates a nested list test bean object" type="failure">
             <parameters />
             <comparisons>
               <comparison expectedValue="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T][UL][B]secondParameter = 2[/B][/UL][NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = second[NL|, ][T][T]secondParameter = 99[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = third[NL|, ][T][T]secondParameter = 4[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T][UL][B]secondParameter = 2[/B][/UL][NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = second[NL|, ][T][T]secondParameter = 3[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = third[NL|, ][T][T]secondParameter = 4[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" type="failure" />
@@ -18,7 +18,7 @@
     </statements>
     <returns />
     <teardown />
-    <result duration="50.829" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="25.376" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
