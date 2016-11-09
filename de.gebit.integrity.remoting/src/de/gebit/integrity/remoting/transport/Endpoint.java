@@ -26,6 +26,7 @@ import java.util.zip.InflaterInputStream;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.DisconnectMessage;
+import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 
 /**
  * An endpoint is a client- or serverside termination point of a message channel. The endpoint uses a TCP connection to
@@ -155,6 +156,12 @@ public class Endpoint {
 	 */
 	public void sendMessage(AbstractMessage aMessage) {
 		if (isActive) {
+			// We consider shutdown requests to also be requests for a disconnect, since that naturally happens during
+			// the shutdown of the other side.
+			if (aMessage instanceof ShutdownRequestMessage) {
+				disconnectRequested = true;
+			}
+
 			try {
 				outputQueue.put(aMessage);
 			} catch (InterruptedException exc) {
@@ -166,7 +173,7 @@ public class Endpoint {
 	public boolean isActive() {
 		return isActive && socket.isConnected();
 	}
-	
+
 	public boolean isDisconnectRequested() {
 		return disconnectRequested;
 	}
@@ -260,8 +267,8 @@ public class Endpoint {
 					byte[] tempMessage = new byte[tempMessageLength];
 					int tempMessagePosition = 0;
 					while (tempMessagePosition < tempMessageLength) {
-						int tempBytesRead = tempInStream.read(tempMessage, tempMessagePosition, tempMessageLength
-								- tempMessagePosition);
+						int tempBytesRead = tempInStream.read(tempMessage, tempMessagePosition,
+								tempMessageLength - tempMessagePosition);
 						if (tempBytesRead > -1) {
 							tempMessagePosition += tempBytesRead;
 						} else {
@@ -270,8 +277,8 @@ public class Endpoint {
 						}
 					}
 
-					tempObjectStream = new ClassloaderAwareObjectInputStream(new InflaterInputStream(
-							new ByteArrayInputStream(tempMessage)), classLoader);
+					tempObjectStream = new ClassloaderAwareObjectInputStream(
+							new InflaterInputStream(new ByteArrayInputStream(tempMessage)), classLoader);
 					try {
 						AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
 						if (tempMessageObject instanceof DisconnectMessage) {
@@ -287,6 +294,13 @@ public class Endpoint {
 								sendMessage(new DisconnectMessage(true));
 							}
 						} else {
+							// We need to know if this endpoints' shutdown was requested. That message must be processed
+							// by the message processor, but we also regard is as a request for a disconnect (which of
+							// course happens during a shutdown).
+							if (tempMessageObject instanceof ShutdownRequestMessage) {
+								disconnectRequested = true;
+							}
+
 							// just a standard message; use the appropriate processor
 							MessageProcessor tempProcessor = messageProcessors.get(tempMessageObject.getClass());
 							if (tempProcessor != null) {
