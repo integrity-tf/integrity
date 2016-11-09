@@ -15,10 +15,16 @@ public class NestedListTestBean {
 
 	private List<SimpleTestBean> inner = new ArrayList<>();
 
-	public NestedListTestBean() {
-		inner.add(new SimpleTestBean("first", 2, null));
-		inner.add(new SimpleTestBean("second", 3, null));
-		inner.add(new SimpleTestBean("third", 4, null));
+	public NestedListTestBean(int aNumberOfInnerObjects) {
+		if (aNumberOfInnerObjects > 0) {
+			inner.add(new SimpleTestBean("first", 2, null));
+		}
+		if (aNumberOfInnerObjects > 1) {
+			inner.add(new SimpleTestBean("second", 3, null));
+		}
+		if (aNumberOfInnerObjects > 2) {
+			inner.add(new SimpleTestBean("third", 4, null));
+		}
 	}
 
 	public List<SimpleTestBean> getInner() {

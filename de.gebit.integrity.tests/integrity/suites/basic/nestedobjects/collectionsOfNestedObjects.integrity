@@ -1,13 +1,13 @@
 import integrity.fixtures.basic.arbitrary.echo
-import integrity.fixtures.basic.noop.*
+import integrity.fixtures.basic.beans.*
 
 packagedef integrity.basic.nestedobjects with
 
 	// These test the fix for issue #124: Arrays/Lists of nested objects inside nested objects can cause check errors
-
+	
 	suitedef collectionsOfNestedObjectsSuccess with
 		
-		test createNestedListTestBeanTest = {
+		test createNestedListTestBean = {
 			inner: {
 				firstParameter: "first"
 				secondParameter: 2
@@ -28,7 +28,7 @@ packagedef integrity.basic.nestedobjects with
 	
 	suitedef collectionsOfNestedObjectsFailure with
 		
-		test createNestedListTestBeanTest = {
+		test createNestedListTestBean = {
 			inner: {
 				firstParameter: "first"
 				secondParameter: 2
@@ -45,5 +45,55 @@ packagedef integrity.basic.nestedobjects with
 		}
 	
 	suiteend
+	
+	
+	suitedef collectionsOfNestedObjectsIncomplete with
+	
+		// This test must still be successful even though we omitted secondParameter (because it is not to be tested)
+		test createNestedListTestBean = {
+			inner: {
+				firstParameter: "first"
+				thirdParameter: null			
+			}, {
+				firstParameter: "second"
+				secondParameter: 3
+				thirdParameter: null
+			}, {
+				firstParameter: "third"
+				secondParameter: 4
+				thirdParameter: null		
+			}
+		}
+	
+	suiteend
+	
+	
+	// These test the fix for issue #125 - Nested object tests fail if an object contains a Collection with just one sub-object
+	
+	suitedef collectionsOfNestedObjectsSingleEntry with
+	
+		test createNestedListTestBeanParameterized innerObjects: 1 = {
+			inner: {
+				firstParameter: "first"
+				secondParameter: 2
+				thirdParameter: null			
+			}
+		}
+	
+	suiteend
+	
+	
+	suitedef collectionsOfNestedObjectsSingleEntryFailure with
+	
+		test createNestedListTestBeanParameterized innerObjects: 1 = {
+			inner: {
+				firstParameter: "first"
+				secondParameter: 3
+				thirdParameter: null			
+			}
+		}
+	
+	suiteend
+	
 	
 packageend

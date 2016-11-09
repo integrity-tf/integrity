@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="09.11.16 14:05" isotimestamp="2016-11-09T14:05:53" duration="16.916">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.collectionsOfNestedObjectsSingleEntryFailure" timestamp="09.11.16 14:05:53.0184">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="88" name="createNestedListTestBeanParameterized" description="Creates a nested list test bean object with 1 inner objects" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized" timestamp="09.11.16 14:05:53.0185">
+        <results duration="0.303" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.303" description="Creates a nested list test bean object with 1 inner objects" type="failure">
+            <parameters>
+              <parameter name="innerObjects" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T][UL][B]secondParameter = 3[/B][/UL][NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]inner = {[NL][T][T]firstParameter = first[NL|, ][T][T][UL][B]secondParameter = 2[/B][/UL][NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="16.074" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

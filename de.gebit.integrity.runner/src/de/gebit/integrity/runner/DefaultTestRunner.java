@@ -387,9 +387,10 @@ public class DefaultTestRunner implements TestRunner {
 	 * from a fork, in which case an exception can not be transported over the remoting connection).
 	 */
 	protected AbortExecutionCauseWrapper abortExecutionCause;
-	
+
 	/**
-	 * Maps each {@link ForkDefinition} to the suite call that is the last one to be executed on that fork. The fork should die afterwards.
+	 * Maps each {@link ForkDefinition} to the suite call that is the last one to be executed on that fork. The fork
+	 * should die afterwards.
 	 */
 	protected Map<ForkDefinition, Suite> lastSuiteForFork = new HashMap<ForkDefinition, Suite>();
 
@@ -899,7 +900,7 @@ public class DefaultTestRunner implements TestRunner {
 			forkInExecution = null;
 			currentCallback.setForkInExecution(null);
 		}
-		
+
 		if (currentPhase == Phase.DRY_RUN && aSuiteCall.getFork() != null) {
 			// Determining the last suite for all forks is simple: just store each fork in the map during dry run,
 			// overriding earlier invocations if the fork was already added. At the end of dry run, we know the last
@@ -2061,6 +2062,12 @@ public class DefaultTestRunner implements TestRunner {
 
 		@Override
 		public void onShutdownRequest() {
+			if (isFork()) {
+				System.err.println("RECEIVED SHUTDOWN REQUEST FROM MASTER PROCESS - THIS FORK WILL NOW TERMINATE!");
+			} else {
+				System.err.println("RECEIVED SHUTDOWN REQUEST FROM CLIENT - THIS PROCESS WILL NOW TERMINATE!");
+			}
+
 			// Shutdown hook(s) will be called after this command automatically!
 			System.exit(-1);
 		}

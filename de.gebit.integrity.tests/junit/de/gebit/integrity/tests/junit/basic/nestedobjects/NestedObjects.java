@@ -55,4 +55,19 @@ public class NestedObjects extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testNestedObjectIncomplete() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/nestedobjects.integrity" },
+				"integrity.basic.nestedobjects.nestedobjectsIncomplete", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

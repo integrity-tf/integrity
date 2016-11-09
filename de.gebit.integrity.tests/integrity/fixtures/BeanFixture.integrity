@@ -39,5 +39,11 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef createMapTestBeanWithTreeMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithTreeMap
 	calldef createMapTestBeanWithTreeMapCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createMapTestBeanWithTreeMap
+	
+	testdef createNestedListTestBean uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
+	calldef createNestedListTestBeanCall uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
+	
+	testdef createNestedListTestBeanParameterized uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized
+	calldef createNestedListTestBeanParameterizedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized
 
 packageend
