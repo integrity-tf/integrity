@@ -200,7 +200,7 @@ public class NoOpFixture {
 
 	@FixtureMethod(description = "Creates a nested list test bean object")
 	public NestedListTestBean createNestedListTestBean() {
-		return new NestedListTestBean();
+		return new NestedListTestBean(3);
 	}
 
 	@FixtureMethod(description = "Throws a runtime exception")

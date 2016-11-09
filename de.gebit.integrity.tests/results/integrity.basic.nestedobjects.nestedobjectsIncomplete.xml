@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="09.11.16 12:55" isotimestamp="2016-11-09T12:55:17" duration="61.574">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsIncomplete" timestamp="09.11.16 12:55:18.0001">
+    <setup />
+    <variables>
+      <variable name="obj1" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL]}" />
+    </variables>
+    <statements>
+      <test id="1" line="86" name="echoMapTest" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456}'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap" timestamp="09.11.16 12:55:18.0014">
+        <results duration="5.736" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="5.736" description="Echo the map '{key1 = The first value, key2 = 31337, 31338, key3 = 123.456}'" type="success">
+            <parameters>
+              <parameter name="map" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key3 = 123.456[NL]}" value="[FORMATTED]{[NL][T]key1 = The first value[NL|, ][T]key2 = 31337, 31338[NL|, ][T]key3 = 123.456[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="49.788" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

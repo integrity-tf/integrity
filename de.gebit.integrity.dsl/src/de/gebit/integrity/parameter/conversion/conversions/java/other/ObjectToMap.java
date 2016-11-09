@@ -65,7 +65,18 @@ public class ObjectToMap extends Conversion<Object, Map> {
 									aConversionContext);
 							tempList.add(tempConvertedValue);
 						}
-						tempKeyValueMap.put(tempDescriptor.getName(), tempList.toArray());
+
+						// In the Integrity language, there is no difference between an array of nested objects with
+						// just one object and a single nested object. The array just comes into existence by specifying
+						// more than one object, separated by commas. Therefore, when converting bean objects to maps
+						// (for comparison with nested object structures specified in the test script), we have to omit
+						// the array object when converting collections with just one entry: the single entry must be
+						// inserted directly into the map and not be wrapped into an array of size 1. Fixes issue #125.
+						if (tempList.size() == 1) {
+							tempKeyValueMap.put(tempDescriptor.getName(), tempList.get(0));
+						} else {
+							tempKeyValueMap.put(tempDescriptor.getName(), tempList.toArray());
+						}
 					} else {
 						Object tempConvertedValue = convertValueRecursive(null, null, tempValue, aConversionContext);
 						tempKeyValueMap.put(tempDescriptor.getName(), tempConvertedValue);

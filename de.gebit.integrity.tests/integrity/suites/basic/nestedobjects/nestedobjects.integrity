@@ -72,5 +72,22 @@ packagedef integrity.basic.nestedobjects with
 		test echoMapTest map: obj1 = obj2
 		
 	suiteend
+	
+	
+	suitedef nestedobjectsIncomplete with
+		
+		variable obj1 initially {
+			key1: "The first value"
+			key2: 31337, 31338
+			key3: 123.456
+		}
+				
+		// This test must still be successful even though we omitted key2 (because it is not to be tested)
+		test echoMapTest map: obj1 = {
+				key1: "The first value"
+				key3: 123.456
+		}
+		
+	suiteend
 
 packageend

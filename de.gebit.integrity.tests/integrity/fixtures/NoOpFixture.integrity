@@ -67,9 +67,6 @@ packagedef integrity.fixtures.basic.noop with
 	calldef createEnumNamedResult uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
 	testdef createEnumNamedResultTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createEnumNamedResult
 	
-	calldef createNestedListTestBean uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
-	testdef createNestedListTestBeanTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#createNestedListTestBean
-	
 	calldef specificDescriptionTest_call uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
 	testdef specificDescriptionTest_test uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#specificDescriptionTest
 	
