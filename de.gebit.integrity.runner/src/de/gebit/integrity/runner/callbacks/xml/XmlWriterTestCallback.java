@@ -524,6 +524,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	/**
+	 * System property name to enable XML Writer Stack Trace output.
+	 */
+	protected static final String SYSPARAM_ENABLE_TRACE_OUTPUT = "integrity.xmlwriter.trace";
+
+	/**
+	 * Whether stack tracing is enabled. See the {@link #stackPeek()}, {@link #stackPop()} and
+	 * {@link #stackPush(Element)} method for details.
+	 */
+	protected boolean isTracingEnabled = Boolean.getBoolean(SYSPARAM_ENABLE_TRACE_OUTPUT);
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aClassLoader
@@ -1215,15 +1226,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 												(tempExpectedValue == null ? true : tempExpectedValue), false,
 												new ConversionContext()
 														.withComparisonResult(tempEntry.getValue().getResult()))
-								.toFormattedString());
+										.toFormattedString());
 				if (tempEntry.getValue().getActualValue() != null) {
-					tempComparisonResultElement
-							.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
-									convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
-											aSubResult, tempExpectedIsNestedObject,
-											new ConversionContext()
-													.withComparisonResult(tempEntry.getValue().getResult()))
-															.toFormattedString());
+					tempComparisonResultElement.setAttribute(RESULT_REAL_VALUE_ATTRIBUTE,
+							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
+									aSubResult, tempExpectedIsNestedObject,
+									new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+											.toFormattedString());
 				}
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
@@ -1770,7 +1779,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						.convertValueToFormattedString(aValue, false,
 								new ConversionContext().withUnresolvableVariableHandlingPolicy(
 										UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
-				.toFormattedString());
+						.toFormattedString());
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -2446,7 +2455,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected Element stackPop() {
 		Element tempElement = currentElement.pop();
-		// System.out.println("POP: " + tempElement);
+		if (isTracingEnabled) {
+			System.out.println("--> XMLWRITER STACK POP: " + getStringForElement(tempElement) + " FROM "
+					+ Thread.currentThread().getName());
+		}
 		return tempElement;
 	}
 
@@ -2457,7 +2469,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the an element
 	 */
 	protected void stackPush(Element anElement) {
-		// System.out.println("PUSH: " + anElement);
+		if (isTracingEnabled) {
+			System.out.println("--> XMLWRITER STACK PUSH: " + getStringForElement(anElement) + " FROM "
+					+ Thread.currentThread().getName());
+		}
 		currentElement.push(anElement);
 	}
 
@@ -2468,8 +2483,44 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected Element stackPeek() {
 		Element tempElement = currentElement.peek();
-		// System.out.println("PEEK: " + tempElement);
+		if (isTracingEnabled) {
+			System.out.println("--> XMLWRITER STACK PEEK: " + getStringForElement(tempElement) + " FROM "
+					+ Thread.currentThread().getName());
+		}
 		return tempElement;
+	}
+
+	/**
+	 * Converts the provided element into a string with the element name and all its attributes. This is for debug
+	 * purposes only, NOT for writing actual XML content!
+	 * 
+	 * @param anElement
+	 *            the element to stringify
+	 * @return the string representation of the element
+	 */
+	protected String getStringForElement(Element anElement) {
+		if (anElement == null) {
+			return "null";
+		}
+
+		StringBuilder tempBuilder = new StringBuilder();
+		tempBuilder.append("<");
+		tempBuilder.append(anElement.getName());
+		tempBuilder.append(" ");
+		@SuppressWarnings("unchecked")
+		Iterator<Attribute> tempAttributeIterator = anElement.getAttributes().iterator();
+
+		while (tempAttributeIterator.hasNext()) {
+			Attribute tempAttribute = tempAttributeIterator.next();
+			tempBuilder.append(" ");
+			tempBuilder.append(tempAttribute.getName());
+			tempBuilder.append("=\"");
+			tempBuilder.append(tempAttribute.getValue());
+			tempBuilder.append("\"");
+		}
+
+		tempBuilder.append(">");
+		return tempBuilder.toString();
 	}
 
 	/**
