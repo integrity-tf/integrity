@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
@@ -428,8 +429,13 @@ public class DefaultTestRunner implements TestRunner {
 		}
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
-			remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
-					javaClassLoader, isFork());
+			try {
+				remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
+						javaClassLoader, isFork());
+			} catch (BindException exc) {
+				System.err.println("FAILED TO BIND REMOTING SERVER TO " + aRemotingBindHost + ":" + aRemotingPort);
+				throw exc;
+			}
 		}
 	}
 
