@@ -252,14 +252,12 @@ public class Fork {
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
 			new StreamCopier("\tFORK '" + definition.getName() + "': ",
-					"Integrity - stdout copy: " + definition.getName(),
-					tempStdOut, false).start();
+					"Integrity - stdout copy: " + definition.getName(), tempStdOut, false).start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
 			new StreamCopier("\tFORK '" + definition.getName() + "': ",
-					"Integrity - stderr copy: " + definition.getName(),
-					tempStdErr, true).start();
+					"Integrity - stderr copy: " + definition.getName(), tempStdErr, true).start();
 		}
 	}
 
@@ -364,6 +362,10 @@ public class Fork {
 	 * Triggers execution of the next segment on the fork. Will block until the fork has finished executing the segment.
 	 */
 	public ForkResultSummary executeNextSegment(boolean aWaitForForkDisconnect) {
+		if (aWaitForForkDisconnect) {
+			System.out.println("WAITING");
+		}
+
 		if (client != null) {
 			transmitVariableUpdates();
 
@@ -380,8 +382,8 @@ public class Fork {
 					}
 				}
 				if (lastResultSummary == null) {
-					System.err.println("FAILED TO RECEIVE SUITE RESULT SUMMARY FROM FORK! "
-							+ "TEST RESULT TOTAL NUMBERS MAY BE INACCURATE!");
+					System.err.println("FAILED TO RECEIVE SUITE RESULT SUMMARY FROM FORK '" + definition.getName()
+							+ "'! TEST RESULT TOTAL NUMBERS MAY BE INACCURATE!");
 				}
 
 				if (aWaitForForkDisconnect) {
@@ -395,9 +397,9 @@ public class Fork {
 						}
 					}
 					if (!forkDeathConfirmed) {
-						System.err.println(
-								"FAILED TO CONFIRM FORK DEATH! EXECUTION WILL CONTINUE, BUT THERE MAY BE PROBLEMS DOWN "
-										+ "THE ROAD...OR ZOMBIE PROCESSES!");
+						System.err.println("FAILED TO CONFIRM DEATH OF FORK '" + definition.getName()
+								+ "'! EXECUTION WILL CONTINUE, BUT THERE MAY BE PROBLEMS DOWN "
+								+ "THE ROAD...OR ZOMBIE PROCESSES!");
 					}
 				}
 				return lastResultSummary;
@@ -656,6 +658,7 @@ public class Fork {
 			}
 		}
 
+		@Override
 		public void run() {
 			while (!killSwitch) {
 				try {

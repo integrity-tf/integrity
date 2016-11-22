@@ -390,10 +390,13 @@ public class DefaultTestRunner implements TestRunner {
 	protected AbortExecutionCauseWrapper abortExecutionCause;
 
 	/**
-	 * Maps each {@link ForkDefinition} to the suite call that is the last one to be executed on that fork. The fork
-	 * should die afterwards.
+	 * Maps each {@link ForkDefinition} to the suite call and a number that counts any suite invocations. The fork
+	 * should die after this number of suites has executed. Since suite invocation numbers are predeterminable in the
+	 * dry run and deterministic, this can be used to find out whether a suite during the test run has been the last one
+	 * to run on a particular fork. During this real test run, the counter is decremented on each suite invocation on a
+	 * fork, so in the end, we know when the fork has finished execution (= counter reaches zero).
 	 */
-	protected Map<ForkDefinition, Suite> lastSuiteForFork = new HashMap<ForkDefinition, Suite>();
+	protected Map<ForkDefinition, Integer> lastSuiteForFork = new HashMap<ForkDefinition, Integer>();
 
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
@@ -862,6 +865,7 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
+
 			if (currentPhase == Phase.TEST_RUN) {
 				// all of this only has to be done in case of a real test run
 
@@ -879,8 +883,12 @@ public class DefaultTestRunner implements TestRunner {
 					ForkResultSummary tempForkResultSummary = null;
 					tempSuiteDuration = System.nanoTime();
 					if (tempFork != null) {
-						tempForkResultSummary = tempFork
-								.executeNextSegment(lastSuiteForFork.get(forkInExecution) == aSuiteCall);
+						// Count backwards during actual execution. When this counter reaches zero, the fork is
+						// executing its last suite and shall terminate afterwards.
+						Integer tempCounter = lastSuiteForFork.get(aSuiteCall.getFork()) - 1;
+						lastSuiteForFork.put(aSuiteCall.getFork(), tempCounter);
+
+						tempForkResultSummary = tempFork.executeNextSegment(tempCounter <= 0);
 					}
 					tempSuiteDuration = System.nanoTime() - tempSuiteDuration;
 
@@ -908,10 +916,13 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		if (currentPhase == Phase.DRY_RUN && aSuiteCall.getFork() != null) {
-			// Determining the last suite for all forks is simple: just store each fork in the map during dry run,
-			// overriding earlier invocations if the fork was already added. At the end of dry run, we know the last
-			// suite per fork.
-			lastSuiteForFork.put(aSuiteCall.getFork(), aSuiteCall);
+			// Determining the last suite for all forks is simple: just count suites invoked for each fork in a map
+			// during dry run. At the end of dry run, we know the "number" of the last suite per fork.
+			Integer tempCounter = lastSuiteForFork.get(aSuiteCall.getFork());
+			if (tempCounter == null) {
+				tempCounter = 0;
+			}
+			lastSuiteForFork.put(aSuiteCall.getFork(), tempCounter + 1);
 		}
 
 		return tempResult;
