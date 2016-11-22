@@ -362,10 +362,6 @@ public class Fork {
 	 * Triggers execution of the next segment on the fork. Will block until the fork has finished executing the segment.
 	 */
 	public ForkResultSummary executeNextSegment(boolean aWaitForForkDisconnect) {
-		if (aWaitForForkDisconnect) {
-			System.out.println("WAITING");
-		}
-
 		if (client != null) {
 			transmitVariableUpdates();
 
