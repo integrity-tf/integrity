@@ -99,6 +99,7 @@ public class FilesystemTestResourceProvider extends AbstractTestResourceProvider
 		aResourceStream.close();
 	}
 
+	@Override
 	public void setClassLoader(ClassLoader aClassLoader) {
 		classLoader = aClassLoader;
 	}

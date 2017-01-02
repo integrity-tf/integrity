@@ -274,6 +274,9 @@ public class TestActionConfigurationDialog extends Dialog {
 
 	private class LaunchConfigContentProvider implements ITreeContentProvider {
 
+		/**
+		 * An empty array.
+		 */
 		private final Object[] emptyArray = new Object[0];
 
 		@Override

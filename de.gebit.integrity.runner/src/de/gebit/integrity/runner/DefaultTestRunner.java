@@ -1911,7 +1911,7 @@ public class DefaultTestRunner implements TestRunner {
 				SetListEntryTypes.TEST);
 
 		if (tempLastTestOrCallEntryRef != null && breakpoints.contains(tempLastTestOrCallEntryRef)) {
-			removeBreakpoint(tempLastTestOrCallEntryRef);
+			// we are at a breakpoint, so we need to wait, but don't have to do anything else here
 		} else if (shallWaitBeforeNextStep && shouldExecuteFixtures()) {
 			resetWaitBeforeNextStep();
 		} else {

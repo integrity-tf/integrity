@@ -82,6 +82,19 @@ public class SetList implements Serializable {
 	private transient Map<SetListEntryResultStates, Integer> executableEntryResultStateCounts = new HashMap<SetListEntryResultStates, Integer>();
 
 	/**
+	 * The fully qualified names of entries. This is a name which is calculated by using the name of an entry plus its
+	 * parents names (recursively). It is intended to provide a "best-effort" way to map entries from one set list with
+	 * entries from another set list from a different run of the same (or roughly the same) test scripts. Having said
+	 * this, there are NO GUARANTEES WHATSOEVER that this mapping is actually successful in a particular scenario.
+	 */
+	private transient Map<SetListEntry, String> fullyQualifiedNameMap = new HashMap<SetListEntry, String>();
+
+	/**
+	 * This is the reverse of {@link #fullyQualifiedNameMap}.
+	 */
+	private transient Map<String, SetListEntry> fullyQualifiedNameReverseMap = new HashMap<String, SetListEntry>();
+
+	/**
 	 * Recreates transient data from the list of entries. Used after deserialization of the whole structure in order to
 	 * prepare it for being actually used. Transient entries are redundant and not transmitted for size reasons.
 	 */
@@ -91,6 +104,8 @@ public class SetList implements Serializable {
 		executableEntryResultStates = new ArrayList<SetListEntryResultStates>();
 		executableEntryResultStateCounts = new HashMap<SetListEntryResultStates, Integer>();
 		lastCreatedEntryIdMap = new HashMap<SetListEntryTypes, Integer>();
+		fullyQualifiedNameMap = new HashMap<SetListEntry, String>();
+		fullyQualifiedNameReverseMap = new HashMap<String, SetListEntry>();
 
 		int tempPosition = 0;
 		for (SetListEntry tempEntry : entries) {
@@ -109,6 +124,16 @@ public class SetList implements Serializable {
 					tempPosition++;
 				}
 			}
+
+			String tempFullyQualifiedBaseName = calculateFullyQualifiedBaseName(tempEntry);
+			String tempFullyQualifiedName = null;
+			int tempCounter = 0;
+			do {
+				tempFullyQualifiedName = tempFullyQualifiedBaseName + (tempCounter > 0 ? "#" + tempCounter : "");
+				tempCounter++;
+			} while (fullyQualifiedNameReverseMap.containsKey(tempFullyQualifiedName));
+			fullyQualifiedNameMap.put(tempEntry, tempFullyQualifiedName);
+			fullyQualifiedNameReverseMap.put(tempFullyQualifiedName, tempEntry);
 		}
 
 		pathOfEntriesInExecution = new ArrayList<SetListEntry>();
@@ -490,6 +515,61 @@ public class SetList implements Serializable {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Gets the fully qualified name for an entry. For more info regarding this name, see
+	 * {@link #fullyQualifiedNameMap}.
+	 * 
+	 * @param anEntry
+	 *            the entry to look for
+	 * @return the fully qualified name
+	 */
+	public String getFullyQualifiedName(SetListEntry anEntry) {
+		return fullyQualifiedNameMap.get(anEntry);
+	}
+
+	/**
+	 * Gets the fully qualified name for an entry. For more info regarding this name, see
+	 * {@link #fullyQualifiedNameMap}.
+	 * 
+	 * @param anEntryReference
+	 *            the entry to look for
+	 * @return the fully qualified name
+	 */
+	public String getFullyQualifiedName(Integer anEntryReference) {
+		return getFullyQualifiedName(resolveReference(anEntryReference));
+	}
+
+	/**
+	 * Finds an entry based on a given fully qualified name. For more info regarding this name, see
+	 * {@link #fullyQualifiedNameMap}.
+	 * 
+	 * @param aName
+	 *            the name to search for
+	 * @return the entry or null if none was found
+	 */
+	public SetListEntry findEntryByFullyQualifiedName(String aName) {
+		return fullyQualifiedNameReverseMap.get(aName);
+	}
+
+	/**
+	 * Determines the fully qualified base name for an entry (this entry is possibly extended with a counter to resolve
+	 * duplicates, hence it is a base name). For more info regarding this name, see {@link #fullyQualifiedNameMap}.
+	 * 
+	 * @param anEntry
+	 *            the entry to calculate the name for
+	 * @return the name
+	 */
+	protected String calculateFullyQualifiedBaseName(SetListEntry anEntry) {
+		String tempName = (String) anEntry.getAttribute(SetListEntryAttributeKeys.NAME);
+		if (tempName == null) {
+			tempName = Integer.toString(anEntry.getId());
+		}
+
+		SetListEntry tempParent = getParent(anEntry);
+		String tempParentName = (tempParent != null ? calculateFullyQualifiedBaseName(tempParent) : "");
+		return tempParentName + "|" + tempName;
 	}
 
 	/**

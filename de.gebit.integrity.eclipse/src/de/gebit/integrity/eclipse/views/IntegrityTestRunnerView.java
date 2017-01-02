@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -509,6 +510,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private Action stepOverAction;
 
 	/**
+	 * The action for deleting all existing breakpoints.
+	 */
+	private Action clearBreakpointsAction;
+
+	/**
 	 * The action that runs a predefined launch config and connects to the test runner automatically.
 	 */
 	private Action executeTestAction;
@@ -582,6 +588,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The set of breakpoints currently in use.
 	 */
 	private Set<Integer> breakpointSet = Collections.synchronizedSet(new HashSet<Integer>());
+
+	/**
+	 * These breakpoints are to be recreated after the next connect to a test runner.
+	 */
+	private Set<String> breakpointsToRecreate = Collections.synchronizedSet(new HashSet<String>());
 
 	/**
 	 * The launch configuration to run when the start button in the view is pressed.
@@ -1409,8 +1420,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 							@Override
 							public void run() {
 								if (client == null || !client.isActive()) {
-									showMessage("Sorry, but breakpoints can only be added or removed while connected "
-											+ "to a (running or paused) test runner instance!");
+									// If not connected, add/remove breakpoint only from the recreation set
+									String tempFullyQualifiedName = setList.getFullyQualifiedName(tempEntry);
+									if (tempFullyQualifiedName != null) {
+										breakpointsToRecreate.remove(tempFullyQualifiedName);
+										breakpointSet.remove(tempEntry.getId());
+									}
+
+									Display.getDefault().syncExec(new Runnable() {
+										@Override
+										public void run() {
+											treeViewer.update(tempEntry, null);
+										}
+									});
 								} else {
 									client.deleteBreakpoint(tempEntry.getId());
 								}
@@ -1422,8 +1444,20 @@ public class IntegrityTestRunnerView extends ViewPart {
 							@Override
 							public void run() {
 								if (client == null || !client.isActive()) {
-									showMessage("Sorry, but breakpoints can only be added or removed while connected "
-											+ "to a (running or paused) test runner instance!");
+									// If not connected, add/remove breakpoint only from the recreation set
+									String tempFullyQualifiedName = setList.getFullyQualifiedName(tempEntry);
+									if (tempFullyQualifiedName != null) {
+										breakpointsToRecreate.add(tempFullyQualifiedName);
+										// However, we also need to insert it into this set in order to display it
+										breakpointSet.add(tempEntry.getId());
+									}
+
+									Display.getDefault().syncExec(new Runnable() {
+										@Override
+										public void run() {
+											treeViewer.update(tempEntry, null);
+										}
+									});
 								} else {
 									client.createBreakpoint(tempEntry.getId());
 								}
@@ -1461,6 +1495,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aManager.add(pauseAction);
 		aManager.add(stepIntoAction);
 		aManager.add(stepOverAction);
+		aManager.add(clearBreakpointsAction);
 		aManager.add(new Separator());
 		aManager.add(connectToTestRunnerAction);
 	}
@@ -1591,6 +1626,37 @@ public class IntegrityTestRunnerView extends ViewPart {
 		stepOverAction.setToolTipText("Places a breakpoint after the current suite call and continues execution.");
 		stepOverAction.setImageDescriptor(Activator.getImageDescriptor("icons/stepover_enabled.gif"));
 		stepOverAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/stepover_disabled.gif"));
+
+		clearBreakpointsAction = new Action() {
+			@Override
+			public void run() {
+				breakpointsToRecreate.clear();
+				if (client != null && client.isActive()) {
+					synchronized (breakpointSet) {
+						for (Integer tempBreakpoint : breakpointSet) {
+							client.deleteBreakpoint(tempBreakpoint);
+						}
+					}
+				} else {
+					// If offline, we "fake" removal of breakpoints so we can update the display
+					Iterator<Integer> tempIterator = breakpointSet.iterator();
+					while (tempIterator.hasNext()) {
+						final Integer tempReference = tempIterator.next();
+						tempIterator.remove();
+						Display.getDefault().asyncExec(new Runnable() {
+							@Override
+							public void run() {
+								treeViewer.update(setList.resolveReference(tempReference), null);
+							}
+						});
+					}
+				}
+			}
+		};
+		clearBreakpointsAction.setText("Clear breakpoints");
+		clearBreakpointsAction.setToolTipText("Clears all existing and/or saved breakpoints.");
+		clearBreakpointsAction.setImageDescriptor(Activator.getImageDescriptor("icons/removeall_enabled.gif"));
+		clearBreakpointsAction.setDisabledImageDescriptor(Activator.getImageDescriptor("icons/removeall_disabled.gif"));
 
 		executeTestAction = new Action() {
 			@Override
@@ -2394,7 +2460,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		 */
 		private boolean skippable;
 
-		public StatusUpdateRunnable(boolean aSkippable) {
+		StatusUpdateRunnable(boolean aSkippable) {
 			skippable = aSkippable;
 		}
 
@@ -2460,6 +2526,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 		@Override
 		public void onBaselineReceived(SetList aSetList, Endpoint anEndpoint) {
 			updateSetList(aSetList);
+
+			// Recreate breakpoints, if possible
+			synchronized (breakpointsToRecreate) {
+				for (String tempBreakpointName : breakpointsToRecreate) {
+					SetListEntry tempEntry = aSetList.findEntryByFullyQualifiedName(tempBreakpointName);
+					if (tempEntry != null) {
+						client.createBreakpoint(tempEntry.getId());
+					}
+				}
+			}
 		}
 
 		@Override
@@ -2567,7 +2643,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 				return;
 			}
 			breakpointSet.add(anEntryReference);
-			Display.getDefault().syncExec(new Runnable() {
+			String tempFullyQualifiedName = setList.getFullyQualifiedName(anEntryReference);
+			if (tempFullyQualifiedName != null) {
+				breakpointsToRecreate.add(tempFullyQualifiedName);
+			}
+			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					treeViewer.update(setList.resolveReference(anEntryReference), null);
@@ -2582,7 +2662,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 				return;
 			}
 			breakpointSet.remove(anEntryReference);
-			Display.getDefault().syncExec(new Runnable() {
+			String tempFullyQualifiedName = setList.getFullyQualifiedName(anEntryReference);
+			if (tempFullyQualifiedName != null) {
+				breakpointsToRecreate.remove(tempFullyQualifiedName);
+			}
+			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					treeViewer.update(setList.resolveReference(anEntryReference), null);
@@ -2617,7 +2701,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		/**
 		 * Creates a new instance.
 		 */
-		public AutoConnectThread(ILaunch aLaunch) {
+		AutoConnectThread(ILaunch aLaunch) {
 			super("Integrity Autoconnect Thread");
 			launch = aLaunch;
 		}

@@ -64,8 +64,8 @@ public class SimpleCommandLineParser {
 						if (i < someParameters.length) {
 							((ValueOption<?>) tempOption).addValue(someParameters[i]);
 						} else {
-							throw new IllegalArgumentException("A value is required for parameter '"
-									+ someParameters[i - 1] + "'");
+							throw new IllegalArgumentException(
+									"A value is required for parameter '" + someParameters[i - 1] + "'");
 						}
 					}
 					continue outer;
@@ -169,10 +169,10 @@ public class SimpleCommandLineParser {
 		 * @return true if a match is found, false otherwise
 		 */
 		protected boolean matches(String aParameter) {
-			return (shortName != null && aParameter.length() > 1 && aParameter.startsWith(SHORT_PARAMETER_PREFIX) && shortName
-					.equals(aParameter.substring(1)))
-					| (longName != null && aParameter.length() > 2 && aParameter.startsWith(LONG_PARAMETER_PREFIX) && longName
-							.equals(aParameter.substring(2)));
+			return (shortName != null && aParameter.length() > 1 && aParameter.startsWith(SHORT_PARAMETER_PREFIX)
+					&& shortName.equals(aParameter.substring(1)))
+					| (longName != null && aParameter.length() > 2 && aParameter.startsWith(LONG_PARAMETER_PREFIX)
+							&& longName.equals(aParameter.substring(2)));
 		}
 
 		public String getShortName() {
@@ -419,6 +419,7 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
+		@Override
 		protected void addValue(String aValue) {
 			addValueInternal(aValue);
 		}
@@ -479,6 +480,7 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
+		@Override
 		protected void addValue(String aValue) {
 			addValueInternal(Integer.parseInt(aValue));
 		}
@@ -539,6 +541,7 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
+		@Override
 		protected void addValue(String aValue) {
 			addValueInternal(new BigDecimal(aValue));
 		}
@@ -598,6 +601,7 @@ public class SimpleCommandLineParser {
 		/**
 		 * Sets a value.
 		 */
+		@Override
 		protected void addValue(String aValue) {
 			addValueInternal(Long.parseLong(aValue));
 		}

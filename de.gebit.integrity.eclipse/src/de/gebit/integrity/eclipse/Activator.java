@@ -37,6 +37,7 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * Will be called by OSGi when the bundle is started.
 	 */
+	@Override
 	public void start(BundleContext aContext) throws Exception {
 		super.start(aContext);
 		plugin = this;
@@ -45,6 +46,7 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * Will be called by OSGi when the bundle is stopped.
 	 */
+	@Override
 	public void stop(BundleContext aContext) throws Exception {
 		plugin = null;
 		super.stop(aContext);

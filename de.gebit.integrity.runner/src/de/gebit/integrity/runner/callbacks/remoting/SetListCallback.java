@@ -182,6 +182,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTestStart(Test aTest) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TEST);
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTest.getDefinition().getName());
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTest.getDefinition().getFixtureMethod(),
 				aTest.getParameters(), tempNewEntry, aTest);
@@ -196,6 +197,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTableTestStart(TableTest aTableTest) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TABLETEST);
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTableTest.getDefinition().getName());
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aTableTest.getDefinition().getFixtureMethod(),
 				aTableTest.getParameters(), tempNewEntry, aTableTest);
@@ -390,6 +392,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onCallStart(Call aCall) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.CALL);
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aCall.getDefinition().getName());
 
 		SetListEntry[] tempParamEntries = addMethodAndParamsToTestOrCall(aCall.getDefinition().getFixtureMethod(),
 				aCall.getParameters(), tempNewEntry, aCall);

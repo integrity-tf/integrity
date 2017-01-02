@@ -178,7 +178,7 @@ public class SetListSearch {
 		 */
 		private SetListEntry entry;
 
-		public SearchResult(String aText, boolean aSuccessfulFlag, boolean aSubResultDependentFlag, SetListEntry anEntry) {
+		SearchResult(String aText, boolean aSuccessfulFlag, boolean aSubResultDependentFlag, SetListEntry anEntry) {
 			text = aText;
 			successful = aSuccessfulFlag;
 			subResultDependent = aSubResultDependentFlag;

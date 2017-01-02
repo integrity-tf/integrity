@@ -83,6 +83,7 @@ public class DefaultProcessTerminator implements ProcessTerminator {
 	public boolean killAndWait(int aTimeout) {
 		Thread tempKillThread = new Thread("Integrity - Process Terminator Thread") {
 
+			@Override
 			public void run() {
 				try {
 					ignoreDeregistrations = true;

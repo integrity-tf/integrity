@@ -227,12 +227,13 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 		String tempSuffix = "";
 		if ((tempResultState == null || tempResultState == SetListEntryResultStates.UNKNOWN)
 				&& setList.isEntryInExecution(tempEntry)) {
-			tempSuffix = "...";
-		} else if (breakpointSet.contains(tempEntry.getId())) {
-			tempSuffix = " ";
+			tempSuffix += "...";
+		}
+		if (breakpointSet.contains(tempEntry.getId())) {
+			tempSuffix += " ";
 		} else if (tempEntry.getType() == SetListEntryTypes.VARIABLE_ASSIGNMENT
 				&& tempResultState == SetListEntryResultStates.SUCCESSFUL) {
-			tempSuffix = " ";
+			tempSuffix += " ";
 		}
 
 		switch (tempEntry.getType()) {
