@@ -3,7 +3,6 @@ packagedef otherpackage2 with
 	suitedef testsuite with
 	
 		variable blahvar1 initially mypackage.packagevar
-		variable blahvar2 initially mypackage.privatepackagevar
 	
 	suiteend
 

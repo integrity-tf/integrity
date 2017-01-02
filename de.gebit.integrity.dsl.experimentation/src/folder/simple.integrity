@@ -9,24 +9,18 @@ packagedef mypackage with
 
 	suitedef asuite with
 	
-		variable suitevar
+		test echo echo: "ABC" = "ABC"
 		
-		tabletest echos param1: "abc" param2: 1234
-			| echo  | param3 | =     |
-			| 100   | "test" | 100   |
-			| "foo" | 100    | "foo" |
+		test echo echo: "XYZ" = "XYZ"
+		
+		call wait seconds: 3
+		
+		test echo echo: "DEF" = "DEF"
+		
+		call wait seconds: 3
+		
+		test echo echo: "GHI" = "GHI"
 		
 	suiteend
 	
-packageend
-
-packagedef otherpackage with
-
-	suitedef testsuite with
-	
-		variable blahvar1 initially mypackage.packagevar
-		variable blahvar2 initially mypackage.privatepackagevar
-	
-	suiteend
-
 packageend
