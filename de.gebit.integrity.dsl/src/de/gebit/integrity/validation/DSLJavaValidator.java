@@ -38,10 +38,12 @@ import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
@@ -139,6 +141,32 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 			if (!(aConstant.eContainer() instanceof PackageDefinition)) {
 				error("Parameterized constants are only allowed in the scope of a package, not within suites", null);
 			}
+		}
+	}
+
+	/**
+	 * Checks for redundant private modifier.
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkForPrivateVariableInSuite(VariableDefinition anEntity) {
+		if (anEntity.getPrivate() != null && (anEntity.eContainer() instanceof SuiteDefinition)) {
+			warning("Redundant visibility modifier: variable definitions inside suites are always 'private'",
+					DslPackage.Literals.VARIABLE_DEFINITION__PRIVATE);
+		}
+	}
+
+	/**
+	 * Checks for redundant private modifier.
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkForPrivateConstantInSuite(ConstantDefinition anEntity) {
+		if (anEntity.getPrivate() != null && (anEntity.eContainer() instanceof SuiteDefinition)) {
+			warning("Redundant visibility modifier: constant definitions inside suites are always 'private'",
+					DslPackage.Literals.CONSTANT_DEFINITION__PRIVATE);
 		}
 	}
 
