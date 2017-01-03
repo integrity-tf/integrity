@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="03.01.17 12:37" isotimestamp="2017-01-03T12:37:37" duration="23.749">
+  <variables>
+    <variable name="integrity.basic.testParameterizedConstWithDefault" value="foo" />
+  </variables>
+  <suite id="0" name="integrity.basic.parameterizedConstantDefaultDef" timestamp="03.01.17 12:37:37.0198">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="122" name="echoStringTest" description="Echo the string 'foo'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.01.17 12:37:37.0204">
+        <results duration="2.386" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.386" description="Echo the string 'foo'" type="success">
+            <parameters>
+              <parameter name="string" value="foo" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="foo" value="foo" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="16.875" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

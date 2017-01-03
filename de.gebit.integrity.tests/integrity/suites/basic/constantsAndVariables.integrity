@@ -92,6 +92,36 @@ packagedef integrity.basic with
 	
 	suiteend
 	
+	
+	constant testParameterizedConst parameterized
+	constant testParameterizedConstWithDefault "bar" parameterized	
+	
+	suitedef parameterizedConstantNoDef with
+		
+		test echoStringTest string: testParameterizedConst = null
+	
+	suiteend
+	
+	
+	suitedef parameterizedConstantDef with
+		
+		test echoStringTest string: testParameterizedConst = "foo"
+	
+	suiteend
+	
+	
+	suitedef parameterizedConstantDefaultNoDef with
+		
+		test echoStringTest string: testParameterizedConstWithDefault = "bar"
+	
+	suiteend
+	
+	
+	suitedef parameterizedConstantDefaultDef with
+		
+		test echoStringTest string: testParameterizedConstWithDefault = "foo"
+	
+	suiteend
 
 
 packageend

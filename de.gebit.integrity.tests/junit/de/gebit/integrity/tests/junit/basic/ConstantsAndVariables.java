@@ -8,6 +8,8 @@
 package de.gebit.integrity.tests.junit.basic;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
@@ -119,6 +121,80 @@ public class ConstantsAndVariables extends IntegrityJUnitTest {
 				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
 				"integrity.basic.variableAssignment", null);
 		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testParameterizedConstantNoDef() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.parameterizedConstantNoDef", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testParameterizedConstantDef() throws ModelLoadException, IOException, JDOMException {
+		parameterizedConstants.put("integrity.basic.testParameterizedConst", "foo");
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.parameterizedConstantDef", null);
+		assertDocumentMatchesReference(tempResult);
+		parameterizedConstants.clear();
+	}
+
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testParameterizedConstantDefaultNoDef() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.parameterizedConstantDefaultNoDef", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testParameterizedConstantDefaultDef() throws ModelLoadException, IOException, JDOMException {
+		parameterizedConstants.put("integrity.basic.testParameterizedConstWithDefault", "foo");
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/constantsAndVariables.integrity" },
+				"integrity.basic.parameterizedConstantDefaultDef", null);
+		assertDocumentMatchesReference(tempResult);
+		parameterizedConstants.clear();
+	}
+
+	/**
+	 * Parameterized constants.
+	 */
+	private Map<String, String> parameterizedConstants = new HashMap<>();
+
+	@Override
+	protected Map<String, String> getParameterizedConstantValues() {
+		return parameterizedConstants;
 	}
 
 }

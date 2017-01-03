@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:49" duration="25.806">
-  <variables />
+  <variables>
+    <variable name="integrity.basic.testParameterizedConstWithDefault" value="bar" />
+  </variables>
   <suite id="0" name="integrity.basic.variableAttributeAccessNested" timestamp="14.01.16 10:58:49.0961">
     <setup />
     <variables>
