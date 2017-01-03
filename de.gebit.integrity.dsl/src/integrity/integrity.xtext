@@ -100,7 +100,7 @@ VariableDefinition:
 	private='private'? 'variable' NL name=VariableEntity NL ('initially' NL initialValue=ValueOrEnumValueOrOperationCollection NL)?;
 	
 ConstantDefinition:
-	private='private'? 'constant' NL name=ConstantEntity NL (((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) | parameterized='parameterized' NL);
+	private='private'? 'constant' NL name=ConstantEntity NL ((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized' NL)?;
 	
 VariableAssignment:
 	'assign' NL value=ValueOrEnumValueOrOperationCollection NL '->' NL target=VariableVariable NL;

@@ -4,7 +4,6 @@
 package de.gebit.integrity.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.BooleanValue;
 import de.gebit.integrity.dsl.Call;
@@ -41,7 +40,6 @@ import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.Null;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
-import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
@@ -76,16 +74,15 @@ import de.gebit.integrity.dsl.VisibleMultiLineTitleComment;
 import de.gebit.integrity.dsl.VisibleSingleLineNormalComment;
 import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.services.DSLGrammarAccess;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
 @SuppressWarnings("all")
@@ -95,8 +92,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	private DSLGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == DslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == DslPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case DslPackage.ARBITRARY_PARAMETER_OR_RESULT_NAME:
 				sequence_ArbitraryParameterOrResultName(context, (ArbitraryParameterOrResultName) semanticObject); 
 				return; 
@@ -203,7 +205,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				sequence_PackageDefinition(context, (PackageDefinition) semanticObject); 
 				return; 
 			case DslPackage.PARAMETER:
-				sequence_Parameter(context, (Parameter) semanticObject); 
+				sequence_Parameter(context, (de.gebit.integrity.dsl.Parameter) semanticObject); 
 				return; 
 			case DslPackage.PARAMETER_TABLE_HEADER:
 				sequence_ParameterTableHeader(context, (ParameterTableHeader) semanticObject); 
@@ -305,40 +307,56 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				sequence_VisibleSingleLineTitleComment(context, (VisibleSingleLineTitleComment) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     ResultName returns ArbitraryParameterOrResultName
+	 *     ParameterName returns ArbitraryParameterOrResultName
+	 *     ArbitraryParameterOrResultName returns ArbitraryParameterOrResultName
+	 *
 	 * Constraint:
 	 *     (identifier=ID | stringIdentifier=STRING)
 	 */
-	protected void sequence_ArbitraryParameterOrResultName(EObject context, ArbitraryParameterOrResultName semanticObject) {
+	protected void sequence_ArbitraryParameterOrResultName(ISerializationContext context, ArbitraryParameterOrResultName semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns BooleanValue
+	 *     Value returns BooleanValue
+	 *     ConstantValue returns BooleanValue
+	 *     StaticValue returns BooleanValue
+	 *     BooleanValue returns BooleanValue
+	 *
 	 * Constraint:
 	 *     (booleanValue=BOOLEAN_TRUE | booleanValue=BOOLEAN_FALSE)
 	 */
-	protected void sequence_BooleanValue(EObject context, BooleanValue semanticObject) {
+	protected void sequence_BooleanValue(ISerializationContext context, BooleanValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns CallDefinition
+	 *     CallDefinition returns CallDefinition
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName fixtureMethod=MethodReference)
 	 */
-	protected void sequence_CallDefinition(EObject context, CallDefinition semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__NAME) == ValueTransient.YES)
+	protected void sequence_CallDefinition(ISerializationContext context, CallDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CALL_DEFINITION__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CALL_DEFINITION__FIXTURE_METHOD));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0(), semanticObject.getFixtureMethod());
 		feeder.finish();
@@ -346,6 +364,11 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteStatement returns Call
+	 *     SuiteStatementWithResult returns Call
+	 *     Call returns Call
+	 *
 	 * Constraint:
 	 *     (
 	 *         multiplier=ExecutionMultiplier? 
@@ -355,57 +378,69 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         result=VariableVariable?
 	 *     )
 	 */
-	protected void sequence_Call(EObject context, Call semanticObject) {
+	protected void sequence_Call(ISerializationContext context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns ConstantDefinition
+	 *     SuiteStatement returns ConstantDefinition
+	 *     ConstantDefinition returns ConstantDefinition
+	 *
 	 * Constraint:
-	 *     (
-	 *         private='private'? 
-	 *         name=ConstantEntity 
-	 *         ((value=ValueOrEnumValueOrOperationCollection? variantValues+=VariantValue*) | parameterized='parameterized')
-	 *     )
+	 *     (private='private'? name=ConstantEntity value=ValueOrEnumValueOrOperationCollection? variantValues+=VariantValue* parameterized='parameterized'?)
 	 */
-	protected void sequence_ConstantDefinition(EObject context, ConstantDefinition semanticObject) {
+	protected void sequence_ConstantDefinition(ISerializationContext context, ConstantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ConstantEntity returns ConstantEntity
+	 *     VariableOrConstantEntity returns ConstantEntity
+	 *
 	 * Constraint:
 	 *     name=QualifiedName
 	 */
-	protected void sequence_ConstantEntity(EObject context, ConstantEntity semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
+	protected void sequence_ConstantEntity(ISerializationContext context, ConstantEntity semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getConstantEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ConstantValue returns Constant
+	 *     Constant returns Constant
+	 *
 	 * Constraint:
 	 *     name=[ConstantEntity|QualifiedName]
 	 */
-	protected void sequence_Constant(EObject context, Constant semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT__NAME) == ValueTransient.YES)
+	protected void sequence_Constant(ISerializationContext context, Constant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.CONSTANT__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getConstantAccess().getNameConstantEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Operation returns CustomOperation
+	 *     CustomOperation returns CustomOperation
+	 *     ValueOrEnumValueOrOperation returns CustomOperation
+	 *
 	 * Constraint:
 	 *     (
 	 *         prefixOperand=ValueOrEnumValueOrOperationCollection? 
@@ -413,56 +448,72 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         postfixOperand=ValueOrEnumValueOrOperationCollection?
 	 *     )
 	 */
-	protected void sequence_CustomOperation(EObject context, CustomOperation semanticObject) {
+	protected void sequence_CustomOperation(ISerializationContext context, CustomOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns DecimalValue
+	 *     Value returns DecimalValue
+	 *     ConstantValue returns DecimalValue
+	 *     StaticValue returns DecimalValue
+	 *     DecimalValue returns DecimalValue
+	 *
 	 * Constraint:
 	 *     decimalValue=DECIMAL
 	 */
-	protected void sequence_DecimalValue(EObject context, DecimalValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DECIMAL_VALUE__DECIMAL_VALUE) == ValueTransient.YES)
+	protected void sequence_DecimalValue(ISerializationContext context, DecimalValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DECIMAL_VALUE__DECIMAL_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DECIMAL_VALUE__DECIMAL_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0(), semanticObject.getDecimalValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns EnumValue
+	 *     EnumValue returns EnumValue
+	 *
 	 * Constraint:
 	 *     enumValue=[JvmEnumerationLiteral|UPPERCASE_ID]
 	 */
-	protected void sequence_EnumValue(EObject context, EnumValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.ENUM_VALUE__ENUM_VALUE) == ValueTransient.YES)
+	protected void sequence_EnumValue(ISerializationContext context, EnumValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.ENUM_VALUE__ENUM_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ENUM_VALUE__ENUM_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1(), semanticObject.getEnumValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns EuropeanDateAnd12HrsTimeValue
+	 *     Value returns EuropeanDateAnd12HrsTimeValue
+	 *     ConstantValue returns EuropeanDateAnd12HrsTimeValue
+	 *     StaticValue returns EuropeanDateAnd12HrsTimeValue
+	 *     DateAndTimeValue returns EuropeanDateAnd12HrsTimeValue
+	 *     EuropeanDateAnd12HrsTimeValue returns EuropeanDateAnd12HrsTimeValue
+	 *
 	 * Constraint:
 	 *     (dateValue=EURODATE timeValue=TWELVEHRSTIME)
 	 */
-	protected void sequence_EuropeanDateAnd12HrsTimeValue(EObject context, EuropeanDateAnd12HrsTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_EuropeanDateAnd12HrsTimeValue(ISerializationContext context, EuropeanDateAnd12HrsTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0(), semanticObject.getDateValue());
 		feeder.accept(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0(), semanticObject.getTimeValue());
 		feeder.finish();
@@ -470,18 +521,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns EuropeanDateAnd24HrsTimeValue
+	 *     Value returns EuropeanDateAnd24HrsTimeValue
+	 *     ConstantValue returns EuropeanDateAnd24HrsTimeValue
+	 *     StaticValue returns EuropeanDateAnd24HrsTimeValue
+	 *     DateAndTimeValue returns EuropeanDateAnd24HrsTimeValue
+	 *     EuropeanDateAnd24HrsTimeValue returns EuropeanDateAnd24HrsTimeValue
+	 *
 	 * Constraint:
 	 *     (dateValue=EURODATE timeValue=TWENTYFOURHRSTIME)
 	 */
-	protected void sequence_EuropeanDateAnd24HrsTimeValue(EObject context, EuropeanDateAnd24HrsTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_EuropeanDateAnd24HrsTimeValue(ISerializationContext context, EuropeanDateAnd24HrsTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0(), semanticObject.getDateValue());
 		feeder.accept(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0(), semanticObject.getTimeValue());
 		feeder.finish();
@@ -489,91 +547,113 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns EuropeanDateValue
+	 *     Value returns EuropeanDateValue
+	 *     ConstantValue returns EuropeanDateValue
+	 *     StaticValue returns EuropeanDateValue
+	 *     DateValue returns EuropeanDateValue
+	 *     EuropeanDateValue returns EuropeanDateValue
+	 *
 	 * Constraint:
 	 *     dateValue=EURODATE
 	 */
-	protected void sequence_EuropeanDateValue(EObject context, EuropeanDateValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_EuropeanDateValue(ISerializationContext context, EuropeanDateValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEuropeanDateValueAccess().getDateValueEURODATETerminalRuleCall_0(), semanticObject.getDateValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ExecutionMultiplier returns ExecutionMultiplier
+	 *
 	 * Constraint:
 	 *     count=ConstantValue
 	 */
-	protected void sequence_ExecutionMultiplier(EObject context, ExecutionMultiplier semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.EXECUTION_MULTIPLIER__COUNT) == ValueTransient.YES)
+	protected void sequence_ExecutionMultiplier(ISerializationContext context, ExecutionMultiplier semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.EXECUTION_MULTIPLIER__COUNT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.EXECUTION_MULTIPLIER__COUNT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0(), semanticObject.getCount());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ParameterName returns FixedParameterName
+	 *     FixedParameterName returns FixedParameterName
+	 *
 	 * Constraint:
 	 *     annotation=[JvmAnnotationReference|ID]
 	 */
-	protected void sequence_FixedParameterName(EObject context, FixedParameterName semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION) == ValueTransient.YES)
+	protected void sequence_FixedParameterName(ISerializationContext context, FixedParameterName semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1(), semanticObject.getAnnotation());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ResultName returns FixedResultName
+	 *     FixedResultName returns FixedResultName
+	 *
 	 * Constraint:
 	 *     field=[JvmField|ID]
 	 */
-	protected void sequence_FixedResultName(EObject context, FixedResultName semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_RESULT_NAME__FIELD) == ValueTransient.YES)
+	protected void sequence_FixedResultName(ISerializationContext context, FixedResultName semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.FIXED_RESULT_NAME__FIELD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_RESULT_NAME__FIELD));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1(), semanticObject.getField());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Statement returns ForkDefinition
+	 *     PackageStatement returns ForkDefinition
+	 *     ForkDefinition returns ForkDefinition
+	 *
 	 * Constraint:
 	 *     (private='private'? name=QualifiedName description=STRING? forkerClass=JavaClassReference? parameters+=ForkParameter*)
 	 */
-	protected void sequence_ForkDefinition(EObject context, ForkDefinition semanticObject) {
+	protected void sequence_ForkDefinition(ISerializationContext context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ForkParameter returns ForkParameter
+	 *
 	 * Constraint:
 	 *     (name=FixedParameterName value=ValueOrEnumValueOrOperation)
 	 */
-	protected void sequence_ForkParameter(EObject context, ForkParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__NAME) == ValueTransient.YES)
+	protected void sequence_ForkParameter(ISerializationContext context, ForkParameter semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FORK_PARAMETER__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.FORK_PARAMETER__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FORK_PARAMETER__VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
@@ -581,50 +661,67 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     Statement returns Import
+	 *     PackageStatement returns Import
+	 *     Import returns Import
+	 *
 	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildcard
 	 */
-	protected void sequence_Import(EObject context, Import semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.IMPORT__IMPORTED_NAMESPACE) == ValueTransient.YES)
+	protected void sequence_Import(ISerializationContext context, Import semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.IMPORT__IMPORTED_NAMESPACE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.IMPORT__IMPORTED_NAMESPACE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0(), semanticObject.getImportedNamespace());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns IntegerValue
+	 *     Value returns IntegerValue
+	 *     ConstantValue returns IntegerValue
+	 *     StaticValue returns IntegerValue
+	 *     IntegerValue returns IntegerValue
+	 *
 	 * Constraint:
 	 *     integerValue=INTEGER
 	 */
-	protected void sequence_IntegerValue(EObject context, IntegerValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.INTEGER_VALUE__INTEGER_VALUE) == ValueTransient.YES)
+	protected void sequence_IntegerValue(ISerializationContext context, IntegerValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.INTEGER_VALUE__INTEGER_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.INTEGER_VALUE__INTEGER_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0(), semanticObject.getIntegerValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns IsoDateAndTimeValue
+	 *     Value returns IsoDateAndTimeValue
+	 *     ConstantValue returns IsoDateAndTimeValue
+	 *     StaticValue returns IsoDateAndTimeValue
+	 *     DateAndTimeValue returns IsoDateAndTimeValue
+	 *     IsoDateAndTimeValue returns IsoDateAndTimeValue
+	 *
 	 * Constraint:
 	 *     (dateValue=ISODATE timeValue=ISOTIME)
 	 */
-	protected void sequence_IsoDateAndTimeValue(EObject context, IsoDateAndTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_IsoDateAndTimeValue(ISerializationContext context, IsoDateAndTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0(), semanticObject.getDateValue());
 		feeder.accept(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0(), semanticObject.getTimeValue());
 		feeder.finish();
@@ -632,66 +729,84 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns IsoDateValue
+	 *     Value returns IsoDateValue
+	 *     ConstantValue returns IsoDateValue
+	 *     StaticValue returns IsoDateValue
+	 *     DateValue returns IsoDateValue
+	 *     IsoDateValue returns IsoDateValue
+	 *
 	 * Constraint:
 	 *     dateValue=ISODATE
 	 */
-	protected void sequence_IsoDateValue(EObject context, IsoDateValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_IsoDateValue(ISerializationContext context, IsoDateValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIsoDateValueAccess().getDateValueISODATETerminalRuleCall_0(), semanticObject.getDateValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns IsoTimeValue
+	 *     Value returns IsoTimeValue
+	 *     ConstantValue returns IsoTimeValue
+	 *     StaticValue returns IsoTimeValue
+	 *     TimeValue returns IsoTimeValue
+	 *     IsoTimeValue returns IsoTimeValue
+	 *
 	 * Constraint:
 	 *     timeValue=ISOTIME
 	 */
-	protected void sequence_IsoTimeValue(EObject context, IsoTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+	protected void sequence_IsoTimeValue(ISerializationContext context, IsoTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     JavaClassReference returns JavaClassReference
+	 *
 	 * Constraint:
 	 *     type=[JvmType|QualifiedJavaClassName]
 	 */
-	protected void sequence_JavaClassReference(EObject context, JavaClassReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE) == ValueTransient.YES)
+	protected void sequence_JavaClassReference(ISerializationContext context, JavaClassReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1(), semanticObject.getType());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     JavaConstantReference returns JavaConstantReference
+	 *
 	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] constant=[JvmField|UPPERCASE_ID])
 	 */
-	protected void sequence_JavaConstantReference(EObject context, JavaConstantReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE) == ValueTransient.YES)
+	protected void sequence_JavaConstantReference(ISerializationContext context, JavaConstantReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.getType());
 		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1(), semanticObject.getConstant());
 		feeder.finish();
@@ -699,43 +814,54 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns JavaConstantValue
+	 *     Value returns JavaConstantValue
+	 *     ConstantValue returns JavaConstantValue
+	 *     StaticValue returns JavaConstantValue
+	 *     JavaConstantValue returns JavaConstantValue
+	 *
 	 * Constraint:
 	 *     constant=JavaConstantReference
 	 */
-	protected void sequence_JavaConstantValue(EObject context, JavaConstantValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_VALUE__CONSTANT) == ValueTransient.YES)
+	protected void sequence_JavaConstantValue(ISerializationContext context, JavaConstantValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.JAVA_CONSTANT_VALUE__CONSTANT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_VALUE__CONSTANT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0(), semanticObject.getConstant());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     KeyValuePair returns KeyValuePair
+	 *
 	 * Constraint:
 	 *     ((identifier=ID | stringIdentifier=STRING) value=ValueOrEnumValueOrOperationCollection)
 	 */
-	protected void sequence_KeyValuePair(EObject context, KeyValuePair semanticObject) {
+	protected void sequence_KeyValuePair(ISerializationContext context, KeyValuePair semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     MethodReference returns MethodReference
+	 *
 	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] method=[JvmOperation|ID])
 	 */
-	protected void sequence_MethodReference(EObject context, MethodReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.METHOD_REFERENCE__TYPE) == ValueTransient.YES)
+	protected void sequence_MethodReference(ISerializationContext context, MethodReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.METHOD_REFERENCE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.METHOD_REFERENCE__TYPE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.METHOD_REFERENCE__METHOD) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.METHOD_REFERENCE__METHOD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.METHOD_REFERENCE__METHOD));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.getType());
 		feeder.accept(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1(), semanticObject.getMethod());
 		feeder.finish();
@@ -743,27 +869,32 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     Model returns Model
+	 *
 	 * Constraint:
-	 *     (statements+=Statement*)
+	 *     statements+=Statement*
 	 */
-	protected void sequence_Model(EObject context, Model semanticObject) {
+	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedCallResult returns NamedCallResult
+	 *
 	 * Constraint:
 	 *     (name=ResultName target=VariableVariable)
 	 */
-	protected void sequence_NamedCallResult(EObject context, NamedCallResult semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__NAME) == ValueTransient.YES)
+	protected void sequence_NamedCallResult(ISerializationContext context, NamedCallResult semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__TARGET) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__TARGET) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_CALL_RESULT__TARGET));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getNamedCallResultAccess().getTargetVariableVariableParserRuleCall_4_0(), semanticObject.getTarget());
 		feeder.finish();
@@ -771,18 +902,20 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedResult returns NamedResult
+	 *
 	 * Constraint:
 	 *     (name=ResultName value=ValueOrEnumValueOrOperationCollection)
 	 */
-	protected void sequence_NamedResult(EObject context, NamedResult semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_RESULT__NAME) == ValueTransient.YES)
+	protected void sequence_NamedResult(ISerializationContext context, NamedResult semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_RESULT__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_RESULT__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_RESULT__VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.NAMED_RESULT__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.NAMED_RESULT__VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
@@ -790,36 +923,51 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns NestedObject
+	 *     Value returns NestedObject
+	 *     NestedObject returns NestedObject
+	 *
 	 * Constraint:
 	 *     attributes+=KeyValuePair+
 	 */
-	protected void sequence_NestedObject(EObject context, NestedObject semanticObject) {
+	protected void sequence_NestedObject(ISerializationContext context, NestedObject semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Null
+	 *     Value returns Null
+	 *     ConstantValue returns Null
+	 *     StaticValue returns Null
+	 *     NullValue returns Null
+	 *
 	 * Constraint:
 	 *     {Null}
 	 */
-	protected void sequence_NullValue(EObject context, Null semanticObject) {
+	protected void sequence_NullValue(ISerializationContext context, Null semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns OperationDefinition
+	 *     OperationDefinition returns OperationDefinition
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName operationType=JavaClassReference)
 	 */
-	protected void sequence_OperationDefinition(EObject context, OperationDefinition semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__NAME) == ValueTransient.YES)
+	protected void sequence_OperationDefinition(ISerializationContext context, OperationDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__OPERATION_TYPE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__OPERATION_TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.OPERATION_DEFINITION__OPERATION_TYPE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getOperationDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getOperationDefinitionAccess().getOperationTypeJavaClassReferenceParserRuleCall_6_0(), semanticObject.getOperationType());
 		feeder.finish();
@@ -827,59 +975,69 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     Statement returns PackageDefinition
+	 *     PackageDefinition returns PackageDefinition
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName statements+=PackageStatement*)
 	 */
-	protected void sequence_PackageDefinition(EObject context, PackageDefinition semanticObject) {
+	protected void sequence_PackageDefinition(ISerializationContext context, PackageDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ParameterTableHeader returns ParameterTableHeader
+	 *
 	 * Constraint:
 	 *     name=ParameterName
 	 */
-	protected void sequence_ParameterTableHeader(EObject context, ParameterTableHeader semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_HEADER__NAME) == ValueTransient.YES)
+	protected void sequence_ParameterTableHeader(ISerializationContext context, ParameterTableHeader semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_HEADER__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER_TABLE_HEADER__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getParameterTableHeaderAccess().getNameParameterNameParserRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ParameterTableValue returns ParameterTableValue
+	 *
 	 * Constraint:
 	 *     value=ValueOrEnumValueOrOperationCollection
 	 */
-	protected void sequence_ParameterTableValue(EObject context, ParameterTableValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_VALUE__VALUE) == ValueTransient.YES)
+	protected void sequence_ParameterTableValue(ISerializationContext context, ParameterTableValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER_TABLE_VALUE__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER_TABLE_VALUE__VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Parameter returns Parameter
+	 *
 	 * Constraint:
 	 *     (name=ParameterName value=ValueOrEnumValueOrOperationCollection)
 	 */
-	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER__NAME) == ValueTransient.YES)
+	protected void sequence_Parameter(ISerializationContext context, de.gebit.integrity.dsl.Parameter semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER__VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.PARAMETER__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.PARAMETER__VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
@@ -887,54 +1045,75 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ResultTableHeader returns ResultTableHeader
+	 *
 	 * Constraint:
 	 *     name=ResultName
 	 */
-	protected void sequence_ResultTableHeader(EObject context, ResultTableHeader semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.RESULT_TABLE_HEADER__NAME) == ValueTransient.YES)
+	protected void sequence_ResultTableHeader(ISerializationContext context, ResultTableHeader semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.RESULT_TABLE_HEADER__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.RESULT_TABLE_HEADER__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getResultTableHeaderAccess().getNameResultNameParserRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Simple12HrsTimeValue
+	 *     Value returns Simple12HrsTimeValue
+	 *     ConstantValue returns Simple12HrsTimeValue
+	 *     StaticValue returns Simple12HrsTimeValue
+	 *     TimeValue returns Simple12HrsTimeValue
+	 *     Simple12HrsTimeValue returns Simple12HrsTimeValue
+	 *
 	 * Constraint:
 	 *     timeValue=TWELVEHRSTIME
 	 */
-	protected void sequence_Simple12HrsTimeValue(EObject context, Simple12HrsTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+	protected void sequence_Simple12HrsTimeValue(ISerializationContext context, Simple12HrsTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSimple12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Simple24HrsTimeValue
+	 *     Value returns Simple24HrsTimeValue
+	 *     ConstantValue returns Simple24HrsTimeValue
+	 *     StaticValue returns Simple24HrsTimeValue
+	 *     TimeValue returns Simple24HrsTimeValue
+	 *     Simple24HrsTimeValue returns Simple24HrsTimeValue
+	 *
 	 * Constraint:
 	 *     timeValue=TWENTYFOURHRSTIME
 	 */
-	protected void sequence_Simple24HrsTimeValue(EObject context, Simple24HrsTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+	protected void sequence_Simple24HrsTimeValue(ISerializationContext context, Simple24HrsTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0(), semanticObject.getTimeValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Operation returns StandardOperation
+	 *     StandardOperation returns StandardOperation
+	 *     ValueOrEnumValueOrOperation returns StandardOperation
+	 *
 	 * Constraint:
 	 *     (
 	 *         firstOperand=ValueOrEnumValueOrOperation 
@@ -951,28 +1130,38 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         )+
 	 *     )
 	 */
-	protected void sequence_StandardOperation(EObject context, StandardOperation semanticObject) {
+	protected void sequence_StandardOperation(ISerializationContext context, StandardOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns StringValue
+	 *     Value returns StringValue
+	 *     ConstantValue returns StringValue
+	 *     StaticValue returns StringValue
+	 *     StringValue returns StringValue
+	 *
 	 * Constraint:
 	 *     stringValue=STRING
 	 */
-	protected void sequence_StringValue(EObject context, StringValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.STRING_VALUE__STRING_VALUE) == ValueTransient.YES)
+	protected void sequence_StringValue(ISerializationContext context, StringValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.STRING_VALUE__STRING_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.STRING_VALUE__STRING_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getStringValueAccess().getStringValueSTRINGTerminalRuleCall_0(), semanticObject.getStringValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns SuiteDefinition
+	 *     SuiteDefinition returns SuiteDefinition
+	 *
 	 * Constraint:
 	 *     (
 	 *         private='private'? 
@@ -984,33 +1173,38 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         statements+=SuiteStatement*
 	 *     )
 	 */
-	protected void sequence_SuiteDefinition(EObject context, SuiteDefinition semanticObject) {
+	protected void sequence_SuiteDefinition(ISerializationContext context, SuiteDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteParameterDefinition returns SuiteParameterDefinition
+	 *
 	 * Constraint:
 	 *     (name=VariableEntity default=ValueOrEnumValueOrOperationCollection?)
 	 */
-	protected void sequence_SuiteParameterDefinition(EObject context, SuiteParameterDefinition semanticObject) {
+	protected void sequence_SuiteParameterDefinition(ISerializationContext context, SuiteParameterDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteParameter returns SuiteParameter
+	 *
 	 * Constraint:
 	 *     (name=[VariableOrConstantEntity|QualifiedName] value=ValueOrEnumValueOrOperationCollection)
 	 */
-	protected void sequence_SuiteParameter(EObject context, SuiteParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_PARAMETER__NAME) == ValueTransient.YES)
+	protected void sequence_SuiteParameter(ISerializationContext context, SuiteParameter semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_PARAMETER__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_PARAMETER__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_PARAMETER__VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_PARAMETER__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_PARAMETER__VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
 		feeder.accept(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
@@ -1018,34 +1212,38 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteReturnDefinition returns SuiteReturnDefinition
+	 *
 	 * Constraint:
 	 *     name=VariableEntity
 	 */
-	protected void sequence_SuiteReturnDefinition(EObject context, SuiteReturnDefinition semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN_DEFINITION__NAME) == ValueTransient.YES)
+	protected void sequence_SuiteReturnDefinition(ISerializationContext context, SuiteReturnDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN_DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN_DEFINITION__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSuiteReturnDefinitionAccess().getNameVariableEntityParserRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteReturn returns SuiteReturn
+	 *
 	 * Constraint:
 	 *     (name=[SuiteReturnDefinition|QualifiedName] target=VariableVariable)
 	 */
-	protected void sequence_SuiteReturn(EObject context, SuiteReturn semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__NAME) == ValueTransient.YES)
+	protected void sequence_SuiteReturn(ISerializationContext context, SuiteReturn semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
 		feeder.accept(grammarAccess.getSuiteReturnAccess().getTargetVariableVariableParserRuleCall_4_0(), semanticObject.getTarget());
 		feeder.finish();
@@ -1053,6 +1251,11 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteStatement returns Suite
+	 *     SuiteStatementWithResult returns Suite
+	 *     Suite returns Suite
+	 *
 	 * Constraint:
 	 *     (
 	 *         multiplier=ExecutionMultiplier? 
@@ -1063,21 +1266,29 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         variants+=[VariantDefinition|QualifiedName]*
 	 *     )
 	 */
-	protected void sequence_Suite(EObject context, Suite semanticObject) {
+	protected void sequence_Suite(ISerializationContext context, Suite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     TableTestRow returns TableTestRow
+	 *
 	 * Constraint:
 	 *     values+=ParameterTableValue+
 	 */
-	protected void sequence_TableTestRow(EObject context, TableTestRow semanticObject) {
+	protected void sequence_TableTestRow(ISerializationContext context, TableTestRow semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteStatement returns TableTest
+	 *     SuiteStatementWithResult returns TableTest
+	 *     TableTest returns TableTest
+	 *
 	 * Constraint:
 	 *     (
 	 *         definition=[TestDefinition|QualifiedName] 
@@ -1088,24 +1299,27 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         rows+=TableTestRow+
 	 *     )
 	 */
-	protected void sequence_TableTest(EObject context, TableTest semanticObject) {
+	protected void sequence_TableTest(ISerializationContext context, TableTest semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns TestDefinition
+	 *     TestDefinition returns TestDefinition
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName fixtureMethod=MethodReference)
 	 */
-	protected void sequence_TestDefinition(EObject context, TestDefinition semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__NAME) == ValueTransient.YES)
+	protected void sequence_TestDefinition(ISerializationContext context, TestDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TEST_DEFINITION__NAME));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TEST_DEFINITION__FIXTURE_METHOD));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0(), semanticObject.getFixtureMethod());
 		feeder.finish();
@@ -1113,6 +1327,11 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteStatement returns Test
+	 *     SuiteStatementWithResult returns Test
+	 *     Test returns Test
+	 *
 	 * Constraint:
 	 *     (
 	 *         checkpoint='checkpoint'? 
@@ -1122,24 +1341,28 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         result=ValueOrEnumValueOrOperationCollection?
 	 *     )
 	 */
-	protected void sequence_Test(EObject context, Test semanticObject) {
+	protected void sequence_Test(ISerializationContext context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns TypedNestedObject
+	 *     Value returns TypedNestedObject
+	 *     TypedNestedObject returns TypedNestedObject
+	 *
 	 * Constraint:
 	 *     (type=JavaClassReference nestedObject=NestedObject)
 	 */
-	protected void sequence_TypedNestedObject(EObject context, TypedNestedObject semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__TYPE) == ValueTransient.YES)
+	protected void sequence_TypedNestedObject(ISerializationContext context, TypedNestedObject semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__TYPE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__NESTED_OBJECT) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__NESTED_OBJECT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TYPED_NESTED_OBJECT__NESTED_OBJECT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0(), semanticObject.getType());
 		feeder.accept(grammarAccess.getTypedNestedObjectAccess().getNestedObjectNestedObjectParserRuleCall_4_0(), semanticObject.getNestedObject());
 		feeder.finish();
@@ -1147,18 +1370,25 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns USDateAnd12HrsTimeValue
+	 *     Value returns USDateAnd12HrsTimeValue
+	 *     ConstantValue returns USDateAnd12HrsTimeValue
+	 *     StaticValue returns USDateAnd12HrsTimeValue
+	 *     DateAndTimeValue returns USDateAnd12HrsTimeValue
+	 *     USDateAnd12HrsTimeValue returns USDateAnd12HrsTimeValue
+	 *
 	 * Constraint:
 	 *     (dateValue=USDATE timeValue=TWELVEHRSTIME)
 	 */
-	protected void sequence_USDateAnd12HrsTimeValue(EObject context, USDateAnd12HrsTimeValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_USDateAnd12HrsTimeValue(ISerializationContext context, USDateAnd12HrsTimeValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__DATE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_AND_TIME_VALUE__TIME_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueUSDATETerminalRuleCall_0_0(), semanticObject.getDateValue());
 		feeder.accept(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0(), semanticObject.getTimeValue());
 		feeder.finish();
@@ -1166,43 +1396,56 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns USDateValue
+	 *     Value returns USDateValue
+	 *     ConstantValue returns USDateValue
+	 *     StaticValue returns USDateValue
+	 *     DateValue returns USDateValue
+	 *     USDateValue returns USDateValue
+	 *
 	 * Constraint:
 	 *     dateValue=USDATE
 	 */
-	protected void sequence_USDateValue(EObject context, USDateValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
+	protected void sequence_USDateValue(ISerializationContext context, USDateValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DATE_VALUE__DATE_VALUE));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getUSDateValueAccess().getDateValueUSDATETerminalRuleCall_0(), semanticObject.getDateValue());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperationCollection returns ValueOrEnumValueOrOperationCollection
+	 *
 	 * Constraint:
 	 *     (value=ValueOrEnumValueOrOperation moreValues+=ValueOrEnumValueOrOperation*)
 	 */
-	protected void sequence_ValueOrEnumValueOrOperationCollection(EObject context, ValueOrEnumValueOrOperationCollection semanticObject) {
+	protected void sequence_ValueOrEnumValueOrOperationCollection(ISerializationContext context, ValueOrEnumValueOrOperationCollection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SuiteStatement returns VariableAssignment
+	 *     VariableAssignment returns VariableAssignment
+	 *
 	 * Constraint:
 	 *     (value=ValueOrEnumValueOrOperationCollection target=VariableVariable)
 	 */
-	protected void sequence_VariableAssignment(EObject context, VariableAssignment semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__VALUE) == ValueTransient.YES)
+	protected void sequence_VariableAssignment(ISerializationContext context, VariableAssignment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__VALUE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__VALUE));
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__TARGET) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__TARGET) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_ASSIGNMENT__TARGET));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVariableAssignmentAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.accept(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_6_0(), semanticObject.getTarget());
 		feeder.finish();
@@ -1210,149 +1453,197 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageStatement returns VariableDefinition
+	 *     SuiteStatement returns VariableDefinition
+	 *     VariableDefinition returns VariableDefinition
+	 *
 	 * Constraint:
 	 *     (private='private'? name=VariableEntity initialValue=ValueOrEnumValueOrOperationCollection?)
 	 */
-	protected void sequence_VariableDefinition(EObject context, VariableDefinition semanticObject) {
+	protected void sequence_VariableDefinition(ISerializationContext context, VariableDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VariableEntity returns VariableEntity
+	 *     VariableOrConstantEntity returns VariableEntity
+	 *
 	 * Constraint:
 	 *     name=QualifiedName
 	 */
-	protected void sequence_VariableEntity(EObject context, VariableEntity semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
+	protected void sequence_VariableEntity(ISerializationContext context, VariableEntity semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_OR_CONSTANT_ENTITY__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VariableVariable returns VariableVariable
+	 *
 	 * Constraint:
 	 *     name=[VariableEntity|QualifiedName]
 	 */
-	protected void sequence_VariableVariable(EObject context, VariableVariable semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME) == ValueTransient.YES)
+	protected void sequence_VariableVariable(ISerializationContext context, VariableVariable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVariableVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Variable
+	 *     Value returns Variable
+	 *     Variable returns Variable
+	 *
 	 * Constraint:
 	 *     (name=[VariableOrConstantEntity|QualifiedName] attribute=QualifiedName?)
 	 */
-	protected void sequence_Variable(EObject context, Variable semanticObject) {
+	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Statement returns VariantDefinition
+	 *     PackageStatement returns VariantDefinition
+	 *     VariantDefinition returns VariantDefinition
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName description=STRING?)
 	 */
-	protected void sequence_VariantDefinition(EObject context, VariantDefinition semanticObject) {
+	protected void sequence_VariantDefinition(ISerializationContext context, VariantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VariantValue returns VariantValue
+	 *
 	 * Constraint:
 	 *     (names+=[VariantDefinition|QualifiedName]+ value=ValueOrEnumValueOrOperationCollection)
 	 */
-	protected void sequence_VariantValue(EObject context, VariantValue semanticObject) {
+	protected void sequence_VariantValue(ISerializationContext context, VariantValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VisibleDivider returns VisibleDivider
+	 *     SuiteStatement returns VisibleDivider
+	 *
 	 * Constraint:
 	 *     content=DIVIDER
 	 */
-	protected void sequence_VisibleDivider(EObject context, VisibleDivider semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_DIVIDER__CONTENT) == ValueTransient.YES)
+	protected void sequence_VisibleDivider(ISerializationContext context, VisibleDivider semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_DIVIDER__CONTENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_DIVIDER__CONTENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VisibleComment returns VisibleMultiLineNormalComment
+	 *     VisibleMultiLineComment returns VisibleMultiLineNormalComment
+	 *     VisibleMultiLineNormalComment returns VisibleMultiLineNormalComment
+	 *     SuiteStatement returns VisibleMultiLineNormalComment
+	 *
 	 * Constraint:
 	 *     content=ML_VISIBLE_COMMENT
 	 */
-	protected void sequence_VisibleMultiLineNormalComment(EObject context, VisibleMultiLineNormalComment semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+	protected void sequence_VisibleMultiLineNormalComment(ISerializationContext context, VisibleMultiLineNormalComment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVisibleMultiLineNormalCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VisibleComment returns VisibleMultiLineTitleComment
+	 *     VisibleMultiLineComment returns VisibleMultiLineTitleComment
+	 *     VisibleMultiLineTitleComment returns VisibleMultiLineTitleComment
+	 *     SuiteStatement returns VisibleMultiLineTitleComment
+	 *
 	 * Constraint:
 	 *     content=ML_VISIBLE_TITLE_COMMENT
 	 */
-	protected void sequence_VisibleMultiLineTitleComment(EObject context, VisibleMultiLineTitleComment semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+	protected void sequence_VisibleMultiLineTitleComment(ISerializationContext context, VisibleMultiLineTitleComment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVisibleMultiLineTitleCommentAccess().getContentML_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VisibleComment returns VisibleSingleLineNormalComment
+	 *     VisibleSingleLineComment returns VisibleSingleLineNormalComment
+	 *     VisibleSingleLineNormalComment returns VisibleSingleLineNormalComment
+	 *     SuiteStatement returns VisibleSingleLineNormalComment
+	 *
 	 * Constraint:
 	 *     content=SL_VISIBLE_COMMENT
 	 */
-	protected void sequence_VisibleSingleLineNormalComment(EObject context, VisibleSingleLineNormalComment semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+	protected void sequence_VisibleSingleLineNormalComment(ISerializationContext context, VisibleSingleLineNormalComment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVisibleSingleLineNormalCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     VisibleComment returns VisibleSingleLineTitleComment
+	 *     VisibleSingleLineComment returns VisibleSingleLineTitleComment
+	 *     VisibleSingleLineTitleComment returns VisibleSingleLineTitleComment
+	 *     SuiteStatement returns VisibleSingleLineTitleComment
+	 *
 	 * Constraint:
 	 *     content=SL_VISIBLE_TITLE_COMMENT
 	 */
-	protected void sequence_VisibleSingleLineTitleComment(EObject context, VisibleSingleLineTitleComment semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
+	protected void sequence_VisibleSingleLineTitleComment(ISerializationContext context, VisibleSingleLineTitleComment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VISIBLE_COMMENT__CONTENT));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVisibleSingleLineTitleCommentAccess().getContentSL_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
+	
+	
 }

@@ -39,9 +39,9 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getNLRule())
+		if (ruleCall.getRule() == grammarAccess.getNLRule())
 			return getNLToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getNLFORCEDRule())
+		else if (ruleCall.getRule() == grammarAccess.getNLFORCEDRule())
 			return getNLFORCEDToken(semanticObject, ruleCall, node);
 		return "";
 	}
@@ -72,15 +72,15 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ParameterTableHeader_VerticalLineKeyword_2_q.equals(syntax))
+			if (match_ParameterTableHeader_VerticalLineKeyword_2_q.equals(syntax))
 				emit_ParameterTableHeader_VerticalLineKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ParameterTableValue_VerticalLineKeyword_2_q.equals(syntax))
+			else if (match_ParameterTableValue_VerticalLineKeyword_2_q.equals(syntax))
 				emit_ParameterTableValue_VerticalLineKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultTableHeader_VerticalLineKeyword_3_q.equals(syntax))
+			else if (match_ResultTableHeader_VerticalLineKeyword_3_q.equals(syntax))
 				emit_ResultTableHeader_VerticalLineKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q.equals(syntax))
+			else if (match_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q.equals(syntax))
 				emit_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q.equals(syntax))
+			else if (match_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q.equals(syntax))
 				emit_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

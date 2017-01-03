@@ -104,7 +104,7 @@ ruleNL
        			$current, 
        			"statements",
         		lv_statements_2_0, 
-        		"Statement");
+        		"de.gebit.integrity.DSL.Statement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -284,7 +284,7 @@ ruleVisibleSingleLineNormalComment returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_0_0, 
-        		"SL_VISIBLE_COMMENT");
+        		"de.gebit.integrity.DSL.SL_VISIBLE_COMMENT");
 	    }
 
 )
@@ -331,7 +331,7 @@ ruleVisibleSingleLineTitleComment returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_0_0, 
-        		"SL_VISIBLE_TITLE_COMMENT");
+        		"de.gebit.integrity.DSL.SL_VISIBLE_TITLE_COMMENT");
 	    }
 
 )
@@ -418,7 +418,7 @@ ruleVisibleMultiLineNormalComment returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_0_0, 
-        		"ML_VISIBLE_COMMENT");
+        		"de.gebit.integrity.DSL.ML_VISIBLE_COMMENT");
 	    }
 
 )
@@ -465,7 +465,7 @@ ruleVisibleMultiLineTitleComment returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_0_0, 
-        		"ML_VISIBLE_TITLE_COMMENT");
+        		"de.gebit.integrity.DSL.ML_VISIBLE_TITLE_COMMENT");
 	    }
 
 )
@@ -512,7 +512,7 @@ ruleVisibleDivider returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_0_0, 
-        		"DIVIDER");
+        		"de.gebit.integrity.DSL.DIVIDER");
 	    }
 
 )
@@ -570,7 +570,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -600,7 +600,7 @@ ruleNL
        			$current, 
        			"statements",
         		lv_statements_5_0, 
-        		"PackageStatement");
+        		"de.gebit.integrity.DSL.PackageStatement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -773,7 +773,7 @@ ruleNL
        			$current, 
        			"importedNamespace",
         		lv_importedNamespace_2_0, 
-        		"QualifiedNameWithWildcard");
+        		"de.gebit.integrity.DSL.QualifiedNameWithWildcard");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -847,7 +847,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -874,7 +874,7 @@ ruleNL
        			$current, 
        			"description",
         		lv_description_5_0, 
-        		"STRING");
+        		"de.gebit.integrity.DSL.STRING");
 	    }
 
 )
@@ -911,7 +911,7 @@ ruleNL
        			$current, 
        			"forkerClass",
         		lv_forkerClass_9_0, 
-        		"JavaClassReference");
+        		"de.gebit.integrity.DSL.JavaClassReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -937,7 +937,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_11_0, 
-        		"ForkParameter");
+        		"de.gebit.integrity.DSL.ForkParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -984,7 +984,7 @@ ruleForkParameter returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"FixedParameterName");
+        		"de.gebit.integrity.DSL.FixedParameterName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1022,7 +1022,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1073,7 +1073,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1100,7 +1100,7 @@ ruleNL
        			$current, 
        			"description",
         		lv_description_4_0, 
-        		"STRING");
+        		"de.gebit.integrity.DSL.STRING");
 	    }
 
 )
@@ -1158,7 +1158,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1196,7 +1196,7 @@ ruleNL
        			$current, 
        			"fixtureMethod",
         		lv_fixtureMethod_6_0, 
-        		"MethodReference");
+        		"de.gebit.integrity.DSL.MethodReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1255,7 +1255,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1293,7 +1293,7 @@ ruleNL
        			$current, 
        			"fixtureMethod",
         		lv_fixtureMethod_6_0, 
-        		"MethodReference");
+        		"de.gebit.integrity.DSL.MethodReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1367,7 +1367,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1397,7 +1397,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"SuiteParameterDefinition");
+        		"de.gebit.integrity.DSL.SuiteParameterDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1427,7 +1427,7 @@ ruleNL
        			$current, 
        			"return",
         		lv_return_9_0, 
-        		"SuiteReturnDefinition");
+        		"de.gebit.integrity.DSL.SuiteReturnDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1535,7 +1535,7 @@ ruleNL
        			$current, 
        			"statements",
         		lv_statements_21_0, 
-        		"SuiteStatement");
+        		"de.gebit.integrity.DSL.SuiteStatement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1586,7 +1586,7 @@ ruleSuiteParameterDefinition returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"VariableEntity");
+        		"de.gebit.integrity.DSL.VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1616,7 +1616,7 @@ ruleNL
        			$current, 
        			"default",
         		lv_default_3_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1655,7 +1655,7 @@ ruleSuiteReturnDefinition returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"VariableEntity");
+        		"de.gebit.integrity.DSL.VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1706,7 +1706,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1744,7 +1744,7 @@ ruleNL
        			$current, 
        			"operationType",
         		lv_operationType_6_0, 
-        		"JavaClassReference");
+        		"de.gebit.integrity.DSL.JavaClassReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1958,7 +1958,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"VariableEntity");
+        		"de.gebit.integrity.DSL.VariableEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1996,7 +1996,7 @@ ruleNL
        			$current, 
        			"initialValue",
         		lv_initialValue_7_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2070,7 +2070,7 @@ ruleNL
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"ConstantEntity");
+        		"de.gebit.integrity.DSL.ConstantEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2083,10 +2083,10 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-((((
+(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0()); 
 	    }
 		lv_value_5_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
@@ -2096,14 +2096,14 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_5_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_0_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_1()); 
     }
 ruleNL
     { 
@@ -2112,7 +2112,7 @@ ruleNL
 )?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_1_0_0()); 
 	    }
 		lv_variantValues_7_0=ruleVariantValue		{
 	        if ($current==null) {
@@ -2122,25 +2122,24 @@ ruleNL
        			$current, 
        			"variantValues",
         		lv_variantValues_7_0, 
-        		"VariantValue");
+        		"de.gebit.integrity.DSL.VariantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_1_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_1_1()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*)
-    |((
+)*)((
 (
 		lv_parameterized_9_0=	'parameterized' 
     {
-        newLeafNode(lv_parameterized_9_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_5_1_0_0());
+        newLeafNode(lv_parameterized_9_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0());
     }
  
 	    {
@@ -2153,13 +2152,13 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_1_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_6_1()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)))
+)?)
 ;
 
 
@@ -2205,7 +2204,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_2_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2243,7 +2242,7 @@ ruleNL
        			$current, 
        			"target",
         		lv_target_6_0, 
-        		"VariableVariable");
+        		"de.gebit.integrity.DSL.VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2337,7 +2336,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_6_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2376,7 +2375,7 @@ ruleVariableEntity returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2415,7 +2414,7 @@ ruleConstantEntity returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2506,7 +2505,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_5_0, 
-        		"Parameter");
+        		"de.gebit.integrity.DSL.Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2532,7 +2531,7 @@ ruleNL
        			$current, 
        			"results",
         		lv_results_7_0, 
-        		"NamedResult");
+        		"de.gebit.integrity.DSL.NamedResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2570,7 +2569,7 @@ ruleNL
        			$current, 
        			"result",
         		lv_result_11_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2652,7 +2651,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_4_0, 
-        		"Parameter");
+        		"de.gebit.integrity.DSL.Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2678,7 +2677,7 @@ ruleNLFORCED
        			$current, 
        			"parameterHeaders",
         		lv_parameterHeaders_6_0, 
-        		"ParameterTableHeader");
+        		"de.gebit.integrity.DSL.ParameterTableHeader");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2696,7 +2695,7 @@ ruleNLFORCED
        			$current, 
        			"resultHeaders",
         		lv_resultHeaders_7_0, 
-        		"ResultTableHeader");
+        		"de.gebit.integrity.DSL.ResultTableHeader");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2745,7 +2744,7 @@ ruleNLFORCED
        			$current, 
        			"rows",
         		lv_rows_12_0, 
-        		"TableTestRow");
+        		"de.gebit.integrity.DSL.TableTestRow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2798,7 +2797,7 @@ ruleTableTestRow returns [EObject current=null]
        			$current, 
        			"values",
         		lv_values_1_0, 
-        		"ParameterTableValue");
+        		"de.gebit.integrity.DSL.ParameterTableValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2841,7 +2840,7 @@ ruleParameterTableHeader returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ParameterName");
+        		"de.gebit.integrity.DSL.ParameterName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2888,7 +2887,7 @@ ruleResultTableHeader returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ResultName");
+        		"de.gebit.integrity.DSL.ResultName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2939,7 +2938,7 @@ ruleParameterTableValue returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_1_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2982,7 +2981,7 @@ ruleNamedResult returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ResultName");
+        		"de.gebit.integrity.DSL.ResultName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3020,7 +3019,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3145,7 +3144,7 @@ ruleNL
        			$current, 
        			"multiplier",
         		lv_multiplier_2_0, 
-        		"ExecutionMultiplier");
+        		"de.gebit.integrity.DSL.ExecutionMultiplier");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3194,7 +3193,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"Parameter");
+        		"de.gebit.integrity.DSL.Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3220,7 +3219,7 @@ ruleNL
        			$current, 
        			"results",
         		lv_results_8_0, 
-        		"NamedCallResult");
+        		"de.gebit.integrity.DSL.NamedCallResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3258,7 +3257,7 @@ ruleNL
        			$current, 
        			"result",
         		lv_result_12_0, 
-        		"VariableVariable");
+        		"de.gebit.integrity.DSL.VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3305,7 +3304,7 @@ ruleNamedCallResult returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ResultName");
+        		"de.gebit.integrity.DSL.ResultName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3343,7 +3342,7 @@ ruleNL
        			$current, 
        			"target",
         		lv_target_4_0, 
-        		"VariableVariable");
+        		"de.gebit.integrity.DSL.VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3394,7 +3393,7 @@ ruleNL
        			$current, 
        			"multiplier",
         		lv_multiplier_2_0, 
-        		"ExecutionMultiplier");
+        		"de.gebit.integrity.DSL.ExecutionMultiplier");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3443,7 +3442,7 @@ ruleNL
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"SuiteParameter");
+        		"de.gebit.integrity.DSL.SuiteParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3469,7 +3468,7 @@ ruleNL
        			$current, 
        			"return",
         		lv_return_8_0, 
-        		"SuiteReturn");
+        		"de.gebit.integrity.DSL.SuiteReturn");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3621,7 +3620,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3695,7 +3694,7 @@ ruleNL
        			$current, 
        			"target",
         		lv_target_4_0, 
-        		"VariableVariable");
+        		"de.gebit.integrity.DSL.VariableVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3734,7 +3733,7 @@ ruleParameter returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ParameterName");
+        		"de.gebit.integrity.DSL.ParameterName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3772,7 +3771,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_4_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3890,7 +3889,7 @@ ruleArbitraryParameterOrResultName returns [EObject current=null]
        			$current, 
        			"identifier",
         		lv_identifier_1_0, 
-        		"ID");
+        		"de.gebit.integrity.DSL.ID");
 	    }
 
 )
@@ -3909,7 +3908,7 @@ ruleArbitraryParameterOrResultName returns [EObject current=null]
        			$current, 
        			"stringIdentifier",
         		lv_stringIdentifier_2_0, 
-        		"STRING");
+        		"de.gebit.integrity.DSL.STRING");
 	    }
 
 )
@@ -3999,7 +3998,7 @@ ruleNL
        			$current, 
        			"firstOperand",
         		lv_firstOperand_2_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4111,7 +4110,7 @@ ruleNL
        			$current, 
        			"moreOperands",
         		lv_moreOperands_6_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4174,7 +4173,7 @@ ruleNL
        			$current, 
        			"prefixOperand",
         		lv_prefixOperand_2_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4227,7 +4226,7 @@ ruleNL
        			$current, 
        			"postfixOperand",
         		lv_postfixOperand_7_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4278,7 +4277,7 @@ ruleValueOrEnumValueOrOperationCollection returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4316,7 +4315,7 @@ ruleNL
        			$current, 
        			"moreValues",
         		lv_moreValues_4_0, 
-        		"ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4616,7 +4615,7 @@ ruleIntegerValue returns [EObject current=null]
        			$current, 
        			"integerValue",
         		lv_integerValue_0_0, 
-        		"INTEGER");
+        		"de.gebit.integrity.DSL.INTEGER");
 	    }
 
 )
@@ -4655,7 +4654,7 @@ ruleDecimalValue returns [EObject current=null]
        			$current, 
        			"decimalValue",
         		lv_decimalValue_0_0, 
-        		"DECIMAL");
+        		"de.gebit.integrity.DSL.DECIMAL");
 	    }
 
 )
@@ -4694,7 +4693,7 @@ ruleStringValue returns [EObject current=null]
        			$current, 
        			"stringValue",
         		lv_stringValue_0_0, 
-        		"STRING");
+        		"de.gebit.integrity.DSL.STRING");
 	    }
 
 )
@@ -4734,7 +4733,7 @@ ruleBooleanValue returns [EObject current=null]
        			$current, 
        			"booleanValue",
         		lv_booleanValue_0_1, 
-        		"BOOLEAN_TRUE");
+        		"de.gebit.integrity.DSL.BOOLEAN_TRUE");
 	    }
 
     |		lv_booleanValue_0_2=RULE_BOOLEAN_FALSE
@@ -4749,7 +4748,7 @@ ruleBooleanValue returns [EObject current=null]
        			$current, 
        			"booleanValue",
         		lv_booleanValue_0_2, 
-        		"BOOLEAN_FALSE");
+        		"de.gebit.integrity.DSL.BOOLEAN_FALSE");
 	    }
 
 )
@@ -4840,7 +4839,7 @@ ruleIsoDateValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"ISODATE");
+        		"de.gebit.integrity.DSL.ISODATE");
 	    }
 
 )
@@ -4879,7 +4878,7 @@ ruleEuropeanDateValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"EURODATE");
+        		"de.gebit.integrity.DSL.EURODATE");
 	    }
 
 )
@@ -4918,7 +4917,7 @@ ruleUSDateValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"USDATE");
+        		"de.gebit.integrity.DSL.USDATE");
 	    }
 
 )
@@ -5007,7 +5006,7 @@ ruleIsoTimeValue returns [EObject current=null]
        			$current, 
        			"timeValue",
         		lv_timeValue_0_0, 
-        		"ISOTIME");
+        		"de.gebit.integrity.DSL.ISOTIME");
 	    }
 
 )
@@ -5046,7 +5045,7 @@ ruleSimple24HrsTimeValue returns [EObject current=null]
        			$current, 
        			"timeValue",
         		lv_timeValue_0_0, 
-        		"TWENTYFOURHRSTIME");
+        		"de.gebit.integrity.DSL.TWENTYFOURHRSTIME");
 	    }
 
 )
@@ -5085,7 +5084,7 @@ ruleSimple12HrsTimeValue returns [EObject current=null]
        			$current, 
        			"timeValue",
         		lv_timeValue_0_0, 
-        		"TWELVEHRSTIME");
+        		"de.gebit.integrity.DSL.TWELVEHRSTIME");
 	    }
 
 )
@@ -5184,7 +5183,7 @@ ruleIsoDateAndTimeValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"ISODATE");
+        		"de.gebit.integrity.DSL.ISODATE");
 	    }
 
 )
@@ -5202,7 +5201,7 @@ ruleIsoDateAndTimeValue returns [EObject current=null]
        			$current, 
        			"timeValue",
         		lv_timeValue_1_0, 
-        		"ISOTIME");
+        		"de.gebit.integrity.DSL.ISOTIME");
 	    }
 
 )
@@ -5241,7 +5240,7 @@ ruleEuropeanDateAnd24HrsTimeValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"EURODATE");
+        		"de.gebit.integrity.DSL.EURODATE");
 	    }
 
 )
@@ -5267,7 +5266,7 @@ ruleNL
        			$current, 
        			"timeValue",
         		lv_timeValue_2_0, 
-        		"TWENTYFOURHRSTIME");
+        		"de.gebit.integrity.DSL.TWENTYFOURHRSTIME");
 	    }
 
 )
@@ -5306,7 +5305,7 @@ ruleEuropeanDateAnd12HrsTimeValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"EURODATE");
+        		"de.gebit.integrity.DSL.EURODATE");
 	    }
 
 )
@@ -5332,7 +5331,7 @@ ruleNL
        			$current, 
        			"timeValue",
         		lv_timeValue_2_0, 
-        		"TWELVEHRSTIME");
+        		"de.gebit.integrity.DSL.TWELVEHRSTIME");
 	    }
 
 )
@@ -5371,7 +5370,7 @@ ruleUSDateAnd12HrsTimeValue returns [EObject current=null]
        			$current, 
        			"dateValue",
         		lv_dateValue_0_0, 
-        		"USDATE");
+        		"de.gebit.integrity.DSL.USDATE");
 	    }
 
 )
@@ -5397,7 +5396,7 @@ ruleNL
        			$current, 
        			"timeValue",
         		lv_timeValue_2_0, 
-        		"TWELVEHRSTIME");
+        		"de.gebit.integrity.DSL.TWELVEHRSTIME");
 	    }
 
 )
@@ -5439,7 +5438,7 @@ ruleJavaConstantValue returns [EObject current=null]
        			$current, 
        			"constant",
         		lv_constant_1_0, 
-        		"JavaConstantReference");
+        		"de.gebit.integrity.DSL.JavaConstantReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5501,7 +5500,7 @@ ruleVariable returns [EObject current=null]
        			$current, 
        			"attribute",
         		lv_attribute_2_0, 
-        		"QualifiedName");
+        		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5689,7 +5688,7 @@ ruleNL
        			$current, 
        			"attributes",
         		lv_attributes_2_0, 
-        		"KeyValuePair");
+        		"de.gebit.integrity.DSL.KeyValuePair");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5744,7 +5743,7 @@ ruleTypedNestedObject returns [EObject current=null]
        			$current, 
        			"type",
         		lv_type_1_0, 
-        		"JavaClassReference");
+        		"de.gebit.integrity.DSL.JavaClassReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5774,7 +5773,7 @@ ruleNL
        			$current, 
        			"nestedObject",
         		lv_nestedObject_4_0, 
-        		"NestedObject");
+        		"de.gebit.integrity.DSL.NestedObject");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5814,7 +5813,7 @@ ruleKeyValuePair returns [EObject current=null]
        			$current, 
        			"identifier",
         		lv_identifier_0_0, 
-        		"ID");
+        		"de.gebit.integrity.DSL.ID");
 	    }
 
 )
@@ -5833,7 +5832,7 @@ ruleKeyValuePair returns [EObject current=null]
        			$current, 
        			"stringIdentifier",
         		lv_stringIdentifier_1_0, 
-        		"STRING");
+        		"de.gebit.integrity.DSL.STRING");
 	    }
 
 )
@@ -5870,7 +5869,7 @@ ruleNL
        			$current, 
        			"value",
         		lv_value_5_0, 
-        		"ValueOrEnumValueOrOperationCollection");
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6051,7 +6050,7 @@ ruleExecutionMultiplier returns [EObject current=null]
        			$current, 
        			"count",
         		lv_count_0_0, 
-        		"ConstantValue");
+        		"de.gebit.integrity.DSL.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6308,7 +6307,7 @@ RULE_ISODATE : '0'..'9' '0'..'9' '0'..'9' '0'..'9' '-' '0'..'1' '0'..'9' '-' '0'
 
 RULE_ISOTIME : ('T' RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE?|RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE);
 
-RULE_ISOTIMEZONE : ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9');
+fragment RULE_ISOTIMEZONE : ('Z'|('+'|'-') '0'..'2' '0'..'9' ':'? '0'..'5' '0'..'9');
 
 RULE_EURODATE : '0'..'3' '0'..'9' '.' '0'..'1' '0'..'9' '.' '0'..'9' '0'..'9' '0'..'9' '0'..'9';
 

@@ -35,9 +35,11 @@ import com.google.common.collect.Sets.SetView;
 import de.gebit.integrity.annotation.FixtureParameterAssessment;
 import de.gebit.integrity.annotation.JvmFixtureEvaluation;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
@@ -61,8 +63,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	@Inject
 	private JvmFixtureEvaluation evaluator;
 	/** Polymorphical dispatches calls to _checkParameter" methods. */
-	private PolymorphicDispatcher<Void> checkParameterDispatcher = PolymorphicDispatcher.createForSingleTarget(
-			"_checkParameter", this);
+	private PolymorphicDispatcher<Void> checkParameterDispatcher = PolymorphicDispatcher
+			.createForSingleTarget("_checkParameter", this);
 
 	/**
 	 * Checks whether a given {@link DateValue} is actually correct (finds errors like days which don't exist in the
@@ -126,6 +128,21 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	}
 
 	/**
+	 * Checks whether a parameterized constant is defined in a package scope. It is not supported currently within
+	 * suites.
+	 * 
+	 * @param aConstant
+	 */
+	@Check
+	public void checkIfConstantParameterizationIsPossible(ConstantDefinition aConstant) {
+		if (aConstant.getParameterized() != null) {
+			if (!(aConstant.eContainer() instanceof PackageDefinition)) {
+				error("Parameterized constants are only allowed in the scope of a package, not within suites", null);
+			}
+		}
+	}
+
+	/**
 	 * Checks for missing parameters.
 	 * 
 	 * @param aCall
@@ -152,7 +169,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 
 	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
 	protected void _checkParameter(TableTest aTableTest) {
-		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aTableTest.getDefinition().getFixtureMethod());
+		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(
+				aTableTest.getDefinition().getFixtureMethod());
 		Set<String> tempSpecifiedParameter = Sets
 				.newHashSet(transform(aTableTest.getParameters(), FUNC_PARAMETER_NAME));
 		Iterables.addAll(tempSpecifiedParameter,
@@ -190,8 +208,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				if (tempOtherParameter != aParameter && tempOtherParameter.getName() != null
 						&& aParameter.getName() != null
 						&& tempOtherParameter.getName().getClass() == aParameter.getName().getClass()) {
-					if (IntegrityDSLUtil.getParamNameStringFromParameterName(tempOtherParameter.getName()).equals(
-							IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter.getName()))) {
+					if (IntegrityDSLUtil.getParamNameStringFromParameterName(tempOtherParameter.getName())
+							.equals(IntegrityDSLUtil.getParamNameStringFromParameterName(aParameter.getName()))) {
 						error("Duplicate parameter", null);
 						return;
 					}

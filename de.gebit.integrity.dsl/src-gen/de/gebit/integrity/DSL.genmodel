@@ -4,7 +4,7 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.11" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.12" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
