@@ -59,6 +59,13 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	}
 
 	/**
+	 * Binding of the {@link TestModel}.
+	 */
+	public Class<? extends TestModel> bindTestModel() {
+		return TestModel.class;
+	}
+
+	/**
 	 * Binding of the {@link VariableManager}.
 	 */
 	public Class<? extends VariableManager> bindVariableManager() {

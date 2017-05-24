@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,7 +62,7 @@ public class TestModel {
 	/**
 	 * All models. Every file is a model of itself (though they are all linked, of course).
 	 */
-	protected List<Model> models;
+	protected List<Model> models = new ArrayList<Model>();
 
 	/**
 	 * Suite names -> Suites.
@@ -101,6 +100,11 @@ public class TestModel {
 	protected Set<AmbiguousDefinition> ambiguousDefinitions = new HashSet<AmbiguousDefinition>();
 
 	/**
+	 * This map is used to find duplicates which then end up in {@link #ambiguousDefinitions}.
+	 */
+	protected Map<String, AmbiguousDefinition> duplicateMap = new HashMap<String, AmbiguousDefinition>();
+
+	/**
 	 * The Google Guice Injector.
 	 */
 	@Inject
@@ -113,77 +117,127 @@ public class TestModel {
 	protected ModelSourceExplorer modelSourceExplorer;
 
 	/**
-	 * Creates a new model from a bunch of single models (files).
+	 * Adds all given Integrity script files to the test model.
 	 * 
 	 * @param someModels
-	 *            the models
+	 *            the models to add
 	 */
-	protected TestModel(List<Model> someModels) {
-		models = someModels;
+	public void addIntegrityScriptModels(List<Model> someModels) {
+		for (Model tempModel : someModels) {
+			addIntegrityScriptModel(tempModel);
+		}
+	}
 
-		Map<String, AmbiguousDefinition> tempDuplicateMap = new HashMap<String, AmbiguousDefinition>();
-
+	/**
+	 * Adds a given Integrity script file to the test model.
+	 * 
+	 * @param aModel
+	 *            the model to add
+	 */
+	public void addIntegrityScriptModel(Model aModel) {
 		// Scan all models for suite definitions and variants and put them into the maps for fast access.
 		// Also search for duplicate definitions! Test Models with duplicate definitions are technically fine, but
 		// they may very likely result in strange behavior during execution, as the definition that is actually used
 		// when for example a variable with multiple definitions is accessed is not predictable.
-		for (Model tempModel : models) {
-			TreeIterator<EObject> tempIter = tempModel.eAllContents();
-			while (tempIter.hasNext()) {
-				EObject tempObject = tempIter.next();
-				String tempFullyQualifiedName = null;
-				String tempType;
+		TreeIterator<EObject> tempIter = aModel.eAllContents();
+		while (tempIter.hasNext()) {
+			EObject tempObject = tempIter.next();
+			String tempFullyQualifiedName = null;
+			String tempType;
 
-				if (tempObject instanceof SuiteDefinition) {
-					SuiteDefinition tempSuite = (SuiteDefinition) tempObject;
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedSuiteName(tempSuite);
-					suiteMap.put(tempFullyQualifiedName, tempSuite);
-					tempType = "suite";
-				} else if (tempObject instanceof VariantDefinition) {
-					VariantDefinition tempVariant = (VariantDefinition) tempObject;
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariantName(tempVariant);
-					variantMap.put(tempFullyQualifiedName, tempVariant);
-					tempType = "variant";
-				} else if (tempObject instanceof ForkDefinition) {
-					ForkDefinition tempFork = (ForkDefinition) tempObject;
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedForkName(tempFork);
-					forkMap.put(tempFullyQualifiedName, tempFork);
-					tempType = "fork";
-				} else if (tempObject instanceof CallDefinition) {
-					CallDefinition tempCall = (CallDefinition) tempObject;
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedCallName(tempCall);
-					callMap.put(tempFullyQualifiedName, tempCall);
-					tempType = "call";
-				} else if (tempObject instanceof TestDefinition) {
-					TestDefinition tempTest = (TestDefinition) tempObject;
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedTestName(tempTest);
-					testMap.put(tempFullyQualifiedName, tempTest);
-					tempType = "test";
-				} else if (tempObject instanceof VariableDefinition) {
-					VariableEntity tempEntity = ((VariableDefinition) tempObject).getName();
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
-					variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
-					tempType = "variable/constant";
-				} else if (tempObject instanceof ConstantDefinition) {
-					ConstantEntity tempEntity = ((ConstantDefinition) tempObject).getName();
-					tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
-					variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
-					tempType = "variable/constant";
-				} else {
-					continue;
-				}
+			if (tempObject instanceof SuiteDefinition) {
+				SuiteDefinition tempSuite = (SuiteDefinition) tempObject;
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedSuiteName(tempSuite);
+				suiteMap.put(tempFullyQualifiedName, tempSuite);
+				tempType = "suite";
+			} else if (tempObject instanceof VariantDefinition) {
+				VariantDefinition tempVariant = (VariantDefinition) tempObject;
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariantName(tempVariant);
+				variantMap.put(tempFullyQualifiedName, tempVariant);
+				tempType = "variant";
+			} else if (tempObject instanceof ForkDefinition) {
+				ForkDefinition tempFork = (ForkDefinition) tempObject;
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedForkName(tempFork);
+				forkMap.put(tempFullyQualifiedName, tempFork);
+				tempType = "fork";
+			} else if (tempObject instanceof CallDefinition) {
+				CallDefinition tempCall = (CallDefinition) tempObject;
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedCallName(tempCall);
+				callMap.put(tempFullyQualifiedName, tempCall);
+				tempType = "call";
+			} else if (tempObject instanceof TestDefinition) {
+				TestDefinition tempTest = (TestDefinition) tempObject;
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedTestName(tempTest);
+				testMap.put(tempFullyQualifiedName, tempTest);
+				tempType = "test";
+			} else if (tempObject instanceof VariableDefinition) {
+				VariableEntity tempEntity = ((VariableDefinition) tempObject).getName();
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				tempType = "variable/constant";
+			} else if (tempObject instanceof ConstantDefinition) {
+				ConstantEntity tempEntity = ((ConstantDefinition) tempObject).getName();
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				tempType = "variable/constant";
+			} else {
+				continue;
+			}
 
-				AmbiguousDefinition tempDuplicateDefinition = new AmbiguousDefinition(tempFullyQualifiedName, tempType,
-						tempObject);
-				AmbiguousDefinition tempExistingDuplicate = tempDuplicateMap.get(tempDuplicateDefinition.getKey());
-				if (tempExistingDuplicate != null) {
-					tempExistingDuplicate.addDefinition(tempObject);
-					ambiguousDefinitions.add(tempExistingDuplicate);
-				} else {
-					tempDuplicateMap.put(tempDuplicateDefinition.getKey(), tempDuplicateDefinition);
-				}
+			AmbiguousDefinition tempDuplicateDefinition = new AmbiguousDefinition(tempFullyQualifiedName, tempType,
+					tempObject);
+			AmbiguousDefinition tempExistingDuplicate = duplicateMap.get(tempDuplicateDefinition.getKey());
+			if (tempExistingDuplicate != null) {
+				tempExistingDuplicate.addDefinition(tempObject);
+				ambiguousDefinitions.add(tempExistingDuplicate);
+			} else {
+				duplicateMap.put(tempDuplicateDefinition.getKey(), tempDuplicateDefinition);
 			}
 		}
+
+		models.add(aModel);
+	}
+
+	/**
+	 * Reads all Integrity scripts from the provided resource provider and initializes this test model with them.
+	 * 
+	 * @param aResourceProvider
+	 * @param aSkipModelChecksFlag
+	 * @param aSetupClass
+	 * @throws ModelLoadException
+	 */
+	public List<Diagnostic> readIntegrityScriptFiles(TestResourceProvider aResourceProvider) throws ModelLoadException {
+		XtextResourceSet tempResourceSet = injector.getInstance(XtextResourceSet.class);
+		IResourceFactory tempResourceFactory = injector.getInstance(IResourceFactory.class);
+		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
+
+		for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
+			URI tempUri = tempResourceName.createPlatformResourceURI();
+			XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
+			tempResourceSet.getResources().add(tempResource);
+			try {
+				InputStream tempStream = aResourceProvider.openResource(tempResourceName);
+				try {
+					tempResource.load(tempStream, null);
+				} finally {
+					aResourceProvider.closeResource(tempResourceName, tempStream);
+				}
+			} catch (IOException exc) {
+				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
+			}
+
+			System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
+					+ tempResource.getErrors().size() + " errors.");
+			tempErrors.addAll(tempResource.getErrors());
+
+			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
+			if (tempModel != null) {
+				// may be null in case of an empty file
+				addIntegrityScriptModel(tempModel);
+			}
+		}
+
+		return tempErrors;
 	}
 
 	public List<Model> getModels() {
@@ -312,13 +366,14 @@ public class TestModel {
 
 	/**
 	 * Loads a {@link TestModel} from a given {@link TestResourceProvider}. During this process, the files provided by
-	 * the resource provider are parsed, the resulting models are linked and stored in the {@link TestModel} container.<br>
+	 * the resource provider are parsed, the resulting models are linked and stored in the {@link TestModel}
+	 * container.<br>
 	 * <br>
 	 * Errors, like unresolved symbols, will cause an exception. If a model is returned by this method, you can be sure
 	 * that everything was linked fine and the model can be executed by the {@link TestRunner}.
 	 * 
 	 * @param aResourceProvider
-	 *            the resource provider to use for loading the model
+	 *            The resource provider to use for loading the test scripts for the model.
 	 * @param aSkipModelChecksFlag
 	 *            if true, the test runner will skip the model consistency checks it would otherwise perform during the
 	 *            dry run
@@ -330,6 +385,36 @@ public class TestModel {
 	 */
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aSkipModelChecksFlag,
 			Class<? extends IntegrityDSLSetup> aSetupClass) throws ModelLoadException {
+		TestModel tempModel = instantiateTestModel(aResourceProvider.getClassLoader(), aSetupClass,
+				aSkipModelChecksFlag);
+		List<Diagnostic> tempErrors = tempModel.readIntegrityScriptFiles(aResourceProvider);
+		if (!tempErrors.isEmpty()) {
+			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
+					tempErrors);
+		}
+
+		if (tempModel.getDuplicateDefinitions().size() > 0) {
+			throw new ModelAmbiguousException("Encountered " + tempModel.getDuplicateDefinitions().size()
+					+ " ambiguous definitions in the test model.", tempModel.getDuplicateDefinitions());
+		}
+
+		return tempModel;
+	}
+
+	/**
+	 * Instantiates a TestModel using the provided setup class.
+	 * 
+	 * @param aClassLoader
+	 *            the class loader to use for Integrity stuff
+	 * @param aSetupClass
+	 *            the setup class to use for EMF setup and Guice initialization (if null, the default class is used)
+	 * @param aSkipModelChecksFlag
+	 *            if true, the test runner will skip the model consistency checks it would otherwise perform during the
+	 *            dry run
+	 * @return the new (but still empty) test model
+	 */
+	public static TestModel instantiateTestModel(ClassLoader aClassLoader,
+			Class<? extends IntegrityDSLSetup> aSetupClass, boolean aSkipModelChecksFlag) {
 		Class<? extends IntegrityDSLSetup> tempSetupClass = aSetupClass;
 		if (tempSetupClass == null) {
 			tempSetupClass = IntegrityDSLSetup.class;
@@ -339,64 +424,21 @@ public class TestModel {
 		try {
 			tempSetup = tempSetupClass.newInstance();
 		} catch (InstantiationException exc) {
-			throw new IllegalArgumentException("Provided setup class '" + tempSetupClass
-					+ "' could not be instantiated.", exc);
+			throw new IllegalArgumentException(
+					"Provided setup class '" + tempSetupClass + "' could not be instantiated.", exc);
 		} catch (IllegalAccessException exc) {
-			throw new IllegalArgumentException("Provided setup class '" + tempSetupClass
-					+ "' could not be instantiated.", exc);
+			throw new IllegalArgumentException(
+					"Provided setup class '" + tempSetupClass + "' could not be instantiated.", exc);
 		}
 
-		if (aResourceProvider.getClassLoader() != null) {
-			tempSetup.setClassLoader(aResourceProvider.getClassLoader());
+		if (aClassLoader != null) {
+			tempSetup.setClassLoader(aClassLoader);
 		}
 		tempSetup.setDisableModelChecks(aSkipModelChecksFlag);
 
-		// Behold...the mighty Injector is born!
 		Injector tempInjector = tempSetup.createInjectorAndDoEMFRegistration();
 
-		XtextResourceSet tempResourceSet = tempInjector.getInstance(XtextResourceSet.class);
-		IResourceFactory tempResourceFactory = tempInjector.getInstance(IResourceFactory.class);
-		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
-		List<Model> tempModels = new LinkedList<Model>();
-
-		for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
-			URI tempUri = tempResourceName.createPlatformResourceURI();
-			XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
-			tempResourceSet.getResources().add(tempResource);
-			try {
-				InputStream tempStream = aResourceProvider.openResource(tempResourceName);
-				try {
-					tempResource.load(tempStream, null);
-				} finally {
-					aResourceProvider.closeResource(tempResourceName, tempStream);
-				}
-			} catch (IOException exc) {
-				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
-			}
-
-			System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
-					+ tempResource.getErrors().size() + " errors.");
-			tempErrors.addAll(tempResource.getErrors());
-
-			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
-			if (tempModel != null) {
-				// may be null in case of an empty file
-				tempModels.add(tempModel);
-			}
-		}
-
-		if (!tempErrors.isEmpty()) {
-			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
-					tempErrors);
-		}
-
-		TestModel tempModel = new TestModel(tempModels);
-		tempInjector.injectMembers(tempModel);
-		if (tempModel.getDuplicateDefinitions().size() > 0) {
-			throw new ModelAmbiguousException("Encountered " + tempModel.getDuplicateDefinitions().size()
-					+ " ambiguous definitions in the test model.", tempModel.getDuplicateDefinitions());
-		}
-		return tempModel;
+		return tempInjector.getInstance(TestModel.class);
 	}
 
 	/**
@@ -421,9 +463,9 @@ public class TestModel {
 	 * @throws IOException
 	 *             if the remoting server startup fails
 	 */
-	public TestRunner initializeTestRunner(TestRunnerCallback aCallback,
-			Map<String, String> someParameterizedConstants, Integer aRemotingPort, String aRemotingBindHost,
-			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
+	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Map<String, String> someParameterizedConstants,
+			Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments)
+			throws IOException {
 		TestRunner tempRunner = injector.getInstance(TestRunner.class);
 
 		tempRunner.initialize(this, someParameterizedConstants, aCallback, aRemotingPort, aRemotingBindHost,

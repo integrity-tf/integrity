@@ -6,21 +6,21 @@ packagedef mypackage with
 	private variable privatepackagevar
 	
 	variable packagevar
+	
+	forkdef fork1
 
 	suitedef asuite with
 	
-		test echo echo: "ABC" = "ABC"
+		private constant innervar
 		
-		test echo echo: "XYZ" = "XYZ"
+		suite bsuite on fork1
 		
-		call wait seconds: 3
-		
-		test echo echo: "DEF" = "DEF"
-		
-		call wait seconds: 3
-		
-		test echo echo: "GHI" = "GHI"
-		
+	suiteend
+	
+	suitedef bsuite with
+	
+		test echo echo: "test" = "test"
+	
 	suiteend
 	
 packageend

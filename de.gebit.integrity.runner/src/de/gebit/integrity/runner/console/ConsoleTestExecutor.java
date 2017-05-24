@@ -149,11 +149,10 @@ public class ConsoleTestExecutor {
 		}
 
 		if (tempZombieThreads.size() > 0) {
-			getStdOut().println(
-					"WARNING: Found " + tempZombieThreads.size()
-							+ " zombie thread(s) still alive after test run has ended. "
-							+ "These should not exist - you are responsible to terminate "
-							+ "all threads being started during test execution!");
+			getStdOut().println("WARNING: Found " + tempZombieThreads.size()
+					+ " zombie thread(s) still alive after test run has ended. "
+					+ "These should not exist - you are responsible to terminate "
+					+ "all threads being started during test execution!");
 			for (Thread tempThread : tempZombieThreads) {
 				getStdOut().println("  Thread #" + tempThread.getId() + ": " + tempThread.getName());
 			}
@@ -191,9 +190,7 @@ public class ConsoleTestExecutor {
 				"silent", "Disable console logging during test execution", "[{-s,--silent}]");
 		SimpleCommandLineParser.StringOption tempXmlOption = new SimpleCommandLineParser.StringOption("x", "xhtml",
 				"Enable XHTML/XML file logging (supply a target filename!)", "[{-x,--xhtml} filename]");
-		SimpleCommandLineParser.StringOption tempXsltOption = new SimpleCommandLineParser.StringOption(
-				null,
-				"xslt",
+		SimpleCommandLineParser.StringOption tempXsltOption = new SimpleCommandLineParser.StringOption(null, "xslt",
 				"Specify how the XML->XHTML transformation of the result shall be handled. Valid options are 'none' (output is plain XML), 'embed' (embed stylesheet in XML output) and 'execute' (execute immediately; default setting).",
 				"[{--xslt} none|embed|execute]");
 		SimpleCommandLineParser.StringOption tempNameOption = new SimpleCommandLineParser.StringOption("n", "name",
@@ -204,14 +201,14 @@ public class ConsoleTestExecutor {
 				"noremote", "Disables remoting", "[{--noremote}]");
 		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
 				"remoteport", "Set the port number to bind to for remoting (default is "
-						+ IntegrityRemotingConstants.DEFAULT_PORT + ")", "[{-r,--remoteport} port]");
+						+ IntegrityRemotingConstants.DEFAULT_PORT + ")",
+				"[{-r,--remoteport} port]");
 		SimpleCommandLineParser.StringOption tempRemoteHostOption = new SimpleCommandLineParser.StringOption(null,
 				"remotehost", "Set the host name or IP to which the remoting server should bind (default is 0.0.0.0)",
 				"[{--remotehost} host]");
 		SimpleCommandLineParser.BooleanOption tempWaitForPlayOption = new SimpleCommandLineParser.BooleanOption("w",
 				"wait", "Wait with test execution for a 'play' signal via remoting", "[{-w,--wait}]");
-		SimpleCommandLineParser.BooleanOption tempSkipModelCheck = new SimpleCommandLineParser.BooleanOption(
-				null,
+		SimpleCommandLineParser.BooleanOption tempSkipModelCheck = new SimpleCommandLineParser.BooleanOption(null,
 				"nomodelcheck",
 				"Disables model checking. This can decrease startup time, especially with big script collections, but you greatly increase the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
 				"[{--nomodelcheck}]");
@@ -259,25 +256,15 @@ public class ConsoleTestExecutor {
 		}
 
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
-			SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
-			VariantDefinition tempVariant = null;
-
-			if (tempVariantOption.getValue() != null) {
-				tempVariant = tempModel.getVariantByName(tempVariantOption.getValue());
-				if (tempVariant == null) {
-					getStdErr().println("Could not find variant '" + tempVariantOption.getValue() + "' - exiting!");
-					return EXIT_CODE_PARAMETER_ERROR;
-				}
-			}
+			TestModel tempModel;
+			tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
 
 			Map<String, String> tempParameterizedConstants = new HashMap<String, String>();
 			for (String tempOptionValue : tempParameterizedConstantOption.getValues()) {
 				String[] tempParts = tempOptionValue.split("=", 2);
 				if (tempParts.length < 2) {
-					getStdErr().println(
-							"Could not parse parameterized constant definition '" + tempOptionValue
-									+ "' - definitions must follow the pattern 'fully.qualified.constant.name=value'!");
+					getStdErr().println("Could not parse parameterized constant definition '" + tempOptionValue
+							+ "' - definitions must follow the pattern 'fully.qualified.constant.name=value'!");
 					return EXIT_CODE_PARAMETER_ERROR;
 				} else {
 					tempParameterizedConstants.put(tempParts[0], tempParts[1]);
@@ -285,47 +272,58 @@ public class ConsoleTestExecutor {
 			}
 			addParameterizedConstants(tempParameterizedConstants);
 
-			if (tempRootSuite == null) {
-				getStdErr().println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
-				return EXIT_CODE_PARAMETER_ERROR;
-			} else {
-				CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
-				if (!tempConsoleOption.isSet()) {
-					tempCallback.addCallback(createConsoleTestCallback());
-				}
-				String tempXmlFileName = tempXmlOption.getValue();
+			CompoundTestRunnerCallback tempCallback = new CompoundTestRunnerCallback();
+			if (!tempConsoleOption.isSet()) {
+				tempCallback.addCallback(createConsoleTestCallback());
+			}
+			String tempXmlFileName = tempXmlOption.getValue();
 
-				if (tempXmlFileName != null) {
-					tempCallback.addCallback(createXmlWriterTestCallback(tempResourceProvider, tempXmlFileName,
-							tempExecutionName, tempTransformHandling, !tempExcludeConsoleStreamsOption.isSet()));
+			if (tempXmlFileName != null) {
+				tempCallback.addCallback(createXmlWriterTestCallback(tempResourceProvider, tempXmlFileName,
+						tempExecutionName, tempTransformHandling, !tempExcludeConsoleStreamsOption.isSet()));
+			}
+
+			List<TestRunnerCallback> tempAdditionalCallbacks = createAdditionalCallbacks();
+			if (tempAdditionalCallbacks != null) {
+				for (TestRunnerCallback tempCallbackToAdd : tempAdditionalCallbacks) {
+					tempCallback.addCallback(tempCallbackToAdd);
+				}
+			}
+
+			Integer tempRemotePort = null;
+			String tempRemoteHost = null;
+			if (!tempNoremoteOption.isSet()) {
+				tempRemotePort = tempRemoteportOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
+				tempRemoteHost = tempRemoteHostOption.getValue("0.0.0.0");
+			}
+
+			Long tempSeed = tempSeedOption.getValue();
+
+			try {
+				TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
+						tempRemotePort, tempRemoteHost, tempSeed, someArgs);
+
+				SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
+				if (tempRootSuite == null) {
+					getStdErr().println("Could not find root suite '" + tempRootSuiteName + "' - exiting!");
+					return EXIT_CODE_PARAMETER_ERROR;
 				}
 
-				List<TestRunnerCallback> tempAdditionalCallbacks = createAdditionalCallbacks();
-				if (tempAdditionalCallbacks != null) {
-					for (TestRunnerCallback tempCallbackToAdd : tempAdditionalCallbacks) {
-						tempCallback.addCallback(tempCallbackToAdd);
+				VariantDefinition tempVariant = null;
+				if (tempVariantOption.getValue() != null) {
+					tempVariant = tempModel.getVariantByName(tempVariantOption.getValue());
+					if (tempVariant == null) {
+						getStdErr().println("Could not find variant '" + tempVariantOption.getValue() + "' - exiting!");
+						return EXIT_CODE_PARAMETER_ERROR;
 					}
 				}
 
-				Integer tempRemotePort = null;
-				String tempRemoteHost = null;
-				if (!tempNoremoteOption.isSet()) {
-					tempRemotePort = tempRemoteportOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
-					tempRemoteHost = tempRemoteHostOption.getValue("0.0.0.0");
-				}
+				runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
 
-				Long tempSeed = tempSeedOption.getValue();
-
-				try {
-					TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
-							tempRemotePort, tempRemoteHost, tempSeed, someArgs);
-					runTests(tempRunner, tempRootSuite, tempVariant, tempWaitForPlayOption.isSet());
-
-					return EXIT_CODE_SUCCESS;
-				} catch (ModelRuntimeLinkException exc) {
-					getStdErr().println("Test execution was aborted due to a test script linking error!");
-					getStdErr().println(exc.getMessage());
-				}
+				return EXIT_CODE_SUCCESS;
+			} catch (ModelRuntimeLinkException exc) {
+				getStdErr().println("Test execution was aborted due to a test script linking error!");
+				getStdErr().println(exc.getMessage());
 			}
 		} catch (ModelParseException exc) {
 			for (Diagnostic tempDiag : exc.getErrors()) {

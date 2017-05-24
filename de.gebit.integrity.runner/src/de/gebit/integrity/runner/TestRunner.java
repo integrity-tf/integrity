@@ -27,7 +27,7 @@ public interface TestRunner {
 	 * Initializes a fresh test runner instance.
 	 * 
 	 * @param aModel
-	 *            the model to execute
+	 *            the model to execute (may not contain any test script data yet in case of forks!)
 	 * @param someParameterizedConstants
 	 *            Maps fully qualified constant names (must be those with the "parameterized" keyword) to their desired
 	 *            value. This way, test execution can be parameterized from outside.

@@ -2090,6 +2090,11 @@ public class DefaultTestRunner implements TestRunner {
 		}
 	}
 
+	/**
+	 * Determines whether this JVM is a forked JVM from a master Integrity process.
+	 * 
+	 * @return
+	 */
 	public static boolean isFork() {
 		return MY_FORK_NAME != null;
 	}
