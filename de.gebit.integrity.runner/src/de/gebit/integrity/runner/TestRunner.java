@@ -24,7 +24,8 @@ import de.gebit.integrity.runner.results.SuiteSummaryResult;
 public interface TestRunner {
 
 	/**
-	 * Initializes a fresh test runner instance.
+	 * Initializes a fresh test runner instance. In case of forks, this method guarantees that when it exits without an
+	 * exception, the master has successfully connected and injected the test scripts and a setlist into it.
 	 * 
 	 * @param aModel
 	 *            the model to execute (may not contain any test script data yet in case of forks!)
@@ -44,7 +45,8 @@ public interface TestRunner {
 	 *            all command line arguments as given to the original Java programs' main routine (required for
 	 *            forking!)
 	 * @throws IOException
-	 *             if the remoting server startup fails
+	 *             if the remoting server startup fails, or if the connection from the master process does not complete
+	 *             in time (for forks only)
 	 */
 	void initialize(TestModel aModel, Map<String, String> someParameterizedConstants, TestRunnerCallback aCallback,
 			Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments)

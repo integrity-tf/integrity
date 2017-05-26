@@ -11,12 +11,145 @@
   <packaging>eclipse-plugin</packaging>
   <name>Integrity Test Framework - Remoting</name>
   
+  
   <!-- We're building a fat jar including the sources right now for simplicity -->
   <build>
   	<resources>
   		<resource>
 			<directory>${basedir}/src</directory>
 		</resource>
+		<resource>
+			<directory>${project.build.directory}/kryo</directory>
+		</resource>
   	</resources>
+  	
+  	<plugins>
+	  	<plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>truezip-maven-plugin</artifactId>
+		    <version>1.2</version>
+		    <executions>
+		        <execution>
+		            <id>copy-package</id>
+		            <goals>
+		                <goal>copy</goal>
+		            </goals>
+		            <phase>validate</phase>
+		            <configuration>
+		                <verbose>true</verbose>
+		                <fileset>
+		                    <directory>${basedir}/kryo/kryo-4.0.0.jar/</directory>
+		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+		                    <include>**/*.class</include>
+		                </fileset>
+		                <fileset>
+		                    <directory>${basedir}/kryo/asm-5.0.4.jar/</directory>
+		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+		                    <include>**/*.class</include>
+		                </fileset>
+		                <fileset>
+		                    <directory>${basedir}/kryo/minlog-1.3.0.jar/</directory>
+		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+		                    <include>**/*.class</include>
+		                </fileset>
+		                <fileset>
+		                    <directory>${basedir}/kryo/objenesis-2.2.jar/</directory>
+		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+		                    <include>**/*.class</include>
+		                </fileset>
+		                <fileset>
+		                    <directory>${basedir}/kryo/reflectasm-1.11.3.jar/</directory>
+		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+		                    <include>**/*.class</include>
+		                </fileset>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
+		
+		<plugin>
+		  <groupId>org.eclipse.tycho</groupId>
+		  <artifactId>tycho-compiler-plugin</artifactId>
+		  <executions>
+		    <execution>
+		      <id>default-compile</id>
+		      <phase>compile</phase>
+		      <goals>
+		        <goal>compile</goal>
+		      </goals>
+		      <configuration>
+		      	<extraClasspathElements>
+		      		<extraClasspathElement>
+						<groupId>com.esotericsoftware</groupId>
+						<artifactId>kryo</artifactId>
+						<version>4.0.0</version>
+						<systemPath>${basedir}/kryo/kryo-4.0.0.jar</systemPath>
+					</extraClasspathElement>
+			 		<extraClasspathElement>
+			 			<groupId>com.esotericsoftware</groupId>
+			 			<artifactId>reflectasm</artifactId>
+			 			<version>1.11.3</version>
+			 			<systemPath>${basedir}/kryo/reflectasm-1.11.3.jar</systemPath>
+			 		</extraClasspathElement>
+			 		<extraClasspathElement>
+			 			<groupId>org.ow2.asm</groupId>
+			 			<artifactId>asm</artifactId>
+			 			<version>5.0.4</version>
+			 			<systemPath>${basedir}/kryo/asm-5.0.4.jar</systemPath>
+			 		</extraClasspathElement>
+			 		<extraClasspathElement>
+			 			<groupId>com.esotericsoftware</groupId>
+			 			<artifactId>minlog</artifactId>
+			 			<version>1.3.0</version>
+			 			<systemPath>${basedir}/kryo/minlog-1.3.0.jar</systemPath>
+			 		</extraClasspathElement>
+			 		<extraClasspathElement>
+			 			<groupId>org.objenesis</groupId>
+			 			<artifactId>objenesis</artifactId>
+			 			<version>2.2</version>
+			 			<systemPath>${basedir}/kryo/objenesis-2.2.jar</systemPath>
+			 		</extraClasspathElement>
+		      	</extraClasspathElements>
+		      </configuration>
+		    </execution>
+		  </executions>
+		</plugin>
+		
+	</plugins>
+  	<pluginManagement>
+  		<plugins>
+  			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+  			<plugin>
+  				<groupId>org.eclipse.m2e</groupId>
+  				<artifactId>lifecycle-mapping</artifactId>
+  				<version>1.0.0</version>
+  				<configuration>
+  					<lifecycleMappingMetadata>
+  						<pluginExecutions>
+  							<pluginExecution>
+  								<pluginExecutionFilter>
+  									<groupId>
+  										org.codehaus.mojo
+  									</groupId>
+  									<artifactId>
+  										truezip-maven-plugin
+  									</artifactId>
+  									<versionRange>
+  										[1.2,)
+  									</versionRange>
+  									<goals>
+  										<goal>copy</goal>
+  									</goals>
+  								</pluginExecutionFilter>
+  								<action>
+  									<ignore></ignore>
+  								</action>
+  							</pluginExecution>
+  						</pluginExecutions>
+  					</lifecycleMappingMetadata>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</pluginManagement>
   </build>
 </project>

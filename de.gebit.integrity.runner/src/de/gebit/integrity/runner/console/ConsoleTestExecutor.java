@@ -23,6 +23,7 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
+import de.gebit.integrity.runner.DefaultTestRunner;
 import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
@@ -257,7 +258,15 @@ public class ConsoleTestExecutor {
 
 		try {
 			TestModel tempModel;
-			tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
+			if (!DefaultTestRunner.isFork()) {
+				// If not a fork, perform a full test model load
+				tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
+			} else {
+				// For forks, we only instantiate an empty model (with no test scripts - those are injected by the
+				// master)
+				tempModel = TestModel.instantiateTestModel(tempResourceProvider.getClassLoader(), setupClass,
+						tempSkipModelCheck.isSet());
+			}
 
 			Map<String, String> tempParameterizedConstants = new HashMap<String, String>();
 			for (String tempOptionValue : tempParameterizedConstantOption.getValues()) {

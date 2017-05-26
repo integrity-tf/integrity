@@ -24,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
+import com.esotericsoftware.kryo.Kryo;
+
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.DisconnectMessage;
 import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
@@ -276,6 +278,8 @@ public class Endpoint {
 							return;
 						}
 					}
+
+					Kryo tempKryo = new Kryo();
 
 					tempObjectStream = new ClassloaderAwareObjectInputStream(
 							new InflaterInputStream(new ByteArrayInputStream(tempMessage)), classLoader);

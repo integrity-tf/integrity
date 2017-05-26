@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -49,6 +50,7 @@ import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
+import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
@@ -322,22 +324,53 @@ public class DefaultTestRunner implements TestRunner {
 	protected static final String FORK_CONNECTION_TIMEOUT_PROPERTY = "integrity.fork.timeout";
 
 	/**
-	 * The default connection timeout, in seconds.
+	 * The default fork connection timeout, in seconds.
 	 */
 	protected static final int FORK_CONNECTION_TIMEOUT_DEFAULT = 180;
 
-	protected static int getForkConnectionTimeoutDefault() {
+	/**
+	 * The fork connection timeout, in seconds.
+	 */
+	protected int getForkConnectionTimeout() {
+		return System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY))
+				: getForkConnectionTimeoutDefault();
+	}
+
+	/**
+	 * The default fork connection timeout, in seconds.
+	 */
+	protected int getForkConnectionTimeoutDefault() {
 		return FORK_CONNECTION_TIMEOUT_DEFAULT;
 	}
+
+	/**
+	 * The system property that allows to override the single connect timeout used when connecting to forks.
+	 */
+	protected static final String FORK_SINGLE_CONNECT_TIMEOUT_PROPERTY = "integrity.fork.timeout.single";
 
 	/**
 	 * The timeout in milliseconds used for a single connection attempt to a fork. If this timeout is hit, but the total
 	 * timeout for connecting is not yet over, another attempt is being started.
 	 */
-	protected static final int FORK_SINGLE_CONNECT_TIMEOUT = 10000;
+	protected static final int FORK_SINGLE_CONNECT_TIMEOUT_DEFAULT = 10000;
 
-	protected static int getForkSingleConnectTimeout() {
-		return FORK_SINGLE_CONNECT_TIMEOUT;
+	/**
+	 * The timeout in milliseconds used for a single connection attempt to a fork. If this timeout is hit, but the total
+	 * timeout for connecting is not yet over, another attempt is being started.
+	 */
+	protected int getForkSingleConnectTimeout() {
+		return System.getProperty(FORK_SINGLE_CONNECT_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_SINGLE_CONNECT_TIMEOUT_PROPERTY))
+				: getForkSingleConnectTimeoutDefault();
+	}
+
+	/**
+	 * Default for the timeout in milliseconds used for a single connection attempt to a fork. If this timeout is hit,
+	 * but the total timeout for connecting is not yet over, another attempt is being started.
+	 */
+	protected int getForkSingleConnectTimeoutDefault() {
+		return FORK_SINGLE_CONNECT_TIMEOUT_DEFAULT;
 	}
 
 	/**
@@ -345,7 +378,10 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected static final int FORK_CONNECT_DELAY = 5000;
 
-	protected static int getForkConnectDelay() {
+	/**
+	 * The delay until connection attempts are made to a newly started fork.
+	 */
+	protected int getForkConnectDelay() {
 		return FORK_CONNECT_DELAY;
 	}
 
@@ -354,17 +390,31 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected static final int FORK_PAUSE_WAIT_INTERVAL = 200;
 
-	protected static int getForkPauseWaitInterval() {
+	/**
+	 * The interval in which the forks' execution state is checked on first connect.
+	 */
+	protected int getForkPauseWaitInterval() {
 		return FORK_PAUSE_WAIT_INTERVAL;
 	}
 
 	/**
-	 * The time to wait for child processes to be killed.
+	 * The system property that allows to override the single connect timeout used when connecting to forks.
 	 */
-	protected static final int CHILD_PROCESS_KILL_TIMEOUT = 60000;
+	protected static final String CHILD_PROCESS_KILL_TIMEOUT_PROPERTY = "integrity.fork.kill.timeout";
+
+	/**
+	 * The default time to wait for child processes to be killed.
+	 */
+	protected static final int CHILD_PROCESS_KILL_TIMEOUT_DEFAULT = 60000;
 
 	protected int getChildProcessKillTimeout() {
-		return CHILD_PROCESS_KILL_TIMEOUT;
+		return System.getProperty(CHILD_PROCESS_KILL_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(CHILD_PROCESS_KILL_TIMEOUT_PROPERTY))
+				: getChildProcessKillTimeoutDefault();
+	}
+
+	protected int getChildProcessKillTimeoutDefault() {
+		return CHILD_PROCESS_KILL_TIMEOUT_DEFAULT;
 	}
 
 	/**
@@ -440,6 +490,31 @@ public class DefaultTestRunner implements TestRunner {
 				throw exc;
 			}
 		}
+
+		if (isFork()) {
+			// If this is a fork, we now need to wait for the setlist and test scripts to be injected by
+			// the master!
+			long tempTimeout = System.nanoTime() + TimeUnit.SECONDS.toNanos(getForkConnectionTimeout());
+
+			synchronized (setListWaiter) {
+				long tempTimeLeft = 0;
+				while (setList == null && tempTimeLeft >= 0) {
+					tempTimeLeft = TimeUnit.NANOSECONDS.toMillis(tempTimeout - System.nanoTime());
+
+					if (tempTimeLeft > 0) {
+						try {
+							setListWaiter.wait(tempTimeLeft);
+						} catch (InterruptedException exc) {
+							// don't care
+						}
+					}
+				}
+
+				if (setList == null) {
+					throw new IOException("Timed out while waiting to receive test script data from master process!");
+				}
+			}
+		}
 	}
 
 	/**
@@ -487,20 +562,24 @@ public class DefaultTestRunner implements TestRunner {
 		});
 
 		try {
-			currentPhase = Phase.DRY_RUN;
-			SetList tempSetList = new SetList();
-			reset(false);
-			setListCallback = new SetListCallback(tempSetList, remotingServer);
-			injector.injectMembers(setListCallback);
-			currentCallback = setListCallback;
+			if (!isFork()) {
+				// If this is NOT a fork, a dry run is needed to create the initial setlist. In case of forks, the
+				// setlist is already initialized by having it be injected from the master (in the initialize method!)
+				currentPhase = Phase.DRY_RUN;
+				SetList tempSetList = new SetList();
+				reset(false);
+				setListCallback = new SetListCallback(tempSetList, remotingServer);
+				injector.injectMembers(setListCallback);
+				currentCallback = setListCallback;
 
-			currentCallback.setDryRun(true);
-			runInternal(aRootSuiteCall);
-			currentCallback.setDryRun(false);
+				currentCallback.setDryRun(true);
+				runInternal(aRootSuiteCall);
+				currentCallback.setDryRun(false);
 
-			synchronized (setListWaiter) {
-				setList = tempSetList;
-				setListWaiter.notify();
+				synchronized (setListWaiter) {
+					setList = tempSetList;
+					setListWaiter.notify();
+				}
 			}
 
 			if (remotingServer != null && tempBlockForRemoting) {
@@ -513,7 +592,7 @@ public class DefaultTestRunner implements TestRunner {
 					return null;
 				}
 			}
-			tempSetList.rewind();
+			setList.rewind();
 			currentCallback = new CompoundTestRunnerCallback(setListCallback, callback);
 
 			currentPhase = Phase.TEST_RUN;
@@ -2014,6 +2093,16 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
+		public void onForkSetup(List<Model> someTestScripts, SetList aSetList) {
+			synchronized (setListWaiter) {
+				setList = aSetList;
+				model.addIntegrityScriptModels(someTestScripts);
+				System.out.println("RECEIVED SETUP");
+				setListWaiter.notifyAll();
+			}
+		}
+
+		@Override
 		public void onRunCommand(Endpoint anEndpoint) {
 			if (!isFork() && forkInExecution != null) {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
@@ -2206,9 +2295,7 @@ public class DefaultTestRunner implements TestRunner {
 		injector.injectMembers(tempFork);
 		tempFork.start();
 
-		long tempTimeout = System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY) != null
-				? Integer.parseInt(System.getProperty(FORK_CONNECTION_TIMEOUT_PROPERTY))
-				: getForkConnectionTimeoutDefault();
+		long tempTimeout = getForkConnectionTimeout();
 
 		long tempStartTime = System.nanoTime();
 		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
@@ -2228,6 +2315,9 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
+			// Start off the fork with a full set of test scripts and the current setlist
+			tempFork.getClient().setupFork(model.getModels(), setList);
+
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)
 			for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
