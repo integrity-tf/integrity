@@ -37,6 +37,13 @@ public class ExecutionControlMessage extends AbstractMessage {
 		command = aCommand;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public ExecutionControlMessage() {
+		// no-arg constructor
+	}
+
 	public ExecutionCommands getCommand() {
 		return command;
 	}

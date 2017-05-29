@@ -46,6 +46,13 @@ public class VariableUpdateMessage extends AbstractMessage {
 		value = aValue;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public VariableUpdateMessage() {
+		// no-arg constructor
+	}
+
 	public String getName() {
 		return name;
 	}

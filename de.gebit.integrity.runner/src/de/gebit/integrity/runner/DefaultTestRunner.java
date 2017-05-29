@@ -50,7 +50,6 @@ import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
-import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NamedCallResult;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.ResultTableHeader;
@@ -97,6 +96,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -115,6 +115,7 @@ import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
 import de.gebit.integrity.runner.comparator.ResultComparator;
+import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.forking.DefaultForker;
 import de.gebit.integrity.runner.forking.Fork;
@@ -376,7 +377,7 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The delay until connection attempts are made to a newly started fork.
 	 */
-	protected static final int FORK_CONNECT_DELAY = 5000;
+	protected static final int FORK_CONNECT_DELAY = 200;
 
 	/**
 	 * The delay until connection attempts are made to a newly started fork.
@@ -580,6 +581,9 @@ public class DefaultTestRunner implements TestRunner {
 					setList = tempSetList;
 					setListWaiter.notify();
 				}
+			} else {
+				setListCallback = new SetListCallback(setList, remotingServer);
+				injector.injectMembers(setListCallback);
 			}
 
 			if (remotingServer != null && tempBlockForRemoting) {
@@ -2093,11 +2097,16 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
-		public void onForkSetup(List<Model> someTestScripts, SetList aSetList) {
+		public void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList) {
 			synchronized (setListWaiter) {
 				setList = aSetList;
-				model.addIntegrityScriptModels(someTestScripts);
-				System.out.println("RECEIVED SETUP");
+				for (TestResourceProvider tempProvider : someResourceProviders) {
+					try {
+						model.readIntegrityScriptFiles(tempProvider);
+					} catch (ModelLoadException exc) {
+						throw new RuntimeException("Failed to parse scripts received from master!", exc);
+					}
+				}
 				setListWaiter.notifyAll();
 			}
 		}
@@ -2316,7 +2325,11 @@ public class DefaultTestRunner implements TestRunner {
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
 			// Start off the fork with a full set of test scripts and the current setlist
-			tempFork.getClient().setupFork(model.getModels(), setList);
+			try {
+				tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList);
+			} catch (IOException exc1) {
+				throw new RuntimeException("Failed to read resource providers into memory", exc1);
+			}
 
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)

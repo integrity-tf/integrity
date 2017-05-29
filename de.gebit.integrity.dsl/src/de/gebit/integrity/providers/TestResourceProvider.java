@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.providers;
+package de.gebit.integrity.providers;
 
 import java.io.IOException;
 import java.io.InputStream;

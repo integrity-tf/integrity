@@ -37,6 +37,13 @@ public class SetListBaselineMessage extends AbstractMessage {
 		setList = aSetList;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public SetListBaselineMessage() {
+		// no-arg constructor
+	}
+
 	public SetList getSetList() {
 		return setList;
 	}

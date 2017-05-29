@@ -81,6 +81,13 @@ public class IntegrityRemotingVersionMessage extends AbstractMessage {
 		this.buildVersion = aBuildVersion;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public IntegrityRemotingVersionMessage() {
+		// no-arg constructor
+	}
+
 	public int getProtocolMajorVersion() {
 		return protocolMajorVersion;
 	}

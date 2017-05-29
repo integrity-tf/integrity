@@ -9,7 +9,7 @@ package de.gebit.integrity.remoting.transport.messages;
 
 import java.util.List;
 
-import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 
 /**
@@ -27,9 +27,9 @@ public class ForkSetupMessage extends AbstractMessage {
 	private static final long serialVersionUID = 9085447162313872124L;
 
 	/**
-	 * The parsed test scripts.
+	 * The test script resource providers that are to be loaded by the fork.
 	 */
-	private List<Model> testScripts;
+	private List<? extends TestResourceProvider> resourceProviders;
 
 	/**
 	 * The current setlist.
@@ -42,13 +42,20 @@ public class ForkSetupMessage extends AbstractMessage {
 	 * @param aSetList
 	 *            the new setlist
 	 */
-	public ForkSetupMessage(List<Model> someTestScripts, SetList aSetList) {
-		testScripts = someTestScripts;
+	public ForkSetupMessage(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList) {
+		resourceProviders = someResourceProviders;
 		setList = aSetList;
 	}
 
-	public List<Model> getTestScripts() {
-		return testScripts;
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public ForkSetupMessage() {
+		// no-arg constructor
+	}
+
+	public List<? extends TestResourceProvider> getResourceProviders() {
+		return resourceProviders;
 	}
 
 	public SetList getSetList() {

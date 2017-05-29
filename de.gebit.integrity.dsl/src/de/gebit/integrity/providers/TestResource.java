@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.runner.providers;
+package de.gebit.integrity.providers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +42,13 @@ public class TestResource {
 	public TestResource(String aName, TestResourceProvider aProvider) {
 		name = aName;
 		provider = aProvider;
+	}
+
+	/**
+	 * No-arg constructor for serialization.
+	 */
+	public TestResource() {
+		// empty constructor
 	}
 
 	public String getName() {

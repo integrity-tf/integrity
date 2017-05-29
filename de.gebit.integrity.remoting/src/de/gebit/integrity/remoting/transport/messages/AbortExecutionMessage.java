@@ -45,6 +45,13 @@ public class AbortExecutionMessage extends AbstractMessage {
 		this.exceptionStackTrace = anExceptionStackTrace;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public AbortExecutionMessage() {
+		// no-arg constructor
+	}
+
 	public String getExceptionMessage() {
 		return exceptionMessage;
 	}

@@ -17,6 +17,9 @@ import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import de.gebit.integrity.providers.TestResource;
+import de.gebit.integrity.providers.TestResourceProvider;
+
 /**
  * This {@link TestResourceProvider} can read archive files (zip/jar format) and provide the Integrity script files
  * within these archives transparently to the Test Runner. It can even read archives within archives, up to an arbitrary

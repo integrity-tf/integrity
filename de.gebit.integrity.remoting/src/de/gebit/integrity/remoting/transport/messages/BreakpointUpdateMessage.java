@@ -47,6 +47,13 @@ public class BreakpointUpdateMessage extends AbstractMessage {
 		entryReference = anEntryReference;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public BreakpointUpdateMessage() {
+		// no-arg constructor
+	}
+
 	public BreakpointActions getAction() {
 		return action;
 	}

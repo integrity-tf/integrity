@@ -10,7 +10,7 @@ package de.gebit.integrity.remoting.server;
 import java.io.Serializable;
 import java.util.List;
 
-import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
@@ -53,9 +53,12 @@ public interface IntegrityRemotingServerListener {
 	 * Called when a client (typically a fork master) injects its entire test script set and set list state into the
 	 * server.
 	 * 
-	 * @param anEndpoint
+	 * @param someResourceProviders
+	 *            the resource providers to load
+	 * @param aSetList
+	 *            the initial set list state
 	 */
-	void onForkSetup(List<Model> someTestScripts, SetList aSetList);
+	void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList);
 
 	/**
 	 * Called when a "run tests" command from a client came in.

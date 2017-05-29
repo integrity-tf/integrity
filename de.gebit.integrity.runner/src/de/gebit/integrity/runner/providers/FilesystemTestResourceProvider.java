@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import de.gebit.integrity.providers.TestResource;
+
 /**
  * A resource provider which reads test files from the filesystem, either from one or more flat directories or
  * optionally in a recursive way.
@@ -23,11 +25,6 @@ import java.util.Collection;
  * 
  */
 public class FilesystemTestResourceProvider extends AbstractTestResourceProvider {
-
-	/**
-	 * The classloader to use while linking the parsed resources.
-	 */
-	private ClassLoader classLoader = getClass().getClassLoader();
 
 	/**
 	 * Adds the given resource recursively, that is if it is a directory all enclosed directories and files are
@@ -97,16 +94,6 @@ public class FilesystemTestResourceProvider extends AbstractTestResourceProvider
 	@Override
 	public void closeResource(TestResource aResourceName, InputStream aResourceStream) throws IOException {
 		aResourceStream.close();
-	}
-
-	@Override
-	public void setClassLoader(ClassLoader aClassLoader) {
-		classLoader = aClassLoader;
-	}
-
-	@Override
-	public ClassLoader getClassLoader() {
-		return classLoader;
 	}
 
 }

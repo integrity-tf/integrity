@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.gebit.integrity.dsl.Model;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.transport.Endpoint;
@@ -155,13 +155,13 @@ public class IntegrityRemotingClient {
 	/**
 	 * Sets up a new fork with the scripts to run and the current state of the setlist.
 	 * 
-	 * @param someTestScripts
+	 * @param someResourceProviders
 	 *            the test scripts currently loaded on the master
 	 * @param aSetList
 	 *            the current set list of the master
 	 */
-	public void setupFork(List<Model> someTestScripts, SetList aSetList) {
-		sendMessage(new ForkSetupMessage(someTestScripts, aSetList));
+	public void setupFork(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList) {
+		sendMessage(new ForkSetupMessage(someResourceProviders, aSetList));
 	}
 
 	/**

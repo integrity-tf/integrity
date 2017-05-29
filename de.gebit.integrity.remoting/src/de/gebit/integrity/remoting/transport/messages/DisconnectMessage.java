@@ -38,6 +38,13 @@ public class DisconnectMessage extends AbstractMessage {
 		confirmation = anIsConfirmation;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public DisconnectMessage() {
+		// no-arg constructor
+	}
+
 	public boolean isConfirmation() {
 		return confirmation;
 	}

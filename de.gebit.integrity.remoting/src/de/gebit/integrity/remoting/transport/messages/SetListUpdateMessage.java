@@ -45,6 +45,13 @@ public class SetListUpdateMessage extends AbstractMessage {
 		updatedEntries = someUpdatedEntries;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public SetListUpdateMessage() {
+		// no-arg constructor
+	}
+
 	public SetListEntry[] getUpdatedEntries() {
 		return updatedEntries;
 	}

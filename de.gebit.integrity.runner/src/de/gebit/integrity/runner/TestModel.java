@@ -42,12 +42,13 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
+import de.gebit.integrity.providers.TestResource;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
-import de.gebit.integrity.runner.providers.TestResource;
-import de.gebit.integrity.runner.providers.TestResourceProvider;
+import de.gebit.integrity.runner.providers.InMemoryTestResourceProvider;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -115,6 +116,23 @@ public class TestModel {
 	 */
 	@Inject
 	protected ModelSourceExplorer modelSourceExplorer;
+
+	/**
+	 * All successfully loaded resources, in the order in which they were loaded.
+	 */
+	protected List<TestResource> loadedResources = new ArrayList<TestResource>();
+
+	/**
+	 * All resource providers that this model has been filled from.
+	 */
+	protected List<TestResourceProvider> loadedResourceProviders = new ArrayList<>();
+
+	/**
+	 * This list stores copies of the {@link #loadedResourceProviders} which refer to resources which have been fully
+	 * loaded in memory. It is intended as a cache to avoid repeated duplication of the same
+	 * {@link TestResourceProvider}s. If it is null, the cache is empty and must be recreated. If not, it can be used.
+	 */
+	protected List<InMemoryTestResourceProvider> inMemoryResourceProviders;
 
 	/**
 	 * Adds all given Integrity script files to the test model.
@@ -199,7 +217,13 @@ public class TestModel {
 	}
 
 	/**
-	 * Reads all Integrity scripts from the provided resource provider and initializes this test model with them.
+	 * Reads all Integrity scripts from the provided resource provider and initializes this test model with them. This
+	 * is an "additive" operation, meaning that it is possible to call this method on a model multiple times and inject
+	 * more and more scripts.<br>
+	 * <br>
+	 * For each successfully loaded resource provider, a reference to the provider is stored in the model as well. The
+	 * same is done for each successfully loaded resource (see {@link TestResource}). These references may later be
+	 * retrieved by {@link #getLoadedResourceProviders()} and {@link #getLoadedResources()}.
 	 * 
 	 * @param aResourceProvider
 	 * @param aSkipModelChecksFlag
@@ -235,13 +259,26 @@ public class TestModel {
 				// may be null in case of an empty file
 				addIntegrityScriptModel(tempModel);
 			}
+
+			loadedResources.add(tempResourceName);
 		}
+
+		loadedResourceProviders.add(aResourceProvider);
+		inMemoryResourceProviders = null;
 
 		return tempErrors;
 	}
 
 	public List<Model> getModels() {
 		return models;
+	}
+
+	public List<TestResource> getLoadedResources() {
+		return loadedResources;
+	}
+
+	public List<TestResourceProvider> getLoadedResourceProviders() {
+		return loadedResourceProviders;
 	}
 
 	public Map<String, SuiteDefinition> getSuiteMap() {
@@ -472,6 +509,32 @@ public class TestModel {
 				aRandomSeed, someCommandLineArguments);
 
 		return tempRunner;
+	}
+
+	/**
+	 * Returns a list of duplicates of all resource providers ever used to load test scripts into this
+	 * {@link TestModel}. These duplicates are instances of {@link InMemoryTestResourceProvider}, meaning they contain
+	 * the whole script data inside their instances, so nothing has to be loaded from the file system or other sources
+	 * anymore. They also are transferable via Serialization, so they can be used to initialize Forks.
+	 * 
+	 * @return duplicates of the used resource providers
+	 * @throws IOException
+	 *             in case of errors during duplication
+	 */
+	public List<InMemoryTestResourceProvider> getInMemoryResourceProviders() throws IOException {
+		if (inMemoryResourceProviders == null) {
+			inMemoryResourceProviders = new ArrayList<>(loadedResourceProviders.size());
+
+			for (TestResourceProvider tempResourceProvider : loadedResourceProviders) {
+				if (tempResourceProvider instanceof InMemoryTestResourceProvider) {
+					inMemoryResourceProviders.add((InMemoryTestResourceProvider) tempResourceProvider);
+				} else {
+					inMemoryResourceProviders.add(new InMemoryTestResourceProvider(tempResourceProvider));
+				}
+			}
+		}
+
+		return inMemoryResourceProviders;
 	}
 
 }

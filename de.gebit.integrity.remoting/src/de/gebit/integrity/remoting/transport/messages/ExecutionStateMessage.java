@@ -37,6 +37,13 @@ public class ExecutionStateMessage extends AbstractMessage {
 		state = aState;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public ExecutionStateMessage() {
+		// no-arg constructor
+	}
+
 	public ExecutionStates getState() {
 		return state;
 	}

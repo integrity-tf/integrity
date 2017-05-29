@@ -54,6 +54,13 @@ public class SetListEntry implements Serializable {
 		type = aType.toString();
 	}
 
+	/**
+	 * No-arg constructor required for serialization.
+	 */
+	public SetListEntry() {
+		// no-arg constructor
+	}
+
 	public int getId() {
 		return id;
 	}

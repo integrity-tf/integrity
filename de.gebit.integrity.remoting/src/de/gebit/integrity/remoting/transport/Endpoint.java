@@ -11,9 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -25,6 +22,9 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.JavaSerializer;
 
 import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.DisconnectMessage;
@@ -251,7 +251,7 @@ public class Endpoint {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public void run() {
-			ObjectInputStream tempObjectStream = null;
+			// ObjectInputStream tempObjectStream = null;
 			try {
 				InputStream tempInStream = socket.getInputStream();
 
@@ -279,12 +279,16 @@ public class Endpoint {
 						}
 					}
 
-					Kryo tempKryo = new Kryo();
+					Kryo tempKryo = instantiateKryo();
+					tempKryo.setClassLoader(classLoader);
+					Input tempKryoInput = new Input(new InflaterInputStream(new ByteArrayInputStream(tempMessage)));
 
-					tempObjectStream = new ClassloaderAwareObjectInputStream(
-							new InflaterInputStream(new ByteArrayInputStream(tempMessage)), classLoader);
+					// tempObjectStream = new ClassloaderAwareObjectInputStream(
+					// new InflaterInputStream(new ByteArrayInputStream(tempMessage)), classLoader);
 					try {
-						AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
+						AbstractMessage tempMessageObject = (AbstractMessage) tempKryo
+								.readClassAndObject(tempKryoInput);
+						// AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
 						if (tempMessageObject instanceof DisconnectMessage) {
 							// disconnect messages are handled directly in the endpoints
 							if (((DisconnectMessage) tempMessageObject).isConfirmation()) {
@@ -311,8 +315,10 @@ public class Endpoint {
 								tempProcessor.processMessage(tempMessageObject, Endpoint.this);
 							}
 						}
-					} catch (ClassNotFoundException exc) {
+					} catch (Exception exc) {
 						exc.printStackTrace();
+					} finally {
+						tempKryoInput.close();
 					}
 				}
 			} catch (IOException exc) {
@@ -322,13 +328,13 @@ public class Endpoint {
 				}
 			} finally {
 				closeInternal();
-				if (tempObjectStream != null) {
-					try {
-						tempObjectStream.close();
-					} catch (IOException exc) {
-						// ignore
-					}
-				}
+				// if (tempObjectStream != null) {
+				// try {
+				// tempObjectStream.close();
+				// } catch (IOException exc) {
+				// // ignore
+				// }
+				// }
 				if (listener != null) {
 					listener.onConnectionLost(Endpoint.this);
 				}
@@ -370,11 +376,12 @@ public class Endpoint {
 					}
 
 					if (tempMessageObject != null && socket.isConnected()) {
+						Kryo tempKryo = instantiateKryo();
 						ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
 						DeflaterOutputStream tempDeflateStream = new DeflaterOutputStream(tempStream);
-						ObjectOutputStream tempObjectStream = new ObjectOutputStream(tempDeflateStream);
-						tempObjectStream.writeObject(tempMessageObject);
-						tempObjectStream.close();
+						Output tempKryoOutput = new Output(tempDeflateStream);
+						tempKryo.writeClassAndObject(tempKryoOutput, tempMessageObject);
+						tempKryoOutput.close();
 
 						byte[] tempMessage = tempStream.toByteArray();
 						byte[] tempLength = new byte[4];
@@ -388,55 +395,18 @@ public class Endpoint {
 						tempOutStream.flush();
 					}
 				}
-
 			} catch (IOException exc) {
 				exc.printStackTrace();
 			}
 		}
 	}
 
-	/**
-	 * This object input stream allows to specify the classloader which is used to resolve the classes.
-	 * 
-	 * 
-	 * @author Rene Schneider - initial API and implementation
-	 * 
-	 */
-	protected class ClassloaderAwareObjectInputStream extends ObjectInputStream {
+	protected Kryo instantiateKryo() {
+		Kryo tempKryo = new Kryo();
 
-		/**
-		 * The classloader to use.
-		 */
-		private ClassLoader classLoader;
+		tempKryo.register(org.jdom.Element.class, new JavaSerializer());
 
-		/**
-		 * Creates an instance.
-		 * 
-		 * @param anInputStream
-		 *            the input stream to read from
-		 * @param aClassLoader
-		 *            the classloader to use for resolving
-		 * @throws IOException
-		 */
-		public ClassloaderAwareObjectInputStream(InputStream anInputStream, ClassLoader aClassLoader)
-				throws IOException {
-			super(anInputStream);
-			classLoader = aClassLoader;
-		}
-
-		@Override
-		protected Class<?> resolveClass(ObjectStreamClass aDescription) throws IOException, ClassNotFoundException {
-			if (classLoader != null) {
-				try {
-					return classLoader.loadClass(aDescription.getName());
-				} catch (ClassNotFoundException exc) {
-					return super.resolveClass(aDescription);
-				}
-			} else {
-				return super.resolveClass(aDescription);
-			}
-		}
-
+		return tempKryo;
 	}
 
 }

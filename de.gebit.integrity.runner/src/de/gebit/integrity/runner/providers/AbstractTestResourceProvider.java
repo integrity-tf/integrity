@@ -10,6 +10,9 @@ package de.gebit.integrity.runner.providers;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.gebit.integrity.providers.TestResource;
+import de.gebit.integrity.providers.TestResourceProvider;
+
 /**
  * Base class for test resource providers. Provides some convenience base implementations.
  * 
@@ -26,7 +29,7 @@ public abstract class AbstractTestResourceProvider implements TestResourceProvid
 	/**
 	 * The classloader to use while linking the parsed resources.
 	 */
-	private ClassLoader classLoader = getClass().getClassLoader();
+	private transient ClassLoader classLoader = getClass().getClassLoader();
 
 	public void setClassLoader(ClassLoader aClassLoader) {
 		classLoader = aClassLoader;

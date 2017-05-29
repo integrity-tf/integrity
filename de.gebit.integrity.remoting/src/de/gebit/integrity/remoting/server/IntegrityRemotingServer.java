@@ -26,6 +26,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
+import de.gebit.integrity.remoting.transport.messages.ForkSetupMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
@@ -221,11 +222,11 @@ public class IntegrityRemotingServer {
 				if (IntegrityRemotingConstants.MAJOR_PROTOCOL_VERSION == aVersion.getProtocolMajorVersion()) {
 					listener.onConnectionSuccessful(aVersion, anEndpoint);
 				}
-				anEndpoint.sendMessage(new IntegrityRemotingVersionMessage(
-						IntegrityRemotingConstants.MAJOR_PROTOCOL_VERSION,
-						IntegrityRemotingConstants.MINOR_PROTOCOL_VERSION, IntegrityRemotingConstants.MAJOR_VERSION,
-						IntegrityRemotingConstants.MINOR_VERSION, IntegrityRemotingConstants.PATCH_VERSION,
-						IntegrityRemotingConstants.BUILD_VERSION));
+				anEndpoint.sendMessage(
+						new IntegrityRemotingVersionMessage(IntegrityRemotingConstants.MAJOR_PROTOCOL_VERSION,
+								IntegrityRemotingConstants.MINOR_PROTOCOL_VERSION,
+								IntegrityRemotingConstants.MAJOR_VERSION, IntegrityRemotingConstants.MINOR_VERSION,
+								IntegrityRemotingConstants.PATCH_VERSION, IntegrityRemotingConstants.BUILD_VERSION));
 			}
 		});
 
@@ -296,6 +297,15 @@ public class IntegrityRemotingServer {
 			public void processMessage(ShutdownRequestMessage aMessage, Endpoint anEndpoint) {
 				listener.onShutdownRequest();
 			}
+		});
+
+		tempMap.put(ForkSetupMessage.class, new MessageProcessor<ForkSetupMessage>() {
+
+			@Override
+			public void processMessage(ForkSetupMessage aMessage, Endpoint anEndpoint) {
+				listener.onForkSetupRetrieval(aMessage.getResourceProviders(), aMessage.getSetList());
+			}
+
 		});
 
 		return tempMap;

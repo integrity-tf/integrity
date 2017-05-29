@@ -56,6 +56,13 @@ public class TestRunnerCallbackMessage extends AbstractMessage {
 		objects = someObjects;
 	}
 
+	/**
+	 * The no-arg constructor, primarily used for serialization.
+	 */
+	public TestRunnerCallbackMessage() {
+		// no-arg constructor
+	}
+
 	public String getCallbackClassName() {
 		return callbackClassName;
 	}

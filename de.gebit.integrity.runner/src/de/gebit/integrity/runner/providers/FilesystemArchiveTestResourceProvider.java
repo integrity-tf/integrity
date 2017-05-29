@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
+import de.gebit.integrity.providers.TestResourceProvider;
+
 /**
  * This is a compound {@link TestResourceProvider}, able to read Integrity scripts directly from the file system, within
  * a directory on the filesystem, and within archive files (and archives within archives). It wraps a

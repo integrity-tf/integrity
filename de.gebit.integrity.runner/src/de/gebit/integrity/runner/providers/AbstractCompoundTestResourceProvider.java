@@ -10,9 +10,11 @@ package de.gebit.integrity.runner.providers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+
+import de.gebit.integrity.providers.TestResource;
+import de.gebit.integrity.providers.TestResourceProvider;
 
 /**
  * A {@link AbstractCompoundTestResourceProvider} wraps one or multiple other {@link TestResourceProvider} instances.
@@ -44,7 +46,10 @@ public abstract class AbstractCompoundTestResourceProvider implements TestResour
 	 *            the providers to wrap
 	 */
 	protected AbstractCompoundTestResourceProvider(TestResourceProvider... someProviders) {
-		resourceProviders = Arrays.asList(someProviders);
+		resourceProviders = new ArrayList<>(someProviders.length);
+		for (TestResourceProvider tempProvider : someProviders) {
+			resourceProviders.add(tempProvider);
+		}
 	}
 
 	@Override

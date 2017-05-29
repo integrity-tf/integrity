@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
+import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.runner.DefaultTestRunner;
 import de.gebit.integrity.runner.IntegrityDSLSetup;
@@ -38,7 +39,6 @@ import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.exceptions.ValidationException;
 import de.gebit.integrity.runner.providers.FilesystemArchiveTestResourceProvider;
-import de.gebit.integrity.runner.providers.TestResourceProvider;
 
 /**
  * A basic program to run Integrity tests from the console. This class has a main method, but you can also instantiate
