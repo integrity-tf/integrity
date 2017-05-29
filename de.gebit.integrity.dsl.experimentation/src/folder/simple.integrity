@@ -2,22 +2,38 @@ import mypackage.*
 import mysecondpackage.*
 
 packagedef mypackage with
-
-	private variable privatepackagevar
-	
-	variable packagevar
 	
 	forkdef fork1
+	forkdef fork2
+	forkdef fork3
 
 	suitedef asuite with
 	
-		private constant innervar
+		suite 1000 * csuite
 		
 		suite bsuite on fork1
+		
+		suite 1000 * csuite
+		
+		suite bsuite on fork2
+		
+		suite 1000 * csuite
+		
+		suite bsuite on fork3
+		
+		suite bsuite on fork1
+		
+		suite 1000 * csuite
 		
 	suiteend
 	
 	suitedef bsuite with
+	
+		suite 2000 * csuite
+	
+	suiteend
+	
+	suitedef csuite with
 	
 		test echo echo: "test" = "test"
 	
