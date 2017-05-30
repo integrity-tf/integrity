@@ -19,13 +19,19 @@ import de.gebit.integrity.providers.TestResource;
 import de.gebit.integrity.providers.TestResourceProvider;
 
 /**
- *
+ * This test resource provider holds the entire resources in memory and returns them from memory on demand. It is
+ * intended to be used to create fully self-sufficient clones of other resource providers (that typically just enumerate
+ * resources from external sources and load them on demand) which can then be transferred over the remoting connection
+ * to forks.
  *
  * @author Rene Schneider - initial API and implementation
  *
  */
 public class InMemoryTestResourceProvider implements TestResourceProvider {
 
+	/**
+	 * The map containing all resources' data.
+	 */
 	private LinkedHashMap<String, byte[]> resourceMap = new LinkedHashMap<>();
 
 	/**
@@ -50,8 +56,22 @@ public class InMemoryTestResourceProvider implements TestResourceProvider {
 		// empty default no-arg constructor
 	}
 
-	public InMemoryTestResourceProvider(TestResourceProvider aSourceProvider) throws IOException {
+	/**
+	 * Creates a new instance that acts as an in-memory copy of the given resource provider.
+	 * 
+	 * @param aSourceProvider
+	 *            the provider that is to be copied
+	 * @param aNamePrefix
+	 *            a prefix to be added to all resource names on copy (if null, nothing is added)
+	 * @throws IOException
+	 */
+	public InMemoryTestResourceProvider(TestResourceProvider aSourceProvider, String aNamePrefix) throws IOException {
 		for (TestResource tempResource : aSourceProvider.getResourceNames()) {
+			String tempNewName = tempResource.getName();
+			if (aNamePrefix != null) {
+				tempNewName = aNamePrefix + tempNewName;
+			}
+
 			InputStream tempIn = aSourceProvider.openResource(tempResource);
 
 			try {
@@ -70,7 +90,7 @@ public class InMemoryTestResourceProvider implements TestResourceProvider {
 					}
 				} while (tempCount >= 0);
 
-				resourceMap.put(tempResource.getName(), tempOut.toByteArray());
+				resourceMap.put(tempNewName, tempOut.toByteArray());
 			} finally {
 				aSourceProvider.closeResource(tempResource, tempIn);
 			}

@@ -515,7 +515,8 @@ public class TestModel {
 	 * Returns a list of duplicates of all resource providers ever used to load test scripts into this
 	 * {@link TestModel}. These duplicates are instances of {@link InMemoryTestResourceProvider}, meaning they contain
 	 * the whole script data inside their instances, so nothing has to be loaded from the file system or other sources
-	 * anymore. They also are transferable via Serialization, so they can be used to initialize Forks.
+	 * anymore. They also are transferable via Serialization, so they can be used to initialize Forks, which is their
+	 * primary use!
 	 * 
 	 * @return duplicates of the used resource providers
 	 * @throws IOException
@@ -529,7 +530,7 @@ public class TestModel {
 				if (tempResourceProvider instanceof InMemoryTestResourceProvider) {
 					inMemoryResourceProviders.add((InMemoryTestResourceProvider) tempResourceProvider);
 				} else {
-					inMemoryResourceProviders.add(new InMemoryTestResourceProvider(tempResourceProvider));
+					inMemoryResourceProviders.add(new InMemoryTestResourceProvider(tempResourceProvider, "MASTER::"));
 				}
 			}
 		}
