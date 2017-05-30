@@ -19,6 +19,7 @@ import de.gebit.integrity.runner.console.intercept.DefaultConsoleInterceptionAgg
 import de.gebit.integrity.runner.console.intercept.DefaultConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.DefaultProcessTerminator;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.modelcheck.DefaultModelChecker;
 import de.gebit.integrity.runner.modelcheck.ModelChecker;
 import de.gebit.integrity.runner.variables.DefaultVariableManager;
@@ -129,6 +130,15 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends ModelChecker> bindModelChecker() {
 		return DefaultModelChecker.class;
+	}
+
+	/**
+	 * Binds the {@link TestRunnerPerformanceLogger}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends TestRunnerPerformanceLogger> bindTestRunnerPerformanceLogger() {
+		return TestRunnerPerformanceLogger.class;
 	}
 
 }

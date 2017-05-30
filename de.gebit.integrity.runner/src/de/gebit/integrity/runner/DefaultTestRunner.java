@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 Rene Schneider, GEBIT Solutions GmbH and others.
+ * Copyright (c) 2017 Rene Schneider, GEBIT Solutions GmbH and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -124,6 +124,7 @@ import de.gebit.integrity.runner.forking.ForkException;
 import de.gebit.integrity.runner.forking.ForkResultSummary;
 import de.gebit.integrity.runner.forking.Forker;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.modelcheck.ModelChecker;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.runner.results.Result;
@@ -265,6 +266,12 @@ public class DefaultTestRunner implements TestRunner {
 	protected TestFormatter testFormatter;
 
 	/**
+	 * The performance logger.
+	 */
+	@Inject
+	protected TestRunnerPerformanceLogger performanceLogger;
+
+	/**
 	 * The remoting server.
 	 */
 	protected IntegrityRemotingServer remotingServer;
@@ -322,7 +329,7 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The system property that allows to override the timeout used when connecting to forks.
 	 */
-	protected static final String FORK_CONNECTION_TIMEOUT_PROPERTY = "integrity.fork.timeout";
+	protected static final String FORK_CONNECTION_TIMEOUT_PROPERTY = "integrity.fork.timeout.connect";
 
 	/**
 	 * The default fork connection timeout, in seconds.
@@ -399,9 +406,35 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
+	 * The system property that allows to override the time to wait for a fork to become ready for execution.
+	 */
+	protected static final String FORK_WAIT_UNTIL_READY_TIMEOUT_PROPERTY = "integrity.fork.timeout.wait";
+
+	/**
+	 * The default time to wait for a fork to become ready for execution.
+	 */
+	protected static final int FORK_WAIT_UNTIL_READY_TIMEOUT_DEFAULT = (int) TimeUnit.MINUTES.toMillis(5);
+
+	/**
+	 * Returns the time to wait for a fork to become ready for execution.
+	 */
+	protected int getForkWaitUntilReadyTimeout() {
+		return System.getProperty(FORK_WAIT_UNTIL_READY_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_WAIT_UNTIL_READY_TIMEOUT_PROPERTY))
+				: getForkWaitUntilReadyTimeoutDefault();
+	}
+
+	/**
+	 * Returns the default time to wait for a fork to become ready for execution.
+	 */
+	protected int getForkWaitUntilReadyTimeoutDefault() {
+		return FORK_WAIT_UNTIL_READY_TIMEOUT_DEFAULT;
+	}
+
+	/**
 	 * The system property that allows to override the single connect timeout used when connecting to forks.
 	 */
-	protected static final String CHILD_PROCESS_KILL_TIMEOUT_PROPERTY = "integrity.fork.kill.timeout";
+	protected static final String CHILD_PROCESS_KILL_TIMEOUT_PROPERTY = "integrity.fork.timeout.kill";
 
 	/**
 	 * The default time to wait for child processes to be killed.
@@ -550,7 +583,8 @@ public class DefaultTestRunner implements TestRunner {
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
 	 * @return the suite execution result
 	 */
-	protected SuiteSummaryResult run(Suite aRootSuiteCall, VariantDefinition aVariant, boolean aBlockForRemotingFlag) {
+	protected SuiteSummaryResult run(final Suite aRootSuiteCall, VariantDefinition aVariant,
+			boolean aBlockForRemotingFlag) {
 		variantInExecution = aVariant;
 		boolean tempBlockForRemoting = isFork() ? false : aBlockForRemotingFlag;
 
@@ -566,21 +600,30 @@ public class DefaultTestRunner implements TestRunner {
 			if (!isFork()) {
 				// If this is NOT a fork, a dry run is needed to create the initial setlist. In case of forks, the
 				// setlist is already initialized by having it be injected from the master (in the initialize method!)
-				currentPhase = Phase.DRY_RUN;
-				SetList tempSetList = new SetList();
-				reset(false);
-				setListCallback = new SetListCallback(tempSetList, remotingServer);
-				injector.injectMembers(setListCallback);
-				currentCallback = setListCallback;
+				performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER, "Dry Run",
+						new Runnable() {
 
-				currentCallback.setDryRun(true);
-				runInternal(aRootSuiteCall);
-				currentCallback.setDryRun(false);
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								currentPhase = Phase.DRY_RUN;
+								SetList tempSetList = new SetList();
+								reset(false);
+								setListCallback = new SetListCallback(tempSetList, remotingServer);
+								injector.injectMembers(setListCallback);
+								currentCallback = setListCallback;
 
-				synchronized (setListWaiter) {
-					setList = tempSetList;
-					setListWaiter.notify();
-				}
+								currentCallback.setDryRun(true);
+								runInternal(aRootSuiteCall);
+								currentCallback.setDryRun(false);
+
+								synchronized (setListWaiter) {
+									setList = tempSetList;
+									setListWaiter.notify();
+								}
+							}
+
+						});
 			} else {
 				setListCallback = new SetListCallback(setList, remotingServer);
 				injector.injectMembers(setListCallback);
@@ -588,7 +631,15 @@ public class DefaultTestRunner implements TestRunner {
 
 			if (remotingServer != null && tempBlockForRemoting) {
 				try {
-					waitForContinue(false);
+					performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+							"Wait for Remoting",
+							new TestRunnerPerformanceLogger.RunnableWithException<InterruptedException>() {
+
+								@Override
+								public void run() throws InterruptedException {
+									waitForContinue(false);
+								}
+							});
 				} catch (InterruptedException exc) {
 					if (remotingServer != null) {
 						remotingServer.closeAll(false);
@@ -616,6 +667,8 @@ public class DefaultTestRunner implements TestRunner {
 				remotingServer.closeAll(true);
 			}
 			processTerminator.killAndWait(getChildProcessKillTimeout());
+
+			performanceLogger.logFinalSummary();
 		}
 	}
 
@@ -2079,36 +2132,53 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
-		public void onSetListRequest(Endpoint anEndpoint) {
-			synchronized (setListWaiter) {
-				while (setList == null) {
-					try {
-						setListWaiter.wait();
-					} catch (InterruptedException exc) {
-						// don't care
-					}
-				}
+		public void onSetListRequest(final Endpoint anEndpoint) {
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_REMOTING,
+					"Set List Response", new Runnable() {
 
-				anEndpoint.sendMessage(new SetListBaselineMessage(setList));
-				for (Integer tempBreakpoint : breakpoints) {
-					anEndpoint.sendMessage(new BreakpointUpdateMessage(BreakpointActions.CREATE, tempBreakpoint));
-				}
-			}
+						@Override
+						public void run() {
+							synchronized (setListWaiter) {
+								while (setList == null) {
+									try {
+										setListWaiter.wait();
+									} catch (InterruptedException exc) {
+										// don't care
+									}
+								}
+
+								anEndpoint.sendMessage(new SetListBaselineMessage(setList));
+								for (Integer tempBreakpoint : breakpoints) {
+									anEndpoint.sendMessage(
+											new BreakpointUpdateMessage(BreakpointActions.CREATE, tempBreakpoint));
+								}
+							}
+						}
+					});
 		}
 
 		@Override
-		public void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList) {
-			synchronized (setListWaiter) {
-				setList = aSetList;
-				for (TestResourceProvider tempProvider : someResourceProviders) {
-					try {
-						model.readIntegrityScriptFiles(tempProvider);
-					} catch (ModelLoadException exc) {
-						throw new RuntimeException("Failed to parse scripts received from master!", exc);
-					}
-				}
-				setListWaiter.notifyAll();
-			}
+		public void onForkSetupRetrieval(final List<? extends TestResourceProvider> someResourceProviders,
+				final SetList aSetList) {
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_REMOTING,
+					"Setup Processing", new Runnable() {
+
+						@Override
+						public void run() {
+							synchronized (setListWaiter) {
+								setList = aSetList;
+								for (TestResourceProvider tempProvider : someResourceProviders) {
+									try {
+										model.readIntegrityScriptFiles(tempProvider);
+									} catch (ModelLoadException exc) {
+										throw new RuntimeException("Failed to parse scripts received from master!",
+												exc);
+									}
+								}
+								setListWaiter.notifyAll();
+							}
+						}
+					});
 		}
 
 		@Override
@@ -2280,7 +2350,7 @@ public class DefaultTestRunner implements TestRunner {
 					"Could not create fork '" + tempForkDef.getName() + "': forker class not instantiable.", exc);
 		}
 
-		Fork tempFork = new Fork(aSuiteCall.getFork(), tempForker, commandLineArguments,
+		final Fork tempFork = new Fork(aSuiteCall.getFork(), tempForker, commandLineArguments,
 				remotingServer != null ? remotingServer.getPort() : IntegrityRemotingConstants.DEFAULT_PORT,
 				currentCallback, setList, remotingServer, new ForkCallback() {
 
@@ -2302,75 +2372,140 @@ public class DefaultTestRunner implements TestRunner {
 					}
 				});
 		injector.injectMembers(tempFork);
-		tempFork.start();
 
-		long tempTimeout = getForkConnectionTimeout();
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+				"Fork Process Start (" + tempForkDef.getName() + ")",
+				new TestRunnerPerformanceLogger.RunnableWithException<ForkException>() {
 
-		long tempStartTime = System.nanoTime();
-		while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
-			try {
-				if (!tempFork.isAlive() || tempFork.connect(getForkSingleConnectTimeout(), javaClassLoader)) {
-					break;
-				}
-			} catch (IOException exc) {
-				// this is expected -> will simply retry
-			}
+					@Override
+					public void run() throws ForkException {
+						tempFork.start();
+					}
+				});
 
-			try {
-				Thread.sleep(getForkConnectDelay());
-			} catch (InterruptedException exc) {
-				// ignored
-			}
-		}
+		final long tempTimeout = getForkConnectionTimeout();
+		final long tempStartTime = System.nanoTime();
+
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+				"Fork Connect (" + tempForkDef.getName() + ")", new Runnable() {
+
+					@Override
+					public void run() {
+						while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
+							try {
+								if (!tempFork.isAlive()
+										|| tempFork.connect(getForkSingleConnectTimeout(), javaClassLoader)) {
+									break;
+								}
+							} catch (IOException exc) {
+								// this is expected -> will simply retry
+							}
+
+							try {
+								Thread.sleep(getForkConnectDelay());
+							} catch (InterruptedException exc) {
+								// ignored
+							}
+						}
+					}
+
+				});
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
 			// Start off the fork with a full set of test scripts and the current setlist
-			try {
-				tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList);
-			} catch (IOException exc1) {
-				throw new RuntimeException("Failed to read resource providers into memory", exc1);
-			}
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Setup (" + tempForkDef.getName() + ")", new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList);
+							} catch (IOException exc1) {
+								throw new RuntimeException("Failed to read resource providers into memory", exc1);
+							}
+						}
+					});
 
 			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
 			// (encapsulated values are predefined in the test script and thus already known to the fork)
-			for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
-				if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)
-						&& !(tempEntry.getKey() instanceof ConstantEntity)) {
-					tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
-				}
-			}
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Variable Init (" + tempForkDef.getName() + ")", new Runnable() {
+
+						@Override
+						public void run() {
+							for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
+								if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)
+										&& !(tempEntry.getKey() instanceof ConstantEntity)) {
+									tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
+								}
+							}
+						}
+					});
 
 			// and the fork will also need all current breakpoints
-			for (Integer tempBreakpoint : breakpoints) {
-				tempFork.getClient().createBreakpoint(tempBreakpoint);
-			}
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Breakpoint Init (" + tempForkDef.getName() + ")", new Runnable() {
 
-			// and the magic pause-on-next-instruction "breakpoint" too
-			if (shallWaitBeforeNextStep) {
-				tempFork.getClient().createBreakpoint(null);
-			}
+						@Override
+						public void run() {
+							for (Integer tempBreakpoint : breakpoints) {
+								tempFork.getClient().createBreakpoint(tempBreakpoint);
+							}
+
+							// and the magic pause-on-next-instruction "breakpoint" too
+							if (shallWaitBeforeNextStep) {
+								tempFork.getClient().createBreakpoint(null);
+							}
+						}
+					});
 
 			// and now we'll wait until the fork is paused
-			while (tempFork.isAlive() && tempFork.isConnected()
-					&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
-				try {
-					Thread.sleep(getForkPauseWaitInterval());
-				} catch (InterruptedException exc) {
-					// nothing to do here
-				}
-			}
+			final long tempWaitTimeout = getForkWaitUntilReadyTimeout();
+			final long tempWaitStartTime = System.nanoTime();
+			boolean tempForkWaitSuccessful = performanceLogger.executeAndLog(
+					TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Wait Until Ready (" + tempForkDef.getName() + ")",
+					new TestRunnerPerformanceLogger.RunnableWithResult<Boolean>() {
+
+						@Override
+						public Boolean run() {
+							while (tempFork.isAlive() && tempFork.isConnected()
+									&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
+								try {
+									Thread.sleep(getForkPauseWaitInterval());
+								} catch (InterruptedException exc) {
+									// nothing to do here
+								}
+
+								if (System.nanoTime() - tempWaitStartTime > TimeUnit.MILLISECONDS
+										.toNanos(tempWaitTimeout)) {
+									System.err.println("TIMED OUT WHILE WAITING FOR FORK TO GET READY");
+									return false;
+								}
+							}
+
+							return true;
+						}
+					});
 
 			// a last sanity check
-			if (tempFork.isAlive() && tempFork.isConnected()) {
+			if (tempForkWaitSuccessful && tempFork.isAlive() && tempFork.isConnected()) {
 				return tempFork;
 			}
 		}
 
-		try {
-			tempFork.kill();
-		} catch (InterruptedException exc) {
-			exc.printStackTrace();
-		}
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+				"Fork Kill (" + tempForkDef.getName() + ")", new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							tempFork.kill();
+						} catch (InterruptedException exc) {
+							exc.printStackTrace();
+						}
+					}
+				});
 		throw new ForkException("Could not successfully establish a control connection to the fork.");
 	}
 

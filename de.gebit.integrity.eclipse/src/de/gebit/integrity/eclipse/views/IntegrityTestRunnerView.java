@@ -2594,11 +2594,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 		@Override
 		public void onSetListUpdate(final SetListEntry[] someUpdatedEntries, final Integer anEntryInExecutionReference,
 				Endpoint anEndpoint) {
+			if (setList == null) {
+				// The setlist baseline was not yet received - ignore this update, it will be in the baseline anyway
+				return;
+			}
+
 			setList.integrateUpdates(someUpdatedEntries);
 			if (anEntryInExecutionReference != null) {
 				setList.setEntryInExecutionReference(anEntryInExecutionReference);
 			}
-			Display.getDefault().syncExec(new Runnable() {
+			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					for (SetListEntry tempEntry : someUpdatedEntries) {

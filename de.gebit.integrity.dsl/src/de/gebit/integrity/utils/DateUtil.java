@@ -226,7 +226,8 @@ public final class DateUtil {
 		return parseDateOrTimeString(tempStringToParse, "dd.MM.yyyy'T'hh:mm:ss.SSSaa");
 	}
 
-	private static Calendar parseUSDateAnd12HrsTimeString(String aDateString, String aTimeString) throws ParseException {
+	private static Calendar parseUSDateAnd12HrsTimeString(String aDateString, String aTimeString)
+			throws ParseException {
 		String tempStringToParse;
 		if (aDateString != null) {
 			tempStringToParse = aDateString;
@@ -309,12 +310,12 @@ public final class DateUtil {
 				tempTimeValue = tempTimeValue.substring(0, tempTimeValue.length() - 3)
 						+ tempTimeValue.substring(tempTimeValue.length() - 2, tempTimeValue.length());
 			}
-			tempCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"
-					+ tempTimeValue.substring(tempHasSeconds ? 9 : 6)));
+			tempCalendar = Calendar
+					.getInstance(TimeZone.getTimeZone("GMT" + tempTimeValue.substring(tempHasSeconds ? 9 : 6)));
 
 			if (tempHasSeconds) {
-				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(
-						tempDateValue + tempTimeValue));
+				tempCalendar.setTime(
+						getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(tempDateValue + tempTimeValue));
 			} else {
 				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").parse(tempDateValue + tempTimeValue));
 			}
@@ -322,8 +323,8 @@ public final class DateUtil {
 			tempCalendar = Calendar.getInstance();
 
 			if (tempHasSeconds) {
-				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(
-						tempDateValue + tempTimeValue));
+				tempCalendar
+						.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(tempDateValue + tempTimeValue));
 			} else {
 				tempCalendar.setTime(getSimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(tempDateValue + tempTimeValue));
 			}
@@ -423,6 +424,11 @@ public final class DateUtil {
 				}
 				tempBuilder.append(TimeUnit.NANOSECONDS.toMillis(aTimespan % TimeUnit.SECONDS.toNanos(1))
 						+ (aShortFormat ? "ms" : aLongFormat ? " milliseconds" : "msecs"));
+			}
+
+			if (tempBuilder.length() == 0) {
+				// If the time is zero, at least return the lowest timespan with a 0
+				tempBuilder.append("0" + (aShortFormat ? "ms" : aLongFormat ? " milliseconds" : "msecs"));
 			}
 
 			return tempBuilder.toString();

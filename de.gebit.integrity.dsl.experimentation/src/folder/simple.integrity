@@ -9,27 +9,27 @@ packagedef mypackage with
 
 	suitedef asuite with
 	
-		suite 1000 * csuite
+		suite 500 * csuite
 		
 		suite bsuite on fork1
 		
-		suite 1000 * csuite
+		suite 500 * csuite
 		
 		suite bsuite on fork2
 		
-		suite 1000 * csuite
+		suite 500 * csuite
 		
 		suite bsuite on fork3
 		
 		suite bsuite on fork1
 		
-		suite 1000 * csuite
+		suite 500 * csuite
 		
 	suiteend
 	
 	suitedef bsuite with
 	
-		suite 2000 * csuite
+		suite 500 * csuite
 	
 	suiteend
 	

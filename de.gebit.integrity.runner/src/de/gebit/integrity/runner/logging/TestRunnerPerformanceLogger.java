@@ -1,0 +1,261 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Rene Schneider, GEBIT Solutions GmbH and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+package de.gebit.integrity.runner.logging;
+
+import de.gebit.integrity.utils.DateUtil;
+
+/**
+ * This performance logging service is used to execute several performance-critical segments of test execution. It
+ * allows to print out start/end markers for the performance-relevant sections as well as their (total) duration.<br>
+ * <br>
+ * By default, this data is NOT logged. You can enable logging by specifying the system property
+ * {@link #PERFORMANCE_LOG_ENABLE_PROPERTY} with value "true".
+ *
+ * @author Rene Schneider - initial API and implementation
+ *
+ */
+public class TestRunnerPerformanceLogger {
+
+	/**
+	 * The performance log category used for generic test runner related actions.
+	 */
+	public static final String PERFORMANCE_LOG_CATEGORY_RUNNER = "Runner";
+
+	/**
+	 * The performance log category used for fork related actions.
+	 */
+	public static final String PERFORMANCE_LOG_CATEGORY_FORK = "Fork";
+
+	/**
+	 * The performance log category used for remoting-related actions.
+	 */
+	public static final String PERFORMANCE_LOG_CATEGORY_REMOTING = "Remoting";
+
+	/**
+	 * The system property to specify to enable performance logging.
+	 */
+	public static final String PERFORMANCE_LOG_ENABLE_PROPERTY = "integrity.runner.perflog";
+
+	/**
+	 * Whether performance logging has been enabled.
+	 */
+	private boolean performanceLoggingEnabled = Boolean
+			.parseBoolean(System.getProperty(PERFORMANCE_LOG_ENABLE_PROPERTY, "false"));
+
+	/**
+	 * The start time of the last action.
+	 */
+	private long startTime;
+
+	/**
+	 * The total performance-logged timespan.
+	 */
+	private long totalTime;
+
+	/**
+	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 * @param aRunnable
+	 *            the runnable to execute
+	 */
+	public void executeAndLog(String aCategoryName, String anActionName, Runnable aRunnable) {
+		if (performanceLoggingEnabled) {
+			logActionStart(aCategoryName, anActionName);
+		}
+		try {
+			aRunnable.run();
+		} finally {
+			if (performanceLoggingEnabled) {
+				logActionEnd(aCategoryName, anActionName);
+			}
+		}
+	}
+
+	/**
+	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 * @param aRunnable
+	 *            the runnable to execute
+	 */
+	public <R extends Object> R executeAndLog(String aCategoryName, String anActionName,
+			RunnableWithResult<R> aRunnable) {
+		if (performanceLoggingEnabled) {
+			logActionStart(aCategoryName, anActionName);
+		}
+		try {
+			return aRunnable.run();
+		} finally {
+			if (performanceLoggingEnabled) {
+				logActionEnd(aCategoryName, anActionName);
+			}
+		}
+	}
+
+	/**
+	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 * @param aRunnable
+	 *            the runnable to execute
+	 */
+	public <E extends Exception> void executeAndLog(String aCategoryName, String anActionName,
+			RunnableWithException<E> aRunnable) throws E {
+		if (performanceLoggingEnabled) {
+			logActionStart(aCategoryName, anActionName);
+		}
+		try {
+			aRunnable.run();
+		} finally {
+			if (performanceLoggingEnabled) {
+				logActionEnd(aCategoryName, anActionName);
+			}
+		}
+	}
+
+	/**
+	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 * @param aRunnable
+	 *            the runnable to execute
+	 */
+	public <R extends Object, E extends Exception> R executeAndLog(String aCategoryName, String anActionName,
+			RunnableWithResultAndException<R, E> aRunnable) throws E {
+		if (performanceLoggingEnabled) {
+			logActionStart(aCategoryName, anActionName);
+		}
+		try {
+			return aRunnable.run();
+		} finally {
+			if (performanceLoggingEnabled) {
+				logActionEnd(aCategoryName, anActionName);
+			}
+		}
+	}
+
+	/**
+	 * Logs a total number of the entire time that performance-relevant processes were running.
+	 */
+	public void logFinalSummary() {
+		if (performanceLoggingEnabled) {
+			log("TOTAL PERFORMANCE-LOGGED TIME: "
+					+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(totalTime, false, false));
+		}
+	}
+
+	/**
+	 * Logs the start of an action.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 */
+	protected void logActionStart(String aCategoryName, String anActionName) {
+		log("ACTION START: " + aCategoryName + " - " + anActionName);
+		startTime = System.nanoTime();
+	}
+
+	/**
+	 * Logs the end of an action.
+	 * 
+	 * @param aCategoryName
+	 *            the category name
+	 * @param anActionName
+	 *            the action name
+	 */
+	protected void logActionEnd(String aCategoryName, String anActionName) {
+		long tempDuration = System.nanoTime() - startTime;
+		log("ACTION END: " + aCategoryName + " - " + anActionName + ", DURATION: "
+				+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(tempDuration, false, false));
+		totalTime += tempDuration;
+	}
+
+	/**
+	 * Logs something.
+	 * 
+	 * @param aLine
+	 *            the textual line to be logged
+	 */
+	protected void log(String aLine) {
+		System.out.println("--PERFLOG--> " + aLine);
+	}
+
+	/**
+	 * A runnable with a result.
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 * @param <R>
+	 *            the result class
+	 */
+	public interface RunnableWithResult<R extends Object> {
+
+		/**
+		 * Runs the stuff.
+		 * 
+		 */
+		R run();
+
+	}
+
+	/**
+	 * A runnable with no result that can throw an exception.
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 * @param <E>
+	 *            the exception class
+	 */
+	public interface RunnableWithException<E extends Exception> {
+
+		/**
+		 * Runs the stuff.
+		 * 
+		 * @throws E
+		 */
+		void run() throws E;
+
+	}
+
+	/**
+	 * A runnable with a result that can throw an exception.
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 * @param <R>
+	 *            the result class
+	 * @param <E>
+	 *            the exception class
+	 */
+	public interface RunnableWithResultAndException<R extends Object, E extends Exception> {
+
+		/**
+		 * Runs the stuff.
+		 * 
+		 * @throws E
+		 */
+		R run() throws E;
+
+	}
+
+}

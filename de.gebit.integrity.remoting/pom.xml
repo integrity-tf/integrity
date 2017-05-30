@@ -13,6 +13,9 @@
   
   
   <!-- We're building a fat jar including the sources right now for simplicity -->
+  <!-- We also ingest Kryo and its dependencies into the guts of this bundle as a private inner dependency. This allows
+       us to use Kryo for serialization in both runtime scenarios (OSGi and non-OSGi) without requiring any additional
+       external (possibly OSGi-ified) libraries. -->
   <build>
   	<resources>
   		<resource>

@@ -218,10 +218,9 @@ public class Endpoint {
 					// don't care
 				}
 			}
-
-			// third: close the socket and kill the output processor
 		}
 
+		// third: close the socket and kill the output processor
 		closeInternal();
 		if (listener != null) {
 			listener.onClosed(this);
@@ -251,11 +250,11 @@ public class Endpoint {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public void run() {
-			// ObjectInputStream tempObjectStream = null;
 			try {
 				InputStream tempInStream = socket.getInputStream();
 
 				while (true) {
+					// First, find out the length of the next message
 					int tempMessageLength = 0;
 					for (int i = 0; i < 4; i++) {
 						int tempByte = tempInStream.read();
@@ -266,6 +265,7 @@ public class Endpoint {
 						tempMessageLength |= tempByte << (i * 8);
 					}
 
+					// Then read the message from the stream
 					byte[] tempMessage = new byte[tempMessageLength];
 					int tempMessagePosition = 0;
 					while (tempMessagePosition < tempMessageLength) {
@@ -279,16 +279,16 @@ public class Endpoint {
 						}
 					}
 
+					// Finally deserialize the message
 					Kryo tempKryo = instantiateKryo();
-					tempKryo.setClassLoader(classLoader);
+					if (classLoader != null) {
+						tempKryo.setClassLoader(classLoader);
+					}
 					Input tempKryoInput = new Input(new InflaterInputStream(new ByteArrayInputStream(tempMessage)));
 
-					// tempObjectStream = new ClassloaderAwareObjectInputStream(
-					// new InflaterInputStream(new ByteArrayInputStream(tempMessage)), classLoader);
 					try {
 						AbstractMessage tempMessageObject = (AbstractMessage) tempKryo
 								.readClassAndObject(tempKryoInput);
-						// AbstractMessage tempMessageObject = (AbstractMessage) tempObjectStream.readObject();
 						if (tempMessageObject instanceof DisconnectMessage) {
 							// disconnect messages are handled directly in the endpoints
 							if (((DisconnectMessage) tempMessageObject).isConfirmation()) {
@@ -328,13 +328,6 @@ public class Endpoint {
 				}
 			} finally {
 				closeInternal();
-				// if (tempObjectStream != null) {
-				// try {
-				// tempObjectStream.close();
-				// } catch (IOException exc) {
-				// // ignore
-				// }
-				// }
 				if (listener != null) {
 					listener.onConnectionLost(Endpoint.this);
 				}
@@ -401,6 +394,11 @@ public class Endpoint {
 		}
 	}
 
+	/**
+	 * Instantiates the Kryo serialization framework.
+	 * 
+	 * @return an instantiated and fully configured {@link Kryo} instance
+	 */
 	protected Kryo instantiateKryo() {
 		Kryo tempKryo = new Kryo();
 
