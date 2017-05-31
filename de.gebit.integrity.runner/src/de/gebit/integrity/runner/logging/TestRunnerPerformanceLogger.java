@@ -37,6 +37,11 @@ public class TestRunnerPerformanceLogger {
 	public static final String PERFORMANCE_LOG_CATEGORY_REMOTING = "Remoting";
 
 	/**
+	 * The performance log category used for (script) loading/init-related actions.
+	 */
+	public static final String PERFORMANCE_LOG_CATEGORY_INIT = "Init";
+
+	/**
 	 * The system property to specify to enable performance logging.
 	 */
 	public static final String PERFORMANCE_LOG_ENABLE_PROPERTY = "integrity.runner.perflog";

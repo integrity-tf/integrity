@@ -781,7 +781,7 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
 				"Parameterized Constant Definition", new Runnable() {
 
 					@Override
@@ -791,7 +791,7 @@ public class DefaultTestRunner implements TestRunner {
 
 				});
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
 				"Constant Definition", new Runnable() {
 
 					@Override
@@ -801,7 +801,7 @@ public class DefaultTestRunner implements TestRunner {
 
 				});
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
 				"Variable Definition", new Runnable() {
 
 					@Override

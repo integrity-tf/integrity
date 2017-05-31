@@ -48,6 +48,7 @@ import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.exceptions.ModelAmbiguousException;
 import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
+import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.providers.InMemoryTestResourceProvider;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -116,6 +117,12 @@ public class TestModel {
 	 */
 	@Inject
 	protected ModelSourceExplorer modelSourceExplorer;
+
+	/**
+	 * The performance logger.
+	 */
+	@Inject
+	protected TestRunnerPerformanceLogger performanceLogger;
 
 	/**
 	 * All successfully loaded resources, in the order in which they were loaded.
@@ -230,38 +237,47 @@ public class TestModel {
 	 * @param aSetupClass
 	 * @throws ModelLoadException
 	 */
-	public List<Diagnostic> readIntegrityScriptFiles(TestResourceProvider aResourceProvider) throws ModelLoadException {
-		XtextResourceSet tempResourceSet = injector.getInstance(XtextResourceSet.class);
-		IResourceFactory tempResourceFactory = injector.getInstance(IResourceFactory.class);
-		ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
+	public List<Diagnostic> readIntegrityScriptFiles(final TestResourceProvider aResourceProvider)
+			throws ModelLoadException {
+		final XtextResourceSet tempResourceSet = injector.getInstance(XtextResourceSet.class);
+		final IResourceFactory tempResourceFactory = injector.getInstance(IResourceFactory.class);
+		final ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
 
-		for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
-			URI tempUri = tempResourceName.createPlatformResourceURI();
-			XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
-			tempResourceSet.getResources().add(tempResource);
-			try {
-				InputStream tempStream = aResourceProvider.openResource(tempResourceName);
-				try {
-					tempResource.load(tempStream, null);
-				} finally {
-					aResourceProvider.closeResource(tempResourceName, tempStream);
-				}
-			} catch (IOException exc) {
-				throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
-			}
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT, "Load Scripts",
+				new TestRunnerPerformanceLogger.RunnableWithException<ModelLoadException>() {
 
-			System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
-					+ tempResource.getErrors().size() + " errors.");
-			tempErrors.addAll(tempResource.getErrors());
+					@Override
+					public void run() throws ModelLoadException {
+						for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
+							URI tempUri = tempResourceName.createPlatformResourceURI();
+							XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
+							tempResourceSet.getResources().add(tempResource);
+							try {
+								InputStream tempStream = aResourceProvider.openResource(tempResourceName);
+								try {
+									tempResource.load(tempStream, null);
+								} finally {
+									aResourceProvider.closeResource(tempResourceName, tempStream);
+								}
+							} catch (IOException exc) {
+								throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
+							}
 
-			Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
-			if (tempModel != null) {
-				// may be null in case of an empty file
-				addIntegrityScriptModel(tempModel);
-			}
+							System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
+									+ tempResource.getErrors().size() + " errors.");
+							tempErrors.addAll(tempResource.getErrors());
 
-			loadedResources.add(tempResourceName);
-		}
+							Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
+							if (tempModel != null) {
+								// may be null in case of an empty file
+								addIntegrityScriptModel(tempModel);
+							}
+
+							loadedResources.add(tempResourceName);
+						}
+					}
+
+				});
 
 		loadedResourceProviders.add(aResourceProvider);
 		inMemoryResourceProviders = null;
