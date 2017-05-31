@@ -263,9 +263,8 @@ public class ConsoleTestExecutor {
 				tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
 			} else {
 				// For forks, we only instantiate an empty model (with no test scripts - those are injected by the
-				// master)
-				tempModel = TestModel.instantiateTestModel(tempResourceProvider.getClassLoader(), setupClass,
-						tempSkipModelCheck.isSet());
+				// master). We also always set this model to skip checks.
+				tempModel = TestModel.instantiateTestModel(tempResourceProvider.getClassLoader(), setupClass, true);
 			}
 
 			Map<String, String> tempParameterizedConstants = new HashMap<String, String>();

@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.remoting.entities.setlist;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -296,12 +297,22 @@ public class SetList implements Serializable {
 	public SetListEntry createEntry(SetListEntryTypes aType) {
 		if (entries.size() > entryListPosition) {
 			lastCreatedEntryIdMap.put(aType, entryListPosition);
-			entryListPosition++;
-			SetListEntry tempNextEntry = entries.get(entryListPosition - 1);
+			SetListEntry tempNextEntry = entries.get(entryListPosition);
 			if (tempNextEntry.getType() != aType) {
+				System.err.println("> SETLIST ENTRY TYPE INCONSISTENCY DETECTED! IS " + aType + ", SHOULD BE "
+						+ tempNextEntry.getType());
+				System.err.println("> PRINTING LAST SETLIST ENTRIES UP TO CURRENT POSITION " + entryListPosition);
+				int tempStart = entryListPosition - 20;
+				if (tempStart < 0) {
+					tempStart = 0;
+				}
+				for (int tempPosition = tempStart; tempPosition <= entryListPosition; tempPosition++) {
+					System.err.println("> " + entries.get(tempPosition));
+				}
 				throw new IllegalStateException(
 						"Severe internal data inconsistency detected! Cannot continue test execution.");
 			}
+			entryListPosition++;
 			return tempNextEntry;
 		} else {
 			SetListEntry tempNewEntry = new SetListEntry(entryListPosition, aType);
@@ -652,6 +663,18 @@ public class SetList implements Serializable {
 			} else {
 				return null;
 			}
+		}
+	}
+
+	/**
+	 * Performs a full dump of all entries in the setlist into the given stream.
+	 * 
+	 * @param aStream
+	 *            the stream to write into
+	 */
+	public void dumpEntries(PrintStream aStream) {
+		for (SetListEntry tempEntry : entries) {
+			aStream.println(tempEntry);
 		}
 	}
 }

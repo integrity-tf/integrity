@@ -105,6 +105,16 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	private Stack<SetListEntry> entryStack = new Stack<SetListEntry>();
 
 	/**
+	 * System property to enable writing setlist trace output.
+	 */
+	protected static final String ENABLE_SETLIST_TRACE_OUTPUT = "integrity.setlist.trace";
+
+	/**
+	 * Whether setlist tracing is enabled.
+	 */
+	protected boolean isTracingEnabled = Boolean.getBoolean(ENABLE_SETLIST_TRACE_OUTPUT);
+
+	/**
 	 * The parameter resolver to use.
 	 */
 	@Inject
@@ -490,6 +500,11 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		setList.setEntryInExecutionReference(null);
+
+		if (isTracingEnabled) {
+			System.out.println("--> SETLIST FULL DUMP");
+			setList.dumpEntries(System.out);
+		}
 	}
 
 	@Override
