@@ -524,7 +524,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	/**
-	 * <<<<<<< HEAD ======= System property name to enable XML Writer Stack Trace output.
+	 * System property name to enable XML Writer Stack Trace output.
 	 */
 	protected static final String SYSPARAM_ENABLE_TRACE_OUTPUT = "integrity.xmlwriter.trace";
 
@@ -535,7 +535,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected boolean isTracingEnabled = Boolean.getBoolean(SYSPARAM_ENABLE_TRACE_OUTPUT);
 
 	/**
-	 * >>>>>>> v0.15.x_bugfix Creates a new instance.
+	 * Creates a new instance.
 	 * 
 	 * @param aClassLoader
 	 *            the classloader to use
