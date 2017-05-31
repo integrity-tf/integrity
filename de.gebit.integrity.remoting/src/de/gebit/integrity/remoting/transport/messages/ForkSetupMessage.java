@@ -8,6 +8,7 @@
 package de.gebit.integrity.remoting.transport.messages;
 
 import java.util.List;
+import java.util.Map;
 
 import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -37,14 +38,21 @@ public class ForkSetupMessage extends AbstractMessage {
 	private SetList setList;
 
 	/**
+	 * All initial variables and constants to set on the fork.
+	 */
+	private Map<String, Object> initialVariables;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aSetList
 	 *            the new setlist
 	 */
-	public ForkSetupMessage(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList) {
+	public ForkSetupMessage(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList,
+			Map<String, Object> someInitialVariables) {
 		resourceProviders = someResourceProviders;
 		setList = aSetList;
+		initialVariables = someInitialVariables;
 	}
 
 	/**
@@ -60,6 +68,10 @@ public class ForkSetupMessage extends AbstractMessage {
 
 	public SetList getSetList() {
 		return setList;
+	}
+
+	public Map<String, Object> getInitialVariables() {
+		return initialVariables;
 	}
 
 }

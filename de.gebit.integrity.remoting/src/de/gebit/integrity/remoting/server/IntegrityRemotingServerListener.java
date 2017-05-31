@@ -9,6 +9,7 @@ package de.gebit.integrity.remoting.server;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -57,8 +58,11 @@ public interface IntegrityRemotingServerListener {
 	 *            the resource providers to load
 	 * @param aSetList
 	 *            the initial set list state
+	 * @param someInitialVariables
+	 *            the initial state of variables and constants
 	 */
-	void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList);
+	void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList,
+			Map<String, Object> someInitialVariables);
 
 	/**
 	 * Called when a "run tests" command from a client came in.

@@ -21,11 +21,6 @@ public enum SetListEntryTypes {
 	EXECUTION,
 
 	/**
-	 * Definition of variables.
-	 */
-	VARIABLE,
-
-	/**
 	 * Assignment of new value to variable.
 	 */
 	VARIABLE_ASSIGNMENT,

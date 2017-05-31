@@ -19,6 +19,7 @@ import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
+import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
@@ -51,7 +52,7 @@ public interface ParameterResolver {
 	 */
 	Map<String, Object> createParameterMap(Test aTest, boolean anIncludeArbitraryParametersFlag,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws ClassNotFoundException, UnexecutableException, InstantiationException;
+			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given {@link Call} to determine the valid
@@ -72,7 +73,7 @@ public interface ParameterResolver {
 	 */
 	Map<String, Object> createParameterMap(Call aCall, boolean anIncludeArbitraryParametersFlag,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws ClassNotFoundException, UnexecutableException, InstantiationException;
+			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, exploring a given row of a {@link TableTest} to determine the
@@ -98,7 +99,7 @@ public interface ParameterResolver {
 	Map<String, Object> createParameterMap(TableTest aTableTest, TableTestRow aTableTestRow,
 			TableTestParameterResolveMethod aResolveMethod, boolean anIncludeArbitraryParametersFlag,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws ClassNotFoundException, UnexecutableException, InstantiationException;
+			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Returns a map mapping a parameter name to a value, using a list of {@link Parameter} instances to determine the
@@ -119,7 +120,7 @@ public interface ParameterResolver {
 	 */
 	Map<String, Object> createParameterMap(List<Parameter> someParameters, boolean anIncludeArbitraryParametersFlag,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws ClassNotFoundException, UnexecutableException, InstantiationException;
+			throws ClassNotFoundException, UnexecutableException, InstantiationException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperationCollection}, using the variable map given. Resolving only
@@ -138,7 +139,7 @@ public interface ParameterResolver {
 	 */
 	Object resolveParameterValue(ValueOrEnumValueOrOperationCollection aValueCollection,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws UnexecutableException, InstantiationException, ClassNotFoundException;
+			throws UnexecutableException, InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves the given {@link ValueOrEnumValueOrOperation}, using the variable map given. Resolving only attempts to
@@ -157,7 +158,7 @@ public interface ParameterResolver {
 	 */
 	Object resolveSingleParameterValue(ValueOrEnumValueOrOperation aValue,
 			UnresolvableVariableHandling anUnresolvableVariableHandlingPolicy)
-					throws UnexecutableException, InstantiationException, ClassNotFoundException;
+			throws UnexecutableException, InstantiationException, ClassNotFoundException;
 
 	/**
 	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
@@ -170,11 +171,42 @@ public interface ParameterResolver {
 	 *            the active variant
 	 * @return the result, or null if none was found
 	 */
-	Object resolveStatically(Variable aVariable, VariantDefinition aVariant);
+	Object resolveStatically(Variable aVariable, VariantDefinition aVariant)
+			throws ClassNotFoundException, InstantiationException, UnexecutableException;
+
+	/**
+	 * Resolves a variable (recursively, if necessary) to its actual value. Since this static method doesn't have access
+	 * to the actual variable store of a test runner instance, the resolving can only be successful in cases of
+	 * variables with initial value (giving that value) or constants.
+	 * 
+	 * @param anEntity
+	 *            the entity to resolve
+	 * @param aVariant
+	 *            the active variant
+	 * @return the result, or null if none was found
+	 */
+	Object resolveStatically(VariableOrConstantEntity anEntity, VariantDefinition aVariant)
+			throws ClassNotFoundException, InstantiationException, UnexecutableException;
 
 	/**
 	 * Resolves a {@link ValueOrEnumValueOrOperation} to its actual value statically, that is, not requiring a current
 	 * test execution context.
+	 * 
+	 * @param anEntity
+	 *            the entity to resolve
+	 * @param aVariant
+	 *            the variant in use
+	 * @return the result value
+	 * @throws UnexecutableException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 */
+	Object resolveStatically(ValueOrEnumValueOrOperation anEntity, VariantDefinition aVariant)
+			throws UnexecutableException, ClassNotFoundException, InstantiationException;
+
+	/**
+	 * Resolves a {@link ValueOrEnumValueOrOperationCollection} to its actual value statically, that is, not requiring a
+	 * current test execution context.
 	 * 
 	 * @param anEntity
 	 *            the entity to resolve

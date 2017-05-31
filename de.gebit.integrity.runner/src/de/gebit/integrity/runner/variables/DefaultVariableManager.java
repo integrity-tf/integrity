@@ -17,14 +17,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * The simple, default variable manager which keeps variables in a map.
@@ -39,6 +46,24 @@ public class DefaultVariableManager implements VariableManager {
 	 * The map used to store variables.
 	 */
 	protected Map<VariableOrConstantEntity, Object> variableMap = new HashMap<VariableOrConstantEntity, Object>();
+
+	/**
+	 * The current test model.
+	 */
+	@Inject
+	protected TestModel model;
+
+	/**
+	 * The parameter resolver.
+	 */
+	@Inject
+	protected ParameterResolver parameterResolver;
+
+	/**
+	 * The value converter.
+	 */
+	@Inject
+	protected ValueConverter valueConverter;
 
 	@Override
 	public Object get(VariableOrConstantEntity anEntity) {
@@ -131,8 +156,47 @@ public class DefaultVariableManager implements VariableManager {
 	}
 
 	@Override
-	public Set<Entry<VariableOrConstantEntity, Object>> getAllEntries() {
-		return variableMap.entrySet();
+	public Map<String, Object> dumpVariableState(VariantDefinition aCurrentVariant) {
+		Map<String, Object> tempResult = new HashMap<>();
+
+		for (Entry<VariableOrConstantEntity, Object> tempEntry : variableMap.entrySet()) {
+			Object tempValue = tempEntry.getValue();
+			// try {
+			// if (tempValue instanceof ValueOrEnumValueOrOperationCollection) {
+			// tempValue = parameterResolver.resolveStatically((ValueOrEnumValueOrOperationCollection) tempValue,
+			// aCurrentVariant);
+			// } else if (tempValue instanceof ValueOrEnumValueOrOperation) {
+			// tempValue = parameterResolver.resolveStatically((ValueOrEnumValueOrOperation) tempValue,
+			// aCurrentVariant);
+			// } else if (tempValue instanceof VariableOrConstantEntity) {
+			// tempValue = parameterResolver.resolveStatically((VariableOrConstantEntity) tempValue,
+			// aCurrentVariant);
+			// }
+			// } catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
+			// exc.printStackTrace();
+			// tempValue = null;
+			// }
+			try {
+				tempValue = valueConverter.convertValue(null, tempValue, null);
+			} catch (UnresolvableVariableException | UnexecutableException exc) {
+				exc.printStackTrace();
+				tempValue = null;
+			}
+
+			tempResult.put(IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntry.getKey(), true), tempValue);
+		}
+
+		return tempResult;
+	}
+
+	@Override
+	public void importVariableState(Map<String, Object> aState) {
+		for (Entry<String, Object> tempEntry : aState.entrySet()) {
+			VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(tempEntry.getKey());
+			if (tempEntity != null) {
+				set(tempEntity, tempEntry.getValue());
+			}
+		}
 	}
 
 	@Override

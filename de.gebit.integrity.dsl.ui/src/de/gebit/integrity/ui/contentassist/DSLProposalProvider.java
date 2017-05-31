@@ -870,7 +870,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private void resolveVariables(Map<String, Object> aParameterMap) {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			if (tempEntry.getValue() instanceof Variable) {
-				tempEntry.setValue(parameterResolver.resolveStatically((Variable) tempEntry.getValue(), null));
+				try {
+					tempEntry.setValue(parameterResolver.resolveStatically((Variable) tempEntry.getValue(), null));
+				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
+					exc.printStackTrace();
+				}
 			}
 		}
 	}

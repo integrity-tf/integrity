@@ -7,11 +7,11 @@
  *******************************************************************************/
 package de.gebit.integrity.parameter.variables;
 
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.Map;
 
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 
 /**
  * The variable manager is responsible for keeping track of variable values.
@@ -87,13 +87,16 @@ public interface VariableManager {
 	 */
 	void clear(boolean aClearConstantsFlag);
 
-	// TODO eliminate the need for the method below somehow!
-
 	/**
 	 * Returns all variable entity entries.
 	 * 
 	 * @return
 	 */
-	Set<Entry<VariableOrConstantEntity, Object>> getAllEntries();
+	Map<String, Object> dumpVariableState(VariantDefinition aVariant);
 
+	/**
+	 * Reads the state as previously exported via {@link #dumpVariableState()}. This is additive, meaning it does not
+	 * remove non-mentioned variables.
+	 */
+	void importVariableState(Map<String, Object> aState);
 }

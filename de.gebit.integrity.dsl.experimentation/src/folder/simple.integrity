@@ -6,36 +6,40 @@ packagedef mypackage with
 	forkdef fork1
 	forkdef fork2
 	forkdef fork3
+	
+	constant invocationCount 2
+	
+	variable testString initially "test"
 
 	suitedef asuite with
 	
-		suite 500 * csuite
+		suite invocationCount * csuite
 		
 		suite bsuite on fork1
 		
-		suite 500 * csuite
+		suite invocationCount * csuite
 		
 		suite bsuite on fork2
 		
-		suite 500 * csuite
+		suite invocationCount * csuite
 		
 		suite bsuite on fork3
 		
 		suite bsuite on fork1
 		
-		suite 500 * csuite
+		suite invocationCount * csuite
 		
 	suiteend
 	
 	suitedef bsuite with
 	
-		suite 500 * csuite
+		suite invocationCount * csuite
 	
 	suiteend
 	
 	suitedef csuite with
 	
-		test echo echo: "test" = "test"
+		test echo echo: "test" = testString
 	
 	suiteend
 	

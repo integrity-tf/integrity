@@ -65,7 +65,6 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
-import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableAssignment;
@@ -600,8 +599,8 @@ public class DefaultTestRunner implements TestRunner {
 			if (!isFork()) {
 				// If this is NOT a fork, a dry run is needed to create the initial setlist. In case of forks, the
 				// setlist is already initialized by having it be injected from the master (in the initialize method!)
-				performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER, "Dry Run",
-						new Runnable() {
+				performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
+						"Dry Run Phase", new Runnable() {
 
 							@Override
 							public void run() {
@@ -718,8 +717,12 @@ public class DefaultTestRunner implements TestRunner {
 			String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempConstant.getName(), false);
 			String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName) : null;
 			if (tempConstant.getParameterized() != null) {
-				defineConstant(tempConstant, tempValue, (tempConstant.eContainer() instanceof SuiteDefinition)
-						? ((SuiteDefinition) tempConstant.eContainer()) : null);
+				try {
+					defineConstant(tempConstant, tempValue, (tempConstant.eContainer() instanceof SuiteDefinition)
+							? ((SuiteDefinition) tempConstant.eContainer()) : null);
+				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
+					// Cannot happen - parameterized constants aren't evaluated
+				}
 			} else {
 				if (tempValue != null) {
 					throw new IllegalArgumentException("Constant '" + tempName
@@ -733,10 +736,28 @@ public class DefaultTestRunner implements TestRunner {
 	 * Initializes all constants with the values given in the scripts.
 	 */
 	protected void initializeConstants() {
+		List<ConstantDefinition> tempDelayedDefinitions = new ArrayList<ConstantDefinition>();
+
 		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
 			// Parameterized constants have already been initialized separately, so we don't initialize them here again
 			if (tempConstantDef.getParameterized() == null) {
+				try {
+					defineConstant(tempConstantDef, null);
+				} catch (UnexecutableException exc) {
+					// Delay definition of this constant - it most likely depends on the successful init of other
+					// constants which are used in operations that make up the value of this constant
+					tempDelayedDefinitions.add(tempConstantDef);
+				} catch (ClassNotFoundException | InstantiationException exc) {
+					throw new RuntimeException("Failed to define constant", exc);
+				}
+			}
+		}
+
+		for (ConstantDefinition tempConstantDef : tempDelayedDefinitions) {
+			try {
 				defineConstant(tempConstantDef, null);
+			} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
+				throw new RuntimeException("Failed to define constant", exc);
 			}
 		}
 	}
@@ -770,7 +791,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *            the suite call to execute
 	 * @return the result
 	 */
-	protected SuiteSummaryResult runInternal(Suite aRootSuiteCall) {
+	protected SuiteSummaryResult runInternal(final Suite aRootSuiteCall) {
 		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
 			remotingServer.updateExecutionState(ExecutionStates.RUNNING);
 		}
@@ -781,37 +802,49 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
-				"Parameterized Constant Definition", new Runnable() {
+		if (!isFork()) {
+			// Forks get their variables injected by the master on initial connect.
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
+					"Parameterized Constant Definition", new Runnable() {
+
+						@Override
+						public void run() {
+							initializeParameterizedConstants();
+						}
+
+					});
+
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
+					"Constant Definition", new Runnable() {
+
+						@Override
+						public void run() {
+							initializeConstants();
+						}
+
+					});
+
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
+					"Variable Definition", new Runnable() {
+
+						@Override
+						public void run() {
+							initializeVariables();
+						}
+
+					});
+		}
+
+		SuiteSummaryResult tempResult = performanceLogger.executeAndLog(
+				TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER, "Execution",
+				new TestRunnerPerformanceLogger.RunnableWithResult<SuiteSummaryResult>() {
 
 					@Override
-					public void run() {
-						initializeParameterizedConstants();
+					public SuiteSummaryResult run() {
+						return callSuiteSingle(aRootSuiteCall);
 					}
 
 				});
-
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
-				"Constant Definition", new Runnable() {
-
-					@Override
-					public void run() {
-						initializeConstants();
-					}
-
-				});
-
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
-				"Variable Definition", new Runnable() {
-
-					@Override
-					public void run() {
-						initializeVariables();
-					}
-
-				});
-
-		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
 		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
 			if (abortExecutionCause != null) {
@@ -1239,7 +1272,11 @@ public class DefaultTestRunner implements TestRunner {
 				defineVariable((VariableDefinition) tempStatement, aSuite);
 			} else if (tempStatement instanceof ConstantDefinition) {
 				tempDefinedVariables.add(((ConstantDefinition) tempStatement).getName());
-				defineConstant((ConstantDefinition) tempStatement, aSuite);
+				try {
+					defineConstant((ConstantDefinition) tempStatement, aSuite);
+				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
+					throw new RuntimeException("Failed to define constant", exc);
+				}
 			} else if (tempStatement instanceof VariableAssignment) {
 				executeVariableAssignment((VariableAssignment) tempStatement, aSuite);
 			} else if (tempStatement instanceof VisibleSingleLineComment) {
@@ -1304,7 +1341,8 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws ClassNotFoundException
 	 * @throws UnexecutableException
 	 */
-	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite) {
+	protected void defineConstant(ConstantDefinition aDefinition, SuiteDefinition aSuite)
+			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		defineConstant(aDefinition, null, aSuite);
 	}
 
@@ -1322,7 +1360,8 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws ClassNotFoundException
 	 * @throws UnexecutableException
 	 */
-	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite) {
+	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite)
+			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
 		// the actual test run. Except if we are a fork, because in that case, we don't have a dry run before the test
 		// run, so we need to actually define the constants here!
@@ -1330,15 +1369,7 @@ public class DefaultTestRunner implements TestRunner {
 				|| !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
 			Object tempValue;
 			if (aValue == null) {
-				try {
-					tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
-				} catch (UnexecutableException exc) {
-					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
-				} catch (ClassNotFoundException exc) {
-					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
-				} catch (InstantiationException exc) {
-					throw new RuntimeException("Failed to define constant value: " + exc.getMessage(), exc);
-				}
+				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
 			} else {
 				tempValue = aValue;
 			}
@@ -2187,7 +2218,7 @@ public class DefaultTestRunner implements TestRunner {
 
 		@Override
 		public void onForkSetupRetrieval(final List<? extends TestResourceProvider> someResourceProviders,
-				final SetList aSetList) {
+				final SetList aSetList, final Map<String, Object> someVariableValues) {
 			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_REMOTING,
 					"Setup Processing", new Runnable() {
 
@@ -2203,6 +2234,7 @@ public class DefaultTestRunner implements TestRunner {
 												exc);
 									}
 								}
+								variableManager.importVariableState(someVariableValues);
 								setListWaiter.notifyAll();
 							}
 						}
@@ -2447,25 +2479,10 @@ public class DefaultTestRunner implements TestRunner {
 						@Override
 						public void run() {
 							try {
-								tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList);
+								tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList,
+										variableManager.dumpVariableState(variantInExecution));
 							} catch (IOException exc1) {
 								throw new RuntimeException("Failed to read resource providers into memory", exc1);
-							}
-						}
-					});
-
-			// initially, we'll send a snapshot of all current non-encapsulated variable values to the fork
-			// (encapsulated values are predefined in the test script and thus already known to the fork)
-			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
-					"Fork Variable Init (" + tempForkDef.getName() + ")", new Runnable() {
-
-						@Override
-						public void run() {
-							for (Entry<VariableOrConstantEntity, Object> tempEntry : variableManager.getAllEntries()) {
-								if (!(tempEntry.getValue() instanceof ValueOrEnumValueOrOperation)
-										&& !(tempEntry.getKey() instanceof ConstantEntity)) {
-									tempFork.updateVariableValue(tempEntry.getKey(), tempEntry.getValue());
-								}
 							}
 						}
 					});

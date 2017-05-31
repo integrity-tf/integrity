@@ -79,17 +79,20 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 
 			return tempRootNode.evaluate();
 		} catch (SecurityException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
 		} catch (IllegalArgumentException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
 		} catch (NoSuchMethodException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
 		} catch (InstantiationException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
 		} catch (IllegalAccessException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
 		} catch (InvocationTargetException exc) {
-			throw new UnexecutableException(exc);
+			throw new UnexecutableException(anOperation, exc);
+		} catch (UnexecutableException exc) {
+			exc.setOperation(anOperation);
+			throw exc;
 		}
 	}
 
@@ -106,9 +109,9 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	protected OperatorNode<?, ?> parseOperation(StandardOperation anOperation) throws SecurityException,
-			IllegalArgumentException, NoSuchMethodException, InstantiationException, IllegalAccessException,
-			InvocationTargetException {
+	protected OperatorNode<?, ?> parseOperation(StandardOperation anOperation)
+			throws SecurityException, IllegalArgumentException, NoSuchMethodException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
 		List<Object> tempOperands = new ArrayList<Object>();
 		List<String> tempOperators = new ArrayList<String>();
 
@@ -196,8 +199,8 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 			throw new RuntimeException("Operator '" + anOperator + "' is unknown!");
 		}
 
-		Constructor<? extends OperatorNode<?, ?>> tempConstructor = tempClass.getConstructor(new Class<?>[] {
-				Object.class, Object.class });
+		Constructor<? extends OperatorNode<?, ?>> tempConstructor = tempClass
+				.getConstructor(new Class<?>[] { Object.class, Object.class });
 
 		OperatorNode<?, ?> tempInstance = tempConstructor.newInstance(aLeftOperand, aRightOperand);
 		injector.injectMembers(tempInstance);

@@ -14,6 +14,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: GEBIT Solutions GmbH
 Import-Package: de.gebit.integrity.dsl,
  de.gebit.integrity.providers,
+ org.eclipse.xtext.util,
  org.jdom;version="1.0.0"
 Bundle-ClassPath: .,
  kryo/asm-5.0.4.jar,

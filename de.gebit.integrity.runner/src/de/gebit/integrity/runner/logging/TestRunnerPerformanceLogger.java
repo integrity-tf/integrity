@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.logging;
 
+import com.google.inject.Singleton;
+
 import de.gebit.integrity.utils.DateUtil;
 
 /**
@@ -19,6 +21,7 @@ import de.gebit.integrity.utils.DateUtil;
  * @author Rene Schneider - initial API and implementation
  *
  */
+@Singleton
 public class TestRunnerPerformanceLogger {
 
 	/**

@@ -569,16 +569,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	private void onVariableDefinitionInternal(VariableOrConstantEntity aDefinition, SuiteDefinition aSuite,
 			Object anInitialValue) {
-		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.VARIABLE);
-		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
-				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
-		if (anInitialValue != null) {
-			tempNewEntry.setAttribute(SetListEntryAttributeKeys.VALUE,
-					valueConverter.convertValueToString(anInitialValue, false, createConversionContext()));
-		}
-
-		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.VARIABLE_DEFINITIONS, tempNewEntry);
-		sendUpdateToClients(null, tempNewEntry);
+		// not used in this context
 	}
 
 	@Override

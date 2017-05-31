@@ -28,6 +28,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -59,6 +60,7 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * @author Rene Schneider - initial API and implementation
  * 
  */
+@Singleton
 public class TestModel {
 
 	/**
