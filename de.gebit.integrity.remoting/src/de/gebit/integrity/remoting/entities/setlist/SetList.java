@@ -301,12 +301,8 @@ public class SetList implements Serializable {
 			if (tempNextEntry.getType() != aType) {
 				System.err.println("> SETLIST ENTRY TYPE INCONSISTENCY DETECTED! IS " + aType + ", SHOULD BE "
 						+ tempNextEntry.getType());
-				System.err.println("> PRINTING LAST SETLIST ENTRIES UP TO CURRENT POSITION " + entryListPosition);
-				int tempStart = entryListPosition - 20;
-				if (tempStart < 0) {
-					tempStart = 0;
-				}
-				for (int tempPosition = tempStart; tempPosition <= entryListPosition; tempPosition++) {
+				System.err.println("> PRINTING ALL SETLIST ENTRIES UP TO CURRENT POSITION " + entryListPosition);
+				for (int tempPosition = 0; tempPosition <= entryListPosition; tempPosition++) {
 					System.err.println("> " + entries.get(tempPosition));
 				}
 				throw new IllegalStateException(
