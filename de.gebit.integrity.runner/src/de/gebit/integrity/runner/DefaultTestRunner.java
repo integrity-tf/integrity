@@ -781,9 +781,35 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		initializeParameterizedConstants();
-		initializeConstants();
-		initializeVariables();
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+				"Parameterized Constant Definition", new Runnable() {
+
+					@Override
+					public void run() {
+						initializeParameterizedConstants();
+					}
+
+				});
+
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+				"Constant Definition", new Runnable() {
+
+					@Override
+					public void run() {
+						initializeConstants();
+					}
+
+				});
+
+		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+				"Variable Definition", new Runnable() {
+
+					@Override
+					public void run() {
+						initializeVariables();
+					}
+
+				});
 
 		SuiteSummaryResult tempResult = callSuiteSingle(aRootSuiteCall);
 
@@ -1298,8 +1324,10 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite) {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
-		// the actual test run.
-		if (currentPhase == Phase.DRY_RUN || !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
+		// the actual test run. Except if we are a fork, because in that case, we don't have a dry run before the test
+		// run, so we need to actually define the constants here!
+		if ((isFork() || currentPhase == Phase.DRY_RUN)
+				|| !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
 			Object tempValue;
 			if (aValue == null) {
 				try {
