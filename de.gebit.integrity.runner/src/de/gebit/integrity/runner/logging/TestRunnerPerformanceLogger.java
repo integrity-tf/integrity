@@ -53,14 +53,14 @@ public class TestRunnerPerformanceLogger {
 			.parseBoolean(System.getProperty(PERFORMANCE_LOG_ENABLE_PROPERTY, "false"));
 
 	/**
-	 * The start time of the last action.
-	 */
-	private long startTime;
-
-	/**
-	 * The total performance-logged timespan.
+	 * The total performance-logged timespan (only of top-level actions).
 	 */
 	private long totalTime;
+
+	/**
+	 * Counts the stack depth.
+	 */
+	private int stackCounter;
 
 	/**
 	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
@@ -74,14 +74,14 @@ public class TestRunnerPerformanceLogger {
 	 */
 	public void executeAndLog(String aCategoryName, String anActionName, Runnable aRunnable) {
 		if (performanceLoggingEnabled) {
-			logActionStart(aCategoryName, anActionName);
-		}
-		try {
-			aRunnable.run();
-		} finally {
-			if (performanceLoggingEnabled) {
-				logActionEnd(aCategoryName, anActionName);
+			long tempStartTime = logActionStart(aCategoryName, anActionName);
+			try {
+				aRunnable.run();
+			} finally {
+				logActionEnd(aCategoryName, anActionName, tempStartTime);
 			}
+		} else {
+			aRunnable.run();
 		}
 	}
 
@@ -98,14 +98,14 @@ public class TestRunnerPerformanceLogger {
 	public <R extends Object> R executeAndLog(String aCategoryName, String anActionName,
 			RunnableWithResult<R> aRunnable) {
 		if (performanceLoggingEnabled) {
-			logActionStart(aCategoryName, anActionName);
-		}
-		try {
-			return aRunnable.run();
-		} finally {
-			if (performanceLoggingEnabled) {
-				logActionEnd(aCategoryName, anActionName);
+			long tempStartTime = logActionStart(aCategoryName, anActionName);
+			try {
+				return aRunnable.run();
+			} finally {
+				logActionEnd(aCategoryName, anActionName, tempStartTime);
 			}
+		} else {
+			return aRunnable.run();
 		}
 	}
 
@@ -122,14 +122,14 @@ public class TestRunnerPerformanceLogger {
 	public <E extends Exception> void executeAndLog(String aCategoryName, String anActionName,
 			RunnableWithException<E> aRunnable) throws E {
 		if (performanceLoggingEnabled) {
-			logActionStart(aCategoryName, anActionName);
-		}
-		try {
-			aRunnable.run();
-		} finally {
-			if (performanceLoggingEnabled) {
-				logActionEnd(aCategoryName, anActionName);
+			long tempStartTime = logActionStart(aCategoryName, anActionName);
+			try {
+				aRunnable.run();
+			} finally {
+				logActionEnd(aCategoryName, anActionName, tempStartTime);
 			}
+		} else {
+			aRunnable.run();
 		}
 	}
 
@@ -146,14 +146,14 @@ public class TestRunnerPerformanceLogger {
 	public <R extends Object, E extends Exception> R executeAndLog(String aCategoryName, String anActionName,
 			RunnableWithResultAndException<R, E> aRunnable) throws E {
 		if (performanceLoggingEnabled) {
-			logActionStart(aCategoryName, anActionName);
-		}
-		try {
-			return aRunnable.run();
-		} finally {
-			if (performanceLoggingEnabled) {
-				logActionEnd(aCategoryName, anActionName);
+			long tempStartTime = logActionStart(aCategoryName, anActionName);
+			try {
+				return aRunnable.run();
+			} finally {
+				logActionEnd(aCategoryName, anActionName, tempStartTime);
 			}
+		} else {
+			return aRunnable.run();
 		}
 	}
 
@@ -175,9 +175,10 @@ public class TestRunnerPerformanceLogger {
 	 * @param anActionName
 	 *            the action name
 	 */
-	protected void logActionStart(String aCategoryName, String anActionName) {
+	protected long logActionStart(String aCategoryName, String anActionName) {
 		log("ACTION START: " + aCategoryName + " - " + anActionName);
-		startTime = System.nanoTime();
+		stackCounter++;
+		return System.nanoTime();
 	}
 
 	/**
@@ -188,11 +189,14 @@ public class TestRunnerPerformanceLogger {
 	 * @param anActionName
 	 *            the action name
 	 */
-	protected void logActionEnd(String aCategoryName, String anActionName) {
-		long tempDuration = System.nanoTime() - startTime;
+	protected void logActionEnd(String aCategoryName, String anActionName, long aStartTime) {
+		long tempDuration = System.nanoTime() - aStartTime;
 		log("ACTION END: " + aCategoryName + " - " + anActionName + ", DURATION: "
 				+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(tempDuration, false, false));
-		totalTime += tempDuration;
+		stackCounter--;
+		if (stackCounter == 0) {
+			totalTime += tempDuration;
+		}
 	}
 
 	/**
