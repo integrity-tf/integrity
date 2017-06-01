@@ -7,10 +7,10 @@ packagedef mypackage with
 	forkdef fork2
 	forkdef fork3
 	
-	constant wirecard_001identifier "10000020000100010221"
-	constant wirecard_001gtin13 "04055018000103"
-	constant wirecard_001manualBarcode wirecard_001identifier
-	constant wirecard_001barcode ("01" .. wirecard_001gtin13 .. "90" .. wirecard_001manualBarcode)
+	constant weirdstuff_001identifier "10000020000100010221"
+	constant weirdstuff_001gtin13 "04055018000103"
+	constant weirdstuff_001manualBarcode weirdstuff_001identifier
+	constant weirdstuff_001barcode ("01" .. weirdstuff_001gtin13 .. "90" .. weirdstuff_001manualBarcode)
 	
 	constant invocationCount 2
 	
@@ -50,7 +50,7 @@ packagedef mypackage with
 	
 	suitedef csuite with
 	
-		test echo echo: "test" = wirecard_001barcode
+		test echo echo: "test" = weirdstuff_001barcode
 	
 	suiteend
 	
