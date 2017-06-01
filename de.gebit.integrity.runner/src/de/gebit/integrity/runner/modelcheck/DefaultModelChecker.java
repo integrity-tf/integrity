@@ -86,6 +86,11 @@ public class DefaultModelChecker implements ModelChecker {
 
 		String tempFixtureName = aTest.getDefinition().getName();
 		checkParameters(aTest.getParameters(), tempFixtureName);
+
+		if (aTest.getResult() != null) {
+			checkValueContainer(aTest.getResult());
+		}
+
 		for (NamedResult tempNamedResult : aTest.getResults()) {
 			if (tempNamedResult.getName() == null) {
 				throw new ModelRuntimeLinkException("Failed to resolve named result name", tempNamedResult,
