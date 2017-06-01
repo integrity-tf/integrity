@@ -9,6 +9,7 @@ package de.gebit.integrity.runner;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -144,6 +145,24 @@ public class TestModel {
 	protected List<InMemoryTestResourceProvider> inMemoryResourceProviders;
 
 	/**
+	 * Set this system property to turn on verbose script loading. This makes Integrity list all scripts that it loads,
+	 * regardless of the number of scripts being loaded. If this is turned off, only a summary is printed if more than
+	 * {@link #MAX_SCRIPT_COUNT_AUTO_VERBOSE_LOADING} scripts are being loaded.
+	 */
+	public static final String PRINT_ALL_LOADED_SCRIPTS_PROPERTY = "integrity.runner.loading.verbose";
+
+	/**
+	 * The maximum number of scripts which are always loaded in "verbose" mode.
+	 */
+	protected static final int MAX_SCRIPT_COUNT_AUTO_VERBOSE_LOADING = 50;
+
+	/**
+	 * Whether to load scripts in a verbose fashion (=printing every load).
+	 */
+	protected final boolean verboseScriptLoading = Boolean
+			.parseBoolean(System.getProperty(PRINT_ALL_LOADED_SCRIPTS_PROPERTY, "false"));
+
+	/**
 	 * Adds all given Integrity script files to the test model.
 	 * 
 	 * @param someModels
@@ -250,7 +269,11 @@ public class TestModel {
 
 					@Override
 					public void run() throws ModelLoadException {
-						for (TestResource tempResourceName : aResourceProvider.getResourceNames()) {
+						TestResource[] tempAllResources = aResourceProvider.getResourceNames();
+
+						System.out.println("Now loading " + tempAllResources.length + " test script(s)...");
+
+						for (TestResource tempResourceName : tempAllResources) {
 							URI tempUri = tempResourceName.createPlatformResourceURI();
 							XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
 							tempResourceSet.getResources().add(tempResource);
@@ -265,8 +288,15 @@ public class TestModel {
 								throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
 							}
 
-							System.out.println("Loaded Integrity Model File '" + tempResourceName + "': "
-									+ tempResource.getErrors().size() + " errors.");
+							boolean tempPrintLine = (verboseScriptLoading
+									|| tempAllResources.length <= MAX_SCRIPT_COUNT_AUTO_VERBOSE_LOADING
+									|| tempResource.getErrors().size() > 0);
+							if (tempPrintLine) {
+								@SuppressWarnings("resource")
+								PrintStream tempOut = (tempResource.getErrors().size() > 0 ? System.err : System.out);
+								tempOut.println("Loaded Integrity Model File '" + tempResourceName + "': "
+										+ tempResource.getErrors().size() + " errors.");
+							}
 							tempErrors.addAll(tempResource.getErrors());
 
 							Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
@@ -277,6 +307,9 @@ public class TestModel {
 
 							loadedResources.add(tempResourceName);
 						}
+
+						System.out.println("Finished loading " + tempAllResources.length + " test script(s) with "
+								+ tempErrors.size() + " error(s)...");
 					}
 
 				});

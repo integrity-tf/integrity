@@ -597,6 +597,7 @@ public class DefaultTestRunner implements TestRunner {
 		});
 
 		try {
+			boolean tempDryRunHasHappened = false;
 			if (!isFork()) {
 				// If this is NOT a fork, a dry run is needed to create the initial setlist. In case of forks, the
 				// setlist is already initialized by having it be injected from the master (in the initialize method!)
@@ -624,6 +625,7 @@ public class DefaultTestRunner implements TestRunner {
 							}
 
 						});
+				tempDryRunHasHappened = true;
 			} else {
 				setListCallback = new SetListCallback(setList, remotingServer);
 				injector.injectMembers(setListCallback);
@@ -651,7 +653,11 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback = new CompoundTestRunnerCallback(setListCallback, callback);
 
 			currentPhase = Phase.TEST_RUN;
-			reset(true);
+
+			if (tempDryRunHasHappened) {
+				// The soft reset is only necessary if we have actually performed a dry run.
+				reset(true);
+			}
 
 			if (isFork()) {
 				// the callback will require the remoting server to be able to push stuff to the master
@@ -1509,6 +1515,9 @@ public class DefaultTestRunner implements TestRunner {
 		VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(aQualifiedVariableName);
 		if (tempEntity != null) {
 			setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
+		} else {
+			throw new ThisShouldNeverHappenException(
+					"Failed to find variable entity for name '" + aQualifiedVariableName + "'!");
 		}
 	}
 

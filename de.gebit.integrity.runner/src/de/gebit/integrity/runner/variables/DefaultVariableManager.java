@@ -67,7 +67,8 @@ public class DefaultVariableManager implements VariableManager {
 
 	@Override
 	public Object get(VariableOrConstantEntity anEntity) {
-		return variableMap.get(anEntity);
+		Object tempValue = variableMap.get(anEntity);
+		return tempValue;
 	}
 
 	@Override
@@ -161,21 +162,6 @@ public class DefaultVariableManager implements VariableManager {
 
 		for (Entry<VariableOrConstantEntity, Object> tempEntry : variableMap.entrySet()) {
 			Object tempValue = tempEntry.getValue();
-			// try {
-			// if (tempValue instanceof ValueOrEnumValueOrOperationCollection) {
-			// tempValue = parameterResolver.resolveStatically((ValueOrEnumValueOrOperationCollection) tempValue,
-			// aCurrentVariant);
-			// } else if (tempValue instanceof ValueOrEnumValueOrOperation) {
-			// tempValue = parameterResolver.resolveStatically((ValueOrEnumValueOrOperation) tempValue,
-			// aCurrentVariant);
-			// } else if (tempValue instanceof VariableOrConstantEntity) {
-			// tempValue = parameterResolver.resolveStatically((VariableOrConstantEntity) tempValue,
-			// aCurrentVariant);
-			// }
-			// } catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
-			// exc.printStackTrace();
-			// tempValue = null;
-			// }
 			try {
 				tempValue = valueConverter.convertValue(null, tempValue, null);
 			} catch (UnresolvableVariableException | UnexecutableException exc) {

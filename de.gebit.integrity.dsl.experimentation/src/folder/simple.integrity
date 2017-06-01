@@ -7,14 +7,16 @@ packagedef mypackage with
 	forkdef fork2
 	forkdef fork3
 	
-	constant wirecard_001.identifier "10000020000100010221"
-	constant wirecard_001.gtin13 "04055018000103"
-	constant wirecard_001.manualBarcode wirecard_001.identifier
-	constant wirecard_001.barcode ("01" .. wirecard_001.gtin13 .. "90" .. wirecard_001.manualBarcode)
+	constant wirecard_001identifier "10000020000100010221"
+	constant wirecard_001gtin13 "04055018000103"
+	constant wirecard_001manualBarcode wirecard_001identifier
+	constant wirecard_001barcode ("01" .. wirecard_001gtin13 .. "90" .. wirecard_001manualBarcode)
 	
 	constant invocationCount 2
 	
 	variable testString initially "test"
+	
+	variable returnVar
 
 	suitedef asuite with
 	
@@ -38,13 +40,17 @@ packagedef mypackage with
 	
 	suitedef bsuite with
 	
+		test echo echo: returnVar = "blah"
+	
 		suite invocationCount * csuite
+		
+		call echoCall echo: "blah" -> returnVar
 	
 	suiteend
 	
 	suitedef csuite with
 	
-		test echo echo: "test" = wirecard_001.barcode
+		test echo echo: "test" = wirecard_001barcode
 	
 	suiteend
 	
