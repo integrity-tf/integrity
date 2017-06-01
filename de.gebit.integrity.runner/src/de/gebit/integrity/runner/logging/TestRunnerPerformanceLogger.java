@@ -56,16 +56,6 @@ public class TestRunnerPerformanceLogger {
 			.parseBoolean(System.getProperty(PERFORMANCE_LOG_ENABLE_PROPERTY, "false"));
 
 	/**
-	 * The total performance-logged timespan (only of top-level actions).
-	 */
-	private long totalTime;
-
-	/**
-	 * Counts the stack depth.
-	 */
-	private int stackCounter;
-
-	/**
 	 * Executes the provided runnable and logs the time required to execute it, if performance logging is enabled.
 	 * 
 	 * @param aCategoryName
@@ -161,16 +151,6 @@ public class TestRunnerPerformanceLogger {
 	}
 
 	/**
-	 * Logs a total number of the entire time that performance-relevant processes were running.
-	 */
-	public void logFinalSummary() {
-		if (performanceLoggingEnabled) {
-			log("TOTAL PERFORMANCE-LOGGED TIME: "
-					+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(totalTime, false, false));
-		}
-	}
-
-	/**
 	 * Logs the start of an action.
 	 * 
 	 * @param aCategoryName
@@ -180,7 +160,6 @@ public class TestRunnerPerformanceLogger {
 	 */
 	protected long logActionStart(String aCategoryName, String anActionName) {
 		log("ACTION START: " + aCategoryName + " - " + anActionName);
-		stackCounter++;
 		return System.nanoTime();
 	}
 
@@ -196,10 +175,6 @@ public class TestRunnerPerformanceLogger {
 		long tempDuration = System.nanoTime() - aStartTime;
 		log("ACTION END: " + aCategoryName + " - " + anActionName + ", DURATION: "
 				+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(tempDuration, false, false));
-		stackCounter--;
-		if (stackCounter == 0) {
-			totalTime += tempDuration;
-		}
 	}
 
 	/**

@@ -17,6 +17,7 @@ import java.util.Map;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.operations.UnexecutableException;
@@ -149,7 +150,7 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 				tempRightOperand = parseOperation((StandardOperation) tempRightOperand);
 			}
 
-			OperatorNode<?, ?> tempNewNode = createNode(tempOperator, tempLeftOperand, tempRightOperand);
+			OperatorNode<?, ?> tempNewNode = createNode(anOperation, tempOperator, tempLeftOperand, tempRightOperand);
 			tempOperands.set(tempHighestPreferencePos, tempNewNode);
 		}
 
@@ -190,9 +191,9 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	protected OperatorNode<?, ?> createNode(String anOperator, Object aLeftOperand, Object aRightOperand)
-			throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
+	protected OperatorNode<?, ?> createNode(Operation anOperation, String anOperator, Object aLeftOperand,
+			Object aRightOperand) throws SecurityException, NoSuchMethodException, IllegalArgumentException,
+			InstantiationException, IllegalAccessException, InvocationTargetException {
 		Class<? extends OperatorNode<?, ?>> tempClass = operatorNodeClasses.get(anOperator);
 		if (tempClass == null) {
 			// Actually this should never happen, but...
@@ -200,9 +201,9 @@ public abstract class AbstractModularStandardOperationProcessor implements Stand
 		}
 
 		Constructor<? extends OperatorNode<?, ?>> tempConstructor = tempClass
-				.getConstructor(new Class<?>[] { Object.class, Object.class });
+				.getConstructor(new Class<?>[] { Operation.class, Object.class, Object.class });
 
-		OperatorNode<?, ?> tempInstance = tempConstructor.newInstance(aLeftOperand, aRightOperand);
+		OperatorNode<?, ?> tempInstance = tempConstructor.newInstance(anOperation, aLeftOperand, aRightOperand);
 		injector.injectMembers(tempInstance);
 		return tempInstance;
 	}

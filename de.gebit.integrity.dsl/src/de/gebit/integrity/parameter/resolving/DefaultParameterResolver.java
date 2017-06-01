@@ -197,19 +197,24 @@ public class DefaultParameterResolver implements ParameterResolver {
 					return tempResolvedValue;
 				}
 			} else {
-				switch (anUnresolvableVariableHandlingPolicy) {
-				case KEEP_UNRESOLVED:
-					return tempVariable;
-				case RESOLVE_TO_NULL_VALUE:
+				// The variable may actually be defined to be null, so we need to rule this out
+				if (variableManager != null && variableManager.isDefined(tempVariable)) {
 					return null;
-				case RESOLVE_TO_NAME_STRING:
-					return tempVariable.getName().getName();
-				case RESOLVE_TO_UNRESOLVABLE_OBJECT:
-					return UnresolvableVariable.getInstance();
-				case EXCEPTION:
-				default:
-					throw new UnresolvableVariableException(
-							"Unresolvable variable " + tempVariable.getName().getName() + " encountered!");
+				} else {
+					switch (anUnresolvableVariableHandlingPolicy) {
+					case KEEP_UNRESOLVED:
+						return tempVariable;
+					case RESOLVE_TO_NULL_VALUE:
+						return null;
+					case RESOLVE_TO_NAME_STRING:
+						return tempVariable.getName().getName();
+					case RESOLVE_TO_UNRESOLVABLE_OBJECT:
+						return UnresolvableVariable.getInstance();
+					case EXCEPTION:
+					default:
+						throw new UnresolvableVariableException(
+								"Unresolvable variable " + tempVariable.getName().getName() + " encountered!");
+					}
 				}
 			}
 		} else if (aValue instanceof StandardOperation) {

@@ -20,7 +20,10 @@ import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * The custom operation wrapper is used to wrap a custom operation class and instance for execution. The wrapper does
@@ -120,13 +123,25 @@ public class CustomOperationWrapper {
 
 		Object tempConvertedPrefixParameter = null;
 		if (operation.getPrefixOperand() != null) {
-			tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
-					operation.getPrefixOperand(), null);
+			try {
+				tempConvertedPrefixParameter = valueConverter.convertValue(determinePrefixParameterTargetType(),
+						operation.getPrefixOperand(), new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
+			} catch (UnresolvableVariableException exc) {
+				throw new UnexecutableException(operation,
+						"Cannot evaluate custom operation: prefix operand unresolvable: " + exc.getMessage(), exc);
+			}
 		}
 		Object tempConvertedPostfixParameter = null;
 		if (operation.getPostfixOperand() != null) {
-			tempConvertedPostfixParameter = valueConverter.convertValue(determinePostfixParameterTargetType(),
-					operation.getPostfixOperand(), null);
+			try {
+				tempConvertedPostfixParameter = valueConverter.convertValue(determinePostfixParameterTargetType(),
+						operation.getPostfixOperand(), new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
+			} catch (UnresolvableVariableException exc) {
+				throw new UnexecutableException(operation,
+						"Cannot evaluate custom operation: postfix operand unresolvable: " + exc.getMessage(), exc);
+			}
 		}
 
 		return tempOperationInstance.execute(tempConvertedPrefixParameter, tempConvertedPostfixParameter);

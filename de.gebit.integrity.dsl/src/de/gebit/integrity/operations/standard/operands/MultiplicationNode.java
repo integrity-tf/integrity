@@ -9,6 +9,7 @@ package de.gebit.integrity.operations.standard.operands;
 
 import java.math.BigDecimal;
 
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.operations.UnexecutableException;
 
 /**
@@ -25,8 +26,8 @@ public class MultiplicationNode extends OperatorNode<BigDecimal, BigDecimal> {
 	 * @param aLeftOperand
 	 * @param aRightOperand
 	 */
-	public MultiplicationNode(Object aLeftOperand, Object aRightOperand) {
-		super(aLeftOperand, aRightOperand);
+	public MultiplicationNode(Operation anOperation, Object aLeftOperand, Object aRightOperand) {
+		super(anOperation, aLeftOperand, aRightOperand);
 	}
 
 	@Override

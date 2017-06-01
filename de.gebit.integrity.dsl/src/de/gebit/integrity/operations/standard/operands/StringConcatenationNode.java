@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.operations.standard.operands;
 
+import de.gebit.integrity.dsl.Operation;
+
 /**
  * Concatenates two strings.
  * 
@@ -23,8 +25,8 @@ public class StringConcatenationNode extends OperatorNode<String, String> {
 	 * @param aRightOperand
 	 *            the right operand
 	 */
-	public StringConcatenationNode(Object aLeftOperand, Object aRightOperand) {
-		super(aLeftOperand, aRightOperand);
+	public StringConcatenationNode(Operation anOperation, Object aLeftOperand, Object aRightOperand) {
+		super(anOperation, aLeftOperand, aRightOperand);
 	}
 
 	@Override

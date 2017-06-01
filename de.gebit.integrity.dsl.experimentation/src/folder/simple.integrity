@@ -7,6 +7,11 @@ packagedef mypackage with
 	forkdef fork2
 	forkdef fork3
 	
+	constant wirecard_001.identifier "10000020000100010221"
+	constant wirecard_001.gtin13 "04055018000103"
+	constant wirecard_001.manualBarcode wirecard_001.identifier
+	constant wirecard_001.barcode ("01" .. wirecard_001.gtin13 .. "90" .. wirecard_001.manualBarcode)
+	
 	constant invocationCount 2
 	
 	variable testString initially "test"
@@ -39,7 +44,7 @@ packagedef mypackage with
 	
 	suitedef csuite with
 	
-		test echo echo: "test" = testString
+		test echo echo: "test" = wirecard_001.barcode
 	
 	suiteend
 	

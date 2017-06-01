@@ -9,6 +9,7 @@ package de.gebit.integrity.operations.standard.operands;
 
 import java.math.BigDecimal;
 
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.operations.UnexecutableException;
 
 /**
@@ -26,8 +27,8 @@ public class DivisionNode extends OperatorNode<Double, Double> {
 	 * @param aLeftOperand
 	 * @param aRightOperand
 	 */
-	public DivisionNode(Object aLeftOperand, Object aRightOperand) {
-		super(aLeftOperand, aRightOperand);
+	public DivisionNode(Operation anOperation, Object aLeftOperand, Object aRightOperand) {
+		super(anOperation, aLeftOperand, aRightOperand);
 	}
 
 	@Override

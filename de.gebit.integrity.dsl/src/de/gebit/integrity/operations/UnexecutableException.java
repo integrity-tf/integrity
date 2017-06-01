@@ -13,8 +13,8 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import de.gebit.integrity.dsl.Operation;
 
 /**
- * This exception is thrown if an operation cannot be executed (usually because it depends on variables which are not
- * resolvable because no variable map was given).
+ * This exception is thrown if an operation cannot be executed (usually because it depends on variables or constants
+ * which are not resolvable, but could also be the case because of other runtime failures).
  * 
  * 
  * @author Rene Schneider - initial API and implementation
@@ -116,6 +116,12 @@ public class UnexecutableException extends Exception {
 		return super.getMessage() + " (" + getOperationLocation() + ")";
 	}
 
+	/**
+	 * Returns a string detailing the location of the problematic operation in the test scripts. Is a null value if no
+	 * location information was determinable.
+	 * 
+	 * @return a string or null
+	 */
 	public String getOperationLocation() {
 		if (operation != null) {
 			ICompositeNode tempNode = NodeModelUtils.getNode(operation);

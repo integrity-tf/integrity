@@ -12,9 +12,13 @@ import java.lang.reflect.Type;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.utils.JavaTypeUtil;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * Abstract base class for operator nodes. An operator node is a node in the AST built to evaluate
@@ -28,6 +32,11 @@ import de.gebit.integrity.utils.JavaTypeUtil;
  * 
  */
 public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
+
+	/**
+	 * The operation that this node belongs to.
+	 */
+	private Operation operation;
 
 	/**
 	 * The left operand.
@@ -53,7 +62,8 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 	 * @param aRightOperand
 	 *            the right operand
 	 */
-	public OperatorNode(Object aLeftOperand, Object aRightOperand) {
+	public OperatorNode(Operation anOperation, Object aLeftOperand, Object aRightOperand) {
+		operation = anOperation;
 		leftOperand = aLeftOperand;
 		rightOperand = aRightOperand;
 	}
@@ -99,10 +109,25 @@ public abstract class OperatorNode<LEFT extends Object, RIGHT extends Object> {
 			Class<?> tempLeftOperandType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[0];
 			Class<?> tempRightOperandType = (Class<?>) ((ParameterizedType) tempType).getActualTypeArguments()[1];
 
-			LEFT tempConvertedLeftOperand = (LEFT) valueConverter.convertValue(tempLeftOperandType,
-					getEvaluatedLeftOperand(), null);
-			RIGHT tempConvertedRightOperand = (RIGHT) valueConverter.convertValue(tempRightOperandType,
-					getEvaluatedRightOperand(), null);
+			LEFT tempConvertedLeftOperand;
+			try {
+				tempConvertedLeftOperand = (LEFT) valueConverter.convertValue(tempLeftOperandType,
+						getEvaluatedLeftOperand(), new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
+			} catch (UnresolvableVariableException exc) {
+				throw new UnexecutableException(operation,
+						"Cannot evaluate operation: left operand unresolvable: " + exc.getMessage(), exc);
+			}
+
+			RIGHT tempConvertedRightOperand;
+			try {
+				tempConvertedRightOperand = (RIGHT) valueConverter.convertValue(tempRightOperandType,
+						getEvaluatedRightOperand(), new ConversionContext()
+								.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.EXCEPTION));
+			} catch (UnresolvableVariableException exc) {
+				throw new UnexecutableException(operation,
+						"Cannot evaluate operation: right operand unresolvable: " + exc.getMessage(), exc);
+			}
 
 			return evaluateInternal(tempConvertedLeftOperand, tempConvertedRightOperand);
 		} else {

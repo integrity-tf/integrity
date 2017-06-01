@@ -9,6 +9,7 @@ package de.gebit.integrity.operations.standard.operands;
 
 import java.math.BigInteger;
 
+import de.gebit.integrity.dsl.Operation;
 import de.gebit.integrity.operations.UnexecutableException;
 
 /**
@@ -25,8 +26,8 @@ public class ModuloNode extends OperatorNode<BigInteger, BigInteger> {
 	 * @param aLeftOperand
 	 * @param aRightOperand
 	 */
-	public ModuloNode(Object aLeftOperand, Object aRightOperand) {
-		super(aLeftOperand, aRightOperand);
+	public ModuloNode(Operation anOperation, Object aLeftOperand, Object aRightOperand) {
+		super(anOperation, aLeftOperand, aRightOperand);
 	}
 
 	@Override

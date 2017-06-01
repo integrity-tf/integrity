@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -666,8 +667,6 @@ public class DefaultTestRunner implements TestRunner {
 				remotingServer.closeAll(true);
 			}
 			processTerminator.killAndWait(getChildProcessKillTimeout());
-
-			performanceLogger.logFinalSummary();
 		}
 	}
 
@@ -736,28 +735,48 @@ public class DefaultTestRunner implements TestRunner {
 	 * Initializes all constants with the values given in the scripts.
 	 */
 	protected void initializeConstants() {
-		List<ConstantDefinition> tempDelayedDefinitions = new ArrayList<ConstantDefinition>();
+		List<ConstantDefinition> tempOutstandingDefinitions = new ArrayList<ConstantDefinition>();
+		tempOutstandingDefinitions.addAll(model.getConstantDefinitionsInPackages());
 
-		for (ConstantDefinition tempConstantDef : model.getConstantDefinitionsInPackages()) {
-			// Parameterized constants have already been initialized separately, so we don't initialize them here again
-			if (tempConstantDef.getParameterized() == null) {
+		Iterator<ConstantDefinition> tempIter = tempOutstandingDefinitions.iterator();
+		while (tempIter.hasNext()) {
+			if (tempIter.next().getParameterized() != null) {
+				// Parameterized constants have already been initialized separately, so we don't initialize them here
+				// again
+				tempIter.remove();
+			}
+		}
+
+		// We now loop through the constants to be defined until the number of constants to be defined does not change
+		// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
+		boolean tempSuccess;
+		do {
+			tempSuccess = false;
+			tempIter = tempOutstandingDefinitions.iterator();
+			while (tempIter.hasNext()) {
 				try {
-					defineConstant(tempConstantDef, null);
+					ConstantDefinition tempDefinition = tempIter.next();
+					defineConstant(tempDefinition, null);
+					tempIter.remove();
+					tempSuccess = true;
 				} catch (UnexecutableException exc) {
 					// Delay definition of this constant - it most likely depends on the successful init of other
 					// constants which are used in operations that make up the value of this constant
-					tempDelayedDefinitions.add(tempConstantDef);
 				} catch (ClassNotFoundException | InstantiationException exc) {
 					throw new RuntimeException("Failed to define constant", exc);
 				}
 			}
-		}
+		} while (tempSuccess);
 
-		for (ConstantDefinition tempConstantDef : tempDelayedDefinitions) {
+		// All constants that could not be defined until now apparently miss some information and thus can't be defined.
+		// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
+		// indicating that there are more if there's more than one.
+		for (ConstantDefinition tempConstantDef : tempOutstandingDefinitions) {
 			try {
 				defineConstant(tempConstantDef, null);
 			} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
-				throw new RuntimeException("Failed to define constant", exc);
+				throw new RuntimeException("Failed to define constant" + (tempOutstandingDefinitions.size() > 1
+						? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""), exc);
 			}
 		}
 	}
@@ -1363,9 +1382,9 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite)
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
-		// the actual test run. Except if we are a fork, because in that case, we don't have a dry run before the test
-		// run, so we need to actually define the constants here!
-		if ((isFork() || currentPhase == Phase.DRY_RUN)
+		// the actual test run. Except if we are a fork, because in that case, we don't want to define the constants at
+		// all, since they are injected from the master.
+		if ((!isFork() && currentPhase == Phase.DRY_RUN)
 				|| !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
 			Object tempValue;
 			if (aValue == null) {
