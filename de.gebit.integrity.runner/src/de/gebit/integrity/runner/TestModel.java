@@ -11,13 +11,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -25,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceFactory;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Inject;
@@ -72,42 +81,43 @@ public class TestModel {
 	/**
 	 * Suite names -> Suites.
 	 */
-	protected Map<String, SuiteDefinition> suiteMap = new HashMap<String, SuiteDefinition>();
+	protected Map<String, SuiteDefinition> suiteMap = new ConcurrentHashMap<String, SuiteDefinition>();
 
 	/**
 	 * Variant names -> Variants.
 	 */
-	protected Map<String, VariantDefinition> variantMap = new HashMap<String, VariantDefinition>();
+	protected Map<String, VariantDefinition> variantMap = new ConcurrentHashMap<String, VariantDefinition>();
 
 	/**
 	 * Fork names -> Forks.
 	 */
-	protected Map<String, ForkDefinition> forkMap = new HashMap<String, ForkDefinition>();
+	protected Map<String, ForkDefinition> forkMap = new ConcurrentHashMap<String, ForkDefinition>();
 
 	/**
 	 * Call names -> Calls.
 	 */
-	protected Map<String, CallDefinition> callMap = new HashMap<String, CallDefinition>();
+	protected Map<String, CallDefinition> callMap = new ConcurrentHashMap<String, CallDefinition>();
 
 	/**
 	 * Test names -> Tests.
 	 */
-	protected Map<String, TestDefinition> testMap = new HashMap<String, TestDefinition>();
+	protected Map<String, TestDefinition> testMap = new ConcurrentHashMap<String, TestDefinition>();
 
 	/**
 	 * Variable/constant names -> Entities.
 	 */
-	protected Map<String, VariableOrConstantEntity> variableAndConstantMap = new HashMap<String, VariableOrConstantEntity>();
+	protected Map<String, VariableOrConstantEntity> variableAndConstantMap = new ConcurrentHashMap<String, VariableOrConstantEntity>();
 
 	/**
 	 * Ambiguous definitions which are found during variable/suite/etc. indexing are collected here.
 	 */
-	protected Set<AmbiguousDefinition> ambiguousDefinitions = new HashSet<AmbiguousDefinition>();
+	protected Set<AmbiguousDefinition> ambiguousDefinitions = Collections
+			.newSetFromMap(new ConcurrentHashMap<AmbiguousDefinition, Boolean>());
 
 	/**
 	 * This map is used to find duplicates which then end up in {@link #ambiguousDefinitions}.
 	 */
-	protected Map<String, AmbiguousDefinition> duplicateMap = new HashMap<String, AmbiguousDefinition>();
+	protected Map<String, AmbiguousDefinition> duplicateMap = new ConcurrentHashMap<String, AmbiguousDefinition>();
 
 	/**
 	 * The Google Guice Injector.
@@ -130,7 +140,7 @@ public class TestModel {
 	/**
 	 * All successfully loaded resources, in the order in which they were loaded.
 	 */
-	protected List<TestResource> loadedResources = new ArrayList<TestResource>();
+	protected Queue<TestResource> loadedResources = new ConcurrentLinkedQueue<TestResource>();
 
 	/**
 	 * All resource providers that this model has been filled from.
@@ -161,6 +171,31 @@ public class TestModel {
 	 */
 	protected final boolean verboseScriptLoading = Boolean
 			.parseBoolean(System.getProperty(PRINT_ALL_LOADED_SCRIPTS_PROPERTY, "false"));
+
+	/**
+	 * The system property that allows to override the number of threads used to do some time-critical sections in the
+	 * test runner, such as defining constants and variables.
+	 */
+	protected static final String MULTITHREADED_SECTIONS_THREAD_COUNT_PROPERTY = "integrity.runner.threadcount";
+
+	/**
+	 * Returns the number of threads to use during multithreaded sections, such as defining constants and variables.
+	 * This public method is located here for practical reasons - the test model and test runner both need this
+	 * information, but the model needs it first, so I've placed it here.
+	 */
+	public int getMultithreadedSectionsThreadCount() {
+		return System.getProperty(MULTITHREADED_SECTIONS_THREAD_COUNT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(MULTITHREADED_SECTIONS_THREAD_COUNT_PROPERTY))
+				: getMultithreadedSectionsThreadCountDefault();
+	}
+
+	/**
+	 * Returns the default number of threads to use during multithreaded sections, such as defining constants and
+	 * variables.
+	 */
+	protected int getMultithreadedSectionsThreadCountDefault() {
+		return Runtime.getRuntime().availableProcessors();
+	}
 
 	/**
 	 * Adds all given Integrity script files to the test model.
@@ -241,7 +276,11 @@ public class TestModel {
 			}
 		}
 
-		models.add(aModel);
+		// Synchronizing this manually here because it's much faster. We know this list will not be modified except in
+		// this place, so using a fully synced list would be bad performance-wise for later accesses.
+		synchronized (models) {
+			models.add(aModel);
+		}
 	}
 
 	/**
@@ -271,41 +310,52 @@ public class TestModel {
 					public void run() throws ModelLoadException {
 						TestResource[] tempAllResources = aResourceProvider.getResourceNames();
 
-						System.out.println("Now loading " + tempAllResources.length + " test script(s)...");
+						int tempNumberOfThreads = getMultithreadedSectionsThreadCount();
+						if (tempNumberOfThreads > tempAllResources.length) {
+							tempNumberOfThreads = tempAllResources.length;
+						}
 
-						for (TestResource tempResourceName : tempAllResources) {
-							URI tempUri = tempResourceName.createPlatformResourceURI();
-							XtextResource tempResource = (XtextResource) tempResourceFactory.createResource(tempUri);
-							tempResourceSet.getResources().add(tempResource);
-							try {
-								InputStream tempStream = aResourceProvider.openResource(tempResourceName);
-								try {
-									tempResource.load(tempStream, null);
-								} finally {
-									aResourceProvider.closeResource(tempResourceName, tempStream);
+						System.out.println("Now loading " + tempAllResources.length + " test script(s) using "
+								+ tempNumberOfThreads + " threads...");
+
+						ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
+						List<Future<List<Diagnostic>>> tempFutures = new ArrayList<>(tempAllResources.length);
+						for (final TestResource tempResourceName : tempAllResources) {
+							tempFutures.add(tempExecutor.submit(new Callable<List<Diagnostic>>() {
+
+								@Override
+								public List<Diagnostic> call() throws Exception {
+									return loadSingleResource(aResourceProvider, tempResourceName, tempResourceSet,
+											tempResourceFactory, verboseScriptLoading);
 								}
-							} catch (IOException exc) {
-								throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
-							}
 
-							boolean tempPrintLine = (verboseScriptLoading
-									|| tempAllResources.length <= MAX_SCRIPT_COUNT_AUTO_VERBOSE_LOADING
-									|| tempResource.getErrors().size() > 0);
-							if (tempPrintLine) {
-								@SuppressWarnings("resource")
-								PrintStream tempOut = (tempResource.getErrors().size() > 0 ? System.err : System.out);
-								tempOut.println("Loaded Integrity Model File '" + tempResourceName + "': "
-										+ tempResource.getErrors().size() + " errors.");
-							}
-							tempErrors.addAll(tempResource.getErrors());
+							}));
+						}
 
-							Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
-							if (tempModel != null) {
-								// may be null in case of an empty file
-								addIntegrityScriptModel(tempModel);
-							}
+						tempExecutor.shutdown();
+						try {
+							// Practically we want to wait forever, but since that's not possible...
+							tempExecutor.awaitTermination(1, TimeUnit.DAYS);
+						} catch (InterruptedException exc) {
+							throw new ModelLoadException("Was interrupted while waiting for scripts to load", exc);
+						}
 
-							loadedResources.add(tempResourceName);
+						for (Future<List<Diagnostic>> tempFuture : tempFutures) {
+							try {
+								tempErrors.addAll(tempFuture.get());
+							} catch (InterruptedException exc) {
+								throw new ModelLoadException("Was interrupted while waiting for scripts to load", exc);
+							} catch (ExecutionException exc) {
+								// Execution exceptions contain most likely model load exceptions. We rethrow the first
+								// one that we find.
+								if (exc.getCause() instanceof ModelLoadException) {
+									throw (ModelLoadException) exc.getCause();
+								} else {
+									// Anything else is thrown as a runtime exception. Should not happen too often
+									// though...
+									throw new RuntimeException(exc.getCause());
+								}
+							}
 						}
 
 						System.out.println("Finished loading " + tempAllResources.length + " test script(s) with "
@@ -320,20 +370,90 @@ public class TestModel {
 		return tempErrors;
 	}
 
+	/**
+	 * This sync object is used to synchronize access to {@link XtextResourceFactory}, {@link XtextResource} and
+	 * {@link XtextResourceSet}. I'm not sure if those are parallelizable, so better be safe than sorry.
+	 */
+	protected Object resourceLoadingSyncObject = new Object();
+
+	/**
+	 * Used to synchronize potential printouts - printing to stdout with multiple threads can quickly lead to chaos.
+	 */
+	protected Object statusOutputSyncObject = new Object();
+
+	/**
+	 * Loads a single {@link TestResource} from the given {@link TestResourceProvider}. This method is deliberately
+	 * designed to be thread-safe and shall be invoked in parallel for parallelized script loading.
+	 * 
+	 * @param aResourceProvider
+	 *            the resource provider to load from
+	 * @param aResourceName
+	 *            the resource to load
+	 * @param aResourceSet
+	 *            the resource set to add the resource to
+	 * @param aResourceFactory
+	 *            the resource factory to use
+	 * @param aVerboseFlag
+	 *            whether to make verbose output
+	 * @return a list of errors
+	 * @throws ModelLoadException
+	 */
+	protected List<Diagnostic> loadSingleResource(TestResourceProvider aResourceProvider, TestResource aResourceName,
+			XtextResourceSet aResourceSet, IResourceFactory aResourceFactory, boolean aVerboseFlag)
+			throws ModelLoadException {
+		XtextResource tempResource;
+
+		try {
+			InputStream tempStream;
+			synchronized (resourceLoadingSyncObject) {
+				URI tempUri = aResourceName.createPlatformResourceURI();
+				tempResource = (XtextResource) aResourceFactory.createResource(tempUri);
+				aResourceSet.getResources().add(tempResource);
+
+				tempStream = aResourceProvider.openResource(aResourceName);
+			}
+			try {
+				tempResource.load(tempStream, null);
+			} finally {
+				synchronized (aResourceProvider) {
+					aResourceProvider.closeResource(aResourceName, tempStream);
+				}
+			}
+		} catch (IOException exc) {
+			throw new ModelLoadException("Encountered an I/O problem during model parsing.", exc);
+		}
+
+		synchronized (statusOutputSyncObject) {
+			boolean tempPrintLine = (aVerboseFlag || tempResource.getErrors().size() > 0);
+			if (tempPrintLine) {
+				@SuppressWarnings("resource")
+				PrintStream tempOut = (tempResource.getErrors().size() > 0 ? System.err : System.out);
+				tempOut.println("Loaded Integrity Model File '" + aResourceName + "': "
+						+ tempResource.getErrors().size() + " errors.");
+			}
+		}
+
+		Model tempModel = (Model) tempResource.getParseResult().getRootASTElement();
+		if (tempModel != null) {
+			// may be null in case of an empty file
+			addIntegrityScriptModel(tempModel);
+		}
+
+		loadedResources.add(aResourceName);
+
+		return tempResource.getErrors();
+	}
+
 	public List<Model> getModels() {
 		return models;
 	}
 
 	public List<TestResource> getLoadedResources() {
-		return loadedResources;
+		return new ArrayList<>(loadedResources);
 	}
 
 	public List<TestResourceProvider> getLoadedResourceProviders() {
-		return loadedResourceProviders;
-	}
-
-	public Map<String, SuiteDefinition> getSuiteMap() {
-		return suiteMap;
+		return new ArrayList<>(loadedResourceProviders);
 	}
 
 	public Set<AmbiguousDefinition> getDuplicateDefinitions() {
