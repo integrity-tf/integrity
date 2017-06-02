@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.BindException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
@@ -25,6 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -320,6 +326,12 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected ClassLoader javaClassLoader;
+
+	/**
+	 * A synchronization object used to sync single-threaded sections of the initial constant and variable
+	 * definition/resolving process. This process is parallelized, but some sections can't, which are synced by this.
+	 */
+	protected Object constantAndVariableDefinitionSyncObject = new Object();
 
 	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
@@ -718,81 +730,199 @@ public class DefaultTestRunner implements TestRunner {
 	 * Initializes the parameterized constants from the {@link #parameterizedConstantValues} map.
 	 */
 	protected void initializeParameterizedConstants() {
-		for (ConstantDefinition tempConstant : model.getConstantDefinitionsInPackages()) {
-			String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempConstant.getName(), false);
-			String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName) : null;
-			if (tempConstant.getParameterized() != null) {
+		// We first initialize the parameterized constants, since those are often dependencies for non-parameterized
+		// ones. It's not possible for this dependency to be the other way round.
+		List<ConstantDefinition> tempOutstandingDefinitions = new ArrayList<ConstantDefinition>();
+		for (ConstantDefinition tempDefinition : model.getConstantDefinitionsInPackages()) {
+			if (tempDefinition.getParameterized() != null) {
+				tempOutstandingDefinitions.add(tempDefinition);
+			}
+		}
+
+		performParallelInitialization(tempOutstandingDefinitions, new ParallelInitCallable<ConstantDefinition>() {
+
+			@Override
+			public void run(ConstantDefinition anObjectToInit)
+					throws UnexecutableException, ClassNotFoundException, InstantiationException {
+				String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anObjectToInit.getName(), false);
+				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
+						: null;
 				try {
-					defineConstant(tempConstant, tempValue, (tempConstant.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempConstant.eContainer()) : null);
+					defineConstant(anObjectToInit, tempValue, (anObjectToInit.eContainer() instanceof SuiteDefinition)
+							? ((SuiteDefinition) anObjectToInit.eContainer()) : null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
-			} else {
-				if (tempValue != null) {
-					throw new IllegalArgumentException("Constant '" + tempName
-							+ "' is not defined as 'parameterized' in test scripts, but parameter data was specified.");
-				}
 			}
-		}
+		});
 	}
 
 	/**
-	 * Initializes all constants with the values given in the scripts.
+	 * Initializes all (non-parameterized) constants with the values given in the scripts.
 	 */
 	protected void initializeConstants() {
+		// Parameterized constants have been already defined separately.
 		List<ConstantDefinition> tempOutstandingDefinitions = new ArrayList<ConstantDefinition>();
-		tempOutstandingDefinitions.addAll(model.getConstantDefinitionsInPackages());
-
-		Iterator<ConstantDefinition> tempIter = tempOutstandingDefinitions.iterator();
-		while (tempIter.hasNext()) {
-			if (tempIter.next().getParameterized() != null) {
-				// Parameterized constants have already been initialized separately, so we don't initialize them here
-				// again
-				tempIter.remove();
+		for (ConstantDefinition tempDefinition : model.getConstantDefinitionsInPackages()) {
+			if (tempDefinition.getParameterized() == null) {
+				tempOutstandingDefinitions.add(tempDefinition);
 			}
 		}
 
-		// We now loop through the constants to be defined until the number of constants to be defined does not change
-		// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
-		boolean tempSuccess;
-		do {
-			tempSuccess = false;
-			tempIter = tempOutstandingDefinitions.iterator();
-			while (tempIter.hasNext()) {
-				try {
-					ConstantDefinition tempDefinition = tempIter.next();
-					defineConstant(tempDefinition, null);
-					tempIter.remove();
-					tempSuccess = true;
-				} catch (UnexecutableException exc) {
-					// Delay definition of this constant - it most likely depends on the successful init of other
-					// constants which are used in operations that make up the value of this constant
-				} catch (ClassNotFoundException | InstantiationException exc) {
-					throw new RuntimeException("Failed to define constant", exc);
-				}
-			}
-		} while (tempSuccess);
+		performParallelInitialization(tempOutstandingDefinitions, new ParallelInitCallable<ConstantDefinition>() {
 
-		// All constants that could not be defined until now apparently miss some information and thus can't be defined.
-		// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
-		// indicating that there are more if there's more than one.
-		for (ConstantDefinition tempConstantDef : tempOutstandingDefinitions) {
-			try {
-				defineConstant(tempConstantDef, null);
-			} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
-				throw new RuntimeException("Failed to define constant" + (tempOutstandingDefinitions.size() > 1
-						? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""), exc);
+			@Override
+			public void run(ConstantDefinition anObjectToInit)
+					throws UnexecutableException, ClassNotFoundException, InstantiationException {
+				defineConstant(anObjectToInit, null);
 			}
-		}
+		});
 	}
 
 	/**
 	 * Initializes all variables with the initial values given in the scripts.
 	 */
 	protected void initializeVariables() {
-		for (VariableDefinition tempVariableDef : model.getVariableDefinitionsInPackages()) {
-			defineVariable(tempVariableDef, null);
+		performParallelInitialization(model.getVariableDefinitionsInPackages(),
+				new ParallelInitCallable<VariableDefinition>() {
+
+					@Override
+					public void run(VariableDefinition anObjectToInit)
+							throws UnexecutableException, ClassNotFoundException, InstantiationException {
+						defineVariable(anObjectToInit, null);
+					}
+				});
+	}
+
+	/**
+	 * Helper interface for {@link DefaultTestRunner#performParallelInitialization(List)}.
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 * @param <P>
+	 *            the type to init
+	 */
+	protected interface ParallelInitCallable<P extends EObject> {
+
+		/**
+		 * This method should perform the required init. This is expected to succeed on success, and throw an exception
+		 * on failure. It is also expected to be runnable in parallel with multiple threads!
+		 * 
+		 * @param anObjectToInit
+		 *            the object to init
+		 */
+		void run(P anObjectToInit) throws UnexecutableException, ClassNotFoundException, InstantiationException;
+
+	}
+
+	/**
+	 * This method provides the actual logic to perform parallel initialization of constants and variables. It is
+	 * designed in an abstract way, such that it may be used to init all the necessary types.
+	 * 
+	 * @param someThingsToInitialize
+	 *            what it shall initialize
+	 * @param aCallable
+	 *            a callable doing the init
+	 */
+	protected <T extends EObject> void performParallelInitialization(Collection<T> someThingsToInitialize,
+			final ParallelInitCallable<T> aCallable) {
+		List<T> tempOutstandingDefinitions = new LinkedList<T>(someThingsToInitialize);
+		int tempTotalCount = tempOutstandingDefinitions.size();
+		if (tempTotalCount == 0) {
+			return;
+		}
+
+		// In the first step, we attempt to initialize as many <T>s as possible in parallel. This could probably
+		// fail for some, either due to concurrency or interdependency problems, but we'll collect all those failures
+		// and proceed with them later...
+		int tempNumberOfThreads = model.getMultithreadedSectionsThreadCount();
+		if (tempNumberOfThreads > tempTotalCount) {
+			tempNumberOfThreads = tempTotalCount;
+		}
+		ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
+		List<Future<Boolean>> tempFutures = new ArrayList<>(tempTotalCount);
+		Iterator<T> tempIter = tempOutstandingDefinitions.iterator();
+		while (tempIter.hasNext()) {
+			final T tempDefinition = tempIter.next();
+			tempFutures.add(tempExecutor.submit(new Callable<Boolean>() {
+
+				@Override
+				public Boolean call() throws Exception {
+					try {
+						aCallable.run(tempDefinition);
+						return true;
+					} catch (UnexecutableException exc) {
+						// Delay definition of this <T> - it most likely depends on the successful init of other
+						// <T>s which are used in operations that make up the value of this constant
+						return false;
+					} catch (ClassNotFoundException | InstantiationException exc) {
+						throw exc;
+					}
+				}
+
+			}));
+		}
+		tempExecutor.shutdown();
+		try {
+			// Practically we want to wait forever, but since that's not possible...
+			tempExecutor.awaitTermination(1, TimeUnit.DAYS);
+
+			// The futures are sorted in the same way as the original <T>s. This is important here!
+			tempIter = tempOutstandingDefinitions.iterator();
+			Iterator<Future<Boolean>> tempFutureIter = tempFutures.iterator();
+			while (tempIter.hasNext()) {
+				T tempDefinition = tempIter.next();
+				try {
+					if (tempFutureIter.next().get()) {
+						// This definition was successful -> remove corresponding object from list
+						tempIter.remove();
+					}
+				} catch (ExecutionException exc) {
+					if (exc.getCause() instanceof RuntimeException) {
+						throw (RuntimeException) exc.getCause();
+					} else {
+						throw new RuntimeException("Failed to define " + tempDefinition, exc.getCause());
+					}
+				}
+			}
+		} catch (InterruptedException exc) {
+			throw new RuntimeException("Was interrupted while defining constants/variables", exc);
+		}
+
+		// This is the end of the parallel execution cycle. The remaining <T>s are initialized in a serialized
+		// fashion in order to eliminate possible problems during init and to guarantee that we eventually reach a fully
+		// initialized state (if at all possible with regard to <T> interdependency).
+		// We now loop through the <T>s to be defined until the number of <T>s to be defined does not change
+		// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
+		boolean tempSuccess;
+		do {
+			tempSuccess = false;
+			tempIter = tempOutstandingDefinitions.iterator();
+			while (tempIter.hasNext()) {
+				T tempDefinition = tempIter.next();
+				try {
+					aCallable.run(tempDefinition);
+					tempIter.remove();
+					tempSuccess = true;
+				} catch (UnexecutableException exc) {
+					// Delay definition of this constant - it most likely depends on the successful init of other
+					// constants which are used in operations that make up the value of this constant
+				} catch (ClassNotFoundException | InstantiationException exc) {
+					throw new RuntimeException("Failed to define " + tempDefinition, exc);
+				}
+			}
+		} while (tempSuccess);
+
+		// All <T>s that could not be defined until now apparently miss some information and thus can't be defined.
+		// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
+		// indicating that there are more if there's more than one.
+		for (T tempDefinition : tempOutstandingDefinitions) {
+			try {
+				aCallable.run(tempDefinition);
+			} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
+				throw new RuntimeException("Failed to define constant/variable" + (tempOutstandingDefinitions.size() > 1
+						? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""), exc);
+			}
 		}
 	}
 
@@ -1405,12 +1535,14 @@ public class DefaultTestRunner implements TestRunner {
 			// The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
 			// need to perform that call, basically just as if we had determined the value just now.
 			if (currentCallback != null) {
-				Object tempConstantValue = variableManager.get(aDefinition.getName());
-				if (tempConstantValue != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
-							(aDefinition.getParameterized() != null));
-					currentCallback.onCallbackProcessingEnd();
+				synchronized (constantAndVariableDefinitionSyncObject) {
+					Object tempConstantValue = variableManager.get(aDefinition.getName());
+					if (tempConstantValue != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
+								(aDefinition.getParameterized() != null));
+						currentCallback.onCallbackProcessingEnd();
+					}
 				}
 			}
 		}
@@ -1436,14 +1568,16 @@ public class DefaultTestRunner implements TestRunner {
 
 		setVariableValue(anEntity, tempInitialValue, false);
 		if (currentCallback != null) {
-			currentCallback.onCallbackProcessingStart();
-			if (anEntity instanceof VariableEntity) {
-				currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
-			} else if (anEntity instanceof ConstantEntity) {
-				currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
-						(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
+			synchronized (constantAndVariableDefinitionSyncObject) {
+				currentCallback.onCallbackProcessingStart();
+				if (anEntity instanceof VariableEntity) {
+					currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
+				} else if (anEntity instanceof ConstantEntity) {
+					currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
+							(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
+				}
+				currentCallback.onCallbackProcessingEnd();
 			}
-			currentCallback.onCallbackProcessingEnd();
 		}
 	}
 

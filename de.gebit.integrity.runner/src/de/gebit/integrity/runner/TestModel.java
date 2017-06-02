@@ -120,6 +120,18 @@ public class TestModel {
 	protected Map<String, AmbiguousDefinition> duplicateMap = new ConcurrentHashMap<String, AmbiguousDefinition>();
 
 	/**
+	 * Stores an ordered list of global constant definitions. This is intended as a cache - if it's null, it must be
+	 * recreated.
+	 */
+	protected TreeSet<ConstantDefinition> constantDefinitionsInPackages;
+
+	/**
+	 * Stores an ordered list of global variable definitions. This is intended as a cache - if it's null, it must be
+	 * recreated.
+	 */
+	protected TreeSet<VariableDefinition> variableDefinitionsInPackages;
+
+	/**
 	 * The Google Guice Injector.
 	 */
 	@Inject
@@ -366,6 +378,8 @@ public class TestModel {
 
 		loadedResourceProviders.add(aResourceProvider);
 		inMemoryResourceProviders = null;
+		constantDefinitionsInPackages = null;
+		variableDefinitionsInPackages = null;
 
 		return tempErrors;
 	}
@@ -510,32 +524,32 @@ public class TestModel {
 	 * @return a set of variable definitions (sorted by fully qualified name)
 	 */
 	public TreeSet<VariableDefinition> getVariableDefinitionsInPackages() {
-		TreeSet<VariableDefinition> tempResultSet = new TreeSet<VariableDefinition>(
-				new Comparator<VariableDefinition>() {
+		if (variableDefinitionsInPackages == null) {
+			variableDefinitionsInPackages = new TreeSet<VariableDefinition>(new Comparator<VariableDefinition>() {
 
-					@Override
-					public int compare(VariableDefinition aFirst, VariableDefinition aSecond) {
-						String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
-						String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(),
-								false);
+				@Override
+				public int compare(VariableDefinition aFirst, VariableDefinition aSecond) {
+					String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
+					String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(), false);
 
-						return tempFirstName.compareTo(tempSecondName);
-					}
-				});
+					return tempFirstName.compareTo(tempSecondName);
+				}
+			});
 
-		for (Model tempModel : models) {
-			TreeIterator<EObject> tempIter = tempModel.eAllContents();
-			while (tempIter.hasNext()) {
-				EObject tempObject = tempIter.next();
-				if (tempObject instanceof VariableDefinition) {
-					if (tempObject.eContainer() instanceof PackageDefinition) {
-						tempResultSet.add((VariableDefinition) tempObject);
+			for (Model tempModel : models) {
+				TreeIterator<EObject> tempIter = tempModel.eAllContents();
+				while (tempIter.hasNext()) {
+					EObject tempObject = tempIter.next();
+					if (tempObject instanceof VariableDefinition) {
+						if (tempObject.eContainer() instanceof PackageDefinition) {
+							variableDefinitionsInPackages.add((VariableDefinition) tempObject);
+						}
 					}
 				}
 			}
 		}
 
-		return tempResultSet;
+		return variableDefinitionsInPackages;
 	}
 
 	/**
@@ -544,32 +558,32 @@ public class TestModel {
 	 * @return a set of constant definitions (sorted by fully qualified name)
 	 */
 	public TreeSet<ConstantDefinition> getConstantDefinitionsInPackages() {
-		TreeSet<ConstantDefinition> tempResultSet = new TreeSet<ConstantDefinition>(
-				new Comparator<ConstantDefinition>() {
+		if (constantDefinitionsInPackages == null) {
+			constantDefinitionsInPackages = new TreeSet<ConstantDefinition>(new Comparator<ConstantDefinition>() {
 
-					@Override
-					public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
-						String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
-						String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(),
-								false);
+				@Override
+				public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
+					String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
+					String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(), false);
 
-						return tempFirstName.compareTo(tempSecondName);
-					}
-				});
+					return tempFirstName.compareTo(tempSecondName);
+				}
+			});
 
-		for (Model tempModel : models) {
-			TreeIterator<EObject> tempIter = tempModel.eAllContents();
-			while (tempIter.hasNext()) {
-				EObject tempObject = tempIter.next();
-				if (tempObject instanceof ConstantDefinition) {
-					if (tempObject.eContainer() instanceof PackageDefinition) {
-						tempResultSet.add((ConstantDefinition) tempObject);
+			for (Model tempModel : models) {
+				TreeIterator<EObject> tempIter = tempModel.eAllContents();
+				while (tempIter.hasNext()) {
+					EObject tempObject = tempIter.next();
+					if (tempObject instanceof ConstantDefinition) {
+						if (tempObject.eContainer() instanceof PackageDefinition) {
+							constantDefinitionsInPackages.add((ConstantDefinition) tempObject);
+						}
 					}
 				}
 			}
 		}
 
-		return tempResultSet;
+		return constantDefinitionsInPackages;
 	}
 
 	/**

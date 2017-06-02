@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -45,7 +46,34 @@ public class DefaultVariableManager implements VariableManager {
 	/**
 	 * The map used to store variables.
 	 */
-	protected Map<VariableOrConstantEntity, Object> variableMap = new HashMap<VariableOrConstantEntity, Object>();
+	protected Map<VariableOrConstantEntity, Object> variableMap = new ConcurrentHashMap<VariableOrConstantEntity, Object>();
+
+	/**
+	 * This is a special null-representing object to be used to insert a logical "null" value into {@link #variableMap}
+	 * (ConcurrentHashMap is important for performance purposes during concurrent variable/constant init, but does not
+	 * support null values, which we unfortunately need).
+	 */
+	protected static final Object NULL = new Object();
+
+	/**
+	 * Helper method for {@link #NULL}.
+	 * 
+	 * @param aValue
+	 * @return
+	 */
+	protected static Object makeNull(Object aValue) {
+		return (aValue == null) ? NULL : aValue;
+	}
+
+	/**
+	 * Helper method for {@link #NULL}.
+	 * 
+	 * @param aValue
+	 * @return
+	 */
+	protected static Object restoreNull(Object aValue) {
+		return (aValue == NULL) ? null : aValue;
+	}
 
 	/**
 	 * The current test model.
@@ -67,8 +95,7 @@ public class DefaultVariableManager implements VariableManager {
 
 	@Override
 	public Object get(VariableOrConstantEntity anEntity) {
-		Object tempValue = variableMap.get(anEntity);
-		return tempValue;
+		return restoreNull(variableMap.get(anEntity));
 	}
 
 	@Override
@@ -148,7 +175,7 @@ public class DefaultVariableManager implements VariableManager {
 				throw new RuntimeException("Illegal attempt to redefine a constant: " + anEntity.getName());
 			}
 		}
-		variableMap.put(anEntity, aValue);
+		variableMap.put(anEntity, makeNull(aValue));
 	}
 
 	@Override
@@ -161,7 +188,7 @@ public class DefaultVariableManager implements VariableManager {
 		Map<String, Object> tempResult = new HashMap<>();
 
 		for (Entry<VariableOrConstantEntity, Object> tempEntry : variableMap.entrySet()) {
-			Object tempValue = tempEntry.getValue();
+			Object tempValue = restoreNull(tempEntry.getValue());
 			try {
 				tempValue = valueConverter.convertValue(null, tempValue, null);
 			} catch (UnresolvableVariableException | UnexecutableException exc) {
