@@ -16,6 +16,7 @@ import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,8 +26,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,6 +44,8 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.util.Pair;
+import org.eclipse.xtext.util.Tuples;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -328,10 +333,14 @@ public class DefaultTestRunner implements TestRunner {
 	protected ClassLoader javaClassLoader;
 
 	/**
-	 * A synchronization object used to sync single-threaded sections of the initial constant and variable
-	 * definition/resolving process. This process is parallelized, but some sections can't, which are synced by this.
+	 * This list is used to collect invocations to callbacks during a parallel constant/variable definition phase.
+	 * Callbacks are not expected to be thread-safe, so we need to synchronize those calls anyway, and we want to have
+	 * them in deterministic order, so we have to sort them by the variable/constant name.<br>
+	 * <br>
+	 * The existence of this queue defines that all callback invocations should be delayed. If it does not exist,
+	 * immediate invocation is necessary.
 	 */
-	protected Object constantAndVariableDefinitionSyncObject = new Object();
+	protected Queue<Pair<String, Runnable>> constantAndVariableDefinitionDelayedCallbackInvocations;
 
 	/**
 	 * If this JVM instance is executing a fork, the name is stored here.
@@ -832,97 +841,126 @@ public class DefaultTestRunner implements TestRunner {
 			return;
 		}
 
-		// In the first step, we attempt to initialize as many <T>s as possible in parallel. This could probably
-		// fail for some, either due to concurrency or interdependency problems, but we'll collect all those failures
-		// and proceed with them later...
-		int tempNumberOfThreads = model.getMultithreadedSectionsThreadCount();
-		if (tempNumberOfThreads > tempTotalCount) {
-			tempNumberOfThreads = tempTotalCount;
-		}
-		ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
-		List<Future<Boolean>> tempFutures = new ArrayList<>(tempTotalCount);
-		Iterator<T> tempIter = tempOutstandingDefinitions.iterator();
-		while (tempIter.hasNext()) {
-			final T tempDefinition = tempIter.next();
-			tempFutures.add(tempExecutor.submit(new Callable<Boolean>() {
+		boolean tempReachedEndOfTryBlock = false;
+		constantAndVariableDefinitionDelayedCallbackInvocations = new ConcurrentLinkedQueue<>();
+		try {
+			// In the first step, we attempt to initialize as many <T>s as possible in parallel. This could probably
+			// fail for some, either due to concurrency or interdependency problems, but we'll collect all those
+			// failures
+			// and proceed with them later...
+			int tempNumberOfThreads = model.getMultithreadedSectionsThreadCount();
+			if (tempNumberOfThreads > tempTotalCount) {
+				tempNumberOfThreads = tempTotalCount;
+			}
+			ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
+			List<Future<Boolean>> tempFutures = new ArrayList<>(tempTotalCount);
+			Iterator<T> tempIter = tempOutstandingDefinitions.iterator();
+			while (tempIter.hasNext()) {
+				final T tempDefinition = tempIter.next();
+				tempFutures.add(tempExecutor.submit(new Callable<Boolean>() {
 
-				@Override
-				public Boolean call() throws Exception {
+					@Override
+					public Boolean call() throws Exception {
+						try {
+							aCallable.run(tempDefinition);
+							return true;
+						} catch (UnexecutableException exc) {
+							// Delay definition of this <T> - it most likely depends on the successful init of other
+							// <T>s which are used in operations that make up the value of this constant
+							return false;
+						} catch (ClassNotFoundException | InstantiationException exc) {
+							throw exc;
+						}
+					}
+
+				}));
+			}
+			tempExecutor.shutdown();
+			try {
+				// Practically we want to wait forever, but since that's not possible...
+				tempExecutor.awaitTermination(1, TimeUnit.DAYS);
+
+				// The futures are sorted in the same way as the original <T>s. This is important here!
+				tempIter = tempOutstandingDefinitions.iterator();
+				Iterator<Future<Boolean>> tempFutureIter = tempFutures.iterator();
+				while (tempIter.hasNext()) {
+					T tempDefinition = tempIter.next();
+					try {
+						if (tempFutureIter.next().get()) {
+							// This definition was successful -> remove corresponding object from list
+							tempIter.remove();
+						}
+					} catch (ExecutionException exc) {
+						if (exc.getCause() instanceof RuntimeException) {
+							throw (RuntimeException) exc.getCause();
+						} else {
+							throw new RuntimeException("Failed to define " + tempDefinition, exc.getCause());
+						}
+					}
+				}
+			} catch (InterruptedException exc) {
+				throw new RuntimeException("Was interrupted while defining constants/variables", exc);
+			}
+
+			// This is the end of the parallel execution cycle. The remaining <T>s are initialized in a serialized
+			// fashion in order to eliminate possible problems during init and to guarantee that we eventually reach a
+			// fully initialized state (if at all possible with regard to <T> interdependency).
+			// We now loop through the <T>s to be defined until the number of <T>s to be defined does not change
+			// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
+			boolean tempSuccess;
+			do {
+				tempSuccess = false;
+				tempIter = tempOutstandingDefinitions.iterator();
+				while (tempIter.hasNext()) {
+					T tempDefinition = tempIter.next();
 					try {
 						aCallable.run(tempDefinition);
-						return true;
-					} catch (UnexecutableException exc) {
-						// Delay definition of this <T> - it most likely depends on the successful init of other
-						// <T>s which are used in operations that make up the value of this constant
-						return false;
-					} catch (ClassNotFoundException | InstantiationException exc) {
-						throw exc;
-					}
-				}
-
-			}));
-		}
-		tempExecutor.shutdown();
-		try {
-			// Practically we want to wait forever, but since that's not possible...
-			tempExecutor.awaitTermination(1, TimeUnit.DAYS);
-
-			// The futures are sorted in the same way as the original <T>s. This is important here!
-			tempIter = tempOutstandingDefinitions.iterator();
-			Iterator<Future<Boolean>> tempFutureIter = tempFutures.iterator();
-			while (tempIter.hasNext()) {
-				T tempDefinition = tempIter.next();
-				try {
-					if (tempFutureIter.next().get()) {
-						// This definition was successful -> remove corresponding object from list
 						tempIter.remove();
-					}
-				} catch (ExecutionException exc) {
-					if (exc.getCause() instanceof RuntimeException) {
-						throw (RuntimeException) exc.getCause();
-					} else {
-						throw new RuntimeException("Failed to define " + tempDefinition, exc.getCause());
+						tempSuccess = true;
+					} catch (UnexecutableException exc) {
+						// Delay definition of this constant - it most likely depends on the successful init of other
+						// constants which are used in operations that make up the value of this constant
+					} catch (ClassNotFoundException | InstantiationException exc) {
+						throw new RuntimeException("Failed to define " + tempDefinition, exc);
 					}
 				}
-			}
-		} catch (InterruptedException exc) {
-			throw new RuntimeException("Was interrupted while defining constants/variables", exc);
-		}
+			} while (tempSuccess);
 
-		// This is the end of the parallel execution cycle. The remaining <T>s are initialized in a serialized
-		// fashion in order to eliminate possible problems during init and to guarantee that we eventually reach a fully
-		// initialized state (if at all possible with regard to <T> interdependency).
-		// We now loop through the <T>s to be defined until the number of <T>s to be defined does not change
-		// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
-		boolean tempSuccess;
-		do {
-			tempSuccess = false;
-			tempIter = tempOutstandingDefinitions.iterator();
-			while (tempIter.hasNext()) {
-				T tempDefinition = tempIter.next();
+			// All <T>s that could not be defined until now apparently miss some information and thus can't be defined.
+			// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
+			// indicating that there are more if there's more than one.
+			for (T tempDefinition : tempOutstandingDefinitions) {
 				try {
 					aCallable.run(tempDefinition);
-					tempIter.remove();
-					tempSuccess = true;
-				} catch (UnexecutableException exc) {
-					// Delay definition of this constant - it most likely depends on the successful init of other
-					// constants which are used in operations that make up the value of this constant
-				} catch (ClassNotFoundException | InstantiationException exc) {
-					throw new RuntimeException("Failed to define " + tempDefinition, exc);
+				} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
+					throw new RuntimeException(
+							"Failed to define constant/variable" + (tempOutstandingDefinitions.size() > 1
+									? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""),
+							exc);
 				}
 			}
-		} while (tempSuccess);
 
-		// All <T>s that could not be defined until now apparently miss some information and thus can't be defined.
-		// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
-		// indicating that there are more if there's more than one.
-		for (T tempDefinition : tempOutstandingDefinitions) {
-			try {
-				aCallable.run(tempDefinition);
-			} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
-				throw new RuntimeException("Failed to define constant/variable" + (tempOutstandingDefinitions.size() > 1
-						? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""), exc);
+			tempReachedEndOfTryBlock = true;
+		} finally {
+			if (tempReachedEndOfTryBlock) {
+				// If we have not run into an exception, sort the outstanding callback invocations by variable name (so
+				// they are deterministic, even though the actual definitions aren't) and then execute them.
+				List<Pair<String, Runnable>> tempInvocationList = new ArrayList<Pair<String, Runnable>>(
+						constantAndVariableDefinitionDelayedCallbackInvocations);
+
+				Collections.sort(tempInvocationList, new Comparator<Pair<String, Runnable>>() {
+
+					@Override
+					public int compare(Pair<String, Runnable> aFirst, Pair<String, Runnable> aSecond) {
+						return aFirst.getFirst().compareTo(aSecond.getFirst());
+					}
+				});
+
+				for (Pair<String, Runnable> tempInvocation : tempInvocationList) {
+					tempInvocation.getSecond().run();
+				}
 			}
+			constantAndVariableDefinitionDelayedCallbackInvocations = null;
 		}
 	}
 
@@ -1515,7 +1553,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws ClassNotFoundException
 	 * @throws UnexecutableException
 	 */
-	protected void defineConstant(ConstantDefinition aDefinition, Object aValue, SuiteDefinition aSuite)
+	protected void defineConstant(final ConstantDefinition aDefinition, Object aValue, final SuiteDefinition aSuite)
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
 		// the actual test run. Except if we are a fork, because in that case, we don't want to define the constants at
@@ -1535,13 +1573,23 @@ public class DefaultTestRunner implements TestRunner {
 			// The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
 			// need to perform that call, basically just as if we had determined the value just now.
 			if (currentCallback != null) {
-				synchronized (constantAndVariableDefinitionSyncObject) {
-					Object tempConstantValue = variableManager.get(aDefinition.getName());
-					if (tempConstantValue != null) {
-						currentCallback.onCallbackProcessingStart();
-						currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
-								(aDefinition.getParameterized() != null));
-						currentCallback.onCallbackProcessingEnd();
+				final Object tempConstantValue = variableManager.get(aDefinition.getName());
+				if (tempConstantValue != null) {
+					Runnable tempRunnable = new Runnable() {
+
+						@Override
+						public void run() {
+							currentCallback.onCallbackProcessingStart();
+							currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
+									(aDefinition.getParameterized() != null));
+							currentCallback.onCallbackProcessingEnd();
+						}
+					};
+					if (constantAndVariableDefinitionDelayedCallbackInvocations != null) {
+						constantAndVariableDefinitionDelayedCallbackInvocations.add(Tuples.create(
+								model.getFullyQualifiedVariableOrConstantName(aDefinition.getName()), tempRunnable));
+					} else {
+						tempRunnable.run();
 					}
 				}
 			}
@@ -1558,25 +1606,32 @@ public class DefaultTestRunner implements TestRunner {
 	 * @param aSuite
 	 *            the suite in which the variable is defined
 	 */
-	protected void defineVariable(VariableOrConstantEntity anEntity, Object anInitialValue, SuiteDefinition aSuite) {
-		Object tempInitialValue = null;
-		if (anInitialValue instanceof Variable) {
-			tempInitialValue = variableManager.get(((Variable) anInitialValue).getName());
-		} else {
-			tempInitialValue = anInitialValue;
-		}
+	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
+			final SuiteDefinition aSuite) {
+		final Object tempInitialValue = (anInitialValue instanceof Variable)
+				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
 
 		setVariableValue(anEntity, tempInitialValue, false);
 		if (currentCallback != null) {
-			synchronized (constantAndVariableDefinitionSyncObject) {
-				currentCallback.onCallbackProcessingStart();
-				if (anEntity instanceof VariableEntity) {
-					currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
-				} else if (anEntity instanceof ConstantEntity) {
-					currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
-							(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
+			Runnable tempRunnable = new Runnable() {
+
+				@Override
+				public void run() {
+					currentCallback.onCallbackProcessingStart();
+					if (anEntity instanceof VariableEntity) {
+						currentCallback.onVariableDefinition((VariableEntity) anEntity, aSuite, tempInitialValue);
+					} else if (anEntity instanceof ConstantEntity) {
+						currentCallback.onConstantDefinition((ConstantEntity) anEntity, aSuite, tempInitialValue,
+								(((ConstantDefinition) anEntity.eContainer()).getParameterized() != null));
+					}
+					currentCallback.onCallbackProcessingEnd();
 				}
-				currentCallback.onCallbackProcessingEnd();
+			};
+			if (constantAndVariableDefinitionDelayedCallbackInvocations != null) {
+				constantAndVariableDefinitionDelayedCallbackInvocations
+						.add(Tuples.create(model.getFullyQualifiedVariableOrConstantName(anEntity), tempRunnable));
+			} else {
+				tempRunnable.run();
 			}
 		}
 	}
@@ -1618,7 +1673,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (isFork()) {
 				// A fork will have to send updates to its master, but not for constants, as the master has those anyway
 				if (remotingServer != null && !(anEntity instanceof ConstantEntity)) {
-					String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true);
+					String tempName = model.getFullyQualifiedVariableOrConstantName(anEntity);
 					if (aValue == null || (aValue instanceof Serializable)) {
 						remotingServer.sendVariableUpdate(tempName, (Serializable) aValue);
 					} else {

@@ -106,7 +106,12 @@ public class TestModel {
 	/**
 	 * Variable/constant names -> Entities.
 	 */
-	protected Map<String, VariableOrConstantEntity> variableAndConstantMap = new ConcurrentHashMap<String, VariableOrConstantEntity>();
+	protected Map<String, VariableOrConstantEntity> variableAndConstantMap = new ConcurrentHashMap<>();
+
+	/**
+	 * The reverse of {@link #variableAndConstantMap}.
+	 */
+	protected Map<VariableOrConstantEntity, String> variableAndConstantReverseMap = new ConcurrentHashMap<>();
 
 	/**
 	 * Ambiguous definitions which are found during variable/suite/etc. indexing are collected here.
@@ -267,11 +272,13 @@ public class TestModel {
 				VariableEntity tempEntity = ((VariableDefinition) tempObject).getName();
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
 				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
 				tempType = "variable/constant";
 			} else if (tempObject instanceof ConstantDefinition) {
 				ConstantEntity tempEntity = ((ConstantDefinition) tempObject).getName();
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
 				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
 				tempType = "variable/constant";
 			} else {
 				continue;
@@ -493,6 +500,9 @@ public class TestModel {
 	 * @return the variant, or null if none was found
 	 */
 	public VariantDefinition getVariantByName(String aFullyQualifiedVariantName) {
+		if (aFullyQualifiedVariantName == null) {
+			return null;
+		}
 		return variantMap.get(aFullyQualifiedVariantName);
 	}
 
@@ -503,8 +513,8 @@ public class TestModel {
 	 *            the fork name
 	 * @return the fork, or null if none was found
 	 */
-	public VariantDefinition getForkByName(String aFullyQualifiedForkName) {
-		return variantMap.get(aFullyQualifiedForkName);
+	public ForkDefinition getForkByName(String aFullyQualifiedForkName) {
+		return forkMap.get(aFullyQualifiedForkName);
 	}
 
 	/**
@@ -519,6 +529,19 @@ public class TestModel {
 	}
 
 	/**
+	 * Returns the fully-qualified name of a variable/constant entity. The stuff returned by this equals
+	 * {@link IntegrityDSLUtil#getQualifiedVariableEntityName(VariableOrConstantEntity, boolean)} with the boolean value
+	 * set to true.
+	 * 
+	 * @param anEntity
+	 *            the entity to resolve
+	 * @return the name, or null if none was found
+	 */
+	public String getFullyQualifiedVariableOrConstantName(VariableOrConstantEntity anEntity) {
+		return variableAndConstantReverseMap.get(anEntity);
+	}
+
+	/**
 	 * Iterates through the whole model and searches for variable definitions hosted in packages (global variables).
 	 * 
 	 * @return a set of variable definitions (sorted by fully qualified name)
@@ -529,8 +552,8 @@ public class TestModel {
 
 				@Override
 				public int compare(VariableDefinition aFirst, VariableDefinition aSecond) {
-					String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
-					String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(), false);
+					String tempFirstName = getFullyQualifiedVariableOrConstantName(aFirst.getName());
+					String tempSecondName = getFullyQualifiedVariableOrConstantName(aSecond.getName());
 
 					return tempFirstName.compareTo(tempSecondName);
 				}
@@ -563,8 +586,8 @@ public class TestModel {
 
 				@Override
 				public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
-					String tempFirstName = IntegrityDSLUtil.getQualifiedVariableEntityName(aFirst.getName(), false);
-					String tempSecondName = IntegrityDSLUtil.getQualifiedVariableEntityName(aSecond.getName(), false);
+					String tempFirstName = getFullyQualifiedVariableOrConstantName(aFirst.getName());
+					String tempSecondName = getFullyQualifiedVariableOrConstantName(aSecond.getName());
 
 					return tempFirstName.compareTo(tempSecondName);
 				}
